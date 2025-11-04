@@ -25,7 +25,7 @@ class LanguageSelector(QToolButton):
 
     language_changed = Signal(str)
 
-    ICONS_DIR = Path("ui") / "resources" / "icons"
+    ICONS_DIR = Path("resources") / "icons"
     DEFAULT_ICON = "language"  # Fallback icon name
     LANGUAGE_ICON_SIZE = QSize(32, 32)
 

@@ -48,16 +48,24 @@ jobs:
       - name: Copy external files to dist (Linux)
         if: runner.os == 'Linux'
         run: |
+          mkdir -p dist/data
           mkdir -p dist/i18n
+          mkdir -p dist/resources
+          cp -r data/* dist/data/
           cp -r i18n/* dist/i18n/
+          cp -r resources/* dist/resources/
           cp README.md dist/ 2>/dev/null || true
           cp LICENSE dist/ 2>/dev/null || true
       
       - name: Copy external files to dist (Windows)
         if: runner.os == 'Windows'
         run: |
+          New-Item -ItemType Directory -Force -Path dist/data
           New-Item -ItemType Directory -Force -Path dist/i18n
+          New-Item -ItemType Directory -Force -Path dist/resources
+          Copy-Item -Path data/* -Destination dist/data/ -Recurse
           Copy-Item -Path i18n/* -Destination dist/i18n/ -Recurse
+          Copy-Item -Path resources/* -Destination dist/resources/ -Recurse
           if (Test-Path LICENSE) { Copy-Item LICENSE dist/ }
         shell: pwsh
       
@@ -65,14 +73,13 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           cd dist
-          tar -czf BigWorldSetup-Linux.tar.gz BigWorldSetup i18n/ LICENSE 2>/dev/null
-          mv BigWorldSetup-Linux.tar.gz ..
+          tar -czf BigWorldSetup-Linux.tar.gz BigWorldSetup data/ i18n/ resources/ LICENSE 2>/dev/null
       
       - name: Package build output (Windows)
         if: runner.os == 'Windows'
         run: |
           cd dist
-          Compress-Archive -Path BigWorldSetup.exe,i18n,LICENSE -DestinationPath BigWorldSetup-Windows.zip -Force
+          Compress-Archive -Path BigWorldSetup.exe,data,i18n,resources,LICENSE -DestinationPath BigWorldSetup-Windows.zip -Force
         shell: pwsh
       
       - name: Upload packaged artifact
