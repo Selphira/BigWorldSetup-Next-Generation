@@ -1,0 +1,28 @@
+{
+  "_metadata": {
+    "name": "Français",
+    "flag": "🇫🇷",
+    "contributors": [
+      "Selphira"
+    ]
+  },
+  "app": {
+    "subtitle": "Gestionnaire d'installation de mods pour les jeux Infinity Engine",
+    "step": "Étape {current}/{total}"
+  },
+  "button": {
+    "next": "Suivant",
+    "previous": "Précédent"
+  },
+  "menu": {
+    "language": "Langue d'interface",
+    "tools": "Outils",
+    "about": "À propos"
+  },
+  "page": {
+    "type": {
+      "title": "Type d'installation",
+      "preferred_languages": "Langues désirées"
+    }
+  }
+}

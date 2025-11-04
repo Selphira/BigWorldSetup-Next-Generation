@@ -1,0 +1,22 @@
+{
+  "_metadata": {
+    "name": "English",
+    "flag": "🇬🇧",
+    "contributors": [
+      "Selphira"
+    ]
+  },
+  "button": {
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "menu": {
+    "language": "Interface language"
+  },
+  "page": {
+    "type": {
+      "title": "Installation type",
+      "translations_priority": "Translations priority"
+    }
+  }
+}
