@@ -2,9 +2,9 @@ from PySide6.QtWidgets import (
     QVBoxLayout
 )
 
-from bwsng.core.StateManager import StateManager
-from bwsng.core.TranslationManager import tr
-from bwsng.ui.pages.BasePage import BasePage
+from core.StateManager import StateManager
+from core.TranslationManager import tr
+from ui.pages.BasePage import BasePage
 
 
 class InstallationTypePage(BasePage):

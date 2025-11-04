@@ -16,10 +16,10 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from bwsng.core.StateManager import StateManager
-from bwsng.core.TranslationManager import get_translator, tr
-from bwsng.ui.pages.BasePage import BasePage
-from bwsng.ui.widgets.LanguageSelector import LanguageSelector
+from core.StateManager import StateManager
+from core.TranslationManager import get_translator, tr
+from ui.pages.BasePage import BasePage
+from ui.widgets.LanguageSelector import LanguageSelector
 
 logger = logging.getLogger(__name__)
 

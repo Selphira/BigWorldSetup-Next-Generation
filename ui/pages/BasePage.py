@@ -8,8 +8,8 @@ from typing import List, Optional
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QWidget
 
-from bwsng.core.StateManager import StateManager
-from bwsng.core.TranslationManager import tr
+from core.StateManager import StateManager
+from core.TranslationManager import tr
 
 logger = logging.getLogger(__name__)
 

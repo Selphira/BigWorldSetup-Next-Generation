@@ -36,7 +36,7 @@ class TranslationManager(QObject):
 
     language_changed = Signal(str)
 
-    LOCALES_DIR = Path("bwsng/i18n")
+    LOCALES_DIR = Path("i18n")
     DEFAULT_LANGUAGE = "fr_FR"
     FALLBACK_CHAIN = ("en_US", "fr_FR")
 

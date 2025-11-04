@@ -2,9 +2,9 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from bwsng.core.StateManager import StateManager
-from bwsng.ui.main_window import MainWindow
-from bwsng.ui.pages.InstallationType import InstallationTypePage
+from core.StateManager import StateManager
+from ui.main_window import MainWindow
+from ui.pages.InstallationType import InstallationTypePage
 
 import logging
 

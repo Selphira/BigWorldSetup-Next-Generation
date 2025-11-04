@@ -1,0 +1,106 @@
+name: Build and Package Application
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact_name: BigWorldSetup-Linux.tar.gz
+            executable_name: BigWorldSetup
+          - os: windows-latest
+            artifact_name: BigWorldSetup-Windows.zip
+            executable_name: BigWorldSetup.exe
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      
+      - name: Build executable (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          pyinstaller --onefile main.py --specpath "dist" --name "BigWorldSetup"
+      
+      - name: Build executable (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          pyinstaller --onefile main.py --specpath "dist" --name "BigWorldSetup"
+        shell: pwsh
+      
+      - name: Copy external files to dist (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p dist/i18n
+          cp -r i18n/* dist/i18n/
+          cp README.md dist/ 2>/dev/null || true
+          cp LICENSE dist/ 2>/dev/null || true
+      
+      - name: Copy external files to dist (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          New-Item -ItemType Directory -Force -Path dist/i18n
+          Copy-Item -Path i18n/* -Destination dist/i18n/ -Recurse
+          if (Test-Path LICENSE) { Copy-Item LICENSE dist/ }
+        shell: pwsh
+      
+      - name: Package build output (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          cd dist
+          tar -czf BigWorldSetup-Linux.tar.gz BigWorldSetup i18n/ LICENSE 2>/dev/null
+          mv BigWorldSetup-Linux.tar.gz ..
+      
+      - name: Package build output (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd dist
+          Compress-Archive -Path BigWorldSetup.exe,i18n,LICENSE -DestinationPath BigWorldSetup-Windows.zip -Force
+        shell: pwsh
+      
+      - name: Upload packaged artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BigWorldSetup-${{ runner.os }}
+          path: dist/${{ matrix.artifact_name }}
+
+  release:
+    name: Attach packages to GitHub Release
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Download built artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      
+      - name: Display artifact structure (debug)
+        run: ls -R artifacts
+      
+      - name: Upload artifacts to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/**/*.zip
+            artifacts/**/*.tar.gz
+          token: ${{ secrets.GITHUB_TOKEN }}

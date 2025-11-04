@@ -8,7 +8,7 @@ from PySide6.QtCore import Qt, Signal, QSize
 from PySide6.QtGui import QAction, QIcon, QPixmap, QCursor
 from PySide6.QtWidgets import QMenu, QToolButton
 
-from bwsng.core.TranslationManager import get_translator
+from core.TranslationManager import get_translator
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ class LanguageSelector(QToolButton):
 
     language_changed = Signal(str)
 
-    ICONS_DIR = Path("bwsng") / "ui" / "resources" / "icons"
+    ICONS_DIR = Path("ui") / "resources" / "icons"
     DEFAULT_ICON = "language"  # Fallback icon name
     LANGUAGE_ICON_SIZE = QSize(32, 32)
 
