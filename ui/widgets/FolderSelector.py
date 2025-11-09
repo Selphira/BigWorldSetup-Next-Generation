@@ -18,6 +18,7 @@ from PySide6.QtWidgets import (
 )
 
 from core.TranslationManager import tr
+from core.enums.GameEnum import GameEnum
 from core.validators.FolderValidator import ExistingFolderValidator, FolderValidator
 
 logger = logging.getLogger(__name__)
@@ -47,8 +48,8 @@ class FolderSelector(QWidget):
 
     def __init__(
             self,
-            label: str,
-            select_title: str,
+            label_key: str,
+            select_title_key: str,
             validator: Optional[FolderValidator] = None,
             parent: Optional[QWidget] = None
     ) -> None:
@@ -63,7 +64,8 @@ class FolderSelector(QWidget):
 
         self.validator = validator or ExistingFolderValidator()
         self._is_valid = False
-        self._select_title = select_title
+        self._label_key = label_key
+        self._select_title_key = select_title_key
         self._error_message = ""
 
         # UI components (initialized in _create_widgets)
@@ -72,27 +74,22 @@ class FolderSelector(QWidget):
         self.icon_action: Optional[QAction] = None
         self.browse_btn: Optional[QPushButton] = None
 
-        self._create_widgets(label)
+        self._create_widgets()
         self._connect_signals()
-
-        logger.debug(f"FolderSelector created: label='{label}'")
 
     # ========================================
     # UI CREATION
     # ========================================
 
-    def _create_widgets(self, label: str) -> None:
+    def _create_widgets(self) -> None:
         """Create and layout UI widgets.
-
-        Args:
-            label: Label text
         """
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 5, 0, 5)
         layout.setSpacing(5)
 
         # Label row
-        label_layout = self._create_label_row(label)
+        label_layout = self._create_label_row()
         layout.addLayout(label_layout)
 
         # Input and browse button row
@@ -102,11 +99,8 @@ class FolderSelector(QWidget):
         # Set initial neutral state
         self._set_neutral_state()
 
-    def _create_label_row(self, label_text: str) -> QHBoxLayout:
+    def _create_label_row(self) -> QHBoxLayout:
         """Create label row with bold text.
-
-        Args:
-            label_text: Text for label
 
         Returns:
             Layout with label
@@ -114,7 +108,7 @@ class FolderSelector(QWidget):
         layout = QHBoxLayout()
         layout.setSpacing(5)
 
-        self.label = QLabel(label_text)
+        self.label = QLabel()
         font = self.label.font()
         font.setBold(True)
         self.label.setFont(font)
@@ -178,7 +172,7 @@ class FolderSelector(QWidget):
 
         folder = QFileDialog.getExistingDirectory(
             self,
-            self._select_title,
+            tr(self._select_title_key),
             start_dir
         )
 
@@ -272,6 +266,19 @@ class FolderSelector(QWidget):
     # PUBLIC API
     # ========================================
 
+    def retranslate_ui(self) -> None  :
+        """Update all translatable UI elements."""
+        # Label
+        self.label.setText(tr(self._label_key))
+
+        # Browse button (standard translation)
+        self.browse_btn.setText(tr("button.browse"))
+
+        # Placeholder (standard translation)
+        self.path_input.setPlaceholderText(
+            tr('widget.select_folder_placeholder')
+        )
+
     def get_path(self) -> str:
         """Get currently selected path.
 
@@ -364,4 +371,72 @@ class FolderSelector(QWidget):
         return (
             f"<FolderSelector path='{self.get_path()}' "
             f"valid={self._is_valid}>"
+        )
+
+class GameFolderSelector(FolderSelector):
+    """Folder selector specialized for game folders with game name in labels.
+
+    Extends FolderSelector to automatically interpolate the game's display name
+    into translated strings for labels and dialog titles.
+    """
+
+    def __init__(
+            self,
+            label_key: str,
+            select_title_key: str,
+            game: GameEnum,
+            validator: Optional[FolderValidator] = None,
+            parent: Optional[QWidget] = None
+    ) -> None:
+        """Initialize game folder selector.
+
+        Args:
+            label_key: Translation key for label (should accept 'game' parameter)
+            select_title_key: Translation key for dialog title (should accept 'game' parameter)
+            game: Game enum for this selector
+            validator: Validator instance (defaults to ExistingFolderValidator)
+            parent: Parent widget
+        """
+        self.game = game
+
+        super().__init__(label_key, select_title_key, validator, parent)
+
+    def _on_browse_clicked(self) -> None:
+        """Handle browse button click to open folder dialog.
+
+        Overrides parent to use game-specific dialog title.
+        """
+        # Use current path or home directory as starting point
+        start_dir = self.path_input.text() or str(Path.home())
+
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            tr(self._select_title_key, game=self.game.display_name),
+            start_dir
+        )
+
+        if folder:
+            self.set_path(folder)
+            logger.debug(f"Folder selected for {self.game.code}: {folder}")
+
+    def retranslate_ui(self) -> None  :
+        """Update all translatable UI elements with game name interpolation."""
+        super().retranslate_ui()
+
+        # Label with game name
+        self.label.setText(tr(self._label_key, game=self.game.display_name))
+
+    def get_game(self) -> GameEnum:
+        """Get the game associated with this selector.
+
+        Returns:
+            Game enum
+        """
+        return self.game
+
+    def __repr__(self) -> str:
+        """String representation for debugging."""
+        return (
+            f"<GameFolderSelector game={self.game.code} "
+            f"path='{self.get_path()}' valid={self.is_valid()}>"
         )
