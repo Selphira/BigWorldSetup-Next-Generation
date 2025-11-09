@@ -12,7 +12,8 @@
   },
   "button": {
     "next": "Suivant",
-    "previous": "Précédent"
+    "previous": "Précédent",
+    "browse": "Parcourir"
   },
   "menu": {
     "language": "Langue d'interface",
@@ -22,7 +23,24 @@
   "page": {
     "type": {
       "title": "Type d'installation",
-      "preferred_languages": "Langues désirées"
+      "select_game": "Sélectionnez un jeu",
+      "configure_folders": "Configuration des dossiers",
+      "game_folder": "Dossier de {game}",
+      "download_folder": "Dossier de téléchargement",
+      "backup_folder": "Dossier de sauvegarde",
+      "select_game_folder_title": "Sélectionnez le dossier de {game}",
+      "select_download_folder_title": "Sélectionnez le dossier de téléchargement",
+      "select_backup_folder_title": "Sélectionnez le dossier de sauvegarde"
     }
+  },
+  "validation": {
+    "folder_required": "Le dossier est obligatoire",
+    "folder_not_exist": "Le dossier n'existe pas",
+    "not_a_folder": "Le chemin spécifié n'est pas un dossier",
+    "folder_not_writable": "Le dossier n'est pas accessible en écriture",
+    "invalid_game_folder": "Le dossier ne contient pas un jeu valide"
+  },
+  "widget": {
+      "select_folder_placeholder": "Sélectionnez un dossier..."
   }
 }

@@ -6,17 +6,41 @@
       "Selphira"
     ]
   },
+  "app": {
+    "subtitle": "Mod installation manager for Infinity Engine games",
+    "step": "Step {current}/{total}"
+  },
   "button": {
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "browse": "Browse"
   },
   "menu": {
-    "language": "Interface language"
+    "language": "Interface language",
+    "tools": "Tools",
+    "about": "About"
   },
   "page": {
     "type": {
-      "title": "Installation type",
-      "translations_priority": "Translations priority"
+      "title": "Installation Type",
+      "select_game": "Select a Game",
+      "configure_folders": "Folder Configuration",
+      "game_folder": "{game} Folder",
+      "download_folder": "Download Folder",
+      "backup_folder": "Backup Folder",
+      "select_game_folder_title": "Select the {game} folder",
+      "select_download_folder_title": "Select the download folder",
+      "select_backup_folder_title": "Select the backup folder"
     }
+  },
+  "validation": {
+    "folder_required": "The folder is required",
+    "folder_not_exist": "The folder does not exist",
+    "not_a_folder": "The specified path is not a folder",
+    "folder_not_writable": "The folder is not writable",
+    "invalid_game_folder": "The folder does not contain a valid game"
+  },
+  "widget": {
+    "select_folder_placeholder": "Select a folder..."
   }
 }

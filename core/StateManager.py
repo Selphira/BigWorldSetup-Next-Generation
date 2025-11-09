@@ -17,6 +17,10 @@ class InstallationState:
     """Application state structure for installation configuration."""
     version: str = "1.0"
     configuration: Dict[str, Any] = field(default_factory=lambda: {
+        "selected_game": None,
+        "game_folders": {},
+        "download_folder": None,
+        "backup_folder": None,
         "languages_order": [],
         "selected_languages": [],
     })
@@ -44,7 +48,7 @@ def _load_from_dict(data: Dict[str, Any]) -> InstallationState:
     """
     state = InstallationState()
     state.version = data.get("version", "1.0")
-    state.configuration = data.get("configuration", state.configuration)
+    state.configuration = state.configuration | data.get("configuration", {}) or {}
     state.installation = data.get("installation", state.installation)
     return state
 
@@ -86,6 +90,30 @@ class StateManager:
     # ========================================
     # STATES CONFIGURATION (JSON)
     # ========================================
+
+    def set_selected_game(self, game_code: str) -> None:
+        self.installation_state.configuration["selected_game"] = game_code
+
+    def get_selected_game(self) -> str:
+        return self.installation_state.configuration["selected_game"]
+
+    def set_game_folders(self, folders: Dict[str, Any]) -> None:
+        self.installation_state.configuration["game_folders"] = folders
+
+    def get_game_folders(self) -> Dict[str, Any]:
+        return self.installation_state.configuration["game_folders"]
+
+    def set_backup_folder(self, folder: str) -> None:
+        self.installation_state.configuration["backup_folder"] = folder
+
+    def get_backup_folder(self) -> str:
+        return self.installation_state.configuration["backup_folder"]
+
+    def set_download_folder(self, folder: str) -> None:
+        self.installation_state.configuration["download_folder"] = folder
+
+    def get_download_folder(self) -> str:
+        return self.installation_state.configuration["download_folder"]
 
     def set_selected_languages(self, languages: List[str]) -> None:
         self.installation_state.configuration["selected_languages"] = languages
