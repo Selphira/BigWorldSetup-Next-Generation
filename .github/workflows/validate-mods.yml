@@ -46,14 +46,17 @@ jobs:
     - name: Validate modified JSON files
       id: validate
       if: steps.changed.outputs.all_changed_files != ''
+      shell: bash
       run: |
         echo "🔍 Validating modified files..."
-        echo "${{ steps.changed.outputs.all_changed_files }}" | tr ' ' '\n'
+
+        # Lire la sortie multiligne dans un tableau bash
+        readarray -t changed_files <<< "${{ steps.changed.outputs.all_changed_files }}"
         
         results=""
         errors=""
 
-        for file in ${{ steps.changed.outputs.all_changed_files }}; do
+        for file in "${changed_files[@]}"; do
           echo "-------------------------------------"
           echo "Validating $file..."
           output=$(python validation/validator.py "$file" validation/schemas/mod-definition.json 2>&1)
