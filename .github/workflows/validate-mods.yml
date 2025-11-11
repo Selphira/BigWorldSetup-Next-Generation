@@ -40,6 +40,7 @@ jobs:
       id: changed
       uses: tj-actions/changed-files@v47
       with:
+        separator: ","
         files: |
           data/mods/**.json
 
@@ -51,7 +52,7 @@ jobs:
         echo "🔍 Validating modified files..."
 
         # Lire la sortie multiligne dans un tableau bash
-        readarray -t changed_files <<< "${{ steps.changed.outputs.all_changed_files }}"
+        IFS=$',' read -a changed_files <<< "${{ steps.changed.outputs.modified_files }}"
         
         results=""
         errors=""
