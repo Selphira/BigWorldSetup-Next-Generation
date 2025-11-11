@@ -88,9 +88,9 @@ class FolderSelector(QWidget):
         layout.setContentsMargins(0, 5, 0, 5)
         layout.setSpacing(5)
 
-        # Label row
-        label_layout = self._create_label_row()
-        layout.addLayout(label_layout)
+        # Label
+        self.label = QLabel()
+        layout.addWidget(self.label)
 
         # Input and browse button row
         input_layout = self._create_input_row()
@@ -98,25 +98,6 @@ class FolderSelector(QWidget):
 
         # Set initial neutral state
         self._set_neutral_state()
-
-    def _create_label_row(self) -> QHBoxLayout:
-        """Create label row with bold text.
-
-        Returns:
-            Layout with label
-        """
-        layout = QHBoxLayout()
-        layout.setSpacing(5)
-
-        self.label = QLabel()
-        font = self.label.font()
-        font.setBold(True)
-        self.label.setFont(font)
-
-        layout.addWidget(self.label)
-        layout.addStretch()
-
-        return layout
 
     def _create_input_row(self) -> QHBoxLayout:
         """Create input field with browse button.
