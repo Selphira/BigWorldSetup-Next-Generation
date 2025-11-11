@@ -22,6 +22,7 @@ from core.validators.FolderValidator import GameFolderValidator, WritableFolderV
 from ui.pages.BasePage import BasePage, ButtonConfig
 from ui.widgets.FolderSelector import FolderSelector, GameFolderSelector
 from ui.widgets.GameButton import GameButton
+from ui.widgets.SortableLanguages import SortableLanguages
 
 logger = logging.getLogger(__name__)
 
@@ -219,6 +220,12 @@ class InstallationTypePage(BasePage):
         )
         layout.addWidget(self.backup_folder)
 
+        self.languages_order = SortableLanguages()
+        self.languages_order.order_changed.connect(
+            self._on_language_order_changed
+        )
+        layout.addWidget(self.languages_order)
+
         return panel
 
     def _create_game_folders_scroll(self) -> QScrollArea:
@@ -389,6 +396,10 @@ class InstallationTypePage(BasePage):
         """
         self.notify_navigation_changed()
 
+    def _on_language_order_changed(self, order):
+        print(f"ORDER CHANGED: {order}")
+        pass
+
     # ========================================
     # STATE MANAGEMENT
     # ========================================
@@ -426,6 +437,11 @@ class InstallationTypePage(BasePage):
         if backup_path:
             self.backup_folder.set_path(backup_path)
 
+        # Load languages order
+        languages_order = self.state_manager.get_languages_order()
+        if languages_order:
+            self.languages_order.set_order(languages_order)
+
         logger.info("Saved state loaded")
 
     # ========================================
@@ -446,6 +462,7 @@ class InstallationTypePage(BasePage):
 
         self.backup_folder.retranslate_ui()
         self.download_folder.retranslate_ui()
+        self.languages_order.retranslate_ui()
 
         for game, selector in self.game_folder_widgets.items():
             selector.retranslate_ui()
@@ -531,5 +548,9 @@ class InstallationTypePage(BasePage):
         if self.backup_folder.is_valid():
             self.state_manager.set_backup_folder(self.backup_folder.get_path())
             logger.debug(f"Saved backup folder: {self.backup_folder.get_path()}")
+
+        # Save languages order
+        self.state_manager.set_languages_order(self.languages_order.get_order())
+        logger.debug(f"Saved languages order: {self.languages_order.get_order()}")
 
         logger.info("Installation configuration saved")

@@ -22,7 +22,6 @@ class InstallationState:
         "download_folder": None,
         "backup_folder": None,
         "languages_order": [],
-        "selected_languages": [],
     })
     installation: Dict[str, Any] = field(default_factory=lambda: {
         "current_step": None,
@@ -114,12 +113,6 @@ class StateManager:
 
     def get_download_folder(self) -> str:
         return self.installation_state.configuration["download_folder"]
-
-    def set_selected_languages(self, languages: List[str]) -> None:
-        self.installation_state.configuration["selected_languages"] = languages
-
-    def get_selected_languages(self) -> List[str]:
-        return self.installation_state.configuration["selected_languages"]
 
     def set_languages_order(self, languages: List[str]) -> None:
         self.installation_state.configuration["languages_order"] = languages

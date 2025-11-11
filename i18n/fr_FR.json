@@ -41,6 +41,7 @@
     "invalid_game_folder": "Le dossier ne contient pas un jeu valide"
   },
   "widget": {
-      "select_folder_placeholder": "Sélectionnez un dossier..."
+      "select_folder_placeholder": "Sélectionnez un dossier...",
+      "languages_order": "Priorité des langues d'installation"
   }
 }
