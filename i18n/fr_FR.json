@@ -25,6 +25,7 @@
       "title": "Type d'installation",
       "select_game": "Sélectionnez un jeu",
       "configure_folders": "Configuration des dossiers",
+      "languages_order": "Priorité de la langue d'installation des mods",
       "game_folder": "Dossier de {game}",
       "download_folder": "Dossier de téléchargement",
       "backup_folder": "Dossier de sauvegarde",
@@ -41,7 +42,6 @@
     "invalid_game_folder": "Le dossier ne contient pas un jeu valide"
   },
   "widget": {
-      "select_folder_placeholder": "Sélectionnez un dossier...",
-      "languages_order": "Priorité des langues d'installation"
+      "select_folder_placeholder": "Sélectionnez un dossier..."
   }
 }

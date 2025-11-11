@@ -98,17 +98,19 @@ class SortableIcon(QLabel):
             self.setCursor(Qt.CursorShape.OpenHandCursor)
 
 
-class SortableIcons(QFrame):
-    """Horizontal container for draggable icons with drop indicator.
+class SortableLanguages(QFrame):
+    """Language selector with sortable flag icons.
 
-    Provides visual feedback during drag operations and emits signals
-    when order changes.
+    Displays flag icons for available languages that can be reordered
+    via drag-and-drop.
 
     Signals:
-        order_changed: Emitted when icon order changes (List[str]: codes)
+        order_changed: Emitted when language order changes (List[str]: codes)
     """
 
     order_changed = Signal(list)
+
+    ICONS_DIR = Path("resources") / "flags"
 
     # Layout constants
     CONTAINER_HEIGHT = 50
@@ -131,6 +133,7 @@ class SortableIcons(QFrame):
         self._items: List[SortableIcon] = []
 
         self._setup_layout()
+        self._populate_languages()
         self._create_drop_indicator()
 
         self.setAcceptDrops(True)
@@ -144,6 +147,17 @@ class SortableIcons(QFrame):
             self.MARGINS, self.MARGINS, self.MARGINS, self.MARGINS
         )
         self.layout.setSpacing(self.SPACING)
+
+    def _populate_languages(self) -> None:
+        """Populate with available language icons."""
+        language_codes = get_supported_language_codes()
+
+        for lang_code in language_codes:
+            icon_path = self.ICONS_DIR / f"{lang_code}.png"
+            # Use code as tooltip for now (can be improved with display name)
+            self.add_icon(lang_code, icon_path, lang_code)
+
+        logger.info(f"Populated {len(language_codes)} language icons")
 
     def _create_drop_indicator(self) -> None:
         """Create drop position indicator."""
@@ -312,103 +326,6 @@ class SortableIcons(QFrame):
             icon.deleteLater()
         self._items.clear()
         logger.debug("Icons cleared")
-
-
-class SortableLanguages(QFrame):
-    """Language selector with sortable flag icons.
-
-    Displays flag icons for available languages that can be reordered
-    via drag-and-drop.
-
-    Signals:
-        order_changed: Emitted when language order changes (List[str]: codes)
-    """
-
-    order_changed = Signal(list)
-
-    ICONS_DIR = Path("resources") / "flags"
-
-    def __init__(self, parent: Optional[QWidget] = None) -> None:
-        """Initialize sortable languages widget.
-
-        Args:
-            parent: Parent widget
-        """
-        super().__init__(parent)
-
-        # UI components
-        self.label: Optional[QLabel] = None
-        self.sortable_icons: Optional[SortableIcons] = None
-
-        self._create_widgets()
-        self._populate_languages()
-        self.retranslate_ui()
-
-        logger.debug("SortableLanguages initialized")
-
-    def _create_widgets(self) -> None:
-        """Create and layout UI widgets."""
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 5, 0, 5)
-        layout.setSpacing(5)
-
-        # Label
-        self.label = QLabel()
-        layout.addWidget(self.label)
-
-        # Sortable icons container
-        self.sortable_icons = SortableIcons()
-        self.sortable_icons.order_changed.connect(self._on_language_order_changed)
-        layout.addWidget(self.sortable_icons)
-
-    def _populate_languages(self) -> None:
-        """Populate with available language icons."""
-        language_codes = get_supported_language_codes()
-
-        for lang_code in language_codes:
-            icon_path = self.ICONS_DIR / f"{lang_code}.png"
-            # Use code as tooltip for now (can be improved with display name)
-            self.sortable_icons.add_icon(lang_code, icon_path, lang_code)
-
-        logger.info(f"Populated {len(language_codes)} language icons")
-
-    # ========================================
-    # EVENT HANDLERS
-    # ========================================
-
-    def _on_language_order_changed(self, order: List[str]) -> None:
-        """Handle language order change from sortable icons.
-
-        Args:
-            order: New order of language codes
-        """
-        self.order_changed.emit(order)
-        logger.info(f"Language order changed: {order}")
-
-    # ========================================
-    # PUBLIC API
-    # ========================================
-
-    def get_order(self) -> List[str]:
-        """Get current language order.
-
-        Returns:
-            List of language codes in current order
-        """
-        return self.sortable_icons.get_order()
-
-    def set_order(self, codes: List[str]) -> None:
-        """Set language order.
-
-        Args:
-            codes: Ordered list of language codes
-        """
-        self.sortable_icons.set_order(codes)
-        logger.debug(f"Language order set: {codes}")
-
-    def retranslate_ui(self) -> None:
-        """Update all translatable UI elements."""
-        self.label.setText(tr("widget.languages_order"))
 
     def __repr__(self) -> str:
         """String representation for debugging."""

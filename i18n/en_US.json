@@ -25,6 +25,7 @@
       "title": "Installation Type",
       "select_game": "Select a Game",
       "configure_folders": "Folder Configuration",
+      "languages_order": "Mods installation language priority",
       "game_folder": "{game} Folder",
       "download_folder": "Download Folder",
       "backup_folder": "Backup Folder",

@@ -194,10 +194,6 @@ class InstallationTypePage(BasePage):
         scroll = self._create_game_folders_scroll()
         layout.addWidget(scroll)
 
-        # Separator
-        separator = self._create_separator()
-        layout.addWidget(separator)
-
         # Download folder
         self.download_folder = FolderSelector(
             "page.type.download_folder",
@@ -220,6 +216,12 @@ class InstallationTypePage(BasePage):
         )
         layout.addWidget(self.backup_folder)
 
+        # Separator
+        separator = self._create_separator()
+        layout.addWidget(separator)
+
+        self.languages_order_title = self._create_section_title()
+        layout.addWidget(self.languages_order_title)
         self.languages_order = SortableLanguages()
         self.languages_order.order_changed.connect(
             self._on_language_order_changed
@@ -459,10 +461,10 @@ class InstallationTypePage(BasePage):
     def retranslate_ui(self) -> None:
         self.left_title.setText(tr("page.type.select_game"))
         self.right_title.setText(tr("page.type.configure_folders"))
+        self.languages_order_title.setText(tr("page.type.languages_order"))
 
         self.backup_folder.retranslate_ui()
         self.download_folder.retranslate_ui()
-        self.languages_order.retranslate_ui()
 
         for game, selector in self.game_folder_widgets.items():
             selector.retranslate_ui()
