@@ -210,7 +210,6 @@ class MainWindow(QMainWindow):
 
     def _connect_signals(self) -> None:
         """Connect all signal handlers."""
-        get_translator().language_changed.connect(self._on_translator_language_changed)
         self.lang_button.language_changed.connect(self._on_language_button_changed)
 
     # ========================================
@@ -266,6 +265,8 @@ class MainWindow(QMainWindow):
 
         # Notify page
         page.on_page_shown()
+
+        self.state_manager.set_ui_current_page(page.get_page_id())
 
         logger.info(f"Page shown: {page_id}")
         return True
@@ -433,22 +434,16 @@ class MainWindow(QMainWindow):
         if next_id:
             self.show_page(next_id)
 
-    def _on_translator_language_changed(self, code: str) -> None:
-        """Handle language change from translator.
-
-        Args:
-            code: New language code
-        """
-        self._update_ui_language(code)
-
     def _on_language_button_changed(self, code: str) -> None:
         """Handle language change from language button.
 
         Args:
             code: New language code
         """
+        self.state_manager.get_mod_manager().reload_for_language(code)
         get_translator().set_language(code)
         self.state_manager.set_ui_language(code)
+        self._update_ui_language(code)
 
     # ========================================
     # LIFECYCLE

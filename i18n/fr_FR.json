@@ -8,7 +8,31 @@
   },
   "app": {
     "subtitle": "Gestionnaire d'installation de mods pour les jeux Infinity Engine",
-    "step": "Étape {current}/{total}"
+    "step": "Étape {current}/{total}",
+    "error": "Erreur",
+    "initializing": "Initialisation...",
+    "loading_mods": "Chargement des mods",
+    "cache_ready_signal_received": "Signal de disponibilité du cache reçu"
+  },
+  "category": {
+    "all": "Toutes",
+    "patch": "Patch non officiel",
+    "util": "Utilitaire",
+    "conv": "Conversion",
+    "ui": "Interface",
+    "cosm": "Cosmétique",
+    "portrait": "Portrait et son",
+    "quest": "Quête",
+    "npc": "PNJ recrutable",
+    "npc1d": "PNJ One Day",
+    "npcx": "PNJ (autre)",
+    "smith": "Forgeron et marchand",
+    "spell": "Sort",
+    "item": "Objet",
+    "kit": "Kit",
+    "gameplay": "Gameplay",
+    "tactic": "Script et tactique",
+    "party": "Personnalisation du groupe"
   },
   "button": {
     "next": "Suivant",
@@ -32,6 +56,16 @@
       "select_game_folder_title": "Sélectionnez le dossier de {game}",
       "select_download_folder_title": "Sélectionnez le dossier de téléchargement",
       "select_backup_folder_title": "Sélectionnez le dossier de sauvegarde"
+    },
+    "selection": {
+      "title": "Sélection des mods et des composants",
+      "select_category": "Sélectionnez une catégorie",
+      "search_placeholder": "Recherche...",
+      "filter": {
+        "all_games": "Tous les jeux",
+        "all_authors": "Tous les auteurs",
+        "all_languages": "Toutes les langues"
+      }
     }
   },
   "validation": {
@@ -42,6 +76,24 @@
     "invalid_game_folder": "Le dossier ne contient pas un jeu valide"
   },
   "widget": {
-      "select_folder_placeholder": "Sélectionnez un dossier..."
+    "select_folder_placeholder": "Sélectionnez un dossier...",
+    "component_selector": {
+      "header": {
+        "type": "Mod / Composant",
+        "selection": "Sélection"
+      },
+      "selection": {
+        "none": "Aucune",
+        "complete": "Complète",
+        "partial": "Partielle ({count}/{total})"
+      }
+    }
+  },
+  "error": {
+    "unknown_category": "Catégorie inconnue : {category}",
+    "loading_error": "Erreur de chargement",
+    "cache_error": "Erreur de cache: {message}",
+    "unable_to_load_mods": "Unable to load mods:\n\n{message}",
+    "unable_to_start_cache_building": "Impossible de démarrer la création du cache"
   }
 }
