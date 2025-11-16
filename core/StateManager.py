@@ -3,9 +3,9 @@
 import json
 import logging
 import shutil
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from PySide6.QtCore import QSettings
 
@@ -14,7 +14,14 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class InstallationState:
-    """Application state structure for installation configuration."""
+    """
+    Application state structure for installation configuration.
+
+    Attributes:
+        version: State format version
+        configuration: Installation configuration settings
+        installation: Current installation state
+    """
     version: str = "1.0"
     configuration: Dict[str, Any] = field(default_factory=lambda: {
         "selected_game": None,
@@ -28,43 +35,57 @@ class InstallationState:
     })
 
     def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization."""
-        return {
-            "version": self.version,
-            "configuration": self.configuration,
-            "installation": self.installation,
-        }
+        """
+        Convert to dictionary for JSON serialization.
 
+        Returns:
+            Dictionary representation
+        """
+        return asdict(self)
 
-def _load_from_dict(data: Dict[str, Any]) -> InstallationState:
-    """Load InstallationState from dictionary.
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'InstallationState':
+        """
+        Load InstallationState from dictionary.
 
-    Args:
-        data: Dictionary with state data
+        Args:
+            data: Dictionary with state data
 
-    Returns:
-        Reconstructed InstallationState
-    """
-    state = InstallationState()
-    state.version = data.get("version", "1.0")
-    state.configuration = state.configuration | data.get("configuration", {}) or {}
-    state.installation = data.get("installation", state.installation)
-    return state
+        Returns:
+            Reconstructed InstallationState
+        """
+        state = cls()
+        state.version = data.get("version", "1.0")
+
+        # Merge configurations (preserving defaults)
+        if "configuration" in data:
+            state.configuration.update(data["configuration"])
+
+        if "installation" in data:
+            state.installation = data["installation"]
+
+        return state
 
 
 class StateManager:
-    """Manages application state with QSettings for UI and JSON for installation config.
+    """
+    Manages application state with QSettings for UI and JSON for installation config.
+
+    Responsibilities:
+    - UI preferences (QSettings): lightweight, user-specific
+    - Installation state (JSON): complex, exportable, shareable
+    - ModManager lifecycle management
 
     Attributes:
-        settings: Qt settings for UI preferences (lightweight, user-specific)
-        installation_state: Application state for installation (complex, exportable, shareable)
+        settings: Qt settings for UI preferences
+        installation_state: Application state for installation
     """
 
     STATE_FILE = Path("state.json")
     BACKUP_SUFFIX = ".backup"
     SUPPORTED_VERSION = "1.0"
 
-    # Settings keys
+    # QSettings configuration
     SETTINGS_ORG = "Selphira"
     SETTINGS_APP = "BigWorldSetupNextGen"
 
@@ -72,56 +93,156 @@ class StateManager:
         """Initialize state manager with QSettings and JSON state."""
         self.settings = QSettings(self.SETTINGS_ORG, self.SETTINGS_APP)
         self.installation_state = self._load_installation_state()
+        self._mod_manager = None
 
     # ========================================
     # UI PREFERENCES (QSettings)
     # ========================================
 
     def get_ui_language(self) -> str:
-        """Get UI language code."""
-        return self.settings.value("ui/language", "fr_FR", str)
+        """
+        Get UI language code.
+
+        Returns:
+            Language code (e.g., "fr_FR")
+        """
+        return str(self.settings.value("ui/language", "fr_FR", str))
 
     def set_ui_language(self, code: str) -> None:
-        """Set UI language code."""
+        """
+        Set UI language code.
+
+        Args:
+            code: Language code (e.g., "fr_FR")
+        """
         self.settings.setValue("ui/language", code)
         logger.info(f"UI language set to: {code}")
 
+    def get_ui_current_page(self) -> str:
+        """
+        Get current page identifier.
+
+        Returns:
+            Page identifier
+        """
+        return str(self.settings.value("ui/current_page", "", str))
+
+    def set_ui_current_page(self, page_id: str) -> None:
+        """
+        Set current page identifier.
+
+        Args:
+            page_id: Page identifier
+        """
+        self.settings.setValue("ui/current_page", page_id)
+        logger.info(f"UI current page set to: {page_id}")
+
     # ========================================
-    # STATES CONFIGURATION (JSON)
+    # INSTALLATION CONFIGURATION (JSON)
     # ========================================
 
     def set_selected_game(self, game_code: str) -> None:
-        self.installation_state.configuration["selected_game"] = game_code
+        """
+        Set selected game.
 
-    def get_selected_game(self) -> str:
-        return self.installation_state.configuration["selected_game"]
+        Args:
+            game_code: Game code (e.g., "bgee")
+        """
+        self.installation_state.configuration["selected_game"] = game_code
+        logger.debug(f"Selected game: {game_code}")
+
+    def get_selected_game(self) -> Optional[str]:
+        """
+        Get selected game.
+
+        Returns:
+            Game code or None
+        """
+        return self.installation_state.configuration.get("selected_game")
 
     def set_game_folders(self, folders: Dict[str, Any]) -> None:
-        self.installation_state.configuration["game_folders"] = folders
+        """
+        Set game folders configuration.
+
+        Args:
+            folders: Dictionary of game folders
+        """
+        self.installation_state.configuration["game_folders"] = folders.copy()
+        logger.debug(f"Game folders updated: {folders}")
 
     def get_game_folders(self) -> Dict[str, Any]:
-        return self.installation_state.configuration["game_folders"]
+        """
+        Get game folders configuration.
+
+        Returns:
+            Dictionary of game folders
+        """
+        return self.installation_state.configuration.get("game_folders", {}).copy()
 
     def set_backup_folder(self, folder: str) -> None:
-        self.installation_state.configuration["backup_folder"] = folder
+        """
+        Set backup folder path.
 
-    def get_backup_folder(self) -> str:
-        return self.installation_state.configuration["backup_folder"]
+        Args:
+            folder: Backup folder path
+        """
+        self.installation_state.configuration["backup_folder"] = folder
+        logger.debug(f"Backup folder: {folder}")
+
+    def get_backup_folder(self) -> Optional[str]:
+        """
+        Get backup folder path.
+
+        Returns:
+            Backup folder path or None
+        """
+        return self.installation_state.configuration.get("backup_folder")
 
     def set_download_folder(self, folder: str) -> None:
-        self.installation_state.configuration["download_folder"] = folder
+        """
+        Set download folder path.
 
-    def get_download_folder(self) -> str:
-        return self.installation_state.configuration["download_folder"]
+        Args:
+            folder: Download folder path
+        """
+        self.installation_state.configuration["download_folder"] = folder
+        logger.debug(f"Download folder: {folder}")
+
+    def get_download_folder(self) -> Optional[str]:
+        """
+        Get download folder path.
+
+        Returns:
+            Download folder path or None
+        """
+        return self.installation_state.configuration.get("download_folder")
 
     def set_languages_order(self, languages: List[str]) -> None:
-        self.installation_state.configuration["languages_order"] = languages
+        """
+        Set language preference order.
+
+        Args:
+            languages: Ordered list of language codes
+        """
+        self.installation_state.configuration["languages_order"] = languages.copy()
+        logger.debug(f"Languages order: {languages}")
 
     def get_languages_order(self) -> List[str]:
-        return self.installation_state.configuration["languages_order"]
+        """
+        Get language preference order.
+
+        Returns:
+            Ordered list of language codes
+        """
+        return self.installation_state.configuration.get("languages_order", []).copy()
+
+    # ========================================
+    # STATE PERSISTENCE
+    # ========================================
 
     def _load_installation_state(self) -> InstallationState:
-        """Load installation configuration from JSON file.
+        """
+        Load installation configuration from JSON file.
 
         Returns:
             Loaded or default InstallationState
@@ -137,11 +258,13 @@ class StateManager:
             # Validate version
             version = data.get("version", "1.0")
             if version != self.SUPPORTED_VERSION:
-                logger.warning(f"Unsupported state version: {version}")
+                logger.warning(
+                    f"Unsupported state version: {version}, "
+                    f"expected {self.SUPPORTED_VERSION}"
+                )
                 return InstallationState()
 
-            state = _load_from_dict(data)
-
+            state = InstallationState.from_dict(data)
             logger.info("Installation state loaded successfully")
             return state
 
@@ -149,11 +272,12 @@ class StateManager:
             logger.error(f"Invalid JSON in state file: {e}")
             return InstallationState()
         except Exception as e:
-            logger.error(f"Error loading state: {e}")
+            logger.exception(f"Error loading state: {e}")
             return InstallationState()
 
     def save_state(self) -> bool:
-        """Save installation configuration to JSON file with backup.
+        """
+        Save installation configuration to JSON file with backup.
 
         Returns:
             True if saved successfully, False otherwise
@@ -161,9 +285,7 @@ class StateManager:
         try:
             # Create backup if file exists
             if self.STATE_FILE.exists():
-                backup_path = self.STATE_FILE.with_suffix(
-                    self.STATE_FILE.suffix + self.BACKUP_SUFFIX
-                )
+                backup_path = Path(str(self.STATE_FILE) + self.BACKUP_SUFFIX)
                 shutil.copy2(self.STATE_FILE, backup_path)
                 logger.debug(f"Backup created: {backup_path}")
 
@@ -180,11 +302,12 @@ class StateManager:
             return True
 
         except Exception as e:
-            logger.error(f"Error saving state: {e}")
+            logger.exception(f"Error saving state: {e}")
             return False
 
     def export_configuration(self, filepath: Path) -> bool:
-        """Export configuration to a file.
+        """
+        Export configuration to a file.
 
         Args:
             filepath: Target file path
@@ -193,7 +316,7 @@ class StateManager:
             True if exported successfully, False otherwise
         """
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
+            with filepath.open('w', encoding='utf-8') as f:
                 json.dump(
                     self.installation_state.to_dict(),
                     f,
@@ -202,12 +325,14 @@ class StateManager:
                 )
             logger.info(f"Configuration exported to: {filepath}")
             return True
+
         except Exception as e:
-            logger.error(f"Error exporting configuration: {e}")
+            logger.exception(f"Error exporting configuration: {e}")
             return False
 
     def import_configuration(self, filepath: Path) -> bool:
-        """Import configuration from a file.
+        """
+        Import configuration from a file with validation.
 
         Args:
             filepath: Source file path
@@ -216,17 +341,25 @@ class StateManager:
             True if imported successfully, False otherwise
         """
         try:
-            with open(filepath, 'r', encoding='utf-8') as f:
+            with filepath.open('r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            # Check version compatibility
+            # Validate version compatibility
             version = data.get("version", "1.0")
             if version != self.SUPPORTED_VERSION:
-                logger.error(f"Unsupported configuration version: {version}")
+                logger.error(
+                    f"Unsupported configuration version: {version}, "
+                    f"expected {self.SUPPORTED_VERSION}"
+                )
+                return False
+
+            # Validate required structure
+            if not isinstance(data.get("configuration"), dict):
+                logger.error("Invalid configuration structure")
                 return False
 
             # Load into current state
-            self.installation_state = _load_from_dict(data)
+            self.installation_state = InstallationState.from_dict(data)
 
             # Save immediately
             if self.save_state():
@@ -239,7 +372,7 @@ class StateManager:
             logger.error(f"Invalid JSON in import file: {e}")
             return False
         except Exception as e:
-            logger.error(f"Error importing configuration: {e}")
+            logger.exception(f"Error importing configuration: {e}")
             return False
 
     # ========================================
@@ -261,9 +394,30 @@ class StateManager:
             self.STATE_FILE.unlink()
             logger.info("State file removed")
 
-        backup_path = self.STATE_FILE.with_suffix(
-            self.STATE_FILE.suffix + self.BACKUP_SUFFIX
-        )
+        backup_path = Path(str(self.STATE_FILE) + self.BACKUP_SUFFIX)
         if backup_path.exists():
             backup_path.unlink()
             logger.info("Backup file removed")
+
+    def get_mod_manager(self):
+        """
+        Get ModManager instance (lazy initialization).
+
+        Returns:
+            ModManager instance
+
+        Note:
+            Import is done here to avoid circular dependencies
+        """
+        if self._mod_manager is None:
+            # Lazy import to avoid circular dependency
+            from constants import CACHE_DIR, MODS_DIR
+            from core.ModManager import ModManager
+
+            self._mod_manager = ModManager(
+                mods_dir=MODS_DIR,
+                cache_dir=CACHE_DIR
+            )
+            logger.debug("ModManager initialized")
+
+        return self._mod_manager
