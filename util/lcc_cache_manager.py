@@ -11,12 +11,11 @@ COMMANDES:
     stats    Affiche les statistiques des données LCC
 """
 
-import sys
 import json
-from pathlib import Path
+import sys
 from datetime import datetime
 
-CACHE_DIR = Path('.cache')
+from constants import LCC_CACHE_DIR
 
 
 def print_cache_info():
@@ -25,7 +24,7 @@ def print_cache_info():
     print("  INFORMATIONS DU CACHE LCC")
     print("=" * 60 + "\n")
 
-    if not CACHE_DIR.exists():
+    if not LCC_CACHE_DIR.exists():
         print("  Aucun cache trouvé")
         return
 
@@ -38,7 +37,7 @@ def print_cache_info():
     total_size = 0
 
     for filename, lang in files.items():
-        filepath = CACHE_DIR / filename
+        filepath = LCC_CACHE_DIR / filename
 
         if filepath.exists():
             size = filepath.stat().st_size
@@ -59,7 +58,7 @@ def print_cache_info():
 
     if total_size > 0:
         print(f"\n  Taille totale: {total_size:,} bytes ({total_size / 1024 / 1024:.2f} MB)")
-        print(f"  Emplacement  : {CACHE_DIR.absolute()}")
+        print(f"  Emplacement  : {LCC_CACHE_DIR.absolute()}")
 
     print()
 
@@ -70,14 +69,14 @@ def clear_cache():
     print("  SUPPRESSION DU CACHE")
     print("=" * 60 + "\n")
 
-    if not CACHE_DIR.exists():
+    if not LCC_CACHE_DIR.exists():
         print("  Aucun cache à supprimer")
         return
 
     import shutil
 
     try:
-        shutil.rmtree(CACHE_DIR)
+        shutil.rmtree(LCC_CACHE_DIR)
         print("  ✓ Cache supprimé avec succès")
     except Exception as e:
         print(f"  ✗ Erreur: {e}")
@@ -89,12 +88,12 @@ def print_stats():
     print("  STATISTIQUES DES DONNÉES LCC")
     print("=" * 60 + "\n")
 
-    if not CACHE_DIR.exists():
+    if not LCC_CACHE_DIR.exists():
         print("  Aucun cache trouvé. Lancez d'abord lcc_definition_updater.py")
         return
 
     # Charger les données françaises (référence)
-    fr_file = CACHE_DIR / 'mods.json'
+    fr_file = LCC_CACHE_DIR / 'mods.json'
     if not fr_file.exists():
         print("  Fichier mods.json introuvable dans le cache")
         return

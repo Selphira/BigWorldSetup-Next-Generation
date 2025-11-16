@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional
 
 from PySide6.QtCore import QObject, QThread, Signal
 
+from constants import CACHE_DIR, MODS_DIR
 from core.Mod import Mod
 from core.TranslationManager import get_translator, SUPPORTED_LANGUAGES
 
@@ -228,8 +229,8 @@ class ModManager(QObject):
 
     def __init__(
             self,
-            mods_dir: Path = Path("data/mods"),
-            cache_dir: Path = Path(".cache")
+            mods_dir: Path = MODS_DIR,
+            cache_dir: Path = CACHE_DIR
     ) -> None:
         """
         Initialize mod manager.

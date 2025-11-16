@@ -24,7 +24,7 @@ from typing import Dict, Any, Optional, List
 from urllib.error import URLError, HTTPError
 from ini_to_json_converter import CompactJSONEncoder
 
-CACHE_DIR = Path('.cache')
+from constants import LCC_CACHE_DIR
 
 
 class LCCDataFetcher:
@@ -58,8 +58,8 @@ class LCCDataFetcher:
         'Personnalisation du groupe': 'party'
     }
 
-    def __init__(self, cache_dir: Path = None):
-        self.cache_dir = cache_dir or CACHE_DIR
+    def __init__(self, cache_dir: Path = LCC_CACHE_DIR):
+        self.cache_dir = cache_dir / "lcc"
         self.cache_dir.mkdir(exist_ok=True)
         self.data = {}
         self.tp2_index = {}  # Index: tp2 -> mod_data
