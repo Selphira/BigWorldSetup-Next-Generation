@@ -4,7 +4,9 @@
   "title": "BigWorldSetup NextGen Mod Description",
   "description": "Schema for validating BigWorldSetup NextGen mod description files",
   "type": "object",
-  "required": ["name", "version", "tp2", "games", "categories", "components", "translations", "links", "authors", "safe"],
+  "required": [
+    "name", "version", "tp2", "games", "categories", "components", "translations", "links", "authors", "safe"
+  ],
   "additionalProperties": false,
   "properties": {
     "name": {
@@ -214,6 +216,10 @@
           "minItems": 1,
           "uniqueItems": true
         },
+        "default": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
         "games": {
           "type": "array",
           "items": {
@@ -264,6 +270,10 @@
                   },
                   "minItems": 1,
                   "uniqueItems": true
+                },
+                "default": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$"
                 }
               },
               "additionalProperties": false
