@@ -9,15 +9,15 @@ from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
     QHBoxLayout,
-    QLabel,
     QScrollArea,
     QVBoxLayout,
     QWidget,
 )
 
+from constants import COLOR_PANEL_BG
 from core.StateManager import StateManager
 from core.TranslationManager import tr
-from core.enums.GameEnum import GameEnum
+from core.enums.GameEnum import GameEnum, GameValidationRule
 from core.validators.FolderValidator import GameFolderValidator, WritableFolderValidator
 from ui.pages.BasePage import BasePage, ButtonConfig
 from ui.widgets.FolderSelector import FolderSelector, GameFolderSelector
@@ -39,10 +39,6 @@ class InstallationTypePage(BasePage):
     # Layout constants
     LEFT_PANEL_WIDTH = 400
     GRID_COLUMNS = 2
-
-    # Styling
-    PANEL_BG_COLOR = "#1e1e1e"
-    SEPARATOR_COLOR = "#404040"
 
     def __init__(self, state_manager: StateManager) -> None:
         """Initialize installation type page.
@@ -101,7 +97,7 @@ class InstallationTypePage(BasePage):
         panel = QFrame()
         panel.setFrameShape(QFrame.Shape.StyledPanel)
         panel.setStyleSheet(
-            f"QFrame {{ background-color: {self.PANEL_BG_COLOR}; "
+            f"QFrame {{ background-color: {COLOR_PANEL_BG}; "
             "border-radius: 8px; }}"
         )
         panel.setFixedWidth(self.LEFT_PANEL_WIDTH)
@@ -178,7 +174,7 @@ class InstallationTypePage(BasePage):
         panel = QFrame()
         panel.setFrameShape(QFrame.Shape.StyledPanel)
         panel.setStyleSheet(
-            f"QFrame {{ background-color: {self.PANEL_BG_COLOR}; "
+            f"QFrame {{ background-color: {COLOR_PANEL_BG}; "
             "border-radius: 8px; }}"
         )
 
@@ -248,32 +244,6 @@ class InstallationTypePage(BasePage):
         scroll.setWidget(self.folders_content)
         return scroll
 
-    @staticmethod
-    def _create_section_title() -> QLabel:
-        """Create styled section title label.
-
-        Returns:
-            Configured title label
-        """
-        title = QLabel()
-        font = title.font()
-        font.setPointSize(14)
-        font.setBold(True)
-        title.setFont(font)
-        return title
-
-    @staticmethod
-    def _create_separator() -> QFrame:
-        """Create horizontal separator line.
-
-        Returns:
-            Separator frame
-        """
-        separator = QFrame()
-        separator.setFrameShape(QFrame.Shape.HLine)
-        separator.setStyleSheet(f"background-color: {InstallationTypePage.SEPARATOR_COLOR};")
-        return separator
-
     # ========================================
     # GAME FOLDER INITIALIZATION
     # ========================================
@@ -285,11 +255,11 @@ class InstallationTypePage(BasePage):
         share the same folder requirements.
         """
         for game in GameEnum:
-            sequences = game.validation_rules.get("sequences", [])
+            sequences = game.validation_rules
 
             for sequence_rules in sequences:
                 # Determine which game this sequence references
-                ref_code = sequence_rules.get("game_folder", game.code)
+                ref_code = sequence_rules.game_folder or game.code
                 ref_game = GameEnum.from_code(ref_code)
 
                 # Skip if selector already exists for this reference game
@@ -312,7 +282,7 @@ class InstallationTypePage(BasePage):
             self,
             game: GameEnum,
             ref_game: GameEnum,
-            validation_rules: Dict
+            validation_rules: GameValidationRule
     ) -> FolderSelector:
         """Create folder selector for a game.
 
@@ -324,16 +294,10 @@ class InstallationTypePage(BasePage):
         Returns:
             Configured folder selector
         """
-        # Determine label based on sequence count
-        if game.sequence_count == 1:
-            game_name = game.display_name
-        else:
-            game_name = ref_game.display_name
-
         selector = GameFolderSelector(
             "page.type.game_folder",
             "page.type.select_game_folder_title",
-            game,
+            ref_game,
             GameFolderValidator(validation_rules)
         )
         selector.validation_changed.connect(self._on_folder_validation_changed)
@@ -342,7 +306,7 @@ class InstallationTypePage(BasePage):
         self.folders_layout.addWidget(selector)
         selector.hide()
 
-        logger.debug(f"Created selector for {ref_game.code} (label: {game_name})")
+        logger.debug(f"Created selector for {ref_game.code} (label: {ref_game.display_name})")
         return selector
 
     # ========================================
@@ -380,9 +344,9 @@ class InstallationTypePage(BasePage):
             return
 
         # Show selectors for selected game
-        sequences = self.selected_game.validation_rules.get("sequences", [])
+        sequences = self.selected_game.validation_rules
         for sequence_rules in sequences:
-            ref_code = sequence_rules.get("game_folder", self.selected_game.code)
+            ref_code = sequence_rules.game_folder or self.selected_game.code
             ref_game = GameEnum.from_code(ref_code)
 
             selector = self.game_folder_widgets.get(ref_game)
@@ -492,9 +456,9 @@ class InstallationTypePage(BasePage):
             return False
 
         # Check game folder(s) for selected game
-        sequences = self.selected_game.validation_rules.get("sequences", [])
+        sequences = self.selected_game.validation_rules
         for sequence_rules in sequences:
-            ref_code = sequence_rules.get("game_folder", self.selected_game.code)
+            ref_code = sequence_rules.game_folder or self.selected_game.code
             ref_game = GameEnum.from_code(ref_code)
 
             selector = self.game_folder_widgets.get(ref_game)
