@@ -6,26 +6,30 @@ from typing import List, Optional
 
 from PySide6.QtCore import QMimeData, QPoint, Qt, Signal
 from PySide6.QtGui import QDrag, QPixmap
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
 
-from core.TranslationManager import get_supported_language_codes, tr
+from constants import (
+    COLOR_HOVER_BG,
+    COLOR_SELECTED_BG,
+    FLAGS_DIR,
+)
+from core.TranslationManager import get_supported_languages
 
 logger = logging.getLogger(__name__)
 
 
 class SortableIcon(QLabel):
-    """Draggable icon representing a language with visual feedback.
+    """
+    Draggable icon representing a language with visual feedback.
 
     Provides hover effects and drag-and-drop functionality for reordering.
     """
 
     # Visual constants
     ICON_SIZE = 32
+    ICON_LANGUAGE_DEFAULT = "🌐"
     WIDGET_SIZE = 36
     BORDER_RADIUS = 6
-
-    # Colors
-    COLOR_HOVER_BG = "#3a3a3a"
 
     def __init__(
             self,
@@ -34,7 +38,8 @@ class SortableIcon(QLabel):
             tooltip: str,
             parent: Optional[QWidget] = None
     ) -> None:
-        """Initialize sortable icon.
+        """
+        Initialize sortable icon.
 
         Args:
             code: Language code (e.g., 'en_US')
@@ -55,33 +60,36 @@ class SortableIcon(QLabel):
         self.setCursor(Qt.CursorShape.OpenHandCursor)
 
     def _setup_icon(self, image_path: Path) -> None:
-        """Load and scale icon image.
+        """
+        Load and scale icon image.
 
         Args:
             image_path: Path to icon image
         """
         if image_path.exists():
             pixmap = QPixmap(str(image_path)).scaled(
-                self.ICON_SIZE, self.ICON_SIZE,
+                self.ICON_SIZE,
+                self.ICON_SIZE,
                 Qt.AspectRatioMode.KeepAspectRatio,
                 Qt.TransformationMode.SmoothTransformation
             )
             self.setPixmap(pixmap)
         else:
             logger.warning(f"Icon not found: {image_path}")
-            self.setText("🌐")
+            self.setText(self.ICON_LANGUAGE_DEFAULT)
 
     def _setup_style(self) -> None:
         """Configure widget stylesheet."""
         self.setStyleSheet(f"""
             QLabel:hover {{
                 border-radius: {self.BORDER_RADIUS}px;
-                background-color: {self.COLOR_HOVER_BG};
+                background-color: {COLOR_HOVER_BG};
             }}
         """)
 
     def mousePressEvent(self, event) -> None:
-        """Handle mouse press to initiate drag operation.
+        """
+        Handle mouse press to initiate drag operation.
 
         Args:
             event: Mouse event
@@ -99,10 +107,12 @@ class SortableIcon(QLabel):
 
 
 class SortableLanguages(QFrame):
-    """Language selector with sortable flag icons.
+    """
+    Language selector with sortable flag icons.
 
     Displays flag icons for available languages that can be reordered
-    via drag-and-drop.
+    via drag-and-drop. Language order affects mod installation language
+    fallback priority.
 
     Signals:
         order_changed: Emitted when language order changes (List[str]: codes)
@@ -110,20 +120,19 @@ class SortableLanguages(QFrame):
 
     order_changed = Signal(list)
 
-    ICONS_DIR = Path("resources") / "flags"
-
     # Layout constants
     CONTAINER_HEIGHT = 50
     SPACING = 5
     MARGINS = 5
 
     # Drop indicator
-    INDICATOR_COLOR = "#655949"
+    INDICATOR_COLOR = COLOR_SELECTED_BG
     INDICATOR_MARGIN = 5
     INDICATOR_WIDTH = 2
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
-        """Initialize sortable icons container.
+        """
+        Initialize sortable icons container.
 
         Args:
             parent: Parent widget
@@ -150,14 +159,11 @@ class SortableLanguages(QFrame):
 
     def _populate_languages(self) -> None:
         """Populate with available language icons."""
-        language_codes = get_supported_language_codes()
+        for lang_code, lang_name in get_supported_languages():
+            icon_path = FLAGS_DIR / f"{lang_code}.png"
+            self.add_icon(lang_code, icon_path, lang_name)
 
-        for lang_code in language_codes:
-            icon_path = self.ICONS_DIR / f"{lang_code}.png"
-            # Use code as tooltip for now (can be improved with display name)
-            self.add_icon(lang_code, icon_path, lang_code)
-
-        logger.info(f"Populated {len(language_codes)} language icons")
+        logger.info(f"Populated {len(get_supported_languages())} language icons")
 
     def _create_drop_indicator(self) -> None:
         """Create drop position indicator."""
@@ -173,7 +179,8 @@ class SortableLanguages(QFrame):
     # ========================================
 
     def dragEnterEvent(self, event) -> None:
-        """Handle drag enter event.
+        """
+        Handle drag enter event.
 
         Args:
             event: Drag event
@@ -182,7 +189,8 @@ class SortableLanguages(QFrame):
         self.drop_indicator.show()
 
     def dragLeaveEvent(self, event) -> None:
-        """Handle drag leave event.
+        """
+        Handle drag leave event.
 
         Args:
             event: Drag event
@@ -190,7 +198,8 @@ class SortableLanguages(QFrame):
         self.drop_indicator.hide()
 
     def dragMoveEvent(self, event) -> None:
-        """Update drop indicator position during drag.
+        """
+        Update drop indicator position during drag.
 
         Args:
             event: Drag event
@@ -201,18 +210,18 @@ class SortableLanguages(QFrame):
         if not isinstance(dragged, SortableIcon):
             return
 
-        next_index = self._get_next_index(pos)
+        insert_index = self._calculate_insert_position(pos)
 
         # Calculate indicator X position
         if self.layout.count() == 0:
             x = self.INDICATOR_MARGIN
-        elif next_index >= self.layout.count():
+        elif insert_index >= self.layout.count():
             # After last widget
             last_widget = self.layout.itemAt(self.layout.count() - 1).widget()
             x = last_widget.x() + last_widget.width() + self.SPACING
         else:
             # Before widget at insert_index
-            widget = self.layout.itemAt(next_index).widget()
+            widget = self.layout.itemAt(insert_index).widget()
             x = widget.x() - self.INDICATOR_WIDTH
 
         self.drop_indicator.move(x, self.INDICATOR_MARGIN)
@@ -222,7 +231,8 @@ class SortableLanguages(QFrame):
         self.drop_indicator.show()
 
     def dropEvent(self, event) -> None:
-        """Handle drop event to reorder icons.
+        """
+        Handle drop event to reorder icons.
 
         Args:
             event: Drop event
@@ -235,7 +245,7 @@ class SortableLanguages(QFrame):
 
         # Get old and new positions
         old_index = self.layout.indexOf(dragged)
-        insert_index = self._get_insert_index(dragged, pos)
+        insert_index = self._calculate_insert_index(dragged, pos)
 
         # Reinsert widget
         self.layout.removeWidget(dragged)
@@ -250,8 +260,32 @@ class SortableLanguages(QFrame):
             self.order_changed.emit(new_order)
             logger.debug(f"Icon order changed: {new_order}")
 
-    def _get_insert_index(self, dragged: SortableIcon, pos) -> int:
-        """Calculate insertion index based on mouse position.
+    def _calculate_insert_position(self, pos: QPoint) -> int:
+        """
+        Calculate where to show drop indicator based on mouse position.
+
+        Args:
+            pos: Mouse position
+
+        Returns:
+            Index where indicator should appear
+        """
+        for i in range(self.layout.count()):
+            widget = self.layout.itemAt(i).widget()
+            if widget and pos.x() < widget.x() + widget.width() // 2:
+                return i
+        return self.layout.count()
+
+    def _calculate_insert_index(
+            self,
+            dragged: SortableIcon,
+            pos: QPoint
+    ) -> int:
+        """
+        Calculate final insertion index accounting for direction.
+
+        When dragging right, we need to adjust the index because
+        removing the dragged item shifts indices.
 
         Args:
             dragged: Dragged item
@@ -261,35 +295,13 @@ class SortableLanguages(QFrame):
             Index where dragged item should be inserted
         """
         old_index = self.layout.indexOf(dragged)
-        new_index = self.layout.count()
+        new_index = self._calculate_insert_position(pos)
 
-        for i in range(self.layout.count()):
-            widget = self.layout.itemAt(i).widget()
-            if widget and pos.x() < widget.x() + widget.width() // 2:
-                new_index = i
-                break
-
-        # Correction directionnelle
+        # Adjust for removal shifting indices
         if new_index > old_index:
             new_index -= 1
 
         return new_index
-
-    def _get_next_index(self, pos: QPoint) -> int:
-        """Calculate insertion index based on mouse position.
-
-        Args:
-            pos: Mouse position
-
-        Returns:
-            Index where drop indicator should be inserted
-        """
-        for i in range(self.layout.count()):
-            widget = self.layout.itemAt(i).widget()
-            if widget and pos.x() < widget.x() + widget.width() // 2:
-                print(f"{i} :: {widget} - {pos.x()} < {widget.x()} + {widget.width()}")
-                return i
-        return self.layout.count()
 
     # ========================================
     # PUBLIC API
@@ -301,7 +313,8 @@ class SortableLanguages(QFrame):
             image_path: Path,
             tooltip: str
     ) -> None:
-        """Add an icon to the container.
+        """
+        Add an icon to the container.
 
         Args:
             code: Language code
@@ -314,7 +327,8 @@ class SortableLanguages(QFrame):
         logger.debug(f"Icon added: {code}")
 
     def get_order(self) -> List[str]:
-        """Get current order of language codes.
+        """
+        Get current order of language codes.
 
         Returns:
             List of language codes in current order
@@ -331,7 +345,8 @@ class SortableLanguages(QFrame):
         ]
 
     def set_order(self, codes: List[str]) -> None:
-        """Set icon order by language codes.
+        """
+        Set icon order by language codes.
 
         Args:
             codes: Ordered list of language codes
