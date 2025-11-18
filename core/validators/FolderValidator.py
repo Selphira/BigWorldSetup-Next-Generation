@@ -11,9 +11,9 @@ Provides a hierarchy of validators:
 import logging
 import re
 from abc import ABC, abstractmethod
-from pathlib import Path
 from typing import Dict, Optional, Tuple
 
+from constants import *
 from core.TranslationManager import tr
 from core.enums.GameEnum import GameValidationRule
 
@@ -128,9 +128,6 @@ class GameFolderValidator(ExistingFolderValidator):
         r'(\w+)\s*=\s*(-?\d+(?:\.\d+)?)',
         re.MULTILINE
     )
-
-    # Maximum file size to read for Lua validation (10MB)
-    MAX_LUA_FILE_SIZE = 10 * 1024 * 1024
 
     def __init__(self, validation_rules: GameValidationRule) -> None:
         """
@@ -312,7 +309,7 @@ class GameFolderValidator(ExistingFolderValidator):
         try:
             # Check file size
             file_size = file_path.stat().st_size
-            if file_size > cls.MAX_LUA_FILE_SIZE:
+            if file_size > MAX_LUA_FILE_SIZE:
                 logger.warning(
                     f"Lua file too large ({file_size} bytes): {file_path}"
                 )
