@@ -1,7 +1,6 @@
-from pathlib import Path
 from typing import Optional
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Signal
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
     QFrame,
@@ -10,6 +9,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from constants import *
 from core.enums.GameEnum import GameEnum
 
 
@@ -22,24 +22,11 @@ class GameButton(QWidget):
 
     clicked = Signal(GameEnum)
 
-    # Visual constants
-    BUTTON_HEIGHT = 120
-    ICON_SIZE = 64
-    DEFAULT_ICON = "🎮"
-    DEFAULT_ICON_SIZE = 48
-
-    # Colors
-    COLOR_SELECTED_BG = "#655949"
-    COLOR_UNSELECTED_BG = "#2a2a2a"
-    COLOR_HOVER_BG = "#333333"
-    COLOR_SELECTED_TEXT = "#ffffff"
-    COLOR_UNSELECTED_TEXT = "#cccccc"
-
     def __init__(
-        self,
-        game: GameEnum,
-        icon_path: Optional[Path] = None,
-        parent: Optional[QWidget] = None
+            self,
+            game: GameEnum,
+            icon_path: Optional[Path] = None,
+            parent: Optional[QWidget] = None
     ) -> None:
         """Initialize game button.
 
@@ -59,7 +46,8 @@ class GameButton(QWidget):
         self.name_label: Optional[QLabel] = None
 
         self._create_widgets(icon_path)
-        self.setFixedHeight(self.BUTTON_HEIGHT)
+        self.container.setProperty("selected", False)
+        self.setFixedHeight(GAME_BUTTON_HEIGHT)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
     def _create_widgets(self, icon_path: Optional[Path]) -> None:
@@ -110,16 +98,16 @@ class GameButton(QWidget):
         if icon_path and icon_path.exists():
             pixmap = QPixmap(str(icon_path))
             scaled_pixmap = pixmap.scaled(
-                self.ICON_SIZE, self.ICON_SIZE,
+                GAME_BUTTON_ICON_SIZE, GAME_BUTTON_ICON_SIZE,
                 Qt.AspectRatioMode.KeepAspectRatio,
                 Qt.TransformationMode.SmoothTransformation
             )
             label.setPixmap(scaled_pixmap)
         else:
             # Fallback to emoji
-            label.setText(self.DEFAULT_ICON)
+            label.setText(ICON_GAME_DEFAULT)
             font = label.font()
-            font.setPointSize(self.DEFAULT_ICON_SIZE)
+            font.setPointSize(GAME_BUTTON_ICON_SIZE)
             label.setFont(font)
 
         return label
@@ -142,33 +130,9 @@ class GameButton(QWidget):
         return label
 
     def _update_style(self) -> None:
-        """Update widget style based on selection state."""
-        if self._is_selected:
-            self.container.setStyleSheet(f"""
-                QFrame#gameButtonFrame {{
-                    background-color: {self.COLOR_SELECTED_BG};
-                }}
-            """)
-            self.name_label.setStyleSheet(
-                f"color: {self.COLOR_SELECTED_TEXT}; "
-                "background: transparent; border: none;"
-            )
-        else:
-            self.container.setStyleSheet(f"""
-                QFrame#gameButtonFrame {{
-                    background-color: {self.COLOR_UNSELECTED_BG};
-                }}
-                QFrame#gameButtonFrame:hover {{
-                    background-color: {self.COLOR_HOVER_BG};
-                }}
-            """)
-            self.name_label.setStyleSheet(
-                f"color: {self.COLOR_UNSELECTED_TEXT}; "
-                "background: transparent; border: none;"
-            )
-
-        # Icon always transparent
-        self.icon_label.setStyleSheet("background: transparent; border: none;")
+        self.container.style().unpolish(self.container)
+        self.container.style().polish(self.container)
+        self.container.update()
 
     def set_selected(self, selected: bool) -> None:
         """Set selection state.
@@ -178,6 +142,7 @@ class GameButton(QWidget):
         """
         if self._is_selected != selected:
             self._is_selected = selected
+            self.container.setProperty("selected", selected)
             self._update_style()
 
     def is_selected(self) -> bool:
