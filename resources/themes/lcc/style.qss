@@ -94,16 +94,17 @@ QFrame#gameButtonFrame {
     border: 1px solid #2a2a2a;
     border-radius: 8px;
 }
-QFrame#gameButtonFrame[selected="true"] {
-    background-color: #655949;
-    border: 1px solid #655949;
-    border-radius: 8px;
-}
 
 QFrame#gameButtonFrame:hover {
     background-color: #333333;
     border: 1px solid #404040;
     border-color: #96846e;
+}
+
+QFrame#gameButtonFrame[selected="true"] {
+    background-color: #655949;
+    border: 1px solid #655949;
+    border-radius: 8px;
 }
 
 /* ============================================================================
@@ -405,4 +406,45 @@ QSplitter::handle:horizontal {
 
 QSplitter::handle:vertical {
     height: 2px;
-}s
+}
+
+/* ============================================================================
+ * CategoryButton
+ * ============================================================================ */
+
+QFrame#category-button {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+QFrame#category-button:hover {
+    background-color: #2a2a2a;
+}
+
+QFrame#category-button[selected="true"] {
+    background-color: #655949;
+    border: 1px solid #655949;
+    border-radius: 8px;
+}
+
+QFrame#category-button[empty="true"] QLabel {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+QFrame#category-button[selected="true"] QLabel#count-badge {
+    background-color: rgba(42, 42, 42, 0.4);
+}
+
+QLabel#count-badge[empty="true"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+QFrame#category-button QLabel#count-badge {
+    background-color: #2a2a2a;
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 9px;
+    padding: 0px 10px;
+}
