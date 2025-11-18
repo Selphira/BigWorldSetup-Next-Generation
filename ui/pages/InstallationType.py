@@ -1,7 +1,6 @@
 """Installation type selection page with game-based validation."""
 
 import logging
-from pathlib import Path
 from typing import Dict, Optional
 
 from PySide6.QtCore import Qt
@@ -14,6 +13,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from constants import ICONS_DIR
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.enums.GameEnum import GameEnum
@@ -52,8 +52,6 @@ class InstallationTypePage(BasePage):
             state_manager: Application state manager
         """
         super().__init__(state_manager)
-
-        self.icons_dir = Path("resources/icons")
 
         # UI state
         self.selected_game: Optional[GameEnum] = None
@@ -163,7 +161,7 @@ class InstallationTypePage(BasePage):
         Returns:
             Configured game button
         """
-        icon_path = self.icons_dir / f"{game.code}.png"
+        icon_path = ICONS_DIR / f"{game.code}.png"
         button = GameButton(
             game,
             icon_path if icon_path.exists() else None,
