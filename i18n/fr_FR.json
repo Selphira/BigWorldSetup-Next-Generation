@@ -8,7 +8,7 @@
   },
   "app": {
     "subtitle": "Gestionnaire d'installation de mods pour les jeux Infinity Engine",
-    "step": "Étape {current}/{total}",
+    "step": "Étape {current} sur  {total}",
     "error": "Erreur",
     "initializing": "Initialisation...",
     "loading_mods": "Chargement des mods",
@@ -37,7 +37,12 @@
   "button": {
     "next": "Suivant",
     "previous": "Précédent",
-    "browse": "Parcourir"
+    "browse": "Parcourir",
+    "install": "Installer",
+    "cancel": "Annuler",
+    "ok": "OK",
+    "apply": "Appliquer",
+    "close": "Fermer"
   },
   "menu": {
     "language": "Langue d'interface",
@@ -51,10 +56,10 @@
       "configure_folders": "Configuration des dossiers",
       "languages_order": "Priorité de la langue d'installation des mods",
       "game_folder": "Dossier de {game}",
-      "download_folder": "Dossier de téléchargement",
-      "backup_folder": "Dossier de sauvegarde",
       "select_game_folder_title": "Sélectionnez le dossier de {game}",
+      "download_folder": "Dossier de téléchargement",
       "select_download_folder_title": "Sélectionnez le dossier de téléchargement",
+      "backup_folder": "Dossier de sauvegarde",
       "select_backup_folder_title": "Sélectionnez le dossier de sauvegarde"
     },
     "selection": {
@@ -69,23 +74,23 @@
     }
   },
   "validation": {
-    "folder_required": "Le dossier est obligatoire",
-    "folder_not_exist": "Le dossier n'existe pas",
-    "not_a_folder": "Le chemin spécifié n'est pas un dossier",
-    "folder_not_writable": "Le dossier n'est pas accessible en écriture",
-    "invalid_game_folder": "Le dossier ne contient pas un jeu valide"
+    "folder_required": "Veuillez sélectionner un dossier",
+    "folder_not_exist": "Le dossier sélectionné n'existe pas",
+    "not_a_folder": "Le chemin sélectionné n'est pas un dossier",
+    "folder_not_writable": "Le dossier n'est pas accessible en écriture. Vérifiez les permissions.",
+    "invalid_game_folder": "Le dossier sélectionné n'est pas une installation de jeu valide.\n\nVeuillez vérifier que le bon dossier a été sélectionné."
   },
   "widget": {
     "select_folder_placeholder": "Sélectionnez un dossier...",
     "component_selector": {
       "header": {
         "type": "Mod / Composant",
-        "selection": "Sélection"
+        "selection": "# de composants"
       },
       "selection": {
-        "none": "Aucune",
-        "complete": "Complète",
-        "partial": "Partielle ({count}/{total})"
+        "none": "Aucun",
+        "complete": "Tous",
+        "partial": "{count} / {total}"
       }
     }
   },
@@ -94,6 +99,10 @@
     "loading_error": "Erreur de chargement",
     "cache_error": "Erreur de cache: {message}",
     "unable_to_load_mods": "Unable to load mods:\n\n{message}",
-    "unable_to_start_cache_building": "Impossible de démarrer la création du cache"
+    "unable_to_start_cache_building": "Impossible de démarrer la création du cache",
+    "critical_title": "Erreur critique",
+    "cache_build_failed": "Impossible de construire le cache des mods.\n\nVérifiez que les fichiers sont présents dans le dossier :\n{mods_dir}",
+    "cache_load_failed": "Impossible de charger le cache des mods.\n\nLe cache est peut-être corrompu. Essayez de le reconstruire.",
+    "uncaught_exception": "Une erreur inattendue s'est produite :\n\n{error}\n\nConsultez le fichier de log pour plus de détails."
   }
 }

@@ -3,7 +3,6 @@
 import logging
 from typing import Dict, List, Optional
 
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QFrame,
@@ -16,6 +15,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from constants import *
 from core.StateManager import StateManager
 from core.TranslationManager import get_translator, tr
 from ui.pages.BasePage import BasePage
@@ -29,18 +29,6 @@ class MainWindow(QMainWindow):
 
     Manages page registration, navigation flow, and UI updates for language changes.
     """
-
-    # UI Constants
-    WINDOW_MIN_WIDTH = 1200
-    WINDOW_MIN_HEIGHT = 800
-    HEADER_HEIGHT = 80
-    FOOTER_HEIGHT = 70
-    BUTTON_WIDTH = 150
-
-    # Style Constants
-    HEADER_BG_COLOR = "#2a2a2a"
-    FOOTER_BG_COLOR = "#2a2a2a"
-    STEP_TEXT_COLOR = "#888888"
 
     def __init__(self, state_manager: StateManager) -> None:
         """Initialize main window.
@@ -76,7 +64,7 @@ class MainWindow(QMainWindow):
     def _setup_window(self) -> None:
         """Configure window properties."""
         self.setWindowTitle("BigWorldSetup NextGen")
-        self.setMinimumSize(self.WINDOW_MIN_WIDTH, self.WINDOW_MIN_HEIGHT)
+        self.setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT)
 
     def _create_widgets(self) -> None:
         """Create and layout all UI components."""
@@ -103,9 +91,9 @@ class MainWindow(QMainWindow):
             Header frame widget
         """
         frame = QFrame()
-        frame.setFixedHeight(self.HEADER_HEIGHT)
+        frame.setFixedHeight(HEADER_HEIGHT)
         frame.setStyleSheet(
-            f"background-color: {self.HEADER_BG_COLOR}; border-radius: 0px;"
+            f"background-color: {COLOR_BACKGROUND_SECONDARY}; border-radius: 0px;"
         )
 
         layout = QHBoxLayout(frame)
@@ -149,7 +137,7 @@ class MainWindow(QMainWindow):
         step_font = self.page_step.font()
         step_font.setPointSize(12)
         self.page_step.setFont(step_font)
-        self.page_step.setStyleSheet(f"color: {self.STEP_TEXT_COLOR};")
+        self.page_step.setStyleSheet(f"color: {COLOR_STATUS_NONE};")
         layout.addWidget(self.page_step)
 
         return layout
@@ -161,12 +149,12 @@ class MainWindow(QMainWindow):
             Footer frame widget
         """
         frame = QFrame()
-        frame.setFixedHeight(self.FOOTER_HEIGHT)
+        frame.setFixedHeight(FOOTER_HEIGHT)
         frame.setAutoFillBackground(True)
 
         # Set background color
         palette = frame.palette()
-        palette.setColor(frame.backgroundRole(), QColor(self.FOOTER_BG_COLOR))
+        palette.setColor(frame.backgroundRole(), QColor(COLOR_BACKGROUND_SECONDARY))
         frame.setPalette(palette)
 
         # Create buttons
@@ -189,8 +177,8 @@ class MainWindow(QMainWindow):
 
         return frame
 
+    @staticmethod
     def _create_navigation_button(
-            self,
             text: str,
             callback
     ) -> QPushButton:
@@ -204,7 +192,7 @@ class MainWindow(QMainWindow):
             Configured button
         """
         button = QPushButton(text)
-        button.setFixedWidth(self.BUTTON_WIDTH)
+        button.setFixedWidth(BUTTON_WIDTH_STANDARD)
         button.clicked.connect(callback)
         return button
 

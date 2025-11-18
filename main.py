@@ -1,87 +1,280 @@
+"""
+BigWorldSetup NextGen - Main entry point.
+
+Handles application initialization, logging setup, cache management,
+and main window display.
+"""
+
 import logging
 import sys
 
 from PySide6.QtWidgets import QApplication, QMessageBox
 
+from constants import *
 from core.StateManager import StateManager
+from core.TranslationManager import get_translator, tr
 from ui.CacheDialog import show_cache_build_dialog
 from ui.MainWindow import MainWindow
 from ui.pages.InstallationType import InstallationTypePage
 from ui.pages.ModSelection import ModSelectionPage
 
-# Configuration simple
-logging.basicConfig(
-    level=logging.DEBUG,  # Niveau minimum à afficher
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%H:%M:%S'
-)
+logger = logging.getLogger(__name__)
 
 
-def main():
-    app = QApplication(sys.argv)
-    state = StateManager()
-    mod_manager = state.get_mod_manager()
+def setup_logging() -> None:
+    """
+    Configure application logging with file rotation and console output.
 
-    # Vérifier si le cache doit être construit ou chargé
+    Creates log directory if needed and sets up handlers for both
+    file and console output with appropriate formatting.
+    """
+    # Create log directory
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Root logger configuration
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+
+    # Remove existing handlers
+    root_logger.handlers.clear()
+
+    # File handler with rotation
+    from logging.handlers import RotatingFileHandler
+    file_handler = RotatingFileHandler(
+        LOG_FILE_NAME,
+        maxBytes=LOG_MAX_BYTES,
+        backupCount=LOG_BACKUP_COUNT,
+        encoding='utf-8'
+    )
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(
+        logging.Formatter(LOG_FORMAT, LOG_DATE_FORMAT)
+    )
+    root_logger.addHandler(file_handler)
+
+    # Console handler (only warnings and above)
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(
+        logging.Formatter(LOG_FORMAT, LOG_DATE_FORMAT)
+    )
+    root_logger.addHandler(console_handler)
+
+    logger.info(f"{APP_NAME} v{APP_VERSION} - Logging initialized")
+
+
+def load_stylesheet(theme: str = "lcc") -> str:
+    """
+    Load application stylesheet from file.
+
+    Returns:
+        CSS stylesheet string
+    """
+    stylesheet_path = THEMES_DIR / theme / "style.qss"
+
+    if stylesheet_path.exists():
+        try:
+            return stylesheet_path.read_text(encoding='utf-8')
+        except Exception as e:
+            logger.error(f"Failed to load stylesheet: {e}")
+
+    return ""
+
+
+def initialize_cache(mod_manager) -> bool:
+    """
+    Initialize or rebuild mod cache if needed.
+
+    Args:
+        mod_manager: ModManager instance
+
+    Returns:
+        True if cache is ready, False on error
+    """
     if mod_manager.needs_cache_rebuild():
-        # Le cache doit être reconstruit - afficher le dialogue
+        logger.info("Cache rebuild required")
+
+        # Show progress dialog for cache building
         success = show_cache_build_dialog(mod_manager)
 
         if not success:
-            # Erreur critique, on ne peut pas continuer
+            logger.error("Cache build failed")
             QMessageBox.critical(
                 None,
-                "Erreur",
-                "Impossible de construire le cache des mods.\n"
-                "Vérifiez que les fichiers sont présents dans le dossier data/mods."
+                tr("error.critical_title"),
+                tr("error.cache_build_failed",
+                   mods_dir=str(MODS_DIR))
             )
-            return 1
+            return False
+
+        logger.info("Cache built successfully")
     else:
-        # Le cache existe déjà, le charger directement
+        logger.info("Loading existing cache")
+
+        # Load existing cache
         if not mod_manager.load_cache():
+            logger.error("Cache load failed")
             QMessageBox.critical(
                 None,
-                "Erreur",
-                "Impossible de charger le cache des mods."
+                tr("error.critical_title"),
+                tr("error.cache_load_failed")
             )
+            return False
+
+        logger.info(f"Cache loaded: {mod_manager.get_count()} mods")
+
+    return True
+
+
+def register_pages(window: MainWindow, state: StateManager) -> None:
+    """
+    Register all application pages with the main window.
+
+    Args:
+        window: MainWindow instance
+        state: StateManager instance
+    """
+    pages = [
+        InstallationTypePage(state),
+        ModSelectionPage(state),
+        # OrderPage(state),
+        # DownloadPage(state),
+        # InstallationPage(state),
+        # SummaryPage(state),
+    ]
+
+    for page in pages:
+        window.register_page(page)
+
+    logger.info(f"Registered {len(pages)} pages")
+
+
+def get_initial_page(state: StateManager) -> str:
+    """
+    Determine which page to show initially.
+
+    Args:
+        state: StateManager instance
+
+    Returns:
+        Page ID to show
+    """
+    # Try to restore last page
+    last_page = state.get_ui_current_page()
+
+    if last_page:
+        logger.info(f"Restoring last page: {last_page}")
+        return last_page
+
+    # Default to first page
+    logger.info("Starting from first page")
+    return 'installation_type'
+
+
+def setup_exception_hook() -> None:
+    """
+    Install global exception handler for uncaught exceptions.
+
+    Logs exceptions and shows error dialog to user.
+    """
+
+    def exception_handler(exc_type, exc_value, exc_traceback):
+        """Handle uncaught exceptions."""
+        if issubclass(exc_type, KeyboardInterrupt):
+            # Allow Ctrl+C to work
+            sys.__excepthook__(exc_type, exc_value, exc_traceback)
+            return
+
+        # Log the exception
+        logger.critical(
+            "Uncaught exception",
+            exc_info=(exc_type, exc_value, exc_traceback)
+        )
+
+        # Show error dialog
+        error_msg = f"{exc_type.__name__}: {exc_value}"
+        QMessageBox.critical(
+            None,
+            tr("error.critical_title"),
+            tr("error.uncaught_exception", error=error_msg)
+        )
+
+    sys.excepthook = exception_handler
+
+
+def main() -> int:
+    """
+    Main application entry point.
+
+    Returns:
+        Exit code (0 for success, non-zero for error)
+    """
+    # Setup logging first
+    setup_logging()
+    logger.info(f"Starting {APP_NAME} v{APP_VERSION}")
+
+    # Install exception handler
+    setup_exception_hook()
+
+    try:
+        # Create Qt application
+        app = QApplication(sys.argv)
+        app.setApplicationName(APP_NAME)
+        app.setApplicationVersion(APP_VERSION)
+        app.setOrganizationName(APP_ORG)
+
+        # Set visual style
+        app.setStyle("Fusion")
+        stylesheet = load_stylesheet()
+        app.setStyleSheet(stylesheet)
+
+        # Initialize state manager
+        state = StateManager()
+
+        # Initialize translation
+        translator = get_translator()
+        ui_language = state.get_ui_language()
+        translator.set_language(ui_language)
+        logger.info(f"UI language: {ui_language}")
+
+        # Initialize mod manager and cache
+        mod_manager = state.get_mod_manager()
+        if not initialize_cache(mod_manager):
+            logger.error("Cache initialization failed, exiting")
             return 1
 
-    app.setStyle("Fusion")
-    app.setStyleSheet("""
-        QLineEdit {
-            background-image: url("resources/background.jpg");
-            padding: 5px 10px;
-            border: 1px solid #96846e;
-            border-radius: 10px;
-        }
-        QLineEdit:focus {
-            border: 1px solid Goldenrod;
-        }
+        # Create and configure main window
+        window = MainWindow(state)
+        register_pages(window, state)
 
-        QToolTip {
-            color: #f0f0f0;
-            background-color: #2a2a2a;
-            border: 1px solid #96846e;
-            border-radius: 6px;
-            padding: 6px;
-            font-size: 10pt;
-        }
+        # Show initial page
+        initial_page = get_initial_page(state)
+        window.show_page(initial_page)
 
-        QFrame#gameButtonFrame {
-            background-color: #2a2a2a;
-        }
-        QFrame#gameButtonFrame:hover {
-            background-color: #333333;
-        }
-    """)
-    window = MainWindow(state)
-    window.register_page(InstallationTypePage(state))
-    window.register_page(ModSelectionPage(state))
-    # TODO: Afficher la page qu'il y avait au moment de fermer l'application
-    window.show_page(state.get_ui_current_page() or 'installation_type')
-    window.show()
+        # Show window
+        window.show()
+        logger.info("Main window displayed")
 
-    return app.exec()
+        # Run event loop
+        exit_code = app.exec()
+
+        logger.info(f"Application exiting with code {exit_code}")
+        return exit_code
+
+    except Exception as e:
+        logger.critical(f"Fatal error during initialization: {e}", exc_info=True)
+
+        # Try to show error dialog
+        try:
+            QMessageBox.critical(
+                None,
+                "Critical Error",
+                f"Fatal error during initialization:\n\n{e}"
+            )
+        except:
+            pass
+
+        return 1
 
 
 if __name__ == "__main__":

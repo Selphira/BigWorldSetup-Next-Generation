@@ -10,6 +10,10 @@
     "subtitle": "Mod installation manager for Infinity Engine games",
     "step": "Step {current}/{total}"
   },
+  "category": {
+    "all": "All",
+    "spell": "Spell"
+  },
   "button": {
     "next": "Next",
     "previous": "Previous",
@@ -42,6 +46,17 @@
     "invalid_game_folder": "The folder does not contain a valid game"
   },
   "widget": {
-    "select_folder_placeholder": "Select a folder..."
+    "select_folder_placeholder": "Select a folder...",
+    "component_selector": {
+      "header": {
+        "type": "Mod / Component",
+        "selection": "Selection"
+      },
+      "selection": {
+        "none": "None",
+        "complete": "Complete",
+        "partial": "Partial ({count}/{total})"
+      }
+    }
   }
 }
