@@ -1,10 +1,9 @@
 """Folder selector widget with validation and visual feedback."""
 
 import logging
-from pathlib import Path
 from typing import Optional
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Signal
 from PySide6.QtGui import QAction, QColor, QFont, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import (
     QFileDialog,
@@ -17,6 +16,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from constants import *
 from core.TranslationManager import tr
 from core.enums.GameEnum import GameEnum
 from core.validators.FolderValidator import ExistingFolderValidator, FolderValidator
@@ -36,16 +36,6 @@ class FolderSelector(QWidget):
 
     validation_changed = Signal(bool)
 
-    # Visual constants
-    ICON_SIZE = 16
-    SUCCESS_COLOR = QColor("#00cc00")
-    ERROR_COLOR = QColor("#ff6666")
-    SUCCESS_ICON = "✓"
-    ERROR_ICON = "⚠"
-
-    BUTTON_WIDTH = 100
-    INPUT_PADDING = "5px 0px"
-
     def __init__(
             self,
             label_key: str,
@@ -56,7 +46,8 @@ class FolderSelector(QWidget):
         """Initialize folder selector.
 
         Args:
-            label: Label text for the folder selector
+            label_key: Translation key for label
+            select_title_key: Translation key for dialog title
             validator: Validator instance (defaults to ExistingFolderValidator)
             parent: Parent widget
         """
@@ -110,11 +101,6 @@ class FolderSelector(QWidget):
 
         # Create input field
         self.path_input = QLineEdit()
-        self.path_input.setStyleSheet(f"""
-            QLineEdit {{
-                padding: {self.INPUT_PADDING};
-            }}
-        """)
         self.path_input.setPlaceholderText(tr('widget.select_folder_placeholder'))
 
         # Add icon action (for validation indicator)
@@ -129,15 +115,15 @@ class FolderSelector(QWidget):
 
         # Create browse button
         self.browse_btn = QPushButton(tr('button.browse'))
-        self.browse_btn.setFixedWidth(self.BUTTON_WIDTH)
+        self.browse_btn.setFixedWidth(BUTTON_WIDTH_SMALL)
         layout.addWidget(self.browse_btn)
 
         return layout
 
     def _connect_signals(self) -> None:
         """Connect signal handlers."""
-        self.browse_btn.clicked.connect(self._on_browse_clicked)
-        self.path_input.textChanged.connect(self._on_path_changed)
+        self.browse_btn.clicked.connect(self._on_browse_clicked)  # type: ignore[attr-defined]
+        self.path_input.textChanged.connect(self._on_path_changed)  # type: ignore[attr-defined]
 
         # Override enterEvent for custom tooltip
         self.path_input.enterEvent = self._on_input_hover
@@ -227,18 +213,18 @@ class FolderSelector(QWidget):
     def _set_success_state(self) -> None:
         """Set success visual state (valid input)."""
         icon = self._create_text_icon(
-            self.SUCCESS_ICON,
-            self.SUCCESS_COLOR,
-            self.ICON_SIZE
+            ICON_SUCCESS,
+            QColor(COLOR_SUCCESS),
+            ICON_SIZE_SMALL
         )
         self.icon_action.setIcon(icon)
 
     def _set_error_state(self) -> None:
         """Set error visual state (invalid input)."""
         icon = self._create_text_icon(
-            self.ERROR_ICON,
-            self.ERROR_COLOR,
-            self.ICON_SIZE
+            ICON_ERROR,
+            QColor(COLOR_ERROR),
+            ICON_SIZE_SMALL
         )
         self.icon_action.setIcon(icon)
         self.icon_action.setToolTip(self._error_message)
@@ -247,7 +233,7 @@ class FolderSelector(QWidget):
     # PUBLIC API
     # ========================================
 
-    def retranslate_ui(self) -> None  :
+    def retranslate_ui(self) -> None:
         """Update all translatable UI elements."""
         # Label
         self.label.setText(tr(self._label_key))
@@ -354,6 +340,7 @@ class FolderSelector(QWidget):
             f"valid={self._is_valid}>"
         )
 
+
 class GameFolderSelector(FolderSelector):
     """Folder selector specialized for game folders with game name in labels.
 
@@ -400,7 +387,7 @@ class GameFolderSelector(FolderSelector):
             self.set_path(folder)
             logger.debug(f"Folder selected for {self.game.code}: {folder}")
 
-    def retranslate_ui(self) -> None  :
+    def retranslate_ui(self) -> None:
         """Update all translatable UI elements with game name interpolation."""
         super().retranslate_ui()
 
