@@ -308,19 +308,24 @@ QProgressBar::chunk {
 
 QMenu {
     background-color: #2a2a2a;
-    color: #ffffff;
     border: 1px solid #96846e;
-    border-radius: 6px;
+    color: #ffffff;
     padding: 5px;
 }
 
+QMenu::icon {
+  padding-left: 10px;
+  width: 14px;
+  height: 14px;
+}
+
 QMenu::item {
-    padding: 6px 20px;
     border-radius: 4px;
+    padding: 6px 20px;
 }
 
 QMenu::item:selected {
-    background-color: #655949;
+    background-color: #333333;
 }
 
 QMenu::separator {

@@ -1,20 +1,21 @@
 """Language selection button for the application toolbar."""
 
 import logging
-from pathlib import Path
 from typing import Dict, List, Optional
 
-from PySide6.QtCore import Qt, Signal, QSize
+from PySide6.QtCore import Signal, QSize
 from PySide6.QtGui import QAction, QIcon, QPixmap, QCursor
 from PySide6.QtWidgets import QMenu, QToolButton
 
+from constants import *
 from core.TranslationManager import get_translator
 
 logger = logging.getLogger(__name__)
 
 
 class LanguageSelector(QToolButton):
-    """Language selection button with dropdown menu.
+    """
+    Language selection button with dropdown menu.
 
     Displays current language flag and provides a menu to switch
     between available languages.
@@ -25,16 +26,13 @@ class LanguageSelector(QToolButton):
 
     language_changed = Signal(str)
 
-    ICONS_DIR = Path("resources") / "flags"
-    DEFAULT_ICON = "language"  # Fallback icon name
-    LANGUAGE_ICON_SIZE = QSize(32, 32)
-
     def __init__(
             self,
             available_languages: List[str],
             parent: Optional[QToolButton] = None
     ) -> None:
-        """Initialize the language menu button.
+        """
+        Initialize the language menu button.
 
         Args:
             available_languages: List of language codes to display in menu.
@@ -56,8 +54,7 @@ class LanguageSelector(QToolButton):
         self.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         self.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.setToolTip(get_translator().get("tooltip.select_language"))
-        self.setIconSize(self.LANGUAGE_ICON_SIZE)
-        self.setStyleSheet('QToolButton::menu-indicator { image: none; }')
+        self.setIconSize(QSize(ICON_SIZE_LARGE, ICON_SIZE_LARGE))
         self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
     def _populate_menu(self) -> None:
@@ -71,17 +68,23 @@ class LanguageSelector(QToolButton):
             self._add_language_action(code)
 
     def _add_language_action(self, code: str) -> None:
-        """Add a language option to the menu.
+        """
+        Add a language option to the menu.
 
         Args:
             code: Language code (e.g., 'en_US', 'fr_FR')
         """
         translator = get_translator()
         label = translator.get_language_name(code)
+        icon_path = FLAGS_DIR / f"{code}.png"
 
         action = QAction(label, self)
         action.setData(code)
-        action.setCheckable(True)
+
+        if icon_path.exists():
+            pixmap = QPixmap(str(icon_path))
+            if not pixmap.isNull():
+                action.setIcon(QIcon(pixmap))
 
         # Use lambda with default argument to capture code value
         action.triggered.connect(
@@ -94,7 +97,8 @@ class LanguageSelector(QToolButton):
         logger.debug(f"Added language action: {code} ({label})")
 
     def select_language(self, code: str) -> bool:
-        """Select and activate a language.
+        """
+        Select and activate a language.
 
         Args:
             code: Language code to select
@@ -120,9 +124,6 @@ class LanguageSelector(QToolButton):
         self._update_menu_checkmarks(code)
         self._update_icon(code)
 
-        # Apply language change
-        #translator.set_language(code)
-
         # Emit signal
         self.language_changed.emit(code)
 
@@ -130,7 +131,8 @@ class LanguageSelector(QToolButton):
         return True
 
     def _update_menu_checkmarks(self, selected_code: str) -> None:
-        """Update checkmarks in menu to reflect selected language.
+        """
+        Update checkmarks in menu to reflect selected language.
 
         Args:
             selected_code: Currently selected language code
@@ -139,12 +141,13 @@ class LanguageSelector(QToolButton):
             action.setChecked(code == selected_code)
 
     def _update_icon(self, code: str) -> None:
-        """Update button icon to show flag of selected language.
+        """
+        Update button icon to show flag of selected language.
 
         Args:
             code: Language code for icon lookup
         """
-        icon_path = self.ICONS_DIR / f"{code}.png"
+        icon_path = FLAGS_DIR / f"{code}.png"
 
         if icon_path.exists():
             pixmap = QPixmap(str(icon_path))
@@ -157,7 +160,8 @@ class LanguageSelector(QToolButton):
         logger.debug(f"Flag icon not found: {icon_path}")
 
     def current_language(self) -> Optional[str]:
-        """Get currently selected language code.
+        """
+        Get currently selected language code.
 
         Returns:
             Current language code or None if not set
@@ -165,7 +169,8 @@ class LanguageSelector(QToolButton):
         return self._current_lang
 
     def get_available_languages(self) -> List[str]:
-        """Get list of available language codes.
+        """
+        Get list of available language codes.
 
         Returns:
             List of language codes
