@@ -1,18 +1,13 @@
 """Sortable language icons widget with drag-and-drop support."""
 
 import logging
-from pathlib import Path
 from typing import List, Optional
 
-from PySide6.QtCore import QMimeData, QPoint, Qt, Signal
+from PySide6.QtCore import QMimeData, QPoint, Signal
 from PySide6.QtGui import QDrag, QPixmap
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
 
-from constants import (
-    COLOR_HOVER_BG,
-    COLOR_SELECTED_BG,
-    FLAGS_DIR,
-)
+from constants import *
 from core.TranslationManager import get_supported_languages
 
 logger = logging.getLogger(__name__)
@@ -24,12 +19,6 @@ class SortableIcon(QLabel):
 
     Provides hover effects and drag-and-drop functionality for reordering.
     """
-
-    # Visual constants
-    ICON_SIZE = 32
-    ICON_LANGUAGE_DEFAULT = "🌐"
-    WIDGET_SIZE = 36
-    BORDER_RADIUS = 6
 
     def __init__(
             self,
@@ -52,10 +41,9 @@ class SortableIcon(QLabel):
         self.code = code
 
         self._setup_icon(image_path)
-        self._setup_style()
 
         self.setToolTip(tooltip or code)
-        self.setFixedSize(self.WIDGET_SIZE, self.WIDGET_SIZE)
+        self.setFixedSize(ICON_SIZE_LARGE + 4, ICON_SIZE_LARGE + 4)
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.setCursor(Qt.CursorShape.OpenHandCursor)
 
@@ -68,24 +56,15 @@ class SortableIcon(QLabel):
         """
         if image_path.exists():
             pixmap = QPixmap(str(image_path)).scaled(
-                self.ICON_SIZE,
-                self.ICON_SIZE,
+                ICON_SIZE_LARGE,
+                ICON_SIZE_LARGE,
                 Qt.AspectRatioMode.KeepAspectRatio,
                 Qt.TransformationMode.SmoothTransformation
             )
             self.setPixmap(pixmap)
         else:
             logger.warning(f"Icon not found: {image_path}")
-            self.setText(self.ICON_LANGUAGE_DEFAULT)
-
-    def _setup_style(self) -> None:
-        """Configure widget stylesheet."""
-        self.setStyleSheet(f"""
-            QLabel:hover {{
-                border-radius: {self.BORDER_RADIUS}px;
-                background-color: {COLOR_HOVER_BG};
-            }}
-        """)
+            self.setText(ICON_LANGUAGE_DEFAULT)
 
     def mousePressEvent(self, event) -> None:
         """
@@ -126,7 +105,6 @@ class SortableLanguages(QFrame):
     MARGINS = 5
 
     # Drop indicator
-    INDICATOR_COLOR = COLOR_SELECTED_BG
     INDICATOR_MARGIN = 5
     INDICATOR_WIDTH = 2
 
@@ -169,7 +147,7 @@ class SortableLanguages(QFrame):
         """Create drop position indicator."""
         self.drop_indicator = QLabel(self)
         self.drop_indicator.setStyleSheet(
-            f"background-color: {self.INDICATOR_COLOR};"
+            f"background-color: {COLOR_ACCENT};"
         )
         self.drop_indicator.setFixedWidth(self.INDICATOR_WIDTH)
         self.drop_indicator.hide()
