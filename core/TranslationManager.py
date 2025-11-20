@@ -173,7 +173,7 @@ class TranslationManager(QObject):
             Translated and formatted text
         """
         # Use cached resolution for better performance
-        text = self._resolve_translation_cached(key)
+        text = self._get_cached_translation(self.current_language, key)
 
         if text is None:
             logger.warning(f"Missing translation: {key}")
@@ -181,40 +181,26 @@ class TranslationManager(QObject):
 
         return self._format_translation(text, key, kwargs)
 
-    def _resolve_translation_cached(self, key: str) -> Optional[str]:
-        """
-        Resolve translation with LRU caching.
-
-        Args:
-            key: Translation key
-
-        Returns:
-            Translated text or None
-        """
-        # Cache key includes current language for cache invalidation
-        cache_key = f"{self.current_language}:{key}"
-        return self._get_cached_translation(cache_key, key)
-
     @lru_cache(maxsize=CACHE_SIZE)
-    def _get_cached_translation(self, cache_key: str, key: str) -> Optional[str]:
+    def _get_cached_translation(self, language: str, key: str) -> Optional[str]:
         """
         Internal cached translation resolver.
 
         Args:
-            cache_key: Cache key (language:key)
+            language: Language key
             key: Translation key
 
         Returns:
             Translated text or None
         """
-        # Try current language
-        text = self._get_from_language(self.current_language, key)
+        # Try primary language
+        text = self._get_from_language(language, key)
         if text is not None:
             return text
 
         # Try fallback languages
         for fallback_lang in self.FALLBACK_CHAIN:
-            if fallback_lang == self.current_language:
+            if fallback_lang == language:
                 continue
 
             text = self._get_from_language(fallback_lang, key)
