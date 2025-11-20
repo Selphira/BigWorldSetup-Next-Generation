@@ -433,14 +433,6 @@ class InstallationTypePage(BasePage):
         """Configure previous button (hidden on first page)."""
         return ButtonConfig(visible=False)
 
-    def get_next_button_config(self) -> ButtonConfig:
-        """Configure next button."""
-        return ButtonConfig(
-            visible=True,
-            enabled=self.can_proceed(),
-            text=tr("button.next")
-        )
-
     def can_proceed(self) -> bool:
         """
         Check if user can proceed to next page.

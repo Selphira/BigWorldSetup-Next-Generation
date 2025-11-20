@@ -502,14 +502,6 @@ class ModSelectionPage(BasePage):
             text=tr("button.previous")
         )
 
-    def get_next_button_config(self) -> ButtonConfig:
-        """Configure next button."""
-        return ButtonConfig(
-            visible=True,
-            enabled=self.can_proceed(),
-            text=tr("button.next")
-        )
-
     def can_proceed(self) -> bool:
         """Check if can proceed to next page."""
         return self._component_selector.has_selection()

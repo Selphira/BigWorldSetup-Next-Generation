@@ -148,7 +148,7 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
             ButtonConfig with previous button settings
         """
         return ButtonConfig(
-            visible=False,
+            visible=True,
             enabled=True,
             text=tr('button.previous')
         )
