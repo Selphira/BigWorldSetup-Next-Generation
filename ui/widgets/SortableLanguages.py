@@ -1,7 +1,7 @@
 """Sortable language icons widget with drag-and-drop support."""
 
 import logging
-from typing import List, Optional
+from typing import Optional
 
 from PySide6.QtCore import QMimeData, QPoint, Signal
 from PySide6.QtGui import QDrag, QPixmap
@@ -94,7 +94,7 @@ class SortableLanguages(QFrame):
     fallback priority.
 
     Signals:
-        order_changed: Emitted when language order changes (List[str]: codes)
+        order_changed: Emitted when language order changes (list[str]: codes)
     """
 
     order_changed = Signal(list)
@@ -117,7 +117,7 @@ class SortableLanguages(QFrame):
         """
         super().__init__(parent)
 
-        self._items: List[SortableIcon] = []
+        self._items: list[SortableIcon] = []
 
         self._setup_layout()
         self._populate_languages()
@@ -304,7 +304,7 @@ class SortableLanguages(QFrame):
         self._items.append(icon)
         logger.debug(f"Icon added: {code}")
 
-    def get_order(self) -> List[str]:
+    def get_order(self) -> list[str]:
         """
         Get current order of language codes.
 
@@ -322,7 +322,7 @@ class SortableLanguages(QFrame):
             if isinstance(icon, SortableIcon)
         ]
 
-    def set_order(self, codes: List[str]) -> None:
+    def set_order(self, codes: list[str]) -> None:
         """
         Set icon order by language codes.
 

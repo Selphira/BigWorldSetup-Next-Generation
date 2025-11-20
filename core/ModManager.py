@@ -9,7 +9,7 @@ import json
 import logging
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from PySide6.QtCore import QObject, QThread, Signal
 
@@ -32,7 +32,7 @@ class CacheBuilderThread(QThread):
             self,
             mods_dir: Path,
             cache_dir: Path,
-            languages: List[str]
+            languages: list[str]
     ) -> None:
         """
         Initialize cache builder thread.
@@ -134,7 +134,7 @@ class CacheBuilderThread(QThread):
         self._should_stop = True
 
     @staticmethod
-    def _localize_mod(mod: Dict[str, Any], target_lang: str) -> Dict[str, Any]:
+    def _localize_mod(mod: dict[str, Any], target_lang: str) -> dict[str, Any]:
         """
         Create localized version of mod for target language.
 
@@ -247,10 +247,10 @@ class ModManager(QObject):
 
         self.translator = get_translator()
         self.current_language = self.translator.current_language
-        self.mods_data: Dict[str, Mod] = {}
+        self.mods_data: dict[str, Mod] = {}
 
         # Cache for categories
-        self._category_count_cache: Optional[Dict[str, int]] = None
+        self._category_count_cache: Optional[dict[str, int]] = None
 
         # Cache builder thread
         self.builder_thread: Optional[CacheBuilderThread] = None
@@ -416,7 +416,7 @@ class ModManager(QObject):
     # MOD ACCESS
     # ========================================
 
-    def get_all_mods(self) -> Dict[str, Mod]:
+    def get_all_mods(self) -> dict[str, Mod]:
         """Return all mods (returns reference, do not modify)."""
         return self.mods_data
 
@@ -491,7 +491,7 @@ class ModManager(QObject):
             for game in mod.games
         )
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Return statistics about loaded mods."""
         return {
             "total_mods": len(self.mods_data),

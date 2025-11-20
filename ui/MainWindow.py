@@ -1,7 +1,7 @@
 """Main application window with page navigation system."""
 
 import logging
-from typing import Dict, List, Optional
+from typing import Optional
 
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
@@ -41,8 +41,8 @@ class MainWindow(QMainWindow):
         self.state_manager = state_manager
 
         # Page management
-        self.pages: Dict[str, BasePage] = {}
-        self.page_order: List[str] = []
+        self.pages: dict[str, BasePage] = {}
+        self.page_order: list[str] = []
         self.current_page_id: Optional[str] = None
 
         # UI components (initialized in create_widgets)

@@ -1,7 +1,7 @@
 """Language selection button for the application toolbar."""
 
 import logging
-from typing import Dict, List, Optional
+from typing import Optional
 
 from PySide6.QtCore import Signal, QSize
 from PySide6.QtGui import QAction, QIcon, QPixmap, QCursor
@@ -28,7 +28,7 @@ class LanguageSelector(QToolButton):
 
     def __init__(
             self,
-            available_languages: List[str],
+            available_languages: list[str],
             parent: Optional[QToolButton] = None
     ) -> None:
         """
@@ -42,7 +42,7 @@ class LanguageSelector(QToolButton):
 
         self._available_languages = available_languages
         self._current_lang: Optional[str] = None
-        self._actions: Dict[str, QAction] = {}
+        self._actions: dict[str, QAction] = {}
         self._menu = QMenu(self)
 
         self._setup_ui()
@@ -168,7 +168,7 @@ class LanguageSelector(QToolButton):
         """
         return self._current_lang
 
-    def get_available_languages(self) -> List[str]:
+    def get_available_languages(self) -> list[str]:
         """
         Get list of available language codes.
 

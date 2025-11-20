@@ -1,7 +1,6 @@
 """Category enumeration for mod classification."""
 
 from enum import Enum
-from typing import List
 
 from core.TranslationManager import tr
 
@@ -47,7 +46,7 @@ class CategoryEnum(Enum):
         return self._value_
 
     @classmethod
-    def list_without_all(cls) -> List['CategoryEnum']:
+    def list_without_all(cls) -> list['CategoryEnum']:
         """
         Return list of all categories except ALL.
 

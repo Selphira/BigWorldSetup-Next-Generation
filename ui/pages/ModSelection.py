@@ -540,3 +540,5 @@ class ModSelectionPage(BasePage):
 
         # Reapply filters to update display
         self._apply_all_filters()
+
+    # {'bp-bgt-worldmap': [{'key': '0', 'prompts': {'1': '1', '2': '1'}}, '1', '3', '5'], 'Will_to_Power': ['300', '500']}

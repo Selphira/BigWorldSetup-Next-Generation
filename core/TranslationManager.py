@@ -5,14 +5,14 @@ import logging
 import threading
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from PySide6.QtCore import QObject, Signal
 
 logger = logging.getLogger(__name__)
 
 # Constants
-SUPPORTED_LANGUAGES: Tuple[Tuple[str, str], ...] = (
+SUPPORTED_LANGUAGES: tuple[tuple[str, str], ...] = (
     ("de_DE", "Deutsch"),
     ("en_US", "English"),
     ("es_ES", "Español"),
@@ -25,12 +25,12 @@ SUPPORTED_LANGUAGES: Tuple[Tuple[str, str], ...] = (
 )
 
 
-def get_supported_languages() -> List[Tuple[str, str]]:
+def get_supported_languages() -> list[tuple[str, str]]:
     """Return list of all supported language codes and names."""
     return list(SUPPORTED_LANGUAGES)
 
 
-def get_supported_language_codes() -> List[str]:
+def get_supported_language_codes() -> list[str]:
     """Return list of all supported language codes."""
     return [code for code, _ in SUPPORTED_LANGUAGES]
 
@@ -57,7 +57,7 @@ class TranslationManager(QObject):
         """Initialize translation manager."""
         super().__init__()
         self._current_language = self.DEFAULT_LANGUAGE
-        self._translations: Dict[str, Dict[str, Any]] = {}
+        self._translations: dict[str, dict[str, Any]] = {}
         self._language_names = dict(SUPPORTED_LANGUAGES)
         self._lock = threading.RLock()
 
@@ -116,7 +116,7 @@ class TranslationManager(QObject):
         with self._lock:
             return self._current_language
 
-    def get_available_languages(self) -> List[str]:
+    def get_available_languages(self) -> list[str]:
         """Return list of loaded language codes."""
         with self._lock:
             return list(self._translations.keys())
@@ -252,7 +252,7 @@ class TranslationManager(QObject):
     def _format_translation(
             text: str,
             key: str,
-            kwargs: Dict[str, Any]
+            kwargs: dict[str, Any]
     ) -> str:
         """
         Format translation text with provided variables.
@@ -282,7 +282,7 @@ class TranslationManager(QObject):
         self._get_cached_translation.cache_clear()
         logger.debug("Translation cache cleared")
 
-    def get_cache_info(self) -> Dict[str, Any]:
+    def get_cache_info(self) -> dict[str, Any]:
         """
         Get information about translation cache.
 

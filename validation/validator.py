@@ -9,9 +9,9 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
-from jsonschema import Draft7Validator, ValidationError
+from jsonschema import Draft7Validator
 
 # Configure logging
 logging.basicConfig(
@@ -30,7 +30,7 @@ class ValidationResult:
         is_valid: Whether validation passed
     """
 
-    def __init__(self, file_path: Path, errors: Optional[List[str]] = None) -> None:
+    def __init__(self, file_path: Path, errors: Optional[list[str]] = None) -> None:
         """Initialize validation result.
 
         Args:
@@ -118,7 +118,7 @@ class JSONValidator:
 
         return ValidationResult(file_path, errors)
 
-    def validate_directory(self, directory: Path, pattern: str = "*.json") -> List[ValidationResult]:
+    def validate_directory(self, directory: Path, pattern: str = "*.json") -> list[ValidationResult]:
         """Validate all JSON files in a directory.
 
         Args:
@@ -147,7 +147,7 @@ class JSONValidator:
 
         return results
 
-    def validate_target(self, target: Path) -> List[ValidationResult]:
+    def validate_target(self, target: Path) -> list[ValidationResult]:
         """Validate a file or directory.
 
         Args:
@@ -165,7 +165,7 @@ class JSONValidator:
             return []
 
 
-def print_results(results: List[ValidationResult]) -> int:
+def print_results(results: list[ValidationResult]) -> int:
     """Print validation results to console.
 
     Args:

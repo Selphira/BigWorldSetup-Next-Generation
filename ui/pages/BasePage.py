@@ -3,7 +3,7 @@
 import logging
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
 
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QFrame, QWidget, QLabel
@@ -168,7 +168,7 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
             text=tr('button.next')
         )
 
-    def get_additional_buttons(self) -> List[ButtonConfig]:
+    def get_additional_buttons(self) -> list[ButtonConfig]:
         """Get additional page-specific action buttons.
 
         Examples:

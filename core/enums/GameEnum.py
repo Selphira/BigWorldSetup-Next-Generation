@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 
 @dataclass(frozen=True)
@@ -17,11 +17,11 @@ class GameValidationRule:
         lua_checks: Dictionary of Lua variable checks {var_name: expected_value}
     """
     required_files: tuple[str, ...]
-    lua_checks: Dict[str, Any]
+    lua_checks: dict[str, Any]
     game_folder: Optional[str] = None
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'GameValidationRule':
+    def from_dict(cls, data: dict[str, Any]) -> 'GameValidationRule':
         """
         Create validation sequence from dictionary.
 
@@ -145,7 +145,7 @@ class GameEnum(Enum):
             code: str,
             display_name: str,
             sequence_count: int,
-            validation_rules: List[GameValidationRule]
+            validation_rules: list[GameValidationRule]
     ) -> None:
         """
         Initialize game enum value.
@@ -175,7 +175,7 @@ class GameEnum(Enum):
             return self.validation_rules[sequence_index]
         return None
 
-    def get_unique_folder_keys(self) -> List[str]:
+    def get_unique_folder_keys(self) -> list[str]:
         """
         Get list of unique folder keys needed for UI widgets.
 

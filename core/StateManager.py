@@ -5,7 +5,7 @@ import logging
 import shutil
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from PySide6.QtCore import QSettings
 
@@ -23,18 +23,18 @@ class InstallationState:
         installation: Current installation state
     """
     version: str = "1.0"
-    configuration: Dict[str, Any] = field(default_factory=lambda: {
+    configuration: dict[str, Any] = field(default_factory=lambda: {
         "selected_game": None,
         "game_folders": {},
         "download_folder": None,
         "backup_folder": None,
         "languages_order": [],
     })
-    installation: Dict[str, Any] = field(default_factory=lambda: {
+    installation: dict[str, Any] = field(default_factory=lambda: {
         "current_step": None,
     })
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -44,7 +44,7 @@ class InstallationState:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'InstallationState':
+    def from_dict(cls, data: dict[str, Any]) -> 'InstallationState':
         """
         Load InstallationState from dictionary.
 
@@ -160,7 +160,7 @@ class StateManager:
         """
         return self.installation_state.configuration.get("selected_game")
 
-    def set_game_folders(self, folders: Dict[str, Any]) -> None:
+    def set_game_folders(self, folders: dict[str, Any]) -> None:
         """
         Set game folders configuration.
 
@@ -170,7 +170,7 @@ class StateManager:
         self.installation_state.configuration["game_folders"] = folders.copy()
         logger.debug(f"Game folders updated: {folders}")
 
-    def get_game_folders(self) -> Dict[str, Any]:
+    def get_game_folders(self) -> dict[str, Any]:
         """
         Get game folders configuration.
 
@@ -217,7 +217,7 @@ class StateManager:
         """
         return self.installation_state.configuration.get("download_folder")
 
-    def set_languages_order(self, languages: List[str]) -> None:
+    def set_languages_order(self, languages: list[str]) -> None:
         """
         Set language preference order.
 
@@ -227,7 +227,7 @@ class StateManager:
         self.installation_state.configuration["languages_order"] = languages.copy()
         logger.debug(f"Languages order: {languages}")
 
-    def get_languages_order(self) -> List[str]:
+    def get_languages_order(self) -> list[str]:
         """
         Get language preference order.
 

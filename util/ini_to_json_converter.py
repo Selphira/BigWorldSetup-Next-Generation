@@ -23,7 +23,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass
-from typing import Dict, Any, Optional, List
+from typing import Any, Optional
 
 from constants import *
 
@@ -127,15 +127,15 @@ class ModMetadata:
     """Structure des métadonnées d'un mod"""
     name: str
     version: str
-    links: Dict[str, str]
-    file: Dict[str, Any]
-    languages: Dict[str, int]
-    games: List[str]
-    categories: List[str]
+    links: dict[str, str]
+    file: dict[str, Any]
+    languages: dict[str, int]
+    games: list[str]
+    categories: list[str]
     tp2: str
     safe: int
-    components: Dict[str, Any]
-    translations: Dict[str, Dict[str, Any]]
+    components: dict[str, Any]
+    translations: dict[str, dict[str, Any]]
 
 
 class INIToJSONConverter:
@@ -281,7 +281,7 @@ class INIToJSONConverter:
 
         raise ValueError(f"Impossible de lire {path} avec les encodages supportés")
 
-    def _extract_mod_data(self, config: configparser.ConfigParser, ini_path: Path, files_folder: Path) -> Dict[
+    def _extract_mod_data(self, config: configparser.ConfigParser, ini_path: Path, files_folder: Path) -> dict[
         str, Any]:
         """Extrait toutes les données du fichier INI"""
 
@@ -344,7 +344,7 @@ class INIToJSONConverter:
             "authors": [],  # Rempli via lcc_definition_updater.py
         }
 
-    def _parse_languages(self, tra_string: str) -> Dict[str, int]:
+    def _parse_languages(self, tra_string: str) -> dict[str, int]:
         """
         Parse la chaîne Tra du format INI
 
@@ -379,7 +379,7 @@ class INIToJSONConverter:
         return languages
 
     def _extract_translations(self, config: configparser.ConfigParser,
-                              languages: Dict[str, int]) -> Dict[str, Dict[str, Any]]:
+                              languages: dict[str, int]) -> dict[str, dict[str, Any]]:
         """
         Extrait les traductions depuis les sections [WeiDU-XX] et [Description]
 
@@ -432,7 +432,7 @@ class INIToJSONConverter:
         # Fallback: prendre les 2 premiers caractères en majuscules
         return None
 
-    def _generate_components_structure(self, weidu_dict: Dict[str, str]) -> Dict[str, Any]:
+    def _generate_components_structure(self, weidu_dict: dict[str, str]) -> dict[str, Any]:
         """
         Génère la structure 'components' depuis les composants WeiDU français
 
@@ -567,7 +567,7 @@ class INIToJSONConverter:
 
         return key
 
-    def _parse_weidu_components(self, weidu_dict: Dict[str, str]) -> Dict[str, str]:
+    def _parse_weidu_components(self, weidu_dict: dict[str, str]) -> dict[str, str]:
         components = {}
         prev_muc = ""
         muc_idx = 0
@@ -603,7 +603,7 @@ class INIToJSONConverter:
 
         return components
 
-    def convert_directory(self, source_dir: Path, output_dir: Path, files_folder: Path) -> Dict[str, int]:
+    def convert_directory(self, source_dir: Path, output_dir: Path, files_folder: Path) -> dict[str, int]:
         """
         Convertit tous les fichiers .ini d'un dossier
 
@@ -633,7 +633,7 @@ class INIToJSONConverter:
 
         return self.stats
 
-    def process(self, source: Path, destination: Path, files_folder: Path) -> Dict[str, int]:
+    def process(self, source: Path, destination: Path, files_folder: Path) -> dict[str, int]:
         """
         Point d'entrée principal: détecte automatiquement fichier ou dossier
 

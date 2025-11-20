@@ -1,7 +1,7 @@
 """Installation type selection page with game-based validation."""
 
 import logging
-from typing import Dict, Optional
+from typing import Optional
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
@@ -55,11 +55,11 @@ class InstallationTypePage(BasePage):
 
         # UI state
         self.selected_game: Optional[GameEnum] = None
-        self.game_buttons: Dict[GameEnum, GameButton] = {}
+        self.game_buttons: dict[GameEnum, GameButton] = {}
 
         # Folder widgets indexed by folder key (not game)
         # This supports folder sharing (e.g., EET uses "sod" and "bg2ee" keys)
-        self.folder_widgets: Dict[str, GameFolderSelector] = {}
+        self.folder_widgets: dict[str, GameFolderSelector] = {}
 
         # UI components
         self.right_panel: Optional[QWidget] = None

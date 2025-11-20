@@ -11,7 +11,7 @@ Provides a hierarchy of validators:
 import logging
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, Optional, Tuple
+from typing import Optional
 
 from constants import *
 from core.TranslationManager import tr
@@ -20,7 +20,7 @@ from core.enums.GameEnum import GameValidationRule
 logger = logging.getLogger(__name__)
 
 # Type alias for validation result
-ValidationResult = Tuple[bool, str]
+ValidationResult = tuple[bool, str]
 
 
 class FolderValidator(ABC):
@@ -293,7 +293,7 @@ class GameFolderValidator(ExistingFolderValidator):
     # ========================================
 
     @classmethod
-    def _parse_lua_file(cls, file_path: Path) -> Dict[str, float | int]:
+    def _parse_lua_file(cls, file_path: Path) -> dict[str, float | int]:
         """
         Parse a Lua file and extract numeric variables.
 

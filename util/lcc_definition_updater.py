@@ -19,7 +19,7 @@ USAGE:
 import json
 import sys
 import urllib.request
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional
 from urllib.error import URLError, HTTPError
 
 from constants import *
@@ -153,7 +153,7 @@ class LCCDataFetcher:
             if mod_id is not None:
                 self.id_index[str(mod_id)] = mod_data
 
-    def find_by_tp2(self, tp2_name: str) -> Optional[Dict[str, Any]]:
+    def find_by_tp2(self, tp2_name: str) -> Optional[dict[str, Any]]:
         """
         Trouve un mod par son nom tp2
 
@@ -211,7 +211,7 @@ class LCCDataFetcher:
                 return mod_data
         return None
 
-    def _extract_games(self, mod_data: Dict) -> List[str]:
+    def _extract_games(self, mod_data: Dict) -> list[str]:
         """Extrait et normalise la liste des jeux"""
         games = mod_data.get('games', [])
         if not games:
@@ -220,14 +220,14 @@ class LCCDataFetcher:
         # Convertir en minuscules
         return [game.lower() for game in games]
 
-    def _extract_categories(self, mod_data: Dict) -> List[str]:
+    def _extract_categories(self, mod_data: Dict) -> list[str]:
         """Extrait et convertit les catégories"""
         categories_fr = mod_data.get('categories', '')
 
         # Chercher la correspondance
         return [self.CATEGORY_MAP.get(cat, '') for cat in categories_fr]
 
-    def _extract_authors(self, mod_data: Dict) -> List[str]:
+    def _extract_authors(self, mod_data: Dict) -> list[str]:
         """Extrait et convertit les auteurs"""
         return mod_data.get('authors', [])
 
@@ -417,7 +417,7 @@ class JSONCompleter:
             self.stats['errors'] += 1
             return False
 
-    def complete_directory(self, json_dir: Path) -> Dict[str, int]:
+    def complete_directory(self, json_dir: Path) -> dict[str, int]:
         """Complète tous les JSON d'un dossier"""
         json_files = list(json_dir.glob('*.json'))
 
