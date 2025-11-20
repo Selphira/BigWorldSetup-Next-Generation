@@ -25,6 +25,7 @@ class InstallationState:
     version: str = "1.0"
     configuration: dict[str, Any] = field(default_factory=lambda: {
         "selected_game": None,
+        "selected_components": {},
         "game_folders": {},
         "download_folder": None,
         "backup_folder": None,
@@ -159,6 +160,25 @@ class StateManager:
             Game code or None
         """
         return self.installation_state.configuration.get("selected_game")
+
+    def set_selected_components(self, components: dict[str, list[Any]]) -> None:
+        """
+        Set selected components.
+
+        Args:
+            components: Dictionary of component lists
+        """
+        self.installation_state.configuration["selected_components"] = components
+        logger.debug(f"Selected components: {components}")
+
+    def get_selected_components(self) -> dict[str, list[Any]]:
+        """
+        Get selected components configuration.
+
+        Returns:
+            Dictionary of component lists
+        """
+        return self.installation_state.configuration.get("selected_components", {}).copy()
 
     def set_game_folders(self, folders: dict[str, Any]) -> None:
         """
