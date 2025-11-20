@@ -444,7 +444,11 @@ QFrame#category-button QLabel#count-badge {
     padding: 0px 10px;
 }
 
+QFrame#category-button[empty="true"] QLabel {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 QFrame#category-button[empty="true"] QLabel#count-badge {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: transparent;
     color: rgba(255, 255, 255, 0.5);
 }
