@@ -252,11 +252,21 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         return True
 
-    def save_data(self) -> None:
-        """Save page data to state manager.
+    def save_state(self) -> None:
+        """
+        Save page data to state manager.
 
         Called when navigating away from the page to persist user choices.
         Should update state_manager with current page data.
+        """
+        pass
+
+    def load_state(self) -> None:
+        """
+        Load page data from state manager.
+
+        Called when register the page to restore previous user choices.
+        Should retrieve data from state_manager and update UI accordingly.
         """
         pass
 

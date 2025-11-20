@@ -216,6 +216,7 @@ class MainWindow(QMainWindow):
             logger.warning(f"Page already registered: {page_id}")
             return
 
+        page.load_state()
         # Initial ui translation
         page.retranslate_ui()
 
@@ -417,7 +418,7 @@ class MainWindow(QMainWindow):
             return
 
         # Save page data
-        page.save_data()
+        page.save_state()
 
         # Check for custom next page
         next_id = page.get_next_page_id()
@@ -452,7 +453,7 @@ class MainWindow(QMainWindow):
 
         if self.current_page_id:
             page = self.pages[self.current_page_id]
-            page.save_data()
+            page.save_state()
 
         self.state_manager.save_state()
         super().closeEvent(event)

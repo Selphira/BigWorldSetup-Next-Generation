@@ -484,9 +484,9 @@ class InstallationTypePage(BasePage):
         """
         return self.can_proceed()
 
-    def save_data(self) -> None:
+    def save_state(self) -> None:
         """Save page data to state manager."""
-        super().save_data()
+        super().save_state()
 
         # Save selected game
         if self.selected_game:

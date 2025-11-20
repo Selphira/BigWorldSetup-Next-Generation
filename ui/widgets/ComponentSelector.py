@@ -7,7 +7,7 @@ supporting different component types (STD, MUC, SUB) with their specific behavio
 import logging
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Optional, Any
+from typing import Optional, Any, cast
 
 from PySide6.QtCore import QSortFilterProxyModel, QModelIndex, Qt
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QColor, QCursor
@@ -614,7 +614,7 @@ class SelectionStateManager:
         """Handle MUC option change."""
         parent = item.parent()
         if parent:
-            self._update_check_state(parent)
+            self.update_check_state(parent)
             return self._update_parent_chain(parent)
         return None
 
@@ -686,7 +686,7 @@ class SelectionStateManager:
             if child.rowCount() > 0:
                 self._uncheck_all_children_recursive(child)
 
-    def _update_check_state(self, parent: QStandardItem) -> None:
+    def update_check_state(self, parent: QStandardItem) -> None:
         """Update parent check state based on children."""
         if parent.rowCount() == 0:
             return
@@ -717,7 +717,7 @@ class SelectionStateManager:
 
             parent = current.parent()
             if parent:
-                self._update_check_state(parent)
+                self.update_check_state(parent)
             current = parent
 
         return mod_item
@@ -1147,6 +1147,151 @@ class ComponentSelector(QTreeView):
         """Check if at least one component is selected."""
         return len(self.get_selected_items()) > 0
 
+    def restore_selection(self, selected_items: dict[str, list[Any]]) -> None:
+        """Restore component selections from saved state.
+
+        Signals are blocked during the restore to
+        avoid unwanted cascades.
+
+        Args:
+            selected_items: Dict mapping mod IDs to lists of selected components
+        """
+        if not selected_items:
+            return
+
+        logger.info(f"Restoring selection for {len(selected_items)} mods")
+
+        self._updating = True
+        self._model.blockSignals(True)
+
+        try:
+            root = self._model.invisibleRootItem()
+
+            for i in range(root.rowCount()):
+                mod_item = root.child(i, 0)
+                mod = mod_item.data(ROLE_MOD)
+
+                if mod.id not in selected_items:
+                    continue
+                mod_item.setCheckState(Qt.CheckState.Checked)
+
+                # saved_components is a LIST, not a dict
+                saved_components = selected_items[mod.id]
+
+                for j in range(mod_item.rowCount()):
+                    comp_item = mod_item.child(j, 0)
+                    component = comp_item.data(ROLE_COMPONENT)
+
+                    # Find if this component is in the saved selection
+                    matched_selection = self._find_matching_selection(
+                        cast(BaseTreeItem, comp_item), component, saved_components
+                    )
+
+                    if matched_selection is None:
+                        continue
+
+                    # ========== STD COMPONENT ==========
+                    if isinstance(comp_item, StdTreeItem):
+                        comp_item.setCheckState(Qt.CheckState.Checked)
+
+                    # ========== MUC COMPONENT ==========
+                    elif isinstance(comp_item, MucTreeItem):
+                        # Check the MUC component itself
+                        comp_item.setCheckState(Qt.CheckState.Checked)
+
+                        # matched_selection is the option key
+                        selected_option_key = str(matched_selection)
+
+                        for k in range(comp_item.rowCount()):
+                            opt = comp_item.child(k, 0)
+                            option_key = str(opt.data(ROLE_OPTION_KEY))
+
+                            if option_key == selected_option_key:
+                                opt.setCheckState(Qt.CheckState.Checked)
+                            else:
+                                opt.setCheckState(Qt.CheckState.Unchecked)
+
+                    # ========== SUB COMPONENT ==========
+                    elif isinstance(comp_item, SubTreeItem):
+                        # matched_selection is a dict with "key" and "prompts"
+                        comp_item.setCheckState(Qt.CheckState.Checked)
+
+                        saved_prompts = matched_selection.get("prompts", {})
+
+                        for p in range(comp_item.rowCount()):
+                            prompt_item = comp_item.child(p, 0)
+                            prompt = prompt_item.data(ROLE_PROMPT_KEY)
+
+                            if prompt.key not in saved_prompts:
+                                continue
+
+                            # Check the prompt
+                            prompt_item.setCheckState(Qt.CheckState.Checked)
+
+                            selected_option_key = str(saved_prompts[prompt.key])
+
+                            # Select the matching option
+                            for q in range(prompt_item.rowCount()):
+                                opt = prompt_item.child(q, 0)
+                                option_key = str(opt.data(ROLE_OPTION_KEY))
+
+                                if option_key == selected_option_key:
+                                    opt.setCheckState(Qt.CheckState.Checked)
+                                else:
+                                    opt.setCheckState(Qt.CheckState.Unchecked)
+                self._selection_manager.update_check_state(mod_item)
+                self._update_mod_status(cast(ModTreeItem, mod_item))
+
+        finally:
+            self._model.blockSignals(False)
+            self._updating = False
+            self.style().unpolish(self)
+            self.style().polish(self)
+
+        logger.info("Selection restored successfully")
+
+    def _find_matching_selection(
+            self,
+            comp_item: BaseTreeItem,
+            component,
+            saved_components: list[Any]
+    ) -> Optional[Any]:
+        """Find the saved selection data for a component.
+
+        Args:
+            comp_item: Component tree item
+            component: Component data object
+            saved_components: List of saved selections for this mod
+
+        Returns:
+            Matching selection data, or None if not found
+            - For STD: component.key (str)
+            - For MUC: selected option key (str)
+            - For SUB: dict with "key" and "prompts"
+        """
+        for saved in saved_components:
+            # STD: saved is a simple string matching component.key
+            if isinstance(comp_item, StdTreeItem):
+                if saved == component.key:
+                    return saved
+
+            # MUC: saved is a string (the selected option key)
+            # We need to check if this string is one of the MUC's options
+            elif isinstance(comp_item, MucTreeItem):
+                if isinstance(saved, str):
+                    # Check if this option exists in the MUC
+                    for k in range(comp_item.rowCount()):
+                        opt = comp_item.child(k, 0)
+                        if str(opt.data(ROLE_OPTION_KEY)) == str(saved):
+                            return saved
+
+            # SUB: saved is a dict with "key" field
+            elif isinstance(comp_item, SubTreeItem):
+                if isinstance(saved, dict) and saved.get("key") == component.key:
+                    return saved
+
+        return None
+
     # ========================================
     # Translation Support
     # ========================================
@@ -1184,7 +1329,7 @@ class ComponentSelector(QTreeView):
             item_type = item.get_item_type()
 
             if item_type == ItemType.MOD:
-                self._update_mod_status(item)
+                self._update_mod_status(cast(ModTreeItem, item))
 
             elif item_type in (ItemType.COMPONENT_STD, ItemType.COMPONENT_SUB):
                 if component:

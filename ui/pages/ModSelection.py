@@ -524,9 +524,18 @@ class ModSelectionPage(BasePage):
         # Reapply filters to update display
         self._apply_all_filters()
 
-    def save_data(self) -> None:
+    def load_state(self) -> None:
+        """Load state from state manager."""
+        super().load_state()
+
+        # Load selected components
+        selected_components = self.state_manager.get_selected_components()
+        if selected_components:
+            self._component_selector.restore_selection(selected_components)
+
+    def save_state(self) -> None:
         """Save page data to state manager."""
-        super().save_data()
+        super().save_state()
 
         # Save selected components
         components = self._component_selector.get_selected_items()
