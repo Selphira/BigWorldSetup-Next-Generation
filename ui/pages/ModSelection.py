@@ -257,7 +257,6 @@ class ModSelectionPage(BasePage):
         # Build UI
         self._create_widgets()
         self._update_statistics()
-        self.retranslate_ui()
 
         logger.info("ModSelectionPage initialized")
 
@@ -437,9 +436,7 @@ class ModSelectionPage(BasePage):
 
     def _on_selection_changed(self) -> None:
         """Handle component selection change."""
-        print(self._component_selector.get_selected_items())
-        # self._update_statistics()
-        # self.update_navigation_buttons()
+        self.notify_navigation_changed()
 
     # ========================================
     # Filtering
@@ -476,8 +473,6 @@ class ModSelectionPage(BasePage):
             self._component_selector.get_filtered_mod_count_by_category()
         )
 
-        print(filtered_counts)
-
         for category in CategoryEnum:
             count = filtered_counts.get(category.value, 0)
             self._category_buttons[category].update_count(count)
@@ -512,10 +507,6 @@ class ModSelectionPage(BasePage):
         self._search_input.setFocus()
         self._apply_all_filters()
 
-    # ========================================
-    # Translation Support
-    # ========================================
-
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
         self._left_title.setText(tr("page.selection.select_category"))
@@ -533,4 +524,10 @@ class ModSelectionPage(BasePage):
         # Reapply filters to update display
         self._apply_all_filters()
 
-    # {'bp-bgt-worldmap': [{'key': '0', 'prompts': {'1': '1', '2': '1'}}, '1', '3', '5'], 'Will_to_Power': ['300', '500']}
+    def save_data(self) -> None:
+        """Save page data to state manager."""
+        super().save_data()
+
+        # Save selected components
+        components = self._component_selector.get_selected_items()
+        self.state_manager.set_selected_components(components)

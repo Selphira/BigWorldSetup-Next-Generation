@@ -73,7 +73,6 @@ class InstallationTypePage(BasePage):
         self._create_widgets()
         self._initialize_folder_widgets()
         self._load_saved_state()
-        self.retranslate_ui()
 
         logger.info("InstallationTypePage initialized")
 
@@ -405,7 +404,7 @@ class InstallationTypePage(BasePage):
         logger.info("Saved state loaded")
 
     # ========================================
-    # BASEPAGE IMPLEMENTATION
+    # BasePage Implementation
     # ========================================
 
     def get_page_id(self) -> str:
@@ -487,6 +486,8 @@ class InstallationTypePage(BasePage):
 
     def save_data(self) -> None:
         """Save page data to state manager."""
+        super().save_data()
+
         # Save selected game
         if self.selected_game:
             self.state_manager.set_selected_game(self.selected_game.code)

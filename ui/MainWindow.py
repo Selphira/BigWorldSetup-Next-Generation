@@ -216,6 +216,9 @@ class MainWindow(QMainWindow):
             logger.warning(f"Page already registered: {page_id}")
             return
 
+        # Initial ui translation
+        page.retranslate_ui()
+
         self.pages[page_id] = page
         self.page_order.append(page_id)
         self.stack.addWidget(page)
