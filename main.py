@@ -41,7 +41,7 @@ def setup_logging() -> None:
     # File handler with rotation
     from logging.handlers import RotatingFileHandler
     file_handler = RotatingFileHandler(
-        LOG_FILE_NAME,
+        LOG_DIR / LOG_FILE_NAME,
         maxBytes=LOG_MAX_BYTES,
         backupCount=LOG_BACKUP_COUNT,
         encoding='utf-8'
