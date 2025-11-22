@@ -93,7 +93,7 @@ class MainWindow(QMainWindow):
         frame = QFrame()
         frame.setFixedHeight(HEADER_HEIGHT)
         frame.setStyleSheet(
-            f"background-color: {COLOR_BACKGROUND_SECONDARY}; border-radius: 0px;"
+            f"background-color: {COLOR_BACKGROUND_SECONDARY};"
         )
 
         layout = QHBoxLayout(frame)
@@ -151,6 +151,9 @@ class MainWindow(QMainWindow):
         frame = QFrame()
         frame.setFixedHeight(FOOTER_HEIGHT)
         frame.setAutoFillBackground(True)
+        frame.setStyleSheet(
+            f"background-color: {COLOR_BACKGROUND_SECONDARY};"
+        )
 
         # Set background color
         palette = frame.palette()
