@@ -155,8 +155,8 @@ class Mod:
     Components are only instantiated when accessed.
     """
     __slots__ = (
-        'id', 'name', 'tp2', 'categories', 'games', 'languages',
-        'description', 'download', 'readme', 'homepage',
+        'id', 'name', 'tp2', 'categories', 'games', 'languages', 'version',
+        'description', 'download', 'readme', 'homepage', 'safe', 'authors',
         '_components_raw', '_translations', '_components_cache'
     )
 
@@ -171,11 +171,12 @@ class Mod:
         self.id: str = data.get("id", "")
         self.name: str = data.get("name", "")
         self.tp2: str = data.get("tp2", "")
+        self.version: str = data.get("version", "")
 
         # Lists (convert to tuples for immutability where appropriate)
-        self.categories: tuple[str, ...] = tuple(data.get("categories", []))
         self.games: tuple[str, ...] = tuple(data.get("games", []))
         self.languages: dict[str, int] = data.get("languages", {})
+        self.authors: tuple[str, ...] = tuple(data.get("authors", {}))
 
         # Translations
         translations = data.get("translations", {})
@@ -183,13 +184,19 @@ class Mod:
         self._translations: dict[str, str] = translations.get("components", {})
 
         # Optional links
-        self.download: Optional[str] = data.get("download")
-        self.readme: Optional[str] = data.get("readme")
-        self.homepage: Optional[str] = data.get("homepage")
+        links = data.get("links")
+        self.homepage: Optional[str] = links.get("homepage")
+        self.download: Optional[str] = links.get("download")
+        self.readme: Optional[str] = links.get("readme")
+
+        # Other
+        self.safe: int = data.get("safe", 2)
 
         # Components (stored raw, instantiated on demand)
         self._components_raw: dict[str, Any] = data.get("components", {})
         self._components_cache: dict[str, Component] = {}
+
+        self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
 
     def get_component(self, key: str) -> Optional[Component]:
         """
@@ -303,6 +310,30 @@ class Mod:
             number=number,
             forced=forced
         )
+
+    def _get_all_categories(self, categories: list[str]) -> tuple[str, ...]:
+        """
+        Get all unique categories from mod and its components.
+
+        Combines categories defined at mod level with categories from individual
+        components, returning a sorted tuple of unique category names.
+
+        Returns:
+            Sorted tuple of unique category names
+        """
+        # Start with mod-level categories
+        all_categories = categories
+
+        # Add component-level categories
+        for component_data in self._components_raw.values():
+            category = component_data.get("category")
+            if category:
+                all_categories.append(category)
+
+        # Remove duplicates while preserving order, then sort
+        unique_categories = dict.fromkeys(all_categories)
+
+        return tuple(sorted(unique_categories.keys()))
 
     def get_component_text(self, key: str) -> str:
         """

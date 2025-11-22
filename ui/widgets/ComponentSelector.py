@@ -133,17 +133,11 @@ class FilterEngine:
     def _matches_category(self, index: QModelIndex) -> bool:
         """Check if item matches categories filter."""
         mod = index.data(ROLE_MOD)
-        component = index.data(ROLE_COMPONENT)
+
         if not mod:
             return False
 
-        if self._criteria.category in mod.categories:
-            return True
-
-        if not component:
-            return False
-
-        return self._criteria.category == component.category
+        return self._criteria.category in mod.categories
 
     def _matches_authors(self, index: QModelIndex) -> bool:
         """Check if item matches authors filter."""
@@ -816,8 +810,8 @@ class ComponentSelector(QTreeView):
     def _setup_ui(self) -> None:
         """Configure UI."""
         self.setEditTriggers(QTreeView.EditTrigger.NoEditTriggers)
-        self.setExpandsOnDoubleClick(False)
-        self.clicked.connect(self._on_item_clicked)
+        self.setExpandsOnDoubleClick(True)
+        # self.clicked.connect(self._on_item_clicked)
 
     def _configure_header(self) -> None:
         """Configure tree view header."""
@@ -1104,19 +1098,8 @@ class ComponentSelector(QTreeView):
             if self._item_or_children_match(mod_item, engine):
                 mod = mod_item.data(ROLE_MOD)
                 if mod:
-                    # Collect all categories (mod + components)
-                    all_categories = set(mod.categories)
-
-                    # AAdd component categories
-                    for comp_row in range(mod_item.rowCount()):
-                        comp_item = mod_item.child(comp_row, 0)
-                        if comp_item:
-                            component = comp_item.data(ROLE_COMPONENT)
-                            if component and hasattr(component, 'category') and component.category:
-                                all_categories.add(component.category)
-
                     # Increment the counters for all categories found
-                    for category in all_categories:
+                    for category in mod.categories:
                         counts[category] = counts.get(category, 0) + 1
 
                     mods.add(mod)
