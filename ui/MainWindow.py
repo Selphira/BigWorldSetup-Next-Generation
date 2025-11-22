@@ -196,6 +196,7 @@ class MainWindow(QMainWindow):
         """
         button = QPushButton(text)
         button.setFixedWidth(BUTTON_WIDTH_STANDARD)
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
         button.clicked.connect(callback)
         return button
 
