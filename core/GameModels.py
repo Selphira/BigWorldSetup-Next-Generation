@@ -64,7 +64,7 @@ class GameSequence:
         required_files: Files that must exist for this sequence
         lua_checks: Lua engine variables to validate
         allowed_mods: Whitelist of mod IDs (None = all allowed)
-        ignored_mods: Blacklist of mod IDs (None = none ignored)
+        blocked_mods: Blacklist of mod IDs (None = none ignored)
         allowed_components: Per-mod component filtering {mod_id: [component_ids]}
     """
 
@@ -72,7 +72,7 @@ class GameSequence:
     required_files: tuple[str, ...] = ()
     lua_checks: dict[str, Any] = field(default_factory=dict)
     allowed_mods: tuple[str, ...] | None = None
-    ignored_mods: tuple[str, ...] | None = None
+    blocked_mods: tuple[str, ...] | None = None
     allowed_components: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
     @classmethod
@@ -94,7 +94,7 @@ class GameSequence:
 
         # Convert lists to tuples for immutability
         allowed_mods = data.get("allowed_mods")
-        ignored_mods = data.get("ignored_mods")
+        blocked_mods = data.get("blocked_mods")
         allowed_components_raw = data.get("allowed_components", {})
 
         return cls(
@@ -102,7 +102,7 @@ class GameSequence:
             required_files=tuple(data.get("required_files", [])),
             lua_checks=data.get("lua_checks", {}),
             allowed_mods=tuple(allowed_mods) if allowed_mods else None,
-            ignored_mods=tuple(ignored_mods) if ignored_mods else None,
+            blocked_mods=tuple(blocked_mods) if blocked_mods else None,
             allowed_components={
                 mod_id: tuple(components)
                 for mod_id, components in allowed_components_raw.items()
@@ -119,12 +119,12 @@ class GameSequence:
             True if the mod is allowed, False otherwise
 
         Logic:
-            - If in ignored_mods: False
+            - If in blocked_mods: False
             - If allowed_mods is None: True (all allowed by default)
             - If in allowed_mods: True
             - Otherwise: False
         """
-        if self.ignored_mods and mod_id in self.ignored_mods:
+        if self.blocked_mods and mod_id in self.blocked_mods:
             return False
 
         if self.allowed_mods is None:
