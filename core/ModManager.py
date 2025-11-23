@@ -9,7 +9,7 @@ import json
 import logging
 from collections import Counter
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from PySide6.QtCore import QObject, QThread, Signal
 
@@ -250,10 +250,10 @@ class ModManager(QObject):
         self.mods_data: dict[str, Mod] = {}
 
         # Cache for categories
-        self._category_count_cache: Optional[dict[str, int]] = None
+        self._category_count_cache: dict[str, int] | None = None
 
         # Cache builder thread
-        self.builder_thread: Optional[CacheBuilderThread] = None
+        self.builder_thread: CacheBuilderThread | None = None
 
     # ========================================
     # CACHE MANAGEMENT
@@ -420,7 +420,7 @@ class ModManager(QObject):
         """Return all mods (returns reference, do not modify)."""
         return self.mods_data
 
-    def get_mod_by_id(self, mod_id: str) -> Optional[Mod]:
+    def get_mod_by_id(self, mod_id: str) -> Mod | None:
         """
         Find mod by ID.
 

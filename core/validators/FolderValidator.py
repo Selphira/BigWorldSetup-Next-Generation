@@ -11,7 +11,6 @@ Provides a hierarchy of validators:
 import logging
 import re
 from abc import ABC, abstractmethod
-from typing import Optional
 
 from constants import *
 from core.GameModels import GameValidationRule
@@ -197,7 +196,7 @@ class GameFolderValidator(ExistingFolderValidator):
     def _find_file_case_insensitive(
             folder: Path,
             filename: str
-    ) -> Optional[Path]:
+    ) -> Path | None:
         """
         Find a file in folder by name (case-insensitive).
 

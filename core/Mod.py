@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Optional, Iterable, Union
+from typing import Any, Iterable, Union
 
 
 class ComponentType(Enum):
@@ -136,7 +136,7 @@ class SubComponent(Component):
     prompts: dict[str, Prompt]
     _prompt_texts: dict[str, str]
 
-    def get_prompt(self, prompt_key: str) -> Optional[Prompt]:
+    def get_prompt(self, prompt_key: str) -> Prompt | None:
         """Get a prompt by its key."""
         return self.prompts.get(prompt_key)
 
@@ -196,9 +196,9 @@ class Mod:
 
         # Optional links
         links = data.get("links")
-        self.homepage: Optional[str] = links.get("homepage")
-        self.download: Optional[str] = links.get("download")
-        self.readme: Optional[str] = links.get("readme")
+        self.homepage: str | None = links.get("homepage")
+        self.download: str | None = links.get("download")
+        self.readme: str | None = links.get("readme")
 
         # Other
         self.safe: int = data.get("safe", 2)
@@ -209,7 +209,7 @@ class Mod:
 
         self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
 
-    def get_component(self, key: str) -> Optional[Component]:
+    def get_component(self, key: str) -> Component | None:
         """
         Get a component by key (with lazy instantiation).
 

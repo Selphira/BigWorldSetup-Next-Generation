@@ -5,7 +5,7 @@ import logging
 import threading
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from PySide6.QtCore import QObject, Signal
 
@@ -76,7 +76,7 @@ class TranslationManager(QObject):
     def _load_language(
             self,
             code: str,
-            filepath: Optional[Path] = None
+            filepath: Path | None = None
     ) -> bool:
         """
         Load a specific language translation file.
@@ -182,7 +182,7 @@ class TranslationManager(QObject):
         return self._format_translation(text, key, kwargs)
 
     @lru_cache(maxsize=CACHE_SIZE)
-    def _get_cached_translation(self, language: str, key: str) -> Optional[str]:
+    def _get_cached_translation(self, language: str, key: str) -> str | None:
         """
         Internal cached translation resolver.
 
@@ -210,7 +210,7 @@ class TranslationManager(QObject):
 
         return None
 
-    def _get_from_language(self, code: str, key: str) -> Optional[str]:
+    def _get_from_language(self, code: str, key: str) -> str | None:
         """
         Get translation from a specific language.
 
@@ -285,7 +285,7 @@ class TranslationManager(QObject):
 
 
 # Singleton pattern (thread-safe)
-_translator_instance: Optional[TranslationManager] = None
+_translator_instance: TranslationManager | None = None
 _translator_lock = threading.Lock()
 
 

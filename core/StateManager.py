@@ -5,7 +5,7 @@ import logging
 import shutil
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from PySide6.QtCore import QSettings
 
@@ -157,7 +157,7 @@ class StateManager:
         self.installation_state.configuration["selected_game"] = game_code
         logger.debug(f"Selected game: {game_code}")
 
-    def get_selected_game(self) -> Optional[str]:
+    def get_selected_game(self) -> str | None:
         """
         Get selected game.
 
@@ -214,7 +214,7 @@ class StateManager:
         self.installation_state.configuration["backup_folder"] = folder
         logger.debug(f"Backup folder: {folder}")
 
-    def get_backup_folder(self) -> Optional[str]:
+    def get_backup_folder(self) -> str | None:
         """
         Get backup folder path.
 
@@ -233,7 +233,7 @@ class StateManager:
         self.installation_state.configuration["download_folder"] = folder
         logger.debug(f"Download folder: {folder}")
 
-    def get_download_folder(self) -> Optional[str]:
+    def get_download_folder(self) -> str | None:
         """
         Get download folder path.
 

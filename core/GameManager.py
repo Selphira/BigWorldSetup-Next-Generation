@@ -1,7 +1,6 @@
 import json
 import logging
 from pathlib import Path
-from typing import Optional
 
 from constants import GAMES_DIR
 from core.GameModels import GameDefinition
@@ -39,7 +38,7 @@ class GameManager:
             except Exception as e:
                 logger.error(f"Failed to load game file {file.name}: {e}")
 
-    def get(self, game_id: str) -> Optional[GameDefinition]:
+    def get(self, game_id: str) -> GameDefinition | None:
         """Return GameDefinition or None."""
         return self.games.get(game_id)
 
