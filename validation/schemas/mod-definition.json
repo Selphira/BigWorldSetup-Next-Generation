@@ -165,6 +165,13 @@
       "type": "string",
       "enum": ["required"]
     },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^([a-z]{2}_[A-Z]{2}|all)$"
+      }
+    },
     "standardComponent": {
       "type": "object",
       "required": ["type"],
@@ -194,6 +201,9 @@
           },
           "minItems": 0,
           "uniqueItems": true
+        },
+        "languages": {
+          "$ref": "#/definitions/languages"
         }
       },
       "additionalProperties": false
@@ -240,6 +250,9 @@
           },
           "minItems": 0,
           "uniqueItems": true
+        },
+        "languages": {
+          "$ref": "#/definitions/languages"
         }
       },
       "additionalProperties": false
@@ -301,6 +314,9 @@
           },
           "minItems": 0,
           "uniqueItems": true
+        },
+        "languages": {
+          "$ref": "#/definitions/languages"
         }
       },
       "additionalProperties": false
