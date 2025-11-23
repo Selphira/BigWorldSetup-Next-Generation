@@ -23,6 +23,7 @@ from constants import (
 from core.GameModels import GameDefinition, InstallStep
 from core.StateManager import StateManager
 from core.TranslationManager import tr
+from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage
 
 logger = logging.getLogger(__name__)
@@ -490,6 +491,7 @@ class InstallOrderPage(BasePage):
 
         self._mod_manager = self.state_manager.get_mod_manager()
         self._game_manager = self.state_manager.get_game_manager()
+        self._weidu_parser = WeiDULogParser()
 
         # Game state
         self._current_game: str | None = None
@@ -809,41 +811,10 @@ class InstallOrderPage(BasePage):
             seq_idx: Sequence index
             install_steps: Tuple of installation steps
         """
-        seq_data = self._sequences_data.get(seq_idx)
-        if not seq_data:
-            return
+        order = [f"{step.mod}:{step.comp}" for step in install_steps if
+                 not step.is_annotation and not not step.is_install]
 
-        # Build component pool
-        pool = {
-            f"{mod}:{comp}": (mod, comp)
-            for mod, comp in (seq_data.ordered + seq_data.unordered)
-        }
-
-        # Reset lists
-        seq_data.ordered.clear()
-        seq_data.unordered.clear()
-
-        # Process install steps
-        for step in install_steps:
-            if step.is_annotation:
-                continue
-
-            if not step.is_install:
-                continue
-
-            comp_id = f"{step.mod}:{step.comp}"
-            if comp_id in pool:
-                seq_data.ordered.append(pool[comp_id])
-                del pool[comp_id]
-
-        # Remaining components go to unordered
-        seq_data.unordered.extend(pool.values())
-
-        # Refresh UI
-        self._refresh_sequence_lists(seq_idx)
-        self._validate_sequence(seq_idx)
-
-        logger.info(f"{len(seq_data.ordered)} ordered, {len(seq_data.unordered)} unordered")
+        self._apply_order_from_list(seq_idx, order)
 
     def _load_default_order(self) -> None:
         """Load default order from game definition."""
@@ -858,7 +829,6 @@ class InstallOrderPage(BasePage):
 
     def _load_from_weidu_log(self) -> None:
         """Load order from WeiDU.log file."""
-        # TODO: Only for active sequence
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             tr("page.order.select_weidu_log"),
@@ -870,10 +840,16 @@ class InstallOrderPage(BasePage):
             return
 
         try:
-            order = self._parse_weidu_log(file_path)
-            self._apply_order_from_list(self._current_sequence_idx, order)
-            logger.info(f"Loaded order from WeiDU.log: {len(order)} components")
+            component_ids = self._weidu_parser.parse_file_simple(file_path)
+            self._apply_order_from_list(self._current_sequence_idx, component_ids)
 
+            QMessageBox.information(
+                self,
+                tr("page.order.apply_success_title"),
+                tr("page.order.apply_success_message",
+                   ordered=len(self._sequences_data[self._current_sequence_idx].ordered),
+                   unordered=len(self._sequences_data[self._current_sequence_idx].unordered))
+            )
         except Exception as e:
             logger.error(f"Error parsing WeiDU.log: {e}")
             QMessageBox.critical(
@@ -881,55 +857,6 @@ class InstallOrderPage(BasePage):
                 tr("page.order.parse_error_title"),
                 tr("page.order.parse_error_message", error=str(e))
             )
-
-    def _parse_weidu_log(self, file_path: str) -> list[str]:
-        """Parse WeiDU.log to extract component order.
-
-        Args:
-            file_path: Path to WeiDU.log file
-
-        Returns:
-            List of component IDs in order
-        """
-        # TODO: Externalize
-        order = []
-
-        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith('//'):
-                    continue
-
-                comp_id = self._extract_component_from_log_line(line)
-                if comp_id:
-                    order.append(comp_id)
-
-        return order
-
-    def _extract_component_from_log_line(self, line: str) -> str | None:
-        """Extract component ID from WeiDU.log line.
-
-        Args:
-            line: Log file line
-
-        Returns:
-            Component ID or None if invalid
-        """
-        if not (line.startswith('~') and '#' in line):
-            return None
-
-        parts = line.split('#')
-        if len(parts) < 3:
-            return None
-
-        mod_part = parts[0].strip('~').strip()
-        component_num = parts[2].split()[0]
-
-        if '/' not in mod_part:
-            return None
-
-        mod_name = mod_part.split('/')[0].lower()
-        return f"{mod_name}:{component_num}"
 
     def _apply_order_from_list(self, seq_idx: int, order: list[str]) -> None:
         """Apply order from a list of component IDs.
@@ -965,13 +892,7 @@ class InstallOrderPage(BasePage):
         self._refresh_sequence_lists(seq_idx)
         self._validate_sequence(seq_idx)
 
-        QMessageBox.information(
-            self,
-            tr("page.order.apply_success_title"),
-            tr("page.order.apply_success_message",
-               ordered=len(new_ordered),
-               unordered=len(new_unordered))
-        )
+        logger.info(f"{len(seq_data.ordered)} ordered, {len(seq_data.unordered)} unordered")
 
     def _import_order(self) -> None:
         """Import order from JSON file."""
