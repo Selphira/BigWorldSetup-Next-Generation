@@ -1,1 +1,27 @@
-{}
+{
+  "id": "bg2ee",
+  "name": "Baldur's Gate 2: Enhanced Edition",
+  "sequences": [
+    {
+      "id": "bg2ee",
+      "required_files": ["chitin.key", "Baldur.exe"],
+      "lua_checks": {"engine_mode": 1},
+      "install_order": [
+        {"type": "ann", "text": "=== Section: Core Patches ==="},
+        {"type": "cmp", "mod": "DlcMerger", "comp": "1"},
+        {"type": "cmp", "mod": "eefixpack", "comp": "0"},
+        {"type": "ann", "text": "=== Section: Worldmap ==="},
+        {"type": "cmp", "mod": "worldmap", "comp": "0"},
+        {"type": "cmp", "mod": "worldmap", "comp": "tob_style"},
+        {"type": "cmp", "mod": "worldmap", "comp": "3"},
+        {"type": "cmp", "mod": "worldmap", "comp": "ui_style"},
+        {"type": "ann", "text": "=== Section: Manual Actions ==="},
+        {"type": "cmd", "cmd": "mkdir \"{{DOCS}}/BGEE Trilogy/portraits\""},
+        {"type": "cmd", "cmd": "move portraits/*.bmp \"{{DOCS}}/BGEE Trilogy/portraits/\""},
+        {"type": "ann", "text": "## Action manuelle requise ##"},
+        {"type": "ann", "text": "Veuillez déplacer les portraits dans les dossiers appropriés"},
+        {"type": "pause"}
+      ]
+    }
+  ]
+}

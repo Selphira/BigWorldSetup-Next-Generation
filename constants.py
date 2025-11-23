@@ -15,7 +15,9 @@ APP_ORG = "Selphira"
 # ============================================================================
 
 # Data directories
-MODS_DIR = Path("data/mods")
+DATA_DIR = Path("data")
+MODS_DIR = DATA_DIR / "mods"
+GAMES_DIR = DATA_DIR / "games"
 CACHE_DIR = Path(".cache")
 LOG_DIR = Path("logs")
 

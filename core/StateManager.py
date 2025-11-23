@@ -9,6 +9,10 @@ from typing import Any, Optional
 
 from PySide6.QtCore import QSettings
 
+from constants import CACHE_DIR, MODS_DIR
+from core.GameManager import GameManager
+from core.ModManager import ModManager
+
 logger = logging.getLogger(__name__)
 
 
@@ -94,7 +98,8 @@ class StateManager:
         """Initialize state manager with QSettings and JSON state."""
         self.settings = QSettings(self.SETTINGS_ORG, self.SETTINGS_APP)
         self.installation_state = self._load_installation_state()
-        self._mod_manager = None
+        self._game_manager: GameManager = None
+        self._mod_manager: ModManager = None
 
     # ========================================
     # UI PREFERENCES (QSettings)
@@ -419,21 +424,27 @@ class StateManager:
             backup_path.unlink()
             logger.info("Backup file removed")
 
-    def get_mod_manager(self):
+    def get_game_manager(self) -> GameManager:
+        """
+        Get GameManager instance (lazy initialization).
+
+        Returns:
+            GameManager instance
+        """
+        if self._game_manager is None:
+            self._game_manager = GameManager()
+            logger.debug("GameManager initialized")
+
+        return self._game_manager
+
+    def get_mod_manager(self) -> ModManager:
         """
         Get ModManager instance (lazy initialization).
 
         Returns:
             ModManager instance
-
-        Note:
-            Import is done here to avoid circular dependencies
         """
         if self._mod_manager is None:
-            # Lazy import to avoid circular dependency
-            from constants import CACHE_DIR, MODS_DIR
-            from core.ModManager import ModManager
-
             self._mod_manager = ModManager(
                 mods_dir=MODS_DIR,
                 cache_dir=CACHE_DIR

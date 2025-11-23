@@ -10,28 +10,28 @@ from PySide6.QtWidgets import (
 )
 
 from constants import *
-from core.enums.GameEnum import GameEnum
+from core.GameModels import GameDefinition
 
 
 class GameButton(QWidget):
     """Clickable button representing a game type with icon and name.
 
     Signals:
-        clicked: Emitted when button is clicked (GameEnum: selected game)
+        clicked: Emitted when button is clicked (GameDefinition: selected game)
     """
 
-    clicked = Signal(GameEnum)
+    clicked = Signal(GameDefinition)
 
     def __init__(
             self,
-            game: GameEnum,
+            game: GameDefinition,
             icon_path: Optional[Path] = None,
             parent: Optional[QWidget] = None
     ) -> None:
         """Initialize game button.
 
         Args:
-            game: GameEnum instance
+            game: GameDefinition instance
             icon_path: Path to icon image (uses emoji fallback if not found)
             parent: Parent widget
         """
@@ -118,7 +118,7 @@ class GameButton(QWidget):
         Returns:
             Configured QLabel with game name
         """
-        label = QLabel(self.game.display_name)
+        label = QLabel(self.game.name)
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label.setWordWrap(True)
 

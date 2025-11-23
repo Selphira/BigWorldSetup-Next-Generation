@@ -17,8 +17,8 @@ from PySide6.QtWidgets import (
 )
 
 from constants import *
+from core.GameModels import GameDefinition
 from core.TranslationManager import tr
-from core.enums.GameEnum import GameEnum
 from core.validators.FolderValidator import ExistingFolderValidator, FolderValidator
 
 logger = logging.getLogger(__name__)
@@ -352,7 +352,7 @@ class GameFolderSelector(FolderSelector):
             self,
             label_key: str,
             select_title_key: str,
-            game: GameEnum,
+            game: GameDefinition,
             validator: Optional[FolderValidator] = None,
             parent: Optional[QWidget] = None
     ) -> None:
@@ -379,22 +379,22 @@ class GameFolderSelector(FolderSelector):
 
         folder = QFileDialog.getExistingDirectory(
             self,
-            tr(self._select_title_key, game=self.game.display_name),
+            tr(self._select_title_key, game=self.game.name),
             start_dir
         )
 
         if folder:
             self.set_path(folder)
-            logger.debug(f"Folder selected for {self.game.code}: {folder}")
+            logger.debug(f"Folder selected for {self.game.id}: {folder}")
 
     def retranslate_ui(self) -> None:
         """Update all translatable UI elements with game name interpolation."""
         super().retranslate_ui()
 
         # Label with game name
-        self.label.setText(tr(self._label_key, game=self.game.display_name))
+        self.label.setText(tr(self._label_key, game=self.game.name))
 
-    def get_game(self) -> GameEnum:
+    def get_game(self) -> GameDefinition:
         """Get the game associated with this selector.
 
         Returns:
@@ -405,6 +405,6 @@ class GameFolderSelector(FolderSelector):
     def __repr__(self) -> str:
         """String representation for debugging."""
         return (
-            f"<GameFolderSelector game={self.game.code} "
+            f"<GameFolderSelector game={self.game.id} "
             f"path='{self.get_path()}' valid={self.is_valid()}>"
         )

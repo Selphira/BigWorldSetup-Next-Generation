@@ -1,0 +1,11 @@
+{
+  "id": "sod",
+  "name": "Baldur's Gate: Siege of Dragonspear",
+  "sequences": [
+    {
+      "id": "sod",
+      "required_files": ["chitin.key", "Baldur.exe", "sod-dlc.zip"],
+      "lua_checks": {"engine_mode": 0}
+    }
+  ]
+}

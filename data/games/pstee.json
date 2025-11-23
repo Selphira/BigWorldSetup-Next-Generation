@@ -1,0 +1,11 @@
+{
+  "id": "pstee",
+  "name": "Planescape: Torment: Enhanced Edition",
+  "sequences": [
+    {
+      "id": "pstee",
+      "required_files": ["chitin.key", "Torment.exe"],
+      "lua_checks": {}
+    }
+  ]
+}

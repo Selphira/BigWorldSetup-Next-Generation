@@ -1,0 +1,11 @@
+{
+  "id": "bgee",
+  "name": "Baldur's Gate: Enhanced Edition",
+  "sequences": [
+    {
+      "id": "sod",
+      "required_files": ["chitin.key", "Baldur.exe"],
+      "lua_checks": {"engine_mode": 0}
+    }
+  ]
+}

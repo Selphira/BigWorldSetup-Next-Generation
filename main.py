@@ -237,6 +237,9 @@ def main() -> int:
         translator.set_language(ui_language)
         logger.info(f"UI language: {ui_language}")
 
+        game_manager = state.get_game_manager()
+        game_manager.load_games()
+
         # Initialize mod manager and cache
         mod_manager = state.get_mod_manager()
         if not initialize_cache(mod_manager):

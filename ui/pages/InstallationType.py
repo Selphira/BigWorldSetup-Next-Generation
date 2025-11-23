@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
 )
 
 from constants import ICONS_DIR
+from core.GameModels import GameDefinition
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.enums.GameEnum import GameEnum
@@ -54,8 +55,8 @@ class InstallationTypePage(BasePage):
         super().__init__(state_manager)
 
         # UI state
-        self.selected_game: Optional[GameEnum] = None
-        self.game_buttons: dict[GameEnum, GameButton] = {}
+        self.selected_game: Optional[GameDefinition] = None
+        self.game_buttons: dict[str, GameButton] = {}
 
         # Folder widgets indexed by folder key (not game)
         # This supports folder sharing (e.g., EET uses "sod" and "bg2ee" keys)
@@ -139,7 +140,10 @@ class InstallationTypePage(BasePage):
         # Create button for each game in 2-column grid
         row, col = 0, 0
         for game in GameEnum:
-            button = self._create_game_button(game)
+            game_definition = self.state_manager.get_game_manager().get(game.value)
+            if not game_definition:
+                continue
+            button = self._create_game_button(game_definition)
             grid_layout.addWidget(button, row, col)
 
             col += 1
@@ -150,7 +154,7 @@ class InstallationTypePage(BasePage):
         scroll.setWidget(scroll_content)
         return scroll
 
-    def _create_game_button(self, game: GameEnum) -> GameButton:
+    def _create_game_button(self, game: GameDefinition) -> GameButton:
         """
         Create button for a game.
 
@@ -160,14 +164,14 @@ class InstallationTypePage(BasePage):
         Returns:
             Configured game button
         """
-        icon_path = ICONS_DIR / f"{game.code}.png"
+        icon_path = ICONS_DIR / f"{game.id}.png"
         button = GameButton(
             game,
             icon_path if icon_path.exists() else None,
             parent=self
         )
         button.clicked.connect(self._on_game_selected)
-        self.game_buttons[game] = button
+        self.game_buttons[game.id] = button
 
         return button
 
@@ -262,22 +266,23 @@ class InstallationTypePage(BasePage):
         """
         # Collect all unique folder keys across all games
         unique_folder_keys = set()
+        game_manager = self.state_manager.get_game_manager()
 
-        for game in GameEnum:
-            folder_keys = game.get_unique_folder_keys()
+        for game in game_manager.get_all():
+            folder_keys = game.get_folder_keys()
             unique_folder_keys.update(folder_keys)
 
         # Create one widget per unique folder key
         for folder_key in unique_folder_keys:
             # Get the game this folder key represents
-            ref_game = GameEnum.from_code(folder_key)
+            ref_game = game_manager.get(folder_key)
             if not ref_game:
                 logger.error(f"Invalid folder key: {folder_key}")
                 continue
 
             # Get validation rules for this game's first sequence
             # (assuming shared folders use consistent validation)
-            validation_sequence = ref_game.get_validation_sequence(0)
+            validation_sequence = ref_game.get_sequence(0)
             if not validation_sequence:
                 logger.error(f"No validation sequence for {folder_key}")
                 continue
@@ -298,7 +303,7 @@ class InstallationTypePage(BasePage):
             # Store by folder key
             self.folder_widgets[folder_key] = selector
 
-            logger.debug(f"Created folder widget for key '{folder_key}' ({ref_game.display_name})")
+            logger.debug(f"Created folder widget for key '{folder_key}' ({ref_game.name})")
 
         logger.info(f"Initialized {len(self.folder_widgets)} unique folder widgets")
 
@@ -306,7 +311,7 @@ class InstallationTypePage(BasePage):
     # EVENT HANDLERS
     # ========================================
 
-    def _on_game_selected(self, game: GameEnum) -> None:
+    def _on_game_selected(self, game: GameDefinition) -> None:
         """
         Handle game selection.
 
@@ -319,13 +324,13 @@ class InstallationTypePage(BasePage):
 
         # Update button states
         for g, button in self.game_buttons.items():
-            button.set_selected(g == game)
+            button.set_selected(g == game.id)
 
         self.selected_game = game
         self._update_visible_folder_selectors()
         self.notify_navigation_changed()
 
-        logger.info(f"Game selected: {game.code}")
+        logger.info(f"Game selected: {game.id}")
 
     def _update_visible_folder_selectors(self) -> None:
         """
@@ -342,7 +347,7 @@ class InstallationTypePage(BasePage):
             return
 
         # Show selectors for selected game's folder keys
-        folder_keys = self.selected_game.get_unique_folder_keys()
+        folder_keys = self.selected_game.get_folder_keys()
 
         for folder_key in folder_keys:
             selector = self.folder_widgets.get(folder_key)
@@ -372,7 +377,7 @@ class InstallationTypePage(BasePage):
         saved_game_code = self.state_manager.get_selected_game()
         if saved_game_code:
             try:
-                game = GameEnum.from_code_strict(saved_game_code)
+                game = self.state_manager.get_game_manager().get(saved_game_code)
                 self._on_game_selected(game)
             except ValueError:
                 logger.warning(f"Unknown game code in saved state: {saved_game_code}")
@@ -452,7 +457,7 @@ class InstallationTypePage(BasePage):
             return False
 
         # Check all folder widgets for selected game
-        folder_keys = self.selected_game.get_unique_folder_keys()
+        folder_keys = self.selected_game.get_folder_keys()
 
         for folder_key in folder_keys:
             selector = self.folder_widgets.get(folder_key)
@@ -491,8 +496,8 @@ class InstallationTypePage(BasePage):
 
         # Save selected game
         if self.selected_game:
-            self.state_manager.set_selected_game(self.selected_game.code)
-            logger.debug(f"Saved selected game: {self.selected_game.code}")
+            self.state_manager.set_selected_game(self.selected_game.id)
+            logger.debug(f"Saved selected game: {self.selected_game.id}")
 
         # Save all valid folder paths (by folder key)
         game_folders = {}

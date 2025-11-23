@@ -14,8 +14,8 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from constants import *
+from core.GameModels import GameValidationRule
 from core.TranslationManager import tr
-from core.enums.GameEnum import GameValidationRule
 
 logger = logging.getLogger(__name__)
 
