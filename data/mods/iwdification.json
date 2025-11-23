@@ -24,6 +24,7 @@
     "80": {"type": "std"},
     "90": {"type": "std"},
     "100": {"type": "std"},
+    "120": {"type": "std"},
     "130": {"type": "std"},
     "choice_0": {"type": "muc", "components": ["140", "141"], "category": "smith", "default": "140"},
     "150": {"type": "std"},

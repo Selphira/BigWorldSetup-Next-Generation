@@ -14,8 +14,8 @@
   "categories": ["patch"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"}
+    "1": {"type": "std", "languages": ["en_US"]},
+    "2": {"type": "std", "languages": ["en_US"]}
   },
   "languages": {
     "en_US": 0,

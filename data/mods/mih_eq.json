@@ -53,7 +53,7 @@
     "133": {"type": "std"},
     "132": {"type": "std"},
     "136": {"type": "std"},
-    "159": {"type": "std"},
+    "159": {"type": "std", "languages": ["en_US"]},
     "155": {"type": "std"},
     "148": {"type": "std"},
     "141": {"type": "std"},

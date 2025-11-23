@@ -14,8 +14,8 @@
   "categories": ["npc"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1", "2"], "default": "0"},
-    "choice_1": {"type": "muc", "components": ["10", "11"]},
-    "20": {"type": "std"},
+    "choice_1": {"type": "muc", "components": ["10", "11"], "languages": ["en_US"]},
+    "20": {"type": "std", "languages": ["en_US"]},
     "choice_2": {"type": "muc", "components": ["30", "31"], "default": "31"}
   },
   "languages": {
