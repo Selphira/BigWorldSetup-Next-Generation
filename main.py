@@ -15,6 +15,7 @@ from core.StateManager import StateManager
 from core.TranslationManager import get_translator, tr
 from ui.CacheDialog import show_cache_build_dialog
 from ui.MainWindow import MainWindow
+from ui.pages.InstallOrder import InstallOrderPage
 from ui.pages.InstallationType import InstallationTypePage
 from ui.pages.ModSelection import ModSelectionPage
 
@@ -137,7 +138,7 @@ def register_pages(window: MainWindow, state: StateManager) -> None:
     pages = [
         InstallationTypePage(state),
         ModSelectionPage(state),
-        # OrderPage(state),
+        InstallOrderPage(state),
         # DownloadPage(state),
         # InstallationPage(state),
         # SummaryPage(state),

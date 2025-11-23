@@ -200,24 +200,29 @@ QComboBox QAbstractItemView {
  * TREE VIEWS
  * ============================================================================ */
 
-QTreeView {
+QTreeView,
+QListView {
     color: #ffffff;
-    alternate-background-color: #252525;
+    background-color: #1e1e1e;
+    alternate-background-color: #1e1e1e;
     selection-background-color: #1e1e1e;
     selection-color: #ffffff;
     padding: 0px;
 }
 
-QTreeView::item {
+QTreeView::item,
+QListView::item {
     padding: 6px 10px;
     margin: 0px 0;
 }
 
-QTreeView::item:hover {
+QTreeView::item:hover,
+QListView::item:hover {
     background-color: #2a2a2a;
 }
 
-QTreeView::item:selected {
+QTreeView::item:selected,
+QListView::item:selected {
     background-color: #655949;
 }
 
@@ -265,6 +270,54 @@ QTreeView QHeaderView::section:last {
     border-right: none;
 }
 
+/* ============================================================================
+ * TAB VIEWS
+ * ============================================================================ */
+
+QTabWidget {
+  padding: 2px;
+  selection-background-color: #455364;
+}
+
+QTabWidget QWidget {
+  border-radius: 4px;
+}
+
+QTabWidget::pane {
+  border: 0px solid #455364;
+  border-radius: 4px;
+  margin: 0px;
+}
+
+QTabWidget::pane:selected {
+  background-color: #455364;
+  border: 0px solid #346792;
+}
+
+QTabBar, QDockWidget QTabBar {
+  qproperty-drawBase: 0;
+  border-radius: 4px;
+  margin: 0px;
+  padding: 2px;
+  border: 0;
+}
+
+QTabBar::tab:top:selected {
+  color: #ffffff;
+  background-color: #655949;
+  border-bottom: 3px solid #655949;
+}
+
+QTabBar::tab:top, QDockWidget QTabBar::tab:top {
+  background-color: transparent;
+  margin-left: 2px;
+  padding: 5px 10px;
+  min-width: 5px;
+  border-bottom: 3px solid #655949;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  color: #cccccc
+}
 
 /* ============================================================================
  * LABELS
