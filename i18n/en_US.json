@@ -68,8 +68,6 @@
       "validation_warnings": "⚠ {count} warning(s) - check component order",
       "validation_errors": "✗ {count} error(s) - ordering rules violated",
       "ignore_warnings": "Ignore warnings (advanced users)",
-      "default_not_found_title": "Default Order Not Found",
-      "default_not_found_message": "No default order file found for {game}. You'll need to order components manually.",
       "apply_success_title": "Order Applied",
       "apply_success_message": "{ordered} components ordered, {unordered} components need manual positioning.",
       "load_error_title": "Load Error",

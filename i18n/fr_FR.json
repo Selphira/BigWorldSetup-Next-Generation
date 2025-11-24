@@ -85,8 +85,6 @@
       "validation_warnings": "⚠ {count} avertissement(s) - vérifiez l'ordre des composants",
       "validation_errors": "✗ {count} erreur(s) - règles d'ordonnancement violées",
       "ignore_warnings": "Ignorer les avertissements (utilisateurs avancés)",
-      "default_not_found_title": "Ordre par défaut introuvable",
-      "default_not_found_message": "Aucun fichier d'ordre par défaut trouvé pour {game}. Vous devrez ordonner les composants manuellement.",
       "apply_success_title": "Ordre appliqué",
       "apply_success_message": "{ordered} composants ordonnés, {unordered} composants nécessitent un positionnement manuel.",
       "load_error_title": "Erreur de chargement",

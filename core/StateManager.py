@@ -34,6 +34,7 @@ class InstallationState:
         "download_folder": None,
         "backup_folder": None,
         "languages_order": [],
+        "install_order": [],
     })
     installation: dict[str, Any] = field(default_factory=lambda: {
         "current_step": None,
@@ -184,6 +185,39 @@ class StateManager:
             Dictionary of component lists
         """
         return self.installation_state.configuration.get("selected_components", {}).copy()
+
+    def set_install_order(self, install_order: dict[int, list[str]]) -> None:
+        """
+        Set installation order for all sequences.
+
+        The installation order maps sequence indices to ordered lists of component IDs.
+        Each component ID follows the format "mod_id:comp_key".
+
+        Args:
+            install_order: Dictionary mapping sequence index to ordered component IDs.
+                          Example: {0: ["mod1:comp1", "mod2:comp3"], 1: ["mod3:comp2"]}
+        """
+        self.installation_state.configuration["install_order"] = install_order.copy()
+        logger.debug(f"Install order set for {len(install_order)} sequence(s)")
+
+    def get_install_order(self) -> dict[int, list[str]]:
+        """
+        Get installation order for all sequences.
+
+        Returns ordered lists of component IDs for each sequence. Component IDs
+        follow the format "mod_id:comp_key".
+
+        Returns:
+            Dictionary mapping sequence index to ordered component IDs.
+            Returns empty dict if no order has been set.
+            Example: {0: ["mod1:comp1", "mod2:comp3"], 1: ["mod3:comp2"]}
+        """
+        install_order = self.installation_state.configuration.get("install_order", {}).copy()
+
+        return {
+            int(seq_idx): order_list
+            for seq_idx, order_list in install_order.items()
+        }
 
     def set_game_folders(self, folders: dict[str, Any]) -> None:
         """

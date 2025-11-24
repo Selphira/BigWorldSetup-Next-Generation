@@ -520,7 +520,7 @@ class InstallOrderPage(BasePage):
 
         self._create_widgets()
 
-        logger.info(tr("log.page_initialized", page="InstallOrderPage"))
+        logger.info("InstallOrderPage initialized")
 
     # ========================================
     # Widget Creation
@@ -800,6 +800,41 @@ class InstallOrderPage(BasePage):
                 f"{mod_id}:{comp_key}"
             )
 
+    def _apply_order_from_list(self, seq_idx: int, order: list[str]) -> None:
+        """Apply order from a list of component IDs.
+
+        Args:
+            seq_idx: Sequence index
+            order: List of component IDs in format "mod:comp"
+        """
+        seq_data = self._sequences_data.get(seq_idx)
+        if not seq_data:
+            return
+
+        # Build component pool
+        pool = {
+            f"{mod}:{comp}": (mod, comp)
+            for mod, comp in (seq_data.ordered + seq_data.unordered)
+        }
+
+        # Apply order
+        new_ordered = []
+        for comp_id in order:
+            if comp_id in pool:
+                new_ordered.append(pool[comp_id])
+                del pool[comp_id]
+
+        # Remaining components
+        new_unordered = list(pool.values())
+
+        seq_data.ordered = new_ordered
+        seq_data.unordered = new_unordered
+
+        self._refresh_sequence_lists(seq_idx)
+        self._validate_sequence(seq_idx)
+
+        logger.info(f"{len(seq_data.ordered)} ordered, {len(seq_data.unordered)} unordered")
+
     def _apply_sequence_order(
             self,
             seq_idx: int,
@@ -857,42 +892,6 @@ class InstallOrderPage(BasePage):
                 tr("page.order.parse_error_title"),
                 tr("page.order.parse_error_message", error=str(e))
             )
-
-    def _apply_order_from_list(self, seq_idx: int, order: list[str]) -> None:
-        """Apply order from a list of component IDs.
-
-        Args:
-            seq_idx: Sequence index
-            order: List of component IDs in format "mod:comp"
-        """
-        # TODO: Uniformization with _apply_sequence_order()
-        seq_data = self._sequences_data.get(seq_idx)
-        if not seq_data:
-            return
-
-        # Build component pool
-        pool = {
-            f"{mod}:{comp}": (mod, comp)
-            for mod, comp in (seq_data.ordered + seq_data.unordered)
-        }
-
-        # Apply order
-        new_ordered = []
-        for comp_id in order:
-            if comp_id in pool:
-                new_ordered.append(pool[comp_id])
-                del pool[comp_id]
-
-        # Remaining components
-        new_unordered = list(pool.values())
-
-        seq_data.ordered = new_ordered
-        seq_data.unordered = new_unordered
-
-        self._refresh_sequence_lists(seq_idx)
-        self._validate_sequence(seq_idx)
-
-        logger.info(f"{len(seq_data.ordered)} ordered, {len(seq_data.unordered)} unordered")
 
     def _import_order(self) -> None:
         """Import order from JSON file."""
@@ -1206,26 +1205,34 @@ class InstallOrderPage(BasePage):
             # Rebuild UI for new game
             self._rebuild_ui_for_game()
 
-            # Load components and default order
-            self._load_components()
+        # Load components and default order
+        self._load_components()
+
+        if not self._restore_saved_order():
             self._load_default_order()
-        else:
-            logger.debug("Game unchanged, keeping existing UI")
 
-    def save_state(self) -> None:
-        """Save page data to state manager."""
-        super().save_state()
+    def _restore_saved_order(self) -> bool:
+        """Restore installation order from saved state.
 
-        # Convert sequences data to state format
-        install_order = {}
-        for seq_idx, seq_data in self._sequences_data.items():
-            install_order[seq_idx] = [
-                f"{mod_id}:{comp_key}"
-                for mod_id, comp_key in seq_data.ordered
-            ]
+        Attempts to restore the previously saved installation order.
 
-        # TODO: Add method to StateManager to store install order
-        # self.state_manager.set_install_order(install_order)
+        Returns:
+            True if order was successfully restored, False if no saved order exists
+        """
+        install_order = self.state_manager.get_install_order()
+
+        if not install_order:
+            logger.debug("No saved installation order to restore")
+            return False
+
+        logger.info(f"Restoring saved installation order for {len(install_order)} sequence(s)")
+
+        # Apply saved order to each sequence
+        for seq_idx, order_list in install_order.items():
+            if seq_idx in self._sequences_data:
+                self._apply_order_from_list(seq_idx, order_list)
+
+        return True
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
@@ -1250,3 +1257,17 @@ class InstallOrderPage(BasePage):
                     game_name = self._game_manager.get(sequence.game).name
                     tab_name = tr("page.order.phase_tab", name=game_name)
                     self._phase_tabs.setTabText(seq_idx, tab_name)
+
+    def save_state(self) -> None:
+        """Save page data to state manager."""
+        super().save_state()
+
+        # Convert sequences data to state format
+        install_order = {}
+        for seq_idx, seq_data in self._sequences_data.items():
+            install_order[seq_idx] = [
+                f"{mod_id}:{comp_key}"
+                for mod_id, comp_key in seq_data.ordered
+            ]
+
+        self.state_manager.set_install_order(install_order)

@@ -25,7 +25,7 @@ class ModDetailsPanel(QWidget):
     """Panel displaying detailed mod information."""
 
     # Layout constants
-    PANEL_MIN_WIDTH = 350
+    PANEL_MIN_WIDTH = 340
     PANEL_MAX_WIDTH = 600
     PANEL_PREFERRED_WIDTH = 450
 
