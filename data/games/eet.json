@@ -10,7 +10,7 @@
         "BWS-FR-Fixpack", "DlcMerger", "correctfrbg1ee", "soa", "drizztsaga", "bg1ub", "plasmobg1bg2", "da_portraits"
       ],
       "allowed_components": {
-        "\"BWS-FR-Fixpack\"": "0",
+        "BWS-FR-FixpackTypo": "0",
         "plasmobg1bg2": ["1001", "1002", "1003", "1004", "1005"],
         "da_portraits": [
           "5", "6", "7", "8", "9", "13", "14", "15", "17", "18", "19", "20", "21", "22", "23", "26", "27", "28", "29",
