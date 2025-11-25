@@ -158,6 +158,22 @@ class SubComponent(Component):
         return prompt_key in self.prompts
 
 
+@dataclass(frozen=True, slots=True)
+class ModFile:
+    """Represents information about a downloadable mod file."""
+    filename: str
+    size: int
+    sha256: str
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "ModFile":
+        return cls(
+            filename=data.get("filename", ""),
+            size=int(data.get("size", 0)),
+            sha256=data.get("sha256", "")
+        )
+
+
 class Mod:
     """
     Represents a mod with all its data and components.
@@ -168,7 +184,7 @@ class Mod:
     __slots__ = (
         'id', 'name', 'tp2', 'categories', 'games', 'languages', 'version',
         'description', 'download', 'readme', 'homepage', 'safe', 'authors',
-        '_components_raw', '_translations', '_components_cache'
+        '_components_raw', '_translations', '_components_cache', 'file'
     )
 
     def __init__(self, data: dict[str, Any]) -> None:
@@ -208,6 +224,8 @@ class Mod:
         self._components_cache: dict[str, Component] = {}
 
         self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
+
+        self.file: ModFile | None = ModFile.from_dict(file_data) if (file_data := data.get("file")) else None
 
     def get_component(self, key: str) -> Component | None:
         """
