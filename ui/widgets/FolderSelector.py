@@ -114,6 +114,7 @@ class FolderSelector(QWidget):
 
         # Create browse button
         self.browse_btn = QPushButton(tr('button.browse'))
+        self.browse_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.browse_btn.setFixedWidth(BUTTON_WIDTH_SMALL)
         layout.addWidget(self.browse_btn)
 
