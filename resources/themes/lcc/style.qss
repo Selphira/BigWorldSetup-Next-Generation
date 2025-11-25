@@ -5,6 +5,10 @@
  * Color palette follows the dark theme with golden accents.
  */
 
+QWidget {
+    background-color: #1e1e1e;
+}
+
 /* ============================================================================
  * INPUT FIELDS
  * ============================================================================ */
