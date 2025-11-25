@@ -3,7 +3,7 @@
   "name": "Baldur's Gate: Enhanced Edition",
   "sequences": [
     {
-      "game": "sod",
+      "game": "bgee",
       "required_files": ["chitin.key", "Baldur.exe"],
       "lua_checks": {"engine_mode": 0}
     }
