@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
 
     def _setup_window(self) -> None:
         """Configure window properties."""
-        self.setWindowTitle("BigWorldSetup NextGen")
+        self.setWindowTitle(APP_NAME)
         self.setMinimumSize(WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT)
 
     def _create_widgets(self) -> None:
