@@ -5,6 +5,15 @@
  * Color palette follows the dark theme with golden accents.
  */
 
+ * {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  border-style: none;
+  border-image: none;
+  outline: 0;
+}
+
 QWidget {
     background-color: #1e1e1e;
 }
@@ -210,6 +219,7 @@ QComboBox QAbstractItemView {
  * ============================================================================ */
 
 QTreeView,
+QTableView,
 QListView {
     color: #ffffff;
     background-color: #1e1e1e;
@@ -220,17 +230,20 @@ QListView {
 }
 
 QTreeView::item,
+QTableView::item,
 QListView::item {
     padding: 6px 10px;
     margin: 0px 0;
 }
 
 QTreeView::item:hover,
+QTableView::item:hover,
 QListView::item:hover {
     background-color: #2a2a2a;
 }
 
 QTreeView::item:selected,
+QTableView::item:selected,
 QListView::item:selected {
     background-color: #655949;
 }
@@ -257,26 +270,23 @@ QTreeView::indicator:indeterminate {
     border-color: #cc8800;
 }
 
-QTreeView QHeaderView {
-    background-color: #2a2a2a;
-}
+/* ============================================================================
+ * HEADER VIEWS
+ * ============================================================================ */
 
-QTreeView QHeaderView::section {
+QHeaderView::section {
     background-color: #2a2a2a;
+    border-radius: 0;
     color: white;
     padding: 6px;
 }
 
-QTreeView QHeaderView::section:first {
+QHeaderView::section:first {
     border-top-left-radius: 8px;
 }
 
-QTreeView QHeaderView::section:last {
+QHeaderView::section:last {
     border-top-right-radius: 8px;
-}
-
-QTreeView QHeaderView::section:last {
-    border-right: none;
 }
 
 /* ============================================================================
@@ -345,6 +355,22 @@ QLabel[heading="true"] {
 QLabel[subheading="true"] {
     font-size: 12pt;
     color: #cccccc;
+}
+
+QLabel#page-title {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+QLabel#page-step {
+    color: #888888;
+    font-size: 12pt;
+}
+
+QLabel#section-title {
+    color: Goldenrod;
+    font-size: 14pt;
+    font-weight: bold;
 }
 
 /* ============================================================================

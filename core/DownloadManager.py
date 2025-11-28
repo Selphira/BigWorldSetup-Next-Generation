@@ -422,8 +422,8 @@ class DownloadManager(QObject):
     Signals:
         download_started: Emitted when download starts (mod_id)
         download_progress: Emitted on progress (mod_id, DownloadProgress)
-        download_finished: Emitted when download completes (mod_id, file_path)
-        download_canceled: Emitted when download is canceled (mod_id, file_path)
+        download_finished: Emitted when download completes (mod_id)
+        download_canceled: Emitted when download is canceled (mod_id)
         download_error: Emitted on error (mod_id, error_message)
         queue_changed: Emitted when queue state changes
     """
@@ -431,8 +431,8 @@ class DownloadManager(QObject):
     # Signals
     download_started = Signal(str)
     download_progress = Signal(str, object)
-    download_finished = Signal(str, str)
-    download_canceled = Signal(str, str)
+    download_finished = Signal(str)
+    download_canceled = Signal(str)
     download_error = Signal(str, str)
     queue_changed = Signal()
 
@@ -498,7 +498,7 @@ class DownloadManager(QObject):
                 thread.quit()
                 logger.info(f"Cancelled download: {mod_id}")
 
-                self.download_canceled.emit(mod_id, archive_info.filename)
+                self.download_canceled.emit(mod_id)
                 self.queue_changed.emit()
                 self._process_queue()
         except Exception as e:
@@ -607,7 +607,7 @@ class DownloadManager(QObject):
                 thread.quit()
                 logger.info(f"Download completed: {mod_id}")
 
-            self.download_finished.emit(mod_id, file_path)
+            self.download_finished.emit(mod_id)
             self.queue_changed.emit()
             self._process_queue()
 

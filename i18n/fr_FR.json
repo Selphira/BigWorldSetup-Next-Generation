@@ -102,6 +102,61 @@
       "export_success_message": "Ordre d'installation exporté avec succès.",
       "export_error_title": "Erreur d'exportation",
       "export_error_message": "Échec de l'exportation de l'ordre : {error}"
+    },
+    "download": {
+      "title": "Téléchargement et vérification des archives",
+      "archives_title": "Archives des mods sélectionnés",
+      "downloads_title": "Téléchargements en cours",
+      "filter_label": "Filtre :",
+      "filter": {
+        "all": "Tous",
+        "missing": "Manquants",
+        "invalid": "Hash invalide",
+        "manual": "Téléchargement manuel",
+        "valid": "Valides",
+        "unknown": "Inconnus"
+      },
+      "details": {
+        "title": "Détails de l'archive",
+        "empty_title": "Aucune Sélection",
+        "empty_message": "Sélectionnez une archive pour voir les détails",
+        "mod": "Mod",
+        "filename": "Nom",
+        "size": "Taille",
+        "hash": "Hash",
+        "status": "État",
+        "url": "URL de téléchargement",
+        "manual_download": "Téléchargement manuel requis"
+      },
+      "col_mod_name": "Nom du mod",
+      "col_filename": "Nom du fichier",
+      "col_status": "Statut",
+      "status": {
+        "valid": "Valide",
+        "invalid_hash": "Hash invalide",
+        "invalid_size": "Taille invalide",
+        "missing": "Manquant",
+        "manual": "Téléchargement manuel requis",
+        "downloading": "Téléchargement...",
+        "verifying": "Vérification...",
+        "paused": "En pause",
+        "error": "Erreur",
+        "unknown": "Inconnu"
+      },
+      "btn_verify_all": "Vérifier les archives",
+      "btn_download_all": "Télécharger les archives",
+      "btn_open_folder": "Ouvrir le dossier de téléchargement",
+      "btn_cancel": "Annuler le téléchargement",
+      "verifying": "Vérification...",
+      "verifying_file": "Vérification : {filename}",
+      "stats": "{downloaded} / {total} - {speed} - {time} restant",
+      "error_status": "Erreur : {error}",
+      "download_in_progress_title": "Téléchargements en cours",
+      "download_in_progress_message": "Veuillez attendre la fin du téléchargement en cours.",
+      "no_downloads_title": "Aucun téléchargement nécessaire",
+      "no_downloads_message": "Toutes les archives requises sont déjà téléchargées et valides.",
+      "open_folder_error_title": "Impossible d'ouvrir le dossier",
+      "open_folder_error_message": "Échec de l'ouverture du dossier de téléchargement : {error}"
     }
   },
   "validation": {

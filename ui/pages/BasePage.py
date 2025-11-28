@@ -70,11 +70,7 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
             Configured title label
         """
         title = QLabel()
-        font = title.font()
-        font.setPointSize(14)
-        font.setBold(True)
-        title.setFont(font)
-        title.setFixedHeight(30)
+        title.setObjectName("section-title")
         return title
 
     @staticmethod

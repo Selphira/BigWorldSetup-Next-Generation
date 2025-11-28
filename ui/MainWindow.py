@@ -123,18 +123,12 @@ class MainWindow(QMainWindow):
 
         # Page title
         self.page_title = QLabel("")
-        title_font = self.page_title.font()
-        title_font.setPointSize(20)
-        title_font.setBold(True)
-        self.page_title.setFont(title_font)
+        self.page_title.setObjectName("page-title")
         layout.addWidget(self.page_title)
 
         # Step indicator
         self.page_step = QLabel("")
-        step_font = self.page_step.font()
-        step_font.setPointSize(12)
-        self.page_step.setFont(step_font)
-        self.page_step.setStyleSheet(f"color: {COLOR_STATUS_NONE};")
+        self.page_step.setObjectName("page-step")
         layout.addWidget(self.page_step)
 
         return layout
