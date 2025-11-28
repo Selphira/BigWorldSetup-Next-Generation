@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 
-from PySide6.QtCore import QObject, QThread, Signal
+from PySide6.QtCore import QObject, QThread, Signal, Qt
 from PySide6.QtNetwork import (
     QNetworkAccessManager, QNetworkReply, QNetworkRequest
 )
@@ -22,6 +22,7 @@ class ArchiveStatus(str, Enum):
     Attributes:
         VALID: Archive present and hash matches
         INVALID_HASH: Archive present but hash mismatch
+        INVALID_SIZE: Archive present but size mismatch
         MISSING: Archive not present in download folder
         MANUAL: Archive requires manual download (no URL provided)
         DOWNLOADING: Archive is currently being downloaded
@@ -29,11 +30,13 @@ class ArchiveStatus(str, Enum):
     """
     VALID = "valid"
     INVALID_HASH = "invalid_hash"
+    INVALID_SIZE = "invalid_size"
     MISSING = "missing"
     MANUAL = "manual"
     DOWNLOADING = "downloading"
     ERROR = "error"
     VERIFYING = "verifying"
+    UNKNOWN = "unknown"
 
     @property
     def is_available(self) -> bool:
@@ -49,9 +52,10 @@ class ArchiveStatus(str, Enum):
         """Check if archive needs to be downloaded.
 
         Returns:
-            True if status is MISSING, INVALID_HASH or ERROR
+            True if status is MISSING, INVALID_HASH, INVALID_SIZE, ERROR or UNKNOWN
         """
-        return self in (ArchiveStatus.MISSING, ArchiveStatus.INVALID_HASH, ArchiveStatus.ERROR)
+        return self in (ArchiveStatus.MISSING, ArchiveStatus.INVALID_HASH, ArchiveStatus.INVALID_SIZE,
+                        ArchiveStatus.ERROR, ArchiveStatus.UNKNOWN)
 
     @property
     def is_downloading(self) -> bool:
@@ -198,28 +202,37 @@ class ArchiveVerifier:
     def verify_archive(
             self,
             file_path: Path,
-            expected_hash: str,
-            algorithm: HashAlgorithm = HashAlgorithm.MD5
-    ) -> bool:
+            info: ArchiveInfo
+    ) -> ArchiveStatus:
         """Verify archive integrity by comparing hashes.
 
         Args:
             file_path: Path to archive file
-            expected_hash: Expected hash value (lowercase)
-            algorithm: Hash algorithm to use
+            info: ArchiveInfo to use
 
         Returns:
-            True if hash matches, False otherwise
+            ArchiveStatus
         """
         if not file_path.exists():
-            return False
+            return ArchiveStatus.MISSING
 
         try:
-            actual_hash = self.calculate_hash(file_path, algorithm)
-            return actual_hash.lower() == expected_hash.lower()
+            if info.file_size > 0:
+                actual_size = file_path.stat().st_size
+                if actual_size != info.file_size:
+                    logger.warning(f"Invalid size for {file_path}: {actual_size} (Expected: {info.file_size})")
+                    return ArchiveStatus.INVALID_SIZE
+
+            actual_hash = self.calculate_hash(file_path, info.hash_algorithm)
+            if actual_hash.lower() != info.expected_hash.lower():
+                logger.warning(
+                    f"Invalid hash for {file_path}: {actual_hash.lower()} (Expected: {info.expected_hash.lower()})")
+                return ArchiveStatus.INVALID_HASH
+
+            return ArchiveStatus.VALID
         except Exception as e:
-            logger.error(f"Hash verification failed for {file_path}: {e}")
-            return False
+            logger.error(f"Error verifying archive {file_path}: {e}", exc_info=True)
+            return ArchiveStatus.ERROR
 
     def calculate_hash(
             self,
@@ -405,6 +418,7 @@ class DownloadManager(QObject):
         download_started: Emitted when download starts (mod_id)
         download_progress: Emitted on progress (mod_id, DownloadProgress)
         download_finished: Emitted when download completes (mod_id, file_path)
+        download_canceled: Emitted when download is canceled (mod_id, file_path)
         download_error: Emitted on error (mod_id, error_message)
         queue_changed: Emitted when queue state changes
     """
@@ -413,6 +427,7 @@ class DownloadManager(QObject):
     download_started = Signal(str)
     download_progress = Signal(str, object)
     download_finished = Signal(str, str)
+    download_canceled = Signal(str, str)
     download_error = Signal(str, str)
     queue_changed = Signal()
 
@@ -431,6 +446,7 @@ class DownloadManager(QObject):
         self._download_queue: list[ArchiveInfo] = []
 
     def set_download_path(self, download_path: Path):
+        """Update download path."""
         self.download_path = download_path
 
     def add_to_queue(self, archive_info: ArchiveInfo) -> None:
@@ -468,13 +484,20 @@ class DownloadManager(QObject):
         Args:
             mod_id: Mod identifier
         """
-        if mod_id in self._active_downloads:
-            worker, thread, _ = self._active_downloads[mod_id]
-            worker.cancel()
-            self._active_downloads.pop(mod_id, None)
-            logger.info(f"Cancelled download: {mod_id}")
-            self.queue_changed.emit()
-            self._process_queue()
+        try:
+            if mod_id in self._active_downloads:
+                worker, thread, _ = self._active_downloads[mod_id]
+                archive_info = worker.archive_info
+                worker.cancel()
+                del self._active_downloads[mod_id]
+                thread.quit()
+                logger.info(f"Cancelled download: {mod_id}")
+
+                self.download_canceled.emit(mod_id, archive_info.filename)
+                self.queue_changed.emit()
+                self._process_queue()
+        except Exception as e:
+            logger.error(f"Error cancelling download: {e}", exc_info=True)
 
     def get_active_downloads(self) -> list[DownloadProgress]:
         """Get list of active downloads.
@@ -498,27 +521,45 @@ class DownloadManager(QObject):
         Args:
             archive_info: Archive to download
         """
-        thread = QThread()
-        worker = DownloadWorker(archive_info, self.download_path)
-        progress = DownloadProgress(archive_info)
+        try:
+            thread = QThread(self)
+            worker = DownloadWorker(archive_info, self.download_path)
+            progress = DownloadProgress(archive_info)
 
-        worker.moveToThread(thread)
+            worker.moveToThread(thread)
 
-        # Connect signals
-        worker.progress.connect(lambda br, bt, s: self._on_worker_progress(archive_info.mod_id, br, bt, s))
-        worker.finished.connect(lambda fp: self._on_worker_finished(archive_info.mod_id, fp))
-        worker.error.connect(lambda e: self._on_worker_error(archive_info.mod_id, e))
-        worker.finished.connect(thread.quit)
+            mod_id = archive_info.mod_id
 
-        thread.started.connect(worker.start_download)
-        thread.finished.connect(thread.deleteLater)
-        thread.finished.connect(worker.deleteLater)
+            worker.progress.connect(
+                lambda br, bt, s, mid=mod_id: self._on_worker_progress(mid, br, bt, s),
+                Qt.ConnectionType.QueuedConnection
+            )
+            worker.finished.connect(
+                lambda fp, mid=mod_id: self._on_worker_finished(mid, fp),
+                Qt.ConnectionType.QueuedConnection
+            )
+            worker.error.connect(
+                lambda e, mid=mod_id: self._on_worker_error(mid, e),
+                Qt.ConnectionType.QueuedConnection
+            )
 
-        self._active_downloads[archive_info.mod_id] = (worker, thread, progress)
+            # Connect thread signals
+            thread.started.connect(worker.start_download)
+            thread.finished.connect(thread.deleteLater)
+            thread.finished.connect(worker.deleteLater)
 
-        thread.start()
-        self.download_started.emit(archive_info.mod_id)
-        self.queue_changed.emit()
+            # Store in active downloads
+            self._active_downloads[mod_id] = (worker, thread, progress)
+
+            thread.start()
+
+            logger.info(f"Started download worker for {archive_info.filename}")
+            self.download_started.emit(mod_id)
+            self.queue_changed.emit()
+
+        except Exception as e:
+            logger.error(f"Failed to start download worker: {e}", exc_info=True)
+            self.download_error.emit(archive_info.mod_id, str(e))
 
     def _on_worker_progress(
             self,
@@ -535,12 +576,15 @@ class DownloadManager(QObject):
             bytes_total: Total bytes
             speed_bps: Download speed
         """
-        if mod_id in self._active_downloads:
-            _, _, progress = self._active_downloads[mod_id]
-            progress.bytes_received = bytes_received
-            progress.bytes_total = bytes_total
-            progress.speed_bps = speed_bps
-            self.download_progress.emit(mod_id, progress)
+        try:
+            if mod_id in self._active_downloads:
+                _, _, progress = self._active_downloads[mod_id]
+                progress.bytes_received = bytes_received
+                progress.bytes_total = bytes_total
+                progress.speed_bps = speed_bps
+                self.download_progress.emit(mod_id, progress)
+        except Exception as e:
+            logger.error(f"Error in progress handler: {e}", exc_info=True)
 
     def _on_worker_finished(self, mod_id: str, file_path: str) -> None:
         """Handle worker completion.
@@ -549,12 +593,21 @@ class DownloadManager(QObject):
             mod_id: Mod identifier
             file_path: Path to downloaded file
         """
-        if not self.destroyed and mod_id in self._active_downloads:
-            self._active_downloads.pop(mod_id, None)
+        try:
+            logger.debug(f"Worker finished for {mod_id}")
 
-        self.download_finished.emit(mod_id, file_path)
-        self.queue_changed.emit()
-        self._process_queue()
+            if mod_id in self._active_downloads:
+                _, thread, _ = self._active_downloads[mod_id]
+                del self._active_downloads[mod_id]
+                thread.quit()
+                logger.info(f"Download completed: {mod_id}")
+
+            self.download_finished.emit(mod_id, file_path)
+            self.queue_changed.emit()
+            self._process_queue()
+
+        except Exception as e:
+            logger.error(f"Error in finished handler: {e}", exc_info=True)
 
     def _on_worker_error(self, mod_id: str, error_message: str) -> None:
         """Handle worker error.
@@ -563,17 +616,33 @@ class DownloadManager(QObject):
             mod_id: Mod identifier
             error_message: Error description
         """
-        if not self.destroyed and mod_id in self._active_downloads:
-            self._active_downloads.pop(mod_id, None)
+        try:
+            logger.debug(f"Worker error for {mod_id}: {error_message}")
 
-        self.download_error.emit(mod_id, error_message)
-        self.queue_changed.emit()
-        self._process_queue()
+            if mod_id in self._active_downloads:
+                _, thread, _ = self._active_downloads[mod_id]
+                del self._active_downloads[mod_id]
+                thread.quit()
+                logger.error(f"Download failed: {mod_id}")
+
+            self.download_error.emit(mod_id, error_message)
+            self.queue_changed.emit()
+            self._process_queue()
+        except Exception as e:
+            logger.error(f"Error in error handler: {e}", exc_info=True)
 
     def _process_queue(self) -> None:
         """Process download queue to start new downloads."""
-        while (len(self._active_downloads) < self.MAX_CONCURRENT_DOWNLOADS
-               and self._download_queue):
-            archive_info = self._download_queue.pop(0)
-            self._start_download_worker(archive_info)
-            self.queue_changed.emit()
+        try:
+            logger.debug(
+                f"Processing queue: {len(self._download_queue)} queued, "
+                f"{len(self._active_downloads)} active"
+            )
+
+            while (len(self._active_downloads) < self.MAX_CONCURRENT_DOWNLOADS
+                   and self._download_queue):
+                archive_info = self._download_queue.pop(0)
+                self._start_download_worker(archive_info)
+                self.queue_changed.emit()
+        except Exception as e:
+            logger.error(f"Error processing queue: {e}", exc_info=True)
