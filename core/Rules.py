@@ -89,31 +89,80 @@ class Rule:
     """Base rule class.
 
     Attributes:
-        id: Unique rule identifier
         rule_type: Type of rule
         severity: Rule severity
-        source: Reference/source component
+        sources: Reference/source components
         targets: List of target components
         description: Human-readable explanation
         source_url: Optional URL for documentation
     """
-    id: str
     rule_type: RuleType
     severity: RuleSeverity
-    source: ComponentRef
+    sources: tuple[ComponentRef, ...]
     targets: tuple[ComponentRef, ...]
     description: str = ""
     source_url: str | None = None
 
     def applies_to(self, mod_id: str, comp_key: str | None = None) -> bool:
         """Check if this rule applies to given component."""
-        return self.source.matches(mod_id, comp_key)
+        return any(source.matches(mod_id, comp_key) for source in self.sources)
 
     def involves(self, mod_id: str, comp_key: str | None = None) -> bool:
         """Check if component is involved in this rule."""
         if self.applies_to(mod_id, comp_key):
             return True
         return any(target.matches(mod_id, comp_key) for target in self.targets)
+
+    @staticmethod
+    def _parse_component_refs(data: Any) -> list[ComponentRef]:
+        """Parse component references from various formats.
+
+        Accepts:
+        - Single string: "mod_id" or "mod_id:comp"
+        - Single dict: {"mod": "mod_id", "component": "comp"}
+        - List of strings or dicts
+
+        Returns list of ComponentRef objects.
+        Raises ValueError if data is invalid.
+        """
+
+        if not isinstance(data, list):
+            data = [data]
+
+        if not data:
+            raise ValueError("Component reference list cannot be empty")
+
+        refs = []
+        for item in data:
+            if isinstance(item, str):
+                refs.append(ComponentRef.from_string(item))
+            elif isinstance(item, dict):
+                if "mod" not in item:
+                    raise ValueError(f"Component reference dict missing 'mod' key: {item}")
+                refs.append(ComponentRef(item["mod"], item.get("component")))
+            else:
+                raise ValueError(f"Invalid component reference type: {type(item)}")
+
+        return refs
+
+    @classmethod
+    def _parse_sources_and_targets(cls, data: dict[str, Any]) -> tuple[
+        tuple[ComponentRef, ...], tuple[ComponentRef, ...]]:
+        """Parse and validate sources and targets from rule data.
+
+        Returns tuple of (sources, targets).
+        Raises ValueError if required fields are missing or invalid.
+        """
+        if "source" not in data:
+            raise ValueError("Missing required field: 'source'")
+
+        if "target" not in data:
+            raise ValueError("Missing required field: 'target'")
+
+        sources = cls._parse_component_refs(data["source"])
+        targets = cls._parse_component_refs(data["target"])
+
+        return tuple(sources), tuple(targets)
 
 
 @dataclass(frozen=True, slots=True)
@@ -128,25 +177,17 @@ class DependencyRule(Rule):
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "DependencyRule":
-        """Create DependencyRule from dictionary."""
-        targets = [
-            ComponentRef.from_string(t) if isinstance(t, str)
-            else ComponentRef(t["mod"], t.get("component"))
-            for t in data["targets"]
-        ]
+        """Create DependencyRule from dictionary.
 
-        source_data = data["source"]
-        source = (
-            ComponentRef.from_string(source_data) if isinstance(source_data, str)
-            else ComponentRef(source_data["mod"], source_data.get("component"))
-        )
+        Raises ValueError if required fields are missing or invalid.
+        """
+        sources, targets = cls._parse_sources_and_targets(data)
 
         return cls(
-            id=data["id"],
             rule_type=RuleType.DEPENDENCY,
             severity=RuleSeverity(data.get("severity", "error")),
-            source=source,
-            targets=tuple(targets),
+            sources=sources,
+            targets=targets,
             dependency_mode=DependencyMode(data.get("mode", "any")),
             description=data.get("description", ""),
             source_url=data.get("source_url")
@@ -159,25 +200,17 @@ class IncompatibilityRule(Rule):
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "IncompatibilityRule":
-        """Create IncompatibilityRule from dictionary."""
-        targets = [
-            ComponentRef.from_string(t) if isinstance(t, str)
-            else ComponentRef(t["mod"], t.get("component"))
-            for t in data["targets"]
-        ]
+        """Create IncompatibilityRule from dictionary.
 
-        source_data = data["source"]
-        source = (
-            ComponentRef.from_string(source_data) if isinstance(source_data, str)
-            else ComponentRef(source_data["mod"], source_data.get("component"))
-        )
+        Raises ValueError if required fields are missing or invalid.
+        """
+        sources, targets = cls._parse_sources_and_targets(data)
 
         return cls(
-            id=data["id"],
             rule_type=RuleType.INCOMPATIBILITY,
             severity=RuleSeverity(data.get("severity", "error")),
-            source=source,
-            targets=tuple(targets),
+            sources=sources,
+            targets=targets,
             description=data.get("description", ""),
             source_url=data.get("source_url")
         )
@@ -190,25 +223,17 @@ class OrderRule(Rule):
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "OrderRule":
-        """Create OrderRule from dictionary."""
-        targets = [
-            ComponentRef.from_string(t) if isinstance(t, str)
-            else ComponentRef(t["mod"], t.get("component"))
-            for t in data["targets"]
-        ]
+        """Create OrderRule from dictionary.
 
-        source_data = data["source"]
-        source = (
-            ComponentRef.from_string(source_data) if isinstance(source_data, str)
-            else ComponentRef(source_data["mod"], source_data.get("component"))
-        )
+        Raises ValueError if required fields are missing or invalid.
+        """
+        sources, targets = cls._parse_sources_and_targets(data)
 
         return cls(
-            id=data["id"],
             rule_type=RuleType.ORDER,
             severity=RuleSeverity(data.get("severity", "error")),
-            source=source,
-            targets=tuple(targets),
+            sources=sources,
+            targets=targets,
             order_direction=OrderDirection(data.get("direction", "before")),
             description=data.get("description", ""),
             source_url=data.get("source_url")
