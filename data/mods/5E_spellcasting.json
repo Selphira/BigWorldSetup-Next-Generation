@@ -15,7 +15,7 @@
   "components": {
     "100": {"type": "std"},
     "300": {"type": "std"},
-    "choice_0": {"type": "muc1", "components": ["901", "902"]}
+    "choice_0": {"type": "muc11", "components": ["901", "902"]}
   },
   "languages": {
     "en_US": 0,
