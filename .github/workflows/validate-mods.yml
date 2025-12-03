@@ -47,7 +47,7 @@ jobs:
       - name: Validate modified JSON files
         id: validate
         if: steps.changed.outputs.all_changed_files != ''
-        shell: bash
+        shell: bash {0}
         run: |
           echo "🔍 Validating modified files..."
           
