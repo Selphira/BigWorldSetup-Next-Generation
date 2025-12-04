@@ -1,0 +1,1437 @@
+{
+  "rules": [
+    {
+      "source": ["5E_spellcasting:100"],
+      "target": ["5E_spellcasting:300"],
+      "severity": "error",
+      "description": "Conflits internes de 5E_spellcasting"
+    }, {
+      "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:101"],
+      "target": [
+        "A7-ConvenientEENPCs:400", "A7-ConvenientEENPCs:401", "A7-ConvenientEENPCs:500", "A7-ConvenientEENPCs:501",
+        "A7-ConvenientEENPCs:502", "A7-ConvenientEENPCs:503", "A7-ConvenientEENPCs:504", "A7-ConvenientEENPCs:505",
+        "A7-ConvenientEENPCs:506", "A7-ConvenientEENPCs:507", "A7-ConvenientEENPCs:508", "A7-ConvenientEENPCs:509",
+        "A7-ConvenientEENPCs:510", "A7-ConvenientEENPCs:511", "A7-ConvenientEENPCs:512", "A7-ConvenientEENPCs:513",
+        "A7-ConvenientEENPCs:514"
+      ],
+      "severity": "error",
+      "description": "Conflits internes A7-ConvenientEENPCs 1"
+    }, {
+      "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:102"],
+      "target": ["A7-ConvenientEENPCs:410", "A7-ConvenientEENPCs:411", "A7-ConvenientEENPCs:520"],
+      "severity": "error",
+      "description": "Conflits internes A7-ConvenientEENPCs 2"
+    }, {
+      "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:103"],
+      "target": [
+        "A7-ConvenientEENPCs:420", "A7-ConvenientEENPCs:660", "A7-ConvenientEENPCs:661", "A7-ConvenientEENPCs:662",
+        "A7-ConvenientEENPCs:663", "A7-ConvenientEENPCs:664", "A7-ConvenientEENPCs:665", "A7-ConvenientEENPCs:666",
+        "A7-ConvenientEENPCs:667", "A7-ConvenientEENPCs:668", "A7-ConvenientEENPCs:669", "A7-ConvenientEENPCs:670",
+        "A7-ConvenientEENPCs:680", "A7-ConvenientEENPCs:681", "A7-ConvenientEENPCs:682", "A7-ConvenientEENPCs:683",
+        "A7-ConvenientEENPCs:684", "A7-ConvenientEENPCs:685"
+      ],
+      "severity": "error",
+      "description": "Conflits internes A7-ConvenientEENPCs 3"
+    }, {
+      "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:104"],
+      "target": [
+        "A7-ConvenientEENPCs:430", "A7-ConvenientEENPCs:431", "A7-ConvenientEENPCs:540", "A7-ConvenientEENPCs:541",
+        "A7-ConvenientEENPCs:542"
+      ],
+      "severity": "error",
+      "description": "Conflits internes A7-ConvenientEENPCs 4"
+    }, {
+      "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:105"],
+      "target": [
+        "A7-ConvenientEENPCs:440", "A7-ConvenientEENPCs:441", "A7-ConvenientEENPCs:560", "A7-ConvenientEENPCs:561",
+        "A7-ConvenientEENPCs:562", "A7-ConvenientEENPCs:563"
+      ],
+      "severity": "error",
+      "description": "Conflits internes A7-ConvenientEENPCs 5"
+    }, {
+      "source": ["da_portraits:87"],
+      "target": ["da_portraits:88"],
+      "severity": "error",
+      "description": "Conflits internes da_portraits"
+    }, {
+      "source": ["EEUITweaks:1020", "EEUITweaks:1040", "EEUITweaks:1041", "EEUITweaks:1070"],
+      "target": ["EEUITweaks:1060"],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 1"
+    }, {
+      "source": ["EEUITweaks:1080", "EEUITweaks:1090", "EEUITweaks:1091"],
+      "target": ["EEUITweaks:1020", "EEUITweaks:1050"],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 2"
+    }, {
+      "source": ["EEUITweaks:3070"],
+      "target": ["EEUITweaks:3023", "EEUITweaks:3024"],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 3"
+    }, {
+      "source": ["EEUITweaks:3028"],
+      "target": ["EEUITweaks:3030"],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 4"
+    }, {
+      "source": ["EEUITweaks:4000"],
+      "target": ["EEUITweaks:4025"],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 5"
+    }, {
+      "source": ["EEUITweaks:4005", "EEUITweaks:4006"],
+      "target": [
+        "EEUITweaks:3040", "EEUITweaks:3041", "EEUITweaks:3042", "EEUITweaks:3043", "EEUITweaks:3044",
+        "EEUITweaks:3045", "EEUITweaks:4000", "EEUITweaks:4010", "EEUITweaks:4020", "EEUITweaks:4025"
+      ],
+      "severity": "error",
+      "description": "Conflits internes de \"EEUITweaks\" 6"
+    }, {
+      "source": [
+        "refinements:101", "refinements:102", "refinements:103", "refinements:104", "refinements:105",
+        "refinements:106", "refinements:107", "refinements:108", "refinements:109", "refinements:110"
+      ],
+      "target": ["refinements:10"],
+      "severity": "error",
+      "description": "Conflits internes de refinements"
+    }, {
+      "source": ["stratagems:4115"],
+      "target": ["stratagems:4100"],
+      "severity": "error",
+      "description": "Conflits internes de stratagems"
+    }, {
+      "source": ["SubtleD_Item_Tweaks:170"],
+      "target": ["SubtleD_Item_Tweaks:100"],
+      "severity": "error",
+      "description": "Conflits internes de SubtleD_Item_Tweaks"
+    }, {
+      "source": ["SubtleD_Spell_Tweaks:45"],
+      "target": ["SubtleD_Spell_Tweaks:1505"],
+      "severity": "error",
+      "description": "Conflits internes de SubtleD_Spell_Tweaks"
+    }, {
+      "source": [
+        "HiddenGameplayOptions:10", "HiddenGameplayOptions:11", "HiddenGameplayOptions:12", "HiddenGameplayOptions:13",
+        "HiddenGameplayOptions:14", "HiddenGameplayOptions:15", "HiddenGameplayOptions:16", "HiddenGameplayOptions:17",
+        "HiddenGameplayOptions:18", "HiddenGameplayOptions:19", "HiddenGameplayOptions:20", "HiddenGameplayOptions:21",
+        "HiddenGameplayOptions:22", "HiddenGameplayOptions:23", "HiddenGameplayOptions:24", "HiddenGameplayOptions:25",
+        "HiddenGameplayOptions:26", "HiddenGameplayOptions:27", "HiddenGameplayOptions:28", "HiddenGameplayOptions:29",
+        "HiddenGameplayOptions:30", "HiddenGameplayOptions:32", "HiddenGameplayOptions:33", "HiddenGameplayOptions:34",
+        "HiddenGameplayOptions:35", "HiddenGameplayOptions:36", "HiddenGameplayOptions:37", "HiddenGameplayOptions:38"
+      ],
+      "target": ["HiddenGameplayOptions:0"],
+      "severity": "error",
+      "description": "Le composant 0 intègre la majorité des composants"
+    }, {
+      "source": [
+        "iwditempack:1", "iwditempack:6", "iwditempack:11", "iwditempack:19", "iwditempack:24", "iwditempack:29",
+        "iwditempack:35", "iwditempack:40", "iwditempack:45", "iwditempack:51", "iwditempack:56", "iwditempack:61"
+      ],
+      "target": ["iwditempack:100"],
+      "severity": "error",
+      "description": "Le composant 100 intègre tous les objets"
+    }, {
+      "source": ["cdtweaks:1160", "cdtweaks:1161"],
+      "target": [
+        "cdtweaks:1340", "cdtweaks:1341", "cdtweaks:1342", "cdtweaks:1343", "cdtweaks:1344", "cdtweaks:1345",
+        "cdtweaks:1346", "cdtweaks:1347"
+      ],
+      "severity": "error",
+      "description": "Conflits de restrictions de forteresses"
+    }, {
+      "source": ["cdtweaks:2162", "cdtweaks:2164"],
+      "target": ["cdtweaks:2060"],
+      "severity": "error",
+      "description": "Conflits des styles de combat"
+    }, {
+      "source": [
+        "cdtweaks:3176", "cdtweaks:3183", "cdtweaks:3183?1_1", "cdtweaks:3183?1_2", "cdtweaks:3183?2_1",
+        "cdtweaks:3183?2_2", "cdtweaks:3183?3_1", "cdtweaks:3183?3_2", "cdtweaks:3183?4_1", "cdtweaks:3183?4_2",
+        "cdtweaks:3183?5_1", "cdtweaks:3183?5_2", "cdtweaks:3183?6_1"
+      ],
+      "target": ["cdtweaks:3175"],
+      "severity": "error",
+      "description": "Conflits des modifications des romances"
+    }, {
+      "source": ["cdtweaks:1251", "cdtweaks:1252", "cdtweaks:1253", "cdtweaks:1254", "cdtweaks:1255", "cdtweaks:1256"],
+      "target": ["cdtweaks:1257"],
+      "severity": "error",
+      "description": "Conflits internes de cdtweaks 1"
+    }, {
+      "source": ["cdtweaks:2450"],
+      "target": ["cdtweaks:2350", "cdtweaks:2371", "cdtweaks:2357", "cdtweaks:2358"],
+      "severity": "error",
+      "description": "Conflits internes de cdtweaks 2"
+    }, {
+      "source": ["cdtweaks:3494", "cdtweaks:3495", "cdtweaks:3496", "cdtweaks:3497"],
+      "target": ["cdtweaks:3492", "cdtweaks:3493"],
+      "severity": "error",
+      "description": "Conflits internes de cdtweaks 3"
+    }, {
+      "source": ["EET:*"],
+      "target": ["cdtweaks:4010"],
+      "severity": "error",
+      "description": "Esprit du Destin est déjà amélioré dans EET"
+    }, {
+      "source": ["Combat_Skill_Proficiencies:10", "Combat_Skill_Proficiencies:30"],
+      "target": ["Combat_Skill_Proficiencies:50"],
+      "severity": "error",
+      "description": "Le regroupement des categories d'armes est déjà inclu dans ces composants"
+    }, {
+      "source": ["leui-bg1ee:0"],
+      "target": ["EEUITweaks:1040"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"lefreut's enhanced UI (BG1EE skin)\" et des composants de \"EEUITweaks\""
+    }, {
+      "source": ["leui:0", "leui-bg1ee:0", "leui-sod:0"],
+      "target": [
+        "EEUITweaks:1080", "EEUITweaks:1090", "EEUITweaks:2020", "EEUITweaks:2040", "EEUITweaks:2042",
+        "EEUITweaks:2044", "EEUITweaks:2060", "EEUITweaks:2110", "EEUITweaks:2900", "EEUITweaks:3020",
+        "EEUITweaks:3023", "EEUITweaks:3024", "EEUITweaks:3028", "EEUITweaks:3030", "EEUITweaks:3040",
+        "EEUITweaks:3041", "EEUITweaks:3042", "EEUITweaks:3043", "EEUITweaks:3044", "EEUITweaks:3045",
+        "EEUITweaks:3050", "EEUITweaks:3051", "EEUITweaks:3070", "EEUITweaks:4000", "EEUITweaks:4005",
+        "EEUITweaks:4006", "EEUITweaks:4010", "EEUITweaks:4020", "EEUITweaks:4025", "EEUITweaks:4030",
+        "EEUITweaks:4040", "EEUITweaks:5000", "EEUITweaks:5030", "EEUITweaks:5040", "EEUITweaks:5041"
+      ],
+      "severity": "error",
+      "description": "Conflits entre le mod \"lefreut's enhanced UI\" et des composants de \"EEUITweaks\""
+    }, {
+      "source": ["HiddenGameplayOptions:*"],
+      "target": ["EEUITweaks:1010"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Reveal Hidden Gameplay Options\" et le composant de \"Hidden Game Options\" de \"EEUITweaks\""
+    }, {
+      "source": ["leui:0", "leui-bg1ee:0", "leui-sod:0"],
+      "target": ["HiddenGameplayOptions:28", "HiddenGameplayOptions:29", "HiddenGameplayOptions:30"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"lefreut's enhanced UI\" et des composants de \"HiddenGameplayOptions\""
+    }, {
+      "source": ["leui:0", "leui-bg1ee:0", "leui-sod:0"],
+      "target": ["subrace:100", "subrace:200"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"lefreut's enhanced UI\" et le mod \"Subrace MOD for Enhanced Edition Games\""
+    }, {
+      "source": ["infinity_ui:*"],
+      "target": [
+        "HiddenGameplayOptions:0", "HiddenGameplayOptions:10", "HiddenGameplayOptions:11", "HiddenGameplayOptions:12",
+        "HiddenGameplayOptions:13", "HiddenGameplayOptions:14", "HiddenGameplayOptions:15", "HiddenGameplayOptions:16",
+        "HiddenGameplayOptions:17", "HiddenGameplayOptions:18", "HiddenGameplayOptions:19", "HiddenGameplayOptions:20",
+        "HiddenGameplayOptions:21", "HiddenGameplayOptions:22", "HiddenGameplayOptions:23", "HiddenGameplayOptions:24",
+        "HiddenGameplayOptions:25", "HiddenGameplayOptions:26", "HiddenGameplayOptions:27", "HiddenGameplayOptions:28",
+        "HiddenGameplayOptions:29", "HiddenGameplayOptions:30", "HiddenGameplayOptions:31", "HiddenGameplayOptions:32",
+        "HiddenGameplayOptions:33", "HiddenGameplayOptions:34", "HiddenGameplayOptions:35", "HiddenGameplayOptions:36",
+        "HiddenGameplayOptions:37", "HiddenGameplayOptions:38", "HiddenGameplayOptions:39", "HiddenGameplayOptions:101",
+        "HiddenGameplayOptions:102", "HiddenGameplayOptions:103"
+      ],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Infinity UI++\" et des composants de \"HiddenGameplayOptions\""
+    }, {
+      "source": ["infinity_ui:*"],
+      "target": ["stratagems:4115"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Infinity UI++\" et des composants de \"Sword Coast Stratagems\""
+    }, {
+      "source": ["tipun_gui:10"],
+      "target": ["HiddenGameplayOptions:30"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Tipun's User Interface (New)\" et des composants de \"HiddenGameplayOptions\""
+    }, {
+      "source": ["bg1npc:10"],
+      "target": ["bg1ub:4", "bg1ub:6", "bg1ub:7"],
+      "severity": "error",
+      "description": "Inclus dans bg1npc de manière plus complète"
+    }, {
+      "source": ["bg1npc:0"],
+      "target": ["bg1ub:5"],
+      "severity": "error",
+      "description": "Inclus dans bg1npc de manière plus complète"
+    }, {
+      "source": ["cdtweaks:70", "cdtweaks:72"],
+      "target": ["iwdification:10"],
+      "severity": "error",
+      "description": "Style d'incantation IWD"
+    }, {
+      "source": ["A7-Protagonist-Be-Gone:1"],
+      "target": ["SkipChateauIrenicus:*"],
+      "severity": "error",
+      "description": "Conflits entre le mod A7-Protagonist-Be-Gone et SkipChateauIrenicus"
+    }, {
+      "source": ["butchery:30"],
+      "target": ["angelo:0"],
+      "severity": "error",
+      "description": "Conflits entre le mod butchery et angelo"
+    }, {
+      "source": ["MESpells:*"],
+      "target": ["enhanced-powergaming-scripts:*"],
+      "severity": "error",
+      "description": "Conflits entre le mod enhanced-powergaming-scripts et MESpells"
+    }, {
+      "source": ["gaEnemyRando:*"],
+      "target": ["mih_eq:35"],
+      "severity": "error",
+      "description": "Conflits entre le mod gaEnemyRando et le composant \"Enhanced Battles Spellhold\" de mih_eq"
+    }, {
+      "source": ["TomeAndBlood:40"],
+      "target": ["5E_spellcasting:100"],
+      "severity": "error",
+      "description": "Conflits entre le mod TomeAndBlood et 5E_spellcasting"
+    }, {
+      "source": ["faiths_and_powers:30"],
+      "target": ["5E_spellcasting:100"],
+      "severity": "error",
+      "description": "Conflits entre le mod faiths_and_powers et 5E_spellcasting"
+    }, {
+      "source": ["TomeAndBlood:51"],
+      "target": ["stratagems:4250"],
+      "severity": "error",
+      "description": "Conflits entre le mod TomeAndBlood et stratagems"
+    }, {
+      "source": ["cdtweaks:3020"],
+      "target": ["iwd2-ease:15"],
+      "severity": "error",
+      "description": "Conflits entre le mod cdtweaks et iwd2-ease"
+    }, {
+      "source": [
+        "cdtweaks:3080", "cdtweaks:3081", "cdtweaks:3082", "cdtweaks:3083", "cdtweaks:3090", "cdtweaks:3091",
+        "cdtweaks:3092", "cdtweaks:3093", "cdtweaks:3100", "cdtweaks:3101", "cdtweaks:3102", "cdtweaks:3103",
+        "cdtweaks:3110", "cdtweaks:3111", "cdtweaks:3112", "cdtweaks:3113"
+      ],
+      "target": ["iwd2-ease:1"],
+      "severity": "error",
+      "description": "Conflits entre le mod cdtweaks et iwd2-ease"
+    }, {
+      "source": ["cdtweaks:3230"],
+      "target": ["tnt:60"],
+      "severity": "error",
+      "description": "Conflits entre le mod cdtweaks et tnt"
+    }, {
+      "source": ["dw_talents:60200"],
+      "target": ["cdtweaks:2080", "cdtweaks:2300"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et cdtweaks #1"
+    }, {
+      "source": ["dw_talents:40000"],
+      "target": [
+        "cdtweaks:2350", "cdtweaks:2351", "cdtweaks:2352", "cdtweaks:2353", "cdtweaks:2357", "cdtweaks:2358",
+        "cdtweaks:2360", "cdtweaks:2370", "cdtweaks:2371", "cdtweaks:2372", "cdtweaks:2380", "cdtweaks:2550",
+        "cdtweaks:2551", "cdtweaks:2552"
+      ],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et cdtweaks #2"
+    }, {
+      "source": ["dw_talents:40100"],
+      "target": ["cdtweaks:2410", "cdtweaks:4050"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et cdtweaks #3"
+    }, {
+      "source": ["dw_talents:80500"],
+      "target": ["cdtweaks:3030", "cdtweaks:3031"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et cdtweaks #4"
+    }, {
+      "source": [
+        "dw_talents:80000", "dw_talents:80001", "dw_talents:80100", "dw_talents:80101", "dw_talents:80102",
+        "dw_talents:80103", "dw_talents:80104"
+      ],
+      "target": ["cdtweaks:3210"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et cdtweaks #5"
+    }, {
+      "source": ["dw_talents:40600", "dw_talents:41000"],
+      "target": ["stratagems:4030"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et stratagems #1"
+    }, {
+      "source": ["dw_talents:90100", "dw_talents:60300"],
+      "target": ["stratagems:4115"],
+      "severity": "error",
+      "description": "Conflits entre le mod dw_talents et stratagems #2"
+    }, {
+      "source": ["FoxMonster:0"],
+      "target": ["cdtweaks:1150"],
+      "severity": "error",
+      "description": "Incompatibilité entre le mod FoxMonster et cdtweaks, Moddie ne pourra pas porter les griffes"
+    }, {
+      "source": ["skills-and-abilities:11", "skills-and-abilities:12"],
+      "target": ["thieving-skills-for-bards:1"],
+      "severity": "error",
+      "description": "skills-and-abilities est le remplaçant de thieving-skills-for-bards"
+    }, {
+      "source": ["dw_talents:81100"],
+      "target": [
+        "Combat_Skill_Proficiencies:10", ":skills-and-abilities:311", ":skills-and-abilities:312",
+        ":skills-and-abilities:313", ":cdtweaks:2160", ":cdtweaks:2161", ":cdtweaks:2162", ":cdtweaks:2163",
+        ":cdtweaks:2164", ":METweaks:400", ":METweaks:500", ":METweaks:505", ":METweaks:510", ":METweaks:4000"
+      ],
+      "severity": "error",
+      "description": "Incompatibilité dans les systèmes de compétence 1"
+    }, {
+      "source": ["Combat_Skill_Proficiencies:30", "Combat_Skill_Proficiencies:50"],
+      "target": [
+        "skills-and-abilities:311", "skills-and-abilities:312", "skills-and-abilities:313", ":cdtweaks:2161",
+        ":cdtweaks:2162", ":cdtweaks:2163", ":cdtweaks:2164", ":METweaks:400", ":METweaks:500", ":METweaks:505",
+        ":METweaks:510", ":METweaks:4000"
+      ],
+      "severity": "error",
+      "description": "Incompatibilité dans les systèmes de compétence 2"
+    }, {
+      "source": ["Combat_Skill_Proficiencies:70"],
+      "target": ["item_rev:11"],
+      "severity": "warning",
+      "description": "Combiner les effets peut avoir des résultats extrêmes"
+    }, {
+      "source": ["Combat_Skill_Proficiencies:90"],
+      "target": ["cdtweaks:2440"],
+      "severity": "error",
+      "description": "Choisir une modification du bonus d'attaque par round"
+    }, {
+      "source": ["spell_rev:*"],
+      "target": ["skills-and-abilities:700"],
+      "severity": "error",
+      "description": "Revision des sorts de Protection contre les armes magiques et non-magiques"
+    }, {
+      "source": ["dw_talents:60100"],
+      "target": ["skills-and-abilities:312", "skills-and-abilities:313"],
+      "severity": "error",
+      "description": "Incompatibilité entre Talent of Faerun et Skills and abilitiews"
+    }, {
+      "source": ["ub:23"],
+      "target": ["divine_remix:406"],
+      "severity": "error",
+      "description": "Choisir une version du kit Sauvage"
+    }, {
+      "source": ["ub:22"],
+      "target": ["divine_remix:412"],
+      "severity": "error",
+      "description": "Choisir une version du kit Vengeur"
+    }, {
+      "source": ["shurininja:*"],
+      "target": ["kit_rev:0"],
+      "severity": "error",
+      "description": "Conflits entre shurininja et kit_rev"
+    }, {
+      "source": ["c#anotherfinehell:0"],
+      "target": ["c#sodtweaks:12", "c#sodtweaks:13", "c#sodtweaks:14", "c#sodtweaks:15"],
+      "severity": "error",
+      "description": "Choisir un final de SoD"
+    }, {
+      "source": [
+        "cdtweaks:3340", "cdtweaks:3341", "cdtweaks:3342", "cdtweaks:3343", "cdtweaks:3344", "cdtweaks:3345",
+        "cdtweaks:3346"
+      ],
+      "target": ["METweaks:3400", "METweaks:3405", "METweaks:3410", "METweaks:3415"],
+      "severity": "error",
+      "description": "Choisir une modification de la vitesse de déplacement"
+    }, {
+      "source": ["c#anotherfinehell:0"],
+      "target": ["c#sodtweaks:1"],
+      "severity": "error",
+      "description": "Le tweak n'est pas nécessaire avec c#anotherfinehell"
+    }, {
+      "source": ["c#anotherfinehell:0"],
+      "target": ["c#sodtweaks:12", "c#sodtweaks:13", "c#sodtweaks:14", "c#sodtweaks:15"],
+      "severity": "error",
+      "description": "Choisir un final de SOD"
+    }, {
+      "source": ["butchery:*"],
+      "target": ["firkraag:0"],
+      "severity": "error",
+      "description": "Incompatibilité avec les modifications du donjon de Firkraag"
+    }, {
+      "source": ["stratagems:8060", "stratagems:8061"],
+      "target": ["Hanna:1"],
+      "severity": "error",
+      "description": "Choisir un version du château de'Arnise amélioré"
+    }, {
+      "source": ["tactics-remix:10"],
+      "target": ["Kiara-Zaiya:7", ":Hanna:2"],
+      "severity": "error",
+      "description": "Choisir une version d'Irenicus amélioré à Suldanessellar"
+    }, {
+      "source": ["mih_eq:36"],
+      "target": ["Hanna:4"],
+      "severity": "error",
+      "description": "Choisir une version du dragon d'Irenicus amélioré"
+    }, {
+      "source": ["Ascension:60", "Ascension:61"],
+      "target": ["Severian:2"],
+      "severity": "error",
+      "description": "Choisir une modification des épilogues"
+    }, {
+      "source": ["A7#ImprovedArcher:0"],
+      "target": ["might_and_guile:225", ":skills-and-abilities:170"],
+      "severity": "error",
+      "description": "Choisir une modification de l'archer"
+    }, {
+      "source": ["might_and_guile:265"],
+      "target": ["mnkoverhaul:1", "mnkoverhaul:2"],
+      "severity": "error",
+      "description": "Choisir une modification des points du moine"
+    }, {
+      "source": ["tactics-remix:*"],
+      "target": ["mih_eq:*"],
+      "severity": "error",
+      "description": "L'auteur de Tactics Remix indique des conflits avec le mod Made in heaven Encounters & Quests sans donner de précisions"
+    }, {
+      "source": ["bgspawn:*"],
+      "target": ["gaEnemyRando:*"],
+      "severity": "error",
+      "description": "Conceptuellement incompatible car BGSpawn désactive les points d'apparition qu'Enemy Randomizer utilise"
+    }, {
+      "source": ["drunkshaders:*"],
+      "target": ["LightingPack:*"],
+      "severity": "error",
+      "description": "Choisir une modification des sharders"
+    }, {
+      "source": ["cdtweaks:200"],
+      "target": ["tnt:28"],
+      "severity": "error",
+      "description": "Choisir une suppression du flou des objets"
+    }, {
+      "source": ["SubtleD_Spell_Tweaks:45"],
+      "target": ["tnt:46"],
+      "severity": "error",
+      "description": "Choisir une modification de Vision véritable"
+    }, {
+      "source": ["tnt:54"],
+      "target": ["mih_tweak:3"],
+      "severity": "error",
+      "description": "Choisir une modification de Protection contre le mal"
+    }, {
+      "source": ["tnt:56"],
+      "target": ["METweaks:1200"],
+      "severity": "error",
+      "description": "Choisir une modification de Pistage"
+    }, {
+      "source": ["stratagems:8160"],
+      "target": ["RevisedBattles:13"],
+      "severity": "error",
+      "description": "Choisir une modification du Temple des geants de feu"
+    }, {
+      "source": ["stratagems:8000"],
+      "target": ["RevisedBattles:16"],
+      "severity": "error",
+      "description": "Choisir une modification d'Ilyich"
+    }, {
+      "source": ["stratagems:8010"],
+      "target": ["RevisedBattles:14"],
+      "severity": "error",
+      "description": "Choisir une modification du Seigneur des ombres"
+    }, {
+      "source": ["mih_eq:134"],
+      "target": ["RevisedBattles:9", ":Firkraag:0"],
+      "severity": "error",
+      "description": "Choisir une modification de Firkraag"
+    }, {
+      "source": ["mih_eq:132"],
+      "target": ["RevisedBattles:15", ":Hanna:6"],
+      "severity": "error",
+      "description": "Choisir une modification de la Crypte de Franc-Marché"
+    }, {
+      "source": ["mih_eq:131"],
+      "target": ["RevisedBattles:17"],
+      "severity": "error",
+      "description": "Choisir une modification des égouts sous le temple"
+    }, {
+      "source": ["cdtweaks:2700"],
+      "target": ["strategems:8130"],
+      "severity": "error",
+      "description": "Choisir une révision de la régénération des trolls"
+    }, {
+      "source": ["IWD1_EET:*"],
+      "target": ["A7-TotLM-BG2EE:*"],
+      "severity": "error",
+      "description": "IWD1_EET contient déjà Trials of the Luremaster"
+    }, {
+      "source": ["spell_rev:0"],
+      "target": ["hammers:15"],
+      "severity": "error",
+      "description": "SpellRevision transforme le marteau spirituel en une arme de mêlée avec la même portée que les armes lancées"
+    }, {
+      "source": ["spell_rev:0"],
+      "target": ["cdtweaks:2310", "cdtweaks:2311", "cdtweaks:2312"],
+      "severity": "error",
+      "description": "Pénalités aux jets de sauvegarde des sorts des lanceurs de sorts de haut niveau n'est pas pensé pour fonctionner avec SpelLRevision"
+    }, {
+      "source": ["spell_rev:0"],
+      "target": ["iwdification:90"],
+      "severity": "error",
+      "description": "Choisir une amélioration de métamorphose"
+    }, {
+      "source": ["spell_rev:0"],
+      "target": [
+        "aTweaks:102", "aTweaks:103", "aTweaks:104", "aTweaks:105", "aTweaks:186", "aTweaks:204", "aTweaks:205",
+        "aTweaks:211", "aTweaks:300", "aTweaks:322", "aTweaks:323", "aTweaks:324"
+      ],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Spell Revisions\" et \"aTweaks\""
+    }, {
+      "source": ["spell_rev:0"],
+      "target": ["aTweaks:150", "aTweaks:152", "aTweaks:153", "aTweaks:155", "aTweaks:156"],
+      "severity": "warning",
+      "description": "Les démons de aTweaks sont conceptualements incompatibles avec ceux de SpellRevision"
+    }, {
+      "source": ["spell_rev:60"],
+      "target": ["divine_remix:1000"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Spell Revisions\" et \"Divine Remix\""
+    }, {
+      "source": ["spell_rev:0"],
+      "target": ["stratagems:2520", "stratagems:3550", "stratagems:4130", "stratagems:4240"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Spell Revisions\" et \"Stratagems\""
+    }, {
+      "source": ["stratagems:4030"],
+      "target": [
+        "cdtweaks:1150", ":refinements:30", ":refinements:31", ":artisanskitpack:5100", ":dw_talents:2040",
+        ":dw_talents:40600"
+      ],
+      "severity": "error",
+      "description": "Choisir une amélioration des métamorphes"
+    }, {
+      "source": ["tod:*"],
+      "target": ["divine_remix:1000"],
+      "severity": "error",
+      "description": "tod devrait être installé après ce composant de Divine_Remix, mais cela chamboulerait le reste de l'installation"
+    }, {
+      "source": ["Magic_Battles_Revised:*"],
+      "target": ["better_spell_visuals:*"],
+      "severity": "error",
+      "description": "\"Magic_Battles_Revised\" contient la plupart des modifications de \"better_spell_visuals\""
+    }, {
+      "source": [
+        "faiths_and_powers:21", "faiths_and_powers:22", "faiths_and_powers:23", "faiths_and_powers:24",
+        "faiths_and_powers:25"
+      ],
+      "target": ["divine_remix:1000"],
+      "severity": "error",
+      "description": "Choisir un système de sphère"
+    }, {
+      "source": ["item_rev:0"],
+      "target": ["stratagems:2900", "stratagems:3021"],
+      "severity": "error",
+      "description": "Conflits entre le mod item_rev et stratagems"
+    }, {
+      "source": ["item_rev:0"],
+      "target": ["aTweaks:110"],
+      "severity": "error",
+      "description": "Conflits entre le mod item_rev et aTweaks"
+    }, {
+      "source": ["item_rev:0"],
+      "target": [
+        "refinements:70", "refinements:71", "refinements:72", "refinements:73", "refinements:74", "refinements:75"
+      ],
+      "severity": "error",
+      "description": "Conflits entre le mod item_rev et refinements"
+    }, {
+      "source": ["item_rev:0"],
+      "target": ["valhorn:*"],
+      "severity": "error",
+      "description": "Conflits entre le mod item_rev et valhorn"
+    }, {
+      "source": ["forgotten-armament:21"],
+      "target": ["item_rev:0"],
+      "severity": "error",
+      "description": "Choisir une modification des objets du jeu"
+    }, {
+      "source": ["forgotten-armament:21", "item_rev:0"],
+      "target": ["ub:20"],
+      "severity": "error",
+      "description": "Certaines descriptions étendues de ToB ne correspondront plus"
+    }, {
+      "source": ["cdtweaks:3040"],
+      "target": ["aTweaks:500", "aTweaks:502"],
+      "severity": "error",
+      "description": "Choisir un tweak de capacité des conteneurs"
+    }, {
+      "source": ["SelphiraTweaks:40"],
+      "target": ["EET_Tweaks:3010", ":cdtweaks:2170", ":cdtweaks:2510"],
+      "severity": "error",
+      "description": "Choisir un tweak de lancement des sorts depuis les parchemins"
+    }, {
+      "source": ["item_rev:12"],
+      "target": ["cdtweaks:2150", "cdtweaks:2151", "cdtweaks:2152"],
+      "severity": "error",
+      "description": "Choisir un tweak de restriction du port des objets de protection"
+    }, {
+      "source": ["cdtweaks:90"],
+      "target": ["lolfixer:9"],
+      "severity": "error",
+      "description": "Choisir un tweak de modification des icônes de portraits ajoutés par les objets équipés"
+    }, {
+      "source": ["item_rev:0"],
+      "target": ["d0tweak:11"],
+      "severity": "error",
+      "description": "Animations des pierres pierres différentes"
+    }, {
+      "source": ["item_rev:9", "item_rev:1101"],
+      "target": ["cdtweaks:2100"],
+      "severity": "error",
+      "description": "Choisir un tweak d'utilisation des compétences de voleur en armure"
+    }, {
+      "source": ["SubtleD_Item_Tweaks:100"],
+      "target": ["item_rev:2", "item_rev:3", ":cdtweaks:2120"],
+      "severity": "error",
+      "description": "Choisir un tweak de lancement de sort en armure"
+    }, {
+      "source": ["SubtleD_Item_Tweaks:100"],
+      "target": ["item_rev:2", "item_rev:3", "item_rev:1040", "item_rev:1042"],
+      "severity": "error",
+      "description": "Choisir un tweak de modification des bonus d'armure"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:100"],
+      "target": ["stratagems:3020", "stratagems:3021", "stratagems:3022"],
+      "severity": "error",
+      "description": "Choisir un remplacement des armes magiques +1"
+    }, {
+      "source": ["SubtleD_Item_Tweaks:120"],
+      "target": ["item_rev:17"],
+      "severity": "warning",
+      "description": "Attention, certaines modifications d'armes d'ItemRevision seront écrasées"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:100"],
+      "target": ["mih_tweaks:7"],
+      "severity": "error",
+      "description": "Choisir une modification des bonus donnés par la force"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:100", "SubtleD_Item_Tweaks:100"],
+      "target": ["mih_tweaks:8"],
+      "severity": "error",
+      "description": "Choisir une modification des bonus donnés par la dextérité"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:151", "SubtleD_Stat_Overhauls:152", "SubtleD_Stat_Overhauls:153"],
+      "target": ["mih_tweaks:9"],
+      "severity": "error",
+      "description": "Choisir une modification des bonus donnés par la constitution"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:100"],
+      "target": ["atweaks:213"],
+      "severity": "error",
+      "description": "Choisir une modification des bonus aux jets de sauvegarde des nains et des gnomes"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:110"],
+      "target": ["cdtweaks:2580"],
+      "severity": "error",
+      "description": "Choisir une modification du nombre de sorts bonus donnés par la sagesse"
+    }, {
+      "source": ["sodrtd:80"],
+      "target": ["themed_tweaks:80"],
+      "severity": "error",
+      "description": "Contenu identique #63"
+    }, {
+      "source": ["celestials:1"],
+      "target": ["spell_rev:10"],
+      "severity": "error",
+      "description": "Contenu identique #64"
+    }, {
+      "source": ["dw_som:1500"],
+      "target": ["dw_talents:1500", ":stratagems:1500"],
+      "severity": "error",
+      "description": "Contenu identique #65"
+    }, {
+      "source": ["dw_som:1510"],
+      "target": ["dw_talents:1510", ":stratagems:1510"],
+      "severity": "error",
+      "description": "Contenu identique #66"
+    }, {
+      "source": ["dw_som:1520"],
+      "target": ["dw_talents:1520", ":stratagems:1520"],
+      "severity": "error",
+      "description": "Contenu identique #67"
+    }, {
+      "source": ["dw_som:2010"],
+      "target": ["dw_talents:2010", ":stratagems:2010"],
+      "severity": "error",
+      "description": "Contenu identique #68"
+    }, {
+      "source": ["dw_som:2020"],
+      "target": ["dw_talents:2020", ":stratagems:2020"],
+      "severity": "error",
+      "description": "Contenu identique #69"
+    }, {
+      "source": ["dw_som:2030"],
+      "target": ["dw_talents:2030", ":stratagems:2030"],
+      "severity": "error",
+      "description": "Contenu identique #70"
+    }, {
+      "source": ["dw_som:2040"],
+      "target": ["dw_talents:2040", ":stratagems:2040"],
+      "severity": "error",
+      "description": "Contenu identique #71"
+    }, {
+      "source": ["dw_som:2050"],
+      "target": ["dw_talents:2050", ":stratagems:2050"],
+      "severity": "error",
+      "description": "Contenu identique #72"
+    }, {
+      "source": ["dw_som:2060"],
+      "target": ["dw_talents:2060", ":stratagems:2060"],
+      "severity": "error",
+      "description": "Contenu identique #73"
+    }, {
+      "source": ["dw_som:2070"],
+      "target": ["dw_talents:2070", ":stratagems:2070"],
+      "severity": "error",
+      "description": "Contenu identique #74"
+    }, {
+      "source": ["dw_som:2080"],
+      "target": ["dw_talents:2080", ":stratagems:2080"],
+      "severity": "error",
+      "description": "Contenu identique #75"
+    }, {
+      "source": ["dw_som:2500"],
+      "target": ["dw_talents:2500", ":stratagems:2500"],
+      "severity": "error",
+      "description": "Contenu identique #76"
+    }, {
+      "source": ["dw_som:2510"],
+      "target": ["dw_talents:2510", ":stratagems:2510"],
+      "severity": "error",
+      "description": "Contenu identique #77"
+    }, {
+      "source": ["dw_som:2520"],
+      "target": ["dw_talents:2520", ":stratagems:2520"],
+      "severity": "error",
+      "description": "Contenu identique #78"
+    }, {
+      "source": ["dw_talents:60300"],
+      "target": ["stratagems:4100"],
+      "severity": "error",
+      "description": "Contenu identique #79"
+    }, {
+      "source": ["dw_talents:90100"],
+      "target": ["stratagems:4115"],
+      "severity": "error",
+      "description": "Contenu identique #80"
+    }, {
+      "source": ["dw_talents:60200"],
+      "target": ["stratagems:4240"],
+      "severity": "error",
+      "description": "Contenu identique #81"
+    }, {
+      "source": ["cdtweaks:3320"],
+      "target": ["tnt:57"],
+      "severity": "error",
+      "description": "Choisir une modification de la déprécisation des prix de rachat des magasins"
+    }, {
+      "source": [
+        "aurora:100", "aurora:105", "aurora:110", "aurora:115", "aurora:120", "aurora:125", "aurora:130", "aurora:135",
+        "aurora:140"
+      ],
+      "target": ["tnt:57"],
+      "severity": "error",
+      "description": "Choisir une modification du prix de rachat des magasins"
+    }, {
+      "source": ["atweaks:101"],
+      "target": ["butchery:11"],
+      "severity": "error",
+      "description": "Choisir une modification des créatures"
+    }, {
+      "source": ["stratagems:6510"],
+      "target": ["atweaks:150", "atweaks:152", "atweaks:153"],
+      "severity": "error",
+      "description": "Choisir une modification des démons"
+    }, {
+      "source": ["stratagems:2520"],
+      "target": ["atweaks:190"],
+      "severity": "error",
+      "description": "Choisir une modification des élémentaires"
+    }, {
+      "source": ["stratagems:6300"],
+      "target": ["atweaks:185"],
+      "severity": "error",
+      "description": "Choisir une modification des créatures féériques"
+    }, {
+      "source": ["wsr:100"],
+      "target": ["METweaks:1600"],
+      "severity": "warning",
+      "description": "La résistance à la magie est déjà modifiée par wsr"
+    }, {
+      "source": ["tnt:67"],
+      "target": ["cdtweaks:2200", "cdtweaks:2210", "cdtweaks:2211"],
+      "severity": "error",
+      "description": "Choisir une modification de la grande maitrise #1"
+    }, {
+      "source": ["dw_talents:81010", "dw_talents:81011", "dw_talents:81012"],
+      "target": ["cdtweaks:2200"],
+      "severity": "error",
+      "description": "Choisir une modification de la grande maitrise #2"
+    }, {
+      "source": ["cdtweaks:2351", "cdtweaks:2353", "cdtweaks:2357", "cdtweaks:2358"],
+      "target": ["tnt:68"],
+      "severity": "error",
+      "description": "Choisir une modification de l'accès aux multi-classes"
+    }, {
+      "source": ["passive_warrior_hlas:*"],
+      "target": ["refinements:101", ":spell_rev:65", ":skills-and-abilities:720"],
+      "severity": "error",
+      "description": "HLA des guerriers"
+    }, {
+      "source": ["refinements:10", "refinements:107"],
+      "target": ["kiara-zaiya:2", ":mnkoverhaul:0"],
+      "severity": "error",
+      "description": "HLA des moines"
+    }, {
+      "source": ["refinements:10", "refinements:103", "refinements:104", "refinements:105"],
+      "target": ["divine_remix:100"],
+      "severity": "error",
+      "description": "HLA des prêtres, paladins, druides et rôdeurs"
+    }, {
+      "source": ["refinements:10", "refinements:106"],
+      "target": ["divine_remix:200"],
+      "severity": "error",
+      "description": "HLA des druides"
+    }, {
+      "source": ["refinements:10", "refinements:103", "refinements:104", "refinements:105", "refinements:106"],
+      "target": ["divine_remix:1000"],
+      "severity": "error",
+      "description": "HLA des prêtres, paladins, druides et rôdeurs"
+    }, {
+      "source": ["rr:5"],
+      "target": ["iwdification:180"],
+      "severity": "error",
+      "description": "Conflits entre le mod rr et iwdification"
+    }, {
+      "source": ["aTweaks:125"],
+      "target": ["oversight:3"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Oversight\" et \"aTweaks\""
+    }, {
+      "source": ["item_rev:1090", "item_rev:1091", "item_rev:1092", "item_rev:1093"],
+      "target": ["cdtweaks:2420"],
+      "severity": "error",
+      "description": "Restrictions d'equipement pour les clercs"
+    }, {
+      "source": ["item_rev:1091", "item_rev:1093"],
+      "target": ["cdtweaks:2430", "cdtweaks:2431"],
+      "severity": "error",
+      "description": "Restrictions d'equipement pour les druides"
+    }, {
+      "source": ["Xan:*", "dearnise:*", "Adrian:*"],
+      "target": ["CDTweaks:3183?4_1"],
+      "severity": "error",
+      "description": "La triche sur les romances de CDTweaks crée des bégaiement pour les PNJ"
+    }, {
+      "source": ["deArnise:*", "Tashia:*"],
+      "target": ["cdtweaks:3140", "cdtweaks:3141"],
+      "severity": "error",
+      "description": "Incompatibilité avec les \"Cinematiques et reves des chapitres 1 et 2 acceleres\""
+    }, {
+      "source": ["stratagems:4100"],
+      "target": ["cdtweaks:2370", "cdtweaks:2372", "cdtweaks:4020"],
+      "severity": "error",
+      "description": "Conflits entre le mod \"Tweak Anthology\" et \"Stratagems\""
+    }, {
+      "source": ["SubtleD_Item_Tweaks:1091", "SubtleD_Item_Tweaks:1092", "SubtleD_Item_Tweaks:1093"],
+      "target": ["npckit:900"],
+      "severity": "error",
+      "description": "La description de npckit ne correspondra plus au nombre de sorts connus par Edwin"
+    }, {
+      "source": ["cdtweaks:4050"],
+      "target": ["divine_remix:605"],
+      "severity": "error",
+      "description": "Jaheira devient neutre bonne"
+    }, {
+      "source": ["cdtweaks:100"],
+      "target": ["iwdification:20"],
+      "severity": "error",
+      "description": "Choisir un \"Couleurs ternes pour les habits des roturiers\""
+    }, {
+      "source": ["transitions:140"],
+      "target": ["themed_tweaks:200"],
+      "severity": "error",
+      "description": "Choisir un \"Utiliser la cinematique d'Irenicus en enfer comme un reve qui restaure vos pouvoirs d'enfant de Bhaal\""
+    }, {
+      "source": ["SelphiraTweaks:11"],
+      "target": ["cdtweaks:3070", "cdtweaks:3071", "cdtweaks:3072", "cdtweaks:3073"],
+      "severity": "error",
+      "description": "Choisir un effet de la réputation sur les prix"
+    }, {
+      "source": ["cdtweaks:2580", "cdtweaks:2581"],
+      "target": ["zgtweaks:100"],
+      "severity": "error",
+      "description": "Choisir un tweak sur la table des sorts bonus lies à la sagesse"
+    }, {
+      "source": ["cdtweaks:2240"],
+      "target": ["dw_talents:80150", ":might_and_guile:290"],
+      "severity": "error",
+      "description": "Choisir un tweak sur la table de progression du TAC0"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:160"],
+      "target": ["spell_rev:70"],
+      "severity": "error",
+      "description": "Choisir un tweak sur la table des jets de sauvegardes"
+    }, {
+      "source": ["SelphiraTweaks:30"],
+      "target": ["item_rev:0"],
+      "severity": "warning",
+      "description": "SelphiraTweaks va écraser la table de connaissance qu'ItemRevisions a modifié via son composant principal"
+    }, {
+      "source": ["cdtweaks:2090", "cdtweaks:2091", "cdtweaks:2092"],
+      "target": [
+        "EET_Tweaks:2000", "EET_Tweaks:2001", "EET_Tweaks:2002", "EET_Tweaks:2003", ":SubtleD_Stat_Overhauls:200",
+        ":Derats_Levelling:2", ":Derats_Levelling:3", ":Derats_Levelling:4", ":Derats_Levelling:5",
+        ":Derats_Levelling:6", ":Derats_Levelling:7"
+      ],
+      "severity": "error",
+      "description": "Choisir un tweak de modification de la table d'expérience"
+    }, {
+      "source": ["SelphiraTweaks:50"],
+      "target": [
+        "EET_Tweaks:2040", "EET_Tweaks:2041", "EET_Tweaks:2042", "EET_Tweaks:2043", "EET_Tweaks:2044", ":aTweaks:261",
+        ":aTweaks:262", ":xpmod:7", ":xpmod:8", ":xpmod:9", ":xpmod:10", ":xpmod:11", ":xpmod:12", ":xpmod:13",
+        ":xpmod:14"
+      ],
+      "severity": "error",
+      "description": "Choisir un tweak de gain d'expérience pour le déverouillage de serrure, le désamorcçage des pièges et l'apprentissage des sortilèges"
+    }, {
+      "source": [
+        "EET_Tweaks:2050", "EET_Tweaks:2051", "EET_Tweaks:2052", "EET_Tweaks:2053", "EET_Tweaks:2054",
+        "EET_Tweaks:2055", "EET_Tweaks:2056"
+      ],
+      "target": [
+        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", ":SubtleD_Stat_Overhauls:211",
+        ":SubtleD_Stat_Overhauls:212", ":SubtleD_Stat_Overhauls:213"
+      ],
+      "severity": "error",
+      "description": "Choisir un tweak de gain d'expérience en tuant des créatures"
+    }, {
+      "source": [
+        "EET_Tweaks:2060", "EET_Tweaks:2061", "EET_Tweaks:2062", "EET_Tweaks:2063", "EET_Tweaks:2064",
+        "EET_Tweaks:2065", "EET_Tweaks:2066"
+      ],
+      "target": ["xpmod:15", "xpmod:16", "xpmod:17", "xpmod:18", "xpmod:19", "xpmod:20", "xpmod:21"],
+      "severity": "error",
+      "description": "Choisir un tweak de gain d'expérience en terminant des quêtes"
+    }, {
+      "source": ["EET_Tweaks:2070"],
+      "target": ["METweaks:200"],
+      "severity": "error",
+      "description": "Choisir une répartition de l'expérience des quêtes"
+    }, {
+      "source": ["EET_Tweaks:2020"],
+      "target": [
+        "c#sodtweaks:9", "c#sodtweaks:10", "c#sodtweaks:11", ":SubtleD_Stat_Overhauls:222",
+        ":SubtleD_Stat_Overhauls:223", ":SubtleD_Stat_Overhauls:224"
+      ],
+      "severity": "error",
+      "description": "La limite d'expérience dans SoD (89000) sera plus faible que l'expérience de départ"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:221"],
+      "target": ["c#sodtweaks:8"],
+      "severity": "error",
+      "description": "Contenu identique #82"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:222"],
+      "target": ["c#sodtweaks:9"],
+      "severity": "error",
+      "description": "Contenu identique #83"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:223"],
+      "target": ["c#sodtweaks:10"],
+      "severity": "error",
+      "description": "Contenu identique #84"
+    }, {
+      "source": ["SubtleD_Stat_Overhauls:224"],
+      "target": ["c#sodtweaks:11"],
+      "severity": "error",
+      "description": "Contenu identique #85"
+    }, {
+      "source": ["SelphiraTweaks:25"],
+      "target": ["cdtweaks:2270", "cdtweaks:2271", ":rr:6", ":song_and_silence:0", ":iwdification:150"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du barde"
+    }, {
+      "source": ["divine_remix:100"],
+      "target": [
+        "SelphiraTweaks:26", ":cdtweaks:2280", ":cdtweaks:2281", ":faiths_and_powers:12", ":faiths_and_powers:13"
+      ],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du clerc"
+    }, {
+      "source": ["divine_remix:200"],
+      "target": [
+        "SelphiraTweaks:24", ":cdtweaks:2288", ":cdtweaks:2289", ":cdtweaks:2290", ":cdtweaks:2291", ":cdtweaks:2292",
+        ":cdtweaks:2293", ":cdtweaks:2294", ":cdtweaks:2295", ":cdtweaks:2296", ":cdtweaks:2731", ":cdtweaks:2732",
+        ":cdtweaks:2733", ":cdtweaks:2734", ":cdtweaks:2735", ":cdtweaks:2736", ":cdtweaks:2737", ":cdtweaks:2738",
+        ":cdtweaks:2739", ":dw_talents:40610"
+      ],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du druide"
+    }, {
+      "source": ["SelphiraTweaks:20"],
+      "target": ["cdtweaks:2260", "cdtweaks:2261", ":TomeAndBlood:11", ":TomeAndBlood:12"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du mage"
+    }, {
+      "source": ["SelphiraTweaks:22"],
+      "target": ["cdtweaks:2390", "cdtweaks:2391", ":iwdification:160", ":faiths_and_powers:45"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du paladin"
+    }, {
+      "source": ["SelphiraTweaks:23"],
+      "target": ["cdtweaks:2400", "cdtweaks:2401", ":might_and_guile:220", ":iwdification:170"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du rodeur"
+    }, {
+      "source": ["SelphiraTweaks:21"],
+      "target": ["cdtweaks:2250", ":TomeAndBlood:16", ":TomeAndBlood:17"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression de la table des sorts du sorcier"
+    }, {
+      "source": [
+        "cdtweaks:2290", "cdtweaks:2291", "cdtweaks:2292", "cdtweaks:2293", "cdtweaks:2294", "cdtweaks:2295",
+        "cdtweaks:2296"
+      ],
+      "target": ["faiths_and_powers:15"],
+      "severity": "error",
+      "description": "Choisir un tweak de progression des tables des sorts et d'expérience du druide"
+    }, {
+      "source": [
+        "npckit:1400", "npckit:1410", "npckit:1411", "npckit:1412", "npckit:1413", "npckit:1414", "npckit:1415",
+        "npckit:1416", "npckit:1417"
+      ],
+      "target": ["refinements:20", "refinements:21", "refinements:22"],
+      "severity": "error",
+      "description": "Choisir une classe ou un kit pour Imoen"
+    }, {
+      "source": ["npckit:2100"],
+      "target": ["Mercenary:2"],
+      "severity": "error",
+      "description": "Choisir une classe ou un kit pour Korgan"
+    }, {
+      "source": ["morpheus562-s-kitpack:201"],
+      "target": ["npckit:2300"],
+      "severity": "error",
+      "description": "Choisir une classe ou un kit pour Minsc"
+    }, {
+      "source": ["Xan:1", "Xan:2", "Xan:3", "Xan:4"],
+      "target": ["cdtweaks:4130"],
+      "severity": "error",
+      "description": "Choisir une classe ou un kit pour Xan"
+    }, {
+      "source": ["npc_ee:2000", "cdtweaks:4020"],
+      "target": ["stratagems:4099"],
+      "severity": "error",
+      "description": "Choisir une évolution des PNJs recrutés"
+    }, {
+      "source": ["bg1npc:130", "bg1npc:131"],
+      "target": ["bg1ub:27"],
+      "severity": "error",
+      "description": "Inclus dans bg1npc de manière plus complète"
+    }, {
+      "source": ["JanQuestRemix:*"],
+      "target": ["JanQuest:*"],
+      "severity": "error",
+      "description": "Choisir une version de la quête de Jan"
+    }, {
+      "source": ["leui:*"],
+      "target": ["leui-bg1ee:*", ":leui-sod:*", ":infinity_ui:*", ":tipun_gui:*", ":EET_gui:*"],
+      "severity": "error",
+      "description": "Sélectionnez une seule interface"
+    }, {
+      "source": ["HiddenGameplayOptions:39"],
+      "target": ["cdtweaks:130"],
+      "severity": "error",
+      "description": "La pause automatique de \"HiddenGameplayOptions\" est désactivable"
+    }, {
+      "source": ["iepbanters:6", "iepbanters:7", "iepbanters:8", "iepbanters:9", "iepbanters:10", "iepbanters:11"],
+      "target": ["banterpack:1", "banterpack:3", ":bg1npc:100", ":keto:3", ":kelsey:2"],
+      "severity": "error",
+      "description": "Choisir un accélérateur de dialogue"
+    }, {
+      "source": [
+        "A7-BanterAccelerator:10", "A7-BanterAccelerator:11", "A7-BanterAccelerator:12", "A7-BanterAccelerator:20",
+        "A7-BanterAccelerator:21", "A7-BanterAccelerator:22", "A7-BanterAccelerator:30", "A7-BanterAccelerator:31",
+        "A7-BanterAccelerator:32", "A7-BanterAccelerator:40", "A7-BanterAccelerator:41", "A7-BanterAccelerator:42",
+        "A7-BanterAccelerator:99"
+      ],
+      "target": ["bg1npc:110", "bg1npc:111", "bg1npc:112", "bg1npc:113", "bg1npc:114"],
+      "severity": "error",
+      "description": "Choisir un accélérateur de dialogue EE"
+    }, {
+      "source": ["reunion:*"],
+      "target": ["turnabout:*"],
+      "severity": "error",
+      "description": "Conflits entre le mod reunion et turnabout"
+    }, {
+      "source": ["turnabout:*"],
+      "target": ["ub:24"],
+      "severity": "error",
+      "description": "Conflits entre le mod ub et turnabout"
+    }, {
+      "source": ["alternatives:*", "gbthfkp:*", "Saerileth:*"],
+      "target": ["d0questpack:5"],
+      "severity": "error",
+      "description": "Conflit avec l'histoire d'Aran"
+    }, {
+      "source": ["framed:*"],
+      "target": ["BoneHillEET:*", "vaulteet:*"],
+      "severity": "error",
+      "description": "Choisir un final de SoD"
+    }, {
+      "source": ["Ascension:2300"],
+      "target": ["PPE:340", "PPE:342"],
+      "severity": "error",
+      "description": "Choisir un portrait pour les enfants de Bhaal"
+    }, {
+      "source": ["BG1Aerie:5001"],
+      "target": ["phaere_ports:1", ":plasmoportraits:1", ":da_portraits:2", ":da_portraits:3", ":da_portraits:4"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Aerie"
+    }, {
+      "source": ["ajantisportraitpack:*"],
+      "target": ["plasmobg1bg2:1001", ":da_portraits:5", ":da_portraits:6", ":da_portraits:7", ":da_portraits:8"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Ajantis"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:9"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Alora"
+    }, {
+      "source": ["plasmoportraits:2"],
+      "target": ["da_portraits:10", "da_portraits:11", "da_portraits:12"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Anomen"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:13", "da_portraits:14", "da_portraits:15"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Branwen"
+    }, {
+      "source": ["plasmoportraits:3"],
+      "target": ["da_portraits:16"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Cernd"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:19", "da_portraits:20", "da_portraits:21", "da_portraits:22", "da_portraits:23"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Dynaheir"
+    }, {
+      "source": ["cdportraits:10", "cdportraits:11"],
+      "target": [
+        "PPE:25", ":edwinromance:1", ":phaere_ports:3", ":plasmobg1bg2:1001", ":plasmoportraits:4", ":da_portraits:24",
+        ":da_portraits:25"
+      ],
+      "severity": "error",
+      "description": "Choisir un portrait pour Edwin"
+    }, {
+      "source": ["edwinromance:4"],
+      "target": ["cdtweaks:1180", ":PPE:25", ":artaport:1180", ":ease:20"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Edwina"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:26"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Eldoth"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:27", "da_portraits:28"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Faldorn"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:29"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Garrick"
+    }, {
+      "source": ["phaere_ports:5"],
+      "target": ["da_portraits:30"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Haer'Dalis"
+    }, {
+      "source": ["cdportraits:20", "cdportraits:21", "cdportraits:22", "cdportraits:23", "cdportraits:24"],
+      "target": [
+        "PPE:300", "PPE:301", "PPE:302", ":c#sodtweaks:6", ":phaere_ports:2", ":plasmobg1bg2:1001",
+        ":plasmobg1bg2:1002", ":plasmobg1bg2:1003", ":plasmoportraits:5", ":da_portraits:31", ":da_portraits:32",
+        ":da_portraits:33"
+      ],
+      "severity": "error",
+      "description": "Choisir un portrait pour Imoen"
+    }, {
+      "source": ["cdportraits:30", "cdportraits:31"],
+      "target": [
+        "PPE:320", "PPE:322", ":phaere_ports:7", ":plasmobg1bg2:1001", ":plasmoportraits:6", ":da_portraits:34",
+        ":da_portraits:35", ":da_portraits:36"
+      ],
+      "severity": "error",
+      "description": "Choisir un portrait pour Jaheira"
+    }, {
+      "source": ["plasmoportraits:7"],
+      "target": ["da_portraits:37"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Jan"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:38"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Kagain"
+    }, {
+      "source": ["plasmoportraits:8"],
+      "target": ["da_portraits:39", "da_portraits:40", "da_portraits:41"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Keldorn"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:42"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Khalid"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:43", "da_portraits:44", "da_portraits:45", "da_portraits:46"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Kivan"
+    }, {
+      "source": ["plasmoportraits:9"],
+      "target": ["da_portraits:47"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Korgan"
+    }, {
+      "source": ["phaere_ports:9"],
+      "target": ["plasmoportraits:10", ":da_portraits:48"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Mazzy"
+    }, {
+      "source": ["cdportraits:40", "cdportraits:41"],
+      "target": [
+        "PPE:330", "PPE:332", ":phaere_ports:0", ":plasmobg1bg2:1001", ":plasmoportraits:11", ":da_portraits:49",
+        ":da_portraits:50"
+      ],
+      "severity": "error",
+      "description": "Choisir un portrait pour Minsc"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:51"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Montaron"
+    }, {
+      "source": ["plasmoportraits:12"],
+      "target": ["da_portraits:52", "da_portraits:53", "da_portraits:54", "da_portraits:55"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Nalia"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:56", "da_portraits:57"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Quayle"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:58", "da_portraits:59"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Safana"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:67", "da_portraits:68", "da_portraits:69"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Shar-Teel"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:70"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Skie"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:71"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Tiax"
+    }, {
+      "source": ["cdportraits:50", "cdportraits:51", "cdportraits:52", "cdportraits:53", "cdportraits:54"],
+      "target": [
+        "PPE:310", "PPE:311", "PPE:312", ":phaere_ports:4", ":plasmobg1bg2:1001", ":plasmoportraits:13",
+        ":da_portraits:76", ":da_portraits:77"
+      ],
+      "severity": "error",
+      "description": "Choisir un portrait pour Viconia"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:78", "da_portraits:79", "da_portraits:80"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Xan"
+    }, {
+      "source": ["plasmobg1bg2:1001"],
+      "target": ["da_portraits:83"],
+      "severity": "error",
+      "description": "Choisir un portrait pour Yeslick"
+    }, {
+      "source": ["RealisticNpcPortraitsForBGEE:0", "RealisticNpcPortraitsForSOD:0"],
+      "target": ["artaport:1", "artaport:2", ":BGEE_CBPortraits:0", ":roorenart_bg2:10", ":plasmobg1bg2:1001"],
+      "severity": "error",
+      "description": "Choisir un pack de portraits des PNJs de base de BGEE"
+    }, {
+      "source": ["RealisticNpcPortraitsForBG2EE:0"],
+      "target": ["artaport:0", ":BGEE_CBPortraits:0", ":roorenart_bg2:10"],
+      "severity": "error",
+      "description": "Choisir un pack de portraits des PNJs de base de BG2EE"
+    }, {
+      "source": ["PPE:0"],
+      "target": ["MinorNPCPortraitsforBGEE:0", ":nscportraits:0"],
+      "severity": "error",
+      "description": "Portraits pour BG1"
+    }, {
+      "source": ["PPE:0"],
+      "target": ["MinorNPCPortraitsforBGEE:0", ":nscportraits:1"],
+      "severity": "error",
+      "description": "Portraits pour BG2"
+    }, {
+      "source": ["ascension:0"],
+      "target": ["wheels:0"],
+      "severity": "warning",
+      "description": "Attention, un bug de Wheels of Prophecy empêche de terminer ToB"
+    }, {
+      "source": [
+        "EET_Tweaks:2050", "EET_Tweaks:2051", "EET_Tweaks:2052", "EET_Tweaks:2053", "EET_Tweaks:2054",
+        "EET_Tweaks:2055", "EET_Tweaks:2056"
+      ],
+      "target": [
+        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", ":A7-TotLM-BG2EE:30", ":A7-TotLM-BG2EE:31",
+        ":A7-TotLM-BG2EE:32", ":A7-TotLM-BG2EE:33"
+      ],
+      "severity": "warning",
+      "description": "Attention, les réductions d'expérience se cumulent pour les créatures de Trials of the Luremaster"
+    }, {
+      "source": [
+        "EET_Tweaks:2060", "EET_Tweaks:2061", "EET_Tweaks:2062", "EET_Tweaks:2063", "EET_Tweaks:2064",
+        "EET_Tweaks:2065", "EET_Tweaks:2066"
+      ],
+      "target": [
+        "xpmod:15", "xpmod:16", "xpmod:17", "xpmod:18", "xpmod:19", "xpmod:20", "xpmod:21", ":A7-TotLM-BG2EE:30",
+        ":A7-TotLM-BG2EE:31", ":A7-TotLM-BG2EE:32", ":A7-TotLM-BG2EE:33"
+      ],
+      "severity": "warning",
+      "description": "Attention, les réductions d'expérience se cumulent pour les quêtes de Trials of the Luremaster"
+    }, {
+      "source": ["EET:*"],
+      "target": ["soa:1"],
+      "severity": "error",
+      "description": "La version \"BP-BGT-Worldmap\" n'est pas compatible avec EET"
+    }, {
+      "source": ["rr:8"],
+      "target": ["A7-GolemConstruction:10"],
+      "severity": "error",
+      "description": "Le manuel de construction de golem nécessaire à un upgrade de RogueRebalancing est détruit par le composant de A7-GolemConstruction"
+    }, {
+      "source": ["Ascension:40"],
+      "target": ["ub:19"],
+      "severity": "error",
+      "description": "La restauration des Pouvoirs de Bhaal est plus complète dans d'Ascension"
+    }, {
+      "source": ["Ascension:0", "Ascension:20"],
+      "target": ["ub:24"],
+      "severity": "error",
+      "description": "Conflit des remords de Sarevok avec Ascension"
+    }, {
+      "source": ["c#endlessbg1:14"],
+      "target": ["imoen_forever:10"],
+      "severity": "error",
+      "description": "Incompatibilité #1"
+    }, {
+      "source": ["transitions:*"],
+      "target": ["c#endlessbg1:14", "c#endlessbg1:15", "c#endlessbg1:16"],
+      "severity": "error",
+      "description": "Incompatibilité #2"
+    }
+  ]
+}
