@@ -6,10 +6,10 @@ from enum import Enum
 class GameEnum(Enum):
     """Enumeration of supported Infinity Engine games."""
 
-    EET = "eet"
     BGEE = "bgee"
-    BG2EE = "bg2ee"
     SOD = "sod"
+    BG2EE = "bg2ee"
+    EET = "eet"
     IWDEE = "iwdee"
     PSTEE = "pstee"
 
