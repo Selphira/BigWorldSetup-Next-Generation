@@ -256,12 +256,11 @@ class MainWindow(QMainWindow):
         self.current_page_id = page_id
         self.stack.setCurrentWidget(page)
 
-        # Update UI
+        # Notify page
+        page.on_page_shown()
         self._update_page_title()
         self._update_navigation_buttons()
         self._update_additional_buttons(page_id, page.get_additional_buttons())
-        # Notify page
-        page.on_page_shown()
 
         self.state_manager.set_ui_current_page(page.get_page_id())
 

@@ -19,6 +19,7 @@ DATA_DIR = Path("data")
 MODS_DIR = DATA_DIR / "mods"
 GAMES_DIR = DATA_DIR / "games"
 RULES_DIR = DATA_DIR / "rules"
+TOOLS_DIR = Path("tools")
 CACHE_DIR = Path(".cache")
 LOG_DIR = Path("logs")
 
@@ -30,6 +31,8 @@ THEMES_DIR = RESOURCES_DIR / "themes"
 
 # Cache subdirectories
 LCC_CACHE_DIR = CACHE_DIR / "lcc"
+
+SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 
 # ============================================================================
 # TIMING & DELAYS (milliseconds)

@@ -161,6 +161,39 @@
       "no_downloads_message": "Toutes les archives requises sont déjà téléchargées et valides.",
       "open_folder_error_title": "Impossible d'ouvrir le dossier",
       "open_folder_error_message": "Échec de l'ouverture du dossier de téléchargement : {error}"
+    },
+    "extraction": {
+      "title": "Extraction des archives",
+      "filter_label": "Filtre :",
+      "btn_extract_all": "Tout extraire",
+      "col_mod_name": "Mod",
+      "col_archive": "Archive",
+      "col_destination": "Destination",
+      "col_status": "Statut",
+      "status": {
+        "to_extract": "À extraire",
+        "extracting": "Extraction en cours...",
+        "extracted": "Extrait",
+        "structure_invalid": "Structure invalide",
+        "error": "Erreur"
+      },
+      "filter": {
+        "all": "Tous",
+        "to_extract": "À extraire",
+        "extracted": "Extrait",
+        "structure_invalid": "Structure invalide",
+        "error": "Erreurs"
+      },
+      "error_extraction_failed": "Échec de l'extraction de l'archive",
+      "error_structure_invalid": "Structure du mod invalide après extraction",
+      "verify_complete_title": "Vérification terminée",
+      "verify_complete_message": "{verified} archive(s) vérifiée(s) sur {total}",
+      "no_extraction_title": "Aucune extraction nécessaire",
+      "no_extraction_message": "Toutes les archives sont déjà extraites et vérifiées.",
+      "complete_title": "Extraction terminée",
+      "complete_message": "{count} archive(s) extraite(s) avec succès",
+      "complete_with_errors_title": "Extraction terminée avec des erreurs",
+      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)"
     }
   },
   "validation": {
