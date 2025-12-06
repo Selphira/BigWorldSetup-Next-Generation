@@ -8,6 +8,7 @@ and main window display.
 import logging
 import sys
 
+from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtWidgets import QApplication, QMessageBox
 
 from constants import *
@@ -206,6 +207,16 @@ def setup_exception_hook() -> None:
     sys.excepthook = exception_handler
 
 
+def create_window_icon() -> QIcon:
+    icon_path = ICONS_DIR / "bws.png"
+    icon = QIcon()
+
+    if icon_path.exists():
+        pixmap = QPixmap(str(icon_path))
+        icon = QIcon(pixmap)
+    return icon
+
+
 def main() -> int:
     """
     Main application entry point.
@@ -226,6 +237,7 @@ def main() -> int:
         app.setApplicationName(APP_NAME)
         app.setApplicationVersion(APP_VERSION)
         app.setOrganizationName(APP_ORG)
+        app.setWindowIcon(create_window_icon())
 
         # Set visual style
         app.setStyle("Fusion")
