@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Iterable, Union
+from typing import Any, Iterable, Union, cast
 
 
 class ComponentType(Enum):
@@ -51,7 +51,6 @@ class Component:
         key: Unique component identifier
         text: Translated component text
         comp_type: Component type (std, muc, sub, dwn)
-        number: Component number within the mod
         forced: Whether component is forced (always installed)
     """
     key: str
@@ -60,8 +59,10 @@ class Component:
     comp_type: ComponentType
     games: list[str]
     mod: Mod
-    number: int
     forced: bool
+
+    def get_name(self):
+        return self.text
 
     def is_forced(self) -> bool:
         """Check if component is forced."""
@@ -197,7 +198,7 @@ class Mod:
         # Core data (required)
         self.id: str = data.get("id", "")
         self.name: str = data.get("name", "")
-        self.tp2: str = data.get("tp2", "")
+        self.tp2: str = data.get("id", "")
         self.version: str = data.get("version", "")
 
         # Lists (convert to tuples for immutability where appropriate)
@@ -229,26 +230,165 @@ class Mod:
 
     def get_component(self, key: str) -> Component | None:
         """
-        Get a component by key (with lazy instantiation).
+        Get a component by key (with lazy instantiation and nested component support).
+
+        Supports:
+        - Simple keys: "comp1" → Standard/MUC/SUB component
+        - MUC option key: "opt_key" → Searches all MUC components to find the parent
+        - SUB nested: "comp1.2.1" → Prompt 2, Option 1 of SUB component 1
 
         Args:
             key: Component key
 
         Returns:
-            Component instance (or subclass) or None if not found
+            Component instance with appropriate text concatenation, or None if not found
         """
-        # Check cache first
+        # Check if it's a SUB nested key (contains dots)
+        if '.' in key:
+            return self._get_sub_component(key)
+
+        # Check cache first for direct key
         if key in self._components_cache:
             return self._components_cache[key]
 
-        # Check if component exists in raw data
-        if key not in self._components_raw:
+        # Check if it's a direct component key
+        if key in self._components_raw:
+            component = self._create_component(key, self._components_raw[key])
+            self._components_cache[key] = component
+            return component
+
+        # Key not found directly - search in all MUC components
+        return self._search_in_muc_components(key)
+
+    def _get_sub_component(self, key: str) -> Component | None:
+        """
+        Handle SUB component with notation "parent.prompt_idx.option_idx".
+
+        Args:
+            key: Component key with dots (e.g., "comp1.2.1")
+
+        Returns:
+            Component with concatenated text, or None if not found
+        """
+        parts = key.split('.')
+
+        if len(parts) != 3:
             return None
 
-        # Create and cache component
-        component = self._create_component(key, self._components_raw[key])
-        self._components_cache[key] = component
-        return component
+        parent_key = parts[0]
+        prompt_idx = parts[1]
+        option_idx = parts[2]
+
+        # Get or create parent component
+        if parent_key in self._components_cache:
+            parent_comp = self._components_cache[parent_key]
+        elif parent_key in self._components_raw:
+            parent_comp = self._create_component(parent_key, self._components_raw[parent_key])
+            self._components_cache[parent_key] = parent_comp
+        else:
+            return None
+
+        # Verify it's a SUB component
+        if not parent_comp.is_sub():
+            return None
+
+        parent_comp = cast(SubComponent, parent_comp)
+        # Get all prompts to find the one at the given index
+        prompt_keys = parent_comp.get_all_prompts()
+
+        try:
+            prompt_index = int(prompt_idx)
+            if prompt_index < 0 or prompt_index >= len(prompt_keys):
+                return None
+
+            prompt_key = prompt_keys[prompt_index]
+            prompt = parent_comp.get_prompt(prompt_key)
+
+            if not prompt:
+                return None
+
+            # Check if option index is valid
+            option_index = int(option_idx)
+            if option_index < 0 or option_index >= len(prompt.options):
+                return None
+
+            option_key = prompt.options[option_index]
+
+        except (ValueError, IndexError):
+            return None
+
+        # Get texts
+        prompt_text = parent_comp.get_prompt_text(prompt_key)
+        option_text = parent_comp.get_prompt_option_text(prompt_key, option_key)
+
+        # Create a new Component with concatenated text
+        # Format: "Parent text -> Prompt text -> Option text"
+        combined_text = f"{parent_comp.text} -> {prompt_text} -> {option_text}"
+
+        return Component(
+            key=key,  # Use full key including prompt and option
+            text=combined_text,
+            category=parent_comp.category,
+            comp_type=parent_comp.comp_type,
+            games=parent_comp.games,
+            mod=self,
+            forced=parent_comp.forced
+        )
+
+    def _search_in_muc_components(self, option_key: str) -> Component | None:
+        """
+        Search for an option key in all MUC components.
+
+        Args:
+            option_key: The option key to search for
+
+        Returns:
+            Component with concatenated text if found in a MUC, None otherwise
+        """
+        # Iterate through all raw components to find MUC parents
+        for parent_key, component_data in self._components_raw.items():
+            comp_type_str = component_data.get("type", "std")
+
+            # Only check MUC components
+            if comp_type_str != "muc":
+                continue
+
+            # Check if this MUC contains our option
+            options = component_data.get("components", [])
+            if option_key not in options:
+                continue
+
+            # Found it! Get or create the parent MUC component
+            if parent_key in self._components_cache:
+                parent_comp = self._components_cache[parent_key]
+            else:
+                parent_comp = self._create_component(parent_key, component_data)
+                self._components_cache[parent_key] = parent_comp
+
+            parent_comp = cast(MucComponent, parent_comp)
+            # Get option text
+            option_text = parent_comp.get_option_text(option_key)
+
+            # Create a new Component with concatenated text
+            # Format: "Parent text -> Option text"
+            combined_text = f"{parent_comp.text} -> {option_text}"
+
+            # Cache with the option key for faster subsequent access
+            result = Component(
+                key=option_key,  # Use option key
+                text=combined_text,
+                category=parent_comp.category,
+                comp_type=parent_comp.comp_type,
+                games=parent_comp.games,
+                mod=self,
+                forced=parent_comp.forced
+            )
+
+            self._components_cache[option_key] = result
+            return result
+
+        # Option not found in any MUC
+        return None
 
     def _create_component(self, key: str, raw_data: dict[str, Any]) -> Component:
         """
@@ -267,7 +407,6 @@ class Mod:
         # Common attributes
         text = self._translations.get(key, "")
         category = raw_data.get("category", "")
-        number = raw_data.get("number", 0)
         forced = raw_data.get("forced", False)
         games = raw_data.get("games", [])
 
@@ -287,7 +426,6 @@ class Mod:
                 comp_type=comp_type,
                 games=games,
                 mod=self,
-                number=number,
                 forced=forced,
                 default=default,
                 options=options,
@@ -329,7 +467,6 @@ class Mod:
                 comp_type=comp_type,
                 games=games,
                 mod=self,
-                number=number,
                 forced=forced,
                 prompts=prompts,
                 _prompt_texts=prompt_texts
@@ -343,7 +480,6 @@ class Mod:
             comp_type=comp_type,
             games=games,
             mod=self,
-            number=number,
             forced=forced
         )
 
@@ -417,6 +553,15 @@ class Mod:
     def supports_game(self, game: str) -> bool:
         """Check if mod supports a game."""
         return game in self.games
+
+    def get_language_index(self, lang_code: str) -> int | None:
+        if lang_code in self.languages:
+            return self.languages[lang_code]
+
+        if "all" in self.languages:
+            return self.languages["all"]
+
+        return None
 
     def supports_language(self, languages: Union[str, Iterable[str]]) -> bool:
         """
