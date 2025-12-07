@@ -896,6 +896,13 @@
       "target": ["EET_end:*"],
       "severity": "error",
       "description": "EET s'installe en 2 parties",
+      "mode": "any",
+      "implicit_order": false
+    }, {
+      "source": ["EET_End:*"],
+      "target": ["EET:*"],
+      "severity": "error",
+      "description": "EET s'installe en 2 parties",
       "mode": "any"
     }, {
       "source": ["iwd1_eet:*"],

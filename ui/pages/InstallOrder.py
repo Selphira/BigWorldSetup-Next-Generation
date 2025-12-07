@@ -930,7 +930,7 @@ class InstallOrderPage(BasePage):
 
         # Build component pool
         pool = {
-            f"{mod}:{comp}": (mod, comp)
+            f"{mod.lower()}:{comp}": (mod, comp)
             for mod, comp in (seq_data.ordered + seq_data.unordered)
         }
 
@@ -964,7 +964,7 @@ class InstallOrderPage(BasePage):
             install_steps: Tuple of installation steps
         """
         order = [
-            f"{step.mod}:{step.comp}"
+            f"{step.mod.lower()}:{step.comp}"
             for step in install_steps
             if not step.is_annotation and step.is_install
         ]
@@ -1537,7 +1537,7 @@ class InstallOrderPage(BasePage):
         install_order = {}
         for seq_idx, seq_data in self._sequences_data.items():
             install_order[seq_idx] = [
-                f"{mod_id}:{comp_key}"
+                f"{mod_id.lower()}:{comp_key}"
                 for mod_id, comp_key in seq_data.ordered
             ]
 

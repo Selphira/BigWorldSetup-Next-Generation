@@ -127,7 +127,7 @@ class Rule:
         """
 
         if not isinstance(data, list):
-            data = [data]
+            data = [data.lower()]
 
         if not data:
             raise ValueError("Component reference list cannot be empty")
@@ -135,11 +135,11 @@ class Rule:
         refs = []
         for item in data:
             if isinstance(item, str):
-                refs.append(ComponentRef.from_string(item))
+                refs.append(ComponentRef.from_string(item.lower()))
             elif isinstance(item, dict):
                 if "mod" not in item:
                     raise ValueError(f"Component reference dict missing 'mod' key: {item}")
-                refs.append(ComponentRef(item["mod"], item.get("component")))
+                refs.append(ComponentRef(item["mod"].lower(), item.get("component")))
             else:
                 raise ValueError(f"Invalid component reference type: {type(item)}")
 
@@ -174,6 +174,7 @@ class DependencyRule(Rule):
     - ANY mode: source requires ANY target → at least one target BEFORE source
     """
     dependency_mode: DependencyMode = DependencyMode.ANY
+    implicit_order: bool = True
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "DependencyRule":
@@ -189,6 +190,7 @@ class DependencyRule(Rule):
             sources=sources,
             targets=targets,
             dependency_mode=DependencyMode(data.get("mode", "any")),
+            implicit_order=data.get("implicit_order", True),
             description=data.get("description", ""),
             source_url=data.get("source_url")
         )
