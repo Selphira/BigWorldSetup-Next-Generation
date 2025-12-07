@@ -28,7 +28,8 @@
     "350": {"type": "std"}
   },
   "languages": {
-    "en_US": 0
+    "en_US": 0,
+    "all": 0
   },
   "translations": {
     "en_US": {
