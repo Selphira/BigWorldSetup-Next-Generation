@@ -571,6 +571,9 @@ class Mod:
             - a single language code (str)
             - multiple language codes (list, set, tuple...)
         """
+        if "all" in self.languages:
+            return True
+
         if isinstance(languages, str):
             # Single language
             return languages in self.languages
