@@ -1096,21 +1096,7 @@ class InstallOrderPage(BasePage):
     ) -> None:
         """Add a row to the ordered table."""
         row = table.rowCount()
-        table.insertRow(row)
-
-        mod = self._mod_manager.get_mod_by_id(mod_id)
-        mod_name = mod.name if mod else mod_id
-        comp_text = mod.get_component_text(comp_key) if mod else comp_key
-
-        # Column 0: Mod name
-        mod_item = QTableWidgetItem(f"[{mod.tp2}] {mod_name}")
-        mod_item.setData(ROLE_MOD, mod_id)
-        mod_item.setData(ROLE_COMPONENT, comp_key)
-        table.setItem(row, COL_ORDERED_MOD, mod_item)
-
-        # Column 1: Component text
-        comp_item = QTableWidgetItem(f"[{comp_key}] {comp_text}")
-        table.setItem(row, COL_ORDERED_COMPONENT, comp_item)
+        self.insert_row_to_ordered_table(table, row, mod_id, comp_key)
 
     def _add_row_to_unordered_table(
             self,
@@ -1120,21 +1106,7 @@ class InstallOrderPage(BasePage):
     ) -> None:
         """Add a row to the unordered table."""
         row = table.rowCount()
-        table.insertRow(row)
-
-        mod = self._mod_manager.get_mod_by_id(mod_id)
-        mod_name = mod.name if mod else mod_id
-        comp_text = mod.get_component_text(comp_key) if mod else comp_key
-
-        # Column 0: Mod name
-        mod_item = QTableWidgetItem(f"[{mod.tp2}] {mod_name}")
-        mod_item.setData(ROLE_MOD, mod_id)
-        mod_item.setData(ROLE_COMPONENT, comp_key)
-        table.setItem(row, COL_UNORDERED_MOD, mod_item)
-
-        # Column 1: Component text
-        comp_item = QTableWidgetItem(f"[{comp_key}] {comp_text}")
-        table.setItem(row, COL_UNORDERED_COMPONENT, comp_item)
+        self.insert_row_to_unordered_table(table, row, mod_id, comp_key)
 
     def _update_sequence_counters(self, seq_idx: int) -> None:
         """Update component counters for a sequence.
@@ -1331,7 +1303,7 @@ class InstallOrderPage(BasePage):
 
         mod = self._mod_manager.get_mod_by_id(mod_id)
         mod_name = mod.name if mod else mod_id
-        comp_text = mod.get_component_text(comp_key) if mod else comp_key
+        comp_text = mod.get_component(comp_key).get_name()
 
         # Column 0: Mod name
         mod_item = QTableWidgetItem(f"[{mod.tp2}] {mod_name}")
@@ -1355,7 +1327,7 @@ class InstallOrderPage(BasePage):
 
         mod = self._mod_manager.get_mod_by_id(mod_id)
         mod_name = mod.name if mod else mod_id
-        comp_text = mod.get_component_text(comp_key) if mod else comp_key
+        comp_text = mod.get_component(comp_key).get_name()
 
         # Column 0: Mod name
         mod_item = QTableWidgetItem(f"[{mod.tp2}] {mod_name}")
