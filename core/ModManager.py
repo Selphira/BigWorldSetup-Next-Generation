@@ -378,7 +378,7 @@ class ModManager(QObject):
 
             # Instantiate Mod objects (fast: ~2-5ms for 2000 mods)
             self.mods_data = {
-                data["id"]: Mod(data)
+                data["id"].lower(): Mod(data)
                 for data in mods_json
             }
 
@@ -430,7 +430,7 @@ class ModManager(QObject):
         Returns:
             Mod instance or None
         """
-        return self.mods_data.get(mod_id)
+        return self.mods_data.get(mod_id.lower())
 
     # ========================================
     # CATEGORIES & STATISTICS
