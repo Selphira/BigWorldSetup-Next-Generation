@@ -890,8 +890,13 @@ class InstallOrderPage(BasePage):
         # Distribute components to sequences
         for mod_id, comp_list in selected.items():
             for comp in comp_list:
+                mod = self._mod_manager.get_mod_by_id(mod_id)
+                if not mod:
+                    continue
                 comp_key = comp["key"] if isinstance(comp, dict) else comp
-                self._place_component_in_sequences(mod_id, comp_key)
+                component = mod.get_component(comp_key)
+                if component and not component.is_dwn():
+                    self._place_component_in_sequences(mod_id, comp_key)
 
         self._refresh_all_tables()
 

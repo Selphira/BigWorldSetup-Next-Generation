@@ -80,6 +80,10 @@ class Component:
         """Check if component is SUB type."""
         return self.comp_type == ComponentType.SUB
 
+    def is_dwn(self) -> bool:
+        """Check if component is DWN type."""
+        return self.comp_type == ComponentType.DWN
+
     def supports_game(self, game: str) -> bool:
         """Check if mod supports a game."""
         if self.games:
