@@ -221,6 +221,31 @@ class StateManager:
             for seq_idx, order_list in install_order.items()
         }
 
+    def set_page_option(self, page: str, option: str, value: bool) -> None:
+        """Set page-specific boolean option.
+
+        Args:
+            page: Page identifier
+            option: Option name
+            value: Option value
+        """
+        key = f"{page}_{option}"
+        self.installation_state.configuration[key] = value
+
+    def get_page_option(self, page: str, option: str, default: Any) -> Any:
+        """Get page-specific boolean option.
+
+        Args:
+            page: Page identifier
+            option: Option name
+            default: Default value if not set
+
+        Returns:
+            Option value
+        """
+        key = f"{page}_{option}"
+        return self.installation_state.configuration.get(key, default)
+
     def set_game_folders(self, folders: dict[str, Any]) -> None:
         """
         Set game folders configuration.

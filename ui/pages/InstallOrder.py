@@ -1506,6 +1506,17 @@ class InstallOrderPage(BasePage):
                 tr("page.order.col_component")
             ])
 
+    def load_state(self) -> None:
+        """Load state from state manager."""
+        super().load_state()
+
+        self._chk_ignore_errors.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_errors", False)
+        )
+        self._chk_ignore_warnings.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_warnings", False)
+        )
+
     def save_state(self) -> None:
         """Save page data to state manager."""
         super().save_state()
@@ -1519,3 +1530,5 @@ class InstallOrderPage(BasePage):
             ]
 
         self.state_manager.set_install_order(install_order)
+        self.state_manager.set_page_option(self.get_page_id(), "ignore_errors", self._ignore_errors)
+        self.state_manager.set_page_option(self.get_page_id(), "ignore_warnings", self._ignore_warnings)
