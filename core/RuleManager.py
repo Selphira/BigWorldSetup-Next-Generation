@@ -32,6 +32,7 @@ class RuleManager:
         self._all_rules: list[Rule] = []
         self._rules_by_source: dict[str, list[Rule]] = defaultdict(list)
         self._rules_by_type: dict[RuleType, list[Rule]] = defaultdict(list)
+        self._components_by_mod: dict[str, set[str]] = defaultdict(set)
 
         # Cache
         self._cache = ValidationCache()
@@ -51,6 +52,7 @@ class RuleManager:
         self._all_rules.clear()
         self._rules_by_source.clear()
         self._rules_by_type.clear()
+        self._components_by_mod.clear()
 
         # Generic loader usage
         self._load_rules_file(rules_dir / "dependencies.json", DependencyRule, self._dependency_rules)
@@ -105,10 +107,20 @@ class RuleManager:
     def _add_rule_to_indexes(self, rule: Rule) -> None:
         """Add rule to all indexes."""
         self._all_rules.append(rule)
+        self._rules_by_type[rule.rule_type].append(rule)
         # Index by each source
         for source in rule.sources:
             self._rules_by_source[str(source)].append(rule)
-        self._rules_by_type[rule.rule_type].append(rule)
+            if source.comp_key and source.comp_key != '*':
+                self._components_by_mod[source.mod_id.lower()].add(source.comp_key)
+
+        for target in rule.targets:
+            if target.comp_key and target.comp_key != '*':
+                self._components_by_mod[target.mod_id.lower()].add(target.comp_key)
+
+    def _get_known_components(self, mod_id: str) -> set[str]:
+        """Get all known component keys for a mod from indexed rules."""
+        return self._components_by_mod.get(mod_id.lower(), set())
 
     # -------------------------
     # Helpers - normalization / matching
@@ -141,11 +153,11 @@ class RuleManager:
     def _rules_for_component(self, mod_id: str, comp_key: str | None) -> list[Rule]:
         """Return rules that explicitly target the component or the mod."""
         comp_ref = str(ComponentRef(mod_id, comp_key))
-        mod_ref = str(ComponentRef(mod_id, None))
         rules = list(self._rules_by_source.get(comp_ref, []))
-        # mod-level rules apply to components (if comp_key provided)
-        if comp_key is not None:
-            rules.extend(self._rules_by_source.get(mod_ref, []))
+        # mod-level rules apply to components
+        if comp_key != "*":
+            any_ref = str(ComponentRef(mod_id, "*"))
+            rules.extend(self._rules_by_source.get(any_ref, []))
         return rules
 
     @staticmethod
@@ -238,10 +250,7 @@ class RuleManager:
         for target in rule.targets:
             is_satisfied = False
 
-            if target.is_mod_level():
-                if target.mod_id in selected and selected[target.mod_id]:
-                    is_satisfied = True
-            elif target.is_any_component():
+            if target.is_any_component():
                 if target.mod_id in selected and len(selected[target.mod_id]) > 0:
                     is_satisfied = True
             else:
@@ -300,7 +309,7 @@ class RuleManager:
 
         for target in rule.targets:
             # mod-level or any-component
-            if target.is_mod_level() or target.is_any_component():
+            if target.is_any_component():
                 if target.mod_id in selected_dict:
                     for comp in selected_dict[target.mod_id]:
                         conflicts.append((target.mod_id, comp))
@@ -393,10 +402,7 @@ class RuleManager:
             # gather targets (matching within remaining)
             targets: list[tuple[str, str]] = []
             for tref in rule.targets:
-                if tref.mod_id == "*":
-                    targets.extend(list(remaining))
-                else:
-                    targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
+                targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
 
             # For ordering we conservatively add edges from each target -> source
             for src in sources:
@@ -414,10 +420,7 @@ class RuleManager:
 
             targets: list[tuple[str, str]] = []
             for tref in rule.targets:
-                if tref.mod_id == "*":
-                    targets.extend(list(remaining))
-                else:
-                    targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
+                targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
 
             if rule.order_direction == OrderDirection.BEFORE:
                 for src in sources:
@@ -634,6 +637,48 @@ class RuleManager:
             List of violations affecting this component
         """
         return self._cache.get_violations(mod_id, comp_key)
+
+    def get_requirements(self, mod_id: str, comp_key: str, recursive: bool = False) -> set[tuple[str, str]]:
+        """Get all components required by a specific component.
+
+        Args:
+            mod_id: Mod identifier of the source component
+            comp_key: Component key of the source component
+            recursive: If True, include transitive dependencies
+
+        Returns:
+            List of (mod_id, comp_key) tuples representing required components
+        """
+        requirements: set[tuple[str, str]] = set()
+        visiting: set[tuple[str, str]] = set()
+
+        def _collect_requirements(mod_id: str, comp_key: str):
+            current = (mod_id, comp_key)
+
+            # Protection contre les cycles
+            if current in visiting:
+                return
+
+            visiting.add(current)
+            rules = self._rules_for_component(mod_id, comp_key)
+
+            for rule in rules:
+                if not isinstance(rule, DependencyRule):
+                    continue
+
+                for target in rule.targets:
+                    requirements.add((target.mod_id, target.comp_key))
+
+                    if recursive:
+                        if target.comp_key == "*":
+                            known_comps = self._get_known_components(target.mod_id)
+                            for comp in known_comps:
+                                _collect_requirements(target.mod_id, comp)
+                        else:
+                            _collect_requirements(target.mod_id, target.comp_key)
+
+        _collect_requirements(mod_id, comp_key)
+        return requirements
 
     def has_error_violations(self, selected_components: dict) -> bool:
         """Check if selection has any error-level violations.
