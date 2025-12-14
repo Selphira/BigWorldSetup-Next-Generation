@@ -78,6 +78,7 @@ COLOR_STATUS_COMPLETE = "#00cc00"
 COLOR_SUCCESS = "#00cc00"
 COLOR_ERROR = "#ff6666"
 COLOR_WARNING = "#ffaa00"
+COLOR_INFO = "#4aa3ff"
 
 # ============================================================================
 # ICONS & EMOJIS
@@ -94,6 +95,8 @@ ICON_SUCCESS = "✓"
 ICON_ERROR = "✗"
 ICON_WARNING = "⚠"
 ICON_INFO = "ℹ"
+ICON_SKIPPED = "⊘"
+ICON_INSTALLED = "↷"
 
 # UI elements
 ICON_SEARCH = "🔍"
