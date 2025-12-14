@@ -54,19 +54,17 @@ class WeiDULogEntry:
 
 
 @dataclass
-class WeiDULogParseResult:
+class WeiDULogResult:
     """Result of parsing a WeiDU.log file.
 
     Contains all successfully parsed entries and any errors encountered.
 
     Attributes:
         entries: List of successfully parsed log entries in order
-        errors: List of error messages for lines that couldn't be parsed
         file_path: Path to the parsed file
     """
 
     entries: list[WeiDULogEntry]
-    errors: list[str]
     file_path: Path
 
     @property
@@ -77,24 +75,6 @@ class WeiDULogParseResult:
             Count of entries
         """
         return len(self.entries)
-
-    @property
-    def error_count(self) -> int:
-        """Get number of parsing errors.
-
-        Returns:
-            Count of errors
-        """
-        return len(self.errors)
-
-    @property
-    def is_valid(self) -> bool:
-        """Check if parsing was successful.
-
-        Returns:
-            True if at least one entry parsed and no critical errors
-        """
-        return self.entry_count > 0
 
     def get_component_ids(self) -> list[str]:
         """Get list of component IDs in installation order.
@@ -154,7 +134,7 @@ class WeiDULogParser:
         """Initialize WeiDU log parser."""
         self._current_file: Path | None = None
 
-    def parse_file(self, file_path: str | Path) -> WeiDULogParseResult:
+    def parse_file(self, file_path: str | Path) -> WeiDULogResult:
         """Parse a WeiDU.log file.
 
         Args:
@@ -168,26 +148,47 @@ class WeiDULogParser:
             PermissionError: If file can't be read
         """
         path = Path(file_path)
+        entries = []
 
         logger.info(f"Parsing WeiDU.log: {path}")
-
-        entries = []
-        errors = []
 
         try:
             for entry in self.iter_entries(path):
                 entries.append(entry)
         except Exception as e:
-            errors.append(f"Fatal error: {type(e).__name__}: {e}")
             logger.error(f"Error during parsing: {e}")
 
-        result = WeiDULogParseResult(entries, errors, path)
+        result = WeiDULogResult(entries, path)
 
-        logger.info(
-            f"Parsed {result.entry_count} entries with {result.error_count} errors"
-        )
+        logger.info("Parsed %d entries", result.entry_count)
 
         return result
+
+    @staticmethod
+    def is_component_installed(file_path: str | Path, mod_id: str, component: str = "*") -> bool:
+        """
+        Check if a component is installed by reading WeiDU.log.
+
+        Args:
+            file_path: Path to WeiDU.log file
+            mod_id: Mod identifier (tp2 name)
+            component: Component number or "*" for any component
+
+        Returns:
+            True if component is installed
+        """
+        file_path = Path(file_path)
+
+        if not file_path.exists():
+            return False
+
+        try:
+            content = file_path.read_text(encoding='utf-8', errors='ignore')
+            pattern = rf"~([^/]*/)?(setup-)?{re.escape(mod_id)}\.tp2~\s+#\d+\s+#{component if component != '*' else r'\d+'}\s"
+            return bool(re.search(pattern, content, re.IGNORECASE))
+        except Exception as e:
+            logger.error("Error reading WeiDU.log: %s", e)
+            return False
 
     def _read_file_with_encoding(self, path: Path) -> str:
         """Read file trying multiple encodings.
@@ -250,7 +251,8 @@ class WeiDULogParser:
             line_number=line_num
         )
 
-    def _extract_mod_name(self, tp2_path: str) -> str:
+    @staticmethod
+    def _extract_mod_name(tp2_path: str) -> str:
         """Extract mod name from TP2 path.
 
         Args:
@@ -278,31 +280,6 @@ class WeiDULogParser:
 
         # Normalize to lowercase
         return mod_folder.lower()
-
-    def parse_file_simple(self, file_path: str | Path) -> list[str]:
-        """Parse WeiDU.log and return simple list of component IDs.
-
-        Convenience method that returns just the component IDs without
-        full parse result details.
-
-        Args:
-            file_path: Path to WeiDU.log file
-
-        Returns:
-            List of component IDs in format 'mod:component'
-
-        Raises:
-            FileNotFoundError: If file doesn't exist
-            ValueError: If parsing fails or file is empty
-        """
-        result = self.parse_file(file_path)
-
-        if not result.is_valid:
-            raise ValueError(
-                f"Failed to parse WeiDU.log: {result.error_count} errors"
-            )
-
-        return result.get_component_ids()
 
     def iter_entries(self, file_path: str | Path) -> Generator[WeiDULogEntry, None, None]:
         """Iterate over entries in WeiDU.log without loading all in memory.

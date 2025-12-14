@@ -1048,7 +1048,7 @@ class InstallOrderPage(BasePage):
             return
 
         try:
-            component_ids = self._weidu_parser.parse_file_simple(file_path)
+            component_ids = self._weidu_parser.parse_file(file_path).get_component_ids()
             self._apply_order_from_list(self._current_sequence_idx, component_ids)
 
             seq_data = self._sequences_data[self._current_sequence_idx]
