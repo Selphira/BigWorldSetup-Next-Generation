@@ -19,6 +19,7 @@ from ui.MainWindow import MainWindow
 from ui.pages.DownloadPage import DownloadPage
 from ui.pages.ExtractionPage import ExtractionPage
 from ui.pages.InstallOrder import InstallOrderPage
+from ui.pages.InstallationPage import InstallationPage
 from ui.pages.InstallationType import InstallationTypePage
 from ui.pages.ModSelection import ModSelectionPage
 
@@ -144,7 +145,7 @@ def register_pages(window: MainWindow, state: StateManager) -> None:
         InstallOrderPage(state),
         DownloadPage(state),
         ExtractionPage(state),
-        # InstallationPage(state),
+        InstallationPage(state),
         # SummaryPage(state),
     ]
 

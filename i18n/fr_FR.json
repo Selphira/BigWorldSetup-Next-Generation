@@ -199,7 +199,76 @@
       "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)"
     },
     "installation": {
-      "title": "Installation des mods"
+      "title": "Installation des mods",
+      "stats": {
+        "success": "{count} réussites",
+        "warnings": "{count} avertissements",
+        "errors": "{count} erreurs",
+        "skipped": "{count} passés"
+      },
+      "status": {
+        "installing": "Installation en cours",
+        "success": "Installation réussie",
+        "warning": "Installation réussie avec avertissements",
+        "error": "Installation échouée",
+        "skipped": "Ignoré",
+        "already_installed": "Déjà installé"
+      },
+      "sequence": {
+        "started": "SÉQUENCE {current}/{total}",
+        "folder": "Dossier : {folder}",
+        "complete": "Séquence {sequence} terminée avec succès"
+      },
+      "summary": {
+        "title": "Installation terminée",
+        "message": "Installation terminée !\n\nTotal : {total} composants\n✓ Succès : {success}\n⚠ Avertissements : {warnings}\n✗ Erreurs : {errors}\n○ Ignorés : {skipped}",
+        "no_data": "Aucune donnée d'installation disponible.",
+        "new_title": "NOUVELLE INSTALLATION",
+        "resume_title": "REPRISE D'INSTALLATION",
+        "total_sequences": "Nombre total de séquences : {count}",
+        "total_components": "Nombre total de composants : {count}",
+        "sequence": "Séquence {number}",
+        "folder": "Dossier",
+        "components": "{count} composant(s) à installer",
+        "resume_info": "INFORMATIONS DE REPRISE",
+        "current_sequence": "Séquence en cours : {number}/{total}",
+        "installed_components": "Composants installés : {index}/{total}",
+        "remaining": "Composants restants : {count}",
+        "progress": "Progression globale : {percent}%",
+        "next_component": "Prochain composant : [{comp_key}] {component}",
+        "ready": "Prêt à démarrer l'installation. Cliquez sur 'Démarrer l'installation'.",
+        "ready_to_resume": "Prêt à reprendre l'installation. Cliquez sur 'Démarrer l'installation'."
+      },
+      "error_title": "Erreur d'installation",
+      "error_message": "Le composant {component} n'a pas pu être installé.\n\nQue souhaitez-vous faire ?",
+      "error_no_folder_title": "Dossier de jeu manquant",
+      "error_no_folder_message": "Le dossier du jeu pour la séquence {sequence} n'est pas défini.\n\nVeuillez vérifier la configuration des dossiers.",
+      "error_no_weidu_title": "WeiDU introuvable",
+      "error_no_weidu_message": "Le fichier WeiDU.exe est introuvable dans le dossier du jeu.\n\nVeuillez vérifier votre installation.",
+      "error_already_modded_title": "Jeu déjà moddé",
+      "error_already_modded_message": "Un fichier WeiDU.log a été détecté dans le dossier du jeu ({game_folder}).\n\nCela signifie que le jeu a déjà été moddé en dehors de cette application.\n\nPour continuer, vous devez modifier le dossier d'installation du jeu ou effectuer une installation propre du jeu.",
+      "warning_title": "Avertissement d'installation",
+      "warning_message": "Le composant {component} a généré des avertissements.\n\nQue souhaitez-vous faire ?",
+      "stopped_title": "Installation arrêtée",
+      "stopped_message": "L'installation a été arrêtée au lot n°{index}.\n\nVous pourrez reprendre l'installation lors du prochain lancement.",
+      "lbl_log": "Logs d'installation",
+      "btn_start": "Démarrer l'installation",
+      "btn_stop": "Arrêter",
+      "btn_pause": "Mettre en pause",
+      "btn_resume": "Reprendre l'installation",
+      "btn_retry": "Réessayer",
+      "btn_logs": "Voir les logs",
+      "btn_continue": "Continuer",
+      "btn_send_input": "Envoyer",
+      "batch_started": "Lot {current}/{total} : {mod}",
+      "component_started": "Installation de {component} ({mod})",
+      "batch_install": "Installer par lots",
+      "batch_install_tooltip": "Installer tous les composants consécutifs d'un même mod en une seule commande",
+      "pause_on_warning": "Pause lors d'une alerte",
+      "pause_on_warning_tooltip": "Mettre l'installation en pause lorsqu'un avertissement est détecté.",
+      "pause_on_error": "Pause lors d'une erreur",
+      "pause_on_error_tooltip": "Mettre l'installation en pause lorsqu'une erreur est détectée.",
+      "paused": "Installation en pause"
     }
   },
   "validation": {
