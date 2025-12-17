@@ -156,7 +156,7 @@ class ProgressItemWidget(QWidget):
 
         self._btn_cancel = QPushButton("X")
         self._btn_cancel.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_cancel.setStyleSheet(f"padding: 2px 10px;min-height: 15px;")
+        self._btn_cancel.setStyleSheet("padding: 2px 10px;min-height: 15px;")
         hlayout.addWidget(self._btn_cancel)
 
         layout.addLayout(hlayout)
@@ -259,10 +259,11 @@ class ArchiveDetailsPanel(QFrame):
         self._details_text.setMaximumHeight(160)
         layout.addWidget(self._details_text)
 
-        self._link_label = QLabel()
-        self._link_label.setOpenExternalLinks(False)
-        self._link_label.linkActivated.connect(lambda u: QDesktopServices.openUrl(QUrl(u)))
-        layout.addWidget(self._link_label)
+        self._links_container = QWidget()
+        self._links_layout = QHBoxLayout(self._links_container)
+        self._links_layout.setContentsMargins(8, 0, 0, 0)
+        self._links_layout.setSpacing(SPACING_SMALL)
+        layout.addWidget(self._links_container)
 
         layout.addStretch()
 
@@ -273,6 +274,7 @@ class ArchiveDetailsPanel(QFrame):
         file_size: int | None,
         expected_hash: str | None,
         url: str | None,
+        homepage: str | None,
         status: ArchiveStatus,
     ) -> None:
         """Update panel with archive information.
@@ -304,19 +306,41 @@ class ArchiveDetailsPanel(QFrame):
         details.append(f"<b>{tr('page.download.details.status')}:</b> {status_text}")
 
         self._details_text.setHtml("<br>".join(details))
+        self._update_links(url, homepage)
 
-        if url:
-            link_text = tr("widget.mod_details.link.download")
-            self._link_label.setText(
-                f'📦 <a href="{url}" style="color: {COLOR_TEXT};">{link_text}</a>'
-            )
-            self._link_label.setToolTip(url)
-            self._link_label.setVisible(True)
+    def _update_links(self, url_download: str | None, url_homepage: str | None) -> None:
+        """Populate the links section dynamically."""
+        self._clear_layout(self._links_layout)
+
+        links = {
+            url_homepage: ("🏠", tr("widget.mod_details.link.homepage")),
+            url_download: ("📦", tr("widget.mod_details.link.download")),
+        }
+
+        for url, (icon, label_text) in links.items():
+            if url:
+                self._links_layout.addWidget(self._create_link_label(icon, label_text, url))
+        self._links_layout.addStretch()
+
+    @staticmethod
+    def _create_link_label(icon: str, text: str, url: str) -> QLabel:
+        """Create a clickable link label."""
+        label = QLabel(f'{icon} <a href="{url}" style="color: {COLOR_TEXT};">{text}</a>')
+        label.setOpenExternalLinks(False)
+        label.linkActivated.connect(lambda u: QDesktopServices.openUrl(QUrl(u)))
+        label.setToolTip(url)
+        return label
 
     def clear(self) -> None:
         """Clear panel content."""
         self._details_text.setHtml(f"<i>{tr('page.download.details.empty_message')}</i>")
-        self._link_label.setVisible(False)
+
+    @staticmethod
+    def _clear_layout(layout):
+        while layout.count():
+            item = layout.takeAt(0)
+            if widget := item.widget():
+                widget.deleteLater()
 
 
 # ============================================================================
@@ -705,6 +729,7 @@ class DownloadPage(BasePage):
             file_size=archive_info.file_size,
             expected_hash=archive_info.expected_hash,
             url=archive_info.url,
+            homepage=mod.homepage,
             status=status,
         )
 
@@ -1166,7 +1191,9 @@ class DownloadPage(BasePage):
         self._filter_combo.clear()
         self._filter_combo.addItem(tr("page.download.filter.all"), None)
         self._filter_combo.addItem(tr("page.download.filter.missing"), ArchiveStatus.MISSING)
-        self._filter_combo.addItem(tr("page.download.filter.invalid"), ArchiveStatus.INVALID_HASH)
+        self._filter_combo.addItem(
+            tr("page.download.filter.invalid"), ArchiveStatus.INVALID_HASH
+        )
         self._filter_combo.addItem(tr("page.download.filter.manual"), ArchiveStatus.MANUAL)
         self._filter_combo.addItem(tr("page.download.filter.valid"), ArchiveStatus.VALID)
         self._filter_combo.addItem(tr("page.download.filter.unknown"), ArchiveStatus.UNKNOWN)
@@ -1178,11 +1205,13 @@ class DownloadPage(BasePage):
         self._filter_combo.blockSignals(False)
 
         # Update table headers
-        self._archive_table.setHorizontalHeaderLabels([
-            tr("page.download.col_mod_name"),
-            tr("page.download.col_filename"),
-            tr("page.download.col_status")
-        ])
+        self._archive_table.setHorizontalHeaderLabels(
+            [
+                tr("page.download.col_mod_name"),
+                tr("page.download.col_filename"),
+                tr("page.download.col_status"),
+            ]
+        )
 
         self._refresh_archive_table()
 
