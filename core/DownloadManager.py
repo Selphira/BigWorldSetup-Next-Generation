@@ -396,6 +396,8 @@ class DownloadWorker(QObject):
 
         if self._reply and self._reply.error() == QNetworkReply.NetworkError.NoError:
             final_path = self.download_path / self.archive_info.filename
+            if final_path.exists():
+                final_path.unlink(missing_ok=True)
             try:
                 if self._temp_path.exists():
                     self._temp_path.rename(final_path)
@@ -673,8 +675,10 @@ class DownloadManager(QObject):
                 f"{len(self._active_downloads)} active"
             )
 
-            while (len(self._active_downloads) < self.MAX_CONCURRENT_DOWNLOADS
-                   and self._download_queue):
+            while (
+                len(self._active_downloads) < self.MAX_CONCURRENT_DOWNLOADS
+                and self._download_queue
+            ):
                 archive_info = self._download_queue.pop(0)
                 self._start_download_worker(archive_info)
                 self.queue_changed.emit()
