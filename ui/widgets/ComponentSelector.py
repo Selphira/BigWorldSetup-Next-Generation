@@ -783,6 +783,10 @@ class SelectionStateManager:
         self._model = self._proxy_model.sourceModel()
         self._updating = False
         self._items: dict[str, BaseTreeItem] = {}
+        self._game: str | None = None
+
+    def set_game(self, game: str) -> None:
+        self._game = game
 
     def add_item(self, item: BaseTreeItem):
         self._items[item.reference] = item
@@ -795,7 +799,12 @@ class SelectionStateManager:
     def select_item(self, reference: str):
         if reference in self._items:
             item = self._items[reference]
-            item.setCheckState(Qt.CheckState.Checked)
+            component = item.data(ROLE_COMPONENT)
+            if component:
+                if component.supports_game(self._game):
+                    item.setCheckState(Qt.CheckState.Checked)
+            else:
+                item.setCheckState(Qt.CheckState.Checked)
             self.handle_item_change(item)
 
     def unselect_item(self, reference: str):
@@ -1249,7 +1258,6 @@ class ComponentSelector(QTreeView):
         Args:
             game: Game identifier (e.g., 'bg2ee', 'eet')
         """
-        # FIXME: Gérer le cas où le mod supporte le jeu, mais qu'un des composants à l'intérieur ne le supporte pas
         logger.info(f"Unchecking items incompatible with game: {game}")
 
         self._model.blockSignals(True)
@@ -1497,6 +1505,10 @@ class ComponentSelector(QTreeView):
         selected = [item.reference for item in self._selection_manager.get_selected_items()]
         return selected
 
+    def set_game(self, game: str) -> None:
+        """Set game selected by mod ID."""
+        self._selection_manager.set_game(game)
+
     def has_selection(self) -> bool:
         """Check if at least one component is selected."""
         return len(self.get_selected_items()) > 0
@@ -1528,45 +1540,6 @@ class ComponentSelector(QTreeView):
             self.style().polish(self)
 
         logger.info("Selection restored successfully")
-
-    def _find_matching_selection(
-        self, comp_item: BaseTreeItem, component, saved_components: list[Any]
-    ) -> Any | None:
-        """Find the saved selection data for a component.
-
-        Args:
-            comp_item: Component tree item
-            component: Component data object
-            saved_components: List of saved selections for this mod
-
-        Returns:
-            Matching selection data, or None if not found
-            - For STD: component.key (str)
-            - For MUC: selected option key (str)
-            - For SUB: dict with "key" and "prompts"
-        """
-        for saved in saved_components:
-            # STD: saved is a simple string matching component.key
-            if isinstance(comp_item, StdTreeItem):
-                if saved == component.key:
-                    return saved
-
-            # MUC: saved is a string (the selected option key)
-            # We need to check if this string is one of the MUC's options
-            elif isinstance(comp_item, MucTreeItem):
-                if isinstance(saved, str):
-                    # Check if this option exists in the MUC
-                    for k in range(comp_item.rowCount()):
-                        opt = comp_item.child(k, 0)
-                        if str(opt.data(ROLE_OPTION_KEY)) == str(saved):
-                            return saved
-
-            # SUB: saved is a dict with "key" field
-            elif isinstance(comp_item, SubTreeItem):
-                if isinstance(saved, dict) and saved.get("key") == component.key:
-                    return saved
-
-        return None
 
     # ========================================
     # Translation Support
