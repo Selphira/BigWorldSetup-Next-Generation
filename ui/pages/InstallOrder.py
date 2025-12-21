@@ -633,6 +633,7 @@ class InstallOrderPage(BasePage):
         self._btn_default: QPushButton | None = None
         self._btn_import: QToolButton | None = None
         self._btn_export: QPushButton | None = None
+        self._btn_reset: QPushButton | None = None
         self._action_import_file: QAction | None = None
         self._action_import_weidu: QAction | None = None
         self._chk_ignore_warnings: QCheckBox | None = None
@@ -675,6 +676,11 @@ class InstallOrderPage(BasePage):
         Returns:
             Widget containing action buttons
         """
+        # Reset order
+        self._btn_reset = QPushButton()
+        self._btn_reset.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_reset.clicked.connect(self._reset_order)
+
         # Load default order
         self._btn_default = QPushButton()
         self._btn_default.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -1060,6 +1066,31 @@ class InstallOrderPage(BasePage):
 
         logger.info("Loaded default order for all sequences")
 
+    def _reset_order(self) -> None:
+        """Reset order."""
+        # Check if there's any current order to reset
+        has_ordered_components = any(
+            len(seq_data.ordered) > 0 for seq_data in self._sequences_data.values()
+        )
+
+        if has_ordered_components:
+            # Ask for confirmation
+            reply = QMessageBox.question(
+                self,
+                tr("page.order.reset_order_confirm_title"),
+                tr("page.order.reset_order_confirm_message"),
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel,
+            )
+
+            if reply != QMessageBox.StandardButton.Yes:
+                return
+
+        for seq_idx, _ in enumerate(self._game_def.sequences):
+            if seq_idx in self._sequences_data:
+                self._apply_order_from_list(seq_idx, [])
+        logger.info("Order reseted")
+
     def _import_order_default(self) -> None:
         # Check if there's any current order to overwrite
         has_ordered_components = any(
@@ -1068,20 +1099,15 @@ class InstallOrderPage(BasePage):
 
         if has_ordered_components:
             # Ask for confirmation
-            msg_box = QMessageBox(self)
-            msg_box.setIcon(QMessageBox.Icon.Question)
-            msg_box.setWindowTitle(tr("page.order.import_default_confirm_title"))
-            msg_box.setText(tr("page.order.import_default_confirm_message"))
-
-            btn_accept = msg_box.addButton(tr("button.yes"), QMessageBox.ButtonRole.YesRole)
-            btn_cancel = msg_box.addButton(
-                tr("button.cancel"), QMessageBox.ButtonRole.RejectRole
+            reply = QMessageBox.question(
+                self,
+                tr("page.order.import_default_confirm_title"),
+                tr("page.order.import_default_confirm_message"),
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel,
             )
 
-            msg_box.setDefaultButton(btn_cancel)
-            msg_box.exec()
-
-            if msg_box.clickedButton() != btn_accept:
+            if reply != QMessageBox.StandardButton.Yes:
                 return
 
         self._load_default_order()
@@ -1594,7 +1620,7 @@ class InstallOrderPage(BasePage):
 
     def get_additional_buttons(self) -> list[QPushButton]:
         """Get additional buttons."""
-        return [self._btn_default, self._btn_import, self._btn_export]
+        return [self._btn_reset, self._btn_default, self._btn_import, self._btn_export]
 
     def can_go_to_next_page(self) -> bool:
         """Check if can proceed to next page.
@@ -1670,6 +1696,7 @@ class InstallOrderPage(BasePage):
         self._btn_default.setText(tr("page.order.btn_default"))
         self._btn_import.setText(tr("page.order.btn_import"))
         self._btn_export.setText(tr("page.order.btn_export"))
+        self._btn_reset.setText(tr("page.order.btn_reset"))
         self._action_import_file.setText(tr("page.order.action_import_file"))
         self._action_import_weidu.setText(tr("page.order.action_import_weidu"))
         self._chk_ignore_warnings.setText(tr("page.order.ignore_warnings"))
