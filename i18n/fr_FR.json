@@ -68,6 +68,7 @@
       "title": "Sélection des mods et des composants",
       "btn_import": "Importer une sélection",
       "btn_export": "Exporter la sélection",
+      "btn_deselect_all": "Tout désélectionner",
       "action_import_file": "Depuis un fichier exporté",
       "action_import_weidu": "Depuis un Weidu.log",
       "select_category": "Sélectionnez une catégorie",
@@ -78,6 +79,8 @@
         "all_authors": "Tous les auteurs",
         "all_languages": "Toutes les langues"
       },
+      "deselect_all_confirm_title": "Confirmer la désélection",
+      "deselect_all_confirm_message": "Voulez-vous désélectionner tous les composants ?",
       "import_select_file": "Sélectionner le fichier à importer",
       "import_replace_current_selection": "Remplacer la sélection actuelle",
       "import_success_title": "Importation réussie",

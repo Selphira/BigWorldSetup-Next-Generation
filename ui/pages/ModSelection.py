@@ -264,6 +264,7 @@ class ModSelectionPage(BasePage):
         # Additional buttons
         self._btn_import: QToolButton | None = None
         self._btn_export: QPushButton | None = None
+        self._btn_deselect_all: QPushButton | None = None
 
         # Build UI
         self._create_widgets()
@@ -314,6 +315,11 @@ class ModSelectionPage(BasePage):
         self._btn_export = QPushButton()
         self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
         self._btn_export.clicked.connect(self._export_selection)
+
+        # Export selection
+        self._btn_deselect_all = QPushButton()
+        self._btn_deselect_all.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_deselect_all.clicked.connect(self._deselect_all)
 
     def _create_left_panel(self) -> QWidget:
         """Create left panel with category buttons."""
@@ -581,6 +587,24 @@ class ModSelectionPage(BasePage):
             else:
                 self._collapse_button.setArrowType(Qt.ArrowType.RightArrow)
 
+    def _deselect_all(self) -> None:
+        # Ask for confirmation
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Question)
+        msg_box.setWindowTitle(tr("page.selection.deselect_all_confirm_title"))
+        msg_box.setText(tr("page.selection.deselect_all_confirm_message"))
+
+        btn_accept = msg_box.addButton(tr("button.yes"), QMessageBox.ButtonRole.YesRole)
+        btn_cancel = msg_box.addButton(tr("button.cancel"), QMessageBox.ButtonRole.RejectRole)
+
+        msg_box.setDefaultButton(btn_cancel)
+        msg_box.exec()
+
+        if msg_box.clickedButton() != btn_accept:
+            return
+
+        self._component_selector.clear_selection()
+
     def _import_selection_file(self) -> None:
         """Import selection from JSON file."""
         file_path, replace = self._show_import_dialog(
@@ -819,7 +843,7 @@ class ModSelectionPage(BasePage):
 
     def get_additional_buttons(self) -> list[QPushButton]:
         """Get additional buttons."""
-        return [self._btn_import, self._btn_export]
+        return [self._btn_deselect_all, self._btn_import, self._btn_export]
 
     def get_previous_button_config(self) -> ButtonConfig:
         """Configure previous button."""
@@ -840,6 +864,7 @@ class ModSelectionPage(BasePage):
         self._left_title.setText(tr("page.selection.select_category"))
         self._btn_export.setText(tr("page.selection.btn_export"))
         self._btn_import.setText(tr("page.selection.btn_import"))
+        self._btn_deselect_all.setText(tr("page.selection.btn_deselect_all"))
         self._action_import_file.setText(tr("page.selection.action_import_file"))
         self._action_import_weidu.setText(tr("page.selection.action_import_weidu"))
         self._search_input.setPlaceholderText(tr("page.selection.search_placeholder"))
