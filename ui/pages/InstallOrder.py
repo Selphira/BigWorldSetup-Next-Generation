@@ -13,7 +13,7 @@ import logging
 from typing import cast
 
 from PySide6.QtCore import QMimeData, QPoint, Qt, QTimer, Signal
-from PySide6.QtGui import QColor, QDrag, QPainter, QPen
+from PySide6.QtGui import QAction, QColor, QDrag, QPainter, QPen
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QHeaderView,
+    QMenu,
     QMessageBox,
     QPushButton,
     QSizePolicy,
@@ -28,6 +29,7 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QTableWidgetItem,
     QTabWidget,
+    QToolButton,
     QVBoxLayout,
     QWidget,
 )
@@ -629,9 +631,10 @@ class InstallOrderPage(BasePage):
 
         # Action buttons
         self._btn_default: QPushButton | None = None
-        self._btn_weidu: QPushButton | None = None
-        self._btn_import: QPushButton | None = None
+        self._btn_import: QToolButton | None = None
         self._btn_export: QPushButton | None = None
+        self._action_import_file: QAction | None = None
+        self._action_import_weidu: QAction | None = None
         self._chk_ignore_warnings: QCheckBox | None = None
         self._chk_ignore_errors: QCheckBox | None = None
 
@@ -675,17 +678,25 @@ class InstallOrderPage(BasePage):
         # Load default order
         self._btn_default = QPushButton()
         self._btn_default.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_default.clicked.connect(self._load_default_order_current_tab)
-
-        # Load from WeiDU.log
-        self._btn_weidu = QPushButton()
-        self._btn_weidu.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_weidu.clicked.connect(self._load_from_weidu_log)
+        self._btn_default.clicked.connect(self._import_order_default)
 
         # Import order
-        self._btn_import = QPushButton()
+        self._btn_import = QToolButton()
         self._btn_import.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_import.clicked.connect(self._import_order)
+        self._btn_import.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
+        menu = QMenu(self._btn_import)
+
+        self._action_import_file = QAction("", self._btn_import)
+        self._action_import_file.triggered.connect(self._import_order_file)
+        self._action_import_weidu = QAction("", self._btn_import)
+        self._action_import_weidu.triggered.connect(self._import_order_weidu)
+
+        menu.addAction(self._action_import_file)
+        menu.addAction(self._action_import_weidu)
+
+        self._btn_import.setMenu(menu)
+        self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
         # Export order
         self._btn_export = QPushButton()
@@ -909,7 +920,6 @@ class InstallOrderPage(BasePage):
 
         # Distribute components to sequences
         for reference in selected:
-            print(reference)
             mod_id, _, comp_key = reference.partition(":")
             if (
                 comp_key is not None
@@ -1050,7 +1060,34 @@ class InstallOrderPage(BasePage):
 
         logger.info("Loaded default order for all sequences")
 
-    def _load_from_weidu_log(self) -> None:
+    def _import_order_default(self) -> None:
+        # Check if there's any current order to overwrite
+        has_ordered_components = any(
+            len(seq_data.ordered) > 0 for seq_data in self._sequences_data.values()
+        )
+
+        if has_ordered_components:
+            # Ask for confirmation
+            msg_box = QMessageBox(self)
+            msg_box.setIcon(QMessageBox.Icon.Question)
+            msg_box.setWindowTitle(tr("page.order.import_default_confirm_title"))
+            msg_box.setText(tr("page.order.import_default_confirm_message"))
+
+            btn_accept = msg_box.addButton(tr("button.yes"), QMessageBox.ButtonRole.YesRole)
+            btn_cancel = msg_box.addButton(
+                tr("button.cancel"), QMessageBox.ButtonRole.RejectRole
+            )
+
+            msg_box.setDefaultButton(btn_cancel)
+            msg_box.exec()
+
+            if msg_box.clickedButton() != btn_accept:
+                return
+
+        self._load_default_order()
+        logger.info("Default order loaded")
+
+    def _import_order_weidu(self) -> None:
         """Load order from WeiDU.log file."""
         file_path, _ = QFileDialog.getOpenFileName(
             self,
@@ -1069,9 +1106,9 @@ class InstallOrderPage(BasePage):
             seq_data = self._sequences_data[self._current_sequence_idx]
             QMessageBox.information(
                 self,
-                tr("page.order.apply_success_title"),
+                tr("page.order.import_success_title"),
                 tr(
-                    "page.order.apply_success_message",
+                    "page.order.import_success_message",
                     ordered=len(seq_data.ordered),
                     unordered=len(seq_data.unordered),
                 ),
@@ -1084,13 +1121,136 @@ class InstallOrderPage(BasePage):
                 tr("page.order.parse_error_message", error=str(e)),
             )
 
-    def _import_order(self) -> None:
+    def _import_order_file(self) -> None:
         """Import order from JSON file."""
-        QMessageBox.information(self, "A développer", "Importation depuis un fichier exporté")
+        if not self._game_def:
+            return
+
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            tr("page.order.import_select_file"),
+            "",
+            "JSON Files (*.json);;All Files (*.*)",
+        )
+
+        if not file_path:
+            return
+
+        import json
+
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                imported_data = json.load(f)
+
+            # Validate structure
+            if not isinstance(imported_data, dict):
+                raise ValueError("Invalid file format: root must be an object")
+
+            # Convert string keys to integers
+            install_order = {}
+            for key, value in imported_data.items():
+                try:
+                    seq_idx = int(key)
+                    if not isinstance(value, list):
+                        raise ValueError("Sequence %d must be a list", seq_idx)
+                    install_order[seq_idx] = value
+                except ValueError as e:
+                    raise ValueError("Invalid sequence key '%s': %s", key, e)
+
+            for seq_idx in install_order.keys():
+                if seq_idx >= self._game_def.sequence_count:
+                    raise ValueError(
+                        f"Sequence {seq_idx} does not exist in current game "
+                        f"(max: {self._game_def.sequence_count - 1})"
+                    )
+
+            # Apply imported order
+            for seq_idx, order_list in install_order.items():
+                if seq_idx in self._sequences_data:
+                    self._apply_order_from_list(seq_idx, order_list)
+
+            # Count results
+            total_ordered = sum(len(seq.ordered) for seq in self._sequences_data.values())
+            total_unordered = sum(len(seq.unordered) for seq in self._sequences_data.values())
+
+            QMessageBox.information(
+                self,
+                tr("page.order.import_success_title"),
+                tr(
+                    "page.order.import_success_message",
+                    ordered=total_ordered,
+                    unordered=total_unordered,
+                ),
+            )
+
+            logger.info("Imported order from %s: %d components", file_path, total_ordered)
+
+        except json.JSONDecodeError as e:
+            logger.error("Invalid JSON file: %s", e)
+            QMessageBox.critical(
+                self,
+                tr("page.order.import_error_title"),
+                tr("page.order.import_error_invalid_json", error=str(e)),
+            )
+        except Exception as e:
+            logger.error("Error importing order: %s", e)
+            QMessageBox.critical(
+                self,
+                tr("page.order.import_error_title"),
+                tr("page.order.import_error_message", error=str(e)),
+            )
 
     def _export_order(self) -> None:
         """Export current order to JSON file."""
-        QMessageBox.information(self, "A développer", "Exportation de l'ordre actuel")
+        self.save_state()
+
+        install_order = self.state_manager.get_install_order()
+
+        # Check if there's any ordered components
+        total_ordered = sum(len(order) for order in install_order.values())
+        if total_ordered == 0:
+            QMessageBox.warning(
+                self,
+                tr("page.order.export_empty_title"),
+                tr("page.order.export_empty_message"),
+            )
+            return
+
+        # Ask for save location
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            tr("page.order.select_export_file"),
+            "install_order.json",
+            "JSON Files (*.json);;All Files (*.*)",
+        )
+
+        if not file_path:
+            return
+
+        if not file_path.endswith(".json"):
+            file_path += ".json"
+
+        try:
+            import json
+
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(install_order, f, indent=2, ensure_ascii=False)
+
+            QMessageBox.information(
+                self,
+                tr("page.order.export_success_title"),
+                tr("page.order.export_success_message", count=total_ordered, path=file_path),
+            )
+
+            logger.info(f"Exported order to {file_path}: {total_ordered} components")
+
+        except Exception as e:
+            logger.error(f"Error exporting order: {e}", exc_info=True)
+            QMessageBox.critical(
+                self,
+                tr("page.order.export_error_title"),
+                tr("page.order.export_error_message", error=str(e)),
+            )
 
     # ========================================
     # UI Updates
@@ -1433,7 +1593,7 @@ class InstallOrderPage(BasePage):
 
     def get_additional_buttons(self) -> list[QPushButton]:
         """Get additional buttons."""
-        return [self._btn_default, self._btn_weidu, self._btn_import, self._btn_export]
+        return [self._btn_default, self._btn_import, self._btn_export]
 
     def can_go_to_next_page(self) -> bool:
         """Check if can proceed to next page.
@@ -1507,9 +1667,10 @@ class InstallOrderPage(BasePage):
         """Update UI text for language change."""
         # Update buttons
         self._btn_default.setText(tr("page.order.btn_default"))
-        self._btn_weidu.setText(tr("page.order.btn_weidu"))
         self._btn_import.setText(tr("page.order.btn_import"))
         self._btn_export.setText(tr("page.order.btn_export"))
+        self._action_import_file.setText(tr("page.order.action_import_file"))
+        self._action_import_weidu.setText(tr("page.order.action_import_weidu"))
         self._chk_ignore_warnings.setText(tr("page.order.ignore_warnings"))
         self._chk_ignore_errors.setText(tr("page.order.ignore_errors"))
 

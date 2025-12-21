@@ -47,6 +47,7 @@ class LanguageSelector(QToolButton):
 
     def _setup_ui(self) -> None:
         """Configure button appearance and behavior."""
+        self.setObjectName("language-selector")
         self.setMenu(self._menu)
         self.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         self.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)

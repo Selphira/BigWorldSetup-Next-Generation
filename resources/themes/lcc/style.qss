@@ -433,13 +433,18 @@ QMenu::separator {
 
 QToolButton {
     background-color: transparent;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #96846e;
+    border-radius: 6px;
     padding: 5px;
+}
+
+QToolButton#language-selector {
+    border: none;
 }
 
 QToolButton:hover {
     background-color: #333333;
+    border-color: Goldenrod;
 }
 
 QToolButton:pressed {
@@ -448,6 +453,25 @@ QToolButton:pressed {
 
 QToolButton::menu-indicator {
     image: none;
+}
+
+QToolButton[popupMode="1"] {
+  /* Only for MenuButtonPopup */
+  padding-right: 20px;
+}
+
+QToolButton[popupMode="1"]::menu-button {
+  border: none;
+  background-color: #444444;
+  border: 1px solid #96846e;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+QToolButton[popupMode="1"]::menu-button:hover {
+    border-color: Goldenrod;
 }
 
 /* ============================================================================
