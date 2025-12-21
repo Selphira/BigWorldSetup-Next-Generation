@@ -223,7 +223,7 @@ class Mod:
         # Core data (required)
         self.id: str = data.get("id", "")
         self.name: str = data.get("name", "")
-        self.tp2: str = data.get("id", "")
+        self.tp2: str = data.get("id", "").lower()
         self.version: str = data.get("version", "")
 
         # Lists (convert to tuples for immutability where appropriate)
