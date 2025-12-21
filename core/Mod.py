@@ -53,7 +53,6 @@ class Component:
         key: Unique component identifier
         text: Translated component text
         comp_type: Component type (std, muc, sub, dwn)
-        forced: Whether component is forced (always installed)
     """
 
     key: str
@@ -62,14 +61,9 @@ class Component:
     comp_type: ComponentType
     games: list[str]
     mod: Mod
-    forced: bool
 
     def get_name(self):
         return self.text
-
-    def is_forced(self) -> bool:
-        """Check if component is forced."""
-        return self.forced
 
     def is_standard(self) -> bool:
         """Check if component is standard type."""
@@ -366,7 +360,6 @@ class Mod:
             comp_type=parent_comp.comp_type,
             games=parent_comp.games,
             mod=self,
-            forced=parent_comp.forced,
         )
 
     def _search_in_muc_components(self, option_key: str) -> Component | None:
@@ -415,7 +408,6 @@ class Mod:
                 comp_type=parent_comp.comp_type,
                 games=parent_comp.games,
                 mod=self,
-                forced=parent_comp.forced,
             )
 
             self._components_cache[option_key] = result
@@ -441,7 +433,6 @@ class Mod:
         # Common attributes
         text = self._translations.get(key, "")
         category = raw_data.get("category", "")
-        forced = raw_data.get("forced", False)
         games = raw_data.get("games", [])
 
         # MUC Component
@@ -457,7 +448,6 @@ class Mod:
                 comp_type=comp_type,
                 games=games,
                 mod=self,
-                forced=forced,
                 default=default,
                 options=options,
                 _option_texts=option_texts,
@@ -496,7 +486,6 @@ class Mod:
                 comp_type=comp_type,
                 games=games,
                 mod=self,
-                forced=forced,
                 prompts=prompts,
                 _prompt_texts=prompt_texts,
             )
@@ -509,7 +498,6 @@ class Mod:
             comp_type=comp_type,
             games=games,
             mod=self,
-            forced=forced,
         )
 
     def _get_all_categories(self, categories: list[str]) -> tuple[str, ...]:
@@ -564,10 +552,6 @@ class Mod:
             List of all components
         """
         return [self.get_component(key) for key in self._components_raw.keys()]
-
-    def get_forced_components(self) -> list[Component]:
-        """Return only forced components."""
-        return [comp for comp in self.get_all_components() if comp.is_forced()]
 
     def has_category(self, category: str) -> bool:
         """Check if mod belongs to a category."""

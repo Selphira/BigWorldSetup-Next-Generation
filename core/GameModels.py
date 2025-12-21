@@ -429,11 +429,13 @@ class GameDefinition:
         id: Unique game identifier
         name: Human-readable game name (translatable)
         sequences: List of installation sequences required for this game
+        forced_components: Per-mod component IDs that must be selected and cannot be unchecked {mod_id: [component_ids]}
     """
 
     id: str
     name: str
     sequences: tuple[GameSequence, ...]
+    forced_components: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         """Validate the game definition after initialization."""
@@ -463,6 +465,7 @@ class GameDefinition:
         game_id = data.get("id")
         name = data.get("name")
         sequences_data = data.get("sequences", [])
+        forced_components_raw = data.get("forced_components", {})
 
         if not game_id:
             raise ValueError("GameDefinition requires 'id' field")
@@ -475,7 +478,15 @@ class GameDefinition:
             GameSequence.from_dict({**seq_data, "name": name}) for seq_data in sequences_data
         )
 
-        return cls(id=game_id, name=name, sequences=sequences)
+        return cls(
+            id=game_id,
+            name=name,
+            sequences=sequences,
+            forced_components={
+                mod_id.lower(): tuple(components)
+                for mod_id, components in forced_components_raw.items()
+            },
+        )
 
     def get_sequence(self, index: int) -> GameSequence | None:
         """Get a sequence by index.
@@ -516,3 +527,26 @@ class GameDefinition:
             folder_keys.append(key)
 
         return tuple(folder_keys)
+
+    def get_forced_components(self) -> list[str]:
+        """Get the forced components required for this game sequence."""
+        return [
+            f"{mod.lower()}:{comp}"
+            for mod, comps in self.forced_components.items()
+            for comp in comps
+        ]
+
+    def is_component_forced(self, mod_id: str, comp_key: str) -> bool:
+        """Check if a specific mod component is forced (mandatory) in this sequence.
+
+        Args:
+            mod_id: Identifier of the mod to check
+            comp_key: Identifier of the component
+
+        Returns:
+            True if the mod must be selected, False otherwise
+        """
+        if mod_id.lower() not in self.forced_components:
+            return False
+
+        return comp_key in self.forced_components[mod_id]

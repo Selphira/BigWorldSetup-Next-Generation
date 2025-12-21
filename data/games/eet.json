@@ -1,6 +1,10 @@
 {
   "id": "eet",
   "name": "Enhanced Edition Trilogy",
+  "forced_components": {
+    "EET": ["0"],
+    "EET_End": ["0"]
+  },
   "sequences": [
     {
       "game": "sod",

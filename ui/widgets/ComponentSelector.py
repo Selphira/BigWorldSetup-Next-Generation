@@ -29,6 +29,7 @@ from constants import (
     ROLE_RADIO,
 )
 from core.enums.CategoryEnum import CategoryEnum
+from core.GameModels import GameDefinition
 from core.ModManager import ModManager
 from core.TranslationManager import tr
 
@@ -783,12 +784,23 @@ class SelectionStateManager:
         self._model = self._proxy_model.sourceModel()
         self._updating = False
         self._items: dict[str, BaseTreeItem] = {}
-        self._game: str | None = None
+        self._game: GameDefinition | None = None
 
-    def set_game(self, game: str) -> None:
+    def set_game(self, game: GameDefinition) -> None:
+        old_game = self._game
         self._game = game
 
-    def add_item(self, item: BaseTreeItem):
+        if self._game != old_game:
+            forced_components = game.get_forced_components()
+            for reference, item in self._items.items():
+                flags = item.flags()
+                if reference in forced_components:
+                    flags &= ~Qt.ItemFlag.ItemIsUserCheckable
+                else:
+                    flags |= Qt.ItemFlag.ItemIsUserCheckable
+                item.setFlags(flags)
+
+    def add_item(self, item: BaseTreeItem) -> None:
         self._items[item.reference] = item
 
     def get_selected_items(self) -> list[BaseTreeItem]:
@@ -796,27 +808,27 @@ class SelectionStateManager:
             item for item in self._items.values() if item.checkState() == Qt.CheckState.Checked
         ]
 
-    def select_item(self, reference: str):
+    def select_item(self, reference: str) -> None:
         if reference in self._items:
             item = self._items[reference]
             component = item.data(ROLE_COMPONENT)
             if component:
-                if component.supports_game(self._game):
+                if component.supports_game(self._game.id):
                     item.setCheckState(Qt.CheckState.Checked)
             else:
                 item.setCheckState(Qt.CheckState.Checked)
             self.handle_item_change(item)
 
-    def unselect_item(self, reference: str):
+    def unselect_item(self, reference: str) -> None:
         if reference in self._items:
             item = self._items[reference]
             item.setCheckState(Qt.CheckState.Unchecked)
             self.handle_item_change(item)
 
-    def clear_selection(self):
-        # TODO: Ne pas désélectionner les mods obligatoires !
+    def clear_selection(self) -> None:
+        forced_components = self._game.get_forced_components()
         for item in self._items.values():
-            if item.isCheckable():
+            if item.isCheckable() and item.reference not in forced_components:
                 item.setCheckState(Qt.CheckState.Unchecked)
 
     def handle_item_change(self, item: BaseTreeItem) -> ModTreeItem | None:
@@ -853,6 +865,13 @@ class SelectionStateManager:
     def _handle_mod_change(self, item: ModTreeItem) -> ModTreeItem:
         """Handle mod item check state change."""
         check_state = item.checkState()
+
+        # Prevent unchecking if mod contains forced components
+        if check_state == Qt.CheckState.Unchecked and self._has_forced_components(item):
+            # Don't fully uncheck the mod, but uncheck non-forced components
+            self._uncheck_non_forced_components(item)
+            item.setCheckState(Qt.CheckState.Checked)
+            return item
 
         for row in range(item.rowCount()):
             child = item.child(row, 0)
@@ -901,6 +920,9 @@ class SelectionStateManager:
 
     def _uncheck_component(self, component: BaseTreeItem) -> None:
         """Uncheck a component according to its type."""
+        if self._is_forced_component(component):
+            return
+
         self._model.setData(
             component.index(), Qt.CheckState.Unchecked, Qt.ItemDataRole.CheckStateRole
         )
@@ -908,6 +930,18 @@ class SelectionStateManager:
         # Uncheck all children recursively
         if component.rowCount() > 0:
             self._uncheck_all_children_recursive(component)
+
+    def _uncheck_non_forced_components(self, mod_item: ModTreeItem) -> None:
+        """Uncheck all non-forced components of a mod."""
+        mod = mod_item.data(ROLE_MOD)
+        if not mod:
+            return
+        for row in range(mod_item.rowCount()):
+            child = mod_item.child(row, 0)
+            component = child.data(ROLE_COMPONENT)
+
+            if component and not self._game.is_component_forced(mod.tp2, component.key):
+                self._uncheck_component(child)
 
     def _handle_std_component(self, item: StdTreeItem) -> ModTreeItem | None:
         """Handle standard component change."""
@@ -993,6 +1027,37 @@ class SelectionStateManager:
     # ========================================
     # Helper Methods
     # ========================================
+    def _has_forced_components(self, mod_item: ModTreeItem) -> bool:
+        """Check if a mod contains any forced components."""
+        if not self._game:
+            return False
+
+        mod = mod_item.data(ROLE_MOD)
+        if not mod:
+            return False
+
+        # Check each component of the mod
+        for row in range(mod_item.rowCount()):
+            child = mod_item.child(row, 0)
+            component = child.data(ROLE_COMPONENT)
+
+            if component and self._game.is_component_forced(mod.tp2, component.key):
+                return True
+
+        return False
+
+    def _is_forced_component(self, component: BaseTreeItem) -> bool:
+        """Check if a component is forced."""
+        if not self._game:
+            return False
+
+        mod = component.data(ROLE_MOD)
+        comp = component.data(ROLE_COMPONENT)
+
+        if not mod or not comp:
+            return False
+
+        return self._game.is_component_forced(mod.tp2, comp.key)
 
     def _ensure_one_child_checked(self, parent: QStandardItem) -> None:
         """Ensure at least one child is checked."""
@@ -1539,7 +1604,7 @@ class ComponentSelector(QTreeView):
             self.style().unpolish(self)
             self.style().polish(self)
 
-    def set_game(self, game: str) -> None:
+    def set_game(self, game: GameDefinition) -> None:
         """Set game selected by mod ID."""
         self._selection_manager.set_game(game)
 

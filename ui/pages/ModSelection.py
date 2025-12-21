@@ -853,7 +853,8 @@ class ModSelectionPage(BasePage):
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""
         super().on_page_shown()
-        self._component_selector.set_game(self.state_manager.get_selected_game())
+        game = self.state_manager.get_game_manager().get(self.state_manager.get_selected_game())
+        self._component_selector.set_game(game)
         self._search_input.setFocus()
 
     def retranslate_ui(self) -> None:
@@ -886,7 +887,10 @@ class ModSelectionPage(BasePage):
         # Load selected components
         selected_components = self.state_manager.get_selected_components()
         if selected_components:
-            self._component_selector.set_game(self.state_manager.get_selected_game())
+            game = self.state_manager.get_game_manager().get(
+                self.state_manager.get_selected_game()
+            )
+            self._component_selector.set_game(game)
             self._component_selector.restore_selection(selected_components)
 
     def save_state(self) -> None:
