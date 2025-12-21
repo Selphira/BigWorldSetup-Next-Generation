@@ -83,7 +83,7 @@ class WeiDULogResult:
         Returns:
             List of component IDs in format 'mod:component'
         """
-        return [entry.component_id for entry in self.entries]
+        return [entry.component_id.removeprefix("setup-") for entry in self.entries]
 
     def get_unique_mods(self) -> list[str]:
         """Get list of unique mod names that were installed.
