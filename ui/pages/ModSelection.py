@@ -6,15 +6,23 @@ search functionality, and hierarchical component selection.
 """
 
 import logging
+from typing import cast
 
 from PySide6.QtCore import QByteArray, QEvent, QModelIndex, Qt, QTimer
-from PySide6.QtGui import QTextDocument
+from PySide6.QtGui import QAction, QTextDocument
 from PySide6.QtWidgets import (
+    QCheckBox,
+    QFileDialog,
     QFrame,
+    QGridLayout,
     QHBoxLayout,
     QLabel,
     QLineEdit,
+    QMenu,
+    QMessageBox,
+    QPushButton,
     QScrollArea,
+    QSizePolicy,
     QSplitter,
     QStyle,
     QStyledItemDelegate,
@@ -39,8 +47,11 @@ from constants import (
     SPACING_SMALL,
 )
 from core.enums.CategoryEnum import CategoryEnum
+from core.ModManager import ModManager
+from core.RuleManager import RuleManager
 from core.StateManager import StateManager
 from core.TranslationManager import tr
+from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
 from ui.widgets.CategoryButton import CategoryButton
 from ui.widgets.ComponentSelector import ComponentSelector
@@ -235,10 +246,11 @@ class ModSelectionPage(BasePage):
     def __init__(self, state_manager: StateManager) -> None:
         super().__init__(state_manager)
 
-        self._mod_manager = self.state_manager.get_mod_manager()
-        self._rule_manager = self.state_manager.get_rule_manager()
+        self._mod_manager: ModManager = self.state_manager.get_mod_manager()
+        self._rule_manager: RuleManager = self.state_manager.get_rule_manager()
         self._category_buttons: dict[CategoryEnum, CategoryButton] = {}
         self._current_category = CategoryEnum.ALL
+        self._weidu_parser: WeiDULogParser = WeiDULogParser()
 
         # Splitter state for collapsible panel
         self._details_collapsed = False
@@ -249,8 +261,13 @@ class ModSelectionPage(BasePage):
         self._search_timer.setSingleShot(True)
         self._search_timer.timeout.connect(self._apply_search_filter)
 
+        # Additional buttons
+        self._btn_import: QToolButton | None = None
+        self._btn_export: QPushButton | None = None
+
         # Build UI
         self._create_widgets()
+        self._create_additional_buttons()
         self._update_statistics()
 
         logger.info("ModSelectionPage initialized")
@@ -272,6 +289,31 @@ class ModSelectionPage(BasePage):
         # Center/Right: Splitter with component selector and details panel
         self._splitter = self._create_splitter_with_panels()
         layout.addWidget(self._splitter)
+
+    def _create_additional_buttons(self):
+        """Create additional buttons."""
+        # Import selection
+        self._btn_import = QToolButton()
+        self._btn_import.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_import.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
+        menu = QMenu(self._btn_import)
+
+        self._action_import_file = QAction("", self._btn_import)
+        self._action_import_file.triggered.connect(self._import_selection_file)
+        self._action_import_weidu = QAction("", self._btn_import)
+        self._action_import_weidu.triggered.connect(self._import_selection_weidu)
+
+        menu.addAction(self._action_import_file)
+        menu.addAction(self._action_import_weidu)
+
+        self._btn_import.setMenu(menu)
+        self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
+
+        # Export selection
+        self._btn_export = QPushButton()
+        self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_export.clicked.connect(self._export_selection)
 
     def _create_left_panel(self) -> QWidget:
         """Create left panel with category buttons."""
@@ -363,6 +405,7 @@ class ModSelectionPage(BasePage):
         handle_layout.setContentsMargins(0, 0, 0, 0)
 
         self._collapse_button = QToolButton(splitter_handle)
+        self._collapse_button.setStyleSheet("border: none;")
         self._collapse_button.setAutoRaise(True)
         self._collapse_button.setFixedSize(20, 40)
         self._collapse_button.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -538,6 +581,192 @@ class ModSelectionPage(BasePage):
             else:
                 self._collapse_button.setArrowType(Qt.ArrowType.RightArrow)
 
+    def _import_selection_file(self) -> None:
+        """Import selection from JSON file."""
+        file_path, replace = self._show_import_dialog(
+            title=tr("page.selection.import_select_file"),
+            name_filter="JSON Files (*.json);;All Files (*.*)",
+        )
+
+        if not file_path:
+            return
+
+        import json
+
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                components_to_select = json.load(f)
+
+            self._apply_imported_selection(components_to_select, replace, file_path)
+
+        except json.JSONDecodeError as e:
+            logger.error("Invalid JSON file: %s", e)
+            QMessageBox.critical(
+                self,
+                tr("page.selection.import_error_title"),
+                tr("page.selection.import_error_invalid_json", error=str(e)),
+            )
+        except Exception as e:
+            logger.error("Error importing selection: %s", e)
+            QMessageBox.critical(
+                self,
+                tr("page.selection.import_error_title"),
+                tr("page.selection.import_error_message", error=str(e)),
+            )
+
+    def _import_selection_weidu(self) -> None:
+        """Import selection from WeiDU.log file."""
+        file_path, replace = self._show_import_dialog(
+            title=tr("page.selection.import_select_file"),
+            name_filter="WeiDU Log (WeiDU.log);;Log Files (*.log)",
+        )
+
+        if not file_path:
+            return
+
+        try:
+            components_to_select = self._weidu_parser.parse_file(file_path).get_component_ids()
+            self._apply_imported_selection(components_to_select, replace, file_path)
+
+        except Exception as e:
+            logger.error("Error importing WeiDU.log: %s", e)
+            QMessageBox.critical(
+                self,
+                tr("page.selection.import_error_title"),
+                tr("page.selection.import_error_weidu", error=str(e)),
+            )
+
+    def _show_import_dialog(self, title: str, name_filter: str) -> tuple[str | None, bool]:
+        """Show file import dialog with replace checkbox.
+
+        Args:
+            title: Dialog window title
+            name_filter: File type filter string
+
+        Returns:
+            Tuple of (file_path, replace_flag). file_path is None if cancelled.
+        """
+        dialog = QFileDialog(self)
+        dialog.setWindowTitle(title)
+        dialog.setNameFilter(name_filter)
+        dialog.setOption(QFileDialog.Option.DontUseNativeDialog, True)
+        dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+        dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptOpen)
+
+        checkbox = QCheckBox(tr("page.selection.import_replace_current_selection"))
+        checkbox.setChecked(False)
+
+        container = QWidget(dialog)
+        container.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        layout = QHBoxLayout(container)
+        layout.setContentsMargins(0, 0, 0, 10)
+        layout.addStretch()
+        layout.addWidget(checkbox)
+
+        grid_layout = cast(QGridLayout, dialog.layout())
+        row_count = grid_layout.rowCount()
+        grid_layout.addWidget(container, row_count, 0, 1, -1)
+
+        if dialog.exec():
+            return dialog.selectedFiles()[0], checkbox.isChecked()
+        else:
+            return None, False
+
+    def _apply_imported_selection(
+        self, components_to_select: list[str], replace: bool, file_path: str
+    ) -> None:
+        """Apply imported component selection.
+
+        Args:
+            components_to_select: List of components to select
+            replace: Whether to replace current selection
+            file_path: Source file path for logging
+        """
+        if replace:
+            self._component_selector.clear_selection()
+
+        self._component_selector.restore_selection(components_to_select)
+
+        # Calculate statistics
+        reference_to_select = [
+            reference.lower()
+            for reference in components_to_select
+            if (
+                (comp_key := reference.partition(":")[2])
+                and "choice_" not in comp_key
+                and comp_key.count(".") == 0
+            )
+        ]
+        reference_selected = self._component_selector.get_selected_components()
+        selected_list = list(set(reference_selected) & set(reference_to_select))
+        total_selected = len(selected_list)
+        total_to_select = len(reference_to_select)
+
+        QMessageBox.information(
+            self,
+            tr("page.selection.import_success_title"),
+            tr(
+                "page.selection.import_success_message",
+                to_select=total_to_select,
+                selected=total_selected,
+            ),
+        )
+
+        logger.info("Imported selection from %s: %d components", file_path, total_selected)
+
+    def _export_selection(self) -> None:
+        """Export current order to JSON file."""
+        self.save_state()
+
+        selected_components = self._component_selector.get_selected_components()
+        total = len(selected_components)
+
+        # Check if there's any selected components
+        if total == 0:
+            QMessageBox.warning(
+                self,
+                tr("page.selection.export_empty_title"),
+                tr("page.selection.export_empty_message"),
+            )
+            return
+
+        # Ask for save location
+        selected_game = self.state_manager.get_selected_game()
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            tr("page.selection.export_select_file"),
+            f"{selected_game}_selection.json",
+            "JSON Files (*.json);;All Files (*.*)",
+        )
+
+        if not file_path:
+            return
+
+        if not file_path.endswith(".json"):
+            file_path += ".json"
+
+        try:
+            import json
+
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(selected_components, f, indent=2, ensure_ascii=False)
+
+            QMessageBox.information(
+                self,
+                tr("page.selection.export_success_title"),
+                tr("page.selection.export_success_message", count=total, path=file_path),
+            )
+
+            logger.info(f"Exported selection to {file_path}: {total} components")
+
+        except Exception as e:
+            logger.error(f"Error exporting order: {e}", exc_info=True)
+            QMessageBox.critical(
+                self,
+                tr("page.selection.export_error_title"),
+                tr("page.selection.export_error_message", error=str(e)),
+            )
+
     # ========================================
     # Filtering
     # ========================================
@@ -588,6 +817,10 @@ class ModSelectionPage(BasePage):
         """Get page title."""
         return tr("page.selection.title")
 
+    def get_additional_buttons(self) -> list[QPushButton]:
+        """Get additional buttons."""
+        return [self._btn_import, self._btn_export]
+
     def get_previous_button_config(self) -> ButtonConfig:
         """Configure previous button."""
         return ButtonConfig(visible=True, enabled=True, text=tr("button.previous"))
@@ -605,6 +838,10 @@ class ModSelectionPage(BasePage):
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
         self._left_title.setText(tr("page.selection.select_category"))
+        self._btn_export.setText(tr("page.selection.btn_export"))
+        self._btn_import.setText(tr("page.selection.btn_import"))
+        self._action_import_file.setText(tr("page.selection.action_import_file"))
+        self._action_import_weidu.setText(tr("page.selection.action_import_weidu"))
         self._search_input.setPlaceholderText(tr("page.selection.search_placeholder"))
 
         # Update category buttons

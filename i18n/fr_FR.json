@@ -66,6 +66,10 @@
     },
     "selection": {
       "title": "Sélection des mods et des composants",
+      "btn_import": "Importer une sélection",
+      "btn_export": "Exporter la sélection",
+      "action_import_file": "Depuis un fichier exporté",
+      "action_import_weidu": "Depuis un Weidu.log",
       "select_category": "Sélectionnez une catégorie",
       "search_placeholder": "Recherche...",
       "desired_languages": "Langues désirées",
@@ -73,7 +77,20 @@
         "all_games": "Tous les jeux",
         "all_authors": "Tous les auteurs",
         "all_languages": "Toutes les langues"
-      }
+      },
+      "import_select_file": "Sélectionner le fichier à importer",
+      "import_replace_current_selection": "Remplacer la sélection actuelle",
+      "import_success_title": "Importation réussie",
+      "import_success_message": "Sélection de {selected} composant(s) sur un total de {to_select} importée avec succès",
+      "import_error_title": "Erreur d'importation",
+      "import_error_message": "Échec de l'importation de la sélection : {error}",
+      "export_empty_title": "Rien à exporter",
+      "export_empty_message": "Aucun composant n'a encore été sélectionné.\nSélectionnez des composants avant d'exporter.",
+      "export_select_file": "Sélectionner le fichier d'export",
+      "export_success_title": "Exportation réussie",
+      "export_success_message": "Sélection de {count} composant(s) exportée avec succès.",
+      "export_error_title": "Erreur d'exportation",
+      "export_error_message": "Échec de l'exportation de la sélection : {error}"
     },
     "order": {
       "title": "Ordre d'installation",

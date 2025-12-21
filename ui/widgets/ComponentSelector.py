@@ -813,6 +813,12 @@ class SelectionStateManager:
             item.setCheckState(Qt.CheckState.Unchecked)
             self.handle_item_change(item)
 
+    def clear_selection(self):
+        # TODO: Ne pas désélectionner les mods obligatoires !
+        for item in self._items.values():
+            if item.isCheckable():
+                item.setCheckState(Qt.CheckState.Unchecked)
+
     def handle_item_change(self, item: BaseTreeItem) -> ModTreeItem | None:
         """Handle item change and return the affected mod item."""
         if self._updating:
@@ -1265,7 +1271,7 @@ class ComponentSelector(QTreeView):
             root = self._model.invisibleRootItem()
 
             for row in range(root.rowCount()):
-                mod_item = root.child(row, 0)
+                mod_item = cast(ModTreeItem, root.child(row, 0))
                 self._uncheck_incompatible_mod_with_game(mod_item, game)
                 self._update_mod_status(mod_item)
 
@@ -1505,6 +1511,34 @@ class ComponentSelector(QTreeView):
         selected = [item.reference for item in self._selection_manager.get_selected_items()]
         return selected
 
+    def get_selected_components(self) -> list[str]:
+        selected = [
+            reference
+            for reference in self.get_selected_items()
+            if (
+                (comp_key := reference.partition(":")[2])
+                and "choice_" not in comp_key
+                and comp_key.count(".") == 0
+            )
+        ]
+        return selected
+
+    def clear_selection(self) -> None:
+        """Clear all selected components."""
+        self._model.blockSignals(True)
+        try:
+            self._selection_manager.clear_selection()
+            root = self._model.invisibleRootItem()
+
+            for row in range(root.rowCount()):
+                mod_item = cast(ModTreeItem, root.child(row, 0))
+                self._update_mod_status(mod_item)
+
+        finally:
+            self._model.blockSignals(False)
+            self.style().unpolish(self)
+            self.style().polish(self)
+
     def set_game(self, game: str) -> None:
         """Set game selected by mod ID."""
         self._selection_manager.set_game(game)
@@ -1532,7 +1566,9 @@ class ComponentSelector(QTreeView):
 
         try:
             for reference in selected_items:
-                self._selection_manager.select_item(reference)
+                self._selection_manager.select_item(reference.lower())
+            # Update mod status
+            self._retranslate_tree_items()
         finally:
             self._model.blockSignals(False)
             self._updating = False
