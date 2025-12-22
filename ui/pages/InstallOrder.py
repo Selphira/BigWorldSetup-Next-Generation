@@ -1485,11 +1485,7 @@ class InstallOrderPage(BasePage):
             btn_add_pause.setText(tr("page.order.btn_add_pause"))
             btn_add_pause.setToolTip(tr("page.order.pause_tooltip"))
 
-        # Update sequence counters
-        for seq_idx in self._sequences_data.keys():
-            self._update_sequence_counters(seq_idx)
-
-        # TODO: Translate components entries on language change !
+        self._refresh_all_tables()
 
         # Update tab labels for multiple sequences
         if self._game_def and self._game_def.has_multiple_sequences and self._phase_tabs:
