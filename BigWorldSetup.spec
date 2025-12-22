@@ -2,7 +2,7 @@
 
 block_cipher = None
 
-import os
+import os, sys
 from pathlib import Path
 
 # Récupérer le chemin de base
@@ -24,6 +24,12 @@ for root, dirs, files in os.walk(base_path):
 
 # Collecter les fichiers de données
 datas = []
+
+print(">>>>>DEBUG<<<<<")
+print("SYS.PATH:", sys.path)
+print("CWD:", os.getcwd())
+print("PATHEX:", str(base_path))
+print(str(hidden_imports))
 
 a = Analysis(
     ['main.py'],
