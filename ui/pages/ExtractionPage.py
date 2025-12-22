@@ -285,7 +285,7 @@ class ExtractionPage(BasePage):
         super().__init__(state_manager)
 
         self._mod_manager = self.state_manager.get_mod_manager()
-        self._download_path = Path(self.state_manager.get_download_folder())
+        self._download_path: Path | None = None
 
         # Extraction tracking
         self._extractions: dict[str, ExtractionInfo] = {}
@@ -709,8 +709,10 @@ class ExtractionPage(BasePage):
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""
         super().on_page_shown()
-        self._download_path = Path(self.state_manager.get_download_folder())
-        self._load_extractions()
+        download_path = self.state_manager.get_download_folder()
+        if download_path:
+            self._download_path = Path(download_path)
+            self._load_extractions()
 
     def on_page_hidden(self) -> None:
         """Called when page becomes hidden."""

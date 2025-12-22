@@ -37,7 +37,7 @@ class InstallationState:
             "download_folder": None,
             "backup_folder": None,
             "languages_order": [],
-            "install_order": [],
+            "install_order": {},
         }
     )
     installation: dict[str, Any] = field(

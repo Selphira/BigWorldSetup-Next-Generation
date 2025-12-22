@@ -473,14 +473,10 @@ class DownloadManager(QObject):
 
     MAX_CONCURRENT_DOWNLOADS = 5
 
-    def __init__(self, download_path: Path):
-        """Initialize download manager.
-
-        Args:
-            download_path: Directory for downloaded files
-        """
+    def __init__(self):
+        """Initialize download manager."""
         super().__init__()
-        self.download_path = download_path
+        self.download_path: Path | None = None
 
         self._active_downloads: dict[str, tuple[DownloadWorker, QThread, DownloadProgress]] = {}
         self._download_queue: list[ArchiveInfo] = []
@@ -508,6 +504,10 @@ class DownloadManager(QObject):
         Args:
             archive_info: Archive to download
         """
+        if self.download_path is None:
+            logger.error("No download path")
+            return
+
         if archive_info.mod_id in self._active_downloads:
             logger.warning(f"Already downloading: {archive_info.filename}")
             return

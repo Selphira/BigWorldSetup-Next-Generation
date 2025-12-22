@@ -14,11 +14,9 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: BigWorldSetup-Linux.tar.gz
-            executable_name: BigWorldSetup
           - os: windows-latest
             artifact_name: BigWorldSetup-Windows.zip
-            executable_name: BigWorldSetup.exe
-    
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -34,51 +32,41 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build executable (Linux)
-        if: runner.os == 'Linux'
+      - name: Build executable
         run: |
-          pyinstaller --onedir main.py --specpath "dist" --name "BigWorldSetup"
-
-      - name: Build executable (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          pyinstaller --onedir main.py --specpath "dist" --name "BigWorldSetup"
-        shell: pwsh
+          pyinstaller BigWorldSetup.spec --clean
 
       - name: Copy external files to dist (Linux)
         if: runner.os == 'Linux'
         run: |
-          mkdir -p dist/data
-          mkdir -p dist/i18n
-          mkdir -p dist/resources
-          mkdir -p dist/tools
-          cp -r data/* dist/data/
-          cp -r i18n/* dist/i18n/
-          cp -r resources/* dist/resources/
-          cp -r tools/* dist/tools/
-          cp README.md dist/ 2>/dev/null || true
-          cp LICENSE dist/ 2>/dev/null || true
+          cp -r data dist/BigWorldSetup/
+          cp -r i18n dist/BigWorldSetup/
+          cp -r resources dist/BigWorldSetup/
+          cp -r tools dist/BigWorldSetup/
+          cp README.md dist/BigWorldSetup/ 2>/dev/null || true
+          cp LICENSE dist/BigWorldSetup/ 2>/dev/null || true
 
       - name: Copy external files to dist (Windows)
         if: runner.os == 'Windows'
         run: |
-          New-Item -ItemType Directory -Force -Path dist/data
-          New-Item -ItemType Directory -Force -Path dist/i18n
-          New-Item -ItemType Directory -Force -Path dist/resources
-          New-Item -ItemType Directory -Force -Path dist/tools
-          Copy-Item -Path data/* -Destination dist/data/ -Recurse
-          Copy-Item -Path i18n/* -Destination dist/i18n/ -Recurse
-          Copy-Item -Path resources/* -Destination dist/resources/ -Recurse
-          Copy-Item -Path tools/* -Destination dist/tools/ -Recurse
-          if (Test-Path LICENSE) { Copy-Item LICENSE dist/ }
-          if (Test-Path README.md) { Copy-Item README.md dist/ }
+          Copy-Item -Path data -Destination dist/BigWorldSetup/ -Recurse -Force
+          Copy-Item -Path i18n -Destination dist/BigWorldSetup/ -Recurse -Force
+          Copy-Item -Path resources -Destination dist/BigWorldSetup/ -Recurse -Force
+          Copy-Item -Path tools -Destination dist/BigWorldSetup/ -Recurse -Force
+          if (Test-Path README.md) { Copy-Item README.md dist/BigWorldSetup/ }
+          if (Test-Path LICENSE) { Copy-Item LICENSE dist/BigWorldSetup/ }
         shell: pwsh
+
+      - name: Verify build output
+        run: |
+          ls -R dist/BigWorldSetup/
+        shell: bash
 
       - name: Package build output (Linux)
         if: runner.os == 'Linux'
         run: |
           cd dist
-          tar -czf BigWorldSetup-Linux.tar.gz BigWorldSetup/ 2>/dev/null
+          tar -czf BigWorldSetup-Linux.tar.gz BigWorldSetup/
 
       - name: Package build output (Windows)
         if: runner.os == 'Windows'

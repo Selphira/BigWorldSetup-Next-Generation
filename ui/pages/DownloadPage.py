@@ -373,11 +373,11 @@ class DownloadPage(BasePage):
         super().__init__(state_manager)
 
         self._mod_manager = self.state_manager.get_mod_manager()
-        self._download_path = Path(self.state_manager.get_download_folder())
+        self._download_path: Path | None = None
 
         # Core components
         self._verifier = ArchiveVerifier()
-        self._download_manager = DownloadManager(self._download_path)
+        self._download_manager = DownloadManager()
 
         # Archive tracking
         self._archives: dict[str, ArchiveInfo] = {}
@@ -1148,7 +1148,12 @@ class DownloadPage(BasePage):
         super().on_page_shown()
 
         # Check if download path changed
-        new_download_path = Path(self.state_manager.get_download_folder())
+        download_folder = self.state_manager.get_download_folder()
+
+        if not download_folder:
+            return
+
+        new_download_path = Path(download_folder)
         download_path_changed = self._cached_download_path != new_download_path
 
         if download_path_changed:

@@ -6,6 +6,7 @@ and main window display.
 """
 
 import logging
+from pathlib import Path
 import sys
 
 from PySide6.QtCore import Qt
@@ -38,6 +39,15 @@ from ui.pages.InstallOrder import InstallOrderPage
 from ui.pages.ModSelection import ModSelectionPage
 
 logger = logging.getLogger(__name__)
+
+# Ajouter le chemin du projet au PYTHONPATH
+if getattr(sys, "frozen", False):
+    # Si l'application est "frozen" (packagée avec PyInstaller)
+    application_path = Path(sys._MEIPASS)
+else:
+    application_path = Path(__file__).parent
+
+sys.path.insert(0, str(application_path))
 
 
 def setup_logging() -> None:
