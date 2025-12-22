@@ -8,8 +8,9 @@ and main window display.
 import logging
 import sys
 
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QPixmap
-from PySide6.QtWidgets import QApplication, QMessageBox
+from PySide6.QtWidgets import QApplication, QMessageBox, QSplashScreen
 
 from constants import (
     APP_NAME,
@@ -247,6 +248,14 @@ def main() -> int:
         stylesheet = load_stylesheet()
         app.setStyleSheet(stylesheet)
 
+        # Create the splash screen
+        pixmap = QPixmap(str(ICONS_DIR / "bws.png"))
+        splash = QSplashScreen(
+            pixmap, Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.FramelessWindowHint
+        )
+        splash.show()
+        app.processEvents()
+
         # Initialize state manager
         state = StateManager()
 
@@ -277,6 +286,8 @@ def main() -> int:
         window.show()
         logger.info("Main window displayed")
 
+        # Hide the splash screen
+        splash.finish(window)
         # Run event loop
         exit_code = app.exec()
 
