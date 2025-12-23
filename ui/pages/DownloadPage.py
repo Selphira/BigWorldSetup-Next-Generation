@@ -665,7 +665,9 @@ class DownloadPage(BasePage):
 
         self._archive_table.setSortingEnabled(True)
 
-    def _update_archive_status(self, mod_id: str, status: ArchiveStatus) -> None:
+    def _update_archive_status(
+        self, mod_id: str, status: ArchiveStatus, message: str = ""
+    ) -> None:
         """Update status of a specific archive in the table.
 
         Args:
@@ -688,6 +690,9 @@ class DownloadPage(BasePage):
 
                     color = self.STATUS_COLORS.get(status, QColor(COLOR_STATUS_NONE))
                     status_item.setForeground(color)
+                    status_item.setToolTip(
+                        tr("page.download.error_download_failed", message=message)
+                    )
 
                 break
 
@@ -754,7 +759,7 @@ class DownloadPage(BasePage):
 
     def _on_verification_error(self, mod_id: str, error_message: str) -> None:
         """Handle verification error."""
-        self._update_archive_status(mod_id, ArchiveStatus.ERROR)
+        self._update_archive_status(mod_id, ArchiveStatus.ERROR, error_message)
         logger.error(f"Verification error for {mod_id}: {error_message}")
 
     # ========================================
@@ -942,7 +947,7 @@ class DownloadPage(BasePage):
             widget.deleteLater()
             del self._progress_widgets[mod_id]
 
-        self._update_archive_status(mod_id, ArchiveStatus.ERROR)
+        self._update_archive_status(mod_id, ArchiveStatus.ERROR, error_message)
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)

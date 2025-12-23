@@ -197,6 +197,7 @@
       "verifying_file": "Vérification : {filename}",
       "stats": "{downloaded} / {total} - {speed} - {time} restant",
       "error_status": "Erreur : {error}",
+      "error_download_failed": "Le fichier n'a pu être téléchargé pour la raison suivante:\n\n{message}\n\nVeuillez réessayer, le télécharger manuellement ou enlever le mod concerné",
       "download_in_progress_title": "Téléchargements en cours",
       "download_in_progress_message": "Veuillez attendre la fin du téléchargement en cours.",
       "no_downloads_title": "Aucun téléchargement nécessaire",
