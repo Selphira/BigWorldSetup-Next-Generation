@@ -189,6 +189,10 @@ class MultiSelectComboBox(QComboBox):
 
         logger.info("Set %d items with %d selected", len(items), len(selected_keys or []))
 
+    def count_items(self) -> int:
+        """Get the count of items."""
+        return self.model().rowCount()
+
     # -------------------------------------------------------------------------
     # Public API - Selection management
     # -------------------------------------------------------------------------
@@ -404,11 +408,7 @@ class MultiSelectComboBox(QComboBox):
         selected_count = len(self.selected_keys())
 
         # Width based on icons and spacing
-        content_width = (
-                self._icon_size * selected_count
-                + 4 * (selected_count - 1)
-                + 20
-        )
+        content_width = self._icon_size * selected_count + 4 * (selected_count - 1) + 20
 
         height = super().sizeHint().height()
 

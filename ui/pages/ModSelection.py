@@ -483,10 +483,6 @@ class ModSelectionPage(BasePage):
         self._lang_select.setMinimumWidth(100)
         self._lang_select.selection_changed.connect(self._apply_all_filters)
 
-        for lang_code in self.state_manager.get_languages_order():
-            icon_path = FLAGS_DIR / f"{lang_code}.png"
-            self._lang_select.add_item(lang_code, str(icon_path))
-
         sub_filters_layout.addWidget(self._lang_select)
         sub_filters_layout.addStretch()
 
@@ -856,6 +852,11 @@ class ModSelectionPage(BasePage):
         game = self.state_manager.get_game_manager().get(self.state_manager.get_selected_game())
         self._component_selector.set_game(game)
         self._search_input.setFocus()
+
+        if self._lang_select.count_items() == 0:
+            for lang_code in self.state_manager.get_languages_order():
+                icon_path = FLAGS_DIR / f"{lang_code}.png"
+                self._lang_select.add_item(lang_code, str(icon_path))
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
