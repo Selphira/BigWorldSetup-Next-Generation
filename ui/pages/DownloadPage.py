@@ -743,6 +743,18 @@ class DownloadPage(BasePage):
     # Verification Management
     # ========================================
 
+    def _verify_archive(self, mod_id: str) -> ArchiveStatus:
+        archive_info = self._archives[mod_id]
+        file_path = self._download_path / archive_info.filename
+        status = self._verifier.verify_archive(file_path, archive_info)
+
+        # Update status AND cache
+        self._archive_status[mod_id] = status
+        self._update_archive_cache(mod_id, archive_info)
+        self._update_archive_status(mod_id, status)
+
+        return status
+
     def _on_verification_started(self, mod_id: str) -> None:
         """Handle verification start for a mod."""
         self._update_archive_status(mod_id, ArchiveStatus.VERIFYING)
@@ -783,7 +795,6 @@ class DownloadPage(BasePage):
             if (
                 self._archive_status.get(mod_id, ArchiveStatus.MISSING) != ArchiveStatus.VALID
                 and not archive_info.requires_manual_download
-                and not self._is_archive_verified(mod_id)
             )
         }
 
@@ -916,16 +927,7 @@ class DownloadPage(BasePage):
 
         # Verify downloaded file
         if mod_id in self._archives:
-            archive_info = self._archives[mod_id]
-            file_path = self._download_path / archive_info.filename
-            status = self._verifier.verify_archive(file_path, archive_info)
-
-            # Update status AND cache
-            self._archive_status[mod_id] = status
-            self._update_archive_cache(mod_id, archive_info)  # NEW: Update cache
-
-            # Update table display
-            self._update_archive_status(mod_id, status)
+            self._verify_archive(mod_id)
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)
@@ -1103,9 +1105,12 @@ class DownloadPage(BasePage):
             return
 
         archive_info = self._archives[mod_id]
-        status = self._archive_status.get(mod_id)
+        status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
 
-        if status and status.needs_download and not archive_info.requires_manual_download:
+        if status.needs_download:
+            status = self._verify_archive(mod_id)
+
+        if status.needs_download and not archive_info.requires_manual_download:
             self._download_manager.start_download(archive_info)
 
             if not self._update_timer.isActive():
