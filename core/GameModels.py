@@ -389,28 +389,6 @@ class GameSequence:
 
         return comp_key in self.allowed_components[mod_id]
 
-    def get_install_steps(self, include_downloads: bool = True) -> tuple[InstallStep, ...]:
-        """Get installation steps, optionally filtering by type.
-
-        Args:
-            include_downloads: If False, exclude download-only steps
-
-        Returns:
-            Tuple of installation steps matching the filter
-        """
-        if include_downloads:
-            return self.order
-
-        return tuple(step for step in self.order if step.is_install)
-
-    def get_download_steps(self) -> tuple[InstallStep, ...]:
-        """Get only download steps from the installation order.
-
-        Returns:
-            Tuple of download-only installation steps
-        """
-        return tuple(step for step in self.order if step.is_download_only)
-
 
 # ============================================================================
 # GAME DEFINITION
