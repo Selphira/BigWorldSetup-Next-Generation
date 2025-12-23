@@ -1,6 +1,9 @@
 {
   "id": "bgee",
   "name": "Baldur's Gate: Enhanced Edition",
+  "forced_components": {
+    "weidu64": ["0"]
+  },
   "sequences": [
     {
       "game": "bgee",
