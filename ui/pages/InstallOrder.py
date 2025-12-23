@@ -288,10 +288,6 @@ class InstallOrderPage(BasePage):
         self._rule_manager = self.state_manager.get_rule_manager()
         self._weidu_parser = WeiDULogParser()
 
-        # Map simple keys to full keys with options for SUB components
-        # Format: {seq_idx: {(mod_id, simple_key): full_key_with_options}}
-        self._component_full_keys: dict[int, dict[tuple[str, str], str]] = {}
-
         # Game state
         self._current_game: str | None = None
         self._game_def: GameDefinition | None = None
@@ -669,7 +665,6 @@ class InstallOrderPage(BasePage):
             return
 
         self._sequences_data.clear()
-        self._component_full_keys.clear()
 
         # Initialize sequence data
         for seq_idx in range(self._game_def.sequence_count):
@@ -713,30 +708,10 @@ class InstallOrderPage(BasePage):
 
             self._sequences_data[seq_idx].unordered.append((mod_id, simple_key))
 
-            if seq_idx not in self._component_full_keys:
-                self._component_full_keys[seq_idx] = {}
-            self._component_full_keys[seq_idx][(mod_id, simple_key)] = comp_key
-
             placed = True
 
         if not placed:
             logger.debug(f"Component not allowed in any sequence: {mod_id}:{comp_key}")
-
-    def _get_full_component_key(self, seq_idx: int, mod_id: str, simple_key: str) -> str:
-        """Get full component key with options from simple key.
-
-        Args:
-            seq_idx: Sequence index
-            mod_id: Mod identifier
-            simple_key: Simple component key (without options)
-
-        Returns:
-            Full component key with options, or simple_key if not found
-        """
-        if seq_idx not in self._component_full_keys:
-            return simple_key
-
-        return self._component_full_keys[seq_idx].get((mod_id, simple_key), simple_key)
 
     def _apply_order_from_list(self, seq_idx: int, order: list[str]) -> None:
         """Apply order from a list of component IDs.
@@ -1534,8 +1509,7 @@ class InstallOrderPage(BasePage):
                 if mod_id == PAUSE_PREFIX:
                     install_order[seq_idx].append(comp_key)
                 else:
-                    full_key = self._get_full_component_key(seq_idx, mod_id, comp_key)
-                    install_order[seq_idx].append(f"{mod_id.lower()}:{full_key}")
+                    install_order[seq_idx].append(f"{mod_id.lower()}:{comp_key}")
 
         self.state_manager.set_install_order(install_order)
         self.state_manager.set_page_option(
