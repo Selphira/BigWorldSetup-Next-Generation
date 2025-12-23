@@ -288,17 +288,20 @@ class DraggableTableWidget(HoverTableWidget):
 
         self.clearSelection()
         # Check if rows are contiguous
+        selection_flag = (
+            QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows
+        )
         if len(rows) > 1 and rows[-1] - rows[0] == len(rows) - 1:
             top_left = self.model().index(rows[0], 0)
             bottom_right = self.model().index(rows[-1], self.columnCount() - 1)
             selection = QItemSelection()
             selection.select(top_left, bottom_right)
-            self.selectionModel().select(selection, QItemSelectionModel.SelectionFlag.Select)
+            self.selectionModel().select(selection, selection_flag)
         else:
             # Non-contiguous: select each row individually
             for row in rows:
                 index = self.model().index(row, 0)
-                self.selectionModel().select(index, QItemSelectionModel.SelectionFlag.Select)
+                self.selectionModel().select(index, selection_flag)
 
     def _get_parent_page(self) -> OrderPageProtocol | None:
         """Get parent page implementing OrderPageProtocol."""
@@ -476,7 +479,7 @@ class DraggableTableWidget(HoverTableWidget):
         self.blockSignals(True)
         try:
             self.removeRow(row)
-            page.insert_pause_to_ordered_table(self, row, str(pause))
+            page.insert_pause_to_ordered_table(self, row, str(pause), False)
         finally:
             self.blockSignals(False)
 
