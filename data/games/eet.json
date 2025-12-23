@@ -3,8 +3,11 @@
   "name": "Enhanced Edition Trilogy",
   "forced_components": {
     "weidu64": ["0"],
+    "DlcMerger": ["1"],
     "EET": ["0"],
-    "EET_End": ["0"]
+    "EET_End": ["0"],
+    "bws-fr-fixpack": ["0"],
+    "lolfixer": ["1", "5", "7", "8", "13", "14", "15"]
   },
   "sequences": [
     {
