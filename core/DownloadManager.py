@@ -52,14 +52,13 @@ class ArchiveStatus(str, Enum):
         """Check if archive needs to be downloaded.
 
         Returns:
-            True if status is MISSING, INVALID_HASH, INVALID_SIZE, ERROR or UNKNOWN
+            True if status is MISSING, INVALID_HASH, INVALID_SIZE or ERROR
         """
         return self in (
             ArchiveStatus.MISSING,
             ArchiveStatus.INVALID_HASH,
             ArchiveStatus.INVALID_SIZE,
             ArchiveStatus.ERROR,
-            ArchiveStatus.UNKNOWN,
         )
 
     @property
