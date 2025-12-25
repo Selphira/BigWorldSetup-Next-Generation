@@ -307,7 +307,7 @@ class ReferenceIndexes:
     # Violation Index
     # ========================================
 
-    def add_violation(self, reference: ComponentReference, violation: Any) -> None:
+    def add_violation(self, violation: Any) -> None:
         """Add a violation to all affected components."""
         for mod_id, comp_key in violation.affected_components:
             reference = ComponentReference.for_component(mod_id, comp_key)
