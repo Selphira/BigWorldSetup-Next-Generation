@@ -359,18 +359,18 @@
     }, {
       "source": ["dw_talents:81100"],
       "target": [
-        "Combat_Skill_Proficiencies:10", ":skills-and-abilities:311", ":skills-and-abilities:312",
-        ":skills-and-abilities:313", ":cdtweaks:2160", ":cdtweaks:2161", ":cdtweaks:2162", ":cdtweaks:2163",
-        ":cdtweaks:2164", ":METweaks:400", ":METweaks:500", ":METweaks:505", ":METweaks:510", ":METweaks:4000"
+        "Combat_Skill_Proficiencies:10", "skills-and-abilities:311", "skills-and-abilities:312",
+        "skills-and-abilities:313", "cdtweaks:2160", "cdtweaks:2161", "cdtweaks:2162", "cdtweaks:2163",
+        "cdtweaks:2164", "METweaks:400", "METweaks:500", "METweaks:505", "METweaks:510", "METweaks:4000"
       ],
       "severity": "error",
       "description": "Incompatibilité dans les systèmes de compétence 1"
     }, {
       "source": ["Combat_Skill_Proficiencies:30", "Combat_Skill_Proficiencies:50"],
       "target": [
-        "skills-and-abilities:311", "skills-and-abilities:312", "skills-and-abilities:313", ":cdtweaks:2161",
-        ":cdtweaks:2162", ":cdtweaks:2163", ":cdtweaks:2164", ":METweaks:400", ":METweaks:500", ":METweaks:505",
-        ":METweaks:510", ":METweaks:4000"
+        "skills-and-abilities:311", "skills-and-abilities:312", "skills-and-abilities:313", "cdtweaks:2161",
+        "cdtweaks:2162", "cdtweaks:2163", "cdtweaks:2164", "METweaks:400", "METweaks:500", "METweaks:505",
+        "METweaks:510", "METweaks:4000"
       ],
       "severity": "error",
       "description": "Incompatibilité dans les systèmes de compétence 2"
@@ -444,7 +444,7 @@
       "description": "Choisir un version du château de'Arnise amélioré"
     }, {
       "source": ["tactics-remix:10"],
-      "target": ["Kiara-Zaiya:7", ":Hanna:2"],
+      "target": ["Kiara-Zaiya:7", "Hanna:2"],
       "severity": "error",
       "description": "Choisir une version d'Irenicus amélioré à Suldanessellar"
     }, {
@@ -459,7 +459,7 @@
       "description": "Choisir une modification des épilogues"
     }, {
       "source": ["A7#ImprovedArcher:0"],
-      "target": ["might_and_guile:225", ":skills-and-abilities:170"],
+      "target": ["might_and_guile:225", "skills-and-abilities:170"],
       "severity": "error",
       "description": "Choisir une modification de l'archer"
     }, {
@@ -519,12 +519,12 @@
       "description": "Choisir une modification du Seigneur des ombres"
     }, {
       "source": ["mih_eq:134"],
-      "target": ["RevisedBattles:9", ":Firkraag:0"],
+      "target": ["RevisedBattles:9", "Firkraag:0"],
       "severity": "error",
       "description": "Choisir une modification de Firkraag"
     }, {
       "source": ["mih_eq:132"],
-      "target": ["RevisedBattles:15", ":Hanna:6"],
+      "target": ["RevisedBattles:15", "Hanna:6"],
       "severity": "error",
       "description": "Choisir une modification de la Crypte de Franc-Marché"
     }, {
@@ -583,8 +583,8 @@
     }, {
       "source": ["stratagems:4030"],
       "target": [
-        "cdtweaks:1150", ":refinements:30", ":refinements:31", ":artisanskitpack:5100", ":dw_talents:2040",
-        ":dw_talents:40600"
+        "cdtweaks:1150", "refinements:30", "refinements:31", "artisanskitpack:5100", "dw_talents:2040",
+        "dw_talents:40600"
       ],
       "severity": "error",
       "description": "Choisir une amélioration des métamorphes"
@@ -645,7 +645,7 @@
       "description": "Choisir un tweak de capacité des conteneurs"
     }, {
       "source": ["SelphiraTweaks:40"],
-      "target": ["EET_Tweaks:3010", ":cdtweaks:2170", ":cdtweaks:2510"],
+      "target": ["EET_Tweaks:3010", "cdtweaks:2170", "cdtweaks:2510"],
       "severity": "error",
       "description": "Choisir un tweak de lancement des sorts depuis les parchemins"
     }, {
@@ -670,7 +670,7 @@
       "description": "Choisir un tweak d'utilisation des compétences de voleur en armure"
     }, {
       "source": ["SubtleD_Item_Tweaks:100"],
-      "target": ["item_rev:2", "item_rev:3", ":cdtweaks:2120"],
+      "target": ["item_rev:2", "item_rev:3", "cdtweaks:2120"],
       "severity": "error",
       "description": "Choisir un tweak de lancement de sort en armure"
     }, {
@@ -725,72 +725,72 @@
       "description": "Contenu identique #64"
     }, {
       "source": ["dw_som:1500"],
-      "target": ["dw_talents:1500", ":stratagems:1500"],
+      "target": ["dw_talents:1500", "stratagems:1500"],
       "severity": "error",
       "description": "Contenu identique #65"
     }, {
       "source": ["dw_som:1510"],
-      "target": ["dw_talents:1510", ":stratagems:1510"],
+      "target": ["dw_talents:1510", "stratagems:1510"],
       "severity": "error",
       "description": "Contenu identique #66"
     }, {
       "source": ["dw_som:1520"],
-      "target": ["dw_talents:1520", ":stratagems:1520"],
+      "target": ["dw_talents:1520", "stratagems:1520"],
       "severity": "error",
       "description": "Contenu identique #67"
     }, {
       "source": ["dw_som:2010"],
-      "target": ["dw_talents:2010", ":stratagems:2010"],
+      "target": ["dw_talents:2010", "stratagems:2010"],
       "severity": "error",
       "description": "Contenu identique #68"
     }, {
       "source": ["dw_som:2020"],
-      "target": ["dw_talents:2020", ":stratagems:2020"],
+      "target": ["dw_talents:2020", "stratagems:2020"],
       "severity": "error",
       "description": "Contenu identique #69"
     }, {
       "source": ["dw_som:2030"],
-      "target": ["dw_talents:2030", ":stratagems:2030"],
+      "target": ["dw_talents:2030", "stratagems:2030"],
       "severity": "error",
       "description": "Contenu identique #70"
     }, {
       "source": ["dw_som:2040"],
-      "target": ["dw_talents:2040", ":stratagems:2040"],
+      "target": ["dw_talents:2040", "stratagems:2040"],
       "severity": "error",
       "description": "Contenu identique #71"
     }, {
       "source": ["dw_som:2050"],
-      "target": ["dw_talents:2050", ":stratagems:2050"],
+      "target": ["dw_talents:2050", "stratagems:2050"],
       "severity": "error",
       "description": "Contenu identique #72"
     }, {
       "source": ["dw_som:2060"],
-      "target": ["dw_talents:2060", ":stratagems:2060"],
+      "target": ["dw_talents:2060", "stratagems:2060"],
       "severity": "error",
       "description": "Contenu identique #73"
     }, {
       "source": ["dw_som:2070"],
-      "target": ["dw_talents:2070", ":stratagems:2070"],
+      "target": ["dw_talents:2070", "stratagems:2070"],
       "severity": "error",
       "description": "Contenu identique #74"
     }, {
       "source": ["dw_som:2080"],
-      "target": ["dw_talents:2080", ":stratagems:2080"],
+      "target": ["dw_talents:2080", "stratagems:2080"],
       "severity": "error",
       "description": "Contenu identique #75"
     }, {
       "source": ["dw_som:2500"],
-      "target": ["dw_talents:2500", ":stratagems:2500"],
+      "target": ["dw_talents:2500", "stratagems:2500"],
       "severity": "error",
       "description": "Contenu identique #76"
     }, {
       "source": ["dw_som:2510"],
-      "target": ["dw_talents:2510", ":stratagems:2510"],
+      "target": ["dw_talents:2510", "stratagems:2510"],
       "severity": "error",
       "description": "Contenu identique #77"
     }, {
       "source": ["dw_som:2520"],
-      "target": ["dw_talents:2520", ":stratagems:2520"],
+      "target": ["dw_talents:2520", "stratagems:2520"],
       "severity": "error",
       "description": "Contenu identique #78"
     }, {
@@ -863,12 +863,12 @@
       "description": "Choisir une modification de l'accès aux multi-classes"
     }, {
       "source": ["passive_warrior_hlas:*"],
-      "target": ["refinements:101", ":spell_rev:65", ":skills-and-abilities:720"],
+      "target": ["refinements:101", "spell_rev:65", "skills-and-abilities:720"],
       "severity": "error",
       "description": "HLA des guerriers"
     }, {
       "source": ["refinements:10", "refinements:107"],
-      "target": ["kiara-zaiya:2", ":mnkoverhaul:0"],
+      "target": ["kiara-zaiya:2", "mnkoverhaul:0"],
       "severity": "error",
       "description": "HLA des moines"
     }, {
@@ -953,7 +953,7 @@
       "description": "Choisir un tweak sur la table des sorts bonus lies à la sagesse"
     }, {
       "source": ["cdtweaks:2240"],
-      "target": ["dw_talents:80150", ":might_and_guile:290"],
+      "target": ["dw_talents:80150", "might_and_guile:290"],
       "severity": "error",
       "description": "Choisir un tweak sur la table de progression du TAC0"
     }, {
@@ -969,18 +969,18 @@
     }, {
       "source": ["cdtweaks:2090", "cdtweaks:2091", "cdtweaks:2092"],
       "target": [
-        "EET_Tweaks:2000", "EET_Tweaks:2001", "EET_Tweaks:2002", "EET_Tweaks:2003", ":SubtleD_Stat_Overhauls:200",
-        ":Derats_Levelling:2", ":Derats_Levelling:3", ":Derats_Levelling:4", ":Derats_Levelling:5",
-        ":Derats_Levelling:6", ":Derats_Levelling:7"
+        "EET_Tweaks:2000", "EET_Tweaks:2001", "EET_Tweaks:2002", "EET_Tweaks:2003", "SubtleD_Stat_Overhauls:200",
+        "Derats_Levelling:2", "Derats_Levelling:3", "Derats_Levelling:4", "Derats_Levelling:5",
+        "Derats_Levelling:6", "Derats_Levelling:7"
       ],
       "severity": "error",
       "description": "Choisir un tweak de modification de la table d'expérience"
     }, {
       "source": ["SelphiraTweaks:50"],
       "target": [
-        "EET_Tweaks:2040", "EET_Tweaks:2041", "EET_Tweaks:2042", "EET_Tweaks:2043", "EET_Tweaks:2044", ":aTweaks:261",
-        ":aTweaks:262", ":xpmod:7", ":xpmod:8", ":xpmod:9", ":xpmod:10", ":xpmod:11", ":xpmod:12", ":xpmod:13",
-        ":xpmod:14"
+        "EET_Tweaks:2040", "EET_Tweaks:2041", "EET_Tweaks:2042", "EET_Tweaks:2043", "EET_Tweaks:2044", "aTweaks:261",
+        "aTweaks:262", "xpmod:7", "xpmod:8", "xpmod:9", "xpmod:10", "xpmod:11", "xpmod:12", "xpmod:13",
+        "xpmod:14"
       ],
       "severity": "error",
       "description": "Choisir un tweak de gain d'expérience pour le déverouillage de serrure, le désamorcçage des pièges et l'apprentissage des sortilèges"
@@ -990,8 +990,8 @@
         "EET_Tweaks:2055", "EET_Tweaks:2056"
       ],
       "target": [
-        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", ":SubtleD_Stat_Overhauls:211",
-        ":SubtleD_Stat_Overhauls:212", ":SubtleD_Stat_Overhauls:213"
+        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", "SubtleD_Stat_Overhauls:211",
+        "SubtleD_Stat_Overhauls:212", "SubtleD_Stat_Overhauls:213"
       ],
       "severity": "error",
       "description": "Choisir un tweak de gain d'expérience en tuant des créatures"
@@ -1011,8 +1011,8 @@
     }, {
       "source": ["EET_Tweaks:2020"],
       "target": [
-        "c#sodtweaks:9", "c#sodtweaks:10", "c#sodtweaks:11", ":SubtleD_Stat_Overhauls:222",
-        ":SubtleD_Stat_Overhauls:223", ":SubtleD_Stat_Overhauls:224"
+        "c#sodtweaks:9", "c#sodtweaks:10", "c#sodtweaks:11", "SubtleD_Stat_Overhauls:222",
+        "SubtleD_Stat_Overhauls:223", "SubtleD_Stat_Overhauls:224"
       ],
       "severity": "error",
       "description": "La limite d'expérience dans SoD (89000) sera plus faible que l'expérience de départ"
@@ -1038,44 +1038,44 @@
       "description": "Contenu identique #85"
     }, {
       "source": ["SelphiraTweaks:25"],
-      "target": ["cdtweaks:2270", "cdtweaks:2271", ":rr:6", ":song_and_silence:0", ":iwdification:150"],
+      "target": ["cdtweaks:2270", "cdtweaks:2271", "rr:6", "song_and_silence:0", "iwdification:150"],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du barde"
     }, {
       "source": ["divine_remix:100"],
       "target": [
-        "SelphiraTweaks:26", ":cdtweaks:2280", ":cdtweaks:2281", ":faiths_and_powers:12", ":faiths_and_powers:13"
+        "SelphiraTweaks:26", "cdtweaks:2280", "cdtweaks:2281", "faiths_and_powers:12", "faiths_and_powers:13"
       ],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du clerc"
     }, {
       "source": ["divine_remix:200"],
       "target": [
-        "SelphiraTweaks:24", ":cdtweaks:2288", ":cdtweaks:2289", ":cdtweaks:2290", ":cdtweaks:2291", ":cdtweaks:2292",
-        ":cdtweaks:2293", ":cdtweaks:2294", ":cdtweaks:2295", ":cdtweaks:2296", ":cdtweaks:2731", ":cdtweaks:2732",
-        ":cdtweaks:2733", ":cdtweaks:2734", ":cdtweaks:2735", ":cdtweaks:2736", ":cdtweaks:2737", ":cdtweaks:2738",
-        ":cdtweaks:2739", ":dw_talents:40610"
+        "SelphiraTweaks:24", "cdtweaks:2288", "cdtweaks:2289", "cdtweaks:2290", "cdtweaks:2291", "cdtweaks:2292",
+        "cdtweaks:2293", "cdtweaks:2294", "cdtweaks:2295", "cdtweaks:2296", "cdtweaks:2731", "cdtweaks:2732",
+        "cdtweaks:2733", "cdtweaks:2734", "cdtweaks:2735", "cdtweaks:2736", "cdtweaks:2737", "cdtweaks:2738",
+        "cdtweaks:2739", "dw_talents:40610"
       ],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du druide"
     }, {
       "source": ["SelphiraTweaks:20"],
-      "target": ["cdtweaks:2260", "cdtweaks:2261", ":TomeAndBlood:11", ":TomeAndBlood:12"],
+      "target": ["cdtweaks:2260", "cdtweaks:2261", "TomeAndBlood:11", "TomeAndBlood:12"],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du mage"
     }, {
       "source": ["SelphiraTweaks:22"],
-      "target": ["cdtweaks:2390", "cdtweaks:2391", ":iwdification:160", ":faiths_and_powers:45"],
+      "target": ["cdtweaks:2390", "cdtweaks:2391", "iwdification:160", "faiths_and_powers:45"],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du paladin"
     }, {
       "source": ["SelphiraTweaks:23"],
-      "target": ["cdtweaks:2400", "cdtweaks:2401", ":might_and_guile:220", ":iwdification:170"],
+      "target": ["cdtweaks:2400", "cdtweaks:2401", "might_and_guile:220", "iwdification:170"],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du rodeur"
     }, {
       "source": ["SelphiraTweaks:21"],
-      "target": ["cdtweaks:2250", ":TomeAndBlood:16", ":TomeAndBlood:17"],
+      "target": ["cdtweaks:2250", "TomeAndBlood:16", "TomeAndBlood:17"],
       "severity": "error",
       "description": "Choisir un tweak de progression de la table des sorts du sorcier"
     }, {
@@ -1126,7 +1126,7 @@
       "description": "Choisir une version de la quête de Jan"
     }, {
       "source": ["leui:*"],
-      "target": ["leui-bg1ee:*", ":leui-sod:*", ":infinity_ui:*", ":tipun_gui:*", ":EET_gui:*"],
+      "target": ["leui-bg1ee:*", "leui-sod:*", "infinity_ui:*", "tipun_gui:*", "EET_gui:*"],
       "severity": "error",
       "description": "Sélectionnez une seule interface"
     }, {
@@ -1136,7 +1136,7 @@
       "description": "La pause automatique de \"HiddenGameplayOptions\" est désactivable"
     }, {
       "source": ["iepbanters:6", "iepbanters:7", "iepbanters:8", "iepbanters:9", "iepbanters:10", "iepbanters:11"],
-      "target": ["banterpack:1", "banterpack:3", ":bg1npc:100", ":keto:3", ":kelsey:2"],
+      "target": ["banterpack:1", "banterpack:3", "bg1npc:100", "keto:3", "kelsey:2"],
       "severity": "error",
       "description": "Choisir un accélérateur de dialogue"
     }, {
@@ -1176,12 +1176,12 @@
       "description": "Choisir un portrait pour les enfants de Bhaal"
     }, {
       "source": ["BG1Aerie:5001"],
-      "target": ["phaere_ports:1", ":plasmoportraits:1", ":da_portraits:2", ":da_portraits:3", ":da_portraits:4"],
+      "target": ["phaere_ports:1", "plasmoportraits:1", "da_portraits:2", "da_portraits:3", "da_portraits:4"],
       "severity": "error",
       "description": "Choisir un portrait pour Aerie"
     }, {
       "source": ["ajantisportraitpack:*"],
-      "target": ["plasmobg1bg2:1001", ":da_portraits:5", ":da_portraits:6", ":da_portraits:7", ":da_portraits:8"],
+      "target": ["plasmobg1bg2:1001", "da_portraits:5", "da_portraits:6", "da_portraits:7", "da_portraits:8"],
       "severity": "error",
       "description": "Choisir un portrait pour Ajantis"
     }, {
@@ -1212,14 +1212,14 @@
     }, {
       "source": ["cdportraits:10", "cdportraits:11"],
       "target": [
-        "PPE:25", ":edwinromance:1", ":phaere_ports:3", ":plasmobg1bg2:1001", ":plasmoportraits:4", ":da_portraits:24",
-        ":da_portraits:25"
+        "PPE:25", "edwinromance:1", "phaere_ports:3", "plasmobg1bg2:1001", "plasmoportraits:4", "da_portraits:24",
+        "da_portraits:25"
       ],
       "severity": "error",
       "description": "Choisir un portrait pour Edwin"
     }, {
       "source": ["edwinromance:4"],
-      "target": ["cdtweaks:1180", ":PPE:25", ":artaport:1180", ":ease:20"],
+      "target": ["cdtweaks:1180", "PPE:25", "artaport:1180", "ease:20"],
       "severity": "error",
       "description": "Choisir un portrait pour Edwina"
     }, {
@@ -1245,17 +1245,17 @@
     }, {
       "source": ["cdportraits:20", "cdportraits:21", "cdportraits:22", "cdportraits:23", "cdportraits:24"],
       "target": [
-        "PPE:300", "PPE:301", "PPE:302", ":c#sodtweaks:6", ":phaere_ports:2", ":plasmobg1bg2:1001",
-        ":plasmobg1bg2:1002", ":plasmobg1bg2:1003", ":plasmoportraits:5", ":da_portraits:31", ":da_portraits:32",
-        ":da_portraits:33"
+        "PPE:300", "PPE:301", "PPE:302", "c#sodtweaks:6", "phaere_ports:2", "plasmobg1bg2:1001",
+        "plasmobg1bg2:1002", "plasmobg1bg2:1003", "plasmoportraits:5", "da_portraits:31", "da_portraits:32",
+        "da_portraits:33"
       ],
       "severity": "error",
       "description": "Choisir un portrait pour Imoen"
     }, {
       "source": ["cdportraits:30", "cdportraits:31"],
       "target": [
-        "PPE:320", "PPE:322", ":phaere_ports:7", ":plasmobg1bg2:1001", ":plasmoportraits:6", ":da_portraits:34",
-        ":da_portraits:35", ":da_portraits:36"
+        "PPE:320", "PPE:322", "phaere_ports:7", "plasmobg1bg2:1001", "plasmoportraits:6", "da_portraits:34",
+        "da_portraits:35", "da_portraits:36"
       ],
       "severity": "error",
       "description": "Choisir un portrait pour Jaheira"
@@ -1291,14 +1291,14 @@
       "description": "Choisir un portrait pour Korgan"
     }, {
       "source": ["phaere_ports:9"],
-      "target": ["plasmoportraits:10", ":da_portraits:48"],
+      "target": ["plasmoportraits:10", "da_portraits:48"],
       "severity": "error",
       "description": "Choisir un portrait pour Mazzy"
     }, {
       "source": ["cdportraits:40", "cdportraits:41"],
       "target": [
-        "PPE:330", "PPE:332", ":phaere_ports:0", ":plasmobg1bg2:1001", ":plasmoportraits:11", ":da_portraits:49",
-        ":da_portraits:50"
+        "PPE:330", "PPE:332", "phaere_ports:0", "plasmobg1bg2:1001", "plasmoportraits:11", "da_portraits:49",
+        "da_portraits:50"
       ],
       "severity": "error",
       "description": "Choisir un portrait pour Minsc"
@@ -1340,8 +1340,8 @@
     }, {
       "source": ["cdportraits:50", "cdportraits:51", "cdportraits:52", "cdportraits:53", "cdportraits:54"],
       "target": [
-        "PPE:310", "PPE:311", "PPE:312", ":phaere_ports:4", ":plasmobg1bg2:1001", ":plasmoportraits:13",
-        ":da_portraits:76", ":da_portraits:77"
+        "PPE:310", "PPE:311", "PPE:312", "phaere_ports:4", "plasmobg1bg2:1001", "plasmoportraits:13",
+        "da_portraits:76", "da_portraits:77"
       ],
       "severity": "error",
       "description": "Choisir un portrait pour Viconia"
@@ -1357,22 +1357,22 @@
       "description": "Choisir un portrait pour Yeslick"
     }, {
       "source": ["RealisticNpcPortraitsForBGEE:0", "RealisticNpcPortraitsForSOD:0"],
-      "target": ["artaport:1", "artaport:2", ":BGEE_CBPortraits:0", ":roorenart_bg2:10", ":plasmobg1bg2:1001"],
+      "target": ["artaport:1", "artaport:2", "BGEE_CBPortraits:0", "roorenart_bg2:10", "plasmobg1bg2:1001"],
       "severity": "error",
       "description": "Choisir un pack de portraits des PNJs de base de BGEE"
     }, {
       "source": ["RealisticNpcPortraitsForBG2EE:0"],
-      "target": ["artaport:0", ":BGEE_CBPortraits:0", ":roorenart_bg2:10"],
+      "target": ["artaport:0", "BGEE_CBPortraits:0", "roorenart_bg2:10"],
       "severity": "error",
       "description": "Choisir un pack de portraits des PNJs de base de BG2EE"
     }, {
       "source": ["PPE:0"],
-      "target": ["MinorNPCPortraitsforBGEE:0", ":nscportraits:0"],
+      "target": ["MinorNPCPortraitsforBGEE:0", "nscportraits:0"],
       "severity": "error",
       "description": "Portraits pour BG1"
     }, {
       "source": ["PPE:0"],
-      "target": ["MinorNPCPortraitsforBGEE:0", ":nscportraits:1"],
+      "target": ["MinorNPCPortraitsforBGEE:0", "nscportraits:1"],
       "severity": "error",
       "description": "Portraits pour BG2"
     }, {
@@ -1386,8 +1386,8 @@
         "EET_Tweaks:2055", "EET_Tweaks:2056"
       ],
       "target": [
-        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", ":A7-TotLM-BG2EE:30", ":A7-TotLM-BG2EE:31",
-        ":A7-TotLM-BG2EE:32", ":A7-TotLM-BG2EE:33"
+        "xpmod:1", "xpmod:2", "xpmod:3", "xpmod:4", "xpmod:5", "xpmod:6", "A7-TotLM-BG2EE:30", "A7-TotLM-BG2EE:31",
+        "A7-TotLM-BG2EE:32", "A7-TotLM-BG2EE:33"
       ],
       "severity": "warning",
       "description": "Attention, les réductions d'expérience se cumulent pour les créatures de Trials of the Luremaster"
@@ -1397,8 +1397,8 @@
         "EET_Tweaks:2065", "EET_Tweaks:2066"
       ],
       "target": [
-        "xpmod:15", "xpmod:16", "xpmod:17", "xpmod:18", "xpmod:19", "xpmod:20", "xpmod:21", ":A7-TotLM-BG2EE:30",
-        ":A7-TotLM-BG2EE:31", ":A7-TotLM-BG2EE:32", ":A7-TotLM-BG2EE:33"
+        "xpmod:15", "xpmod:16", "xpmod:17", "xpmod:18", "xpmod:19", "xpmod:20", "xpmod:21", "A7-TotLM-BG2EE:30",
+        "A7-TotLM-BG2EE:31", "A7-TotLM-BG2EE:32", "A7-TotLM-BG2EE:33"
       ],
       "severity": "warning",
       "description": "Attention, les réductions d'expérience se cumulent pour les quêtes de Trials of the Luremaster"
