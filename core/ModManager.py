@@ -391,6 +391,9 @@ class ModManager(QObject):
             logger.warning(f"Unsupported language: {language}")
             return False
 
+        if self.current_language == language:
+            return True
+
         self.current_language = language
         return self.load_cache()
 
@@ -470,5 +473,4 @@ class ModManager(QObject):
             "categories": self.get_count_by_categories(),
             "games": self.get_count_by_games(),
             "languages": self.get_count_by_languages(),
-            "not_eet": [m for m in self.mods_data.values() if not any(game in m.games for game in ["eet"])]
         }
