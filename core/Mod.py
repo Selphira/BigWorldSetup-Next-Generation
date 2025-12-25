@@ -112,13 +112,15 @@ class MucComponent(Component):
 
     default: str
     options: list[str]
+    components: dict[str, Component]
+    _option_texts: dict[str, str]
     _option_texts: dict[str, str]
 
     def get_option_text(self, option_key: str) -> str:
         """Get translated text for an option."""
         return self._option_texts.get(option_key, "")
 
-    def get_all_options(self) -> list[str]:
+    def get_options(self) -> list[str]:
         """Return all option keys (returns reference, do not modify)."""
         return self.options
 
@@ -152,10 +154,6 @@ class SubComponent(Component):
         """Get translated text for a prompt option."""
         cache_key = f"{prompt_key}.{option}"
         return self._prompt_texts.get(cache_key, "")
-
-    def get_all_prompts(self) -> list[str]:
-        """Return all prompt keys."""
-        return list(self.prompts.keys())
 
     def has_prompt(self, prompt_key: str) -> bool:
         """Check if a prompt exists."""
@@ -249,6 +247,8 @@ class Mod:
             ModFile.from_dict(file_data) if (file_data := data.get("file")) else None
         )
 
+        self._create_components()
+
     def get_component(self, key: str) -> Component | None:
         """
         Get a component by key (with lazy instantiation and nested component support).
@@ -322,7 +322,7 @@ class Mod:
         parent_comp = cast(SubComponent, parent_comp)
 
         # Get all prompts in order
-        prompt_keys = parent_comp.get_all_prompts()
+        prompt_keys = parent_comp.prompts.keys()
 
         # Verify we have the right number of values for the number of prompts
         if len(option_values) != len(prompt_keys):
@@ -416,6 +416,16 @@ class Mod:
         # Option not found in any MUC
         return None
 
+    def _create_components(self) -> None:
+        """
+        Create all root components and fully build component indexes.
+        """
+        if self._components_cache:
+            return
+
+        for key in self._components_raw.keys():
+            self.get_component(key)
+
     def _create_component(self, key: str, raw_data: dict[str, Any]) -> Component:
         """
         Create a Component instance of the appropriate type.
@@ -440,6 +450,17 @@ class Mod:
             options = raw_data.get("components", [])
             option_texts = {opt: self._translations.get(opt, "") for opt in options}
             default = raw_data.get("default", "")
+            components = {}
+
+            for option in options:
+                components[option] = self._create_component(
+                    option,
+                    {
+                        "type": "std",
+                        "category": category,
+                        "games": games,
+                    },
+                )
 
             return MucComponent(
                 key=key,
@@ -450,6 +471,7 @@ class Mod:
                 mod=self,
                 default=default,
                 options=options,
+                components=components,
                 _option_texts=option_texts,
             )
 
@@ -544,7 +566,7 @@ class Mod:
         """Return all component keys."""
         return list(self._components_raw.keys())
 
-    def get_all_components(self) -> list[Component]:
+    def get_components(self) -> list[Component]:
         """
         Return all components (instantiates those not yet cached).
 

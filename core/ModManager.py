@@ -9,12 +9,13 @@ from collections import Counter
 import json
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from PySide6.QtCore import QObject, QThread, Signal
 
 from constants import CACHE_DIR, MODS_DIR
-from core.Mod import Mod
+from core.ComponentReference import ComponentReference, IndexManager
+from core.Mod import Mod, MucComponent, SubComponent
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator
 
 logger = logging.getLogger(__name__)
@@ -358,16 +359,61 @@ class ModManager(QObject):
             return False
 
         try:
+            IndexManager.reset()
+            indexes = IndexManager.get_indexes()
+
             with open(cache_file, "r", encoding="utf-8") as f:
                 mods_json = json.load(f)
 
-            # Instantiate Mod objects (fast: ~2-5ms for 2000 mods)
-            self.mods_data = {data["id"].lower(): Mod(data) for data in mods_json}
+            self.mods_data.clear()
+
+            for data in mods_json:
+                mod = Mod(data)
+                self.mods_data[data["id"].lower()] = mod
+                mod_ref = indexes.register_mod(mod)
+
+                comp_refs = []
+                for component in mod.get_components():
+                    comp_ref = indexes.register_component(component)
+                    comp_refs.append(comp_ref)
+
+                    if component.is_muc():
+                        component = cast(MucComponent, component)
+                        children_refs = []
+                        for muc_component in component.components.values():
+                            muc_comp_ref = indexes.register_component(muc_component)
+                            children_refs.append(muc_comp_ref)
+                        indexes.register_parent_child(comp_ref, children_refs)
+                    elif component.is_sub():
+                        component = cast(SubComponent, component)
+                        prompt_children_refs = []
+                        for prompt_key, prompt in component.prompts.items():
+                            option_children_refs = []
+                            prompt_ref = ComponentReference.for_component(
+                                mod.id, f"{component.key}.{prompt_key}"
+                            )
+                            prompt_children_refs.append(prompt_ref)
+
+                            for option in prompt.options:
+                                option_children_refs.append(
+                                    ComponentReference.for_component(
+                                        mod.id, f"{component.key}.{prompt_key}.{option}"
+                                    )
+                                )
+                            indexes.register_parent_child(prompt_ref, option_children_refs)
+
+                        comp_ref = indexes.register_component(component)
+                        indexes.register_parent_child(comp_ref, prompt_children_refs)
+
+                indexes.register_parent_child(mod_ref, comp_refs)
 
             # Invalidate category cache
             self._category_count_cache = None
 
             logger.info(f"Loaded {len(self.mods_data)} mods for {self.current_language}")
+            logger.info(f"Mod/Component index populated: {len(indexes.mod_component_index)}")
+            logger.info(f"Children index populated: {len(indexes.children_index)} ")
+            logger.info(f"Parent index populated: {len(indexes.parent_index)} ")
             return True
 
         except json.JSONDecodeError as e:

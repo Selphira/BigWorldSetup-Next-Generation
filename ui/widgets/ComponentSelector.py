@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum, auto
 import logging
-from typing import Any, Generator, cast
+from typing import Generator, cast
 
 from PySide6.QtCore import QModelIndex, QSortFilterProxyModel, Qt
 from PySide6.QtGui import QColor, QCursor, QStandardItem, QStandardItemModel
@@ -336,10 +336,6 @@ class BaseTreeItem(QStandardItem):
         """Get the type of this item."""
         return self._item_type
 
-    def get_selected_component(self) -> Any | None:
-        """Get selected component data. Override in subclasses."""
-        return None
-
 
 # ============================================================================
 # Specific Item Types
@@ -365,10 +361,6 @@ class ModTreeItem(BaseTreeItem):
     def reference(self) -> str:
         return self.data(ROLE_MOD).id
 
-    def get_selected_items(self) -> list[BaseTreeItem]:
-        """Get selected items. Override in subclasses."""
-        return [self.child(row, 0) for row in range(self.rowCount())]
-
 
 class StdTreeItem(BaseTreeItem):
     """Tree item for standard (STD) components."""
@@ -388,13 +380,6 @@ class StdTreeItem(BaseTreeItem):
     @property
     def reference(self) -> str:
         return f"{self.data(ROLE_MOD).id}:{self.data(ROLE_COMPONENT).key}"
-
-    def get_selected_component(self) -> str | None:
-        """Return component key if checked."""
-        if self.checkState() == Qt.CheckState.Checked:
-            component = self.data(ROLE_COMPONENT)
-            return component.key
-        return None
 
 
 class MucTreeItem(BaseTreeItem):
@@ -416,14 +401,6 @@ class MucTreeItem(BaseTreeItem):
     def reference(self) -> str:
         return f"{self.data(ROLE_MOD).id}:{self.data(ROLE_COMPONENT).key}"
 
-    def get_selected_component(self) -> str | None:
-        """Return selected option key."""
-        for row in range(self.rowCount()):
-            option_item = self.child(row, 0)
-            if option_item.checkState() == Qt.CheckState.Checked:
-                return option_item.data(ROLE_OPTION_KEY)
-        return None
-
 
 class SubTreeItem(BaseTreeItem):
     """Tree item for sub-components with prompts."""
@@ -443,30 +420,6 @@ class SubTreeItem(BaseTreeItem):
     @property
     def reference(self) -> str:
         return f"{self.data(ROLE_MOD).id}:{self.data(ROLE_COMPONENT).key}"
-
-    def get_selected_component(self) -> dict[str, Any] | None:
-        """Return selected prompts dictionary."""
-        if self.checkState() != Qt.CheckState.Checked:
-            return None
-
-        component = self.data(ROLE_COMPONENT)
-        prompts = {}
-
-        for row in range(self.rowCount()):
-            prompt_item = self.child(row, 0)
-            if prompt_item.checkState() != Qt.CheckState.Checked:
-                continue
-
-            prompt_key = prompt_item.data(ROLE_PROMPT_KEY).key
-
-            # Find selected option in this prompt
-            for option_row in range(prompt_item.rowCount()):
-                option_item = prompt_item.child(option_row, 0)
-                if option_item.checkState() == Qt.CheckState.Checked:
-                    prompts[prompt_key] = option_item.data(ROLE_OPTION_KEY)
-                    break
-
-        return {"key": component.key, "prompts": prompts} if prompts else None
 
 
 class MucOptionTreeItem(BaseTreeItem):
@@ -1230,7 +1183,7 @@ class ComponentSelector(QTreeView):
             status_item = self._create_status_item()
 
             # Add components
-            for component in mod.get_all_components():
+            for component in mod.get_components():
                 comp_item = self._create_component_item(mod, component)
                 mod_item.appendRow([comp_item, QStandardItem("")])
 
@@ -1259,7 +1212,7 @@ class ComponentSelector(QTreeView):
 
         Selects the default option if specified, otherwise selects first option.
         """
-        options = list(component.get_all_options())
+        options = list(component.get_options())
 
         # Normalize default value to string for comparison
         default_value = None
@@ -1297,7 +1250,7 @@ class ComponentSelector(QTreeView):
 
     def _add_sub_prompts(self, parent: SubTreeItem, mod, component) -> None:
         """Add prompts for SUB component."""
-        for prompt_key in component.get_all_prompts():
+        for prompt_key in component.prompts.keys():
             prompt = component.get_prompt(prompt_key)
             prompt_item = PromptTreeItem(mod, component, prompt)
             self._selection_manager.add_item(prompt_item)

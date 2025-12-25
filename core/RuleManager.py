@@ -190,7 +190,7 @@ class RuleManager:
     # -------------------------
 
     def validate_selection(
-        self, selected_components: dict, use_cache: bool = True
+        self, selected_components: list[str], use_cache: bool = True
     ) -> list[RuleViolation]:
         """Validate component selection against dependency and incompatibility rules.
 
@@ -201,7 +201,12 @@ class RuleManager:
         Returns:
             List of RuleViolation objects describing any violations
         """
-        normalized = self._normalize_selected(selected_components)
+        normalized: dict[str, list[str]] = defaultdict(list)
+        for comp_id in selected_components:
+            if comp_id.count(":") == 1:
+                mod_id, comp_key = comp_id.split(":")
+                normalized[mod_id].append(comp_key)
+
         items = [(mod, comp) for mod, comps in normalized.items() for comp in comps]
         selection_hash = hash(frozenset(items))
 
@@ -749,7 +754,7 @@ class RuleManager:
         _collect_requirements(mod_id, comp_key)
         return requirements
 
-    def has_error_violations(self, selected_components: dict) -> bool:
+    def has_error_violations(self, selected_components: list[str]) -> bool:
         """Check if selection has any error-level violations.
 
         Args:
