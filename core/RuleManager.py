@@ -2,10 +2,9 @@ from collections import defaultdict, deque
 import json
 import logging
 from pathlib import Path
-from typing import Iterable
 
+from core.ComponentReference import ComponentReference, IndexManager
 from core.Rules import (
-    ComponentRef,
     DependencyMode,
     DependencyRule,
     IncompatibilityRule,
@@ -14,7 +13,6 @@ from core.Rules import (
     Rule,
     RuleType,
     RuleViolation,
-    ValidationCache,
 )
 from core.TranslationManager import tr
 
@@ -36,16 +34,15 @@ class RuleManager:
         self._order_rules: list[OrderRule] = []
 
         # Indexes
+        self._indexes = IndexManager.get_indexes()
         self._all_rules: list[Rule] = []
-        self._rules_by_source: dict[str, list[Rule]] = defaultdict(list)
+        self._rules_by_source: dict[ComponentReference, list[Rule]] = defaultdict(list)
         self._rules_by_type: dict[RuleType, list[Rule]] = defaultdict(list)
         self._components_by_mod: dict[str, set[str]] = defaultdict(set)
 
-        # Cache
-        self._cache = ValidationCache()
+        self._last_selection_hash: int | None = None
 
-        if rules_dir and rules_dir.exists():
-            self.load_rules(rules_dir)
+        self.load_rules(rules_dir)
 
     # -------------------------
     # Loading helpers
@@ -123,166 +120,100 @@ class RuleManager:
         """Add rule to all indexes."""
         self._all_rules.append(rule)
         self._rules_by_type[rule.rule_type].append(rule)
-        # Index by each source
-        for source in rule.sources:
-            self._rules_by_source[str(source)].append(rule)
-            if source.comp_key and source.comp_key != "*":
-                self._components_by_mod[source.mod_id.lower()].add(source.comp_key)
 
-        for target in rule.targets:
-            if target.comp_key and target.comp_key != "*":
-                self._components_by_mod[target.mod_id.lower()].add(target.comp_key)
+        for source_ref in rule.sources:
+            self._rules_by_source[source_ref].append(rule)
+            if not source_ref.is_mod():
+                self._components_by_mod[source_ref.mod_id].add(source_ref.comp_key)
+
+        for target_ref in rule.targets:
+            if not target_ref.is_mod():
+                self._components_by_mod[target_ref.mod_id].add(target_ref.comp_key)
 
     def _get_known_components(self, mod_id: str) -> set[str]:
         """Get all known component keys for a mod from indexed rules."""
         return self._components_by_mod.get(mod_id.lower(), set())
 
     # -------------------------
-    # Helpers - normalization / matching
-    # -------------------------
-    @staticmethod
-    def _normalize_selected(selected_components: dict) -> dict[str, list[str]]:
-        """
-        Normalize selected_components into a dict[mod_id] -> list[comp_key].
-        Accepts values as strings or dicts with "key".
-        """
-        normalized: dict[str, list[str]] = defaultdict(list)
-        for mod, comps in (selected_components or {}).items():
-            for comp in comps:
-                if isinstance(comp, dict):
-                    comp_key = comp.get("key")
-                else:
-                    comp_key = comp
-                normalized[mod].append(comp_key)
-        return dict(normalized)
-
-    @staticmethod
-    def _selected_items_set(normalized_selected: dict[str, list[str]]) -> set[tuple[str, str]]:
-        """Return a set of (mod, comp) tuples for quick membership checks."""
-        return {(mod, comp) for mod, comps in normalized_selected.items() for comp in comps}
-
-    def _rules_for_component(self, mod_id: str, comp_key: str | None) -> list[Rule]:
-        """Return rules that explicitly target the component or the mod."""
-        comp_ref = str(ComponentRef(mod_id, comp_key))
-        rules = list(self._rules_by_source.get(comp_ref, []))
-        # mod-level rules apply to components
-        if comp_key != "*":
-            any_ref = str(ComponentRef(mod_id, "*"))
-            rules.extend(self._rules_by_source.get(any_ref, []))
-        return rules
-
-    @staticmethod
-    def _components_matching_ref(
-        target_ref: ComponentRef, all_components: Iterable[tuple[str, str]]
-    ) -> list[tuple[str, str]]:
-        """
-        Return list of components (mod, comp) from all_components that match target_ref.
-        target_ref may be mod-level, wildcard, or specific component.
-        """
-        res: list[tuple[str, str]] = []
-        for mod, comp in all_components:
-            if target_ref.matches(mod, comp):
-                res.append((mod, comp))
-        return res
-
-    # -------------------------
     # Selection validation
     # -------------------------
 
     def validate_selection(
-        self, selected_components: list[str], use_cache: bool = True
+        self, selected_components: list[ComponentReference]
     ) -> list[RuleViolation]:
         """Validate component selection against dependency and incompatibility rules.
 
         Args:
             selected_components: Dict mapping mod_id to list of selected components
-            use_cache: Whether to use cached results if available
 
         Returns:
             List of RuleViolation objects describing any violations
         """
-        normalized: dict[str, list[str]] = defaultdict(list)
-        for comp_id in selected_components:
-            if comp_id.count(":") == 1:
-                mod_id, comp_key = comp_id.split(":")
-                normalized[mod_id].append(comp_key)
+        references = [reference for reference in selected_components if not reference.is_mod()]
 
-        items = [(mod, comp) for mod, comps in normalized.items() for comp in comps]
-        selection_hash = hash(frozenset(items))
+        selection_hash = hash(frozenset(references))
 
-        if use_cache and self._cache.selection_hash == selection_hash:
+        if self._last_selection_hash == selection_hash:
             return self._get_all_cached_violations()
 
-        self._cache.clear()
-        self._cache.selection_hash = selection_hash
+        self._indexes.clear_violations()
+        self._last_selection_hash = selection_hash
 
         violations: list[RuleViolation] = []
+        selected_set = set(references)
 
-        for mod, comps in normalized.items():
-            for comp in comps:
-                rules = self._rules_for_component(mod, comp)
+        for reference in references:
+            rules = self._rules_by_source.get(reference, [])
 
-                for rule in rules:
-                    if rule.rule_type == RuleType.ORDER:
-                        continue  # Order rules validated separately
+            for rule in rules:
+                if rule.rule_type == RuleType.ORDER:
+                    continue  # Order rules validated separately
 
-                    violation = self._check_rule(rule, mod, comp, normalized)
-                    if violation:
-                        violations.append(violation)
-                        self._cache_violation(violation)
+                violation = self._check_rule(rule, reference, selected_set)
+                if violation:
+                    violations.append(violation)
+                    self._indexes.add_violation(violation)
 
         return violations
 
     def _get_all_cached_violations(self) -> list[RuleViolation]:
         """Extract all violations from cache as flat list."""
-        return [
-            violation
-            for violations in self._cache.violations_by_component.values()
-            for violation in violations
-        ]
+        all_violations = []
+        seen_violations = set()
 
-    def _cache_violation(self, violation: RuleViolation) -> None:
-        """Cache a violation for all affected components."""
-        for mod, comp in violation.affected_components:
-            key = f"{mod}:{comp}"
-            self._cache.violations_by_component.setdefault(key, []).append(violation)
+        for violations in self._indexes.violation_index.values():
+            for violation in violations:
+                # Use id() to avoid duplicates (same violation object)
+                if id(violation) not in seen_violations:
+                    all_violations.append(violation)
+                    seen_violations.add(id(violation))
+
+        return all_violations
 
     # -------------------------
     # Rule checking
     # -------------------------
     def _check_rule(
-        self, rule: Rule, source_mod: str, source_comp: str, selected: dict[str, list[str]]
+        self, rule: Rule, source_ref: ComponentReference, selected_set: set[ComponentReference]
     ) -> RuleViolation | None:
         if isinstance(rule, DependencyRule):
-            return self._check_dependency(rule, source_mod, source_comp, selected)
+            return self._check_dependency(rule, source_ref, selected_set)
         if isinstance(rule, IncompatibilityRule):
-            return self._check_incompatibility(rule, source_mod, source_comp, selected)
+            return self._check_incompatibility(rule, source_ref, selected_set)
         return None
 
     def _check_dependency(
         self,
         rule: DependencyRule,
-        source_mod: str,
-        source_comp: str,
-        selected: dict[str, list[str]],
+        source_ref: ComponentReference,
+        selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
-        """
-        Check DependencyRule: supports ALL and ANY modes.
-        """
-        satisfied: list[ComponentRef] = []
-        missing: list[ComponentRef] = []
+        """Check DependencyRule: supports ALL and ANY modes."""
+        satisfied: list[ComponentReference] = []
+        missing: list[ComponentReference] = []
 
         for target in rule.targets:
-            is_satisfied = False
-
-            if target.is_any_component():
-                if target.mod_id in selected and len(selected[target.mod_id]) > 0:
-                    is_satisfied = True
-            else:
-                selected_set = self._selected_items_set(selected)
-                # exact component match
-                if (target.mod_id, target.comp_key) in selected_set:
-                    is_satisfied = True
+            is_satisfied = target in selected_set
 
             if is_satisfied:
                 satisfied.append(target)
@@ -315,11 +246,13 @@ class RuleManager:
         else:
             for target in rule.targets:
                 actions.append(tr("rule.message_select", target=target))
-        actions.append(tr("rule.message_deselect", mod=source_mod, source=source_comp))
+        actions.append(
+            tr("rule.message_deselect", mod=source_ref.mod_id, source=source_ref.comp_key)
+        )
 
         return RuleViolation(
             rule=rule,
-            affected_components=((source_mod, source_comp),),
+            affected_components=(source_ref,),
             message=message,
             suggested_actions=tuple(actions),
         )
@@ -327,43 +260,30 @@ class RuleManager:
     def _check_incompatibility(
         self,
         rule: IncompatibilityRule,
-        source_mod: str,
-        source_comp: str,
-        selected: dict[str, list[str]],
+        source_ref: ComponentReference,
+        selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
-        """
-        Check incompatibility: collect conflicting selected components.
-        """
-        conflicts: list[tuple[str, str]] = []
-        selected_dict = selected  # already normalized
+        """Check incompatibility: collect conflicting selected components."""
+        conflicts: list[ComponentReference] = []
 
         for target in rule.targets:
-            # mod-level or any-component
-            if target.is_any_component():
-                if target.mod_id in selected_dict:
-                    for comp in selected_dict[target.mod_id]:
-                        conflicts.append((target.mod_id, comp))
-            else:
-                # exact component
-                if target.mod_id in selected_dict:
-                    for comp in selected_dict[target.mod_id]:
-                        if comp == target.comp_key:
-                            conflicts.append((target.mod_id, comp))
+            if target in selected_set:
+                conflicts.append(target)
 
         if not conflicts:
             return None
 
-        conflict_names = ", ".join(f"{mod}:{comp}" for mod, comp in conflicts)
+        conflict_names = ", ".join(str(c) for c in conflicts)
         message = tr("rule.message_incompatibility", conflict_names=conflict_names)
         if rule.description:
             message += f"\n{rule.description}"
 
         # Suggested actions
-        actions = [tr("rule.message_deselect", mod=source_mod, source=source_comp)] + [
-            tr("rule.message_deselect", mod=mod, source=comp) for mod, comp in conflicts
-        ]
+        actions = [
+            tr("rule.message_deselect", mod=source_ref.mod_id, source=source_ref.comp_key)
+        ] + [tr("rule.message_deselect", mod=c.mod_id, source=c.comp_key) for c in conflicts]
 
-        affected = ((source_mod, source_comp),) + tuple(conflicts)
+        affected = (source_ref,) + tuple(conflicts)
 
         return RuleViolation(
             rule=rule,
@@ -376,321 +296,429 @@ class RuleManager:
     # Order generation
     # -------------------------
     def generate_order(
-        self, selected_components: dict, base_order: list[tuple[str, str]] | None = None
-    ) -> list[tuple[str, str]]:
+        self,
+        selected_components: list[ComponentReference],
+        base_order: list[ComponentReference] | None = None,
+    ) -> list[ComponentReference]:
         """
-        Generate installation order from dependencies + explicit order rules.
-
-        Dependencies create implicit order constraints:
-        - Dependencies must be installed BEFORE dependents
+        Generate installation order by completing base_order with dependency rules.
 
         Args:
-            selected_components: Components to order
-            base_order: Optional base order to preserve for components without rules
+            selected_components: All selected components
+            base_order: Optional existing manual order to preserve (has priority)
 
         Returns:
-            Ordered list of (mod_id, comp_key) tuples
+            Ordered list of ComponentReference
         """
-        normalized = self._normalize_selected(selected_components)
-        all_components: set[tuple[str, str]] = self._selected_items_set(normalized)
+        if not selected_components:
+            return []
 
-        # Start from base_order where relevant
-        ordered: list[tuple[str, str]] = []
-        remaining: set[tuple[str, str]] = set(all_components)
+        selected_set = set(selected_components)
+        components_with_rules = self._get_components_with_rules(selected_set)
+
         if base_order:
-            for mod, comp in base_order:
-                if (mod, comp) in all_components:
-                    ordered.append((mod, comp))
-                    remaining.discard((mod, comp))
+            components_to_order = components_with_rules | set(
+                ref for ref in base_order if ref in selected_set
+            )
+        else:
+            components_to_order = components_with_rules
 
-        if not remaining:
-            return ordered
+        if not components_to_order:
+            return base_order if base_order else []
 
-        # Build graph edges (u -> v means u must come before v)
-        graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
-        in_degree: dict[tuple[str, str], int] = defaultdict(int)
+        graph, in_degree = self._build_dependency_graph(components_to_order)
+        ideal_order = self._topological_sort(graph, in_degree, components_to_order)
 
-        for comp in remaining:
-            in_degree[comp] = 0
+        if not base_order:
+            return ideal_order
 
-        # helper to add edge
-        def _add_edge(u: tuple[str, str], v: tuple[str, str]):
-            if u == v:
+        return self._merge_orders(ideal_order, base_order, components_to_order)
+
+    def _get_components_with_rules(
+        self, selected_refs: set[ComponentReference]
+    ) -> set[ComponentReference]:
+        """
+        Find all components that have ordering rules (dependencies or explicit order).
+
+        Uses _rules_by_source index for O(1) lookups.
+
+        Returns:
+            Set of components that appear in any rule (as source or target)
+        """
+        components_with_rules: set[ComponentReference] = set()
+
+        # Use index for fast lookup - O(1) per component
+        for ref in selected_refs:
+            rules = self._rules_by_source.get(ref, [])
+
+            if not rules:
+                continue
+
+            # Component has rules as source
+            components_with_rules.add(ref)
+
+            # Add all targets from these rules
+            for rule in rules:
+                # Only include rules that affect ordering
+                if isinstance(rule, DependencyRule) and not rule.implicit_order:
+                    continue
+
+                if not isinstance(rule, (DependencyRule, OrderRule)):
+                    continue
+
+                for target_ref in rule.targets:
+                    if target_ref in selected_refs:
+                        components_with_rules.add(target_ref)
+
+        return components_with_rules
+
+    def _build_dependency_graph(
+        self, components_to_order: set[ComponentReference]
+    ) -> tuple[
+        dict[ComponentReference, set[ComponentReference]], dict[ComponentReference, int]
+    ]:
+        """
+        Build dependency graph from rules.
+
+        Edge u -> v means: u must be installed BEFORE v
+
+        Args:
+            components_to_order: Only these components are included in graph
+
+        Returns:
+            (graph, in_degree) where:
+            - graph[u] = set of nodes that depend on u (u -> v)
+            - in_degree[v] = number of dependencies v has
+        """
+        graph: dict[ComponentReference, set[ComponentReference]] = defaultdict(set)
+        in_degree: dict[ComponentReference, int] = {ref: 0 for ref in components_to_order}
+
+        def add_edge(before: ComponentReference, after: ComponentReference):
+            """Add edge: before -> after (before must come before after)."""
+            if before == after:
                 return
-            if v not in graph[u]:
-                graph[u].add(v)
-                in_degree[v] = in_degree.get(v, 0) + 1
+            if before not in components_to_order or after not in components_to_order:
+                return
 
-        # Add dependency-based edges: targets BEFORE sources
+            if after not in graph[before]:
+                graph[before].add(after)
+                in_degree[after] += 1
+
+        # Process DEPENDENCY rules: dependencies come BEFORE dependents
         for rule in self._dependency_rules:
-            # sources = components matching any of rule.sources within remaining
-            sources = []
-            for source_ref in rule.sources:
-                sources.extend([c for c in remaining if source_ref.matches(c[0], c[1])])
+            if not rule.implicit_order:
+                continue
 
+            # Find sources (dependents) in components_to_order
+            sources = [ref for ref in components_to_order if ref in rule.sources]
             if not sources:
                 continue
 
-            # gather targets (matching within remaining)
-            targets: list[tuple[str, str]] = []
-            for tref in rule.targets:
-                targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
+            # Find targets (dependencies) in components_to_order
+            targets = [ref for ref in components_to_order if ref in rule.targets]
+            if not targets:
+                continue
 
-            # For ordering we conservatively add edges from each target -> source
-            for src in sources:
-                for tgt in targets:
-                    _add_edge(tgt, src)
+            # Add edges: target -> source (dependency BEFORE dependent)
+            for target in targets:
+                for source in sources:
+                    add_edge(target, source)
 
-        # Add explicit order rules
+        # Process ORDER rules
         for rule in self._order_rules:
-            sources = []
-            for source_ref in rule.sources:
-                sources.extend([c for c in remaining if source_ref.matches(c[0], c[1])])
-
+            sources = [ref for ref in components_to_order if ref in rule.sources]
             if not sources:
                 continue
 
-            targets: list[tuple[str, str]] = []
-            for tref in rule.targets:
-                targets.extend([c for c in remaining if tref.matches(c[0], c[1])])
+            targets = [ref for ref in components_to_order if ref in rule.targets]
+            if not targets:
+                continue
 
-            if rule.order_direction == OrderDirection.BEFORE:
-                for src in sources:
-                    for tgt in targets:
-                        _add_edge(src, tgt)
-            else:  # AFTER -> targets BEFORE source
-                for src in sources:
-                    for tgt in targets:
-                        _add_edge(tgt, src)
+            for source in sources:
+                for target in targets:
+                    if rule.order_direction == OrderDirection.BEFORE:
+                        # source BEFORE target
+                        add_edge(source, target)
+                    else:
+                        # source AFTER target -> target BEFORE source
+                        add_edge(target, source)
 
-        # Kahn's algorithm for topological sort (deterministic by sorting queue)
-        zero_q = deque(
+        return graph, in_degree
+
+    def _topological_sort(
+        self,
+        graph: dict[ComponentReference, set[ComponentReference]],
+        in_degree: dict[ComponentReference, int],
+        components_to_order: set[ComponentReference],
+    ) -> list[ComponentReference]:
+        """
+        Kahn's algorithm for topological sort.
+
+        Returns deterministic order by sorting at each step.
+        """
+        # Find nodes with no dependencies
+        zero_degree = deque(
             sorted(
-                [n for n in remaining if in_degree.get(n, 0) == 0], key=lambda x: (x[0], x[1])
+                [ref for ref in components_to_order if in_degree[ref] == 0],
+                key=lambda r: (r.mod_id, r.comp_key),
             )
         )
-        sorted_remaining: list[tuple[str, str]] = []
 
-        while zero_q:
-            cur = zero_q.popleft()
-            sorted_remaining.append(cur)
-            for neigh in sorted(graph.get(cur, [])):
-                in_degree[neigh] -= 1
-                if in_degree[neigh] == 0:
-                    zero_q.append(neigh)
+        result: list[ComponentReference] = []
+        in_degree_copy = in_degree.copy()
 
-        # If cycle detected, append remaining deterministically
-        if len(sorted_remaining) != len(remaining):
-            logger.warning("Circular dependencies detected in rules")
-            unprocessed = remaining - set(sorted_remaining)
-            sorted_remaining.extend(sorted(unprocessed, key=lambda x: (x[0], x[1])))
+        while zero_degree:
+            current = zero_degree.popleft()
+            result.append(current)
 
-        return ordered + sorted_remaining
+            # Process neighbors (nodes that depend on current)
+            for neighbor in sorted(
+                graph.get(current, []), key=lambda r: (r.mod_id, r.comp_key)
+            ):
+                in_degree_copy[neighbor] -= 1
+                if in_degree_copy[neighbor] == 0:
+                    zero_degree.append(neighbor)
+
+        # Check for cycles
+        if len(result) != len(components_to_order):
+            logger.warning("Circular dependencies detected - adding remaining nodes")
+            unprocessed = components_to_order - set(result)
+            result.extend(sorted(unprocessed, key=lambda r: (r.mod_id, r.comp_key)))
+
+        return result
+
+    def _merge_orders(
+        self,
+        ideal_order: list[ComponentReference],
+        base_order: list[ComponentReference],
+        components_to_order: set[ComponentReference],
+    ) -> list[ComponentReference]:
+        """
+        Merge ideal_order with base_order while preserving:
+        1. Relative positions from base_order where possible
+        2. Dependency constraints from ideal_order
+        """
+        # Find components that need to be inserted
+        base_set = set(base_order)
+        to_insert = [ref for ref in ideal_order if ref not in base_set]
+
+        if not to_insert:
+            return base_order
+
+        # Build position map from ideal_order (for constraint checking)
+        ideal_positions = {ref: idx for idx, ref in enumerate(ideal_order)}
+
+        # Insert each component at the best position
+        result = base_order.copy()
+
+        for ref_to_insert in to_insert:
+            best_position = self._find_best_position(ref_to_insert, result, ideal_positions)
+            result.insert(best_position, ref_to_insert)
+
+        return result
+
+    def _find_best_position(
+        self,
+        ref: ComponentReference,
+        current_order: list[ComponentReference],
+        ideal_positions: dict[ComponentReference, int],
+    ) -> int:
+        """
+        Find best position to insert ref into current_order.
+
+        Rules:
+        1. Must respect dependency constraints from ideal_positions
+        2. Insert as close as possible to ideal position
+
+        Returns:
+            Index where ref should be inserted
+        """
+        if not current_order:
+            return 0
+
+        ref_ideal_pos = ideal_positions[ref]
+
+        # Find valid range based on dependencies
+        min_pos = 0  # Earliest valid position
+        max_pos = len(current_order)  # Latest valid position
+
+        for idx, existing_ref in enumerate(current_order):
+            existing_ideal_pos = ideal_positions.get(existing_ref)
+
+            if existing_ideal_pos is None:
+                continue
+
+            # If existing should come BEFORE ref in ideal order
+            if existing_ideal_pos < ref_ideal_pos:
+                min_pos = max(min_pos, idx + 1)
+
+            # If existing should come AFTER ref in ideal order
+            elif existing_ideal_pos > ref_ideal_pos:
+                max_pos = min(max_pos, idx)
+
+        # Insert at min_pos (respects all constraints and closest to ideal)
+        return min_pos
 
     # -------------------------
     # Order validation
     # -------------------------
-    def validate_order(self, install_order: list[tuple[str, str]]) -> list[RuleViolation]:
-        """
-        Validate order against dependency rules (implicit) + explicit order rules.
-        Populates cache with violations by component as before.
-        """
-        normalized_order, reverse_map = self._normalize_order(install_order)
-
+    def validate_order(self, install_order: list[ComponentReference]) -> list[RuleViolation]:
+        """Validate order against dependency rules (implicit) + explicit order rules."""
         violations: list[RuleViolation] = []
-        self._cache.clear()
+        self._indexes.clear_violations()
+
+        # Build position map
+        positions = {ref: idx for idx, ref in enumerate(install_order)}
 
         # Check DEPENDENCY rules (implicit ordering)
         for rule in self._dependency_rules:
             if rule.implicit_order:
                 violations.extend(
-                    self._validate_dependency_order(rule, normalized_order, reverse_map)
+                    self._validate_dependency_order(rule, install_order, positions)
                 )
 
         # Check explicit ORDER rules
         for rule in self._order_rules:
-            violations.extend(
-                self._validate_explicit_order(rule, normalized_order, reverse_map)
-            )
+            violations.extend(self._validate_explicit_order(rule, install_order, positions))
 
         return violations
 
-    def _normalize_order(self, install_order: list[tuple[str, str]]):
-        """
-        Returns:
-            normalized_order: list[(lower_mod, comp)]
-            reverse_map: dict[(lower_mod, comp)] -> (orig_mod, comp)
-        """
-        normalized = []
-        reverse = {}
-
-        for mod, comp in install_order:
-            mod_l = mod.lower()
-            normalized.append((mod_l, comp))
-            reverse[(mod_l, comp)] = (mod, comp)
-
-        return normalized, reverse
-
-    def _positions_map(
-        self, install_order: list[tuple[str, str]]
-    ) -> dict[tuple[str, str], int]:
-        """Return mapping component -> index for fast lookups."""
-        return {comp: idx for idx, comp in enumerate(install_order)}
-
     def _validate_dependency_order(
-        self, rule: DependencyRule, install_order: list[tuple[str, str]], reverse_map
+        self,
+        rule: DependencyRule,
+        install_order: list[ComponentReference],
+        positions: dict[ComponentReference, int],
     ) -> list[RuleViolation]:
         """Validate that dependencies come before dependents."""
         violations: list[RuleViolation] = []
-        pos = self._positions_map(install_order)
 
         # find sources (dependents) positions - check all sources
-        source_positions = []
-        for source_ref in rule.sources:
-            source_positions.extend(
-                [
-                    (idx, m, c)
-                    for idx, (m, c) in enumerate(install_order)
-                    if source_ref.matches(m, c)
-                ]
-            )
+        source_positions = [
+            (positions[ref], ref) for ref in install_order if ref in rule.sources
+        ]
 
         if not source_positions:
             return violations
 
-        # For each source, find target occurrences and ensure they come before source
-        for source_idx, source_mod_l, source_comp in source_positions:
-            for tref in rule.targets:
-                # find targets
-                for t_mod_l, t_comp in install_order:
-                    if tref.matches(t_mod_l, t_comp):
-                        dep_idx = pos[(t_mod_l, t_comp)]
-                        if dep_idx > source_idx:
-                            # restore original casing
-                            source_mod, source_comp_o = reverse_map[(source_mod_l, source_comp)]
-                            dep_mod, dep_comp_o = reverse_map[(t_mod_l, t_comp)]
+        # For each source, ensure all targets come before it
+        for source_idx, source_ref in source_positions:
+            for target_ref in rule.targets:
+                if target_ref not in positions:
+                    continue
 
-                            message = tr(
-                                "rule.message_dependency",
-                                source_mod=source_mod,
-                                source_comp=source_comp_o,
-                                dep_mod=dep_mod,
-                                dep_comp=dep_comp_o,
-                            )
+                target_idx = positions[target_ref]
+                if target_idx > source_idx:
+                    message = tr(
+                        "rule.message_dependency",
+                        source_mod=source_ref.mod_id,
+                        source_comp=source_ref.comp_key,
+                        dep_mod=target_ref.mod_id,
+                        dep_comp=target_ref.comp_key,
+                    )
 
-                            if rule.description:
-                                message += f"\n{rule.description}"
+                    if rule.description:
+                        message += f"\n{rule.description}"
 
-                            suggested_action = tr(
-                                "rule.message_dependency_suggestion",
-                                source_mod=source_mod,
-                                source_comp=source_comp_o,
-                                dep_mod=dep_mod,
-                                dep_comp=dep_comp_o,
-                            )
+                    suggested_action = tr(
+                        "rule.message_dependency_suggestion",
+                        source_mod=source_ref.mod_id,
+                        source_comp=source_ref.comp_key,
+                        dep_mod=target_ref.mod_id,
+                        dep_comp=target_ref.comp_key,
+                    )
 
-                            violation = RuleViolation(
-                                rule=rule,
-                                affected_components=(
-                                    (source_mod, source_comp_o),
-                                    (dep_mod, dep_comp_o),
-                                ),
-                                message=message,
-                                suggested_actions=(suggested_action,),
-                            )
-                            violations.append(violation)
-                            self._cache_violation(violation)
+                    violation = RuleViolation(
+                        rule=rule,
+                        affected_components=(
+                            source_ref,
+                            target_ref,
+                        ),
+                        message=message,
+                        suggested_actions=(suggested_action,),
+                    )
+                    violations.append(violation)
+                    self._indexes.add_violation(violation)
 
         return violations
 
     def _validate_explicit_order(
-        self, rule: OrderRule, install_order: list[tuple[str, str]], reverse_map
+        self,
+        rule: OrderRule,
+        install_order: list[ComponentReference],
+        positions: dict[ComponentReference, int],
     ) -> list[RuleViolation]:
         """Validate explicit order rules."""
         violations: list[RuleViolation] = []
 
-        # find source positions - check all sources
-        source_positions = []
-        for source_ref in rule.sources:
-            source_positions.extend(
-                [
-                    (idx, m, c)
-                    for idx, (m, c) in enumerate(install_order)
-                    if source_ref.matches(m, c)
-                ]
-            )
+        # Find source positions
+        source_positions = [
+            (positions[ref], ref) for ref in install_order if ref in rule.sources
+        ]
 
         if not source_positions:
             return violations
 
-        for source_idx, source_mod, source_comp in source_positions:
-            for tref in rule.targets:
-                for target_idx, (target_mod, target_comp) in enumerate(install_order):
-                    if (target_mod, target_comp) == (source_mod, source_comp):
-                        continue
-                    if not tref.matches(target_mod, target_comp):
-                        continue
+        for source_idx, source_ref in source_positions:
+            for target_ref in rule.targets:
+                if target_ref not in positions or target_ref == source_ref:
+                    continue
 
-                    violation_detected = False
-                    message = ""
-                    action = ""
+                target_idx = positions[target_ref]
+                violation_detected = False
+                message = ""
+                action = ""
 
-                    if rule.order_direction == OrderDirection.BEFORE:
-                        if source_idx > target_idx:
-                            violation_detected = True
-                            # restore casing
-                            source_mod, source_comp = reverse_map[(source_mod, source_comp)]
-                            target_mod, target_comp = reverse_map[(target_mod, target_comp)]
-                            message = tr(
-                                "rule.message_order_before",
-                                source_mod=source_mod,
-                                source_comp=source_comp,
-                                target_mod=target_mod,
-                                target_comp=target_comp,
-                            )
-                            action = tr(
-                                "rule.message_order_move_before",
-                                source_mod=source_mod,
-                                source_comp=source_comp,
-                                target_mod=target_mod,
-                                target_comp=target_comp,
-                            )
-
-                    else:  # AFTER
-                        if source_idx < target_idx:
-                            violation_detected = True
-                            source_mod, source_comp = reverse_map[(source_mod, source_comp)]
-                            target_mod, target_comp = reverse_map[(target_mod, target_comp)]
-                            message = tr(
-                                "rule.message_order_after",
-                                source_mod=source_mod,
-                                source_comp=source_comp,
-                                target_mod=target_mod,
-                                target_comp=target_comp,
-                            )
-                            action = tr(
-                                "rule.message_order_move_after",
-                                source_mod=source_mod,
-                                source_comp=source_comp,
-                                target_mod=target_mod,
-                                target_comp=target_comp,
-                            )
-
-                    if violation_detected:
-                        if rule.description:
-                            message += f"\n{rule.description}"
-
-                        violation = RuleViolation(
-                            rule=rule,
-                            affected_components=(
-                                (source_mod, source_comp),
-                                (target_mod, target_comp),
-                            ),
-                            message=message,
-                            suggested_actions=(action,),
+                if rule.order_direction == OrderDirection.BEFORE:
+                    if source_idx > target_idx:
+                        violation_detected = True
+                        message = tr(
+                            "rule.message_order_before",
+                            source_mod=source_ref.mod_id,
+                            source_comp=source_ref.comp_key,
+                            target_mod=target_ref.mod_id,
+                            target_comp=target_ref.comp_key,
                         )
-                        violations.append(violation)
-                        self._cache_violation(violation)
+                        action = tr(
+                            "rule.message_order_move_before",
+                            source_mod=source_ref.mod_id,
+                            source_comp=source_ref.comp_key,
+                            target_mod=target_ref.mod_id,
+                            target_comp=target_ref.comp_key,
+                        )
+
+                else:  # AFTER
+                    if source_idx < target_idx:
+                        violation_detected = True
+                        message = tr(
+                            "rule.message_order_after",
+                            source_mod=source_ref.mod_id,
+                            source_comp=source_ref.comp_key,
+                            target_mod=target_ref.mod_id,
+                            target_comp=target_ref.comp_key,
+                        )
+                        action = tr(
+                            "rule.message_order_move_after",
+                            source_mod=source_ref.mod_id,
+                            source_comp=source_ref.comp_key,
+                            target_mod=target_ref.mod_id,
+                            target_comp=target_ref.comp_key,
+                        )
+
+                if violation_detected:
+                    if rule.description:
+                        message += f"\n{rule.description}"
+
+                    violation = RuleViolation(
+                        rule=rule,
+                        affected_components=(
+                            source_ref,
+                            target_ref,
+                        ),
+                        message=message,
+                        suggested_actions=(action,),
+                    )
+                    violations.append(violation)
+                    self._indexes.add_violation(violation)
 
         return violations
 
@@ -698,17 +726,18 @@ class RuleManager:
     # Public utilities
     # -------------------------
 
-    def get_violations_for_component(self, mod_id: str, comp_key: str) -> list[RuleViolation]:
+    def get_violations_for_component(
+        self, reference: ComponentReference
+    ) -> list[RuleViolation]:
         """Get cached violations for a specific component.
 
         Args:
-            mod_id: Mod identifier
-            comp_key: Component key
+            reference: Component reference
 
         Returns:
             List of violations affecting this component
         """
-        return self._cache.get_violations(mod_id, comp_key)
+        return self._indexes.get_violations(reference)
 
     def get_requirements(
         self, mod_id: str, comp_key: str, recursive: bool = False

@@ -23,8 +23,8 @@ from PySide6.QtWidgets import (
 from constants import (
     COLOR_ACCENT,
     ROLE_COMPONENT,
-    ROLE_MOD,
 )
+from core.ComponentReference import ComponentReference
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
 from core.TranslationManager import tr
 from ui.pages.install_order.PauseDescriptionDialog import PauseDescriptionDialog
@@ -46,13 +46,13 @@ class OrderPageProtocol(Protocol):
     """
 
     def insert_row_to_ordered_table(
-        self, table: QTableWidget, row: int, mod_id: str, comp_key: str
+        self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a component row to ordered table."""
         ...
 
     def insert_row_to_unordered_table(
-        self, table: QTableWidget, row: int, mod_id: str, comp_key: str
+        self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a component row to unordered table."""
         ...
@@ -155,10 +155,9 @@ class DraggableTableWidget(HoverTableWidget):
             if not first_item:
                 continue
 
-            mod_id = first_item.data(ROLE_MOD)
-            comp_key = first_item.data(ROLE_COMPONENT)
+            reference = first_item.data(ROLE_COMPONENT)
 
-            components.append(f"{mod_id}|{comp_key}")
+            components.append(str(reference))
 
         data = "\n".join(components)
         mime.setText(data)
@@ -231,21 +230,16 @@ class DraggableTableWidget(HoverTableWidget):
             # Insert rows at drop position
             insert_rows = []
 
-            for i, comp_data in enumerate(components_data):
-                parts = comp_data.split("|")
-                if len(parts) != 2:
-                    continue
-
-                mod_id = parts[0]
-                comp_key = parts[1]
+            for i, ref in enumerate(components_data):
+                reference = ComponentReference.from_string(ref)
 
                 insert_row = drop_row + i
                 insert_rows.append(insert_row)
 
                 if self._table_role == "ordered":
-                    page.insert_row_to_ordered_table(self, insert_row, mod_id, comp_key)
+                    page.insert_row_to_ordered_table(self, insert_row, reference)
                 else:
-                    page.insert_row_to_unordered_table(self, insert_row, mod_id, comp_key)
+                    page.insert_row_to_unordered_table(self, insert_row, reference)
 
             self._select_rows(insert_rows)
 
@@ -416,9 +410,9 @@ class DraggableTableWidget(HoverTableWidget):
             return
 
         menu = QMenu(self)
-        mod_id = mod_item.data(ROLE_MOD)
+        reference = mod_item.data(ROLE_COMPONENT)
 
-        if mod_id == PAUSE_PREFIX:
+        if reference.mod_id == PAUSE_PREFIX:
             edit_action = QAction(tr("page.order.edit_pause"), self)
             edit_action.triggered.connect(lambda: self._edit_pause_at_row(row))
             menu.addAction(edit_action)
@@ -466,8 +460,8 @@ class DraggableTableWidget(HoverTableWidget):
         if not mod_item:
             return
 
-        comp_key = mod_item.data(ROLE_COMPONENT)
-        _, current_description = PauseEntry.parse(comp_key)
+        reference = mod_item.data(ROLE_COMPONENT)
+        _, current_description = PauseEntry.parse(reference.comp_key)
 
         dialog = PauseDescriptionDialog(self, current_description, "edit")
         if dialog.exec() != QDialog.DialogCode.Accepted:

@@ -42,10 +42,10 @@ from constants import (
     MARGIN_SMALL,
     MARGIN_STANDARD,
     ROLE_COMPONENT,
-    ROLE_MOD,
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
+from core.ComponentReference import ComponentReference
 from core.GameModels import GameDefinition, InstallStep
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
 from core.StateManager import StateManager
@@ -82,12 +82,12 @@ class ComponentIssue:
     """Single validation issue for a component.
 
     Attributes:
-        component_id: Component identifier (mod:comp format)
+        reference: Component reference
         message: Issue description
         is_error: True for errors, False for warnings
     """
 
-    component_id: str
+    reference: ComponentReference
     message: str
     is_error: bool
 
@@ -107,23 +107,23 @@ class ValidationResult:
     def __init__(self):
         self._issues: list[ComponentIssue] = []
 
-    def add_warning(self, component_id: str, message: str) -> None:
+    def add_warning(self, reference: ComponentReference, message: str) -> None:
         """Add a warning for a component.
 
         Args:
-            component_id: Component identifier
+            reference: Component reference
             message: Warning message
         """
-        self._issues.append(ComponentIssue(component_id, message, is_error=False))
+        self._issues.append(ComponentIssue(reference, message, is_error=False))
 
-    def add_error(self, component_id: str, message: str) -> None:
+    def add_error(self, reference: ComponentReference, message: str) -> None:
         """Add an error for a component.
 
         Args:
-            component_id: Component identifier
+            reference: Component reference
             message: Error message
         """
-        self._issues.append(ComponentIssue(component_id, message, is_error=True))
+        self._issues.append(ComponentIssue(reference, message, is_error=True))
 
     @property
     def is_valid(self) -> bool:
@@ -170,27 +170,27 @@ class ValidationResult:
         """
         return sum(1 for issue in self._issues if not issue.is_error)
 
-    def get_component_issues(self, component_id: str) -> list[ComponentIssue]:
+    def get_component_issues(self, reference: ComponentReference) -> list[ComponentIssue]:
         """Get all issues for a specific component.
 
         Args:
-            component_id: Component identifier
+            reference: Component reference
 
         Returns:
             List of issues for the component
         """
-        return [issue for issue in self._issues if issue.component_id == component_id]
+        return [issue for issue in self._issues if issue.reference == reference]
 
-    def get_component_indicator(self, component_id: str) -> tuple[QColor, str]:
+    def get_component_indicator(self, reference: ComponentReference) -> tuple[QColor, str]:
         """Get color for a component based on its issues.
 
         Args:
-            component_id: Component identifier
+            reference: Component reference
 
         Returns:
             Color to use for component display
         """
-        issues = self.get_component_issues(component_id)
+        issues = self.get_component_issues(reference)
         if not issues:
             return self.COLOR_VALID, ""
 
@@ -220,8 +220,8 @@ class SequenceData:
         validation: Validation result for this sequence
     """
 
-    ordered: list[tuple[str, str]]
-    unordered: list[tuple[str, str]]
+    ordered: list[ComponentReference]
+    unordered: list[ComponentReference]
     validation: ValidationResult
 
     @property
@@ -241,21 +241,6 @@ class SequenceData:
             True if unordered list is empty, False otherwise
         """
         return len(self.unordered) == 0
-
-    def get_component_position(self, mod_id: str, comp_key: str) -> int:
-        """Get position of a component in ordered list.
-
-        Args:
-            mod_id: Mod identifier
-            comp_key: Component key
-
-        Returns:
-            Zero-based position, or -1 if not found
-        """
-        try:
-            return self.ordered.index((mod_id, comp_key))
-        except ValueError:
-            return -1
 
 
 # ============================================================================
@@ -632,8 +617,7 @@ class InstallOrderPage(BasePage):
         _, description = PauseEntry.parse(pause_string)
 
         pause_item = QTableWidgetItem(f"⏸ {tr('page.order.pause_label')}")
-        pause_item.setData(ROLE_MOD, PAUSE_PREFIX)
-        pause_item.setData(ROLE_COMPONENT, pause_string)
+        pause_item.setData(ROLE_COMPONENT, ComponentReference.from_string(pause_string))
 
         table.setItem(row, COL_ORDERED_MOD, pause_item)
 
@@ -673,30 +657,25 @@ class InstallOrderPage(BasePage):
             )
 
         # Distribute components to sequences
-        for reference in selected:
-            mod_id, _, comp_key = reference.partition(":")
-            if (
-                comp_key is not None
-                and mod_id not in ["weidu64", "weidu"]
-                and "choice_" not in comp_key
-                and (comp_key.count(".") == 0 or comp_key.count(".") == 2)
-            ):
-                mod = self._mod_manager.get_mod_by_id(mod_id)
-                component = mod.get_component(comp_key)
+        for ref in selected:
+            reference = ComponentReference.from_string(ref)
+            if reference.mod_id not in ["weidu64", "weidu"] and reference.is_component():
+                mod = self._mod_manager.get_mod_by_id(reference.mod_id)
+                component = mod.get_component(reference.comp_key)
                 if component:
-                    self._place_component_in_sequences(mod_id, comp_key)
+                    self._place_component_in_sequences(reference)
 
         self._refresh_all_tables()
 
-    def _place_component_in_sequences(self, mod_id: str, comp_key: str) -> None:
+    def _place_component_in_sequences(self, reference: ComponentReference) -> None:
         """Place a component in allowed sequences.
 
         Args:
-            mod_id: Mod identifier
-            comp_key: Component key
+            reference: Component reference
         """
         # Extract simple key (before first dot for SUB components)
-        simple_key = comp_key.split(".")[0]
+        simple_key = reference.get_base_component_key()
+        mod_id = reference.mod_id
         placed = False
 
         for seq_idx, sequence in enumerate(self._game_def.sequences):
@@ -706,14 +685,14 @@ class InstallOrderPage(BasePage):
             if not sequence.is_component_allowed(mod_id, simple_key):
                 continue
 
-            self._sequences_data[seq_idx].unordered.append((mod_id, simple_key))
+            self._sequences_data[seq_idx].unordered.append(reference)
 
             placed = True
 
         if not placed:
-            logger.debug(f"Component not allowed in any sequence: {mod_id}:{comp_key}")
+            logger.debug(f"Component not allowed in any sequence: {reference}")
 
-    def _apply_order_from_list(self, seq_idx: int, order: list[str]) -> None:
+    def _apply_order_from_list(self, seq_idx: int, order: list[ComponentReference]) -> None:
         """Apply order from a list of component IDs.
 
         Args:
@@ -727,28 +706,21 @@ class InstallOrderPage(BasePage):
         PauseEntry.reset_counter()
 
         pool = {
-            f"{mod.lower()}:{comp}": (mod, comp)
-            for mod, comp in (seq_data.ordered + seq_data.unordered)
-            if mod != PAUSE_PREFIX
+            reference: reference
+            for reference in (seq_data.ordered + seq_data.unordered)
+            if reference.mod_id != PAUSE_PREFIX
         }
 
         # Apply order
         new_ordered = []
-        for comp_id in order:
-            if PauseEntry.is_pause(comp_id):
-                new_ordered.append((PAUSE_PREFIX, comp_id))
+        for reference in order:
+            if PauseEntry.is_pause(reference.comp_key):
+                new_ordered.append(reference)
                 continue
 
-            if ":" in comp_id:
-                mod_part, comp_part = comp_id.split(":", 1)
-                simple_comp = comp_part.split(".")[0]
-                simple_id = f"{mod_part}:{simple_comp}"
-            else:
-                simple_id = comp_id
-
-            if simple_id in pool:
-                new_ordered.append(pool[simple_id])
-                del pool[simple_id]
+            if reference in pool:
+                new_ordered.append(pool[reference])
+                del pool[reference]
 
         # Remaining components
         new_unordered = list(pool.values())
@@ -773,11 +745,16 @@ class InstallOrderPage(BasePage):
             seq_idx: Sequence index
             install_steps: Tuple of installation steps
         """
-        order = [
-            f"{step.mod.lower()}:{step.comp}"
+        base_order = [
+            ComponentReference.from_string(f"{step.mod.lower()}:{step.comp}")
             for step in install_steps
             if not step.is_annotation and step.is_install
         ]
+        selected = ComponentReference.from_string_list(
+            self.state_manager.get_selected_components()
+        )
+        order = self._rule_manager.generate_order(selected, base_order)
+
         self._apply_order_from_list(seq_idx, order)
 
     def _load_default_order_current_tab(self) -> None:
@@ -862,8 +839,9 @@ class InstallOrderPage(BasePage):
             return
 
         try:
-            component_ids = self._weidu_parser.parse_file(file_path).get_component_ids()
-            self._apply_order_from_list(self._current_sequence_idx, component_ids)
+            order = self._weidu_parser.parse_file(file_path).get_component_ids()
+            order = ComponentReference.from_string_list(order)
+            self._apply_order_from_list(self._current_sequence_idx, order)
 
             seq_data = self._sequences_data[self._current_sequence_idx]
             QMessageBox.information(
@@ -919,19 +897,11 @@ class InstallOrderPage(BasePage):
                 except ValueError as e:
                     raise ValueError("Invalid sequence key '%s': %s", key, e)
 
-            for seq_idx in install_order.keys():
-                if seq_idx >= self._game_def.sequence_count:
-                    raise ValueError(
-                        f"Sequence {seq_idx} does not exist in current game "
-                        f"(max: {self._game_def.sequence_count - 1})"
-                    )
-
-            # Apply imported order
             for seq_idx, order_list in install_order.items():
                 if seq_idx in self._sequences_data:
+                    order_list = ComponentReference.from_string_list(order_list)
                     self._apply_order_from_list(seq_idx, order_list)
 
-            # Count results
             total_ordered = sum(len(seq.ordered) for seq in self._sequences_data.values())
             total_unordered = sum(len(seq.unordered) for seq in self._sequences_data.values())
 
@@ -1050,17 +1020,17 @@ class InstallOrderPage(BasePage):
             unordered_table.setRowCount(0)
 
             # Populate ordered table (3 columns)
-            for mod_id, comp_key in seq_data.ordered:
-                if mod_id == PAUSE_PREFIX:
+            for reference in seq_data.ordered:
+                if reference.mod_id == PAUSE_PREFIX:
                     self.insert_pause_to_ordered_table(
-                        ordered_table, ordered_table.rowCount(), comp_key
+                        ordered_table, ordered_table.rowCount(), str(reference)
                     )
                 else:
-                    self._add_row_to_ordered_table(ordered_table, mod_id, comp_key)
+                    self._add_row_to_ordered_table(ordered_table, reference)
 
             # Populate unordered table (2 columns)
-            for mod_id, comp_key in seq_data.unordered:
-                self._add_row_to_unordered_table(unordered_table, mod_id, comp_key)
+            for reference in seq_data.unordered:
+                self._add_row_to_unordered_table(unordered_table, reference)
 
         finally:
             ordered_table.blockSignals(False)
@@ -1069,18 +1039,18 @@ class InstallOrderPage(BasePage):
         self._update_sequence_counters(seq_idx)
 
     def _add_row_to_ordered_table(
-        self, table: QTableWidget, mod_id: str, comp_key: str
+        self, table: QTableWidget, reference: ComponentReference
     ) -> None:
         """Add a row to the ordered table."""
         row = table.rowCount()
-        self.insert_row_to_ordered_table(table, row, mod_id, comp_key)
+        self.insert_row_to_ordered_table(table, row, reference)
 
     def _add_row_to_unordered_table(
-        self, table: QTableWidget, mod_id: str, comp_key: str
+        self, table: QTableWidget, reference: ComponentReference
     ) -> None:
         """Add a row to the unordered table."""
         row = table.rowCount()
-        self.insert_row_to_unordered_table(table, row, mod_id, comp_key)
+        self.insert_row_to_unordered_table(table, row, reference)
 
     def _update_sequence_counters(self, seq_idx: int) -> None:
         """Update component counters for a sequence.
@@ -1122,20 +1092,17 @@ class InstallOrderPage(BasePage):
             return
 
         components_only = [
-            (mod_id, comp_key)
-            for mod_id, comp_key in seq_data.ordered
-            if mod_id != PAUSE_PREFIX
+            reference for reference in seq_data.ordered if reference.mod_id != PAUSE_PREFIX
         ]
 
         order_violations = self._rule_manager.validate_order(components_only)
 
         for violation in order_violations:
-            for mod_id, comp_key in violation.affected_components:
-                comp_id = f"{mod_id}:{comp_key}"
+            for reference in violation.affected_components:
                 if violation.is_error:
-                    seq_data.validation.add_error(comp_id, violation.message)
+                    seq_data.validation.add_error(reference, violation.message)
                 elif violation.is_warning:
-                    seq_data.validation.add_warning(comp_id, violation.message)
+                    seq_data.validation.add_warning(reference, violation.message)
 
         self._apply_visual_indicators(seq_idx)
         self.notify_navigation_changed()
@@ -1153,11 +1120,8 @@ class InstallOrderPage(BasePage):
             if not mod_item:
                 continue
 
-            mod_id = mod_item.data(ROLE_MOD)
-            comp_key = mod_item.data(ROLE_COMPONENT)
-
-            # Get violations
-            violations = self._rule_manager.get_violations_for_component(mod_id, comp_key)
+            reference = mod_item.data(ROLE_COMPONENT)
+            violations = self._rule_manager.get_violations_for_component(reference)
 
             mod_item.setText(
                 mod_item.text().replace(f"{ICON_ERROR} ", "").replace(f"{ICON_WARNING} ", "")
@@ -1168,9 +1132,7 @@ class InstallOrderPage(BasePage):
                 for v in violations:
                     tooltip_lines.append(f"{v.icon} {v.message}")
 
-                color, icon = seq_data.validation.get_component_indicator(
-                    f"{mod_id}:{comp_key}"
-                )
+                color, icon = seq_data.validation.get_component_indicator(reference)
                 mod_item.setText(f"{icon} {mod_item.text()}")
                 mod_item.setToolTip("\n".join(tooltip_lines))
 
@@ -1212,21 +1174,15 @@ class InstallOrderPage(BasePage):
         for row in range(ordered_table.rowCount()):
             mod_item = ordered_table.item(row, COL_ORDERED_MOD)
             if mod_item:
-                mod_id = mod_item.data(ROLE_MOD)
-                comp_key = mod_item.data(ROLE_COMPONENT)
-
-                if mod_id == PAUSE_PREFIX:
-                    seq_data.ordered.append((PAUSE_PREFIX, comp_key))
-                else:
-                    seq_data.ordered.append((mod_id, comp_key))
+                reference = mod_item.data(ROLE_COMPONENT)
+                seq_data.ordered.append(reference)
 
         seq_data.unordered = []
         for row in range(unordered_table.rowCount()):
             mod_item = unordered_table.item(row, COL_UNORDERED_MOD)
             if mod_item:
-                mod_id = mod_item.data(ROLE_MOD)
-                comp_key = mod_item.data(ROLE_COMPONENT)
-                seq_data.unordered.append((mod_id, comp_key))
+                reference = mod_item.data(ROLE_COMPONENT)
+                seq_data.unordered.append(reference)
 
         self._update_sequence_counters(seq_idx)
         self._validate_sequence(seq_idx)
@@ -1249,8 +1205,7 @@ class InstallOrderPage(BasePage):
         if not mod_item:
             return
 
-        mod_id = mod_item.data(ROLE_MOD)
-        comp_key = mod_item.data(ROLE_COMPONENT)
+        reference = mod_item.data(ROLE_COMPONENT)
 
         # Determine target position in ordered table
         selected = ordered_table.selectedItems()
@@ -1266,7 +1221,7 @@ class InstallOrderPage(BasePage):
 
         try:
             # Add to ordered table
-            self.insert_row_to_ordered_table(ordered_table, target_row, mod_id, comp_key)
+            self.insert_row_to_ordered_table(ordered_table, target_row, reference)
 
             # Remove from unordered table
             unordered_table.removeRow(row)
@@ -1279,23 +1234,24 @@ class InstallOrderPage(BasePage):
         self._on_order_changed(seq_idx)
 
     def insert_row_to_ordered_table(
-        self, table: QTableWidget, row: int, mod_id: str, comp_key: str
+        self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a row at specific position in ordered table."""
+        mod_id = reference.mod_id
         if mod_id == PAUSE_PREFIX:
-            self.insert_pause_to_ordered_table(table, row, comp_key)
+            self.insert_pause_to_ordered_table(table, row, str(reference))
             return
 
         table.insertRow(row)
 
+        comp_key = reference.comp_key
         mod = self._mod_manager.get_mod_by_id(mod_id)
         mod_name = mod.name if mod else mod_id
         comp_text = mod.get_component(comp_key).get_name()
 
         # Column 0: Mod name
         mod_item = QTableWidgetItem(f"[{mod.id}] {mod_name}")
-        mod_item.setData(ROLE_MOD, mod_id)
-        mod_item.setData(ROLE_COMPONENT, comp_key)
+        mod_item.setData(ROLE_COMPONENT, reference)
         table.setItem(row, COL_ORDERED_MOD, mod_item)
 
         # Column 1: Component
@@ -1303,10 +1259,13 @@ class InstallOrderPage(BasePage):
         table.setItem(row, COL_ORDERED_COMPONENT, comp_item)
 
     def insert_row_to_unordered_table(
-        self, table: QTableWidget, row: int, mod_id: str, comp_key: str
+        self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a row at specific position in unordered table."""
         table.insertRow(row)
+
+        mod_id = reference.mod_id
+        comp_key = reference.comp_key
 
         mod = self._mod_manager.get_mod_by_id(mod_id)
         mod_name = mod.name if mod else mod_id
@@ -1314,8 +1273,7 @@ class InstallOrderPage(BasePage):
 
         # Column 0: Mod name
         mod_item = QTableWidgetItem(f"[{mod.id}] {mod_name}")
-        mod_item.setData(ROLE_MOD, mod_id)
-        mod_item.setData(ROLE_COMPONENT, comp_key)
+        mod_item.setData(ROLE_COMPONENT, reference)
         table.setItem(row, COL_UNORDERED_MOD, mod_item)
 
         # Column 1: Component text
@@ -1438,9 +1396,9 @@ class InstallOrderPage(BasePage):
 
         logger.info(f"Restoring saved installation order for {len(install_order)} sequence(s)")
 
-        # Apply saved order to each sequence
         for seq_idx, order_list in install_order.items():
             if seq_idx in self._sequences_data:
+                order_list = ComponentReference.from_string_list(order_list)
                 self._apply_order_from_list(seq_idx, order_list)
 
         return True
@@ -1505,11 +1463,8 @@ class InstallOrderPage(BasePage):
         for seq_idx, seq_data in self._sequences_data.items():
             install_order[seq_idx] = []
 
-            for mod_id, comp_key in seq_data.ordered:
-                if mod_id == PAUSE_PREFIX:
-                    install_order[seq_idx].append(comp_key)
-                else:
-                    install_order[seq_idx].append(f"{mod_id.lower()}:{comp_key}")
+            for reference in seq_data.ordered:
+                install_order[seq_idx].append(str(reference))
 
         self.state_manager.set_install_order(install_order)
         self.state_manager.set_page_option(

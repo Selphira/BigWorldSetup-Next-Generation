@@ -5,6 +5,7 @@ from enum import Enum
 from typing import Any
 
 from constants import ICON_ERROR, ICON_INFO, ICON_WARNING
+from core.ComponentReference import ComponentReference
 
 
 class RuleType(Enum):
@@ -38,48 +39,6 @@ class OrderDirection(Enum):
 
 
 @dataclass(frozen=True, slots=True)
-class ComponentRef:
-    """Reference to a specific component or entire mod.
-
-    Attributes:
-        mod_id: Mod identifier
-        comp_key: Component key (None = entire mod)
-    """
-
-    mod_id: str
-    comp_key: str | None = None
-
-    def is_any_component(self) -> bool:
-        """Check if this matches any component of the mod."""
-        return self.comp_key == "*"
-
-    def matches(self, mod_id: str, comp_key: str | None = None) -> bool:
-        """Check if this reference matches given mod/component."""
-        if self.mod_id != mod_id:
-            return False
-        if self.is_any_component():
-            return True
-        return self.comp_key == comp_key
-
-    def __str__(self) -> str:
-        return f"{self.mod_id}:{self.comp_key}"
-
-    @classmethod
-    def from_string(cls, ref: str) -> "ComponentRef":
-        """Parse component reference from string format.
-
-        Formats:
-        - "mod_id" -> any component of mod
-        - "mod_id:*" -> any component of mod
-        - "mod_id:comp_key" -> specific component
-        """
-        if ":" in ref:
-            mod_id, comp_key = ref.split(":", 1)
-            return cls(mod_id, comp_key if comp_key != "*" else "*")
-        return cls(ref, "*")
-
-
-@dataclass(frozen=True, slots=True)
 class Rule:
     """Base rule class.
 
@@ -94,23 +53,13 @@ class Rule:
 
     rule_type: RuleType
     severity: RuleSeverity
-    sources: tuple[ComponentRef, ...]
-    targets: tuple[ComponentRef, ...]
+    sources: tuple[ComponentReference, ...]
+    targets: tuple[ComponentReference, ...]
     description: str = ""
     source_url: str | None = None
 
-    def applies_to(self, mod_id: str, comp_key: str | None = None) -> bool:
-        """Check if this rule applies to given component."""
-        return any(source.matches(mod_id, comp_key) for source in self.sources)
-
-    def involves(self, mod_id: str, comp_key: str | None = None) -> bool:
-        """Check if component is involved in this rule."""
-        if self.applies_to(mod_id, comp_key):
-            return True
-        return any(target.matches(mod_id, comp_key) for target in self.targets)
-
     @staticmethod
-    def _parse_component_refs(data: Any) -> list[ComponentRef]:
+    def _parse_component_refs(data: Any) -> list[ComponentReference]:
         """Parse component references from various formats.
 
         Accepts:
@@ -118,12 +67,12 @@ class Rule:
         - Single dict: {"mod": "mod_id", "component": "comp"}
         - List of strings or dicts
 
-        Returns list of ComponentRef objects.
+        Returns list of ComponentReference objects.
         Raises ValueError if data is invalid.
         """
 
         if not isinstance(data, list):
-            data = [data.lower()]
+            data = [data]
 
         if not data:
             raise ValueError("Component reference list cannot be empty")
@@ -131,11 +80,11 @@ class Rule:
         refs = []
         for item in data:
             if isinstance(item, str):
-                refs.append(ComponentRef.from_string(item.lower()))
+                refs.append(ComponentReference.from_string(item))
             elif isinstance(item, dict):
                 if "mod" not in item:
                     raise ValueError(f"Component reference dict missing 'mod' key: {item}")
-                refs.append(ComponentRef(item["mod"].lower(), item.get("component")))
+                refs.append(ComponentReference(item["mod"], item.get("component")))
             else:
                 raise ValueError(f"Invalid component reference type: {type(item)}")
 
@@ -144,7 +93,7 @@ class Rule:
     @classmethod
     def _parse_sources_and_targets(
         cls, data: dict[str, Any]
-    ) -> tuple[tuple[ComponentRef, ...], tuple[ComponentRef, ...]]:
+    ) -> tuple[tuple[ComponentReference, ...], tuple[ComponentReference, ...]]:
         """Parse and validate sources and targets from rule data.
 
         Returns tuple of (sources, targets).
@@ -253,7 +202,7 @@ class RuleViolation:
     """
 
     rule: Rule
-    affected_components: tuple[tuple[str, str], ...]
+    affected_components: tuple[ComponentReference, ...]
     message: str
     suggested_actions: tuple[str, ...] = field(default_factory=tuple)
 
@@ -282,7 +231,9 @@ class RuleViolation:
 class ValidationCache:
     """Cache for validation results to improve performance."""
 
-    violations_by_component: dict[str, list[RuleViolation]] = field(default_factory=dict)
+    violations_by_component: dict[ComponentReference, list[RuleViolation]] = field(
+        default_factory=dict
+    )
     selection_hash: int | None = None
 
     def clear(self) -> None:
@@ -290,18 +241,17 @@ class ValidationCache:
         self.violations_by_component.clear()
         self.selection_hash = None
 
-    def get_violations(self, mod_id: str, comp_key: str) -> list[RuleViolation]:
+    def get_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached violations for a component."""
-        key = f"{mod_id}:{comp_key}"
-        return self.violations_by_component.get(key, [])
+        return self.violations_by_component.get(reference, [])
 
-    def has_violations(self, mod_id: str, comp_key: str) -> bool:
+    def has_violations(self, reference: ComponentReference) -> bool:
         """Check if component has any violations."""
-        return bool(self.get_violations(mod_id, comp_key))
+        return bool(self.get_violations(reference))
 
-    def get_icon(self, mod_id: str, comp_key: str) -> str:
+    def get_icon(self, reference: ComponentReference) -> str:
         """Get warning icon if component has violations."""
-        violations = self.get_violations(mod_id, comp_key)
+        violations = self.get_violations(reference)
         if not violations:
             return ""
 
