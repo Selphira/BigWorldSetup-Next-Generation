@@ -430,7 +430,7 @@ class DownloadPage(BasePage):
         self._global_progress.setVisible(True)
         layout.addWidget(self._global_progress)
 
-    def _create_main_splitter(self) -> QWidget:
+    def _create_main_splitter(self) -> QSplitter:
         """Create main splitter with table and operations panels."""
         splitter = QSplitter(Qt.Orientation.Horizontal)
         splitter.addWidget(self._create_archive_table_panel())
@@ -510,8 +510,7 @@ class DownloadPage(BasePage):
         panel = QWidget()
         layout = QVBoxLayout(panel)
         layout.setSpacing(SPACING_SMALL)
-        layout.setContentsMargins(MARGIN_SMALL, MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_SMALL)
-        layout.setContentsMargins(MARGIN_SMALL, 11, 0, 0)
+        layout.setContentsMargins(MARGIN_SMALL, 0, 0, 0)
 
         checkbox_widget = self._create_checkboxs_widget()
         checkbox_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
