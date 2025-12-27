@@ -32,7 +32,6 @@ from constants import (
     ICON_SUCCESS,
     ICON_WARNING,
     MARGIN_SMALL,
-    MARGIN_STANDARD,
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
@@ -49,7 +48,6 @@ class ModDetailsPanel(QWidget):
 
     # Layout constants
     PANEL_MIN_WIDTH = 340
-    PANEL_MAX_WIDTH = 600
     PANEL_PREFERRED_WIDTH = 450
 
     def __init__(self, mod_manager: ModManager, parent=None):
@@ -61,10 +59,8 @@ class ModDetailsPanel(QWidget):
     def _setup_ui(self) -> None:
         """Initialize UI components."""
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(
-            MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD
-        )
-        layout.setSpacing(SPACING_MEDIUM)
+        layout.setSpacing(0)
+        layout.setContentsMargins(0, 0, 0, 0)
 
         # Scroll area for content
         scroll = QScrollArea()
@@ -93,7 +89,6 @@ class ModDetailsPanel(QWidget):
 
         # Set size constraints
         self.setMinimumWidth(self.PANEL_MIN_WIDTH)
-        self.setMaximumWidth(self.PANEL_MAX_WIDTH)
 
         # Show placeholder initially
         self._show_placeholder()
