@@ -77,11 +77,27 @@
       "select_category": "Sélectionnez une catégorie",
       "search_placeholder": "Recherche...",
       "desired_languages": "Langues désirées",
+      "mod_details_title": "Détails du mod",
+      "violation_title": "Conflits et dépendances",
+      "ignore_warnings": "Ignorer les avertissements",
+      "ignore_errors": "Ignorer les erreurs",
       "filter": {
         "all_games": "Tous les jeux",
         "all_authors": "Tous les auteurs",
-        "all_languages": "Toutes les langues"
+        "all_languages": "Toutes les langues",
+        "violation_only": "Avec problème",
+        "violation_only_tooltip": "Afficher uniquement les mods et composants ayant des conflits ou dépendances à gérer"
       },
+      "violation": {
+        "select_component": "➕ Ajouter : {mod}: [{comp_key}] {component}",
+        "unselect_this_component": "❌ Supprimer ce composant",
+        "unselect_component": "❌ Supprimer : {mod}: [{comp_key}] {component}",
+        "type_dependency": "Dépendance",
+        "type_incompatibility": "Conflit"
+      },
+      "violation_type": "Type",
+      "violation_description": "Description",
+      "violation_no_issues_for_component": "Aucun problème pour ce composant",
       "deselect_all_confirm_title": "Confirmer la désélection",
       "deselect_all_confirm_message": "Voulez-vous désélectionner tous les composants ?",
       "import_select_file": "Sélectionner le fichier à importer",
@@ -355,10 +371,11 @@
     "component_selector": {
       "header": {
         "type": "Mod / Composant",
-        "selection": "# de composants"
+        "status": "Statut",
+        "selection": "Sélection"
       },
       "selection": {
-        "none": "Aucun",
+        "none": "0 / {total}",
         "complete": "{count} / {total}",
         "partial": "{count} / {total}"
       }

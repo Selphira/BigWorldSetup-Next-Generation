@@ -8,7 +8,7 @@ search functionality, and hierarchical component selection.
 import logging
 from typing import cast
 
-from PySide6.QtCore import QByteArray, QEvent, QModelIndex, Qt, QTimer
+from PySide6.QtCore import QEvent, QModelIndex, Qt, QTimer
 from PySide6.QtGui import QAction, QTextDocument
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -43,18 +43,22 @@ from constants import (
     MIN_SEARCH_LENGTH,
     ROLE_MOD,
     SEARCH_DEBOUNCE_DELAY,
+    SPACING_LARGE,
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
+from core.ComponentReference import ComponentReference
 from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.StateManager import StateManager
 from core.TranslationManager import tr
+from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
+from ui.pages.mod_selection.ComponentSelector import BaseTreeItem, ComponentSelector
+from ui.pages.mod_selection.ViolationPanel import ViolationPanel
 from ui.widgets.CategoryButton import CategoryButton
-from ui.widgets.ComponentSelector import ComponentSelector
 from ui.widgets.ModDetailsPanel import ModDetailsPanel
 from ui.widgets.MultiSelectComboBox import MultiSelectComboBox
 
@@ -251,15 +255,17 @@ class ModSelectionPage(BasePage):
         self._category_buttons: dict[CategoryEnum, CategoryButton] = {}
         self._current_category = CategoryEnum.ALL
         self._weidu_parser: WeiDULogParser = WeiDULogParser()
-
-        # Splitter state for collapsible panel
-        self._details_collapsed = False
-        self._splitter_state = QByteArray()
+        self._orchestrator = ValidationOrchestrator(self._rule_manager)
 
         # Search debouncing
         self._search_timer = QTimer()
         self._search_timer.setSingleShot(True)
         self._search_timer.timeout.connect(self._apply_search_filter)
+
+        self._chk_ignore_warnings: QCheckBox | None = None
+        self._chk_ignore_errors: QCheckBox | None = None
+        self._chk_show_violations: QCheckBox | None = None
+        self._violation_panel: ViolationPanel | None = None
 
         # Additional buttons
         self._btn_import: QToolButton | None = None
@@ -269,9 +275,84 @@ class ModSelectionPage(BasePage):
         # Build UI
         self._create_widgets()
         self._create_additional_buttons()
-        self._update_statistics()
 
-        logger.info("ModSelectionPage initialized")
+        self._orchestrator.set_selection_manager(self._component_selector._selection_manager)
+        self._component_selector.set_orchestrator(self._orchestrator)
+        self._violation_panel.set_orchestrator(self._orchestrator)
+
+        self._component_selector._model.itemChanged.connect(self._on_selection_validation)
+        self._component_selector.selectionModel().currentChanged.connect(
+            self._on_component_selection_changed
+        )
+
+        self._validation_timer = QTimer()
+        self._validation_timer.setSingleShot(True)
+        self._validation_timer.timeout.connect(self._trigger_validation)
+
+        self._update_statistics()
+        logger.info("ModSelectionPage initialized with validation")
+
+    def _on_selection_validation(self) -> None:
+        self._validation_timer.stop()
+        self._validation_timer.start(100)  # 100ms debounce
+
+    def _trigger_validation(self) -> None:
+        if not self._orchestrator:
+            return
+
+        logger.debug("=== TRIGGERING VALIDATION ===")
+
+        violations = self._orchestrator.validate_current_selection()
+
+        logger.info(f"Validation complete: {len(violations)} violations found")
+
+        for v in violations:
+            logger.debug(f"  - {v.rule.rule_type.value}: {v.affected_components}")
+
+        self._update_selected_component_violations()
+        self._component_selector._proxy_model.invalidateFilter()
+        self._component_selector.viewport().update()
+        self.notify_navigation_changed()
+
+        logger.debug("=== VALIDATION COMPLETE ===")
+
+    def _on_component_selection_changed(self, current, previous) -> None:
+        self._update_selected_component_violations()
+        self._on_component_changed(current)
+
+    def _update_selected_component_violations(self) -> None:
+        # Get current selection
+        current_index = self._component_selector.currentIndex()
+
+        if not current_index.isValid():
+            self._violation_panel.update_for_reference(None)
+            return
+
+        # Get item
+        source_index = self._component_selector._proxy_model.mapToSource(current_index)
+        item = self._component_selector._model.itemFromIndex(source_index.siblingAtColumn(0))
+
+        if not isinstance(item, BaseTreeItem):
+            self._violation_panel.update_for_reference(None)
+            return
+
+        try:
+            reference = ComponentReference.from_string(item.reference)
+            self._violation_panel.update_for_reference(reference)
+            logger.debug(f"Updated violation panel for {reference}")
+        except ValueError as e:
+            logger.warning(f"Invalid reference: {e}")
+            self._violation_panel.update_for_reference(None)
+
+    def _on_ignore_warnings_changed(self, state) -> None:
+        ignore = state == Qt.CheckState.Checked.value
+        self.notify_navigation_changed()
+        logger.debug(f"Ignore warnings: {ignore}")
+
+    def _on_ignore_errors_changed(self, state) -> None:
+        ignore = state == Qt.CheckState.Checked.value
+        self.notify_navigation_changed()
+        logger.debug(f"Ignore errors: {ignore}")
 
     # ========================================
     # Widget Creation
@@ -280,59 +361,49 @@ class ModSelectionPage(BasePage):
     def _create_widgets(self) -> None:
         """Create page UI layout."""
         layout = QHBoxLayout(self)
-        layout.setSpacing(0)
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(SPACING_LARGE)
+        layout.setContentsMargins(
+            MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD
+        )
 
-        # Left: Category selection
-        left_panel = self._create_left_panel()
-        layout.addWidget(left_panel)
+        layout.addWidget(self._create_main_splitter(), stretch=1)
 
-        # Center/Right: Splitter with component selector and details panel
-        self._splitter = self._create_splitter_with_panels()
-        layout.addWidget(self._splitter)
+    def _create_main_splitter(self) -> QSplitter:
+        """Create main splitter with table and operations panels."""
+        splitter = QSplitter(Qt.Orientation.Horizontal)
+        splitter.addWidget(self._create_left_panel())
+        splitter.addWidget(self._create_right_splitter())
+        splitter.setStretchFactor(0, 6)
+        splitter.setStretchFactor(1, 2)
+        splitter.setCollapsible(0, False)
+        splitter.setCollapsible(1, False)
 
-    def _create_additional_buttons(self):
-        """Create additional buttons."""
-        # Import selection
-        self._btn_import = QToolButton()
-        self._btn_import.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_import.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-
-        menu = QMenu(self._btn_import)
-
-        self._action_import_file = QAction("", self._btn_import)
-        self._action_import_file.triggered.connect(self._import_selection_file)
-        self._action_import_weidu = QAction("", self._btn_import)
-        self._action_import_weidu.triggered.connect(self._import_selection_weidu)
-
-        menu.addAction(self._action_import_file)
-        menu.addAction(self._action_import_weidu)
-
-        self._btn_import.setMenu(menu)
-        self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
-
-        # Export selection
-        self._btn_export = QPushButton()
-        self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_export.clicked.connect(self._export_selection)
-
-        # Export selection
-        self._btn_deselect_all = QPushButton()
-        self._btn_deselect_all.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_deselect_all.clicked.connect(self._deselect_all)
+        return splitter
 
     def _create_left_panel(self) -> QWidget:
         """Create left panel with category buttons."""
+        panel = QFrame()
+        panel.setFrameShape(QFrame.Shape.StyledPanel)
+
+        layout = QHBoxLayout(panel)
+        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout.setSpacing(SPACING_SMALL)
+        layout.setContentsMargins(0, 0, 10, 0)
+
+        layout.addWidget(self._create_category_panel())
+        layout.addWidget(self._create_components_panel())
+
+        return panel
+
+    def _create_category_panel(self) -> QFrame:
         panel = QFrame()
         panel.setFrameShape(QFrame.Shape.StyledPanel)
         panel.setFixedWidth(self.LEFT_PANEL_WIDTH)
 
         layout = QVBoxLayout(panel)
         layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout.setContentsMargins(
-            MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_SMALL, MARGIN_STANDARD
-        )
-        layout.setSpacing(SPACING_MEDIUM)
+        layout.setSpacing(SPACING_SMALL)
+        layout.setContentsMargins(0, 0, 10, 0)
 
         # Title
         self._left_title = self._create_section_title()
@@ -376,64 +447,14 @@ class ModSelectionPage(BasePage):
         self._category_buttons[category] = button
         return button
 
-    def _create_splitter_with_panels(self) -> QSplitter:
-        """Create splitter containing center panel and details panel."""
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.setHandleWidth(20)
-
-        # Center panel (component selector)
-        center_panel = self._create_center_panel()
-        splitter.addWidget(center_panel)
-
-        # Right panel (mod details)
-        self._details_panel = ModDetailsPanel(self._mod_manager)
-        splitter.addWidget(self._details_panel)
-
-        # Configure collapsibility
-        splitter.setCollapsible(0, False)  # Center panel cannot collapse
-        splitter.setCollapsible(1, True)  # Details panel can collapse
-
-        # Set initial sizes (70% - 30%)
-        splitter.setStretchFactor(0, 7)
-        splitter.setStretchFactor(1, 3)
-
-        splitter.splitterMoved.connect(self._on_splitter_moved)
-
-        # Add collapse button in handle
-        self._setup_collapse_button(splitter)
-
-        return splitter
-
-    def _setup_collapse_button(self, splitter: QSplitter) -> None:
-        """Add collapse button to splitter handle."""
-        splitter_handle = splitter.handle(1)
-        handle_layout = QVBoxLayout()
-        handle_layout.setContentsMargins(0, 0, 0, 0)
-
-        self._collapse_button = QToolButton(splitter_handle)
-        self._collapse_button.setStyleSheet("border: none;")
-        self._collapse_button.setAutoRaise(True)
-        self._collapse_button.setFixedSize(20, 40)
-        self._collapse_button.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._collapse_button.setArrowType(Qt.ArrowType.RightArrow)
-        self._collapse_button.setToolTip(tr("widget.mod_details.collapse"))
-
-        handle_layout.addWidget(self._collapse_button)
-        handle_layout.addStretch()
-        splitter_handle.setLayout(handle_layout)
-
-        self._collapse_button.clicked.connect(self._toggle_details_panel)
-
-    def _create_center_panel(self) -> QWidget:
+    def _create_components_panel(self) -> QFrame:
         """Create center panel with filters and selector."""
         panel = QFrame()
         panel.setFrameShape(QFrame.Shape.StyledPanel)
 
         layout = QVBoxLayout(panel)
         layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout.setContentsMargins(
-            MARGIN_SMALL, MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD
-        )
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(SPACING_MEDIUM)
 
         # Search filter
@@ -444,11 +465,7 @@ class ModSelectionPage(BasePage):
         self._component_selector = ComponentSelector(self._mod_manager, self)
         self._highlight_delegate = HighlightDelegate(self._component_selector)
         self._component_selector.setItemDelegate(self._highlight_delegate)
-
-        # Connect selection changes to update navigation buttons
         self._component_selector._model.itemChanged.connect(self._on_selection_changed)
-
-        # Connect clicks to update details panel
         self._component_selector.selectionModel().currentChanged.connect(
             self._on_component_changed
         )
@@ -457,16 +474,103 @@ class ModSelectionPage(BasePage):
 
         return panel
 
+    def _create_right_splitter(self) -> QSplitter:
+        """Create main splitter with table and operations panels."""
+        splitter = QSplitter(Qt.Orientation.Vertical)
+        splitter.addWidget(self._create_mod_details_panel())
+        splitter.addWidget(self._create_violation_panel())
+        splitter.setStretchFactor(0, 6)
+        splitter.setStretchFactor(1, 2)
+        splitter.setCollapsible(0, False)
+        splitter.setCollapsible(1, False)
+
+        return splitter
+
+    def _create_mod_details_panel(self):
+        panel = QWidget()
+        layout = QVBoxLayout(panel)
+        layout.setSpacing(SPACING_SMALL)
+        layout.setContentsMargins(MARGIN_SMALL, 0, 0, 0)
+
+        checkbox_widget = self._create_checkboxs_widget()
+        checkbox_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        layout.addWidget(checkbox_widget)
+
+        self._mod_details_title = self._create_section_title()
+        layout.addWidget(self._mod_details_title)
+
+        self._details_panel = ModDetailsPanel(self._mod_manager)
+        layout.addWidget(self._details_panel)
+
+        return panel
+
+    def _create_violation_panel(self):
+        panel = QWidget()
+        layout = QVBoxLayout(panel)
+        layout.setSpacing(SPACING_SMALL)
+        layout.setContentsMargins(MARGIN_SMALL, 0, 0, 0)
+
+        self._violation_title = self._create_section_title()
+        layout.addWidget(self._violation_title)
+
+        self._violation_panel = ViolationPanel()
+        layout.addWidget(self._violation_panel, stretch=1)
+
+        return panel
+
+    def _create_checkboxs_widget(self) -> QWidget:
+        container = QWidget()
+        layout = QHBoxLayout(container)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(SPACING_SMALL)
+        layout.addStretch()
+
+        self._chk_ignore_warnings = QCheckBox()
+        self._chk_ignore_warnings.stateChanged.connect(self._on_ignore_warnings_changed)
+        layout.addWidget(self._chk_ignore_warnings)
+
+        self._chk_ignore_errors = QCheckBox()
+        self._chk_ignore_errors.stateChanged.connect(self._on_ignore_errors_changed)
+        layout.addWidget(self._chk_ignore_errors)
+
+        return container
+
+    def _create_additional_buttons(self):
+        """Create additional buttons."""
+        # Import selection
+        self._btn_import = QToolButton()
+        self._btn_import.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_import.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+
+        menu = QMenu(self._btn_import)
+
+        self._action_import_file = QAction("", self._btn_import)
+        self._action_import_file.triggered.connect(self._import_selection_file)
+        self._action_import_weidu = QAction("", self._btn_import)
+        self._action_import_weidu.triggered.connect(self._import_selection_weidu)
+
+        menu.addAction(self._action_import_file)
+        menu.addAction(self._action_import_weidu)
+
+        self._btn_import.setMenu(menu)
+        self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
+
+        # Export selection
+        self._btn_export = QPushButton()
+        self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_export.clicked.connect(self._export_selection)
+
+        # Export selection
+        self._btn_deselect_all = QPushButton()
+        self._btn_deselect_all.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_deselect_all.clicked.connect(self._deselect_all)
+
     def _create_filters_section(self) -> QWidget:
-        """Create filters section with search bar."""
+        """Create filters section avec recherche, langues ET violations."""
         filters_widget = QWidget()
         filters_layout = QVBoxLayout(filters_widget)
         filters_layout.setContentsMargins(0, 0, 0, 0)
         filters_layout.setSpacing(SPACING_SMALL)
-
-        sub_filters_layout = QHBoxLayout(filters_widget)
-        sub_filters_layout.setContentsMargins(0, 0, 0, 0)
-        sub_filters_layout.setSpacing(SPACING_SMALL)
 
         # Search bar
         self._search_input = QLineEdit()
@@ -476,15 +580,25 @@ class ModSelectionPage(BasePage):
         self._search_input.textChanged.connect(self._on_search_changed)
         filters_layout.addWidget(self._search_input)
 
+        sub_filters_layout = QHBoxLayout()
+        sub_filters_layout.setContentsMargins(0, 0, 0, 0)
+        sub_filters_layout.setSpacing(SPACING_SMALL)
+
+        # Languages
         self._lang_label = QLabel(tr("page.selection.desired_languages"))
         sub_filters_layout.addWidget(self._lang_label)
 
         self._lang_select = MultiSelectComboBox()
         self._lang_select.setMinimumWidth(100)
         self._lang_select.selection_changed.connect(self._apply_all_filters)
-
         sub_filters_layout.addWidget(self._lang_select)
+
+        # Spacer
         sub_filters_layout.addStretch()
+
+        self._chk_show_violations = QCheckBox()
+        self._chk_show_violations.stateChanged.connect(self._on_violations_filter_changed)
+        sub_filters_layout.addWidget(self._chk_show_violations)
 
         filters_layout.addLayout(sub_filters_layout)
 
@@ -493,22 +607,6 @@ class ModSelectionPage(BasePage):
     # ========================================
     # Details Panel Management
     # ========================================
-
-    def _toggle_details_panel(self) -> None:
-        """Toggle visibility of details panel."""
-        if self._details_collapsed:
-            # Restore
-            self._splitter.restoreState(self._splitter_state)
-            self._collapse_button.setArrowType(Qt.ArrowType.RightArrow)
-            self._collapse_button.setToolTip(tr("widget.mod_details.collapse"))
-        else:
-            # Save and collapse
-            self._splitter_state = self._splitter.saveState()
-            self._splitter.setSizes([1, 0])
-            self._collapse_button.setArrowType(Qt.ArrowType.LeftArrow)
-            self._collapse_button.setToolTip(tr("widget.mod_details.expand"))
-
-        self._details_collapsed = not self._details_collapsed
 
     def _on_component_changed(self, index: QModelIndex) -> None:
         """Handle component click to update details panel."""
@@ -565,23 +663,6 @@ class ModSelectionPage(BasePage):
     def _on_selection_changed(self) -> None:
         """Handle component selection change."""
         self.notify_navigation_changed()
-
-    def _on_splitter_moved(self):
-        """Detect manual collapse or expansion by the user."""
-        sizes = self._splitter.sizes()
-        right_size = sizes[1]
-
-        collapsed = right_size < 10
-
-        if collapsed != self._details_collapsed:
-            self._details_collapsed = collapsed
-            self._splitter_state = QByteArray(
-                b"\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x07\xaf\x00\x00\x01\xb6\x01\x00\x00\x00\x14\x01\x00\x00\x00\x01\x00"
-            )
-            if collapsed:
-                self._collapse_button.setArrowType(Qt.ArrowType.LeftArrow)
-            else:
-                self._collapse_button.setArrowType(Qt.ArrowType.RightArrow)
 
     def _deselect_all(self) -> None:
         # Ask for confirmation
@@ -692,44 +773,52 @@ class ModSelectionPage(BasePage):
     def _apply_imported_selection(
         self, components_to_select: list[str], replace: bool, file_path: str
     ) -> None:
-        """Apply imported component selection.
+        """Import avec validation différée."""
+        logger.info(f"Importing selection from {file_path}")
 
-        Args:
-            components_to_select: List of components to select
-            replace: Whether to replace current selection
-            file_path: Source file path for logging
-        """
-        if replace:
-            self._component_selector.clear_selection()
+        self._orchestrator.enable_validation(False)
 
-        self._component_selector.restore_selection(components_to_select)
+        try:
+            if replace:
+                self._component_selector.clear_selection()
 
-        # Calculate statistics
-        reference_to_select = [
-            reference.lower()
-            for reference in components_to_select
-            if (
-                (comp_key := reference.partition(":")[2])
-                and "choice_" not in comp_key
-                and comp_key.count(".") == 0
-            )
-        ]
-        reference_selected = self._component_selector.get_selected_components()
-        selected_list = list(set(reference_selected) & set(reference_to_select))
-        total_selected = len(selected_list)
-        total_to_select = len(reference_to_select)
+            self._component_selector.restore_selection(components_to_select)
 
-        QMessageBox.information(
-            self,
-            tr("page.selection.import_success_title"),
-            tr(
-                "page.selection.import_success_message",
-                to_select=total_to_select,
-                selected=total_selected,
-            ),
+            # Stats
+            reference_to_select = [
+                reference.lower()
+                for reference in components_to_select
+                if (
+                    (comp_key := reference.partition(":")[2])
+                    and "choice_" not in comp_key
+                    and comp_key.count(".") == 0
+                )
+            ]
+            reference_selected = self._component_selector.get_selected_components()
+            selected_list = list(set(reference_selected) & set(reference_to_select))
+            total_selected = len(selected_list)
+            total_to_select = len(reference_to_select)
+
+        finally:
+            self._orchestrator.enable_validation(True)
+            violations = self._orchestrator.validate_current_selection()
+
+        message = tr(
+            "page.selection.import_success_message",
+            to_select=total_to_select,
+            selected=total_selected,
         )
 
-        logger.info("Imported selection from %s: %d components", file_path, total_selected)
+        if violations:
+            errors = sum(1 for v in violations if v.is_error)
+            warnings = sum(1 for v in violations if v.is_warning)
+            message += f"\n\n⚠️ {errors} erreur(s), {warnings} avertissement(s) détecté(s)"
+
+        QMessageBox.information(self, tr("page.selection.import_success_title"), message)
+
+        logger.info(
+            f"Import complete: {total_selected} components, {len(violations)} violations"
+        )
 
     def _export_selection(self) -> None:
         """Export current order to JSON file."""
@@ -814,6 +903,20 @@ class ModSelectionPage(BasePage):
 
         self._update_statistics()
 
+    def _on_violations_filter_changed(self, state) -> None:
+        show_only = state == Qt.CheckState.Checked.value
+
+        logger.info(f"Violations filter changed: {show_only}")
+
+        self._component_selector._proxy_model.set_show_violations_only(show_only)
+
+        if show_only:
+            self._component_selector.expandAll()
+        else:
+            self._component_selector.collapseAll()
+
+        self._update_statistics()
+
     def _update_statistics(self) -> None:
         """Update category counters based on current filters."""
         filtered_counts = self._component_selector.get_filtered_mod_count_by_category()
@@ -844,11 +947,22 @@ class ModSelectionPage(BasePage):
 
     def can_go_to_next_page(self) -> bool:
         """Check if can go to next page."""
+        if not self._component_selector.has_selection():
+            return False
+
+        if self._orchestrator:
+            if self._orchestrator.has_errors() and not self._chk_ignore_errors.isChecked():
+                return False
+
+            if self._orchestrator.has_warnings() and not self._chk_ignore_warnings.isChecked():
+                return False
+
         return self._component_selector.has_selection()
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""
         super().on_page_shown()
+
         game = self.state_manager.get_game_manager().get(self.state_manager.get_selected_game())
         self._component_selector.set_game(game)
         self._search_input.setFocus()
@@ -858,19 +972,30 @@ class ModSelectionPage(BasePage):
                 icon_path = FLAGS_DIR / f"{lang_code}.png"
                 self._lang_select.add_item(lang_code, str(icon_path))
 
+        if self._orchestrator:
+            QTimer.singleShot(200, self._trigger_validation)
+
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
         self._left_title.setText(tr("page.selection.select_category"))
         self._btn_export.setText(tr("page.selection.btn_export"))
         self._btn_import.setText(tr("page.selection.btn_import"))
         self._btn_deselect_all.setText(tr("page.selection.btn_deselect_all"))
+        self._mod_details_title.setText(tr("page.selection.mod_details_title"))
+        self._violation_title.setText(tr("page.selection.violation_title"))
         self._action_import_file.setText(tr("page.selection.action_import_file"))
         self._action_import_weidu.setText(tr("page.selection.action_import_weidu"))
         self._search_input.setPlaceholderText(tr("page.selection.search_placeholder"))
+        self._chk_ignore_warnings.setText(tr("page.selection.ignore_warnings"))
+        self._chk_ignore_errors.setText(tr("page.selection.ignore_errors"))
+        self._chk_show_violations.setText(tr("page.selection.filter.violation_only"))
+        self._chk_show_violations.setToolTip(tr("page.selection.filter.violation_only_tooltip"))
 
         # Update category buttons
         for button in self._category_buttons.values():
             button.retranslate_ui()
+
+        self._violation_panel.retranslate_ui()
 
         # Update component selector
         self._component_selector.retranslate_ui()
@@ -884,6 +1009,13 @@ class ModSelectionPage(BasePage):
     def load_state(self) -> None:
         """Load state from state manager."""
         super().load_state()
+
+        self._chk_ignore_errors.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_errors", False)
+        )
+        self._chk_ignore_warnings.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_warnings", False)
+        )
 
         # Load selected components
         selected_components = self.state_manager.get_selected_components()
@@ -901,3 +1033,10 @@ class ModSelectionPage(BasePage):
         # Save selected components
         components = self._component_selector.get_selected_items()
         self.state_manager.set_selected_components(components)
+
+        self.state_manager.set_page_option(
+            self.get_page_id(), "ignore_errors", self._chk_ignore_errors.isChecked()
+        )
+        self.state_manager.set_page_option(
+            self.get_page_id(), "ignore_warnings", self._chk_ignore_warnings.isChecked()
+        )

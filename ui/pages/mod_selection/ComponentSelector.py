@@ -13,13 +13,15 @@ import logging
 from typing import Generator, cast
 
 from PySide6.QtCore import QModelIndex, QSortFilterProxyModel, Qt
-from PySide6.QtGui import QColor, QCursor, QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QTreeView
+from PySide6.QtGui import QColor, QCursor, QFontMetrics, QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import QHeaderView, QStyledItemDelegate, QTreeView
 
 from constants import (
     COLOR_STATUS_COMPLETE,
     COLOR_STATUS_NONE,
     COLOR_STATUS_PARTIAL,
+    ICON_ERROR,
+    ICON_WARNING,
     ROLE_AUTHOR,
     ROLE_COMPONENT,
     ROLE_IS_DEFAULT,
@@ -28,6 +30,7 @@ from constants import (
     ROLE_PROMPT_KEY,
     ROLE_RADIO,
 )
+from core.ComponentReference import ComponentReference, IndexManager
 from core.enums.CategoryEnum import CategoryEnum
 from core.GameModels import GameDefinition
 from core.ModManager import ModManager
@@ -232,10 +235,23 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._filter_engine = FilterEngine()
+        self._indexes = IndexManager.get_indexes()
+        self._show_violations_only = False
 
         # Configuration
         self.setRecursiveFilteringEnabled(True)
         self.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+
+    def set_show_violations_only(self, show: bool) -> None:
+        if self._show_violations_only == show:
+            return
+
+        self._show_violations_only = show
+        self.invalidateFilter()
+        logger.debug(f"Show violations only: {show}")
+
+    def get_show_violations_only(self) -> bool:
+        return self._show_violations_only
 
     def lessThan(self, left: QModelIndex, right: QModelIndex) -> bool:
         """Compare two items for sorting.
@@ -282,12 +298,25 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         - It matches filters
         - OR one of its children matches filters
         - OR one of its parents matches filters
+        - AND (if violations filter active) it or its children have violations
         """
-        if not self.has_active_filters():
-            return True
-
         source_model = self.sourceModel()
         index = source_model.index(source_row, 0, source_parent)
+
+        # Standard filter first
+        standard_filter_passes = self._check_standard_filters(index, source_model)
+
+        if not standard_filter_passes:
+            return False
+
+        if not self._show_violations_only:
+            return True
+
+        return self._has_violations_recursive(index, source_model)
+
+    def _check_standard_filters(self, index: QModelIndex, source_model) -> bool:
+        if not self.has_active_filters():
+            return True
 
         # Check if this item matches
         if self._filter_engine.matches_item(index):
@@ -298,6 +327,34 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
             return True
 
         return False
+
+    def _has_violations_recursive(self, index: QModelIndex, source_model) -> bool:
+        item = source_model.itemFromIndex(index)
+        if not isinstance(item, BaseTreeItem):
+            return False
+
+        try:
+            reference = ComponentReference.from_string(item.reference)
+
+            if isinstance(item, ModTreeItem):
+                for row in range(item.rowCount()):
+                    child = item.child(row, 0)
+                    if not isinstance(child, BaseTreeItem):
+                        continue
+
+                    try:
+                        child_ref = ComponentReference.from_string(child.reference)
+                        if self._indexes.has_violations(child_ref):
+                            return True
+                    except ValueError:
+                        continue
+
+                return False
+            else:
+                return self._indexes.has_violations(reference)
+
+        except ValueError:
+            return False
 
     def _has_matching_child(self, parent_index: QModelIndex) -> bool:
         """Check if any child matches filters (recursive)."""
@@ -705,7 +762,7 @@ class ModStatusManager:
         Returns:
             Formatted status text
         """
-        if stats and not stats.none_checked and stats.has_visible_children:
+        if stats:
             return tr(text_key, count=stats.checked_count, total=stats.total_visible)
         return tr(text_key)
 
@@ -738,6 +795,7 @@ class SelectionStateManager:
         self._updating = False
         self._items: dict[str, BaseTreeItem] = {}
         self._game: GameDefinition | None = None
+        self._indexes = IndexManager.get_indexes()
 
     def set_game(self, game: GameDefinition) -> None:
         old_game = self._game
@@ -792,9 +850,24 @@ class SelectionStateManager:
 
         self._updating = True
         try:
+            self._sync_selection_index(item)
             return self._handle_item_by_type(item)
         finally:
             self._updating = False
+
+    def _sync_selection_index(self, item: BaseTreeItem) -> None:
+        try:
+            reference = ComponentReference.from_string(item.reference)
+
+            if item.checkState() == Qt.CheckState.Checked:
+                self._indexes.select(reference)
+                logger.debug(f"Index updated: selected {reference}")
+            else:
+                self._indexes.unselect(reference)
+                logger.debug(f"Index updated: unselected {reference}")
+
+        except ValueError as e:
+            logger.warning(f"Could not sync index for {item.reference}: {e}")
 
     def _handle_item_by_type(self, item: BaseTreeItem) -> ModTreeItem | None:
         """Route handling based on item type."""
@@ -1113,6 +1186,122 @@ class SelectionStateManager:
         return None
 
 
+class StatusColumnDelegate(QStyledItemDelegate):
+    """Delegate for status column with violation icons."""
+
+    ICON_SPACING = 4
+
+    def __init__(self, indexes, parent=None):
+        super().__init__(parent)
+        self._indexes = indexes
+
+    def paint(self, painter, option, index):
+        super().paint(painter, option, index)
+
+        # Map to source model if needed
+        source_index = index
+        if hasattr(index.model(), "mapToSource"):
+            source_index = index.model().mapToSource(index)
+
+        # Get item from first column (name)
+        item = source_index.model().itemFromIndex(source_index.siblingAtColumn(0))
+        if not isinstance(item, BaseTreeItem):
+            return
+
+        try:
+            reference = ComponentReference.from_string(item.reference)
+            icons_to_draw = self._get_icons_for_reference(reference, item)
+
+            if not icons_to_draw:
+                return
+
+            self._draw_icons(painter, option.rect, icons_to_draw)
+
+        except (ValueError, AttributeError) as e:
+            logger.debug(f"Could not render status: {e}")
+
+    def _get_icons_for_reference(
+        self, reference: ComponentReference, item: BaseTreeItem
+    ) -> list[tuple[str, QColor]]:
+        """Get icons to display for a reference.
+
+        Returns:
+            List of tuples (icon_text, color)
+        """
+        icons = []
+
+        # For mod items, aggregate violations from children
+        if isinstance(item, ModTreeItem):
+            has_child_error = False
+            has_child_warning = False
+
+            for row in range(item.rowCount()):
+                child = item.child(row, 0)
+                if not isinstance(child, BaseTreeItem):
+                    continue
+
+                try:
+                    child_ref = ComponentReference.from_string(child.reference)
+                    child_violations = self._indexes.get_violations(child_ref)
+
+                    if any(v.is_error for v in child_violations):
+                        has_child_error = True
+                    if any(v.is_warning for v in child_violations):
+                        has_child_warning = True
+
+                except ValueError:
+                    continue
+
+            if has_child_error:
+                icons.append((ICON_ERROR, QColor("#d32f2f")))
+            if has_child_warning:
+                icons.append((ICON_WARNING, QColor("#f57c00")))
+        else:
+            # For components, display their own violations
+            violations = self._indexes.get_violations(reference)
+
+            if not violations:
+                return icons
+
+            has_error = any(v.is_error for v in violations)
+            has_warning = any(v.is_warning for v in violations)
+
+            if has_error:
+                icons.append((ICON_ERROR, QColor("#d32f2f")))
+            if has_warning:
+                icons.append((ICON_WARNING, QColor("#f57c00")))
+
+        return icons
+
+    def _draw_icons(self, painter, rect, icons: list[tuple[str, QColor]]) -> None:
+        """Draw icons in the rect."""
+        if not icons:
+            return
+
+        painter.save()
+
+        font = painter.font()
+        font.setBold(True)
+        font.setPointSize(font.pointSize() + 1)
+        painter.setFont(font)
+
+        fm = QFontMetrics(font)
+
+        # Calculate positions (horizontally centered)
+        total_width = sum(fm.horizontalAdvance(icon[0]) for icon in icons)
+        total_width += self.ICON_SPACING * (len(icons) - 1)
+
+        x = rect.x() + (rect.width() - total_width) // 2
+        y = rect.center().y() + fm.height() // 3
+
+        for icon_text, color in icons:
+            painter.setPen(color)
+            painter.drawText(x, y, icon_text)
+            x += fm.horizontalAdvance(icon_text) + self.ICON_SPACING
+
+        painter.restore()
+
+
 # ============================================================================
 # Main Component Selector Widget
 # ============================================================================
@@ -1126,16 +1315,21 @@ class ComponentSelector(QTreeView):
         self._updating = False
         self._mod_manager = mod_manager
         self._selection_manager: SelectionStateManager | None = None
+        self._orchestrator = None
+        self._indexes = IndexManager.get_indexes()
+        self._status_delegate = StatusColumnDelegate(self._indexes, self)
 
         # Setup
         self._setup_model()
         self._status_manager = ModStatusManager(self._model, self._proxy_model)
         self._setup_ui()
         self._load_data()
-        self.setColumnWidth(0, 400)
-        self._configure_header()
+        self._configure_table()
 
         logger.info("ComponentSelector initialized")
+
+    def set_orchestrator(self, orchestrator) -> None:
+        self._orchestrator = orchestrator
 
     # ========================================
     # Initialization
@@ -1160,15 +1354,23 @@ class ComponentSelector(QTreeView):
         """Configure UI."""
         self.setEditTriggers(QTreeView.EditTrigger.NoEditTriggers)
         self.setExpandsOnDoubleClick(True)
-        # self.clicked.connect(self._on_item_clicked)
+        self.clicked.connect(self._on_item_clicked)
 
-    def _configure_header(self) -> None:
+    def _configure_table(self) -> None:
         """Configure tree view header."""
         header = self.header()
         header.setHighlightSections(False)
         header.setSectionsClickable(False)
         header.setSectionsMovable(False)
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
         header.setDefaultAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+
+        self.setColumnWidth(1, 80)  # Selection
+        self.setColumnWidth(2, 50)  # Status
+        self.setItemDelegateForColumn(2, self._status_delegate)
 
     # ========================================
     # Data Loading
@@ -1180,15 +1382,18 @@ class ComponentSelector(QTreeView):
 
         for mod in self._mod_manager.get_all_mods().values():
             mod_item = ModTreeItem(mod)
-            status_item = self._create_status_item()
+            status_item = QStandardItem("")
+            selection_item = self._create_selection_item()
 
             # Add components
             for component in mod.get_components():
                 comp_item = self._create_component_item(mod, component)
-                mod_item.appendRow([comp_item, QStandardItem("")])
+                comp_selection_item = QStandardItem("")
+                comp_status_item = QStandardItem("")
+                mod_item.appendRow([comp_item, comp_selection_item, comp_status_item])
 
             self._selection_manager.add_item(mod_item)
-            self._model.appendRow([mod_item, status_item])
+            self._model.appendRow([mod_item, selection_item, status_item])
 
     def _create_component_item(self, mod, component) -> BaseTreeItem:
         """Create appropriate item type for component."""
@@ -1240,8 +1445,11 @@ class ComponentSelector(QTreeView):
                 is_default = idx == 0
 
             option_item = MucOptionTreeItem(mod, component, option_key, is_default)
+            status_item = QStandardItem("")  # Statut
+            selection_item = QStandardItem("")  # Sélection
+
             self._selection_manager.add_item(option_item)
-            parent.appendRow([option_item, QStandardItem("")])
+            parent.appendRow([option_item, status_item, selection_item])
 
             if is_default:
                 logger.debug(
@@ -1253,6 +1461,9 @@ class ComponentSelector(QTreeView):
         for prompt_key in component.prompts.keys():
             prompt = component.get_prompt(prompt_key)
             prompt_item = PromptTreeItem(mod, component, prompt)
+            prompt_status_item = QStandardItem("")
+            prompt_selection_item = QStandardItem("")
+
             self._selection_manager.add_item(prompt_item)
 
             # Add options to prompt
@@ -1260,16 +1471,20 @@ class ComponentSelector(QTreeView):
                 option_item = PromptOptionTreeItem(
                     mod, component, prompt, option_key, option_key == prompt.default
                 )
-                prompt_item.appendRow([option_item, QStandardItem("")])
+                option_status_item = QStandardItem("")
+                option_selection_item = QStandardItem("")
+
+                prompt_item.appendRow([option_item, option_status_item, option_selection_item])
                 self._selection_manager.add_item(option_item)
 
             self._model.set_radio_mode(prompt_item)
-            parent.appendRow([prompt_item, QStandardItem("")])
+            parent.appendRow([prompt_item, prompt_status_item, prompt_selection_item])
 
-    def _create_status_item(self) -> QStandardItem:
+    def _create_selection_item(self) -> QStandardItem:
         """Create status column item."""
         item = QStandardItem(tr("widget.component_selector.selection.none"))
         item.setForeground(QColor(COLOR_STATUS_NONE))
+        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
 
     def _uncheck_incompatible_with_game(self, game: str) -> None:
@@ -1402,7 +1617,7 @@ class ComponentSelector(QTreeView):
         click_pos = self.viewport().mapFromGlobal(QCursor.pos())
 
         # Define checkbox interaction zone
-        checkbox_zone = rect.left() + 25
+        checkbox_zone = rect.left() + 35
 
         # Si on clique après la case, on replie/déplie
         if click_pos.x() > checkbox_zone:
@@ -1447,13 +1662,6 @@ class ComponentSelector(QTreeView):
     def clear_filters(self) -> None:
         """Clear all filters."""
         self._proxy_model.clear_all_filters()
-
-    def expand_filtered_results(self) -> None:
-        """Expand all nodes matching filters."""
-        if self._proxy_model.has_active_filters():
-            self.expandAll()
-        else:
-            self.collapseAll()
 
     # ========================================
     # Statistics
@@ -1606,6 +1814,7 @@ class ComponentSelector(QTreeView):
             [
                 tr("widget.component_selector.header.type"),
                 tr("widget.component_selector.header.selection"),
+                tr("widget.component_selector.header.status"),
             ]
         )
 
