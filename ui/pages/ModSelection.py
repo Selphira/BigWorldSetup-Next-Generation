@@ -965,16 +965,20 @@ class ModSelectionPage(BasePage):
         self._selection_controller.set_game(game)
         self._search_input.setFocus()
 
-        if self._lang_select.count_items() == 0:
-            for lang_code in self.state_manager.get_languages_order():
-                icon_path = FLAGS_DIR / f"{lang_code}.png"
-                self._lang_select.add_item(lang_code, str(icon_path))
-
         QTimer.singleShot(200, self._trigger_validation)
 
     def load_state(self) -> None:
         """Load state from state manager."""
         super().load_state()
+
+        for lang_code in self.state_manager.get_languages_order():
+            icon_path = FLAGS_DIR / f"{lang_code}.png"
+            self._lang_select.add_item(lang_code, str(icon_path))
+
+        selected_languages = self.state_manager.get_page_option(
+            self.get_page_id(), "selected_languages", self._lang_select.selected_keys()
+        )
+        self._lang_select.set_selected_keys(selected_languages)
 
         self._chk_ignore_errors.setChecked(
             self.state_manager.get_page_option(self.get_page_id(), "ignore_errors", False)
@@ -992,6 +996,9 @@ class ModSelectionPage(BasePage):
         super().save_state()
 
         # Save options
+        self.state_manager.set_page_option(
+            self.get_page_id(), "selected_languages", self._lang_select.selected_keys()
+        )
         self.state_manager.set_page_option(
             self.get_page_id(), "ignore_errors", self._chk_ignore_errors.isChecked()
         )
