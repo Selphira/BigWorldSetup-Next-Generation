@@ -333,7 +333,11 @@ class ReferenceIndexes:
 
         Returns base components that are actually installable.
         """
-        return [ref for ref in self.selection_index if ref.is_component()]
+        return [
+            reference
+            for reference in self.selection_index
+            if not reference.is_mod() and not reference.is_muc() and not reference.is_sub()
+        ]
 
     def clear_selection(self) -> None:
         """Clear all selections."""
