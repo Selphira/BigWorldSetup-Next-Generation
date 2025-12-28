@@ -359,7 +359,6 @@ class ModManager(QObject):
             return False
 
         try:
-            IndexManager.reset()
             indexes = IndexManager.get_indexes()
 
             with open(cache_file, "r", encoding="utf-8") as f:
