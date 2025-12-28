@@ -329,7 +329,7 @@ class SelectionController(QObject):
 
     def _is_last_option_in_group(self, reference: ComponentReference) -> bool:
         """Check if last selected option in MUC/SUB group."""
-        if not (self._is_muc_option(reference) or self._is_sub_prompt_option(reference)):
+        if not self._is_sub_prompt_option(reference):
             return False
 
         siblings = self._indexes.get_siblings(reference)
