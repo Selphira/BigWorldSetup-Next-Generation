@@ -626,6 +626,9 @@ class ComponentSelector(QTreeView):
 
     def _on_item_clicked(self, index: QModelIndex) -> None:
         """Handle click - distinguish checkbox vs expand."""
+        if not index.isValid():
+            return
+
         source_index = self._proxy_model.mapToSource(index)
         item = self._model.itemFromIndex(source_index)
 
