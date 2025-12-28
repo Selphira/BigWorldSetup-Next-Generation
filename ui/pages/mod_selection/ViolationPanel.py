@@ -209,7 +209,10 @@ class ViolationPanel(QWidget):
                     )
 
         elif rule.rule_type == RuleType.INCOMPATIBILITY:
-            for target_ref in rule.targets:
+            references = (
+                rule.targets if self._current_reference in rule.sources else rule.sources
+            )
+            for target_ref in references:
                 if target_ref in self._indexes.selection_index:
                     component = self._indexes.resolve(target_ref)
                     add_deps = menu.addAction(
@@ -221,18 +224,15 @@ class ViolationPanel(QWidget):
                         )
                     )
                     add_deps.triggered.connect(
-                        lambda _,
-                        ref=str(
-                            target_ref
-                        ): self._orchestrator.get_selection_manager().unselect_item(ref)
+                        lambda _, ref=target_ref: self._orchestrator.resolve_conflicts_remove(
+                            ref
+                        )
                     )
 
         menu.addSeparator()
         remove_action = menu.addAction(tr("page.selection.violation.unselect_this_component"))
         remove_action.triggered.connect(
-            lambda: self._orchestrator.get_selection_manager().unselect_item(
-                str(self._current_reference)
-            )
+            lambda: self._orchestrator.resolve_conflicts_remove(self._current_reference)
         )
 
         menu.exec(self._table.viewport().mapToGlobal(position))

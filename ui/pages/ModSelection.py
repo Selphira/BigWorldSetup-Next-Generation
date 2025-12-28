@@ -41,13 +41,12 @@ from constants import (
     MARGIN_STANDARD,
     MAX_SEARCH_LENGTH,
     MIN_SEARCH_LENGTH,
-    ROLE_MOD,
     SEARCH_DEBOUNCE_DELAY,
     SPACING_LARGE,
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
-from core.ComponentReference import ComponentReference
+from core.ComponentReference import ComponentReference, IndexManager
 from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
@@ -56,7 +55,9 @@ from core.TranslationManager import tr
 from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
-from ui.pages.mod_selection.ComponentSelector import BaseTreeItem, ComponentSelector
+from ui.pages.mod_selection.ComponentSelector import ComponentSelector
+from ui.pages.mod_selection.SelectionController import SelectionController
+from ui.pages.mod_selection.TreeItem import TreeItem
 from ui.pages.mod_selection.ViolationPanel import ViolationPanel
 from ui.widgets.CategoryButton import CategoryButton
 from ui.widgets.ModDetailsPanel import ModDetailsPanel
@@ -252,15 +253,29 @@ class ModSelectionPage(BasePage):
 
         self._mod_manager: ModManager = self.state_manager.get_mod_manager()
         self._rule_manager: RuleManager = self.state_manager.get_rule_manager()
+        self._indexes = IndexManager.get_indexes()
         self._category_buttons: dict[CategoryEnum, CategoryButton] = {}
         self._current_category = CategoryEnum.ALL
         self._weidu_parser: WeiDULogParser = WeiDULogParser()
-        self._orchestrator = ValidationOrchestrator(self._rule_manager)
 
         # Search debouncing
         self._search_timer = QTimer()
         self._search_timer.setSingleShot(True)
         self._search_timer.timeout.connect(self._apply_search_filter)
+
+        # Validation debounce
+        self._validation_timer = QTimer()
+        self._validation_timer.setSingleShot(True)
+        self._validation_timer.timeout.connect(self._trigger_validation)
+
+        self._selection_controller = SelectionController(self._rule_manager)
+        self._validation_orchestrator = ValidationOrchestrator(
+            self._rule_manager, self._selection_controller
+        )
+
+        self._component_selector: ComponentSelector | None = None
+        self._violation_panel: ViolationPanel | None = None
+        self._details_panel: ModDetailsPanel | None = None
 
         self._chk_ignore_warnings: QCheckBox | None = None
         self._chk_ignore_errors: QCheckBox | None = None
@@ -275,87 +290,13 @@ class ModSelectionPage(BasePage):
         # Build UI
         self._create_widgets()
         self._create_additional_buttons()
-
-        self._orchestrator.set_selection_manager(self._component_selector._selection_manager)
-        self._component_selector.set_orchestrator(self._orchestrator)
-        self._violation_panel.set_orchestrator(self._orchestrator)
-
-        self._component_selector._model.itemChanged.connect(self._on_selection_validation)
-        self._component_selector.selectionModel().currentChanged.connect(
-            self._on_component_selection_changed
-        )
-
-        self._validation_timer = QTimer()
-        self._validation_timer.setSingleShot(True)
-        self._validation_timer.timeout.connect(self._trigger_validation)
+        self._connect_signals()
 
         self._update_statistics()
-        logger.info("ModSelectionPage initialized with validation")
-
-    def _on_selection_validation(self) -> None:
-        self._validation_timer.stop()
-        self._validation_timer.start(100)  # 100ms debounce
-
-    def _trigger_validation(self) -> None:
-        if not self._orchestrator:
-            return
-
-        logger.debug("=== TRIGGERING VALIDATION ===")
-
-        violations = self._orchestrator.validate_current_selection()
-
-        logger.info(f"Validation complete: {len(violations)} violations found")
-
-        for v in violations:
-            logger.debug(f"  - {v.rule.rule_type.value}: {v.affected_components}")
-
-        self._update_selected_component_violations()
-        self._component_selector._proxy_model.invalidateFilter()
-        self._component_selector.viewport().update()
-        self.notify_navigation_changed()
-
-        logger.debug("=== VALIDATION COMPLETE ===")
-
-    def _on_component_selection_changed(self, current, previous) -> None:
-        self._update_selected_component_violations()
-        self._on_component_changed(current)
-
-    def _update_selected_component_violations(self) -> None:
-        # Get current selection
-        current_index = self._component_selector.currentIndex()
-
-        if not current_index.isValid():
-            self._violation_panel.update_for_reference(None)
-            return
-
-        # Get item
-        source_index = self._component_selector._proxy_model.mapToSource(current_index)
-        item = self._component_selector._model.itemFromIndex(source_index.siblingAtColumn(0))
-
-        if not isinstance(item, BaseTreeItem):
-            self._violation_panel.update_for_reference(None)
-            return
-
-        try:
-            reference = ComponentReference.from_string(item.reference)
-            self._violation_panel.update_for_reference(reference)
-            logger.debug(f"Updated violation panel for {reference}")
-        except ValueError as e:
-            logger.warning(f"Invalid reference: {e}")
-            self._violation_panel.update_for_reference(None)
-
-    def _on_ignore_warnings_changed(self, state) -> None:
-        ignore = state == Qt.CheckState.Checked.value
-        self.notify_navigation_changed()
-        logger.debug(f"Ignore warnings: {ignore}")
-
-    def _on_ignore_errors_changed(self, state) -> None:
-        ignore = state == Qt.CheckState.Checked.value
-        self.notify_navigation_changed()
-        logger.debug(f"Ignore errors: {ignore}")
+        logger.info("ModSelectionPage initialized")
 
     # ========================================
-    # Widget Creation
+    # UI Creation
     # ========================================
 
     def _create_widgets(self) -> None:
@@ -462,13 +403,11 @@ class ModSelectionPage(BasePage):
         layout.addWidget(filters_widget)
 
         # Component selector with highlight delegate
-        self._component_selector = ComponentSelector(self._mod_manager, self)
+        self._component_selector = ComponentSelector(
+            self._mod_manager, self._selection_controller, self
+        )
         self._highlight_delegate = HighlightDelegate(self._component_selector)
         self._component_selector.setItemDelegate(self._highlight_delegate)
-        self._component_selector._model.itemChanged.connect(self._on_selection_changed)
-        self._component_selector.selectionModel().currentChanged.connect(
-            self._on_component_changed
-        )
 
         layout.addWidget(self._component_selector)
 
@@ -477,7 +416,7 @@ class ModSelectionPage(BasePage):
     def _create_right_splitter(self) -> QSplitter:
         """Create main splitter with table and operations panels."""
         splitter = QSplitter(Qt.Orientation.Vertical)
-        splitter.addWidget(self._create_mod_details_panel())
+        splitter.addWidget(self._create_details_panel())
         splitter.addWidget(self._create_violation_panel())
         splitter.setStretchFactor(0, 6)
         splitter.setStretchFactor(1, 2)
@@ -486,15 +425,24 @@ class ModSelectionPage(BasePage):
 
         return splitter
 
-    def _create_mod_details_panel(self):
+    def _create_details_panel(self) -> QWidget:
+        """Create mod details panel."""
         panel = QWidget()
         layout = QVBoxLayout(panel)
         layout.setSpacing(SPACING_SMALL)
         layout.setContentsMargins(MARGIN_SMALL, 0, 0, 0)
 
-        checkbox_widget = self._create_checkboxs_widget()
-        checkbox_widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        layout.addWidget(checkbox_widget)
+        # Validation options
+        options_layout = QHBoxLayout()
+        options_layout.addStretch()
+
+        self._chk_ignore_warnings = QCheckBox(tr("page.selection.ignore_warnings"))
+        options_layout.addWidget(self._chk_ignore_warnings)
+
+        self._chk_ignore_errors = QCheckBox(tr("page.selection.ignore_errors"))
+        options_layout.addWidget(self._chk_ignore_errors)
+
+        layout.addLayout(options_layout)
 
         self._mod_details_title = self._create_section_title()
         layout.addWidget(self._mod_details_title)
@@ -504,7 +452,8 @@ class ModSelectionPage(BasePage):
 
         return panel
 
-    def _create_violation_panel(self):
+    def _create_violation_panel(self) -> QWidget:
+        """Create violation panel."""
         panel = QWidget()
         layout = QVBoxLayout(panel)
         layout.setSpacing(SPACING_SMALL)
@@ -514,26 +463,10 @@ class ModSelectionPage(BasePage):
         layout.addWidget(self._violation_title)
 
         self._violation_panel = ViolationPanel()
+        self._violation_panel.set_orchestrator(self._validation_orchestrator)
         layout.addWidget(self._violation_panel, stretch=1)
 
         return panel
-
-    def _create_checkboxs_widget(self) -> QWidget:
-        container = QWidget()
-        layout = QHBoxLayout(container)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(SPACING_SMALL)
-        layout.addStretch()
-
-        self._chk_ignore_warnings = QCheckBox()
-        self._chk_ignore_warnings.stateChanged.connect(self._on_ignore_warnings_changed)
-        layout.addWidget(self._chk_ignore_warnings)
-
-        self._chk_ignore_errors = QCheckBox()
-        self._chk_ignore_errors.stateChanged.connect(self._on_ignore_errors_changed)
-        layout.addWidget(self._chk_ignore_errors)
-
-        return container
 
     def _create_additional_buttons(self):
         """Create additional buttons."""
@@ -605,22 +538,16 @@ class ModSelectionPage(BasePage):
         return filters_widget
 
     # ========================================
-    # Details Panel Management
+    # Signal Connections
     # ========================================
 
-    def _on_component_changed(self, index: QModelIndex) -> None:
-        """Handle component click to update details panel."""
-        # Get source index
-        source_index = self._component_selector._proxy_model.mapToSource(index)
-        item = self._component_selector._model.itemFromIndex(source_index.siblingAtColumn(0))
-
-        if not item:
-            return
-
-        # Get mod from item
-        mod = item.data(ROLE_MOD)
-        if mod:
-            self._details_panel.update_mod(mod)
+    def _connect_signals(self) -> None:
+        """Connect all signals."""
+        self._selection_controller.validation_needed.connect(self._schedule_validation)
+        self._component_selector.item_clicked_signal.connect(self._on_item_clicked)
+        self._violation_panel.violation_resolved.connect(self._on_violation_resolved)
+        self._chk_ignore_warnings.stateChanged.connect(self._on_validation_option_changed)
+        self._chk_ignore_errors.stateChanged.connect(self._on_validation_option_changed)
 
     # ========================================
     # Event Handlers
@@ -660,9 +587,33 @@ class ModSelectionPage(BasePage):
 
         logger.debug(f"Search filter applied: '{text}'")
 
-    def _on_selection_changed(self) -> None:
-        """Handle component selection change."""
+    def _on_item_clicked(self, reference: ComponentReference) -> None:
+        """Handle item click - update details and violations."""
+        if reference.is_mod():
+            mod = self._indexes.resolve(reference)
+            if mod:
+                self._details_panel.update_mod(mod)
+        else:
+            component = self._indexes.resolve(reference)
+            if component:
+                self._details_panel.update_mod(component.mod)
+
+        self._violation_panel.update_for_reference(reference)
+
+    def _on_validation_option_changed(self) -> None:
+        """Handle validation option change."""
         self.notify_navigation_changed()
+
+    def _on_violation_resolved(self) -> None:
+        """Handle violation resolution."""
+        current_index = self._component_selector.currentIndex()
+        if current_index.isValid():
+            source_index = self._component_selector._proxy_model.mapToSource(current_index)
+            item = self._component_selector._model.itemFromIndex(source_index)
+
+            if item:
+                if isinstance(item, TreeItem):
+                    self._violation_panel.update_for_reference(item.reference)
 
     def _deselect_all(self) -> None:
         # Ask for confirmation
@@ -678,6 +629,66 @@ class ModSelectionPage(BasePage):
             return
 
         self._component_selector.clear_selection()
+
+    # ========================================
+    # Validation
+    # ========================================
+
+    def _schedule_validation(self) -> None:
+        """Schedule validation with debounce."""
+        self._validation_timer.stop()
+        self._validation_timer.start(100)  # 100ms debounce
+
+    def _trigger_validation(self) -> None:
+        """Execute validation."""
+        logger.debug("=== TRIGGERING VALIDATION ===")
+
+        violations = self._validation_orchestrator.validate_current_selection()
+
+        logger.info(f"Validation complete: {len(violations)} violations found")
+
+        self._component_selector.viewport().update()
+        self._on_violation_resolved()
+        self.notify_navigation_changed()
+
+        logger.debug("=== VALIDATION COMPLETE ===")
+
+    # ========================================
+    # Import/Export
+    # ========================================
+
+    def import_selection(self, references: list[str], replace: bool = False) -> None:
+        """Import selection from list of references.
+
+        Args:
+            references: List of reference strings
+            replace: Whether to clear current selection first
+        """
+        # Disable validation during import
+        self._validation_orchestrator.enable_validation(False)
+
+        try:
+            if replace:
+                self._selection_controller.clear_all()
+
+            references = ComponentReference.from_string_list(references)
+            self._selection_controller.select_bulk(references)
+
+        finally:
+            # Re-enable validation
+            self._validation_orchestrator.enable_validation(True)
+            self._trigger_validation()
+
+        logger.info(f"Imported {len(references)} references")
+
+    def export_selection(self) -> list[str]:
+        """Export current selection as list of reference strings."""
+        components = self._selection_controller.get_selected_components()
+        return sorted(ComponentReference.to_string_list(components))
+
+    # ========================================
+    # Import / Export
+    # ========================================
 
     def _import_selection_file(self) -> None:
         """Import selection from JSON file."""
@@ -776,13 +787,11 @@ class ModSelectionPage(BasePage):
         """Import avec validation différée."""
         logger.info(f"Importing selection from {file_path}")
 
-        self._orchestrator.enable_validation(False)
+        self._validation_orchestrator.enable_validation(False)
 
         try:
-            if replace:
-                self._component_selector.clear_selection()
-
-            self._component_selector.restore_selection(components_to_select)
+            references = ComponentReference.from_string_list(components_to_select)
+            self._selection_controller.select_bulk(references)
 
             # Stats
             reference_to_select = [
@@ -800,8 +809,8 @@ class ModSelectionPage(BasePage):
             total_to_select = len(reference_to_select)
 
         finally:
-            self._orchestrator.enable_validation(True)
-            violations = self._orchestrator.validate_current_selection()
+            self._validation_orchestrator.enable_validation(True)
+            self._trigger_validation()
 
         message = tr(
             "page.selection.import_success_message",
@@ -809,16 +818,9 @@ class ModSelectionPage(BasePage):
             selected=total_selected,
         )
 
-        if violations:
-            errors = sum(1 for v in violations if v.is_error)
-            warnings = sum(1 for v in violations if v.is_warning)
-            message += f"\n\n⚠️ {errors} erreur(s), {warnings} avertissement(s) détecté(s)"
-
         QMessageBox.information(self, tr("page.selection.import_success_title"), message)
 
-        logger.info(
-            f"Import complete: {total_selected} components, {len(violations)} violations"
-        )
+        logger.info(f"Import complete: {total_selected} components")
 
     def _export_selection(self) -> None:
         """Export current order to JSON file."""
@@ -946,25 +948,26 @@ class ModSelectionPage(BasePage):
         return ButtonConfig(visible=True, enabled=True, text=tr("button.previous"))
 
     def can_go_to_next_page(self) -> bool:
-        """Check if can go to next page."""
-        if not self._component_selector.has_selection():
+        """Check if can proceed to next page."""
+        if self._selection_controller.get_selection_count() == 0:
             return False
 
-        if self._orchestrator:
-            if self._orchestrator.has_errors() and not self._chk_ignore_errors.isChecked():
+        if self._validation_orchestrator.has_errors():
+            if not self._chk_ignore_errors.isChecked():
                 return False
 
-            if self._orchestrator.has_warnings() and not self._chk_ignore_warnings.isChecked():
+        if self._validation_orchestrator.has_warnings():
+            if not self._chk_ignore_warnings.isChecked():
                 return False
 
-        return self._component_selector.has_selection()
+        return True
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""
         super().on_page_shown()
 
         game = self.state_manager.get_game_manager().get(self.state_manager.get_selected_game())
-        self._component_selector.set_game(game)
+        self._selection_controller.set_game(game)
         self._search_input.setFocus()
 
         if self._lang_select.count_items() == 0:
@@ -972,8 +975,38 @@ class ModSelectionPage(BasePage):
                 icon_path = FLAGS_DIR / f"{lang_code}.png"
                 self._lang_select.add_item(lang_code, str(icon_path))
 
-        if self._orchestrator:
-            QTimer.singleShot(200, self._trigger_validation)
+        QTimer.singleShot(200, self._trigger_validation)
+
+    def load_state(self) -> None:
+        """Load state from state manager."""
+        super().load_state()
+
+        self._chk_ignore_errors.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_errors", False)
+        )
+        self._chk_ignore_warnings.setChecked(
+            self.state_manager.get_page_option(self.get_page_id(), "ignore_warnings", False)
+        )
+
+        selected_components = self.state_manager.get_selected_components()
+        if selected_components:
+            self.import_selection(selected_components, replace=True)
+
+    def save_state(self) -> None:
+        """Save state to state manager."""
+        super().save_state()
+
+        # Save options
+        self.state_manager.set_page_option(
+            self.get_page_id(), "ignore_errors", self._chk_ignore_errors.isChecked()
+        )
+        self.state_manager.set_page_option(
+            self.get_page_id(), "ignore_warnings", self._chk_ignore_warnings.isChecked()
+        )
+
+        # Save selection
+        selection = self.export_selection()
+        self.state_manager.set_selected_components(selection)
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
@@ -996,47 +1029,8 @@ class ModSelectionPage(BasePage):
             button.retranslate_ui()
 
         self._violation_panel.retranslate_ui()
-
-        # Update component selector
         self._component_selector.retranslate_ui()
-
-        # Update details panel
         self._details_panel.retranslate_ui()
 
         # Reapply filters to update display
         self._apply_all_filters()
-
-    def load_state(self) -> None:
-        """Load state from state manager."""
-        super().load_state()
-
-        self._chk_ignore_errors.setChecked(
-            self.state_manager.get_page_option(self.get_page_id(), "ignore_errors", False)
-        )
-        self._chk_ignore_warnings.setChecked(
-            self.state_manager.get_page_option(self.get_page_id(), "ignore_warnings", False)
-        )
-
-        # Load selected components
-        selected_components = self.state_manager.get_selected_components()
-        if selected_components:
-            game = self.state_manager.get_game_manager().get(
-                self.state_manager.get_selected_game()
-            )
-            self._component_selector.set_game(game)
-            self._component_selector.restore_selection(selected_components)
-
-    def save_state(self) -> None:
-        """Save page data to state manager."""
-        super().save_state()
-
-        # Save selected components
-        components = self._component_selector.get_selected_items()
-        self.state_manager.set_selected_components(components)
-
-        self.state_manager.set_page_option(
-            self.get_page_id(), "ignore_errors", self._chk_ignore_errors.isChecked()
-        )
-        self.state_manager.set_page_option(
-            self.get_page_id(), "ignore_warnings", self._chk_ignore_warnings.isChecked()
-        )
