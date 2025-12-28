@@ -16,9 +16,11 @@ from PySide6.QtGui import QColor, QCursor, QFontMetrics, QStandardItem, QStandar
 from PySide6.QtWidgets import QHeaderView, QStyledItemDelegate, QTreeView
 
 from constants import (
+    COLOR_ERROR,
     COLOR_STATUS_COMPLETE,
     COLOR_STATUS_NONE,
     COLOR_STATUS_PARTIAL,
+    COLOR_WARNING,
     ICON_ERROR,
     ICON_WARNING,
     ROLE_AUTHOR,
@@ -381,67 +383,57 @@ class StatusColumnDelegate(QStyledItemDelegate):
             return
 
         try:
-            icons_to_draw = self._get_icons_for_reference(item.reference, item)
-
-            if not icons_to_draw:
-                return
-
+            icons_to_draw = self._get_icons_for_reference(item.reference)
             self._draw_icons(painter, option.rect, icons_to_draw)
 
         except (ValueError, AttributeError) as e:
             logger.debug(f"Could not render status: {e}")
 
     def _get_icons_for_reference(
-        self, reference: ComponentReference, item: TreeItem
+        self, reference: ComponentReference
     ) -> list[tuple[str, QColor]]:
         """Get icons to display for a reference.
 
         Returns:
             List of tuples (icon_text, color)
         """
+        has_error, has_warning = self._check_violations_recursive(reference)
+
         icons = []
-
-        # For mod items, aggregate violations from children
-        if reference.is_mod():
-            has_child_error = False
-            has_child_warning = False
-
-            for row in range(item.rowCount()):
-                child = item.child(row, 0)
-                if not isinstance(child, TreeItem):
-                    continue
-
-                try:
-                    child_violations = self._indexes.get_violations(child.reference)
-
-                    if any(v.is_error for v in child_violations):
-                        has_child_error = True
-                    if any(v.is_warning for v in child_violations):
-                        has_child_warning = True
-
-                except ValueError:
-                    continue
-
-            if has_child_error:
-                icons.append((ICON_ERROR, QColor("#d32f2f")))
-            if has_child_warning:
-                icons.append((ICON_WARNING, QColor("#f57c00")))
-        else:
-            # For components, display their own violations
-            violations = self._indexes.get_violations(reference)
-
-            if not violations:
-                return icons
-
-            has_error = any(v.is_error for v in violations)
-            has_warning = any(v.is_warning for v in violations)
-
-            if has_error:
-                icons.append((ICON_ERROR, QColor("#d32f2f")))
-            if has_warning:
-                icons.append((ICON_WARNING, QColor("#f57c00")))
+        if has_error:
+            icons.append((ICON_ERROR, QColor(COLOR_ERROR)))
+        if has_warning:
+            icons.append((ICON_WARNING, QColor(COLOR_WARNING)))
 
         return icons
+
+    def _check_violations_recursive(self, reference: ComponentReference) -> tuple[bool, bool]:
+        """Recursively check violations for reference and all descendants.
+
+        Returns:
+            (has_error, has_warning) tuple
+        """
+        has_error = False
+        has_warning = False
+
+        # Check own violations using existing index
+        own_violations = self._indexes.get_violations(reference)
+        if own_violations:
+            has_error = any(v.is_error for v in own_violations)
+            has_warning = any(v.is_warning for v in own_violations)
+
+        # Check all children recursively
+        children = self._indexes.get_children(reference)
+        for child in children:
+            child_error, child_warning = self._check_violations_recursive(child)
+            has_error = has_error or child_error
+            has_warning = has_warning or child_warning
+
+            # Early exit optimization
+            if has_error and has_warning:
+                break
+
+        return has_error, has_warning
 
     def _draw_icons(self, painter, rect, icons: list[tuple[str, QColor]]) -> None:
         """Draw icons in the rect."""
