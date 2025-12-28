@@ -462,7 +462,7 @@ class ModSelectionPage(BasePage):
         self._violation_title = self._create_section_title()
         layout.addWidget(self._violation_title)
 
-        self._violation_panel = ViolationPanel()
+        self._violation_panel = ViolationPanel(self._selection_controller)
         self._violation_panel.set_orchestrator(self._validation_orchestrator)
         layout.addWidget(self._violation_panel, stretch=1)
 

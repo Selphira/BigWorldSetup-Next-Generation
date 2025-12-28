@@ -172,23 +172,6 @@ class ValidationOrchestrator:
         logger.info(f"Conflicts resolved (keep): {len(removed)} removed")
         return ResolutionResult([], removed, success, message)
 
-    def resolve_conflicts_remove(self, reference: ComponentReference) -> ResolutionResult:
-        """Resolve conflicts by REMOVING this component."""
-        logger.info(f"Resolving conflicts - removing {reference}")
-
-        if not self._controller.is_selected(reference):
-            msg = f"ℹ️ {reference} n'est pas sélectionné"
-            return ResolutionResult([], [], False, msg)
-
-        if self._controller.unselect(reference):
-            msg = f"❌ {reference} a été retiré\n✅ Les composants en conflit ont été conservés"
-            logger.info(f"Conflict resolved (remove): {reference} removed")
-            return ResolutionResult([], [reference], True, msg)
-        else:
-            msg = f"❌ Impossible de retirer {reference}"
-            logger.error(msg)
-            return ResolutionResult([], [], False, msg)
-
     def auto_resolve(self, reference: ComponentReference) -> ResolutionResult:
         """Smart auto-resolution: dependencies first, then conflicts.
 

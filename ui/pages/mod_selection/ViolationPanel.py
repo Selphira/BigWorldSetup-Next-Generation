@@ -25,6 +25,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.Rules import RuleType, RuleViolation
 from core.TranslationManager import tr
 from core.ValidationOrchestrator import ValidationOrchestrator
+from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
 logger = logging.getLogger(__name__)
@@ -35,9 +36,10 @@ class ViolationPanel(QWidget):
 
     violation_resolved = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, controller: SelectionController, parent=None):
         super().__init__(parent)
 
+        self._controller = controller
         self._orchestrator: ValidationOrchestrator | None = None
         self._indexes = IndexManager.get_indexes()
         self._current_reference: ComponentReference | None = None
@@ -202,10 +204,7 @@ class ViolationPanel(QWidget):
                         )
                     )
                     add_deps.triggered.connect(
-                        lambda _,
-                        ref=str(
-                            target_ref
-                        ): self._orchestrator.get_selection_manager().select_item(ref)
+                        lambda _, reference=target_ref: self._controller.select(reference)
                     )
 
         elif rule.rule_type == RuleType.INCOMPATIBILITY:
@@ -224,15 +223,13 @@ class ViolationPanel(QWidget):
                         )
                     )
                     add_deps.triggered.connect(
-                        lambda _, ref=target_ref: self._orchestrator.resolve_conflicts_remove(
-                            ref
-                        )
+                        lambda _, reference=target_ref: self._controller.unselect(reference)
                     )
 
         menu.addSeparator()
         remove_action = menu.addAction(tr("page.selection.violation.unselect_this_component"))
         remove_action.triggered.connect(
-            lambda: self._orchestrator.resolve_conflicts_remove(self._current_reference)
+            lambda: self._controller.unselect(self._current_reference)
         )
 
         menu.exec(self._table.viewport().mapToGlobal(position))
