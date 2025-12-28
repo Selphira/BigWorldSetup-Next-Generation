@@ -9,7 +9,7 @@ import logging
 from typing import cast
 
 from PySide6.QtCore import QEvent, QModelIndex, Qt, QTimer
-from PySide6.QtGui import QAction, QTextDocument
+from PySide6.QtGui import QAction, QHelpEvent, QTextDocument
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -99,7 +99,7 @@ class HighlightDelegate(QStyledItemDelegate):
     # ========================================
 
     def helpEvent(
-        self, event: QEvent, view: QWidget, option: QStyleOptionViewItem, index: QModelIndex
+        self, event: QHelpEvent, view: QWidget, option: QStyleOptionViewItem, index: QModelIndex
     ) -> bool:
         """Show tooltip if text is truncated."""
         if event.type() != QEvent.Type.ToolTip or not index.isValid():
@@ -606,6 +606,9 @@ class ModSelectionPage(BasePage):
             if item:
                 if isinstance(item, TreeItem):
                     self._violation_panel.update_for_reference(item.reference)
+
+        if self._chk_show_violations.checkState() == Qt.CheckState.Checked:
+            self._component_selector._proxy_model.invalidateFilter()
 
     def _deselect_all(self) -> None:
         # Ask for confirmation
