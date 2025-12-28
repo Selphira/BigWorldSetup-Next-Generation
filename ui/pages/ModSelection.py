@@ -56,11 +56,11 @@ from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
 from ui.pages.mod_selection.ComponentSelector import ComponentSelector
+from ui.pages.mod_selection.ModDetailsPanel import ModDetailsPanel
 from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.pages.mod_selection.TreeItem import TreeItem
 from ui.pages.mod_selection.ViolationPanel import ViolationPanel
 from ui.widgets.CategoryButton import CategoryButton
-from ui.widgets.ModDetailsPanel import ModDetailsPanel
 from ui.widgets.MultiSelectComboBox import MultiSelectComboBox
 
 logger = logging.getLogger(__name__)
@@ -589,15 +589,7 @@ class ModSelectionPage(BasePage):
 
     def _on_item_clicked(self, reference: ComponentReference) -> None:
         """Handle item click - update details and violations."""
-        if reference.is_mod():
-            mod = self._indexes.resolve(reference)
-            if mod:
-                self._details_panel.update_mod(mod)
-        else:
-            component = self._indexes.resolve(reference)
-            if component:
-                self._details_panel.update_mod(component.mod)
-
+        self._details_panel.update_for_reference(reference)
         self._violation_panel.update_for_reference(reference)
 
     def _on_validation_option_changed(self) -> None:

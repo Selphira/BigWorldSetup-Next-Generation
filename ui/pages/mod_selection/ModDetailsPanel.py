@@ -35,6 +35,7 @@ from constants import (
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
+from core.ComponentReference import ComponentReference, IndexManager
 from core.Mod import Mod
 from core.ModManager import ModManager
 from core.TranslationManager import get_translator, tr
@@ -53,6 +54,7 @@ class ModDetailsPanel(QWidget):
     def __init__(self, mod_manager: ModManager, parent=None):
         super().__init__(parent)
         self._mod_manager: ModManager = mod_manager
+        self._indexes = IndexManager.get_indexes()
         self._current_mod: Mod | None = None
         self._setup_ui()
 
@@ -97,9 +99,6 @@ class ModDetailsPanel(QWidget):
     def _create_header_section(self) -> None:
         """Create header with mod name and quality indicator."""
         self._header_frame = QFrame()
-        # self._header_frame.setFrameShape(QFrame.Shape.StyledPanel)
-
-        # header_layout = QVBoxLayout(self._header_frame)
 
         header_layout = QHBoxLayout(self._header_frame)
         header_layout.setContentsMargins(0, 0, 0, 0)
@@ -411,7 +410,14 @@ class ModDetailsPanel(QWidget):
     # PUBLIC API
     # ========================================
 
-    def update_mod(self, mod, force: bool = False) -> None:
+    def update_for_reference(self, reference: ComponentReference, force: bool = False) -> None:
+        """Update panel with mod information."""
+        resolved = self._indexes.resolve(reference)
+        mod = None if not resolved else resolved if reference.is_mod() else resolved.mod
+
+        self.update_for_mod(mod, force)
+
+    def update_for_mod(self, mod: Mod, force: bool = False) -> None:
         """Update panel with mod information."""
         if mod is None:
             self._show_placeholder()
@@ -470,5 +476,4 @@ class ModDetailsPanel(QWidget):
         self._links_widget_title.setText(tr("widget.mod_details.links"))
 
         if self._current_mod:
-            mod = self._mod_manager.get_mod_by_id(self._current_mod.id)
-            self.update_mod(mod, True)
+            self.update_for_mod(self._current_mod, True)
