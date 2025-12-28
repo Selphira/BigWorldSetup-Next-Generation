@@ -202,6 +202,23 @@ class RuleManager:
             return self._check_incompatibility(rule, source_ref, selected_set)
         return None
 
+    def _matches_reference(
+        self, reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> bool:
+        """Check if a reference matches any selected component.
+
+        Args:
+            reference: Reference to check
+            selected_set: Set of selected component references
+
+        Returns:
+            True if reference matches at least one selected component
+        """
+        if reference.is_mod():
+            return any(selected.mod_id == reference.mod_id for selected in selected_set)
+
+        return reference in selected_set
+
     def _check_dependency(
         self,
         rule: DependencyRule,
@@ -209,21 +226,19 @@ class RuleManager:
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check DependencyRule: supports ALL and ANY modes."""
-        satisfied: list[ComponentReference] = []
+        satisfied_count = 0
         missing: list[ComponentReference] = []
 
         for target in rule.targets:
-            is_satisfied = target in selected_set
-
-            if is_satisfied:
-                satisfied.append(target)
+            if self._matches_reference(target, selected_set):
+                satisfied_count += 1
             else:
                 missing.append(target)
 
         if rule.dependency_mode == DependencyMode.ALL:
             is_violated = bool(missing)
         else:  # ANY
-            is_violated = len(satisfied) == 0
+            is_violated = satisfied_count == 0
 
         if not is_violated:
             return None
@@ -267,7 +282,7 @@ class RuleManager:
         conflicts: list[ComponentReference] = []
 
         for target in rule.targets:
-            if target in selected_set:
+            if self._matches_reference(target, selected_set):
                 conflicts.append(target)
 
         if not conflicts:
