@@ -174,6 +174,25 @@ class RuleManager:
                     violations.append(violation)
                     self._indexes.add_violation(violation)
 
+        for rule in self._all_rules:
+            if rule.rule_type == RuleType.ORDER:
+                continue
+
+            for source in rule.sources:
+                if source.is_mod():
+                    if self._matches_reference(source, selected_set):
+                        # At least one component from this mod is selected
+                        # Check the rule for one of the matching components
+                        mod_id = source.mod_id
+                        for reference in selected_set:
+                            if reference.mod_id == mod_id:
+                                violation = self._check_rule(rule, reference, selected_set)
+                                if violation:
+                                    violations.append(violation)
+                                    self._indexes.add_violation(violation)
+
+                    break
+
         return violations
 
     def _get_all_cached_violations(self) -> list[RuleViolation]:
