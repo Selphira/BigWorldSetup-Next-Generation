@@ -273,22 +273,11 @@ class RuleManager:
         if rule.description:
             message += f"\n{rule.description}"
 
-        actions: list[str] = []
-        if rule.dependency_mode == DependencyMode.ALL:
-            for target in missing:
-                actions.append(tr("rule.message_select", target=target))
-        else:
-            for target in rule.targets:
-                actions.append(tr("rule.message_select", target=target))
-        actions.append(
-            tr("rule.message_deselect", mod=source_ref.mod_id, source=source_ref.comp_key)
-        )
-
         return RuleViolation(
             rule=rule,
             affected_components=(source_ref,),
             message=message,
-            suggested_actions=tuple(actions),
+            suggested_actions=tuple(),
         )
 
     def _check_incompatibility(
@@ -312,18 +301,13 @@ class RuleManager:
         if rule.description:
             message += f"\n{rule.description}"
 
-        # Suggested actions
-        actions = [
-            tr("rule.message_deselect", mod=source_ref.mod_id, source=source_ref.comp_key)
-        ] + [tr("rule.message_deselect", mod=c.mod_id, source=c.comp_key) for c in conflicts]
-
         affected = (source_ref,) + tuple(conflicts)
 
         return RuleViolation(
             rule=rule,
             affected_components=affected,
             message=message,
-            suggested_actions=tuple(actions),
+            suggested_actions=tuple(),
         )
 
     # -------------------------
