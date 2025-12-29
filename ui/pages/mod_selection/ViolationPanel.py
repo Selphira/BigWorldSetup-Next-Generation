@@ -178,9 +178,9 @@ class ViolationPanel(QWidget):
 
     def _on_cell_entered(self, row: int, column: int) -> None:
         item = self._table.item(row, 0)
-        self._table.viewport().setToolTip(
-            item.data(Qt.ItemDataRole.UserRole).message if item else ""
-        )
+        violation = item.data(Qt.ItemDataRole.UserRole)
+        if violation:
+            self._table.viewport().setToolTip(violation.message if item else "")
 
     def _show_row_context_menu(self, position) -> None:
         """Display context menu for a row."""
