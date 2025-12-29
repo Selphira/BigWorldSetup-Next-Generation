@@ -48,6 +48,7 @@ class ViolationPanel(QWidget):
         self._table: HoverTableWidget | None = None
 
         self._create_widgets()
+        self._connect_signals()
 
     def set_orchestrator(self, orchestrator) -> None:
         """Inject the orchestrator."""
@@ -81,12 +82,17 @@ class ViolationPanel(QWidget):
         self._table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self._table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self._table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self._table.customContextMenuRequested.connect(self._show_row_context_menu)
         self._table.setMinimumHeight(120)
+        self._table.setMouseTracking(True)
 
         layout.addWidget(self._table)
 
         self._hide_panel()
+
+    def _connect_signals(self) -> None:
+        """Connect to controller signals."""
+        self._table.customContextMenuRequested.connect(self._show_row_context_menu)
+        self._table.cellEntered.connect(self._on_cell_entered)
 
     def update_for_reference(self, reference: ComponentReference | None) -> None:
         """Update the table for a specific reference."""
@@ -165,11 +171,16 @@ class ViolationPanel(QWidget):
 
             # Column 2: Description
             desc_item = QTableWidgetItem(violation.message)
-            desc_item.setToolTip(violation.message)
             self._table.setItem(row, 2, desc_item)
 
             # Store violation in row data
             self._table.item(row, 0).setData(Qt.ItemDataRole.UserRole, violation)
+
+    def _on_cell_entered(self, row: int, column: int) -> None:
+        item = self._table.item(row, 0)
+        self._table.viewport().setToolTip(
+            item.data(Qt.ItemDataRole.UserRole).message if item else ""
+        )
 
     def _show_row_context_menu(self, position) -> None:
         """Display context menu for a row."""
