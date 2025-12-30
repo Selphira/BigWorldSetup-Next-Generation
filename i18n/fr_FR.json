@@ -412,14 +412,10 @@
   },
   "rule": {
     "message_incompatibility": "Incompatibilités avec {conflict_names}",
-    "message_dependency": "{source_mod}:{source_comp} doit être installé APRÈS {dep_mod}:{dep_comp} (dépendance)",
-    "message_dependency_suggestion": "Déplacer {dep_mod}:{dep_comp} avant {source_mod}:{source_comp}",
     "message_dependency_missing": "Nécessite : {missing}",
     "message_dependency_required_by": "Requis par : {sources}",
-    "message_order_before": "{source_mod}:{source_comp} doit être installé AVANT {target_mod}:{target_comp}",
-    "message_order_after": "{source_mod}:{source_comp} doit être installé APRÈS {target_mod}:{target_comp}",
-    "message_order_move_before": "{source_mod}:{source_comp} doit être installé AVANT {target_mod}:{target_comp}",
-    "message_order_move_after": "{source_mod}:{source_comp} doit être installé APRÈS {target_mod}:{target_comp}"
+    "message_order_before": "Doit être installé avant : {components}",
+    "message_order_after": "Doit être installé après : {components}"
   },
   "error": {
     "unknown_category": "Catégorie inconnue : {category}",

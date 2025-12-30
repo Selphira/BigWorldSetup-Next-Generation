@@ -85,12 +85,10 @@ class ComponentIssue:
 
     Attributes:
         reference: Component reference
-        message: Issue description
         is_error: True for errors, False for warnings
     """
 
     reference: ComponentReference
-    message: str
     is_error: bool
 
 
@@ -109,23 +107,21 @@ class ValidationResult:
     def __init__(self):
         self._issues: list[ComponentIssue] = []
 
-    def add_warning(self, reference: ComponentReference, message: str) -> None:
+    def add_warning(self, reference: ComponentReference) -> None:
         """Add a warning for a component.
 
         Args:
             reference: Component reference
-            message: Warning message
         """
-        self._issues.append(ComponentIssue(reference, message, is_error=False))
+        self._issues.append(ComponentIssue(reference, is_error=False))
 
-    def add_error(self, reference: ComponentReference, message: str) -> None:
+    def add_error(self, reference: ComponentReference) -> None:
         """Add an error for a component.
 
         Args:
             reference: Component reference
-            message: Error message
         """
-        self._issues.append(ComponentIssue(reference, message, is_error=True))
+        self._issues.append(ComponentIssue(reference, is_error=True))
 
     @property
     def is_valid(self) -> bool:
@@ -153,24 +149,6 @@ class ValidationResult:
             True if warnings exist, False otherwise
         """
         return any(not issue.is_error for issue in self._issues)
-
-    @property
-    def error_count(self) -> int:
-        """Get number of errors.
-
-        Returns:
-            Count of error issues
-        """
-        return sum(1 for issue in self._issues if issue.is_error)
-
-    @property
-    def warning_count(self) -> int:
-        """Get number of warnings.
-
-        Returns:
-            Count of warning issues
-        """
-        return sum(1 for issue in self._issues if not issue.is_error)
 
     def get_component_issues(self, reference: ComponentReference) -> list[ComponentIssue]:
         """Get all issues for a specific component.
@@ -1057,9 +1035,9 @@ class InstallOrderPage(BasePage):
         for violation in order_violations:
             for reference in violation.affected_components:
                 if violation.is_error:
-                    seq_data.validation.add_error(reference, violation.message)
+                    seq_data.validation.add_error(reference)
                 elif violation.is_warning:
-                    seq_data.validation.add_warning(reference, violation.message)
+                    seq_data.validation.add_warning(reference)
 
         self._apply_visual_indicators(seq_idx)
         self.notify_navigation_changed()
@@ -1079,6 +1057,8 @@ class InstallOrderPage(BasePage):
 
             reference = mod_item.data(ROLE_COMPONENT)
             violations = self._rule_manager.get_violations_for_component(reference)
+            unique_violations = {v.rule: v for v in violations}
+            violations = list(unique_violations.values())
 
             mod_item.setText(
                 mod_item.text().replace(f"{ICON_ERROR} ", "").replace(f"{ICON_WARNING} ", "")
@@ -1087,7 +1067,9 @@ class InstallOrderPage(BasePage):
             if violations:
                 tooltip_lines = []
                 for v in violations:
-                    tooltip_lines.append(f"{v.icon} {v.message}")
+                    tooltip_lines.append(
+                        f"{v.icon} {v.get_order_message(reference, seq_data.ordered)}"
+                    )
 
                 color, icon = seq_data.validation.get_component_indicator(reference)
                 mod_item.setText(f"{icon} {mod_item.text()}")

@@ -14,7 +14,6 @@ from core.Rules import (
     RuleType,
     RuleViolation,
 )
-from core.TranslationManager import tr
 
 logger = logging.getLogger(__name__)
 
@@ -268,7 +267,6 @@ class RuleManager:
         return RuleViolation(
             rule=rule,
             affected_components=affected,
-            suggested_actions=tuple(),
         )
 
     def _check_incompatibility(
@@ -343,33 +341,12 @@ class RuleManager:
 
                 target_idx = positions[target_ref]
                 if target_idx > source_idx:
-                    message = tr(
-                        "rule.message_dependency",
-                        source_mod=source_ref.mod_id,
-                        source_comp=source_ref.comp_key,
-                        dep_mod=target_ref.mod_id,
-                        dep_comp=target_ref.comp_key,
-                    )
-
-                    if rule.description:
-                        message += f"\n{rule.description}"
-
-                    suggested_action = tr(
-                        "rule.message_dependency_suggestion",
-                        source_mod=source_ref.mod_id,
-                        source_comp=source_ref.comp_key,
-                        dep_mod=target_ref.mod_id,
-                        dep_comp=target_ref.comp_key,
-                    )
-
                     violation = RuleViolation(
                         rule=rule,
                         affected_components=(
                             source_ref,
                             target_ref,
                         ),
-                        message=message,
-                        suggested_actions=(suggested_action,),
                     )
                     violations.append(violation)
                     self._indexes.add_violation(violation)
@@ -400,57 +377,21 @@ class RuleManager:
 
                 target_idx = positions[target_ref]
                 violation_detected = False
-                message = ""
-                action = ""
 
                 if rule.order_direction == OrderDirection.BEFORE:
                     if source_idx > target_idx:
                         violation_detected = True
-                        message = tr(
-                            "rule.message_order_before",
-                            source_mod=source_ref.mod_id,
-                            source_comp=source_ref.comp_key,
-                            target_mod=target_ref.mod_id,
-                            target_comp=target_ref.comp_key,
-                        )
-                        action = tr(
-                            "rule.message_order_move_before",
-                            source_mod=source_ref.mod_id,
-                            source_comp=source_ref.comp_key,
-                            target_mod=target_ref.mod_id,
-                            target_comp=target_ref.comp_key,
-                        )
-
                 else:  # AFTER
                     if source_idx < target_idx:
                         violation_detected = True
-                        message = tr(
-                            "rule.message_order_after",
-                            source_mod=source_ref.mod_id,
-                            source_comp=source_ref.comp_key,
-                            target_mod=target_ref.mod_id,
-                            target_comp=target_ref.comp_key,
-                        )
-                        action = tr(
-                            "rule.message_order_move_after",
-                            source_mod=source_ref.mod_id,
-                            source_comp=source_ref.comp_key,
-                            target_mod=target_ref.mod_id,
-                            target_comp=target_ref.comp_key,
-                        )
 
                 if violation_detected:
-                    if rule.description:
-                        message += f"\n{rule.description}"
-
                     violation = RuleViolation(
                         rule=rule,
                         affected_components=(
                             source_ref,
                             target_ref,
                         ),
-                        message=message,
-                        suggested_actions=(action,),
                     )
                     violations.append(violation)
                     self._indexes.add_violation(violation)

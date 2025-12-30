@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any
+from typing import Any, cast
 
 from constants import ICON_ERROR, ICON_INFO, ICON_WARNING
 from core.ComponentReference import ComponentReference
@@ -193,19 +193,15 @@ class OrderRule(Rule):
 
 @dataclass(frozen=True, slots=True)
 class RuleViolation:
-    """Detected rule violation with resolution suggestions.
+    """Detected rule violation.
 
     Attributes:
         rule: The violated rule
         affected_components: Components involved in violation
-        message: Formatted error/warning message
-        suggested_actions: List of possible user actions
     """
 
     rule: Rule
     affected_components: tuple[ComponentReference, ...]
-    message: str = ""
-    suggested_actions: tuple[str, ...] = field(default_factory=tuple)
 
     def get_message(
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
@@ -231,6 +227,70 @@ class RuleViolation:
             message += f"\n{self.rule.description}"
 
         return message
+
+    def get_order_message(
+        self, for_reference: ComponentReference, current_order: list[ComponentReference]
+    ) -> str:
+        """Get formatted order violation message.
+
+        Args:
+            for_reference: The reference from which we're viewing the violation
+            current_order: Current installation order
+
+        Returns:
+            Formatted message listing only components that violate the order
+        """
+        if self.rule.rule_type == RuleType.ORDER:
+            return self._format_order_message(for_reference, current_order)
+        elif self.rule.rule_type == RuleType.DEPENDENCY:
+            return self._format_order_dependency_message(for_reference, current_order)
+        else:
+            return ""
+
+    def _format_order_message(
+        self, for_reference: ComponentReference, current_order: list[ComponentReference]
+    ) -> str:
+        """Format ORDER rule message with only violating components."""
+        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+
+        if cast(OrderRule, self.rule).order_direction == OrderDirection.BEFORE:
+            constraint_key = "before" if is_source else "after"
+            other_refs = self.rule.targets if is_source else self.rule.sources
+        else:  # AFTER
+            constraint_key = "after" if is_source else "before"
+            other_refs = self.rule.targets if is_source else self.rule.sources
+
+        violating_refs = self._get_violating_refs(
+            for_reference, list(other_refs), constraint_key, current_order
+        )
+
+        if not violating_refs:
+            return ""
+
+        violating_names = ", ".join(str(ref) for ref in violating_refs)
+        return tr(f"rule.message_order_{constraint_key}", components=violating_names)
+
+    def _format_order_dependency_message(
+        self, for_reference: ComponentReference, current_order: list[ComponentReference]
+    ) -> str:
+        """Format DEPENDENCY rule as order message with only violating components.
+
+        Dependencies imply: targets (dependencies) must be BEFORE sources (dependents)
+        """
+        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+
+        constraint_key = "after" if is_source else "before"
+        other_refs = self.rule.targets if is_source else self.rule.sources
+
+        violating_refs = self._get_violating_refs(
+            for_reference, list(other_refs), constraint_key, current_order
+        )
+
+        if not violating_refs:
+            return ""
+
+        violating_names = ", ".join(str(ref) for ref in violating_refs)
+        return tr(f"rule.message_order_{constraint_key}", components=violating_names)
 
     def _format_dependency_message(
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
@@ -274,8 +334,9 @@ class RuleViolation:
         conflict_names = ", ".join(str(ref) for ref in conflicts)
         return tr("rule.message_incompatibility", conflict_names=conflict_names)
 
+    @staticmethod
     def _matches_reference(
-        self, reference: ComponentReference, selected_set: set[ComponentReference]
+        reference: ComponentReference, selected_set: set[ComponentReference]
     ) -> bool:
         """Check if a reference matches any selected component.
 
@@ -295,12 +356,58 @@ class RuleViolation:
                 return True
         return False
 
-    def _references_match(self, ref1: ComponentReference, ref2: ComponentReference) -> bool:
+    @staticmethod
+    def _references_match(ref1: ComponentReference, ref2: ComponentReference) -> bool:
         """Check if two references match (handles MOD references)."""
         if ref1.is_mod() or ref2.is_mod():
             return ref1.mod_id == ref2.mod_id
 
         return ref1 == ref2
+
+    def _get_violating_refs(
+        self,
+        for_reference: ComponentReference,
+        other_refs: list[ComponentReference],
+        constraint_type: str,  # "before" or "after"
+        current_order: list[ComponentReference],
+    ) -> list[ComponentReference]:
+        """Get list of references that violate the order constraint."""
+        ref_position = self._get_reference_position(for_reference, current_order)
+        if ref_position is None:
+            return []
+
+        violating = []
+
+        for other_ref in other_refs:
+            other_position = self._get_reference_position(other_ref, current_order)
+
+            if other_position is None:
+                continue
+
+            if constraint_type == "before":
+                if ref_position > other_position:
+                    violating.append(other_ref)
+            else:  # "after"
+                if ref_position < other_position:
+                    violating.append(other_ref)
+
+        return violating
+
+    @staticmethod
+    def _get_reference_position(
+        reference: ComponentReference, order_list: list[ComponentReference]
+    ) -> int | None:
+        """Get position of reference in order list."""
+        if reference.is_mod():
+            for i, ref in enumerate(order_list):
+                if ref.mod_id == reference.mod_id:
+                    return i
+            return None
+
+        try:
+            return order_list.index(reference)
+        except ValueError:
+            return None
 
     @property
     def severity(self) -> RuleSeverity:
