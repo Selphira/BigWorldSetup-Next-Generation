@@ -1056,7 +1056,7 @@ class InstallOrderPage(BasePage):
                 continue
 
             reference = mod_item.data(ROLE_COMPONENT)
-            violations = self._rule_manager.get_violations_for_component(reference)
+            violations = self._rule_manager.get_order_violations(reference)
             unique_violations = {v.rule: v for v in violations}
             violations = list(unique_violations.values())
 

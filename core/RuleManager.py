@@ -153,9 +153,9 @@ class RuleManager:
         selection_hash = hash(frozenset(references))
 
         if self._last_selection_hash == selection_hash:
-            return self._get_all_cached_violations()
+            return self._get_all_cached_selection_violations()
 
-        self._indexes.clear_violations()
+        self._indexes.clear_selection_violations()
         self._last_selection_hash = selection_hash
 
         violations: list[RuleViolation] = []
@@ -171,7 +171,7 @@ class RuleManager:
                 violation = self._check_rule(rule, reference, selected_set)
                 if violation:
                     violations.append(violation)
-                    self._indexes.add_violation(violation)
+                    self._indexes.add_selection_violation(violation)
 
         for rule in self._all_rules:
             if rule.rule_type == RuleType.ORDER:
@@ -188,18 +188,18 @@ class RuleManager:
                                 violation = self._check_rule(rule, reference, selected_set)
                                 if violation:
                                     violations.append(violation)
-                                    self._indexes.add_violation(violation)
+                                    self._indexes.add_selection_violation(violation)
 
                     break
 
         return violations
 
-    def _get_all_cached_violations(self) -> list[RuleViolation]:
+    def _get_all_cached_selection_violations(self) -> list[RuleViolation]:
         """Extract all violations from cache as flat list."""
         all_violations = []
         seen_violations = set()
 
-        for violations in self._indexes.violation_index.values():
+        for violations in self._indexes.selection_violation_index.values():
             for violation in violations:
                 # Use id() to avoid duplicates (same violation object)
                 if id(violation) not in seen_violations:
@@ -298,7 +298,7 @@ class RuleManager:
     def validate_order(self, install_order: list[ComponentReference]) -> list[RuleViolation]:
         """Validate order against dependency rules (implicit) + explicit order rules."""
         violations: list[RuleViolation] = []
-        self._indexes.clear_violations()
+        self._indexes.clear_order_violations()
 
         # Build position map
         positions = {ref: idx for idx, ref in enumerate(install_order)}
@@ -349,7 +349,7 @@ class RuleManager:
                         ),
                     )
                     violations.append(violation)
-                    self._indexes.add_violation(violation)
+                    self._indexes.add_order_violation(violation)
 
         return violations
 
@@ -394,7 +394,7 @@ class RuleManager:
                         ),
                     )
                     violations.append(violation)
-                    self._indexes.add_violation(violation)
+                    self._indexes.add_order_violation(violation)
 
         return violations
 
@@ -437,10 +437,8 @@ class RuleManager:
         """
         return tuple(self._incompatibility_rules)
 
-    def get_violations_for_component(
-        self, reference: ComponentReference
-    ) -> list[RuleViolation]:
-        """Get cached violations for a specific component.
+    def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
+        """Get cached selection violations for a specific component.
 
         Args:
             reference: Component reference
@@ -448,7 +446,18 @@ class RuleManager:
         Returns:
             List of violations affecting this component
         """
-        return self._indexes.get_violations(reference)
+        return self._indexes.get_selection_violations(reference)
+
+    def get_order_violations(self, reference: ComponentReference) -> list[RuleViolation]:
+        """Get cached order violations for a specific component.
+
+        Args:
+            reference: Component reference
+
+        Returns:
+            List of violations affecting this component
+        """
+        return self._indexes.get_order_violations(reference)
 
     def get_requirements(
         self, mod_id: str, comp_key: str, recursive: bool = False

@@ -113,7 +113,7 @@ class ViolationPanel(QWidget):
 
         self._lbl_title.setText(self._get_component_name(reference))
 
-        violations = self._indexes.get_violations(reference)
+        violations = self._indexes.get_selection_violations(reference)
         unique_violations = {v.rule: v for v in violations}
         violations = list(unique_violations.values())
 

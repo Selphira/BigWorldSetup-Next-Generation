@@ -62,7 +62,7 @@ class ValidationOrchestrator:
         """Check if any errors exist."""
         return any(
             violation.is_error
-            for violations in self._indexes.violation_index.values()
+            for violations in self._indexes.selection_violation_index.values()
             for violation in violations
         )
 
@@ -70,7 +70,7 @@ class ValidationOrchestrator:
         """Check if any warnings exist."""
         return any(
             violation.is_warning
-            for violations in self._indexes.violation_index.values()
+            for violations in self._indexes.selection_violation_index.values()
             for violation in violations
         )
 
@@ -78,7 +78,7 @@ class ValidationOrchestrator:
         self, reference: ComponentReference
     ) -> list[RuleViolation]:
         """Get violations for a component."""
-        return self._indexes.get_violations(reference)
+        return self._indexes.get_selection_violations(reference)
 
     # ========================================
     # Resolution Strategies

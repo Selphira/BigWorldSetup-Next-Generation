@@ -47,7 +47,7 @@ class ComponentContextMenu:
             if reference.is_muc():
                 violations = self._get_muc_violations(reference)
             else:
-                violations = self._indexes.get_violations(reference)
+                violations = self._indexes.get_selection_violations(reference)
 
         # Allow menu without violations for mod rows
         if not violations and not reference.is_mod():
@@ -243,7 +243,7 @@ class ComponentContextMenu:
         all_violations = []
 
         for ref in selected_refs:
-            violations = self._indexes.get_violations(ref)
+            violations = self._indexes.get_selection_violations(ref)
             all_violations.extend(violations)
 
         return selected_refs, all_violations
@@ -370,7 +370,7 @@ class ComponentContextMenu:
 
         for child_ref in children:
             if child_ref in self._indexes.selection_index:
-                return self._indexes.get_violations(child_ref)
+                return self._indexes.get_selection_violations(child_ref)
 
         return []
 

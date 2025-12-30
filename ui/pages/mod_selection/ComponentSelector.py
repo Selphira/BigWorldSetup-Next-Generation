@@ -332,14 +332,14 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
                         continue
 
                     try:
-                        if self._indexes.has_violations(child.reference):
+                        if self._indexes.has_selection_violations(child.reference):
                             return True
                     except ValueError:
                         continue
 
                 return False
             else:
-                return self._indexes.has_violations(reference)
+                return self._indexes.has_selection_violations(reference)
 
         except ValueError:
             return False
@@ -418,7 +418,7 @@ class StatusColumnDelegate(QStyledItemDelegate):
         has_warning = False
 
         # Check own violations using existing index
-        own_violations = self._indexes.get_violations(reference)
+        own_violations = self._indexes.get_selection_violations(reference)
         if own_violations:
             has_error = any(v.is_error for v in own_violations)
             has_warning = any(v.is_warning for v in own_violations)

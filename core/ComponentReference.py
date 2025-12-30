@@ -242,7 +242,10 @@ class ReferenceIndexes:
     selection_index: set[ComponentReference] = field(default_factory=set)
 
     # Violations/conflicts
-    violation_index: dict[ComponentReference, list[Any]] = field(default_factory=dict)
+    selection_violation_index: dict[ComponentReference, list[Any]] = field(default_factory=dict)
+
+    # Violations/order
+    order_violation_index: dict[ComponentReference, list[Any]] = field(default_factory=dict)
 
     # Parent relationships (for MUC options and SUB components)
     parent_index: dict[ComponentReference, ComponentReference] = field(default_factory=dict)
@@ -344,27 +347,50 @@ class ReferenceIndexes:
         self.selection_index.clear()
 
     # ========================================
-    # Violation Index
+    # Violation Index - Selection
     # ========================================
 
-    def add_violation(self, violation: Any) -> None:
+    def add_selection_violation(self, violation: Any) -> None:
         """Add a violation to all affected components."""
         for reference in violation.affected_components:
-            if reference not in self.violation_index:
-                self.violation_index[reference] = []
-            self.violation_index[reference].append(violation)
+            if reference not in self.selection_violation_index:
+                self.selection_violation_index[reference] = []
+            self.selection_violation_index[reference].append(violation)
 
-    def get_violations(self, reference: ComponentReference) -> list[Any]:
+    def get_selection_violations(self, reference: ComponentReference) -> list[Any]:
         """Get violations for a reference."""
-        return self.violation_index.get(reference, [])
+        return self.selection_violation_index.get(reference, [])
 
-    def has_violations(self, reference: ComponentReference) -> bool:
+    def has_selection_violations(self, reference: ComponentReference) -> bool:
         """Check if reference has violations."""
-        return bool(self.violation_index.get(reference))
+        return bool(self.selection_violation_index.get(reference))
 
-    def clear_violations(self) -> None:
+    def clear_selection_violations(self) -> None:
         """Clear all violations."""
-        self.violation_index.clear()
+        self.selection_violation_index.clear()
+
+    # ========================================
+    # Violation Index - Order
+    # ========================================
+
+    def add_order_violation(self, violation: Any) -> None:
+        """Add an order violation to all affected components."""
+        for reference in violation.affected_components:
+            if reference not in self.order_violation_index:
+                self.order_violation_index[reference] = []
+            self.order_violation_index[reference].append(violation)
+
+    def get_order_violations(self, reference: ComponentReference) -> list[Any]:
+        """Get order violations for a reference."""
+        return self.order_violation_index.get(reference, [])
+
+    def has_order_violations(self, reference: ComponentReference) -> bool:
+        """Check if reference has order violations."""
+        return bool(self.order_violation_index.get(reference))
+
+    def clear_order_violations(self) -> None:
+        """Clear all order violations."""
+        self.order_violation_index.clear()
 
     # ========================================
     # Parent/Child Index (for MUC and SUB)
@@ -463,7 +489,7 @@ class ReferenceIndexes:
         self.mod_component_index.clear()
         self.tree_item_index.clear()
         self.selection_index.clear()
-        self.violation_index.clear()
+        self.selection_violation_index.clear()
         self.parent_index.clear()
         self.children_index.clear()
 
