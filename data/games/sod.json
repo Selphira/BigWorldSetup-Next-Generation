@@ -9,7 +9,11 @@
       "game": "sod",
       "required_files": [
         {
-          "files": ["chitin.key", "Baldur.exe"]
+          "files": ["chitin.key"]
+        }, {
+          "files": ["Baldur.exe", "SiegeOfDragonspear.exe"],
+          "operator": "any",
+          "description": "SoD EXE file"
         }, {
           "files": ["sod-dlc.zip", "dlc/sod-dlc.zip", "workshop/sod-dlc.mod"],
           "operator": "any",
