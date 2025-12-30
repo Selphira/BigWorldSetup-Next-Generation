@@ -89,9 +89,14 @@
         "violation_only_tooltip": "Afficher uniquement les mods et composants ayant des conflits ou dépendances à gérer"
       },
       "violation": {
-        "select_component": "➕ Ajouter : {mod}: [{comp_key}] {component}",
+        "keep_this_component": "✅ Garder ce composant",
+        "keep_this_mod_components": "✅ Garder les composants de ce mod",
+        "select_this_component": "➕ Ajouter ce composant",
         "unselect_this_component": "❌ Supprimer ce composant",
+        "unselect_this_mod_components": "❌ Supprimer les composants de ce mod",
+        "select_component": "➕ Ajouter : {mod}: [{comp_key}] {component}",
         "unselect_component": "❌ Supprimer : {mod}: [{comp_key}] {component}",
+        "unselect_mod": "❌ Supprimer le mod : {mod}",
         "type_dependency": "Dépendance",
         "type_incompatibility": "Conflit"
       },
@@ -409,6 +414,8 @@
     "message_incompatibility": "Incompatibilités avec {conflict_names}",
     "message_dependency": "{source_mod}:{source_comp} doit être installé APRÈS {dep_mod}:{dep_comp} (dépendance)",
     "message_dependency_suggestion": "Déplacer {dep_mod}:{dep_comp} avant {source_mod}:{source_comp}",
+    "message_dependency_missing": "Nécessite : {missing}",
+    "message_dependency_required_by": "Requis par : {sources}",
     "message_order_before": "{source_mod}:{source_comp} doit être installé AVANT {target_mod}:{target_comp}",
     "message_order_after": "{source_mod}:{source_comp} doit être installé APRÈS {target_mod}:{target_comp}",
     "message_order_move_before": "{source_mod}:{source_comp} doit être installé AVANT {target_mod}:{target_comp}",

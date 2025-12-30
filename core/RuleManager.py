@@ -221,8 +221,9 @@ class RuleManager:
             return self._check_incompatibility(rule, source_ref, selected_set)
         return None
 
+    @staticmethod
     def _matches_reference(
-        self, reference: ComponentReference, selected_set: set[ComponentReference]
+        reference: ComponentReference, selected_set: set[ComponentReference]
     ) -> bool:
         """Check if a reference matches any selected component.
 
@@ -262,21 +263,11 @@ class RuleManager:
         if not is_violated:
             return None
 
-        # Build violation message
-        if rule.dependency_mode == DependencyMode.ALL:
-            missing_str = ", ".join(str(t) for t in missing)
-            message = f"Missing required dependencies: {missing_str}"
-        else:
-            targets_str = ", ".join(str(t) for t in rule.targets)
-            message = f"Requires at least one of: {targets_str}"
-
-        if rule.description:
-            message += f"\n{rule.description}"
+        affected = (source_ref,) + tuple(missing)
 
         return RuleViolation(
             rule=rule,
-            affected_components=(source_ref,),
-            message=message,
+            affected_components=affected,
             suggested_actions=tuple(),
         )
 
@@ -296,18 +287,11 @@ class RuleManager:
         if not conflicts:
             return None
 
-        conflict_names = ", ".join(str(c) for c in conflicts)
-        message = tr("rule.message_incompatibility", conflict_names=conflict_names)
-        if rule.description:
-            message += f"\n{rule.description}"
-
         affected = (source_ref,) + tuple(conflicts)
 
         return RuleViolation(
             rule=rule,
             affected_components=affected,
-            message=message,
-            suggested_actions=tuple(),
         )
 
     # -------------------------

@@ -55,6 +55,7 @@ from core.TranslationManager import tr
 from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
+from ui.pages.mod_selection.ComponentContextMenu import ComponentContextMenu
 from ui.pages.mod_selection.ComponentSelector import ComponentSelector
 from ui.pages.mod_selection.ModDetailsPanel import ModDetailsPanel
 from ui.pages.mod_selection.SelectionController import SelectionController
@@ -269,6 +270,7 @@ class ModSelectionPage(BasePage):
         self._validation_timer.timeout.connect(self._trigger_validation)
 
         self._selection_controller = SelectionController(self._rule_manager)
+        self._context_menu = ComponentContextMenu(self._selection_controller)
         self._validation_orchestrator = ValidationOrchestrator(
             self._rule_manager, self._selection_controller
         )
@@ -408,6 +410,7 @@ class ModSelectionPage(BasePage):
         )
         self._highlight_delegate = HighlightDelegate(self._component_selector)
         self._component_selector.setItemDelegate(self._highlight_delegate)
+        self._component_selector.set_context_menu(self._context_menu)
 
         layout.addWidget(self._component_selector)
 
@@ -464,6 +467,7 @@ class ModSelectionPage(BasePage):
 
         self._violation_panel = ViolationPanel(self._selection_controller)
         self._violation_panel.set_orchestrator(self._validation_orchestrator)
+        self._violation_panel.set_context_menu(self._context_menu)
         layout.addWidget(self._violation_panel, stretch=1)
 
         return panel

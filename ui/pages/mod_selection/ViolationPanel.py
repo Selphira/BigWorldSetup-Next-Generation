@@ -6,7 +6,6 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QHeaderView,
     QLabel,
-    QMenu,
     QTableWidget,
     QTableWidgetItem,
     QVBoxLayout,
@@ -22,10 +21,12 @@ from constants import (
     SPACING_SMALL,
 )
 from core.ComponentReference import ComponentReference, IndexManager
-from core.Rules import RuleType, RuleViolation
+from core.Rules import RuleViolation
 from core.TranslationManager import tr
 from core.ValidationOrchestrator import ValidationOrchestrator
+from ui.pages.mod_selection.ComponentContextMenu import ComponentContextMenu
 from ui.pages.mod_selection.SelectionController import SelectionController
+from ui.pages.mod_selection.TreeItem import TreeItem
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
 logger = logging.getLogger(__name__)
@@ -40,6 +41,7 @@ class ViolationPanel(QWidget):
         super().__init__(parent)
 
         self._controller = controller
+        self._context_menu: ComponentContextMenu | None = None
         self._orchestrator: ValidationOrchestrator | None = None
         self._indexes = IndexManager.get_indexes()
         self._current_reference: ComponentReference | None = None
@@ -49,6 +51,10 @@ class ViolationPanel(QWidget):
 
         self._create_widgets()
         self._connect_signals()
+
+    def set_context_menu(self, context_menu: ComponentContextMenu):
+        """Set the context menu builder to use."""
+        self._context_menu = context_menu
 
     def set_orchestrator(self, orchestrator) -> None:
         """Inject the orchestrator."""
@@ -108,6 +114,8 @@ class ViolationPanel(QWidget):
         self._lbl_title.setText(self._get_component_name(reference))
 
         violations = self._indexes.get_violations(reference)
+        unique_violations = {v.rule: v for v in violations}
+        violations = list(unique_violations.values())
 
         if not violations:
             self._table.setRowCount(1)
@@ -170,7 +178,9 @@ class ViolationPanel(QWidget):
             self._table.setItem(row, 1, type_item)
 
             # Column 2: Description
-            desc_item = QTableWidgetItem(violation.message)
+            desc_item = QTableWidgetItem(
+                violation.get_message(self._current_reference, self._indexes.selection_index)
+            )
             self._table.setItem(row, 2, desc_item)
 
             # Store violation in row data
@@ -180,7 +190,11 @@ class ViolationPanel(QWidget):
         item = self._table.item(row, 0)
         violation = item.data(Qt.ItemDataRole.UserRole)
         if violation:
-            self._table.viewport().setToolTip(violation.message if item else "")
+            self._table.viewport().setToolTip(
+                violation.get_message(self._current_reference, self._indexes.selection_index)
+                if item
+                else ""
+            )
 
     def _show_row_context_menu(self, position) -> None:
         """Display context menu for a row."""
@@ -196,54 +210,12 @@ class ViolationPanel(QWidget):
         if not violation:
             return
 
-        rule = violation.rule
-        menu = QMenu(self)
+        reference = self._current_reference  # La référence actuellement affichée
+        item = IndexManager.get_indexes().get_tree_item(reference)
 
-        if rule.rule_type == RuleType.DEPENDENCY:
-            for target_ref in rule.targets:
-                if target_ref not in self._indexes.selection_index:
-                    component = self._indexes.resolve(target_ref)
-                    if not component:
-                        logger.warning(f"Component {target_ref} not found.")
-                        continue
-                    add_deps = menu.addAction(
-                        tr(
-                            "page.selection.violation.select_component",
-                            mod=component.mod.name,
-                            comp_key=component.key,
-                            component=component.text,
-                        )
-                    )
-                    add_deps.triggered.connect(
-                        lambda _, reference=target_ref: self._controller.select(reference)
-                    )
-
-        elif rule.rule_type == RuleType.INCOMPATIBILITY:
-            references = (
-                rule.targets if self._current_reference in rule.sources else rule.sources
-            )
-            for target_ref in references:
-                if target_ref in self._indexes.selection_index:
-                    component = self._indexes.resolve(target_ref)
-                    add_deps = menu.addAction(
-                        tr(
-                            "page.selection.violation.unselect_component",
-                            mod=component.mod.name,
-                            comp_key=component.key,
-                            component=component.text,
-                        )
-                    )
-                    add_deps.triggered.connect(
-                        lambda _, reference=target_ref: self._controller.unselect(reference)
-                    )
-
-        menu.addSeparator()
-        remove_action = menu.addAction(tr("page.selection.violation.unselect_this_component"))
-        remove_action.triggered.connect(
-            lambda: self._controller.unselect(self._current_reference)
-        )
-
-        menu.exec(self._table.viewport().mapToGlobal(position))
+        if isinstance(item, TreeItem):
+            global_pos = self._table.viewport().mapToGlobal(position)
+            self._context_menu.show_menu(item, global_pos, specific_violation=violation)
 
     def retranslate_ui(self) -> None:
         """Update texts after language change."""

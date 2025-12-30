@@ -33,6 +33,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.TranslationManager import tr
+from ui.pages.mod_selection.ComponentContextMenu import ComponentContextMenu
 from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.pages.mod_selection.TreeItem import TreeItem
 
@@ -479,6 +480,7 @@ class ComponentSelector(QTreeView):
 
         self._mod_manager = mod_manager
         self._controller = controller
+        self._context_menu: ComponentContextMenu | None = None
         self._indexes = IndexManager.get_indexes()
 
         self._setup_model()
@@ -488,6 +490,10 @@ class ComponentSelector(QTreeView):
         self._connect_signals()
 
         logger.info("ComponentSelector initialized")
+
+    def set_context_menu(self, context_menu: ComponentContextMenu):
+        """Set the context menu builder to use."""
+        self._context_menu = context_menu
 
     # ========================================
     # Initialization
@@ -527,10 +533,12 @@ class ComponentSelector(QTreeView):
 
         self._status_delegate = StatusColumnDelegate(self._indexes, self)
         self.setItemDelegateForColumn(2, self._status_delegate)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
 
     def _connect_signals(self) -> None:
         """Connect to controller signals."""
         self.clicked.connect(self._on_item_clicked)
+        self.customContextMenuRequested.connect(self._show_row_context_menu)
         self._controller.selection_changed.connect(self._on_controller_selection_changed)
         self._controller.selections_bulk_changed.connect(self._on_controller_bulk_changed)
 
@@ -621,8 +629,21 @@ class ComponentSelector(QTreeView):
         return item
 
     # ========================================
-    # Event Handlers (Delegate to Controller)
+    # Event Handlers
     # ========================================
+
+    def _show_row_context_menu(self, position):
+        """Display context menu for a row (all violations)."""
+        index = self.indexAt(position)
+        if not index.isValid():
+            return
+
+        source_index = self._proxy_model.mapToSource(index)
+        item = self._model.itemFromIndex(source_index.siblingAtColumn(0))
+
+        if isinstance(item, TreeItem):
+            global_pos = self.viewport().mapToGlobal(position)
+            self._context_menu.show_menu(item, global_pos)
 
     def _on_item_clicked(self, index: QModelIndex) -> None:
         """Handle click - distinguish checkbox vs expand."""

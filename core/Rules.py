@@ -6,6 +6,7 @@ from typing import Any
 
 from constants import ICON_ERROR, ICON_INFO, ICON_WARNING
 from core.ComponentReference import ComponentReference
+from core.TranslationManager import tr
 
 
 class RuleType(Enum):
@@ -203,8 +204,103 @@ class RuleViolation:
 
     rule: Rule
     affected_components: tuple[ComponentReference, ...]
-    message: str
+    message: str = ""
     suggested_actions: tuple[str, ...] = field(default_factory=tuple)
+
+    def get_message(
+        self, for_reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> str:
+        """Get formatted message adapted to the given reference context.
+
+        Args:
+            for_reference: The reference from which we're viewing the violation
+            selected_set: Current set of selected components (for accurate state)
+
+        Returns:
+            Formatted message string
+        """
+
+        if self.rule.rule_type == RuleType.DEPENDENCY:
+            message = self._format_dependency_message(for_reference, selected_set)
+        elif self.rule.rule_type == RuleType.INCOMPATIBILITY:
+            message = self._format_incompatibility_message(for_reference, selected_set)
+        else:
+            message = "Unknown violation"
+
+        if self.rule.description:
+            message += f"\n{self.rule.description}"
+
+        return message
+
+    def _format_dependency_message(
+        self, for_reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> str:
+        """Format dependency violation message with current selection state."""
+        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+        missing: list[ComponentReference] = []
+
+        if is_source:
+            for target in self.rule.targets:
+                if not self._matches_reference(target, selected_set):
+                    missing.append(target)
+            if missing:
+                missing_str = ", ".join(str(t) for t in missing)
+                return tr("rule.message_dependency_missing", missing=missing_str)
+            else:
+                return tr("rule.message_dependency_all_satisfied")
+        else:
+            for source in self.rule.sources:
+                if self._matches_reference(source, selected_set):
+                    missing.append(source)
+            sources_str = ", ".join(str(s) for s in missing)
+            return tr("rule.message_dependency_required_by", sources=sources_str)
+
+    def _format_incompatibility_message(
+        self, for_reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> str:
+        """Format incompatibility violation message with current selection state."""
+        if self._reference_in_list(for_reference, list(self.rule.sources)):
+            conflicts = [
+                ref for ref in self.rule.targets if self._matches_reference(ref, selected_set)
+            ]
+        else:
+            conflicts = [
+                ref for ref in self.rule.sources if self._matches_reference(ref, selected_set)
+            ]
+
+        if not conflicts:
+            return tr("rule.message_incompatibility_resolved")
+
+        conflict_names = ", ".join(str(ref) for ref in conflicts)
+        return tr("rule.message_incompatibility", conflict_names=conflict_names)
+
+    def _matches_reference(
+        self, reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> bool:
+        """Check if a reference matches any selected component.
+
+        Duplicates RuleManager logic for consistency.
+        """
+        if reference.is_mod():
+            return any(selected.mod_id == reference.mod_id for selected in selected_set)
+
+        return reference in selected_set
+
+    def _reference_in_list(
+        self, reference: ComponentReference, ref_list: list[ComponentReference]
+    ) -> bool:
+        """Check if reference matches any reference in list (handles MOD references)."""
+        for ref in ref_list:
+            if self._references_match(reference, ref):
+                return True
+        return False
+
+    def _references_match(self, ref1: ComponentReference, ref2: ComponentReference) -> bool:
+        """Check if two references match (handles MOD references)."""
+        if ref1.is_mod() or ref2.is_mod():
+            return ref1.mod_id == ref2.mod_id
+
+        return ref1 == ref2
 
     @property
     def severity(self) -> RuleSeverity:
