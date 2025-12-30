@@ -20,7 +20,7 @@ complexes de mods, tout en restant fidèle aux principes et à l’esprit du pro
 **Big World Setup - Enhanced Edition** est l’évolution directe
 de [Big World Setup FR](<https://github.com/Selphira/BigWorldSetupFR>).
 
-Le projet original a rendu de grands services à la communauté pendant de plusieurs années, mais il présentait
+Le projet original a rendu de grands services à la communauté pendant plusieurs années, mais il présentait
 progressivement plusieurs limitations :
 
 * Le language AutoIt est principalement orienté vers Windows
