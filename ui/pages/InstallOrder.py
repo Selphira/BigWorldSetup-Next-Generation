@@ -55,6 +55,7 @@ from core.TranslationManager import tr
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage
 from ui.pages.install_order.DraggableTable import DraggableTableWidget
+from ui.pages.install_order.OrderTableWidget import OrderTableWidget
 from ui.pages.install_order.PauseDescriptionDialog import PauseDescriptionDialog
 
 logger = logging.getLogger(__name__)
@@ -490,8 +491,12 @@ class InstallOrderPage(BasePage):
         layout.addLayout(header_layout)
 
         # Table widget
-        table = DraggableTableWidget(
-            column_count=ORDERED_COLUMN_COUNT, accept_from_other=True, table_role="ordered"
+        table = OrderTableWidget(
+            self._rule_manager,
+            self._mod_manager,
+            column_count=ORDERED_COLUMN_COUNT,
+            accept_from_other=True,
+            table_role="ordered",
         )
 
         table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
@@ -1016,30 +1021,35 @@ class InstallOrderPage(BasePage):
     # ========================================
 
     def _validate_sequence(self, seq_idx: int) -> None:
-        """Validate order for a sequence."""
-        seq_data = self._sequences_data.get(seq_idx)
-        if not seq_data:
-            return
+        """Validate all sequences at once."""
+        sequences = {}
+        for seq_idx, seq_data in self._sequences_data.items():
+            if seq_data.ordered:
+                components_only = [
+                    ref for ref in seq_data.ordered if ref.mod_id != PAUSE_PREFIX
+                ]
+                sequences[seq_idx] = components_only
+            else:
+                sequences[seq_idx] = []
 
-        seq_data.validation.clear()
+        all_violations = self._rule_manager.validate_order(sequences)
 
-        if not seq_data.ordered:
-            return
+        for seq_idx, violations in all_violations.items():
+            seq_data = self._sequences_data.get(seq_idx)
+            if not seq_data:
+                continue
 
-        components_only = [
-            reference for reference in seq_data.ordered if reference.mod_id != PAUSE_PREFIX
-        ]
+            seq_data.validation.clear()
 
-        order_violations = self._rule_manager.validate_order(components_only)
+            for violation in violations:
+                for reference in violation.affected_components:
+                    if violation.is_error:
+                        seq_data.validation.add_error(reference)
+                    elif violation.is_warning:
+                        seq_data.validation.add_warning(reference)
 
-        for violation in order_violations:
-            for reference in violation.affected_components:
-                if violation.is_error:
-                    seq_data.validation.add_error(reference)
-                elif violation.is_warning:
-                    seq_data.validation.add_warning(reference)
+            self._apply_visual_indicators(seq_idx)
 
-        self._apply_visual_indicators(seq_idx)
         self.notify_navigation_changed()
 
     def _apply_visual_indicators(self, seq_idx: int) -> None:
@@ -1049,6 +1059,7 @@ class InstallOrderPage(BasePage):
             return
 
         ordered_table = self._ordered_tables[seq_idx]["table"]
+        ordered_table.set_current_order(seq_data.ordered)
 
         for row in range(ordered_table.rowCount()):
             mod_item = ordered_table.item(row, COL_ORDERED_MOD)
@@ -1057,23 +1068,14 @@ class InstallOrderPage(BasePage):
 
             reference = mod_item.data(ROLE_COMPONENT)
             violations = self._rule_manager.get_order_violations(reference)
-            unique_violations = {v.rule: v for v in violations}
-            violations = list(unique_violations.values())
 
             mod_item.setText(
                 mod_item.text().replace(f"{ICON_ERROR} ", "").replace(f"{ICON_WARNING} ", "")
             )
 
             if violations:
-                tooltip_lines = []
-                for v in violations:
-                    tooltip_lines.append(
-                        f"{v.icon} {v.get_order_message(reference, seq_data.ordered)}"
-                    )
-
                 color, icon = seq_data.validation.get_component_indicator(reference)
                 mod_item.setText(f"{icon} {mod_item.text()}")
-                mod_item.setToolTip("\n".join(tooltip_lines))
 
                 for col in range(ordered_table.columnCount()):
                     item = ordered_table.item(row, col)
@@ -1081,8 +1083,6 @@ class InstallOrderPage(BasePage):
                         item.setBackground(color)
 
             else:
-                mod_item.setToolTip("")
-
                 for col in range(ordered_table.columnCount()):
                     item = ordered_table.item(row, col)
                     if item:

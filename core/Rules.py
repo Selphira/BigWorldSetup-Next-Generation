@@ -241,11 +241,16 @@ class RuleViolation:
             Formatted message listing only components that violate the order
         """
         if self.rule.rule_type == RuleType.ORDER:
-            return self._format_order_message(for_reference, current_order)
+            message = self._format_order_message(for_reference, current_order)
         elif self.rule.rule_type == RuleType.DEPENDENCY:
-            return self._format_order_dependency_message(for_reference, current_order)
+            message = self._format_order_dependency_message(for_reference, current_order)
         else:
-            return ""
+            message = ""
+
+        if self.rule.description:
+            message += f"\n    {self.rule.description}"
+
+        return message
 
     def _format_order_message(
         self, for_reference: ComponentReference, current_order: list[ComponentReference]

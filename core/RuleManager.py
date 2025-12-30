@@ -295,26 +295,45 @@ class RuleManager:
     # -------------------------
     # Order validation
     # -------------------------
-    def validate_order(self, install_order: list[ComponentReference]) -> list[RuleViolation]:
-        """Validate order against dependency rules (implicit) + explicit order rules."""
-        violations: list[RuleViolation] = []
+    def validate_order(
+        self, sequences: dict[int, list[ComponentReference]]
+    ) -> dict[int, list[RuleViolation]]:
+        """Validate order for multiple sequences at once.
+
+        Args:
+            sequences: Dict mapping sequence index to component order
+
+        Returns:
+            Dict mapping sequence index to list of violations
+        """
         self._indexes.clear_order_violations()
 
-        # Build position map
-        positions = {ref: idx for idx, ref in enumerate(install_order)}
+        all_violations = {}
 
-        # Check DEPENDENCY rules (implicit ordering)
-        for rule in self._dependency_rules:
-            if rule.implicit_order:
-                violations.extend(
-                    self._validate_dependency_order(rule, install_order, positions)
-                )
+        for seq_idx, install_order in sequences.items():
+            violations = []
 
-        # Check explicit ORDER rules
-        for rule in self._order_rules:
-            violations.extend(self._validate_explicit_order(rule, install_order, positions))
+            if not install_order:
+                all_violations[seq_idx] = violations
+                continue
 
-        return violations
+            # Build position map
+            positions = {ref: idx for idx, ref in enumerate(install_order)}
+
+            # Check DEPENDENCY rules (implicit ordering)
+            for rule in self._dependency_rules:
+                if rule.implicit_order:
+                    violations.extend(
+                        self._validate_dependency_order(rule, install_order, positions)
+                    )
+
+            # Check explicit ORDER rules
+            for rule in self._order_rules:
+                violations.extend(self._validate_explicit_order(rule, install_order, positions))
+
+            all_violations[seq_idx] = violations
+
+        return all_violations
 
     def _validate_dependency_order(
         self,
