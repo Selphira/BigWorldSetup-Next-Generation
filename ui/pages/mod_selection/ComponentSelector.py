@@ -958,3 +958,6 @@ class ComponentSelector(QTreeView):
                             f"{component.get_prompt_option_text(prompt.key, option_key)}"
                         )
                         item.setText(text)
+                else:
+                    text = f"[{component.key}] {mod.get_component_text(component.key)}"
+                    item.setText(text)
