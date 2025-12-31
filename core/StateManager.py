@@ -518,3 +518,37 @@ class StateManager:
         if not game_code:
             return None
         return self.get_game_manager().get(game_code)
+
+    def is_valid_state(self) -> bool:
+        game_def = self.get_game_manager().get(self.get_selected_game())
+        is_valid = True
+
+        if not game_def:
+            is_valid = False
+        else:
+            folders = [
+                self.get_backup_folder(),
+                self.get_download_folder(),
+            ]
+
+            game_folders = self.get_game_folders()
+            game_manager = self.get_game_manager()
+            game_codes = {seq.game for seq in game_def.sequences if seq.game}
+
+            for game_code in game_codes:
+                game = game_manager.get(game_code)
+                if not game:
+                    is_valid = False
+                    break
+
+                for folder_key in game.get_folder_keys():
+                    path = game_folders.get(folder_key)
+                    if not path:
+                        is_valid = False
+                        break
+                    folders.append(path)
+
+            if is_valid:
+                is_valid = all(path and Path(path).exists() for path in folders)
+
+        return is_valid

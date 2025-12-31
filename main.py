@@ -31,6 +31,7 @@ from core.StateManager import StateManager
 from core.TranslationManager import get_translator, tr
 from ui.CacheDialog import show_cache_build_dialog
 from ui.MainWindow import MainWindow
+from ui.pages.BackupPage import BackupPage
 from ui.pages.DownloadPage import DownloadPage
 from ui.pages.ExtractionPage import ExtractionPage
 from ui.pages.InstallationPage import InstallationPage
@@ -159,12 +160,12 @@ def register_pages(window: MainWindow, state: StateManager) -> None:
     """
     pages = [
         InstallationTypePage(state),
+        BackupPage(state),
         ModSelectionPage(state),
         InstallOrderPage(state),
         DownloadPage(state),
         ExtractionPage(state),
         InstallationPage(state),
-        # SummaryPage(state),
     ]
 
     for page in pages:
@@ -183,8 +184,11 @@ def get_initial_page(state: StateManager) -> str:
     Returns:
         Page ID to show
     """
-    # Try to restore last page
-    last_page = state.get_ui_current_page()
+
+    if not state.is_valid_state():
+        last_page = "installation_type"
+    else:
+        last_page = state.get_ui_current_page()
 
     if last_page:
         logger.info(f"Restoring last page: {last_page}")

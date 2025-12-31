@@ -287,6 +287,65 @@
       "complete_with_errors_title": "Extraction terminée avec des erreurs",
       "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)"
     },
+    "backup": {
+      "title": "Gestion des sauvegardes",
+      "filter_label": "Filtrer par jeu :",
+      "filter": {
+        "all": "Tous les jeux"
+      },
+      "btn_create_backup": "Créer une sauvegarde",
+      "btn_restore": "Restaurer",
+      "btn_delete": "Supprimer",
+      "col_backup_name": "Nom de la sauvegarde",
+      "col_game_code": "Jeu",
+      "col_date": "Date",
+      "col_size": "Taille",
+      "col_modded": "Moddé",
+      "col_status": "Statut",
+      "col_actions": "Actions",
+      "status": {
+        "valid": "Valide",
+        "corrupted": "Corrompu",
+        "incomplete": "Incomplet"
+      },
+      "restoring_backup": "Restauration de la sauvegarde en cours...",
+      "backup_created_successfully": "La sauvegarde a été créée avec succès.",
+      "backup_restored_successfully": "La sauvegarde a été restaurée avec succès.",
+      "backup_deleted_successfully": "La sauvegarde a été supprimée avec succès.",
+      "backup_valid": "La sauvegarde est valide et intègre.",
+      "backup_invalid": "La sauvegarde est invalide : {error}",
+      "select_game_title": "Sélectionner un jeu",
+      "select_game_message": "Veuillez sélectionner le jeu à sauvegarder :",
+      "confirm_restore_title": "Confirmer la restauration",
+      "confirm_restore_message": "Êtes-vous sûr de vouloir restaurer la sauvegarde '{name}' pour le jeu '{game}' ?\n\nLes fichiers actuels du jeu seront déplacés dans un dossier temporaire.",
+      "confirm_delete_title": "Confirmer la suppression",
+      "confirm_delete_message": "Êtes-vous sûr de vouloir supprimer définitivement la sauvegarde '{name}' ?",
+      "cleanup_title": "Nettoyer les fichiers déplacés",
+      "cleanup_message": "La restauration est terminée. Les anciens fichiers ont été déplacés dans :\n{path}\n\nVoulez-vous supprimer ce dossier pour libérer de l'espace disque ?",
+      "cleanup_success": "Le dossier des fichiers déplacés a été supprimé avec succès.",
+      "cleanup_failed": "Impossible de supprimer le dossier des fichiers déplacés : {error}",
+      "error_title": "Erreur",
+      "warning_title": "Avertissement",
+      "success_title": "Succès",
+      "warning_game_modded": "Le jeu sélectionné contient déjà des mods installés.\n\nIl est fortement recommandé de sauvegarder uniquement des installations propres du jeu.\n\nVoulez-vous quand même continuer ?",
+      "warning_low_disk_space": "Espace disque faible ! Il reste seulement {space} Go disponibles.\n\nLe backup a besoinde {size} Go d'espace disque.",
+      "context_restore": "Restaurer cette sauvegarde",
+      "context_validate": "Vérifier l'intégrité",
+      "context_open_folder": "Ouvrir dans l'explorateur",
+      "context_delete": "Supprimer cette sauvegarde",
+      "yes": "Oui",
+      "no": "Non",
+      "modded": "Moddé",
+      "vanilla": "Vanille",
+      "btn_edit": "Modifier",
+      "warning_modded_games": "Le dossier du jeu contient des mods installés : {games}.\nPour continuer l'installation, vous devez restaurer la sauvegarde d'un jeu non moddé, ou modifier le dossier du jeu concerné.",
+      "confirm_create_title": "Confirmer la création du backup",
+      "confirm_create_message": "Créer un backup pour {game} ?\n\nStatut : {status}\nTaille estimée : {size} Go\nEspace libre : {free} Go",
+      "edit_title": "Modifier le backup",
+      "edit_custom_name": "Nom personnalisé (optionnel) :",
+      "edit_notes": "Notes (optionnelles) :",
+      "context_edit": "Modifier le nom et les notes"
+    },
     "installation": {
       "title": "Installation des mods",
       "stats": {
@@ -361,6 +420,35 @@
       "pause_on_error_tooltip": "Mettre l'installation en pause lorsqu'une erreur est détectée.",
       "paused": "Installation en pause",
       "paused_with_description": "Installation en pause : {description}"
+    }
+  },
+  "backup_manager": {
+    "error": {
+      "no_backup_directory": "Le répertoire de sauvegarde n'est pas configuré",
+      "game_directory_not_found": "Le répertoire du jeu n'existe pas : {path}",
+      "no_files_to_backup": "Aucun fichier à sauvegarder",
+      "backup_creation_failed": "La création de la sauvegarde a échoué : {error}",
+      "backup_not_found": "Sauvegarde introuvable : {id}",
+      "delete_failed": "La suppression de la sauvegarde a échoué : {error}",
+      "backup_directory_not_found": "Le répertoire de sauvegarde est introuvable",
+      "metadata_missing": "Le fichier de métadonnées est manquant",
+      "game_files_missing": "Le répertoire des fichiers du jeu est manquant",
+      "invalid_metadata": "Métadonnées invalides",
+      "file_count_mismatch": "Nombre de fichiers incorrect : {expected} attendus, {found} trouvés",
+      "validation_failed": "La validation de la sauvegarde a échoué : {error}",
+      "metadata_update_failed": "La mise à jour des métadonnées a échoué : {error}",
+      "restore_failed": "La restauration de la sauvegarde a échoué : {error}",
+      "invalid_backup": "Sauvegarde invalide",
+      "insufficient_disk_space": "Espace disque insuffisant"
+    },
+    "progress": {
+      "analyzing_files": "Analyse des fichiers...",
+      "copying_file": "Copie : {file}",
+      "removing_files": "Suppression des fichiers actuels...",
+      "restoring_backup": "Restauration des fichiers de sauvegarde...",
+      "restoring_data": "Restauration des fichiers de données...",
+      "restoring_file": "Restauration : {file}",
+      "restoration_complete": "Restauration terminée"
     }
   },
   "validation": {

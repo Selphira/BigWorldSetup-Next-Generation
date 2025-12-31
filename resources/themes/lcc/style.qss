@@ -377,6 +377,14 @@ QLabel#section-title {
     font-weight: bold;
 }
 
+QLabel#warning {
+    color: #000000;
+    font-weight: bold;
+    background-color: #ffaa00;
+    border-radius: 4px;
+    padding: 8px;
+}
+
 /* ============================================================================
  * PROGRESS BARS
  * ============================================================================ */
