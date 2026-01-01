@@ -596,13 +596,13 @@ class WeiDUTp2Parser:
             designated = prev_designated + 1
 
         # Extract SUBCOMPONENT
-        subcomponent_ref: int | None = None
+        subcomponent_ref: str | None = None
         subcomponent_text: str | None = None
         subcomponent_key: str | None = None
 
         sub_ref_match = RE_SUBCOMPONENT_REF.search(block)
         if sub_ref_match:
-            subcomponent_ref = int(sub_ref_match.group(1))
+            subcomponent_ref = sub_ref_match.group(1)
             subcomponent_key = f"ref_{subcomponent_ref}"
         else:
             sub_text_match = RE_SUBCOMPONENT_TEXT.search(block)
