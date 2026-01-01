@@ -19,107 +19,14 @@ EXEMPLES:
 import configparser
 from dataclasses import dataclass
 import hashlib
-import json
 import os
+from pathlib import Path
 import re
 import sys
 from typing import Any, Optional
 
-from constants import *
-
-
-class CompactJSONEncoder(json.JSONEncoder):
-    """
-    Encodeur JSON personnalisé pour formatter compactement les components
-
-    Format compact pour:
-    - {"type": "std"}
-    - {"options": ["1", "2"]}
-    - {"components": ["1", "2"]}
-
-    Format normal pour le reste
-    """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.current_indent_level = 0
-
-    def encode(self, o):
-        """Encode l'objet avec formatting personnalisé"""
-        if isinstance(o, dict):
-            return self._encode_dict(o, 0)
-        return super().encode(o)
-
-    def _encode_dict(self, d: dict, indent_level: int) -> str:
-        """Encode un dictionnaire avec indentation"""
-        if not d:
-            return "{}"
-
-        indent = "  " * indent_level
-        next_indent = "  " * (indent_level + 1)
-
-        # Cas spéciaux pour formatting compact
-        if self._is_compact_dict(d):
-            return self._encode_compact(d)
-
-        # Formatting normal
-        items = []
-        for key, value in d.items():
-            key_str = json.dumps(key)
-
-            if isinstance(value, dict):
-                if self._is_compact_dict(value):
-                    value_str = self._encode_compact(value)
-                else:
-                    value_str = self._encode_dict(value, indent_level + 1)
-            elif isinstance(value, list):
-                value_str = self._encode_list(value)
-            else:
-                value_str = json.dumps(value, ensure_ascii=False)
-
-            items.append(f"{next_indent}{key_str}: {value_str}")
-
-        return "{\n" + ",\n".join(items) + f"\n{indent}}}"
-
-    def _encode_list(self, lst: list) -> str:
-        """Encode une liste (toujours compact)"""
-        if not lst:
-            return "[]"
-        items = [json.dumps(item, ensure_ascii=False) for item in lst]
-        return "[" + ", ".join(items) + "]"
-
-    def _is_compact_dict(self, d: dict) -> bool:
-        """Vérifie si un dict doit être formatté en compact"""
-        # {"type": "std"} ou {"type": "muc"}
-        if set(d.keys()) == {"type"}:
-            return True
-
-        # {"type": "std", ...} avec peu de clés
-        if "type" in d and d["type"] in ["std", "muc", "sub"] and len(d) <= 10:
-            return True
-
-        # {"options": [...]}
-        if set(d.keys()) == {"options"}:
-            return True
-
-        # {"components": [...]}
-        if set(d.keys()) == {"components"}:
-            return True
-
-        return False
-
-    def _encode_compact(self, d: dict) -> str:
-        """Encode un dict en format compact sur une ligne"""
-        items = []
-        for key, value in d.items():
-            key_str = json.dumps(key)
-            if isinstance(value, list):
-                value_str = self._encode_list(value)
-            else:
-                value_str = json.dumps(value, ensure_ascii=False)
-            items.append(f'"{key}": {value_str}')
-
-        return "{" + ", ".join(items) + "}"
+from constants import ICON_ERROR, ICON_INFO, ICON_SUCCESS, ICON_WARNING
+from core.CompactJSONEncoder import CompactJSONEncoder
 
 
 @dataclass
@@ -735,7 +642,7 @@ def main():
     print("═" * 60 + "\n")
 
     # Code de sortie
-    sys.exit(0 if stats['failed'] == 0 else 1)
+    sys.exit(0 if stats["failed"] == 0 else 1)
 
 
 if __name__ == "__main__":

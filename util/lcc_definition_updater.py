@@ -24,7 +24,7 @@ from urllib.error import HTTPError, URLError
 import urllib.request
 
 from constants import ICON_ERROR, ICON_INFO, ICON_SUCCESS, ICON_WARNING, LCC_CACHE_DIR
-from util.ini_to_json_converter import CompactJSONEncoder
+from core.CompactJSONEncoder import CompactJSONEncoder
 
 
 class LCCDataFetcher:
