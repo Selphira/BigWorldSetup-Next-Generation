@@ -65,7 +65,7 @@ DEFAULT_OS_CODE: str = "unix"
 
 # Regex patterns (compiled once for performance)
 RE_BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
-RE_LINE_COMMENT = re.compile(r"//.*?$", re.MULTILINE)
+RE_LINE_COMMENT = re.compile(r"^\s*//.*(?:\n|$)", re.MULTILINE)
 RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z\.\-_]*)[~"]?')
 RE_LANGUAGE_BLOCK = re.compile(r"LANGUAGE\s+((?:[~\"].*?[~\"]\s*)+)", re.DOTALL)
 RE_QUOTED_STRING = re.compile(r'[~"]([^~"]+)[~"]')
