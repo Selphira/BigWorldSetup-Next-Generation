@@ -29,7 +29,7 @@
       "description": "Oops is a very special character: he has the ability to change a spell scroll into a special ability.  In concrete terms, bring Oops the scroll of the spell you'd like to have as a special ability 1x/day, pay him 10,000 po per level of the desired spell, you lose the scroll but you gain a new ability. You'll find Oops next to the Watcher's keep, to the south-west. It is designed to be accessible in both SOA and TOB.\nThe mod also handles grimoires drawn from other mods like L'interplan, Semi Multi Clerics, Wild Mage Additions."
     },
     "zh_CN": {
-      "description": "<french>Oops est un personnage très particulier : il possède la capacité de changer un parchemin de sort en capacité spéciale.  Concrètement, amenez à Oops le parchemin du sort que vous voudriez avoir en capacité spécial 1x/jour, payez le 10000 po par niveau du sort désiré, vous perdez le parchemin mais vous gagnez une nouvelle capacité.\nVous trouverez Oops à coté de la Tour de Garde, au sud ouest. Il est là pour être accessible aussi bien dans SOA que dans TOB.\nLe mod gère aussi des grimoires tirés d'autres mods comme L'interplan, Semi Multi Clerics, Wild Mage Additions.</french>\n奥普斯是一个非常特别的角色：他拥有将法术卷轴转化为特殊能力的能力。具体来说，把你想要作为每日一次特殊能力的法术卷轴带给奥普斯，为法术的每个等级支付10000金币，你会失去卷轴，但获得一个新的能力。\n你可以在观察者堡垒的西南侧找到奥普斯。他的位置是为了在安姆阴影和巴尔王座中都能访问到。\n此模组也管理着来自其他模组（如 L'interplan, Semi Multi Clerics, Wild Mage Additions）的法术书。"
+      "description": "欧普是一个非常特别的角色：他拥有将法术卷轴转化为特殊能力的能力。具体来说，把你想要作为每日一次特殊能力的法术卷轴带给欧普，为法术的每个等级支付10000金币，你会失去卷轴，但获得一个新的能力。\n你可以在观察者堡垒的西南侧找到欧普。他的位置是为了在安姆阴影和巴尔王座中都能访问到。\n此模组也管理着来自其他模组（如 L'interplan, Semi Multi Clerics, Wild Mage Additions）的法术书。"
     }
   },
   "tp2": "derats_oops",

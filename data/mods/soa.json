@@ -26,7 +26,7 @@
         "0": "Default version: areas connected by travel triggers",
         "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)"
       },
-      "description": "The Stone of Askavar is a mod for Baldur's Gate I: Tales of the Sword Coast that includes a main quest and several side quests, as well as new areas, new items and spells, and many new creatures to fight. It sends you in search of a powerful gem located in an ancient elven community of Askavar. It's similar to Icewind Dale's quest for the Stone Heart gem, but here the aim is to find the gem before the members of the Black Gauntlet do. After flooding the mines of Cloakwood, your adventure begins just north of Nashkel, where you'll be attacked by knights of the Black Gauntlet.\nSince version 1.9, it's now combined in a single package for BG1, BG1Tutu, BGT, BG:EE with or without SoD."
+      "description": "The Stone of Askavar is a mod for Baldur's Gate I: Tales of the Sword Coast that includes a main quest and several side quests, as well as new areas, new items and spells, and many new creatures to fight. It sends you in search of a powerful gem located in an ancient elven community of Askavar. It's similar to Icewind Dale's quest for the Stone Heart gem, but here the aim is to find the gem before the members of the Black Gauntlet do. After flooding the mines of Cloakwood, your adventure begins just north of Nashkel, where you'll be attacked by knights of the Black Gauntlet."
     },
     "fr_FR": {
       "description": "The Stone of Askavar `La pierre d'Askavar` est un mod pour Baldur's Gate I : Tales of the Sword Coast qui comprend une quête principale et plusieurs quêtes secondaires, apporte de nouvelles zones, de nouveaux objets et sorts et aussi de nombreuses nouvelles créatures à combattre. Il vous envoie à la recherche d'une gemme puissante située dans une ancienne communauté elfique d'Askavar. Il ressemble à la quête de la gemme Cœur de pierre d'Icewind Dale, mais ici il s'agit de trouver la gemme avant les membres du Gantelet Noir. Après avoir inondé les mines de Bois-Manteau, votre aventure commence juste au nord de Nashkel, où vous serez attaqués par des chevaliers du Gantelet Noir.\nDepuis la version 1.9, il est désormais réuni dans un seul package pour BG1, BG1Tutu, BGT, BG:EE avec ou sans SoD.",
@@ -37,7 +37,7 @@
       }
     },
     "zh_CN": {
-      "description": "阿斯卡瓦之石《La pierre d'Askavar》是一个为博德之门I：剑湾传奇设计的模组，包含一个主线任务和几个支线任务，带来了新区域、新物品和新法术，以及许多需要战斗的新生物。它将你派去寻找一颗强大的宝石，这颗宝石位于一个名为阿斯卡瓦的古老精灵社区中。它类似于冰风谷中的宝石石心任务，但在这里，你需要抢在黑手套成员之前找到宝石。在淹没了禁魔监狱的矿洞后，你的冒险就在那西凯以北开始，在那里你将遭到黑手套骑士的袭击。\n自1.9版本起，它现在已整合为一个单独的包，适用于BG1、BG1Tutu、BGT、BG:EE，无论是否包含SoD。"
+      "description": "阿斯卡瓦之石《The Stone of Askavar》是一个为博德之门I：剑湾传奇设计的一款模组，包含一条主线任务与多条支线任务，引入了新区域、新物品与法术，以及大量可供战斗的新生物。它将引领你前往古老的精灵社区阿斯卡瓦，寻找一颗强大的宝石。其玩法类似于《冰风谷》中寻找“石之心”宝石的任务，但在此处，你的目标是在黑手套组织的成员之前找到宝石。在淹没了斗篷森林的矿坑后，你的冒险始于那西凯正北，在那里你将遭到黑手套骑士的袭击。"
     }
   },
   "tp2": "soa",

@@ -29,7 +29,7 @@
       "description": "This mod adds Mag Xardas the necromancer at the entrance to the Arnise dungeon. He is equipped with an archmage's ring.\nSTR 12, DEX 18, CON 14, INT 20, WIS 19, CHA 17."
     },
     "zh_CN": {
-      "description": "<french>Ce mod ajoute Mag Xardas le nécromancien à l'entrée du donjon de'Arnise. Il est équipé d'un anneau d'archimage.\nFOR 12, DEX 18, CON 14, INT 20, SAG 19, CHA 17.</french>\n此模组在德阿尼斯堡入口处添加了死灵法师玛格·萨达斯。他装备着一个大法师戒指。\n力量 12，敏捷 18，体质 14，智力 20，智慧 19，魅力 17。"
+      "description": "此模组在德阿尼斯堡入口处添加了死灵法师玛格·萨达斯。他装备着一个大法师戒指。\n力量 12，敏捷 18，体质 14，智力 20，智慧 19，魅力 17。"
     }
   },
   "tp2": "xardas",

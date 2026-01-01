@@ -27,13 +27,16 @@
       }
     },
     "en_US": {
-      "description": "The bladesinger is a warrior/mage elf with special fighting techniques.",
+      "description": "This mod adds a new fighter kit for elves, a kind of special fighter/mage/cleric... Bladesingers are a caste that consist of highly trained fighters who combine a perfect mastery of their weapon with the ability to use powerful spells. A potent combination. The Bladesinger knows how to manipulate the flow of magic around him to protect himself and augment his abilities. In addition, he is also able to mold magical energy to his will to cast spells.",
       "components": {
         "0": "Bladesinger"
       }
+    },
+    "zh_CN": {
+      "description": "这个模组为精灵添加了一个新的战士职业，一种特殊的战士/法师/牧师组合...剑刃咏唱者阶层由过度训练的战士组成，他们将武器的完美掌握与施展强大法术的能力融为一体。剑刃咏唱者懂得操纵周围的魔法流来保护自己并变得更强。他也懂得手势和言语，能够将魔法屈从于他的意志，从而施放出法术。"
     }
   },
-  "tp2": "",
+  "tp2": "px_chantelame",
   "safe": 2,
   "authors": ["Misdrha'al Hymmet"]
 }
