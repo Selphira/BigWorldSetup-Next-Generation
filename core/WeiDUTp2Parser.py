@@ -53,7 +53,7 @@ RE_BEGIN_TEXT = re.compile(r'BEGIN\s+[~"]([^~"]+)[~"]')
 RE_DESIGNATED = re.compile(r"DESIGNATED\s+(\d+)")
 RE_SUBCOMPONENT_REF = re.compile(r"(?<![\/#])SUBCOMPONENT\s+@(\d+)")
 RE_SUBCOMPONENT_TEXT = re.compile(r'SUBCOMPONENT\s+[~"]([^~"]+)[~"]')
-RE_TRA_TRANSLATION = re.compile(r"@(\d+)\s*=\s*~(.*?)~", re.DOTALL)
+RE_TRA_TRANSLATION = re.compile(r"@(-?\d+)\s*=\s*(~(.*?)~|\"(.*?)\")", re.DOTALL)
 
 # WeiDU variable placeholder
 WEIDU_OS_VAR: str = "%WEIDU_OS%"
@@ -153,7 +153,7 @@ class Component:
     """
 
     designated: str
-    text_ref: int | None = None
+    text_ref: str | None = None
     text: str | None = None
 
     def __post_init__(self) -> None:
@@ -184,13 +184,14 @@ class WeiDUTp2:
         version: Mod version string
         languages: Available language declarations
         components: List of mod components
-        translations: Nested dict {language_code: {designated: translated_text}}
+        component_translations: Nested dict {language_code: {designated: translated_text}}
     """
 
     version: str | None = None
     languages: list[LanguageDeclaration] = field(default_factory=list)
     components: list[Component] = field(default_factory=list)
     translations: dict[str, dict[str, str]] = field(default_factory=dict)
+    component_translations: dict[str, dict[str, str]] = field(default_factory=dict)
 
     def get_translation(self, designated: str, language_code: str) -> str | None:
         """Retrieve translation for a component in a specific language.
@@ -202,7 +203,7 @@ class WeiDUTp2:
         Returns:
             Translated text or None if not found
         """
-        return self.translations.get(language_code, {}).get(designated)
+        return self.component_translations.get(language_code, {}).get(designated)
 
     def get_all_translations_for_language(self, language_code: str) -> dict[str, str]:
         """Retrieve all translations for a given language.
@@ -213,7 +214,7 @@ class WeiDUTp2:
         Returns:
             Dictionary mapping component designated to translated text
         """
-        return self.translations.get(language_code, {})
+        return self.component_translations.get(language_code, {})
 
     def get_language_by_code(self, language_code: str) -> LanguageDeclaration | None:
         """Find language declaration by code.
@@ -428,7 +429,7 @@ class WeiDUTp2Parser:
                 content = safe_read(tra_path)
 
                 for match in RE_TRA_TRANSLATION.finditer(content):
-                    ref_id = int(match.group(1))
+                    ref_id = match.group(1)
                     text = match.group(2).strip()
                     translations[ref_id] = text
 
@@ -439,44 +440,43 @@ class WeiDUTp2Parser:
 
         return translations
 
-    def _build_translations(self, obj: WeiDUTp2) -> None:
+    def _build_translations(self, tp2: WeiDUTp2) -> None:
         """Build translation dictionary for all languages.
 
         Args:
-            obj: WeiDUTp2 object to populate with translations
+            tp2: WeiDUTp2 object to populate with translations
         """
-        for lang in obj.languages:
+        translations = {}
+        for lang in tp2.languages:
             logger.debug(f"Building translations for language: {lang.language_code}")
 
             # Load TRA file translations
-            tra_translations = self._extract_tra_translations(lang.tra_files)
+            translations[lang.language_code] = self._extract_tra_translations(lang.tra_files)
 
             # Map component designated to translated text
-            lang_translations: dict[str, str] = {}
+            components: dict[str, str] = {}
 
-            def process_component(comp: Component) -> None:
+            def process_component(comp: Component, lang_code: str) -> None:
                 """Recursively process component and sub-components."""
                 designated = comp.designated
 
                 # Priority: text_ref > text
-                if comp.text_ref is not None and comp.text_ref in tra_translations:
-                    lang_translations[designated] = tra_translations[comp.text_ref]
+                if comp.text_ref is not None and comp.text_ref in translations[lang_code]:
+                    components[designated] = translations[lang_code][comp.text_ref]
                 elif comp.text is not None:
-                    lang_translations[designated] = comp.text
+                    components[designated] = comp.text
 
                 # Handle sub-components for MucComponent
                 if isinstance(comp, MucComponent):
                     for sub_comp in comp.components:
-                        process_component(sub_comp)
+                        process_component(sub_comp, lang_code)
 
-            # Process all components
-            for component in obj.components:
-                process_component(component)
+            for component in tp2.components:
+                process_component(component, lang.language_code)
 
-            obj.translations[lang.language_code] = lang_translations
-            logger.debug(
-                f"Loaded {len(lang_translations)} translations for {lang.language_code}"
-            )
+            tp2.component_translations[lang.language_code] = components
+            logger.debug(f"Loaded {len(components)} translations for {lang.language_code}")
+        tp2.translations = translations
 
     # ------------------------------------------------------
     # ---------------- COMPONENT PARSING -------------------
@@ -529,12 +529,12 @@ class WeiDUTp2Parser:
             Dictionary containing parsed component data
         """
         # Extract BEGIN text/reference
-        text_ref: int | None = None
+        text_ref: str | None = None
         text: str | None = None
 
         ref_match = RE_BEGIN_REF.search(block)
         if ref_match:
-            text_ref = int(ref_match.group(1))
+            text_ref = ref_match.group(1)
         else:
             text_match = RE_BEGIN_TEXT.search(block)
             if text_match:
@@ -575,7 +575,7 @@ class WeiDUTp2Parser:
     def _get_or_create_muc_component(
         self,
         key: str,
-        text_ref: int | None,
+        text_ref: str | None,
         text: str | None,
         subcomponents: dict[str, MucComponent],
         obj: WeiDUTp2,
@@ -594,11 +594,7 @@ class WeiDUTp2Parser:
         """
         if key not in subcomponents:
             designated = f"choice_{len(subcomponents)}"
-            muc = MucComponent(
-                designated=designated,
-                text_ref=text_ref,
-                text=text
-            )
+            muc = MucComponent(designated=designated, text_ref=text_ref, text=text)
             obj.components.append(muc)
             subcomponents[key] = muc
             logger.debug(f"Created MucComponent: {designated}")
