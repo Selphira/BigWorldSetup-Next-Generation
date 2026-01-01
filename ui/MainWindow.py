@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.state_manager = state_manager
+        self.state_manager.set_reset_workflow_callback(self.reset_workflow)
 
         # Page management
         self.pages: dict[str, BasePage] = {}
@@ -273,6 +274,29 @@ class MainWindow(QMainWindow):
 
         logger.info(f"Page shown: {page_id}")
         return True
+
+    def reset_workflow(self) -> None:
+        """Reset the entire workflow: reload all pages state and navigate to start.
+
+        This is typically called when user cancels installation or wants to
+        start over. It ensures all pages reload their state from the (now cleared)
+        state manager.
+        """
+        logger.info("Resetting workflow: reloading all pages")
+
+        for page_id, page in self.pages.items():
+            try:
+                page.load_state()
+                logger.debug(f"Page {page_id} state reloaded")
+            except Exception as e:
+                logger.error(f"Failed to reload state for page {page_id}: {e}")
+
+        first_page_id = self.page_order[0] if self.page_order else None
+        if first_page_id:
+            self.show_page(first_page_id)
+            logger.info(f"Workflow reset complete, navigated to {first_page_id}")
+        else:
+            logger.warning("No pages registered, cannot navigate after reset")
 
     # ========================================
     # NAVIGATION LOGIC

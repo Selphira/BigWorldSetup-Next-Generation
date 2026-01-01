@@ -31,6 +31,7 @@ from constants import (
     SPACING_LARGE,
     SPACING_SMALL,
 )
+from core.ComponentReference import IndexManager
 from core.GameModels import GameDefinition
 from core.InstallationWorker import InstallationState, InstallationWorker, UserDecision
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
@@ -252,6 +253,7 @@ class InstallationPage(BasePage):
         self._stats_widget: InstallationStatsWidget | None = None
         self._btn_start_pause: QPushButton | None = None
         self._btn_stop: QPushButton | None = None
+        self._btn_cancel: QPushButton | None = None
 
         self._create_widgets()
         self._create_additional_buttons()
@@ -364,6 +366,9 @@ class InstallationPage(BasePage):
         self._btn_stop.setCursor(Qt.CursorShape.PointingHandCursor)
         self._btn_stop.setEnabled(False)
         self._btn_stop.clicked.connect(self._stop_installation)
+        self._btn_cancel = QPushButton()
+        self._btn_cancel.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._btn_cancel.clicked.connect(self._cancel_installation)
 
     # ========================================
     # Installation Workflow
@@ -744,6 +749,42 @@ class InstallationPage(BasePage):
         if reply == QMessageBox.StandardButton.Yes:
             self._worker.stop()
             logger.info("Installation stop requested")
+
+    def _cancel_installation(self):
+        """Cancel installation."""
+        reply = QMessageBox.question(
+            self,
+            tr("page.installation.cancel_title"),
+            tr("page.installation.cancel_message"),
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+        )
+
+        logger.info("Installation cancellation confirmed")
+
+        if reply != QMessageBox.StandardButton.Yes:
+            return
+
+        # Reset UI state
+        self._is_installing = False
+        self._is_paused = False
+        self._btn_start_pause.setText(tr("page.installation.btn_start"))
+        self._btn_start_pause.setEnabled(True)
+        self._btn_stop.setEnabled(False)
+        self._btn_send_input.setEnabled(False)
+        self._input_text.setEnabled(False)
+        self._cb_batch_install.setEnabled(True)
+
+        if self._worker and self._worker.isRunning():
+            self._worker.stop()
+            self._worker.wait()
+
+        indexes = IndexManager.get_indexes()
+        indexes.clear_selection()
+        indexes.clear_selection_violations()
+        indexes.clear_order_violations()
+        self.state_manager.reset_workflow()
+
+        logger.info("Installation cancelled, navigating to installation_type page")
 
     def _send_input_text(self):
         """Send input text."""
@@ -1230,7 +1271,7 @@ class InstallationPage(BasePage):
         return tr("page.installation.title")
 
     def get_additional_buttons(self) -> list[QPushButton]:
-        return [self._btn_start_pause, self._btn_stop]
+        return [self._btn_start_pause, self._btn_stop, self._btn_cancel]
 
     def get_next_button_config(self) -> ButtonConfig:
         return ButtonConfig(
@@ -1275,6 +1316,7 @@ class InstallationPage(BasePage):
             self._btn_start_pause.setText(tr("page.installation.btn_start"))
 
         self._btn_stop.setText(tr("page.installation.btn_stop"))
+        self._btn_cancel.setText(tr("page.installation.btn_cancel"))
         self._btn_send_input.setText(tr("page.installation.btn_send_input"))
         self._lbl_log.setText(tr("page.installation.lbl_log"))
 

@@ -546,6 +546,11 @@ class ComponentSelector(QTreeView):
     # Data Loading
     # ========================================
 
+    def reload(self) -> None:
+        self._load_data()
+        self._configure_table()
+        self.retranslate_ui()
+
     def _load_data(self) -> None:
         """Load mods and components into tree."""
         self._model.clear()

@@ -975,9 +975,11 @@ class ModSelectionPage(BasePage):
         """Load state from state manager."""
         super().load_state()
 
-        for lang_code in self.state_manager.get_languages_order():
-            icon_path = FLAGS_DIR / f"{lang_code}.png"
-            self._lang_select.add_item(lang_code, str(icon_path))
+        language_icons = {
+            code: str(FLAGS_DIR / f"{code}.png")
+            for code in self.state_manager.get_languages_order()
+        }
+        self._lang_select.set_items(language_icons)
 
         selected_languages = self.state_manager.get_page_option(
             self.get_page_id(), "selected_languages", self._lang_select.selected_keys()
@@ -992,8 +994,8 @@ class ModSelectionPage(BasePage):
         )
 
         selected_components = self.state_manager.get_selected_components()
-        if selected_components:
-            self.import_selection(selected_components, replace=True)
+        self._component_selector.reload()
+        self.import_selection(selected_components, replace=True)
 
     def save_state(self) -> None:
         """Save state to state manager."""

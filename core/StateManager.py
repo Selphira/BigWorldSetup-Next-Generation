@@ -5,7 +5,7 @@ import json
 import logging
 from pathlib import Path
 import shutil
-from typing import Any
+from typing import Any, Callable
 
 from PySide6.QtCore import QSettings
 
@@ -108,6 +108,7 @@ class StateManager:
         self._game_manager: GameManager | None = None
         self._mod_manager: ModManager | None = None
         self._rule_manager: RuleManager | None = None
+        self._reset_workflow_callback: Callable[[], None] | None = None
 
     # ========================================
     # UI PREFERENCES (QSettings)
@@ -458,6 +459,34 @@ class StateManager:
     # ========================================
     # UTILITIES
     # ========================================
+
+    def set_reset_workflow_callback(self, callback: Callable[[], None]) -> None:
+        """Set callback for resetting the entire workflow.
+
+        Args:
+            callback: Function to call when workflow reset is requested
+        """
+        self._reset_workflow_callback = callback
+
+    def reset_workflow(self) -> None:
+        """Reset the entire workflow (clear state + reload all pages)."""
+        logger.info("Workflow reset requested")
+
+        # Clear all workflow data
+        self.installation_state.configuration["selected_components"].clear()
+        self.installation_state.configuration["install_order"].clear()
+
+        # Clear page-specific options
+        prefixes = ("mod_selection_", "install_order_", "installation_")
+        configuration = self.installation_state.configuration
+        for key in [k for k in configuration if k.startswith(prefixes)]:
+            configuration.pop(key)
+
+        # Trigger MainWindow reset callback
+        if self._reset_workflow_callback:
+            self._reset_workflow_callback()
+        else:
+            logger.warning("No reset workflow callback registered")
 
     def clear_all_settings(self) -> None:
         """Clear ALL data (UI preferences + installation state)."""
