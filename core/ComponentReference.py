@@ -490,6 +490,7 @@ class ReferenceIndexes:
         self.tree_item_index.clear()
         self.selection_index.clear()
         self.selection_violation_index.clear()
+        self.order_violation_index.clear()
         self.parent_index.clear()
         self.children_index.clear()
 
