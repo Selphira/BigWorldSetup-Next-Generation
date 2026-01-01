@@ -132,6 +132,8 @@ def normalize_language_code(code: str) -> str:
     Returns:
         Normalized ISO language code (e.g., 'en_US')
     """
+    if "/" in code:
+        code = code.split("/")[:-1]
     code_lower = code.lower().strip()
     normalized = LANG_MAP.get(code_lower, code)
     logger.debug(f"Normalized language code '{code}' -> '{normalized}'")
@@ -384,26 +386,26 @@ class WeiDUTp2Parser:
         text = RE_LINE_COMMENT.sub("", text)
         return text
 
-    def _extract_version(self, text: str, obj: WeiDUTp2) -> None:
+    def _extract_version(self, text: str, tp2: WeiDUTp2) -> None:
         """Extract VERSION declaration from TP2 content.
 
         Args:
             text: Clean TP2 content
-            obj: WeiDUTp2 object to populate
+            tp2: WeiDUTp2 object to populate
         """
         match = RE_VERSION.search(text)
         if match:
-            obj.version = match.group(1)
-            logger.debug(f"Extracted version: {obj.version}")
+            tp2.version = match.group(1)
+            logger.debug(f"Extracted version: {tp2.version}")
         else:
             logger.warning("No VERSION declaration found in TP2")
 
-    def _extract_languages(self, text: str, obj: WeiDUTp2) -> None:
+    def _extract_languages(self, text: str, tp2: WeiDUTp2) -> None:
         """Extract LANGUAGE declarations from TP2 content.
 
         Args:
             text: Clean TP2 content
-            obj: WeiDUTp2 object to populate
+            tp2: WeiDUTp2 object to populate
         """
         for block in RE_LANGUAGE_BLOCK.finditer(text):
             raw = block.group(1)
@@ -419,12 +421,12 @@ class WeiDUTp2Parser:
                 display_name=parts[0],
                 language_code=parts[1],
                 tra_files=parts[2:],
-                index=len(obj.languages),
+                index=len(tp2.languages),
             )
-            obj.languages.append(lang)
+            tp2.languages.append(lang)
             logger.debug(f"Added language: {lang.display_name} ({lang.language_code})")
 
-        if not obj.languages:
+        if not tp2.languages:
             logger.warning("No LANGUAGE declarations found in TP2")
 
     def _split_begin_blocks(self, text: str) -> list[str]:
@@ -522,12 +524,12 @@ class WeiDUTp2Parser:
     # ---------------- COMPONENT PARSING -------------------
     # ------------------------------------------------------
 
-    def _parse_components(self, text: str, obj: WeiDUTp2) -> None:
+    def _parse_components(self, text: str, tp2: WeiDUTp2) -> None:
         """Parse all component declarations from TP2 content.
 
         Args:
             text: Clean TP2 content
-            obj: WeiDUTp2 object to populate
+            tp2: WeiDUTp2 object to populate
         """
         blocks = self._split_begin_blocks(text)
         prev_designated = -1
@@ -545,18 +547,18 @@ class WeiDUTp2Parser:
                         component_data["subcomponent_ref"],
                         component_data["subcomponent_text"],
                         subcomponents,
-                        obj,
+                        tp2,
                     )
                     muc.components.append(component_data["component"])
                 else:
-                    obj.components.append(component_data["component"])
+                    tp2.components.append(component_data["component"])
 
             except Exception as e:
                 logger.error(f"Error parsing component block: {e}", exc_info=True)
                 # Continue parsing other blocks
                 continue
 
-        logger.info(f"Parsed {len(obj.components)} top-level components")
+        logger.info(f"Parsed {len(tp2.components)} top-level components")
 
     def _parse_single_component(self, block: str, prev_designated: int) -> dict:
         """Parse a single BEGIN component block.
@@ -618,7 +620,7 @@ class WeiDUTp2Parser:
         text_ref: str | None,
         text: str | None,
         subcomponents: dict[str, MucComponent],
-        obj: WeiDUTp2,
+        tp2: WeiDUTp2,
     ) -> MucComponent:
         """Get existing or create new MucComponent.
 
@@ -627,15 +629,16 @@ class WeiDUTp2Parser:
             text_ref: Translation reference ID
             text: Direct text
             subcomponents: Cache of existing MucComponents
-            obj: WeiDUTp2 object to add new components to
+            tp2: WeiDUTp2 object to add new components to
 
         Returns:
             MucComponent (existing or newly created)
         """
+
         if key not in subcomponents:
             designated = f"choice_{len(subcomponents)}"
             muc = MucComponent(designated=designated, text_ref=text_ref, text=text)
-            obj.components.append(muc)
+            tp2.components.append(muc)
             subcomponents[key] = muc
             logger.debug(f"Created MucComponent: {designated}")
 
