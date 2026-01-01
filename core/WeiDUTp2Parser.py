@@ -75,7 +75,6 @@ RE_BEGIN_TEXT = re.compile(r'BEGIN\s+[~"]([^~"]+)[~"]')
 RE_DESIGNATED = re.compile(r"DESIGNATED\s+(\d+)")
 RE_SUBCOMPONENT_REF = re.compile(r"(?<![\/#])SUBCOMPONENT\s+@(\d+)")
 RE_SUBCOMPONENT_TEXT = re.compile(r'SUBCOMPONENT\s+[~"]([^~"]+)[~"]')
-# RE_TRA_TRANSLATION = re.compile(r"@(-?\d+)\s*=\s*(~(.*?)~|\"(.*?)\")", re.DOTALL)
 RE_TRA_TRANSLATION = re.compile(
     r"""
     @\s*(?P<id>-?\d+)          # @ + identifiant (positif ou négatif)
@@ -134,7 +133,7 @@ def normalize_language_code(code: str) -> str:
         Normalized ISO language code (e.g., 'en_US')
     """
     if "/" in code:
-        code = code.split("/")[:-1]
+        code = code.split("/")[-1]
     code_lower = code.lower().strip()
     normalized = LANG_MAP.get(code_lower, code)
     logger.debug(f"Normalized language code '{code}' -> '{normalized}'")
@@ -544,6 +543,8 @@ class WeiDUTp2Parser:
         for block in blocks:
             try:
                 component_data = self._parse_single_component(block, prev_designated)
+                if component_data is None:
+                    continue
                 prev_designated = component_data["designated"]
 
                 # Handle subcomponents (mutually exclusive choices)
@@ -566,7 +567,7 @@ class WeiDUTp2Parser:
 
         logger.info(f"Parsed {len(tp2.components)} top-level components")
 
-    def _parse_single_component(self, block: str, prev_designated: int) -> dict:
+    def _parse_single_component(self, block: str, prev_designated: int) -> dict | None:
         """Parse a single BEGIN component block.
 
         Args:
@@ -587,6 +588,9 @@ class WeiDUTp2Parser:
             text_match = RE_BEGIN_TEXT.search(block)
             if text_match:
                 text = text_match.group(1)
+
+        if not text_ref and not text:
+            return None
 
         # Extract DESIGNATED
         designated_match = RE_DESIGNATED.search(block)
