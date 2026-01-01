@@ -23,15 +23,37 @@ from core.File import safe_read
 LANG_MAP: dict[str, str] = {
     "american": "en_US",
     "english": "en_US",
+    "en-us": "en_US",
+    "francais": "fr_FR",
     "french": "fr_FR",
+    "frenchee": "fr_FR",
+    "deutsch": "de_DE",
+    "dutch": "de_DE",
     "german": "de_DE",
     "italian": "it_IT",
     "polish": "pl_PL",
-    "spanish": "es_ES",
+    "polski": "pl_PL",
+    "castellano": "es_ES",
+    "castilian": "es_ES",
     "espanol": "es_ES",
+    "spanish": "es_ES",
     "russian": "ru_RU",
-    "schinese": "zh_CN",
     "chinese": "zh_CN",
+    "chinese(simplified)": "zh_CN",
+    "chs": "zh_CN",
+    "schinese": "zh_CN",
+    "chineset": "zh_TW",
+    "tchinese": "zh_TW",
+    "korean": "ko_KR",
+    "cesky": "cs_CZ",
+    "czech": "cs_CZ",
+    "brazilianportuguese": "pt_BR",
+    "brazilian_portuguese": "pt_BR",
+    "ptbr": "pt_BR",
+    "portuguese": "pt_PT",
+    "faroese": "fo_FO",
+    "latin": "la_LA",
+    "swedish": "sv_SE",
 }
 
 # OS code mapping for WeiDU %WEIDU_OS% variable
@@ -53,7 +75,19 @@ RE_BEGIN_TEXT = re.compile(r'BEGIN\s+[~"]([^~"]+)[~"]')
 RE_DESIGNATED = re.compile(r"DESIGNATED\s+(\d+)")
 RE_SUBCOMPONENT_REF = re.compile(r"(?<![\/#])SUBCOMPONENT\s+@(\d+)")
 RE_SUBCOMPONENT_TEXT = re.compile(r'SUBCOMPONENT\s+[~"]([^~"]+)[~"]')
-RE_TRA_TRANSLATION = re.compile(r"@(-?\d+)\s*=\s*(~(.*?)~|\"(.*?)\")", re.DOTALL)
+# RE_TRA_TRANSLATION = re.compile(r"@(-?\d+)\s*=\s*(~(.*?)~|\"(.*?)\")", re.DOTALL)
+RE_TRA_TRANSLATION = re.compile(
+    r"""
+    @\s*(?P<id>-?\d+)          # @ + identifiant (positif ou négatif)
+    \s*=\s*
+    (?:
+        ~(?P<text_tilde>.*?)~ # Texte entre ~ ~ (multiligne)
+      |
+        "(?P<text_quote>.*?)" # Texte entre " "
+    )
+    """,
+    re.DOTALL | re.VERBOSE,
+)
 
 # WeiDU variable placeholder
 WEIDU_OS_VAR: str = "%WEIDU_OS%"
@@ -427,10 +461,16 @@ class WeiDUTp2Parser:
 
             try:
                 content = safe_read(tra_path)
-
                 for match in RE_TRA_TRANSLATION.finditer(content):
-                    ref_id = match.group(1)
-                    text = match.group(2).strip()
+                    ref_id = match.group("id")
+                    if match.group("text_tilde") or match.group("text_quote"):
+                        text = (
+                            match.group("text_tilde").strip()
+                            if match.group("text_tilde")
+                            else match.group("text_quote").strip()
+                        )
+                    else:
+                        text = ""
                     translations[ref_id] = text
 
                 logger.debug(f"Loaded {len(translations)} translations from {tra_path.name}")
