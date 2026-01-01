@@ -91,6 +91,7 @@ RE_TRA_TRANSLATION = re.compile(
 
 # WeiDU variable placeholder
 WEIDU_OS_VAR: str = "%WEIDU_OS%"
+MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
 
 logger = logging.getLogger(__name__)
 
@@ -223,6 +224,7 @@ class WeiDUTp2:
         component_translations: Nested dict {language_code: {designated: translated_text}}
     """
 
+    name: str | None = None
     version: str | None = None
     languages: list[LanguageDeclaration] = field(default_factory=list)
     components: list[Component] = field(default_factory=list)
@@ -322,12 +324,12 @@ class WeiDUTp2Parser:
 
         try:
             content = file_path.read_text(encoding="utf-8", errors="ignore")
-            return self.parse_string(content)
+            return self.parse_string(content, str(path.stem))
         except Exception as e:
             logger.error(f"Failed to parse TP2 file: {file_path}", exc_info=True)
             raise Tp2ParseError(f"Error parsing {file_path}: {e}") from e
 
-    def parse_string(self, tp2_content: str) -> WeiDUTp2:
+    def parse_string(self, tp2_content: str, tp2_name: str) -> WeiDUTp2:
         """Parse TP2 content from a string.
 
         Args:
@@ -346,22 +348,23 @@ class WeiDUTp2Parser:
             clean_content = self._strip_comments(tp2_content)
 
             # Initialize data structure
-            data = WeiDUTp2()
+            tp2 = WeiDUTp2()
+            tp2.name = tp2_name
 
             # Extract sections
-            self._extract_version(clean_content, data)
-            self._extract_languages(clean_content, data)
-            self._parse_components(clean_content, data)
+            self._extract_version(clean_content, tp2)
+            self._extract_languages(clean_content, tp2)
+            self._parse_components(clean_content, tp2)
 
             # Build translation mappings
-            self._build_translations(data)
+            self._build_translations(tp2)
 
             logger.info(
-                f"Successfully parsed TP2: version={data.version}, "
-                f"languages={len(data.languages)}, components={len(data.components)}"
+                f"Successfully parsed TP2: version={tp2.version}, "
+                f"languages={len(tp2.languages)}, components={len(tp2.components)}"
             )
 
-            return data
+            return tp2
 
         except Exception as e:
             logger.error("Failed to parse TP2 string", exc_info=True)
@@ -417,10 +420,16 @@ class WeiDUTp2Parser:
                 )
                 continue
 
+            os_code = get_os_code()
+            tra_files = [
+                tra_file.replace(WEIDU_OS_VAR, os_code).replace(MOD_FOLDER_VAR, tp2.name)
+                for tra_file in parts[2:]
+            ]
+
             lang = LanguageDeclaration(
                 display_name=parts[0],
                 language_code=parts[1],
-                tra_files=parts[2:],
+                tra_files=tra_files,
                 index=len(tp2.languages),
             )
             tp2.languages.append(lang)
@@ -452,12 +461,9 @@ class WeiDUTp2Parser:
             Dictionary mapping reference ID to translated text
         """
         translations: dict[int, str] = {}
-        os_code = get_os_code()
 
         for tra_file in tra_files:
-            # Substitute OS variable
-            tra_file_resolved = tra_file.replace(WEIDU_OS_VAR, os_code)
-            tra_path = (self.base_dir / tra_file_resolved).resolve()
+            tra_path = (self.base_dir / tra_file).resolve()
 
             logger.debug(f"Reading TRA file: {tra_path}")
 
