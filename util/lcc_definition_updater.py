@@ -17,12 +17,13 @@ USAGE:
 """
 
 import json
+from pathlib import Path
 import sys
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from urllib.error import HTTPError, URLError
 import urllib.request
 
-from constants import *
+from constants import ICON_ERROR, ICON_INFO, ICON_SUCCESS, ICON_WARNING, LCC_CACHE_DIR
 from util.ini_to_json_converter import CompactJSONEncoder
 
 
@@ -31,7 +32,17 @@ class LCCDataFetcher:
 
     BASE_URL = "https://raw.githubusercontent.com/RiwsPy/lcc-docs/main/db/"
 
-    FILES = {"fr": "mods.json", "en": "mods_en.json", "cn": "mods_cn.json"}
+    FILES = {
+        "default": "mods.json",
+        "fr": "mods_fr.json",
+        "en": "mods_en.json",
+        "cn": "mods_cn.json",
+    }
+    LANGUAGE_CODES = {
+        "fr": "fr_FR",
+        "en": "en_US",
+        "cn": "zh_CN",
+    }
 
     # Mapping des catégories FR → codes JSON
     CATEGORY_MAP = {
@@ -106,17 +117,17 @@ class LCCDataFetcher:
                     except Exception as e:
                         print(f"  ⚠ Impossible de sauvegarder le cache: {e}")
                 else:
-                    print(f"  ✗ Échec du téléchargement")
+                    print("  ✗ Échec du téléchargement")
                     success = False
 
-        # Construire l'index tp2 depuis les données françaises
-        if "fr" in self.data:
+        # Construire l'index tp2 depuis les données par défaut
+        if "default" in self.data:
             self._build_tp2_index()
             self._build_id_index()
 
         return success
 
-    def _download_json(self, url: str) -> Optional[Dict]:
+    def _download_json(self, url: str) -> Optional[dict]:
         """Télécharge un fichier JSON depuis une URL"""
         try:
             with urllib.request.urlopen(url, timeout=10) as response:
@@ -134,9 +145,9 @@ class LCCDataFetcher:
 
     def _build_tp2_index(self):
         """Construit un index tp2 -> mod_data pour recherche rapide"""
-        for mod_data in self.data["fr"]:
+        for mod_data in self.data["default"]:
             tp2 = mod_data.get("tp2", "").lower()
-            if tp2:
+            if tp2 not in ("", "n/a", "non-weidu"):
                 parts = tp2.split(";")
 
                 for part in parts:
@@ -144,7 +155,7 @@ class LCCDataFetcher:
 
     def _build_id_index(self):
         """Construit un index id -> mod_data pour résoudre les [[id]]"""
-        for mod_data in self.data["fr"]:
+        for mod_data in self.data["default"]:
             mod_id = mod_data.get("id")
             if mod_id is not None:
                 self.id_index[str(mod_id)] = mod_data
@@ -165,49 +176,42 @@ class LCCDataFetcher:
         if tp2_key not in self.tp2_index:
             return None
 
-        mod_fr = self.tp2_index[tp2_key]
+        mod_data = self.tp2_index[tp2_key]
 
         # Récupérer les données de toutes les langues
         result = {
-            "name": mod_fr["name"],
+            "name": mod_data["name"],
             "tp2": tp2_key,
-            "safe": mod_fr["safe"],
-            "games": self._extract_games(mod_fr),
-            "categories": self._extract_categories(mod_fr),
-            "authors": self._extract_authors(mod_fr),
+            "safe": mod_data["safe"],
+            "games": self._extract_games(mod_data),
+            "categories": self._extract_categories(mod_data),
+            "authors": self._extract_authors(mod_data),
             "descriptions": {},
         }
 
-        # Description française
-        if "description" in mod_fr:
-            result["descriptions"]["fr_FR"] = self._resolve_mod_references(
-                mod_fr["description"], "fr"
-            )
-
         # Descriptions autres langues
-        for lang in ["en", "cn"]:
+        for lang, lang_code in self.LANGUAGE_CODES.items():
             if lang not in self.data:
                 continue
 
             # Trouver le même mod dans la base de données de cette langue
-            mod_data = self._find_mod_by_id(mod_fr["id"], lang)
+            translated_mod_data = self._find_mod_by_id(mod_data["id"], lang)
 
-            if mod_data and "description" in mod_data:
-                lang_code = "en_US" if lang == "en" else "zh_CN"
+            if translated_mod_data and "description" in translated_mod_data:
                 result["descriptions"][lang_code] = self._resolve_mod_references(
-                    mod_data["description"], lang
+                    translated_mod_data["description"], lang
                 )
 
         return result
 
-    def _find_mod_in_lang(self, tp2: str, lang: str) -> Optional[Dict]:
+    def _find_mod_in_lang(self, tp2: str, lang: str) -> Optional[dict]:
         """Trouve un mod dans une langue spécifique"""
         for mod_data in self.data.get(lang, []):
             if mod_data.get("tp2", "").lower() == tp2:
                 return mod_data
         return None
 
-    def _extract_games(self, mod_data: Dict) -> list[str]:
+    def _extract_games(self, mod_data: dict) -> list[str]:
         """Extrait et normalise la liste des jeux"""
         games = mod_data.get("games", [])
         if not games:
@@ -216,14 +220,14 @@ class LCCDataFetcher:
         # Convertir en minuscules
         return [game.lower() for game in games]
 
-    def _extract_categories(self, mod_data: Dict) -> list[str]:
+    def _extract_categories(self, mod_data: dict) -> list[str]:
         """Extrait et convertit les catégories"""
-        categories_fr = mod_data.get("categories", "")
+        categories = mod_data.get("categories", "")
 
         # Chercher la correspondance
-        return [self.CATEGORY_MAP.get(cat, "") for cat in categories_fr]
+        return [self.CATEGORY_MAP.get(cat, "") for cat in categories]
 
-    def _extract_authors(self, mod_data: Dict) -> list[str]:
+    def _extract_authors(self, mod_data: dict) -> list[str]:
         """Extrait et convertit les auteurs"""
         return mod_data.get("authors", [])
 
@@ -258,24 +262,19 @@ class LCCDataFetcher:
             mod_data = self.id_index[mod_id]
 
             # Chercher le nom dans la langue appropriée
-            if lang == "fr":
-                # Utiliser directement les données françaises
-                mod_name = mod_data.get("name", f"Mod {mod_id}")
+            lang_mod = self._find_mod_by_id(mod_id, lang)
+            if lang_mod and "name" in lang_mod:
+                mod_name = lang_mod["name"]
             else:
-                # Chercher dans la langue appropriée
-                lang_mod = self._find_mod_by_id(mod_id, lang)
-                if lang_mod and "name" in lang_mod:
-                    mod_name = lang_mod["name"]
-                else:
-                    # Fallback sur le nom français
-                    mod_name = mod_data.get("name", f"Mod {mod_id}")
+                # Fallback sur le nom par défaut
+                mod_name = mod_data.get("name", f"Mod {mod_id}")
 
             return mod_name
 
         # Remplacer toutes les occurrences
         return re.sub(pattern, replace_reference, description)
 
-    def _find_mod_by_id(self, mod_id: str, lang: str) -> Optional[Dict]:
+    def _find_mod_by_id(self, mod_id: str, lang: str) -> Optional[dict]:
         """Trouve un mod par son ID dans une langue spécifique"""
         for mod_data in self.data.get(lang, []):
             if str(mod_data.get("id")) == str(mod_id):
@@ -397,11 +396,11 @@ class JSONCompleter:
                     f.write(json_str)
                     f.write("\n")
 
-                self.log(f"  ✓ Fichier mis à jour", "SUCCESS")
+                self.log("  ✓ Fichier mis à jour", "SUCCESS")
                 self.stats["completed"] += 1
                 return True
             else:
-                self.log(f"  → Aucune donnée manquante")
+                self.log("  → Aucune donnée manquante")
                 return False
 
         except Exception as e:
@@ -515,7 +514,7 @@ def main():
     completer = JSONCompleter(fetcher, verbose=True)
 
     if target.is_file():
-        if target.suffix.lower() != '.json':
+        if target.suffix.lower() != ".json":
             print(f"✗ {target} n'est pas un fichier .json")
             sys.exit(1)
 
@@ -527,7 +526,7 @@ def main():
     completer.print_summary()
 
     # Code de sortie
-    sys.exit(0 if completer.stats['errors'] == 0 else 1)
+    sys.exit(0 if completer.stats["errors"] == 0 else 1)
 
 
 if __name__ == "__main__":
