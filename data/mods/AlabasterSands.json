@@ -6,9 +6,9 @@
     "download": "https://downloads.weaselmods.net/download/alabaster-sands/?wpdmdl=593"
   },
   "file": {
-    "filename": "AlabasterSands-v1.8.1.zip",
-    "size": 16188727,
-    "sha256": "21a8874a1b16cb3a4b8d036bdd971b58a1f17ce61a9b10a43ca6bf96eddc1039"
+    "filename": "AlabasterSands-v1.9.2.zip",
+    "size": 16248742,
+    "sha256": "6fb48144f2c19c35e615dcacc7c65d207a13ebce273a79628459e13e06ff373f"
   },
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
