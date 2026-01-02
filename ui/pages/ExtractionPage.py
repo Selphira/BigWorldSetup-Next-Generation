@@ -29,6 +29,7 @@ from constants import (
 from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo, ExtractionStatus
 from core.StateManager import StateManager
 from core.TranslationManager import tr
+from core.validators.StructureValidator import StructureValidator
 from ui.pages.BasePage import BasePage
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
@@ -43,182 +44,6 @@ COL_ARCHIVE = 1
 COL_DESTINATION = 2
 COL_STATUS = 3
 COLUMN_COUNT = 4
-
-
-# ============================================================================
-# Structure Validator
-# ============================================================================
-
-
-class StructureValidator:
-    """Validates and fixes extracted mod structure."""
-
-    # Possible TP2 locations (in order of preference)
-    TP2_PATTERNS = [
-        "{game_dir}/setup-{tp2}.exe",  # Most reliable
-        "{game_dir}/{tp2}.tp2",
-        "{game_dir}/setup-{tp2}.tp2",
-        "{game_dir}/{tp2}/{tp2}.tp2",
-        "{game_dir}/{tp2}/setup-{tp2}.tp2",
-    ]
-
-    @staticmethod
-    def validate_structure(game_dir: Path, tp2_name: str) -> tuple[bool, Path | None]:
-        """Validate mod extraction structure.
-
-        Args:
-            game_dir: Game directory where mod should be
-            tp2_name: TP2 name (without extension)
-
-        Returns:
-            Tuple of (is_valid, tp2_path if found)
-        """
-        for pattern in StructureValidator.TP2_PATTERNS:
-            tp2_path = Path(str(pattern).format(game_dir=game_dir, tp2=tp2_name))
-            if tp2_path.exists():
-                return True, tp2_path
-
-        return False, None
-
-    @staticmethod
-    def fix_structure(destination_dir: Path, tp2_name: str) -> bool:
-        """Attempt to fix invalid extraction structure.
-
-        Moves files up from nested directories if needed.
-
-        Args:
-            destination_dir: Destination directory
-            tp2_name: TP2 name
-
-        Returns:
-            True if structure fixed successfully
-        """
-
-        if not tp2_name:
-            StructureValidator.flatten_directory(destination_dir)
-            return True
-
-        # Find TP2 file anywhere in the tree
-        tp2_location = StructureValidator._find_tp2_deep(destination_dir, tp2_name)
-
-        if not tp2_location:
-            logger.error(f"Could not find TP2 file for {tp2_name}")
-            return False
-
-        # Check if already valid
-        valid, _ = StructureValidator.validate_structure(destination_dir, tp2_name)
-        if valid:
-            return True
-
-        # Determine how many levels to move up
-        current_parent = tp2_location.parent
-
-        # If TP2 is in a subdirectory, check if we should move to game_dir or tp2_name folder
-        if current_parent != destination_dir:
-            # Check if there's a mod folder that should exist
-            expected_mod_folder = destination_dir / tp2_name
-
-            # Move all content from current location up to correct location
-            try:
-                StructureValidator._move_content_up(current_parent, expected_mod_folder)
-                return True
-            except Exception as e:
-                logger.error(f"Failed to fix structure: {e}")
-                return False
-
-        return False
-
-    @staticmethod
-    def _find_tp2_deep(search_dir: Path, tp2_name: str, max_depth: int = 3) -> Path | None:
-        """Recursively search for TP2 file.
-
-        Args:
-            search_dir: Directory to search in
-            tp2_name: TP2 name to look for
-            max_depth: Maximum search depth
-
-        Returns:
-            Path to TP2 file if found
-        """
-        if max_depth <= 0:
-            return None
-
-        # Check current directory
-        for pattern in [f"{tp2_name}.tp2", f"setup-{tp2_name}.tp2"]:
-            tp2_path = search_dir / pattern
-            if tp2_path.exists():
-                return tp2_path
-
-        # Search subdirectories
-        try:
-            for subdir in search_dir.iterdir():
-                if subdir.is_dir():
-                    result = StructureValidator._find_tp2_deep(subdir, tp2_name, max_depth - 1)
-                    if result:
-                        return result
-        except PermissionError:
-            pass
-
-        return None
-
-    @staticmethod
-    def _move_content_up(source_dir: Path, target_dir: Path) -> None:
-        """Move all content from source to target directory.
-
-        Args:
-            source_dir: Source directory
-            target_dir: Target directory
-        """
-        target_dir.mkdir(parents=True, exist_ok=True)
-
-        for item in source_dir.iterdir():
-            dest = target_dir / item.name
-
-            if dest.exists():
-                if dest.is_dir():
-                    shutil.rmtree(dest)
-                else:
-                    dest.unlink()
-
-            shutil.move(str(item), str(dest))
-
-        # Remove empty source directory if it's not the target
-        if source_dir != target_dir and not any(source_dir.iterdir()):
-            source_dir.rmdir()
-
-    @staticmethod
-    def flatten_directory(path: Path):
-        """
-        Recursively flatten a directory structure by removing intermediate single-child directories.
-
-        This method "unwraps" nested directories that contain only one subdirectory and no files,
-        moving all contents up to the parent level until a directory with multiple items or files is found.
-
-        Example:
-            Before: root/only_subdir/another_single_dir/files/
-            After:  root/files/
-
-        Args:
-            path: Directory path to flatten
-        """
-        path = Path(path)
-
-        while True:
-            entries = list(path.iterdir())
-
-            dirs = [e for e in entries if e.is_dir()]
-            files = [e for e in entries if e.is_file()]
-
-            if files or len(dirs) != 1:
-                break
-
-            subdir = dirs[0]
-
-            for item in subdir.iterdir():
-                shutil.move(str(item), str(path))
-
-            subdir.rmdir()
-
 
 # ============================================================================
 # Extraction Worker Thread
@@ -248,17 +73,16 @@ class ExtractionWorker(QThread):
     def run(self) -> None:
         """Run extraction process."""
         try:
-            for idx, extraction_info in enumerate(self._extractions):
+            for idx, extraction in enumerate(self._extractions):
                 if self._is_cancelled:
                     break
 
-                extraction_id = extraction_info.extraction_id
+                extraction_id = extraction.extraction_id
+                temp_dir = extraction.destination_path / f"_temp_{extraction.tp2_name}"
 
                 try:
                     self.extraction_started.emit(extraction_id)
-                    success = self._extractor.extract_archive(
-                        extraction_info.archive_path, extraction_info.destination_path
-                    )
+                    success = self._extractor.extract_archive(extraction.archive_path, temp_dir)
 
                     if not success:
                         self.extraction_error.emit(
@@ -268,13 +92,13 @@ class ExtractionWorker(QThread):
 
                     # Validate structure immediately after extraction
                     valid, tp2_path = self._validator.validate_structure(
-                        extraction_info.destination_path, extraction_info.tp2_name
+                        temp_dir, extraction.tp2_name
                     )
 
                     # Fix structure if needed
                     if not valid:
-                        fixed = self._validator.fix_structure(
-                            extraction_info.destination_path, extraction_info.tp2_name
+                        fixed = self._validator.normalize_structure(
+                            temp_dir, extraction.tp2_name
                         )
 
                         if not fixed:
@@ -283,11 +107,17 @@ class ExtractionWorker(QThread):
                             )
                             continue
 
+                    for item in temp_dir.iterdir():
+                        shutil.move(str(item), extraction.destination_path / item.name)
+
                     self.extraction_completed.emit(extraction_id)
 
                 except Exception as e:
                     logger.error(f"Error extracting {extraction_id}: {e}")
                     self.extraction_error.emit(extraction_id, str(e))
+                finally:
+                    if temp_dir.exists():
+                        shutil.rmtree(temp_dir, ignore_errors=True)
 
             self.all_completed.emit()
 
