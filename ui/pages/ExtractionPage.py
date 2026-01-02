@@ -27,6 +27,7 @@ from constants import (
     SPACING_SMALL,
 )
 from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo, ExtractionStatus
+from core.DirectoryMerger import ConflictResolution, DirectoryMerger
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.validators.StructureValidator import StructureValidator
@@ -69,6 +70,7 @@ class ExtractionWorker(QThread):
         self._is_cancelled = False
         self._extractor = ArchiveExtractor()
         self._validator = StructureValidator()
+        self._merger = DirectoryMerger(ConflictResolution.MERGE)
 
     def run(self) -> None:
         """Run extraction process."""
@@ -90,25 +92,15 @@ class ExtractionWorker(QThread):
                         )
                         continue
 
-                    # Validate structure immediately after extraction
-                    valid, tp2_path = self._validator.validate_structure(
-                        temp_dir, extraction.tp2_name
-                    )
+                    fixed = self._validator.normalize_structure(temp_dir, extraction.tp2_name)
 
-                    # Fix structure if needed
-                    if not valid:
-                        fixed = self._validator.normalize_structure(
-                            temp_dir, extraction.tp2_name
+                    if not fixed:
+                        self.extraction_error.emit(
+                            extraction_id, tr("page.extraction.error_structure_invalid")
                         )
+                        continue
 
-                        if not fixed:
-                            self.extraction_error.emit(
-                                extraction_id, tr("page.extraction.error_structure_invalid")
-                            )
-                            continue
-
-                    for item in temp_dir.iterdir():
-                        shutil.move(str(item), extraction.destination_path / item.name)
+                    self._merger.merge_directories(temp_dir, extraction.destination_path)
 
                     self.extraction_completed.emit(extraction_id)
 
@@ -234,16 +226,21 @@ class ExtractionPage(BasePage):
     # ========================================
 
     def _load_extractions(self) -> None:
-        """Load extraction information from selected mods."""
+        """Load extraction information from selected mods in installation order.
+
+        Processes mods in the order they will be installed to ensure proper
+        file overwriting when mods share files (e.g., override folder).
+        """
         self._extractions.clear()
         self._extraction_status.clear()
 
-        selected = self.state_manager.get_selected_components()
-        if not selected:
-            logger.warning("No components selected")
+        install_order = self.state_manager.get_install_order()
+
+        if not install_order:
+            logger.warning("No installation order available")
             return
 
-        # Get game definition and sequences
+        # Get game definition and configuration
         selected_game = self.state_manager.get_selected_game()
         game_manager = self.state_manager.get_game_manager()
         game_def = game_manager.get(selected_game)
@@ -253,9 +250,7 @@ class ExtractionPage(BasePage):
             return
 
         # Get game folder paths from state manager
-
         saved_folders = self.state_manager.get_game_folders()
-        game_manager = self.state_manager.get_game_manager()
         game_folders = {}
         for seq_idx, sequence in enumerate(game_def.sequences):
             game = game_manager.get(sequence.game)
@@ -267,20 +262,29 @@ class ExtractionPage(BasePage):
             logger.warning("No game folders configured")
             return
 
-        unique_mods = {reference.partition(":")[0] for reference in selected if reference}
+        for seq_idx in sorted(install_order.keys()):
+            mod_references = install_order[seq_idx]
 
-        for mod_id in unique_mods:
-            mod = self._mod_manager.get_mod_by_id(mod_id)
-            if not mod or not hasattr(mod, "file") or not mod.file:
+            if seq_idx not in game_folders:
+                logger.warning(f"No game folder for sequence {seq_idx}")
                 continue
 
-            archive_path = self._download_path / mod.file.filename
-            if not archive_path.exists():
-                logger.warning(f"Archive not found for {mod_id}: {archive_path}")
-                continue
+            sequence, folder_path = game_folders[seq_idx]
+            unique_mods_in_sequence = list(
+                dict.fromkeys(ref.split(":")[0] for ref in mod_references if ref)
+            )
 
-            # Create extraction info for each applicable sequence
-            for seq_idx, (sequence, folder_path) in game_folders.items():
+            for mod_id in unique_mods_in_sequence:
+                mod = self._mod_manager.get_mod_by_id(mod_id)
+                if not mod or not hasattr(mod, "file") or not mod.file:
+                    logger.warning(f"Mod not found or has no file: {mod_id}")
+                    continue
+
+                archive_path = self._download_path / mod.file.filename
+                if not archive_path.exists():
+                    logger.warning(f"Archive not found for {mod_id}: {archive_path}")
+                    continue
+
                 # Check if mod is allowed in this sequence
                 if not sequence.is_mod_allowed(mod_id):
                     logger.debug(f"Mod {mod_id} not allowed in sequence {seq_idx}")
