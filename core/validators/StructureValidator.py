@@ -63,7 +63,7 @@ class StructureValidator:
         Returns:
             True if structure was normalized successfully
         """
-        if tp2_name is None:
+        if not tp2_name:
             logger.info(f"Flattening directory structure: {extraction_dir}")
             StructureValidator.flatten_single_child_directories(extraction_dir)
             return True
