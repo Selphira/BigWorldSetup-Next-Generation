@@ -259,6 +259,7 @@ class TokenType(Enum):
     BEGIN = auto()
     DESIGNATED = auto()
     SUBCOMPONENT = auto()
+    DEPRECATED = auto()
     REQUIRE_PREDICATE = auto()  # Future extension
     MOD_IS_INSTALLED = auto()  # Future extension
     LABEL = auto()
@@ -290,6 +291,7 @@ class Tokenizer:
         "BEGIN": TokenType.BEGIN,
         "DESIGNATED": TokenType.DESIGNATED,
         "SUBCOMPONENT": TokenType.SUBCOMPONENT,
+        "DEPRECATED": TokenType.DEPRECATED,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
         "LABEL": TokenType.LABEL,
@@ -397,6 +399,7 @@ class ComponentParser:
             "text_ref": None,
             "text": None,
             "designated": None,
+            "deprecated": None,
             "subcomponent_ref": None,
             "subcomponent_text": None,
             "label": None,
@@ -444,6 +447,10 @@ class ComponentParser:
                     next_token = tokens[i]
                     if next_token.type in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER):
                         component["group"] = next_token.value
+
+            elif token.type == TokenType.DEPRECATED:
+                component["deprecated"] = True
+                i += 1
 
             # TODO: Future extension - parse REQUIRE_PREDICATE and MOD_IS_INSTALLED
             elif token.type == TokenType.REQUIRE_PREDICATE:
@@ -599,6 +606,7 @@ class WeiDUTp2Parser:
 
         logger.info(f"Extracted {len(blocks)} component blocks")
 
+        deprecated_count = 0
         prev_designated = -1
         muc_groups: dict[str, MucComponent] = {}
 
@@ -616,6 +624,11 @@ class WeiDUTp2Parser:
                     designated = prev_designated + 1
 
                 prev_designated = designated
+
+                if component_data["deprecated"] is not None:
+                    deprecated_count += 1
+                    logger.debug("Skipping deprecated component block")
+                    continue
 
                 component = Component(
                     designated=str(designated),
@@ -649,6 +662,8 @@ class WeiDUTp2Parser:
                 continue
 
         logger.info(f"Parsed {len(tp2.components)} top-level components")
+        if deprecated_count > 0:
+            logger.info(f"Skipped {deprecated_count} deprecated component(s)")
 
     def _extract_tra_translations(self, tra_files: list[str]) -> dict[str, str]:
         """Extract translations from TRA files.
