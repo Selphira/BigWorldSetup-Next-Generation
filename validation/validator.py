@@ -5,6 +5,7 @@ Validates JSON files against a JSON schema, supporting both single files
 and directories containing multiple JSON files.
 """
 
+import argparse
 import json
 import logging
 from pathlib import Path
@@ -164,11 +165,12 @@ class JSONValidator:
             return []
 
 
-def print_results(results: list[ValidationResult]) -> int:
+def print_results(results: list[ValidationResult], errors_only: bool = False) -> int:
     """Print validation results to console.
 
     Args:
         results: List of validation results
+        errors_only: If True, only show failed validations
 
     Returns:
         Number of failed validations
@@ -177,7 +179,8 @@ def print_results(results: list[ValidationResult]) -> int:
 
     for result in results:
         if result.is_valid:
-            print(f"✅ {result.file_path}")
+            if not errors_only:
+                print(f"✅ {result.file_path}")
         else:
             failed_count += 1
             print(f"❌ {result.file_path}", file=sys.stderr)
@@ -198,6 +201,62 @@ def print_results(results: list[ValidationResult]) -> int:
     return failed_count
 
 
+def parse_arguments() -> argparse.Namespace:
+    """Parse command-line arguments.
+
+    Returns:
+        Parsed arguments namespace
+    """
+    parser = argparse.ArgumentParser(
+        description="Validate JSON files against a JSON schema.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s data/mods/mod1.json schema.json
+  %(prog)s data/mods/ schema.json
+  %(prog)s data/mods/ schema.json --errors-only
+  %(prog)s data/mods/ schema.json -e --quiet
+        """,
+    )
+
+    # Positional arguments
+    parser.add_argument(
+        "target",
+        type=Path,
+        help="path to JSON file or directory containing JSON files",
+    )
+
+    parser.add_argument(
+        "schema",
+        type=Path,
+        help="path to JSON schema file",
+    )
+
+    # Optional arguments
+    parser.add_argument(
+        "-e",
+        "--errors-only",
+        action="store_true",
+        help="only display files with validation errors (hide successful validations)",
+    )
+
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="suppress info messages (only show errors and summary)",
+    )
+
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="enable verbose output (debug information)",
+    )
+
+    return parser.parse_args()
+
+
 def main() -> int:
     """Main entry point for the validator.
 
@@ -205,44 +264,38 @@ def main() -> int:
         Exit code (0 for success, 1 for validation failures)
     """
     # Parse arguments
-    if len(sys.argv) < 3:
-        print("Usage: validator.py <file_or_dir> <schema.json>")
-        print("\nValidate JSON files against a JSON schema.")
-        print("\nArguments:")
-        print("  file_or_dir   Path to JSON file or directory containing JSON files")
-        print("  schema.json   Path to JSON schema file")
-        print("\nExamples:")
-        print("  validator.py data/mods/mod1.json schema.json")
-        print("  validator.py data/mods/ schema.json")
-        return 1
+    args = parse_arguments()
 
-    target_path = Path(sys.argv[1])
-    schema_path = Path(sys.argv[2])
+    # Configure logging level based on flags
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+    elif args.quiet:
+        logger.setLevel(logging.ERROR)
 
     # Validate inputs
-    if not target_path.exists():
-        logger.error(f"Target not found: {target_path}")
+    if not args.target.exists():
+        logger.error(f"Target not found: {args.target}")
         return 1
 
-    if not schema_path.exists():
-        logger.error(f"Schema not found: {schema_path}")
+    if not args.schema.exists():
+        logger.error(f"Schema not found: {args.schema}")
         return 1
 
     # Create validator and validate
     try:
-        validator = JSONValidator(schema_path)
+        validator = JSONValidator(args.schema)
     except Exception as e:
         logger.error(f"Failed to load schema: {e}")
         return 1
 
-    results = validator.validate_target(target_path)
+    results = validator.validate_target(args.target)
 
     if not results:
         logger.warning("No files validated")
         return 0
 
     # Print results and return exit code
-    failed_count = print_results(results)
+    failed_count = print_results(results, errors_only=args.errors_only)
     return 1 if failed_count > 0 else 0
 
 
