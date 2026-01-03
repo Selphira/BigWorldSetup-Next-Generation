@@ -17,6 +17,7 @@
     "1000": {"type": "std", "category": "smith"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "Here's a mod that, in exchange for a few gold coins, will give you items, ammunition, weapons and armor for your BG2ToB and BG2EE games, including a very effective armor set and a powerful scimitar."
+      "description": "Here's a mod that, in exchange for a few gold coins, will give you items, ammunition, weapons and armor for your BG2ToB and BG2EE games, including a very effective armor set and a powerful scimitar.",
+      "components": {
+        "0": "Mod DGItems for BG2ToB / BGT or BG2EE / EET",
+        "1000": "Delay some powerful items to ToB (Zodesak store at Amkethran)"
+      }
     },
     "zh_CN": {
       "description": "这是一个模组，只需花费少量金币，就能为您的博德之门2：巴尔王座和博德之门2：增强版游戏提供物品、弹药、武器和护甲，其中包括一套非常有效的护甲和一把强大的弯刀。"

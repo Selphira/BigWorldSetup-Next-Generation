@@ -1,5 +1,5 @@
 {
-  "name": "Semi-Multi-Clerics",
+  "name": "Semi Multi Clerics",
   "version": "0.4.4",
   "links": {
     "homepage": "https://spellholdstudios.net/ie/smm/",
@@ -19,35 +19,117 @@
     "50": {"type": "std", "category": "kit"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "it_IT": 1,
+    "fr_FR": 2,
+    "es_ES": 3,
+    "ru_RU": 4
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod ajoute une marchande, la Dame des Mystères, adoratrice de Mystra, qui vend un manuel de magie donnant accès à une trentaine de sorts divins, dont un inédit. Seuls les lanceurs de sorts profanes peuvent en bénéficier au prix de -2 en Dextérité et Constitution. En d'autres termes, grâce à ce mod, à vous les multi-classes sorcier/prêtre, barde/prêtre, guerrier/mage/prêtre (classe de base guerrier/mage et lecture du livre d'où un gain d'XP conséquent), kensaï/mage (clerc), ensorceleur (clerc) ou scalde (clerc), par exemple... et le très fameux guerrier/mage/voleur/prêtre. Attention cependant, il y a des restrictions : toutes les infos sont dans le readme. Vous la trouverez au nord du Marché de l'Aventurier sur la Promenade de Waukyne, et dans l'Antichambre. Sur BGEE et IWDEE, le vendeur se trouvera près de la tour d'Orrick, chez Perleflamme Cheveuxd'Elfe à Bérégost ou au Bazar Magique de la Porte de Baldur.",
       "components": {
         "choice_0": "Semi-multi-clerics pour BG2-ToB / BG2EE (BGT / EET)",
-        "1": "[ORIGINALE]",
-        "2": "[ADOUCIE]",
-        "3": "[ORIGINALE RETARDEE]",
-        "4": "[ADOUCIE RETARDEE]",
+        "1": "[ORIGINALE] \n- Accessible au commencement\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "2": "[ADOUCIE] \n- Accessible au commencement\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
+        "3": "[ORIGINALE RETARDEE] \n- Accessible apres l'Ombre-Terre / a la Porte de Baldur\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "4": "[ADOUCIE RETARDEE] \n- Accessible apres l'Ombre-Terre /  a la Porte de Baldur\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
         "choice_1": "Semi-multi-clerics pour IWD / IWDEE",
-        "5": "[ORIGINALE]",
-        "6": "[ADOUCIE]",
-        "7": "[ORIGINALE RETARDEE]",
-        "8": "[ADOUCIE RETARDEE]",
+        "5": "[ORIGINALE] \n- Accessible au commencement\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "6": "[ADOUCIE] \n- Accessible au commencement\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
+        "7": "[ORIGINALE RETARDEE] \n- Accessible apres l'Oeil du Dragon\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "8": "[ADOUCIE RETARDEE]\n- Accessible apres l'Oeil du Dragon\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
         "choice_2": "Semi-multi-clerics pour BGEE / SOD",
-        "9": "[ORIGINALE]",
-        "10": "[ADOUCIE]",
-        "11": "[ORIGINALE RETARDEE]",
-        "12": "[ADOUCIE RETARDEE]",
+        "9": "[ORIGINALE] \n- Accessible au commencement\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "10": "[ADOUCIE] \n- Accessible au commencement\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
+        "11": "[ORIGINALE RETARDEE] \n- Accessible a la Porte de Baldur\n- 100 % de chance de perdre 2 points de Dexterite et Constitution",
+        "12": "[ADOUCIE RETARDEE] \n- Accessible a la Porte de Baldur\n- 25 % de chance de perdre 2 points de Dexterite et Constitution",
         "50": "Ajouter un nouvelle replique quand le magasin est vide"
       }
     },
     "en_US": {
-      "description": "This mod adds a merchant, the Lady of Mysteries, worshipper of Mystra, who sells a magic manual giving access to some thirty divine spells, including one never seen before. Only profane spellcasters can benefit from this at the cost of -2 in Dexterity and Constitution. In other words, thanks to this mod, you can become a multi-class sorcerer/cleric, bard/cleric, fighter/mage/cleric (fighter/mage base class and reading of the book resulting in a substantial XP gain), kensai/mage (cleric), sorcerer (cleric) or scalde (cleric), for example... and the very famous fighter/mage/thief/cleric. Please note, however, that there are some restrictions: all the info is in the readme. You'll find it north of the Adventurer Mart on the Waukeen's Promenade, and in the Pocket Plane. In BGEE and IWDEE, the seller can be found near Orrik's tower or in Firebeard house or at the Sorcerous Sundries."
+      "description": "This mod adds a merchant, the Lady of Mysteries, worshipper of Mystra, who sells a magic manual giving access to some thirty divine spells, including one never seen before. Only profane spellcasters can benefit from this at the cost of -2 in Dexterity and Constitution. In other words, thanks to this mod, you can become a multi-class sorcerer/cleric, bard/cleric, fighter/mage/cleric (fighter/mage base class and reading of the book resulting in a substantial XP gain), kensai/mage (cleric), sorcerer (cleric) or scalde (cleric), for example... and the very famous fighter/mage/thief/cleric. Please note, however, that there are some restrictions: all the info is in the readme. You'll find it north of the Adventurer Mart on the Waukeen's Promenade, and in the Pocket Plane. In BGEE and IWDEE, the seller can be found near Orrik's tower or in Firebeard house or at the Sorcerous Sundries.",
+      "components": {
+        "choice_0": "Semi-multi-clerics for BG2-ToB / BG2EE (BGT / EET)",
+        "1": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "2": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "3": "[ORIGINAL DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "4": "[SOFT DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_1": "Semi-multi-clerics for IWD / IWDEE",
+        "5": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "6": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "7": "[ORIGINAL DELAYED]\n- Accessible after Dragon's Eye\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "8": "[SOFT DELAYED]\n- Accessible after Dragon's Eye\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_2": "Semi-multi-clerics for BGEE / SOD",
+        "9": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "10": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "11": "[ORIGINAL DELAYED]\n- Accessible at Baldur's Gate \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "12": "[SOFT DELAYED]\n- Accessible at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "50": "Add a new reply when the store is empty"
+      }
     },
     "zh_CN": {
       "description": "这个模组添加了一位女商人，神秘女士，是密斯特拉的崇拜者，她出售一本魔法手册，可以解锁三十多个神术，其中一个是全新的。只有非神术施法者才能从中受益，但代价是敏捷和体质各降低2点。换句话说，感谢这个模组，你可以玩到法师/牧师、吟游诗人/牧师、战士/法师/牧师（基础职业为战士/法师并阅读此书以获得大量经验值）、剑圣/法师（牧师）、术士（牧师）或北地诗人（牧师）等职业……以及那个非常著名的战士/法师/盗贼/牧师。但请注意，存在一些限制：所有信息都在readme文件中。你可以在渥金商场的冒险者市场以北，以及前厅找到她。在博德之门增强版和冰风谷增强版中，卖家会出现在奥瑞克塔附近，贝尔苟斯特的精灵发珍珠，或是博德之门的魔法集市。"
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "Semi-multi-clerics for BG2-ToB / BG2EE (BGT / EET)",
+        "1": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "2": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "3": "[ORIGINAL DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "4": "[SOFT DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_1": "Semi-multi-clerics for IWD / IWDEE",
+        "5": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "6": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "7": "[ORIGINAL DELAYED]\n- Accessible after Dragon's Eye\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "8": "[SOFT DELAYED]\n- Accessible after Dragon's Eye\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_2": "Semi-multi-clerics for BGEE / SOD",
+        "9": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "10": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "11": "[ORIGINAL DELAYED]\n- Accessible at Baldur's Gate \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "12": "[SOFT DELAYED]\n- Accessible at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "50": "Add a new reply when the store is empty"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Semi-multi-clerics for BG2-ToB / BG2EE (BGT / EET)",
+        "1": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "2": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "3": "[ORIGINAL DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "4": "[SOFT DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_1": "Semi-multi-clerics for IWD / IWDEE",
+        "5": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "6": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "7": "[ORIGINAL DELAYED]\n- Accessible after Dragon's Eye\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "8": "[SOFT DELAYED]\n- Accessible after Dragon's Eye\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_2": "Semi-multi-clerics for BGEE / SOD",
+        "9": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "10": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "11": "[ORIGINAL DELAYED]\n- Accessible at Baldur's Gate \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "12": "[SOFT DELAYED]\n- Accessible at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "50": "Add a new reply when the store is empty"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Semi-multi-clerics for BG2-ToB / BG2EE (BGT / EET)",
+        "1": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "2": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "3": "[ORIGINAL DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "4": "[SOFT DELAYED]\n- Accessible after Underdark / at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_1": "Semi-multi-clerics for IWD / IWDEE",
+        "5": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "6": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "7": "[ORIGINAL DELAYED]\n- Accessible after Dragon's Eye\n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "8": "[SOFT DELAYED]\n- Accessible after Dragon's Eye\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "choice_2": "Semi-multi-clerics for BGEE / SOD",
+        "9": "[ORIGINAL]\n- Accessible at the beginning \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "10": "[SOFT]\n- Accessible at the beginning\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "11": "[ORIGINAL DELAYED]\n- Accessible at Baldur's Gate \n- 100% chance of losing 2 points of Dexterite and Constitution",
+        "12": "[SOFT DELAYED]\n- Accessible at Baldur's Gate\n- 25% chance of losing 2 points of Dexterite and Constitution",
+        "50": "Add a new reply when the store is empty"
+      }
     }
   },
   "tp2": "semi_multi_clerics",

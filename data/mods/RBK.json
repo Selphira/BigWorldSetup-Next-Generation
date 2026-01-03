@@ -1,5 +1,5 @@
 {
-  "name": "Riskbreaker Kit",
+  "name": "RiskBreaker",
   "version": "8",
   "links": {
     "homepage": "https://github.com/Plutonium-X/KIT_Riskbreaker",
@@ -16,7 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "cs_CZ": 2,
+    "es_ES": 3
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +29,16 @@
       }
     },
     "en_US": {
-      "description": "An agile fighter, master of speed. Light and free in his movements, he can rush to strike with lightning speed while slowing down his enemies. However, this fighter sacrifices all armor and heavy protection to retain his exceptional mobility."
+      "description": "An agile fighter, master of speed. Light and free in his movements, he can rush to strike with lightning speed while slowing down his enemies. However, this fighter sacrifices all armor and heavy protection to retain his exceptional mobility.",
+      "components": {
+        "0": "Riskbreaker kit"
+      }
     },
     "zh_CN": {
       "description": "一个敏捷的战士，速度的大师。他身轻如燕，行动自由，可以加速自身以闪电般的速度攻击，同时减缓敌人的速度。然而，这位战士为了保持其非凡的机动性，牺牲了所有重型盔甲和防护。"
-    }
+    },
+    "cs_CZ": {"components": {"0": "kit Odvazlivec"}},
+    "es_ES": {"components": {"0": "Kit de Intrépido"}}
   },
   "tp2": "rbk",
   "safe": 2,

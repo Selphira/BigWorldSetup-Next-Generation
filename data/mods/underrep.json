@@ -20,26 +20,31 @@
     "fr_FR": 1,
     "ru_RU": 2,
     "it_IT": 3,
-    "de_DE": 4
+    "pl_PL": 4,
+    "zh_CN": 5
   },
   "translations": {
     "en_US": {
       "description": "This mod adds an Icewind Dale 2 merchant who offers some of the least powerful weapons in the game (sticks, daggers, bastard swords, two-handed axes, darts, halberds, spears, hammers, maces).",
       "components": {
-        "0": "Underrepresented Items From Icewind Dale 2"
+        "0": "Underrepresented Items From Icewind Dale II"
       }
     },
     "fr_FR": {
       "description": "Ce mod ajoute un marchand d'Icewind Dale 2 qui propose de puissantes armes parmi les moins présentes dans le jeu (bâtons, dagues, épées bâtardes, haches à deux mains, fléchettes, hallebardes, lances, marteaux, masses).",
       "components": {
-        "0": "Objets peu representes provenant d'Icewind Dale 2"
+        "0": "Objets peu representes provenant d'Icewind Dale II"
       }
     },
-    "ru_RU": {"components": {"0": "Underrepresented Items From Icewind Dale 2"}},
-    "it_IT": {"components": {"0": "Underrepresented Items From Icewind Dale 2"}},
+    "ru_RU": {"components": {"0": "Underrepresented Items From Icewind Dale II"}},
+    "it_IT": {"components": {"0": "Oggetti Poco Rappresentati da Icewind Dale II"}},
     "zh_CN": {
-      "description": "此模组添加了一个来自冰风谷2的商人，他提供游戏中较少出现的强大武器（手杖、匕首、双手剑、双手斧、飞镖、长戟、长矛、锤、硬头锤）。"
-    }
+      "description": "此模组添加了一个来自冰风谷2的商人，他提供游戏中较少出现的强大武器（手杖、匕首、双手剑、双手斧、飞镖、长戟、长矛、锤、硬头锤）。",
+      "components": {
+        "0": "未发表的物品:来自冰风之谷2的物品 (中文版 by eco)"
+      }
+    },
+    "pl_PL": {"components": {"0": "Niedostatecznie Reprezentowane Przedmioty"}}
   },
   "tp2": "underrep",
   "safe": 2,

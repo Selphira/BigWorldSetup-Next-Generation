@@ -16,6 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "it_IT": 2,
+    "ru_RU": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "This mod adds the merchant Zodesak to the village of Amkethran, near the temple of Waukeen. He sells powerful items and spells, all at a high price. As this mod was written at the request of passionate gamers, the author was not seduced by its big-budget character and turned away from it."
+      "description": "This mod adds the merchant Zodesak to the village of Amkethran, near the temple of Waukeen. He sells powerful items and spells, all at a high price. As this mod was written at the request of passionate gamers, the author was not seduced by its big-budget character and turned away from it.",
+      "components": {
+        "0": "Improved Volcano! Pack"
+      }
     },
     "zh_CN": {
       "description": "这个模组在阿姆凯森村的渥金神殿附近添加了商人佐德萨克。他出售强大的物品和法术，但价格高昂。由于这个模组是应狂热玩家的要求编写的，作者并不喜欢其“土豪”风格，因此避开了这一点。"
-    }
+    },
+    "de_DE": {"components": {"0": "Improved Volcano! Pack"}},
+    "it_IT": {"components": {"0": "Vulcano Migliorato! Pacchetto"}},
+    "ru_RU": {"components": {"0": "Improved Volcano! Pack"}}
   },
   "tp2": "volcano",
   "safe": 2,

@@ -1,5 +1,5 @@
 {
-  "name": "Kit de rodeur \"Guerrier Lion\"",
+  "name": "Lion Warrior kit",
   "version": "3.01",
   "links": {
     "homepage": "http://www.shsforums.net/topic/31691-the-lion-warrior-kit-formerly-zulu-still-a-ranger/",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "Formerly known as the \"Zulu kit\", this mod adds a ranger profile that combines deadly combat skills with wilderness survival skills and a strong connection to nature. He can't wear armor or bracelets and can't use trait weapons, but makes up for it with great mastery, 2 extra spells per level, minor bonuses to AC, touch and damage, and can metamorphose at level 13 into a VERY EVIL lion."
+      "description": "Formerly known as the \"Zulu kit\", this mod adds a ranger profile that combines deadly combat skills with wilderness survival skills and a strong connection to nature. He can't wear armor or bracelets and can't use trait weapons, but makes up for it with great mastery, 2 extra spells per level, minor bonuses to AC, touch and damage, and can metamorphose at level 13 into a VERY EVIL lion.",
+      "components": {
+        "0": "\"Lion Warrior\" ranger kit"
+      }
     },
     "zh_CN": {
       "description": "以前被称为“Zulu宗派”，此模组添加了一个游侠宗派，它将致命的战斗技能与野外生存天赋以及对自然的紧密联系相结合。他不能穿戴盔甲或护腕，也不能使用投掷武器，但他通过高超的技艺、每级2个额外法术、对AC、命中和伤害的轻微加成来弥补，并且可以在13级时变成一只非常邪恶的狮子。"

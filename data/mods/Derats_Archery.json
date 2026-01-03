@@ -17,7 +17,8 @@
     "3": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "He's a merchant on the Waukeen's Promenade who sells anything used for killing at a distance (bow, crossbow, slingshot, darts, throwing daggers, throwing axes, and a good deal of assorted ammunition from BG2 and IWD)."
+      "description": "He's a merchant on the Waukeen's Promenade who sells anything used for killing at a distance (bow, crossbow, slingshot, darts, throwing daggers, throwing axes, and a good deal of assorted ammunition from BG2 and IWD).",
+      "components": {
+        "0": "Shop for all kinds of projectiles",
+        "3": "Make the magazine's ammunition supply unlimited"
+      }
     },
     "zh_CN": {
       "description": "这是渥金商场上的一个商人，他出售所有用于远程杀戮的物品（弓、弩、投石索、飞镖、投掷匕首、投掷斧，以及大量来自博德之门2和冰风谷的各式弹药）。"

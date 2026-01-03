@@ -18,6 +18,7 @@
     "2": {"type": "std", "category": "npcx"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -30,7 +31,12 @@
       }
     },
     "en_US": {
-      "description": "This mod installation allows you to install a new fighter kit specializing in unfair combat techniques.\n An optional component allows you to change Kagain's alignment to neutral evil to give him the mercenary profile, and another to Korgan."
+      "description": "This mod installation allows you to install a new fighter kit specializing in unfair combat techniques.\n An optional component allows you to change Kagain's alignment to neutral evil to give him the mercenary profile, and another to Korgan.",
+      "components": {
+        "0": "Install Mercenary kit for Fighters",
+        "1": "Kagain, the Mercenary. Alters Kagain's alignment to Neutral Evil and gives him the Mercenary kit",
+        "2": "Korgan, the Mercenary."
+      }
     },
     "zh_CN": {
       "description": "此模组允许你安装一个新的战士配置文件，专门从事不公平的战斗技巧。\n一个可选组件可以将Kagain的阵营改为中立邪恶，为他分配佣兵配置文件，另一个组件为Korgan分配。"

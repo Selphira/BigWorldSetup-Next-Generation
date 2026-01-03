@@ -1,5 +1,5 @@
 {
-  "name": "Romantic Encounters",
+  "name": "Romantic Encounters MOD for Baldur's Gate II",
   "version": "15",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/npcs/romantic-encounters/",
@@ -189,7 +189,7 @@
         "48": "Bravoure ou Folie ? par Aeryn (Sarevok, contenu adulte)",
         "49": "A Cause de la Lune, par Aeryn (Cernd)",
         "50": "La Confession de Cernick, par Cal Jones",
-        "51": "Romance avec Valygar - Tr?ne de Bhaal, par Kulyok",
+        "51": "Romance avec Valygar - Trône de Bhaal, par Kulyok",
         "52": "Minsc prend un bain, par Thimblerig",
         "53": "La Vanite de Nizidramanii'yt, par Thimblerig",
         "54": "Un rendez-vous nocturne, par SisterVigilante"
@@ -197,7 +197,8 @@
     },
     "zh_CN": {
       "description": "你对只能与少数几个可招募的NPC恋爱感到不满意吗？这个模组在游戏过程中为女性和男性玩家角色都增加了多达50次与其他各种不可招募NPC的恋爱机会，游戏中与你恋爱的原始NPC也可能会有反应（但官方的恋爱线永远不会被自动切断）。请注意，这个模组的一部分内容是“成人向”的。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Aerie, Anomen, Jaheira and Viconia React to Romantic Encounters", "1": "Storms and Lightning, by berelinde (Weathermistress Ada, adult content)", "2": "Aimi's Magic, by berelinde (adult content)", "3": "Anishai's Deft Hands, by cmorgan", "4": "An Evening with Aran, by Kulyok", "5": "Bjornin's Desire, by jastey (adult content)", "6": "Bodhi's Allure, by Kulyok (adult content)", "7": "Trademeet with Guildmistress Busya, by magrat", "8": "The Gambling Cambion, by Kulyok", "9": "Chanelle's Gifts, by cmorgan (adult content)", "10": "A Night with Coran, by magrat", "11": "Cyric's Test, by Kulyok", "12": "A Tryst with a Pirate Lord, by Kulyok (Desharik, adult content)", "13": "A Lonely Dryad, by Kulyok (adult content)", "14": "Edwin's Softer Side, by Kulyok", "15": "Eldoth' Exploits, by Kulyok", "16": "Elhan's Expansion, by Kulyok", "17": "Firkraag's Unsheathed Sword", "18": "Gaelan's Contract, by Evaine Dian", "19": "A Walk with Garren Windspear, by Kulyok", "20": "Enter Haer'Dalis, by Kulyok", "21": "Hendak's Heart, by jastey", "22": "Ilona, a Merchant's Daughter, by Kulyok", "23": "Jarlaxle's Fascinations, by Catseye", "24": "A Night with Lais in Imnesvale, by Kulyok", "25": "Laran's Promise, by berelinde (adult content)", "26": "The Love Song of Logan, Lord Coprith, by Ajnos", "27": "Mekrath and Nymphology, by Kulyok", "28": "Mira's Special Stock, by berelinde", "29": "Noober Returns, by cmorgan", "30": "Rebecca the Gypsy, by Kulyok", "31": "Renal Bloodscalp: A Dangerous Affair, by cmorgan (adult content)", "32": "Old Ribald's Speciality, by Evaine Dian", "33": "Sir Ryan Trawl, by Kulyok", "34": "Saemon, a Pirate, by Kulyok (adult content)", "35": "Dreaming of Sendai, by Kulyok", "36": "Sheri the Bardess, by cmorgan (adult content)", "37": "Solaufein in the Lust Chambers, by jastey", "38": "Phaere's Reward, by berelinde (Talak, pleasure slave, adult content)", "39": "Spell Research with Teos, by Kulyok", "40": "A fling with Yoshimo, by Kulyok", "41": "Isabelle's Fears, by gertjanvh (adult content)", "42": "Anne's Rescue, by gertjanvh (adult content)", "43": "The Queen, by Domi", "44": "Valygar Romance, by Kulyok", "45": "Rehearsal with Chandra, by Western Paladin", "46": "Goldander Blackenrock: After a Party, by magrat", "47": "A Chat with Viekang, by magrat", "48": "Bravery or Folly? by Aeryn (Sarevok, adult content)", "49": "Blame the Moon, by Aeryn (Cernd)", "50": "Cernick's Confession, by Cal Jones", "51": "Valygar Romance ToB, by Kulyok", "52": "Minsc. Takes. A Bath, by Thimblerig", "53": "Nizidramanii'yt's Vanity, by Thimblerig", "54": "Date Night, by SisterVigilante"}}
   },
   "tp2": "re",
   "safe": 2,

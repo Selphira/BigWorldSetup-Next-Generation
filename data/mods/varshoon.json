@@ -17,6 +17,9 @@
     "1": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "it_IT": 1,
+    "ru_RU": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -28,11 +31,17 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a new, rather unusual evil NPC: an illithid! Driven by a thirst for knowledge, Varshoon doesn't really have a romance planned, or a friendship to speak of... but something approaching that is possible. In dialogue, Varshoon is curious about the culture of surface beings. He has his own kit of Psionic Enforcer. Varshoon is a mental warrior. Who uses his mental abilities to stun, weaken and confuse his enemies. He has his own special equipment that cannot be replaced with any other items. This mod also modifies the normal quest area of the Illithid Tunnels in the Underdark.\nSTR 13, DEX 18, CON 9, INT 19, WIS 15, CHA 13."
+      "description": "This mod adds a new, rather unusual evil NPC: an illithid! Driven by a thirst for knowledge, Varshoon doesn't really have a romance planned, or a friendship to speak of... but something approaching that is possible. In dialogue, Varshoon is curious about the culture of surface beings. He has his own kit of Psionic Enforcer. Varshoon is a mental warrior. Who uses his mental abilities to stun, weaken and confuse his enemies. He has his own special equipment that cannot be replaced with any other items. This mod also modifies the normal quest area of the Illithid Tunnels in the Underdark.\nSTR 13, DEX 18, CON 9, INT 19, WIS 15, CHA 13.",
+      "components": {
+        "0": "Varshoon - an illithid NPC for BG2",
+        "1": "New paperdoll for illithids (inventory illustration)"
+      }
     },
     "zh_CN": {
       "description": "这个模组添加了一个有点特别的邪恶新NPC：一个夺心魔！在强烈求知欲的驱使下，瓦尔枢恩并没有真正的爱情线，也没有真正的友谊……但类似的关系依然有可能。在对话中，瓦尔枢恩对地表生物的文化感到好奇。关系基于你的影响力、智力和种族。\n他有他自己的心灵执法者宗派。瓦尔枢恩是一种精神战士。他使用自己的精神能力来眩晕、削弱并迷惑敌人。他有自己专属的装备，无法被替换。这个模组还修改了幽暗地域中夺心魔隧道的常规任务区域。\n力量 13，敏捷 18，体质 9，智力 19，智慧 15，魅力 13。"
-    }
+    },
+    "it_IT": {"components": {"0": "Varshoon - un NPC illithid per BG2", "1": "Nuovo paperdoll per gli illithid (con l'illustrazione nell'inventario)"}},
+    "ru_RU": {"components": {"0": "Varshoon - an illithid NPC for BG2", "1": "New paperdoll for illithids (inventory illustration)"}}
   },
   "tp2": "varshoon",
   "safe": 2,

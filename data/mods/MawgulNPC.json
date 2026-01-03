@@ -1,6 +1,6 @@
 {
-  "name": "Mawgul l'elfe (drow ?) guerrier/mage",
-  "version": "2.4",
+  "name": "Mawgul NPC",
+  "version": "2.3",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/767-mawgul-npc-v22/",
     "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip"
@@ -16,6 +16,9 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "es_ES": 0,
+    "en_US": 1,
+    "it_IT": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -26,11 +29,16 @@
       }
     },
     "en_US": {
-      "description": "Mawgul is an true neutral elf fighter/mage, serving as a Heaum with powerful equipment and special abilities similar to those of the priests of Helm. This mod has little content.\nSTR 10, DEX 19, CON 10, INT 18, WIS 16, CHA 17."
+      "description": "Mawgul is an true neutral elf fighter/mage, serving as a Heaum with powerful equipment and special abilities similar to those of the priests of Helm. This mod has little content.\nSTR 10, DEX 19, CON 10, INT 18, WIS 16, CHA 17.",
+      "components": {
+        "0": "Mawgul NPC"
+      }
     },
     "zh_CN": {
       "description": "Mawgul是一个绝对中立善良的精灵法师/战士，侍奉海姆，拥有非常强大的装备，以及类似于海姆牧师的特殊能力。此模组内容很少。\n力量10，敏捷19，体质10，智力18，智慧16，魅力17。"
-    }
+    },
+    "es_ES": {"components": {"0": "MawgulNPC"}},
+    "it_IT": {"components": {"0": "Mawgul NPC"}}
   },
   "tp2": "mawgulnpc",
   "safe": 2,

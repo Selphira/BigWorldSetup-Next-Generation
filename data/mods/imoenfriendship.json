@@ -18,6 +18,7 @@
   "languages": {
     "en_US": 0,
     "ru_RU": 1,
+    "pl_PL": 2,
     "fr_FR": 3,
     "es_ES": 4,
     "zh_CN": 5
@@ -26,7 +27,7 @@
     "en_US": {
       "description": "This mod adds a series of dialogs with Imoen, the PJ's sister, expanding on her experiences and Imoen's struggles.",
       "components": {
-        "0": "Imoen Friendship for SoA"
+        "0": "Imoen Friendship"
       }
     },
     "ru_RU": {"components": {"0": "Imoen Friendship for SoA"}},
@@ -37,8 +38,13 @@
       }
     },
     "zh_CN": {
-      "description": "此模组添加了一系列与爱蒙（主角的妹妹）的对话，深入探讨了她的过往经历和内心挣扎。"
-    }
+      "description": "此模组添加了一系列与爱蒙（主角的妹妹）的对话，深入探讨了她的过往经历和内心挣扎。",
+      "components": {
+        "0": "°®ÃÉÓÑÒê²å»°°ü"
+      }
+    },
+    "pl_PL": {"components": {"0": "Sciezka przyjazni z Imoen dla BG2"}},
+    "es_ES": {"components": {"0": "Imoen Friendship para BG2"}}
   },
   "tp2": "imoenfriendship",
   "safe": 2,

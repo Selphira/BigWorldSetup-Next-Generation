@@ -26,7 +26,8 @@
     "de_DE": 1,
     "ru_RU": 2,
     "fr_FR": 3,
-    "zh_CN": 4
+    "zh_CN": 4,
+    "es_ES": 5
   },
   "translations": {
     "en_US": {
@@ -47,7 +48,7 @@
         "11": "60 Minutes"
       }
     },
-    "ru_RU": {"components": {"0": "Extended NPC-NPC Interaction SoA", "1": "Extended Minsc/Aerie Interaction ToB", "2": "Imoen \"Retrospection\" dialogue for BGII: ToB", "3": "Wake-Up dialogue for Anomen Romance (By David Gaider with additions from Kulyok)", "4": "NPC Conflict Revisions", "5": "Restored Aerie/Jaheira/Anomen interjection in Underdark", "choice_0": "Install Banter Accelerator? How much time would you like in between NPC banters in-game?", "6": "10 Minutes", "7": "15 Minutes", "8": "20 Minutes", "9": "30 Minutes", "10": "45 Minutes", "11": "60 Minutes"}},
+    "ru_RU": {"components": {"0": " áè¨à¥­­ë¥ ¤¨ «®£¨ NPC-NPC ¢ SoA", "1": " áè¨à¥­­ë¥ ¤¨ «®£¨ ¨­áª  ¨ ¥à¨ ¢ ToB", "2": "\"¥âà®á¯¥ªâ¨¢­ë©\" ¤¨ «®£ á ¬®¥­ ¢ BGII: ToB", "3": "á¯à ¢«¥­­ë© ¤¨ «®£ ¢ à®¬ ­¥ á ­®¬¥­®¬ \n( ¢â®à David Gaider á ¤®¡ ¢«¥­¨ï¬¨ Kulyok)", "4": "¥à¥à ¡®â ­­ë¥ ª®­ä«¨ªâë NPC", "5": "®ááâ ­®¢«¥­­ë¥ ¤¨ «®£¨ ¥à¨/¦ å¥©àë/­®¬¥­  \n¢ ­¤¥à¤ àª¥", "choice_0": "áâ ­®¢¨âì ãáª®à¨â¥«ì ¤¨ «®£®¢? \n(ãª ¦¨â¥ ¢à¥¬ï ¯®ï¢«¥­¨ï ¤¨ «®£®¢)", "6": "10 ¬¨­ãâ", "7": "15 ¬¨­ãâ", "8": "20 ¬¨­ãâ", "9": "30 ¬¨­ãâ", "10": "45 ¬¨­ãâ", "11": "60 ¬¨­ãâ"}},
     "fr_FR": {
       "description": "Ce projet a pour intention de développer le réalisme et l'intérêt des PNJ de Bioware en les dotant d'interjections, de dialogues, de banters et de relations amicales supplémentaires. 13 mods sont d'ores et déjà issus de ce projet ambitieux. Il s'agit de : \nCernd Friendship, Dorn Friendship, Haer'dalis Friendship, Hexxat Friendship, Imoen Friendship, Jaheira Friendship, Korgan Friendship, Mazzy Friendship, Minsc Friendship, Sarevok Friendship, Valygar Friendship, Viconia Friendship et Yoshimo Friendship.",
       "components": {
@@ -67,8 +68,25 @@
       }
     },
     "zh_CN": {
-      "description": "此项目的意图是通过为BioWare的非玩家角色增添更多的感叹词、对话、闲谈和友好关系，来提升他们的真实性和趣味性。目前已有13个模组源自这个雄心勃勃的项目。它们是：\nCernd Friendship, Dorn Friendship, Haer'dalis Friendship, Hexxat Friendship, Imoen Friendship, Jaheira Friendship, Korgan Friendship, Mazzy Friendship, Minsc Friendship, Sarevok Friendship, Valygar Friendship, Viconia Friendship 和 Yoshimo Friendship。"
-    }
+      "description": "此项目的意图是通过为BioWare的非玩家角色增添更多的感叹词、对话、闲谈和友好关系，来提升他们的真实性和趣味性。目前已有13个模组源自这个雄心勃勃的项目。它们是：\nCernd Friendship, Dorn Friendship, Haer'dalis Friendship, Hexxat Friendship, Imoen Friendship, Jaheira Friendship, Korgan Friendship, Mazzy Friendship, Minsc Friendship, Sarevok Friendship, Valygar Friendship, Viconia Friendship 和 Yoshimo Friendship。",
+      "components": {
+        "0": "À©Õ¹°²Ä·ÒõÓ°ÖÐNPCÖ®¼äµÄ²å»°",
+        "1": "°Í¶ûÍõ×ùÖÐÃ÷Ë¹¿ËÓë°¬ÀèÖ®¼äµÄ²å»°",
+        "2": "°®ÃÉÔÚ°Í¶ûÍõ×ùÖÐµÄ¡°×·Òä¡±",
+        "3": "°¢ÅµÃÅÂÞÂüÊ·ÖÐµÄ¡°Ò»Ò¹ÐÑÀ´¡±¶Ô»°",
+        "4": "NPC³åÍ»ÐÞ¶©",
+        "5": "»Ö¸´°¬Àè¡¢¼ÖÏ£À­¡¢°¢ÅµÃÅÔÚÓÄ°µµØÓòµÄ²å»°",
+        "choice_0": "°²×°²å»°¼ÓËÙÆ÷Âð£¿ÇëÉèÖÃ²å»°Ê±¼ä",
+        "6": "10·ÖÖÓ",
+        "7": "15·ÖÖÓ",
+        "8": "20·ÖÖÓ",
+        "9": "30·ÖÖÓ",
+        "10": "45·ÖÖÓ",
+        "11": "60·ÖÖÓ"
+      }
+    },
+    "de_DE": {"components": {"0": "- Erweiterte Dialoge der NPC's untereinander für SvA", "1": "- Dialoge Minsc/Aerie TdB", "2": "- Imoen Erinnerungsdialoge", "3": "- Anomendialog nach gemeinsamer Nacht", "4": "- Konflikte", "5": "Wiederhergestellte Interjektion von Aerie/Jaheira/Anomen im Unterreich", "choice_0": "Banter-Beschleuniger installieren? Wieviel Zeit soll zwischen den NSC-Bantern im Spiel vergehen?", "6": "10 Minuten", "7": "15 Minuten", "8": "20 Minuten", "9": "30 Minuten", "10": "45 Minuten", "11": "60 Minuten"}},
+    "es_ES": {"components": {"0": "Extended NPC-NPC Interaction SoA", "1": "Extended Minsc/Aerie Interaction ToB", "2": "Imoen \"Retrospection\" dialogue for BGII: ToB", "3": "Wake-Up dialogue for Anomen Romance (By David Gaider with additions from Kulyok)", "4": "NPC Conflict Revisions", "5": "Restored Aerie/Jaheira/Anomen interjection in Underdark", "choice_0": "Install Banter Accelerator? How much time would you like in between NPC banters in-game?", "6": "10 Minutes", "7": "15 Minutes", "8": "20 Minutes", "9": "30 Minutes", "10": "45 Minutes", "11": "60 Minutes"}}
   },
   "tp2": "iepbanters",
   "safe": 2,

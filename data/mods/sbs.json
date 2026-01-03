@@ -17,6 +17,8 @@
     "6": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "es_ES": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -25,7 +27,7 @@
       "components": {
         "choice_0": "Summon Bhaalspawn (Sandra NPC)",
         "0": "Installer le portrait de Skie (Portrait original du mod)",
-        "1": "Installer le portrait de Skie modifie par Plasmocat",
+        "1": "N'oubliez pas d'installer au moins un des portraits, ou Sandra n'en aura pas !",
         "2": "Installer le portrait de la Paladine rouquine (Auteur inconnu)",
         "3": "Installer le portrait de Salma Hayek (Issu de The Portrait Portal)",
         "4": "Installer le portrait de Skie par Xenobia (Issu de Baldur's Goth Expansion Pack)",
@@ -33,11 +35,21 @@
       }
     },
     "en_US": {
-      "description": "This mod lets you recruit this undead-hunting paladin from the docks. No romance and embryonic dialog, but a few banters and a special surprise for Imoen. Effective as an anti-vampire tank.\nSTR 19, DEX 18, CON 18, INT 8, WIS 15, CHA 17."
+      "description": "This mod lets you recruit this undead-hunting paladin from the docks. No romance and embryonic dialog, but a few banters and a special surprise for Imoen. Effective as an anti-vampire tank.\nSTR 19, DEX 18, CON 18, INT 8, WIS 15, CHA 17.",
+      "components": {
+        "choice_0": "Summon Bhaalspawn (Sandra NPC)",
+        "0": "Install Skie Portrait (original mod portrait)",
+        "1": "Remember to install at least one of the portraits, or Sandra will not have one!",
+        "2": "Install Redheaded Paladin portrait (unknown author)",
+        "3": "Install Salma Hayek portrait (from The Portrait Portal)",
+        "4": "Install edited Skie portrait by Xenobia (from the Baldur's Goth Expansion Pack)",
+        "6": "Summon Bhaalspawn in ToB"
+      }
     },
     "zh_CN": {
       "description": "此模组允许你在码头招募这位猎杀不死生物的圣武士。没有爱情线，只有一些初步的对话，但有一些闲聊，以及给爱蒙的一个特殊惊喜。作为吸血鬼坦克非常有效。\n力量19，敏捷18，体质18，智力8，智慧15，魅力17。"
-    }
+    },
+    "es_ES": {"components": {"choice_0": "Convocar Engendro de Bhaal", "0": "Instalar el retrato de Skie (Retrato Original del Mod)", "1": "Recuerda instalar al menos uno de los retratos, o Sandra no tendrá ninguno.", "2": "Instalar el retrato de Paladin Pelirrojo (De Autor Desconocido)", "3": "Instalar el retrato de Salma Hayek de El Portal del Retrato", "4": "Instalar el retrato edita de Skie por Xenobia (de Baldur's Goth Expansion Pack)", "6": "Summon Bhaalspawn in ToB"}}
   },
   "tp2": "sbs",
   "safe": 2,

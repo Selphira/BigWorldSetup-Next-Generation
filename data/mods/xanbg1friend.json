@@ -39,7 +39,8 @@
     "it_IT": {"components": {"0": "Xan's friendship path for BG1"}},
     "zh_CN": {
       "description": "此模组让您有机会与那位著名的忧郁精灵建立友谊。它包含十六个独特的对话，以及在某些关键事件后发生的五个对话。"
-    }
+    },
+    "de_DE": {"components": {"0": "Xan's friendship path for BG1"}}
   },
   "tp2": "xanbg1friend",
   "safe": 2,

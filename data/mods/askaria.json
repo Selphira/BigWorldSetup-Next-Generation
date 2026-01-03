@@ -1,5 +1,5 @@
 {
-  "name": "Askaria Npc and Quest",
+  "name": "Askaria Npc and Quest & ChaosKnight Kit and Npc",
   "version": "2.1",
   "links": {
     "homepage": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit",
@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "ko_KR": 0,
+    "en_US": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "This is a pack of two Korean mods for BGT (translated into English): install the profile first, since Askaria needs it.\n- Chaos Knight kit: this mod adds the Chaos Knight profile and Jacob, a recruitable NPC near the manor of Beregost, inspired by Dota in WoW3.\n- Askaria Quest NPC: On the second floor of the Feldpost Inn in Beregost, Askaria asks for help against bandits. Once they've been eliminated, she'll join you to find her parents."
+      "description": "This is a pack of two Korean mods for BGT (translated into English): install the profile first, since Askaria needs it.\n- Chaos Knight kit: this mod adds the Chaos Knight profile and Jacob, a recruitable NPC near the manor of Beregost, inspired by Dota in WoW3.\n- Askaria Quest NPC: On the second floor of the Feldpost Inn in Beregost, Askaria asks for help against bandits. Once they've been eliminated, she'll join you to find her parents.",
+      "components": {
+        "0": "Askaria Quest for BGT, BGEE or EET"
+      }
     },
     "zh_CN": {
       "description": "这是一个包含两个韩语模组的BGT模组包（已翻译成英文）：请先安装职业包，因为 Askaria 需要它。\n- 混沌骑士宗派：此模组添加了混沌骑士职业包和雅各布——一个可在贝尔苟斯特庄园附近招募的NPC，灵感来源于魔兽争霸3中的Dota。\n- Askaria 任务NPC：在贝尔苟斯特的 Feldpost 旅店一楼，Askaria 请求你帮助对抗强盗。一旦这些强盗被消灭，她会加入你，以寻找她的父母。"
-    }
+    },
+    "ko_KR": {"components": {"0": "BGT, BGEE or EET»ç¿ëÀÚ¸¦ À§ÇÑ ¾Æ½ºÄ«¸®¾Æ Ãß°¡ ÀÌº¥Æ® ¸ðµå"}}
   },
   "tp2": "askaria",
   "safe": 2,

@@ -23,13 +23,13 @@
     "fr_FR": {
       "description": "Le Chantelame est un elfe guerrier/mage qui possède des techniques de combat particulières.",
       "components": {
-        "0": "Chantelame"
+        "0": "Chantelame version 7.2, par Misdrha'al Hymmet, Deratiseur et Isaya"
       }
     },
     "en_US": {
       "description": "This mod adds a new fighter kit for elves, a kind of special fighter/mage/cleric... Bladesingers are a caste that consist of highly trained fighters who combine a perfect mastery of their weapon with the ability to use powerful spells. A potent combination. The Bladesinger knows how to manipulate the flow of magic around him to protect himself and augment his abilities. In addition, he is also able to mold magical energy to his will to cast spells.",
       "components": {
-        "0": "Bladesinger"
+        "0": "Bladesinger version 7.2, by Misdrha'al Hymmet, Deratiseur and Isaya"
       }
     },
     "zh_CN": {

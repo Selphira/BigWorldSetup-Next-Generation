@@ -13,11 +13,12 @@
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "spell"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["90", "1", "2", "3", "4", "5"]},
+    "choice_0": {"type": "muc", "components": ["90", "91", "92", "93", "94", "95"]},
     "choice_1": {"type": "muc", "components": ["9999", "10000", "10001"], "default": "9999"},
     "choice_2": {"type": "muc", "components": ["10", "11"]}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,11 +27,11 @@
       "components": {
         "choice_0": "Kit Updater (Peut être installé en toute sécurité en fin d'installation et réinstallé à tout moment.)",
         "90": "Toutes les options (Recommandé)",
-        "1": "HLA tables - recréer toutes les tables de capacités de haut niveau",
-        "2": "Spécial Chirurgien - corriger les points d'énergie mystique, mettre à jour la capacité Chirurgie, et les options de configuration",
-        "3": "Compétences - corrige les erreurs, met à jour tous les kits",
-        "4": "Pour le mod 5E_spellcasting de subtledoctor (Tweak les emplacements de sorts)",
-        "5": "Option 1, mais restaure le fichier m_dw_hld.lua du mod Talents of Faerun avant l'édition",
+        "91": "HLA tables - recréer toutes les tables de capacités de haut niveau",
+        "92": "Spécial Chirurgien - corriger les points d'énergie mystique, mettre à jour la capacité Chirurgie, et les options de configuration",
+        "93": "Compétences - corrige les erreurs, met à jour tous les kits",
+        "94": "Pour le mod 5E_spellcasting de subtledoctor (Tweak les emplacements de sorts)",
+        "95": "Option 1, mais restaure le fichier m_dw_hld.lua du mod Talents of Faerun avant l'édition",
         "choice_1": "The Workshop Kitpack / Les Kits de l'Atelier",
         "9999": "Kits de base + Kits Multi-classes",
         "10000": "Uniquement les Kits de base",
@@ -41,7 +42,23 @@
       }
     },
     "en_US": {
-      "description": "This is a kitpack currently contains 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources.\n\nNOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.\n\nThis mod features several original and rather cool kits!"
+      "description": "This is a kitpack currently contains 17 kits + 11 multiclass variants. Also adds 30+ items, including 6 Hunter Badges, 12 Caryll Runes, and 17 other misc items. Heavily inspired by FromSoft's Soulsborne games and probably other sources.\n\nNOTE: The abilities tables for these kits are made at install time. Every kit clones the table of the base class (if it exists). This means that any class revisions installed before this mod will be included with these kits.\n\nThis mod features several original and rather cool kits!",
+      "components": {
+        "choice_0": "Kit Updater (Safe to install at end of order. Can be re-run at any time.)",
+        "90": "All updates, config options (choose this)",
+        "91": "HLA tables - recreates all tables",
+        "92": "Medic stuff - fixes skill points, updates Medic Arts, config options",
+        "93": "Proficiencies - fixes issues, updates all kits",
+        "94": "for 5e casting by subtledoctor (tweak spell slots)",
+        "95": "Option 1, but restore ToF backup before edits (m_dw_hld.lua)",
+        "choice_1": "The Workshop Kitpack",
+        "9999": "Base kits + multiclass variants",
+        "10000": "Base kits only",
+        "10001": "Misc items only (no kits or Hunter Badges)",
+        "choice_2": "Misc item pack",
+        "10": "Standard Install",
+        "11": "Dev mode (start with Item Sack)"
+      }
     },
     "zh_CN": {
       "description": "这是一个包含17个职业宗派和11个多职业分支的宗派包。它还包含30多个物品，包括6个猎人徽章、12个卡里尔符文和17个其他各种物品。深受FromSoft的魂类游戏及其他来源的启发。\n\n注意：这些职业宗派的能力表在安装时创建。每个宗派都会复制基础职业的能力表（如果存在）。这意味着任何预先安装的职业修改都将包含在模组的宗派中。\n\n此模组拥有许多原创且相当不错的宗派！"

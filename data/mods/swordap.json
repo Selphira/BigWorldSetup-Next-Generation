@@ -19,7 +19,9 @@
     "en_US": 0,
     "ru_RU": 1,
     "de_DE": 2,
-    "fr_FR": 4
+    "pl_PL": 3,
+    "fr_FR": 4,
+    "it_IT": 5
   },
   "translations": {
     "en_US": {
@@ -37,7 +39,10 @@
     },
     "zh_CN": {
       "description": "这个迷你模组可以提升海尔达利在幽暗地域的剑。"
-    }
+    },
+    "de_DE": {"components": {"0": "Verbesserte Haer'Dalis' Schwerter (Special fuer Kania)"}},
+    "pl_PL": {"components": {"0": "Ulepszone miecze Haer'Dalisa (specjalnie dla Kanii)"}},
+    "it_IT": {"components": {"0": "Spade di Haer'Dalis migliorate (special for Kania)"}}
   },
   "tp2": "swordap",
   "safe": 2,

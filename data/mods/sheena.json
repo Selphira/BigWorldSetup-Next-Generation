@@ -1,5 +1,5 @@
 {
-  "name": "Sheena, a Half Dragon Tale NPC",
+  "name": "Sheena - The Half Dragon Tale",
   "version": "2.6",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/60784/npc-mod-sheena-the-half-dragon-tale/p1",
@@ -19,8 +19,8 @@
     "en_US": 0,
     "fr_FR": 1,
     "es_ES": 2,
-    "ru_RU": 3,
-    "de_DE": 3
+    "cs_CZ": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
@@ -38,9 +38,11 @@
     "ru_RU": {"components": {"0": "Install A Half Dragon Tale"}},
     "zh_CN": {
       "description": "这个模组添加了一个有点特别的角色：希娜是一个年轻的女人……龙裔。是的，您没看错。她充满激情和故事。您想与她分享您的冒险吗？\n她还有5%的魔法抗性，50%的火焰抗性，并且对精神系法术免疫。她还拥有一个强大得多的龙形态。幸运的是，她也有一些缺点来弥补这种力量（特别是获得的经验值减少10%）。她是一个多职业的战士/法师，中立善良，非常漂亮（在她的人类形态下）。您可以在击败她的父亲后，在费尔克劳格的城堡里招募她。她可以与一个善良或中立阵营的男性主角发展恋情，前提是该主角没有其他恋情正在进行，并且玛兹也必须在队伍中（顺便一提，这个巨大的龙裔和微型骑士之间很快成为好朋友的对话相当有趣）。\n人类形态：力量16，敏捷12，体质16，智力15，智慧10，魅力15。\n龙形态：力量20，敏捷12，体质18，智力15，智慧10，魅力15。"
-    }
+    },
+    "es_ES": {"components": {"0": "Instalar Historia de una Semi-Dragona"}},
+    "cs_CZ": {"components": {"0": "Nainstalovat Pribeh polodraka"}}
   },
   "tp2": "sheena",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Edvin", "Red Knight"]
 }

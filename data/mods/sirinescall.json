@@ -22,13 +22,15 @@
     "fr_FR": 2,
     "de_DE": 3,
     "it_IT": 4,
-    "ru_RU": 6
+    "pl_PL": 5,
+    "ru_RU": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
       "components": {
         "0": "The Lure of the Sirine's Call",
-        "1": "Extended Lighthouse area: Rubble in front of the lighthouse doors are removed"
+        "1": "Extended Lighthouse Area"
       },
       "description": "Set in the area south of Candlekeep, this mini-mod completes the quest for Sil and the abandoned lighthouse on the Sword Coast. It involves mermaids (as the name suggests), pirates, treasure-filled caves and numerous other perils. Although perfect for a druid, this quest can be played by all classes without losing content."
     },
@@ -36,14 +38,21 @@
       "description": "Ce mini-mod a pour cadre la zone au sud de Château-Suif et complète la quête de Sil et du phare abandonné sur la Côte des Épées. Il implique des sirènes (comme son nom l'indique), des pirates, des grottes remplies de trésors et d'autres nombreux périls. Bien que parfaite pour un druide, cette quête peut être jouée par toutes les classes sans perdre de contenu.",
       "components": {
         "0": "Le Chant des Sirènes",
-        "1": "Extended Lighthouse area: Rubble in front of the lighthouse doors are removed"
+        "1": "Extended Lighthouse Area"
       }
     },
-    "it_IT": {"components": {"0": "Il canto delle Sirene", "1": "Extended Lighthouse area: Rubble in front of the lighthouse doors are removed"}},
-    "ru_RU": {"components": {"0": "The Lure of the Sirine's Call", "1": "Extended Lighthouse area: Rubble in front of the lighthouse doors are removed"}},
+    "it_IT": {"components": {"0": "Il canto delle Sirene", "1": "Extended Lighthouse Area"}},
+    "ru_RU": {"components": {"0": "The Lure of the Sirine's Call", "1": "Extended Lighthouse Area"}},
     "zh_CN": {
-      "description": "这个小型模组以烛堡以南的区域为背景，完善了希尔和剑湾海岸上废弃灯塔的任务。它涉及（如其名称所示）的塞壬、海盗、充满宝藏的洞穴以及许多其他危险。虽然非常适合德鲁伊，但这个任务的所有内容都可以由任何职业游玩而不会缺失。"
-    }
+      "description": "这个小型模组以烛堡以南的区域为背景，完善了希尔和剑湾海岸上废弃灯塔的任务。它涉及（如其名称所示）的塞壬、海盗、充满宝藏的洞穴以及许多其他危险。虽然非常适合德鲁伊，但这个任务的所有内容都可以由任何职业游玩而不会缺失。",
+      "components": {
+        "0": "海妖女的呼唤",
+        "1": "扩展的灯塔地区"
+      }
+    },
+    "es_ES": {"components": {"0": "La seduccion de el canto de la sirena", "1": "Area del faro extendida"}},
+    "de_DE": {"components": {"0": "Die Verlockung des lieblichen Gesangs der Sirenen", "1": "Extended Lighthouse Area"}},
+    "pl_PL": {"components": {"0": "Zwodniczy Spiew Siriny", "1": "Rozszerzony obszar latarni"}}
   },
   "tp2": "sirinescall",
   "safe": 2,

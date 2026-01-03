@@ -1,5 +1,5 @@
 {
-  "name": "Olvyn Tweaks",
+  "name": "Olvyn's Tweaks",
   "version": "Latest Github release",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/74322/mod-metweaks-version-1-0",
@@ -41,6 +41,7 @@
     "4200": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -64,7 +65,7 @@
         "1400": "Ameliorer la capacite de Charmer un animal du Rodeur.",
         "1500": "Transformez la capacite de Detection du mal du paladin en une capacite passive qui peut etre activee ou desactivee.",
         "1600": "Augmenter la resistance a la magie du Tueur de magiciens.",
-        "1800": "Le multiplicateur d'attaque sournoise des Assassins s'ameliore plus rapidement.",
+        "1800": "Le multiplicateur d’attaque sournoise des Assassins s'ameliore plus rapidement.",
         "2000": "Permettre aux parchemins maudits d'etre utilises sur les ennemis.",
         "2200": "Faire que les creatures prennent moins de place.",
         "2400": "Permettre aux ennemis de changer plus rapidement de cible d'attaque.",
@@ -93,7 +94,52 @@
       }
     },
     "en_US": {
-      "description": "This mod offers a collection of 24 adjustments for most EE games: dividing the total amount of quest XP by the number of party members, removing the two-point martial skill limit at character creation, allowing fighters to acquire martial skill points faster, allowing shamans to move when they dance, clerics and monks reach level 9 with only 160000 XP, paladins and lurkers cast spells at their level, use cursed scrolls against enemies, increase the movement speed of all creatures, access certain areas through previously forbidden passages, award 5 points in certain types of combat..."
+      "description": "This mod offers a collection of 24 adjustments for most EE games: dividing the total amount of quest XP by the number of party members, removing the two-point martial skill limit at character creation, allowing fighters to acquire martial skill points faster, allowing shamans to move when they dance, clerics and monks reach level 9 with only 160000 XP, paladins and lurkers cast spells at their level, use cursed scrolls against enemies, increase the movement speed of all creatures, access certain areas through previously forbidden passages, award 5 points in certain types of combat...",
+      "components": {
+        "200": "Make quest experience divided among party members",
+        "400": "Remove the limit of two proficiency points in a weapon at character creation",
+        "choice_0": "Increase the rate at which warriors get proficiency points",
+        "500": "Fighters get 1 point per 2 levels; Rangers and Paladins still get 1 point per 3 levels",
+        "505": "Fighters, Rangers and Paladins get 1 point per 2 levels",
+        "510": "Fighters get 1 point per level; Rangers and Paladins get 1 point per 2 levels",
+        "600": "Allow Shamans to move while dancing",
+        "choice_1": "Make it so that clerics and/or monks require only 160000 experience to get to level 9",
+        "800": "Clerics only",
+        "805": "Monks only",
+        "810": "Both Clerics and Monks",
+        "900": "Let Rangers and Paladins cast spells at their full caster level",
+        "1000": "Give Monks a cooler Deflect Missiles ability",
+        "1200": "Give Rangers the Tracking ability (from Throne of Bhaal) starting at level 1",
+        "1400": "Power Up Ranger Charm Animal",
+        "1500": "Turn Paladin Detect Evil into a passive ability that can be toggled on and off",
+        "1600": "Increase Wizard Slayer Magic Resistance",
+        "1800": "Make Assassin backstab multiplier improve faster",
+        "2000": "Allow cursed scrolls to be used on enemies",
+        "2200": "Make creatures take up less space",
+        "2400": "Make enemies change their attack targets more quickly",
+        "2600": "No Party Required area transitions",
+        "2800": "Make it possible to enter the Nashkel Mines through the back cave entrance",
+        "3000": "Make it possible to enter the catacombs beneath Candlekeep early",
+        "3100": "Make it so the Jacil and Wiven encounters aren't replaced by other quests",
+        "3150": "Give Belhifet more reasonable immunities",
+        "choice_2": "Make Infravision actually do something",
+        "3200": "Creatures without infravision have -4 THAC0 at night or in dark places",
+        "3205": "Creatures without infravision have reduced visual range at night or in dark places",
+        "3210": "Both 1 and 2",
+        "choice_3": "Increase the speed of all creatures in the game (including party members)",
+        "3400": "Double the movement rate",
+        "3405": "Triple the movement rate",
+        "3410": "Quadruple the movement rate",
+        "3415": "Set the movement rate to the maximum",
+        "3600": "Implement a different kind of chunked death animation",
+        "choice_4": "Modify Sneak Attack and Crippling Strike",
+        "3800": "Remove the delay before a creature can be sneak-attacked again",
+        "3805": "Reduce the delay before a creature can be sneak-attacked again to 1 round",
+        "3810": "Remove the delay, but prevent multiple Crippling Strikes from stacking",
+        "3815": "Reduce the delay to 1 round, but prevent multiple Crippling Strikes from stacking",
+        "4000": "Modify Fighting Styles",
+        "4200": "Replace the \"I'm on it like ugly on an orc\" quote with \"I'm on it\""
+      }
     },
     "zh_CN": {
       "description": "此模组为大多数EE游戏提供了一套包含24项调整的合集：将任务总经验值按队伍成员数量分配，移除角色创建时最多只能分配2个武术技能点的限制，让战士更快获得武术技能点，允许萨满在施法时移动，牧师和武僧仅需160000经验值即可达到9级，圣武士和游侠按其等级施放法术，使用诅咒卷轴对抗敌人，提高所有生物的移动速度，可以通过之前无法通过的通道进入某些区域，可以在某些类型的战斗中分配5点……"

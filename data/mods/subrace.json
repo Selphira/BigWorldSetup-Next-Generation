@@ -1,6 +1,6 @@
 {
-  "name": "Subrace MOD for Enhanced Edition Games",
-  "version": "0.3.1_dark0dave",
+  "name": "38 Subraces for BG:EE",
+  "version": "0.3.2",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/32267-subrace-mod/",
     "download": "https://github.com/dark0dave/Subrace-mod/archive/refs/heads/main.zip"
@@ -16,6 +16,8 @@
     "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"}
   },
   "languages": {
+    "ru_RU": 0,
+    "en_US": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -28,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "Here's a mod that offers subraces for characters."
+      "description": "Here's a mod that offers subraces for characters.",
+      "components": {
+        "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
+        "100": "Change subrace colors (Hair and Skin)",
+        "200": "No change subrace colors (Hair and Skin)"
+      }
     },
     "zh_CN": {
       "description": "这是一个为角色提供亚种族的模组。"
-    }
+    },
+    "ru_RU": {"components": {"choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)", "100": "Change subrace colors (Hair and Skin)", "200": "No change subrace colors (Hair and Skin)"}}
   },
   "tp2": "subrace",
   "safe": 2,

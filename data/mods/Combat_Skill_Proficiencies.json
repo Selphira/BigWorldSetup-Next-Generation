@@ -20,6 +20,8 @@
     "90": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
+    "pl_PL": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -34,11 +36,19 @@
       }
     },
     "en_US": {
-      "description": "This mod redefines the gameplay of martial skills. Each component can be selected independently of the others."
+      "description": "This mod redefines the gameplay of martial skills. Each component can be selected independently of the others.",
+      "components": {
+        "10": "Revised Proficiency System",
+        "30": "Combat Skill Points",
+        "50": "Weapon Category Grouping",
+        "70": "Fighting Style Changes",
+        "90": "APR on Spec"
+      }
     },
     "zh_CN": {
       "description": "此模组重新定义了武术技能的游戏玩法。每个组件都可以独立于其他组件进行选择。"
-    }
+    },
+    "pl_PL": {"components": {"10": "Revised Proficiency System", "30": "Combat Skills System", "50": "Zwiniecie kategorii broni", "70": "Zmiany stylow walki", "90": "Atak na runde w podklasach"}}
   },
   "tp2": "combat_skill_proficiencies",
   "safe": 2,

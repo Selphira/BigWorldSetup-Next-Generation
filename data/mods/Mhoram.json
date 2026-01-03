@@ -1,5 +1,5 @@
 {
-  "name": "Mhoram le Skalde",
+  "name": "Mhoram",
   "version": "2.5",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/769-mhoram-npc-v23/",
@@ -16,7 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "es_ES": 0,
+    "en_US": 1,
+    "fr_FR": 2,
+    "it_IT": 3
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +29,16 @@
       }
     },
     "en_US": {
-      "description": "This mini-mod adds an elven skald, a poet of the far north with an optional quest in the Bridge district.\nSTR 16, DEX 18, CON 15, INT 10, WIS 14, CHA 16."
+      "description": "This mini-mod adds an elven skald, a poet of the far north with an optional quest in the Bridge district.\nSTR 16, DEX 18, CON 15, INT 10, WIS 14, CHA 16.",
+      "components": {
+        "0": "Mhoram NPC"
+      }
     },
     "zh_CN": {
       "description": "这个迷你模组添加了一个北地诗人，一个来自大北地的精灵诗人，在桥区有一个可选的任务。\n力量 16，敏捷 18，体质 15，智力 10，智慧 14，魅力 16。"
-    }
+    },
+    "es_ES": {"components": {"0": "Mhoram NPC"}},
+    "it_IT": {"components": {"0": "Mhoram NPC v1.2"}}
   },
   "tp2": "mhoram",
   "safe": 2,

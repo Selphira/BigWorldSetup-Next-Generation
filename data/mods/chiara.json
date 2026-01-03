@@ -1,5 +1,5 @@
 {
-  "name": "Chiara la guerrière vampire",
+  "name": "Chiara NPC",
   "version": "1.041",
   "links": {
     "homepage": "https://github.com/Plutonium-X/1D_NPC_Chiara",
@@ -16,7 +16,9 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "de_DE": 0,
+    "fr_FR": 1,
+    "en_US": 2
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a vampire fighter with special abilities. If you help her, she can be an extraordinary asset to the group. If you let her down, she becomes an unpredictable enemy! You'll find her in the sewers beneath the temple district. Contents for SoA and ToB. She's equipped with a life-draining sword and a mithral harness. Her characteristics change according to the environment (light/dark). Note that she must eat at least once a day or risk becoming a berserk.\nSTR 18/47, DEX 18, CON 18, INT 12, WIS 11, CHA 11."
+      "description": "This mod adds a vampire fighter with special abilities. If you help her, she can be an extraordinary asset to the group. If you let her down, she becomes an unpredictable enemy! You'll find her in the sewers beneath the temple district. Contents for SoA and ToB. She's equipped with a life-draining sword and a mithral harness. Her characteristics change according to the environment (light/dark). Note that she must eat at least once a day or risk becoming a berserk.\nSTR 18/47, DEX 18, CON 18, INT 12, WIS 11, CHA 11.",
+      "components": {
+        "0": "Chiara - A character from the Rosenranken Forum"
+      }
     },
     "zh_CN": {
       "description": "这个模组添加了一位拥有特殊能力的女吸血鬼战士。如果你帮助她，她可以成为团队中非凡的助力。如果你抛弃她，她会成为一个不可预测的敌人！你会在神殿区下方的下水道里找到她。包含安姆阴影和巴尔王座的内容。她装备有一把吸取生命值的剑和一件秘银甲胄。她的属性会根据环境（光线/阴影）而改变。请注意，她每天至少需要进食一次，否则会陷入狂暴。\n力量 18/47，敏捷 18，体质 18，智力 12，智慧 11，魅力 11。"
-    }
+    },
+    "de_DE": {"components": {"0": "Chiara - Ein Charakter aus dem Rosenranken-Forum"}}
   },
   "tp2": "chiara",
   "safe": 2,

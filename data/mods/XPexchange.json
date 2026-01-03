@@ -1,5 +1,5 @@
 {
-  "name": "Experience Purchaser",
+  "name": "XPexchange",
   "version": "1.3",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/39001-xpexchange-v09-to-exchange-superfluous-experience-points-for-more-abilities/",
@@ -16,6 +16,8 @@
     "choice_0": {"type": "muc", "components": ["0", "1"], "category": "spell", "default": "1"}
   },
   "languages": {
+    "en_US": 0,
+    "zh_CN": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -28,10 +30,20 @@
       }
     },
     "en_US": {
-      "description": "For BGEETs that incorporate more campaigns, a single-class character can reach the level cap early and feel lonely in the face of teammates who level up later. When a teammate has enough experience points, cast a Wishing or Minor Wishing spell and new exchange options will appear. However, there are a few limitations:\n1. the character must be single-class (component 2 removes this restriction)\n2. the character must have over 6 million experience points (7.5 or 15 million for Legacy of Bhaal mode, depending on EXP cap)."
+      "description": "For BGEETs that incorporate more campaigns, a single-class character can reach the level cap early and feel lonely in the face of teammates who level up later. When a teammate has enough experience points, cast a Wishing or Minor Wishing spell and new exchange options will appear. However, there are a few limitations:\n1. the character must be single-class (component 2 removes this restriction)\n2. the character must have over 6 million experience points (7.5 or 15 million for Legacy of Bhaal mode, depending on EXP cap).",
+      "components": {
+        "choice_0": "Experience Purchaser (exchange superfluous experience points for more abilities).",
+        "0": "XP exchange restricted to single-class characters only (Recommended)",
+        "1": "Allow XP exchange for multi-class characters (Not recommended as it may disrupt game balance)"
+      }
     },
     "zh_CN": {
-      "description": "对于整合了更多战役的博德之门增强版三部曲玩家，一个单一职业的角色可能会很早就达到等级上限，而感到与等级提升较慢的同伴格格不入。此模组允许将多余的经验点兑换成额外能力。\n当同伴积累了足够多的经验点时，请施放“许愿术”或“次级许愿术”，新的兑换选项就会出现。但是，这里有一些限制：\n1. 角色必须是单一职业（组件2可以移除此限制）\n2. 角色必须拥有超过600万点经验（在巴尔王座遗产模式下，根据经验上限，为750万或1500万点）。"
+      "description": "对于整合了更多战役的博德之门增强版三部曲玩家，一个单一职业的角色可能会很早就达到等级上限，而感到与等级提升较慢的同伴格格不入。此模组允许将多余的经验点兑换成额外能力。\n当同伴积累了足够多的经验点时，请施放“许愿术”或“次级许愿术”，新的兑换选项就会出现。但是，这里有一些限制：\n1. 角色必须是单一职业（组件2可以移除此限制）\n2. 角色必须拥有超过600万点经验（在巴尔王座遗产模式下，根据经验上限，为750万或1500万点）。",
+      "components": {
+        "choice_0": "收购经验（施展愿望术和有限愿望，可付出经验交换更多能力）",
+        "0": "仅专职人物才可进行经验交换（推荐）",
+        "1": "允许不限职业进行经验交换（不建议安装，容易破坏平衡）"
+      }
     }
   },
   "tp2": "xpexchange",

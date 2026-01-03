@@ -1,6 +1,6 @@
 {
-  "name": "Spell Revisions",
-  "version": "master",
+  "name": "Spell Revisions Revised",
+  "version": "4.19",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/26517-sr-v4-open-beta-last-update-25-october-2018/page/60/#comment-240486",
     "download": "https://github.com/Gibberlings3/SpellRevisions/archive/refs/heads/master.zip"
@@ -36,7 +36,8 @@
         "30": "Dispel Magic Fix",
         "55": "Spell Deflection blocks AoE spells",
         "60": "Update Spellbooks of Joinable NPCs",
-        "65": "Revised Warrior HLAs"
+        "65": "Revised Warrior HLAs",
+        "70": "Revised Saving Throws"
       }
     },
     "fr_FR": {

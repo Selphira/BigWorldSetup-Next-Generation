@@ -21,8 +21,8 @@
   },
   "languages": {
     "en_US": 0,
-    "ru_RU": 1,
-    "de_DE": 2,
+    "de_DE": 1,
+    "ru_RU": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -36,11 +36,11 @@
         "5": "Character Medley"
       }
     },
-    "ru_RU": {"components": {"0": "A Z-rated Adventure - an IM4 Non-Entry", "1": "The Promise of a Troll", "2": "A Bhaalspawn's Best Friend", "3": "Under Her Spell", "5": "Character Medley"}},
+    "ru_RU": {"components": {"0": "A Z-rated Adventure", "1": "The Promise of a Troll", "2": "A Bhaalspawn's Best Friend", "3": "Under Her Spell", "5": "Character Medley"}},
     "fr_FR": {
       "description": "Ce mod ajoute des petites quêtes digressives parfois farfelues : une femme a des problèmes de coiffure dans les Collines d'Umar et vous appelle à l'aide, ou bien vous devez vous farcir les soucis sentimentaux d'un troll. Enfin, quelques rencontres étranges peuvent parsemer votre chemin. Le descriptif n'est pas des plus explicite, donc à vous de voir si vous voulez vous essayer à cet ovni.",
       "components": {
-        "0": "Une aventure classee Z - Une non-entree pour l'IM4",
+        "0": "Une aventure classée Z - Une non-entrée pour l'IM4",
         "1": "La promesse d'un troll",
         "2": "Le meilleur ami de l'enfant de Bhaal",
         "3": "Sous son charme",
@@ -49,7 +49,8 @@
     },
     "zh_CN": {
       "description": "这个模组增加了一些有时很离题的支线任务：一位女士在乌玛丘陵遇到了发型问题并寻求你的帮助，或者你必须去应付一个巨怪的情感烦恼。最后，一些奇怪的遭遇可能会点缀你的旅程。描述不是很明确，所以由你来决定是否要尝试这个UFO。"
-    }
+    },
+    "de_DE": {"components": {"0": "Ein nicht jugendfreies Abenteuer - ein IronModder4 Nicht-Beitrag", "1": "Das Versprechen eines Trolls", "2": "Der beste Freund eines Bhaalspross", "3": "Unter Ihrem Zauber", "5": "Character-Mischmasch"}}
   },
   "tp2": "emad",
   "safe": 2,

@@ -1,5 +1,5 @@
 {
-  "name": "Gilbertus et Kri'binn son araignée semi-mécanique",
+  "name": "Kri'binn l'araignée semi-mécanique",
   "version": "1",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/89435/mod-kribinn-the-half-mechanical-spider/p1",
@@ -16,7 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "Gilbertus sells a semi-mechanical spider that will follow you around like a 7th companion. Expect lots of gold coins. If you really plan to spend a lot of gold and are persuasive, you may be able to buy 'more'.\nKri'binn : STR 15, DEX 9, CON 9, INT 9, WIS 9, CHA 9.\nKro'tan : STR 18/50, DEX 9, CON 9, INT 9, WIS 9, CHA 9."
+      "description": "Gilbertus sells a semi-mechanical spider that will follow you around like a 7th companion. Expect lots of gold coins. If you really plan to spend a lot of gold and are persuasive, you may be able to buy 'more'.\nKri'binn : STR 15, DEX 9, CON 9, INT 9, WIS 9, CHA 9.\nKro'tan : STR 18/50, DEX 9, CON 9, INT 9, WIS 9, CHA 9.",
+      "components": {
+        "0": "Gilbertus and his Spiders"
+      }
     },
     "zh_CN": {
       "description": "Gilbertus 出售一个半机械的蜘蛛，它会像第七个同伴一样跟着你。准备很多金币。如果你真的准备了很多金币，并且很有说服力，你也许能买到“更多”。\nKri'binn ：力量 15，敏捷 9，体质 9，智力 9，智慧 9，魅力 9。\nKro'tan ：力量 18/50，敏捷 9，体质 9，智力 9，智慧 9，魅力 9。"

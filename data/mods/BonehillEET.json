@@ -1,6 +1,6 @@
 {
-  "name": "Secret of Bone Hill (EET)",
-  "version": "v34",
+  "name": "Secret of Bone Hill EET",
+  "version": "34",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/1076-the-secret-of-bonehill/",
     "download": "https://github.com/RoxanneSHS/BoneHill/archive/refs/tags/v34.zip"
@@ -17,6 +17,10 @@
   },
   "languages": {
     "en_US": 0,
+    "de_DE": 1,
+    "it_IT": 2,
+    "ru_RU": 3,
+    "es_ES": 4,
     "fr_FR": 5
   },
   "translations": {
@@ -34,7 +38,11 @@
     },
     "zh_CN": {
       "description": "将Secret of Bone Hill模组移植至EET平台。"
-    }
+    },
+    "de_DE": {"components": {"0": "Bone Hill-Mod v275a (Setzt EET voraus)"}},
+    "it_IT": {"components": {"0": "Secret of BoneHill (Richiede EET)"}},
+    "ru_RU": {"components": {"0": "Secret of BoneHill (EET)"}},
+    "es_ES": {"components": {"0": "Secret of BoneHill (Se requiere EET)"}}
   },
   "tp2": "bonehilleet",
   "safe": 2,

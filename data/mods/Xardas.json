@@ -1,5 +1,5 @@
 {
-  "name": "Xardas l'archimage nécromancien",
+  "name": "Xardas",
   "version": "2",
   "links": {
     "homepage": "https://github.com/Plutonium-X/1D_NPC_Xardas",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "pl_PL": 0,
     "fr_FR": 2
   },
   "translations": {

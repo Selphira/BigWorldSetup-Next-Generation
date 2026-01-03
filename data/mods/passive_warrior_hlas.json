@@ -1,6 +1,6 @@
 {
   "name": "Passive Warrior HLAs",
-  "version": "1.1",
+  "version": "1.0.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/37193-passive-warrior-hlas/",
     "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/win-passive_warrior_hlas-v1.0.0.zip"
@@ -21,6 +21,7 @@
     "5": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -36,7 +37,15 @@
       }
     },
     "en_US": {
-      "description": "The high-level abilities (HLAs) introduced by Throne of Bhaal add a complexity and micromanagement that runs counter to the role of fighters, characters who have remained relatively passive participants in combat for the majority of the 2 games.\nThis mod aims to reduce the complexity of fighter HLAs by transforming them into passive bonuses."
+      "description": "The high-level abilities (HLAs) introduced by Throne of Bhaal add a complexity and micromanagement that runs counter to the role of fighters, characters who have remained relatively passive participants in combat for the majority of the 2 games.\nThis mod aims to reduce the complexity of fighter HLAs by transforming them into passive bonuses.",
+      "components": {
+        "0": "Whirlwind Attack and Greater Whirlwind Attack",
+        "1": "Deathblow and Greater Deathblow",
+        "2": "Hardiness",
+        "3": "Resist Magic",
+        "4": "Power Attack, Critical Strike, and Smite",
+        "5": "War Cry"
+      }
     },
     "zh_CN": {
       "description": "巴尔王座引入的高级能力（HLA）增加了复杂性和微管理，这与战士的角色相悖，因为在两款游戏中，战士大部分时间都是战斗中相对被动的参与者。\n此模组旨在通过将战士的HLA转化为被动奖励来降低其复杂性。"

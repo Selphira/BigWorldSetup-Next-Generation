@@ -1,5 +1,5 @@
 {
-  "name": "Iron Modder 10: The Oldest Trick In The Book",
+  "name": "Iron Modder 10 - The Oldest Trick In The Book",
   "version": "1.2",
   "links": {
     "homepage": "https://www.pocketplane.net/iron-modder-competition/",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 2
   },
   "translations": {
@@ -26,13 +27,16 @@
       }
     },
     "en_US": {
-      "description": "In chapter 2 visit the graveyard district and head over to 2584, 1117 or so."
+      "description": "In chapter 2 visit the graveyard district and head over to 2584, 1117 or so.",
+      "components": {
+        "0": "Ding0 Iron Modder 10 - The Oldest Trick In The Book"
+      }
     },
     "zh_CN": {
       "description": "在第2章，前往墓园区，并前往大约坐标 2584, 1117 的位置。"
     }
   },
   "tp2": "d0im10",
-  "safe": 2,
+  "safe": 1,
   "authors": ["SimDing0"]
 }

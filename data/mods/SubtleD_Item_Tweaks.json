@@ -1,6 +1,6 @@
 {
   "name": "SubtleD's Item Tweaks",
-  "version": "1.4",
+  "version": "1.3.4",
   "links": {
     "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks",
     "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.3.4.zip"
@@ -17,7 +17,6 @@
     "choice_0": {"type": "muc", "components": ["111", "112"], "category": "spell", "default": "111"},
     "120": {"type": "std", "category": "spell"},
     "140": {"type": "std", "category": "spell"},
-    "choice_1": {"type": "muc", "components": ["152"], "category": "spell", "default": "152"},
     "160": {"type": "std", "category": "spell"},
     "170": {"type": "std", "category": "spell"},
     "1000": {"type": "std", "category": "spell"},
@@ -25,17 +24,18 @@
     "1020": {"type": "std", "category": "spell"},
     "1030": {"type": "std", "category": "spell"},
     "1040": {"type": "std", "category": "spell"},
-    "choice_2": {"type": "muc", "components": ["1051", "1052"], "category": "spell", "default": "1051"},
+    "choice_1": {"type": "muc", "components": ["1051", "1052"], "category": "spell", "default": "152"},
     "1055": {"type": "std", "category": "spell"},
     "1060": {"type": "std", "category": "spell"},
     "1070": {"type": "std", "category": "spell"},
     "1080": {"type": "std", "category": "spell"},
-    "choice_3": {"type": "muc", "components": ["1091", "1092", "1093"], "category": "spell", "default": "1091"},
+    "choice_2": {"type": "muc", "components": ["1091", "1092", "1093"], "category": "spell", "default": "1051"},
     "1100": {"type": "std", "category": "spell"},
     "1109": {"type": "std", "category": "spell"},
-    "choice_4": {"type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1113"}
+    "choice_3": {"type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1091"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -48,8 +48,6 @@
         "112": "Remplacer l'equipement enchante par des armes de maitre",
         "120": "Ajustements fonctionnels des armes",
         "140": "Ajustement des objets de IWD",
-        "choice_1": "Restrictions du combat a deux armes",
-        "152": "Combat a deux armes avec des armes de petite ou moyenne taille",
         "160": "Toutes les potions sont utilisables par toutes les classes",
         "170": "Lancer de sorts en armure pour les bardes",
         "1000": "Donner deux APR aux armes creees par des sorts",
@@ -57,26 +55,57 @@
         "1020": "Donner une vraie deviation des projectiles aux Bracelets antiprojectiles",
         "1030": "Ameliorer les armes avec effet de detonation",
         "1040": "Ajouter un effet de Peau d'ecorce 'revise' a l'Armure de la foi +3",
-        "choice_2": "Modifie le Baton d'absorption d'Item Revisions",
+        "choice_1": "Modifie le Baton d'absorption d'Item Revisions",
         "1051": "...Utilisation instantanee",
         "1052": "...Protection plus longue",
         "1055": "Protection contre la peur permanente sur la Broche des braves",
-        "1060": "Modifier la Cape de gargouille pour appliquer un effet de Peau de pierre au lieu d'un bonus a la classe d'armure",
+        "1060": "Modifier la Cape de gargouille pour appliquer un effet de Peau de pierre au lieu d'un bonus a la classe d’armure",
         "1070": "Rendre les marteaux de jet nains utilisables par les non-nains",
         "1080": "Ameliorer la Harpe d'Azlaer et la Harpe de Methild",
-        "choice_3": "Degrader l'amulette d'Edwin",
+        "choice_2": "Degrader l'amulette d'Edwin",
         "1091": "Un seul emplacement de sort bonus par niveau de sorts",
         "1092": "Limiter les emplacements de sorts bonus aux sorts de niveau 7",
         "1093": "Un seul emplacement de sort bonus par niveau de sorts ET limiter au niveau 7",
         "1100": "Remplacer la resistance a la magie par de la metamagie pour la Robe de la toile",
         "1109": "Lancer de sort de 1er niveau gratuit avec certains objets",
-        "choice_4": "Modifier les anneaux de magie arcane",
+        "choice_3": "Modifier les anneaux de magie arcane",
         "1113": "Remplacer la Memoire eternelle par un anneau de precision",
         "1114": "Remplacer l'Anneau de precision par Memoire eternelle"
       }
     },
     "en_US": {
-      "description": "This mod redefines the gameplay of weapons and armor. Each component can be selected independently of the others."
+      "description": "This mod redefines the gameplay of weapons and armor. Each component can be selected independently of the others.",
+      "components": {
+        "100": "YARAS Yet Another Revised Armor System",
+        "choice_0": "Aesthetic & Enchantment Tweaks",
+        "111": "Standardize Enchanted Equipment",
+        "112": "Replace Enchanted Equipment with Mastercraft",
+        "120": "Functional Weapon Tweaks",
+        "140": "IWD Item Tweaks",
+        "160": "All Potions Usable by Any Class",
+        "170": "Armored Spellcasting for Bards",
+        "1000": "Set Spell Weapon APR to 2",
+        "1010": "Add Backstab Immunity to the Ring of Danger Sense",
+        "1020": "Proper Missile Deflection for the Gloves of Missile Snaring",
+        "1030": "Improve Detonating Weapons",
+        "1040": "Add Revised Barkskin to 'Skin of the Forest' Armor",
+        "choice_1": "Change IR's Rod of Absorption",
+        "1051": "...Instantaneous Use",
+        "1052": "...Longer Protection",
+        "1055": "Permanent Fear Protection for the Badge of the Brave",
+        "1060": "Make the Gargoyle Cloak Apply Stoneskin Instead of an AC Bonus",
+        "1070": "Make the Dwarven Thrower Hammer Usable by Non-Dwarves",
+        "1080": "Improve Azlaer's Harp and Methild's Harp",
+        "choice_2": "Nerf Edwin's Amulet",
+        "1091": "Only +1 Bonus Slot per Spell Level",
+        "1092": "Limit Bonus Slots to 7th Level Spells",
+        "1093": "Only +1 Bonus Slots AND Limited to 7th Level",
+        "1100": "Metamagic Instead of MR for Cloak of the Weave",
+        "1109": "Free 1st-level Spellcasting for Some Items",
+        "choice_3": "Change Rings of Wizardry",
+        "1113": "Replace Evermemory with a Ring of Acuity",
+        "1114": "Replace the Ring of Acuity with Evermemory"
+      }
     },
     "zh_CN": {
       "description": "此模组重新定义了武器和护甲的游戏玩法。每个组件都可以独立于其他组件进行选择。"

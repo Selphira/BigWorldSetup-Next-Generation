@@ -17,24 +17,32 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "zh_CN": 2,
+    "ru_RU": 3,
+    "pl_PL": 4
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Reunion"
+        "0": "The Reunion mod for Baldur's Gate II"
       },
       "description": "Once in Amkethran (chapter 9), this mod offers you a quest concerning Arnise Castle, as well as answers from Gorion and Alianna. Nalia must be in the party to initiate the quest; her presence is not essential, but preferable."
     },
     "fr_FR": {
       "description": "Une fois à Amkethran (chapitre 9), ce mod vous propose une quête concernant le château d'Arnise, ainsi que des réponses de Gorion et Alianna. Il faut avoir Nalia dans le groupe pour initier la quête, sa présence n'est pas indispensable par la suite mais préférable.",
       "components": {
-        "0": "Reunion"
+        "0": "Mod Reunion pour Baldur's Gate II"
       }
     },
     "zh_CN": {
-      "description": "一旦到达安姆克萨兰（第九章），此模组会为您提供一个关于德阿尼斯堡的任务，以及葛立安和艾莉安娜的回应。队伍中必须有娜里亚才能触发任务，之后她的存在并非必需，但最好有她。"
-    }
+      "description": "一旦到达安姆克萨兰（第九章），此模组会为您提供一个关于德阿尼斯堡的任务，以及葛立安和艾莉安娜的回应。队伍中必须有娜里亚才能触发任务，之后她的存在并非必需，但最好有她。",
+      "components": {
+        "0": "ÔÙ¶ÈÖØ¾Û"
+      }
+    },
+    "ru_RU": {"components": {"0": "The Reunion mod for Baldur's Gate II"}},
+    "pl_PL": {"components": {"0": "The Reunion mod do Baldur's Gate II"}}
   },
   "tp2": "reunion",
   "safe": 2,

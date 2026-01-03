@@ -20,7 +20,13 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "it_IT": 3,
+    "ru_RU": 4,
+    "es_ES": 5,
+    "pl_PL": 6,
+    "pt_BR": 7
   },
   "translations": {
     "en_US": {
@@ -51,7 +57,13 @@
     },
     "zh_CN": {
       "description": "这个模组允许你在博德之门2：增强版（2.0或更高版本）、龙矛围攻和EET (Enhanced Edition Trilogy)中游玩冰风谷的扩展包“大师的试炼”。要开始任务，与霍巴特·皮耶维尔交谈，你可以在乌马尔山丘旅店（安姆阴影）、阿姆肯瑟兰（巴尔王座）或联盟营地的东南部找到他。在冒险过程中，你将有机会探索一座鬼魂出没的城堡，测试你的勇气，在艰难的战斗中证明自己，并解除一个古老的诅咒。"
-    }
+    },
+    "de_DE": {"components": {"0": "Die Herausforderungen des Meisters der Verlockung fuer Baldur's Gate", "20": "Waffen und Ausruestung anpassen", "choice_0": "Erfahrungspunkte von Monstern und Questbelohnungen verringern", "30": "Um 25 Prozent verringern", "31": "Um 50 Prozent verringern", "32": "Um 75 Prozent verringern", "33": "Keine Erfahrungspunkte vergeben", "40": "Handel mit Hobart vor Beginn des Abenteuers erlauben"}},
+    "it_IT": {"components": {"0": "Trials of the Luremaster per Baldur's Gate", "20": "Riequilibra armi ed equipaggiamento", "choice_0": "Riduci esperienza ottenuta da mostri e missioni", "30": "Riduci del 25 percento", "31": "Riduci del 50 percento", "32": "Riduci del 75 percento", "33": "Non conferire esperienza", "40": "Allow to trade with Hobart before starting the adventure"}},
+    "ru_RU": {"components": {"0": "á¯ëâ ­¨ï ®¢¥«¨â¥«ï ®¡« §­®¢ ¤«ï BG2:EE", "20": "§¬¥­¥­¨¥ ¡ « ­á  ®àã¦¨ï ¨ á­ àï¦¥­¨ï", "choice_0": "­¨¦¥­¨¥ ®¯ëâ  §  ¬®­áâà®¢ ¨ § ¤ ­¨ï", "30": "­¨¦¥­¨¥ ­  25 ¯à®æ¥­â®¢", "31": "­¨¦¥­¨¥ ­  50 ¯à®æ¥­â®¢", "32": "­¨¦¥­¨¥ ­  75 ¯à®æ¥­â®¢", "33": "¥ ¤ ¢ âì ®¯ëâ", "40": "Allow to trade with Hobart before starting the adventure"}},
+    "es_ES": {"components": {"0": "Los Desafios del Funambulista", "20": "Reequilibrar armas y equipo", "choice_0": "Reduce experience from monsters and quests", "30": "Reduce by 25 percent", "31": "Reduce by 50 percent", "32": "Reduce by 75 percent", "33": "Grant no experience", "40": "Allow to trade with Hobart before starting the adventure"}},
+    "pl_PL": {"components": {"0": "Trials of the Luremaster for Baldur's Gate", "20": "Rebalance weapons and equipment", "choice_0": "Reduce experience from monsters and quests", "30": "Reduce by 25 percent", "31": "Reduce by 50 percent", "32": "Reduce by 75 percent", "33": "Grant no experience", "40": "Allow to trade with Hobart before starting the adventure"}},
+    "pt_BR": {"components": {"0": "Trials of the Luremaster pro Baldur's Gate", "20": "Rebalancear as armas e o equipamento", "choice_0": "Reduzir a experiência dos monstros e missões", "30": "Reduzir em 25 por cento", "31": "Reduzir em 50 por cento", "32": "Reduzir em 75 por cento", "33": "Não conceder experiência", "40": "Permitir negociar com o Hobart antes de iniciar a aventura"}}
   },
   "tp2": "a7-totlm-bg2ee",
   "safe": 2,

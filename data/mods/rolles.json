@@ -19,7 +19,9 @@
   "languages": {
     "ru_RU": 0,
     "en_US": 1,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "it_IT": 3,
+    "pl_PL": 4
   },
   "translations": {
     "ru_RU": {"components": {"0": "Rolles Safyer", "10": "Bag of Holding in Irenicus Dungeon"}},
@@ -34,12 +36,13 @@
       "description": "Rolles Safyer est un vendeur présent sur la Promenade de Waukyne d'Athkatla. S'il vend de nombreux objets - assez cher - (dont quelques-uns de ces fameux livres qui augmentent les caractéristiques), sa principale fonction est forgeron d'objets magiques. À la manière d'un Cromwell ou d'un Ruad, il analysera votre inventaire pour voir si certaines de vos armes ou de vos objets peuvent être améliorés ou combinés avec d'autres objets. Le résultat peut être puissant, si toutefois vous y mettez le prix, qui peut être conséquent...",
       "components": {
         "0": "Rolles Safyer",
-        "10": "Sac de contenance a la prison d'Irenicus"
+        "10": "Sac de contenance dans la prison d'Irenicus"
       }
     },
     "zh_CN": {
       "description": "Rolles Safyer是一位出现在阿斯卡特拉渥金商场的商人。他出售许多物品——价格相当昂贵——（其中一些是那些能提升属性的著名书籍），但他的主要功能是打造魔法物品。像克伦威尔或鲁阿德一样，他会分析你的物品栏，看看你的某些武器或物品是否可以被强化或与其他物品组合。结果可能非常强大，前提是你愿意支付可能相当高昂的价格……"
-    }
+    },
+    "it_IT": {"components": {"0": "Rolles Safyer", "10": "Borsa Conservante nel Dungeon di Irenicus"}}
   },
   "tp2": "rolles",
   "safe": 2,

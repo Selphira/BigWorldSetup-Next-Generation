@@ -21,26 +21,34 @@
     "fr_FR": 2,
     "de_DE": 3,
     "es_ES": 4,
-    "it_IT": 5
+    "it_IT": 5,
+    "pl_PL": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
       "description": "This mod enables Thalantyr to combine many of BG1's items into more powerful ones, in the manner of Cromwell in BG2. It also adds all BG2 containers for sale (which will not be installed in the original BG1 game). Requires ToSC.",
       "components": {
-        "0": "Thalantyr - Item Upgrade"
+        "0": "Thalantyr Item Upgrade"
       }
     },
-    "ru_RU": {"components": {"0": "Thalantyr - Item Upgrade"}},
+    "ru_RU": {"components": {"0": "Thalantyr Item Upgrade"}},
     "fr_FR": {
       "description": "Ce mod permet à Thalantyr de combiner bon nombre d'objets de BG1 pour en faire d'autres plus puissants, à la manière de Cromwell dans BG2. Il ajoute également à la vente l'ensemble des conteneurs de BG2 (qui ne seront pas installées dans le jeu BG1 original). Il nécessite ToSC.",
       "components": {
         "0": "Thalantyr Item Upgrade"
       }
     },
-    "it_IT": {"components": {"0": "Thalantyr - Oggetti Migliorati"}},
+    "it_IT": {"components": {"0": "Thalantyr Oggetti Migliorati"}},
     "zh_CN": {
-      "description": "此模组允许泰蓝提尔将博德之门1中的许多物品组合成其他更强大的物品，就像博德之门2中的克伦威尔一样。它还在商店中增加了博德之门2中的所有容器（这些容器不会安装在原始的博德之门1游戏中）。它需要剑湾传奇。"
-    }
+      "description": "此模组允许泰蓝提尔将博德之门1中的许多物品组合成其他更强大的物品，就像博德之门2中的克伦威尔一样。它还在商店中增加了博德之门2中的所有容器（这些容器不会安装在原始的博德之门1游戏中）。它需要剑湾传奇。",
+      "components": {
+        "0": "泰蓝提尔物品升级"
+      }
+    },
+    "de_DE": {"components": {"0": "Thalantyr Item Upgrade"}},
+    "es_ES": {"components": {"0": "Thalantyr Mejora de objetos"}},
+    "pl_PL": {"components": {"0": "Thalantyr Item Upgrade"}}
   },
   "tp2": "thalan",
   "safe": 2,

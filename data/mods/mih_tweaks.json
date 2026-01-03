@@ -18,13 +18,13 @@
     "2": {"type": "std", "category": "spell"},
     "3": {"type": "std", "category": "spell"},
     "4": {"type": "std", "category": "spell"},
-    "5": {"type": "std", "category": "spell"},
     "6": {"type": "std", "category": "spell"},
     "7": {"type": "std", "category": "spell"},
     "8": {"type": "std", "category": "spell"},
     "9": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -36,15 +36,25 @@
         "2": "Spell Level affects Saving Throws",
         "3": "Protection contre le mal bloque la Domination.",
         "4": "Dismissable Spells (BETA)",
-        "5": "Icônes de sorts de style IWD",
         "6": "Give Monsters Bonus HP",
         "7": "Tableau de force révisé",
-        "8": "Tableau de Dextérité révisé",
+        "8": "Revised Dexterity Table",
         "9": "Tableau de Constitution révisé"
       }
     },
     "en_US": {
-      "description": "This mod offers a collection of small modifications for BG:EE and BG2:EE that should be compatible with the original BG2, BGT and EET. It allows you to apply alternative damage to large creatures (larger or smaller, depending on the weapon), limit the number of charges for wands (6) and scepters (12), apply level-dependent malus to spell saving throws, and modify tables depending on Strength, Dexterity and Constitution so that bonuses start at 12. This mod is part of the \"Made in Heaven\" series (with items, spells and quests)."
+      "description": "This mod offers a collection of small modifications for BG:EE and BG2:EE that should be compatible with the original BG2, BGT and EET. It allows you to apply alternative damage to large creatures (larger or smaller, depending on the weapon), limit the number of charges for wands (6) and scepters (12), apply level-dependent malus to spell saving throws, and modify tables depending on Strength, Dexterity and Constitution so that bonuses start at 12. This mod is part of the \"Made in Heaven\" series (with items, spells and quests).",
+      "components": {
+        "0": "Alternative Damage on Large Creatures",
+        "1": "Cap charges of Wands and Staves",
+        "2": "Spell Level affects Saving Throws",
+        "3": "Protection from Evil blocks Domination",
+        "4": "Dismissable Spells (BETA)",
+        "6": "Give Monsters Bonus HP",
+        "7": "Revised Strength Table",
+        "8": "Revised Dexterity Table",
+        "9": "Revised Constitution Table"
+      }
     },
     "zh_CN": {
       "description": "此模组提供了一个为博德之门：增强版和博德之门2：增强版准备的小型修改集合，应该与原版博德之门2、博德之门三部曲和增强版三部曲兼容。它允许你对大型生物（根据武器大小，比目标更大或更小）造成替代伤害，限制魔杖（6发）和权杖（12发）的充能次数，并根据等级对法术豁免检定施加惩罚，修改基于力量、敏捷和体质的表格，使其加成从12点开始生效。此模组是“Made in Heaven”系列（包含物品、法术和任务）的一部分。"

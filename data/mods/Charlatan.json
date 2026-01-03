@@ -18,22 +18,28 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "ru_RU": 2
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod vous permet d'installer un nouveau profil de barde spécialisé dans la manipulation et la duperie.\nDans BG:EE et EET, un composant optionnel permet de l'attribuer à Eldoth.",
       "components": {
-        "0": "Installer le profil de Charlatan pour Bardes",
+        "0": "Installer le profil de Charlatan pour Bardes.",
         "1": "Eldoth, le Charlatan."
       }
     },
     "en_US": {
-      "description": "In BG:EE and EET, an optional component allows you to assign it to Eldoth."
+      "description": "In BG:EE and EET, an optional component allows you to assign it to Eldoth.",
+      "components": {
+        "0": "Install Charlatan kit for Bards",
+        "1": "Eldoth, the Charlatan."
+      }
     },
     "zh_CN": {
       "description": "这个模组允许你安装一个新的吟游诗人职业，专精于操纵和欺骗。\n在博德之门：增强版和增强版三部曲中，一个可选组件允许将其分配给亚多士。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Install Charlatan kit for Bards", "1": "Eldoth, the Charlatan."}}
   },
   "tp2": "charlatan",
   "safe": 2,

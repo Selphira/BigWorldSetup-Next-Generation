@@ -1,5 +1,5 @@
 {
-  "name": "Moddie la louve voleuse métamorphe",
+  "name": "Moddie the vixen",
   "version": "1.4.2",
   "links": {
     "homepage": "https://forums.pocketplane.net/index.php?topic=24075.msg301127#msg301127",
@@ -16,6 +16,9 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -26,11 +29,16 @@
       }
     },
     "en_US": {
-      "description": "The result of an experiment by Irenicus, this female fox is obsessed with food. She can transform into a muloup or a major muloup, changing her stats in the process. Banters and a few dialogs with the player are on the program.\nSTR 13, DEX 18, CON 16, INT 9, WIS 13, CHA 11."
+      "description": "The result of an experiment by Irenicus, this female fox is obsessed with food. She can transform into a muloup or a major muloup, changing her stats in the process. Banters and a few dialogs with the player are on the program.\nSTR 13, DEX 18, CON 16, INT 9, WIS 13, CHA 11.",
+      "components": {
+        "0": "Moddie, \"the fox monster in your backpack\""
+      }
     },
     "zh_CN": {
       "description": "这是艾瑞尼卡斯实验的产物，这只雌狐狸痴迷于食物。它可以变形为狼人或高级狼人，其属性也会随之改变。计划中包含与主角的闲谈和一些对话。\n力量 13，敏捷 18，体质 16，智力 9，智慧 13，魅力 11。"
-    }
+    },
+    "de_DE": {"components": {"0": "Moddie, \"das Fuchs-Monster in Eurem Rucksack\""}},
+    "ru_RU": {"components": {"0": "Moddie, \"the fox monster in your backpack\""}}
   },
   "tp2": "foxmonster",
   "safe": 2,

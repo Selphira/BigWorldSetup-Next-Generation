@@ -17,7 +17,8 @@
     "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -32,7 +33,15 @@
       }
     },
     "en_US": {
-      "description": "This mod lets you turn any companion into a follower (who doesn't count against the party limit). He loses all possibility of banters, discussion or quest. Several options make followers immortal, so you don't have to deal with their resurrection and all the inconvenience that goes with it."
+      "description": "This mod lets you turn any companion into a follower (who doesn't count against the party limit). He loses all possibility of banters, discussion or quest. Several options make followers immortal, so you don't have to deal with their resurrection and all the inconvenience that goes with it.",
+      "components": {
+        "0": "Transform companions into followers",
+        "choice_0": "Followers are invulnerable (cheat)",
+        "1": "False death for 1 turn, tombstone",
+        "2": "False dead for 1 turn, agonizing corpse",
+        "3": "Fake dead indefinitely, wand to raise them, tombstone",
+        "4": "Fake dead indefinitely, wand to raise them, agonizing corpse"
+      }
     },
     "zh_CN": {
       "description": "此模组可将任何同伴转变为追随者（不计入队伍人数上限）。他将失去所有对话、交谈和任务的能力。提供多种选项可使追随者不朽，这样您就不必处理他们的复活及其附带的一系列麻烦。"

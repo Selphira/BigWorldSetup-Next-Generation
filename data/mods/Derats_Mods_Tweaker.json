@@ -40,7 +40,8 @@
     "25": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -61,12 +62,12 @@
         "8": "Donner au pnj Sub-Zero des caracteristiques decentes",
         "20": "Donner au pnj Banana des caracteristiques decentes",
         "9": "Donner au pnj Yikari un peu de charisme supplementaire quand il retrouve la parole",
-        "18": "Retarder l'arrivée du pnj Mawgul.",
+        "18": "Retarder l'arrivée du pnj Mawgul",
         "10": "Retarder l'arrivee de l'anneau de Umbra of T.R.O.W",
-        "13": "Les demons majeurs convocables dans Umbra of T.R.O.W droppent leur coeur",
+        "13": "Les demons majeurs convocables dans Umbra of T.R.O.W droppent leur cœur",
         "11": "Permettre a un autre marchand de ventre les objets de Jamella's Diablo2 Item Store (de facon illimitee)",
         "15": "Permettre a un marchand dans TOB de vendre tous les objets trouvables par le Coffre chercheur de l'Interplan",
-        "16": "Un marchand concurrent vend le livre \"Les secrets de l'Interplan",
+        "16": "Un marchand concurrent vend le livre \"Les secrets de l'Interplan\"",
         "14": "Rendre la metamorphe du kit de Guerrier lion semi-permanente (comme les metamorphes modifiees par Tweak_Anthology ou SCS)",
         "21": "Faire que le kit de Mutant de gelee ne change plus le sexe en androgyne",
         "24": "Rendre l'amulette du mod d'anniversaire du forum Sigil beaucoup plus facile d'utilisation",
@@ -74,7 +75,34 @@
       }
     },
     "en_US": {
-      "description": "This mod slightly revisits old mods, giving them more coherence. All components are optional and mods must be installed before this one. Mods include: Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, The Tortured Soul Quest."
+      "description": "This mod slightly revisits old mods, giving them more coherence. All components are optional and mods must be installed before this one. Mods include: Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, The Tortured Soul Quest.",
+      "components": {
+        "1": "Give to the Horace npc the immunities of a skeleton",
+        "2": "Move the Horace npc to the Athktla cemetery",
+        "3": "Give to the Chiarra npc in human form the immunities of a vampire and set her race to vampire",
+        "4": "Give to the Moddie npc an adequate portrait",
+        "5": "Turn the Moddie npc into a pet (who follows you as a 7th companion)",
+        "22": "Give the to Baenwuld NPC (mod The Tortured Soul Quest) a portrait",
+        "23": "Match the recruitable Baenwuld with his summonable version",
+        "19": "Freeing Baenwuld from slavery (The Tortured Soul Quest mod) earns xp.",
+        "6": "Give to the Ninafer npc an alternative portrait",
+        "7": "Change the class of the Ninafer npc class to Wizardslayer/Mage (she keeps her family equipment)",
+        "12": "Change the class of the Thael npc to Swashbuckler/Mage",
+        "17": "Change the class of the Tomoyo Sakagaki npc to Kensaï. (Tomoyo and the underground city mod).",
+        "8": "Give to the Sub_Zero npc decent characteristics",
+        "20": "Give to the Banana npc decent characteristics",
+        "9": "Give to the Yikari npc some extra charisma when he regains his speech",
+        "18": "Delay the arrival of the pnj Mawgul.",
+        "10": "Delay the arrival of the Umbra of T.R.O.W. Ring",
+        "13": "Major demons summonable in Umbra of T.R.O.W drop their hearts",
+        "11": "Allow another merchant to sell items from Jamella's Diablo2 Item Store (unlimited)",
+        "15": "Allow a merchant in TOB to sell all items found by the Interplan Seeker Chest",
+        "16": "A competing shop is selling the book “The Secrets of The Interplan”",
+        "14": "Make the Lion Warrior kit's shapeshifter semi-permanent (like the shapeshifters modified by Tweak_Anthology or SCS)",
+        "21": "Make sure the Jelly mutant Kit no longer changes gender to androgynous.",
+        "24": "Make the amulet of the Sigil's birthday mod much easier to use",
+        "25": "Make the amulet of the Sigil's birthday mod truly unlimited"
+      }
     },
     "zh_CN": {
       "description": "此模组通过赋予它们更多的一致性，略微重新审视了一些旧模组。所有组件都是可选的，并且这些模组必须在此模组之前安装。主要包括：Horace，Chiara NPC，Moddie the vixen，Ninafer，Thael NPC，Tomoyo and the Underground City，Sub-zero，Banana! NPC Mod，Yikari，Mawgul NPC，Umbra of Torto，Jamella's Diablo2 Item Store，Lion Warrior kit，The Tortured Soul Quest。"

@@ -14,11 +14,14 @@
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["11", "12", "13"], "category": "util", "default": "11"},
-    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27", "28"], "category": "util", "default": "21"},
+    "choice_1": {
+      "type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27", "28"], "category": "util", "default": "21"
+    },
     "choice_2": {"type": "muc", "components": ["31", "32", "33", "34"], "category": "util", "default": "31"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -45,7 +48,27 @@
       }
     },
     "en_US": {
-      "description": "This handy little mod lets you simulate rest without having to sleep for 8 hours. You can, of course, choose the quality of your rest. Now it can also make pjs immortal."
+      "description": "This handy little mod lets you simulate rest without having to sleep for 8 hours. You can, of course, choose the quality of your rest. Now it can also make pjs immortal.",
+      "components": {
+        "choice_0": "How is the rest simulated?",
+        "11": "By pressing the D key",
+        "12": "Automatic after each battle",
+        "13": "Automatic after each battle + by pressing the D key",
+        "choice_1": "Choose the power of the rest",
+        "21": "all spells restored + 3D8 hp healed",
+        "22": "all spells restored + 3D8 hp healed + dispel 100%",
+        "23": "all spells restored + Heal",
+        "24": "all spells restored + Heal + dispel 100%",
+        "25": "all spells restored + Greater Restoration",
+        "26": "all spells restored + Greater Restoration + dispel 100%",
+        "27": "all spells restored + Resurrection + Greater Restoration",
+        "28": "all spells restored + Resurrection + Greater Restoration + dispel 100%",
+        "choice_2": "Players can't die",
+        "31": "Minimum life points fixed at 1",
+        "32": "Minimum life points fixed at 1 + Simulated death",
+        "33": "Minimum life points fixed at 1 + Immunity to all forms of death",
+        "34": "Minimum life points fixed at 1 + Simulated death + Immunity to all forms of death"
+      }
     },
     "zh_CN": {
       "description": "这个非常实用的小型模组允许模拟休息，而无需睡满8小时。您当然可以选择休息的质量。如今，它还可以让玩家角色变得不朽。"

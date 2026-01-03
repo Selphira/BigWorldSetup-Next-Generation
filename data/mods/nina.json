@@ -1,5 +1,5 @@
 {
-  "name": "Ninafer la Guerrière/Mage",
+  "name": "Ninafer",
   "version": "1.02b",
   "links": {
     "homepage": "https://davelevy.info/wiki/ninafer-a-bg1-mod/",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "Ninafer is a lawful neutral fighter/mage available at the Copper Coronet and created in the chosenofmystra forge.\nShe has a very powerful irremovable magic ring and a powerful sword.\nShe has few banters and is entirely vocalized in English.\nThis mod also adds two merchants, one in the Temple district, the other in Trademeet.\nSTR 15, DEX 19, CON 12, INT 18, WIS 9, CHA 11."
+      "description": "Ninafer is a lawful neutral fighter/mage available at the Copper Coronet and created in the chosenofmystra forge.\nShe has a very powerful irremovable magic ring and a powerful sword.\nShe has few banters and is entirely vocalized in English.\nThis mod also adds two merchants, one in the Temple district, the other in Trademeet.\nSTR 15, DEX 19, CON 12, INT 18, WIS 9, CHA 11.",
+      "components": {
+        "0": "Ninafer NPC Mod (Requires Throne of Bhaal)"
+      }
     },
     "zh_CN": {
       "description": "尼娜菲尔是一名守序中立的双职业精灵战士/法师，可在铜冠旅店招募，并在chosenofmystra的锻造厂中创建。\n她拥有一枚非常强大且无法取下的魔法戒指以及一把性能卓越的剑。\n她几乎没有闲聊，并且拥有完整的英文语音。\n此模组还添加了两个商人，一个在神殿区，另一个在商贸集会。\n力量15，敏捷19，体质12，智力18，智慧9，魅力11。"

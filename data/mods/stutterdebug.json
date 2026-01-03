@@ -16,6 +16,7 @@
     "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1"}
   },
   "languages": {
+    "de_DE": 0,
     "en_US": 1,
     "fr_FR": 2
   },
@@ -38,6 +39,13 @@
     },
     "zh_CN": {
       "description": "Stutter Debug Tool 旨在帮助调试游戏中的脚本故障。例如，如果一个 NPC“卡顿”，即他只走几步就不断中断所有行动，或者该 NPC 的 PID（玩家发起的对话）不断重复显示。同样，如果游戏出现卡顿，可能是由于某个脚本在循环运行。"
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Stutter Debug Tool",
+        "1": "Alle Skripte bis auf die NoAction() Bloecke - installiert dies zuerst (Installation kann eine Weile dauern!)",
+        "2": "Alle Skripte ohne Ausnahmen - Installation dauert eine Weile!"
+      }
     }
   },
   "tp2": "stutterdebug",

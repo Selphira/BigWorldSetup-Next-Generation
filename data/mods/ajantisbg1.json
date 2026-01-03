@@ -38,7 +38,8 @@
     },
     "zh_CN": {
       "description": "此模组旨在与博德之门中著名的圣武士发展一段恋情和友谊。\n根据你的安装类型，添加的内容将不同：使用原版博德之门，模组会添加Ajantis BG1 Expansion Modification的恋情线和友谊线；使用BGT、Tutu、博德之门：增强版和EET，模组会添加友谊线和Ajantis BG1 Expansion Modification恋情线的更多内容。此模组确实被认为是Ajantis BG1 Expansion Modification的扩展，但可以不安装它而直接安装和游玩。在这种情况下，友谊线会立即可用。"
-    }
+    },
+    "de_DE": {"components": {"0": "Installiert Ajantis BG1 Erweiterungen", "1": "Installiere das BG:EE BAM fuer Ajantis' Familienschild"}}
   },
   "tp2": "ajantisbg1",
   "safe": 2,

@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "cs_CZ": 0,
+    "en_US": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "Funnily enough, this mod adds a new amulet to your inventory that lets you summon one of the 12 famous personalities from the Sigil forum. Each of them will give you an effective buff if you're out of combat, or cast a powerful offensive spell if you're in combat."
+      "description": "Funnily enough, this mod adds a new amulet to your inventory that lets you summon one of the 12 famous personalities from the Sigil forum. Each of them will give you an effective buff if you're out of combat, or cast a powerful offensive spell if you're in combat.",
+      "components": {
+        "0": "Sigil's birthday mod"
+      }
     },
     "zh_CN": {
       "description": "这个模组相当有趣，它会在你的背包里添加一个新的护身符，让你可以召唤印记城论坛上12位名人中的任意一位。她们中的每一位都会在你非战斗状态下为你提供一个有效的增益效果，或在战斗状态下释放一个强大的攻击性法术。"
-    }
+    },
+    "cs_CZ": {"components": {"0": "Narozeninovy mod Sigilu"}}
   },
   "tp2": "sigil_bd_mod",
   "safe": 2,

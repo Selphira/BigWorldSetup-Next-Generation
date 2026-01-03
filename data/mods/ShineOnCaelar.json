@@ -17,6 +17,9 @@
     "1": {"type": "std", "category": "npc"}
   },
   "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "zh_CN": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -28,11 +31,20 @@
       }
     },
     "en_US": {
-      "description": "Caelar Argent is an original character from SoD (Siege of Dragonspear), whose story ends with the SoD part of Baldur's Gate and whose interactions and possible solutions for the player in the original game are limited. The mod consists of two parts, one for SoD and a second for ToB (the second part is only available for EET and requires her to have survived the first encounter)."
+      "description": "Caelar Argent is an original character from SoD (Siege of Dragonspear), whose story ends with the SoD part of Baldur's Gate and whose interactions and possible solutions for the player in the original game are limited. The mod consists of two parts, one for SoD and a second for ToB (the second part is only available for EET and requires her to have survived the first encounter).",
+      "components": {
+        "0": "SoD Alternative",
+        "1": "Caelar's Rescue"
+      }
     },
     "zh_CN": {
-      "description": "凯拉·白银是龙矛围攻的一个原创角色。\n她的故事随着博德之门2的龙矛围攻部分而结束。\n在原版游戏中，玩家与她的互动和可能的解决方案是有限的。该模组分为两部分，一部分用于龙矛围攻，另一部分用于巴尔王座（第二部分仅适用于增强版三部曲，并且要求她在第一次相遇中幸存下来）。"
-    }
+      "description": "凯拉·白银是龙矛围攻的一个原创角色。\n她的故事随着博德之门2的龙矛围攻部分而结束。\n在原版游戏中，玩家与她的互动和可能的解决方案是有限的。该模组分为两部分，一部分用于龙矛围攻，另一部分用于巴尔王座（第二部分仅适用于增强版三部曲，并且要求她在第一次相遇中幸存下来）。",
+      "components": {
+        "0": "SoD Alternative",
+        "1": "Caelar's Rescue"
+      }
+    },
+    "ru_RU": {"components": {"0": "SoD Alternative", "1": "Caelar's Rescue"}}
   },
   "tp2": "shineoncaelar",
   "safe": 2,

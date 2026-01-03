@@ -15,22 +15,31 @@
   "components": {
     "10": {"type": "std", "category": "util"},
     "15": {"type": "std", "category": "util"},
-    "20": {"type": "std"}
+    "20": {"type": "std"},
+    "25": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
       "description": "AutoDescription est un mod, pour BG2, BGT, BGEE, BG2EE et EET, développé sur La Couronne de Cuivre, qui génère et remplace automatiquement la description \"technique\" des objets et des sortilèges.\n\nCela comporte plusieurs avantages:\n- Les descriptions sont normalisées, ce qui les rend plus facile à lire- La description s'adapte aux éventuelles modifications réalisées par les mods et les harmonise avec le reste du jeu- En comparant les descriptions avant/après, on peut détecter d'éventuels bugs, erreurs ou incompatibilités entre mods et sur le jeu de base.- Si des mods non-traduits sont installés, les statistiques des objets de ces mods seront automatiquement traduites et harmonisées.\n\nÀ l'origine, ce mod a été pensé pour être utilisé par les joueurs, en étant installé après tous les mods ajoutant ou altérant des objets.En effet, AutoDescription s'adapte à tous les mods installés par l'utilisateur, si les capacités de certains objets sont altérées, celles-ci seront mises à jour afin que leur description corresponde à la réalité et dans votre langue d'origine.\n\n[En pratique, il s'avère qu'AutoDescription peut aussi être utilisé dans le développement de mods, à divers niveaux...](https://github.com/Selphira/AutoDescription/blob/master/readme.md)\n\nCôté traducteurs, il permet de traduire automatiquement les statistiques contenues dans les descriptions de la plupart des objets, évitant ainsi une tâche souvent pénible et redondante.\n\nCôté développeurs, il peut mettre en évidence certains problèmes, incohérences ou bugs dans les objets en traduisant les effets avec fiabilité. A cet effet, quelques erreurs et avertissements sont remontés dans un fichier de log. Le mod n'étant pas destiné à cela à la base, la liste des erreurs remontées par ce biais est encore faible, mais elle s'étoffera au fil du temps.",
       "components": {
         "10": "Uniformisation des descriptions des objets",
-        "15": "Uniformisation des descriptions des sortilèges (Alpha)",
-        "20": "Uniformisation des descriptions des objets d'un mod"
+        "15": "Uniformisation des descriptions des sortilèges",
+        "20": "Uniformisation des descriptions des objets d'un mod",
+        "25": "Uniformisation des descriptions des sortilèges d'un mod"
       }
     },
     "en_US": {
-      "description": "AutoDescription is a mod, for BG2, BGT, BGEE, BG2EE and EET, developed on La Couronne de Cuivre, which automatically generates and replaces the \"technical\" description of items and spells.\n\nThis has several advantages:\n- Descriptions are standardized, making them easier to read- The description adapts to any modifications made by mods and harmonizes them with the rest of the game- By comparing before-and-after descriptions, we can detect any bugs, errors or incompatibilities between mods and the base game.\n- If untranslated mods are used, the description is automatically updated. If untranslated mods are installed, the item statistics of these mods will be automatically translated and harmonized.\n\nInitially, this mod was designed to be used by players, being installed after all mods adding or altering items.\n\nIn fact, AutoDescription adapts to all mods installed by the user, so if the capabilities of certain items are altered, these will be updated so that their description corresponds to reality and in your original language.\n\n[In practice, it turns out that AutoDescription can also be used in mod development, at various levels...](https://github.com/Selphira/AutoDescription/blob/master/readme.md)\n\nFor translators, it automatically translates the statistics contained in the descriptions of most items, thus avoiding an often tedious and redundant task.\n\nFor developers, it can highlight certain problems, inconsistencies or bugs in items by reliably translating the effects. To this end, a number of errors and warnings are logged. As the mod was not originally designed for this purpose, the list of errors reported in this way is still small, but will grow over time."
+      "description": "AutoDescription is a mod, for BG2, BGT, BGEE, BG2EE and EET, developed on La Couronne de Cuivre, which automatically generates and replaces the \"technical\" description of items and spells.\n\nThis has several advantages:\n- Descriptions are standardized, making them easier to read- The description adapts to any modifications made by mods and harmonizes them with the rest of the game- By comparing before-and-after descriptions, we can detect any bugs, errors or incompatibilities between mods and the base game.\n- If untranslated mods are used, the description is automatically updated. If untranslated mods are installed, the item statistics of these mods will be automatically translated and harmonized.\n\nInitially, this mod was designed to be used by players, being installed after all mods adding or altering items.\n\nIn fact, AutoDescription adapts to all mods installed by the user, so if the capabilities of certain items are altered, these will be updated so that their description corresponds to reality and in your original language.\n\n[In practice, it turns out that AutoDescription can also be used in mod development, at various levels...](https://github.com/Selphira/AutoDescription/blob/master/readme.md)\n\nFor translators, it automatically translates the statistics contained in the descriptions of most items, thus avoiding an often tedious and redundant task.\n\nFor developers, it can highlight certain problems, inconsistencies or bugs in items by reliably translating the effects. To this end, a number of errors and warnings are logged. As the mod was not originally designed for this purpose, the list of errors reported in this way is still small, but will grow over time.",
+      "components": {
+        "10": "Standardize item descriptions",
+        "15": "Standardize spell descriptions",
+        "20": "Standardize item descriptions of a mod",
+        "25": "Uniformisation des descriptions des sortilèges d'un mod"
+      }
     },
     "zh_CN": {
       "description": "AutoDescription 是一个模组，适用于 BG2、BGT、BGEE、BG2EE 和 EET，在铜冠旅店开发，用于自动生成并替换物品和法术的“技术”描述。\n\n这有几个好处：\n- 描述被标准化，使其更易于阅读。- 描述会适应模组可能进行的修改，并与游戏的其他部分保持一致。- 通过比较前后的描述，可以发现模组之间或与游戏基础内容之间可能存在的错误、问题或不兼容性。- 如果安装了未翻译的模组，这些模组中的物品属性将被自动翻译并保持一致。\n\n最初，这个模组是供玩家使用的，在所有添加或修改物品的模组之后安装。事实上，AutoDescription 会适应用户安装的所有模组，如果某些物品的能力被修改，这些能力将被更新，以便其描述与现实情况以及您的原始语言保持一致。\n\n[在实践中，事实证明 AutoDescription 也可以在模组开发的各个层面使用...](https://github.com/Selphira/AutoDescription/blob/master/readme.md)\n\n对于翻译者来说，它可以自动翻译大多数物品描述中包含的属性，从而避免一项繁琐且重复的任务。\n\n对于开发者来说，它可以可靠地翻译效果，从而突出物品中某些问题、不一致性或错误。为此，一些错误和警告会记录在一个日志文件中。由于该模组并非为此目的而设计，通过这种方式报告的错误列表仍然较少，但会随着时间的推移而增加。"

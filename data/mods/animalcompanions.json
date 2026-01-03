@@ -13,12 +13,15 @@
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}}
+    "0": {
+      "type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}
+    }
   },
   "languages": {
     "en_US": 0,
     "de_DE": 1,
     "fr_FR": 2,
+    "pl_PL": 3,
     "it_IT": 4
   },
   "translations": {
@@ -45,12 +48,14 @@
         "0.3.1": "Oui"
       }
     },
-    "it_IT": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)", "0.1.0": "NO, don't allow druids to get animal companions", "0.1.1": "YES, allow druids to get animal companions too", "0.2.buddy": "Enter a name for your animal companion (by default is Buddy)", "0.3.1": "Proceed the installation"}},
+    "it_IT": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}},
     "zh_CN": {
       "description": "这个小型模组允许游侠（如果你愿意，也包括德鲁伊）获得一个动物伙伴，它会在整个游戏中跟随你（有点像 familiars）。从3级开始，他们可以去寻找它。\n可能的动物类型：熊、狼、豹、美洲豹、狗、蜘蛛、飞龙、土拨鼠、兔子。"
-    }
+    },
+    "de_DE": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}},
+    "pl_PL": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}}
   },
   "tp2": "animalcompanions",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Ulb"]
 }

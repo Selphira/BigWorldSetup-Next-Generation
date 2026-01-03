@@ -17,6 +17,9 @@
     "1": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -28,13 +31,19 @@
       }
     },
     "en_US": {
-      "description": "This mod removes the protagonist, so that Imoen can finally take his rightful place in the game. For this reason, the mod provides a \"slightly\" modified start to the BG1 and BG2 parts of the game series. The game expansions (ToB and SoD) have not been modified."
+      "description": "This mod removes the protagonist, so that Imoen can finally take his rightful place in the game. For this reason, the mod provides a \"slightly\" modified start to the BG1 and BG2 parts of the game series. The game expansions (ToB and SoD) have not been modified.",
+      "components": {
+        "0": "Protagonist-be-gone in BG1",
+        "1": "Protagonist-be-gone in BG2"
+      }
     },
     "zh_CN": {
       "description": "此模组移除了主角，以便爱蒙最终能在游戏中占据她应有的位置。因此，该模组为游戏系列的BG1和BG2部分提供了“略有”修改的开场。游戏扩展（ToB和SoD）未被修改。"
-    }
+    },
+    "de_DE": {"components": {"0": "Protagonist-ist-fort in BG1", "1": "Protagonist-ist-fort in BG2"}},
+    "ru_RU": {"components": {"0": "Protagonist-be-gone in BG1", "1": "Protagonist-be-gone in BG2"}}
   },
   "tp2": "a7-protagonist-be-gone",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Argent77"]
 }

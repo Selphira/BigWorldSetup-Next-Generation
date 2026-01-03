@@ -28,6 +28,8 @@
     "choice_5": {"type": "muc", "components": ["251", "252"], "category": "spell", "default": "251"}
   },
   "languages": {
+    "en_US": 0,
+    "pl_PL": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -68,10 +70,59 @@
       }
     },
     "en_US": {
-      "description": "This mod redefines the gameplay of features. Each component can be selected independently of the others."
+      "description": "This mod redefines the gameplay of features. Each component can be selected independently of the others.",
+      "components": {
+        "100": "Ability Score Overhaul",
+        "110": "Stat-based Bonus Spell Slots",
+        "choice_0": "Stat-based Bonus Spells for 5E Casters",
+        "121": "bonuses for memorization slots AND casting slots",
+        "122": "bonuses only for casting slots",
+        "130": "Full Strength for 2-Hand Weapons Only",
+        "140": "Plinkification",
+        "choice_1": "Hit Dice Overhaul",
+        "151": "Generous (above-average) hit points",
+        "152": "Closer to average hit points",
+        "153": "Reduced hit points",
+        "160": "Saving Throw Overhaul",
+        "180": "Lower Dual-Class Requirements",
+        "200": "Slower, Standardized XP Tables",
+        "choice_2": "No Murder XP",
+        "211": "kills give 1/8th XP",
+        "212": "kills give 1/4th XP",
+        "213": "kills give half XP",
+        "choice_3": "Choose SoD Starting XP",
+        "221": "65,000",
+        "222": "90,000",
+        "223": "125,000",
+        "224": "161,000",
+        "choice_4": "Choose SoA Starting XP",
+        "231": "90,000",
+        "232": "161,000",
+        "233": "240,000",
+        "234": "400,000",
+        "choice_5": "Magic Resistance Overhaul",
+        "251": "Replace Magic Resistance with Other Effects",
+        "252": "Reduce Magic Resistance"
+      }
     },
     "zh_CN": {
       "description": "此模组重新定义了属性的游戏玩法。每个组件都可以独立于其他组件进行选择。"
+    },
+    "pl_PL": {
+      "components": {
+        "100": "Rewizja premii do statystyk", "110": "Stat-based Bonus Spells",
+        "choice_0": "Stat-based Bonus Spells for 5E Casters", "121": "bonuses for memorization slots AND casting slots",
+        "122": "bonuses only for casting slots", "130": "Pelna Sila tylko dla broni oburecznych",
+        "140": "Plinkification", "choice_1": "Rewizja Kostek Wytrzymalosci",
+        "151": "Hojne (ponadprzecietne) punkty zycia", "152": "Hardcorowe (blizsze usrednionym) punkty zycia",
+        "153": "Zredukowane punkty zycia", "160": "Rewizja rzutow obronnych", "180": "Lower Dual-Class Requirements",
+        "200": "Ujednolicone tabele PD", "choice_2": "Mniejsza ilosc PD za walke", "211": "zabicie daje 1/8 PD",
+        "212": "zabicie daje 1/4 PD", "213": "zabicie daje połowę PD", "choice_3": "Choose SoD Starting XP",
+        "221": "65,000", "222": "90,000", "223": "125,000", "224": "161,000", "choice_4": "Choose SoA Starting XP",
+        "231": "90,000", "232": "161,000", "233": "240,000", "234": "400,000",
+        "choice_5": "Rewizja odpornosci na magie (zainstaluj po modyfikacji aTweaks!)",
+        "251": "Replace Magic Resistance with Other Effects", "252": "Reduce Magic Resistance"
+      }
     }
   },
   "tp2": "subtled_stat_overhauls",

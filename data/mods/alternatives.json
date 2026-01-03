@@ -19,7 +19,10 @@
     "en_US": 0,
     "ru_RU": 1,
     "fr_FR": 2,
-    "de_DE": 3
+    "de_DE": 3,
+    "zh_CN": 4,
+    "it_IT": 5,
+    "pl_PL": 6
   },
   "translations": {
     "en_US": {
@@ -36,8 +39,14 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组为传统的帮助影贼或瓦伦主人的选择提供了两个新的可能性。玩家因此可以选择一个连圣武士都不会提出异议的阵营。第二种可能性是忽略这三条路，前往马兹提卡。"
-    }
+      "description": "这个模组为传统的帮助影贼或瓦伦主人的选择提供了两个新的可能性。玩家因此可以选择一个连圣武士都不会提出异议的阵营。第二种可能性是忽略这三条路，前往马兹提卡。",
+      "components": {
+        "0": "G3: Alternatives£¨Ìá¹©Á½ÖÖÐÂµÄ³öº£Â·Ïß£© ºº»¯£ºc4_angel Ð­Öú£ºÎäæø½ðÐÇ"
+      }
+    },
+    "de_DE": {"components": {"0": "Alternativen"}},
+    "it_IT": {"components": {"0": "Alternative"}},
+    "pl_PL": {"components": {"0": "Alternatives"}}
   },
   "tp2": "alternatives",
   "safe": 2,

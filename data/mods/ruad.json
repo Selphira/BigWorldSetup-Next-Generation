@@ -43,7 +43,9 @@
     "it_IT": {"components": {"0": "Ruad Ro'fhessa (SoA)", "10": "Ruad Ro'fhessa (ToB)"}},
     "zh_CN": {
       "description": "此模组在SoA（安姆阴影）中添加了一个矮人铁匠，随后在ToB（巴尔王座）中也会出现，他能够像克伦威尔一样组装物品。与模组Item Upgrade不同，大多数需要组装的物品都要求一定的牺牲，例如善最的心或浪之柄。"
-    }
+    },
+    "de_DE": {"components": {"0": "Ruad Ro'fhessa (SvA)", "10": "Ruad Ro'fhessa (TdB)"}},
+    "es_ES": {"components": {"0": "Ruad Ro'fhessa (SoA)", "10": "Ruad Ro'fhessa (ToB)"}}
   },
   "tp2": "ruad",
   "safe": 2,

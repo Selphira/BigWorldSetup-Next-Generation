@@ -35,10 +35,12 @@
         "0": "A Night out in the Taverns"
       }
     },
-    "ru_RU": {"components": {"0": "A Night out in the Taverns"}},
+    "ru_RU": {"components": {"0": "®çì ¢ â ¢¥à­¥"}},
     "zh_CN": {
       "description": "这个扩展模组为寇根添加了一段对话，让他可以在前往幽狱之前在酒馆里过一夜。"
-    }
+    },
+    "es_ES": {"components": {"0": "Una noche de fiesta en las Tabernas"}},
+    "de_DE": {"components": {"0": "Ein Abend in den Tavernen."}}
   },
   "tp2": "alcool",
   "safe": 2,

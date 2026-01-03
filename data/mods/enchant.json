@@ -17,7 +17,7 @@
     "1": {"type": "std"},
     "2": {"type": "std"},
     "3": {"type": "std"},
-    "5": {"type": "std"}
+    "4": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -42,6 +42,6 @@
     }
   },
   "tp2": "enchant",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Dee"]
 }

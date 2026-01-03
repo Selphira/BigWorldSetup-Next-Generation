@@ -37,10 +37,12 @@
       }
     },
     "it_IT": {"components": {"0": "Una Missione al servizio di Oghma"}},
-    "ru_RU": {"components": {"0": "A Quest in the service of Oghma"}},
+    "ru_RU": {"components": {"0": "‚ ¯®¨áª å § â¥àï­­ëå ª­¨£."}},
     "zh_CN": {
       "description": "Thot 开发了一个有趣的小模组，它添加了一个任务，该任务由奥格玛神庙的一名武僧在码头区给出。"
-    }
+    },
+    "de_DE": {"components": {"0": "Suche im Dienst von Oghma"}},
+    "es_ES": {"components": {"0": "Busqueda al servicio de Oghma"}}
   },
   "tp2": "thoghma",
   "safe": 2,

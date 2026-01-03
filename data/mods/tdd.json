@@ -13,12 +13,12 @@
   "games": ["bg2", "bgt", "eet"],
   "categories": ["quest", "spell", "kit"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
     "ru_RU": 1,
+    "pl_PL": 2,
     "de_DE": 3,
     "fr_FR": 4,
     "it_IT": 5,
@@ -28,16 +28,23 @@
     "fr_FR": {
       "description": "Ce gigantesque add-on ajoute 10 nouveaux PNJ (certains provenant de BG1), 180 nouveaux objets, 170 nouveaux sorts, une 40aine de créatures supplémentaires, 78 nouveaux kits, 5 grandes quêtes et une quête gigantesque. Vous devez disposer d'une installation avec Throne of Bhaal.",
       "components": {
-        "0": "The Darkest Day 1.14",
-        "1": "Kits de classe de TDD"
+        "0": "The Darkest Day 1.14"
       }
     },
     "en_US": {
-      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest. Installation with Throne of Bhaal required."
+      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest. Installation with Throne of Bhaal required.",
+      "components": {
+        "0": "The Darkest Day,  v1.14"
+      }
     },
     "zh_CN": {
       "description": "这个巨大的扩展包添加了10个新NPC（其中一些来自博德之门I）、180件新物品、170个新法术、40多种额外生物、78个新宗派、5个大型任务和一个巨型任务。您必须安装了巴尔王座。"
-    }
+    },
+    "ru_RU": {"components": {"0": "The Darkest Day,  v1.14"}},
+    "pl_PL": {"components": {"0": "The Darkest Day, v1.14"}},
+    "de_DE": {"components": {"0": "Der Dunkelste Tag, v1.14"}},
+    "it_IT": {"components": {"0": "The Darkest Day, 1.14"}},
+    "es_ES": {"components": {"0": "The Darkest Day, v1.13"}}
   },
   "tp2": "tdd",
   "safe": 2,

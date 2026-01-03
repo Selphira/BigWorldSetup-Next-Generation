@@ -1,5 +1,5 @@
 {
-  "name": "Lysre, la dragonne de poche",
+  "name": "Lysre, dragonne de poche",
   "version": "1.2",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=25036",
@@ -28,6 +28,6 @@
     }
   },
   "tp2": "lysre",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Klare"]
 }

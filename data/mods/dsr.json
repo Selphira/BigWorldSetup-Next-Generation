@@ -1,5 +1,5 @@
 {
-  "name": "Demon Summoning Ritual (Unholy Gate Opening Ritual Book)",
+  "name": "Demon Summoning Ritual",
   "version": "8.0.0",
   "links": {
     "homepage": "http://www.shsforums.net/topic/26341-resurrection-index/#entry296779",
@@ -26,20 +26,21 @@
     "en_US": {
       "description": "Also called `Unholy Gate Opening Ritual Book`, this mod adds a book for summoning a random demon. It is in the possession of Tolgerias in the planar sphere. Its use is dangerous.",
       "components": {
-        "0": "Demon-summoning-ritual (WeiDU)"
+        "0": "Demon-summoning ritual (WeiDU)"
       }
     },
-    "ru_RU": {"components": {"0": "Demon-summoning-ritual (WeiDU)"}},
+    "ru_RU": {"components": {"0": "Demon-summoning ritual (WeiDU) - WeiDU"}},
     "fr_FR": {
       "description": "Aussi appelé `Unholy Gate Opening Ritual Book`, ce mod ajoute un livre permettant de convoquer un démon aléatoire. Il est en possession de Tolgerias dans la sphère planaire. Son utilisation est dangereuse.",
       "components": {
-        "0": "Rituel de Convocation Démoniaque-WeiDU"
+        "0": "Rituel de Convocation demoniaque - WeiDU"
       }
     },
     "it_IT": {"components": {"0": "Rituale_di_evocazione_demoniaca-WeiDU"}},
     "zh_CN": {
       "description": "也被称为《邪恶开门仪式之书》，此模组添加了一本可以召唤随机恶魔的书。它位于位面界的托尔格里亚斯手中。使用它很危险。"
-    }
+    },
+    "de_DE": {"components": {"0": "Daemonen-Beschwoerungs-Ritual (WeiDu)"}}
   },
   "tp2": "dsr",
   "safe": 2,

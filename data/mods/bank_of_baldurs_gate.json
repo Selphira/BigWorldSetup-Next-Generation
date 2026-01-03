@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "This mod was written in recognition of the fact that players sometimes find themselves without money. Next to the Iron Throne headquarters is a locked building teeming with ogre mages. This is the ducal bank at Baldur's Gate, which was out of commission following a robbery by ogres. Return to the building a day after killing the ogres, and the bank will be operational again. Go upstairs and open an account with Manager Billboo. After the Siege of Dragonspear campaign opens, he'll be waiting for you by the bank, so you can withdraw your money if you wish."
+      "description": "This mod was written in recognition of the fact that players sometimes find themselves without money. Next to the Iron Throne headquarters is a locked building teeming with ogre mages. This is the ducal bank at Baldur's Gate, which was out of commission following a robbery by ogres. Return to the building a day after killing the ogres, and the bank will be operational again. Go upstairs and open an account with Manager Billboo. After the Siege of Dragonspear campaign opens, he'll be waiting for you by the bank, so you can withdraw your money if you wish.",
+      "components": {
+        "0": "Bank of Baldur's Gate"
+      }
     },
     "zh_CN": {
       "description": "这个模组的创作基于一个观察：玩家有时会身无分文。此外，像博德之门这样的大城市竟然没有任何银行，这令人费解。\n在铁王座的总部旁边，有一栋被锁住的建筑，里面挤满了法师食人魔。这是博德之门的公爵银行，由于被食人魔盗窃而停止营业。在杀死食人魔一天后返回该建筑，银行将重新运营。上楼向主管 Billboo 开设一个账户。您可以随时存取钱款。\n在龙矛围攻战役开启后，他会在银行附近等您，这样您就可以在需要时取出您的钱款。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Bank of Baldur's Gate)"}}
   },
   "tp2": "bank_of_baldurs_gate",
   "safe": 2,

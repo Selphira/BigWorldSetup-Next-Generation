@@ -21,7 +21,6 @@
     "33": {"type": "std"},
     "choice_2": {"type": "muc", "components": ["35", "36"], "category": "spell", "default": "35"},
     "45": {"type": "std", "category": "spell"},
-    "70": {"type": "std", "category": "smith"},
     "75": {"type": "std", "category": "spell"},
     "80": {"type": "std", "category": "spell"},
     "91": {"type": "std", "category": "spell"},
@@ -30,6 +29,7 @@
     "99": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -53,7 +53,6 @@
         "35": "...pour Tyr, Torm, Helm, Ilmater, Kelemvor, Sune",
         "36": "...pour ceux ci-dessus, PLUS les divinites Neutres/Mauvaises/demi-humaines",
         "45": "Revision de la table de sorts des paladins",
-        "70": "Ajouter des parchemins de sorts pour les pretres",
         "75": "Modifier l'utilisabilite des armes et armures pour les pretres",
         "80": "Appliquer le systeme de spheres (REQUIS pour que le systeme de spheres fonctionne)",
         "91": "Druides multiclasses",
@@ -63,7 +62,32 @@
       }
     },
     "en_US": {
-      "description": "Heir to the abandoned Faiths of Faerûn project, this mod adds dozens of priest, druid, lurker and paladin profiles, new class combinations, new spells, an optional divine sphere system to differentiate access to spells for different profiles and deities, and optional profile-specific armor and weapon restrictions."
+      "description": "Heir to the abandoned Faiths of Faerûn project, this mod adds dozens of priest, druid, lurker and paladin profiles, new class combinations, new spells, an optional divine sphere system to differentiate access to spells for different profiles and deities, and optional profile-specific armor and weapon restrictions.",
+      "components": {
+        "choice_0": "Revised Cleric Spell Table",
+        "12": "Faiths & Powers Table",
+        "13": "'Un-nerfed' Table",
+        "15": "Druids Use Cleric Spell Table and XP Table",
+        "choice_1": "Choose a Sphere System",
+        "21": "oFnP: the original Faiths & Powers sphere system",
+        "22": "AD&D/DR: inspired by PnP and Divine Remix",
+        "23": "Vanilla: traditional spell lists, kits can cross the cleric/druid divide",
+        "24": "VPlus: traditional spell lists, kits get focus access to two FnP spheres",
+        "25": "nuFnP: a new sphere system (fewer spheres, more balanced, closer to PnP)",
+        "30": "Give Option to Cast Like Sorcerers (do not install if planning to use 5E casting)",
+        "31": "Install Cleric kits",
+        "33": "Install Druid kits",
+        "choice_2": "Install Paladin kits",
+        "35": "...for Tyr, Torm, Helm, Ilmater, Kelemvor, Sune",
+        "36": "...for all those, PLUS Neutral/Evil/demihuman deities",
+        "45": "Revised Paladin Spell Table",
+        "75": "Alter Priests' Weapon/Armor Usability",
+        "80": "Apply Sphere System (REQUIRED for the sphere system to work)",
+        "91": "Multiclass Druids",
+        "92": "Multiclass Shamans",
+        "95": "Multiclass Cleric kits (install AFTER all other kit mods!!)",
+        "99": "Apply FnP Multiclass Kits to NPCs"
+      }
     },
     "zh_CN": {
       "description": "这个模组是《费伦信仰》这个被放弃项目的继承者，它增加了数十名牧师、德鲁伊、游侠和圣武士的配置，新的职业组合，新法术，一个可选的神术领域系统，用于区分不同配置和神祇的法术获取权限，以及针对配置的特定盔甲和武器的可选限制。"

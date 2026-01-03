@@ -28,8 +28,11 @@
   "languages": {
     "en_US": 0,
     "fr_FR": 1,
+    "pl_PL": 2,
     "de_DE": 3,
-    "ru_RU": 4
+    "ru_RU": 4,
+    "it_IT": 5,
+    "zh_CN": 6
   },
   "translations": {
     "en_US": {
@@ -40,7 +43,7 @@
         "2": "Install Acrobat bard kit",
         "3": "Install Chorister bard kit",
         "4": "Install Dirgesinger bard kit",
-        "5": "Install Gypsy bard kit",
+        "5": "Install Luring Piper bard kit",
         "6": "Install Adventurer thief kit",
         "7": "Install Burglar thief kit",
         "8": "Install Soulknife thief kit",
@@ -66,8 +69,24 @@
     },
     "ru_RU": {"components": {"0": "Changes to trueclass bards and thieves, and unmodded game kits (required for other components)", "1": "Add new bardic store and thief items", "2": "Install Acrobat bard kit", "3": "Install Chorister bard kit", "4": "Install Dirgesinger bard kit", "5": "Install Gypsy bard kit", "6": "Install Adventurer thief kit", "7": "Install Burglar thief kit", "8": "Install Soulknife thief kit", "9": "Install Sharpshooter thief kit", "10": "Install Shadowdancer thief kit"}},
     "zh_CN": {
-      "description": "你喜欢吟游诗人和盗贼吗？如果是这样，这个小模组会让你心满意足，它添加了几个新的职业，可以补充到你现有的舞剑士和刺客中：杂技演员、哀歌者、合唱团成员和吉普赛人（吟游诗人）；冒险家、窃贼、影舞者、剑灵神射手和神射手（盗贼）。\n还会遇到一个老吉普赛人，拉乌尔，他有点好奇，总是很热情，会为你最喜欢的角色提供新物品。设计师制作物品时，强烈倾向于让吟游诗人和盗贼使用它们，但当然，除非该物品无法被你玩的职业使用，否则你完全可以装备其他角色。"
-    }
+      "description": "你喜欢吟游诗人和盗贼吗？如果是这样，这个小模组会让你心满意足，它添加了几个新的职业，可以补充到你现有的舞剑士和刺客中：杂技演员、哀歌者、合唱团成员和吉普赛人（吟游诗人）；冒险家、窃贼、影舞者、剑灵神射手和神射手（盗贼）。\n还会遇到一个老吉普赛人，拉乌尔，他有点好奇，总是很热情，会为你最喜欢的角色提供新物品。设计师制作物品时，强烈倾向于让吟游诗人和盗贼使用它们，但当然，除非该物品无法被你玩的职业使用，否则你完全可以装备其他角色。",
+      "components": {
+        "0": "对于纯职吟游诗人和盗贼以及官方宗派的更改（基础组件）",
+        "1": "增加新的吟游诗人商店与盗贼物品",
+        "2": "安装杂耍吟游诗人宗派",
+        "3": "安装行吟圣歌颂者宗派",
+        "4": "安装挽歌诗人宗派",
+        "5": "安装吉普赛吟游诗人宗派",
+        "6": "安装盗贼探险者宗派",
+        "7": "安装窃贼盗贼宗派",
+        "8": "安装灵魂之刃盗贼宗派",
+        "9": "安装利刃射手盗贼宗派",
+        "10": "安装影舞者盗贼宗派"
+      }
+    },
+    "pl_PL": {"components": {"0": "Poprawki dla oryginalnych klas i podklas lotrow (Wymagane dla pozostalych komponentow)", "1": "Nowy sklep z przedmiotami dla bardow i zlodziei", "2": "Zainstaluj nowa podklase barda - Akrobate", "3": "Zainstaluj nowa podklase barda - Chorzyste", "4": "Zainstaluj nowa podklase barda - Ponury bard", "5": "Zainstaluj nowa podklase barda - Cygan", "6": "Zainstaluj nowa podklase zlodzieja - Poszukiwacz przygod", "7": "Zainstaluj nowa podklase zlodzieja - Wlamywacz", "8": "Zainstaluj nowa podklase zlodzieja - Ostrze duszy", "9": "Zainstaluj nowa podklase zlodzieja - Strzelec", "10": "Zainstaluj nowa podklase zlodzieja - Tancerz cienia"}},
+    "de_DE": {"components": {"0": "Änderungen an den Barden- und Diebesklassen und den Vanilla Spielkits (benötigt für alle weiteren Komponenten)", "1": "Füge neues Barden Geschäft und Diebes Gegenstände hinzu", "2": "Installiere Akrobat Barden Kit", "3": "Install Chorister bard kit", "4": "Installiere Klagesänger Barden kit", "5": "Installiere Zigeuner Barden Kit", "6": "Installiere Abenteurer Diebes Kit", "7": "Installiere Einbrecher Diebes Kit", "8": "Installiere Seelenmesser Diebes Kit", "9": "Installiere Scharfschützen Diebes Kit", "10": "Installiere Schattentänzer Diebes Kit"}},
+    "it_IT": {"components": {"0": "Cambia tra bardi e ladri conformi alla classe e kit di gioco non modificati (necessario per altri componenti)", "1": "Aggiunge un nuovo negozio bardico e oggetti da ladro", "2": "Installa kit bardico Acrobata", "3": "Installa kit bardico Corista", "4": "Installa il kit bardico Tristo Cantore", "5": "Installa kit bardico Pifferaio Seducente", "6": "Installa kit ladro Avventuriero", "7": "Installa il kit ladro Burglar thief kit", "8": "Installa kit ladro Soulknife thief kit", "9": "Installa il kit ladro Tiratore Scelto", "10": "Installa il kit ladro Shadowdancer thief kit"}}
   },
   "tp2": "song_and_silence",
   "safe": 2,

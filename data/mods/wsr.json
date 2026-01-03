@@ -23,9 +23,10 @@
     "ru_RU": 1,
     "fr_FR": 2,
     "zh_CN": 3,
-    "de_DE": 5,
-    "es_ES": 6,
-    "it_IT": 8
+    "de_DE": 4,
+    "es_ES": 5,
+    "pl_PL": 6,
+    "it_IT": 7
   },
   "translations": {
     "en_US": {
@@ -51,10 +52,21 @@
         "999": "Icones style BG2 pour le contenu de WSR"
       }
     },
-    "it_IT": {"components": {"100": "Revisione sottoclasse Ammazzastregoni", "200": "Revisione Abilita' di Alto Livello dell'Ammazzastregoni", "301": "Cambiamenti minimi", "302": "Cambiamenti moderati", "999": "Icone in stile BG2 per i contenuti del mod"}},
+    "it_IT": {"components": {"100": "Revisione sottoclasse Ammazzastregoni", "200": "Revisione Abilita' di Alto Livello dell'Ammazzastregoni", "choice_0": "Revisione Restrizione Oggetti per l'Ammazzastregoni", "301": "Cambiamenti minimi", "302": "Cambiamenti moderati", "999": "Icone in stile BG2 per i contenuti del mod"}},
     "zh_CN": {
-      "description": "此模组在很大程度上受到了其他法师杀手平衡性修复模组的启发，特别是Grey Acumen's Kit Improvements、Konalan's Tweaks、Ashes of Embers和“Kitanya的修复”（由SixOfSpades制作）。这个版本更偏向传统，并试图不偏离该职业的原始概念。简而言之，它试图强调法师杀手的优点，同时加入上述一些最佳模组的特性。最终，该职业应该会变得更加平衡且更有趣，同时基本上保持对Bioware原始概念的忠实。\n因此，此模组通过添加新的反法师能力、两个新的高级能力（法术反射和奥术打击取代魔法抗性和战争怒吼）以及允许你的法师杀手比平时使用更多魔法物品的方式，重新设计了法师杀手职业。"
-    }
+      "description": "此模组在很大程度上受到了其他法师杀手平衡性修复模组的启发，特别是Grey Acumen's Kit Improvements、Konalan's Tweaks、Ashes of Embers和“Kitanya的修复”（由SixOfSpades制作）。这个版本更偏向传统，并试图不偏离该职业的原始概念。简而言之，它试图强调法师杀手的优点，同时加入上述一些最佳模组的特性。最终，该职业应该会变得更加平衡且更有趣，同时基本上保持对Bioware原始概念的忠实。\n因此，此模组通过添加新的反法师能力、两个新的高级能力（法术反射和奥术打击取代魔法抗性和战争怒吼）以及允许你的法师杀手比平时使用更多魔法物品的方式，重新设计了法师杀手职业。",
+      "components": {
+        "100": "·¨Ê¦É±ÊÖ×ÚÅÉÐÞ¶©",
+        "200": "·¨Ê¦É±ÊÖ¸ß½×¼¼ÄÜÐÞ¶©",
+        "choice_0": "·¨Ê¦É±ÊÖµÀ¾ßÏÞÖÆÐÞ¶©",
+        "301": "×îÐ¡µÄ¸Ä¶¯",
+        "302": "ÊÊÖÐµÄ¸Ä¶¯",
+        "999": "BG2-style icons for WSR content"
+      }
+    },
+    "de_DE": {"components": {"100": "Magierkiller - Klassenüberarbeitung", "200": "Überarbeitung der Hochstufigen Fertigkeiten für Magierkiller", "choice_0": "Überarbeiteter Magierkiller - Gegenstandsbeschränkungen", "301": "Minimale Veränderungen", "302": "Moderate Änderungen", "999": "WSR Icons im BG2 Stil"}},
+    "es_ES": {"components": {"100": "Revisi¢n del Kit de Asesino de Magos", "200": "Revisi¢n de Habilidades de Alto Nivel del Asesino de Magos", "choice_0": "Revisi¢n de las restricciones de los objetos para los Asesinos de Magos", "301": "Cambios m¡nimos", "302": "Cambios moderados", "999": "Estilo de iconos del BG2 para el contenido de WSR"}},
+    "pl_PL": {"components": {"100": "Zmiany w podklasie zabojcy magow", "200": "Zmiany zdolnosci wysokiego poziomu zabojcy magow", "choice_0": "Zmiany w ograniczeniach uzywania przedmiotow dla zabojcy magow", "301": "Minimalne zmiany", "302": "Umiarkowane zmiany", "999": "Styl ikon z BG2 dla zawartosci ZZM"}}
   },
   "tp2": "wsr",
   "safe": 2,

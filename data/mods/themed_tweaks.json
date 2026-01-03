@@ -45,7 +45,19 @@
       }
     },
     "en_US": {
-      "description": "This mod's main purpose is to augment the role-playing environment throughout the game series. To that end, it tweaks the storyline in various places."
+      "description": "This mod's main purpose is to augment the role-playing environment throughout the game series. To that end, it tweaks the storyline in various places.",
+      "components": {
+        "60": "SoD - Give Imoen a special wand for palace attack scene",
+        "70": "SoD - Allow PC to give aid to Imoen after attack in palace",
+        "80": "SoD - Stat-based observations and quest options",
+        "90": "SoD - Ditch Tour-Guide Corwin Schael",
+        "100": "SoD - Quest: Scouting the Coast Way Crossing",
+        "140": "SoD/BG2EE - Add a little snark to dialogues",
+        "150": "SoD/BG2EE - Remove cut scenes that the PC shouldn't be privy to",
+        "160": "SoD/BG2EE - Move dreams about Irenicus from SoD to BG2EE",
+        "180": "BG2EE - Give Imoen innnate Magic Missiles for attack scene",
+        "200": "BG2EE - Use Irenicus in hell movie as dream to restore Bhaalspawn powers"
+      }
     },
     "zh_CN": {
       "description": "此模组的主要目标是改善整个游戏系列的扮演体验。为此，它在多处修改了剧情。"

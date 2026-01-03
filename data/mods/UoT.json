@@ -16,6 +16,8 @@
     "0": {"type": "std", "category": "tactic"}
   },
   "languages": {
+    "zh_CN": 0,
+    "en_US": 1,
     "fr_FR": 3
   },
   "translations": {
@@ -26,10 +28,16 @@
       }
     },
     "en_US": {
-      "description": "This mod organizes arena battles against powerful extra-planar creatures. The aim is simple: win or die! The battle against the Grandmaster is the only one that can earn you items, and some powerful items are also for sale."
+      "description": "This mod organizes arena battles against powerful extra-planar creatures. The aim is simple: win or die! The battle against the Grandmaster is the only one that can earn you items, and some powerful items are also for sale.",
+      "components": {
+        "0": "Umbra of Torto"
+      }
     },
     "zh_CN": {
-      "description": "此模组组织了对抗强大异界生物的竞技场战斗。目标很简单：战胜或死亡！与大师的战斗是唯一能为你带来物品的战斗。一些强大的物品也可以买到。"
+      "description": "此模组组织了对抗强大异界生物的竞技场战斗。目标很简单：战胜或死亡！与大师的战斗是唯一能为你带来物品的战斗。一些强大的物品也可以买到。",
+      "components": {
+        "0": "Umbra of Torto"
+      }
     }
   },
   "tp2": "uot",

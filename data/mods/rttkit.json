@@ -46,6 +46,8 @@
     "30": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "it_IT": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -86,10 +88,55 @@
       }
     },
     "en_US": {
-      "description": "This mod makes 30 kits of the Return to Trademeet conversion module available. A few examples? Here we go: Amazon, Gladiator, Samurai (fighters), Anti-paladin, Messiah and Black Knight (paladins); Time Keeper and Elementalist (rangers); Ninja and Treasure Hunter (thieves); Minstrel, Juggler and Golem Trainer (bards), Dark Druid, and many more."
+      "description": "This mod makes 30 kits of the Return to Trademeet conversion module available. A few examples? Here we go: Amazon, Gladiator, Samurai (fighters), Anti-paladin, Messiah and Black Knight (paladins); Time Keeper and Elementalist (rangers); Ninja and Treasure Hunter (thieves); Minstrel, Juggler and Golem Trainer (bards), Dark Druid, and many more.",
+      "components": {
+        "0": "Amazon",
+        "1": "Gladiator",
+        "2": "Investigator",
+        "3": "Halfling Thrower",
+        "4": "Samurai",
+        "5": "Giant Slayer",
+        "6": "Anti-paladin",
+        "7": "Dark Knight",
+        "8": "Elf Paladin",
+        "9": "Messiah",
+        "10": "Arcane",
+        "11": "Elementalist",
+        "12": "Time Keeper",
+        "13": "Dark Ranger",
+        "14": "Enticer",
+        "15": "Priest of Cyric",
+        "16": "Priest of Mask",
+        "17": "Priest of Mystra",
+        "18": "Priest of Tempus",
+        "19": "Dark Druid",
+        "20": "Warden of the Water",
+        "21": "Warden of the Fire",
+        "22": "Warden of the Wind",
+        "23": "Treasure Hunter",
+        "24": "Scoundrel",
+        "25": "Gentleman",
+        "26": "Ninja",
+        "27": "Golem Trainer",
+        "28": "Juggler",
+        "29": "Minstrel",
+        "30": "Items and Spells (you can't skip this component)"
+      }
     },
     "zh_CN": {
       "description": "这个模组提供了Return to Trademeet转换模组中的30种职业。一些例子？来吧，开始了：亚马逊、角斗士、武士（战士）、反圣武士、救世主和黑暗卫士（圣武士）；时间守护者和元素使（游侠）；忍者 and 宝藏猎人（盗贼）；说书人、杂耍师和傀儡大师（吟游诗人）、阴影德鲁伊，等等。"
+    },
+    "it_IT": {
+      "components": {
+        "0": "Amazzone", "1": "Gladiatore", "2": "Investigatore", "3": "Lanciatore Halfling", "4": "Samurai",
+        "5": "Uccisore di Giganti", "6": "Antipaladino", "7": "Cavaliere Oscuro", "8": "Elfo Paladino", "9": "Messia",
+        "10": "Arcano", "11": "Elementale", "12": "Guardiano del Tempo", "13": "Ranger Oscuro", "14": "Convertitore",
+        "15": "Sacerdote di Cyric", "16": "Sacerdote di Mask", "17": "Sacerdote di Mystra", "18": "Sacerdote di Tempus",
+        "19": "Druido Oscuro", "20": "Guardiano dell'Acqua", "21": "Guardiano del Fuoco", "22": "Guardiano del Gento",
+        "23": "Cacciatore di Tesori", "24": "Furfante", "25": "Gentiluomo", "26": "Ninja",
+        "27": "Ammaestratore di Golem", "28": "Giocoliere", "29": "Menestrello",
+        "30": "Magie e armi dei kit (questo componente e' necessario)"
+      }
     }
   },
   "tp2": "rttkit",

@@ -1,5 +1,5 @@
 {
-  "name": "Maître des éléments (Druide)",
+  "name": "Władca Żywiołów",
   "version": "2.1",
   "links": {
     "homepage": "https://github.com/Plutonium-X/KIT_Elements",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "pl_PL": 0,
     "fr_FR": 2
   },
   "translations": {
@@ -30,7 +31,8 @@
     },
     "zh_CN": {
       "description": "此模组添加了一个德鲁伊职业：元素大师。"
-    }
+    },
+    "pl_PL": {"components": {"0": "Podklasa druida"}}
   },
   "tp2": "wladca",
   "safe": 2,

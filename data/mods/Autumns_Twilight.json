@@ -11,28 +11,48 @@
     "sha256": "32c904add6690d34a411c780dcfb7e373b58e1c87657ee600f038704fd286fbe"
   },
   "games": ["bg2ee", "eet"],
-  "categories": ["spell", "npc"],
+  "categories": ["quest", "npc"],
   "components": {
     "0": {"type": "std", "category": "conv"},
     "1": {"type": "std", "category": "conv"}
   },
   "languages": {
-    "fr_FR": 5
+    "es_ES": 0,
+    "en_US": 1,
+    "it_IT": 2,
+    "de_DE": 3,
+    "pl_PL": 4,
+    "fr_FR": 5,
+    "ru_RU": 6,
+    "zh_CN": 7
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod très complet ajoute de nouveaux personnages recrutables (dont Dusk NPC for BGII), des quêtes, des nouveaux objets, des marchands, des donjons etc",
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Difficulte des ennemis : Difficile"
+        "1": "Enemy Difficulty: Hard"
       }
     },
     "en_US": {
-      "description": "This comprehensive mod adds new recruitable characters (including Dusk NPC for BGII), quests, new items, merchants, dungeons and more."
+      "description": "This comprehensive mod adds new recruitable characters (including Dusk NPC for BGII), quests, new items, merchants, dungeons and more.",
+      "components": {
+        "0": "Autumn's Twilight MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
     },
     "zh_CN": {
-      "description": "这个非常全面的模组添加了新的可招募角色（包括Dusk NPC for BGII）、任务、新物品、商人、地牢等。"
-    }
+      "description": "这个非常全面的模组添加了新的可招募角色（包括Dusk NPC for BGII）、任务、新物品、商人、地牢等。",
+      "components": {
+        "0": "秋暮之光 MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
+    },
+    "es_ES": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
+    "it_IT": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
+    "de_DE": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
+    "pl_PL": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
+    "ru_RU": {"components": {"0": "Осень в закатном моде", "1": "Enemy Difficulty: Hard"}}
   },
   "tp2": "autumns_twilight",
   "safe": 2,

@@ -32,12 +32,15 @@
     "en_US": {
       "description": "Nanstein is a new blacksmith who appears opposite Cromwell on the docks. He can transform legendary items into others that might be more useful depending on play style, or at least more original. For example, red dragon armor is transformed into a mage's robe that protects against fire. The flail of eternity could be changed into elemental arrows. I wouldn't advise you to attack it, as you won't get any of the items it forges... and you'll die.",
       "components": {
-        "0": "Nanstein, Chief Mage Engineer of Mountain Sansimportance"
+        "choice_0": "Nanstein, Chief Mage Engineer of Mountain Sansimportance",
+        "0": "Original version",
+        "100": "FRENCH ONLY More items by Deratiseur (Translations are welcome)"
       }
     },
     "zh_CN": {
       "description": "纳恩斯坦是一个出现在码头克伦威尔面前的新铁匠。他可以将传奇物品变成其他可能根据游戏风格更有用，或者至少更独特的物品。例如，一件红龙盔甲会被变成一件防火的法师长袍。永恒连枷会被变成元素箭。我不建议您攻击他，您得不到他锻造的任何物品……而且您会死。"
-    }
+    },
+    "es_ES": {"components": {"choice_0": "Nanstein, Ingeniero Magico en Jefe del Monte Noimporta", "0": "Original version", "100": "FRENCH ONLY More items by Deratiseur (Translations are welcome)"}}
   },
   "tp2": "nanstein",
   "safe": 2,

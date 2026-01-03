@@ -1,6 +1,6 @@
 {
   "name": "The Divine Remix",
-  "version": "master",
+  "version": "8.1",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/kits/cleric/",
     "download": "https://github.com/TotoR115/Divine_Remix/archive/refs/heads/master.zip"
@@ -59,9 +59,12 @@
         "choice_2": "Remove Druid Kits",
         "52": "Remove Only Mod Kits",
         "53": "Remove All Kits",
-        "choice_3": "Remove Ranger Kits",
+        "choice_3": "Remove Paladin Kits",
         "54": "Remove Only Mod Kits",
         "55": "Remove All Kits",
+        "choice_4": "Remove Ranger Kits",
+        "56": "Remove Only Mod Kits",
+        "57": "Remove All Kits",
         "100": "Cleric Remix",
         "103": "Install Silverstar of Selune Cleric Kit",
         "106": "Install Nightcloak of Shar Cleric Kit",

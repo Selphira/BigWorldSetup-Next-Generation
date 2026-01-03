@@ -17,6 +17,10 @@
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
+    "it_IT": 2,
+    "ru_RU": 3,
+    "zh_CN": 4,
     "fr_FR": 5
   },
   "translations": {
@@ -33,8 +37,14 @@
       }
     },
     "zh_CN": {
-      "description": "众所周知，博德之门系列缺少专门为雪貂设计的物品！Lava不会让这种疏忽不受惩罚，并为此提供了补救措施。\n这个模组因此添加了5件物品和6个新法术（法师和吟游诗人各1个，吟游诗人2个，神术系2个，法师和牧师各1个），这些物品和法术在您创建角色时和/或在游戏中即可获得。"
-    }
+      "description": "众所周知，博德之门系列缺少专门为雪貂设计的物品！Lava不会让这种疏忽不受惩罚，并为此提供了补救措施。\n这个模组因此添加了5件物品和6个新法术（法师和吟游诗人各1个，吟游诗人2个，神术系2个，法师和牧师各1个），这些物品和法术在您创建角色时和/或在游戏中即可获得。",
+      "components": {
+        "0": "黄鼬！更多的黄鼬！"
+      }
+    },
+    "pl_PL": {"components": {"0": "Lasice! Bo gry IE potrzebuja wiecej lasic!"}},
+    "it_IT": {"components": {"0": "Donnole! Perche' nei giochi c'era bisogno di piu' donnole!"}},
+    "ru_RU": {"components": {"0": "Weasels! Because the IE games needed more weasels!"}}
   },
   "tp2": "weasels!",
   "safe": 2,

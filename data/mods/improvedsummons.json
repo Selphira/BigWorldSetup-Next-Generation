@@ -65,12 +65,26 @@
         "10": "Autres (Djinns, Efrits, etc.)"
       }
     },
-    "ru_RU": {"components": {"0": "Improved Angelic Summons(ToB Required)", "1": "Improved Demonic Summons(ToB Required)", "2": "Improved Elemental Summons(ToB Required)", "3": "Use IWD Version Mordenkainen Sword after lv21", "4": "Improved Animate Dead(ToB Required)", "5": "Improved Call Woodland Being", "6": "Improved Animal Summons", "7": "Improved Monster Summons", "8": "Replace Carrion Summons with Summon Beholder", "9": "Replace Wyvern Call with Summon Vampire", "10": "Others(Efreet,Djinni,etc.)"}},
+    "ru_RU": {"components": {"0": "«ãçè¥­­ë© à¨§ë¢  ­£¥«  (¥®¡å®¤¨¬ ToB)", "1": "«ãçè¥­­ë© à¨§ë¢ ¤¥¬®­  (¥®¡å®¤¨¬ ToB)", "2": "«ãçè¥­­ë© à¨§ë¢ í«¥¬¥­â «ï (¥®¡å®¤¨¬ ToB)", "3": "á¯®«ì§®¢ ­¨¥ IWD-¢¥àá¨¨ ¥ç  ®à¤¥­ª ©­¥­  ¯®á«¥ 21 ãà®¢­ï", "4": "«ãçè¥­­®¥ ®§¤ ­¨¥ ¬¥àâ¢®£® (¥®¡å®¤¨¬ ToB)", "5": "«ãçè¥­­ë© à¨§ë¢ «¥á­ëå áãé¥áâ¢", "6": "«ãçè¥­­ë© à¨§ë¢ ¦¨¢®â­ëå", "7": "«ãçè¥­­®¥ à¨§ë¢ ­¨¥ ¬®­áâà®¢", "8": " ¬¥­¨âì à¨§ë¢ âàã¯®¥¤®¢ ­  à¨§ë¢ á®§¥àæ â¥«ï", "9": " ¬¥­¨âì à¨§ë¢ ­¨¥ ¢¨¢¥à­  ­  à¨§ë¢ ­¨¥ ¢ ¬¯¨à", "10": "àã£®¥ (äà¨â, ¦¨­­, ¨ â.¤.)"}},
     "zh_CN": {
-      "description": "你是那种派炮灰大军冲击敌人的人吗？你寻找更强大的炽天使？你希望召唤那些令人作呕的食尸蠕虫的替代品——观者？你更喜欢吸血鬼而不是飞龙，并希望你的不死生物再强壮一点吗？这个模组就是为你准备的！"
-    }
+      "description": "你是那种派炮灰大军冲击敌人的人吗？你寻找更强大的炽天使？你希望召唤那些令人作呕的食尸蠕虫的替代品——观者？你更喜欢吸血鬼而不是飞龙，并希望你的不死生物再强壮一点吗？这个模组就是为你准备的！",
+      "components": {
+        "0": "Ç¿»¯ÌìÊ¹ÀàÕÙ»½£¨ÐèÒª°Í¶ûÍõ×ù£©",
+        "1": "Ç¿»¯¶ñÄ§ÀàÕÙ»½£¨ÐèÒª°Í¶ûÍõ×ù£©",
+        "2": "Ç¿»¯ÔªËØÀàÕÙ»½£¨ÐèÒª°Í¶ûÍõ×ù£©",
+        "3": "21¼¶ºóÊ¹ÓÃ±ù·ç¹È°æÄ¦µÇ¿Ï½£",
+        "4": "Ç¿»¯²Ù×ÝËÀÊ¬£¨ÐèÒª°Í¶ûÍõ×ù£©",
+        "5": "Ç¿»¯ÕÙ»½ÁÖµØÉúÎï",
+        "6": "Ç¿»¯¶¯ÎïÕÙ»½",
+        "7": "Ç¿»¯¹ÖÎïÕÙ»½",
+        "8": "ÓÃÕÙ»½ÑÛÄ§Ìæ´úÕÙ»½Ê³¸¯³æ",
+        "9": "ÓÃÕÙ»½ÎüÑª¹íÌæ´úÕÙ»½ÒíÁú",
+        "10": "ÆäËü£¨»ð¾ÞÁé¡¢·ç¾ÞÁéµÈ£©"
+      }
+    },
+    "es_ES": {"components": {"0": "Mejorar Convocaciones Angelicales (Requiere ToB)", "1": "Mejorar Convocaciones Demoniacas (Requiere ToB)", "2": "Mejorar Convocaciones de Elementales (Requiere ToB)", "3": "Usar version de IWD de la Espada de Mordenkainen luego del nivel 21", "4": "Mejorar Animacion de la muerte (Requiere ToB)", "5": "Mejorar la llamada de los Seres del Bosque", "6": "Mejorar Convocar Animales", "7": "Mejorar Convocar Monstruos", "8": "Reemplazar Convocar Carroñeros con Convocar Contempladores", "9": "Reemplazar Convocar Draco con Convocar Vampiro", "10": "Otros (Ifriti, Djinni, etc.)"}}
   },
   "tp2": "improvedsummons",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Wu Min"]
 }

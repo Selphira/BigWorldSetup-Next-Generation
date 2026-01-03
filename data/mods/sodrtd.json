@@ -24,7 +24,13 @@
     "70": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "de_DE": 1,
+    "fr_FR": 2,
+    "it_IT": 3,
+    "es_ES": 4,
+    "ru_RU": 5,
+    "zh_CN": 6
   },
   "translations": {
     "fr_FR": {
@@ -42,11 +48,37 @@
       }
     },
     "en_US": {
-      "description": "This mod is designed for the SoD campaign. It has two purposes:\n- For players, it aims to make coalition forces aware of Caelar and Hephernaan's plans, focusing on the crusade's main project and the danger it represents, and to give response options with which the PJ can inform coalition forces of ongoing events. To this end, all the information the PJ can gather during the campaign is tracked and evaluated. The diary entries give an overview of the information the PJ has already gathered. Overall, this mod is meant to connect the dots so that the PJ is able to recount all the information he has gathered, and so that coalition officers recognize and react concretely to the real danger(s).\n- For modders, it introduces a variable-based tracking system for the different levels of knowledge the PC and coalition officers acquire throughout the campaign, which could be used for their mods, for example to fine-tune their NPCs' reactions to the quality of information acquired about Caelar, Hephernaan, the crusade...\nAmong the SoD campaign information this mod takes into account: What is the main purpose of the crusade proclaimed by Caelar, and what is it really about? What truth lies behind Caelar's proclamation - and his crusaders' belief - that Caelar protects the crusade with the \"divine powers of the pantheon\"? What is the background to Caelar's life and family, and how does it influence his motivations? Is Caelar an offspring of Bhaal? What are Hephernaan's plans?"
+      "description": "This mod is designed for the SoD campaign. It has two purposes:\n- For players, it aims to make coalition forces aware of Caelar and Hephernaan's plans, focusing on the crusade's main project and the danger it represents, and to give response options with which the PJ can inform coalition forces of ongoing events. To this end, all the information the PJ can gather during the campaign is tracked and evaluated. The diary entries give an overview of the information the PJ has already gathered. Overall, this mod is meant to connect the dots so that the PJ is able to recount all the information he has gathered, and so that coalition officers recognize and react concretely to the real danger(s).\n- For modders, it introduces a variable-based tracking system for the different levels of knowledge the PC and coalition officers acquire throughout the campaign, which could be used for their mods, for example to fine-tune their NPCs' reactions to the quality of information acquired about Caelar, Hephernaan, the crusade...\nAmong the SoD campaign information this mod takes into account: What is the main purpose of the crusade proclaimed by Caelar, and what is it really about? What truth lies behind Caelar's proclamation - and his crusaders' belief - that Caelar protects the crusade with the \"divine powers of the pantheon\"? What is the background to Caelar's life and family, and how does it influence his motivations? Is Caelar an offspring of Bhaal? What are Hephernaan's plans?",
+      "components": {
+        "80": "SoD - Stat-based observations and quest options from Lauriel's Themed Tweaks Mod",
+        "0": "Main Component: Tracking System",
+        "10": "Consistency Changes to Game Dialogues",
+        "20": "Officers Are Aware",
+        "30": "Give PC Informed Reply Options",
+        "40": "PC Can Tell the Officers",
+        "50": "Add Officers Reactions",
+        "60": "Additional Info Points",
+        "70": "Add Additional Communication with Officers"
+      }
     },
     "zh_CN": {
-      "description": "此模组为SoD（龙矛围攻）战役设计。它有两个目标：\n- 对于玩家，旨在让联盟势力了解凯拉和赫费尔南的计划，重点聚焦十字军的主要任务及其带来的危险，并提供回应选项，让玩家角色（PJ）能够告知联盟势力当前发生的事件。为此，模组会追踪并评估玩家角色在战役中可能收集到的所有信息。日志条目会概述玩家角色已收集到的信息。总体而言，该模组旨在串联所有线索，使玩家角色能够讲述其收集到的所有信息，并让联盟军官能够具体地认识和应对真实的危险。\n- 对于模组作者，它引入了一个基于变量的追踪系统，涉及玩家角色和联盟军官在整个战役中获得的不同知识层次，该系统可被其他模组作者使用，例如，用于根据关于凯拉、赫费尔南、十字军等信息的质量来细化其NPC的反应。\n此模组所考虑的SoD战役信息包括：凯拉宣称的十字军主要目标是什么，其真实面目又是什么？凯拉宣言背后的真相——以及她十字军信徒的信念——即凯拉用“万神殿的神力”来保护十字军，这背后隐藏着什么？凯拉的生活和家庭背景是什么，这如何影响她的动机？凯拉是巴尔的子嗣吗？赫费尔南的计划是什么？"
-    }
+      "description": "此模组为SoD（龙矛围攻）战役设计。它有两个目标：\n- 对于玩家，旨在让联盟势力了解凯拉和赫费尔南的计划，重点聚焦十字军的主要任务及其带来的危险，并提供回应选项，让玩家角色（PJ）能够告知联盟势力当前发生的事件。为此，模组会追踪并评估玩家角色在战役中可能收集到的所有信息。日志条目会概述玩家角色已收集到的信息。总体而言，该模组旨在串联所有线索，使玩家角色能够讲述其收集到的所有信息，并让联盟军官能够具体地认识和应对真实的危险。\n- 对于模组作者，它引入了一个基于变量的追踪系统，涉及玩家角色和联盟军官在整个战役中获得的不同知识层次，该系统可被其他模组作者使用，例如，用于根据关于凯拉、赫费尔南、十字军等信息的质量来细化其NPC的反应。\n此模组所考虑的SoD战役信息包括：凯拉宣称的十字军主要目标是什么，其真实面目又是什么？凯拉宣言背后的真相——以及她十字军信徒的信念——即凯拉用“万神殿的神力”来保护十字军，这背后隐藏着什么？凯拉的生活和家庭背景是什么，这如何影响她的动机？凯拉是巴尔的子嗣吗？赫费尔南的计划是什么？",
+      "components": {
+        "80": "龙矛围攻（SoD）——依靠追踪系统发掘真相及来自Lauriel's Themed Tweaks Mod的任务选项",
+        "0": "核心组件：追踪系统",
+        "10": "修改游戏对话统一性",
+        "20": "让联军官员知情",
+        "30": "为玩家提供知情回复选项",
+        "40": "玩家可以告知联军官员",
+        "50": "为联军官员添加反应",
+        "60": "补充信息要素",
+        "70": "增加与联军官员的额外对话"
+      }
+    },
+    "de_DE": {"components": {"80": "SoD - Stat-basierte Beobachtungen und Quest-Optionen von \"Lauriel's Themed Tweaks Mod\"", "0": "Hauptkomponente: Tracking-System", "10": "Konsistenzaenderungen an Spieldialogen", "20": "Offiziere wissen Bescheid", "30": "HC erhaelt umfangreichere Antwortmoeglichkeiten", "40": "HC kann den Offizieren berichten", "50": "Zusaetzliche Offiziersreaktionen", "60": "Zusaetzliche Informationsquellen", "70": "Zusaetzliche Kommunikation mit Offizieren"}},
+    "it_IT": {"components": {"80": "SoD - Osservazioni basate sulle statistiche e opzioni per le missioni dalla mod Lauriel's Themed Tweaks", "0": "Componente principale: Sistema di Tracciamento", "10": "Modifiche di coerenza ai dialoghi di gioco", "20": "Gli Ufficiali sono Consapevoli", "30": "Dare al personaggio opzioni di risposta informate", "40": "Il personaggio puo riferire agli ufficiali", "50": "Aggiungi Reazioni degli Ufficiali", "60": "Punti informativi aggiuntivi", "70": "Aggiungi Dialoghi Aggiuntivi con gli ufficiali"}},
+    "es_ES": {"components": {"80": "Observaciones basadas en estadisticas y opciones de busqueda del mod \"Lauriel's Themed Tweaks\"", "0": "Componente principal: Sistema de seguimiento", "10": "Cambios de consistencia en los dialogos del juego", "20": "Los oficiales estan enterados", "30": "Dar opciones de respuesta informada al PJ", "40": "El PJ puede informar a los oficiales", "50": "Reacciones de los oficiales", "60": "Puntos de informacion adicionales", "70": "Comunicacion adicional con los oficiales"}},
+    "ru_RU": {"components": {"80": "SoD - Stat-based observations and quest options from Lauriel's Themed Tweaks Mod", "0": "Main Component: Tracking System", "10": "Consistency Changes to Game Dialogues", "20": "Officers Are Aware", "30": "Give PC Informed Reply Options", "40": "PC Can Tell the Officers", "50": "Add Officers Reactions", "60": "Additional Info Points", "70": "Add Additional Communication with Officers"}}
   },
   "tp2": "sodrtd",
   "safe": 2,

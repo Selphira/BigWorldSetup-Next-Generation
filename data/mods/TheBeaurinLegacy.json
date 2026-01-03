@@ -19,17 +19,18 @@
   },
   "languages": {
     "en_US": 0,
+    "ru_RU": 1,
     "fr_FR": 2
   },
   "translations": {
     "en_US": {
       "description": "This mod adds an elf enchanter/thief and a hidden NPC. You'll find Minyae Beaurin outside the Inn of the Crooked Crane at the city gates. It includes personalized portraits, a friendship path for Minyae and the hidden NPC, numerous jokes and interjections, encounters and quests, a voice for both NPCs (only Minyae has a full set), a romance with a Bioware NPC...\nSTR 11, DEX 19, CON 12, INT 17, WIS 12, CHA 16.",
       "components": {
-        "1000": "The Beaurin Legacy",
+        "1000": "The Beaurin Legacy for BG2:SoA & ToB & BGII:EE",
         "2000": "Change Minyae's class to Enchanter (from Enchanter/Thief)",
         "choice_0": "Minyae's Portrait",
         "3010": "Change Minyae's portrait to alternative by TamikaProud at DeviantArt",
-        "3020": "Change Minyae's Portrait to alternative by DominiqueWesson at DeviantArt",
+        "3020": "Change Minyae's Portrait to alternative by ErisForan at DeviantArt",
         "3030": "Change Minyae's Portrait to alternative by Aerwindale at DeviantArt"
       }
     },
@@ -46,7 +47,8 @@
     },
     "zh_CN": {
       "description": "此模组增加了一个精灵附魔师/盗贼和一个隐藏的NPC。你可以在城市外的扭曲骷髅旅店门口找到米妮雅·波林。他包含自定义肖像、米妮雅和隐藏NPC的友谊路线、许多笑话和感叹词、遭遇和任务、两个NPC的语音（只有米妮雅有完整的配音）、与BioWare NPC的浪漫关系……\n力量 11, 敏捷 19, 体质 12, 智力 17, 智慧 12, 魅力 16。"
-    }
+    },
+    "ru_RU": {"components": {"1000": "The Beaurin Legacy for BG2:SoA & ToB & BGII:EE", "2000": "Change Minyae's class to Enchanter (from Enchanter/Thief)", "choice_0": "Minyae's Portrait", "3010": "Change Minyae's portrait to alternative by TamikaProud at DeviantArt", "3020": "Change Minyae's Portrait to alternative by ErisForan at DeviantArt", "3030": "Change Minyae's Portrait to alternative by Aerwindale at DeviantArt"}}
   },
   "tp2": "thebeaurinlegacy",
   "safe": 2,

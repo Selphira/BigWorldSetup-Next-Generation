@@ -21,7 +21,8 @@
     "ru_RU": 2,
     "es_ES": 3,
     "it_IT": 4,
-    "fr_FR": 5
+    "fr_FR": 5,
+    "pl_PL": 6
   },
   "translations": {
     "en_US": {
@@ -40,7 +41,10 @@
     },
     "zh_CN": {
       "description": "这个小型扩展模组为在冒险者市场遇到的雌性翼蛇露西的对话增加了一个小惊喜。要触发它，只需与玩家角色开启对话即可。"
-    }
+    },
+    "de_DE": {"components": {"0": "Lucy der Lindwurm"}},
+    "es_ES": {"components": {"0": "Lucy la Draco"}},
+    "pl_PL": {"components": {"0": "Wiwerna Lucy"}}
   },
   "tp2": "lucy",
   "safe": 2,

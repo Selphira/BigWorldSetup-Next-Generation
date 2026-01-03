@@ -18,6 +18,7 @@
     "30": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,13 +27,20 @@
       "components": {
         "9999": "Installer divers kits créés par Dan_P. \"Kensaizerker, Adepte de l'épée et Bouffon cinglant\"",
         "choice_0": "Choisir la version de la capacité Enragé du Kensaizerker (peut être réinstalle à n'importe quel moment selon vos préférences)",
-        "20": "Version par défaut, cette option s'assure que Enragé garde les effets du jeu de base équivalent à la Furie, pour les Enhanced Editions cette capacité est réutilisable tout en supplantant les anciens effets",
+        "20": "Version par défaut, cette option s'assure que Enragé garde les effets du jeu de base équivalent à la Furie, pour les Enhanced Editions cette capacité est réutilisable tout en supplantant les anciens effets.",
         "21": "Cette version d'Enragé clone le fichier SPCL321.spl (Furie) avec toutes les modifications qui auraient pu être apportés par d'autres mods à cette capacité (ex : Les révisons faites par Talents of Faerûn).",
         "30": "Kit Updater : HLAs, Compétences, compatibilité. (Peut être installé en toute sécurité en fin d'installation et réinstallé à tout moment.)"
       }
     },
     "en_US": {
-      "description": "Mod contains 3 kits:\n\n- Kensaizerker (Fighter Kit) - EE and BG2o\n- Monastery Swordsman (Monk Kit) - EE only\n- JesterBlade (Bard Kit) - EE and BG2o\n\n\n\"config.ini\" file in mod directory:\nSet a kit value to = 0 to avoid installing it"
+      "description": "Mod contains 3 kits:\n\n- Kensaizerker (Fighter Kit) - EE and BG2o\n- Monastery Swordsman (Monk Kit) - EE only\n- JesterBlade (Bard Kit) - EE and BG2o\n\n\n\"config.ini\" file in mod directory:\nSet a kit value to = 0 to avoid installing it",
+      "components": {
+        "9999": "Misc kits: Kensaizerker, Monastery Swordsman, Jesterblade",
+        "choice_0": "Choose Enrage version (can re-run to change setting at any time)",
+        "20": "Use default. This option ensures that Enrage always has vanilla/unmodded bonuses and penalties. On EEs, it will also be recastable, overwriting previous effects.",
+        "21": "Clone base game Enrage. This option makes a copy of the current Enrage file (SPCL321.spl). Any modifications to the file will be included (ex. ToF revision).",
+        "30": "Kit Updater (HLAs, profs, mod compat). Safe to install at end of order. Can be re-run at any time."
+      }
     },
     "zh_CN": {
       "description": "这个模组包含3个宗派：\n\n- 剑狂战士（战士宗派）- 增强版和博德之门2o\n- 剑之 adept（武僧宗派）- 仅增强版\n- 尖锐小丑（吟游诗人宗派）- 增强版和博德之门2o\n\n模组目录中存在“config.ini”文件：\n将某个宗派的值设为 = 0 即可不安装该宗派"

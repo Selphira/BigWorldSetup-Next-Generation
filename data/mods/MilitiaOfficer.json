@@ -17,6 +17,7 @@
     "1": {"type": "std", "category": "npcx"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "This mod installs a new fighter kit specialized in the protection of others; an optional component assigns the militia officer profile to Khalid."
+      "description": "This mod installs a new fighter kit specialized in the protection of others; an optional component assigns the militia officer profile to Khalid.",
+      "components": {
+        "0": "Install Militia Officer kit for Fighters",
+        "1": "Khalid, the Militia Officer."
+      }
     },
     "zh_CN": {
       "description": "此模组允许你安装一个新的战士配置文件，专门从事保护他人。\n一个可选组件可以将Khalid分配为民兵军官的配置文件。"

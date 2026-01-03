@@ -20,6 +20,7 @@
     "2000": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -34,7 +35,14 @@
       }
     },
     "en_US": {
-      "description": "This is intended to be a successor to the fantastic Level One NPCs mod, which was never updated for EE games as its author is no longer active. It offers class and profile choices for all recruitable characters. For each, the choice is limited to what the author felt was relevant, but it also includes profiles from the mods The Divine Remix, Song and Silence: A Mod for Bards and Thieves, or Scales of Balance (by the same author), provided they are installed first. It's not as complete and flexible as L1NPCs, but it does have one major advantage: you can change the profiles of each NPC thanks to an innate special ability you can use in-game. This ability is for one-time use only, so choose wisely! It triggers a dialog that gives you the option of adopting any kit for that class... This includes any mod installation you may have done. Make Minsc a fighter in the WeiDU installation, then use this ability to make him a Barbarian! (Barbarian is in fact, technically, a fighter kit)."
+      "description": "This is intended to be a successor to the fantastic Level One NPCs mod, which was never updated for EE games as its author is no longer active. It offers class and profile choices for all recruitable characters. For each, the choice is limited to what the author felt was relevant, but it also includes profiles from the mods The Divine Remix, Song and Silence: A Mod for Bards and Thieves, or Scales of Balance (by the same author), provided they are installed first. It's not as complete and flexible as L1NPCs, but it does have one major advantage: you can change the profiles of each NPC thanks to an innate special ability you can use in-game. This ability is for one-time use only, so choose wisely! It triggers a dialog that gives you the option of adopting any kit for that class... This includes any mod installation you may have done. Make Minsc a fighter in the WeiDU installation, then use this ability to make him a Barbarian! (Barbarian is in fact, technically, a fighter kit).",
+      "components": {
+        "1010": "Remove dual-class flag from Imoen (warning, see Readme)",
+        "1020": "Remove dual-class flag from Nalia (warning, see Readme)",
+        "1030": "Remove dual-class flag from Anomen (warning, see Readme)",
+        "1200": "Remove dual-class flag from all other NPCs (warning, see Readme)",
+        "2000": "NPC class/stat/kit choices"
+      }
     },
     "zh_CN": {
       "description": "这个模组旨在成为神奇模组Level One NPCs的继承者，该模组从未为EE游戏更新过，因为其作者已不再活跃。它为所有可招募角色提供了职业和职业档案的选择。对于每个角色，选择都限于作者认为合适的内容，但它也包含了来自The Divine Remix、Song and Silence: A Mod for Bards and Thieves或Scales of Balance（同一作者）的模组职业档案，前提是这些模组已提前安装。因此，建议您在所有模组中最后安装它。因此，它不像L1NPCs那样全面和灵活，但有一个主要优点：您可以通过一个特殊的、可在游戏中使用的内在能力来改变每个NPC的职业档案。这个能力只能使用一次，所以要谨慎选择！它会触发一个对话，让您有机会为这个职业选择任何宗派……这包括您可能安装的所有模组宗派。在WeiDU安装中将明斯克设为战士，然后使用这个能力让他变成野蛮人！（野蛮人实际上，从技术上讲，是一个战士宗派）。"

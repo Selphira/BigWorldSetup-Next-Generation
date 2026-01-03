@@ -1,6 +1,6 @@
 {
   "name": "Dark Tidings",
-  "version": "2.5",
+  "version": "2.8",
   "links": {
     "homepage": "https://baldurs-gate.de/index.php?resources/dark-tidings.65/",
     "download": "https://github.com/AciferBG/Dark-Tidings/releases/download/v2.8/Dark_Tidings_v2.8.zip"
@@ -16,8 +16,12 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "de_DE": 5,
     "en_US": 1,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "pl_PL": 3,
+    "zh_CN": 4,
+    "ru_RU": 6
   },
   "translations": {
     "en_US": {
@@ -33,8 +37,14 @@
       }
     },
     "zh_CN": {
-      "description": "数千年来，伊冯岛灯塔的魔法火焰指引着穿越阿萨维尔运河的水手……直到今天……灯塔的光芒突然消失了。\n\n长期以来，各种传说流传，该岛是海盗的巢穴，其周边海域是可怕的龙龟的避难所，而其浅海则栖息着克拉肯。\n\n那么！要发现伊冯灯塔的秘密以及如今其信标熄灭后笼罩此地的黑暗的起源，只有一个办法，那就是扬帆起航，驶向伊冯岛。\n\n冒险始于阿斯卡特拉的码头，在“海洋之善”旅店开始。"
-    }
+      "description": "数千年来，伊冯岛灯塔的魔法火焰指引着穿越阿萨维尔运河的水手……直到今天……灯塔的光芒突然消失了。\n\n长期以来，各种传说流传，该岛是海盗的巢穴，其周边海域是可怕的龙龟的避难所，而其浅海则栖息着克拉肯。\n\n那么！要发现伊冯灯塔的秘密以及如今其信标熄灭后笼罩此地的黑暗的起源，只有一个办法，那就是扬帆起航，驶向伊冯岛。\n\n冒险始于阿斯卡特拉的码头，在“海洋之善”旅店开始。",
+      "components": {
+        "0": "暗潮涌动"
+      }
+    },
+    "de_DE": {"components": {"0": "Dark Tidings"}},
+    "pl_PL": {"components": {"0": "Dark Tidings - mod do Baldur's Gate II"}},
+    "ru_RU": {"components": {"0": "Dark Tidings"}}
   },
   "tp2": "tidings",
   "safe": 2,

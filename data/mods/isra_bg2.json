@@ -17,6 +17,7 @@
     "1": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "Isra is a paladin, following Sunie Firehair, whom you can meet in the Den of the Seven Vales on the Waukeen's Promenade. You'll need to complete a few quests before she can be recruited - make sure your reputation is at least 14. Isra will romanticize good charname with charisma above 13, regardless of race, class or gender. And she won't join your party if charname is of the evil alignment."
+      "description": "Isra is a paladin, following Sunie Firehair, whom you can meet in the Den of the Seven Vales on the Waukeen's Promenade. You'll need to complete a few quests before she can be recruited - make sure your reputation is at least 14. Isra will romanticize good charname with charisma above 13, regardless of race, class or gender. And she won't join your party if charname is of the evil alignment.",
+      "components": {
+        "0": "Isra for BGII",
+        "1": "Isra Crossmod Content"
+      }
     },
     "zh_CN": {
       "description": "Isra是一位圣武士，淑娜火焰之发的女追随者，你可以在渥金商场的七谷洞穴中遇到她。你需要完成一些任务才能招募她——请保持良好的声誉（14或以上）。Isra会与魅力值高于13的善良主角发展恋情，不限种族、职业或性别。此外，如果你的主角是邪恶阵营，她不会加入你的队伍。"

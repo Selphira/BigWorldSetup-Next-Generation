@@ -16,6 +16,7 @@
     "10": {"type": "std", "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "A revision of the very old [Mage Duel](https://sorcerers.net/Games/dl.php?s=BG2&f=BG2/MageDuel12.zip) mod, this mod strives to shorten magical battles and make them more enjoyable and sensitive. It is aimed at those who find Sword Coast Stratagems battles far too long and complicated, as well as those who find unmodded battles too easy or a little incoherent. It therefore strives to make defenses against spells useful, preserving the idea that magic users can be very powerful, even temporarily invincible, while giving opposing mages effective tools to overcome this invincibility and allow magic battles to be resolved fairly quickly, decisively and satisfactorily.\nRest assured, the objective remains the same: attack the spell defenses until they disappear, then attack the mage.\nThis mod must be installed after spell mods such as Spell Revisions, IWDification and Sword Coast Stratagems."
+      "description": "A revision of the very old [Mage Duel](https://sorcerers.net/Games/dl.php?s=BG2&f=BG2/MageDuel12.zip) mod, this mod strives to shorten magical battles and make them more enjoyable and sensitive. It is aimed at those who find Sword Coast Stratagems battles far too long and complicated, as well as those who find unmodded battles too easy or a little incoherent. It therefore strives to make defenses against spells useful, preserving the idea that magic users can be very powerful, even temporarily invincible, while giving opposing mages effective tools to overcome this invincibility and allow magic battles to be resolved fairly quickly, decisively and satisfactorily.\nRest assured, the objective remains the same: attack the spell defenses until they disappear, then attack the mage.\nThis mod must be installed after spell mods such as Spell Revisions, IWDification and Sword Coast Stratagems.",
+      "components": {
+        "10": "Revised Magic Battles"
+      }
     },
     "zh_CN": {
       "description": "这是[法师决斗](https://sorcerers.net/Games/dl.php?s=BG2&f=BG2/MageDuel12.zip)这个非常古老的模组的修订版，此模组力求缩短魔法战斗的时间，并使其变得更有趣和更有意义。因此，它既面向那些认为Sword Coast Stratagems的战斗时间过长且过于复杂的人，也面向那些认为未修改的战斗过于简单或有些不合逻辑的人。它努力让法术防御变得有用，保留施法者可以非常强大，甚至暂时无敌的理念，同时给敌对法师提供有效的工具来克服这种无敌，并让魔法战斗能够以相当快速、果断和令人满意的方式解决。\n请放心，目标没有改变：你必须攻击法术防御，直到它们消失，然后攻击法师。\n此模组必须在像Spell Revisions、IWDification和Sword Coast Stratagems这样的法术模组之后安装。"

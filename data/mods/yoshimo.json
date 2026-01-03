@@ -17,8 +17,10 @@
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
     "fr_FR": 2,
-    "zh_CN": 3
+    "zh_CN": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
@@ -30,12 +32,17 @@
     "fr_FR": {
       "description": "Ce mod ajoute une série de dialogues avec Yoshimo, notre charmante canaille préférée que l'on rencontre dans le donjon d'Irenicus au début du jeu. Couvrant le temps qu'il passe dans le groupe, Yoshimo Friendship développe le voleur plein d'humour en accroissant son histoire et en offrant au joueur un point de vue neuf sur le personnage.",
       "components": {
-        "0": "Yoshimo Friendship Mod for BGII: SoA"
+        "0": "Yoshimo Friendship pour BGII : SoA"
       }
     },
     "zh_CN": {
-      "description": "此模组添加了一系列与善最的对话，这位是我们游戏初期在艾瑞尼卡斯地牢中遇到的迷人混蛋。覆盖了他在队伍中的时光，善最友谊模组通过丰富他的故事，并为玩家提供一个看待这个角色的全新视角，来塑造这位充满幽默感的盗贼。"
-    }
+      "description": "此模组添加了一系列与善最的对话，这位是我们游戏初期在艾瑞尼卡斯地牢中遇到的迷人混蛋。覆盖了他在队伍中的时光，善最友谊模组通过丰富他的故事，并为玩家提供一个看待这个角色的全新视角，来塑造这位充满幽默感的盗贼。",
+      "components": {
+        "0": "ØüÐñÄ¦ÓÑÒê²å»°°ü"
+      }
+    },
+    "pl_PL": {"components": {"0": "Przyjazn z Yoshimo dla BGII: SoA"}},
+    "ru_RU": {"components": {"0": "Yoshimo Friendship Mod for BGII: SoA"}}
   },
   "tp2": "yoshimo",
   "safe": 2,

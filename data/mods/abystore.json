@@ -17,6 +17,7 @@
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
     "ru_RU": 2,
     "fr_FR": 3,
     "it_IT": 4,
@@ -33,13 +34,15 @@
     "fr_FR": {
       "description": "Ce mod ajoute sur les quais un magasin à la vendeuse peu ordinaire. Vous la trouverez en face du temple d'Oghma. Certains de ses articles vous paraîtront trop puissants, voire impossible à utiliser, mais ils auront au moins le mérite de la diversité.",
       "components": {
-        "0": "Magasin des Curiosites Inhabituelles"
+        "0": "Magasin des Curiosites inhabituelles"
       }
     },
     "it_IT": {"components": {"0": "Negozio delle Insolite Stranezze"}},
     "zh_CN": {
       "description": "此模组在码头区添加了一家店主不寻常的商店。你可以在欧格玛神庙对面找到她。她的一些物品对你来说可能过于强大，甚至无法使用，但它们至少具有多样性的优点。"
-    }
+    },
+    "pl_PL": {"components": {"0": "Sklep Niezwyk³oœci"}},
+    "de_DE": {"components": {"0": "Laden mit ungewöhnlichen Gegenständen"}}
   },
   "tp2": "abystore",
   "safe": 2,

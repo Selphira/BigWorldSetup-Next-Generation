@@ -18,6 +18,7 @@
     "choice_0": {"type": "muc", "components": ["300", "400"], "default": "300"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -32,7 +33,14 @@
       }
     },
     "en_US": {
-      "description": "This mod includes over 150 official portraits that your character can use (except those from PsT): those from BG, SoD, BG2 and ToB, IWD or IWD2."
+      "description": "This mod includes over 150 official portraits that your character can use (except those from PsT): those from BG, SoD, BG2 and ToB, IWD or IWD2.",
+      "components": {
+        "100": "Install All Baldur's Gate Portraits as Player Portraits",
+        "200": "Install All Baldur's Gate II Portraits as Player Portraits",
+        "choice_0": "Install Icewind Dale Portraits as Player Portraits",
+        "300": "ONLY Icewind Dale Portraits",
+        "400": "Icewind Dale AND Icewind Dale II Portraits"
+      }
     },
     "zh_CN": {
       "description": "该模组汇集了150多个官方肖像，可用于你的角色（异度风景：苦难的除外）：来自博德之门、龙矛围攻、博德之门II和巴尔王座、冰风谷或冰风谷2的肖像。"

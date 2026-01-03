@@ -38,19 +38,25 @@
     "fr_FR": 2,
     "es_ES": 3,
     "zh_CN": 4,
+    "zh_TW": 5,
+    "pl_PL": 6,
     "ru_RU": 7,
-    "it_IT": 9
+    "cs_CZ": 8,
+    "it_IT": 9,
+    "pt_PT": 10,
+    "sv_SE": 11
   },
   "translations": {
     "en_US": {
       "description": "This mod created by the ToB's main designer, assisted by enthusiasts from an American forum, which was then converted to WeiDU by Weimer, the latter ensuring compatibility. He changes many things in ToB: every battle with Bhaal's children is much more difficult, Bhaal's new powers are included too, Demogorgon has become a fearsome monster once more, and above all there's a completely remodeled final battle. You can enlist either Balthazar or Bodhi to fight Amélissane. Amélissane is a fearsome war machine. At her side, the Hand. Yes, the 5 children of Bhaal (except Balthazar, if you've recruited him), Yaga, Abazigal, Sendai and Illasera, are all here to fight alongside Amelyssane, and at a higher level than their original versions. Before this fight, you'll get a taste of the challenge when you take on Bohdi and Irenicus, who are fully boosted, of course, and will no doubt cause you quite a few problems.",
       "components": {
-        "0": "Rewritten Final Chapter of Throne ogf Bhaal",
+        "0": "Rewritten Final Chapter of Throne of Bhaal",
         "10": "Balthazar can be redeemed",
         "20": "Improved Sarevok-Player Interactions",
         "30": "Improved Imoen-Player Interactions in Throne of Bhaal",
         "40": "Restored Bhaalspawn Powers",
         "50": "Improved Slayer Transformation",
+        "choice_0": "Expanded Epilogues for Bioware NPCs",
         "60": "David Gaider's expanded epilogues for Bioware NPCs",
         "61": "Alternate epilogues by Shawne",
         "1000": "Tougher Abazigal",
@@ -91,11 +97,40 @@
         "2400": "Cinematiques legerement ameliorees, par DavidW"
       }
     },
-    "ru_RU": {"components": {"0": "Rewritten Final Chapter of Throne ogf Bhaal", "10": "Balthazar can be redeemed", "20": "Improved Sarevok-Player Interactions", "30": "Improved Imoen-Player Interactions in Throne of Bhaal", "40": "Restored Bhaalspawn Powers", "50": "Improved Slayer Transformation", "60": "David Gaider's expanded epilogues for Bioware NPCs", "61": "Alternate epilogues by Shawne", "1000": "Tougher Abazigal", "1100": "Tougher Balthazar", "1200": "Tougher Demogorgon", "1300": "Tougher Gromnir", "1400": "Tougher Illasera", "1500": "Tougher Yaga-Shura", "2000": "Full-body portrait for Bodhi", "2100": "Alternate Balthazar portrait, by Cuv", "2200": "Extended Epilogues for additional Beamdog NPCs, by shawne", "2300": "Sharper portraits of Abazigal and Gromnir for the Enhanced Edition, by DavidW", "2400": "Slightly improved cutscenes, by DavidW"}},
-    "it_IT": {"components": {"0": "Rewritten Final Chapter of Throne ogf Bhaal", "10": "Balthazar can be redeemed", "20": "Improved Sarevok-Player Interactions", "30": "Improved Imoen-Player Interactions in Throne of Bhaal", "40": "Restored Bhaalspawn Powers", "50": "Improved Slayer Transformation", "60": "David Gaider's expanded epilogues for Bioware NPCs", "61": "Alternate epilogues by Shawne", "1000": "Tougher Abazigal", "1100": "Tougher Balthazar", "1200": "Tougher Demogorgon", "1300": "Tougher Gromnir", "1400": "Tougher Illasera", "1500": "Tougher Yaga-Shura", "2000": "Full-body portrait for Bodhi", "2100": "Alternate Balthazar portrait, by Cuv", "2200": "Extended Epilogues for additional Beamdog NPCs, by shawne", "2300": "Sharper portraits of Abazigal and Gromnir for the Enhanced Edition, by DavidW", "2400": "Slightly improved cutscenes, by DavidW"}},
+    "ru_RU": {"components": {"0": "Rewritten Final Chapter of Throne of Bhaal", "10": "Balthazar can be redeemed", "20": "Improved Sarevok-Player Interactions", "30": "Improved Imoen-Player Interactions in Throne of Bhaal", "40": "Restored Bhaalspawn Powers", "50": "Improved Slayer Transformation", "choice_0": "Expanded Epilogues for Bioware NPCs", "60": "David Gaider's expanded epilogues for Bioware NPCs", "61": "Alternate epilogues by Shawne", "1000": "Tougher Abazigal", "1100": "Tougher Balthazar", "1200": "Tougher Demogorgon", "1300": "Tougher Gromnir", "1400": "Tougher Illasera", "1500": "Tougher Yaga-Shura", "2000": "Full-body portrait for Bodhi", "2100": "Alternate Balthazar portrait, by Cuv", "2200": "Extended Epilogues for additional Beamdog NPCs, by shawne", "2300": "Sharper portraits of Abazigal and Gromnir for the Enhanced Edition, by DavidW", "2400": "Slightly improved cutscenes, by DavidW"}},
+    "it_IT": {"components": {"0": "Capitolo Finale di Throne of Bhaal Riscritto", "10": "Balthazar si può redimere", "20": "Interazioni Migliorate tra Sarevok e il Personaggio Principale", "30": "Interazioni Migliorate tra Imoen e il Personaggio Principale in Thone of Bhaal", "40": "Poteri della Progenie di Bhaal Ripristinati", "50": "Trasformazione dell'Uccisore Migliorata", "choice_0": "Epiloghi Estesi per PNG Bioware", "60": "Epiloghi estesi per PNG Bioware, di David Gaider", "61": "Epilogi alternativi, di Shawne", "1000": "Abazigal Potenziato", "1100": "Balthazar Potenziato", "1200": "Demogorgon Potenziato", "1300": "Gromnir Potenziato", "1400": "Illasera Potenziata", "1500": "Yaga-Shura Potenziato", "2000": "Ritratto a corpo intero di Bodhi", "2100": "Ritratto Alternativo di Balthazar, di Cuv", "2200": "Epilogo Esteso per Nuovi PNG Beamdog, di shawne", "2300": "Ritratti piu nitidi di Abazigal e Gromnir per la Enhanced Edition, di DavidW", "2400": "Scene finali leggermente migliorate, di DavidW"}},
     "zh_CN": {
-      "description": "这个模组由巴尔王座的主要设计师在美国论坛爱好者的协助下创建，然后由Weimer转换为WeiDU格式，后者确保了兼容性。它对巴尔王座做了很多改动：与每个巴尔之子的战斗都变得更加困难，巴哈尔的新能力也被包含在内，狄摩高根再次成为一个可怕的怪物，最重要的是，一个完全重新设计的最终战斗。你可以招募Balthazar或芭荻来对抗梅丽珊。她将是一台战争机器，令人畏惧。在她身边，还有“手”。是的，5个巴尔之子（如果你招募了Balthazar则除外）、雅加、阿巴齐加尔、珊黛、伊拉塞拉，他们都将在梅丽珊身边战斗，并且等级高于他们原来的版本。值得注意的是，在这场战斗之前，你将先尝到挑战的滋味，对抗完全强化过的芭荻和艾瑞尼卡斯，他们无疑会给你带来很多麻烦。"
-    }
+      "description": "这个模组由巴尔王座的主要设计师在美国论坛爱好者的协助下创建，然后由Weimer转换为WeiDU格式，后者确保了兼容性。它对巴尔王座做了很多改动：与每个巴尔之子的战斗都变得更加困难，巴哈尔的新能力也被包含在内，狄摩高根再次成为一个可怕的怪物，最重要的是，一个完全重新设计的最终战斗。你可以招募Balthazar或芭荻来对抗梅丽珊。她将是一台战争机器，令人畏惧。在她身边，还有“手”。是的，5个巴尔之子（如果你招募了Balthazar则除外）、雅加、阿巴齐加尔、珊黛、伊拉塞拉，他们都将在梅丽珊身边战斗，并且等级高于他们原来的版本。值得注意的是，在这场战斗之前，你将先尝到挑战的滋味，对抗完全强化过的芭荻和艾瑞尼卡斯，他们无疑会给你带来很多麻烦。",
+      "components": {
+        "0": "重写巴尔王座的最终章",
+        "10": "巴萨札可以被救赎",
+        "20": "增强沙洛佛克与玩家的互动",
+        "30": "增强爱蒙在巴尔王座中与玩家的互动",
+        "40": "还原巴尔之子的能力",
+        "50": "增强杀戮者的变形",
+        "choice_0": "扩展原版 Bioware NPC 的结局",
+        "60": "David Gaider 的原版 Bioware NPC 结局",
+        "61": "Shawne 的原版 Bioware NPC 结局",
+        "1000": "更强的阿巴济戈",
+        "1100": "更强的巴萨札",
+        "1200": "更强的狄摩高根",
+        "1300": "更强的葛罗姆尼尔",
+        "1400": "更强的伊菈赛菈",
+        "1500": "更强的雅加苏拉",
+        "2000": "巅峰之战肖像：芭荻",
+        "2100": "巅峰之战肖像：巴萨札",
+        "2200": "Shawne 的增强版 Beamdog NPC 结局",
+        "2300": "为增强版提供更清晰的格罗姆尼尔与阿巴济戈头像",
+        "2400": "稍微增强过场动画"
+      }
+    },
+    "de_DE": {"components": {"0": "Umgeschriebenes letztes Kapitel in Thron des Bhaal", "10": "Balthasar kann erlöst werden", "20": "Zusätzliche Dialoge mit Sarevok finden definitiv statt", "30": "Zusätzliche Dialoge mit Imoen finden definitiv statt", "40": "Wiederhergestellte Bhaalspross-Fähigkeiten", "50": "Verbesserte Verwandlung zum Schlächter", "choice_0": "Erweiterte Epiloge für Bioware-NPCs", "60": "David Gaider's erweiterte Epiloge für Bioware NPCs", "61": "Alternative Epiloge von Shawne", "1000": "Härterer Kampf gegen Abazigal", "1100": "Härterer Kampf gegen Balthasar", "1200": "Härterer Kampf gegen Demogorgon", "1300": "Härterer Kampf gegen Gromnir", "1400": "Härterer Kampf gegen Illasera", "1500": "Härterer Kampf gegen Yaga-Shura", "2000": "Ganzes Porträt von Bodhi", "2100": "Alternatives Porträt für Balthasar, von Cuv", "2200": "Erweiterte Epiloge für zusätzliche Beamdog-NPCs, von Shawne", "2300": "Schärfere Porträts von Abazigal und Gromnir für die Enhanced Edition, von DavidW", "2400": "Leicht verbesserte Zwischensequenzen, von DavidW"}},
+    "es_ES": {"components": {"0": "Capitulo final de Trono de Bhaal reescrito", "10": "Baltasar puede ser redimido", "20": "Interacciones de Sarevok con el jugador mejoradas", "30": "Interacciones de Imoen con el jugador en Trono de Bhaal mejoradas", "40": "Poderes de engendro de Bhaal restaurados", "50": "Transformación del Asesino mejorada", "choice_0": "Epilogos ampliados para los PNJs de Bioware", "60": "Epilogos ampliados de David Gaider para los PNJs de Bioware", "61": "Epilogos alternativos de Shawne", "1000": "Abazigal mas dificil", "1100": "Baltasar mas dificil", "1200": "Demogorgon mas dificil", "1300": "Gromnir mas dificil", "1400": "Ilasera mas dificil", "1500": "Yaga-Shura mas dificil", "2000": "Retrato de cuerpo entero para Bodhi", "2100": "Retrato alternativo de Baltasar, por Cuv", "2200": "Epilogos extendidos para PNJs adicionales de Beamdog, por shawne", "2300": "Retratos de Abazigal y Gromnir para la Enhanced Edition, por DavidW", "2400": "Escenas ligeramente mejoradas, por DavidW"}},
+    "zh_TW": {"components": {"0": "Rewritten Final Chapter of Throne of Bhaal", "10": "Balthazar can be redeemed", "20": "Improved Sarevok-Player Interactions", "30": "Improved Imoen-Player Interactions in Throne of Bhaal", "40": "Restored Bhaalspawn Powers", "50": "Improved Slayer Transformation", "choice_0": "Expanded Epilogues for Bioware NPCs", "60": "David Gaider's expanded epilogues for Bioware NPCs", "61": "Alternate epilogues by Shawne", "1000": "Tougher Abazigal", "1100": "Tougher Balthazar", "1200": "Tougher Demogorgon", "1300": "Tougher Gromnir", "1400": "Tougher Illasera", "1500": "Tougher Yaga-Shura", "2000": "Full-body portrait for Bodhi", "2100": "Alternate Balthazar portrait, by Cuv", "2200": "Extended Epilogues for additional Beamdog NPCs, by shawne", "2300": "Sharper portraits of Abazigal and Gromnir for the Enhanced Edition, by DavidW", "2400": "Slightly improved cutscenes, by DavidW"}},
+    "pl_PL": {"components": {"0": "Napisany na nowo ostatni rozdział Tronu Bhaala", "10": "Balthazar może zostać ocalony", "20": "Ulepszone interakcje między Sarevokiem a postacią gracza", "30": "Ulepszone interakcje między Imoen a postacią gracza w Tronie Bhaala", "40": "Przywrócone moce pomiotu Bhaala", "50": "Ulepszona przemiana w Zabójcę", "choice_0": "Rozszerzone epilogi dla oryginalnych NPC od Bioware, autor shawne", "60": "Rozszerzone epilogi Davida Gaidera dla oryginalnych NPC od Bioware", "61": "Alternatywne epilogi stworzone przez Shawne", "1000": "Silniejszy Abazigal", "1100": "Silniejszy Balthazar", "1200": "Mocniejszy Demogorgon", "1300": "Mocniejszy Gromnir", "1400": "Mocniejsza Illasera", "1500": "Mocniejszy Yaga-Shura", "2000": "Portret całej sylwetki dla Bodhi", "2100": "Alternatywny portret Balthazara, autor Cuv", "2200": "Rozszerzone epilogi dla dodatkowych NPC od Beamdog, autor shawne", "2300": "Wyostrzone portrety Abazigala i Gromnira dla Edycji Rozszerzonej (BG2:EE), autor DawidW", "2400": "Lekko ulepszone przerywniki filmowe, autor DavidW"}},
+    "cs_CZ": {"components": {"0": "Prepsana konecna kapitola Throne of Bhaal", "10": "Balthazar muze byt zachranen", "20": "Rozsirena interakce mezi hracem a Sarevokem", "30": "Rozsirena interakce mezi hracem a Imoen", "40": "Obnovene schopnosti Bhaalova zplozence", "50": "Vylepsena transformace v Zabijaka", "choice_0": "Rozsirene epilogy pro puvodni spolecniky", "60": "Rozsirene epilogy pro puvodni spolecniky (David Gaider)", "61": "Alternativni epilogy (Shawne)", "1000": "Silnejsi Abazigal", "1100": "Silnejsi Balthazar", "1200": "Silnejsi Demogorgon", "1300": "Silnejsi Gromnir", "1400": "Silnejsi Illasera", "1500": "Silnejsi Yaga-Shura", "2000": "Vylepseny portret pro Bodhi", "2100": "Alternativni Balthazaruv model a portret (Cuv)", "2200": "Rozsirene epilogy pro nove postavy (Shawne)", "2300": "Kvalitnejsi portrety pro Abazigal a Gromnira pro EE (DavidW)", "2400": "Mirne vylepsene cutsceny by (DavidW)"}},
+    "pt_PT": {"components": {"0": "Capítulo Final do Trono de Bhaal Reescrito", "10": "Balthazar pode ser resgatado", "20": "Interações entre Sarevok e o jogador melhoradas", "30": "Interações entre Imoen e o jogador melhoradas no Trono de Bhaal", "40": "Poderes da Descendência de Bhaal Restaurados", "50": "Forma do Matador Aprimorada", "choice_0": "Epilogos Expandidos para NPCs Bioware", "60": "Epilogos expandidos de David Gaider para NPCs da Bioware", "61": "Epilogos alternativos de Shawne", "1000": "Abazigal mais poderoso", "1100": "Balthazar mais poderoso", "1200": "Demogorgon mais poderoso", "1300": "Gromnir mais poderoso", "1400": "Illasera mais poderosa", "1500": "Yaga-Shura mais poderoso", "2000": "Retrato de corpo inteiro para Bodhi", "2100": "Retrato alternativo de Balthazar, por Cuv", "2200": "Epilogos estendidos para NPCs Beamdog adicionais, por shawne", "2300": "Retratos mais nitidos de Abazigal e Gromnir para a Enhanced Edition, por DavidW", "2400": "Cutscenes ligeiramente melhoradas, por DavidW"}},
+    "sv_SE": {"components": {"0": "Rewritten Final Chapter of Throne of Bhaal", "10": "Balthazar can be redeemed", "20": "Improved Sarevok-Player Interactions", "30": "Improved Imoen-Player Interactions in Throne of Bhaal", "40": "Restored Bhaalspawn Powers", "50": "Improved Slayer Transformation", "choice_0": "Expanded Epilogues for Bioware NPCs", "60": "David Gaider's expanded epilogues for Bioware NPCs", "61": "Alternate epilogues by Shawne", "1000": "Tougher Abazigal", "1100": "Tougher Balthazar", "1200": "Tougher Demogorgon", "1300": "Tougher Gromnir", "1400": "Tougher Illasera", "1500": "Tougher Yaga-Shura", "2000": "Full-body portrait for Bodhi", "2100": "Alternate Balthazar portrait, by Cuv", "2200": "Extended Epilogues for additional Beamdog NPCs, by shawne", "2300": "Sharper portraits of Abazigal and Gromnir for the Enhanced Edition, by DavidW", "2400": "Slightly improved cutscenes, by DavidW"}}
   },
   "tp2": "ascension",
   "safe": 2,

@@ -1,6 +1,6 @@
 {
   "name": "Xan's French Soundset for BG2",
-  "version": "master JohnBob",
+  "version": "2",
   "links": {
     "homepage": "https://www.pocketplane.net/diversions-and-soundsets/",
     "download": "https://github.com/The-Gate-Project/Xan-BG2_French-Soundset/archive/refs/heads/main.zip"
@@ -17,6 +17,7 @@
     "1": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -24,11 +25,15 @@
       "description": "Profitez du jeu de Xan BG2 NPC avec un soundset français original.",
       "components": {
         "0": "Supprimer tous les autres fichiers audio de Xan qui sont en anglais, y compris les fichiers audio pour les banters et pour les romances",
-        "1": "Soundset en francais de BG1 pour Xan, PNJ de BG2~"
+        "1": "Soundset en francais de BG1 pour Xan, PNJ pour BG2"
       }
     },
     "en_US": {
-      "description": "Enjoy Xan BG2 NPC gameplay with an original French soundset."
+      "description": "Enjoy Xan BG2 NPC gameplay with an original French soundset.",
+      "components": {
+        "0": "Delete all other English Xan audio lines, inlcuding banter and romance lines",
+        "1": "French soundset for Xan BG2 NPC"
+      }
     },
     "zh_CN": {
       "description": "享受带有原创法语音效包的撒恩 BG2 NPC 游戏体验。"

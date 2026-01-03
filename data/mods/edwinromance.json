@@ -21,7 +21,12 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "es_ES": 2,
+    "ru_RU": 3,
+    "de_DE": 4,
+    "pl_PL": 5,
+    "zh_CN": 6
   },
   "translations": {
     "en_US": {
@@ -30,7 +35,7 @@
         "0": "Edwin Romance",
         "1": "Restore Edwin's BG1 portrait",
         "2": "Edwin flirts",
-        "3": "New ending for Viconia Romance by Laufey  (fully independent tweak, unrelated to Edwin)",
+        "3": "New ending for Viconia Romance by Laufey",
         "4": "Give Edwina a Portrait"
       }
     },
@@ -40,13 +45,24 @@
         "0": "La Romance d'Edwin",
         "1": "Restaurer le portrait BGI d'Edwin",
         "2": "Flirts d'Edwin",
-        "3": "Nouvelle fin pour la Romance de Viconia ecrite par Laufey (fully independent tweak, unrelated to Edwin)",
+        "3": "Nouvelle fin pour la Romance de Viconia ecrite par Laufey",
         "4": "Give Edwina a Portrait"
       }
     },
     "zh_CN": {
-      "description": "安诺门太乏味了？这里是女性角色的另一个选择。终于有机会与费伦最古怪、最有个性的法师发展恋情。这会是一个让他展现新一面的机会吗？也别忘了艾德温母亲的介入以及她变成艾德温娜的情节，为这段本就激烈的恋情增添了几分火药味。"
-    }
+      "description": "安诺门太乏味了？这里是女性角色的另一个选择。终于有机会与费伦最古怪、最有个性的法师发展恋情。这会是一个让他展现新一面的机会吗？也别忘了艾德温母亲的介入以及她变成艾德温娜的情节，为这段本就激烈的恋情增添了几分火药味。",
+      "components": {
+        "0": "艾德温罗曼史",
+        "1": "恢复艾德温在博德之门1中的肖像",
+        "2": "艾德温调情包",
+        "3": "维康妮亚罗曼史 新的结局 by Laufey",
+        "4": "Give Edwina a Portrait"
+      }
+    },
+    "es_ES": {"components": {"0": "Romance de Edwin", "1": "Restaurar el portrait de Edwin en BG1", "2": "Edwin flirts", "3": "Nuevo final para el romance de Viconia por Laufey", "4": "Give Edwina a Portrait"}},
+    "ru_RU": {"components": {"0": "Edwin Romance", "1": "Restore Edwin's BG1 portrait", "2": "Edwin flirts", "3": "New ending for Viconia Romance by Laufey", "4": "Give Edwina a Portrait"}},
+    "de_DE": {"components": {"0": "Edwin Romanze", "1": "Edwins BG1 Portrait wieder herstellen", "2": "Edwins Flirts", "3": "Neues Ende der Viconia Romanze von Laufey", "4": "Edwina ein Portrait geben"}},
+    "pl_PL": {"components": {"0": "Edwin Romance", "1": "Przywrocic portret Edwina z BG1", "2": "Edwin flirts", "3": "New ending for Viconia Romance by Laufey", "4": "Give Edwina a Portrait"}}
   },
   "tp2": "edwinromance",
   "safe": 2,

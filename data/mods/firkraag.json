@@ -17,7 +17,10 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "ru_RU": 2,
+    "de_DE": 3,
+    "pl_PL": 4
   },
   "translations": {
     "en_US": {
@@ -34,7 +37,10 @@
     },
     "zh_CN": {
       "description": "此模组面向资深玩家，旨在使费尔克拉格成为他本该有的强大法师和不可思议的龙。他的作者吹嘘向所有作弊者发出了挑战，看他们是否能找到击败他的方法……"
-    }
+    },
+    "ru_RU": {"components": {"0": "Super Firkraag Mod for BG2"}},
+    "de_DE": {"components": {"0": "Super Firkraag Mod für BG2"}},
+    "pl_PL": {"components": {"0": "Super Firkraag Mod dla BG2"}}
   },
   "tp2": "firkraag",
   "safe": 2,

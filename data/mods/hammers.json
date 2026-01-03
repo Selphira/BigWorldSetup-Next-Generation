@@ -25,7 +25,8 @@
     "fr_FR": 2,
     "es_ES": 3,
     "it_IT": 4,
-    "ru_RU": 5
+    "ru_RU": 5,
+    "pl_PL": 6
   },
   "translations": {
     "en_US": {
@@ -49,10 +50,13 @@
       }
     },
     "it_IT": {"components": {"0": "Martelli da Lancio", "15": "Martelli Spirituali da lancio", "25": "Martello da lancio normale", "35": "+1 alle armi da lancio", "50": "Oggetti magici aggiuntivi"}},
-    "ru_RU": {"components": {"0": "Thrown Hammers", "15": "Thrown Spiritual Hammers", "25": "Normal throwing hammers", "35": "+1 throwing weapons", "50": "Additional magic items"}},
+    "ru_RU": {"components": {"0": "¥â â¥«ì­ë¥ ¬®«®âë", "15": "¥â â¥«ì­ë© ãå®¢­ë© ®«®â", "25": "¡ëç­ë¥ ¬¥â â¥«ì­ë¥ ®àã¤¨ï", "35": "+1 ¬¥â â¥«ì­ë¥ ®àã¤¨ï", "50": "®¯®«­¨â¥«ì­ë¥ ¬ £¨ç¥áª¨¥ ¯à¥¤¬¥âë"}},
     "zh_CN": {
       "description": "此模组为投掷锤添加了动画（它们之前显示为斧头）。它还修改了“精神之锤”法术，以及普通、魔法和一些独特的飞锤。"
-    }
+    },
+    "de_DE": {"components": {"0": "Wurfhaemmer", "15": "Wurf-Geisterhammer", "25": "Normale Wurfhaemmer", "35": "+1 Wurfwaffen", "50": "Zusaetzliche magische Gegenstaende"}},
+    "es_ES": {"components": {"0": "Martillos arrojadizos", "15": "Martillos espirituales arrojadizos", "25": "Martillos arrojadizos normales", "35": "Armas arrojadizas +1", "50": "Objetos magicos extras"}},
+    "pl_PL": {"components": {"0": "Mloty do rzucania", "15": "Miotany Duchowy M³ot", "25": "Zwyczajne mloty miotane", "35": "Mloty miotane/rzucane o umagicznieniu +1", "50": "Dodatkowe magiczne przedmioty"}}
   },
   "tp2": "hammers",
   "safe": 2,

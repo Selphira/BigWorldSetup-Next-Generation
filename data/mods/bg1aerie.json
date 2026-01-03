@@ -17,7 +17,10 @@
     "5001": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "ru_RU": 1,
+    "fr_FR": 2,
+    "es_ES": 3
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +31,17 @@
       }
     },
     "en_US": {
-      "description": "This little mod brings Aerie into BG1. If you already know her from BG2, you already know where you're most likely to find her. If not... well, it's at the Nashkel Fair (in BG2, she says the circus used to go there...). She can't be recruited, but you can carry out small quests for her, at the end of which she'll move into Benta's tent and provide her services (temple and store)."
+      "description": "This little mod brings Aerie into BG1. If you already know her from BG2, you already know where you're most likely to find her. If not... well, it's at the Nashkel Fair (in BG2, she says the circus used to go there...). She can't be recruited, but you can carry out small quests for her, at the end of which she'll move into Benta's tent and provide her services (temple and store).",
+      "components": {
+        "5000": "Aerie for BG:EE",
+        "5001": "Install a lighter variant of the portrait for Aerie? (This changes her BG2 portrait as well in EET.)"
+      }
     },
     "zh_CN": {
       "description": "这个小模组让艾黎出现在博德之门1中。如果你已经在博德之门2中认识她，你就已经知道最有可能在哪里找到她了。否则……嗯，就在那西凯的集市里（在博德之门2中，她说马戏团过去常去那里……）。她不能被招募，但你可以为她完成一些小任务，之后她会搬到班塔的帐篷里，并提供她的服务（神殿和商店）。"
-    }
+    },
+    "ru_RU": {"components": {"5000": "Aerie for BG:EE", "5001": "Install a lighter variant of the portrait for Aerie? (This changes her BG2 portrait as well in EET.)"}},
+    "es_ES": {"components": {"5000": "Aerie para BG:EE", "5001": "¿Instalar una variante más clara del retrato para Aerie? (Esto cambia su retrato BG2 también en EET.)"}}
   },
   "tp2": "bg1aerie",
   "safe": 2,

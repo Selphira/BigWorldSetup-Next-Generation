@@ -1,5 +1,5 @@
 {
-  "name": "IWD_EET_End",
+  "name": "IWD1-IWD2-EET",
   "version": "1.0",
   "links": {
     "homepage": "https://github.com/The-Gate-Project/IWD_EET_End",
@@ -16,7 +16,12 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "ru_RU": 0,
+    "en_US": 1,
+    "fr_FR": 2,
+    "de_DE": 3,
+    "pl_PL": 4,
+    "zh_CN": 5
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +31,20 @@
       }
     },
     "en_US": {
-      "description": "This conversion allows you to play IWD1 and IWD2 from Enhanced Edition Trilogy."
+      "description": "This conversion allows you to play IWD1 and IWD2 from Enhanced Edition Trilogy.",
+      "components": {
+        "0": "IWD_EET_End"
+      }
     },
     "zh_CN": {
-      "description": "此转换允许通过 Enhanced Edition Trilogy 来玩《冰风谷1》和《冰风谷2》。"
-    }
+      "description": "此转换允许通过 Enhanced Edition Trilogy 来玩《冰风谷1》和《冰风谷2》。",
+      "components": {
+        "0": "IWD_EET_End"
+      }
+    },
+    "ru_RU": {"components": {"0": "IWD_EET_End"}},
+    "de_DE": {"components": {"0": "IWD_EET_End"}},
+    "pl_PL": {"components": {"0": "IWD_EET_End"}}
   },
   "tp2": "iwd_eet_end",
   "safe": 2,

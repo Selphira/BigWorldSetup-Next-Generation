@@ -1,5 +1,5 @@
 {
-  "name": "Horace le guerrier squelette",
+  "name": "Horace",
   "version": "1.8",
   "links": {
     "homepage": "http://www.shsforums.net/topic/54902-horace-a-mod-from-seifer/",
@@ -17,7 +17,11 @@
     "1": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "ru_RU": 1,
+    "fr_FR": 2,
+    "it_IT": 3,
+    "zh_CN": 4
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +32,21 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a skeleton chaotic good as an NPC member of the group. He can be found in the crypt of Trademeet. He has a kit specific to his state, HLA and spells partly taken from IWD2, as well as a specific AI if you choose to activate him.\nSTR 17, DEX 13, CON 18, INT 13, WIS 16, CHA 9."
+      "description": "This mod adds a skeleton chaotic good as an NPC member of the group. He can be found in the crypt of Trademeet. He has a kit specific to his state, HLA and spells partly taken from IWD2, as well as a specific AI if you choose to activate him.\nSTR 17, DEX 13, CON 18, INT 13, WIS 16, CHA 9.",
+      "components": {
+        "0": "Horace - BGII",
+        "1": "Bone Collector"
+      }
     },
     "zh_CN": {
-      "description": "这个模组添加了一个守序善良阵营的骷髅作为NPC小队成员。您可以在商贸集会的墓穴中找到他。他拥有一个与他状态相关的特定职业、部分来自冰风谷2的HLA和法术，以及一个如果您选择激活的特定AI。\n力量17，敏捷13，体质18，智力13，智慧16，魅力9。"
-    }
+      "description": "这个模组添加了一个守序善良阵营的骷髅作为NPC小队成员。您可以在商贸集会的墓穴中找到他。他拥有一个与他状态相关的特定职业、部分来自冰风谷2的HLA和法术，以及一个如果您选择激活的特定AI。\n力量17，敏捷13，体质18，智力13，智慧16，魅力9。",
+      "components": {
+        "0": "贺拉斯-BGII",
+        "1": "骨骼收集者"
+      }
+    },
+    "ru_RU": {"components": {"0": "Horace - BGII", "1": "Bone Collector"}},
+    "it_IT": {"components": {"0": "Horace - BGII", "1": "Collezionista di Ossa"}}
   },
   "tp2": "horace",
   "safe": 2,

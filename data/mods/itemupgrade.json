@@ -22,8 +22,10 @@
     "fr_FR": 1,
     "de_DE": 2,
     "es_ES": 3,
+    "pl_PL": 4,
     "ru_RU": 5,
-    "ko_KR": 6
+    "ko_KR": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -50,11 +52,23 @@
         "12": "Install supplemental Cespenar audio for Item Upgrade"
       }
     },
-    "ru_RU": {"components": {"choice_0": "?????????? ?????? Shadows of Amn", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "?????????? ?????? Throne of Bhaal", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
-    "ko_KR": {"components": {"choice_0": "?????? ???? ?? ?????? ????????", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "???? ???? ??? ?????? ????????", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
+    "ru_RU": {"components": {"choice_0": "Shadows Of Amn Item Upgrades", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "Throne Of Bhaal Item Upgrades", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
+    "ko_KR": {"components": {"choice_0": "쉐도우 오브 앰 아이템 업그레이드", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "스론 오브 바알 아이템 업그레이드", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
     "zh_CN": {
-      "description": "此模组旨在锻造爱好者们带来欢乐……它允许你将海量的物品进行组合，从而创造出更强大的装备……赛斯潘纳和克伦威尔会为你大显身手……"
-    }
+      "description": "此模组旨在锻造爱好者们带来欢乐……它允许你将海量的物品进行组合，从而创造出更强大的装备……赛斯潘纳和克伦威尔会为你大显身手……",
+      "components": {
+        "choice_0": "安姆阴影物品强化",
+        "0": "原始版本（以名单形式列出所有新增物品强化）",
+        "10": "修订版本（以人物对话形式呈现新增物品强化）",
+        "choice_1": "巴尔王座物品强化",
+        "1": "原始版本（以名单形式列出所有新增物品强化）",
+        "11": "修订版本（以人物对话形式呈现新增物品强化）",
+        "12": "为新增物品强化安装额外的塞斯潘纳语音"
+      }
+    },
+    "de_DE": {"components": {"choice_0": "Verbesserte Ausruestung fuer 'Die Schatten von Amn'", "0": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)", "10": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)", "choice_1": "Verbesserte Ausruestung fuer 'Thron des Bhaal'", "1": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)", "11": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
+    "es_ES": {"components": {"choice_0": "Item Upgrade para Shadows of Amn", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "Item Upgrade para Throne of Bhaal", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
+    "pl_PL": {"components": {"choice_0": "Ulepszenia przedmiotów dla Cienii Amn", "0": "Wersja oryginalna (nowe ulepszenia na liscie)", "10": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)", "choice_1": "Ulepszenia przedmiotów dla Tronu Bhaala", "1": "Wersja oryginalna (nowe ulepszenia na liscie)", "11": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)", "12": "Install supplemental Cespenar audio for Item Upgrade"}}
   },
   "tp2": "itemupgrade",
   "safe": 2,

@@ -1,5 +1,5 @@
 {
-  "name": "Malthis le bretteur vampyre",
+  "name": "Malthis",
   "version": "2.3",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=140073",
@@ -16,7 +16,9 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "de_DE": 0,
+    "fr_FR": 1,
+    "en_US": 2
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "Malthis is a chaotic good Swashbuckler who can be found near Cromwell. He's not like the others and carries a dark secret. His characteristics and alignment will depend on you. Will you be able to adopt him and help him in his war against a dark organization?\nAs the site hosting the mod has disappeared (rosenranken.org), the link goes to a temporary hosting GitHub account.\nSTR 17, DEX 18, CON 17, INT 10, WIS 11, CHA 11."
+      "description": "Malthis is a chaotic good Swashbuckler who can be found near Cromwell. He's not like the others and carries a dark secret. His characteristics and alignment will depend on you. Will you be able to adopt him and help him in his war against a dark organization?\nAs the site hosting the mod has disappeared (rosenranken.org), the link goes to a temporary hosting GitHub account.\nSTR 17, DEX 18, CON 17, INT 10, WIS 11, CHA 11.",
+      "components": {
+        "0": "Malthis, the swashbuckler!"
+      }
     },
     "zh_CN": {
       "description": "Malthis是一个守序善良的游荡剑客，你可以在Cromwell附近找到他。他与众不同，背负着一个沉重的秘密。他的属性和阵营将取决于你。你会接纳他，并在他与一个黑暗组织的战争中帮助他吗？\n由于托管该模组的网站（rosenranken.org）已消失，链接指向一个临时的GitHub托管账户。\n力量17，敏捷18，体质17，智力10，智慧11，魅力11。"
-    }
+    },
+    "de_DE": {"components": {"0": "Malthis, der Saebelrassler!"}}
   },
   "tp2": "malthis",
   "safe": 2,

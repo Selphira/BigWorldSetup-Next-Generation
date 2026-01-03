@@ -22,6 +22,8 @@
     "6": {"type": "std"}
   },
   "languages": {
+    "es_ES": 0,
+    "de_DE": 1,
     "fr_FR": 2,
     "en_US": 3
   },
@@ -42,16 +44,30 @@
       "description": "A ranger by trade, Hanna has a personal quest, banters and interactions with the game's NPCs. You'll find her in Trademeet (SoA), and can summon her in the Antichambre (ToB). This mod also improves a number of encounters, including the one with Irenicus, Arnise Castle, Irenicus's dragon and others.",
       "components": {
         "0": "Hanna NPC (ToB required)",
-        "1": "Expanded De'Arnise Keep (overwrites Torgal et al)",
-        "2": "Improved Irenicus at the Tree",
+        "1": "Expanded De´Arnise Keep",
+        "2": "Improved Irenicus",
         "3": "Improved Hell Djinn",
-        "4": "Improved Black Dragon of Irenicus",
+        "4": "Improved Dragon of Irenicus",
         "5": "Improved Hell Dragon",
-        "6": "Improved Trademeet Crypt (compatible with Revised Battles and AzenMOD)"
+        "6": "Improved Trademeet Crypt"
       }
     },
     "zh_CN": {
       "description": "Hanna生来就是个游侠，她有一个个人任务，以及与游戏中NPC的闲聊和互动。你可以在商贸集会（安姆阴影）找到她，并可以在门厅（巴尔王座）召唤她。此模组还改进了许多遭遇战，包括与艾瑞尼卡斯的遭遇、德阿尼斯堡、艾瑞尼卡斯之龙以及其他一些遭遇战。"
+    },
+    "es_ES": {
+      "components": {
+        "0": "Hanna NPC (Requiere ToB)", "1": "Castillo De´Arnise Mejorado", "2": "Irenicus Mejorado",
+        "3": "Genio del Infierno mejorado", "4": "Dragon de Irenicus mejorado", "5": "Dragon del infierno mejorado",
+        "6": "Cripta de Caravasar mejorada"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Hanna NPC (Setzt TdB voraus)", "1": "Erweiterte De´Arnise Festung", "2": "Verbesserter Irenicus",
+        "3": "Verbesserter Höllendschinn", "4": "Verbesserter Drachen des Irenicus", "5": "Verbesserter Höllendrache",
+        "6": "verbesserte Krypta der Karawanserei"
+      }
     }
   },
   "tp2": "hanna",

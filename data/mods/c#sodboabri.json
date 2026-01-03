@@ -19,7 +19,14 @@
     "3": {"type": "std", "category": "gameplay"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "de_DE": 1,
+    "fr_FR": 2,
+    "it_IT": 3,
+    "ru_RU": 4,
+    "pl_PL": 5,
+    "es_ES": 6,
+    "zh_CN": 7
   },
   "translations": {
     "fr_FR": {
@@ -32,11 +39,28 @@
       }
     },
     "en_US": {
-      "description": "Like Gorion's letter and PJ's dreams in BG, the transformation into a Slayer in SoA, and the trials in ToB, the scene at Boarskyr Bridge in SoD is an important step in PJ's journey towards his destiny. This mod therefore strives to give it greater depth and integration into the story, with reactions from NPCs and other game characters. There will be warnings before going to the bridge, and NPCs will react to the course of events, depending on the components installed. The original scene will also be expanded with descriptive text and the ability for the player to choose how to handle the divine energy blast and the resulting stat changes.\nIt includes four optional components, but they complement each other:\n- 1. The Boarskyr Bridge scene is mentioned by NPCs: This component adds reactions to in-game characters before and after your passage over the Boarskyr Bridge. The bridge kinematics remain unchanged.\n- 2. Add text describing the original Boarskyr Bridge kinematics: This component adds additional descriptive text to the bridge kinematics, based on the same style as BGII (the Tree of Life, transformation into a Slayer).\n- 3. The Boarskyr Bridge sequence of events offers several choices: This component allows the player to choose how to react to the wave of energy released on the bridge. There are three possibilities: 1) the player absorbs all the pain to protect others; 2) the player diverts the energy towards the river (those close to him will be slightly affected and receive some damage); 3) the player channels the energy and projects it around him (all party members receive damage and most of the Flaming Fist soldiers on the bridge die).\n- 4. modify the character's characteristics according to his choices: 1) if the character absorbs pain, his wisdom increases by 1 permanently; 2) if the character directs energy towards the river, his dexterity increases by 1 permanently; 3) if the character directs energy towards his allies, his constitution increases by 1 permanently."
+      "description": "Like Gorion's letter and PJ's dreams in BG, the transformation into a Slayer in SoA, and the trials in ToB, the scene at Boarskyr Bridge in SoD is an important step in PJ's journey towards his destiny. This mod therefore strives to give it greater depth and integration into the story, with reactions from NPCs and other game characters. There will be warnings before going to the bridge, and NPCs will react to the course of events, depending on the components installed. The original scene will also be expanded with descriptive text and the ability for the player to choose how to handle the divine energy blast and the resulting stat changes.\nIt includes four optional components, but they complement each other:\n- 1. The Boarskyr Bridge scene is mentioned by NPCs: This component adds reactions to in-game characters before and after your passage over the Boarskyr Bridge. The bridge kinematics remain unchanged.\n- 2. Add text describing the original Boarskyr Bridge kinematics: This component adds additional descriptive text to the bridge kinematics, based on the same style as BGII (the Tree of Life, transformation into a Slayer).\n- 3. The Boarskyr Bridge sequence of events offers several choices: This component allows the player to choose how to react to the wave of energy released on the bridge. There are three possibilities: 1) the player absorbs all the pain to protect others; 2) the player diverts the energy towards the river (those close to him will be slightly affected and receive some damage); 3) the player channels the energy and projects it around him (all party members receive damage and most of the Flaming Fist soldiers on the bridge die).\n- 4. modify the character's characteristics according to his choices: 1) if the character absorbs pain, his wisdom increases by 1 permanently; 2) if the character directs energy towards the river, his dexterity increases by 1 permanently; 3) if the character directs energy towards his allies, his constitution increases by 1 permanently.",
+      "components": {
+        "0": "Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions",
+        "1": "Add Description Text to Original Scene at Bridge",
+        "2": "Bridge Scene has Different Choices",
+        "3": "Add Stat Changes to Choices at Bridge"
+      }
     },
     "zh_CN": {
-      "description": "就像葛立安的信和在博德之门中主角的梦境，在安姆阴影中变成活尸，以及在巴尔王座中的试炼一样，龙矛围攻中博尔斯基尔桥的场景是主角走向其命运之路上的一个重要阶段。因此，这个模组努力通过NPC和其他游戏角色的反应，为这个场景增加更多深度和与故事的融合度。在前往桥上之前会有警告，并且NPC会根据已安装的组件对事件进程做出反应。原始场景也将通过描述性文本进行扩展，并允许玩家选择如何处理神圣能量的爆发以及由此产生的属性变化。\n它包含四个可选的、但相互补充的组件：\n- 1. 博尔斯基尔桥场景被NPC提及：此组件在您通过博尔斯基尔桥前后，为游戏角色添加了反应。桥的过场动画保持不变。\n- 2. 添加描述博尔斯基尔桥原始过场动画的文本：此组件为桥的过场动画添加了额外的描述性文本，其风格与博德之门II（生命之树，变成活尸）相同。\n- 3. 博尔斯基尔桥的事件进程提供多种选择：此组件允许玩家选择如何应对桥上释放的能量波。有三种可能：1）玩家吸收所有痛苦以保护他人；2）玩家将能量引向河流（他附近的人会受到轻微影响并受到一些伤害）；3）玩家引导能量并将其投射到周围（所有小组成员都会受到伤害，并且桥上大部分燃烧之拳的士兵都会死亡）。\n- 4. 根据玩家的选择修改其属性：1）当玩家吸收痛苦时，其永久性智慧值增加1点；2）当玩家将能量引向河流时，其永久性敏捷值增加1点；3）如果玩家将能量引向其盟友，其永久性体质值增加1点。"
-    }
+      "description": "就像葛立安的信和在博德之门中主角的梦境，在安姆阴影中变成活尸，以及在巴尔王座中的试炼一样，龙矛围攻中博尔斯基尔桥的场景是主角走向其命运之路上的一个重要阶段。因此，这个模组努力通过NPC和其他游戏角色的反应，为这个场景增加更多深度和与故事的融合度。在前往桥上之前会有警告，并且NPC会根据已安装的组件对事件进程做出反应。原始场景也将通过描述性文本进行扩展，并允许玩家选择如何处理神圣能量的爆发以及由此产生的属性变化。\n它包含四个可选的、但相互补充的组件：\n- 1. 博尔斯基尔桥场景被NPC提及：此组件在您通过博尔斯基尔桥前后，为游戏角色添加了反应。桥的过场动画保持不变。\n- 2. 添加描述博尔斯基尔桥原始过场动画的文本：此组件为桥的过场动画添加了额外的描述性文本，其风格与博德之门II（生命之树，变成活尸）相同。\n- 3. 博尔斯基尔桥的事件进程提供多种选择：此组件允许玩家选择如何应对桥上释放的能量波。有三种可能：1）玩家吸收所有痛苦以保护他人；2）玩家将能量引向河流（他附近的人会受到轻微影响并受到一些伤害）；3）玩家引导能量并将其投射到周围（所有小组成员都会受到伤害，并且桥上大部分燃烧之拳的士兵都会死亡）。\n- 4. 根据玩家的选择修改其属性：1）当玩家吸收痛苦时，其永久性智慧值增加1点；2）当玩家将能量引向河流时，其永久性敏捷值增加1点；3）如果玩家将能量引向其盟友，其永久性体质值增加1点。",
+      "components": {
+        "0": "为巴里斯凯尔桥过场动画添加NPC反应",
+        "1": "为原版巴里斯凯尔桥过场动画添加描述文本",
+        "2": "为巴里斯凯尔桥过场动画添加不同选择",
+        "3": "为大桥动画的选择添加属性变化"
+      }
+    },
+    "de_DE": {"components": {"0": "NSCs reagieren auf die Szene an der Eberfellbruecke", "1": "Originale Szene an der Bruecke mit Beschreibungstext versehen", "2": "Szene an Bruecke mit Reaktionsmoeglichkeiten versehen", "3": "HC-Reaktionen fuehren zu Stataenderungen"}},
+    "it_IT": {"components": {"0": "La scena al ponte di Boareskyr sara riconosciuta: aggiungi reazioni PNG", "1": "Aggiungi testo di descrizione alla scena originale del ponte", "2": "La scena del ponte ha diverse scelte", "3": "Aggiungi modifiche statistiche alle scelte sul ponte"}},
+    "ru_RU": {"components": {"0": "Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions", "1": "Add Description Text to Original Scene at Bridge", "2": "Bridge Scene has Different Choices", "3": "Add Stat Changes to Choices at Bridge"}},
+    "pl_PL": {"components": {"0": "Towarzysze reaguja na scene na Moscie Boareskyr", "1": "Dodatkowe opisy przy oryginalnej scenie na moscie", "2": "Scena na Moscie Boareskyr daje mozliwosci wyboru", "3": "Wybory dokonane w scenie na moscie wplywaja na cechy postaci"}},
+    "es_ES": {"components": {"0": "Los NPC mencionan la escena en el puente de Boareskyr: Reacciones de los NPC", "1": "Texto descriptivo en la escena original del puente", "2": "La escena del puente tiene diferentes elecciones", "3": "Cambios en las estadisticas con las elecciones del puente"}}
   },
   "tp2": "c#sodboabri",
   "safe": 2,

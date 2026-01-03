@@ -1,5 +1,5 @@
 {
-  "name": "Valen NPC revisited",
+  "name": "Valen NPC",
   "version": "0.0.1",
   "links": {
     "homepage": "http://weidu.org/valen.html",
@@ -22,16 +22,20 @@
     "fr_FR": 1,
     "es_ES": 2,
     "de_DE": 3,
+    "pl_PL": 4,
     "it_IT": 5,
     "ru_RU": 6,
-    "zh_CN": 7
+    "zh_CN": 7,
+    "zh_TW": 8,
+    "ja_JP": 9
   },
   "translations": {
     "en_US": {
       "description": "This mod adds a new vampire NPC, a fighter-thief neutral evil, who is very effective in combat - too much so for some. She's formidable at night, but becomes very weak during the day. This mod adds plenty of interaction with NPCs, but no romance. She can't stay on the team with Mazzy, Keldorn, Anomen or Aerie, at the risk of... violent quarrelling. She also has a specific quest (of unprecedented difficulty).\n Human form: STR 18/75, DEX 17, CON 9, INT 16, WIS 10, CHA 15.\nVampire form: STR 22, DEX 21, CON 9, INT 20, WIS 10, CHA 19.",
       "components": {
         "0": "Valen",
-        "10": "Give More Creatures Protection From Level Drain & Undead"
+        "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
     "fr_FR": {
@@ -43,9 +47,49 @@
       }
     },
     "it_IT": {"components": {"0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead"}},
-    "ru_RU": {"components": {"0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead"}},
+    "ru_RU": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
     "zh_CN": {
-      "description": "这个模组添加了一个新的吸血鬼NPC，一个中立邪恶的女战士盗贼，在战斗中非常高效，对某些人来说太强了。她在夜晚令人生畏，但在白天会变得非常虚弱。这个模组增加了许多与NPC的互动，但没有可能的浪漫关系。她不能与玛兹、凯东、阿诺门或艾黎留在队伍中，否则会……激烈争吵。她还有一个特定的任务（以其闻所未闻的难度著称）。\n人形：力量 18/75，敏捷 17，体质 9，智力 16，智慧 10，魅力 15。\n吸血鬼形态：力量 22，敏捷 21，体质 9，智力 20，智慧 10，魅力 19。"
+      "description": "这个模组添加了一个新的吸血鬼NPC，一个中立邪恶的女战士盗贼，在战斗中非常高效，对某些人来说太强了。她在夜晚令人生畏，但在白天会变得非常虚弱。这个模组增加了许多与NPC的互动，但没有可能的浪漫关系。她不能与玛兹、凯东、阿诺门或艾黎留在队伍中，否则会……激烈争吵。她还有一个特定的任务（以其闻所未闻的难度著称）。\n人形：力量 18/75，敏捷 17，体质 9，智力 16，智慧 10，魅力 15。\n吸血鬼形态：力量 22，敏捷 21，体质 9，智力 20，智慧 10，魅力 19。",
+      "components": {
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
+    "zh_TW": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
+    },
+    "ja_JP": {
+      "components": {
+        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
+      }
     }
   },
   "tp2": "valen",

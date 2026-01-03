@@ -1,5 +1,5 @@
 {
-  "name": "Chosen of Mystra Encounters",
+  "name": "Com_encounters",
   "version": "1.21",
   "links": {
     "homepage": "http://mods.chosenofmystra.net/encounters/index.html",
@@ -22,7 +22,9 @@
     "fr_FR": 1,
     "de_DE": 2,
     "it_IT": 3,
-    "ru_RU": 4
+    "ru_RU": 4,
+    "pl_PL": 5,
+    "es_ES": 6
   },
   "translations": {
     "en_US": {
@@ -41,11 +43,14 @@
         "2": "Rencontres avec Shagbag ameliorees"
       }
     },
-    "it_IT": {"components": {"0": "Chosen of Mystra's Encounters (Richiede Throne of Bhaal)", "1": "Would you like to install improved druid encounters?", "2": "Would you like to install improved Shagbag encounters?"}},
+    "it_IT": {"components": {"0": "Chosen of Mystra's Encounters (Richiede Throne of Bhaal)", "1": "Vuoi installare gli incontri con i druidi migliorati?", "2": "Vuoi installare gli incontri con Shagbag migliorati?"}},
     "ru_RU": {"components": {"0": "Chosen of Mystra's Encounters (Requires Throne of Bhaal)", "1": "Would you like to install improved druid encounters?", "2": "Would you like to install improved Shagbag encounters?"}},
     "zh_CN": {
       "description": "此模组增加了与多个敌对群体的遭遇战，三家商店，一个涉及半身人和戒指的任务，并改进了与沙格巴格的战斗。"
-    }
+    },
+    "de_DE": {"components": {"0": "Chosen of Mystra's Encounters (benötigt Thron des Bhaal)", "1": "Soll die Komponente \"Verbesserte Druidenbegegnungen\" installiert werden?", "2": "Soll die Komponente \"Verbesserte Wassersäufer-Begegnung\" installiert werden?"}},
+    "pl_PL": {"components": {"0": "Chosen of Mystra's Encounters (Wymaga Tronu Bhaala)", "1": "Czy zainstalowac: ulepszone spotkania z druidami?", "2": "Czy zainstalowac: ulepszone spotkanie ze Swedzitorba?"}},
+    "es_ES": {"components": {"0": "Chosen of Mystra's Encounters (Requires Throne of Bhaal)", "1": "¿Te gustaría instalar encuentros de druida mejorados?", "2": "¿Desea instalar encuentros Shagbag mejorados?"}}
   },
   "tp2": "com_encounters",
   "safe": 2,

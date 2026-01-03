@@ -31,7 +31,15 @@
     "16": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 4
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
+    "pl_PL": 3,
+    "fr_FR": 4,
+    "it_IT": 5,
+    "es_ES": 6,
+    "pt_BR": 7,
+    "zh_CN": 8
   },
   "translations": {
     "fr_FR": {
@@ -41,7 +49,7 @@
         "1": "Plus de prestige pour le Heros de la Porte de Baldur (avec la residence du personnage principal dans le palais)",
         "2": "Court hommage au Heros",
         "3": "Les objets uniques de Sarevok",
-        "4": "L'epee de Sarevok",
+        "4": "L’epee de Sarevok",
         "5": "Imoen et la duchesse Jannath (Imoen reside dans le palais)",
         "6": "Le duc Eltan se trouve au palais",
         "7": "Le Poing Enflamme arrive apres la bataille finale",
@@ -58,11 +66,57 @@
       }
     },
     "en_US": {
-      "description": "For EE games, the main purpose of this mod is to allow players to remain in the BG1 world after defeating Sarevok. To resume the game's original progression (or ending), you need to talk to Duke Belt inside the palace.\nIn EET, it also gives the option of skipping SoD and starting BG2 directly (note that some mods for BG2 expect SoD events to have occurred).\nIn BGT, the main mod component adds some praise for the player in dialogs with Duke Belt and removes some references to Sarevok after his death.\nOptional components give the player more prestige and prepare for SoD events in all installations."
+      "description": "For EE games, the main purpose of this mod is to allow players to remain in the BG1 world after defeating Sarevok. To resume the game's original progression (or ending), you need to talk to Duke Belt inside the palace.\nIn EET, it also gives the option of skipping SoD and starting BG2 directly (note that some mods for BG2 expect SoD events to have occurred).\nIn BGT, the main mod component adds some praise for the player in dialogs with Duke Belt and removes some references to Sarevok after his death.\nOptional components give the player more prestige and prepare for SoD events in all installations.",
+      "components": {
+        "0": "Endless BG1: Main Component (Required)",
+        "1": "More Flavor to Hero of Baldur's Gate (Includes PC's Residence Inside Palace)",
+        "2": "Short Public Hero Tribute",
+        "3": "Sarevok's Unique Items",
+        "4": "Sarevok's Sword",
+        "5": "Imoen and Duke Jannath (Imoen Gets Residence Inside Palace)",
+        "6": "Duke Eltan Is in the Palace",
+        "7": "Flaming Fist After Final Fight",
+        "choice_0": "Elminster Makes an Appearance",
+        "8": "jastey's Version",
+        "9": "Restored BG1 Text",
+        "10": "First Refugees Come to Baldur's Gate",
+        "11": "Ophyllis the Treasurer is Inside Palace Dungeon",
+        "12": "Denkod in Thieves' Guild Comments on Sarevok's Death",
+        "13": "Skip Thieves' Maze Once After Sarevok's Death",
+        "14": "Korlasz' Dungeon is in BG1",
+        "15": "Fenster the Palace Healer Is in the Palace",
+        "16": "Captain Corwin Is in the Palace"
+      }
     },
     "zh_CN": {
-      "description": "对于EE游戏，此模组的主要目的是让玩家在击败沙洛佛克后，能够继续留在博德之门1的世界中。要恢复（或结束）游戏的原始进程，必须在宫殿内与贝尔特公爵交谈。\n在EET中，它还提供了跳过龙矛围攻并直接开始博德之门2的可能性（请注意，一些博德之门2的模组期望龙矛围攻的事件已经发生）。\n在BGT中，模组的主要组件在与贝尔特公爵的对话中为玩家角色增加了一些赞誉，并在沙洛佛克死后移除了一些与沙洛佛克相关的元素。\n可选组件为玩家角色带来更多名誉，并在所有安装中为龙矛围攻的事件做准备。"
-    }
+      "description": "对于EE游戏，此模组的主要目的是让玩家在击败沙洛佛克后，能够继续留在博德之门1的世界中。要恢复（或结束）游戏的原始进程，必须在宫殿内与贝尔特公爵交谈。\n在EET中，它还提供了跳过龙矛围攻并直接开始博德之门2的可能性（请注意，一些博德之门2的模组期望龙矛围攻的事件已经发生）。\n在BGT中，模组的主要组件在与贝尔特公爵的对话中为玩家角色增加了一些赞誉，并在沙洛佛克死后移除了一些与沙洛佛克相关的元素。\n可选组件为玩家角色带来更多名誉，并在所有安装中为龙矛围攻的事件做准备。",
+      "components": {
+        "0": "无尽的BG1：主要组件（必需）",
+        "1": "给博德之门的英雄增添更多风味（包括PC在宫殿内的住所）",
+        "2": "简短的公共英雄致敬",
+        "3": "沙洛佛克的独特物品",
+        "4": "沙洛佛克的剑",
+        "5": "爱蒙和詹纳斯大公（爱蒙在宫殿内有住所）",
+        "6": "伊尔坦公爵在宫殿内",
+        "7": "最终战斗后的焰拳",
+        "choice_0": "伊尔明斯特露面",
+        "8": "Jastey的版本",
+        "9": "恢复的BG1文本",
+        "10": "第一批难民来到博德之门",
+        "11": "财务官欧菲利斯在宫殿地牢内",
+        "12": "丹考德在盗贼公会评论沙洛佛克的死亡",
+        "13": "在沙洛佛克死后跳过盗贼迷宫一次",
+        "14": "克拉兹地牢位于BG1中",
+        "15": "宫殿治疗师芬斯特在宫殿内",
+        "16": "科温队长在宫殿内"
+      }
+    },
+    "de_DE": {"components": {"0": "Endloses BG1: Hauptkomponente", "1": "Dem Status \"Held von Baldurs Tor\" mehr Inhalt geben (beinhaltet Quartier des HC im Herzogspalast)", "2": "Kurze oeffentliche Heldenehrung", "3": "Sarevoks spezielle Ausruestung", "4": "Sarevoks Schwert", "5": "Imoen und Herzogin Jannath (Imoen erhaelt Quartier im Herzogspalast)", "6": "Herzog Eltan ist im Palast", "7": "Heiler der Flammenden Faust nach Sarevoks Tod", "choice_0": "Elminster taucht erneut auf", "8": "jasteys Version", "9": "Wiederhergestellter Originaltext aus BG1", "10": "Erste Fluechtlinge erreichen Baldurs Tor", "11": "Ophyllis der Schatzmeister ist im Palastkeller", "12": "Denkod in der Diebesgilde kommentiert Sarevoks Tod", "13": "Nach Sarevoks Tod einmal das Labyrinth auslassen", "14": "Korlasz' Dungeon ist in BG1", "15": "Fester der Palastkleriker ist im Palast", "16": "Hauptmann Corwin ist im Palast"}},
+    "ru_RU": {"components": {"0": "Endless BG1: Main Component (Required)", "1": "More Flavor to Hero of Baldur's Gate (Includes PC's Residence Inside Palace)", "2": "Short Public Hero Tribute", "3": "Sarevok's Unique Items", "4": "Sarevok's Sword", "5": "Imoen and Duke Jannath (Imoen Gets Residence Inside Palace)", "6": "Duke Eltan Is in the Palace", "7": "Flaming Fist After Final Fight", "choice_0": "Elminster Makes an Appearance", "8": "jastey's Version", "9": "Restored BG1 Text", "10": "First Refugees Come to Baldur's Gate", "11": "Ophyllis the Treasurer is Inside Palace Dungeon", "12": "Denkod in Thieves' Guild Comments on Sarevok's Death", "13": "Skip Thieves' Maze Once After Sarevok's Death", "14": "Korlasz' Dungeon is in BG1", "15": "Fenster the Palace Healer Is in the Palace", "16": "Captain Corwin Is in the Palace"}},
+    "pl_PL": {"components": {"0": "Endless BG1: komponent glowny (wymagany)", "1": "Uklon dla bohatera Wrot Baldura (rezydencja w palacu)", "2": "Krotki publiczny hold dla bohatera Wrot Baldura", "3": "Unikatowe wyposazenie Sarevoka", "4": "Miecz Sarevoka", "5": "Imoen i Ksiezna Liia Jannath (Imoen otrzymuje rezydencje w palacu)", "6": "Ksiaze Eltan bedzie w palacu", "7": "Uzdrowiciel Plomiennej Piesci przyjdzie do swiatyni w Podziemnym Miescie", "choice_0": "Spotkanie z Elminsterem", "8": "Wersja autorska jastey", "9": "Wersja przywrocona z dialogow BG1", "10": "Uchodzcy z polnocy przybeda do Wrot Baldura", "11": "Skarbnik Ophyllis bedzie w podziemiach palacu", "12": "Komentarz Denkoda w Gildii Zlodziei Cienia o smierci Sarevoka", "13": "Pomin labirynt zlodziei w drodze powrotnej po zabiciu Sarevoka", "14": "Krypta Korlasz bedzie dostepna w BG1", "15": "Uzdrowiciel Fenster bedzie w palacu", "16": "Kapitan Corwin bedzie w palacu"}},
+    "it_IT": {"components": {"0": "Endless BG1: Componente principale (richiesto)", "1": "Approfondimento storia dell'eroe di Baldur's Gate (include la residenza del PC all'interno del palazzo)", "2": "Breve tributo pubblico all'eroe", "3": "Oggetti unici di Sarevok", "4": "Spada di Sarevok", "5": "Imoen e la Duchessa Jannath (Imoen risiede nel palazzo)", "6": "Il Duca Eltan e' a Palazzo", "7": "Pugno Fiammante dopo il combattimento finale", "choice_0": "Elminster fa la sua comparsa", "8": "Versione di Jastey", "9": "Testo BG1 ripristinato", "10": "I primi profughi arrivano a Baldur's Gate", "11": "Ophyllis il tesoriere e' nei sotterranei del Palazzo", "12": "Denkod nella Gilda dei Ladri commenta la morte di Sarevok", "13": "Saltare il labirinto dei ladri dopo la morte di Sarevok", "14": "Il Dungeon di Korlasz è in BG1", "15": "Fenster il Guaritore del Palazzo è nel Palazzo", "16": "Capitano Corwin è nel Palazzo"}},
+    "es_ES": {"components": {"0": "Endless BG1: Componente principal (Requerido)", "1": "Más sabor a Héroe de Puerta de Baldur (Incluye residencia del PC dentro del palacio)", "2": "Breve homenaje público al Héroe", "3": "Objetos únicos de Sarevok", "4": "La Espada de Sarevok", "5": "Imoen y la Duquesa Jannath (Imoen obtiene residencia dentro del palacio)", "6": "El Duque Eltan está en el palacio", "7": "El Puño Llameante después del combate final", "choice_0": "Elminster hace una aparición", "8": "La versión de Jastey", "9": "Texto BG1 restaurado", "10": "Los primeros refugiados llegan a Puerta de Baldur", "11": "Ophyllis el tesorero está dentro de la mazmorra del palacio", "12": "Denkod del Gremio de Ladrones comenta la muerte de Sarevok", "13": "Saltar laberinto de ladrones una vez muerto Sarevok", "14": "La mazmorra de Korlasz está en BG1", "15": "Fenster el sacerdote de palacio está en el palacio", "16": "La capitana Corwin está en el palacio"}},
+    "pt_BR": {"components": {"0": "Endless BG1: Componente principal (obrigatório)", "1": "Mais sabor de Baldur's Gate Hero (Inclui residência do PC dentro do palácio)", "2": "Breve homenagem pública ao Herói", "3": "Itens exclusivos de Sarevok", "4": "Uma Espada de Sarevok", "5": "Imoen e Duquesa Jannath (Imoen consegue residência dentro do palácio)", "6": "Duque Eltan não está no palácio", "7": "A luta final do Flaming Fist", "choice_0": "Elminster aparece", "8": "versão de Jastey", "9": "Texto BG1 restaurado", "10": "Os primeiros refugiados vão para Baldur's Gate", "11": "Ophyllis, um tesouro, está dentro do palácio masmorra", "12": "Denkod da Guilda dos Ladrões comenta a morte de Sarevok", "13": "Salte o Labirinto dos Ladrões assim que Sarevok estiver morto", "14": "A masmorra de Korlasz está em BG1", "15": "Fenster, ou sacerdote do palácio, não está no palácio", "16": "Capitão Corwin está fora do palácio"}}
   },
   "tp2": "c#endlessbg1",
   "safe": 2,

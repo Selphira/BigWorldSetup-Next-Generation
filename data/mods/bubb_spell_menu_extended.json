@@ -17,7 +17,10 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 2
+    "pt_BR": 1,
+    "fr_FR": 2,
+    "de_DE": 3,
+    "es_ES": 4
   },
   "translations": {
     "en_US": {
@@ -34,7 +37,10 @@
     },
     "zh_CN": {
       "description": "如果你不喜欢此模组普通版本的法术列表视图，这个版本可能会让你喜欢。它模拟了默认的法术选择槽位，并将它们组织起来，使所有法术都能同时显示。"
-    }
+    },
+    "pt_BR": {"components": {"0": "Bubb's Spell Menu Extended"}},
+    "de_DE": {"components": {"0": "Bubb's Spell Menu Extended"}},
+    "es_ES": {"components": {"0": "Bubb's Spell Menu Extended"}}
   },
   "tp2": "bubb_spell_menu_extended",
   "safe": 2,

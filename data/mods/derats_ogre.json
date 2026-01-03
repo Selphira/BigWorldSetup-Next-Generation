@@ -1,5 +1,5 @@
 {
-  "name": "L'ogre et le gnome, une histoire de bleu",
+  "name": "L'ogre et le gnome, une histoire de Bleu",
   "version": "5",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=28812",
@@ -11,12 +11,14 @@
     "sha256": "c1668e3a18fac448e2042be8c48bcffd333f195c40b9f2839a2133e7333af20a"
   },
   "games": ["bg2", "bgt", "bg2ee", "eet"],
-  "categories": ["npc1d"],
+  "categories": ["npc1d", "quest"],
   "components": {
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1,
+    "ru_RU": 2
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "This little module will introduce you to two unusual protagonists: one is an NPC ogre whom you can enlist (for the moment he's mute if hired) and the other a gnome merchant. To find one or the other, ask yourself the following questions: where could an ogre be hiding who doesn't want to be seen, and where could a merchant be?\nSTR 19, DEX 7, CON 18, INT 6, WIS 8, CHA 6."
+      "description": "This little module will introduce you to two unusual protagonists: one is an NPC ogre whom you can enlist (for the moment he's mute if hired) and the other a gnome merchant. To find one or the other, ask yourself the following questions: where could an ogre be hiding who doesn't want to be seen, and where could a merchant be?\nSTR 19, DEX 7, CON 18, INT 6, WIS 8, CHA 6.",
+      "components": {
+        "0": "The ogre and the gnome, a story of blue"
+      }
     },
     "zh_CN": {
       "description": "这个小型模组将让你遇到两个不寻常的主角：一个是可以招募的食人魔NPC（目前如果被招募，他是哑的），另一个是侏儒商人。要找到他们，不妨问自己一个问题：一个不想被看到的食人魔可能藏在哪里，而商人又可能在哪里？\n力量 19, 敏捷 7, 体质 18, 智力 6, 智慧 8, 魅力 6。\n"
-    }
+    },
+    "ru_RU": {"components": {"0": "The ogre and the gnome, a story of blue"}}
   },
   "tp2": "derats_ogre",
   "safe": 2,

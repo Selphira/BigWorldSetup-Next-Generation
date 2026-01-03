@@ -17,6 +17,10 @@
     "100": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "de_DE": 2,
+    "it_IT": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -28,11 +32,18 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a new, rather difficult quest: Talk to the Utterly Insane Person in the Adventurer Mart. He will tell you a riddle, the answer will lead you to a pack of really tough battles. Those who survive will get the reward."
+      "description": "This mod adds a new, rather difficult quest: Talk to the Utterly Insane Person in the Adventurer Mart. He will tell you a riddle, the answer will lead you to a pack of really tough battles. Those who survive will get the reward.",
+      "components": {
+        "0": "DofD",
+        "100": "Add another, easier way to access the Domains of Dread"
+      }
     },
     "zh_CN": {
       "description": "这个模组添加了一个相当困难的新任务：去冒险者广场找那个完全疯掉的人。他会向你提出一个要求，你的回答将开启一系列相当复杂的战斗。只有幸存者才能获得奖励。"
-    }
+    },
+    "ru_RU": {"components": {"0": "DofD", "100": "Add another, easier way to access the Domains of Dread"}},
+    "de_DE": {"components": {"0": "DofD", "100": "Add another, easier way to access the Domains of Dread"}},
+    "it_IT": {"components": {"0": "Domini del Terrore", "100": "Add another, easier way to access the Domains of Dread"}}
   },
   "tp2": "dofd",
   "safe": 2,

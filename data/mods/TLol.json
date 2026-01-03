@@ -16,21 +16,27 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "pl_PL": 0,
+    "fr_FR": 2,
+    "en_US": 3
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod propose une quête accessible via le sort Souhait limité. Le djinn vous remet alors une note qui a été rédigé par un barde. C'est une histoire de princesse. Enfin, presque.",
       "components": {
-        "0": "Un souhait inhabituel (par Tuldor88)"
+        "0": "Un souhait inhabituel v1.82 (par Tuldor88)"
       }
     },
     "en_US": {
-      "description": "This mod features a quest accessible via the spell Limited Wish. The djinn hands you a note written by a bard. It's a princess story. Well, almost."
+      "description": "This mod features a quest accessible via the spell Limited Wish. The djinn hands you a note written by a bard. It's a princess story. Well, almost.",
+      "components": {
+        "0": "An unusual wish v1.82 (by Tuldor88)"
+      }
     },
     "zh_CN": {
       "description": "这个模组通过“有限祈愿”法术提供了一个可接取的任务。然后，神灯精灵会交给你一张由吟游诗人写的便条。这是一个关于公主的故事。最后，差不多吧。"
-    }
+    },
+    "pl_PL": {"components": {"0": "Niezwykle zyczenie v1.82 (by Tuldor88)"}}
   },
   "tp2": "tlol",
   "safe": 2,

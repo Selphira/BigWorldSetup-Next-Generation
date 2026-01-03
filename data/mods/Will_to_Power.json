@@ -29,15 +29,23 @@
       "description": "Ce mod s'efforce d'ajouter un système psionique inspiré des règles de AD&D2 et quatre profiles qui peuvent l'utiliser : un voleur psion (Psionicist), un guerrier psion (Soublade), un rôdeur psion (Psypher) et un mage psion (Cerebremancer).\nCependant, comme le moteur du jeu n'a pas été conçu pour, ce mod est toujours expérimental, même s'il est activement maintenu. Mais il devrait vous permettre de jouer un personnage doté de nouveaux types de capacités. Alors n'hésitez pas à l'essayer !",
       "components": {
         "200": "Ajouter le Psioniste, voleur/psion",
-        "300": "Ajouter le Guerrier Psychique, guerrier/psion~ //seems to match somewhat",
-        "400": "Ajouter le Psypher, rodeur/psion~ // no inspiration :/",
+        "300": "Ajouter le Guerrier Psychique, guerrier/psion",
+        "400": "Ajouter le Psypher, rodeur/psion",
         "500": "Ajouter le Cerebromant, mage/psion",
         "900": "Mode Dark Sun : Tout le monde est un talent natif",
         "950": "Permettre aux clercs multiclasses d'utiliser plus d'armes"
       }
     },
     "en_US": {
-      "description": "This mod strives to add a psionic system inspired by AD&D2 rules and four profiles that can use it: a psionic thief (Psionicist), a psionic warrior (Soublade), a psionic fighter (Psypher) and a psionic mage (Cerebremancer).\nHowever, as the game engine wasn't designed for it, this mod is still experimental, even though it's being actively maintained. But it should enable you to play a character with new types of abilities. So don't hesitate to give it a try!"
+      "description": "This mod strives to add a psionic system inspired by AD&D2 rules and four profiles that can use it: a psionic thief (Psionicist), a psionic warrior (Soublade), a psionic fighter (Psypher) and a psionic mage (Cerebremancer).\nHowever, as the game engine wasn't designed for it, this mod is still experimental, even though it's being actively maintained. But it should enable you to play a character with new types of abilities. So don't hesitate to give it a try!",
+      "components": {
+        "200": "Add the Psionicist, rogue/psion",
+        "300": "Add the Soulblade, fighter/psion",
+        "400": "Add the Psypher, ranger/psion",
+        "500": "Add the Cerebremancer, mage/psion",
+        "900": "Dark Sun Mode: Everyone Is a Wild Talent",
+        "950": "Allow Multiclass Clerics to Use More Weapons"
+      }
     },
     "zh_CN": {
       "description": "这个模组努力添加一个受AD&D2规则启发的灵能系统，以及四个可以使用它的职业：灵能盗贼（灵能师）、灵能战士（魂刃）、灵能游侠（灵能猎手）和灵能法师（脑术师）。\n然而，由于游戏引擎并非为此设计，这个模组始终处于实验阶段，尽管它正在积极维护。但它应该能让你玩到拥有新类型能力的新角色。所以，不妨一试！"

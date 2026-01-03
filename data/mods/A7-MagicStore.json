@@ -19,7 +19,12 @@
     "choice_2": {"type": "muc", "components": ["31", "32", "33", "34", "35", "36"], "category": "smith", "default": "31"}
   },
   "languages": {
-    "fr_FR": 4
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
+    "pl_PL": 3,
+    "fr_FR": 4,
+    "zh_CN": 5
   },
   "translations": {
     "fr_FR": {
@@ -44,11 +49,50 @@
       }
     },
     "en_US": {
-      "description": "The game contains a large number of stores to suit your needs. However, returning to a store can be time-consuming, or sometimes not even possible. This mod allows you to acquire a magical artifact that will give you the means to go to any store you've visited in the past. To get your hands on this unique artifact, you'll need to complete a short quest."
+      "description": "The game contains a large number of stores to suit your needs. However, returning to a store can be time-consuming, or sometimes not even possible. This mod allows you to acquire a magical artifact that will give you the means to go to any store you've visited in the past. To get your hands on this unique artifact, you'll need to complete a short quest.",
+      "components": {
+        "choice_0": "Magic store of Vergadain",
+        "1": "Fee required",
+        "2": "Free of charge",
+        "10": "Alternate portrait for Ghostly Merchant",
+        "choice_1": "Restrict available services in summoned stores",
+        "21": "Prohibit resting",
+        "22": "Prohibit resting and curing",
+        "23": "Prohibit resting, curing, donating and drinking",
+        "24": "Allow only trading",
+        "choice_2": "Tweak item charges of the Magic Store (default: 3x/day)",
+        "31": "Once per day",
+        "32": "10 times per day",
+        "33": "10 charges",
+        "34": "50 charges",
+        "35": "100 charges",
+        "36": "Unlimited charges"
+      }
     },
     "zh_CN": {
-      "description": "游戏中包含许多商店以满足您的需求。然而，返回一个商店可能需要很多时间，或者有时甚至不可能。此模组让您获得一个魔法神器，让您能够前往您过去访问过的任何商店。获得这个独特的神器需要完成一个小型任务。"
-    }
+      "description": "游戏中包含许多商店以满足您的需求。然而，返回一个商店可能需要很多时间，或者有时甚至不可能。此模组让您获得一个魔法神器，让您能够前往您过去访问过的任何商店。获得这个独特的神器需要完成一个小型任务。",
+      "components": {
+        "choice_0": "维加丹的魔法商店",
+        "1": "所需费用",
+        "2": "免费",
+        "10": "幽灵商人的替代肖像",
+        "choice_1": "限制被召唤的商店中的可用服务",
+        "21": "禁止休息",
+        "22": "禁止休息和治疗",
+        "23": "禁止休息、治疗、捐赠和饮酒",
+        "24": "只允许交易",
+        "choice_2": "调整魔法商店的物品费用（默认：3次/天）",
+        "31": "每天1次",
+        "32": "每天10次",
+        "33": "可以召唤10次",
+        "34": "可以召唤50次",
+        "35": "可以召唤100次",
+        "36": "可以召唤无限次"
+      }
+    },
+    "de_DE": {"components": {"choice_0": "Magischer Laden von Vergadain", "1": "Gebuehrenpflichtig", "2": "Gebuehrenfrei", "10": "Alternatives Portrait fuer den geisterhaften Haendler", "choice_1": "Verfuegbare Angebote in herbeigerufenen Laeden einschraenken", "21": "Verbiete Rasten", "22": "Verbiete Rasten und Heilen", "23": "Verbiete Rasten, Heilen, Spenden und Trinken", "24": "Erlaube nur Handeln", "choice_2": "Anzahl Ladungen des Magischen Ladens aendern (Standard: 3x taeglich)", "31": "1x taeglich", "32": "10x taeglich", "33": "10 Ladungen", "34": "50 Ladungen", "35": "100 Ladungen", "36": "Unbegrenzt"}},
+    "ru_RU": {"components": {"choice_0": "Magic store of Vergadain", "1": "Fee required", "2": "Free of charge", "10": "Alternate portrait for Ghostly Merchant", "choice_1": "Restrict available services in summoned stores", "21": "Prohibit resting", "22": "Prohibit resting and curing", "23": "Prohibit resting, curing, donating and drinking", "24": "Allow only trading", "choice_2": "Tweak item charges of the Magic Store (default: 3x/day)", "31": "Once per day", "32": "10 times per day", "33": "10 charges", "34": "50 charges", "35": "100 charges", "36": "Unlimited charges"}},
+    "pl_PL": {"components": {"choice_0": "Magiczny sklep Vergadaina", "1": "Wymagana oplata", "2": "Bez oplat", "10": "Alternatywny portret widmowego kupca", "choice_1": "Ograniczenie dostepnych uslug w przyzwanym sklepie", "21": "Brak mozliwosci odpoczynku", "22": "Brak mozliwosci odpoczynku i leczenia", "23": "Brak mozliwosci odpoczynku, leczenia, skladania ofiary i spozywania alkoholu", "24": "Dostepny tylko handel", "choice_2": "Modyfikacja ilosci ladunkow w Magicznym sklepie (domyslnie 3 razy dziennie)", "31": "Raz dziennie", "32": "10 razy dziennie", "33": "10 ladunkow", "34": "50 ladunkow", "35": "100 ladunkow", "36": "Nieograniczona ilosc ladunkow"}}
   },
   "tp2": "a7-magicstore",
   "safe": 2,

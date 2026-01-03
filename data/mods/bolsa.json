@@ -37,7 +37,8 @@
     "it_IT": {"components": {"0": "Bolsa"}},
     "zh_CN": {
       "description": "博尔萨是一个新商人，出售各种背包（用于存放药剂和弹药），还有法师之杖，这是一种类固醇加强版的法师杖（以及一些经典物品）。"
-    }
+    },
+    "es_ES": {"components": {"0": "Bolsa"}}
   },
   "tp2": "bolsa",
   "safe": 2,

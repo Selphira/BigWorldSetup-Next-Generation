@@ -1,6 +1,6 @@
 {
   "name": "Baldur's Gate Mini Quests and Encounters Modification",
-  "version": "30",
+  "version": "29",
   "links": {
     "homepage": "https://www.gibberlings3.net/files/file/698-baldurs-gate-mini-quests-and-encounters/",
     "download": "https://github.com/Gibberlings3/BG_Quests_And_Encounters/releases/download/v29/baldurs-gate-mini-quests-and-encounters-modification-29.zip"
@@ -35,28 +35,33 @@
     "en_US": 0,
     "de_DE": 1,
     "fr_FR": 2,
-    "it_IT": 3
+    "it_IT": 3,
+    "ru_RU": 4,
+    "pl_PL": 5,
+    "es_ES": 6,
+    "zh_CN": 7,
+    "tr_TR": 8
   },
   "translations": {
     "en_US": {
       "components": {
         "0": "Slime Quest",
         "1": "Beregost Family Quest",
-        "2": "Babysitting Quest",
-        "3": "Nashkell Monster Quest",
+        "2": "Babysitting Quest, including the Carnival Encounter...",
+        "3": "Nashkel Monster Quest",
         "4": "Fallen Paladin Quest",
         "5": "Undying Love Quest",
         "6": "Lovesick Half-Orc",
         "7": "Unexpected Help Quest",
         "8": "Many Little Paws",
-        "9": "Drunk near Beregost Temple",
+        "9": "Drunk Near Beregost Temple",
         "10": "A Warm Place for Noober",
         "11": "Brage's Sword",
-        "12": "Legal Seachart Sources",
-        "13": "Additions to the House of the Lady and the Bitch Queen's Temple",
+        "12": "Legal Sea Charts Sources",
+        "13": "Additions to the Lady's Hall and the Bitch Queen's Temple",
         "14": "A Worried Farmer",
         "15": "Bodies for a Good Cause",
-        "16": "Installation de la quete terminer la quete de Cordyr sans tuer Sil"
+        "16": "Finish Cordyr's Quest without killing Sil"
       },
       "description": "This mini-mod adds 17 small quests to the game to spice up the adventure. They'll introduce you to the finer points of adventurous life, including babysitting! A revised version of Slime Quest, offering a small quest in Beregost, is included in this mod. According to the author, these quests add between 30 and 60 minutes to the game's length.\nInstall it before Ajantis BG1 Expansion Modification to benefit from all its options."
     },
@@ -82,10 +87,34 @@
         "16": "Installation de la quete terminer la quete de Cordyr sans tuer Sil..."
       }
     },
-    "it_IT": {"components": {"0": "Slime Quest", "1": "Beregost Family Quest", "2": "Babysitting Quest", "3": "Nashkell Monster Quest", "4": "Fallen Paladin Quest", "5": "Undying Love Quest", "6": "Orcish Lover Encounter", "7": "Unexpected Help Quest", "8": "\"Many Little Paws\"", "9": "Drunk near Beregost Temple", "10": "A Warm Place for Noober", "11": "Brage's Sword", "12": "Legal Seachart Sources", "13": "Additions to the House of the Lady and the Bitch Queen's Temple", "14": "A Worried Farmer", "15": "Bodies for a Good Cause", "16": "Installation de la quete terminer la quete de Cordyr sans tuer Sil"}},
+    "it_IT": {"components": {"0": "Missione della Fanghiglia...", "1": "Missione della Famiglia di Beregost.", "2": "Missione della Cura dei Bambini, incluso l'Incontro al Carnevale.", "3": "Missione del Mostro di Nashkel.", "4": "Missione del Paladino Decaduto.", "5": "Missione dell'Amore Imperituro.", "6": "Missione dell'Orco Innamorato.", "7": "Missione dell'Aiuto Inaspettato.", "8": "Missione Tante Piccole Zampette.", "9": "Missione L'Ubriaco Vicino al Tempio di Beregost.", "10": "Missione Un Posto Caldo per Noober.", "11": "Missione La Spada di Brage.", "12": "Fonti Lecite per le Carte Nautiche.", "13": "Aggiunte al Palazzo della Signora e alla Casa della Regina delle Acque.", "14": "Missione Un Contadino Preoccupato.", "15": "Missione Cadaveri per una Giusta Causa.", "16": "Completare la Missione di Cordyr senza uccidere Sil..."}},
     "zh_CN": {
-      "description": "此小型模组在游戏中添加了17个小任务，以使冒险更加刺激。它们将让您探索冒险者生活的侧面，尤其是保姆工作！一个经过修订的“史莱姆任务”版本，为贝尔苟斯特提供了一个小任务，已整合到此模组中。据作者称，这些任务增加了30到60分钟的游戏时间。\n在Ajantis BG1 Expansion Modification之前安装它以使用其所有选项。"
-    }
+      "description": "此小型模组在游戏中添加了17个小任务，以使冒险更加刺激。它们将让您探索冒险者生活的侧面，尤其是保姆工作！一个经过修订的“史莱姆任务”版本，为贝尔苟斯特提供了一个小任务，已整合到此模组中。据作者称，这些任务增加了30到60分钟的游戏时间。\n在Ajantis BG1 Expansion Modification之前安装它以使用其所有选项。",
+      "components": {
+        "0": "贝尔苟斯特的果冻怪",
+        "1": "贝尔苟斯特的家庭",
+        "2": "临时保姆与嘉年华的遭遇",
+        "3": "那西凯的怪物",
+        "4": "堕落的圣武士",
+        "5": "不朽的爱情",
+        "6": "陷入苦恋的半兽人",
+        "7": "意想不到的帮助",
+        "8": "许多只小爪子",
+        "9": "贝尔苟斯特神殿附近的醉鬼",
+        "10": "努波的温柔乡",
+        "11": "布雷吉的剑",
+        "12": "合法的海图来源",
+        "13": "女神大殿与贱后神殿的扩展",
+        "14": "一位担忧的农夫",
+        "15": "理由正当的尸体",
+        "16": "不用杀死水妖精就可以完成柯达的任务"
+      }
+    },
+    "de_DE": {"components": {"0": "Schleim-Quest", "1": "Familienquest in Beregost", "2": "Babysitting in Nashkell", "3": "Monstersichtung in Nashkell", "4": "Gefallener Paladin in Baldurs Tor", "5": "Unvergaengliche Liebe im Fischerdorf", "6": "Halbork in Liebesnoeten", "7": "Unerwartete Hilfe", "8": "Viele kleine Pfoten", "9": "Betrunkener nahe dem Tempel von Beregost", "10": "Ein warmer Platz fuer Noober", "11": "Brages Schwert", "12": "Legale Seekarten", "13": "Erweiterungen Haus der Dame und Haus der Wasserkoenigin", "14": "Ein besorgter Bauer", "15": "Leichen fuer einen guten Zweck", "16": "Cordyrs Quest ohne Sils Tod abschließen"}},
+    "ru_RU": {"components": {"0": "Slime Quest", "1": "Beregost Family Quest", "2": "Babysitting Quest, including the Carnival Encounter...", "3": "Nashkel Monster Quest", "4": "Fallen Paladin Quest", "5": "Undying Love Quest", "6": "Lovesick Half-Orc", "7": "Unexpected Help Quest", "8": "Many Little Paws", "9": "Drunk near Beregost Temple", "10": "A Warm Place for Noober", "11": "Brage's Sword", "12": "Legal Sea Charts Sources", "13": "Additions to the Lady's Hall and the Bitch Queen's Temple", "14": "A Worried Farmer", "15": "Bodies for a Good Cause", "16": "Finish Cordyr's Quest without killing Sil"}},
+    "pl_PL": {"components": {"0": "Instalacja questu \"Przygoda ze Szlamem\"", "1": "Instalacja questu \"Klotnia rodzinna w Beregoscie\"", "2": "Instalacja questu \"Opieka nad dziecmi w Nashkel\", zawiera spotkanie na Jarmarku", "3": "Instalacja questu \"Potwor w Nashkel\"", "4": "Instalacja questu \"Upadly Paladyn we Wrotach Baldura\"", "5": "Instalacja questu \"Niesmiertelna milosc w wiosce rybackiej\"", "6": "Instalacja questu \"Zakochany Polork\"", "7": "Instalacja questu \"Nieoczekiwana Pomoc\"", "8": "Instalacja questu \"Wiele malych lapek\"", "9": "Instalacja questu \"Pijak przy swiatyni w Beregoscie\"", "10": "Instalacja questu \"Schronienie dla Noobera\"", "11": "Instalacja questu \"Miecz Brage'a\"", "12": "Instalacja questu \"Legalne pozyskanie map morskich\"", "13": "Instalacja questu \"Dodatki do Domu Pani oraz Swiatyni Krolowej Suki\"", "14": "Instalacja questu \"Zaniepokojony rolnik\"", "15": "Instalacja questu \"Zwloki w szczytnym celu\"", "16": "Instalacja questu \"Ukonczenie zadania Cordyra bez zabijania Sil\""}},
+    "es_ES": {"components": {"0": "Limo", "1": "Familia de Beregost", "2": "Cuidador de ninos, incluye encuentro en el Carnaval", "3": "Monstruo de Nashkel", "4": "Paladin caido", "5": "Amor eterno", "6": "Semiorco enamorado", "7": "Ayuda inesperada", "8": "Muchas patitas", "9": "Borracho cerca del Templo de Beregost", "10": "Un lugar calido para Noober", "11": "La espada de Brage", "12": "Fuentes de cartas nauticas legales", "13": "Ampliaciones del Salon de la Dama y del Templo de la Reina Perra", "14": "Un granjero preocupado", "15": "Cuerpos por una buena causa", "16": "Termina la mision de Cordyr sin matar a Sil"}},
+    "tr_TR": {"components": {"0": "Balçık Görevi", "1": "Beregost Ailesi Görevi", "2": "Bebek Bakıcılığı Görevi, Karnaval Karşılaşmaları dahil...", "3": "Nashkel Canavarı Görevi", "4": "Düşmüş Paladin Görevi", "5": "Ölümsüz Aşk Görevi", "6": "Kara Sevdalı Yarı-Ork", "7": "Beklenmedik Yardım Görevi", "8": "Birçok Minik Pati", "9": "Beregost Tapınağı Yakınlarındaki Sarhoş", "10": "Noober İçin Sıcak Bir Yer", "11": "Brage'in Kılıcı", "12": "Yasal Deniz Haritaları Kaynakları", "13": "Hanımın Salonu ve Fahişe Kraliçenin Tapınağına İlaveler", "14": "Endişeli Bir Çiftçi", "15": "İyi Bir Amaç İçin Cesetler", "16": "Cordyr'in Görevini Sil'i öldürmeden tamamla."}}
   },
   "tp2": "bgqe",
   "safe": 2,

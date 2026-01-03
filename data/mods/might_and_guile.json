@@ -1,6 +1,6 @@
 {
   "name": "Might & Guile",
-  "version": "5.8.9",
+  "version": "5.8.8",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/Might_and_Guile",
     "download": "https://github.com/UnearthedArcana/Might_and_Guile/archive/refs/tags/5.8.8.zip"
@@ -29,7 +29,6 @@
     "120": {"type": "std"},
     "125": {"type": "std"},
     "130": {"type": "std"},
-    "145": {"type": "std"},
     "151": {"type": "std"},
     "155": {"type": "std"},
     "160": {"type": "std"},
@@ -51,6 +50,7 @@
     "490": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -59,7 +59,7 @@
       "components": {
         "50": "Deplacer le kit de Cavalier vers la classe de guerrier",
         "55": "Ajouter le Corsaire (kit de guerrier)",
-        "60": "Ajouter le Samouraï (kit de guerrier)",
+        "60": "Ajouter le Soheï (kit de guerrier)",
         "65": "Ajouter le Forgeron (kit de guerrier)",
         "66": "Donner le Forgeron kit a Breagar",
         "75": "Ajouter le Barbare/Voleur (kit de guerrier/voleur)",
@@ -73,7 +73,6 @@
         "120": "Ajouter les kits régionaux de rodeur",
         "125": "Ajouter le Chasseur de magiciens (kit de rodeur)",
         "130": "Ajouter le Rodeur barbare (kit de rodeur)",
-        "145": "Ajouter les faux rodeurs multiclasses",
         "151": "Deplacer l'Archer vers la classe de guerrier",
         "155": "Ajouter l'Archer elfe (kit de rôdeur)",
         "160": "Ajouter le Frondeur petite-personne (kit de guerrier/voleur)",
@@ -96,7 +95,44 @@
       }
     },
     "en_US": {
-      "description": "This mod brings rule changes and new kits for fighters, lurkers, bards and foxes. You can choose whether or not to install dozens of components, depending on how you play."
+      "description": "This mod brings rule changes and new kits for fighters, lurkers, bards and foxes. You can choose whether or not to install dozens of components, depending on how you play.",
+      "components": {
+        "50": "Move the Cavalier to the Fighter Class",
+        "55": "Add the Corsair (fighter kit)",
+        "60": "Add the Sohei Warrior (fighter kit)",
+        "65": "Add the Ironsmith (fighter kit)",
+        "66": "Give Breagar the Ironsmith kit",
+        "75": "Add the Barbarian/Thief (fighter/thief kit)",
+        "80": "Add the Tomb Runner (fighter/thief kit)",
+        "85": "Add the Thug (fighter/thief kit)",
+        "90": "Add the Rake (thief kit) and revise the Swashbuckler",
+        "96": "Add the Ninja (thief kit)",
+        "97": "Add the Ninja (fighter/thief kit)",
+        "105": "Add the Spellfilcher (mage/thief kit)",
+        "110": "Add the Loremaster (mage/thief kit)",
+        "120": "Add Regional Ranger kits",
+        "125": "Add the Mage Hunter (ranger kit)",
+        "130": "Add the Barbarian Ranger (ranger kit)",
+        "151": "Move the Archer to the Fighter Class",
+        "155": "Add the Elven Archer (ranger kit)",
+        "160": "Add the Halfling Slinger (fighter/thief kit)",
+        "165": "Add the Marksman (thief kit)",
+        "201": "Improved Rangers",
+        "210": "Revised Movement Bonuses (Quickstride)",
+        "220": "Revised Ranger Spell Table",
+        "225": "Revised Archers",
+        "230": "Revised Stalker",
+        "235": "Revised Beastmaster",
+        "265": "Revised Monk Fists",
+        "280": "Revised Backstabbing",
+        "290": "Revised THAC0 Progression",
+        "400": "Bard Overhaul: Multiclass Bards",
+        "450": "Add the Jongleur (bard kit)",
+        "460": "Add the Loremaster (bard kit)",
+        "470": "Add the Gallant (bard kit)",
+        "480": "Add the Meistersinger (bard kit)",
+        "490": "Add the Loresinger (bard kit)"
+      }
     },
     "zh_CN": {
       "description": "此模组带来了战斗规则和新的宗派，适用于战士、游侠、吟游诗人和盗贼。您可以根据自己的游戏方式选择安装或否决数十个组件。它定期更新。"

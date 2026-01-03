@@ -17,31 +17,44 @@
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
     "zh_CN": 2,
     "ru_RU": 3,
-    "fr_FR": 4
+    "fr_FR": 4,
+    "ko_KR": 5,
+    "it_IT": 6,
+    "es_ES": 7
   },
   "translations": {
     "en_US": {
       "components": {
-        "choice_0": "Bord Sud : la nouveau quartier d'Athkatla",
-        "0": "Oui, mais sans corriger les sauvegardes de jeu existantes",
-        "1": "Oui, et corriger les sauvegardes de jeu existantes"
+        "choice_0": "Southern Edge: the new district of Athkatla",
+        "0": "Yes, but don't patch the existing save games",
+        "1": "Yes, and patch the existing save games"
       },
       "description": "Southern Edge is a new district for our favorite BG2 city - Athkatla - available from the very start, once you talk to Gaelan and hear his offer. The mod is to make the first hours of the game more interesting, as some player might have got bored with doing the same quests over and over again. The area isn't as big as Slums or as Bridge District, but it includes a main quest introduced by a halfling name Mairo and a series of mini-quests and encounters introduced by both some new characters, and some you might have met before."
     },
-    "ru_RU": {"components": {"choice_0": "Bord Sud : la nouveau quartier d'Athkatla", "0": "Oui, mais sans corriger les sauvegardes de jeu existantes", "1": "Oui, et corriger les sauvegardes de jeu existantes"}},
+    "ru_RU": {"components": {"choice_0": "Southern Edge: the new district of Athkatla", "0": "Yes, but don't patch the existing save games", "1": "Yes, and patch the existing save games"}},
     "fr_FR": {
       "description": "Ce mod a pour but de rendre les premières heures du jeu plus intéressantes, car certains joueurs se sont peut-être lassés de faire les mêmes quêtes encore et encore. Il ajoute donc un nouveau quartier dans d'Athkatla : Bord Sud, accessible une fois que vous avez parlé à Gaelan et entendu son offre. La zone n'est pas aussi grande que celle des Bas Quartiers ou du Quartier du pont, mais elle a sa propre quête principale (initiée par une petite-personne nommée Maïro Claqueboue) et une série de mini-quêtes et de rencontres initiées par de nouveaux personnages et d'autres que vous avez déjà rencontrés.",
       "components": {
-        "choice_0": "Bord Sud : la nouveau quartier d'Athkatla",
+        "choice_0": "Bord Sud : le nouveau quartier d'Athkatla",
         "0": "Oui, mais sans corriger les sauvegardes de jeu existantes",
         "1": "Oui, et corriger les sauvegardes de jeu existantes"
       }
     },
     "zh_CN": {
-      "description": "此模组旨在让游戏的前几个小时更有趣，因为一些玩家可能已经厌倦了一遍又一遍地做同样的任务。因此，它在阿斯卡特拉（d'Athkatla）新增了一个街区：南区，在你与盖伦（Gaelan）交谈并听到他的提议后即可进入。这个区域不像贫民区（Bas Quartiers）或大桥区（Quartier du pont）那么大，但它有自己的主线任务（由一个名叫Maïro Claqueboue的半身人发起）以及一系列由新角色和你已经遇到过的角色发起的小任务和遭遇战。"
-    }
+      "description": "此模组旨在让游戏的前几个小时更有趣，因为一些玩家可能已经厌倦了一遍又一遍地做同样的任务。因此，它在阿斯卡特拉（d'Athkatla）新增了一个街区：南区，在你与盖伦（Gaelan）交谈并听到他的提议后即可进入。这个区域不像贫民区（Bas Quartiers）或大桥区（Quartier du pont）那么大，但它有自己的主线任务（由一个名叫Maïro Claqueboue的半身人发起）以及一系列由新角色和你已经遇到过的角色发起的小任务和遭遇战。",
+      "components": {
+        "choice_0": "市郊区：阿斯卡特拉的新地区",
+        "0": "是的，但不要修改存档文件",
+        "1": "是的，并且修改存档文件"
+      }
+    },
+    "pl_PL": {"components": {"choice_0": "Southern Edge - mod do Baldur's Gate II: Enhanced Edition", "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry", "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"}},
+    "ko_KR": {"components": {"choice_0": "Southern Edge: the new district of Athkatla", "0": "Yes, but don't patch the existing save games", "1": "Yes, and patch the existing save games"}},
+    "it_IT": {"components": {"choice_0": "Borgo Meridionale: un nuovo distretto di Athkatla", "0": "Si, ma non patchare i salvataggi esistenti", "1": "Si, e patcha i salvataggi esistenti"}},
+    "es_ES": {"components": {"choice_0": "Borde Meridional: el nuevo distrito de Athkatla", "0": "Sí, pero no se parchean las partidas guardadas existentes", "1": "Sí, y parchear las partidas guardadas existentes"}}
   },
   "tp2": "southernedge",
   "safe": 2,

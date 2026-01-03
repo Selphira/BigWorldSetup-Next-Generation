@@ -29,26 +29,28 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 4,
+    "pl_PL": 1,
     "ru_RU": 2,
-    "it_IT": 3
+    "it_IT": 3,
+    "fr_FR": 4
   },
   "translations": {
     "en_US": {
       "description": "For those still on the quest for new items in BG2, this mini-mod adds 12 items from IWD and IWD2 to the wares of the Copper Coronet's bonus merchant, Joluv. Each item can be installed separately. Beware, some are really unbalanced (grosbill).",
       "components": {
-        "0": "Black Wolf Talisman",
-        "1": "Chain of Drakkas' Fury",
-        "2": "House of Despana Insignia",
-        "3": "Kegsplitter of Shaengarne Ford",
-        "4": "Kresselack's Full Plate Mail",
-        "5": "Mantle of the Coming Storm",
-        "6": "SkullFlail",
-        "7": "Spear of White Ash",
-        "8": "Twelve Paces",
-        "9": "Belib's Everlasting Torch",
-        "10": "Binding Sash of the Black Raven",
-        "11": "Young Ned's Knucky"
+        "100": "12 new items in Joluv store",
+        "1": "Black Wolf Talisman",
+        "6": "Chain of Drakkas' Fury",
+        "11": "House of Despana Insignia",
+        "19": "Kegsplitter of Shaengarne Ford",
+        "24": "Kresselack's Full Plate Mail",
+        "29": "Mantle of the Coming Storm",
+        "35": "SkullFlail",
+        "40": "Spear of White Ash",
+        "45": "Twelve Paces",
+        "51": "Belib's Everlasting Torch",
+        "56": "Binding Sash of the Black Raven",
+        "61": "Young Ned's Knucky"
       }
     },
     "fr_FR": {
@@ -69,11 +71,12 @@
         "61": "Amulette du jeune Ned"
       }
     },
-    "ru_RU": {"components": {"0": "Black Wolf Talisman", "1": "Chain of Drakkas' Fury", "2": "House of Despana Insignia", "3": "Kegsplitter of Shaengarne Ford", "4": "Kresselack's Full Plate Mail", "5": "Mantle of the Coming Storm", "6": "SkullFlail", "7": "Spear of White Ash", "8": "Twelve Paces", "9": "Belib's Everlasting Torch", "10": "Binding Sash of the Black Raven", "11": "Young Ned's Knucky"}},
-    "it_IT": {"components": {"0": "Talismano del Lupo Nero", "1": "Catena della Furia di Drakkas", "2": "Insegne della Casata Despana", "3": "Spaccabarili del Guado Shaengarne", "4": "Corazza di piastre completa di Kresselack", "5": "Manto della Tempesta Incombente", "6": "Mazzafrusto del Teschio", "7": "Lancia della Cenere Bianca", "8": "Dodici Passi", "9": "Torcia Eterna di Belib", "10": "Fascia Avvolgente del Corvo Nero", "11": "Knucky del Giovane Ned"}},
+    "ru_RU": {"components": {"100": "12 new items in Joluv store", "1": "Black Wolf Talisman", "6": "Chain of Drakkas' Fury", "11": "House of Despana Insignia", "19": "Kegsplitter of Shaengarne Ford", "24": "Kresselack's Full Plate Mail", "29": "Mantle of the Coming Storm", "35": "SkullFlail", "40": "Spear of White Ash", "45": "Twelve Paces", "51": "Belib's Everlasting Torch", "56": "Binding Sash of the Black Raven", "61": "Young Ned's Knucky"}},
+    "it_IT": {"components": {"100": "12 new items in Joluv store", "1": "Talismano del Lupo Nero", "6": "Catena della Furia di Drakkas", "11": "Insegne della Casata Despana", "19": "Spaccabarili del Guado Shaengarne", "24": "Corazza di piastre completa di Kresselack", "29": "Manto della Tempesta Incombente", "35": "Mazzafrusto del Teschio", "40": "Lancia della Cenere Bianca", "45": "Dodici Passi", "51": "Torcia Eterna di Belib", "56": "Fascia Avvolgente del Corvo Nero", "61": "Knucky del Giovane Ned"}},
     "zh_CN": {
       "description": "对于那些仍在《博德之门2》中寻找新物品的玩家，这个小模组在铜冠旅店的额外商人乔卢夫的商品中添加了12件来自《冰风谷》和《冰风谷2》的物品。每件物品都可以单独安装。注意，有些物品非常不平衡（强力物品）。"
-    }
+    },
+    "pl_PL": {"components": {"100": "12 new items in Joluv store", "1": "Talizman Czarnego Wilka", "6": "£añcuch Furii Drakkasa", "11": "Insygnia Domu Despana", "19": "Roz³upywacz Bary³ek z Brodu Shaengarne", "24": "Pe³na zbroja p³ytowa Kresselack'a", "29": "Peleryna Nadci¹gaj¹cej Burzy", "35": "Korbacz Czaszki", "40": "W³ócznia z Bia³ego Jesionu", "45": "Dwanaœcie Kroków", "51": "Niegasn¹ca pochodnia Beliba", "56": "Wi¹¿¹ca Szarfa Czarnego Kruka", "61": "Rybka szczêœliwka M³odego Neda"}}
   },
   "tp2": "iwditempack",
   "safe": 2,

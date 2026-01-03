@@ -32,7 +32,10 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 3
+    "es_ES": 1,
+    "de_DE": 2,
+    "fr_FR": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
@@ -79,7 +82,10 @@
     },
     "zh_CN": {
       "description": "这个模组让你能与众多可恋爱的NPC（维康妮亚、阿诺门、艾黎、贾希拉）进行许多新的互动，包括新的对话、额外的台词……"
-    }
+    },
+    "es_ES": {"components": {"0": "Aerie Flirt Pack Para SOA", "1": "Aerie/Solaufein Romance Conflict Para SOA (Solaufein V60 o superior recomendado)", "2": "Aerie Flirt Pack Para TOB", "3": "Aerie/Solaufein Romance Conflict Para TOB (Solaufein V60 o superior recomendado)", "4": "Jaheira Flirt Pack para SOA", "5": "Jaheira/Solaufein Romance Conflict Para SOA (Solaufein V60 o superior recomendado)", "6": "Jaheira Flirt Pack para TOB", "7": "Jaheira/Solaufein Romance Conflict PAra TOB (Solaufein V60 o superior recomendado)", "8": "Viconia Flirt Pack para SOA", "9": "Viconia/Solaufein Romance Conflict Para SOA (Solaufein V60 o superior recomendado)", "10": "Viconia Flirt Pack para TOB", "11": "Viconia/Solaufein Romance Conflict Para TOB (Solaufein V60 o superior recomendado)", "12": "Anomen Flirt Pack Para SOA", "13": "Anomen/Solaufein Romance Conflict Para SOA (Solaufein V60 o superior recomendado)", "14": "Anomen Flirt Pack Para TOB", "15": "Anomen/Solaufein Romance Conflict Para TOB (Solaufein V60 o superior recomendado)"}},
+    "de_DE": {"components": {"0": "Aerie Flirt Pack für SOA", "1": "Aerie/Solaufein Romanzenkonflikt für SOA (Solaufein V60 oder höher empfohlen)", "2": "Aerie Flirt Pack für TOB", "3": "Aerie/Solaufein Romanzenkonflikt für TOB (Solaufein V60 oder höher empfohlen)", "4": "Jaheira Flirt Pack für SOA", "5": "Jaheira/Solaufein Romanzenkonflikt für SOA (Solaufein V60 oder höher empfohlen)", "6": "Jaheira Flirt Pack für TOB", "7": "Jaheira/Solaufein Romanzenkonflikt für TOB (Solaufein V60 oder höher empfohlen)", "8": "Viconia Flirt Pack für SOA", "9": "Viconia/Solaufein Romanzenkonflikt für SOA (Solaufein V60 oder höher empfohlen)", "10": "Viconia Flirt Pack für TOB", "11": "Viconia/Solaufein Romanzenkonflikt für TOB (Solaufein V60 oder höher empfohlen)", "12": "Anomen Flirt Pack für SOA", "13": "Anomen/Solaufein Romanzen Konflikt für SOA (Solaufein V60 oder höher empfohlen)", "14": "Anomen Flirt Pack für TOB", "15": "Anomen/Solaufein Romanzen Konflikt für TOB (Solaufein V60 oder höher empfohlen)"}},
+    "ru_RU": {"components": {"0": "Aerie Flirt Pack For SOA", "1": "Aerie/Solaufein Romance Conflict For SOA (Solaufein V60 or greater recommended)", "2": "Aerie Flirt Pack For TOB", "3": "Aerie/Solaufein Romance Conflict For TOB (Solaufein V60 or greater recommended)", "4": "Jaheira Flirt Pack for SOA", "5": "Jaheira/Solaufein Romance Conflict For SOA (Solaufein V60 or greater recommended)", "6": "Jaheira Flirt Pack for TOB", "7": "Jaheira/Solaufein Romance Conflict For TOB (Solaufein V60 or greater recommended)", "8": "Viconia Flirt Pack for SOA", "9": "Viconia/Solaufein Romance Conflict For SOA (Solaufein V60 or greater recommended)", "10": "Viconia Flirt Pack for TOB", "11": "Viconia/Solaufein Romance Conflict For TOB (Solaufein V60 or greater recommended)", "12": "Anomen Flirt Pack for SOA", "13": "Anomen/Solaufein Romance Conflict For SOA (Solaufein V60 or greater recommended)", "14": "Anomen Flirt Pack for TOB", "15": "Anomen/Solaufein Romance Conflict For TOB (Solaufein V60 or greater recommended)"}}
   },
   "tp2": "npcflirt",
   "safe": 2,

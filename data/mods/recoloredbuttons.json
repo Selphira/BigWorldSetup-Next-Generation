@@ -1,5 +1,5 @@
 {
-  "name": "Recolored Toolbar Buttons",
+  "name": "Recolored character's toolbar buttons for BG:EE and BG2:EE",
   "version": "4.3",
   "links": {
     "homepage": "https://github.com/Argent77/A7-recoloredbuttons",
@@ -18,6 +18,8 @@
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
+    "de_DE": 2,
     "all": 0
   },
   "translations": {
@@ -35,6 +37,18 @@
     },
     "zh_CN": {
       "description": "这个模组最初是为博德之门2：增强版设计的，但也兼容博德之门：增强版，旨在突出显示切换按钮（如IA按钮）在选中时的状态。"
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Zmiana koloru przyciskow paska postaci(BG:EE)", "0": "Niebieskawa tonacja kolorystyczna",
+        "1": "Zlota tonacja kolorystyczna", "2": "Zmiana koloru przyciskow paska postaci(BG2:EE)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG:EE)", "0": "Blaeuliches Farbschema",
+        "1": "Goldenes Farbschema", "2": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG2:EE)"
+      }
     }
   },
   "tp2": "recoloredbuttons",

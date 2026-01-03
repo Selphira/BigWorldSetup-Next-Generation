@@ -16,6 +16,8 @@
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}
   },
   "languages": {
+    "cs_CZ": 0,
+    "en_US": 1,
     "fr_FR": 3
   },
   "translations": {
@@ -28,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "Tired of fighting this group of duergars that are decidedly too easy for your strong arms or destructive spells - despite the fact that you only have a few at the start of the game? But has Weimer Tactics's `Ilyich amélioré` component already made you pull out all the hair you had left - having already pulled out the first half while trying to properly install your endless list of mods? Then you'll probably love this mod! It improves the duergars in Irenicus prison, without making them invincible... Note that it also adds a few other little things; these are listed in the readme as usual."
+      "description": "Tired of fighting this group of duergars that are decidedly too easy for your strong arms or destructive spells - despite the fact that you only have a few at the start of the game? But has Weimer Tactics's `Ilyich amélioré` component already made you pull out all the hair you had left - having already pulled out the first half while trying to properly install your endless list of mods? Then you'll probably love this mod! It improves the duergars in Irenicus prison, without making them invincible... Note that it also adds a few other little things; these are listed in the readme as usual.",
+      "components": {
+        "choice_0": "Slightly Improved Ilyich",
+        "0": "Slightly Improved Ilyich",
+        "1": "Slightly Improved Ilyich&Faster Second Floor"
+      }
     },
     "zh_CN": {
       "description": "厌倦了与这群矮人战斗——对于你强壮的手臂或毁灭性的法术来说，他们实在太容易了——尽管在游戏开始时你几乎没有这样的法术？但是，Weimer的`Ilyich改良`组件Tactics已经让你拔掉了所有剩下的头发——在试图正确安装你那没完没了的模组列表时已经拔掉了第一半？那么，这个模组可能会让你喜欢！它改良了艾瑞尼卡斯监狱里的矮人，但并没有让他们变得无敌。请注意，它还添加了一些其他的小东西；它们像往常一样在readme中列出。"
-    }
+    },
+    "cs_CZ": {"components": {"choice_0": "Mirne vylepseny Ilyich", "0": "Mirne vylepseny Ilyich", "1": "Mirne vylepseny Ilyich&Rychlejsi druhe patro"}}
   },
   "tp2": "slightlyimprovedilyich",
   "safe": 2,

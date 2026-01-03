@@ -16,7 +16,8 @@
     "0": {"type": "std", "category": "tactic"}
   },
   "languages": {
-    "fr_FR": 3
+    "en_US": 0,
+    "fr_FR": 2
   },
   "translations": {
     "fr_FR": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "A tribute to the manga `Tomoyo After: It's a Wonderful Life`, this mod adds an underground city (whose entrance is in the lich crypt at City Gates). Those not put off by a story disconnected from that of BG2 will find a series of linked maps, on which you'll face hundreds of monsters dropping a host of items, some of them extremely powerful. You'll meet and hire Tomoyo Sakagami, heroine of the Clannad manga and its continuations. However, you don't have to keep her in the party - she's mute and has no bearing on what happens next.\nSTR 16, DEX 19, CON 15, INT 18, WIS 13, CHA 17."
+      "description": "A tribute to the manga `Tomoyo After: It's a Wonderful Life`, this mod adds an underground city (whose entrance is in the lich crypt at City Gates). Those not put off by a story disconnected from that of BG2 will find a series of linked maps, on which you'll face hundreds of monsters dropping a host of items, some of them extremely powerful. You'll meet and hire Tomoyo Sakagami, heroine of the Clannad manga and its continuations. However, you don't have to keep her in the party - she's mute and has no bearing on what happens next.\nSTR 16, DEX 19, CON 15, INT 18, WIS 13, CHA 17.",
+      "components": {
+        "0": "Tomoyo and the Underground City MOD v0.9 by Viracocha"
+      }
     },
     "zh_CN": {
       "description": "向漫画《Tomoyo After : It's a Wonderful Life》致敬，这个模组添加了一座地下城市（入口在城市大门的巫妖墓穴中）。对于那些不介意与博德之门2主线故事脱节的玩家，这里将有一系列串联的地图，你将在上面迎战数百只怪物，它们会掉落大量物品，其中一些极其强大。你将遇到并可以招募坂上智代，这是《Clannad》及其续作中的女主角。不过，你并非必须让她加入队伍，她不会说话，并且对后续剧情没有影响。\n力量 16，敏捷 19，体质 15，智力 18，智慧 13，魅力 17。"

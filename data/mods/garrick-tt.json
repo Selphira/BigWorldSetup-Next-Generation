@@ -30,12 +30,13 @@
     "en_US": {
       "description": "This mod aims to make Garrick's character more interesting to play, by adding new dialogs, situations and encounters, as well as additional songs specific to the Bard of Beregost. It builds on and completes the content introduced by The BG1NPC Project.",
       "components": {
-        "0": "Garrick: Tales of a troubadour"
+        "0": "Garrick: Tales of a Troubadour"
       }
     },
     "zh_CN": {
       "description": "此模组旨在让加瑞克这个角色变得更有趣，通过添加新的对话、新的情境与遭遇，以及贝尔苟斯特吟游诗人专属的额外歌曲。它基于The BG1NPC Project引入的内容并对其进行补充。"
-    }
+    },
+    "de_DE": {"components": {"0": "Garrick : Geschichten eines Troubadours"}}
   },
   "tp2": "garrick-tt",
   "safe": 2,

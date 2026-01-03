@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "This mod adds two stores (one in the Irenicus dungeon behind Jaheira's cell and the other in the shadow ruins - Amaunator's temple) that sell potions allowing you to transform into various creatures: silt, vampire, minotaur, spectator... This is a dark mod based on undead, liches, etc. Potions can only be used by humans of fighter, cleric, mage or thief class."
+      "description": "This mod adds two stores (one in the Irenicus dungeon behind Jaheira's cell and the other in the shadow ruins - Amaunator's temple) that sell potions allowing you to transform into various creatures: silt, vampire, minotaur, spectator... This is a dark mod based on undead, liches, etc. Potions can only be used by humans of fighter, cleric, mage or thief class.",
+      "components": {
+        "0": "Mortis"
+      }
     },
     "zh_CN": {
       "description": "此模组添加了两个商店（一个在艾瑞尼卡斯地牢，在贾希拉的牢房后面；另一个在幽影废墟——阿玛纳多神庙），出售各种药水，让你可以变成不同的生物：泥怪、吸血鬼、牛头人、眼魔……这是一个基于不死生物、巫妖等的黑暗模组。这些药水只能由人类战士、牧师、法师或盗贼职业使用。"
@@ -34,5 +38,5 @@
   },
   "tp2": "mortis",
   "safe": 2,
-  "authors": ["Mortis"]
+  "authors": ["Mortis", "Seifer"]
 }

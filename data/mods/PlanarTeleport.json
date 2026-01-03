@@ -16,6 +16,7 @@
     "0": {"type": "std", "category": "smith"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "Originally published on [this site](http://mods.jo-ge.net/bg/index.htm), this mini mod adds an item, donated by Lavok, allowing you to teleport directly into the Planar Sphere (and back to where you were), like the \"Pocket Plane\" ability."
+      "description": "Originally published on [this site](http://mods.jo-ge.net/bg/index.htm), this mini mod adds an item, donated by Lavok, allowing you to teleport directly into the Planar Sphere (and back to where you were), like the \"Pocket Plane\" ability.",
+      "components": {
+        "0": "Planar Sphere Teleporter"
+      }
     },
     "zh_CN": {
       "description": "最初发布于[此网站](http://mods.jo-ge.net/bg/index.htm)，此小型模组添加了一个物品，由Lavok给予，允许您直接传送到领域面（并返回您所在的位置），就像“前厅”能力一样。"

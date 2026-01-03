@@ -19,6 +19,9 @@
     "choice_1": {"type": "muc", "components": ["100", "101"], "category": "spell"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -38,11 +41,25 @@
       }
     },
     "en_US": {
-      "description": "Have you ever regretted that the game only lets you create an initial party consisting of the protagonist and (with some effort) a small number of additional characters? Not anymore! This mod lets you install pre-generated or exported characters as ordinary NPCs. You can meet them at predetermined locations, where you have the option of inviting them into your party or having them follow you without occupying a place in the party, at any time during the game. NPCs sent back can be instructed to wait or return to the original meeting place."
+      "description": "Have you ever regretted that the game only lets you create an initial party consisting of the protagonist and (with some effort) a small number of additional characters? Not anymore! This mod lets you install pre-generated or exported characters as ordinary NPCs. You can meet them at predetermined locations, where you have the option of inviting them into your party or having them follow you without occupying a place in the party, at any time during the game. NPCs sent back can be instructed to wait or return to the original meeting place.",
+      "components": {
+        "choice_0": "Add custom NPCs to the game",
+        "1": "User characters only",
+        "2": "Game characters only",
+        "3": "User characters and game characters",
+        "4": "Automated installation (from settings.tpa)",
+        "20": "Enable alignment checks for custom NPCs",
+        "21": "Disable alignment checks for custom NPCs",
+        "choice_1": "Remove custom NPCs from the game",
+        "100": "Select individually",
+        "101": "Remove all"
+      }
     },
     "zh_CN": {
       "description": "您是否从未后悔过游戏只允许您创建一个由主角和（经过一番努力）少数额外角色组成的初始队伍？现在不会了！这个模组允许您将预生成或导出的角色作为普通NPC安装。您可以在预定地点遇到他们，在那里您可以邀请他们加入队伍，或者让他们跟随您而不占用队伍位置，在游戏中的任何时间都可以。被解雇的NPC可以被命令等待或返回到最初的相遇地点。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "Benutzerdefinierte NSCs zum Spiel hinzufuegen", "1": "Nur selbsterstellte Charaktere", "2": "Nur Charaktere des Spiels", "3": "Selbsterstellte und Spielcharaktere", "4": "Automatische Installation (aus settings.tpa)", "20": "Aktiviere Gesinnungspruefung installierter NSCs", "21": "Deaktiviere Gesinnungspruefung installierter NSCs", "choice_1": "Benutzerdefinierte NSCs deinstallieren", "100": "Manuell auswaehlen", "101": "All deinstallieren"}},
+    "ru_RU": {"components": {"choice_0": "Add custom NPCs to the game", "1": "User characters only", "2": "Game characters only", "3": "User characters and game characters", "4": "Automated installation (from settings.tpa)", "20": "Enable alignment checks for custom NPCs", "21": "Disable alignment checks for custom NPCs", "choice_1": "Remove custom NPCs from the game", "100": "Select individually", "101": "Remove all"}}
   },
   "tp2": "a7-npcgenerator",
   "safe": 2,

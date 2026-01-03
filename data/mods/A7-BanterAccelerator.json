@@ -17,7 +17,10 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "pt_BR": 3,
+    "zh_CN": 4
   },
   "translations": {
     "fr_FR": {
@@ -40,11 +43,45 @@
       }
     },
     "en_US": {
-      "description": "This mod lets you define the rhythm of chatter between the characters in your team. You can choose from a pre-established list or define it yourself. Compatible with all Enhanced Edition games."
+      "description": "This mod lets you define the rhythm of chatter between the characters in your team. You can choose from a pre-established list or define it yourself. Compatible with all Enhanced Edition games.",
+      "components": {
+        "choice_0": "Banter Accelerator",
+        "10": "Frequency: 60 seconds, Probability: 10%",
+        "11": "Frequency: 60 seconds, Probability: 25%",
+        "12": "Frequency: 60 seconds, Probability: 50%",
+        "20": "Frequency: 40 seconds, Probability: 10% (default)",
+        "21": "Frequency: 40 seconds, Probability: 25%",
+        "22": "Frequency: 40 seconds, Probability: 50%",
+        "30": "Frequency: 30 seconds, Probability: 10%",
+        "31": "Frequency: 30 seconds, Probability: 25%",
+        "32": "Frequency: 30 seconds, Probability: 50%",
+        "40": "Frequency: 10 seconds, Probability: 10%",
+        "41": "Frequency: 10 seconds, Probability: 25%",
+        "42": "Frequency: 10 seconds, Probability: 50%",
+        "99": "User-defined"
+      }
     },
     "zh_CN": {
-      "description": "这个模组允许您设定队伍角色之间闲聊的节奏。您可以从预设列表中选择，也可以自行设定。它与所有增强版游戏兼容。"
-    }
+      "description": "这个模组允许您设定队伍角色之间闲聊的节奏。您可以从预设列表中选择，也可以自行设定。它与所有增强版游戏兼容。",
+      "components": {
+        "choice_0": "戏谑加速",
+        "10": "频率：60秒，概率：10%",
+        "11": "频率：60秒，概率：25%",
+        "12": "频率：60秒，概率：50%",
+        "20": "频率：40秒，概率：10%（默认）",
+        "21": "频率：40秒，概率：25%",
+        "22": "频率：40秒，概率：50%",
+        "30": "频率：30秒，概率：10%",
+        "31": "频率：30秒，概率：25%",
+        "32": "频率：30秒，概率：50%",
+        "40": "频率：10秒，概率：10%",
+        "41": "频率：10秒，概率：25%",
+        "42": "频率：10秒，概率：50%",
+        "99": "用户自定义"
+      }
+    },
+    "de_DE": {"components": {"choice_0": "Banterbeschleuniger", "10": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 10%", "11": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 25%", "12": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 50%", "20": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 10% (Standard)", "21": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 25%", "22": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 50%", "30": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 10%", "31": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 25%", "32": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 50%", "40": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 10%", "41": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 25%", "42": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 50%", "99": "Benutzerdefiniert"}},
+    "pt_BR": {"components": {"choice_0": "Banter Accelerator", "10": "Frequência: 60 segundos, Probabilidade: 10%", "11": "Frequência: 60 segundos, Probabilidade: 25%", "12": "Frequência: 60 segundos, Probabilidade: 50%", "20": "Frequência: 40 segundos, Probabilidade: 10% (padrão)", "21": "Frequência: 40 segundos, Probabilidade: 25%", "22": "Frequência: 40 segundos, Probabilidade: 50%", "30": "Frequência: 30 segundos, Probabilidade: 10%", "31": "Frequência: 30 segundos, Probabilidade: 25%", "32": "Frequência: 30 segundos, Probabilidade: 50%", "40": "Frequência: 10 segundos, Probabilidade: 10%", "41": "Frequência: 10 segundos, Probabilidade: 25%", "42": "Frequência: 10 segundos, Probabilidade: 50%", "99": "Definido-pelo-usuário"}}
   },
   "tp2": "a7-banteraccelerator",
   "safe": 2,

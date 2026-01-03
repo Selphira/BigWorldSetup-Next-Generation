@@ -16,7 +16,11 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 3
+    "en_US": 0,
+    "de_DE": 1,
+    "it_IT": 2,
+    "fr_FR": 3,
+    "ru_RU": 4
   },
   "translations": {
     "fr_FR": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "A neutral chaotic nun that can be recruited from the Mae'Var guild after the cleaning stage.\nSTR 14, DEX 17, CON 10, INT 13, WIS 9, CHA 16."
+      "description": "A neutral chaotic nun that can be recruited from the Mae'Var guild after the cleaning stage.\nSTR 14, DEX 17, CON 10, INT 13, WIS 9, CHA 16.",
+      "components": {
+        "0": "Anishai one-day NPC"
+      }
     },
     "zh_CN": {
       "description": "一位混乱中立的女修士，在 Mae'Var 的帮派完成清理阶段后可以招募。\n力量 14，敏捷 17，体质 10，智力 13，智慧 9，魅力 16。"
-    }
+    },
+    "de_DE": {"components": {"0": "Anishai one-day NPC"}},
+    "it_IT": {"components": {"0": "Anishai one-day NPC"}},
+    "ru_RU": {"components": {"0": "Anishai one-day NPC"}}
   },
   "tp2": "anishai",
   "safe": 2,

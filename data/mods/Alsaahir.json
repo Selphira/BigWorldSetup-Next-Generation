@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "Like a snake charmer, this bard has studied the vibrational sensitivity of demons and the undead. However, dealing with evil is a dangerous game, and those who survive never return unscathed, physically or mentally. This path requires wisdom, mastery of the art of illusions and better fighting skills than a bard, to the detriment of his natural versatility and dexterity. His singing also enhances the martial skills of his allies against demons and the undead."
+      "description": "Like a snake charmer, this bard has studied the vibrational sensitivity of demons and the undead. However, dealing with evil is a dangerous game, and those who survive never return unscathed, physically or mentally. This path requires wisdom, mastery of the art of illusions and better fighting skills than a bard, to the detriment of his natural versatility and dexterity. His singing also enhances the martial skills of his allies against demons and the undead.",
+      "components": {
+        "0": "Alsaahir: a kit for bard"
+      }
     },
     "zh_CN": {
       "description": "如同耍蛇人一样，这位吟游诗人研究了恶魔和不死生物对振动的敏感性。然而，与邪恶为伴是一场危险的游戏，而那些幸存下来的人，身心都会留下无法磨灭的创伤。这条道路需要智慧，掌握幻术艺术，以及比普通吟游诗人更强的战斗技巧，但牺牲了他的多面性和敏捷。他的歌声还能增强盟友面对恶魔和不死生物时的战斗技能。"

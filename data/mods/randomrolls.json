@@ -17,7 +17,7 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 0
+    "all": 0
   },
   "translations": {
     "fr_FR": {
@@ -27,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "This program improves InfinityEngine's randomness. Indeed, when many rolls are performed, it becomes apparent that the results end up repeating themselves. Read the README for more information."
+      "description": "This program improves InfinityEngine's randomness. Indeed, when many rolls are performed, it becomes apparent that the results end up repeating themselves. Read the README for more information.",
+      "components": {
+        "0": "Improve randomness of dice rolls"
+      }
     },
     "zh_CN": {
       "description": "此程序可以改进无限引擎的随机性。事实上，当进行大量投掷时，结果最终会开始重复。请阅读README文件以获取更多信息。"

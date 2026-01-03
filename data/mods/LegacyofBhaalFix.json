@@ -1,5 +1,5 @@
 {
-  "name": "LegacyofBhaalFix",
+  "name": "Fixing Saving throws BUG for Lecgacy of Bhaal difficulty",
   "version": "0.5",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/38985-legacyofbhaalfix-v04-fixing-saving-throws-bug-for-lecgacy-of-bhaal-difficulty/",
@@ -18,21 +18,30 @@
   },
   "languages": {
     "en_US": 0,
+    "zh_CN": 1,
     "all": 0
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "\"Correction des jets de sauvegarde en difficulté Succession de Bhaal\"",
-        "1": "\"Moins d'améliorations pour les créatures de bas niveau en difficulté Succession de Bhaal\""
+        "0": "Fixing Saves BUG for Lecgacy of Bhaal difficulty",
+        "1": "Less LOB enhancement for low-level creatures"
       },
       "description": "This mod features a fix for the Legacy Of Bhaal difficulty, which adjusted save rolls to 20. This mod modifies the scripts of most creatures, allowing them to modify their own saving throws as they appear."
     },
     "fr_FR": {
+      "components": {
+        "0": "Correction des jets de sauvegarde en difficulté Succession de Bhaal",
+        "1": "Moins d'améliorations pour les créatures de bas niveau en difficulté Succession de Bhaal"
+      },
       "description": "Ce mod propose un fix pour la difficulté Legacy Of Bhaal qui ajustait les jets de sauvegarde à 20. Ce mod modifie les scripts de la plupart des créatures, leur permettant de modifier leurs propres jets de sauvegarde au fur et à mesure qu'ils apparaissent."
     },
     "zh_CN": {
-      "description": "此模组提供了一个针对巴尔遗产难度的修复补丁，该补丁将豁免检定值调整为20。此模组修改了大多数生物的脚本，使它们在出现时能够自行调整其豁免检定值。"
+      "description": "此模组提供了一个针对巴尔遗产难度的修复补丁，该补丁将豁免检定值调整为20。此模组修改了大多数生物的脚本，使它们在出现时能够自行调整其豁免检定值。",
+      "components": {
+        "0": "巴尔遗产模式豁免BUG修正",
+        "1": "循序渐进的巴尔遗产模式（低级生物提升的数值减少）"
+      }
     }
   },
   "tp2": "legacyofbhaalfix",

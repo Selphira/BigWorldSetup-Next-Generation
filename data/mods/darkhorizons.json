@@ -17,12 +17,18 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 5
+    "it_IT": 1,
+    "de_DE": 2,
+    "ru_RU": 3,
+    "pl_PL": 4,
+    "fr_FR": 5,
+    "es_ES": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Dark Horizons"
+        "0": "\"Dark Horizons\" Mod"
       },
       "description": "A powerful organization, known as 'The Section', is hunting you for reasons known only to them. They will stop at nothing to achieve their ends. They have numerous agents and influential associates throughout Faerûn. Stop their leaders for the good of the Sword Coast.\nThis mod adds a large quest, 3 new NPCs with a few personal quests, several encounters (hostile and otherwise) and side quests, stores and new areas to explore. The former BG1 Adventure Pack and BG1 CoM Forge - Item Upgrade mods are now part of Dark Horizons."
     },
@@ -33,8 +39,16 @@
       }
     },
     "zh_CN": {
-      "description": "一个名为“部门”的强大组织，出于只有他们自己知道的原因追捕你。他们会不择手段地达成目的。他们在费伦各地有许多特工和有影响力的盟友。为了剑湾之好，阻止他们的首领吧。\n此模组增加了一个大型任务，3个拥有个人任务的新NPC，数次遭遇（敌对或非敌对）和次要任务，商店以及新的探索区域。旧模组BG1 Adventure Pack和BG1 CoM Forge - Item Upgrade现已并入《黑暗地平线》。"
-    }
+      "description": "一个名为“部门”的强大组织，出于只有他们自己知道的原因追捕你。他们会不择手段地达成目的。他们在费伦各地有许多特工和有影响力的盟友。为了剑湾之好，阻止他们的首领吧。\n此模组增加了一个大型任务，3个拥有个人任务的新NPC，数次遭遇（敌对或非敌对）和次要任务，商店以及新的探索区域。旧模组BG1 Adventure Pack和BG1 CoM Forge - Item Upgrade现已并入《黑暗地平线》。",
+      "components": {
+        "0": "黑暗地平线"
+      }
+    },
+    "it_IT": {"components": {"0": "Mod \"Orizzonti Oscuri\""}},
+    "de_DE": {"components": {"0": "\"Dark Horizons\" Mod"}},
+    "ru_RU": {"components": {"0": "\"Dark Horizons\" Mod"}},
+    "pl_PL": {"components": {"0": "Mod \"Dark Horizons\""}},
+    "es_ES": {"components": {"0": "\"Horizontes Oscuros\" Mod"}}
   },
   "tp2": "darkhorizons",
   "safe": 2,

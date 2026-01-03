@@ -1,5 +1,5 @@
 {
-  "name": "Chevalier de la Lumière (paladin)",
+  "name": "Rycerz Światłości",
   "version": "1.03",
   "links": {
     "homepage": "http://athkatla.cob-bg.pl/viewtopic.php?t=3486&sid=473c7240dfe94ad896e7ad10dffebce6",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "pl_PL": 0,
     "fr_FR": 2
   },
   "translations": {
@@ -30,7 +31,8 @@
     },
     "zh_CN": {
       "description": "此模组安装了“圣光骑士”圣武士的配置。他可以精通长剑和手半剑。他拥有比普通圣武士更强的战斗技巧，但代价是施法能力有所削弱。随着等级提升，他还能获得强大的被动效果：10级时获得恐惧免疫，15级时获得邪恶防护等。"
-    }
+    },
+    "pl_PL": {"components": {"0": "(nowa podklasa) Rycerz œwiat³oœci"}}
   },
   "tp2": "rycerz",
   "safe": 2,

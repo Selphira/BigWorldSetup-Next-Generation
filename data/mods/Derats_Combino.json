@@ -20,7 +20,8 @@
     "4": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -34,7 +35,14 @@
       }
     },
     "en_US": {
-      "description": "Kurosai is a pnj who, for a lot of gold, can combine three +x items into one +x+1 item. This works for almost all '+x' items, from weapons to armour to jewellery. He can thus combine items up to +6. He appears in Trademeet after the Daos have left. Later in the game he will move to Saradush, and disappear with the destruction of the town."
+      "description": "Kurosai is a pnj who, for a lot of gold, can combine three +x items into one +x+1 item. This works for almost all '+x' items, from weapons to armour to jewellery. He can thus combine items up to +6. He appears in Trademeet after the Daos have left. Later in the game he will move to Saradush, and disappear with the destruction of the town.",
+      "components": {
+        "0": "Kurosai the combiner",
+        "1": "Recipes cost less but require rare gems",
+        "2": "Kuroisai also appears in Amkethran (cheat)",
+        "3": "Kuroisai also appears at the Nashkel Carnival",
+        "4": "A +1 copy of each object in SOA"
+      }
     },
     "zh_CN": {
       "description": "Kurosaï是一个NPC，花费大量金币后，可以将三个+1物品合成为一个+2物品。这几乎适用于所有+1物品，从武器、护甲到珠宝都可以。他可以将物品一直合成到+6。在道离开后，他会出现在商贸集会。游戏后期，他会移动到萨拉都什，并在城市被摧毁时消失。"

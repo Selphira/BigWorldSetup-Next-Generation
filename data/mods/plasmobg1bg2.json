@@ -19,7 +19,12 @@
     "choice_1": {"type": "muc", "components": ["1004", "1005"], "default": "1004"}
   },
   "languages": {
-    "fr_FR": 3
+    "en_US": 0,
+    "de_DE": 1,
+    "pl_PL": 2,
+    "fr_FR": 3,
+    "ru_RU": 4,
+    "all": 0
   },
   "translations": {
     "fr_FR": {
@@ -36,10 +41,50 @@
       }
     },
     "en_US": {
-      "description": "This mod replaces the NPC portraits from Baldur's Gate with portraits that Plasmocat has modified to make them look more like those from BG2. A component allows you to install them as player portraits on any Infinity Engine game (except PsT and PsT:EE)."
+      "description": "This mod replaces the NPC portraits from Baldur's Gate with portraits that Plasmocat has modified to make them look more like those from BG2. A component allows you to install them as player portraits on any Infinity Engine game (except PsT and PsT:EE).",
+      "components": {
+        "1000": "Make all portraits available for use by the PC",
+        "1001": "Plasmocat's BG1 NPC Portraits in BG2 Style",
+        "choice_0": "Plasmocat's BG1 Imoen Portraits",
+        "1002": "Plasmocat's BG1 NPC Choices: Imoen #1, BG2 (ruffles)",
+        "1003": "Plasmocat's BG1 NPC Choices: Imoen #2, BG1 (pink with necklace)",
+        "choice_1": "Plasmocat's BG1 Xzar Portraits",
+        "1004": "Plasmocat's BG1 NPC Choices: Xzar #1, BG2 (red)",
+        "1005": "Plasmocat's BG1 NPC Choices: Xzar #2, BG1 (green)"
+      }
     },
     "zh_CN": {
       "description": "此模组将《博德之门》中NPC的头像替换为Plasmocat修改过的头像，使其更接近《博德之门2》的风格。其中一个组件允许将这些头像作为玩家头像安装到任何无限引擎游戏（PsT和PsT:EE除外）。"
+    },
+    "de_DE": {
+      "components": {
+        "1000": "Make all portraits available for use by the PC", "1001": "Plasmocats BG NPC Porträts im BG2 Stil",
+        "choice_0": "Plasmocats BG1 Imoen Porträts", "1002": "Plasmocats BG1 NPC Auswahl: Imoen #1, BG2 (Kragen)",
+        "1003": "Plasmocats BG1 NPC Auswahl: Imoen #2, BG1 (Pink mit Halskette)",
+        "choice_1": "Plasmocats BG1 Xzar Porträts", "1004": "Plasmocats BG1 NPC Auswahl: Xzar #1, BG2 Farben (rot)",
+        "1005": "Plasmocats BG1 NPC Auswahl: Xzar #2, BG1 Farben (grün)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "1000": "Make all portraits available for use by the PC",
+        "1001": "Portrety NPC z BG w stylu BG2 autorstwa Plasmocat'a",
+        "choice_0": "Portrety Imoen z BG1 autorstwa Plasmocata",
+        "1002": "Wybór NPC z BG1 autorstwa Plasmocat'a: Imoen #1, BG2 (zmierzwiona)",
+        "1003": "Wybór NPC z BG1 autorstwa Plasmocat'a: Imoen #2, BG1 (róz z naszyjnikiem)",
+        "choice_1": "Portrety Xzara z BG1 autorstwa Plasmocata",
+        "1004": "Wybór NPC z BG1 autorstwa Plasmocat'a: Xzar #1, kolory BG2 (czerwony)",
+        "1005": "Wybór NPC z BG1 autorstwa Plasmocat'a: Xzar #2, kolory BG1 (zielony)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "1000": "Make all portraits available for use by the PC",
+        "1001": "®àâà¥âë ¤«ï ¯¥àá®­ ¦¥© ¨§ BG1 ¢ áâ¨«¥ BG2,  ¢â®à Plasmocat",
+        "choice_0": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: ¬®¥­", "1002": " à¨ ­â 1: ¬®¥­ ¨§ BG2 (á ªàã¦¥¢ ¬¨)",
+        "1003": " à¨ ­â 2: ¬®¥­ ¨§ BG2 (à®§®¢ ï á ®¦¥à¥«ì¥¬)", "choice_1": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: § à",
+        "1004": " à¨ ­â 1: § à ¨§ BG2 (ªà á­ë©)", "1005": " à¨ ­â 2: § à ¨§ BG2 (§¥«¥­ë©)"
+      }
     }
   },
   "tp2": "plasmobg1bg2",

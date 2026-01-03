@@ -1,9 +1,9 @@
 {
   "name": "The Chaos Sorcerer: A Wild Magic Kit for Sorcerers",
-  "version": "2.11",
+  "version": "2.10",
   "links": {
     "homepage": "http://www.shsforums.net/topic/59482-mod-the-chaos-sorcerer-a-wild-magic-kit-for-sorcerers/",
-    "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip"
+    "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.10/win-A7-ChaosSorcerer-v2.10.zip"
   },
   "file": {
     "filename": "win-A7-ChaosSorcerer-v2.10.zip",
@@ -14,11 +14,15 @@
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
+    "10": {"type": "std"},
     "20": {"type": "std"},
     "30": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
+    "de_DE": 1,
+    "pl_PL": 2,
+    "ru_RU": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,6 +30,7 @@
       "description": "This mod adds the new \"Chaos Sorcerer\" profile, the equivalent of the entropist for sorcerers.",
       "components": {
         "0": "\"Chaos Sorcerer\" kit",
+        "10": "Recreate \"Chaos Weave\" spell selection lists",
         "20": "Make \"Wild Mage\" kit unavailable for character creation",
         "30": "Add \"Primordial Artifacts\""
       }
@@ -34,12 +39,33 @@
       "description": "Ce mod ajoute le nouveau profil \"Ensorceleur du Chaos\", l'équivalent de l'entropiste pour les ensorceleurs.",
       "components": {
         "0": "Kit d'Ensorceleur du Chaos",
+        "10": "Recréer la liste de sélection de sorts de \"Onde chaotique\"",
         "20": "Supprimer le kit d'entropiste des classes pouvant être choisies lors de la création de personnage",
         "30": "Ajouter des artefacts primordiaux"
       }
     },
     "zh_CN": {
       "description": "这个模组添加了新的“混沌术士”职业，这是术士的狂乱法师等效职业。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Klasse \"Chaos Hexenmeister\"", "10": "Zauberlisten fuer \"Chaotisches Gefuege\" neu erstellen",
+        "20": "Hasardeur aus der Klassenliste fuer Charaktererstellung entfernen",
+        "30": "\"Artefakte der Urtitanen\" hinzufuegen"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Podklasa \"Czarownik chaosu\"", "10": "Odtworz listy wyboru czarow dla zaklecia \"Fala chaosu\"",
+        "20": "Zablokuj mozliwosc wyboru podklasy \"Dziki mag\" na etapie tworzenia postaci",
+        "30": "Dodaj \"Artefakty przedwiecznych\""
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "\"Chaos Sorcerer\" kit", "10": "Recreate \"Chaos Weave\" spell selection lists",
+        "20": "Make \"Wild Mage\" kit unavailable for character creation", "30": "Add \"Primordial Artifacts\""
+      }
     }
   },
   "tp2": "a7-chaossorcerer",

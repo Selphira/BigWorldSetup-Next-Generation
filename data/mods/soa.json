@@ -17,12 +17,17 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "pl_PL": 2,
+    "ru_RU": 3,
+    "es_ES": 4,
+    "de_DE": 5,
+    "zh_CN": 6
   },
   "translations": {
     "en_US": {
       "components": {
-        "choice_0": "The Stone of Askavar",
+        "choice_0": "The Stone of Askavar for TotSC/Tutu/BGT/BGEE",
         "0": "Default version: areas connected by travel triggers",
         "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)"
       },
@@ -31,13 +36,46 @@
     "fr_FR": {
       "description": "The Stone of Askavar `La pierre d'Askavar` est un mod pour Baldur's Gate I : Tales of the Sword Coast qui comprend une quête principale et plusieurs quêtes secondaires, apporte de nouvelles zones, de nouveaux objets et sorts et aussi de nombreuses nouvelles créatures à combattre. Il vous envoie à la recherche d'une gemme puissante située dans une ancienne communauté elfique d'Askavar. Il ressemble à la quête de la gemme Cœur de pierre d'Icewind Dale, mais ici il s'agit de trouver la gemme avant les membres du Gantelet Noir. Après avoir inondé les mines de Bois-Manteau, votre aventure commence juste au nord de Nashkel, où vous serez attaqués par des chevaliers du Gantelet Noir.\nDepuis la version 1.9, il est désormais réuni dans un seul package pour BG1, BG1Tutu, BGT, BG:EE avec ou sans SoD.",
       "components": {
-        "choice_0": "The Stone of Askavar",
+        "choice_0": "The Stone of Askavar pour TotSC/Tutu/BGT/BGEE",
         "0": "Version par defaut : zones reliees par des declencheurs de voyage",
         "1": "Version BP-BGT Worldmap : ajout de toutes les zones a la carte du monde (requiert BP-BGT Worldmap)"
       }
     },
     "zh_CN": {
-      "description": "阿斯卡瓦之石《The Stone of Askavar》是一个为博德之门I：剑湾传奇设计的一款模组，包含一条主线任务与多条支线任务，引入了新区域、新物品与法术，以及大量可供战斗的新生物。它将引领你前往古老的精灵社区阿斯卡瓦，寻找一颗强大的宝石。其玩法类似于《冰风谷》中寻找“石之心”宝石的任务，但在此处，你的目标是在黑手套组织的成员之前找到宝石。在淹没了斗篷森林的矿坑后，你的冒险始于那西凯正北，在那里你将遭到黑手套骑士的袭击。"
+      "description": "阿斯卡瓦之石《The Stone of Askavar》是一个为博德之门I：剑湾传奇设计的一款模组，包含一条主线任务与多条支线任务，引入了新区域、新物品与法术，以及大量可供战斗的新生物。它将引领你前往古老的精灵社区阿斯卡瓦，寻找一颗强大的宝石。其玩法类似于《冰风谷》中寻找“石之心”宝石的任务，但在此处，你的目标是在黑手套组织的成员之前找到宝石。在淹没了斗篷森林的矿坑后，你的冒险始于那西凯正北，在那里你将遭到黑手套骑士的袭击。",
+      "components": {
+        "choice_0": "阿斯卡瓦之石TotSC/Tutu/BGT/BGEE版本",
+        "0": "默认版本：通过旅行触发相连的区域",
+        "1": "BP-BGT Worldmap版本：所有区域添加至世界地图（需要BP-BGT Worldmap）"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "The Stone of Askavar dla OzWM/Tutu/BGT/BGEE",
+        "0": "Ustawienia domyslne: obszary dostepne poprzez triggery",
+        "1": "Wersja z BP-BGT Worldmap: wszystkie obszary dodane do mapy swiata (wymaga BP-BGT Worldmap)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "The Stone of Askavar for TotSC/Tutu/BGT/BGEE",
+        "0": "Default version: areas connected by travel triggers",
+        "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "La Piedra de Askavar para TotSC/Tutu/BGT/BGEE",
+        "0": "Versión por defecto: zonas conectadas por activadores de desplazamiento",
+        "1": "Versión del mapa del mundo de BP-BGT: todas las zonas añadidas al mapa del mundo (requires BP-BGT Worldmap)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "The Stone of Askavar for TotSC/Tutu/BGT/BGEE",
+        "0": "Defaultversion: Gebiete werden durch Reisetrigger miteinander verbunden.",
+        "1": "BP-BGT Worldmap -Version: Alle Gebiete zur Weltkarte hinzugefügt (benötigt BP-BGT Worldmap)"
+      }
     }
   },
   "tp2": "soa",

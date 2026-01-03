@@ -16,17 +16,21 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 2
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod ajoute une banane guerrière/mage/voleuse à l'entrée de la Couronne de cuivre.\nFOR 18/00, DEX 18, CON 18, INT 18, SAG 18, CHA 18. Reçoit le double dégâts contondants.",
       "components": {
-        "0": "Banana ! pour l'ordinateur ! (contenu retardé : c'est un mod sérieux pour des gens sérieux)"
+        "0": "Banana ! pour l'ordinateur !\n(contenu retardé : c'est un mod sérieux pour des gens sérieux)"
       }
     },
     "en_US": {
-      "description": "This mod adds a fighter/mage/thief banana to the Copper Coronet entrance.\nSTR 18/00, DEX 18, CON 18, INT 18, WIS 18, CHA 18. Receives double crushing damage."
+      "description": "This mod adds a fighter/mage/thief banana to the Copper Coronet entrance.\nSTR 18/00, DEX 18, CON 18, INT 18, WIS 18, CHA 18. Receives double crushing damage.",
+      "components": {
+        "0": "Banana! for the Computer!\n(retarded content rating: This is a serious mod for serious people)"
+      }
     },
     "zh_CN": {
       "description": "此模组在铜冠旅店入口处添加了一个战士/法师/盗贼香蕉。\n力量 18/00，敏捷 18，体质 18，智力 18，智慧 18，魅力 18。获得双倍钝器伤害。"

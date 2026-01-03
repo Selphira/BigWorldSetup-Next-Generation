@@ -26,20 +26,21 @@
     "en_US": {
       "description": "This mod adds a magic druidic wand that summons some powerful forest monsters and creatures (with some new ones from the monsters compendium) to aid your druid in combat, although the overall HD of the summoned creatures is limited to 13. This item can be acquired from Kyland Lind (Druid Grove). You must kill him first for it of course.",
       "components": {
-        "0": "Heart of the Wood (WeiDU-version)"
+        "0": "Heart of the Wood (WeiDU version)"
       }
     },
-    "ru_RU": {"components": {"0": "Heart of the Wood (WeiDU-version)"}},
+    "ru_RU": {"components": {"0": "‘¥à¤æ¥ ‹¥á  (WeiDU-¢¥àá¨ï)"}},
     "it_IT": {"components": {"0": "Il Cuore della Foresta (versione WeiDU)"}},
     "fr_FR": {
       "description": "Ce mod ajoute une baguette druidique magique qui invoque de puissants monstres et créatures de la forêt (dont certains nouveaux issus du bestiaire monstrueux) pour aider votre druide au combat, bien que le nombre total de points de vie des créatures invoquées soit limité à 13. Cet objet peut être obtenu auprès de Kyland Lind (Bosquet des druides). Vous devez bien sûr le tuer au préalable pour l'obtenir.",
       "components": {
-        "0": "Coeur du bois (WeiDU-version)"
+        "0": "Coeur du bois (version WeiDU)"
       }
     },
     "zh_CN": {
       "description": "这个模组添加了一根德鲁伊法杖，可以召唤强大的森林怪物和生物（其中一些来自怪物图鉴的新生物）来帮助你的德鲁伊战斗，尽管被召唤生物的总生命值限制在13。这个物品可以从德鲁伊圣所的凯兰·林德处获得。当然，你必须先杀死他才能得到它。"
-    }
+    },
+    "de_DE": {"components": {"0": "Herz des Waldes (WeiDU version)"}}
   },
   "tp2": "heartwood",
   "safe": 2,

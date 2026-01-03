@@ -26,12 +26,17 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "it_IT": 3,
+    "pl_PL": 4,
+    "ru_RU": 5,
+    "zh_CN": 6
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Golem Construction ability for spellcasters",
+        "0": "Golem Construction Ability for Spellcasters",
         "10": "Replace original Golem Manual",
         "15": "Improve enemy spellcaster AI",
         "20": "Golems for enemy spellcasters",
@@ -60,8 +65,24 @@
       }
     },
     "zh_CN": {
-      "description": "此模组允许施法者制造他们自己的构装体。构装体有有限的生命周期，但在游戏中会跟随其创造者到处走动。该模组的一小部分内容仅在《博德之门2：增强版》中可用。"
-    }
+      "description": "此模组允许施法者制造他们自己的构装体。构装体有有限的生命周期，但在游戏中会跟随其创造者到处走动。该模组的一小部分内容仅在《博德之门2：增强版》中可用。",
+      "components": {
+        "0": "施法者建造魔像能力",
+        "10": "替换原始魔像手册",
+        "15": "提高敌对施法者AI",
+        "20": "敌对施法者的魔像",
+        "25": "更多种类的敌对魔像",
+        "30": "战士据点的魔像可能会继续为你服务",
+        "35": "使魔像对特定法术效果敏感",
+        "40": "减少建造的魔像的武器免疫和抗性",
+        "45": "鉴识所有mod的物品",
+        "50": "为魔像添加“传送”能力"
+      }
+    },
+    "de_DE": {"components": {"0": "\"Golems erschaffen\" fuer Magier", "10": "Ersetze originalen Leitfaden der Golemkonstruktion", "15": "Verbesserte feindliche Magier-KI", "20": "Golems fuer feindliche Magier", "25": "Groessere Vielfalt an feindlichen Golemtypen", "30": "Uebernehme Golems in Schloss de'Arnise", "35": "Mache Golems anfaellig fuer bestimmte Zauber", "40": "Vermindere Waffenimmunitaeten und Resistenzen bei erschaffenen Golems", "45": "Alle Mod-Gegenstaende identifizieren", "50": "Golemfaehigkeit \"Teleportation\" hinzufuegen"}},
+    "it_IT": {"components": {"0": "Abilità Costruisci Golem per Incantatori", "10": "Sostituisci il Manuale del Golem originale", "15": "Migliora l'IA degli incantatori nemici", "20": "Golem in aiuto degli incantatori nemici", "25": "Gamma più ampia di golem nemici", "30": "I golem presenti nell'Avamposto del Guerriero possono continuare a servirti", "35": "Rendi i golem vulnerabili a specifici effetti degli incantesimi", "40": "Riduci le immunità alle armi e le resistenze dei golem costruiti", "45": "Identifica tutti gli oggetti della mod", "50": "Aggiungi l'abilità \"Teletrasporto\" ai golem"}},
+    "pl_PL": {"components": {"0": "Zdolnosc budowania golemow dla rzucajacych czary", "10": "Zastap oryginalny Podrecznik budowy golemow", "15": "Usprawnij SI wrogich istot rzucajacych czary", "20": "Golemy dla wrogich istot rzucajacych czary", "25": "Wieksza roznorodnosc wrogich golemow", "30": "Golemy z Twierdzy wojownika moga ci dalej sluzyc", "35": "Golemy staja sie podatne na okreslone efekty czarow", "40": "Redukuj niewrazliwosci na bron i odpornosci dla konstruowanych golemow", "45": "Identyfikuj wszystkie przedmioty dodane przez modyfikacje", "50": "Dodaj zdolnosc golemow o nazwie \"Teleportacja\""}},
+    "ru_RU": {"components": {"0": "Golem Construction Ability for Spellcasters", "10": "Replace original Golem Manual", "15": "Improve enemy spellcaster AI", "20": "Golems for enemy spellcasters", "25": "Greater variety of enemy golem types", "30": "Fighter Stronghold golems may continue to serve you", "35": "Make golems vulnerable to specific spell effects", "40": "Reduce weapon immunities and resistances for constructed golems", "45": "Identify all mod items", "50": "Add \"Teleport\" ability to golems"}}
   },
   "tp2": "a7-golemconstruction",
   "safe": 2,

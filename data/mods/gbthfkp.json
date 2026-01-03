@@ -17,7 +17,11 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 4
+    "de_DE": 1,
+    "es_ES": 2,
+    "ru_RU": 3,
+    "fr_FR": 4,
+    "it_IT": 5
   },
   "translations": {
     "en_US": {
@@ -34,7 +38,11 @@
     },
     "zh_CN": {
       "description": "这个模组扩展了盗贼要塞的任务，使其更有趣。你会在途中遇到博德之门中的人物，如黑发莉丝、纳伦·影木……"
-    }
+    },
+    "de_DE": {"components": {"0": "Erweiterte Diebesgilde"}},
+    "es_ES": {"components": {"0": "Expanded Thief Stronghold (Fortaleza de Ladrones Expandida)"}},
+    "ru_RU": {"components": {"0": "Expanded Thief Stronghold"}},
+    "it_IT": {"components": {"0": "Roccaforte Estesa del Ladro"}}
   },
   "tp2": "gbthfkp",
   "safe": 2,

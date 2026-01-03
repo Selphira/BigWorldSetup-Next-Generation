@@ -29,7 +29,9 @@
     "13": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "all": 0
   },
   "translations": {
     "fr_FR": {
@@ -52,7 +54,23 @@
       }
     },
     "en_US": {
-      "description": "This mod offers numerous ethnic portraits for your character, as well as 13 alternative portraits for recruitable NPCs (Aerie, Anomen, Cernd, Edwin, Imoen, Jaheira, Jan, Keldorn, Korgan, Mazzy, Minsc, Nalia and Viconia)."
+      "description": "This mod offers numerous ethnic portraits for your character, as well as 13 alternative portraits for recruitable NPCs (Aerie, Anomen, Cernd, Edwin, Imoen, Jaheira, Jan, Keldorn, Korgan, Mazzy, Minsc, Nalia and Viconia).",
+      "components": {
+        "0": "Copy all portraits for use by player characters",
+        "1": "Aerie",
+        "2": "Anomen",
+        "3": "Cernd",
+        "4": "Edwin",
+        "5": "Imoen",
+        "6": "Jaheira",
+        "7": "Jan",
+        "8": "Keldorn",
+        "9": "Korgan",
+        "10": "Mazzy",
+        "11": "Minsc",
+        "12": "Nalia",
+        "13": "Viconia"
+      }
     },
     "zh_CN": {
       "description": "此模组为您的角色提供许多种族头像，以及13个可招募NPC的替代头像（艾黎、阿诺门、瑟恩、艾德温、爱蒙、贾希拉、姚恩·姚森、凯东、寇根、玛兹、明斯克、娜里亚和维康妮亚）。"

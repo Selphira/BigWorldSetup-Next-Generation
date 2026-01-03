@@ -1,6 +1,6 @@
 {
   "name": "Severian de Demerya",
-  "version": "0.3.4",
+  "version": "034",
   "links": {
     "homepage": "http://www.baldursgateworld.fr/lacouronne/severian-de-demerya/",
     "download": "https://github.com/The-Gate-Project/Severian-de-Demerya/releases/download/v034/severian-de-demerya-v034.zip"
@@ -24,8 +24,8 @@
     "fr_FR": {
       "description": "Anciennement connu sous le nom des Chroniques de Severian, ce mod vous propose d'enrôler Severian Stark, un Hors-la-loi (kit de rôdeur) de race Halfshade pour vos parties de BG2 : SoA et ToB. Il existe à Féérune des hommes qui ne défendent aucune cause si ce n'est la leur, rançonnant et pillant les marchands et voyageurs osant traverser leurs forêts. Severian est un de ces hors-la-loi. La rumeur court que cette fine lame réputée serait récemment arrivée à Athkatla et séjournerait parfois à l'auberge du Bon repos, sur la Promenade de Waukyne...\nD'alignement chaotique neutre, Severian s'est fait une spécialité du maniement des armes blanches, peut se rendre invisible, et apprécie particulièrement la gente féminine. Des banters, des interjections et des items à foison, un flirtpack, une quête agrémentée de nombreux combats, une romance très tendre et plus de 6000 lignes de texte : c'est ce que vous propose Severian de Demerya depuis les tréfonds de l'Amn jusqu'au sommet du Trône de Bhaal. Attention, bien lire le Readme !\nFOR 14, DEX 16, CON 18, INT 10, SAG 6, CHA 14.",
       "components": {
-        "0": "SEVERIAN DE DEMERYA",
-        "1": "Installer le portrait alternatif pour Severian ?",
+        "0": "SEVERIAN DE DEMERYA V.02A\n\nAuteur : Coyote\nWebsite : http://www.coyotestudios.fr/\nContact : http://www.coyotestudios.fr/contact_5043.htm\nLivre d'or : http://www.coyotestudios.fr/livre_d_or__5035.htm\nInstallation ToB requise!\nConsultez le ReadMe!\nImportant : l'installation prealable du BG2Fixpack (Correctifs Principaux uniquement !) est vivement recommandee et ce, quel que soit le mod. Consultez le chapitre Conditions d'Installation de la rubrique Telechargement sur le site !\n\nCopyright COYOTE STUDIOS 2010",
+        "1": "Installer le portrait alternatif pour Severian ?\nConsultez le Chapitre III - PORTRAIT ALTERNATIF du Read-Me pour faire votre selection",
         "2": "Recopier tous les epilogues dans leur version integrale et originelle ?"
       }
     },

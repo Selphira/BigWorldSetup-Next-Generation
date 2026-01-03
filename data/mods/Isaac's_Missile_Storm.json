@@ -28,10 +28,16 @@
       }
     },
     "en_US": {
-      "description": "This mod adds the \"Isaac's Projectile Storm\" series of spells."
+      "description": "This mod adds the \"Isaac's Projectile Storm\" series of spells.",
+      "components": {
+        "0": "Isaac's Missile Storm for BGEE series"
+      }
     },
     "zh_CN": {
-      "description": "这个模组添加了“艾萨克投射风暴”法术系列。"
+      "description": "这个模组添加了“艾萨克投射风暴”法术系列。",
+      "components": {
+        "0": "艾萨克飞弹风暴博德之门版"
+      }
     }
   },
   "tp2": "isaac's_missile_storm",

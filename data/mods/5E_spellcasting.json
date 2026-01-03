@@ -24,7 +24,8 @@
   "translations": {
     "en_US": {
       "components": {
-        "100": "Change All Casters to 5E System",
+        "100": "Change ALL Casters to 5E Spellcasting",
+        "300": "Change Bards to 5E Spellcasting",
         "choice_0": "Bonus Spell Slot Items and 5E Casters",
         "901": "bonuses to both memorization slots and casting slots",
         "902": "bonuses to casting slots only"

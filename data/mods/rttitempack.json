@@ -19,17 +19,18 @@
     "en_US": 0,
     "it_IT": 1,
     "fr_FR": 2,
-    "de_DE": 3,
-    "ru_RU": 4
+    "de_DE": 3
   },
   "translations": {
     "en_US": {
       "description": "This mod features 51 new items from the Return to Trademeet mod, grouped together at a single vendor: Ribald, at the Adventurer Mart. Some items, powerful enough to send Gaxx's ring back to oblivion, will be offered to you on leaving Underdark, in the \"improved\" stock Ribald offers for a fee.",
       "components": {
-        "0": "Install RTT Item Pack? **The items are added to the \"special\" store of Ribald (Adventure's Mart, Waukeen's Promenade) available after SpellHold.**"
+        "choice_0": "RTT Item Pack",
+        "200": "The 51 items are added to the \"special\" store of Ribald\n(Adventure's Mart, Waukeen's Promenade) available after SpellHold.",
+        "201": "The 51 items are spread to several stores\nRibald (available after SpellHold.), Trademeet merchants after the Djinns departure and the merchants of the Umar Hills"
       }
     },
-    "it_IT": {"components": {"0": "Vuoi installare RTT Item Pack? **Tutti gli oggetti magici vengono aggiunti al negozio \"speciale\" di Ribald (l'Emporio dell'Avventuriero, Passeggiata di Waukeen) con il quale puoi fare affari una volta tornato dal manicomio.**"}},
+    "it_IT": {"components": {"choice_0": "RTT Item Pack", "200": "Tutti 51 gli oggetti magici vengono aggiunti al negozio \"speciale\" di Ribald\n(l'Emporio dell'Avventuriero, Passeggiata di Waukeen) con il quale puoi fare affari una volta tornato dal manicomio.", "201": "The 51 items are spread to several stores\nRibald (available after SpellHold.), Trademeet merchants after the Djinns departure and the merchants of the Umar Hills"}},
     "fr_FR": {
       "description": "Ce mod propose 51 nouveaux objets provenant du mod Return to Trademeet, regroupés chez un seul vendeur : Ribald, au Marché de l'Aventurier. Certains objets étant assez puissants pour renvoyer l'anneau de Gaxx aux oubliettes vous seront proposés à la sortie de l'Ombreterre, dans le stock \"amélioré\" que Ribald propose moyennant un droit d'entrée.",
       "components": {
@@ -41,7 +42,8 @@
     "ru_RU": {"components": {"0": "Install RTT Item Pack? **The items are added to the \"special\" store of Ribald (Adventure's Mart, Waukeen's Promenade) available after SpellHold.**"}},
     "zh_CN": {
       "description": "这个模组提供了来自Return to Trademeet模组的51件新物品，这些物品都集中在一个商人那里：冒险者集市的里巴尔。一些物品非常强大，足以将加克斯的戒指送回遗忘之地，这些物品将在你离开幽暗地域后，在里巴尔支付的“入场费”所提供的“升级”库存中向你提供。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "RTT Gegenstaende Pack", "200": "Die 51 Gegenstaende werden zu Ribalds speziellen Gegenstaenden\n(Abenteurer Markt, Waukeen's Promenade) nach der Zauberfeste hinzugefuegt.", "201": "The 51 items are spread to several stores\nRibald (available after SpellHold.), Trademeet merchants after the Djinns departure and the merchants of the Umar Hills"}}
   },
   "tp2": "rttitempack",
   "safe": 2,

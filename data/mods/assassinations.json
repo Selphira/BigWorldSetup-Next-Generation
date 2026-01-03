@@ -21,7 +21,9 @@
     "es_ES": 2,
     "de_DE": 3,
     "it_IT": 4,
-    "fr_FR": 6
+    "pl_PL": 5,
+    "fr_FR": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -39,8 +41,14 @@
       }
     },
     "zh_CN": {
-      "description": "想要唤醒你这位谋杀之神子灵魂中最黑暗的一面吗？这个模组就是为你准备的！通过大约十个旨在考验你冷酷杀手能力的新任务，你将足以满足你最阴险的偷袭冲动……男性角色还将有机会与 Lynn 发展恋情，她是一名盗贼，会在你执行任务时委托你……"
-    }
+      "description": "想要唤醒你这位谋杀之神子灵魂中最黑暗的一面吗？这个模组就是为你准备的！通过大约十个旨在考验你冷酷杀手能力的新任务，你将足以满足你最阴险的偷袭冲动……男性角色还将有机会与 Lynn 发展恋情，她是一名盗贼，会在你执行任务时委托你……",
+      "components": {
+        "0": "´ÌÉ±ºÏÔ¼"
+      }
+    },
+    "es_ES": {"components": {"0": "Asesinatos. Mod para Baldur's Gate II"}},
+    "de_DE": {"components": {"0": "Assassinations Mod fuer Baldur's Gate II"}},
+    "pl_PL": {"components": {"0": "Assassinations - mod do Baldur's Gate II"}}
   },
   "tp2": "assassinations",
   "safe": 2,

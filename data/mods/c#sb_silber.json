@@ -21,7 +21,10 @@
     "fr_FR": 2,
     "it_IT": 3,
     "es_ES": 4,
-    "ru_RU": 5
+    "ru_RU": 5,
+    "pl_PL": 6,
+    "cs_CZ": 7,
+    "zh_CN": 8
   },
   "translations": {
     "en_US": {
@@ -36,11 +39,18 @@
         "0": "Adalon's Blood - Modification pour BGII par Gandalf the white"
       }
     },
-    "it_IT": {"components": {"0": "Il Sangue di Adalon ?EModificato per BGII da Gandalf the white"}},
+    "it_IT": {"components": {"0": "Il Sangue di Adalon – Modificato per BGII da Gandalf the white"}},
     "ru_RU": {"components": {"0": "Adalon's Blood - Modification for BGII by Gandalf the white"}},
     "zh_CN": {
-      "description": "此迷你模组主要允许善良阵营的玩家完成大桥区的谋杀任务，而无需杀死艾达隆来获取它的血液。邪恶阵营的玩家也可以尝试他们的运气：他们将会有很小的机会欺骗这头银龙。有了血液，现在就有可能找出制革商的幕后黑手，并在神殿中净化盔甲。"
-    }
+      "description": "此迷你模组主要允许善良阵营的玩家完成大桥区的谋杀任务，而无需杀死艾达隆来获取它的血液。邪恶阵营的玩家也可以尝试他们的运气：他们将会有很小的机会欺骗这头银龙。有了血液，现在就有可能找出制革商的幕后黑手，并在神殿中净化盔甲。",
+      "components": {
+        "0": "艾达隆之血 - 博德之门2的修改 by Gandalf the white"
+      }
+    },
+    "de_DE": {"components": {"0": "Silberdrachenblut - Quest Add-On von Gandalf the white"}},
+    "es_ES": {"components": {"0": "La Sangre de Adalon - Modificación para BGII por Gandalf the white (Traducido por Clan REO)"}},
+    "pl_PL": {"components": {"0": "Adalon's Blood - Modyfikacja BG II autorstwa Gandalf the white"}},
+    "cs_CZ": {"components": {"0": "Krev Adalon - Modifikace pro BGII:EE"}}
   },
   "tp2": "c#sb_silber",
   "safe": 2,

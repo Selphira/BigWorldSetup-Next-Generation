@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -26,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "This mod offers additional portraits for the player (not for NPCs) and groups together Plasmocat's favorites, many of which were commissioned for various mods and others which are simply portraits she wanted to make from photos of models she found interesting."
+      "description": "This mod offers additional portraits for the player (not for NPCs) and groups together Plasmocat's favorites, many of which were commissioned for various mods and others which are simply portraits she wanted to make from photos of models she found interesting.",
+      "components": {
+        "0": "Plasmocat's Picks of the Litter Portrait Pack"
+      }
     },
     "zh_CN": {
       "description": "此模组为玩家提供额外的头像（非NPC头像），并汇集了Plasmocat的精选头像，其中许多是为各种模组定制的，另一些则是她根据自己认为有趣的照片制作的模特头像。"

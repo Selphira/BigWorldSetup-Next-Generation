@@ -25,6 +25,7 @@
     "9": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -44,7 +45,19 @@
       }
     },
     "en_US": {
-      "description": "This mod replaces BG2 NPC portraits with Phaere creations: Aerie, Edwin, Haer'Dalis, Imoen, Jaheira, Mazzy, Minsc, Sarevok and Viconia."
+      "description": "This mod replaces BG2 NPC portraits with Phaere creations: Aerie, Edwin, Haer'Dalis, Imoen, Jaheira, Mazzy, Minsc, Sarevok and Viconia.",
+      "components": {
+        "0": "Minsc Portrait",
+        "1": "Aerie Portrait",
+        "2": "Imoen Portrait",
+        "3": "Edwin Portrait",
+        "4": "Viconia Portrait",
+        "5": "Haer'Dalis Portrait",
+        "6": "Sarevok Portrait (ToB only)",
+        "7": "Jaheira Portrait",
+        "8": "Bodhi Portrait (original game only)",
+        "9": "Mazzy Portrait"
+      }
     },
     "zh_CN": {
       "description": "此模组用Phaere的创作替换了BG2中的一些NPC肖像：艾黎、艾德温、海尔达利、爱蒙、贾希拉、玛兹、明斯克、沙洛佛克和维康妮亚。"

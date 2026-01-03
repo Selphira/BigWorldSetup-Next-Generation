@@ -1,5 +1,5 @@
 {
-  "name": "Mutant de gelée (Guerrier)",
+  "name": "Kit de Mutant de gelée",
   "version": "2",
   "links": {
     "homepage": "https://cafe.naver.com/f-e/cafes/12857088/articles/85256?boardtype=I&menuid=25&referrerAllArticles=false",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "ko_KR": 0,
     "fr_FR": 2
   },
   "translations": {
@@ -30,7 +31,8 @@
     },
     "zh_CN": {
       "description": "这个战士宗派允许角色变成芥末凝胶。它拥有许多优势，如对毒素、睡眠和精神攻击的免疫，以及豁免检定的加值。其变形的特性会随着等级提升而进化，特别是护甲等级、属性和再生的加值。他的肤色……很不寻常。"
-    }
+    },
+    "ko_KR": {"components": {"0": "½½¶óÀÓ ½ºÆ÷ÀÏ·¯ Å°Æ® ¼³Ä¡"}}
   },
   "tp2": "sb",
   "safe": 2,

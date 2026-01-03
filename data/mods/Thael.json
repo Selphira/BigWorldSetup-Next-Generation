@@ -13,26 +13,32 @@
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 2
+    "es_ES": 0,
+    "de_DE": 1,
+    "fr_FR": 2,
+    "en_US": 3
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod ajoute un nouveau PNJ : un elfe mage/voleur. Il dispose de dialogues avec les PNJ de Bioware, avec le PJ, et d'une quête principale qui débute dans SoA et se poursuit dans ToB. Thael se trouve sur la Promenade de Waukyne, tout près du cirque. Il possède une mystérieuse épée courte, Velvevlos, acquise dans des circonstances non moins particulières ; ce puissant artefact ayant une grande influence sur lui.\nAu contact des terribles énergies magiques que renferme Velvelos, Thael a subi quelques mutations. L'une d'entre elles, « Pouvoir Mutant », est très utile en combat. Vous pouvez y accéder dans la partie réservée aux capacités spéciales des personnages.\nFOR 16, DEX 20, CON 16, INT 18, SAG 9, CHA 10.",
       "components": {
-        "0": "THAEL, l'elfe mage-voleur et VELVEVLOS, la lame sanglante",
-        "1": "Optionnel : Installer la premiere version des voix pour Thael"
+        "0": "Optionnel : Installer la premiere version des voix pour Thael"
       }
     },
     "en_US": {
-      "description": "This mod adds a new NPC: a mage/thief elf. It features dialogs with Bioware NPCs, with the NPC, and a main quest that begins in SoA and continues in ToB. Thael can be found on the Waukeen's Promenade, close to the circus. He possesses a mysterious short sword, Velvevlos, acquired under no less unusual circumstances; this powerful artifact has a great influence on him.\nThael has undergone several mutations as a result of contact with the terrible magical energies contained in Velvelos. One of these, \"Mutant Power\", is very useful in combat. You can access it in the special abilities section.\nSTR 16, DEX 20, CON 16, INT 18, WIS 9, CHA 10."
+      "description": "This mod adds a new NPC: a mage/thief elf. It features dialogs with Bioware NPCs, with the NPC, and a main quest that begins in SoA and continues in ToB. Thael can be found on the Waukeen's Promenade, close to the circus. He possesses a mysterious short sword, Velvevlos, acquired under no less unusual circumstances; this powerful artifact has a great influence on him.\nThael has undergone several mutations as a result of contact with the terrible magical energies contained in Velvelos. One of these, \"Mutant Power\", is very useful in combat. You can access it in the special abilities section.\nSTR 16, DEX 20, CON 16, INT 18, WIS 9, CHA 10.",
+      "components": {
+        "0": "Optional: Install the first version of the voices for Thael."
+      }
     },
     "zh_CN": {
       "description": "此模组增加了一个新的NPC：一个精灵法师/盗贼。他与BioWare的NPC、玩家角色都有对话，还有一个始于安姆阴影并在巴尔王座中继续的主线任务。赛尔位于渥金商场，离马戏团很近。他有一把神秘的短剑，维尔维洛斯，是在同样不寻常的情况下获得的；这个强大的神器对他有很大影响。\n在与维尔维洛斯所蕴含的可怕魔法能量接触后，赛尔发生了一些变异。其中之一，“变异之力”，在战斗中非常有用。你可以在角色特殊能力部分找到它。\n力量 16, 敏捷 20, 体质 16, 智力 18, 智慧 9, 魅力 10。"
-    }
+    },
+    "es_ES": {"components": {"0": "Opcional: Instalar primera version de las voces para Thael"}},
+    "de_DE": {"components": {"0": "Option: Install the first version of Thael´s sounds"}}
   },
   "tp2": "thael",
   "safe": 2,

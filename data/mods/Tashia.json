@@ -17,7 +17,11 @@
     "1": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "de_DE": 2,
+    "es_ES": 3,
+    "it_IT": 4
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +32,18 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a new NPC, a young elven sorceress neutral good from the far north, straight out of the Spine of the World, with a possible romance with a male NPC. What's more, this romance continues in ToB. There are 3 different epilogues for this romance at the end of Throne of Bhaal, depending on the choice you make.\nSTR 11, DEX 19, CON 15, INT 15, WIS 14, CHA 12."
+      "description": "This mod adds a new NPC, a young elven sorceress neutral good from the far north, straight out of the Spine of the World, with a possible romance with a male NPC. What's more, this romance continues in ToB. There are 3 different epilogues for this romance at the end of Throne of Bhaal, depending on the choice you make.\nSTR 11, DEX 19, CON 15, INT 15, WIS 14, CHA 12.",
+      "components": {
+        "0": "Tashia NPC Add-on Mod (for ToB)",
+        "1": "Tashia NPC Add-on Mod (without ToB)"
+      }
     },
     "zh_CN": {
       "description": "此模组添加了一个新的非玩家角色：一位来自北境的年轻中立善良精灵术士，她直接来自世界脊，并且可能与男性玩家角色发展恋情。此外，这段恋情在《巴尔王座》中继续。在《巴尔王座》的结尾，这段恋情有三个不同的结局，取决于你的选择。\n力量 11，敏捷 19，体质 15，智力 15，智慧 14，魅力 12。"
-    }
+    },
+    "de_DE": {"components": {"0": "Tashia, eine zusaetzliche Mitstreiterin (mit TdB)", "1": "Tashia, eine zusaetzliche Mitstreiterin (ohne TdB)"}},
+    "es_ES": {"components": {"0": "Tashia NPC Add-on Mod (para ToB)", "1": "Tashia NPC Add-on Mod (sin ToB)"}},
+    "it_IT": {"components": {"0": "Tashia NPC Add-on Mod BG2:SoA/ToB v.2.05", "1": "Tashia NPC Add-on Mod (senza ToB)"}}
   },
   "tp2": "tashia",
   "safe": 2,

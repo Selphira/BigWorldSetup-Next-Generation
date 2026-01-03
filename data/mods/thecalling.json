@@ -18,7 +18,16 @@
     "40": {"type": "std", "category": "smith"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "cs_CZ": 1,
+    "fr_FR": 2,
+    "de_DE": 3,
+    "it_IT": 4,
+    "ko_KR": 5,
+    "pl_PL": 6,
+    "ru_RU": 7,
+    "es_ES": 8,
+    "zh_CN": 9
   },
   "translations": {
     "fr_FR": {
@@ -30,11 +39,28 @@
       }
     },
     "en_US": {
-      "description": "This mod was the embryo of an ambitious project that sought to answer the following questions: why has no one taken control of the Gnoll fortress? Why are the only quests specific to the protagonist's class given by Narlen Marchombre? The answer was to develop class-specific quests. For the time being, only one, the Mage quest, has been completed, and is therefore open to all players until the mod is fleshed out.\nTwo other components allow us to peacefully resolve the conflict on Werewolf Island and install the `Pack of Exotic Items` component (formerly part of Sword Coast Stratagems)."
+      "description": "This mod was the embryo of an ambitious project that sought to answer the following questions: why has no one taken control of the Gnoll fortress? Why are the only quests specific to the protagonist's class given by Narlen Marchombre? The answer was to develop class-specific quests. For the time being, only one, the Mage quest, has been completed, and is therefore open to all players until the mod is fleshed out.\nTwo other components allow us to peacefully resolve the conflict on Werewolf Island and install the `Pack of Exotic Items` component (formerly part of Sword Coast Stratagems).",
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "Exotic Item Pack"
+      }
     },
     "zh_CN": {
-      "description": "这个模组是一个雄心勃勃项目的雏形，旨在回答以下问题：为什么没有人占领半人兽要塞？为什么只有主角的职业专属任务是由纳伦·暗影行者给出的？为什么梅利坎普的任务没有得到更深入的发展？\n答案是开发每个职业的专属任务。目前，只有法师的那个已经完成，因此对所有玩家开放，等待模组内容进一步丰富。\n另外两个组件允许和平解决狼人岛上的冲突，并安装“异物品组件”（曾经是Sword Coast Stratagems的一部分）。"
-    }
+      "description": "这个模组是一个雄心勃勃项目的雏形，旨在回答以下问题：为什么没有人占领半人兽要塞？为什么只有主角的职业专属任务是由纳伦·暗影行者给出的？为什么梅利坎普的任务没有得到更深入的发展？\n答案是开发每个职业的专属任务。目前，只有法师的那个已经完成，因此对所有玩家开放，等待模组内容进一步丰富。\n另外两个组件允许和平解决狼人岛上的冲突，并安装“异物品组件”（曾经是Sword Coast Stratagems的一部分）。",
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "珍奇的物品"
+      }
+    },
+    "cs_CZ": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Sada exotickych predmetu"}},
+    "de_DE": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Exotische Gegenstaende"}},
+    "it_IT": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Pacchetto \"Oggetti esotici\""}},
+    "ko_KR": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "색다른 아이템 팩"}},
+    "pl_PL": {"components": {"0": "Misja", "20": "Pokojowe rozwiazanie przygody na Wyspie Baldurana", "40": "Zestaw egzotycznych przedmiotow"}},
+    "ru_RU": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Exotic Item Pack"}},
+    "es_ES": {"components": {"0": "The Calling", "20": "Resolución pacífica de la Isla de los Hombres Lobo", "40": "Paquete de objetos exóticos"}}
   },
   "tp2": "thecalling",
   "safe": 2,

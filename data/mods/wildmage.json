@@ -20,7 +20,13 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 2
+    "de_DE": 1,
+    "fr_FR": 2,
+    "pl_PL": 3,
+    "pt_PT": 4,
+    "ru_RU": 5,
+    "sv_SE": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -28,7 +34,7 @@
       "components": {
         "choice_0": "New Wild Magic Spells",
         "0": "Ironman",
-        "1": "Haughty pansy",
+        "1": "Haugthy pansy",
         "2": "Retain Rhialto's items",
         "choice_1": "Spellshaper Kit",
         "3": "Original avatar",
@@ -50,8 +56,23 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组添加了一个狂乱法师职业，即“织法者”，它结合了术士和法师的才能，拥有术士的即时施法能力，且不受记忆法术数量限制的惩罚。然而，他受到24小时内可施放法术数量和升级速度的限制。为此，该模组添加了27个新法术（每个等级3个），而且这一切看起来都很有趣。"
-    }
+      "description": "这个模组添加了一个狂乱法师职业，即“织法者”，它结合了术士和法师的才能，拥有术士的即时施法能力，且不受记忆法术数量限制的惩罚。然而，他受到24小时内可施放法术数量和升级速度的限制。为此，该模组添加了27个新法术（每个等级3个），而且这一切看起来都很有趣。",
+      "components": {
+        "choice_0": "新的狂魔法法术",
+        "0": "铁人",
+        "1": "傲慢的草包",
+        "2": "保留瑞奥托的物品",
+        "choice_1": "塑形师宗派",
+        "3": "原版化身",
+        "4": "修改的化身",
+        "5": "杂项法术修改"
+      }
+    },
+    "de_DE": {"components": {"choice_0": "Neue Zaubersprüche", "0": "Eisenmann", "1": "Haugthy pansy", "2": "Rhialtos Gegenstände beibehalten", "choice_1": "Sprücheweber", "3": "Originaler Avatar", "4": "Veränderter Avatar", "5": "Allgemeine Zauberspruch Modifikationen"}},
+    "pl_PL": {"components": {"choice_0": "Nowe czary Dzikiej Magii", "0": "Ironman", "1": "Haugthy pansy", "2": "Zachowaj przedmioty Rhialto", "choice_1": "Podklasa Czarotworcy", "3": "Oryginalny awatar", "4": "Zmieniony awatar", "5": "Niewielkie Zmiany w Czarach"}},
+    "pt_PT": {"components": {"choice_0": "Novos Feitiços da Mágica Selvagem", "0": "Homem de Ferro", "1": "Haugthy pansy", "2": "Retém os itens do Rhialto", "choice_1": "Spellshaper Kit", "3": "Avatar original", "4": "Avatar modificado", "5": "Modificações mistas dos feitiços"}},
+    "ru_RU": {"components": {"choice_0": "Новые заклинания Дикой Магии", "0": "Стальная воля", "1": "Тютя", "2": "Получить вещи Риалто", "choice_1": "Творец Заклинаний", "3": "Оригинальный аватар", "4": "Измененный аватар", "5": "Различные изменения заклинаний"}},
+    "sv_SE": {"components": {"choice_0": "Nya Trollformler för Vild Magi", "0": "Järnman", "1": "Finsmakig fegis", "2": "Behåll Rhialtos föremål", "choice_1": "Besvärjelseformar-kit", "3": "Ursprunglig avatar", "4": "Ändrad avatar", "5": "Diverse modifieringar av formler"}}
   },
   "tp2": "wildmage",
   "safe": 2,

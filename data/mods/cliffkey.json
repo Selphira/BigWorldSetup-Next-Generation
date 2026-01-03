@@ -34,21 +34,17 @@
     "fr_FR": {
       "description": "Un mod pour les maniaques puisqu'il ajoute un porte-clefs via une petite quête sympathique ou auprès des marchands (au choix lors de l'installation).",
       "components": {
-        "choice_0": "Un mod pour les maniaques - Ajoute un porte-clefs a  Feerune ! Reportez-vous au fichier readme pour plus de details sur les choix  proposes ci-dessous.",
+        "choice_0": "Un mod pour les maniaques - Ajoute un porte-clefs a \nFeerune ! Reportez-vous au fichier readme pour plus de details sur les choix \nproposes ci-dessous.",
         "0": "Version 1 : le recevoir en recompense d'une quete",
         "1": "Version 2 : l'acheter dans des magasins"
       }
     },
-    "ru_RU": {
-      "components": {
-        "choice_0": "A Mod for the Orderly - Add a Keyring to Faerun! See readme for more details about the choices below.",
-        "0": "Nanoquest version",
-        "1": "Consistency Plus version"
-      }
-    },
+    "ru_RU": {"components": {"choice_0": "A Mod for the Orderly - Add a Keyring to Faerun! See readme for more details about the choices below.", "0": "Nanoquest version", "1": "Consistency Plus version"}},
     "zh_CN": {
       "description": "这是一个为强迫症患者准备的模组，因为它通过一个有趣的小任务或从商人处（安装时可选）添加了一个钥匙扣。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "A Mod for the Orderly - Ein Schluesselring fur Faerun! Bitte die Readme lesen um mehr ueber die nachfolgenden Einstellungen zu erfahren.", "0": "Nanoquest Version", "1": "Consistency Plus Version"}},
+    "es_ES": {"components": {"choice_0": "Un Mod para ser ordenado - Agrega un llavero a Faerun! Ver archivo Leame para obtener mas detalles acerca de las opciones.", "0": "Version Micro-Busqueda", "1": "Version de Consistencia Extra"}}
   },
   "tp2": "cliffkey",
   "safe": 2,

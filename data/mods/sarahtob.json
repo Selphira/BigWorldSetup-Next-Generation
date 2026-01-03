@@ -1,5 +1,5 @@
 {
-  "name": "Sarah NPC",
+  "name": "Sarah NPC Romance Mod for BG2: ToB",
   "version": "8",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/npcs/sarah/",
@@ -24,7 +24,9 @@
     "en_US": {
       "description": "This chaotic good ranger hails from the slums of Baldur's Gate, and grew up with her uncle in Cloakwood, who taught her the ways of nature as well as the art of combat. Years later, she left the Cloakwood to explore on her own. She settled in an empty cabin not too far from Umar Hills. Sarah is a relatively shy but determined person who admits to loving nature more than people, but then again, perhaps she just hasn't found the right person yet.\nSTR 16, DEX 17, CON 15, INT 14, WIS 12, CHA 10.",
       "components": {
-        "0": "Sarah NPC Romance Mod for BG2:ToB"
+        "choice_0": "Sarah NPC Romance Mod for BG2:ToB",
+        "0": "Use original audio",
+        "1": "Use revised audio from HalmyLyseas"
       }
     },
     "fr_FR": {
@@ -35,7 +37,7 @@
         "1": "Use revised audio from HalmyLyseas"
       }
     },
-    "ru_RU": {"components": {"0": "Sarah NPC Romance Mod for BG2:ToB"}},
+    "ru_RU": {"components": {"choice_0": "Sarah NPC Romance Mod for BG2:ToB", "0": "Use original audio", "1": "Use revised audio from HalmyLyseas"}},
     "zh_CN": {
       "description": "这位混乱善良的游侠来自博德之门的贫民区，由她的叔叔在友善之臂抚养长大，叔叔教导了她自然的道路和战斗的艺术。多年后，她离开友善之臂去探索世界，最终在乌玛丘陵附近的一个小屋里定居。莎拉相对害羞但意志坚定，她毫不掩饰地表示更喜欢自然而非人群。也许她还没遇到对的人？\n力量 16, 敏捷 17, 体质 15, 智力 14, 智慧 12, 魅力 10。"
     }

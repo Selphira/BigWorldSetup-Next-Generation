@@ -39,7 +39,8 @@
     "ru_RU": {"components": {"0": "Mersetek"}},
     "zh_CN": {
       "description": "您会在您的门厅找到一个这种特殊商人。他将弥补您为制作模组Item Upgrade的物品所需的宝石的不足。Kay'est的原创作品。"
-    }
+    },
+    "es_ES": {"components": {"0": "Mersetek"}}
   },
   "tp2": "merskstore",
   "safe": 2,

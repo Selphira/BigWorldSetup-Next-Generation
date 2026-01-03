@@ -20,20 +20,24 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2
   },
   "translations": {
     "en_US": {
       "description": "Adrian Sianodel is a lawful evil 33-year-old half-Elf mage, whom you meet at the end of the Irenicus dungeon. He has a personal quest and will romanticize human or half-Elf female PJs without restriction of alignment or class. However, your PJ must have a minimum of 12 charisma. Leaf-eaters are not particularly her cup of tea.",
       "components": {
-        "0": "Adrian for BGII",
-        "choice_0": "Install optional soundset for Adrian?",
-        "1": "Phaelin's soundset",
-        "2": "Tatterdemalion's soundset",
-        "choice_1": "Install alternate class for Adrian?",
-        "3": "Change Adrian's class to Cleric/Mage",
-        "4": "Change Adrian's class to Mage/Thief",
-        "5": "Crossmod Content"
+        "choice_0": "Adrian for BGII",
+        "0": "Adrian is a Sorcerer",
+        "1": "Change Adrian's class to Cleric/Mage",
+        "2": "Change Adrian's class to Mage/Thief",
+        "choice_1": "Install optional soundset for Adrian (only in English)",
+        "10": "Phaelin's soundset",
+        "11": "Tatterdemalion's soundset",
+        "20": "Crossmod content",
+        "choice_2": "Adrian Tolerates High Reputation",
+        "30": "Always",
+        "31": "For Active Romance or Friendship"
       }
     },
     "fr_FR": {
@@ -54,7 +58,8 @@
     },
     "zh_CN": {
       "description": "艾德里安·西亚诺德尔是一位33岁的守序邪恶半精灵法师，你将在艾瑞尼卡斯地牢的尽头遇到他。他有一个个人任务，并且会与女性人类或半精灵玩家角色（不限阵营和职业）发展恋情。然而，你的玩家角色魅力值必须至少为12。德鲁伊并非他的菜。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "Adrian fuer BGII", "0": "Adrian ist Hexenmeister", "1": "Aendere Adrians Klasse zu Kleriker/Magier", "2": "Aendere Adrians Klasse zu Magier/Dieb", "choice_1": "Optionales Soundset fuer Adrian installieren (nur englisch)?", "10": "Phaelins Soundset", "11": "Tatterdemalions Soundset", "20": "Crossmod-Inhalte installieren", "choice_2": "Adrian toleriert hohen Ruf", "30": "Immer", "31": "In einer aktiven Romanze oder Freundschaft"}}
   },
   "tp2": "adrian",
   "safe": 2,

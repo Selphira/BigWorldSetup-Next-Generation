@@ -22,7 +22,9 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 4
+    "pt_PT": 1,
+    "ru_RU": 2,
+    "sv_SE": 3
   },
   "translations": {
     "en_US": {
@@ -31,11 +33,11 @@
         "0": "Allow non-unique Amulet of Protection +1",
         "1": "Allow non-unique Ring of Protection +2 and Cloak of Protection +2",
         "2": "Allow non-unique Boots of Speed",
-        "choice_0": "Unique Artifacts core",
+        "choice_0": "Unique Artifacts - core",
         "3": "Expanded",
         "4": "Strict",
-        "5": "Supprimer les marchands bonus",
-        "6": "Moins d'objets magiques"
+        "5": "Remove bonus merchants",
+        "6": "Less magical items"
       }
     },
     "fr_FR": {
@@ -53,7 +55,10 @@
     },
     "zh_CN": {
       "description": "你是否一直觉得博德之门系列中的魔法物品过多？许多魔法物品的描述都称它们是独一无二的。然而，你却经常能找到多个副本（如迅捷之靴、+2防护戒指等）。虽然这个问题在原版游戏中表现得不那么严重，但许多模组通过不断增加各种物品的副本而使其雪上加霜，而完全不考虑这是否合理。这破坏了沉浸感，并且有点令人厌烦。那么，这个模组就是为你而设！它的唯一使命就是减少游戏中可用魔法装备的数量。"
-    }
+    },
+    "pt_PT": {"components": {"0": "Permite Amuleto de Proteção +1 não-único", "1": "Permite Anel de Proteção +2 e Capa de Proteção +2 não-único", "2": "Permite Botas de Velocidade não-únicas", "choice_0": "Artefatos Únicos - núcleo", "3": "Expandido", "4": "Restrito", "5": "Remover mercadores bônus", "6": "Menos itens mágicos"}},
+    "ru_RU": {"components": {"0": " §à¥è¨âì ­¥ã­¨ª «ì­ë© ¬ã«¥â  é¨âë +1", "1": " §à¥è¨âì ­¥ã­¨ª «ì­ë¥ ®«ìæ®  é¨âë +2 ¨ « é  é¨âë +2", "2": " §à¥è¨âì ­¥ã­¨ª «ì­ë¥  ¯®£¨ ª®à®áâ¨", "choice_0": "­¨ª «ì­ë¥ àâ¥ä ªâë - £« ¢­ë© ª®¬¯®­¥­â", "3": " áè¨à¥­­ë©", "4": "âà®£¨©", "5": "Remove bonus merchants", "6": "Less magical items"}},
+    "sv_SE": {"components": {"0": "Tillåt icke-unik Beskyddsamulett +1", "1": "Tillåt icke-unik Beskyddsring +2 och Beskyddsmantel +2", "2": "Tillåt icke-unika Hastighetsstövlar", "choice_0": "Unika artefakter - kärna", "3": "Utökad", "4": "strikt", "5": "Remove bonus merchants", "6": "Less magical items"}}
   },
   "tp2": "ua",
   "safe": 2,

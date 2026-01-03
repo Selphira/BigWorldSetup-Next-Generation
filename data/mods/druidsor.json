@@ -14,11 +14,28 @@
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"}
+    "1": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "games": ["tutu", "bgt"]},
+    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7", "8", "9", "10", "11"], "games": ["tutu", "bgt"]},
+    "choice_2": {
+      "type": "muc", "components": ["12", "13", "14", "15", "16", "17", "18", "19"], "games": ["tutu", "bgt"]
+    },
+    "choice_3": {"type": "muc", "components": ["20", "21", "22"], "games": ["tutu", "bgt"]},
+    "choice_4": {"type": "muc", "components": ["23", "24", "25"], "games": ["tutu", "bgt"]},
+    "choice_5": {"type": "muc", "components": ["26", "27", "28"], "games": ["tutu", "bgt"]},
+    "choice_6": {"type": "muc", "components": ["29", "30", "31"], "games": ["tutu", "bgt"]},
+    "choice_7": {"type": "muc", "components": ["32", "33", "34"], "games": ["tutu", "bgt"]},
+    "choice_8": {"type": "muc", "components": ["35", "36", "37"], "games": ["tutu", "bgt"]},
+    "choice_9": {"type": "muc", "components": ["38", "39", "40"], "games": ["tutu", "bgt"]},
+    "choice_10": {"type": "muc", "components": ["41", "42", "43"], "games": ["tutu", "bgt"]},
+    "choice_11": {"type": "muc", "components": ["44", "45", "46"], "games": ["tutu", "bgt"]},
+    "choice_12": {"type": "muc", "components": ["47", "48", "49"], "games": ["tutu", "bgt"]}
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "es_ES": 2,
+    "zh_CN": 3
   },
   "translations": {
     "en_US": {

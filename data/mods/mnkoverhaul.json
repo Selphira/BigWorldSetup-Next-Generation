@@ -17,6 +17,7 @@
     "choice_0": {"type": "muc", "components": ["1", "2"], "category": "spell", "default": "1"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -30,7 +31,13 @@
       }
     },
     "en_US": {
-      "description": "Did you like the `High-level monk abilities` component of the Oversight mod? Then this mod is for you: it takes its content and makes it compatible with EE games. It replaces the monk's table of high-level abilities (which was that of fighters) with one inspired by those used by Balthazar in ToB: Shadowless Kick, Tiger Strike, Dracon Fist, Faster Than The Eye, Flip Resistances, Solar Stance, Lunar Stance, Shadow Stance, Feet of the Wind and Second Wind."
+      "description": "Did you like the `High-level monk abilities` component of the Oversight mod? Then this mod is for you: it takes its content and makes it compatible with EE games. It replaces the monk's table of high-level abilities (which was that of fighters) with one inspired by those used by Balthazar in ToB: Shadowless Kick, Tiger Strike, Dracon Fist, Faster Than The Eye, Flip Resistances, Solar Stance, Lunar Stance, Shadow Stance, Feet of the Wind and Second Wind.",
+      "components": {
+        "0": "Monk High Level Abilities by Kish",
+        "choice_0": "Monk Fist Overhaul",
+        "1": "3:+1 9:+2 12:+3 15:+4 25:+5",
+        "2": "5:+1 10:+2 15:+3 20:+4 25:+5 (Requires EE)"
+      }
     },
     "zh_CN": {
       "description": "你喜欢模组 Oversight 中的“武僧高级能力”组件吗？那么，这个模组就是为你准备的。\n它继承了该组件的内容，并使其与增强版游戏兼容。它用另一个受ToB中Balthazar使用的表格启发的表格，替换了武僧的高级能力表格（该表格原本是战士的表格）：暗影打击、虎爪击、龙拳、快如闪电、交换抗性、日曜姿态、月曜姿态、影曜姿态、风步和第二次呼吸。"

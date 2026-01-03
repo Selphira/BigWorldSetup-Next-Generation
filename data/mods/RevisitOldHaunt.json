@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "zh_CN": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,10 +28,16 @@
       }
     },
     "en_US": {
-      "description": "This mod allows you to teleport to a previously visited area using a Wish or Minor Wish spell."
+      "description": "This mod allows you to teleport to a previously visited area using a Wish or Minor Wish spell.",
+      "components": {
+        "0": "Revisit The Old Haunt"
+      }
     },
     "zh_CN": {
-      "description": "此模组允许通过一个“许愿术”或“次级许愿术”法术，传送到一个已经访问过的区域。"
+      "description": "此模组允许通过一个“许愿术”或“次级许愿术”法术，传送到一个已经访问过的区域。",
+      "components": {
+        "0": "故地重游"
+      }
     }
   },
   "tp2": "revisitoldhaunt",

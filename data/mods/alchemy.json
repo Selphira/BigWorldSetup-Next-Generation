@@ -19,7 +19,8 @@
     "en_US": 0,
     "de_DE": 1,
     "fr_FR": 2,
-    "ru_RU": 3
+    "ru_RU": 3,
+    "it_IT": 4
   },
   "translations": {
     "en_US": {
@@ -34,10 +35,12 @@
         "0": "Kit d'alchimie de Jan"
       }
     },
-    "ru_RU": {"components": {"0": "Jan's Alchemy?"}},
+    "ru_RU": {"components": {"0": "Jan's Alchemy"}},
     "zh_CN": {
       "description": "这个小型模组让姚恩拥有制作药水的能力，通过一本混合药剂手册。计划中有8种新药水。"
-    }
+    },
+    "de_DE": {"components": {"0": "Jan Jansens Alchemie"}},
+    "it_IT": {"components": {"0": "Alchimia di Jan"}}
   },
   "tp2": "alchemy",
   "safe": 2,

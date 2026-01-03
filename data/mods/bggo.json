@@ -13,7 +13,7 @@
   "games": ["tutu", "bgt", "bg2", "sod", "bgee", "bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std", "category": "portrait"}
+    "0": {"type": "std"}
   },
   "languages": {
     "en_US": 0,

@@ -40,7 +40,9 @@
     "ru_RU": {"components": {"0": "Darron"}},
     "zh_CN": {
       "description": "此模组添加了达伦，一位负责交易影贼特殊商品的商人。你可以在港口区的盗贼公会地下室找到他。"
-    }
+    },
+    "es_ES": {"components": {"0": "Darron"}},
+    "de_DE": {"components": {"0": "Darron"}}
   },
   "tp2": "darron",
   "safe": 2,

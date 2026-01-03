@@ -14,7 +14,6 @@
   "categories": ["quest"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"},
-    "2": {"type": "std"},
     "3": {"type": "std"},
     "4": {"type": "std"},
     "5": {"type": "std"},
@@ -22,7 +21,13 @@
     "1000": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "it_IT": 2,
+    "pl_PL": 3,
+    "ru_RU": 4,
+    "es_ES": 5,
+    "zh_CN": 6
   },
   "translations": {
     "fr_FR": {
@@ -31,7 +36,6 @@
         "choice_0": "The Drizzt Saga pour BGEE / Tutu / BGT",
         "0": "Version par defaut : zones connectees par des declencheurs de voyage",
         "1": "Version BP-BGT Worldmap : ajout de toutes les zones a la carte du monde (requiert BP-BGT Worldmap)",
-        "2": "Eleve la limite d'XP",
         "3": "Debut repousse : Drizzt revient apres la Tour de Durlag",
         "4": "Empecher d'exploiter les objets des PNJ",
         "5": "Reduire la puissance de certains objets",
@@ -40,10 +44,63 @@
       }
     },
     "en_US": {
-      "description": "Drizzt is on his way back from the Sword Coast to the Vale of Bise. What he doesn't know is that dark times lie ahead in the Valley, and his companions will lead him, and you, on an adventure of epic proportions.\nThis mod features a major quest, alongside the famous character of R.A. Salvatore, which begins the moment you meet him in the game. This adventure takes place in new areas inspired by Icewind Dale, and includes numerous side quests, new monsters, new spells and equipment...\nThere are two versions: one for ToSC, the other for BG1tutu, BGT and BG:EE."
+      "description": "Drizzt is on his way back from the Sword Coast to the Vale of Bise. What he doesn't know is that dark times lie ahead in the Valley, and his companions will lead him, and you, on an adventure of epic proportions.\nThis mod features a major quest, alongside the famous character of R.A. Salvatore, which begins the moment you meet him in the game. This adventure takes place in new areas inspired by Icewind Dale, and includes numerous side quests, new monsters, new spells and equipment...\nThere are two versions: one for ToSC, the other for BG1tutu, BGT and BG:EE.",
+      "components": {
+        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT",
+        "0": "Default version: areas connected by travel triggers",
+        "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)",
+        "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit",
+        "5": "Magical Items Nerfing",
+        "6": "XP from Creatures lowered by 3/4",
+        "1000": "Resource biffing"
+      }
     },
     "zh_CN": {
-      "description": "崔斯特正从剑湾返回冰风谷。但他不知道的是，黑暗时代正笼罩着冰风谷，他的同伴将把他和你一起卷入一场史诗般的冒险中。\n这个模组为您提供了一个主要任务，与R.A.萨尔瓦托罗的著名角色并肩作战，该任务在您游戏中遇到他时开始。这场冒险发生在受冰风谷启发的新区域中，并包含许多支线任务、新怪物、新法术和装备……\n它有两个版本：一个用于剑湾传奇，但不包含法语；另一个用于博德之门三部曲和博德之门：增强版，提供法语版本。"
+      "description": "崔斯特正从剑湾返回冰风谷。但他不知道的是，黑暗时代正笼罩着冰风谷，他的同伴将把他和你一起卷入一场史诗般的冒险中。\n这个模组为您提供了一个主要任务，与R.A.萨尔瓦托罗的著名角色并肩作战，该任务在您游戏中遇到他时开始。这场冒险发生在受冰风谷启发的新区域中，并包含许多支线任务、新怪物、新法术和装备……\n它有两个版本：一个用于剑湾传奇，但不包含法语；另一个用于博德之门三部曲和博德之门：增强版，提供法语版本。",
+      "components": {
+        "choice_0": "´ÞË¹ÌØ´«Ææ",
+        "0": "Ä¬ÈÏ°æ±¾£ºµØÇøÒÔÌ½Ë÷·½Ê½Á¬½Ó",
+        "1": "BP-BGT Worldmap°æ±¾£ºËùÓÐµØÇøÌí¼ÓÖÁÊÀ½çµØÍ¼£¨ÐèÒªBP-BGT Worldmap£©",
+        "3": "ÍÆ³Ù¿ªÊ¼Ê±¼ä£º´ÞË¹ÌØÔÚ¶ÅÀ­¸ñÖ®ËþÃ°ÏÕ½áÊøºó²ÅÈë¶Ó",
+        "4": "¸üÉÙµÄNPCÎïÆ·ÀûÓÃ",
+        "5": "ÏûÈõÄ§·¨ÎïÆ·",
+        "6": "ÉúÎïµÄ¾­ÑéÖµ½µµÍ3/4",
+        "1000": "×ÊÔ´´ò°ü"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
+        "1": "Installando il Supporto della Worldmap v6", "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit", "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4",
+        "1000": "Resource biffing"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Saga Drizzta dla BG:EE/TuTu/BGT", "0": "Obszary polaczone poprzez krawedzie map (domyslnie)",
+        "1": "Wszystkie obszary dodane do mapy swiata (wymaga BP-BGT Worldmap)",
+        "3": "Opozniony poczatek: Drizzt dolaczy po ukonczeniu Wiezy Durlaga",
+        "4": "Usuniecie naduzyc zwiazanych z ekwipunkiem Bohaterow Niezaleznych",
+        "5": "Oslabienie magicznych przedmiotow", "6": "Obnizenie PD za potwory o 3/4", "1000": "Kompresja zasobow"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
+        "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)",
+        "3": "Delayed start: Drizzt joins after Durlag's Tower", "4": "Fewer NPC's items exploit",
+        "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4", "1000": "Resource biffing"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "La Saga Drizzt para BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
+        "1": "Instalando soporte para Worldmap v6", "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit", "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4",
+        "1000": "Resource biffing"
+      }
     }
   },
   "tp2": "drizztsaga",

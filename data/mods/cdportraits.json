@@ -20,6 +20,7 @@
     "choice_4": {"type": "muc", "components": ["50", "51", "52", "53", "54"], "default": "53"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1,
     "all": 0
   },
@@ -51,7 +52,30 @@
       }
     },
     "en_US": {
-      "description": "Edwin, Imoen, Jaheira, Minsc and Viconia have different portraits in BG and BG2; Imoen and Viconia even have a third portrait in Siege of Dragonspear. This mod lets you choose to use any of these portraits in any game. So you can use Imoen's portrait from BG in BG2, Viconia's from SoD in BG..."
+      "description": "Edwin, Imoen, Jaheira, Minsc and Viconia have different portraits in BG and BG2; Imoen and Viconia even have a third portrait in Siege of Dragonspear. This mod lets you choose to use any of these portraits in any game. So you can use Imoen's portrait from BG in BG2, Viconia's from SoD in BG...",
+      "components": {
+        "choice_0": "Edwin",
+        "10": "Use BG portrait",
+        "11": "Use BG2 portrait",
+        "choice_1": "Imoen",
+        "20": "Use BG portrait",
+        "21": "Use BG2 portrait",
+        "22": "Use SoD portrait",
+        "23": "Use Lava's alternative SoD portrait",
+        "24": "Only replace the SoD portrait with Lava's alternative",
+        "choice_2": "Jaheira",
+        "30": "Use BG portrait",
+        "31": "Use BG2 portrait",
+        "choice_3": "Minsc",
+        "40": "Use BG portrait",
+        "41": "Use BG2 portrait",
+        "choice_4": "Viconia",
+        "50": "Use BG portrait",
+        "51": "Use BG2 portrait",
+        "52": "Use SoD portrait",
+        "53": "Use Lava's alternative SoD portrait",
+        "54": "Only replace the SoD portrait with Lava's alternative"
+      }
     },
     "zh_CN": {
       "description": "艾德温、爱蒙、贾希拉、明斯克和维康妮亚在博德之门和博德之门2中有不同的肖像；爱蒙和维康妮亚甚至在龙矛围攻中还有第三个肖像。此模组允许您在任何游戏中使用这些肖像中的任何一个。这样，您就可以在博德之门2中使用博德之门中爱蒙的肖像，在博德之门中使用龙矛围攻中维康妮亚的肖像……"

@@ -17,7 +17,10 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "es_ES": 2,
+    "de_DE": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
@@ -34,7 +37,10 @@
     },
     "zh_CN": {
       "description": "芬奇是天神妮尔的牧师，生来就是中立善良的侏儒，博学且总是埋头于他的羊皮纸和著作中。她与每个角色都有互动，一个语音包，还有一个个人任务。如果她没有过冒险生活，她也会不厌其烦地向您讲述她读到的惊心动魄的故事。\n力量13，敏捷13，体质16，智力15，智慧16，魅力10。"
-    }
+    },
+    "es_ES": {"components": {"0": "Finch NPC"}},
+    "de_DE": {"components": {"0": "Fink NPC"}},
+    "ru_RU": {"components": {"0": "Finch NPC"}}
   },
   "tp2": "finchnpc",
   "safe": 2,

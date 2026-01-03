@@ -1,5 +1,5 @@
 {
-  "name": "The Enhanced Edition Fixpack",
+  "name": "Enhanced Edition Fixpack",
   "version": "Alpha 3",
   "links": {
     "homepage": "https://github.com/Gibberlings3/EE_Fixpack",
@@ -19,6 +19,8 @@
   },
   "languages": {
     "en_US": 0,
+    "ru_RU": 1,
+    "zh_CN": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -39,10 +41,16 @@
       }
     },
     "zh_CN": {
-      "description": "EE Fixpack 是一个 WeiDU 修正包，用于解决博德之门、博德之门II、冰风谷和异度风景：苦难的增强版中存在的问题。这项合作努力汇集了来自不同社区模组制作者的工作，旨在解决这些游戏在当前官方补丁后仍然存在的问题。"
-    }
+      "description": "EE Fixpack 是一个 WeiDU 修正包，用于解决博德之门、博德之门II、冰风谷和异度风景：苦难的增强版中存在的问题。这项合作努力汇集了来自不同社区模组制作者的工作，旨在解决这些游戏在当前官方补丁后仍然存在的问题。",
+      "components": {
+        "0": "核心修复",
+        "1": "测试核心修复",
+        "2": "游戏文本更新"
+      }
+    },
+    "ru_RU": {"components": {"0": "Core Fixes", "1": "Beta Core Fixes", "2": "Game Text Update"}}
   },
   "tp2": "eefixpack",
-  "safe": 2,
+  "safe": 1,
   "authors": ["CamDawg", "Luke", "Argent77", "DavidW"]
 }

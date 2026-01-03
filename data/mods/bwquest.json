@@ -19,7 +19,9 @@
     "en_US": 0,
     "fr_FR": 1,
     "de_DE": 2,
+    "cs_CZ": 3,
     "it_IT": 4,
+    "pl_PL": 5,
     "ru_RU": 6,
     "es_ES": 7
   },
@@ -40,7 +42,11 @@
     "ru_RU": {"components": {"0": "Black Rose Part I: Market Prices"}},
     "zh_CN": {
       "description": "此模组添加了一个由法师梅内劳在渥金商场的七谷洞穴发起的新任务。"
-    }
+    },
+    "de_DE": {"components": {"0": "Schwarze Rose Teil I: Marktpreise"}},
+    "cs_CZ": {"components": {"0": "Èerná rùe, èást I: Trní ceny"}},
+    "pl_PL": {"components": {"0": "Black Rose Part I: Market Prices"}},
+    "es_ES": {"components": {"0": "Black Rose Part I: Market Prices"}}
   },
   "tp2": "bwquest",
   "safe": 2,

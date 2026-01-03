@@ -23,19 +23,36 @@
     "en_US": {
       "components": {
         "choice_0": "New travel system between Baldur's Gate City areas",
-        "66": "Version complète du composant",
-        "661": "Version minimaliste, permet d'entrer dans deux petites régions de la ville de Baldur's Gate initialement inaccessibles."
+        "66": "Full version of component",
+        "661": "Minimalistic version, allow entering two originally inaccesible small regions of BG city"
       },
       "description": "This mini-mod modifies the system of travel within the city of Baldur's Gate and between the two parts of Balduran Island, replacing the use of the world map with integrated accesses to each area (such as those inside dungeons or buildings). The new way of traveling is more natural. The party exits an area to appear at a parallel location to the nearest one, and not always at the same fixed point of entry as before. The other advantage of this system is access to two small areas of Baldur's Gate, which were otherwise inaccessible (an optional component allows you to install displacement only for these two areas).\nTravel is instantaneous, without the use of the main map, and the party can only go to a bordering location. For example, if you want to go from the Elf's Song Tavern to the Hall of Wonders, you'll need to cross all the areas between the eastern and western sections of the town, via the inner town gate. The main map only appears if you pass through the eastern city gate.\nASTUCE: The route through the sewers can considerably speed up travel in Baldur's Gate."
     },
     "fr_FR": {
+      "components": {
+        "choice_0": "New travel system between Baldur's Gate City areas",
+        "66": "Version complète du composant",
+        "661": "Version minimaliste, permet d'entrer dans deux petites régions de la ville de Baldur's Gate initialement inaccessibles."
+      },
       "description": "Ce mini mod modifie le système de déplacement dans la ville de La Porte de Baldur et entre les deux parties de l'île de Balduran, en remplaçant l'utilisation de la carte du monde par des accès intégrés à chaque zone (comme celles à l'intérieur de donjons ou de bâtiments). La nouvelle façon de voyager est plus naturelle. Le groupe sort d'une zone pour apparaître à un endroit parallèle du lieu le plus proche, et pas toujours sur le même point d'entrée fixe qu'auparavant. L'autre avantage de ce système est l'accès à deux petites zones de La Porte de Baldur, qui étaient autrement inaccessibles (un composant optionnel permet de n'installer que le déplacement pour ces deux zones).\nLe voyage s'effectue instantanément, sans l'utilisation de la carte principale, et le groupe ne peut aller que dans un endroit limitrophe. Par exemple, si vous voulez aller de la taverne du Chant de l'Elfe à la Salle des merveilles, vous devez traverser toutes les zones entre les sections est et ouest de la ville, en passant par la porte intérieure de la ville. La carte principale n'apparaît que si vous passez par la porte est de la ville.\nASTUCE : La route à travers les égouts peut considérablement accélérer les déplacements dans La Porte de Baldur."
     },
     "zh_CN": {
       "description": "这个迷你模组修改了博德之门城和博德伦岛两部分之间的移动系统，用每个区域内的直接入口（如同地牢或建筑内部的入口）取代了使用世界地图。新的移动方式更自然。队伍从一个区域出来，会出现在最近地点的平行位置，而不总是像以前那样在固定的入口点。这个系统的另一个优点是可以进入博德之门城两个原本无法进入的小区域（一个可选组件允许只安装这两个区域的移动）。\n旅行是即时的，不使用主地图，而且队伍只能前往相邻的地方。例如，如果你想从精灵之歌酒馆前往奇迹大厅，你必须穿过城市东西区域之间的所有区域，穿过城市的内门。只有当你穿过城市的东门时，主地图才会出现。\n提示：穿过下水道可以大大加快在博德之门的移动速度。"
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Nowy system podrozowania w obrebie Wrot Baldura", "66": "Pelna wersja komponentu",
+        "661": "Wersja minimalistyczna, umozliwia odwiedzenie dwoch oryginalnie niedostepnych zaulkow Wrot Baldura"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Neue Wanderungsystem nach Baldur's Tor herum", "66": "Vollversion der Komponente",
+        "661": "Minimalistisch-Version ermöglicht den Eintritt zu zwei ursprünglich unzugänglichen kleinen Gebieten von Baldurs Tor."
+      }
     }
   },
   "tp2": "bg_travel",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Zed Nocear"]
 }

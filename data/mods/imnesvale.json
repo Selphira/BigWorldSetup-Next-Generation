@@ -1,5 +1,5 @@
 {
-  "name": "Duality's Odd Quest Mod (or simply Imnesvale)",
+  "name": "D's Odd Quest Mod (Imnesvale)",
   "version": "2.2.1",
   "links": {
     "homepage": "http://www.shsforums.net/topic/32419-ds-odd-quest-mod/",
@@ -16,6 +16,10 @@
     "choice_0": {"type": "muc", "components": ["0", "1", "2"]}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
+    "it_IT": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -29,10 +33,32 @@
       }
     },
     "en_US": {
-      "description": "This mini-mod adds an extra encounter in the Umar Hills in Chapter 6. This is merely the pretext for a rather difficult battle against enemies of levels 15 to 20 and very well equipped. The author has provided 3 levels of difficulty: easy (already hard enough), difficult and downright insane."
+      "description": "This mini-mod adds an extra encounter in the Umar Hills in Chapter 6. This is merely the pretext for a rather difficult battle against enemies of levels 15 to 20 and very well equipped. The author has provided 3 levels of difficulty: easy (already hard enough), difficult and downright insane.",
+      "components": {
+        "choice_0": "Install Imnesvale Mod",
+        "0": "Easy",
+        "1": "Hard",
+        "2": "Are You Out Of Your Freaking Mind?!"
+      }
     },
     "zh_CN": {
       "description": "这个小型模组在第6章的乌玛丘陵增加了一次额外的遭遇。这只是一个借口，用来一场相当艰难的战斗，对手是15到20级且装备精良的敌人。作者设置了3个难度等级：简单（已经相当艰难）、困难和彻底疯狂。"
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Installiert Imnestal Mod", "0": "Leicht", "1": "Hart",
+        "2": "Habt Ihr Euren verdammten Verstand verloren??!"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Install Imnesvale Mod", "0": "Easy", "1": "Hard", "2": "Are You Out Of Your Freaking Mind?!"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "Installa il mod Imnesvale", "0": "Facile", "1": "Difficile", "2": "Sei fuori di testa?!"
+      }
     }
   },
   "tp2": "imnesvale",

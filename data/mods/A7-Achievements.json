@@ -1,6 +1,6 @@
 {
   "name": "Achievements!",
-  "version": "3",
+  "version": "3.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/",
     "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/win-A7-Achievements-v3.0.zip"
@@ -14,11 +14,13 @@
   "categories": ["util"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "1"},
-    "10": {"type": "std"}
+    "10": {"type": "std"},
+    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27"]}
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -27,14 +29,50 @@
         "choice_0": "Realisations Steam ajoutees en tant qu'entrees du journal",
         "0": "Statistiques concises",
         "1": "Statistiques détaillees",
-        "10": "Recompenses pour les Realisations"
+        "10": "Recompenses pour les Realisations",
+        "choice_1": "Crossmod compatibility with \"Jack Of All Planes\"",
+        "21": "Fighter bonuses only",
+        "22": "Mage bonuses only",
+        "23": "Thief bonuses only",
+        "24": "Fighter and mage bonuses",
+        "25": "Fighter and thief bonuses",
+        "26": "Mage and thief bonuses",
+        "27": "All bonuses at once"
       }
     },
     "en_US": {
-      "description": "This mod unlocks EE game achievements available only via the Steam client. It detects unlocked achievements and displays them in the log for any player without the need to use the Steam client. What's more, it's possible to purchase an achievements trophy that tracks the status of unlocked achievements. In addition to the official Steam achievements, the mod also unlocks a small number of unused achievements for SoD that are implemented in the game but not registered by Steam.\nThe mod can be installed at any time. There's no need to start a new game. Successes that have already been unlocked prior to mod installation will be detected and added to the log."
+      "description": "This mod unlocks EE game achievements available only via the Steam client. It detects unlocked achievements and displays them in the log for any player without the need to use the Steam client. What's more, it's possible to purchase an achievements trophy that tracks the status of unlocked achievements. In addition to the official Steam achievements, the mod also unlocks a small number of unused achievements for SoD that are implemented in the game but not registered by Steam.\nThe mod can be installed at any time. There's no need to start a new game. Successes that have already been unlocked prior to mod installation will be detected and added to the log.",
+      "components": {
+        "choice_0": "Steam Achievements as Journal Entries",
+        "0": "Compact Statistics",
+        "1": "Detailed Statistics",
+        "10": "Achievements reward",
+        "choice_1": "Crossmod compatibility with \"Jack Of All Planes\"",
+        "21": "Fighter bonuses only",
+        "22": "Mage bonuses only",
+        "23": "Thief bonuses only",
+        "24": "Fighter and mage bonuses",
+        "25": "Fighter and thief bonuses",
+        "26": "Mage and thief bonuses",
+        "27": "All bonuses at once"
+      }
     },
     "zh_CN": {
-      "description": "此模组可以解锁仅在Steam客户端中可用的EE游戏成就。它会检测已解锁的成就，并在日志中为所有玩家显示，无需使用Steam客户端。此外，还可以购买一个跟随解锁成就状态的成就奖杯。除了Steam的官方成就外，该模组还解锁了少量未使用的SoD成就，这些成就已在游戏中实现但未被Steam记录。\n模组可以在任何时候安装。无需开始新游戏。在安装模组之前已经解锁的成就将被检测并添加到日志中。"
+      "description": "此模组可以解锁仅在Steam客户端中可用的EE游戏成就。它会检测已解锁的成就，并在日志中为所有玩家显示，无需使用Steam客户端。此外，还可以购买一个跟随解锁成就状态的成就奖杯。除了Steam的官方成就外，该模组还解锁了少量未使用的SoD成就，这些成就已在游戏中实现但未被Steam记录。\n模组可以在任何时候安装。无需开始新游戏。在安装模组之前已经解锁的成就将被检测并添加到日志中。",
+      "components": {
+        "choice_0": "将Steam成就显示为日志条目",
+        "0": "简洁统计",
+        "1": "详细统计",
+        "10": "成就奖励",
+        "choice_1": "与“万事通”的跨模组兼容",
+        "21": "仅限战士奖励",
+        "22": "仅限法师奖励",
+        "23": "仅限盗贼奖励",
+        "24": "战士与法师奖励",
+        "25": "战士与盗贼奖励",
+        "26": "法师与盗贼奖励",
+        "27": "同时获得所有奖励"
+      }
     }
   },
   "tp2": "a7-achievements",

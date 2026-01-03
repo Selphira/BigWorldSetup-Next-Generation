@@ -21,7 +21,11 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "it_IT": 3,
+    "pl_PL": 4,
+    "ru_RU": 5
   },
   "translations": {
     "en_US": {
@@ -29,24 +33,28 @@
       "components": {
         "0": "Improved Shamanic Dance",
         "10": "Expanded Shamanic Dance for high level characters",
-        "20": "New spell \"Shamanic Pact\"",
+        "20": "Add spell \"Shamanic Pact\"",
         "30": "Apply Shamanic Dance improvements to Shaman kits",
-        "40": "Add shaman-specific items"
+        "40": "Shaman-specific items"
       }
     },
     "fr_FR": {
       "description": "L'un des traits les plus importants de la classe du chaman est la Danse chamanique qui permet au chaman d'invoquer indéfiniment des esprits alliés pour se battre à ses côtés. Cependant, dans la version originale, le chaman se trouve pratiquement désactivé pendant qu'il danse.\nCe mod améliore cette capacité en permettant au chaman de se déplacer à vitesse réduite pendant la danse avec en contrepartie quelques contraintes. La Danse chamanique peut être améliorée par plusieurs composants optionnels. Le dernier composant disperse quelques objets chamaniques dans le jeu.",
       "components": {
-        "0": "Danse Chamanique amelioree",
-        "10": "Danse Chamanique etendue pour les personnages de haut niveau",
-        "20": "Ajouter le sort \"Pacte chamanique\"",
+        "0": "Danse shamanique amelioree",
+        "10": "Danse shamanique etendue pour les personnages de haut niveau",
+        "20": "Ajouter le sort \"Pacte shamanique\"",
         "30": "Appliquer la Danse shamanique amelioree a tous les profils de Shaman",
         "40": "Objets specifiques aux Shamans"
       }
     },
     "zh_CN": {
       "description": "萨满职业最重要的特征之一是萨满之舞，它允许萨满无限地召唤盟友之灵来并肩作战。然而，在原始版本中，萨满在跳舞时实际上处于瘫痪状态。\n这个模组通过允许萨满在跳舞时以减速移动来改进这个能力，但有一些限制。萨满之舞可以通过几个可选组件来增强。最后一个组件在游戏中散布了一些萨满物品。"
-    }
+    },
+    "de_DE": {"components": {"0": "Verbesserter Schamanentanz", "10": "Schamanentanz fuer hochstufige Schamanen erweitern", "20": "Neuer Zauber \"Shamanischer Pakt\"", "30": "Verbesserten Schamanentanz auf alle Schamanenklassen anwenden", "40": "Schamanische Gegenstaende"}},
+    "it_IT": {"components": {"0": "Danza Sciamanica Migliorata", "10": "Potenzia la Danza Sciamanica per personaggi di alto livello", "20": "Aggiungi l'incantesimo \"Patto Sciamanico\"", "30": "Applica i miglioramenti della Danza Sciamanica alle sottoclassi dello Sciamano", "40": "Oggetti specifici per lo Sciamano"}},
+    "pl_PL": {"components": {"0": "Ulepszony szamanski taniec", "10": "Rozbudowany szamanski taniec dla wysokopoziomowych postaci", "20": "Dodaj zaklecie \"Szamanski pakt\"", "30": "Zastosuj ulepszenia szamanskiego tanca do podklas szamana", "40": "Przedmioty przeznaczone dla szamana"}},
+    "ru_RU": {"components": {"0": "Улучшенный Шаманский танец", "10": "Расширенный Шаманский танец для высокоуровневых персонажей", "20": "Добавляет заклинание \"Шаманский договор\"", "30": "Добавляет возможность устанавливать киты шаманы", "40": "Специальное снаряжение для шамана"}}
   },
   "tp2": "a7#improvedshamanicdance",
   "safe": 2,

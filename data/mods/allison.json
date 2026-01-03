@@ -1,5 +1,5 @@
 {
-  "name": "Allison la druidesse",
+  "name": "Allison",
   "version": "1.9",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/1260-allison-one-day-npc/",
@@ -16,6 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "de_DE": 2,
+    "it_IT": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "This cheerful, colorful young Druid elf asks for your help at the Druid Grove, and even offers to join you in ending Faldorn's reign. She has numerous banters with the game's various NPCs.\nSTR 14, DEX 14, CON 7, INT 12, WIS 18, CHA 12."
+      "description": "This cheerful, colorful young Druid elf asks for your help at the Druid Grove, and even offers to join you in ending Faldorn's reign. She has numerous banters with the game's various NPCs.\nSTR 14, DEX 14, CON 7, INT 12, WIS 18, CHA 12.",
+      "components": {
+        "0": "Allison (One-Day NPC) v1.9"
+      }
     },
     "zh_CN": {
       "description": "这位年轻、活泼、色彩斑斓的精灵德鲁伊在德鲁伊圣树丛向你求助，甚至提议加入你，以结束法多尔的统治。她与游戏中的许多NPC都有大量对话。\n力量 14，敏捷 14，体质 7，智力 12，智慧 18，魅力 12。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Allison (One-Day NPC)"}},
+    "de_DE": {"components": {"0": "Allison (One-Day NPC)"}},
+    "it_IT": {"components": {"0": "Allison (One-Day NPC) v1.9"}}
   },
   "tp2": "allison",
   "safe": 2,

@@ -17,7 +17,13 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 2
+    "pl_PL": 1,
+    "fr_FR": 2,
+    "de_DE": 3,
+    "it_IT": 4,
+    "zh_CN": 5,
+    "ru_RU": 6,
+    "ko_KR": 7
   },
   "translations": {
     "en_US": {
@@ -29,12 +35,20 @@
     "fr_FR": {
       "description": "ISNF est un mod de quête de la série Colours of Infinity. Ce mod vous donne la possibilité d'aider Orion, un mage d'Athkatla, Orion, qui a sombré dans le désespoir après la mort de sa femme. A vous de voir si vous l'aiderez jusqu'au bout ou l'abandonnerez en route... Ce mod est aussi un moyen alternatif de réunir la somme pour Gaelan Bayle. La quête commence dans le quartier du Gouvernement.",
       "components": {
-        "0": "Colours of Infinity: I Shall Never Forget"
+        "0": "Couleurs de l'Infini : I Shall Never Forget (Je N'Oublierai Jamais)"
       }
     },
     "zh_CN": {
-      "description": "ISNF是“无限色彩”系列任务模组。此模组让你有机会帮助奥里昂，一位来自阿斯卡特拉的法师，他在妻子去世后陷入了绝望。由你来决定是否会帮助他到底，还是在半途放弃……此模组也是为盖兰·贝尔筹集资金的另一种方式。任务在行政区开始。"
-    }
+      "description": "ISNF是“无限色彩”系列任务模组。此模组让你有机会帮助奥里昂，一位来自阿斯卡特拉的法师，他在妻子去世后陷入了绝望。由你来决定是否会帮助他到底，还是在半途放弃……此模组也是为盖兰·贝尔筹集资金的另一种方式。任务在行政区开始。",
+      "components": {
+        "0": "无限颜色系列：矢志不渝的爱"
+      }
+    },
+    "pl_PL": {"components": {"0": "Colours of Infinity: I Shall Never Forget"}},
+    "de_DE": {"components": {"0": "Farben der Unendlichkeit: Ich Werde Niemals Vergessen"}},
+    "it_IT": {"components": {"0": "I Colori dell'Infinito: Non La Dimentichero Mai"}},
+    "ru_RU": {"components": {"0": "Colours of Infinity: I Shall Never Forget"}},
+    "ko_KR": {"components": {"0": "Colour Of Infinity: I Shall Never Forget"}}
   },
   "tp2": "isnf",
   "safe": 2,

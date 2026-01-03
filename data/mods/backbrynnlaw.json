@@ -1,5 +1,5 @@
 {
-  "name": "Back to Brynnlaw",
+  "name": "Back to Brynnlaw MOD for Baldur's Gate II",
   "version": "9",
   "links": {
     "homepage": "https://www.pocketplane.net/back-to-brynnlaw/",
@@ -19,25 +19,32 @@
     "en_US": 0,
     "ru_RU": 1,
     "de_DE": 2,
-    "fr_FR": 4
+    "zh_CN": 3,
+    "fr_FR": 4,
+    "pl_PL": 5
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Back to Brynnlaw"
+        "0": "Back to Brynnlaw mod for Baldur's Gate II"
       },
       "description": "The mod begins in chapter 6 when a messenger intercepts you near the Adventurer Mart. You'll have to accompany a hooded mage to help him rescue another victim of Irenicus' experiments. The mod features additional content for Imoen and for the Xan NPC MOD for Baldur's Gate II mod."
     },
-    "ru_RU": {"components": {"0": "Back to Brynnlaw"}},
+    "ru_RU": {"components": {"0": "Back to Brynnlaw mod for Baldur's Gate II"}},
     "fr_FR": {
       "description": "Le mod débute au chapitre 6 lorsqu'un messager vous intercepte près du Marché de l'Aventurier. Vous devrez accompagner un mage cagoulé afin de l'aider à secourir une autre victime des expérimentations d'Irenicus. Le mod dispose de contenu supplémentaire pour Imoen et pour le mod Xan NPC MOD for Baldur's Gate II.",
       "components": {
-        "0": "Mod Retour a Brynnlaw mod pour Baldur's Gate II"
+        "0": "Mod Retour à Brynnlaw mod pour Baldur's Gate II"
       }
     },
     "zh_CN": {
-      "description": "此模组在第6章开启，当时一个信使会在冒险者市场附近拦截您。您需要陪同一个蒙面法师，帮助他拯救另一个艾瑞尼卡斯实验的受害者。该模组为爱蒙和模组Xan NPC MOD for Baldur's Gate II提供了额外内容。"
-    }
+      "description": "此模组在第6章开启，当时一个信使会在冒险者市场附近拦截您。您需要陪同一个蒙面法师，帮助他拯救另一个艾瑞尼卡斯实验的受害者。该模组为爱蒙和模组Xan NPC MOD for Baldur's Gate II提供了额外内容。",
+      "components": {
+        "0": "ÖØ·µ²¼ÁÖÂÞµº"
+      }
+    },
+    "de_DE": {"components": {"0": "Zurueck nach Brynnlaw Modifikation fuer Baldurs Gate II"}},
+    "pl_PL": {"components": {"0": "Back to Brynnlaw mod do Baldur's Gate II"}}
   },
   "tp2": "backbrynnlaw",
   "safe": 2,

@@ -18,33 +18,35 @@
   "languages": {
     "en_US": 0,
     "fr_FR": 1,
-    "ru_RU": 2
+    "ru_RU": 2,
+    "it_IT": 3
   },
   "translations": {
     "en_US": {
       "description": "This mod adds the magician's arsenal to the inventory of several creatures. If you have all the items, whoever carries them all gets an exceptional bonus, and you'll meet someone who wants to talk to you in the Pocket Plane...",
       "components": {
-        "choice_0": "Arsenal du Mage",
-        "0": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'equipement des creatures (recommande)",
-        "1": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'inventaire des creatures",
-        "2": "Utiliser les objets originaux, surpuissants ET les ajouter a l'equipement des creatures",
-        "3": "Utiliser les objets originaux, surpuissants ET les ajouter a l'inventaire des creatures"
+        "choice_0": "Stuff of the Magi",
+        "0": "Use new, less cheesy items AND Add them to creatures' equipment (recommended)",
+        "1": "Use new, less cheesy items AND Add them to creatures' inventory",
+        "2": "Use original, overpowered items AND Add them to creatures' equipment",
+        "3": "Use original, overpowered items AND Add them to creatures' inventory"
       }
     },
     "fr_FR": {
       "description": "Ce mod ajoute l'arsenal du mage dispersé dans l'inventaire de plusieurs créatures. Si vous possédez tous les objets, celui qui les porte tous obtient un bonus exceptionnel, et vous rencontrerez quelqu'un qui voudra vous parler dans l'antichambre...",
       "components": {
-        "choice_0": "Arsenal du Mage",
+        "choice_0": "Arsenal du mage",
         "0": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'equipement des creatures (recommande)",
         "1": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'inventaire des creatures",
         "2": "Utiliser les objets originaux, surpuissants ET les ajouter a l'equipement des creatures",
         "3": "Utiliser les objets originaux, surpuissants ET les ajouter a l'inventaire des creatures"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Arsenal du Mage", "0": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'equipement des creatures (recommande)", "1": "Utiliser les nouveaux objets, moins grobillesques ET les ajouter a l'inventaire des creatures", "2": "Utiliser les objets originaux, surpuissants ET les ajouter a l'equipement des creatures", "3": "Utiliser les objets originaux, surpuissants ET les ajouter a l'inventaire des creatures"}},
+    "ru_RU": {"components": {"choice_0": "Stuff of the Magi", "0": "Use new, less cheesy items AND Add them to creatures' equipment (recommended)", "1": "Use new, less cheesy items AND Add them to creatures' inventory", "2": "Use original, overpowered items AND Add them to creatures' equipment", "3": "Use original, overpowered items AND Add them to creatures' inventory"}},
     "zh_CN": {
       "description": "此模组将法师的武器库分散在多个生物的物品栏中。如果你拥有所有物品，那么佩戴所有物品的人会获得一个非凡的加成，并且你会在前厅遇到一个想和你说话的人……"
-    }
+    },
+    "it_IT": {"components": {"choice_0": "Materiale per i Maghi", "0": "Utilizza i nuovi oggetti meno scadenti ed aggiungili all'equipaggiamento delle creature (raccomandato)", "1": "Utilizza i nuovi oggetti meno scadenti ed aggiungili nell'inventario delle creature", "2": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’equipaggiamento delle creature", "3": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’inventario delle creature"}}
   },
   "tp2": "stuffofthemagi",
   "safe": 2,

@@ -1,5 +1,5 @@
 {
-  "name": "Alassa la voleuse",
+  "name": "Alassa",
   "version": "4",
   "links": {
     "homepage": "https://www.pocketplane.net/one-day-npcs/",
@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "A neutral evil thief with voice, some light banters and an original portrait. You can find her in the Slums.\nSTR 10, DEX 15, CON 9, INT 14, WIS 12, CHA 16."
+      "description": "A neutral evil thief with voice, some light banters and an original portrait. You can find her in the Slums.\nSTR 10, DEX 15, CON 9, INT 14, WIS 12, CHA 16.",
+      "components": {
+        "0": "Alassa NPC"
+      }
     },
     "zh_CN": {
       "description": "一个中立邪恶的女盗贼，有配音、一些轻松的闲聊和一张原创肖像。你可以在贫民区找到她。\n力量10，敏捷15，体质9，智力14，智慧12，魅力16。"
-    }
+    },
+    "de_DE": {"components": {"0": "Alassa NPC"}}
   },
   "tp2": "alassa",
   "safe": 2,

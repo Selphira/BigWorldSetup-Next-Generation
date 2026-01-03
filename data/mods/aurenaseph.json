@@ -20,7 +20,8 @@
     "en_US": 0,
     "de_DE": 1,
     "ru_RU": 2,
-    "fr_FR": 3
+    "fr_FR": 3,
+    "es_ES": 4
   },
   "translations": {
     "en_US": {
@@ -44,7 +45,9 @@
     },
     "zh_CN": {
       "description": "奥伦是一位年轻的女性人类战士，中立善良阵营，来自贝尔苟斯特。她在铜冠旅店内部，但如果玩家的阵营是邪恶的，她就不会出现，如果被逐出队伍，她就会永远消失。Auren 与娜里亚有一段同性恋情，如果你在队伍中带着她，并且她有一个个人任务。她开始游戏时拥有双武器、长剑和短剑的技能。带有自定义语音和音乐的模组。\n力量 16，敏捷 15，体质 16，智力 13，智慧 12，魅力 15。"
-    }
+    },
+    "de_DE": {"components": {"0": "Auren Aseph für BG2:ToB", "choice_0": "Alternatives Auren Portrait", "1": "Portrait 1 (From Neverwinter Nights Vault)", "2": "Portrait 2 (From Neverwinter Nights)"}},
+    "es_ES": {"components": {"0": "Auren Aseph para BG2:ToB", "choice_0": "Alternate Auren Portrait", "1": "Portrait 1 (From Neverwinter Nights Vault)", "2": "Portrait 2 (From Neverwinter Nights)"}}
   },
   "tp2": "aurenaseph",
   "safe": 2,

@@ -19,16 +19,18 @@
     "en_US": 0,
     "ru_RU": 1,
     "de_DE": 2,
-    "fr_FR": 4
+    "zh_CN": 3,
+    "fr_FR": 4,
+    "pl_PL": 5
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "The Sellswords"
+        "0": "The Sellswords mod for Baldur's Gate II"
       },
       "description": "Inspired by R. A. Salvatore's trilogy, this mod lets you meet Kimmuriel Oblodra, the current leader of Bregan D'aerthe. Travel with him to Menzoberranzan to confront a powerful Mother Matron, rescue Jarlaxle, and receive unexpected help from Artemis Entreri. The mod begins in Chapter 6 when you enter the Waukeen's Promenade."
     },
-    "ru_RU": {"components": {"0": "The Sellswords"}},
+    "ru_RU": {"components": {"0": "The Sellswords mod for Baldur's Gate II"}},
     "fr_FR": {
       "description": "Inspiré de la trilogie de R. A. Salvatore, ce mod permet de rencontrer Kimmuriel Oblodra, l'actuel leader de Bregan D'aerthe. Voyagez avec lui jusqu'à Menzoberranzan pour vous confronter à une puissante Mère Matrone, secourir Jarlaxle, et recevoir l'aide inattendue d'Artemis Entreri. Le mod débute au chapitre 6 lorsque vous pénétrez dans la Promenade de Waukyne.",
       "components": {
@@ -36,8 +38,13 @@
       }
     },
     "zh_CN": {
-      "description": "受R. A. Salvatores三部曲启发，此模组允许你遇见金姆里尔·奥布洛德拉，即布雷根·达艾斯当前的领袖。与他一同前往门佐巴兰兹，对抗一位强大的母蜘蛛，解救贾拉克斯勒，并获得阿尔忒弥斯·恩特瑞意想不到的帮助。模组在你进入渥金商场时于第六章开启。"
-    }
+      "description": "受R. A. Salvatores三部曲启发，此模组允许你遇见金姆里尔·奥布洛德拉，即布雷根·达艾斯当前的领袖。与他一同前往门佐巴兰兹，对抗一位强大的母蜘蛛，解救贾拉克斯勒，并获得阿尔忒弥斯·恩特瑞意想不到的帮助。模组在你进入渥金商场时于第六章开启。",
+      "components": {
+        "0": "Ó¶±øÉúÑÄ"
+      }
+    },
+    "de_DE": {"components": {"0": "The Sellswords mod for Baldur's Gate II"}},
+    "pl_PL": {"components": {"0": "The Sellswords mod do Baldur's Gate II"}}
   },
   "tp2": "sellswords",
   "safe": 2,

@@ -17,6 +17,8 @@
     "choice_0": {"type": "muc", "components": ["1"], "default": "1"}
   },
   "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
     "fr_FR": 2
   },
   "translations": {

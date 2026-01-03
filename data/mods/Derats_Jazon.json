@@ -17,7 +17,9 @@
     "1": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1,
+    "ru_RU": 2
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +30,16 @@
       }
     },
     "en_US": {
-      "description": "Jazon the revenant is a mute undead warrior who can follow you as a 7th member of the party. He is level 8 and will never progress, but he types hard and resists everything (strength and constitution 19, undead immunities, 75% resistance to everything and fast regeneration). His weapon is not magical at first, but evolves as the protagonist progresses. If he's killed, he drops his heart, which you can use after a night's sleep to re-invoke him. You'll find his heart in a tomb: in the Athkatla Graveyard District in BG2, in the Valley of Shadows in IWDEE.\nSTR 19, DEX 10, CON 19, INT 8, WIS 8, CHA 6."
+      "description": "Jazon the revenant is a mute undead warrior who can follow you as a 7th member of the party. He is level 8 and will never progress, but he types hard and resists everything (strength and constitution 19, undead immunities, 75% resistance to everything and fast regeneration). His weapon is not magical at first, but evolves as the protagonist progresses. If he's killed, he drops his heart, which you can use after a night's sleep to re-invoke him. You'll find his heart in a tomb: in the Athkatla Graveyard District in BG2, in the Valley of Shadows in IWDEE.\nSTR 19, DEX 10, CON 19, INT 8, WIS 8, CHA 6.",
+      "components": {
+        "0": "Jazon the revenant",
+        "1": "Jazon is a psychopathic killer"
+      }
     },
     "zh_CN": {
       "description": "Jazon the revenant（杰森，亡者归来者）是一个沉默的亡者战士，可以作为队伍的第7名成员跟随您。他8级，不会升级，但攻击力强且能抵抗一切（力量和体质19，亡者生物免疫，75%全抗性，快速再生）。他的武器一开始不是魔法武器，但会随着主角的进度而进化。如果他死亡，会掉落他的心脏，您在睡一觉后可以使用它来重新召唤他。您可以在一座坟墓中找到他的心脏：在博德之门2的阿斯卡特拉墓园，在冰风谷：增强版的阴影谷中。\n力量19，敏捷10，体质19，智力8，智慧8，魅力6。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Язон-ревенант", "1": "Язон - убийца-психопат"}}
   },
   "tp2": "derats_jazon",
   "safe": 2,

@@ -1,5 +1,5 @@
 {
-  "name": "Larsha la dryade archère",
+  "name": "Larsha NPC",
   "version": "1.06",
   "links": {
     "homepage": "https://baldur.cob-bg.pl/larsha",
@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "pl_PL": 0,
+    "en_US": 1,
     "fr_FR": 3
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "Larsha is a dryad in search of her tree, with which she will unite to gain great power in the form of a very interesting spell. Romance is also possible. You'll find her in the Windspear Hills. She has a bow that shoots its own arrows and improves with experience, as well as a tiara that gives her free action, improved haste and +1 weapon protection. She also acquires new abilities as she levels up.\nSTR 16, DEX 19, CON 10, INT 15, WIS 18, CHA 25."
+      "description": "Larsha is a dryad in search of her tree, with which she will unite to gain great power in the form of a very interesting spell. Romance is also possible. You'll find her in the Windspear Hills. She has a bow that shoots its own arrows and improves with experience, as well as a tiara that gives her free action, improved haste and +1 weapon protection. She also acquires new abilities as she levels up.\nSTR 16, DEX 19, CON 10, INT 15, WIS 18, CHA 25.",
+      "components": {
+        "0": "Larsha"
+      }
     },
     "zh_CN": {
       "description": "拉尔莎是一位树精，她在寻找自己的树木，以便与树木结合，从而获得一种非常有趣法术的强大力量。也可能发展出一段恋情。你会在长矛丘陵找到她。她拥有一把能发射自身箭矢的弓，这把弓会随着她的经验而提升，还有一个头冠，能赋予她自由行动、加速和对抗+1武器等效果。此外，她还会随着等级提升获得新能力。\n力量 16，敏捷 19，体质 10，智力 15，智慧 18，魅力 25。"
-    }
+    },
+    "pl_PL": {"components": {"0": "Larsha"}}
   },
   "tp2": "larsha",
   "safe": 2,

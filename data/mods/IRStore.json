@@ -17,6 +17,7 @@
     "6": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -33,7 +34,16 @@
       }
     },
     "en_US": {
-      "description": "Here's a mod of powerful items you'll find at Nathan's Waukeen's Promenade."
+      "description": "Here's a mod of powerful items you'll find at Nathan's Waukeen's Promenade.",
+      "components": {
+        "choice_0": "IRStore par Theo de Moree",
+        "0": "Mod IRStore for BG2ToB / BGT or BG2EE / EET",
+        "2": "Install \"IRStore Delayed\" some items will be available only after the Underdark",
+        "3": "Install \"IRStore Delayed\" and \"IRStore ToB\"",
+        "4": "Install \"IRStore ToB Only\", Nathan store will be available only in Throne of Bhaal",
+        "5": "Install \"IRStore Original\" and \"IRStore ToB\"",
+        "6": "Install \"Item Errata\" change Iron Bow andt Lydek's Sword into a sling and a staff with same power by PROF ERRATA"
+      }
     },
     "zh_CN": {
       "description": "这是一个物品模组，您可以在渥金商场找到内森，从他那里获得非常强大的物品。"

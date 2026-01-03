@@ -17,22 +17,29 @@
     "1": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "de_DE": 1,
+    "en_US": 2
   },
   "translations": {
     "fr_FR": {
       "description": "Incroyablement belle, délicieusement sensuelle... et terriblement chieuse, Kim la pirate fait escale à Athkatla. Saurez-vous l'apprivoiser ? Ce mod ajoute un nouveau PNJ, Kim, et une quête propre ainsi qu'une romance. Vous pouvez la retrouver à proximité de Renal Bloodscalp.\nFOR 17, DEX 18, CON 10, INT 14, SAG 7, CHA 16",
       "components": {
         "0": "Kim pour BG2:SOA (ToB:requis) version 1.62d",
-        "1": "Installation de la hache reajustee"
+        "1": "Installation de la Hache Mystique d'Entropie reajustee (ajoute un jet de sauvegarde a -4 contre ses effets)"
       }
     },
     "en_US": {
-      "description": "Incredibly beautiful, deliciously sensual...  and terribly unnerving. Kim makes a detour to Athkathla. Can you tame her? This mod adds a new NPC, Kim, and a quest of her own, as well as a romance. You can find her near Renald Bloodscalp.\nSTR 17, DEX 18, CON 10, INT 14, WIS 7, CHA 16."
+      "description": "Incredibly beautiful, deliciously sensual...  and terribly unnerving. Kim makes a detour to Athkathla. Can you tame her? This mod adds a new NPC, Kim, and a quest of her own, as well as a romance. You can find her near Renald Bloodscalp.\nSTR 17, DEX 18, CON 10, INT 14, WIS 7, CHA 16.",
+      "components": {
+        "0": "Kim for BG2:SOA (ToB: required) version 1.62d",
+        "1": "Installation of the Mystic Axe of Entropy readjusted (adds a saving throw of -4 against its effects)"
+      }
     },
     "zh_CN": {
       "description": "难以置信的美丽，令人愉悦的性感……但又极其挑剔，女海盗金在阿斯卡特拉停靠。你驯服得了她吗？此模组添加了一个新NPC金，一个专属任务以及一段浪漫关系。你可以在瑞纳·血鳞附近找到她。\n力量 17，敏捷 18，体质 10，智力 14，智慧 7，魅力 16"
-    }
+    },
+    "de_DE": {"components": {"0": "Kim fur BG2: SOA (ToB: benotigt) Version 1.62d", "1": "Installation der Mystische Axt der Entropie angepassten (fügt einen Rettungswurf von -4 gegen seine Effekte hinzu)"}}
   },
   "tp2": "kimnpc",
   "safe": 2,

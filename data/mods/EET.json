@@ -1,5 +1,5 @@
 {
-  "name": "Enhanced Edition Trilogy",
+  "name": "Enhanced Edition Trilogy Android",
   "version": "14.1",
   "links": {
     "homepage": "https://github.com/Gibberlings3/EET",
@@ -18,12 +18,19 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 3
+    "pl_PL": 1,
+    "es_ES": 2,
+    "fr_FR": 3,
+    "cs_CZ": 4,
+    "ru_RU": 5,
+    "de_DE": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Enhanced Edition Trilogy"
+        "0": "EET core (resource importation)",
+        "100": "Create desktop shortcut"
       },
       "description": "The equivalent of Enhanced Edition Trilogy but can be installed on Android."
     },
@@ -35,8 +42,17 @@
       }
     },
     "zh_CN": {
-      "description": "Enhanced Edition Trilogy的安卓版本。"
-    }
+      "description": "Enhanced Edition Trilogy的安卓版本。",
+      "components": {
+        "0": "EET核心组件（资源导入）",
+        "100": "创建桌面快捷方式"
+      }
+    },
+    "pl_PL": {"components": {"0": "EET core (import zasobow)", "100": "Create desktop shortcut"}},
+    "es_ES": {"components": {"0": "EET core (resource importation)", "100": "Create desktop shortcut"}},
+    "cs_CZ": {"components": {"0": "EET core (import zdroju)", "100": "Create desktop shortcut"}},
+    "ru_RU": {"components": {"0": "EET core (resource importation)", "100": "Create desktop shortcut"}},
+    "de_DE": {"components": {"0": "EET core (Ressourcen werden importiert)", "100": "Desktop-Verknuepfung erstellen"}}
   },
   "tp2": "eet",
   "safe": 2,

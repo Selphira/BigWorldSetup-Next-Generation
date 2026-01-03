@@ -18,7 +18,9 @@
   "languages": {
     "en_US": 0,
     "fr_FR": 1,
-    "zh_CN": 3
+    "pl_PL": 2,
+    "zh_CN": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
@@ -30,12 +32,17 @@
     "fr_FR": {
       "description": "Ce mod ajoute une série de dialogues à Sarevok, le frère du PJ, et développe ses expériences et ses difficultés.",
       "components": {
-        "0": "Sarevok Friendship for BGII: ToB"
+        "0": "Sarevok Friendship pour BGII : ToB"
       }
     },
     "zh_CN": {
-      "description": "此模组为沙洛佛克（主角的兄弟）添加了一系列对话，并深入探讨了他的经历与困境。"
-    }
+      "description": "此模组为沙洛佛克（主角的兄弟）添加了一系列对话，并深入探讨了他的经历与困境。",
+      "components": {
+        "0": "É³Âå·ð¿ËÓÑÒê²å»°°ü"
+      }
+    },
+    "pl_PL": {"components": {"0": "Sarevok Friendship mod dla Baldu's Gate II: Tron Bhaala"}},
+    "ru_RU": {"components": {"0": "Sarevok Friendship for BGII: ToB"}}
   },
   "tp2": "sarevokfriendship",
   "safe": 2,

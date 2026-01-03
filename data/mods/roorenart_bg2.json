@@ -17,6 +17,7 @@
     "20": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "This is a collection of 47 portraits for the NPCs of Baldur's Gate and Baldur's Gate II, original and improved editions, including an alternative portrait for Edwin when he's cursed. You can see a preview of these portraits on DeviantArt. A component allows them to be installed as player portraits on any Infinity Engine game (except PsT and PsT:EE). These portraits were created by RoorenArt, whose work can be followed on [DeviantArt](https://www.deviantart.com/roorenart) or on her website [roorenart.com](https://roorenart.com/), where she also accepts commissions."
+      "description": "This is a collection of 47 portraits for the NPCs of Baldur's Gate and Baldur's Gate II, original and improved editions, including an alternative portrait for Edwin when he's cursed. You can see a preview of these portraits on DeviantArt. A component allows them to be installed as player portraits on any Infinity Engine game (except PsT and PsT:EE). These portraits were created by RoorenArt, whose work can be followed on [DeviantArt](https://www.deviantart.com/roorenart) or on her website [roorenart.com](https://roorenart.com/), where she also accepts commissions.",
+      "components": {
+        "10": "Rooren Art: Install portraits for NPCs",
+        "20": "Rooren Art: Install portraits for player selection"
+      }
     },
     "zh_CN": {
       "description": "这是一个包含47个《博德之门》和《博德之门II》原版及增强版NPC肖像的合集，其中包括艾德温被诅咒时的一个替代肖像。你可以在DeviantArt上预览这些肖像。一个组件允许将它们作为玩家肖像安装在任何无限引擎游戏上（PsT和PsT:EE除外）。这些肖像由RoorenArt创作。你可以在[DeviantArt](https://www.deviantart.com/roorenart)或她的网站[roorenart.com](https://roorenart.com/)上关注她的作品，她也接受委托。"

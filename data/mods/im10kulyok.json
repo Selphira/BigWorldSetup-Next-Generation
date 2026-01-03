@@ -1,5 +1,5 @@
 {
-  "name": "Iron Modder 10: The Oldest Trick In The Book",
+  "name": "Iron Modder 10 - The Oldest Trick In The Book",
   "version": "1.2",
   "links": {
     "homepage": "https://www.pocketplane.net/iron-modder-competition/",
@@ -16,6 +16,7 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 2
   },
   "translations": {
@@ -26,13 +27,16 @@
       }
     },
     "en_US": {
-      "description": "This mod is an expansion of Dili's story - a girl the player meets in Chapter 4. (Hint: if you talked to Dili in Spellhold, go to the Docks District in Chapter 6 or 7, and go down to the ships.)"
+      "description": "This mod is an expansion of Dili's story - a girl the player meets in Chapter 4. (Hint: if you talked to Dili in Spellhold, go to the Docks District in Chapter 6 or 7, and go down to the ships.)",
+      "components": {
+        "0": "Iron Modder 10, Kulyok's entry"
+      }
     },
     "zh_CN": {
       "description": "此模组是关于第利的故事的扩展，第利是玩家在第4章遇到的一个女孩。（提示：如果你在幽狱与第利交谈过，请在第6或第7章前往码头区，然后走向船只。）"
     }
   },
   "tp2": "im10kulyok",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Kulyok"]
 }

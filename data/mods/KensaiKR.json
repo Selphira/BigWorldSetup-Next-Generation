@@ -17,6 +17,7 @@
     "1": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "This mod modifies Kensaï's profile, according to the rules in the Oriental Adventures manual (AD&D 1st edition)."
+      "description": "This mod modifies Kensaï's profile, according to the rules in the Oriental Adventures manual (AD&D 1st edition).",
+      "components": {
+        "0": "Kensai Kit Revision",
+        "1": "Kensai High Level Ability revision"
+      }
     },
     "zh_CN": {
       "description": "此模组根据《东方冒险》手册（AD&D第一版）的规则修改了剑圣的设定。"

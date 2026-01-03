@@ -1,6 +1,6 @@
 {
-  "name": "Cassius le skalde",
-  "version": "1.6",
+  "name": "Cassius",
+  "version": "1.06",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=231482",
     "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/archive/refs/tags/v1.6.zip"
@@ -16,6 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "cs_CZ": 2,
+    "it_IT": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "Cassius is a mysterious, human scalde bard who doesn't reveal much about his past. What we do know is that he has traveled extensively from Baldur's Gate, Waterdeep, Calimshan and other places without ever staying too long. He's always looking for adventures to tell the great stories they've encountered. He recently stopped off in Amn to gather information on the great stories of the adventurers who pass through there. Rumor has it that he is an agent of the Harpers.\nSTR 16, DEX 17, CON 13, INT 16, WIS 9, CHA 15."
+      "description": "Cassius is a mysterious, human scalde bard who doesn't reveal much about his past. What we do know is that he has traveled extensively from Baldur's Gate, Waterdeep, Calimshan and other places without ever staying too long. He's always looking for adventures to tell the great stories they've encountered. He recently stopped off in Amn to gather information on the great stories of the adventurers who pass through there. Rumor has it that he is an agent of the Harpers.\nSTR 16, DEX 17, CON 13, INT 16, WIS 9, CHA 15.",
+      "components": {
+        "0": "Cassius NPC Mod (Requires Throne of Bhaal)"
+      }
     },
     "zh_CN": {
       "description": "Cassius是一个神秘而寡言的人类北地诗人。他很少谈论自己的过去。我们所知道的是，他从博德之门、深水城、卡林珊等地旅行了很远，但从未在任何地方停留太久。他总是在寻找冒险，以便讲述他遇到的大故事。他最近在安姆停留，收集关于在那里冒险的冒险者的故事。传闻他是一名吟游诗人的特工。力量16，敏捷17，体质13，智力16，智慧9，魅力15。"
-    }
+    },
+    "de_DE": {"components": {"0": "Cassius NSC Mod (benoetigt Thron des Bhaal)"}},
+    "cs_CZ": {"components": {"0": "Cassius NPC Mod (vyzaduje Throne Of Bhaal)"}},
+    "it_IT": {"components": {"0": "Cassius NPC Mod (Richiede Throne of Bhaal)"}}
   },
   "tp2": "cassius",
   "safe": 2,

@@ -43,7 +43,8 @@
     "279": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
@@ -67,7 +68,7 @@
         "149": "Voleur Tempuseen",
         "189": "Voleur kensai",
         "219": "Voleur maitre-lames",
-        "289": "Barde chaman",
+        "289": "Chaman totemique",
         "49": "Scalde totemique",
         "229": "Maitre lame lathandrien",
         "249": "Invocateur talotien",
@@ -80,7 +81,37 @@
       }
     },
     "en_US": {
-      "description": "Vanilla kit combinations for cheated results.\nSome examples: Dragon Disciple Kensai, Swashbuckler Cleric, Monk sorcerer..."
+      "description": "Vanilla kit combinations for cheated results.\nSome examples: Dragon Disciple Kensai, Swashbuckler Cleric, Monk sorcerer...",
+      "components": {
+        "99": "Dragon Disciple Kensai",
+        "109": "Barbarian Defender",
+        "179": "Bounty hunter Stalker",
+        "199": "Assassin stalker",
+        "129": "Inquisitor Archer",
+        "139": "Undead hunter Cavalier",
+        "119": "Swashbuckler Cleric",
+        "269": "Berserker shapeshifter",
+        "59": "Assassin Monk",
+        "69": "Wizard slayer Monk",
+        "39": "Master-Shi Monk",
+        "209": "Inquisitor Monk",
+        "239": "Stalker Dark Moon monk",
+        "19": "Shapeshifter Thief",
+        "29": "Tyrran Thief",
+        "149": "Tempuran Thief",
+        "189": "Kensai thief",
+        "219": "Blades thief",
+        "289": "Totemic shaman",
+        "49": "Totemic Skald",
+        "229": "Lathanderian blades",
+        "249": "Talassan invoker",
+        "159": "Wild Sorcerer",
+        "169": "Monk Sorcerer",
+        "79": "Beast master Shaman",
+        "89": "Avenger Shaman",
+        "259": "Archer shaman",
+        "279": "Skald shaman"
+      }
     },
     "zh_CN": {
       "description": "原版宗派的组合，带来惊人的效果。\n一些例子：龙脉术士剑圣，游荡剑客牧师，武僧术士……"

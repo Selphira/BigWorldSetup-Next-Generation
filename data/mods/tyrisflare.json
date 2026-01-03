@@ -17,7 +17,10 @@
     "choice_0": {"type": "muc", "components": ["101", "102", "103", "104", "105", "106", "107"], "default": "101"}
   },
   "languages": {
-    "fr_FR": 2
+    "en_US": 0,
+    "ru_RU": 1,
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -35,11 +38,34 @@
       }
     },
     "en_US": {
-      "description": "Meet Tyris Flare, a red-haired amazon who can kick ass and hurl fire! Sound familiar? In fact, the author drew inspiration from an old Mega Drive game (Golden Axe, released in 1989). Once in your party, Tyris will banter with all BioWare NPCs and can be romanced by any human/elf/half-elf male PC.\nSTR 15, DEX 17, CON 14, INT 17, WIS 10, CHA 12."
+      "description": "Meet Tyris Flare, a red-haired amazon who can kick ass and hurl fire! Sound familiar? In fact, the author drew inspiration from an old Mega Drive game (Golden Axe, released in 1989). Once in your party, Tyris will banter with all BioWare NPCs and can be romanced by any human/elf/half-elf male PC.\nSTR 15, DEX 17, CON 14, INT 17, WIS 10, CHA 12.",
+      "components": {
+        "0": "Tyris Flare NPC",
+        "choice_0": "Alternate Tyris Portraits",
+        "101": "Alternate Portrait 1",
+        "102": "Alternate Portrait 2",
+        "103": "Alternate Portrait 3",
+        "104": "Alternate Portrait 4",
+        "105": "Alternate Portrait 5",
+        "106": "Alternate Portrait 6",
+        "107": "Alternate Portrait 7"
+      }
     },
     "zh_CN": {
-      "description": "见见泰瑞斯·弗莱尔，一个红发亚马逊女战士，擅长踢屁股并掌控火焰魔法。这个名字听起来耳熟？作者确实受到了一款世嘉MD老游戏（1989年发布的《黄金战斧》）的启发。加入你的队伍后，泰瑞斯会与所有BioWare的NPC对话，并且可以被人类/精灵/半精灵NPC恋爱。\n力量15，敏捷17，体质14，智力17，智慧10，魅力12。"
-    }
+      "description": "见见泰瑞斯·弗莱尔，一个红发亚马逊女战士，擅长踢屁股并掌控火焰魔法。这个名字听起来耳熟？作者确实受到了一款世嘉MD老游戏（1989年发布的《黄金战斧》）的启发。加入你的队伍后，泰瑞斯会与所有BioWare的NPC对话，并且可以被人类/精灵/半精灵NPC恋爱。\n力量15，敏捷17，体质14，智力17，智慧10，魅力12。",
+      "components": {
+        "0": "塔丽斯·闪光",
+        "choice_0": "备选的塔丽斯·闪光头像",
+        "101": "备选头像1",
+        "102": "备选头像2",
+        "103": "备选头像3",
+        "104": "备选头像4",
+        "105": "备选头像5",
+        "106": "备选头像6",
+        "107": "备选头像7"
+      }
+    },
+    "ru_RU": {"components": {"0": "Tyris Flare NPC", "choice_0": "Alternative portraits  Tyris", "101": "Alternative portrait 1", "102": "Alternative portrait 2", "103": "Alternative portrait 3", "104": "Alternative portrait 4", "105": "Alternative portrait 5", "106": "Alternative portrait 6", "107": "Alternative portrait 7"}}
   },
   "tp2": "tyrisflare",
   "safe": 2,

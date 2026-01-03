@@ -1,6 +1,6 @@
 {
   "name": "Wheels of Prophecy",
-  "version": "master",
+  "version": "8.5",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/quests/wheels/",
     "download": "https://github.com/Gibberlings3/WheelsOfProphecy/archive/refs/heads/master.zip"
@@ -17,7 +17,9 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "zh_CN": 2,
+    "ru_RU": 3
   },
   "translations": {
     "en_US": {
@@ -29,12 +31,16 @@
     "fr_FR": {
       "description": "Ce petit mod tente d'apporter un peu moins de linéarité et des opportunités rôlistes différentes dans ToB, et notamment le chapitre 9. Plus besoin d'attendre d'en avoir décousu avec Sendaï et Abazigal pour pouvoir entrer dans le monastère de Balthazar. Les dialogues de ces 3 protagonistes s'adapteront alors en conséquence à vos choix de jeu. Des dialogues supplémentaires avec Amélissane et Elminster ont été ajoutés, et ceux avec Carras, Saemon, Faheed, Zahee, et Le Solaire modifiés. Bien que le mod ne soit pas présenté comme un challenge tactique, il ajoute quelques rencontres supplémentaires pendant vos négociations avec les membres de la Main. Enfin, il inclut le mini-mod Restored ToB Heads (restaure une conversation avec les visages de pierre dans la forêt du Nord), et de manière plus générale ajoute de petites modifications pour implémenter du contenu qui ne l'est pas dans le jeu original (notamment avec les contrebandiers d'Amkethran).",
       "components": {
-        "0": "The Wheels of Prophecy"
+        "0": "Les Roues de la Prophetie (The Wheels of Prophecy)"
       }
     },
     "zh_CN": {
-      "description": "这个小型模组试图在《巴尔王座》中，尤其是在第9章，减少一些线性，并提供不同的角色扮演机会。您无需先与森黛和阿巴齐加尔解决争端，就能进入巴尔扎尔修道院。这三位主角的对话会相应地根据您的游戏选择进行调整。还添加了与梅丽珊和艾尔明斯特的额外对话，并修改了与卡拉司、萨蒙、法希德、扎黑和日曜者的对话。虽然这个模组并非以战术挑战为卖点，但在您与散塔林会成员谈判期间，它增加了一些额外的遭遇战。最后，它包含了迷你模组Restored ToB Heads（恢复了与北方森林中石面人的对话），并且更广泛地添加了一些小改动，以实现游戏中未包含的内容（特别是与阿姆凯散走私贩相关的）。"
-    }
+      "description": "这个小型模组试图在《巴尔王座》中，尤其是在第9章，减少一些线性，并提供不同的角色扮演机会。您无需先与森黛和阿巴齐加尔解决争端，就能进入巴尔扎尔修道院。这三位主角的对话会相应地根据您的游戏选择进行调整。还添加了与梅丽珊和艾尔明斯特的额外对话，并修改了与卡拉司、萨蒙、法希德、扎黑和日曜者的对话。虽然这个模组并非以战术挑战为卖点，但在您与散塔林会成员谈判期间，它增加了一些额外的遭遇战。最后，它包含了迷你模组Restored ToB Heads（恢复了与北方森林中石面人的对话），并且更广泛地添加了一些小改动，以实现游戏中未包含的内容（特别是与阿姆凯散走私贩相关的）。",
+      "components": {
+        "0": "Ô¤ÑÔÖ®ÂÖ"
+      }
+    },
+    "ru_RU": {"components": {"0": "The Wheels of Prophecy"}}
   },
   "tp2": "wheels",
   "safe": 2,

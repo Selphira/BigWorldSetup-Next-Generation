@@ -28,11 +28,11 @@
     "choice_3": {"type": "muc", "components": ["71", "72"], "category": "spell", "default": "71"},
     "80": {"type": "std"},
     "82": {"type": "std"},
-    "85": {"type": "std"},
     "choice_4": {"type": "muc", "components": ["92", "93"], "category": "spell", "default": "92"},
     "95": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -64,7 +64,6 @@
         "72": "Changer les sorts tous les 3 niveaux",
         "80": "Ensorceleurs multiclasses",
         "82": "Kit de mage : Arcaniste (Ne pas installer si vous prevoyez d'utiliser le lancer de sorts 5E pour tout le monde)",
-        "85": "Kit d'ensorceleur : ensorceleur a mana",
         "choice_4": "Rendre les objets a emplacement de sorts bonus compatibles avec les ensorceleurs multi et les arcanistes",
         "92": "Bonus pour la memorisation ET les emplacements de preparation",
         "93": "Bonus seulement pour les emplacements de preparation",
@@ -72,7 +71,38 @@
       }
     },
     "en_US": {
-      "description": "This mod introduces a set of changes for mages/sorcerers/bards, as well as rules, spells and kits for them. It offers a host of components that can be grouped into three categories: spell modifications, profile additions or modifications, and gameplay modifications.\n- Sorcerer profiles: Amorphous Disciple, Favored Soul, Magus, Revenant Disciple, Sylvan Disciple.\n- Multi-classed sorcerer profiles: Arcanist, Mana Sorcerer."
+      "description": "This mod introduces a set of changes for mages/sorcerers/bards, as well as rules, spells and kits for them. It offers a host of components that can be grouped into three categories: spell modifications, profile additions or modifications, and gameplay modifications.\n- Sorcerer profiles: Amorphous Disciple, Favored Soul, Magus, Revenant Disciple, Sylvan Disciple.\n- Multi-classed sorcerer profiles: Arcanist, Mana Sorcerer.",
+      "components": {
+        "choice_0": "Revised Mage Spell Table",
+        "11": "Tome & Blood Table",
+        "12": "'Un-nerfed' Table",
+        "choice_1": "Revised Sorcerer Spell Table",
+        "16": "Tome & Blood Table",
+        "17": "'Un-nerfed' Table",
+        "20": "Revised Dragon Disciples",
+        "25": "Sorcerer: Magus",
+        "31": "Sorcerer: Favored Soul",
+        "33": "Sorcerer: Sylvan Disciple",
+        "35": "Sorcerer: Revenant Disciple",
+        "37": "Sorcerer: Amorphous Disciple",
+        "40": "Revised Specialists",
+        "choice_2": "Revised Metamagic",
+        "51": "Innate metamagic, learned automatically by everyone",
+        "52": "Innate metamagic, learned automatically but NOT by sorcerers",
+        "53": "Innate metamagic, learned from scrolls or character generation",
+        "54": "Innate metamagic, learned from scrolls ONLY (none for sorcerers)",
+        "56": "Metamagic: fill sequencers for free",
+        "66": "Innate Find Familiar",
+        "choice_3": "Sorcerer Spell Switching",
+        "71": "Change spells every level",
+        "72": "Change spells once every three levels",
+        "80": "Multiclass Sorcerers",
+        "82": "Mage Kit: Arcanist (do not install if you plan to use 5E spellcasting for everyone)",
+        "choice_4": "Make +Spell Slot Items work with MultiSorcerers/Arcanists",
+        "92": "Bonuses for both memorization and casting slots",
+        "93": "Bonuses for casting slots only",
+        "95": "Multiclass Specialists"
+      }
     },
     "zh_CN": {
       "description": "此模组为法师/术士/吟游诗人引入了一系列修改，以及相关的规则、法术和职业。它提供了大量组件，可分为三类：法术修改、添加或修改职业、游戏玩法修改。\n- 术士职业：无形门徒、被选之魂、魔武士、亡者门徒、林地门徒。\n- 多职业术士职业：奥术师、法师术士。"

@@ -14,35 +14,34 @@
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["100", "150"], "default": "100"},
     "10": {"type": "std"},
     "20": {"type": "std"},
     "25": {"type": "std"},
-    "30": {"type": "std"},
-    "40": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["100", "150"], "default": "100"},
     "choice_1": {"type": "muc", "components": ["300", "301", "302"], "default": "300"},
     "choice_2": {"type": "muc", "components": ["310", "311", "312"], "default": "310"},
     "choice_3": {"type": "muc", "components": ["320", "322"], "default": "320"},
     "choice_4": {"type": "muc", "components": ["330", "332"], "default": "330"},
     "choice_5": {"type": "muc", "components": ["340", "342"], "default": "340"},
-    "350": {"type": "std"}
+    "350": {"type": "std"},
+    "30": {"type": "std"},
+    "40": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
-    "all": 0
+    "ru_RU": 1,
+    "fr_FR": 2
   },
   "translations": {
     "en_US": {
       "components": {
         "0": "Portraits Portraits Everywhere (PPE) - core component",
-        "10": "Isandir's CHARNAME Portraits",
-        "20": "Replace Low Quality TOB & SOA Portraits",
-        "25": "Edwin/Edwina",
-        "30": "Ust Natha Drow NPCs",
-        "40": "Vampire NPCs",
         "choice_0": "Category Portraits (Recommended)",
         "100": "Sequenced",
         "150": "Random",
+        "10": "Isandir's CHARNAME Portraits",
+        "20": "Replace Low Quality TOB & SOA Portraits",
+        "25": "Edwin/Edwina",
         "choice_1": "Change Imoen portraits",
         "300": "BG1 Portrait",
         "301": "SOD Portrait",
@@ -60,16 +59,48 @@
         "choice_5": "Change Edwin portraits",
         "340": "BG1 Portrait",
         "342": "BG2 Portrait",
-        "350": "Longhair Aerie"
+        "350": "Longhair Aerie",
+        "30": "Ust Natha Drow NPCs",
+        "40": "Vampire NPCs"
       },
       "description": "Like the Gerri's NPC Portraits Pack and Ajantis BG1 Expansion Modification mods, this mod assigns a portrait to each NPC involved in a dialog in the EE games (4617 in total!) An optional component allows you to assign portraits from a pool of random portraits to actors to whom the main component has not assigned specific portraits, essentially creatures with generic names. For example, human characters named \"Thief\" will get portraits from the male or female Thief pool. There are over ninety random portrait pools ranging from a few portraits to over 20.\nNote: this mod brings together the series of \"Minor NPC Portraits\" mods for each game."
     },
     "fr_FR": {
-      "description": "À l'instar des mods Gerri's NPC Portraits Pack et Ajantis BG1 Expansion Modification, ce mod donne un portrait à chaque NPC concerné par un dialogue dans les jeux EE (4617 au total !).\nUn composant optionnel permet  d'attribuer des portraits issus d'un pool de portraits aléatoires aux acteurs auxquels le composant principal n'a pas attribué de portraits spécifiques, essentiellement des créatures ayant un nom générique. Par exemple, les personnages humains nommés \"Voleur\" obtiendront des portraits à partir du pool masculin ou féminin des Voleurs. Il y a plus de quatre-vingt-dix pools de portraits aléatoires qui vont de quelques portraits à plus de 20.\nNote : ce mod regroupe la série des mods \"Minor NPC Portraits\" pour chaque jeu."
+      "description": "À l'instar des mods Gerri's NPC Portraits Pack et Ajantis BG1 Expansion Modification, ce mod donne un portrait à chaque NPC concerné par un dialogue dans les jeux EE (4617 au total !).\nUn composant optionnel permet  d'attribuer des portraits issus d'un pool de portraits aléatoires aux acteurs auxquels le composant principal n'a pas attribué de portraits spécifiques, essentiellement des créatures ayant un nom générique. Par exemple, les personnages humains nommés \"Voleur\" obtiendront des portraits à partir du pool masculin ou féminin des Voleurs. Il y a plus de quatre-vingt-dix pools de portraits aléatoires qui vont de quelques portraits à plus de 20.\nNote : ce mod regroupe la série des mods \"Minor NPC Portraits\" pour chaque jeu.",
+      "components": {
+        "0": "Portraits Portraits Everywhere (PPE) - Composant principal",
+        "choice_0": "Categorie de portraits (Recommande)",
+        "100": "Sequenced",
+        "150": "Random",
+        "10": "Utiliser les portraits d'Isandir pour le CHARNAME",
+        "20": "Replacer les portraits en basse qualite de TOB & SOA",
+        "25": "Edwin/Edwina",
+        "choice_1": "Change Imoen portraits",
+        "300": "BG1 Portrait",
+        "301": "SOD Portrait",
+        "302": "BG2 Portrait",
+        "choice_2": "Change Viconia portraits",
+        "310": "BG1 Portrait",
+        "311": "SOD Portrait",
+        "312": "BG2 Portrait",
+        "choice_3": "Change Jaheira portraits",
+        "320": "BG1 Portrait",
+        "322": "BG2 Portrait",
+        "choice_4": "Change Minsc portraits",
+        "330": "BG1 Portrait",
+        "332": "BG2 Portrait",
+        "choice_5": "Change Edwin portraits",
+        "340": "BG1 Portrait",
+        "342": "BG2 Portrait",
+        "350": "Longhair Aerie",
+        "30": "Ust Natha Drow NPCs",
+        "40": "Vampire NPCs"
+      }
     },
     "zh_CN": {
       "description": "与模组Gerri's NPC Portraits Pack和Ajantis BG1 Expansion Modification类似，此模组为EE游戏中所有涉及对话的NPC都分配了一个肖像（总共4617个！）。\n一个可选组件允许从随机肖像池中为组件主程序未分配特定肖像的演员（主要是具有通用名称的生物）分配肖像。例如，名为“盗贼”的人类角色将从男性或女性盗贼肖像池中获得肖像。有超过九十种随机肖像池，从几个到二十多个不等。\n注意：此模组整合了每个游戏的“次要NPC肖像”系列模组。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Portraits Portraits Everywhere (PPE) - core component", "choice_0": "Category Portraits (Recommended)", "100": "Sequenced", "150": "Random", "10": "Isandir's CHARNAME Portraits", "20": "Replace Low Quality TOB & SOA Portraits", "25": "Edwin/Edwina", "choice_1": "Change Imoen portraits", "300": "BG1 Portrait", "301": "SOD Portrait", "302": "BG2 Portrait", "choice_2": "Change Viconia portraits", "310": "BG1 Portrait", "311": "SOD Portrait", "312": "BG2 Portrait", "choice_3": "Change Jaheira portraits", "320": "BG1 Portrait", "322": "BG2 Portrait", "choice_4": "Change Minsc portraits", "330": "BG1 Portrait", "332": "BG2 Portrait", "choice_5": "Change Edwin portraits", "340": "BG1 Portrait", "342": "BG2 Portrait", "350": "Longhair Aerie", "30": "Ust Natha Drow NPCs", "40": "Vampire NPCs"}}
   },
   "tp2": "ppe",
   "safe": 2,

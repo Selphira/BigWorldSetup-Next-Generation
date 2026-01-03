@@ -1,5 +1,5 @@
 {
-  "name": "Selphira Tweaks",
+  "name": "SelphiraTweaks",
   "version": "1.4",
   "links": {
     "homepage": "https://github.com/Selphira/SelphiraTweaks",
@@ -45,7 +45,7 @@
         "26": "Progression des sorts des pretres",
         "30": "Erudition des classes",
         "40": "Lancement des sorts depuis les parchemins au niveau (de mage) du personnage",
-        "50": "Adaptation des bonus d'experience"
+        "50": "Adaptation des bonus d'experience des pièges"
       }
     },
     "en_US": {

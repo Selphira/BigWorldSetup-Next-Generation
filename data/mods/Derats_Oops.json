@@ -16,7 +16,9 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -26,10 +28,16 @@
       }
     },
     "en_US": {
-      "description": "Oops is a very special character: he has the ability to change a spell scroll into a special ability.  In concrete terms, bring Oops the scroll of the spell you'd like to have as a special ability 1x/day, pay him 10,000 po per level of the desired spell, you lose the scroll but you gain a new ability. You'll find Oops next to the Watcher's keep, to the south-west. It is designed to be accessible in both SOA and TOB.\nThe mod also handles grimoires drawn from other mods like L'interplan, Semi Multi Clerics, Wild Mage Additions."
+      "description": "Oops is a very special character: he has the ability to change a spell scroll into a special ability.  In concrete terms, bring Oops the scroll of the spell you'd like to have as a special ability 1x/day, pay him 10,000 po per level of the desired spell, you lose the scroll but you gain a new ability. You'll find Oops next to the Watcher's keep, to the south-west. It is designed to be accessible in both SOA and TOB.\nThe mod also handles grimoires drawn from other mods like L'interplan, Semi Multi Clerics, Wild Mage Additions.",
+      "components": {
+        "0": "Oops the magician"
+      }
     },
     "zh_CN": {
-      "description": "欧普是一个非常特别的角色：他拥有将法术卷轴转化为特殊能力的能力。具体来说，把你想要作为每日一次特殊能力的法术卷轴带给欧普，为法术的每个等级支付10000金币，你会失去卷轴，但获得一个新的能力。\n你可以在观察者堡垒的西南侧找到欧普。他的位置是为了在安姆阴影和巴尔王座中都能访问到。\n此模组也管理着来自其他模组（如 L'interplan, Semi Multi Clerics, Wild Mage Additions）的法术书。"
+      "description": "欧普是一个非常特别的角色：他拥有将法术卷轴转化为特殊能力的能力。具体来说，把你想要作为每日一次特殊能力的法术卷轴带给欧普，为法术的每个等级支付10000金币，你会失去卷轴，但获得一个新的能力。\n你可以在观察者堡垒的西南侧找到欧普。他的位置是为了在安姆阴影和巴尔王座中都能访问到。\n此模组也管理着来自其他模组（如 L'interplan, Semi Multi Clerics, Wild Mage Additions）的法术书。",
+      "components": {
+        "0": "大法师欧普"
+      }
     }
   },
   "tp2": "derats_oops",

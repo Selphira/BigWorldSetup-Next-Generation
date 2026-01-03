@@ -16,6 +16,7 @@
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,12 @@
       }
     },
     "en_US": {
-      "description": "This mod provides 2 different versions of chapter 6. Returning to Candlekeep becomes a secondary quest without involving the Iron Throne. If you go to Candlekeep before investigating the Iron Throne headquarters, Eltan will give you another mission to complete in chapter 6.\nTo experience the mod, a mission order will have to be obtained from \"Bentley\" (Friendly Arm Inn) or \"La Balafre\" (during the initial encounter only and only if the PC admits to having cleared the Nashkel mines) during chapter 5."
+      "description": "This mod provides 2 different versions of chapter 6. Returning to Candlekeep becomes a secondary quest without involving the Iron Throne. If you go to Candlekeep before investigating the Iron Throne headquarters, Eltan will give you another mission to complete in chapter 6.\nTo experience the mod, a mission order will have to be obtained from \"Bentley\" (Friendly Arm Inn) or \"La Balafre\" (during the initial encounter only and only if the PC admits to having cleared the Nashkel mines) during chapter 5.",
+      "components": {
+        "choice_0": "Framed: Provide multiple versions of chapter 6",
+        "0": "Use custom voice-overs for new chapter movies",
+        "1": "Leave out the custom chapter voice-overs"
+      }
     },
     "zh_CN": {
       "description": "此模组提供了两个不同的第6章版本。返回烛堡成为一个不涉及铁王座的主线任务。如果您在调查铁王座总部之前前往烛堡，艾尔坦会在第6章交给您另一个任务。\n要体验此模组，必须在第5章期间从“友善之臂旅店”的“本特利”或“疤脸”（仅在初次相遇时，且仅当角色承认清理过那西凯矿场）那里获得任务顺序。"

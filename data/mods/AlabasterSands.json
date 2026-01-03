@@ -1,6 +1,6 @@
 {
   "name": "Alabaster Sands",
-  "version": "1.8.1",
+  "version": "1.9.2",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/alabaster-sands/",
     "download": "https://downloads.weaselmods.net/download/alabaster-sands/?wpdmdl=593"
@@ -17,7 +17,11 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 3
+    "pl_PL": 1,
+    "ru_RU": 2,
+    "fr_FR": 3,
+    "zh_CN": 4,
+    "it_IT": 5
   },
   "translations": {
     "fr_FR": {
@@ -29,11 +33,24 @@
       }
     },
     "en_US": {
-      "description": "Alabaster Sands is a small quest mod from the Athkatlan Grounds quest mod series, which adds new areas and quests to Shadow of Amn's main city location. There is one main quest, and a few smaller ones, all oriented around the titular area, which is nothing else but Athkatla's public beach. So visit the place, help those you'll meet there, and see this brand new part of the City of Coin.\nThe mod adds 7 new quests that introduce new characters, items, and item graphics."
+      "description": "Alabaster Sands is a small quest mod from the Athkatlan Grounds quest mod series, which adds new areas and quests to Shadow of Amn's main city location. There is one main quest, and a few smaller ones, all oriented around the titular area, which is nothing else but Athkatla's public beach. So visit the place, help those you'll meet there, and see this brand new part of the City of Coin.\nThe mod adds 7 new quests that introduce new characters, items, and item graphics.",
+      "components": {
+        "choice_0": "Alabaster Sands: the new area of Athkatla",
+        "0": "Yes, but don't patch existing save games",
+        "1": "Yes and patch existing save games"
+      }
     },
     "zh_CN": {
-      "description": "阿拉巴斯特沙地是《阿斯卡特拉大地》系列的一个小型任务模组，为安姆阴影的主城添加了新区域和任务。有一个主要任务，还有几个较小的任务，都围绕着标题区域展开，那不过是阿斯卡特拉的公共海滩。所以，去那里吧，帮助你在那里遇到的人，发现这座货币之城的新部分。\n该模组添加了7个新任务，引入了新角色、物品和物品图形。"
-    }
+      "description": "阿拉巴斯特沙地是《阿斯卡特拉大地》系列的一个小型任务模组，为安姆阴影的主城添加了新区域和任务。有一个主要任务，还有几个较小的任务，都围绕着标题区域展开，那不过是阿斯卡特拉的公共海滩。所以，去那里吧，帮助你在那里遇到的人，发现这座货币之城的新部分。\n该模组添加了7个新任务，引入了新角色、物品和物品图形。",
+      "components": {
+        "choice_0": "阿斯卡特拉新地区：雪花石海滩",
+        "0": "是的，但不要修改存档文件",
+        "1": "是的，并且修改存档文件"
+      }
+    },
+    "pl_PL": {"components": {"choice_0": "Alabaster Sands - mod do Baldur's Gate II: Enhanced Edition", "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry", "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"}},
+    "ru_RU": {"components": {"choice_0": "Alabaster Sands: the new area of Athkatla", "0": "Yes, but don't patch existing save games", "1": "Yes and patch existing save games"}},
+    "it_IT": {"components": {"choice_0": "Sabbie Opalescenti: la nuova area di Athkatla", "0": "Si', ma non applicare patch ai salvataggi esistenti", "1": "Si' e applica patch ai salvataggi esistenti"}}
   },
   "tp2": "alabastersands",
   "safe": 2,

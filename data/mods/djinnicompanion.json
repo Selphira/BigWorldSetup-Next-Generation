@@ -19,12 +19,13 @@
     "200": {"type": "std"},
     "300": {"type": "std"},
     "400": {"type": "std", "games": ["iwdee"]},
-    "900": {"type": "std"}
+    "choice_2": {"type": "muc", "components": ["900"]}
   },
   "languages": {
     "en_US": 0,
     "de_DE": 1,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "en_US": {
@@ -33,16 +34,17 @@
         "0": "Full Version (includes quests, banters and more)",
         "1": "Light Version (the djinni only)",
         "2": "Afaaq, the Djinni Companion (IWD:EE version)",
-        "choice_1": "Install Banter Accelerator for the djinni? (Default: 60 Minutes)",
+        "choice_1": "Change banter frequency (only affects the djinni, default: 60 Minutes)",
         "101": "15 Minutes",
         "102": "30 Minutes",
         "103": "45 Minutes",
         "104": "90 Minutes",
         "105": "120 Minutes",
-        "200": "Remove Afaaq's banter soundtrack",
+        "200": "Remove Afaaq's banter soundtrack?",
         "300": "Alternate djinni portrait by Ulb",
-        "400": "Disable IWD:EE Quest",
-        "900": "Add Infinity Animation creatures"
+        "400": "Disable IWD:EE Quest?",
+        "choice_2": "Distinctive Genies",
+        "900": "Add Infinity Animation creatures?"
       },
       "description": "This mod adds a djinn acting as a seventh member of the party. It dialogues with the main character and the members of the party (work in progress) and gives its opinion in other dialogues, just like a classic NPC. He also proposes a number of quests to discover new places. He can be likened to a fighter-mage.\nSTR 15, DEX 16, CON 13, INT 15, WIS 16, CHA 11."
     },
@@ -54,20 +56,39 @@
         "1": "Version allegee (le djinn uniquement)",
         "2": "Afaaq, le compagnon Djinn (version IWD:EE)",
         "choice_1": "Changer la frequence des conversations (n'affecte que le djinn, par defaut : 60 minutes)",
-        "101": "15 Minutes",
-        "102": "30 Minutes",
-        "103": "45 Minutes",
-        "104": "90 Minutes",
-        "105": "120 Minutes",
+        "101": "15 minutes",
+        "102": "30 minutes",
+        "103": "45 minutes",
+        "104": "90 minutes",
+        "105": "120 minutes",
         "200": "Supprimer la bande-son des conversations d'Afaaq ?",
         "300": "Portrait de djinn alternatif par Ulb",
         "400": "Desactiver la quete de IWD:EE ?",
+        "choice_2": "Distinctive Genies",
         "900": "Ajouter des creatures d'Infinity Animation ?"
       }
     },
     "zh_CN": {
-      "description": "这个模组添加了一个精灵，他像第七名队员一样行动。他与主角和队员对话（部分内容正在开发中），并在其他对话中像经典NPC一样发表意见。他还提供了几个任务，可以发现新地点。他被归类为一名战士法师。\n力量15，敏捷16，体质13，智力15，智慧16，魅力11。"
-    }
+      "description": "这个模组添加了一个精灵，他像第七名队员一样行动。他与主角和队员对话（部分内容正在开发中），并在其他对话中像经典NPC一样发表意见。他还提供了几个任务，可以发现新地点。他被归类为一名战士法师。\n力量15，敏捷16，体质13，智力15，智慧16，魅力11。",
+      "components": {
+        "choice_0": "阿法克 - 风巨灵同伴",
+        "0": "完整版本（包括任务、插话及其他）",
+        "1": "精简版本（只有风巨灵）",
+        "2": "阿法克 - 风巨灵同伴（IWD:EE版本）",
+        "choice_1": "改变插话频率（只影响风巨灵，默认：60分钟）",
+        "101": "15 分钟",
+        "102": "30 分钟",
+        "103": "45 分钟",
+        "104": "90 分钟",
+        "105": "120 分钟",
+        "200": "移除阿法克插话音轨？",
+        "300": "可选的风巨灵肖像（by Ulb）",
+        "400": "禁用 IWD:EE 任务？",
+        "choice_2": "Distinctive Genies",
+        "900": "增加Infinity Animation生物？"
+      }
+    },
+    "de_DE": {"components": {"choice_0": "Afaaq, der Dschinngefaehrte", "0": "Vollversion (beinhaltet Abenteuer, Dialoge und mehr)", "1": "Eingeschraenkte Version (beinhaltet nur den Dschinn)", "2": "Afaaq, der Dschinngefaehrte (IWD:EE-Version)", "choice_1": "Banter Beschleunigungsskript fuer den Dschinn installieren? (Vorgabe: 60 Minuten)", "101": "15 Minuten", "102": "30 Minuten", "103": "45 Minuten", "104": "90 Minuten", "105": "120 Minuten", "200": "Afaaqs Bantermusik entfernen?", "300": "Alternatives Dschinnportrait von Ulb", "400": "IWD:EE-Abenteuer entfernen?", "choice_2": "Distinctive Genies", "900": "Infinity Animations fuer ausgewaehlte Kreaturen installieren?"}}
   },
   "tp2": "djinnicompanion",
   "safe": 2,

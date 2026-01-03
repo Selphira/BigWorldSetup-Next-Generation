@@ -24,18 +24,19 @@
     "fr_FR": {
       "description": "Ce mod ajoute un nouveau profil de rôdeur, réservé aux humains, elfes et demi-elfes, d'alignement loyal mauvais ou neutre mauvais. Les rôdeurs de l'ombre forment une secte secrète affiliée aux Druides de l'ombre. Ils prônent le pouvoir de la nuit et des ombres qui la peuplent, et n'hésitent pas à recourir à des ruses machiavéliques pour parvenir à leur fin. Ils vénèrent en général la sombre déesse Shar et murmurent son nom lorsqu'ils tranchent la gorge de leurs adversaires dans la pénombre. Les Rôdeurs de l'ombre sont de dangereux combattants capables de faire appel aux ombres pour les épauler...",
       "components": {
-        "0": "Installation du Kit : Rodeur de l'ombre"
+        "0": "Profil de Rodeur de l'ombre"
       }
     },
     "en_US": {
       "description": "This mod adds a new ranger kit, reserved for humans, elves and half-elves of lawful evil or neutral evil alignment. Shadow rangers are a secret sect of wanderers intimately affiliated with Shadow druids. They advocate the usage of powers of darkness and the shadows that inhabit them. They do not hesitate from resorting to Machiavellian schemes to achieve their goal. They usually pay homage to the dark goddess, Shar, and rumors say they whisper her name when they slit their target's throat in the darkness of the night. Shadow rangers are dangerous fighters who are able to call the shadows to their aid.",
       "components": {
-        "0": "Kit Installation: Shadow Ranger"
+        "0": "Shadow Ranger Kit"
       }
     },
     "zh_CN": {
       "description": "此模组在游戏中添加了一个新的游侠配置，仅限人类、精灵和半精灵，且必须是守序邪恶或中立邪恶阵营。影贼游侠是一个与影德鲁伊有关联的秘密教派。他们宣扬黑夜及其阴影中的力量，并毫不犹豫地采用马基雅维利式的诡计来达成目的。他们通常崇拜黑暗女神莎儿，并在暮色中割断敌人喉咙时低声念着她的名字。影贼游侠是危险的战士，能够召唤阴影来协助自己……"
-    }
+    },
+    "ru_RU": {"components": {"0": "Shadow Stalker Kit"}}
   },
   "tp2": "fr_ombre",
   "safe": 2,

@@ -14,30 +14,40 @@
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"},
-    "2001": {"type": "std"}
+    "1": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 2
+    "it_IT": 1,
+    "fr_FR": 2,
+    "pl_PL": 3,
+    "es_ES": 4,
+    "de_DE": 5,
+    "ru_RU": 6
   },
   "translations": {
     "en_US": {
       "description": "This mod adds a new NPC, a half-elf fighter-mage, lawful good, who can be found in the ruins of Flammevin Bridge. She has piquant interactions with most of the other characters.\nSTR 14, DEX 17, CON 15, INT 16, WIS 7, CHA 13.",
       "components": {
-        "0": "Indira NPC for BGT-WeiDU",
-        "2001": "Install Interjections for Indira (BETA)"
+        "0": "Indira NPC",
+        "1": "Install Interjections for Indira (BETA)"
       }
     },
     "fr_FR": {
       "description": "Ce mod ajoute un nouveau PNJ, une demi-elfe guerrier-mage, loyale bonne, que l'on peut trouver dans les ruines du Pont de Flammevin. Elle a des interactions piquantes avec la plupart des autres personnages.\nFOR 14, DEX 17, CON 15, INT 16, SAG 7, CHA 13.",
       "components": {
         "0": "Indira PNJ",
-        "2001": "Install Interjections for Indira (BETA)"
+        "1": "Install Interjections for Indira (BETA)"
       }
     },
     "zh_CN": {
       "description": "该模组添加了一个新的NPC，一位守序善良的半精灵战士法师，可以在火焰之桥的废墟中找到她。她与大多数其他角色都有俏皮的互动。\n力量14，敏捷17，体质15，智力16，智慧7，魅力13。"
-    }
+    },
+    "it_IT": {"components": {"0": "Indira PNG per BG1Tutu", "1": "Installa Interiezioni per Indira (BETA)"}},
+    "pl_PL": {"components": {"0": "Indira NPC do BG1", "1": "Install Interjections for Indira (BETA)"}},
+    "es_ES": {"components": {"0": "Indira NPC para BG1", "1": "Install Interjections for Indira (BETA)"}},
+    "de_DE": {"components": {"0": "Indira NPC", "1": "Einmischdialoge fuer Indira (BETA)"}},
+    "ru_RU": {"components": {"0": "Indira NPC", "1": "Install Interjections for Indira (BETA)"}}
   },
   "tp2": "indinpc",
   "safe": 2,

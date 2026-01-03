@@ -16,6 +16,8 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "it_IT": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -26,11 +28,15 @@
       }
     },
     "en_US": {
-      "description": "This mod enables a new character profile to be played, a shapeshifting shaman, the spirit bearer, who maintains a closer, more personal bond with a small, select but powerful number of animal spirits. When he calls on these spirits during his Shamanic Dance, he doesn't ask them to fight for him, but invites them into his own body to help him shapeshift directly into the form of the chosen animal spirit (yak, tiger and crane)."
+      "description": "This mod enables a new character profile to be played, a shapeshifting shaman, the spirit bearer, who maintains a closer, more personal bond with a small, select but powerful number of animal spirits. When he calls on these spirits during his Shamanic Dance, he doesn't ask them to fight for him, but invites them into his own body to help him shapeshift directly into the form of the chosen animal spirit (yak, tiger and crane).",
+      "components": {
+        "0": "Spiritwalker Shaman Kit"
+      }
     },
     "zh_CN": {
       "description": "此模组允许您扮演一个新的角色宗派：变形萨满，灵魂携带者，他与少数精选但强大的动物灵魂保持着更紧密、更个人化的联系。当他在萨满之舞中召唤这些灵魂时，他不是要求它们为自己战斗，而是邀请它们融入自己的身体，帮助他直接变形为所选的动物形态（牦牛、老虎和鹤）。"
-    }
+    },
+    "it_IT": {"components": {"0": "Spiritwalker Shaman Kit"}}
   },
   "tp2": "spiritwalker",
   "safe": 2,

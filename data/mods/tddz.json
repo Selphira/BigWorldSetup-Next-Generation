@@ -19,12 +19,12 @@
     "3": {"type": "std"},
     "4": {"type": "std"},
     "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"}
+    "6": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
     "ru_RU": 1,
+    "pl_PL": 2,
     "de_DE": 3,
     "fr_FR": 4,
     "it_IT": 5,
@@ -39,17 +39,30 @@
         "2": "TDD - Eshpurta",
         "3": "TDD - Purskal",
         "4": "TDD - Riatavin",
-        "5": "TDD - L'Avènement du Jour le plus Sombre",
-        "6": "TDD - Robilard",
-        "7": "Utiliser les zones de Baldur's Gate Graphical Overhaul pour TDDZ"
+        "5": "TDD - l'Avènement du Jour le plus Sombre",
+        "6": "TDD - Robilard"
       }
     },
     "en_US": {
-      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest. You need to have Throne of Bhaal installed."
+      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest. You need to have Throne of Bhaal installed.",
+      "components": {
+        "0": "TDD - Core",
+        "1": "TDD - Trollford",
+        "2": "TDD - Eshpurta",
+        "3": "TDD - Purskal",
+        "4": "TDD - Riatavin",
+        "5": "TDD - Onset of the Darkest Day",
+        "6": "TDD - Robilard"
+      }
     },
     "zh_CN": {
       "description": "这个大型扩展包新增了10个新角色（部分来自博德之门1）、180件新物品、170个新法术、40多种新生物、78个新宗派、5个大型任务和一个巨型任务。你必须安装有巴尔王座。"
-    }
+    },
+    "ru_RU": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
+    "pl_PL": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
+    "de_DE": {"components": {"0": "TDD - Core", "1": "TDD - Trollfurth", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Der Beginn des dunkelsten Tages", "6": "TDD - Robilard"}},
+    "it_IT": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
+    "es_ES": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}}
   },
   "tp2": "tddz",
   "safe": 2,

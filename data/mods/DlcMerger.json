@@ -13,16 +13,23 @@
   "games": ["bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["util"],
   "components": {
-    "1": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"]}
   },
   "languages": {
     "en_US": 0,
+    "de_DE": 1,
+    "pt_BR": 2,
+    "es_ES": 3,
+    "zh_CN": 4,
     "all": 0
   },
   "translations": {
     "en_US": {
       "components": {
-        "1": "Fusionner le DLC \"Siege of Dragonspear\" avec Baldur's Gate - Enhanced Edition"
+        "choice_0": "Merge DLC into game",
+        "1": "Merge \"Siege of Dragonspear\" DLC",
+        "2": "Merge user-defined DLC",
+        "3": "Merge all available DLCs"
       },
       "description": "This mod lets you merge DLC such as \"Siege of Dragonspear\" with the game's main content."
     },
@@ -30,7 +37,31 @@
       "description": "Ce mod permet de fusionner des DLC comme \"Siege of Dragonspear\" avec le contenu principal du jeu."
     },
     "zh_CN": {
-      "description": "这个模组允许将“龙矛围攻”之类的DLC与游戏的主内容合并。"
+      "description": "这个模组允许将“龙矛围攻”之类的DLC与游戏的主内容合并。",
+      "components": {
+        "choice_0": "将DLC合并至游戏中",
+        "1": "合并《龙矛围攻》DLC",
+        "2": "合并用户自定义DLC",
+        "3": "合并所有可用的DLC"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "DLC mit Spiel zusammenfuehren", "1": "DLC \"Die Belagerung von Drachenspeer\" zusammenfuehren",
+        "2": "Eine benutzerdefinierte DLC zusammenfuehren", "3": "Alle vorhandenen DLCs zusammenfuehren"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "choice_0": "Unir o DLC no game", "1": "Unir o DLC \"Siege of Dragonspear\"",
+        "2": "Unir o DLC definido pelo usuário", "3": "Unir todos os DLCs disponíveis"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Fusionar el DLC con el juego", "1": "Fusionar el DLC \"Siege of Dragonspear\"",
+        "2": "Fusionar el DLC definido por el usuario", "3": "Fusionar todos los DLC disponibles"
+      }
     }
   },
   "tp2": "dlcmerger",

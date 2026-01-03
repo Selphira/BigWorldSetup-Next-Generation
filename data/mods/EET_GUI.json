@@ -7,28 +7,67 @@
   "games": ["eet"],
   "categories": ["conv"],
   "components": {
-    "0": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["0", "1"]}
   },
   "languages": {
     "en_US": 0,
+    "pl_PL": 1,
+    "es_ES": 2,
     "fr_FR": 3,
-    "all": 0
+    "cs_CZ": 4,
+    "ru_RU": 5,
+    "de_DE": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Alternative EET GUI (SoD)"
+        "choice_0": "EET alternative GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       },
       "description": "The equivalent of Enhanced Edition Trilogy but can be installed on Android."
     },
     "fr_FR": {
       "description": "L'équivalent de Enhanced Edition Trilogy mais qui peut s'installer sur Android.",
       "components": {
-        "0": "Interface graphique utilisateur alternatif de EET (Siege of Dragonspear)"
+        "choice_0": "Interface graphique utilisateur alternatif de EET",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale : Enhanced Edition"
       }
     },
     "zh_CN": {
-      "description": "Enhanced Edition Trilogy的安卓版本。"
+      "description": "Enhanced Edition Trilogy的安卓版本。",
+      "components": {
+        "choice_0": "EET GUI替代方案",
+        "0": "龙矛围攻",
+        "1": "冰风谷：增强版"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "EET alternatywne GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "EET alternative GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "choice_0": "EET alternativni GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "EET alternative GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "EET alternatives GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+      }
     }
   },
   "tp2": "eet_gui",

@@ -21,11 +21,36 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 3
+    "de_DE": 1,
+    "it_IT": 2,
+    "fr_FR": 3,
+    "ru_RU": 4,
+    "es_ES": 5,
+    "zh_CN": 6,
+    "zh_TW": 7
   },
   "translations": {
     "en_US": {
-      "description": "This mod offers an alternative way of managing the random appearance of creatures in areas on the Swordside. It replaces random (but fixed area-by-area) creatures with a completely new system based on level and number of party members. You can choose the interval between creature appearances. As an option, you can also install a new creature, the Vampiric Wolf Lord (taken from the Ulcaster Wolf from Sword Coast Stratagems), among these random creatures."
+      "description": "This mod offers an alternative way of managing the random appearance of creatures in areas on the Swordside. It replaces random (but fixed area-by-area) creatures with a completely new system based on level and number of party members. You can choose the interval between creature appearances. As an option, you can also install a new creature, the Vampiric Wolf Lord (taken from the Ulcaster Wolf from Sword Coast Stratagems), among these random creatures.",
+      "components": {
+        "1000": "BGSpawn system based on levels & party members",
+        "choice_0": "Choose the time between re-spawns",
+        "2100": "Re-spawn time = 8 hours (standard ad&d rules)",
+        "2200": "Re-spawn time = 24 hours",
+        "2300": "Re-spawn time = 10 days",
+        "2400": "Re-spawn time = 50 days (eventually, no chance of re-spawned creatures)",
+        "choice_1": "Decrease Spawn Point Probability (default is 100%)",
+        "3100": "15%",
+        "3200": "25%",
+        "3300": "33%",
+        "3400": "50%",
+        "3500": "66%",
+        "3600": "75%",
+        "3700": "85%",
+        "3800": "100%",
+        "4000": "Vampiric Wolf Lord (inspired to DavidW Wolf of Ulcaster)",
+        "5000": "BGSpawn random encounters between areas"
+      }
     },
     "fr_FR": {
       "description": "Ce mod propose une gestion alternative de l'apparition aléatoire des créatures dans les zones de la Côté des Épées. Il remplace les créatures aléatoires (mais figées zone par zone) par un système complètement nouveau basé sur le niveau et le nombre de membres du groupe. Vous pouvez choisir l'intervalle entre les apparitions de créatures. En option, vous pouvez aussi installer une nouvelle créature, le Seigneur Loup vampirique (repris du Loup d'Ulcaster de Sword Coast Stratagems), parmi ces créatures aléatoires.",
@@ -36,7 +61,7 @@
         "2200": "Intervalle de reapparition = 24 heures",
         "2300": "Intervalle de reapparition = 10 jours",
         "2400": "Intervalle de reapparition = 50 jours (en fin de compte, aucune chance de reapparition)",
-        "choice_1": "Diminuer le taux d'apparition des creatures (100% par défaut)",
+        "choice_1": "Decrease Spawn Point Probability (default is 100%)",
         "3100": "15%",
         "3200": "25%",
         "3300": "33%",
@@ -50,8 +75,32 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组为剑湾地区的随机生物生成提供了替代方案。它将区域固定的随机生物替换为一个全新的、基于等级和队伍人数的系统。你可以选择生物出现的时间间隔。作为可选功能，你还可以在这些随机生物中安装一个新的生物——吸血狼领主（取自Sword Coast Stratagems中的乌尔卡斯狼）。"
-    }
+      "description": "这个模组为剑湾地区的随机生物生成提供了替代方案。它将区域固定的随机生物替换为一个全新的、基于等级和队伍人数的系统。你可以选择生物出现的时间间隔。作为可选功能，你还可以在这些随机生物中安装一个新的生物——吸血狼领主（取自Sword Coast Stratagems中的乌尔卡斯狼）。",
+      "components": {
+        "1000": "BGSpawnÏµÍ³»ùÓÚµÈ¼¶ºÍ¶ÓÎé³ÉÔ±",
+        "choice_0": "Ñ¡ÔñÖØÉú¼ä¸ôÊ±¼ä",
+        "2100": "ÖØÉú¼ä¸ôÊ±¼ä=8Ð¡Ê±£¨±ê×¼ad&d¹æÔò£©",
+        "2200": "ÖØÉú¼ä¸ôÊ±¼ä=24Ð¡Ê±",
+        "2300": "ÖØÉú¼ä¸ôÊ±¼ä=10Ìì",
+        "2400": "ÖØÉú¼ä¸ôÊ±¼ä=50Ìì£¨×îÖÕÃ»ÓÐ»ú»áÖØÉúÉúÎï£©",
+        "choice_1": "Decrease Spawn Point Probability (default is 100%)",
+        "3100": "15%",
+        "3200": "25%",
+        "3300": "33%",
+        "3400": "50%",
+        "3500": "66%",
+        "3600": "75%",
+        "3700": "85%",
+        "3800": "100%",
+        "4000": "ÎüÑªÀÇÁìÖ÷£¨Áé¸ÐÀ´ÓÚDavidW Wolf of Ulcaster£©",
+        "5000": "BGSpawnÔÚÁ½¸öµØÇø¼äÕ¹¿ªËæ»úÔâÓöÕ½"
+      }
+    },
+    "de_DE": {"components": {"1000": "Das BGSpawn System basiert auf Stufen und Anzahl der Gruppenmitglieder", "choice_0": "Waehlt die Zeit zwischen den Re-Spawns", "2100": "Re-Spawns = 8 Stunden (Standard AD&D Regeln)", "2200": "Re-Spawns = 24 Stunden", "2300": "Re-Spawns = 10 Tage", "2400": "Re-Spawns = 50 Tage (eventuell keine Chance das Kreaturen Re-Spawned werden)", "choice_1": "Decrease Spawn Point Probability (default is 100%)", "3100": "15%", "3200": "25%", "3300": "33%", "3400": "50%", "3500": "66%", "3600": "75%", "3700": "85%", "3800": "100%", "4000": "Vampirwolfslord (inspiriert von DavidW Wolf von Ulcaster)", "5000": "BGSpawn Zufallsbegegnungen zwischen den Gebieten"}},
+    "it_IT": {"components": {"1000": "Il sistema BGSpawn è basato sui livelli e sui membri del gruppo", "choice_0": "Scegli il tempo tra i re-spawn", "2100": "Tempo di Re-spawn = 8 ore (regole standard di ad&d)", "2200": "Tempo di Re-spawn = 24 ore", "2300": "Tempo di Re-spawn = 10 giorni", "2400": "Tempo di Re-spawn = 50 giorni (nessuna possibilità di re-spawn delle creature)", "choice_1": "Decrease Spawn Point Probability (default is 100%)", "3100": "15%", "3200": "25%", "3300": "33%", "3400": "50%", "3500": "66%", "3600": "75%", "3700": "85%", "3800": "100%", "4000": "Signore dei Lupi-vampiro (ispirato al Lupo di Ulcaster di DavidW)", "5000": "BGSpawn incontri random tra le aree"}},
+    "ru_RU": {"components": {"1000": "BGSpawn á¨áâ¥¬ , ®á­®¢ ­­ ï ­  ãà®¢­¥ ¨£à®ª  ¨ á®¯ àâ¨©æ¥¢", "choice_0": "ë¡®à ¢à¥¬¥­¨ ¬¥¦¤ã à¥á¯ ¢­ ¬¨", "2100": "à¥¬ï à¥á¯ ¢­  = 8 ç á®¢ (áâ ­¤ àâ ¯à ¢¨« ad&d)", "2200": "à¥¬ï à¥á¯ ¢­  = 24 ç á", "2300": "à¥¬ï à¥á¯ ¢­  = 10 ¤­¥©", "2400": "à¥¬ï à¥á¯ ¢­  = 50 ¤­¥© (¢ ª®­¥ç­®¬ áç¥â¥ - ¡¥§ è ­á  ­  à¥á¯ ¢­ áãé¥áâ¢)", "choice_1": "Decrease Spawn Point Probability (default is 100%)", "3100": "15%", "3200": "25%", "3300": "33%", "3400": "50%", "3500": "66%", "3600": "75%", "3700": "85%", "3800": "100%", "4000": "¥àå®¢­ë© ¢®«ª-¢ ¬¯¨à (inspired to DavidW Wolf of Ulcaster)", "5000": "BGSpawn á¨áâ¥¬  á«ãç ©­ëå áâ®«ª­®¢¥­¨© ¬¥¦¤ã «®ª æ¨ï¬¨"}},
+    "es_ES": {"components": {"1000": "El sistema de BGSpawn está basado en los niveles y miembros del grupo", "choice_0": "Elije el tiempo entre reapaciriones", "2100": "Tiempo de reaparición = 8 horas (Reglas standard de AD&D)", "2200": "Tiempo de reaparición = 24 horas", "2300": "Tiempo de reaparición = 10 días", "2400": "Tiempo de reaparición = 50 días (Eventualmente, sin oportunidad de creaturas reaparecidas)", "choice_1": "Decrease Spawn Point Probability (default is 100%)", "3100": "15%", "3200": "25%", "3300": "33%", "3400": "50%", "3500": "66%", "3600": "75%", "3700": "85%", "3800": "100%", "4000": "Gran Lobo Vampírico (Inspirado en Lobo de Ulcaster de DavidW)", "5000": "Encuentros al azar de  BGSpawn entre áreas"}},
+    "zh_TW": {"components": {"1000": "BGSpawn¨t²Î°ò©óµ¥¯Å©M¶¤¥î¦¨­û", "choice_0": "¿ï¾Ü­«¥Í¶¡¹j®É¶¡", "2100": "­«¥Í¶¡¹j®É¶¡=8¤p®É¡]¼Ð·Çad&d³W«h¡^", "2200": "­«¥Í¶¡¹j®É¶¡=24¤p®É", "2300": "­«¥Í¶¡¹j®É¶¡=10¤Ñ", "2400": "­«¥Í¶¡¹j®É¶¡=50¤Ñ¡]³Ì²×¨S¦³¾÷·|­«¥Í¥Íª«¡^", "choice_1": "Decrease Spawn Point Probability (default is 100%)", "3100": "15%", "3200": "25%", "3300": "33%", "3400": "50%", "3500": "66%", "3600": "75%", "3700": "85%", "3800": "100%", "4000": "§l¦å¯T»â¥D¡]ÆF·P¨Ó©óDavidW Wolf of Ulcaster¡^", "5000": "BGSpawn¦b¨â­Ó¦a°Ï¶¡®i¶}ÀH¾÷¾D¹J¾Ô"}}
   },
   "tp2": "bgspawn",
   "safe": 2,

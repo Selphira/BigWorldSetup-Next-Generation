@@ -1,5 +1,5 @@
 {
-  "name": "Le kit Pirate d'Huxaltek (voleur humain)",
+  "name": "Pirate Kit",
   "version": "2.1",
   "links": {
     "homepage": "https://weiducommando.forumgaming.fr/t270-kit-de-pirate-compatible-bgt-termine",
@@ -18,25 +18,37 @@
     "choice_1": {"type": "muc", "components": ["3", "4", "5", "6"], "default": "3"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
       "description": "Création originale d'Huxaltec, ce profil de voleur (très bien documenté et inspiré) est exclusivement réservé au personnage principal et permet d'incarner un pirate de la Côte des Épées. Un don régional, selon l'origine géographique du pirate (choisie à l'installation du kit), lui octroie certains avantages. Comme tout pirate qui se respecte, il a son propre perroquet (capable d'aller chercher des trésors aléatoires une fois par jour) et stocke son trésor dans un coffre qu'il emporte partout.",
       "components": {
-        "0": "Le kit Pirate",
+        "0": "Pirate Kit v2.1",
         "choice_0": "Race du perroquet Coco",
         "1": "Ara macao (rouge)",
         "2": "Ara ararauna (vert-bleu-jaune)",
         "choice_1": "Dons innés régionaux",
-        "3": "Attaque massive : Lorsqu'il appelle des mercenaires pirates, ceux-ci arrivent avec une recrue supplémentaire.",
-        "4": "Volonté farouche : +10% de résistance magique.",
-        "5": "Intrépide et résistant : +12PV de façon permanente.",
-        "6": "Maîtrise supérieure du cimeterre (6ème étoile de compétence)"
+        "3": "Pirate des îles Nélanthères :\nAttaque massive : Lorsqu'il appelle des mercenaires pirates, ceux-ci arrivent avec une recrue supplémentaire.",
+        "4": "Pirate de la mer intérieure (mer des étoiles déchues) :\nVolonté farouche : +10% de résistance magique.",
+        "5": "Pirate des royaumes insulaires de Kara-Tur :\nIntrépide et résistant : +12PV de façon permanente.",
+        "6": "Pirate de Zakhara :\nMaîtrise supérieure du cimeterre (6ème étoile de compétence) : Pour les pirates des sables brûlants de Zakhara, les cimeterres ordinaires (non enchantés) sont maniés avec une telle maîtrise qu'ils sont considérés comme des armes à deux mains +1, bénéficiant ainsi des mêmes avantages en terme de dégats, sans l'inconvénient de la lenteur due au poids de ces dernières."
       }
     },
     "en_US": {
-      "description": "An original creation by Huxaltec, this thief's profile (very well documented and inspired) is reserved exclusively for the main character and allows you to play the role of a pirate from the Sword Coast. A regional gift, depending on the pirate's geographical origin (chosen when installing the kit), grants him certain advantages. Like any self-respecting pirate, he has his own parrot (capable of fetching random treasure once a day) and stores his treasure in a chest that he takes everywhere."
+      "description": "An original creation by Huxaltec, this thief's profile (very well documented and inspired) is reserved exclusively for the main character and allows you to play the role of a pirate from the Sword Coast. A regional gift, depending on the pirate's geographical origin (chosen when installing the kit), grants him certain advantages. Like any self-respecting pirate, he has his own parrot (capable of fetching random treasure once a day) and stores his treasure in a chest that he takes everywhere.",
+      "components": {
+        "0": "Pirate Kit v2.1",
+        "choice_0": "Species of the parrot, Coco",
+        "1": "Scarlet macaw (red)",
+        "2": "Blue-and-yellow macaw (green-blue-yellow)",
+        "choice_1": "Regional innate gifts",
+        "3": "Pirate of the Nelanther Isles:\nMassive Attack: When he calls his pirate allies, they come with an additional crew member.",
+        "4": "Pirate of the Inner Sea (Sea of Fallen Stars):\nFierce Will: +10% magic resistance.",
+        "5": "Pirate of the Island Kingdoms of Kara-Tur:\nFearless and strong: Permanent +12 life points.",
+        "6": "Pirate of Zakhara:\nUltimate Grand Mastery of the scimitar (6th proficiency slot available): For the pirates of the burning sands of Zakhara, scimitars are handled with such skill that they are considered as 2-handed weapons +1, thus benefiting from the same advantages in terms of damage, without the disadvantage of -2 to movement speed due the weight of the latter."
+      }
     },
     "zh_CN": {
       "description": "这是Huxaltec的原创作品，这个盗贼档案（文档详实且富有灵感）专为主角保留，让您扮演一位剑湾海盗。根据海盗的地理起源（在安装宗派时选择），他会获得一个地域专长，从而获得某些优势。像所有自重海盗一样，他有自己的鹦鹉（每天可以随机寻找一次宝藏），并将他的宝藏存放在一个随身携带的箱子里。"

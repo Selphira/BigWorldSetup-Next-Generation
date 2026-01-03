@@ -16,6 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
+    "es_ES": 1,
+    "cs_CZ": 2,
+    "pl_PL": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a fairly powerful Druid profile who can use the magical energy floating in nature to cast spells faster and more frequently. He can also cast profane and divine spells not available to other druids."
+      "description": "This mod adds a fairly powerful Druid profile who can use the magical energy floating in nature to cast spells faster and more frequently. He can also cast profane and divine spells not available to other druids.",
+      "components": {
+        "0": "Auramaster druid kit"
+      }
     },
     "zh_CN": {
       "description": "此模组添加了一个相当强大的德鲁伊职业包，他可以利用自然中漂浮的魔法能量更快、更频繁地施法。他还可以施放其他德鲁伊无法使用的亵渎和神圣法术。"
-    }
+    },
+    "es_ES": {"components": {"0": "Kit de druida Señor de las Auras"}},
+    "cs_CZ": {"components": {"0": "Kit Stráce aury"}},
+    "pl_PL": {"components": {"0": "Podklasa druida Mistrz Aury"}}
   },
   "tp2": "amdk",
   "safe": 2,

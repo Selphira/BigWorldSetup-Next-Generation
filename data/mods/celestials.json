@@ -18,7 +18,11 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "pl_PL": 3,
+    "ru_RU": 4,
+    "it_IT": 5
   },
   "translations": {
     "en_US": {
@@ -31,13 +35,17 @@
     "fr_FR": {
       "description": "Ce mod rend les célestes (Déva et Planétaires) invoqués par le joueur beaucoup plus proches de la version papier, c'est-à-dire la plupart du temps des êtres surpuissants et effrayants. Par ailleurs, le type de déva dépendra du lieu d'invocation : Déva astrale, Déva movanique ou Déva monadique.",
       "components": {
-        "0": "Version \"jdr sur table\" des Celestes",
+        "0": "Version \"jdr sur table\" des Célestes",
         "1": "Animations des Devas et Planetaires"
       }
     },
     "zh_CN": {
       "description": "此模组确保玩家召唤的天界生物（提婆和星界神使）更贴近桌面版规则，即大多数时候是强大而可怕的存在。此外，提婆的类型将取决于召唤地点：星界提婆、摩梵尼提婆或单子提婆。"
-    }
+    },
+    "de_DE": {"components": {"0": "PnP Celestials", "1": "Animationen der finden und Planetars"}},
+    "pl_PL": {"components": {"0": "Podrecznikowi Niebianie", "1": "Aktualizacja animacji Devy i Planetara o skrzydla"}},
+    "ru_RU": {"components": {"0": "PnP Celestials", "1": "Deva and Planetar Animations"}},
+    "it_IT": {"components": {"0": "PnP Celestials", "1": "Animazioni dei Deva e Planetar"}}
   },
   "tp2": "celestials",
   "safe": 2,

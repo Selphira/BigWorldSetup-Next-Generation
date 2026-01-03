@@ -16,7 +16,9 @@
     "choice_0": {"type": "muc", "components": ["35", "36", "37"], "default": "35"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "ru_RU": 2
   },
   "translations": {
     "fr_FR": {
@@ -29,11 +31,18 @@
       }
     },
     "en_US": {
-      "description": "One of the most unique melee warrior classes Morituri are fighters who have abandoned the need to use armor or any magic item in order to enhance their capabilities. Their hard and longlasting training has given them the ability to combine the specific skills and feats of the lethal Kensai, the enduring Barbarian, the battlerager Berserker and the lighting fast Monk. Morituri fight toe to toe with their enemies never retreat always seeking victory or death. Although they lack the support of an armor or any magic item at all, their superhuman physical abilities, the perfect control of their Ki energy plus their unstoppable determination makes them formidable adversaries and worthy upholders of right and justice in the entire Faerun. Morituri who manage to survive long enough to reach their full potential bear the honoring title of the Light Bringer, having become a true force of Right and Justice. Presently only humans are being accepted as candidates in the Order of the Morituri."
+      "description": "One of the most unique melee warrior classes Morituri are fighters who have abandoned the need to use armor or any magic item in order to enhance their capabilities. Their hard and longlasting training has given them the ability to combine the specific skills and feats of the lethal Kensai, the enduring Barbarian, the battlerager Berserker and the lighting fast Monk. Morituri fight toe to toe with their enemies never retreat always seeking victory or death. Although they lack the support of an armor or any magic item at all, their superhuman physical abilities, the perfect control of their Ki energy plus their unstoppable determination makes them formidable adversaries and worthy upholders of right and justice in the entire Faerun. Morituri who manage to survive long enough to reach their full potential bear the honoring title of the Light Bringer, having become a true force of Right and Justice. Presently only humans are being accepted as candidates in the Order of the Morituri.",
+      "components": {
+        "choice_0": "Morituri",
+        "35": "Install the Morituri as a warrior",
+        "36": "Install the Morituri as a paladin",
+        "37": "Install both"
+      }
     },
     "zh_CN": {
       "description": "Morituri是近战战士职业中最独特的一种，他们是放弃了使用盔甲或魔法物品来增强自身能力的战斗者。他们漫长而艰苦的训练使他们获得了令人畏惧的剑圣的特定技能与本领、野蛮人的耐力、狂战士的狂热和武僧的敏捷。Morituri近身与敌人战斗，永不退缩，永远追求胜利或死亡。尽管他们无法从盔甲或魔法物品中获益，但他们超凡的体能、对气能量的完美控制以及坚定不移的决心，使他们成为了费伦大陆上令人生畏的对手，以及正义与权利的捍卫者。那些能够存活足够久以发挥全部潜力的Morituri会获得“光明使者”的荣誉称号，成为正义与权利的真正力量。目前，只有人类被接纳为Morituri骑士团的候选人。"
-    }
+    },
+    "ru_RU": {"components": {"choice_0": "Morituri Kit", "35": "Install the Morituri as a warrior", "36": "Install the Morituri as a paladin", "37": "Install both"}}
   },
   "tp2": "morituri",
   "safe": 2,

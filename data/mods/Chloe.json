@@ -17,12 +17,15 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 4
+    "es_ES": 1,
+    "it_IT": 2,
+    "fr_FR": 3,
+    "ru_RU": 4
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Chloe NPC for SoA"
+        "0": "Chloe NPC mod"
       },
       "description": "This mod adds a demi-goddess kensai true neutral, with a specific voice kit and weapons, who exclusively romances female characters. Interactions have been written with each character, but romance is currently only available for SoA. Quests relating to Chloe complete the package.\nSTR 13, DEX 25, CON 16, INT 12, WIS 12, CHA 14."
     },
@@ -34,7 +37,10 @@
     },
     "zh_CN": {
       "description": "此模组添加了一位严格中立的女性半神剑圣，拥有专属的语音和武器，并且只能与女性角色恋爱。已为每个角色编写了互动内容，但目前恋爱剧情仅存在于安姆阴影中。与克洛伊相关的任务完善了整个模组。\n力量 13, 敏捷 25, 体质 16, 智力 12, 智慧 12, 魅力 14。"
-    }
+    },
+    "es_ES": {"components": {"0": "Chloe NPC mod"}},
+    "it_IT": {"components": {"0": "Chloe NPC mod"}},
+    "ru_RU": {"components": {"0": "Chloe NPC mod"}}
   },
   "tp2": "chloe",
   "safe": 2,

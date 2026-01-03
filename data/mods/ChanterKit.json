@@ -17,6 +17,7 @@
     "37": {"type": "std"}
   },
   "languages": {
+    "en_US": 0,
     "fr_FR": 1
   },
   "translations": {
@@ -28,7 +29,11 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a bard profile, the cantor, who casts divine spells instead of arcane ones, can cast spells in armor and can choose between several powerful chants. No pickpocketing. An additional component now allows the Cantor to win the Priest's fortress instead of the Bard's."
+      "description": "This mod adds a bard profile, the cantor, who casts divine spells instead of arcane ones, can cast spells in armor and can choose between several powerful chants. No pickpocketing. An additional component now allows the Cantor to win the Priest's fortress instead of the Bard's.",
+      "components": {
+        "0": "Chanter Kit",
+        "37": "Chanter gains cleric stronghold instead of bard one [EXPERIMENTAL]"
+      }
     },
     "zh_CN": {
       "description": "这个模组添加了一个吟游诗人职业——吟颂者，他施放神术而非奥术，可以穿着盔甲施法，并能在几种强大的咏唱中选择。没有偷窃。自定义高级能力。\n一个额外的组件现在允许吟颂者获得牧师的神殿，而不是吟游诗人的神殿。"

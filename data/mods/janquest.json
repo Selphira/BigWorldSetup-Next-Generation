@@ -1,5 +1,5 @@
 {
-  "name": "Jan's Extended Quest",
+  "name": "Extension de la quête de Jan",
   "version": "1.5",
   "links": {
     "homepage": "http://akadis.baldursgateworld.fr/Jan/JansQuestFr.html",
@@ -37,7 +37,8 @@
     "ru_RU": {"components": {"0": "Jan's Extended Quest"}},
     "zh_CN": {
       "description": "您是否总觉得队伍里少不了姚恩·姚森？虽沉醉于他那些天马行空的俏皮话，却对他未完结的个人任务意犹未尽？现在，您将有机会知晓这位阿斯卡特拉最荒诞的幻术盗贼与其旧爱——以及那位施暴成性的丈夫瓦埃拉格——之间的故事结局。\n《姚恩任务扩展》通过两段精炼的新任务延续原版剧情，不仅保留了标志性对话风格，更安排了与全新配角们的意外邂逅。该模组还尝试以独特视角，悄然揭示这座都市中某些最具影响力的组织背后不为人知的秘密。\n无需重启存档即可体验完整故事线。虽然模组难度适配低等级角色，但仍建议在游戏前期体验以获得最佳效果。\n本模组主要包含：2个可自由选择顺序的新任务线，以及2段姚恩的全新背景故事。"
-    }
+    },
+    "de_DE": {"components": {"0": "Jans erweiterte Quest"}}
   },
   "tp2": "janquest",
   "safe": 2,

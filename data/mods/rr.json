@@ -33,7 +33,9 @@
     "es_ES": 2,
     "de_DE": 3,
     "ru_RU": 4,
-    "it_IT": 5
+    "it_IT": 5,
+    "ja_JP": 6,
+    "pl_PL": 7
   },
   "translations": {
     "en_US": {
@@ -59,7 +61,7 @@
     "fr_FR": {
       "description": "Ce mod modifie le gameplay pour Baldur's Gate 2: Throne of Bhaal et s'efforce de rapprocher les classes de roublard (bardes et voleurs) et leurs profils respectifs de leurs homologues P&P d'AD&D. Il comprend plusieurs composants qui peuvent tous être installés séparément et sont complètement indépendants les uns des autres.\nRR met à jour les compétences de combat à deux armes des voleurs et des bardes, révise/améliore leurs profils, révise leurs capacités de haut niveau, restaure les ajustements raciaux appropriés pour les capacités de voleur, ainsi que la table de progression des sorts PnP propre aux bardes.\nIl empêche les effets des potions de voleur de se cumuler avec la possibilité de les remplacer par des potions de la version papier.\nIl rend également beaucoup plus difficile l'affrontement avec la guilde des Voleurs de l'Ombre dans le chapitre 3.\nIl ajoute enfin des objets supplémentaires pour les voleurs et les bardes (dans la guilde des voleurs) ainsi qu'une rencontre avec des fidèles de Cyric dans le chapitre 6.",
       "components": {
-        "0": "Mise a jour du Combat a deux armes pour les voleurs et les bardes",
+        "0": "Mise a jour du Combat a deux armes pour les voleurs et\nles bardes",
         "1": "Revisions des kits des voleurs",
         "2": "Revisions des capacites de haut niveau du voleur",
         "3": "Ajustements raciaux propres pour les capacites de voleur",
@@ -69,7 +71,7 @@
         "7": "Equipement supplementaire pour les voleurs et les bardes",
         "8": "Equipement ameliorable",
         "choice_0": "Revisions des roublards",
-        "9": "Utiliser les potions de voleur de la version papier et empecher leurs effets de se cumuler.",
+        "9": "Utiliser les potions de voleur de la version papier et empecher leurs\neffets de se cumuler.",
         "10": "Garder les potions par defaut et empecher leurs effets de se cumuler.",
         "11": "Rencontre avec les Elus de Cyric",
         "12": "Amelioration des Voleurs de l'Ombre",
@@ -80,9 +82,13 @@
     "it_IT": {"components": {"0": "Corretta implementazione dello stile di combattimento con due armi per bardi e ladri", "1": "Revisione dei kit del ladro", "2": "Revisione delle abilita' di alto livello dei ladri", "3": "Applica i corretti modificatori razziali alle abilita' da ladro secondo le regole di AD&D", "4": "Revisione dei kit del bardo", "5": "Revisione delle abilita' di alto livello dei bardi", "6": "Corretta tabella di progressione degli incantesimi del bardo", "7": "Equipaggiamenti addizionali per bardi e ladri", "8": "Equipaggiamenti migliorabili", "choice_0": "Revisione delle abilita' di classe dei ladri", "9": "Applica le regole di AD&D alle pozioni che conferiscono bonus alle abilita' da ladro e rendine gli effetti non cumulativi", "10": "Mantieni inalterate le pozioni che conferiscono bonus alle abilita' da ladro ma rendine gli effetti non cumulativi", "11": "Incontro con i Prescelti di Cyric", "12": "Miglioramenti ai Ladri Tenebrosi", "999": "Icone stile BG2 per il contenuto RR"}},
     "zh_CN": {
       "description": "此模组修改了《博德之门2：巴尔王座》的游戏玩法，力求使盗贼类职业（吟游诗人和盗贼）及其各自的职业设定更贴近其AD&D（龙与地下城）桌面游戏的原型。它包含多个组件，所有组件均可单独安装且彼此完全独立。\nRR更新了盗贼和吟游诗人的双武器战斗技能，修正/改进了他们的职业设定，修订了他们的高级能力，恢复了盗贼能力的适当种族调整，以及吟游诗人独有的桌面游戏法术等级表。\n它防止盗贼药水效果叠加，并可以用桌面游戏版本的药水替代。\n它还使第三章与影贼公会的战斗变得更加困难。\n最后，它为盗贼和吟游诗人（在盗贼公会中）添加了额外的物品，以及在第六章增加了一场与 Cyric（塔洛斯）信徒的遭遇战。"
-    }
+    },
+    "es_ES": {"components": {"0": "Implementación correcta del estilo con dos armas para ladrones y bardos", "1": "Revisiones de kits de ladrones", "2": "Revisiones de las Habilidades de Alto nivel de ladrón", "3": "Ajustes raciales correctos para las habilidades de ladrón", "4": "Revisiones de kits de bardos", "5": "Revisiones de habilidades de alto nivel de bardos", "6": "Progresión de hechizos correcta para Bardos", "7": "Equipo adicional para ladrones y bardos", "8": "Equipo mejorable", "choice_0": "Robo revisado", "9": "Usar las pociones de robo de Rol de lápiz y papel y hacer que sus efectos no sean acumulativos", "10": "Usar las pociones de robo originales del juego y hacer que sus efectos no sean acumulativos", "11": "Encuentro del Elegido de Cyric", "12": "Mejoras de IA para los Ladrones de las Sombras de Aran", "999": "Estilo de Iconos de BG2 para el contenido de RR"}},
+    "de_DE": {"components": {"0": "Korrigierter Kampf mit zwei Waffen fuer Diebe und Barden", "1": "Ueberarbeitung der Diebesklassen", "2": "Ueberarbeitung der Hochstufigen Fertigkeiten fuer Diebe", "3": "Korrekte Rassenanpassungen der Diebesfertigkeiten", "4": "Ueberarbeitung der Bardenklassen", "5": "Ueberarbeitung der Hochstufigen Fertigkeiten fuer Barden", "6": "Korrekter Zauberfortschritt fuer Barden", "7": "Zusaetzliche Ausruestung fuer Diebe und Barden", "8": "Aufruestbare Ausruestung", "choice_0": "Ueberarbeitete Diebeskuenste", "9": "PnP Traenke der Diebeskunst benutzen und ihre Effekte nicht-kommulativ machen", "10": "Standard Traenke der Diebeskunst behalten und ihre Effekte nicht-kommulativ machen", "11": "Begegnung mit den Auserwaehlten des Cyric", "12": "Verbesserungen bei den Schattendieben", "999": "BG2-style icons for RR content"}},
+    "ja_JP": {"components": {"0": "V[tEo[hñ¬nûxüù", "1": "V[tELbgüù", "2": "V[txZ\\üù", "3": "V[tXLÌí°²®lüù", "4": "o[hELbgüù", "5": "o[hxZ\\üù", "6": "o[hô¶\\üù", "7": "V[tEo[hpõiÇÁ", "8": "õiAbvO[h", "choice_0": "Ýüù", "9": "PnPÅV[tZ\\p|[VðgpµøÊÌÝÏð~ßé", "10": "ftHgÌV[tZ\\p|[VÌÜÜÅøÊÌÝÏð~ßé", "11": "VbNÉIÎêµÒÆÌö", "12": "VhEEV[t­»", "999": "BG2-style icons for RR content"}},
+    "pl_PL": {"components": {"0": "Poprawki dla stylu walki dwiema broniami dla zlodziei i bardow", "1": "Poprawki podklas zlodziei", "2": "Poprawki zdolnosci wysokiego poziomu (HLA) zlodziei", "3": "Poprawki rasowe umiejetnosci zlodziejskich", "4": "Poprawki podklas bardow", "5": "Poprawki zdolnosci wysokiego poziomu (HLA) bardow", "6": "Poprawki tabeli czarow bardow", "7": "Dodatkowe przedmioty dla zlodziei i bardow", "8": "Ulepszenia przedmiotow", "choice_0": "Poprawki zlodziejstwa", "9": "Uzywanie mikstur zlodziejskich zgodnie z zasadami podrecznikowymi (PnP) i zapobieganie kumulowania sie ich efektow", "10": "Zachowaj domyslne zasady umiejetnosci zlodziejskich i zapobiegaj kumulowaniu sie ich efektow", "11": "Spotkanie z Wybrancami Cyrika", "12": "Usprawnienie Zlodziei Cienia", "999": "Styl ikon BG2 dla zawartosci RR"}}
   },
   "tp2": "rr",
-  "safe": 2,
+  "safe": 1,
   "authors": ["aVENGER"]
 }

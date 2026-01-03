@@ -16,6 +16,10 @@
     "0": {"type": "std"}
   },
   "languages": {
+    "es_ES": 0,
+    "en_US": 1,
+    "it_IT": 2,
+    "ru_RU": 3,
     "fr_FR": 4
   },
   "translations": {
@@ -26,11 +30,17 @@
       }
     },
     "en_US": {
-      "description": "This mod adds a merchant, Sir Renal, responsible for negotiating transactions carried out by the Order of the Radiant Heart. In addition to the usual temple services, he possesses a number of useful items for fighting the forces of evil. You'll find him in the Order's headquarters."
+      "description": "This mod adds a merchant, Sir Renal, responsible for negotiating transactions carried out by the Order of the Radiant Heart. In addition to the usual temple services, he possesses a number of useful items for fighting the forces of evil. You'll find him in the Order's headquarters.",
+      "components": {
+        "0": "Sir Renal"
+      }
     },
     "zh_CN": {
       "description": "此模组添加了一个名为罗诺尔爵士的商人，负责处理最高贵的光辉之心骑士团的交易。除了神殿的常规服务外，他还拥有一些对抗邪恶势力的有用物品。你可以在骑士团的总部找到他。"
-    }
+    },
+    "es_ES": {"components": {"0": "Renal"}},
+    "it_IT": {"components": {"0": "Sir Renal"}},
+    "ru_RU": {"components": {"0": "Sir Renal"}}
   },
   "tp2": "renal",
   "safe": 2,

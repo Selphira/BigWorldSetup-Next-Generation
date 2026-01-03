@@ -18,26 +18,35 @@
   "languages": {
     "en_US": 0,
     "zh_CN": 1,
+    "pl_PL": 2,
     "ru_RU": 3,
-    "fr_FR": 4
+    "fr_FR": 4,
+    "ko_KR": 5,
+    "it_IT": 6
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "La salon des vases : une nouvelle zone sous les bas quartiers d'Athkatla"
+        "0": "Athkatlan Grounds: The Ooze's Lounge - a new area under Athkatlan Slums"
       },
       "description": "The mod introduces a brand new part of Athkatlan sewers. You may now use the originally inactive grate in Slums to enter a locked part of the sewers and discover its dark corners. The mod offers three new areas as well as a couple of mini-quests, new items and graphics. Gather your party and visit the Ooze's Lounge, a special place with spacial wares, locked from most commoners, yet opened for adventurers like yourself, Bhaalspawn.\nTo enjoy the new content you may first need to finish an important Bridge District quest."
     },
-    "ru_RU": {"components": {"0": "La salon des vases : une nouvelle zone sous les bas quartiers d'Athkatla"}},
+    "ru_RU": {"components": {"0": "Ooze's Lounge: a new area under Athkatlan Slums"}},
     "fr_FR": {
       "description": "Ce mod ajoute une nouvelle zone dans les égouts d'Athkatla : le Salon des vases. Vous pouvez désormais utiliser la grille initialement inactive dans les bas quartiers pour entrer dans une partie verrouillée des égouts et découvrir ses endroits les plus sombres. Le mod propose trois nouvelles zones ainsi que quelques mini-quêtes, de nouveaux objets et de nouveaux graphismes. Rassemblez votre groupe et allez dans le Salon des vases, un lieu spécial avec des marchandises spéciales, inaccessible pour la plupart des gens ordinaires, mais disponible pour des aventuriers comme vous, Enfant de Bhaal.\nPour profiter de ce contenu, vous devez d'abord terminer une quête importante du Quartier du pont.",
       "components": {
-        "0": "La salon des vases : une nouvelle zone sous les bas quartiers d'Athkatla"
+        "0": "Le Salon des vases : une nouvelle zone sous les bas quartiers d'Athkatla"
       }
     },
     "zh_CN": {
-      "description": "此模组在阿斯卡特拉的下水道中添加了一个新区域：花瓶沙龙。您现在可以使用贫民区中最初无法使用的格栅，进入一个被锁定的下水道部分，并探索其中最黑暗的角落。该模组提供了三个新区域，以及一些小型任务、新物品和新图形。召集您的团队，前往花瓶沙龙，一个对大多数人来说无法进入、但对像您这样的巴尔之子来说却可以进入的特殊场所，那里有特殊的商品。\n要体验这些内容，您必须先完成大桥区的一个主要任务。"
-    }
+      "description": "此模组在阿斯卡特拉的下水道中添加了一个新区域：花瓶沙龙。您现在可以使用贫民区中最初无法使用的格栅，进入一个被锁定的下水道部分，并探索其中最黑暗的角落。该模组提供了三个新区域，以及一些小型任务、新物品和新图形。召集您的团队，前往花瓶沙龙，一个对大多数人来说无法进入、但对像您这样的巴尔之子来说却可以进入的特殊场所，那里有特殊的商品。\n要体验这些内容，您必须先完成大桥区的一个主要任务。",
+      "components": {
+        "0": "软泥会客厅：阿斯卡特拉贫民区的新地区"
+      }
+    },
+    "pl_PL": {"components": {"0": "Loza Szlamow: nowy obszar pod Slumsami Athkatli"}},
+    "ko_KR": {"components": {"0": "Ooze's Lounge: a new area under Athkatlan Slums"}},
+    "it_IT": {"components": {"0": "Luoghi di Athkatla: La Sala della Melma... la nuova area è sotto i Bassifondi di Athkatla"}}
   },
   "tp2": "ooze",
   "safe": 2,

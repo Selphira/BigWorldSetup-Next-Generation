@@ -18,7 +18,11 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "de_DE": 2,
+    "it_IT": 3,
+    "pl_PL": 4,
+    "ru_RU": 5
   },
   "translations": {
     "en_US": {
@@ -37,7 +41,11 @@
     },
     "zh_CN": {
       "description": "爱蒙在最初的博德之门中是后期加入的。不幸的是，这意味着她没有与其他角色的对话或互动。她的语音台词也很有限。这个模组通过从博德之门1和博德之门2的文件中提取，为爱蒙添加了语音台词，以及与其他可招募角色的对话。"
-    }
+    },
+    "de_DE": {"components": {"0": "Chatty Imoen: Expanded Character Sounds", "10": "Chatty Imoen: Add NPC Interactions"}},
+    "it_IT": {"components": {"0": "Imoen la Chiacchierona: Aumenta le Tracce Audio del Personaggio", "10": "Imoen la Chiacchierona: Aggiungi Interazioni con i PNG"}},
+    "pl_PL": {"components": {"0": "Rozmowna Imoen: Zwiekszona ilosc dzwiekow postaci", "10": "Rozmowna Imoen: Dodaj rozmowy pomiedzy BN"}},
+    "ru_RU": {"components": {"0": "Chatty Imoen: Expanded Character Sounds", "10": "Chatty Imoen: Add NPC Interactions"}}
   },
   "tp2": "chattyimoen",
   "safe": 2,

@@ -17,12 +17,15 @@
   },
   "languages": {
     "en_US": 0,
+    "ru_RU": 1,
+    "it_IT": 2,
+    "de_DE": 3,
     "fr_FR": 4
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Authentic mischievous Fairy Dragon"
+        "0": "Authentic mischiefous Fairy Dragon"
       },
       "description": "This mod allows you to take on a fairy dragon as your pet, which is a little stronger and, above all, closer in spirit to the original AD&D dragon: it has quite a lot of potential for pranks and tricks. You're sure to have fun, but your opponents will have much less... This pet will only appear for a good chaotic magician, if of course he doesn't already have a pet."
     },
@@ -34,7 +37,10 @@
     },
     "zh_CN": {
       "description": "此模组让你可以选择一只精良的童话龙作为你的使魔，它更接近AD&D原版的精神：它拥有相当多的恶作剧和恶作剧的潜力。你肯定会玩得很开心，而你的对手则不然……这只使魔只会为混乱善良的法师出现，当然前提是这位法师还没有使魔。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Authentic mischiefous Fairy Dragon"}},
+    "it_IT": {"components": {"0": "Il vero Drago Fatato Furbetto"}},
+    "de_DE": {"components": {"0": "Spitzbübischer Feendrache"}}
   },
   "tp2": "fairydragon",
   "safe": 2,

@@ -19,12 +19,15 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 3
+    "de_DE": 1,
+    "ru_RU": 2,
+    "fr_FR": 3,
+    "zh_CN": 4
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "Test your mettle!",
+        "0": "Test Your Mettle!",
         "choice_0": "Reduced experience for killing monsters",
         "11": "Reduce by 50%",
         "12": "Reduce by 75% (recommended)",
@@ -47,8 +50,19 @@
       }
     },
     "zh_CN": {
-      "description": "冒险始于阿斯卡特拉贫民区的位面领域，在那里你可以遇到拉沃克位面旅行的新受害者。遭遇的结果将让你进入一个为无畏冒险者量身定制的地牢。你将有机会遇到异族，发现一个阴险的阴谋，或者干脆与无穷无尽的怪物战斗。"
-    }
+      "description": "冒险始于阿斯卡特拉贫民区的位面领域，在那里你可以遇到拉沃克位面旅行的新受害者。遭遇的结果将让你进入一个为无畏冒险者量身定制的地牢。你将有机会遇到异族，发现一个阴险的阴谋，或者干脆与无穷无尽的怪物战斗。",
+      "components": {
+        "0": "勇气挑战！",
+        "choice_0": "降低杀怪经验",
+        "11": "降低50%",
+        "12": "降低75%（推荐）",
+        "13": "降低90%",
+        "14": "杀怪无经验",
+        "20": "使“空间扭曲”可在商店购买"
+      }
+    },
+    "de_DE": {"components": {"0": "Teste Deinen Mut!", "choice_0": "Erfahrungspunkte fuer besiegte Monster verringern", "11": "Um 50% verringern", "12": "Um 75% verringern (empfohlen)", "13": "Um 90% verringern", "14": "Keine Erfahrungspunkte", "20": "Den Zauber \"Raumkruemmung\" in Geschaeften anbieten"}},
+    "ru_RU": {"components": {"0": "Test Your Mettle!", "choice_0": "Reduced experience for killing monsters", "11": "Reduce by 50%", "12": "Reduce by 75% (recommended)", "13": "Reduce by 90%", "14": "No experience", "20": "Make \"Spacewarp\" available to stores"}}
   },
   "tp2": "a7-testyourmettle",
   "safe": 2,

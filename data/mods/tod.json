@@ -21,22 +21,26 @@
   "languages": {
     "en_US": 0,
     "es_ES": 1,
+    "cs_CZ": 2,
     "ru_RU": 3,
     "it_IT": 4,
     "de_DE": 5,
-    "fr_FR": 6
+    "fr_FR": 6,
+    "pl_PL": 7,
+    "zh_CN": 8
   },
   "translations": {
     "en_US": {
       "description": "It's a quest to explore a tower (new graphics according to the FAQ) that attracts some to imprison them (a bit like TotSC's ice island). It requires ToB and is aimed at characters of level 10-13, equipped with fairly powerful weapons (you need at least a pair of +3 weapons), as there are some pretty hefty monsters. To start the adventure, all you have to do is go and see the mage Tian at the Crooked Crane Inn (at the City Gates), and talk to him. He has a mission for you: to recover a book hidden in an old abandoned tower, the Tower of No Return... He's willing to pay a hefty sum for it. Will you rise to the challenge?",
       "components": {
-        "0": "Tower Of Deception Mod (Requires Throne Of Bhaal)",
+        "0": "Tower of Deception",
         "1": "Improved Astral Shard Guardian",
-        "2": "Encounter with Ustrain"
+        "2": "Encounter with Ustrain",
+        "3": "Fix Acceleration status of Warblade of Twilight."
       }
     },
-    "ru_RU": {"components": {"0": "Tower Of Deception Mod (Requires Throne Of Bhaal)", "1": "Improved Astral Shard Guardian", "2": "Encounter with Ustrain"}},
-    "it_IT": {"components": {"0": "Mod La Torre dell'Inganno (Richiede Throne Of Bhaal)", "1": "Migliorato il Guardiano del Frammento Astrale", "2": "L'incontro con Ustrain"}},
+    "ru_RU": {"components": {"0": "Tower of Deception", "1": "Improved Astral Shard Guardian", "2": "Encounter with Ustrain", "3": "Fix Acceleration status of Warblade of Twilight."}},
+    "it_IT": {"components": {"0": "La Torre dell'Inganno", "1": "Migliorato il Guardiano del Frammento Astrale", "2": "L'incontro con Ustrain", "3": "Correggi lo stato di accelerazione di La Lama del Crepuscolo."}},
     "fr_FR": {
       "description": "Il s'agit d'une quête d'exploration d'une tour (nouveaux graphiques selon la FAQ) qui attire certains pour les emprisonner (un peu comme l'île de glace de TotSC). Il nécessite ToB et s'adresse à des personnages de niveau 10-13, équipés d'armes assez puissantes (il faut avoir au moins une paire d'armes +3) car il y a quelques monstres assez costauds. Pour lancer l'aventure, il vous suffit d'aller voir le mage Tian à l'auberge du Crâne Tordu (portes de la ville), et lui parler. Il a une mission pour vous : récupérer un livre, caché dans une vieille tour abandonnée, la tour sans retour... Il est prêt à payer une grosse somme pour cela. Relèverez-vous le défi ?",
       "components": {
@@ -47,8 +51,18 @@
       }
     },
     "zh_CN": {
-      "description": "这是一个探索一座塔的任务（根据常见问题解答有新图形），它会吸引一些人将他们囚禁（有点像剑湾传奇的冰岛）。它需要巴尔王座，面向10-13级的角色，并配备相当强大的武器（至少需要一对+3武器），因为有一些相当难缠的怪物。要开始冒险，你只需要去见扭曲颅骨旅店（城门）的法师天，和他交谈。他有一个任务给你：找回一本书，它藏在一座名为“无归之塔”的废弃古塔里……他为此准备了一大笔酬金。你敢接受挑战吗？"
-    }
+      "description": "这是一个探索一座塔的任务（根据常见问题解答有新图形），它会吸引一些人将他们囚禁（有点像剑湾传奇的冰岛）。它需要巴尔王座，面向10-13级的角色，并配备相当强大的武器（至少需要一对+3武器），因为有一些相当难缠的怪物。要开始冒险，你只需要去见扭曲颅骨旅店（城门）的法师天，和他交谈。他有一个任务给你：找回一本书，它藏在一座名为“无归之塔”的废弃古塔里……他为此准备了一大笔酬金。你敢接受挑战吗？",
+      "components": {
+        "0": "欺骗之塔",
+        "1": "强化星界碎片守卫",
+        "2": "遭遇乌斯崔恩",
+        "3": "修复曙光战刃的加速状态"
+      }
+    },
+    "es_ES": {"components": {"0": "Torre del engaño", "1": "Guardián del Fragmento Astral Mejorado", "2": "Encuentro con Ustrain", "3": "Arreglar estado de aceleración de Filo guerrero del Crepúsculo."}},
+    "cs_CZ": {"components": {"0": "Vez Klamu", "1": "Vylepseny Strazce Strepu hvezdy", "2": "Setkani s Ustrainem", "3": "Oprava stavu zrychlení Válečná čepel soumraku."}},
+    "de_DE": {"components": {"0": "Der Turm der Täuschung", "1": "Verbesserter Wächter des Astralsplitters", "2": "Begegnung mit Ustrain", "3": "Beschleunigungsstatus von Kriegsklinge des Zwielichts reparieren."}},
+    "pl_PL": {"components": {"0": "Wieża Oszustw", "1": "Ulepszony Strażnik Astralnego Kryształu", "2": "Spotkanie z Ustrainem", "3": "Popraw status Akceleracji Ostrza Zmierzchu."}}
   },
   "tp2": "tod",
   "safe": 2,

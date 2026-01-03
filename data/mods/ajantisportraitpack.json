@@ -16,7 +16,9 @@
     "choice_0": {"type": "muc", "components": ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"], "default": "10"}
   },
   "languages": {
-    "fr_FR": 1
+    "en_US": 0,
+    "fr_FR": 1,
+    "de_DE": 2
   },
   "translations": {
     "fr_FR": {
@@ -37,11 +39,26 @@
       }
     },
     "en_US": {
-      "description": "The mod adds new portraits of Ajantis created by members of the community."
+      "description": "The mod adds new portraits of Ajantis created by members of the community.",
+      "components": {
+        "choice_0": "Install custom portrait for Ajantis",
+        "10": "Portrait  1 by Amaurea: Heath Ledger as Ajantis (first version)",
+        "11": "Portrait  2 by Amaurea: Heath Ledger as Ajantis (final version)",
+        "12": "Portrait  3 by berelinde (short haired portrait)",
+        "13": "Portrait  4 by berelinde (long haired portrait)",
+        "14": "Portrait  5 by Azguz aka Azze",
+        "15": "Portrait  6 by wonnimchunha",
+        "16": "Portrait  7 by Senka (younger default portrait)",
+        "17": "Portrait  8 by Catlepha (front faced portrait)",
+        "18": "Portrait  9 by Catlepha (side faced portrait)",
+        "19": "Portrait 10 by Casul",
+        "20": "Portrait 11 by Miloch (default portrait with red tunic)"
+      }
     },
     "zh_CN": {
       "description": "该模组为阿詹提斯添加了由社区成员创作的新肖像。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "Installiert ein alternatives Portrait für Ajantis", "10": "Portrait  1 von Amaurea: Heath Ledger als Ajantis (erste Version)", "11": "Portrait  2 von Amaurea: Heath Ledger als Ajantis (finale Version)", "12": "Portrait  3 von berelinde (kurzhaariges Portrait)", "13": "Portrait  4 von berelinde (langhaariges Portrait)", "14": "Portrait  5 von Azguz aka Azze", "15": "Portrait  6 von wonnimchunha", "16": "Portrait  7 von Senka (juengeres Defaultportrait)", "17": "Portrait  8 von Catlepha (Frontportrait)", "18": "Portrait  9 von Catlepha (Seitenportrait)", "19": "Portrait 10 von Casul", "20": "Portrait 11 von Miloch (Default Portrait mit rotem Stoff)"}}
   },
   "tp2": "ajantisportraitpack",
   "safe": 2,

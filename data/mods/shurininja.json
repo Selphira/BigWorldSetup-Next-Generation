@@ -33,7 +33,7 @@
       "description": "Ce mod ajoute un nouveau profil de voleur dans le jeu, le shuri ninja, et offre deux nouveaux composants pour les jeux EE.",
       "components": {
         "choice_0": "Profil de Shuri Ninja",
-        "10": "Profil de Shuri Ninja original",
+        "10": "Profil de Shuri Ninja (original)",
         "20": "Profil de Shuri Ninja limite aux armures de cuir (seulement pour EE)",
         "30": "Profil de Shuri Ninja sans armure (seulement pour EE)"
       }

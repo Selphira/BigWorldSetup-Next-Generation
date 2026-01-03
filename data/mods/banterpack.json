@@ -23,6 +23,7 @@
     "es_ES": 1,
     "de_DE": 2,
     "fr_FR": 3,
+    "pl_PL": 4,
     "it_IT": 5,
     "ru_RU": 6,
     "ko_KR": 7,
@@ -33,26 +34,35 @@
       "description": "Looking for new dialogs and interactions to add depth to your game? This mod is for you. New stories from Jan, new jabs from Imoen and an even more cynical Edwin - it's all good stuff.",
       "components": {
         "0": "Pocket Plane Banter Pack for BG2: Shadows of Amn",
-        "1": "Install SOA Banter Accelerator script? (Increases the frequency of interparty banter)",
+        "1": "Install SOA Banter Accelerator script?\n(Increases the frequency of interparty banter)",
         "2": "Pocket Plane Banter Pack for BG2: Throne of Bhaal",
-        "3": "Install TOB Banter Accelerator script? (Increases the frequency of interparty banter)"
+        "3": "Install TOB Banter Accelerator script?\n(Increases the frequency of interparty banter)"
       }
     },
     "fr_FR": {
       "description": "Envie de nouveaux dialogues et interactions rajoutant davantage de profondeur au jeu ? Ce mod est fait pour vous. De nouvelles histoires de Jan, de nouvelles piques d'Imoen et un Edwin encore plus cynique, bref que du bonheur.",
       "components": {
-        "0": "Pocket Plane Banter Pack for BG2: Shadows of Amn",
-        "1": "Installer le script accelerateur de dialogues de SoA ? (augmente la frequence des dialogues a l'interieur du groupe)",
+        "0": "Pack de Dialogues du Pocket Plane Group pour BG2 : SoA",
+        "1": "Installer le script accelerateur de dialogues de SoA ?\n(augmente la frequence des dialogues a l'interieur du groupe)",
         "2": "Pack de Dialogues du Pocket Plane Group pour BG2 : ToB",
-        "3": "Installer le script accelerateur de dialogues de ToB ? (augmente la frequence des dialogues a l'interieur du groupe)"
+        "3": "Installer le script accelerateur de dialogues de ToB ?\n(augmente la frequence des dialogues a l'interieur du groupe)"
       }
     },
-    "it_IT": {"components": {"0": "Pocket Plane Banter Pack per BG2: Shadows of Amn", "1": "Installare lo script per l'Acceleratore di Battute per SOA? (Aumenta la frequenza delle battute fra i componenti del gruppo)", "2": "Pocket Plane Banter Pack per BG2: Throne of Bhaal", "3": "Installate lo script per l'Acceleratore di Battute per TOB? (Aumenta la frequenza delle battute fra i componenti del gruppo)"}},
-    "ru_RU": {"components": {"0": "Pocket Plane Banter Pack for BG2: Shadows of Amn", "1": "Install SOA Banter Accelerator script? (Increases the frequency of interparty banter)", "2": "Pocket Plane Banter Pack for BG2: Throne of Bhaal", "3": "Install TOB Banter Accelerator script? (Increases the frequency of interparty banter)"}},
-    "ko_KR": {"components": {"0": "Pocket Plane Banter Pack for BG2: Shadows of Amn", "1": "Install SOA Banter Accelerator script? (Increases the frequency of interparty banter)", "2": "Pocket Plane Banter Pack for BG2: Throne of Bhaal", "3": "Install TOB Banter Accelerator script? (Increases the frequency of interparty banter)"}},
+    "it_IT": {"components": {"0": "Pocket Plane Banter Pack per BG2: Shadows of Amn", "1": "Installare lo script per l'Acceleratore di Battute per SOA?\n(Aumenta la frequenza delle battute fra i componenti del gruppo)", "2": "Pocket Plane Banter Pack per BG2: Throne of Bhaal", "3": "Installate lo script per l'Acceleratore di Battute per TOB?\n(Aumenta la frequenza delle battute fra i componenti del gruppo)"}},
+    "ru_RU": {"components": {"0": "Pocket Plane Banter Pack for BG2: Shadows of Amn", "1": "Install SOA Banter Accelerator script?\n(Increases the frequency of interparty banter)", "2": "Pocket Plane Banter Pack for BG2: Throne of Bhaal", "3": "Install TOB Banter Accelerator script?\n(Increases the frequency of interparty banter)"}},
+    "ko_KR": {"components": {"0": "BG2: ¾ÚÀÇ ±×¸²ÀÚ Æí Æ÷ÄÏ ÇÃ·¹ÀÎ ¹êÅÍÆÑ", "1": "SOA ¹êÅÍ °¡¼Ó ½ºÅ©¸³Æ®¸¦ ¼³Ä¡ÇÕ´Ï±î?\n(ÆÄÆ¼¿ø °£ÀÇ ¹êÅÍ ºóµµ Áõ°¡)", "2": "BG2: ¹Ù¾ËÀÇ ¿ÕÁÂ Æí Æ÷ÄÏ ÇÃ·¹ÀÎ ¹êÅÍÆÑ", "3": "TOB ¹êÅÍ °¡¼Ó ½ºÅ©¸³Æ®¸¦ ¼³Ä¡ÇÕ´Ï±î?\n(ÆÄÆ¼¿ø °£ÀÇ ¹êÅÍ ºóµµ Áõ°¡)"}},
     "zh_CN": {
-      "description": "想要为游戏增添新的对话和互动，增加游戏深度吗？这个模组就是为您准备的。有关于姚恩的新故事，爱蒙的新嘲讽，以及一个更加愤世嫉俗的艾德温，总而言之，全是美好的体验。"
-    }
+      "description": "想要为游戏增添新的对话和互动，增加游戏深度吗？这个模组就是为您准备的。有关于姚恩的新故事，爱蒙的新嘲讽，以及一个更加愤世嫉俗的艾德温，总而言之，全是美好的体验。",
+      "components": {
+        "0": "°²Ä·ÒõÓ°²å»°°ü",
+        "1": "°²×°°²Ä·ÒõÓ°²å»°ÌáËÙ½Å±¾£¿",
+        "2": "°Í¶ûÍõ×ù²å»°°ü",
+        "3": "°²×°°Í¶ûÍõ×ù²å»°ÌáËÙ½Å±¾£¿"
+      }
+    },
+    "es_ES": {"components": {"0": "Packs de Banters de Pocket Plane para BG2: Shadows of Amn", "1": "Instalar el script acelerador de banters de SOA?\n(Aumenta la frecuencia de los banters)", "2": "Pack de Banters de Pocket Plane para BG2: Throne of Bhaal", "3": "¿Instalar el script acelerador de banters para TOB?\n(Incrementa la frecuencia de las conversaciones entre el grupo)"}},
+    "de_DE": {"components": {"0": "Pocket Plane Banter Pack für BG2: Schatten von Amn", "1": "Banter-Beschleuniger-Skript für SvA installieren?\n(Verringert den Abstand zwischen Unterhaltungen innerhalb der Gruppe.)", "2": "Pocket Plane Banter Pack für BG2: Thron des Bhaal", "3": "Banter-Beschleuniger-Skript für TdB installieren?\n(Verringert den Abstand zwischen Unterhaltungen innerhalb der Gruppe.)"}},
+    "pl_PL": {"components": {"0": "Dodatkowe Interakcje dla BG2: Cienie Amn", "1": "Zainstalowac skrypt przyspieszajacy bantery w SOA?\n(zwieksza czestosc interakcji miedzy postaciami)", "2": "Dodatkowe Interakcje dla BG2: Tron Bhaala", "3": "Zainstalowac skrypt przyspieszajacy bantery w TOB?\n(zwieksza czestosc interakcji miedzy postaciami)"}}
   },
   "tp2": "banterpack",
   "safe": 2,

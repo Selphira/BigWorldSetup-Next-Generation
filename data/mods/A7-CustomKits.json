@@ -17,6 +17,7 @@
   },
   "languages": {
     "en_US": 0,
+    "de_DE": 1,
     "fr_FR": 2
   },
   "translations": {
@@ -38,7 +39,8 @@
     },
     "zh_CN": {
       "description": "此模组增加了一个战士宗派：剑刃法师，他可以召唤一把精神之剑，在战斗中与他并肩作战一回合。在高等级时，他还可以在短时间内分身，有点类似一个幻象体。"
-    }
+    },
+    "de_DE": {"components": {"choice_0": "Schwertmagier Kit", "0": "Abgeschwaechte Version", "1": "Originale Version"}}
   },
   "tp2": "a7-customkits",
   "safe": 2,

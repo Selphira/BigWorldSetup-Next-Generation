@@ -27,7 +27,10 @@
       }
     },
     "en_US": {
-      "description": "This mod adds an anachronistic merchant who sells more than 200 Morrowind and Arcanum items. Note: as the mod's raison d'être is to anachronistically offer all items from other games, it makes no distinction between useless, balanced and overpowered items. Install it with full knowledge of the facts. If you're looking for balanced items, check out L'interplan."
+      "description": "This mod adds an anachronistic merchant who sells more than 200 Morrowind and Arcanum items. Note: as the mod's raison d'être is to anachronistically offer all items from other games, it makes no distinction between useless, balanced and overpowered items. Install it with full knowledge of the facts. If you're looking for balanced items, check out L'interplan.",
+      "components": {
+        "0": "Todd the super tester guy"
+      }
     },
     "zh_CN": {
       "description": "此模组添加了一个时代错位的商人，他出售超过200件来自《晨风》和《奥秘》的物品。他会在不同的游戏地点等待冒险者。\n注意：由于该模组的目的时代错位地提供来自其他游戏的所有物品，它不会对无用物品、平衡物品和超强力物品进行区分。请在知情的情况下安装它。如果你寻找的是平衡物品，最好看看L'interplan。"

@@ -40,7 +40,9 @@
     "ru_RU": {"components": {"0": "The Slithering Menace (for BGII:ToB only)"}},
     "zh_CN": {
       "description": "此模组在巴尔王座中添加了一个短任务。具体来说，在你复活沙洛佛克后，此任务会在巴尔的门厅触发。要开启任务，爱蒙必须在你的队伍中。确实，正是你那个调皮的妹妹会通过犯下一个蠢事来触发它。你将获得一场战斗，以及一个作为奖励的全新魔法物品。"
-    }
+    },
+    "de_DE": {"components": {"0": "Die schlüpfrige Bedrohung (nur für BGII:TdB)"}},
+    "es_ES": {"components": {"0": "La Amenaza Deslizante (solo para BGII:ToB)"}}
   },
   "tp2": "snakes",
   "safe": 2,
