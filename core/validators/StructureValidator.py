@@ -20,7 +20,6 @@ class StructureValidator:
 
     # Possible TP2 locations in order of preference and reliability
     TP2_SEARCH_PATTERNS: list[str] = [
-        "{game_dir}/setup-{tp2}.exe",  # Most common: setup executable
         "{game_dir}/{tp2}.tp2",  # Rare: TP2 in root
         "{game_dir}/setup-{tp2}.tp2",  # Alternative: setup TP2 in root
         "{game_dir}/{tp2}/{tp2}.tp2",  # Standard: TP2 in mod folder
