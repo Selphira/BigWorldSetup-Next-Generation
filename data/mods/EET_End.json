@@ -7,7 +7,6 @@
   "games": ["eet"],
   "categories": ["conv"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"]}}},
     "choice_0": {"type": "muc", "components": ["1", "2"]}
   },
   "languages": {
