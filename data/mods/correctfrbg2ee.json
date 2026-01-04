@@ -1,14 +1,14 @@
 {
   "name": "Correction de la traduction de Baldur's Gate II : Enhanced Edition",
-  "version": "0.23",
+  "version": "0.24",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33428",
-    "download": "https://github.com/r-e-d/correctfrBG2EE/releases/download/0.23/correctfrbg2ee-0.23.zip"
+    "download": "https://github.com/r-e-d/correctfrBG2EE/releases/download/0.24/correctfrbg2ee-0.24.zip"
   },
   "file": {
-    "filename": "correctfrbg2ee-0.23.zip",
-    "size": 404284376,
-    "sha256": "0eaa0cf33348a4575ec73df9ea4693f2ec3291b1f435bc8eb7910423da0ea4d4"
+    "filename": "correctfrbg2ee-0.24.zip",
+    "size": 405461282,
+    "sha256": "f878887ab968d34dbb0464a50a354874d19ccdcabc0e44e9e80556f649e3d288"
   },
   "games": ["bg2ee", "eet"],
   "categories": ["patch"],
