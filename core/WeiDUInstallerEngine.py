@@ -452,7 +452,7 @@ class WeiDUInstallerEngine:
             strings = {}
             for key, ref_id in WEIDU_TRANSLATION_KEYS.items():
                 if ref_id.startswith("@"):
-                    translated = translations.get(ref_id, DEFAULT_STRINGS[key])
+                    translated = translations.get(ref_id.lstrip("@"), DEFAULT_STRINGS[key])
                     strings[key] = translated
                 else:
                     strings[key] = DEFAULT_STRINGS[key]
