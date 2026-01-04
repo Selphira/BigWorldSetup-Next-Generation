@@ -392,7 +392,7 @@ class MultiSelectComboBox(QComboBox):
         Returns:
             Suggested size for the widget
         """
-        selected_count = len(self.selected_keys())S
+        selected_count = len(self.selected_keys())
         content_width = self._icon_size * selected_count + 4 * (selected_count - 1) + 20
 
         height = super().sizeHint().height()
