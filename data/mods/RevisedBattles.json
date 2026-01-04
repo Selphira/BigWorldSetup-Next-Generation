@@ -1,14 +1,14 @@
 {
   "name": "Revised Battles",
-  "version": "6.5.1",
+  "version": "6.6",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/655-revised-battles-v63/",
-    "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/V6.5.1/win-RevisedBattles-v6.5.1.zip"
+    "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip"
   },
   "file": {
-    "filename": "win-RevisedBattles-v6.5.1.zip",
-    "size": 2832765,
-    "sha256": "a2a061cd4a7f00c44b4ba099f9f9230332fa63a5dcf84da8f0d342712f48ab6c"
+    "filename": "win-RevisedBattles-v6.6.zip",
+    "size": 2837040,
+    "sha256": "4a6e33cfe5a405ecb22a27a4fd637c3e0af360069fdf7974ca7b50bb871eb310"
   },
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["tactic", "kit"],
