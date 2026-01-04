@@ -1,14 +1,14 @@
 {
   "name": "Oops le magicien",
-  "version": "4.2",
+  "version": "4.4.1",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/89314/mod-oops-the-magician/p1",
-    "download": "https://github.com/Deratiseur/Oops/releases/download/v4.2/win-Derats_Oops-v4.2.zip"
+    "download": "https://github.com/Deratiseur/Oops/releases/download/v4.4.1/win-Derats_Oops-v4.4.1.zip"
   },
   "file": {
-    "filename": "win-Derats_Oops-v4.2.zip",
-    "size": 2093185,
-    "sha256": "f69d6c6bb3764fb68ec4fc639ce5ff631b0ab86a4b226e77ae0f2b34c9c7f864"
+    "filename": "win-Derats_Oops-v4.4.1.zip",
+    "size": 2093459,
+    "sha256": "0b49fb62d5135486ee2357a8a58798ae8dff81c2eddab8ac99211f464932076d"
   },
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith", "gameplay"],
