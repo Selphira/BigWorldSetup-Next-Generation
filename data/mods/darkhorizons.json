@@ -1,14 +1,14 @@
 {
   "name": "Dark Horizons",
-  "version": "3.02",
+  "version": "3.05",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1",
-    "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.02/dark-horizons-3.02.zip"
+    "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/win-Dark.Horizons-v3.05.zip"
   },
   "file": {
-    "filename": "dark-horizons-3.02.zip",
-    "size": 48372870,
-    "sha256": "3f913a1d11d2375255466b17dcbdf650830b5ae1f966942177ae47becec268dc"
+    "filename": "win-Dark.Horizons-v3.05.zip",
+    "size": 48531964,
+    "sha256": "446d19c8feaa0df4550b975d5fc5223bd01a61b9e0ef1ce40021f3cfb080a844"
   },
   "games": ["bg", "tutu", "bg2", "bgt", "bgee", "sod", "bg2ee", "eet"],
   "categories": ["quest"],
