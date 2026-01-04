@@ -1,14 +1,14 @@
 {
   "name": "SubtleD's Item Tweaks",
-  "version": "1.3.4",
+  "version": "1.4.1",
   "links": {
     "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks",
-    "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.3.4.zip"
+    "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.4.1.zip"
   },
   "file": {
-    "filename": "SubtleD_Item_Tweaks-1.3.4.zip",
-    "size": 1769959,
-    "sha256": "b7ff23fd5999a48e5c6f7fdd7576b17c912a1f34abebedd02150e0e11ba525bf"
+    "filename": "SubtleD_Item_Tweaks-1.4.1.zip",
+    "size": 2048857,
+    "sha256": "957b47e69bd5145845adae7840dc49a966f8c04fef743ab6563cb74c2247be33"
   },
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
@@ -27,7 +27,9 @@
     "choice_1": {"type": "muc", "components": ["1051", "1052"], "category": "spell", "default": "152"},
     "1055": {"type": "std", "category": "spell"},
     "1060": {"type": "std", "category": "spell"},
+    "1065": {"type": "std"},
     "1070": {"type": "std", "category": "spell"},
+    "1075": {"type": "std"},
     "1080": {"type": "std", "category": "spell"},
     "choice_2": {"type": "muc", "components": ["1091", "1092", "1093"], "category": "spell", "default": "1051"},
     "1100": {"type": "std", "category": "spell"},
@@ -60,7 +62,9 @@
         "1052": "...Protection plus longue",
         "1055": "Protection contre la peur permanente sur la Broche des braves",
         "1060": "Modifier la Cape de gargouille pour appliquer un effet de Peau de pierre au lieu d'un bonus a la classe d’armure",
+        "1065": "Let the Ring or Air Control Cast Gust of Wind",
         "1070": "Rendre les marteaux de jet nains utilisables par les non-nains",
+        "1075": "Make the Martial Staff Grant +APR",
         "1080": "Ameliorer la Harpe d'Azlaer et la Harpe de Methild",
         "choice_2": "Degrader l'amulette d'Edwin",
         "1091": "Un seul emplacement de sort bonus par niveau de sorts",
@@ -94,7 +98,9 @@
         "1052": "...Longer Protection",
         "1055": "Permanent Fear Protection for the Badge of the Brave",
         "1060": "Make the Gargoyle Cloak Apply Stoneskin Instead of an AC Bonus",
+        "1065": "Let the Ring or Air Control Cast Gust of Wind",
         "1070": "Make the Dwarven Thrower Hammer Usable by Non-Dwarves",
+        "1075": "Make the Martial Staff Grant +APR",
         "1080": "Improve Azlaer's Harp and Methild's Harp",
         "choice_2": "Nerf Edwin's Amulet",
         "1091": "Only +1 Bonus Slot per Spell Level",
