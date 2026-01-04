@@ -1,14 +1,14 @@
 {
   "name": "The Chaos Sorcerer: A Wild Magic Kit for Sorcerers",
-  "version": "2.10",
+  "version": "2.11",
   "links": {
     "homepage": "http://www.shsforums.net/topic/59482-mod-the-chaos-sorcerer-a-wild-magic-kit-for-sorcerers/",
-    "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.10/win-A7-ChaosSorcerer-v2.10.zip"
+    "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip"
   },
   "file": {
-    "filename": "win-A7-ChaosSorcerer-v2.10.zip",
-    "size": 3025752,
-    "sha256": "d682f4674ca4b76066ab37d2affe307ddd7ec2a9bc6c963fd57798ee7891783e"
+    "filename": "win-A7-ChaosSorcerer-v2.11.zip",
+    "size": 3032723,
+    "sha256": "ed3c7e95dfd00e68faac9f7a7452ac6afd8eee55a9c72e132fb4398998ff852f"
   },
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
