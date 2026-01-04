@@ -1,14 +1,14 @@
 {
   "name": "Wares of the Planes",
-  "version": "1.4",
+  "version": "2.0",
   "links": {
     "homepage": "https://github.com/Argent77/A7-WaresOfThePlanes",
-    "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v1.4/win-A7-WaresOfThePlanes-v1.4.zip"
+    "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.0/win-A7-WaresOfThePlanes-v2.0.zip"
   },
   "file": {
-    "filename": "win-A7-WaresOfThePlanes-v1.4.zip",
-    "size": 6842524,
-    "sha256": "76ad50cdfa723f811eeb651d47d0d26854fcbc77efddc9f59b847f73c62ccdb9"
+    "filename": "win-A7-WaresOfThePlanes-v2.0.zip",
+    "size": 8758841,
+    "sha256": "5adc5099b1dac0ebc63891d87e2e89729c23119e148a814ef0ca9833f9f9fd70"
   },
   "games": ["bgee", "sod", "bg2ee", "eet"],
   "categories": ["smith"],
