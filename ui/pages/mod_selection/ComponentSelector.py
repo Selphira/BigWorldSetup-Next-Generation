@@ -668,15 +668,13 @@ class ComponentSelector(QTreeView):
             checkbox_zone = rect.left() + 35
 
             if click_pos.x() <= checkbox_zone:
-                was_checked = item.checkState() != Qt.CheckState.Checked
+                old_state = item.checkState()
                 success = self._controller.toggle(item.reference)
 
                 if not success:
                     self._model.blockSignals(True)
                     try:
-                        item.setCheckState(
-                            Qt.CheckState.Checked if was_checked else Qt.CheckState.Unchecked
-                        )
+                        item.setCheckState(old_state)
                     finally:
                         self._model.blockSignals(False)
 

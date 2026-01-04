@@ -43,15 +43,17 @@ class SelectionController(QObject):
         forced = game.get_forced_components()
         for ref_str in forced:
             reference = ComponentReference.from_string(ref_str)
+            current = reference
+            while current:
+                item = self._indexes.get_tree_item(current)
+                if item:
+                    flags = item.flags()
+                    flags &= ~Qt.ItemFlag.ItemIsUserCheckable
+                    item.setFlags(flags)
+                    logger.debug(f"Disabled checkbox for: {current}")
 
+                current = self._indexes.get_parent(current)
             self.select(reference, cascade=True, emit_validation=False)
-
-            # Disable checkbox for forced components
-            item = self._indexes.get_tree_item(reference)
-            if item:
-                flags = item.flags()
-                flags &= ~Qt.ItemFlag.ItemIsUserCheckable
-                item.setFlags(flags)
 
         if forced:
             self.validation_needed.emit()
@@ -114,8 +116,8 @@ class SelectionController(QObject):
         if not self._indexes.is_selected(reference):
             return True
 
-        if self._is_forced_component(reference):
-            logger.debug(f"Cannot unselect {reference}: forced")
+        if self._has_forced_descendants(reference):
+            logger.debug(f"Cannot unselect {reference}: has forced descendants")
             return False
 
         if not from_parent and self._is_sub_prompt_with_active_parent(reference):
@@ -125,13 +127,6 @@ class SelectionController(QObject):
         if cascade and not from_parent and self._is_last_option_in_group(reference):
             logger.debug(f"Cannot unselect {reference}: last option")
             return False
-
-        # Special case: Mod with forced children - unselect only non-forced
-        if reference.is_mod() and self._has_forced_children(reference):
-            self._unselect_non_forced_children_only(reference)
-            if emit_validation and self._cascade_depth == 0:
-                self.validation_needed.emit()
-            return True
 
         self._indexes.unselect(reference)
         logger.debug(f"Unselected: {reference}")
@@ -258,7 +253,7 @@ class SelectionController(QObject):
         siblings = self._indexes.get_siblings(reference)
 
         if not any(self._indexes.is_selected(s) for s in siblings):
-            if self._indexes.is_selected(parent) and not self._is_forced_component(parent):
+            if self._indexes.is_selected(parent) and not self._has_forced_descendants(parent):
                 self._indexes.unselect(parent)
                 logger.debug(f"  Parent auto-unselected: {parent}")
                 self.selection_changed.emit(parent, False)
@@ -279,11 +274,23 @@ class SelectionController(QObject):
         return component.supports_game(self._game.id)
 
     def _is_forced_component(self, reference: ComponentReference) -> bool:
-        """Check if forced by game."""
+        """Check if component itself is forced by game."""
         if not self._game:
             return False
         forced = self._game.get_forced_components()
         return str(reference) in forced
+
+    def _has_forced_descendants(self, reference: ComponentReference) -> bool:
+        """Check if reference or any of its descendants is forced."""
+        if self._is_forced_component(reference):
+            return True
+
+        children = self._indexes.get_children(reference)
+        for child in children:
+            if self._has_forced_descendants(child):
+                return True
+
+        return False
 
     def _is_visible(self, reference: ComponentReference) -> bool:
         """Check if visible through proxy filter."""
@@ -335,17 +342,6 @@ class SelectionController(QObject):
         siblings = self._indexes.get_siblings(reference)
         return not any(self._indexes.is_selected(s) for s in siblings)
 
-    def _has_forced_children(self, reference: ComponentReference) -> bool:
-        """Check if has forced children."""
-        children = self._indexes.get_children(reference)
-        return any(self._is_forced_component(c) for c in children)
-
-    def _unselect_non_forced_children_only(self, reference: ComponentReference) -> None:
-        """Unselect non-forced children only."""
-        for child in self._indexes.get_children(reference):
-            if not self._is_forced_component(child):
-                self.unselect(child, cascade=True, emit_validation=False)
-
     def _find_default_child(
         self, children: list[ComponentReference]
     ) -> ComponentReference | None:
@@ -384,7 +380,7 @@ class SelectionController(QObject):
 
         try:
             for ref in list(self._indexes.selection_index):
-                if not self._is_forced_component(ref):
+                if not self._has_forced_descendants(ref):
                     if self.unselect(ref, cascade=True, emit_validation=False):
                         unselected.append(ref)
         finally:
