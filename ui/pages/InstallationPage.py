@@ -495,12 +495,16 @@ class InstallationPage(BasePage):
 
         self._progress_bar.setValue(components_done_in_sequence)
 
+        languages_order = self.state_manager.get_languages_order()
+        languages = self.state_manager.get_page_option(
+            "mod_selection", "selected_languages", []
+        )
         # Create worker for this sequence
         self._worker = InstallationWorker(
             engine=self._engine,
             batches=self._batches,
             start_index=self._start_batch_index,
-            languages_order=self.state_manager.get_languages_order(),
+            languages_order=[language for language in languages_order if language in languages],
             mod_manager=self._mod_manager,
             pause_on_error=self._pause_on_error,
             pause_on_warning=self._pause_on_warning,
