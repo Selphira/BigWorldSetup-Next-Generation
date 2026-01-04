@@ -1,14 +1,14 @@
 {
   "name": "Bubb's Auto Loot",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "links": {
     "homepage": "https://github.com/LCA-EET/AutoLoot",
-    "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.2.5/AutoLoot.zip"
+    "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.2.6/AutoLoot.zip"
   },
   "file": {
     "filename": "AutoLoot.zip",
-    "size": 1273388,
-    "sha256": "77db4a1f8c00c39331f0c6cd9d6ef4dcd35180f0d806066cd0d8a8ea18e0b69a"
+    "size": 1274573,
+    "sha256": "a5f11dbf5eb485e355095007780db773286a911cf01c8231d3d2fcaf2fd329e5"
   },
   "games": ["bgee", "sod", "bg2ee", "eet"],
   "categories": ["gameplay"],
@@ -17,7 +17,7 @@
   },
   "languages": {
     "en_US": 0,
-    "all": 0
+    "es_ES": 1
   },
   "translations": {
     "en_US": {
@@ -31,7 +31,8 @@
     },
     "zh_CN": {
       "description": "此模组旨在方便拾取战利品，以减少玩家遗漏并遗留在地上的物品数量，特别是小堆的金币。你可以根据关键物品、武器附魔等级、金币、价格和单价来自动过滤拾取。目前，自动拾取仅针对地面上的物品。"
-    }
+    },
+    "es_ES": {"components": {"0": "Bubb's Auto Loot para los juegos Baldur's Gate Enhanced Edition."}}
   },
   "tp2": "autoloot",
   "safe": 2,
