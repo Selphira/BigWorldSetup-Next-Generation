@@ -199,19 +199,12 @@ class MultiSelectComboBox(QComboBox):
     # -------------------------------------------------------------------------
 
     def selected_keys(self) -> list[str]:
-        """
-        Get the list of selected item keys.
-
-        Returns:
-            List of selected keys
-        """
-        keys = []
-        for row in range(self.model().rowCount()):
-            item = self.model().item(row)
-            if item.checkState() == Qt.CheckState.Checked:
-                keys.append(item.data(Qt.ItemDataRole.UserRole))
-        print(f"selected keys: {keys}")
-        return keys
+        """Get the list of selected item keys."""
+        return [
+            item.data(Qt.ItemDataRole.UserRole)
+            for item in self._iter_items()
+            if item.checkState() == Qt.CheckState.Checked
+        ]
 
     def set_selected_keys(self, keys: list[str]) -> None:
         """
@@ -223,21 +216,22 @@ class MultiSelectComboBox(QComboBox):
         Args:
             keys: List of keys to select (enforces minimum selection)
         """
-        if not keys:
-            # Ensure at least one item is selected
-            if self.model().rowCount() == 0:
-                logger.warning("Cannot set selection: no items available")
-                return
+        if not keys and self.model().rowCount():
             keys = [self.model().item(0).data(Qt.ItemDataRole.UserRole)]
+
+        if not keys:
+            return
 
         self._updating_selection = True
         self.model().blockSignals(True)
 
-        for row in range(self.model().rowCount()):
-            item = self.model().item(row)
-            key = item.data(Qt.ItemDataRole.UserRole)
-            check_state = Qt.CheckState.Checked if key in keys else Qt.CheckState.Unchecked
-            item.setCheckState(check_state)
+        key_set = set(keys)
+        for item in self._iter_items():
+            item.setCheckState(
+                Qt.CheckState.Checked
+                if item.data(Qt.ItemDataRole.UserRole) in key_set
+                else Qt.CheckState.Unchecked
+            )
 
         self.model().blockSignals(False)
         self._updating_selection = False
@@ -251,21 +245,16 @@ class MultiSelectComboBox(QComboBox):
 
         Ensures at least one item remains selected.
         """
-        if self.model().rowCount() == 0:
-            logger.warning("Cannot clear selection: no items available")
-            return
-
-        for row in range(self.model().rowCount()):
-            item = self.model().item(row)
-            check_state = Qt.CheckState.Checked if row == 0 else Qt.CheckState.Unchecked
-            item.setCheckState(check_state)
-
-        self._update_preview()
-        logger.debug("Selection cleared, first item kept selected")
+        if self.model().rowCount():
+            self.set_selected_keys([self.model().item(0).data(Qt.ItemDataRole.UserRole)])
 
     # -------------------------------------------------------------------------
     # Private - Item interaction
     # -------------------------------------------------------------------------
+
+    def _iter_items(self):
+        for row in range(self.model().rowCount()):
+            yield self.model().item(row)
 
     def _on_item_pressed(self, index) -> None:
         """
@@ -281,14 +270,12 @@ class MultiSelectComboBox(QComboBox):
             return
 
         # Check if trying to deselect the last item
-        if item.checkState() == Qt.CheckState.Checked:
-            selected_count = self._count_selected_items()
-
-            if selected_count <= self._min_selection_count:
-                # Prevent deselection of last item
-                self.showPopup()
-                logger.debug("Prevented deselection of last item")
-                return
+        if (
+            item.checkState() == Qt.CheckState.Checked
+            and self._count_selected_items() <= self._min_selection_count
+        ):
+            self.showPopup()
+            return
 
         self.model().blockSignals(True)
         new_state = (
@@ -333,17 +320,8 @@ class MultiSelectComboBox(QComboBox):
         self.selection_changed.emit(self.selected_keys())
 
     def _count_selected_items(self) -> int:
-        """
-        Count the number of selected items.
-
-        Returns:
-            Number of checked items
-        """
-        return sum(
-            1
-            for row in range(self.model().rowCount())
-            if self.model().item(row).checkState() == Qt.CheckState.Checked
-        )
+        """Count the number of selected items."""
+        return sum(item.checkState() == Qt.CheckState.Checked for item in self._iter_items())
 
     # -------------------------------------------------------------------------
     # Private - Preview display
@@ -414,9 +392,7 @@ class MultiSelectComboBox(QComboBox):
         Returns:
             Suggested size for the widget
         """
-        selected_count = len(self.selected_keys())
-
-        # Width based on icons and spacing
+        selected_count = len(self.selected_keys())S
         content_width = self._icon_size * selected_count + 4 * (selected_count - 1) + 20
 
         height = super().sizeHint().height()
