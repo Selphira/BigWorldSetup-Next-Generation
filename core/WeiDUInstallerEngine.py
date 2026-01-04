@@ -6,9 +6,17 @@ from pathlib import Path
 from PySide6.QtCore import Qt
 
 from constants import EXTRACT_DIR
-from core.weidu_types import ComponentInfo, ComponentStatus, InstallResult
+from core.validators.StructureValidator import StructureValidator
+from core.weidu_types import (
+    DEFAULT_STRINGS,
+    WEIDU_TRANSLATION_KEYS,
+    ComponentInfo,
+    ComponentStatus,
+    InstallResult,
+)
 from core.WeiDUDebugParser import WeiDUDebugParser
 from core.WeiDULogParser import WeiDULogParser
+from core.WeiDUTp2Parser import WeiDUTp2Parser
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +36,7 @@ class WeiDUInstallerEngine:
         self.weidu_exe: Path | None = None
         self.log_parser = log_parser
         self.debug_parser = debug_parser
+        self.tp2_parser = WeiDUTp2Parser(self.game_dir)
 
     # ------------------------------------------------------------------
     # Paths
@@ -70,6 +79,7 @@ class WeiDUInstallerEngine:
         output_callback=None,
         runner_created_callback=None,
         runner_finished_callback=None,
+        command_created_callback=None,
     ) -> dict[str, InstallResult]:
         """Install one batch of components."""
         results = {}
@@ -87,12 +97,14 @@ class WeiDUInstallerEngine:
                 f"{component.mod.id}:{component.component.key}": error_result
                 for component in components
             }
-
             return results
 
         self._backup_debug(tp2)
 
         cmd = self._build_command(tp2, components, language, extra_args)
+
+        if command_created_callback:
+            command_created_callback(cmd)
 
         runner = runner_factory(cmd, self.game_dir, input_lines)
 
@@ -112,27 +124,18 @@ class WeiDUInstallerEngine:
         stderr = "".join(runner._stderr_lines)
         return_code = runner.process.returncode if runner.process else -1
 
+        debug_file = self.debug_file(tp2)
+        weidu_strings = self._get_weidu_strings(tp2, language)
         warnings, errors, debug_content = self.debug_parser.extract_warnings_errors(
-            self.debug_file(tp2)
+            debug_file, strings=weidu_strings
         )
-
-        statuses = self.debug_parser.parse(self.debug_file(tp2))
+        statuses = self.debug_parser.parse(debug_file, strings=weidu_strings)
 
         self._restore_debug(tp2)
 
         for idx, comp in enumerate(components):
             comp_id = f"{comp.mod.id}:{comp.component.key}"
             status = statuses.get(idx, ComponentStatus.ERROR)
-
-            if return_code == 0:
-                if errors:
-                    status = ComponentStatus.ERROR
-                elif warnings:
-                    status = ComponentStatus.WARNING
-                elif status != ComponentStatus.SKIPPED:
-                    status = ComponentStatus.SUCCESS
-            elif status != ComponentStatus.SKIPPED:
-                status = ComponentStatus.ERROR
 
             results[comp_id] = InstallResult(
                 status=status,
@@ -410,3 +413,53 @@ class WeiDUInstallerEngine:
             backup_file.unlink()
         except Exception as e:
             logger.warning("Could not restore debug file: %s", e)
+
+    def _get_weidu_strings(self, tp2: str, language: str) -> dict[str, str]:
+        """
+        Extract WeiDU translation strings for a given mod and language.
+
+        Args:
+            tp2: Name of the tp2 file (without extension)
+            language: Language code (e.g., "0" for first language)
+
+        Returns:
+            Dictionary of translated WeiDU strings, or defaults if extraction fails
+        """
+        try:
+            _, tp2_path = StructureValidator.validate_structure(self.game_dir, tp2)
+
+            if not tp2_path.exists():
+                logger.warning(f"TP2 file not found: {tp2_path}, using default strings")
+                return DEFAULT_STRINGS
+
+            weidu_tp2 = self.tp2_parser.parse_file(tp2_path)
+
+            # Get the language declaration by index
+            try:
+                lang_index = int(language)
+                if 0 <= lang_index < len(weidu_tp2.languages):
+                    lang_decl = weidu_tp2.languages[lang_index]
+                    lang_code = lang_decl.language_code
+                else:
+                    logger.warning(f"Invalid language index {language}, using defaults")
+                    return DEFAULT_STRINGS
+            except (ValueError, IndexError):
+                logger.warning(f"Could not parse language index {language}, using defaults")
+                return DEFAULT_STRINGS
+
+            translations = weidu_tp2.translations.get(lang_code, {})
+
+            strings = {}
+            for key, ref_id in WEIDU_TRANSLATION_KEYS.items():
+                if ref_id.startswith("@"):
+                    translated = translations.get(ref_id, DEFAULT_STRINGS[key])
+                    strings[key] = translated
+                else:
+                    strings[key] = DEFAULT_STRINGS[key]
+
+            logger.debug(f"Loaded WeiDU strings for {tp2} language {language}")
+            return strings
+
+        except Exception as e:
+            logger.warning(f"Failed to extract WeiDU strings for {tp2}: {e}, using defaults")
+            return DEFAULT_STRINGS

@@ -146,6 +146,15 @@ class ProcessRunner(QThread):
                 len(self._stderr_lines),
             )
 
+            if self.process.stdin:
+                self.process.stdin.close()
+
+            if self.process.stdout:
+                self.process.stdout.close()
+
+            if self.process.stderr:
+                self.process.stderr.close()
+
             self.process_finished.emit(return_code, stdout, stderr)
 
         except Exception as ex:
@@ -233,6 +242,8 @@ class ProcessRunner(QThread):
         if self.process:
             try:
                 # Try graceful termination first
+                if self.process.stdin:
+                    self.process.stdin.close()
                 self.process.terminate()
                 self.process.wait(timeout=2)
                 logger.info("Process terminated gracefully")
@@ -272,6 +283,7 @@ class InstallationWorker(QThread):
     installation_stopped = Signal(int)  # last_index
     installation_paused = Signal(int, str)  # last_index, pause_description
     installation_retryed = Signal(int)  # count_components
+    command_created = Signal(str)  # command
 
     def __init__(
         self,
@@ -484,6 +496,7 @@ class InstallationWorker(QThread):
                 output_callback=self.output_received.emit,
                 runner_created_callback=self._on_runner_created,
                 runner_finished_callback=self._on_runner_finished,
+                command_created_callback=self._on_command_created,
             )
 
         # If stopped, override all results to STOPPED status
@@ -570,12 +583,15 @@ class InstallationWorker(QThread):
             f"Updated pause settings: error={pause_on_error}, warning={pause_on_warning}"
         )
 
-    def _on_runner_created(self, runner: ProcessRunner):
+    def _on_command_created(self, command: str) -> None:
+        self.command_created.emit(" ".join(command))
+
+    def _on_runner_created(self, runner: ProcessRunner) -> None:
         """Create a callback to capture the runner reference"""
         with self._runner_lock:
             self._active_runner = runner
 
-    def _on_runner_finished(self):
+    def _on_runner_finished(self) -> None:
         """Create a callback to clear the runner reference"""
         with self._runner_lock:
             self._active_runner = None

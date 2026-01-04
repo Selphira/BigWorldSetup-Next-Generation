@@ -521,6 +521,7 @@ class InstallationPage(BasePage):
         self._worker.installation_stopped.connect(self._on_installation_stopped)
         self._worker.installation_paused.connect(self._on_installation_paused)
         self._worker.installation_retryed.connect(self._on_installation_retryed)
+        self._worker.command_created.connect(self._on_command_created)
 
         # Start worker
         self._worker.start()
@@ -818,7 +819,7 @@ class InstallationPage(BasePage):
         """Handle component start."""
         logger.info("Installing: %s", component_id)
         self._append_output(
-            f"\n>>> {tr('page.installation.component_started', component=component_id, mod=mod_name)}\n\n",
+            f"\n>>> {tr('page.installation.component_started', component=component_id, mod=mod_name)}\n",
             color=COLOR_INFO,
         )
 
@@ -985,6 +986,13 @@ class InstallationPage(BasePage):
         self._btn_send_input.setEnabled(True)
         self._input_text.setEnabled(True)
         self._progress_bar.setValue(self._progress_bar.value() - count_components)
+
+    def _on_command_created(self, command: str) -> None:
+        print("Command created:", command)
+        self._append_output(
+            f"\n{command}\n\n",
+            color=COLOR_INFO,
+        )
 
     # ========================================
     # Dependency Management
