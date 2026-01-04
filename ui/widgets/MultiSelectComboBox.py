@@ -49,6 +49,7 @@ class MultiSelectComboBox(QComboBox):
         self._icon_size = ICON_SIZE_MEDIUM
         self._icons: dict[str, QIcon] = {}
         self._min_selection_count = min_selection_count
+        self._updating_selection = False
 
         self._setup_combo_box()
         self._setup_model_and_view()
@@ -209,6 +210,7 @@ class MultiSelectComboBox(QComboBox):
             item = self.model().item(row)
             if item.checkState() == Qt.CheckState.Checked:
                 keys.append(item.data(Qt.ItemDataRole.UserRole))
+        print(f"selected keys: {keys}")
         return keys
 
     def set_selected_keys(self, keys: list[str]) -> None:
@@ -227,7 +229,9 @@ class MultiSelectComboBox(QComboBox):
                 logger.warning("Cannot set selection: no items available")
                 return
             keys = [self.model().item(0).data(Qt.ItemDataRole.UserRole)]
-            logger.debug("Empty selection provided, defaulting to first item")
+
+        self._updating_selection = True
+        self.model().blockSignals(True)
 
         for row in range(self.model().rowCount()):
             item = self.model().item(row)
@@ -235,8 +239,11 @@ class MultiSelectComboBox(QComboBox):
             check_state = Qt.CheckState.Checked if key in keys else Qt.CheckState.Unchecked
             item.setCheckState(check_state)
 
+        self.model().blockSignals(False)
+        self._updating_selection = False
+
         self._update_preview()
-        logger.debug("Selection set: %s", keys)
+        self.selection_changed.emit(self.selected_keys())
 
     def clear_selection(self) -> None:
         """
@@ -304,6 +311,8 @@ class MultiSelectComboBox(QComboBox):
         Appelé quand les données du modèle changent (notamment les checkboxes).
         Empêche de tout désélectionner.
         """
+        if self._updating_selection:
+            return
         # Vérifier si c'est un changement de CheckState
         if Qt.ItemDataRole.CheckStateRole not in roles:
             return
