@@ -844,18 +844,6 @@
       "description": "Dépendance interne XPexchange",
       "mode": "any"
     }, {
-      "source": ["eefixpack:*"],
-      "target": ["eefixpack-bg2:*"],
-      "severity": "error",
-      "description": "EEFixpack doit être installé sur BGEE et BG2EE",
-      "mode": "any"
-    }, {
-      "source": ["eefixpack-bg2:*"],
-      "target": ["eefixpack:*"],
-      "severity": "error",
-      "description": "EEFixpack doit être installé sur BG2EE et BGEE",
-      "mode": "any"
-    }, {
       "source": ["A7-ConvenientEENPCs:513", "A7-ConvenientEENPCs:542"],
       "target": ["A7-ChaosSorcerer:0"],
       "severity": "error",
