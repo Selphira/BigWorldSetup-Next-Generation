@@ -51,7 +51,7 @@ from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.StateManager import StateManager
-from core.TranslationManager import tr
+from core.TranslationManager import get_supported_languages, tr
 from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
@@ -975,14 +975,15 @@ class ModSelectionPage(BasePage):
         """Load state from state manager."""
         super().load_state()
 
-        language_icons = {
-            code: str(FLAGS_DIR / f"{code}.png")
-            for code in self.state_manager.get_languages_order()
-        }
+        languages = self.state_manager.get_languages_order()
+        if not languages:
+            languages = [code for code, _ in get_supported_languages()]
+
+        language_icons = {code: str(FLAGS_DIR / f"{code}.png") for code in languages}
         self._lang_select.set_items(language_icons)
 
         selected_languages = self.state_manager.get_page_option(
-            self.get_page_id(), "selected_languages", self._lang_select.selected_keys()
+            self.get_page_id(), "selected_languages", [self.state_manager.get_ui_language()]
         )
         self._lang_select.set_selected_keys(selected_languages)
 
