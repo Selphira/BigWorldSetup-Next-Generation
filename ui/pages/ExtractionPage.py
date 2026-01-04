@@ -269,6 +269,8 @@ class ExtractionPage(BasePage):
                 logger.warning(f"No game folder for sequence {seq_idx}")
                 continue
 
+            mod_references = ["weidu64:0"] + mod_references
+
             sequence, folder_path = game_folders[seq_idx]
             unique_mods_in_sequence = list(
                 dict.fromkeys(ref.split(":")[0] for ref in mod_references if ref)
