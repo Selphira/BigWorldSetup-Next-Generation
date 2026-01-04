@@ -1,14 +1,14 @@
 {
-  "name": "CluaFr",
-  "version": "1.2",
+  "name": "CluAreas",
+  "version": "2.0",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/CluaFr",
-    "download": "https://github.com/The-Gate-Project/CluaFr/releases/download/v1.2/CluaFr.v1.2.zip"
+    "homepage": "https://github.com/The-Gate-Project/CluAreas",
+    "download": "https://github.com/The-Gate-Project/CluAreas/releases/download/v2.0/win-CluAreas-v2.0.zip"
   },
   "file": {
-    "filename": "CluaFr.v1.2.zip",
-    "size": 3695291,
-    "sha256": "a3389200c48abcff8c42c218ab6b92e43bfae7c63e38300072125892d1f6b55c"
+    "filename": "win-CluAreas-v2.0.zip",
+    "size": 1425725,
+    "sha256": "22b89757df578e7c53ac507a408d865cd4f0bedc4c0e1b0cbeec7560812e8335"
   },
   "games": ["bgee", "sod", "bg2ee", "eet", "iwdee"],
   "categories": ["patch"],
@@ -17,7 +17,8 @@
     "11": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "zh_CN": 1
   },
   "translations": {
     "fr_FR": {
@@ -33,10 +34,16 @@
       "description": "This mod translates the CheatsAreas available via the CLUA console, including those added by other mods. It also adds new areas to the list."
     },
     "zh_CN": {
-      "description": "此模组可通过CLUA控制台翻译可用的作弊区域（CheatAreas），包括其他模组添加的区域。它还会在列表中添加新的区域。"
+      "description": "此模组可通过CLUA控制台翻译可用的作弊区域（CheatAreas），包括其他模组添加的区域。它还会在列表中添加新的区域。",
+      "components": {
+        "choice_0": "原版游戏地图的 \"区域作弊\"",
+        "12": "是否仅翻译最初可在 CLUA 控制台访问的地图？",
+        "13": "是否要在主线战役中访问所有游戏及扩展包地图？",
+        "11": "模组新增地图的 \"区域作弊\""
+      }
     }
   },
-  "tp2": "cluafr",
+  "tp2": "cluareas",
   "safe": 2,
   "authors": ["JohnBob"]
 }
