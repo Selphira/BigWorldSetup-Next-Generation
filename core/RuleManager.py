@@ -502,7 +502,8 @@ class RuleManager:
                 return
 
             visiting.add(current)
-            rules = self._rules_for_component(mod_id, comp_key)
+            reference = ComponentReference.from_string(f"{mod_id}:{comp_key}")
+            rules = self.get_rules_for_component(reference)
 
             for rule in rules:
                 if not isinstance(rule, DependencyRule):
