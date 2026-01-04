@@ -1,14 +1,14 @@
 {
   "name": "Ascalon's Questpack",
-  "version": "6.3",
+  "version": "6.4",
   "links": {
     "homepage": "https://www.baldurs-gate.de/index.php?resources/ascalons-questpack.4/",
-    "download": "https://github.com/Gitjas/Ascalons_Questpack/releases/download/v6.3/ascalons-questpack-6.3.zip"
+    "download": "https://github.com/Gitjas/Ascalons_Questpack/releases/download/v6.4/ascalons-questpack-6.4.zip"
   },
   "file": {
-    "filename": "ascalons-questpack-6.3.zip",
-    "size": 23222768,
-    "sha256": "c0519735a9bde44e02857e21fc89d1c55fbe9e17552da8816ed009c0fa2a2ca5"
+    "filename": "ascalons-questpack-6.4.zip",
+    "size": 23223750,
+    "sha256": "194dda63f68f1418bbe3827649407ad7f474c8a085e012ca39f9515b99c57c14"
   },
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["quest"],
