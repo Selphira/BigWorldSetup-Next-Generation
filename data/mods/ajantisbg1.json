@@ -1,31 +1,34 @@
 {
   "name": "Ajantis BG1 Expansion Modification",
-  "version": "18.3",
+  "version": "21",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/13889-ajantis-bg1-expansion-modifikation-diskussion/",
-    "download": "https://github.com/Gibberlings3/Ajantis_BG1_Expansion/releases/download/v18.3/ajantis-bg1-expansion-modification-18.3.zip"
+    "download": "https://github.com/Gibberlings3/Ajantis_BG1_Expansion/releases/download/v21/ajantis-bg1-expansion-modification-21.zip"
   },
   "file": {
-    "filename": "ajantis-bg1-expansion-modification-18.3.zip",
-    "size": 5391409,
-    "sha256": "b1fbdf935a0e98e0b7b55613ebf4d659d1a8cd023ad4deaf1047d690719b92d6"
+    "filename": "ajantis-bg1-expansion-modification-21.zip",
+    "size": 5714884,
+    "sha256": "3598f44a01a285ab4b2895746c735be6df842fa5eb9202c1fc25e2287b1a45b0"
   },
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"}
+    "1": {"type": "std"},
+    "30": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
     "fr_FR": 1,
-    "de_DE": 2
+    "de_DE": 2,
+    "zh_CN": 3
   },
   "translations": {
     "en_US": {
       "components": {
         "0": "Installs Ajantis BG1 Expansion Modification",
-        "1": "Install the unique BG:EE BAM for Ajantis' Family Shield"
+        "1": "Install the unique BG:EE BAM for Ajantis' Family Shield",
+        "30": "Ajantis SoD NPC: Crossmod Content"
       },
       "description": "This mod adds a romance and a friendship path with BG's famous paladin.\nDepending on your type of installation, the added content will be different: with original BG, the mod adds the romance from Ajantis BG1 Expansion Modification and the friendship path; with BGT, Tutu, BG:EE and EET, the mod adds the friendship path and more content for the romance from Ajantis BG1 Expansion Modification. This mod is in fact considered an extension of Ajantis BG1 Expansion Modification, but can be installed and played without it. In this case, the friendship path is immediately available."
     },
@@ -33,13 +36,19 @@
       "description": "Ce mod ajoute une romance et une voie de l'amitié avec le célèbre paladin de BG.\nSuivant votre type d'installation, le contenu ajouté sera différent : avec BG original, le mod ajoute la romance du Ajantis BG1 Expansion Modification et la voie de l'amitié ; avec BGT, Tutu, BG:EE et EET, le mod ajoute la voie de l'amitié et plus de contenu pour la romance du Ajantis BG1 Expansion Modification. Ce mod est en effet considéré comme une extension du Ajantis BG1 Expansion Modification, mais peut être installé et joué sans lui. Dans ce cas, la voie de l'amitié est immédiatement disponible.",
       "components": {
         "0": "Installe le mod Expansion Ajantis pour BG1",
-        "1": "Install the unique BG:EE BAM for Ajantis' Family Shield"
+        "1": "Install the unique BG:EE BAM for Ajantis' Family Shield",
+        "30": "Ajantis SoD NPC: Crossmod Content"
       }
     },
     "zh_CN": {
-      "description": "此模组旨在与博德之门中著名的圣武士发展一段恋情和友谊。\n根据你的安装类型，添加的内容将不同：使用原版博德之门，模组会添加Ajantis BG1 Expansion Modification的恋情线和友谊线；使用BGT、Tutu、博德之门：增强版和EET，模组会添加友谊线和Ajantis BG1 Expansion Modification恋情线的更多内容。此模组确实被认为是Ajantis BG1 Expansion Modification的扩展，但可以不安装它而直接安装和游玩。在这种情况下，友谊线会立即可用。"
+      "description": "此模组旨在与博德之门中著名的圣武士发展一段恋情和友谊。\n根据你的安装类型，添加的内容将不同：使用原版博德之门，模组会添加Ajantis BG1 Expansion Modification的恋情线和友谊线；使用BGT、Tutu、博德之门：增强版和EET，模组会添加友谊线和Ajantis BG1 Expansion Modification恋情线的更多内容。此模组确实被认为是Ajantis BG1 Expansion Modification的扩展，但可以不安装它而直接安装和游玩。在这种情况下，友谊线会立即可用。",
+      "components": {
+        "0": "阿詹提斯BG1扩展包",
+        "1": "为阿詹提斯家族盾牌安装BG:EE独有的BAM",
+        "30": "阿詹提斯龙矛围攻（SoD）可入队：跨MOD内容"
+      }
     },
-    "de_DE": {"components": {"0": "Installiert Ajantis BG1 Erweiterungen", "1": "Installiere das BG:EE BAM fuer Ajantis' Familienschild"}}
+    "de_DE": {"components": {"0": "Installiert Ajantis BG1 Erweiterungen", "1": "Installiere das BG:EE BAM fuer Ajantis' Familienschild", "30": "Ajantis SoD NPC: Crossmod Content"}}
   },
   "tp2": "ajantisbg1",
   "safe": 2,
