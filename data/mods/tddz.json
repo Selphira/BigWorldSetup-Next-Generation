@@ -1,14 +1,14 @@
 {
   "name": "The Darkest Day (EE-compatible)",
-  "version": "1.3.1",
+  "version": "1.3.3",
   "links": {
     "homepage": "https://baldursgate.fandom.com/wiki/The_Darkest_Day",
-    "download": "https://github.com/Spellhold-Studios/TDDz/archive/refs/tags/v1.3.1.zip"
+    "download": "https://github.com/Spellhold-Studios/TDDz/releases/download/v1.3.3/tddz-v1.3.3.zip"
   },
   "file": {
-    "filename": "TDDz-1.3.1.zip",
-    "size": 125896221,
-    "sha256": "385b6a7cf4f0672436225b5bd0273734e49eb9a6adfd6acd04ee199de37feda4"
+    "filename": "tddz-v1.3.3.zip",
+    "size": 126632238,
+    "sha256": "71015d5061895c30b07dec671a9ab17e9e9cbcd36704d4c121f8a0d15af5a826"
   },
   "games": ["bg2ee", "eet"],
   "categories": ["quest", "spell", "kit"],
@@ -19,7 +19,8 @@
     "3": {"type": "std"},
     "4": {"type": "std"},
     "5": {"type": "std"},
-    "6": {"type": "std"}
+    "6": {"type": "std"},
+    "1000": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -40,7 +41,8 @@
         "3": "TDD - Purskal",
         "4": "TDD - Riatavin",
         "5": "TDD - l'Avènement du Jour le plus Sombre",
-        "6": "TDD - Robilard"
+        "6": "TDD - Robilard",
+        "1000": "Use BGGO extended BG1 areas for TDDz"
       }
     },
     "en_US": {
@@ -52,17 +54,18 @@
         "3": "TDD - Purskal",
         "4": "TDD - Riatavin",
         "5": "TDD - Onset of the Darkest Day",
-        "6": "TDD - Robilard"
+        "6": "TDD - Robilard",
+        "1000": "Use BGGO extended BG1 areas for TDDz"
       }
     },
     "zh_CN": {
       "description": "这个大型扩展包新增了10个新角色（部分来自博德之门1）、180件新物品、170个新法术、40多种新生物、78个新宗派、5个大型任务和一个巨型任务。你必须安装有巴尔王座。"
     },
-    "ru_RU": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
-    "pl_PL": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
-    "de_DE": {"components": {"0": "TDD - Core", "1": "TDD - Trollfurth", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Der Beginn des dunkelsten Tages", "6": "TDD - Robilard"}},
-    "it_IT": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}},
-    "es_ES": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard"}}
+    "ru_RU": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard", "1000": "Use BGGO extended BG1 areas for TDDz"}},
+    "pl_PL": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard", "1000": "Use BGGO extended BG1 areas for TDDz"}},
+    "de_DE": {"components": {"0": "TDD - Core", "1": "TDD - Trollfurth", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Der Beginn des dunkelsten Tages", "6": "TDD - Robilard", "1000": "Use BGGO extended BG1 areas for TDDz"}},
+    "it_IT": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard", "1000": "Use BGGO extended BG1 areas for TDDz"}},
+    "es_ES": {"components": {"0": "TDD - Core", "1": "TDD - Trollford", "2": "TDD - Eshpurta", "3": "TDD - Purskal", "4": "TDD - Riatavin", "5": "TDD - Onset of the Darkest Day", "6": "TDD - Robilard", "1000": "Use BGGO extended BG1 areas for TDDz"}}
   },
   "tp2": "tddz",
   "safe": 2,
