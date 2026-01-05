@@ -1,14 +1,14 @@
 {
   "name": "Improved Shamanic Dance",
-  "version": "4.5",
+  "version": "4.6",
   "links": {
     "homepage": "https://github.com/Argent77/A7-ImprovedShamanicDance",
-    "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.5/win-A7-ImprovedShamanicDance-v4.5.zip"
+    "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.6/win-A7-ImprovedShamanicDance-v4.6.zip"
   },
   "file": {
-    "filename": "win-A7-ImprovedShamanicDance-v4.5.zip",
-    "size": 1463463,
-    "sha256": "4b0bbbe639eaa697b20a8471a79faefa4190b12f87b7068756036a562992db81"
+    "filename": "win-A7-ImprovedShamanicDance-v4.6.zip",
+    "size": 1478598,
+    "sha256": "d96b03a462a765f5c7830506164db24e396ed091ed5b8f2595f6552b39461708"
   },
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
