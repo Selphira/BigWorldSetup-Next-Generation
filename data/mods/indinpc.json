@@ -1,14 +1,14 @@
 {
   "name": "Indira NPC",
-  "version": "15",
+  "version": "15.1",
   "links": {
     "homepage": "https://forums.pocketplane.net/index.php/topic,29214.0.html",
-    "download": "https://github.com/Pocket-Plane-Group/Indira_NPC/releases/download/v15/indira-npc-mod-v15.zip"
+    "download": "https://github.com/Pocket-Plane-Group/Indira_NPC/releases/download/v15.1/indira-npc-v15.1.zip"
   },
   "file": {
-    "filename": "indira-npc-mod-v15.zip",
-    "size": 8564415,
-    "sha256": "2e0a24ff1b3e643eb52b88173f0b5eaa69078b60547bca4c680bec6f5d920ec5"
+    "filename": "indira-npc-v15.1.zip",
+    "size": 8564799,
+    "sha256": "0d0c5457eb7f4d5423453aa50aa719f451bd25bf9ac0e82cbb1c26d70f550376"
   },
   "games": ["tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npc"],
