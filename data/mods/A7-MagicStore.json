@@ -1,14 +1,14 @@
 {
   "name": "Magic Store of Vergadain",
-  "version": "4.1",
+  "version": "4.2",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/32357-magic-store-of-vergadain-visit-any-store-anywhere-and-anytime",
-    "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.1/win-A7-MagicStore-v4.1.zip"
+    "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.2/win-A7-MagicStore-v4.2.zip"
   },
   "file": {
-    "filename": "win-A7-MagicStore-v4.1.zip",
-    "size": 4839670,
-    "sha256": "99c0575c4704d30de43ce1cb0f869f2960b2dd2369cfbfe933777e43f7ad1f5c"
+    "filename": "win-A7-MagicStore-v4.2.zip",
+    "size": 4669392,
+    "sha256": "0f9ad55e742cdb532e43addb596f9190c95d20d81aeb42e6a9d8b24746a9feaa"
   },
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
@@ -73,7 +73,7 @@
       "description": "游戏中包含许多商店以满足您的需求。然而，返回一个商店可能需要很多时间，或者有时甚至不可能。此模组让您获得一个魔法神器，让您能够前往您过去访问过的任何商店。获得这个独特的神器需要完成一个小型任务。",
       "components": {
         "choice_0": "维加丹的魔法商店",
-        "1": "所需费用",
+        "1": "需要费用",
         "2": "免费",
         "10": "幽灵商人的替代肖像",
         "choice_1": "限制被召唤的商店中的可用服务",
