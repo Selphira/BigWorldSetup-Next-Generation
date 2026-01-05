@@ -1,14 +1,14 @@
 {
   "name": "Com_encounters",
-  "version": "1.21",
+  "version": "1.22",
   "links": {
     "homepage": "http://mods.chosenofmystra.net/encounters/index.html",
-    "download": "https://github.com/The-Gate-Project/Com_encounters/releases/download/v1.21/com-encounters-v1.21.zip"
+    "download": "https://github.com/The-Gate-Project/Com_encounters/releases/download/v1.22/com-encounters-v1.22.zip"
   },
   "file": {
-    "filename": "com-encounters-v1.21.zip",
-    "size": 3625947,
-    "sha256": "c9fd79abfd918bf12e8de7f40a1b5f457267f00ec38b8cdfa091a6e0300a392a"
+    "filename": "com-encounters-v1.22.zip",
+    "size": 3647153,
+    "sha256": "c737f3e6677a9e0aa92fee28ab3ae4a02cb23e0323f14f4849c6d4e11a5d5686"
   },
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
@@ -24,7 +24,8 @@
     "it_IT": 3,
     "ru_RU": 4,
     "pl_PL": 5,
-    "es_ES": 6
+    "es_ES": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -46,7 +47,12 @@
     "it_IT": {"components": {"0": "Chosen of Mystra's Encounters (Richiede Throne of Bhaal)", "1": "Vuoi installare gli incontri con i druidi migliorati?", "2": "Vuoi installare gli incontri con Shagbag migliorati?"}},
     "ru_RU": {"components": {"0": "Chosen of Mystra's Encounters (Requires Throne of Bhaal)", "1": "Would you like to install improved druid encounters?", "2": "Would you like to install improved Shagbag encounters?"}},
     "zh_CN": {
-      "description": "此模组增加了与多个敌对群体的遭遇战，三家商店，一个涉及半身人和戒指的任务，并改进了与沙格巴格的战斗。"
+      "description": "此模组增加了与多个敌对群体的遭遇战，三家商店，一个涉及半身人和戒指的任务，并改进了与沙格巴格的战斗。",
+      "components": {
+        "0": "ÃÛË¹ÌØÀ­Ñ¡ÃñÔâÓöÕ½£¨ÐèÒª°Í¶ûÍõ×ù£©",
+        "1": "ÄãÏë°²×°¸Ä½øµÄµÂÂ³ÒÁÔâÓöÕ½Âð£¿",
+        "2": "ÄãÏë°²×°¸Ä½øµÄÏÄ¸ñ±´¸ñÔâÓöÕ½Âð£¿"
+      }
     },
     "de_DE": {"components": {"0": "Chosen of Mystra's Encounters (benötigt Thron des Bhaal)", "1": "Soll die Komponente \"Verbesserte Druidenbegegnungen\" installiert werden?", "2": "Soll die Komponente \"Verbesserte Wassersäufer-Begegnung\" installiert werden?"}},
     "pl_PL": {"components": {"0": "Chosen of Mystra's Encounters (Wymaga Tronu Bhaala)", "1": "Czy zainstalowac: ulepszone spotkania z druidami?", "2": "Czy zainstalowac: ulepszone spotkanie ze Swedzitorba?"}},
