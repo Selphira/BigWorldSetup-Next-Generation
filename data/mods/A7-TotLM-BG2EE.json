@@ -1,14 +1,14 @@
 {
   "name": "Trials of the Luremaster for Baldur's Gate",
-  "version": "4.2",
+  "version": "4.3",
   "links": {
     "homepage": "http://www.shsforums.net/files/file/1251-trials-of-the-luremaster-for-baldurs-gate/",
-    "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.2/win-A7-TotLM-BG2EE-v4.2.zip"
+    "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.3/win-A7-TotLM-BG2EE-v4.3.zip"
   },
   "file": {
-    "filename": "win-A7-TotLM-BG2EE-v4.2.zip",
-    "size": 95169822,
-    "sha256": "95ef6343790fa91bde7f21bb2ede489e4be6d12babf7421246edd0a39217ad69"
+    "filename": "win-A7-TotLM-BG2EE-v4.3.zip",
+    "size": 95233804,
+    "sha256": "6e98715804129f617650a62c7c22aa6d52d3935ef403e9b41ef745c6c7eefdf6"
   },
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["quest"],
@@ -26,7 +26,8 @@
     "ru_RU": 4,
     "es_ES": 5,
     "pl_PL": 6,
-    "pt_BR": 7
+    "pt_BR": 7,
+    "zh_CN": 8
   },
   "translations": {
     "en_US": {
@@ -56,7 +57,17 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组允许你在博德之门2：增强版（2.0或更高版本）、龙矛围攻和EET (Enhanced Edition Trilogy)中游玩冰风谷的扩展包“大师的试炼”。要开始任务，与霍巴特·皮耶维尔交谈，你可以在乌马尔山丘旅店（安姆阴影）、阿姆肯瑟兰（巴尔王座）或联盟营地的东南部找到他。在冒险过程中，你将有机会探索一座鬼魂出没的城堡，测试你的勇气，在艰难的战斗中证明自己，并解除一个古老的诅咒。"
+      "description": "这个模组允许你在博德之门2：增强版（2.0或更高版本）、龙矛围攻和EET (Enhanced Edition Trilogy)中游玩冰风谷的扩展包“大师的试炼”。要开始任务，与霍巴特·皮耶维尔交谈，你可以在乌马尔山丘旅店（安姆阴影）、阿姆肯瑟兰（巴尔王座）或联盟营地的东南部找到他。在冒险过程中，你将有机会探索一座鬼魂出没的城堡，测试你的勇气，在艰难的战斗中证明自己，并解除一个古老的诅咒。",
+      "components": {
+        "0": "用于《博德之门》的《谜语大师的试炼》",
+        "20": "再平衡武器和装备",
+        "choice_0": "减少怪物和任务的经验",
+        "30": "减少25%",
+        "31": "减少50%",
+        "32": "减少75%",
+        "33": "不获得经验",
+        "40": "允许在开始冒险前与霍巴进行交易"
+      }
     },
     "de_DE": {"components": {"0": "Die Herausforderungen des Meisters der Verlockung fuer Baldur's Gate", "20": "Waffen und Ausruestung anpassen", "choice_0": "Erfahrungspunkte von Monstern und Questbelohnungen verringern", "30": "Um 25 Prozent verringern", "31": "Um 50 Prozent verringern", "32": "Um 75 Prozent verringern", "33": "Keine Erfahrungspunkte vergeben", "40": "Handel mit Hobart vor Beginn des Abenteuers erlauben"}},
     "it_IT": {"components": {"0": "Trials of the Luremaster per Baldur's Gate", "20": "Riequilibra armi ed equipaggiamento", "choice_0": "Riduci esperienza ottenuta da mostri e missioni", "30": "Riduci del 25 percento", "31": "Riduci del 50 percento", "32": "Riduci del 75 percento", "33": "Non conferire esperienza", "40": "Allow to trade with Hobart before starting the adventure"}},
