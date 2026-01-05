@@ -7,8 +7,8 @@
   },
   "file": {
     "filename": "BoneHill-34.zip",
-    "size": 175975027,
-    "sha256": "6465100ec640cd287412572cc157da68282caebf36fc9ee429b2a96704a41499"
+    "size": 176126730,
+    "sha256": "42e87a7688bc2bd515d839382f08a55b17660b6e35712d77382aca5ecc218f62"
   },
   "games": ["bgee", "eet"],
   "categories": ["quest"],
@@ -21,7 +21,8 @@
     "it_IT": 2,
     "ru_RU": 3,
     "es_ES": 4,
-    "fr_FR": 5
+    "fr_FR": 5,
+    "zh_CN": 6
   },
   "translations": {
     "en_US": {
@@ -37,7 +38,10 @@
       }
     },
     "zh_CN": {
-      "description": "将Secret of Bone Hill模组移植至EET平台。"
+      "description": "将Secret of Bone Hill模组移植至EET平台。",
+      "components": {
+        "0": "埋骨丘的秘密v34 (EET)"
+      }
     },
     "de_DE": {"components": {"0": "Bone Hill-Mod v275a (Setzt EET voraus)"}},
     "it_IT": {"components": {"0": "Secret of BoneHill (Richiede EET)"}},
