@@ -17,10 +17,11 @@
   },
   "languages": {
     "en_US": 0,
-    "es_ES": 1,
-    "it_IT": 2,
-    "fr_FR": 3,
-    "ru_RU": 4
+    "pl_PL": 1,
+    "es_ES": 2,
+    "it_IT": 3,
+    "fr_FR": 4,
+    "ru_RU": 5
   },
   "translations": {
     "en_US": {
@@ -40,7 +41,8 @@
     },
     "es_ES": {"components": {"0": "Chloe NPC mod"}},
     "it_IT": {"components": {"0": "Chloe NPC mod"}},
-    "ru_RU": {"components": {"0": "Chloe NPC mod"}}
+    "ru_RU": {"components": {"0": "Chloe NPC mod"}},
+    "pl_PL": {"components": {"0": "Chloe NPC mod"}}
   },
   "tp2": "chloe",
   "safe": 2,
