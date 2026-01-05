@@ -1,14 +1,14 @@
 {
   "name": "The Boareskyr Bridge Scene",
-  "version": "7",
+  "version": "8",
   "links": {
     "homepage": "https://www.gibberlings3.net/files/file/1033-the-boareskyr-bridge-scene/",
-    "download": "https://github.com/Gibberlings3/The_Boareskyr_Bridge_Scene/releases/download/v7.0/the-boareskyr-bridge-scene-v7.zip"
+    "download": "https://github.com/Gibberlings3/The_Boareskyr_Bridge_Scene/releases/download/v8/the-boareskyr-bridge-scene-v8.zip"
   },
   "file": {
-    "filename": "the-boareskyr-bridge-scene-v7.zip",
-    "size": 4891522,
-    "sha256": "111491995b205f3a6448f1de4a774705801271bb4ccb34223947cd1f957d27af"
+    "filename": "the-boareskyr-bridge-scene-v8.zip",
+    "size": 4890382,
+    "sha256": "17baea8d6f809caf69173bc4367ebe5e7276cf2acffebe2bcd38ff1e0b01ce19"
   },
   "games": ["sod", "eet"],
   "categories": ["quest"],
