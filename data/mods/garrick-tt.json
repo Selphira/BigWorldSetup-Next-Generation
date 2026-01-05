@@ -1,14 +1,14 @@
 {
   "name": "Garrick: Tales of a Troubadour",
-  "version": "1.27",
+  "version": "1.28",
   "links": {
     "homepage": "https://mirandir.baldursgateworld.fr/garrick-tt/fr.html",
-    "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.27/garrick-tales-of-a-troubadour-1.27.zip"
+    "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.28/win-Garrick.Tales-of-a-Troubadour-v1.28.zip"
   },
   "file": {
-    "filename": "garrick-tales-of-a-troubadour-1.27.zip",
-    "size": 7804083,
-    "sha256": "bf5c8d26f10e3804689a88da263073a4a2df750b76d881cd05263bf243709461"
+    "filename": "win-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+    "size": 7149719,
+    "sha256": "1135ff57b3e61a155fce7282ae110a5f133f532723313e92eb1d275ec0b2db6c"
   },
   "games": ["bgt", "bgee", "eet"],
   "categories": ["npcx"],
@@ -18,7 +18,8 @@
   "languages": {
     "fr_FR": 0,
     "en_US": 1,
-    "de_DE": 2
+    "de_DE": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -34,7 +35,10 @@
       }
     },
     "zh_CN": {
-      "description": "此模组旨在让加瑞克这个角色变得更有趣，通过添加新的对话、新的情境与遭遇，以及贝尔苟斯特吟游诗人专属的额外歌曲。它基于The BG1NPC Project引入的内容并对其进行补充。"
+      "description": "此模组旨在让加瑞克这个角色变得更有趣，通过添加新的对话、新的情境与遭遇，以及贝尔苟斯特吟游诗人专属的额外歌曲。它基于The BG1NPC Project引入的内容并对其进行补充。",
+      "components": {
+        "0": "加瑞克：吟游诗人轶事"
+      }
     },
     "de_DE": {"components": {"0": "Garrick : Geschichten eines Troubadours"}}
   },
