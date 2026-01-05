@@ -6,9 +6,9 @@
     "download": "https://github.com/SpellholdStudios/Check_the_Bodies/archive/refs/heads/master.zip"
   },
   "file": {
-    "filename": "check-the-bodies-3.0.zip",
-    "size": 306188678,
-    "sha256": "51185f272cc594b82469b1694f8c02a99a091c6cf920da3379c261a0fb36ac59"
+    "filename": "Check_the_Bodies-master.zip",
+    "size": 447502500,
+    "sha256": "62f8bf09a1fe8453441a3fccded9f02a120d69a17d63b544772a7583324cea9c"
   },
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest", "gameplay"],
