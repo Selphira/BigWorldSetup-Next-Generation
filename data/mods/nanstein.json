@@ -1,19 +1,20 @@
 {
   "name": "Nanstein",
-  "version": "2.1",
+  "version": "2.2",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31643",
-    "download": "https://github.com/The-Gate-Project/Nanstein/releases/download/v2.1/nanstein-2.1.zip"
+    "download": "https://github.com/The-Gate-Project/Nanstein/releases/download/v2.2/nanstein-2.2.zip"
   },
   "file": {
-    "filename": "nanstein-2.1.zip",
-    "size": 3299231,
-    "sha256": "d755364735f90e29bdba7bdbff44e923d72dcbd0020d261346465d0d91810623"
+    "filename": "nanstein-2.2.zip",
+    "size": 3299845,
+    "sha256": "615c1d30ab6b1e08680948d4f5b784c5d3d6ebadf2bca0e24afb4b81fa12d2ad"
   },
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "100"], "default": "0"}
+    "choice_0": {"type": "muc", "components": ["0", "100"], "default": "0"},
+    "102": {"type": "std"}
   },
   "languages": {
     "es_ES": 0,
@@ -26,7 +27,8 @@
       "components": {
         "choice_0": "Nanstein, Ingenieur mage en chef de la montagne Sansimportance",
         "0": "Originale version",
-        "100": "Plus d'objets par Deratiseur"
+        "100": "Plus d'objets par Deratiseur",
+        "102": "Ingenieur mage en chef de la montagne Sansimportance dans ToB"
       }
     },
     "en_US": {
@@ -34,13 +36,14 @@
       "components": {
         "choice_0": "Nanstein, Chief Mage Engineer of Mountain Sansimportance",
         "0": "Original version",
-        "100": "FRENCH ONLY More items by Deratiseur (Translations are welcome)"
+        "100": "More items by Deratiseur",
+        "102": "Chief Mage Engineer of Mountain Sansimportance in ToB"
       }
     },
     "zh_CN": {
       "description": "纳恩斯坦是一个出现在码头克伦威尔面前的新铁匠。他可以将传奇物品变成其他可能根据游戏风格更有用，或者至少更独特的物品。例如，一件红龙盔甲会被变成一件防火的法师长袍。永恒连枷会被变成元素箭。我不建议您攻击他，您得不到他锻造的任何物品……而且您会死。"
     },
-    "es_ES": {"components": {"choice_0": "Nanstein, Ingeniero Magico en Jefe del Monte Noimporta", "0": "Original version", "100": "FRENCH ONLY More items by Deratiseur (Translations are welcome)"}}
+    "es_ES": {"components": {"choice_0": "Nanstein, Ingeniero Magico en Jefe del Monte Noimporta", "0": "Original version", "100": "Mas articulos de Deratiseur", "102": "Ingeniero Magico en Jefe del Monte Noimporta en ToB"}}
   },
   "tp2": "nanstein",
   "safe": 2,
