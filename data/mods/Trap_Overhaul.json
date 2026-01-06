@@ -42,7 +42,25 @@
       }
     },
     "en_US": {
-      "description": "This mod allows your characters with the ability to detect traps to automatically reveal them as soon as they are in their field of vision. There's no longer that pesky delay that means you're always stepping on traps, even with a thief in trap detection mode on your team. Another component allows you to recover a trap when you've disarmed it, provided you're able to set it."
+      "description": "This mod allows your characters with the ability to detect traps to automatically reveal them as soon as they are in their field of vision. There's no longer that pesky delay that means you're always stepping on traps, even with a thief in trap detection mode on your team. Another component allows you to recover a trap when you've disarmed it, provided you're able to set it.",
+      "components": {
+        "choice_0": "Trap Overhaul",
+        "1111": "Monk Evasion, Fast Detection, Recovery, Anyone OpenLocks",
+        "1110": "Monk Evasion, Fast Detection, Anyone OpenLocks",
+        "1101": "Monk Evasion, Recovery, Anyone OpenLocks",
+        "1011": "Fast Detection, Recovery, Anyone OpenLocks",
+        "1100": "Monk Evasion, Anyone OpenLocks",
+        "1010": "Fast Detection, Anyone OpenLocks",
+        "1001": "Recovery, Anyone OpenLocks",
+        "1000": "Anyone OpenLocks",
+        "0111": "Monk Evasion, Fast Detection, Recovery",
+        "0110": "Monk Evasion, Fast Detection",
+        "0101": "Monk Evasion, Recovery",
+        "0011": "Fast Detection, Recovery",
+        "0100": "Monk Evasion",
+        "0010": "Fast Detection",
+        "0001": "Recovery"
+      }
     },
     "zh_CN": {
       "description": "这个模组允许你拥有陷阱侦察能力的角色在陷阱进入其视野时自动将其揭示。不再有那种令人痛苦的延迟，导致我们即使队伍里有处于陷阱侦测模式的盗贼，还是会踩到陷阱。此外，另一个组件允许你在解除陷阱后回收它，前提是你有能力布置它。"

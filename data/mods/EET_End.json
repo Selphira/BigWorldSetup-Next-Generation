@@ -7,7 +7,7 @@
   "games": ["eet"],
   "categories": ["conv"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"]}
   },
   "languages": {
     "en_US": 0,
@@ -23,8 +23,8 @@
     "en_US": {
       "components": {
         "choice_0": "EET end (last mod in install order)",
-        "1": "Standard installation",
-        "2": "Also update saves (no backups, check the readme file)"
+        "0": "Standard installation",
+        "1": "Also update saves (no backups, check the readme file)"
       },
       "description": "The equivalent of Enhanced Edition Trilogy but can be installed on Android."
     },
@@ -32,46 +32,46 @@
       "description": "L'équivalent de Enhanced Edition Trilogy mais qui peut s'installer sur Android.",
       "components": {
         "choice_0": "EET end (dernier mod dans l'ordre d'installation)",
-        "1": "Installation standard",
-        "2": "Mise a jour des sauvegardes (pas de backups, plus d'information dans le fichier readme)"
+        "0": "Installation standard",
+        "1": "Mise a jour des sauvegardes (pas de backups, plus d'information dans le fichier readme)"
       }
     },
     "zh_CN": {
       "description": "Enhanced Edition Trilogy的安卓版本。",
       "components": {
         "choice_0": "EET end（如无特殊情况，应当在安装整合中最后安装）",
-        "1": "标准安装",
-        "2": "同时更新存档（无备份，请阅读自述文件）"
+        "0": "标准安装",
+        "1": "同时更新存档（无备份，请阅读自述文件）"
       }
     },
     "pl_PL": {
       "components": {
-        "choice_0": "EET end (ostatni mod w kolejnosci instalacji)", "1": "Standardowa instalacja",
-        "2": "Instalacja z aktualizacja zapisow gry (bez kopii zapasowej, sprawdz readme)"
+        "choice_0": "EET end (ostatni mod w kolejnosci instalacji)", "0": "Standardowa instalacja",
+        "1": "Instalacja z aktualizacja zapisow gry (bez kopii zapasowej, sprawdz readme)"
       }
     },
     "es_ES": {
       "components": {
-        "choice_0": "EET end (ultimo mod en el orden de instalacion)", "1": "Standard installation",
-        "2": "Also update saves (no backups, check the readme file)"
+        "choice_0": "EET end (ultimo mod en el orden de instalacion)", "0": "Standard installation",
+        "1": "Also update saves (no backups, check the readme file)"
       }
     },
     "cs_CZ": {
       "components": {
-        "choice_0": "EET end (posledni mod instalace)", "1": "Standardni instalace",
-        "2": "Take aktualizovat zaznamy her (zadne zalohy, viz soubor readme)"
+        "choice_0": "EET end (posledni mod instalace)", "0": "Standardni instalace",
+        "1": "Take aktualizovat zaznamy her (zadne zalohy, viz soubor readme)"
       }
     },
     "ru_RU": {
       "components": {
-        "choice_0": "EET end (last mod in install order)", "1": "Standard installation",
-        "2": "Also update saves (no backups, check the readme file)"
+        "choice_0": "EET end (last mod in install order)", "0": "Standard installation",
+        "1": "Also update saves (no backups, check the readme file)"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "EET end (letze Mod der Installationsreihenfolge)", "1": "Standardinstallation",
-        "2": "Auch gespeicherte Spielstaende aktualisieren (keine Backups, siehe Readme)"
+        "choice_0": "EET end (letze Mod der Installationsreihenfolge)", "0": "Standardinstallation",
+        "1": "Auch gespeicherte Spielstaende aktualisieren (keine Backups, siehe Readme)"
       }
     }
   },

@@ -31,7 +31,7 @@
   "translations": {
     "en_US": {
       "components": {
-        "0": "DSCOARM",
+        "0": "Dark Side of the Sword Coast (DSotSC)",
         "1": "DSotSC Wizard spells",
         "2": "DSotSC Priest spells",
         "3": "More common encounters in vanilla areas",
@@ -42,7 +42,7 @@
     "fr_FR": {
       "description": "Dark Side of the Sword Coast est un mod pour Baldur's Gate + Tales of the Sword Coast. Il ajoute 5 quêtes (plus ou moins importantes) comportant de nouvelles zones, de nouveaux monstres (des morts-vivants en particulier) et 9 nouveaux personnages recrutables. Il ajoute aussi de nouveaux sorts et objets répartis un peu partout dans le jeu, soit sur des adversaires existants, soit sur de nouveaux personnages, soit encore dans des magasins ou des lieux.\nLa version BG1 (v106) est traduite en français, la version BG:EE (v102) de Red Carnelian ne l'est pas.",
       "components": {
-        "0": "DSCOARM",
+        "0": "Dark Side of the Sword Coast (DSotSC)",
         "1": "DSotSC Wizard spells",
         "2": "DSotSC Priest spells",
         "3": "More common encounters in vanilla areas",
@@ -52,17 +52,17 @@
     "zh_CN": {
       "description": "《黑暗剑湾》是《博德之门》+《剑湾传奇》的模组。它增加了5个（或多或少重要的）任务，包含新区域、新怪物（尤其是不死生物）和9个可招募的新角色。它还增加了新法术和物品，散布在游戏各处，要么在现有敌人身上，要么在新角色身上，要么在商店或地点中。\nBG1版本（v106）已翻译成法语，Red Carnelian的BG:EE版本（v102）未翻译。",
       "components": {
-        "0": "DSCOARM",
+        "0": "Dark Side of the Sword Coast (DSotSC)",
         "1": "DSotSC Wizard spells",
         "2": "DSotSC Priest spells",
         "3": "More common encounters in vanilla areas",
         "4": "Distribute DSotSC items also in vanilla content"
       }
     },
-    "es_ES": {"components": {"0": "DSCOARM", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "it_IT": {"components": {"0": "DSCOARM", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "ru_RU": {"components": {"0": "DSCOARM", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "pl_PL": {"components": {"0": "DSCOARM", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}}
+    "es_ES": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
+    "it_IT": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
+    "ru_RU": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
+    "pl_PL": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}}
   },
   "tp2": "dsotsc",
   "safe": 2,

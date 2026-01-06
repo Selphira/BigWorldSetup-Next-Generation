@@ -42,7 +42,8 @@
     "zh_CN": {
       "description": "Rolles Safyer是一位出现在阿斯卡特拉渥金商场的商人。他出售许多物品——价格相当昂贵——（其中一些是那些能提升属性的著名书籍），但他的主要功能是打造魔法物品。像克伦威尔或鲁阿德一样，他会分析你的物品栏，看看你的某些武器或物品是否可以被强化或与其他物品组合。结果可能非常强大，前提是你愿意支付可能相当高昂的价格……"
     },
-    "it_IT": {"components": {"0": "Rolles Safyer", "10": "Borsa Conservante nel Dungeon di Irenicus"}}
+    "it_IT": {"components": {"0": "Rolles Safyer", "10": "Borsa Conservante nel Dungeon di Irenicus"}},
+    "pl_PL": {"components": {"0": "Rolles Safyer", "10": "Bag of Holding in Irenicus Dungeon"}}
   },
   "tp2": "rolles",
   "safe": 2,

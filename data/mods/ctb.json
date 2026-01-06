@@ -61,7 +61,8 @@
         "1": "烛堡琐事",
         "2": "烛堡琐事快速化（适用于CtB v2.2或更高版本）",
         "3": "其他改进",
-        "4": "检查身体资源biffing"
+        "4": "检查身体资源biffing",
+        "5": "CtB Wizard Spells"
       }
     },
     "de_DE": {"components": {"0": "Check The Bodies", "1": "Candlekeep Chores", "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)", "3": "Other Improvements", "4": "Check The Bodies Resource biffing", "5": "CtB Wizard Spells"}},

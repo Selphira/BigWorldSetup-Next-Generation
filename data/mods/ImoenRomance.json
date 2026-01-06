@@ -38,9 +38,10 @@
     },
     "zh_CN": {
       "description": "这个模组让你能和她妹妹建立更亲密的关系。这可以是友谊，也可以是爱情，无论玩家角色的性别如何。对话内容特别丰富，模组还包含大量新音乐。它需要《巴尔王座》。"
-    }
+    },
+    "ru_RU": {"components": {"0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.2 Version!)", "choice_0": "Romance Option", "1": "Allow Multiple Romance's", "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"}}
   },
-  "tp2": "ImoenRomance",
+  "tp2": "imoenromance",
   "safe": 2,
   "authors": ["Lord Mirrabbo", "Vanatos", "Sarevok08", "T.C. Dale", "theacefes"]
 }
