@@ -13,6 +13,7 @@ import logging
 from pathlib import Path
 import platform
 import re
+from typing import Any, Iterator
 
 from core.File import safe_read
 
@@ -77,11 +78,7 @@ DEFAULT_OS_CODE: str = "unix"
 _WEIDU_OS_VAR: str = "%WEIDU_OS%"
 _MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
 
-RE_BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
-RE_LINE_COMMENT = re.compile(r"^\s*//.*(?:\n|$)", re.MULTILINE)
-RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z\.\-_]*)[~"]?')
-RE_LANGUAGE_BLOCK = re.compile(r"LANGUAGE\s+((?:[~\"].*?[~\"]\s*)+)", re.DOTALL)
-RE_QUOTED_STRING = re.compile(r'[~"]([^~"]+)[~"]')
+RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z.\-_]*)[~"]?')
 RE_TRA_TRANSLATION = re.compile(
     r"""
     @\s*(?P<id>-?\d+)
@@ -259,15 +256,19 @@ class TokenType(Enum):
     BEGIN = auto()
     DESIGNATED = auto()
     SUBCOMPONENT = auto()
+    FORCED_SUBCOMPONENT = auto()
     DEPRECATED = auto()
-    REQUIRE_PREDICATE = auto()  # Future extension
-    MOD_IS_INSTALLED = auto()  # Future extension
     LABEL = auto()
     GROUP = auto()
     STRING_REF = auto()  # @123
     STRING_LITERAL = auto()  # ~text~ or "text"
     NUMBER = auto()
     IDENTIFIER = auto()
+    ACTION_IF = auto()
+    GAME_IS = auto()
+    MOD_IS_INSTALLED = auto()  # Future extension
+    REQUIRE_COMPONENT = auto()
+    REQUIRE_PREDICATE = auto()  # Future extension
     EOF = auto()
 
 
@@ -288,20 +289,22 @@ class Tokenizer:
     """Tokenizes TP2 component blocks into a stream of tokens."""
 
     KEYWORDS = {
+        "ACTION_IF": TokenType.ACTION_IF,
         "BEGIN": TokenType.BEGIN,
-        "DESIGNATED": TokenType.DESIGNATED,
-        "SUBCOMPONENT": TokenType.SUBCOMPONENT,
         "DEPRECATED": TokenType.DEPRECATED,
-        "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
-        "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
-        "LABEL": TokenType.LABEL,
+        "DESIGNATED": TokenType.DESIGNATED,
+        "FORCED_SUBCOMPONENT": TokenType.FORCED_SUBCOMPONENT,
+        "GAME_IS": TokenType.GAME_IS,
         "GROUP": TokenType.GROUP,
+        "LABEL": TokenType.LABEL,
+        "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
+        "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
+        "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
+        "SUBCOMPONENT": TokenType.SUBCOMPONENT,
     }
 
     PATTERNS = [
         (re.compile(r"@\s*(-?\d+)"), TokenType.STRING_REF),
-        (re.compile(r"~([^~]*)~"), TokenType.STRING_LITERAL),
-        (re.compile(r'"([^"]*)"'), TokenType.STRING_LITERAL),
         (re.compile(r"\b(\d+)\b"), TokenType.NUMBER),
         (re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\b"), TokenType.IDENTIFIER),
     ]
@@ -309,40 +312,224 @@ class Tokenizer:
     def tokenize(self, text: str) -> list[Token]:
         """Tokenize TP2 text into a list of tokens."""
         tokens: list[Token] = []
-        lines = text.split("\n")
+        i = 0
+        length = len(text)
+        line = 1
+        column = 0
 
-        for line_num, line in enumerate(lines, start=1):
-            column = 0
+        while i < length:
+            char = text[i]
 
-            while column < len(line):
-                if line[column].isspace():
-                    column += 1
+            # Track line/column
+            if char == "\n":
+                line += 1
+                column = 0
+                i += 1
+                continue
+
+            # Skip whitespace (except newlines)
+            if char in " \t\r":
+                column += 1
+                i += 1
+                continue
+
+            # String literals
+            if char in ("~", '"', "%"):
+                token = self._extract_string(text, i, line, column, char)
+                if token:
+                    tokens.append(token)
+                    # Update position
+                    string_content = char + token.value + char
+                    newlines = string_content.count("\n")
+                    if newlines > 0:
+                        line += newlines
+                        # Column is position after last newline
+                        last_newline = string_content.rfind("\n")
+                        column = len(string_content) - last_newline - 1
+                    else:
+                        column += len(string_content)
+                    i += len(string_content)
                     continue
 
-                matched = False
-                for pattern, token_type in self.PATTERNS:
-                    match = pattern.match(line, column)
-                    if match:
-                        value = match.group(1) if match.lastindex else match.group(0)
+            # String references @123 or @-123
+            if char == "@":
+                token = self._extract_string_ref(text, i, line, column)
+                if token:
+                    tokens.append(token)
+                    column += len(token.value) + 1  # +1 for @
+                    i += len(token.value) + 1
+                    continue
 
-                        if token_type == TokenType.IDENTIFIER:
-                            keyword_type = self.KEYWORDS.get(value.upper())
-                            if keyword_type:
-                                token_type = keyword_type
+            # Numbers
+            if char.isdigit():
+                token = self._extract_number(text, i, line, column)
+                if token:
+                    tokens.append(token)
+                    column += len(token.value)
+                    i += len(token.value)
+                    continue
 
-                        tokens.append(
-                            Token(type=token_type, value=value, line=line_num, column=column)
-                        )
+            # Identifiers and keywords
+            if char.isalpha() or char == "_":
+                token = self._extract_identifier(text, i, line, column)
+                if token:
+                    tokens.append(token)
+                    column += len(token.value)
+                    i += len(token.value)
+                    continue
 
-                        column = match.end()
-                        matched = True
-                        break
+            # Unknown character, skip
+            column += 1
+            i += 1
 
-                if not matched:
-                    column += 1
-
-        tokens.append(Token(TokenType.EOF, "", len(lines), 0))
+        tokens.append(Token(TokenType.EOF, "", line, column))
         return tokens
+
+    @staticmethod
+    def _extract_string(
+        text: str, start: int, line: int, column: int, delimiter: str
+    ) -> Token | None:
+        """Extract a string literal with given delimiter.
+
+        Supports multi-line strings.
+        """
+        i = start + 1  # Skip opening delimiter
+        end = text.find(delimiter, i)
+
+        if end == -1:
+            # Unclosed string
+            return None
+
+        value = text[i:end]
+        return Token(TokenType.STRING_LITERAL, value, line, column)
+
+    @staticmethod
+    def _extract_string_ref(text: str, start: int, line: int, column: int) -> Token | None:
+        """Extract a string reference like @123 or @-123."""
+        pattern = re.compile(r"@\s*(-?\d+)")
+        match = pattern.match(text, start)
+
+        if not match:
+            return None
+
+        value = match.group(1)
+        return Token(TokenType.STRING_REF, value, line, column)
+
+    @staticmethod
+    def _extract_number(text: str, start: int, line: int, column: int) -> Token | None:
+        """Extract a number."""
+        i = start
+        while i < len(text) and text[i].isdigit():
+            i += 1
+
+        value = text[start:i]
+        return Token(TokenType.NUMBER, value, line, column)
+
+    def _extract_identifier(
+        self, text: str, start: int, line: int, column: int
+    ) -> Token | None:
+        """Extract an identifier or keyword."""
+        i = start
+        while i < len(text) and (text[i].isalnum() or text[i] in ["_", "-"]):
+            i += 1
+
+        value = text[start:i]
+        token_type = self.KEYWORDS.get(value.upper(), TokenType.IDENTIFIER)
+        return Token(token_type, value, line, column)
+
+
+# ============================================================================
+# Language Parser
+# ============================================================================
+
+
+class LanguageParser:
+    """Extracts and parses LANGUAGE declarations from TP2 content."""
+
+    LANGUAGE_START = re.compile(r"^\s*LANGUAGE\b", re.MULTILINE)
+
+    def __init__(self):
+        self.tokenizer = Tokenizer()
+
+    def extract_languages(self, text: str, mod_name: str) -> list[LanguageDeclaration]:
+        """Extract all LANGUAGE declarations from TP2 content.
+
+        Args:
+            text: Cleaned TP2 content (comments already removed)
+            mod_name: Name of the mod (for %MOD_FOLDER% substitution)
+
+        Returns:
+            List of LanguageDeclaration objects
+        """
+        # Find all LANGUAGE keyword positions
+        language_positions = [match.start() for match in self.LANGUAGE_START.finditer(text)]
+
+        if not language_positions:
+            return []
+
+        languages = []
+
+        for i, lang_start in enumerate(language_positions):
+            # Determine end position (next LANGUAGE or BEGIN, or EOF)
+            if i + 1 < len(language_positions):
+                lang_end = language_positions[i + 1]
+            else:
+                begin_match = re.search(r"^\s*BEGIN\b", text[lang_start:], re.MULTILINE)
+                lang_end = lang_start + begin_match.start() if begin_match else len(text)
+
+            # Extract block content (skip "LANGUAGE" keyword itself)
+            block_text = text[lang_start:lang_end]
+            block_content = re.sub(r"^\s*LANGUAGE\s+", "", block_text)
+
+            lang_decl = self._parse_block(block_content, mod_name, len(languages))
+            if lang_decl:
+                languages.append(lang_decl)
+
+        return languages
+
+    def _parse_block(
+        self, block_content: str, mod_name: str, index: int
+    ) -> LanguageDeclaration | None:
+        """Parse a single LANGUAGE block.
+
+        Args:
+            block_content: Content after LANGUAGE keyword
+            mod_name: Mod name for variable substitution
+            index: Position in language declaration order
+
+        Returns:
+            LanguageDeclaration or None if invalid
+        """
+        tokens = self.tokenizer.tokenize(block_content)
+
+        values = []
+        for token in tokens:
+            if token.type in [TokenType.STRING_LITERAL, TokenType.IDENTIFIER]:
+                values.append(token.value)
+            else:
+                break
+
+        # Need at least display_name and language_code
+        if len(values) < 2:
+            logger.warning(f"Invalid LANGUAGE block (need ≥2 values): {block_content[:50]}...")
+            return None
+
+        display_name = values[0]
+        language_code = values[1]
+        tra_files_raw = values[2:]
+        os_code = get_os_code()
+
+        tra_files = [
+            tra_file.replace(_WEIDU_OS_VAR, os_code).replace(_MOD_FOLDER_VAR, mod_name)
+            for tra_file in tra_files_raw
+        ]
+
+        return LanguageDeclaration(
+            display_name=display_name,
+            language_code=language_code,
+            tra_files=tra_files,
+            index=index,
+        )
 
 
 # ============================================================================
@@ -395,7 +582,7 @@ class ComponentParser:
         if not tokens or tokens[0].type != TokenType.BEGIN:
             return None
 
-        component = {
+        component: dict[str, Any] = {
             "text_ref": None,
             "text": None,
             "designated": None,
@@ -423,9 +610,9 @@ class ComponentParser:
             elif token.type == TokenType.DESIGNATED:
                 i += 1
                 if i < len(tokens) and tokens[i].type == TokenType.NUMBER:
-                    component["designated"] = int(tokens[i].value)
+                    component["designated"] = tokens[i].value
 
-            elif token.type == TokenType.SUBCOMPONENT:
+            elif token.type in (TokenType.SUBCOMPONENT, TokenType.FORCED_SUBCOMPONENT):
                 i += 1
                 if i < len(tokens):
                     next_token = tokens[i]
@@ -452,14 +639,20 @@ class ComponentParser:
                 component["deprecated"] = True
                 i += 1
 
-            # TODO: Future extension - parse REQUIRE_PREDICATE and MOD_IS_INSTALLED
-            elif token.type == TokenType.REQUIRE_PREDICATE:
+            # TODO: Future extension
+            elif token.type in (
+                TokenType.GAME_IS,
+                TokenType.IDENTIFIER,
+                TokenType.MOD_IS_INSTALLED,
+                TokenType.NUMBER,
+                TokenType.REQUIRE_COMPONENT,
+                TokenType.REQUIRE_PREDICATE,
+                TokenType.STRING_LITERAL,
+                TokenType.STRING_REF,
+            ):
                 pass  # Placeholder for future implementation
 
-            elif token.type == TokenType.MOD_IS_INSTALLED:
-                pass  # Placeholder for future implementation
-
-            elif token.type == TokenType.EOF:
+            else:
                 break
 
             i += 1
@@ -560,11 +753,72 @@ class WeiDUTp2Parser:
 
     def _strip_comments(self, text: str) -> str:
         """Remove C-style and C++-style comments from text."""
-        text = RE_BLOCK_COMMENT.sub("", text)
-        text = RE_LINE_COMMENT.sub("", text)
-        return text
+        return "".join(
+            content
+            for token_type, content in self._tokenize_for_comment_removal(text)
+            if token_type != "comment"
+        )
 
-    def _extract_version(self, text: str, tp2: WeiDUTp2) -> None:
+    @staticmethod
+    def _tokenize_for_comment_removal(text: str) -> Iterator[tuple[str, str]]:
+        """Tokenize text into strings, comments, and code segments."""
+        i = 0
+        length = len(text)
+
+        while i < length:
+            # Check for string literals (must check before comments)
+            for delimiter in ("~", '"', "'"):
+                if text[i] == delimiter:
+                    end = text.find(delimiter, i + 1)
+                    if end != -1:
+                        yield "string", text[i : end + 1]
+                        i = end + 1
+                        break
+            else:
+                # Check for line comment
+                if i + 1 < length and text[i : i + 2] == "//":
+                    end = text.find("\n", i)
+                    if end != -1:
+                        yield "comment", text[i:end]
+                        i = end
+                    else:
+                        # Comment extends to EOF
+                        yield "comment", text[i:]
+                        break
+                    continue
+
+                # Check for block comment
+                if i + 1 < length and text[i : i + 2] == "/*":
+                    end = text.find("*/", i + 2)
+                    if end != -1:
+                        yield "comment", text[i : end + 2]
+                        i = end + 2
+                    else:
+                        # Unclosed block comment, consume to EOF
+                        yield "comment", text[i:]
+                        logger.warning("Unclosed block comment in TP2 file")
+                        break
+                    continue
+
+                # Check for inline file block
+                if i + 7 < length and text[i : i + 8] == "<<<<<<<<":
+                    end = text.find(">>>>>>>>", i + 8)
+                    if end != -1:
+                        yield "comment", text[i : end + 8]
+                        i = end + 8
+                    else:
+                        # Unclosed inline file, consume to EOF
+                        yield "comment", text[i:]
+                        logger.warning("Unclosed inline file block in TP2 file")
+                        break
+                    continue
+
+                # Regular code character
+                yield "code", text[i]
+                i += 1
+
+    @staticmethod
+    def _extract_version(text: str, tp2: WeiDUTp2) -> None:
         """Extract VERSION declaration from TP2 content."""
         match = RE_VERSION.search(text)
         if match:
@@ -572,34 +826,17 @@ class WeiDUTp2Parser:
         else:
             logger.warning("No VERSION declaration found in TP2")
 
-    def _extract_languages(self, text: str, tp2: WeiDUTp2) -> None:
+    @staticmethod
+    def _extract_languages(text: str, tp2: WeiDUTp2) -> None:
         """Extract LANGUAGE declarations from TP2 content."""
-        for block in RE_LANGUAGE_BLOCK.finditer(text):
-            raw = block.group(1)
-            parts = RE_QUOTED_STRING.findall(raw)
-
-            if len(parts) < 2:
-                logger.warning(f"Invalid LANGUAGE block: {raw[:50]}...")
-                continue
-
-            os_code = get_os_code()
-            tra_files = [
-                tra_file.replace(_WEIDU_OS_VAR, os_code).replace(_MOD_FOLDER_VAR, tp2.name)
-                for tra_file in parts[2:]
-            ]
-
-            lang = LanguageDeclaration(
-                display_name=parts[0],
-                language_code=parts[1],
-                tra_files=tra_files,
-                index=len(tp2.languages),
-            )
-            tp2.languages.append(lang)
+        parser = LanguageParser()
+        tp2.languages = parser.extract_languages(text, tp2.name)
 
         if not tp2.languages:
             logger.warning("No LANGUAGE declarations found in TP2")
 
-    def _parse_components(self, text: str, tp2: WeiDUTp2) -> None:
+    @staticmethod
+    def _parse_components(text: str, tp2: WeiDUTp2) -> None:
         """Parse all component declarations from TP2 content using robust token-based approach."""
         parser = ComponentParser()
         blocks = parser.extract_blocks(text)
@@ -607,7 +844,7 @@ class WeiDUTp2Parser:
         logger.info(f"Extracted {len(blocks)} component blocks")
 
         deprecated_count = 0
-        prev_designated = -1
+        prev_designated = "-1"
         muc_groups: dict[str, MucComponent] = {}
 
         for block in blocks:
@@ -621,7 +858,10 @@ class WeiDUTp2Parser:
                 if component_data["designated"] is not None:
                     designated = component_data["designated"]
                 else:
-                    designated = prev_designated + 1
+                    # Ex: DESIGNATED 0010 (trap_overhaul)
+                    width = len(prev_designated) if prev_designated.startswith("0") else None
+                    value = int(prev_designated) + 1
+                    designated = f"{value:0{width}d}" if width else str(value)
 
                 prev_designated = designated
 
@@ -701,29 +941,57 @@ class WeiDUTp2Parser:
 
     def _build_translations(self, tp2: WeiDUTp2) -> None:
         """Build translation dictionary for all languages."""
-        translations = {}
-        for lang in tp2.languages:
-            translations[lang.language_code] = self._extract_tra_translations(lang.tra_files)
+        translations: dict[str, dict[str, str]] = {
+            lang.language_code: self._extract_tra_translations(lang.tra_files)
+            for lang in tp2.languages
+        }
 
+        fallback_langs = [code for code in ["en_US", "fr_FR", "de_DE"] if code in translations]
+
+        for lang in tp2.languages:
+            lang_code = lang.language_code
+            lang_codes = [lang_code] + fallback_langs
             components: dict[str, str] = {}
 
-            def process_component(comp: Component, lang_code: str) -> None:
-                """Recursively process component and sub-components."""
-                designated = comp.designated
-
-                if comp.text_ref is not None and comp.text_ref in translations[lang_code]:
-                    components[designated] = translations[lang_code][comp.text_ref]
-                elif comp.text is not None:
-                    components[designated] = comp.text
-
-                if isinstance(comp, MucComponent):
-                    for sub_comp in comp.components:
-                        process_component(sub_comp, lang_code)
-
             for component in tp2.components:
-                process_component(component, lang.language_code)
+                self._process_component(component, components, lang_codes, translations)
 
             if components:
-                tp2.component_translations[lang.language_code] = components
+                tp2.component_translations[lang_code] = components
 
         tp2.translations = translations
+
+    def _process_component(
+        self,
+        comp: Component,
+        components: dict[str, str],
+        lang_codes: list[str],
+        translations: dict[str, dict[str, str]],
+    ) -> None:
+        """Process a single component and its sub-components recursively.
+
+        Args:
+            comp: Component to process
+            components: Dictionary to populate with translations
+            lang_codes: Ordered list of language codes for fallback
+            translations: Dictionary of all translations
+        """
+        designated = comp.designated
+
+        text = None
+        if comp.text_ref is not None:
+            for code in lang_codes:
+                value = translations.get(code, {}).get(comp.text_ref)
+                if value:
+                    text = value
+                    break
+
+        if text is None:
+            text = comp.text
+
+        if text is not None:
+            components[designated] = text
+
+        if isinstance(comp, MucComponent):
+            for sub_comp in comp.components:
+                self._process_component(sub_comp, components, lang_codes, translations)
