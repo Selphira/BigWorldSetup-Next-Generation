@@ -36,7 +36,7 @@
     "en_US": {
       "description": "Here's a mod of powerful items you'll find at Nathan's Waukeen's Promenade.",
       "components": {
-        "choice_0": "IRStore par Theo de Moree",
+        "choice_0": "",
         "0": "Mod IRStore for BG2ToB / BGT or BG2EE / EET",
         "2": "Install \"IRStore Delayed\" some items will be available only after the Underdark",
         "3": "Install \"IRStore Delayed\" and \"IRStore ToB\"",

@@ -19,7 +19,7 @@
     "200": {"type": "std"},
     "300": {"type": "std"},
     "400": {"type": "std", "games": ["iwdee"]},
-    "choice_2": {"type": "muc", "components": ["900"]}
+    "900": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -43,7 +43,6 @@
         "200": "Remove Afaaq's banter soundtrack?",
         "300": "Alternate djinni portrait by Ulb",
         "400": "Disable IWD:EE Quest?",
-        "choice_2": "Distinctive Genies",
         "900": "Add Infinity Animation creatures?"
       },
       "description": "This mod adds a djinn acting as a seventh member of the party. It dialogues with the main character and the members of the party (work in progress) and gives its opinion in other dialogues, just like a classic NPC. He also proposes a number of quests to discover new places. He can be likened to a fighter-mage.\nSTR 15, DEX 16, CON 13, INT 15, WIS 16, CHA 11."
@@ -64,7 +63,6 @@
         "200": "Supprimer la bande-son des conversations d'Afaaq ?",
         "300": "Portrait de djinn alternatif par Ulb",
         "400": "Desactiver la quete de IWD:EE ?",
-        "choice_2": "Distinctive Genies",
         "900": "Ajouter des creatures d'Infinity Animation ?"
       }
     },
@@ -84,11 +82,10 @@
         "200": "移除阿法克插话音轨？",
         "300": "可选的风巨灵肖像（by Ulb）",
         "400": "禁用 IWD:EE 任务？",
-        "choice_2": "Distinctive Genies",
         "900": "增加Infinity Animation生物？"
       }
     },
-    "de_DE": {"components": {"choice_0": "Afaaq, der Dschinngefaehrte", "0": "Vollversion (beinhaltet Abenteuer, Dialoge und mehr)", "1": "Eingeschraenkte Version (beinhaltet nur den Dschinn)", "2": "Afaaq, der Dschinngefaehrte (IWD:EE-Version)", "choice_1": "Banter Beschleunigungsskript fuer den Dschinn installieren? (Vorgabe: 60 Minuten)", "101": "15 Minuten", "102": "30 Minuten", "103": "45 Minuten", "104": "90 Minuten", "105": "120 Minuten", "200": "Afaaqs Bantermusik entfernen?", "300": "Alternatives Dschinnportrait von Ulb", "400": "IWD:EE-Abenteuer entfernen?", "choice_2": "Distinctive Genies", "900": "Infinity Animations fuer ausgewaehlte Kreaturen installieren?"}}
+    "de_DE": {"components": {"choice_0": "Afaaq, der Dschinngefaehrte", "0": "Vollversion (beinhaltet Abenteuer, Dialoge und mehr)", "1": "Eingeschraenkte Version (beinhaltet nur den Dschinn)", "2": "Afaaq, der Dschinngefaehrte (IWD:EE-Version)", "choice_1": "Banter Beschleunigungsskript fuer den Dschinn installieren? (Vorgabe: 60 Minuten)", "101": "15 Minuten", "102": "30 Minuten", "103": "45 Minuten", "104": "90 Minuten", "105": "120 Minuten", "200": "Afaaqs Bantermusik entfernen?", "300": "Alternatives Dschinnportrait von Ulb", "400": "IWD:EE-Abenteuer entfernen?", "900": "Infinity Animations fuer ausgewaehlte Kreaturen installieren?"}}
   },
   "tp2": "djinnicompanion",
   "safe": 2,

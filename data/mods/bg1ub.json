@@ -50,7 +50,14 @@
     "34": {"type": "std"}
   },
   "languages": {
-    "en_US": 0
+    "en_US": 0,
+    "de_DE": 1,
+    "es_ES": 2,
+    "fr_FR": 3,
+    "it_IT": 4,
+    "ru_RU": 5,
+    "pl_PL": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -135,23 +142,24 @@
     },
     "it_IT": {
       "components": {
-        "0": "Ripristina il secondo livello dell'Isola Ghiacciata", "1": "La fiala misteriosa",
-        "2": "Incontro aggiuntivo con Elminster", "3": "Angelo riconosce Shar-teel",
-        "4": "Finale della quest della carovana di Kagain", "5": "Coran e le viverne", "6": "Kivan e Tazok",
-        "7": "Branwen e Tranzig", "8": "Il flirt di Safana", "9": "Ricompensa adeguata per la quest di Albert e Rufie",
-        "10": "Posiziona Entar Silvershield dentro casa sua", "11": "Scar e la figlia di Sashenstar",
-        "12": "Quoningar, il Chierico", "13": "Shilo Chen e l'Ogre-Magi",
-        "14": "Edie, candidato membro della Lega dei Mercanti", "15": "Rinforzi mercenari del Pugno Fiammante",
-        "16": "Correzioni alle creature", "17": "Ripristina creature", "18": "Ripristina i nomi di alcune creature",
-        "19": "Correzioni minori ai dialoghi", "20": "Ripristina alcuni file audio",
-        "21": "Correzioni varie e ripristino di negozi, taverne e locande",
-        "22": "Correzioni e ripristino di alcuni oggetti", "23": "Correzioni alle aree e ripristino di aree aggiuntive",
-        "24": "Cadaveri permanenti", "25": "Immunit?Erazziali degli elfi agli effetti di Sonno e Charme",
-        "26": "Correzioni alla playlist della musica originale della saga", "27": "Correzioni al diario di Sarevok",
-        "28": "Modifica di Prism e gli Smeraldi", "29": "Il Duca Eltan dal Comandante della Capitaneria di Porto",
+        "0": "Ripristina il Secondo Livello dell'Isola di Ghiaccio", "1": "La Fiala Misteriosa",
+        "2": "Incontro Aggiuntivo con Elminster", "3": "Angelo Riconosce Shar-teel",
+        "4": "Missione della Carovana di Kagain Completabile", "5": "Coran e le Viverne", "6": "Kivan e Tazok",
+        "7": "Branwen e Tranzig", "8": "La Seducente Safana",
+        "9": "Ricompensa Adeguata per la Missione di Albert e Rufie",
+        "10": "Posiziona Entar Silvershield Dentro Casa Sua", "11": "Scar e la Figlia dei Sashenstar",
+        "12": "Quoningar, il Chierico", "13": "Shilo Chen e l'Ogre magi",
+        "14": "Edie, Candidato Membro della Lega dei Mercanti", "15": "Rinforzi Mercenari del Pugno Fiammante",
+        "16": "Correzioni alle Creature", "17": "Ripristina Creature", "18": "Ripristina i Nomi di Alcune Creature",
+        "19": "Correzioni Minori ai Dialoghi", "20": "Ripristina File Audio",
+        "21": "Correzioni Varie e Ripristino di Negozi, Taverne e Locande", "22": "Correzioni e Ripristino di Oggetti",
+        "23": "Correzioni alle Aree e Ripristino di Aree Aggiuntive", "24": "Cadaveri Permanenti",
+        "25": "Immunità Razziali degli Elfi agli Effetti di Sonno e Charme",
+        "26": "Correzioni alla Playlist delle Tracce Musicali della Saga", "27": "Correzioni al Diario di Sarevok",
+        "28": "Aggiustamento di Prism e gli Smeraldi", "29": "Il Duca Eltan nel Palazzo del Capitano del Porto",
         "30": "Incontro con Nim Furlwing", "31": "Ripristina il Filmato della Taverna del Canto Elfico",
-        "32": "Svlast the Fallen Paladin", "33": "Mal-Kalen the Ulcaster Revenant",
-        "34": "Chapter 6 Dialogue Restorations"
+        "32": "Svlast, il Paladino Decaduto", "33": "Mal-Kalen, un Fantasma nelle Rovine di Ulcaster",
+        "34": "Ripristina Dialoghi Capitolo 6"
       }
     },
     "ru_RU": {
@@ -169,12 +177,110 @@
         "25": "Elven Charm and Sleep Racial Resistance", "26": "The Original Saga Music Playlist Corrections",
         "27": "Sarevok's Diary Corrections", "28": "Prism and the Emeralds Tweak",
         "29": "Duke Eltan in the Harbor Master's Building", "30": "Nim Furlwing Encounter",
-        "31": "Restored Elfsong Tavern Movie", "32": "Svlast the Fallen Paladin",
-        "33": "Mal-Kalen the Ulcaster Revenant", "34": "Chapter 6 Dialogue Restorations"
+        "31": "Restored Elfsong Tavern Movie", "32": "Svlast, the Fallen Paladin Encounter",
+        "33": "Mal-Kalen, the Ulcaster Ghost", "34": "Chapter 6 Dialogue Restorations"
       }
     },
     "zh_CN": {
-      "description": "与博德之门2中同名的模组一样，此模组弥补了原游戏中的一些遗漏或未完成的内容。因此，它将一些任务、物品、角色……重新引入游戏中，这些内容在游戏中本已存在，但未被利用或未完成（特别是可招募角色的反应）。您将特别能找到博德之门1中冰岛的第二个层级，让布朗温认出特兰齐格，给在矿坑中找到的神秘药剂一个用途，等等。它还修复了一些错误。"
+      "description": "与博德之门2中同名的模组一样，此模组弥补了原游戏中的一些遗漏或未完成的内容。因此，它将一些任务、物品、角色……重新引入游戏中，这些内容在游戏中本已存在，但未被利用或未完成（特别是可招募角色的反应）。您将特别能找到博德之门1中冰岛的第二个层级，让布朗温认出特兰齐格，给在矿坑中找到的神秘药剂一个用途，等等。它还修复了一些错误。",
+      "components": {
+        "0": "恢复冰岛第二层",
+        "1": "神秘的小瓶",
+        "2": "额外出场的伊尔明斯特",
+        "3": "安其罗注意到莎儿·蒂尔",
+        "4": "可以完成的凯根商队任务",
+        "5": "科朗和双足飞龙",
+        "6": "齐冯和塔佐克",
+        "7": "布朗温和传兹克",
+        "8": "莎法娜的调情",
+        "9": "适当的艾柏特和来福的奖励",
+        "10": "安塔·银盾出现在自己的家",
+        "11": "史卡和萨森斯达的女儿",
+        "12": "牧师奎宁格",
+        "13": "陈希洛和食人魔法师",
+        "14": "艾迪，商业联盟的申请者",
+        "15": "焰拳佣兵的支援",
+        "16": "生物纠正",
+        "17": "生物恢复",
+        "18": "生物名称恢复",
+        "19": "少量对话恢复",
+        "20": "声音恢复",
+        "21": "商店、酒馆和旅店的修正和恢复",
+        "22": "物品纠正与恢复",
+        "23": "地区纠正与恢复",
+        "24": "固定的尸体",
+        "25": "精灵的魅惑和催眠种族抗性",
+        "26": "博德之门原版音乐播放列表修正",
+        "27": "沙洛佛克日记修正",
+        "28": "布理森与绿宝石",
+        "29": "银盾公爵出现在港口主建筑里",
+        "30": "遭遇尼姆·富尔温",
+        "31": "恢复精灵之歌酒馆的动画",
+        "32": "斯夫拉特，堕落的圣武士遭遇",
+        "33": "玛尔·卡莲，巫尔卡司特的幽灵",
+        "34": "第六章对话恢复"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Wiederherstellung des zweiten Levels der Eisinsel", "1": "Das geheimnisvolle Flaeschchen",
+        "2": "Zusaetzliche Begegnung mit Elminster", "3": "Angelo bemerkt Shar-Teel",
+        "4": "Loesbares Karavanenabenteuer mit Kagain", "5": "Coran und die Lindwuermer", "6": "Kivan und Tazok",
+        "7": "Branwen und Tranzig", "8": "Safanas Flirten", "9": "Angemessene Belohnung von Albert und Rufie",
+        "10": "Entar Silberschild in seinem Haus postieren", "11": "Scar und Sashenstars Tochter",
+        "12": "Quoningar, der Kleriker", "13": "Shilo Chen und die Oger Magi",
+        "14": "Edie, die Bewerberin fuer die Haendlerliga",
+        "15": "Verstaerkungstruppen fuer den Soeldner der Flammenden Faust", "16": "Korrekturen von Kreaturen",
+        "17": "Wiederherstellung von Kreaturen", "18": "Wiederherstellung von Namen der Kreaturen",
+        "19": "Wiederherstellung von kleineren Dialogen", "20": "Wiederherstellung von Soundsets",
+        "21": "Korrekturen und Wiederherstellungen von Laeden, Tavernen und Wirtshaeusern",
+        "22": "Korrekturen und Wiederherstellungen von Gegenstaenden",
+        "23": "Korrekturen und Wiederherstellungen von Gebieten", "24": "Bleibende Leichname",
+        "25": "Rassenimmunitaet von Elfen gegen Bezaubern und Schlaf",
+        "26": "Korrekturen der Musikabspielliste von BG: Die Saga", "27": "Korrekturen von Sarevoks Tagebuch",
+        "28": "Prism und die Smaragde", "29": "Fürst Eltan im Haus des Hafenmeisters", "30": "Nim Furlwing Begegnung",
+        "31": "Elfgesang Taverne Intro-Movie Wiederherstellen", "32": "Svlast, the Fallen Paladin Encounter",
+        "33": "Mal-Kalen, the Ulcaster Ghost", "34": "Chapter 6 Dialogue Restorations"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Restauración del nivel 2 de la Isla de Hielo", "1": "El Recipiente Misterioso",
+        "2": "Encuentro de Elminster Adicional", "3": "Angelo reconoce Shar-teel",
+        "4": "Busqueda de la Caravana de Kagain con Final", "5": "Coran y los Wyverns", "6": "Kivan y Tazok",
+        "7": "Branwen y Tranzig", "8": "Safana Coquetea", "9": "Recompensa de Albert y Rufie Apropiada",
+        "10": "Entar Escudo de Plata esta en su Casa", "11": "Scar y la Hija de Sashenstar",
+        "12": "Quoningar, el Clerigo", "13": "Shilo Chen y los Ogro magos",
+        "14": "Edie, el Estudiante a Mercader de la Liga", "15": "Refuerzos Mercenarios del Puño Llameante",
+        "16": "Correcciones a Criaturas", "17": "Restauracion a Criaturas", "18": "Nombres de Criaturas Restaurados",
+        "19": "Restauraciones Menores de Dialogo", "20": "Restauraciones de Audio (ingles)",
+        "21": "Arreglos y Restauraciones a Tiendas y Tabernas", "22": "Correcciones y Restauraciones de Objetos",
+        "23": "Correcciones y Restauraciones de Areas", "24": "Cadaveres Permanentes",
+        "25": "Hechizado Elfico e Inmunidad Racial al Sueño",
+        "26": "Correcciones a la Lista de Musica de la Saga Original", "27": "Correcciones del Diario de Sarevok",
+        "28": "Mejora a Prism y las esmeraldas", "29": "Duque Eltan en el Edificio del capitán del puerto",
+        "30": "Encuentro de Nim Alasplegadas", "31": "Película de la Taberna Canción Élfica restaurada",
+        "32": "Svlast, el encuentro con el paladín caído", "33": "Mal-Kalen, el fantasma de Ulcaster",
+        "34": "Restauraciones de diálogo del Capítulo 6"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Przywrocenie drugiego poziomu Lodowej Wyspy", "1": "Tajemniczy flakonik",
+        "2": "Dodatkowe spotkanie z Elminsterem", "3": "Angelo reaguje na Shar-teel",
+        "4": "Mozliwosc ukonczenia zadania Kagaina", "5": "Coran i wiwerny", "6": "Kivan i Tazok",
+        "7": "Branwen i Tranzig", "8": "Flirt Safany", "9": "Sensowna nagroda Alberta",
+        "10": "Umieszczenie Entara Srebrnej Tarczy w jego domu", "11": "Scar i corka Sashenstarow",
+        "12": "Kaplan Quoningar", "13": "Shilo Chen i Ogrzy-Mag", "14": "Edie, kandydatka do Ligii Kupieckiej",
+        "15": "Poprawki dla Najemnikow Plomiennej Piesci", "16": "Poprawki istot", "17": "Przywrocenie istot",
+        "18": "Przywrocenie imion istotom", "19": "Przywrocenie pomniejszych dialogow", "20": "Przywrocenie dzwiekow",
+        "21": "Poprawki i przywrocenia dla sklepow, tawern i karczm", "22": "Przywrocenie i poprawki przedmiotow",
+        "23": "Poprawki i przywrocenia dla obszarow", "24": "Wieczne zwloki", "25": "Elfia odpornosc na sen i uroki",
+        "26": "Poprawki listy utworow dla Oryginalnej Sagi", "27": "Poprawki dla pamietnika Sarevoka",
+        "28": "Prism i Szmaragdy", "29": "Ksiaze Eltan w Budynku kapitanatu", "30": "Spotkanie z Nimem Furlwingiem",
+        "31": "Przywrocony film w tawernie Elfia Piesn", "32": "Svlast, spotkanie z Upadlym Paladynem",
+        "33": "Mal-Kalen, duch z Ulcaster", "34": "Przywrocenie dialogow z Rozdzialu 6"
+      }
     }
   },
   "tp2": "bg1ub",

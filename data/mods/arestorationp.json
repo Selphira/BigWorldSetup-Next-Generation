@@ -38,7 +38,8 @@
     "fr_FR": 7,
     "pt_BR": 9,
     "ru_RU": 10,
-    "es_ES": 11
+    "cs_CZ": 11,
+    "es_ES": 12
   },
   "translations": {
     "en_US": {
@@ -102,7 +103,8 @@
     "fo_FO": {"components": {"0": "Endurboett stoed", "1": "Endurboettir leiklutir og samroedur", "2": "Endurboett ljód", "3": "Endurboettir lutir", "4": "Endurboettir ynskimoeguleikar", "5": "Endurboett royndarstig fyri smaerri lutir", "6": "Líkid Deril", "7": "Endurboettar tilvildarhendingar", "8": "Smaerri endurboetingar", "10": "Fraegari háttur at innflyta lutir", "11": "Endurboettur endaligi Slayer dreymur", "12": "Alternativ Slayer umskapan", "13": "Restored Waukeen's Promenade Cutscene"}},
     "pt_BR": {"components": {"0": "Locais Restaurados", "1": "Personagens e Diálogos Restaurados", "2": "Sons Restaurados", "3": "Itens Restaurados", "4": "Opções de Desejos Restauradas", "5": "EXP para Coisas Menores Restaurada", "6": "Lich Deril", "7": "Encontros Aleatórios Restaurados", "8": "Restaurações Menores", "10": "Melhor Importação de Itens", "11": "Restaurado o Sonho Final do Assassino", "12": "Mudança Alternativa do Assassino", "13": "Restaurada a Cena da Alameda de Waukeen"}},
     "ru_RU": {"components": {"0": "Restored Locations", "1": "Restored Characters and Dialogs", "2": "Restored Sounds", "3": "Restored Items", "4": "Restored Wish Options", "5": "Restored XP for Minor Things", "6": "Lich Deril", "7": "Restored Random Encounters", "8": "Minor Restorations", "10": "Better Item Import", "11": "Restored Final Slayer Dream", "12": "Alternate Slayer Change", "13": "Restored Waukeen's Promenade Cutscene"}},
-    "es_ES": {"components": {"0": "Lugares restauradas", "1": "Personajes y diálogos restaurados", "2": "Sonidos restaurados", "3": "Objetos restaurados", "4": "Opciones de Deseo restauradas", "5": "Experiencia restaurada para menudencias", "6": "Liche Deril", "7": "Encuentros aleatorios restaurados", "8": "Restauraciones menores", "10": "Importación de objetos mejorada", "11": "Restaurado el último sueño del Asesino", "12": "Cambio de Asesino alternativo", "13": "Escena restaurada en el Paseo de Waukin"}}
+    "es_ES": {"components": {"0": "Lugares restauradas", "1": "Personajes y diálogos restaurados", "2": "Sonidos restaurados", "3": "Objetos restaurados", "4": "Opciones de Deseo restauradas", "5": "Experiencia restaurada para menudencias", "6": "Liche Deril", "7": "Encuentros aleatorios restaurados", "8": "Restauraciones menores", "10": "Importación de objetos mejorada", "11": "Restaurado el último sueño del Asesino", "12": "Cambio de Asesino alternativo", "13": "Escena restaurada en el Paseo de Waukin"}},
+    "cs_CZ": {"components": {"0": "Obnovene oblasti", "1": "Obnovene postavy a dialogy", "2": "Obnovene zvuky", "3": "Obnovene predmety", "4": "Obnovena volba kouzla Prani", "5": "Obnoveny zisk zkusenosti za drobne skutky", "6": "Lich Deril", "7": "Obnovena nahodna setkani", "8": "Drobne obnovy", "10": "Lepsi import predmetu", "11": "Obnoveni posledniho snu o Zabijakovim", "12": "Alternativni zmena v Zabijaka (dalsi dodatecne nevyhody)", "13": "Obnovena cutscena na promenade"}}
   },
   "tp2": "arestorationp",
   "safe": 2,

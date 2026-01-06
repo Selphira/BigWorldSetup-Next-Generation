@@ -13,14 +13,23 @@
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["patch"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}},
+    "0": {
+      "type": "sub",
+      "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}
+    },
     "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1"},
     "3": {"type": "std"},
     "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui"}
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 5
+    "de_DE": 1,
+    "it_IT": 2,
+    "pl_PL": 3,
+    "es_ES": 4,
+    "fr_FR": 5,
+    "ru_RU": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -34,8 +43,10 @@
         "choice_0": "Worldmap for Throne of Bhaal",
         "1": "Use new Worldmap for Throne of Bhaal as well",
         "2": "Clothmap-style map for Throne of Bhaal",
-        "3": "Convert old Savegames (No \"New Game\" needed)  >> If you want to uninstall this component,  you have to make a backup of your savegame folder manually! <<",
-        "4": "Larger worldmap screen window for the worldmap menu.ui"
+        "3": "Convert old Savegames (No \"New Game\" needed)\n\n>> If you want to uninstall this component,\nyou have to make a backup of your savegame folder manually! <<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     },
     "fr_FR": {
@@ -49,14 +60,70 @@
         "choice_0": "Carte du monde pour Throne of Bhaal",
         "1": "Utiliser la nouvelle carte du monde aussi pour Throne of Bhaal",
         "2": "Carte dans le style etoffe pour Throne of Bhaal",
-        "3": "Conversion des anciennes sauvegardes (pas besoin de \"Nouvelle partie\")  >> Si vous voulez desinstaller ce composant, vous devez faire vous-meme une copie de votre dossier de sauvegarde ! <<",
+        "3": "Conversion des anciennes sauvegardes (pas besoin de \"Nouvelle partie\")\n\n>> Si vous voulez desinstaller ce composant,\nvous devez faire vous-meme une copie de votre dossier de sauvegarde ! <<",
         "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
         "4": "BG2 style",
         "5": "Dragonspear style"
       }
     },
     "zh_CN": {
-      "description": "该模组对于任何添加世界地图地点的大型模组（Baldur's Gate Trilogy, The Darkest Day, Check the Bodies, Shadows over Soubar, Dark Side of the Sword Coast, Northern Tales of the Sword Coast, Secret of Bone Hill, Drizzt Saga...）都是绝对必备的。它能提供唯一、更宏大且更精美的世界地图。\n此模组必须至少在所有可能添加世界地图位置的模组之后安装。注意避免卸载或重新安装此模组，否则很可能直接损坏您的游戏存档。\n强烈建议选择“原始旅行时间”选项和小地图（如果系统询问）。“修订版”旅行时间存在未修复的程序错误，而大地图加载更缓慢且无明显优势（但若您安装的某个模组要求使用大地图，则系统会默认直接安装而不会询问）。"
+      "description": "该模组对于任何添加世界地图地点的大型模组（Baldur's Gate Trilogy, The Darkest Day, Check the Bodies, Shadows over Soubar, Dark Side of the Sword Coast, Northern Tales of the Sword Coast, Secret of Bone Hill, Drizzt Saga...）都是绝对必备的。它能提供唯一、更宏大且更精美的世界地图。\n此模组必须至少在所有可能添加世界地图位置的模组之后安装。注意避免卸载或重新安装此模组，否则很可能直接损坏您的游戏存档。\n强烈建议选择“原始旅行时间”选项和小地图（如果系统询问）。“修订版”旅行时间存在未修复的程序错误，而大地图加载更缓慢且无明显优势（但若您安装的某个模组要求使用大地图，则系统会默认直接安装而不会询问）。",
+      "components": {
+        "0": "博德之门全景地图（包括地区图标）",
+        "choice_0": "巴尔王座的世界地图",
+        "1": "使用本MOD提供的世界地图（推荐）",
+        "2": "使用帆布风格的世界地图",
+        "3": "转换旧的游戏存档（无需重开游戏就可使用新地图）\n\n如果你想卸载这个组件, 你需要手动备份你的游戏存档文件夹！",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "berarbeitete Weltkarte fr Baldurs Gate - mit farbigen Baldurs Gate Kartenicons",
+        "choice_0": "Karte fr Thron des Bhaal", "1": "Benutze die Weltkarte ebenso fr Thron des Bhaal",
+        "2": "Stoffkartenstil fr Thron des Bhaal",
+        "3": "Wiederherstellen der Savegames (Kein Neustart ntig)\n\n>>Willst du diese Komponente wieder deinstallieren,\nso muss manuell ein Backup des Savegame-Verzeichnisses erstellt werden!<<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Mappa per Baldur's Gate - include le icone colorate della mappa di Baldur's Gate",
+        "choice_0": "Mappa per Throne of Bhaal", "1": "Usa la nuova mappa anche per Throne of Bhaal",
+        "2": "Mappa stile stoffa per Throne of Bhaal",
+        "3": "Convertitore per i vecchi Giochi Salvati (Non  necessario ricominciare un \"Nuovo Gioco\")\n\n>>Se vuoi disinstallare questo componente,\ndevi fare manualmente un backup nella cartella del tuo gioco salvato!<<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Rozszerzona mapa swiata dla Baldur's Gate - wlacznie z kolorowymi ikonami miejsc dla Baldur's Gate",
+        "choice_0": "Mapa swiata dla Tronu Bhaala", "1": "Uzyj nowej mapy dla Tronu Bhaala",
+        "2": "Mapa swiata stylizowana na malowana na plotnie dla Tronu Bhaala",
+        "3": "Przekonwertowanie starych zapisanych stanow gry do nowej mapy swiata (nie musisz rozpoczynac gry na nowo)\n\n>>   Jesli chcesz usunac ten komponent, musisz\nsamodzielnie zrobic sobie kopie folderu z zapisanymi stanami gry! <<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Mapa del mundo para Baldur's Gate - incluyendo iconos de mapa coloreados de Baldur's Gate",
+        "choice_0": "Mapa del mundo para Throne of Bhaal",
+        "1": "Utilizar tambien el nuevo Mapa del mundo para Throne of Bhaal",
+        "2": "Estilo de mapa en tela para Throne of Bhaal",
+        "3": "Convertir viejas partidas guardadas (no se necesita un \"Nuevo Juego\")\n\n>>­Si quieres desinstalar mas tarde este componente, tendras que hacer\nuna copia de seguridad de tu carpeta de partidas guardadas manualmente!<<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Worldmap for Baldur's Gate - including colored Baldur's Gate map icons",
+        "choice_0": "Worldmap for Throne of Bhaal", "1": "Use new Worldmap for Throne of Bhaal as well",
+        "2": "Clothmap-style map for Throne of Bhaal",
+        "3": "Convert old Savegames (No \"New Game\" needed)\n\n>> If you want to uninstall this component,\nyou have to make a backup of your savegame folder manually! <<",
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+      }
     }
   },
   "tp2": "bp-bgt-worldmap",

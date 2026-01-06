@@ -23,10 +23,12 @@
   "languages": {
     "en_US": 0,
     "de_DE": 1,
+    "pl_PL": 2,
     "es_ES": 3,
     "fr_FR": 4,
     "it_IT": 5,
-    "ru_RU": 6
+    "ru_RU": 6,
+    "zh_CN": 7
   },
   "translations": {
     "en_US": {
@@ -37,7 +39,7 @@
         "31": "Install Duelist fighter kit",
         "32": "Install Fist of Order fighter kit",
         "33": "Install Blackguard fighter kit",
-        "34": "Install Duskblade fighter kit"
+        "34": "Install Duskblade fighter kit (by ronin69hof, ronin69hof@gmail.com"
       }
     },
     "fr_FR": {
@@ -54,8 +56,19 @@
     "it_IT": {"components": {"1": "Monk Remix", "30": "Installa kit del guerriero 'Lama Maledetta'", "31": "Installa kit del guerriero 'Duellante'", "32": "Installa kit del guerriero 'Pugno dell'Ordine'", "33": "Installa kit del guerriero 'Guardia Nera'", "34": "Installa kit del guerriero 'Lama Crepuscolare' (by ronin69hof, ronin69hof@gmail.com)"}},
     "ru_RU": {"components": {"1": "Monk Remix", "30": "Install Hexblade fighter kit", "31": "Install Duelist fighter kit", "32": "Install Fist of Order fighter kit", "33": "Install Blackguard fighter kit", "34": "Install Duskblade fighter kit (by ronin69hof, ronin69hof@gmail.com"}},
     "zh_CN": {
-      "description": "最初是作为更庞大的项目“阴谋之地”的一部分，这个模组对武僧职业进行了修订，使其更接近其AD&D第三版桌面游戏的版本，但还增加了战士宗派：\n- 黑暗冠军：战士和法师之间的邪恶混合体，是施展诅咒的著名专家。\n- 决斗者：敏捷而聪明的战士，鄙视重型盔甲，以更好地掌握闪避、反射和战斗技巧。\n- 秩序之拳：野蛮而邪恶的战士，但同样高效且忠诚。\n- 黑暗卫士：一个与圣武士背景和能力相反的战士。\n- 法刃：学会了在盔甲中施展凡间法术的战士。"
-    }
+      "description": "最初是作为更庞大的项目“阴谋之地”的一部分，这个模组对武僧职业进行了修订，使其更接近其AD&D第三版桌面游戏的版本，但还增加了战士宗派：\n- 黑暗冠军：战士和法师之间的邪恶混合体，是施展诅咒的著名专家。\n- 决斗者：敏捷而聪明的战士，鄙视重型盔甲，以更好地掌握闪避、反射和战斗技巧。\n- 秩序之拳：野蛮而邪恶的战士，但同样高效且忠诚。\n- 黑暗卫士：一个与圣武士背景和能力相反的战士。\n- 法刃：学会了在盔甲中施展凡间法术的战士。",
+      "components": {
+        "1": "武僧调整",
+        "30": "安装六刃战士宗派",
+        "31": "安装战士宗派 - 格斗家",
+        "32": "安装战士宗派 - 秩序之拳",
+        "33": "安装战士宗派 - 黑卫",
+        "34": "安装战士宗派 - 暮刃 (by ronin69hof, ronin69hof@gmail.com"
+      }
+    },
+    "de_DE": {"components": {"1": "Mönch Remix", "30": "Installiere Fluchklinge Kämpfer-Kit", "31": "Installiere Duellant Kämpfer-Kit", "32": "Installiere Faust der Ordnung Kämpfer Kit", "33": "Installiere Finsterer Streiter Kämpfer Kit", "34": "Install Duskblade fighter kit (by ronin69hof, ronin60hof@gmail.com"}},
+    "pl_PL": {"components": {"1": "Udoskonalony mnich", "30": "Zainstaluj Ostrze Klatwy (podklasa wojownika)", "31": "Zainstaluj Szermierza (podklasa wojownika)", "32": "Zainstaluj Piêœæ Prawa (podklasa wojownika)", "33": "Zainstaluj Czarnego straznika (podklasa wojownika)", "34": "Zainstaluj Ostrze Zmierzchu (podklasa wojownika autorstwa ronina69hof, ronin69hof@gmail.com)"}},
+    "es_ES": {"components": {"1": "Monk Remix", "30": "Instalar kit de luchador Filo Aojador", "31": "Instalar kit de luchador Duelista", "32": "Instalar kit de luchador Puño de la Orden", "33": "Instalar kit de luchador Guardia Negro", "34": "Instalar kit de luchador Filo del Ocaso (by ronin69hof, ronin69hof@gmail.com)"}}
   },
   "tp2": "sword_and_fist",
   "safe": 2,
