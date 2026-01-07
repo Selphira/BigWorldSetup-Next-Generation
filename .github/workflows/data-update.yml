@@ -1,0 +1,108 @@
+name: Data Update Publisher
+
+on:
+  push:
+    paths:
+      - 'data/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build data package
+        id: build
+        run: |
+          # Get commit info
+          HASH=$(git rev-parse HEAD)
+          SHORT_HASH=$(git rev-parse --short HEAD)
+          TIMESTAMP=$(date +%s)
+          DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          echo "hash=${HASH}" >> $GITHUB_OUTPUT
+          echo "short_hash=${SHORT_HASH}" >> $GITHUB_OUTPUT
+          echo "timestamp=${TIMESTAMP}" >> $GITHUB_OUTPUT
+          echo "date=${DATE}" >> $GITHUB_OUTPUT
+          
+          # Create data.zip
+          cd data
+          zip -r ../data.zip . -x "*.git*" -x "*.DS_Store"
+          cd ..
+          
+          # Calculate checksums
+          SHA256=$(sha256sum data.zip | cut -d ' ' -f 1)
+          MD5=$(md5sum data.zip | cut -d ' ' -f 1)
+          SIZE=$(ls -lh data.zip | awk '{print $5}')
+          
+          echo "sha256=${SHA256}" >> $GITHUB_OUTPUT
+          echo "md5=${MD5}" >> $GITHUB_OUTPUT
+          echo "size=${SIZE}" >> $GITHUB_OUTPUT
+          
+          # Create version file with all info
+          cat > data_version.json << EOF
+          {
+            "commit_hash": "${HASH}",
+            "short_hash": "${SHORT_HASH}",
+            "timestamp": ${TIMESTAMP},
+            "date": "${DATE}",
+            "version": "data-${SHORT_HASH}",
+            "sha256": "${SHA256}",
+            "md5": "${MD5}",
+            "size": "${SIZE}"
+          }
+          EOF
+          
+          # Create public directory
+          mkdir -p public
+          mv data.zip public/
+          mv data_version.json public/
+          echo '{"status": "ok", "message": "Data distribution endpoint"}' > public/index.json
+          
+          # Display info
+          echo "Package created:"
+          ls -lh public/
+          echo ""
+          echo "Version: data-${SHORT_HASH}"
+          echo "Size: ${SIZE}"
+          echo "SHA256: ${SHA256}"
+
+      - name: Deploy to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './public'
+
+      - name: Publish Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Summary
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          ## Data Update Published
+          
+          - **Version:** \`data-${{ steps.build.outputs.short_hash }}\`
+          - **Commit:** \`${{ steps.build.outputs.hash }}\`
+          - **Date:** ${{ steps.build.outputs.date }}
+          - **Size:** ${{ steps.build.outputs.size }}
+          - **SHA256:** \`${{ steps.build.outputs.sha256 }}\`
+          - **MD5:** \`${{ steps.build.outputs.md5 }}\`
+          
+          ### Download URLs
+          - https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data.zip
+          - https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/data_version.json
+          
+          > Files are now live and ready to download!
+          EOF
