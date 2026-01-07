@@ -988,7 +988,6 @@ class InstallationPage(BasePage):
         self._progress_bar.setValue(self._progress_bar.value() - count_components)
 
     def _on_command_created(self, command: str) -> None:
-        print("Command created:", command)
         self._append_output(
             f"\n{command}\n\n",
             color=COLOR_INFO,
