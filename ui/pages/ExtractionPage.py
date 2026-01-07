@@ -163,7 +163,7 @@ class ExtractionPage(BasePage):
         self._progress_bar: QProgressBar | None = None
 
         self._create_widgets()
-        self._create_additional_buttons()
+        # self._create_additional_buttons()
 
         logger.info("ExtractionPage initialized")
 
@@ -211,9 +211,7 @@ class ExtractionPage(BasePage):
 
         layout.addLayout(vlayout)
 
-        # Progress bar
         self._progress_bar = QProgressBar()
-        self._progress_bar.setVisible(True)
         layout.addWidget(self._progress_bar)
 
     def _create_additional_buttons(self) -> None:
@@ -568,11 +566,11 @@ class ExtractionPage(BasePage):
         """Get page title for display."""
         return tr("page.extraction.title")
 
-    def get_additional_buttons(self) -> list[QPushButton]:
+    def get_additional_buttons_(self) -> list[QPushButton]:
         """Get additional buttons."""
         return [self._btn_extract_all]
 
-    def can_go_to_next_page(self) -> bool:
+    def can_go_to_next_page_(self) -> bool:
         """Check if can proceed to next page."""
         if self._is_extracting or not self._extractions:
             return False
@@ -582,7 +580,7 @@ class ExtractionPage(BasePage):
             status == ExtractionStatus.EXTRACTED for status in self._extraction_status.values()
         )
 
-    def can_go_to_previous_page(self) -> bool:
+    def can_go_to_previous_page_(self) -> bool:
         """Check if can proceed to next page."""
         if self._is_extracting:
             return False
@@ -597,7 +595,7 @@ class ExtractionPage(BasePage):
             self._download_path = Path(download_path)
             self._load_extractions()
 
-    def on_page_hidden(self) -> None:
+    def on_page_hidden_(self) -> None:
         """Called when page becomes hidden."""
         super().on_page_hidden()
 
@@ -605,7 +603,7 @@ class ExtractionPage(BasePage):
             self._extraction_worker.cancel()
             self._extraction_worker.wait()
 
-    def retranslate_ui(self) -> None:
+    def retranslate_ui_(self) -> None:
         """Update UI text for language change."""
         self._title_label.setText(tr("page.extraction.title"))
         self._filter_label.setText(tr("page.extraction.filter_label"))

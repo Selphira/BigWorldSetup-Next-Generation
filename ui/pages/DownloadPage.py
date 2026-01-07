@@ -425,9 +425,7 @@ class DownloadPage(BasePage):
 
         layout.addWidget(self._create_main_splitter(), stretch=1)
 
-        # Progress bar
         self._global_progress = QProgressBar()
-        self._global_progress.setVisible(True)
         layout.addWidget(self._global_progress)
 
     def _create_main_splitter(self) -> QSplitter:
@@ -1089,7 +1087,7 @@ class DownloadPage(BasePage):
         self._archive_status[mod_id] = ArchiveStatus.MISSING
 
     # ========================================
-    # Cache Management (ajoutez cette section après __init__)
+    # Cache Management
     # ========================================
 
     def _cache_key(self, archive_info: ArchiveInfo) -> str:
