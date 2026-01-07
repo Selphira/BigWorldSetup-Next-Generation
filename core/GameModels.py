@@ -95,148 +95,6 @@ class FileGroup:
 
 
 # ============================================================================
-# INSTALLATION STEPS
-# ============================================================================
-
-
-class InstallStepType(str, Enum):
-    """Type of installation step.
-
-    Attributes:
-        INSTALL: Standard mod installation step
-        DOWNLOAD: Download-only step (no installation)
-        ANNOTATION: Comment/note in the installation order
-    """
-
-    INSTALL = "ins"
-    DOWNLOAD = "dwn"
-    ANNOTATION = "ann"
-
-    @classmethod
-    def from_string(cls, value: str | None) -> InstallStepType:
-        """Convert string to InstallStepType.
-
-        Args:
-            value: String value ("dwn", "ins", or None)
-
-        Returns:
-            InstallStepType enum value (defaults to INSTALL if None)
-
-        Raises:
-            ValueError: If value is not a valid step type
-        """
-        if not value:
-            return cls.INSTALL
-
-        try:
-            return cls(value)
-        except ValueError:
-            raise ValueError(f"Invalid step type: '{value}'. Must be 'dwn' or 'ins'")
-
-
-@dataclass(frozen=True, slots=True)
-class InstallStep:
-    """Single step in the mod installation sequence.
-
-    Represents one mod component to be installed (or downloaded), or an
-    annotation/comment in the installation order.
-
-    Attributes:
-        mod: Mod identifier
-        comp: Component identifier/number
-        step_type: Type of step (download-only or install)
-        text: Annotation text (only used for ANNOTATION type)
-    """
-
-    mod: str = ""
-    comp: str = ""
-    step_type: InstallStepType = InstallStepType.INSTALL
-    text: str = ""
-
-    def __post_init__(self) -> None:
-        """Validate the installation step."""
-        if self.step_type == InstallStepType.ANNOTATION:
-            if not self.text:
-                raise ValueError("InstallStep of type ANNOTATION requires non-empty 'text'")
-        else:
-            if not self.mod:
-                raise ValueError("InstallStep requires non-empty 'mod'")
-            if not self.comp:
-                raise ValueError("InstallStep requires non-empty 'comp'")
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> InstallStep:
-        """Create installation step from dictionary configuration.
-
-        Args:
-            data: Dictionary containing step configuration with keys:
-                  - type: Step type ("dwn", "ins", or "ann", optional, defaults to "ins")
-                  - mod: Mod identifier (required for dwn/ins)
-                  - comp: Component identifier (required for dwn/ins)
-                  - text: Annotation text (required for ann)
-
-        Returns:
-            New InstallStep instance
-
-        Raises:
-            ValueError: If required fields are missing or invalid
-        """
-        step_type = InstallStepType.from_string(data.get("type"))
-
-        if step_type == InstallStepType.ANNOTATION:
-            text = data.get("text")
-            if not text:
-                raise ValueError("InstallStep of type 'ann' requires 'text' field")
-            return cls(step_type=step_type, text=text)
-        else:
-            mod = data.get("mod")
-            comp = data.get("comp")
-
-            if not mod:
-                raise ValueError("InstallStep requires 'mod' field")
-            if not comp:
-                raise ValueError("InstallStep requires 'comp' field")
-
-            return cls(mod=mod, comp=comp, step_type=step_type)
-
-    @property
-    def is_download_only(self) -> bool:
-        """Check if this is a download-only step."""
-        return self.step_type == InstallStepType.DOWNLOAD
-
-    @property
-    def is_install(self) -> bool:
-        """Check if this is an installation step."""
-        return self.step_type == InstallStepType.INSTALL
-
-    @property
-    def is_annotation(self) -> bool:
-        """Check if this is an annotation step."""
-        return self.step_type == InstallStepType.ANNOTATION
-
-    def to_dict(self) -> dict[str, str]:
-        """Convert installation step to dictionary."""
-        if self.step_type == InstallStepType.ANNOTATION:
-            return {"type": self.step_type.value, "text": self.text}
-
-        result = {"mod": self.mod, "comp": self.comp}
-
-        # Only include type if it's not the default (INSTALL)
-        if self.step_type != InstallStepType.INSTALL:
-            result["type"] = self.step_type.value
-
-        return result
-
-    def __str__(self) -> str:
-        """String representation for logging and debugging."""
-        if self.is_annotation:
-            return f"[ANN] {self.text}"
-
-        type_prefix = "[DWN] " if self.is_download_only else ""
-        return f"{type_prefix}{self.mod}:{self.comp}"
-
-
-# ============================================================================
 # VALIDATION RULES
 # ============================================================================
 
@@ -304,6 +162,7 @@ class GameSequence:
         allowed_mods: Whitelist of mod IDs (None = all allowed)
         blocked_mods: Blacklist of mod IDs (None = none ignored)
         allowed_components: Per-mod component filtering {mod_id: [component_ids]}
+        order: Installation order as list of "mod:comp" strings
     """
 
     name: str
@@ -312,7 +171,7 @@ class GameSequence:
     allowed_mods: tuple[str, ...] | None = None
     blocked_mods: tuple[str, ...] | None = None
     allowed_components: dict[str, tuple[str, ...]] = field(default_factory=dict)
-    order: tuple[InstallStep, ...] = ()
+    order: tuple[str, ...] = ()
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> GameSequence:
@@ -339,6 +198,7 @@ class GameSequence:
         blocked_mods = data.get("blocked_mods")
         allowed_components_raw = data.get("allowed_components", {})
         order_raw = data.get("order", [])
+        order = tuple(ref.lower() for ref in order_raw)
 
         return cls(
             name=name,
@@ -354,7 +214,7 @@ class GameSequence:
                 mod_id.lower(): tuple(components)
                 for mod_id, components in allowed_components_raw.items()
             },
-            order=tuple(InstallStep.from_dict(step) for step in order_raw),
+            order=order,
         )
 
     def is_mod_allowed(self, mod_id: str) -> bool:

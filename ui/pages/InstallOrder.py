@@ -683,7 +683,7 @@ class InstallOrderPage(BasePage):
 
         Args:
             seq_idx: Sequence index
-            order: List of component IDs in format "mod:comp"
+            order: List of component references
         """
         seq_data = self._sequences_data.get(seq_idx)
         if not seq_data:
@@ -732,11 +732,7 @@ class InstallOrderPage(BasePage):
         )
         for seq_idx, sequence in enumerate(self._game_def.sequences):
             if seq_idx in self._sequences_data:
-                base_order = [
-                    ComponentReference.from_string(f"{step.mod.lower()}:{step.comp}")
-                    for step in sequence.order
-                    if not step.is_annotation and step.is_install
-                ]
+                base_order = ComponentReference.from_string_list(list(sequence.order))
                 order = self._order_generator.generate(selected_components, base_order)
                 self._apply_order_from_list(seq_idx, order)
 
