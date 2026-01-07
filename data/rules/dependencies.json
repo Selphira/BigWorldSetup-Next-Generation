@@ -66,6 +66,12 @@
       "description": "Dépendance interne A7-WaresOfThePlanes",
       "mode": "any"
     }, {
+      "source": ["ajantisbg1:30"],
+      "target": ["ajantisbg1:0"],
+      "severity": "error",
+      "description": "Dépendance interne ajantisbg1",
+      "mode": "any"
+    }, {
       "source": ["atweaks:154", "atweaks:156"],
       "target": ["atweaks:150", "atweaks:151", "atweaks:152"],
       "severity": "error",
@@ -764,7 +770,7 @@
       "description": "Dépendance interne TDDz",
       "mode": "any"
     }, {
-      "source": ["TDDz:7"],
+      "source": ["TDDz:1000"],
       "target": ["TDDz:2", "TDDz:3", "TDDz:4"],
       "severity": "error",
       "description": "Dépendance interne TDDz",
