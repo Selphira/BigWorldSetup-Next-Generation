@@ -253,22 +253,24 @@ class WeiDUTp2:
 class TokenType(Enum):
     """Types of tokens in TP2 component declarations."""
 
-    BEGIN = auto()
-    DESIGNATED = auto()
-    SUBCOMPONENT = auto()
-    FORCED_SUBCOMPONENT = auto()
-    DEPRECATED = auto()
-    LABEL = auto()
-    GROUP = auto()
-    STRING_REF = auto()  # @123
-    STRING_LITERAL = auto()  # ~text~ or "text"
-    NUMBER = auto()
-    IDENTIFIER = auto()
     ACTION_IF = auto()
+    BEGIN = auto()
+    COPY_EXISTING = auto()
+    DEPRECATED = auto()
+    DESIGNATED = auto()
+    FORCED_SUBCOMPONENT = auto()
     GAME_IS = auto()
-    MOD_IS_INSTALLED = auto()  # Future extension
+    GROUP = auto()
+    IDENTIFIER = auto()
+    LABEL = auto()
+    MOD_IS_INSTALLED = auto()
+    NUMBER = auto()
+    PRINT = auto()
     REQUIRE_COMPONENT = auto()
-    REQUIRE_PREDICATE = auto()  # Future extension
+    REQUIRE_PREDICATE = auto()
+    STRING_LITERAL = auto()  # ~text~ or "text"
+    STRING_REF = auto()  # @123
+    SUBCOMPONENT = auto()
     EOF = auto()
 
 
@@ -291,6 +293,7 @@ class Tokenizer:
     KEYWORDS = {
         "ACTION_IF": TokenType.ACTION_IF,
         "BEGIN": TokenType.BEGIN,
+        "COPY_EXISTING": TokenType.COPY_EXISTING,
         "DEPRECATED": TokenType.DEPRECATED,
         "DESIGNATED": TokenType.DESIGNATED,
         "FORCED_SUBCOMPONENT": TokenType.FORCED_SUBCOMPONENT,
@@ -298,6 +301,7 @@ class Tokenizer:
         "GROUP": TokenType.GROUP,
         "LABEL": TokenType.LABEL,
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
+        "PRINT": TokenType.PRINT,
         "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
         "SUBCOMPONENT": TokenType.SUBCOMPONENT,
