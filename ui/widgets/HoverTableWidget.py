@@ -28,7 +28,7 @@ class HoverTableWidget(QTableWidget):
 
     def mouseMoveEvent(self, event) -> None:
         """Handle mouse move for row hover effect."""
-        row = self.rowAt(event.pos().y())
+        row = self.rowAt(int(event.position().y()))
 
         if row != self._hover_row:
             # Clear previous hover
