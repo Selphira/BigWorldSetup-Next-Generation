@@ -98,9 +98,7 @@ class ModDetailsPanel(QWidget):
 
     def _create_header_section(self) -> None:
         """Create header with mod name and quality indicator."""
-        self._header_frame = QFrame()
-
-        header_layout = QHBoxLayout(self._header_frame)
+        header_layout = QHBoxLayout()
         header_layout.setContentsMargins(0, 0, 0, 0)
         header_layout.setSpacing(SPACING_SMALL)
 
@@ -129,7 +127,7 @@ class ModDetailsPanel(QWidget):
         header_layout.addStretch()
         header_layout.addWidget(self._version_label)
 
-        header_layout2 = QHBoxLayout(self._header_frame)
+        header_layout2 = QHBoxLayout()
         header_layout2.setContentsMargins(0, 0, 0, 0)
         header_layout2.setSpacing(SPACING_SMALL)
 
@@ -143,7 +141,7 @@ class ModDetailsPanel(QWidget):
         self._quality_label = QLabel()
         header_layout2.addWidget(self._quality_label)
 
-        self._content_layout.addWidget(self._header_frame)
+        self._content_layout.addLayout(header_layout)
         self._content_layout.addLayout(header_layout2)
 
     def _create_description_section(self) -> None:

@@ -272,7 +272,7 @@ class InstallationPage(BasePage):
             MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD, MARGIN_STANDARD
         )
 
-        hlayout = QHBoxLayout(self)
+        hlayout = QHBoxLayout()
         hlayout.setSpacing(SPACING_LARGE)
         hlayout.setContentsMargins(0, 0, 0, 0)
 
@@ -340,7 +340,7 @@ class InstallationPage(BasePage):
         self._cb_pause_on_error.setChecked(True)
         layout.addWidget(self._cb_pause_on_error)
 
-        hlayout = QHBoxLayout(self)
+        hlayout = QHBoxLayout()
         self._input_text = QLineEdit()
         self._input_text.setEnabled(False)
         self._input_text.setMaximumWidth(150)
