@@ -258,6 +258,7 @@ class ModSelectionPage(BasePage):
         self._category_buttons: dict[CategoryEnum, CategoryButton] = {}
         self._current_category = CategoryEnum.ALL
         self._weidu_parser: WeiDULogParser = WeiDULogParser()
+        self._current_game: str | None = None
 
         # Search debouncing
         self._search_timer = QTimer()
@@ -970,8 +971,12 @@ class ModSelectionPage(BasePage):
         """Called when page becomes visible."""
         super().on_page_shown()
 
-        game = self.state_manager.get_game_manager().get(self.state_manager.get_selected_game())
-        self._selection_controller.set_game(game)
+        selected_game = self.state_manager.get_selected_game()
+        if selected_game != self._current_game:
+            game = self.state_manager.get_game_manager().get(selected_game)
+            self._selection_controller.set_game(game)
+            self._apply_all_filters()
+
         self._search_input.setFocus()
 
         QTimer.singleShot(200, self._trigger_validation)
