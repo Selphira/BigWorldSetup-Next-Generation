@@ -12,7 +12,6 @@ import requests
 
 from constants import (
     APP_UPDATE_CHECK_FILE,
-    APP_UPDATE_CHECK_INTERVAL,
     APP_VERSION,
     CACHE_DIR,
     DOWNLOAD_TIMEOUT,
@@ -42,40 +41,13 @@ class VersionChecker:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         self._cache_file = APP_UPDATE_CHECK_FILE
 
-    def should_check_update(self) -> bool:
-        """
-        Determine if we should check for updates based on last check time.
-
-        Returns:
-            True if enough time has passed since last check
-        """
-        if not self._cache_file.exists():
-            return True
-
-        try:
-            with open(self._cache_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                last_check = data.get("last_check", 0)
-                elapsed = time.time() - last_check
-                return elapsed >= APP_UPDATE_CHECK_INTERVAL
-        except Exception as e:
-            logger.warning(f"Error reading update cache: {e}")
-            return True
-
-    def check_for_update(self, force: bool = False) -> VersionInfo | None:
+    def check_for_update(self) -> VersionInfo | None:
         """
         Check if a new version is available on GitHub.
-
-        Args:
-            force: Force check even if recently checked
 
         Returns:
             VersionInfo if update available, None otherwise
         """
-        if not force and not self.should_check_update():
-            logger.debug("Skipping version check (too soon)")
-            return self._get_cached_version_info()
-
         try:
             version_info = self._fetch_latest_release()
             self._update_cache(version_info)

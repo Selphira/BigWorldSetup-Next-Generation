@@ -46,7 +46,7 @@ class VersionCheckerThread(QThread):
 
     def run(self):
         try:
-            version_info = self.version_checker.check_for_update(force=False)
+            version_info = self.version_checker.check_for_update()
             self.version_checked.emit(version_info)
         except Exception as e:
             logger.warning(f"Version check failed: {e}")
