@@ -1,6 +1,6 @@
 [project]
 name = "Big World Setup - Enhanced Edition"
-version = "0.9.0-beta"
+version = "0.9.2-beta"
 description = "Installation automatisée de mods des jeux Infinity Engine"
 readme = "README.md"
 requires-python = ">=3.13.3"
