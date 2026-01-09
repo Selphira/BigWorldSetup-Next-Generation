@@ -1045,11 +1045,11 @@
       "description": "Turnabout nécessite Ascension",
       "mode": "any"
     }, {
-      "source": ["Vaulteet:0", "&item_rev:0"],
+      "source": ["Vaulteet:0", "item_rev:0"],
       "target": ["Vaulteet:1"],
       "severity": "error",
       "description": "Composant de Vaulteet nécessite item_rev",
-      "mode": "any"
+      "mode": "all"
     }, {
       "source": ["XanFrenchMini:*"],
       "target": ["Xan:0"],
@@ -1175,11 +1175,11 @@
       "description": "Composant de Yikari nécessite le mod itemupgrade TOB",
       "mode": "any"
     }, {
-      "source": ["RevisedBattles:9", "&RE:17"],
+      "source": ["RevisedBattles:9", "RE:17"],
       "target": ["RevisedBattles:12"],
       "severity": "error",
       "description": "Patch de compatibilité entre Improved Firkraag et Romantic Encounters",
-      "mode": "any"
+      "mode": "all"
     }, {
       "source": ["Derats_Mods_Tweaker:1", "Derats_Mods_Tweaker:2"],
       "target": ["Horace:*"],
