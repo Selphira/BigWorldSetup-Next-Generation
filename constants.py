@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 # ============================================================================
 
 APP_NAME = "Big World Setup - Enhanced Edition"
-APP_VERSION = "0.9.2-beta"
+APP_VERSION = "0.9.3-beta"
 APP_ORG = "Selphira"
 
 # ============================================================================
