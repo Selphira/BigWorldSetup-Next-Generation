@@ -9,10 +9,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import sys
-import tracemalloc
-import warnings
 
-from PySide6.QtCore import qInstallMessageHandler
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
@@ -52,19 +49,6 @@ else:
     application_path = Path(__file__).parent
 
 sys.path.insert(0, str(application_path))
-
-
-# Qt message handler for debugging
-def qt_message_handler(mode, context, message):
-    """Handle Qt messages for debugging."""
-    print(f"[Qt:{mode.name}] {message}")
-    if context.file:
-        print(f"  -> {context.file}:{context.line}")
-
-
-qInstallMessageHandler(qt_message_handler)
-warnings.simplefilter("default")
-tracemalloc.start()
 
 
 class ApplicationInitializer:
