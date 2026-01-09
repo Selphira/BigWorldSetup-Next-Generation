@@ -16,7 +16,7 @@ from PySide6.QtCore import QObject, QThread, Signal
 from constants import CACHE_DIR, MODS_DIR
 from core.ComponentReference import ComponentReference, IndexManager
 from core.Mod import Mod, MucComponent, SubComponent
-from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator
+from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class CacheBuilderThread(QThread):
     def run(self) -> None:
         """Build cache for all languages."""
         try:
-            self.status_changed.emit("Searching for mod files...")
+            self.status_changed.emit(tr("app.searching_mod_iles"))
 
             # Find all JSON files
             source_files = list(self.mods_dir.glob("*.json"))
@@ -56,7 +56,7 @@ class CacheBuilderThread(QThread):
                 self.finished.emit(False)
                 return
 
-            self.status_changed.emit(f"Loading {len(source_files)} mod(s)...")
+            self.status_changed.emit(tr("app.loading_count_mods", count=len(source_files)))
 
             # Load all mods
             mods_data = []
@@ -90,7 +90,7 @@ class CacheBuilderThread(QThread):
                     self.finished.emit(False)
                     return
 
-                self.status_changed.emit(f"Generating cache for {lang}...")
+                self.status_changed.emit(tr("app.generating_cache_for_lang", lang=lang))
 
                 localized_data = []
                 for mod in mods_data:
@@ -113,7 +113,7 @@ class CacheBuilderThread(QThread):
 
                 logger.info(f"Cache generated for {lang}: {cache_path}")
 
-            self.status_changed.emit("Cache generated successfully!")
+            self.status_changed.emit(tr("app.cache_generated_successfully"))
             self.progress.emit(100)
             self.finished.emit(True)
 

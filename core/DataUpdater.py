@@ -153,7 +153,7 @@ class DataUpdater(QObject):
         for attempt in range(MAX_RETRIES):
             try:
                 self.status_changed.emit(
-                    tr("app;downloading_data", attempt=attempt, max_retries=MAX_RETRIES)
+                    tr("app.downloading_data", attempt=attempt, max_retries=MAX_RETRIES)
                 )
 
                 response = requests.get(url, stream=True, timeout=DOWNLOAD_TIMEOUT)
