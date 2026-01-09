@@ -10,9 +10,23 @@
     "subtitle": "Gestionnaire d'installation de mods pour les jeux Infinity Engine",
     "step": "Étape {current} sur {total}",
     "error": "Erreur",
-    "initializing": "Initialisation...",
-    "loading_mods": "Chargement des mods",
+    "checking_data_update": "Vérification des mises à jour des données...",
+    "loading_mods": "Chargement des mods...",
+    "setting_up_interface": "Configuration de l'interface...",
+    "backing_up_existing_data": "Sauvegarde des données existantes...",
+    "installing_update": "Installation de la mise à jour...",
+    "update_complete": "Mise à jour terminée !",
+    "downloading_data": "Téléchargement des données... (Tentative {attempt}/{max_retries})",
+    "validating_download": "Validation du téléchargement...",
+    "extracting_data": "Extraction des données...",
+    "restoring_backup": "Restauration de la sauvegarde...",
+    "downloaded_file_corrupted": "Le fichier téléchargé est corrompu",
+    "ready": "Terminé !",
     "cache_ready_signal_received": "Signal de disponibilité du cache reçu"
+  },
+  "update": {
+    "new_version_available": "Nouvelle version disponible : {version}",
+    "view_release": "Voir la nouvelle version"
   },
   "category": {
     "all": "Toutes",
