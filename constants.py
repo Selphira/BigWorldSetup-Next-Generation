@@ -234,3 +234,19 @@ DOWNLOAD_TIMEOUT = 30  # seconds
 DOWNLOAD_CHUNK_SIZE = 8192  # bytes
 MAX_CONCURRENT_DOWNLOADS = 3
 USER_AGENT = f"{APP_NAME}/{APP_VERSION}"
+
+# GitHub Configuration
+GITHUB_REPO_OWNER = "selphira"
+GITHUB_REPO_NAME = "BigWorldSetup-Enhanced-Edition"
+GITHUB_API_BASE = "https://api.github.com"
+GITHUB_PAGES_BASE = "https://selphira.github.io/BigWorldSetup-Enhanced-Edition"
+
+# Data Update Configuration
+DATA_VERSION_FILE = CACHE_DIR / "data_version.json"
+DATA_VERSION_URL = f"{GITHUB_PAGES_BASE}/data_version.json"
+DATA_ZIP_URL = f"{GITHUB_PAGES_BASE}/data.zip"
+MAX_RETRIES = 3
+
+# App Update Configuration
+APP_UPDATE_CHECK_FILE = CACHE_DIR / "last_update_check.json"
+APP_UPDATE_CHECK_INTERVAL = 3600  # 1 hour
