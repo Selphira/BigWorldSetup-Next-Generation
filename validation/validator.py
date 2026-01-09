@@ -10,7 +10,7 @@ import json
 import logging
 from pathlib import Path
 import sys
-from typing import Dict, Optional
+from typing import Dict
 
 from jsonschema import Draft7Validator
 
@@ -28,7 +28,7 @@ class ValidationResult:
         is_valid: Whether validation passed
     """
 
-    def __init__(self, file_path: Path, errors: Optional[list[str]] = None) -> None:
+    def __init__(self, file_path: Path, errors: list[str] | None = None) -> None:
         """Initialize validation result.
 
         Args:
