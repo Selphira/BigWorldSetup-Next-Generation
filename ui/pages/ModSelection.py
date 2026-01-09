@@ -627,7 +627,7 @@ class ModSelectionPage(BasePage):
         if reply != QMessageBox.StandardButton.Yes:
             return
 
-        self._component_selector.clear_selection()
+        self._selection_controller.clear_all()
 
     # ========================================
     # Validation
@@ -802,7 +802,10 @@ class ModSelectionPage(BasePage):
                     and comp_key.count(".") == 0
                 )
             ]
-            reference_selected = self._component_selector.get_selected_components()
+            reference_selected = [
+                str(reference)
+                for reference in self._selection_controller.get_selected_components()
+            ]
             selected_list = list(set(reference_selected) & set(reference_to_select))
             total_selected = len(selected_list)
             total_to_select = len(reference_to_select)
@@ -825,7 +828,9 @@ class ModSelectionPage(BasePage):
         """Export current order to JSON file."""
         self.save_state()
 
-        selected_components = self._component_selector.get_selected_components()
+        selected_components = [
+            str(reference) for reference in self._selection_controller.get_selected_components()
+        ]
         total = len(selected_components)
 
         # Check if there's any selected components
