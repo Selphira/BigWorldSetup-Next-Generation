@@ -2,7 +2,7 @@
 
 import logging
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QColor, QPixmap
 from PySide6.QtWidgets import (
     QFrame,
@@ -30,10 +30,27 @@ from constants import (
 from core.GameModels import GameDefinition
 from core.StateManager import StateManager
 from core.TranslationManager import get_translator, tr
+from core.VersionChecker import VersionChecker, VersionInfo
 from ui.pages.BasePage import BasePage
 from ui.widgets.LanguageSelector import LanguageSelector
 
 logger = logging.getLogger(__name__)
+
+
+class VersionCheckerThread(QThread):
+    version_checked = Signal(object)  # VersionInfo | None
+
+    def __init__(self, version_checker: VersionChecker):
+        super().__init__()
+        self.version_checker = version_checker
+
+    def run(self):
+        try:
+            version_info = self.version_checker.check_for_update(force=False)
+            self.version_checked.emit(version_info)
+        except Exception as e:
+            logger.warning(f"Version check failed: {e}")
+            self.version_checked.emit(None)
 
 
 class MainWindow(QMainWindow):
@@ -65,6 +82,9 @@ class MainWindow(QMainWindow):
         self.btn_previous: QPushButton | None = None
         self.btn_next: QPushButton | None = None
         self.lang_button: LanguageSelector | None = None
+        self.update_button: QPushButton | None = None
+        self.version_check_thread: VersionCheckerThread | None = None
+        self._current_version_info: VersionInfo | None = None
 
         self._page_buttons: dict[str, list[QPushButton]] = {}
 
@@ -119,17 +139,26 @@ class MainWindow(QMainWindow):
         # Left side: Title and step
         left_layout = self._create_title_section()
 
-        # Right side: Language selector
+        # Right side: Update button (hidden by default) + Language selector
+        self.update_button = self._create_update_button()
+        self.update_button.hide()
         self.lang_button = LanguageSelector(
             available_languages=get_translator().get_available_languages()
         )
 
-        # Assemble layout
         layout.addLayout(left_layout)
         layout.addStretch()
+        layout.addWidget(self.update_button)
         layout.addWidget(self.lang_button)
 
         return frame
+
+    @staticmethod
+    def _create_update_button() -> QPushButton:
+        """Create update notification button."""
+        button = QPushButton()
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
+        return button
 
     def _create_title_section(self) -> QVBoxLayout:
         """Create page title and step indicator section.
@@ -409,6 +438,14 @@ class MainWindow(QMainWindow):
             for button in page_buttons:
                 button.hide()
 
+    def _update_update_button_text(self) -> None:
+        if not self.update_button or not self._current_version_info:
+            return
+
+        version = self._current_version_info.version
+        self.update_button.setText(tr("app.update_available", version=version))
+        self.update_button.setToolTip(tr("app.update_available_tooltip", version=version))
+
     def _update_ui_language(self, code: str) -> None:
         """Update all UI text for new language.
 
@@ -421,6 +458,9 @@ class MainWindow(QMainWindow):
         self.btn_next.setText(f"{tr('button.next')} →")
 
         self.lang_button.retranslate_ui()
+
+        if self.update_button and self.update_button.isVisible():
+            self._update_update_button_text()
 
         # Notify all pages
         for page in self.pages.values():
@@ -512,9 +552,54 @@ class MainWindow(QMainWindow):
         self.state_manager.set_ui_language(code)
         self._update_ui_language(code)
 
+    def _on_version_checked(self, version_info: VersionInfo | None) -> None:
+        """Handle version check result."""
+        if version_info and version_info.is_newer:
+            logger.info(f"Update available: {version_info.version}")
+
+            self._current_version_info = version_info
+            self.update_button.clicked.connect(
+                lambda: self._open_release_page(version_info.release_url)
+            )
+            self._update_update_button_text()
+            self.update_button.show()
+        else:
+            logger.debug("No update available or check failed")
+
+    def _on_version_check_finished(self) -> None:
+        """Clean up version check thread once completed."""
+        if self.version_check_thread:
+            self.version_check_thread.deleteLater()
+            self.version_check_thread = None
+
+    @staticmethod
+    def _open_release_page(url: str) -> None:
+        """Open release page in default browser."""
+        from PySide6.QtCore import QUrl
+        from PySide6.QtGui import QDesktopServices
+
+        if QDesktopServices.openUrl(QUrl(url)):
+            logger.info(f"Opened release page: {url}")
+        else:
+            logger.error(f"Failed to open release page: {url}")
+
     # ========================================
     # LIFECYCLE
     # ========================================
+
+    def check_for_updates(self) -> None:
+        """Check asynchronously if an update is available."""
+        if self.version_check_thread is not None:
+            logger.debug("Version check already in progress")
+            return
+
+        version_checker = VersionChecker()
+        self.version_check_thread = VersionCheckerThread(version_checker)
+        self.version_check_thread.version_checked.connect(self._on_version_checked)
+        self.version_check_thread.finished.connect(self._on_version_check_finished)
+        self.version_check_thread.start()
+
+        logger.debug("Version check started in background")
 
     def closeEvent(self, event) -> None:
         """Handle window close event.

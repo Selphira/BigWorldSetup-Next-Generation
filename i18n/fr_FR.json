@@ -22,11 +22,9 @@
     "restoring_backup": "Restauration de la sauvegarde...",
     "downloaded_file_corrupted": "Le fichier téléchargé est corrompu",
     "ready": "Terminé !",
-    "cache_ready_signal_received": "Signal de disponibilité du cache reçu"
-  },
-  "update": {
-    "new_version_available": "Nouvelle version disponible : {version}",
-    "view_release": "Voir la nouvelle version"
+    "cache_ready_signal_received": "Signal de disponibilité du cache reçu",
+    "update_available": "\uD83D\uDD14 Nouvelle version : {version}",
+    "update_available_tooltip": "La version {version} est disponible.\nCliquez pour la télécharger."
   },
   "category": {
     "all": "Toutes",

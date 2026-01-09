@@ -249,6 +249,7 @@ class ApplicationInitializer:
 
         initial_page = self._get_initial_page()
         window.show_page(initial_page)
+        window.check_for_updates()
 
         return window
 
