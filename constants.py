@@ -42,14 +42,6 @@ EXTRACT_DIR = "bws-ee-extract"
 # Search debounce delay
 SEARCH_DEBOUNCE_DELAY = 300
 
-# Animation durations
-ANIMATION_FADE_DURATION = 200
-ANIMATION_SLIDE_DURATION = 300
-
-# Tooltip delays
-TOOLTIP_SHOW_DELAY = 500
-TOOLTIP_HIDE_DELAY = 100
-
 # ============================================================================
 # COLORS
 # ============================================================================
@@ -133,11 +125,6 @@ ICON_SIZE_MEDIUM = 24
 ICON_SIZE_LARGE = 32
 ICON_SIZE_XLARGE = 64
 
-# Panel dimensions
-PANEL_WIDTH_SIDEBAR = 300
-PANEL_WIDTH_LEFT = 400
-PANEL_BORDER_RADIUS = 6
-
 # Game button
 GAME_BUTTON_HEIGHT = 120
 GAME_BUTTON_ICON_SIZE = 64
@@ -214,19 +201,6 @@ ROLE_RADIO = Qt.ItemDataRole.UserRole + 100
 ROLE_BACKGROUND = Qt.ItemDataRole.UserRole + 101
 
 # ============================================================================
-# INSTALLATION CONFIGURATION
-# ============================================================================
-
-# WeiDU configuration
-WEIDU_EXECUTABLE = "weidu.exe"
-WEIDU_LOG_FILE = "weidu.log"
-
-# Installation defaults
-DEFAULT_LANGUAGE_ORDER = ["en_US", "fr_FR"]
-DEFAULT_BACKUP_ENABLED = True
-DEFAULT_AUTO_UPDATE = True
-
-# ============================================================================
 # NETWORK CONFIGURATION
 # ============================================================================
 
@@ -249,4 +223,3 @@ MAX_RETRIES = 3
 
 # App Update Configuration
 APP_UPDATE_CHECK_FILE = CACHE_DIR / "last_update_check.json"
-APP_UPDATE_CHECK_INTERVAL = 3600  # 1 hour
