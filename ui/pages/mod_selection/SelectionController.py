@@ -40,20 +40,7 @@ class SelectionController(QObject):
         """Set current game and enforce forced components."""
         self._game = game
 
-        forced = game.get_forced_components()
-        for ref_str in forced:
-            reference = ComponentReference.from_string(ref_str)
-            current = reference
-            while current:
-                item = self._indexes.get_tree_item(current)
-                if item:
-                    flags = item.flags()
-                    flags &= ~Qt.ItemFlag.ItemIsUserCheckable
-                    item.setFlags(flags)
-                    logger.debug(f"Disabled checkbox for: {current}")
-
-                current = self._indexes.get_parent(current)
-            self.select(reference, cascade=True, emit_validation=False)
+        forced = self._select_forced_components()
 
         if forced:
             self.validation_needed.emit()
@@ -167,6 +154,28 @@ class SelectionController(QObject):
                 parent = self._indexes.get_parent(parent)
             else:
                 break
+
+    def _select_forced_components(self) -> list[str]:
+        if not self._game:
+            return []
+
+        forced = self._game.get_forced_components()
+
+        for ref_str in forced:
+            reference = ComponentReference.from_string(ref_str)
+            current = reference
+            while current:
+                item = self._indexes.get_tree_item(current)
+                if item:
+                    flags = item.flags()
+                    flags &= ~Qt.ItemFlag.ItemIsUserCheckable
+                    item.setFlags(flags)
+                    logger.debug(f"Disabled checkbox for: {current}")
+
+                current = self._indexes.get_parent(current)
+            self.select(reference, cascade=True, emit_validation=False)
+
+        return forced
 
     def _cascade_to_children_by_type(self, reference: ComponentReference) -> None:
         """Cascade to children according to component type."""
@@ -370,26 +379,25 @@ class SelectionController(QObject):
 
         if selected:
             self.selections_bulk_changed.emit(selected, [])
-            if self._cascade_depth == 0:
-                self.validation_needed.emit()
+            self.validation_needed.emit()
 
     def clear_all(self) -> None:
         """Clear all except forced."""
         self._cascade_depth += 1
         unselected = []
+        selected = []
 
         try:
-            for ref in list(self._indexes.selection_index):
-                if not self._has_forced_descendants(ref):
-                    if self.unselect(ref, cascade=True, emit_validation=False):
-                        unselected.append(ref)
+            unselected = list(self._indexes.selection_index)
+            self._indexes.clear_selection()
+            self._select_forced_components()
+            selected = list(self._indexes.selection_index)
         finally:
             self._cascade_depth -= 1
 
-        if unselected:
-            self.selections_bulk_changed.emit([], unselected)
-            if self._cascade_depth == 0:
-                self.validation_needed.emit()
+        if unselected or selected:
+            self.selections_bulk_changed.emit(selected, unselected)
+            self.validation_needed.emit()
 
     # ========================================
     # Query API

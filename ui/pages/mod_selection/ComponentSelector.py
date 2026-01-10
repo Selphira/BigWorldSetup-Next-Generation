@@ -721,15 +721,15 @@ class ComponentSelector(QTreeView):
         self._model.blockSignals(True)
 
         try:
-            for reference in selected:
-                item = self._indexes.get_tree_item(reference)
-                if isinstance(item, TreeItem):
-                    item.setCheckState(Qt.CheckState.Checked)
-
             for reference in unselected:
                 item = self._indexes.get_tree_item(reference)
                 if isinstance(item, TreeItem):
                     item.setCheckState(Qt.CheckState.Unchecked)
+
+            for reference in selected:
+                item = self._indexes.get_tree_item(reference)
+                if isinstance(item, TreeItem):
+                    item.setCheckState(Qt.CheckState.Checked)
 
             self._update_all_mod_statuses()
 

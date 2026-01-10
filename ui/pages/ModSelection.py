@@ -787,33 +787,24 @@ class ModSelectionPage(BasePage):
         """Import avec validation différée."""
         logger.info(f"Importing selection from {file_path}")
 
-        self._validation_orchestrator.enable_validation(False)
+        self.import_selection(components_to_select, replace)
 
-        try:
-            references = ComponentReference.from_string_list(components_to_select)
-            self._selection_controller.select_bulk(references)
-
-            # Stats
-            reference_to_select = [
-                reference.lower()
-                for reference in components_to_select
-                if (
-                    (comp_key := reference.partition(":")[2])
-                    and "choice_" not in comp_key
-                    and comp_key.count(".") == 0
-                )
-            ]
-            reference_selected = [
-                str(reference)
-                for reference in self._selection_controller.get_selected_components()
-            ]
-            selected_list = list(set(reference_selected) & set(reference_to_select))
-            total_selected = len(selected_list)
-            total_to_select = len(reference_to_select)
-
-        finally:
-            self._validation_orchestrator.enable_validation(True)
-            self._trigger_validation()
+        # Stats
+        reference_to_select = [
+            reference.lower()
+            for reference in components_to_select
+            if (
+                (comp_key := reference.partition(":")[2])
+                and "choice_" not in comp_key
+                and comp_key.count(".") == 0
+            )
+        ]
+        reference_selected = [
+            str(reference) for reference in self._selection_controller.get_selected_components()
+        ]
+        selected_list = list(set(reference_selected) & set(reference_to_select))
+        total_selected = len(selected_list)
+        total_to_select = len(reference_to_select)
 
         message = tr(
             "page.selection.import_success_message",
