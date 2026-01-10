@@ -10,7 +10,7 @@
     "size": 1517882,
     "sha256": "03b8d09cd617d69ff7e2e5405ab41eb36a734b59046675d15ef7ade56bfdf1b2"
   },
-  "games": ["bgee"],
+  "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"}
