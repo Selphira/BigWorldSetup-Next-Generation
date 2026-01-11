@@ -534,6 +534,10 @@ class ModSelectionPage(BasePage):
         # Spacer
         sub_filters_layout.addStretch()
 
+        self._chk_show_selection = QCheckBox()
+        self._chk_show_selection.stateChanged.connect(self._on_selection_filter_changed)
+        sub_filters_layout.addWidget(self._chk_show_selection)
+
         self._chk_show_violations = QCheckBox()
         self._chk_show_violations.stateChanged.connect(self._on_violations_filter_changed)
         sub_filters_layout.addWidget(self._chk_show_violations)
@@ -915,6 +919,20 @@ class ModSelectionPage(BasePage):
 
         self._update_statistics()
 
+    def _on_selection_filter_changed(self, state) -> None:
+        show_only = state == Qt.CheckState.Checked.value
+
+        logger.info(f"Selection filter changed: {show_only}")
+
+        self._component_selector._proxy_model.set_show_selection_only(show_only)
+
+        if show_only:
+            self._component_selector.expandAll()
+        else:
+            self._component_selector.collapseAll()
+
+        self._update_statistics()
+
     def _update_statistics(self) -> None:
         """Update category counters based on current filters."""
         filtered_counts = self._component_selector.get_filtered_mod_count_by_category()
@@ -1033,6 +1051,8 @@ class ModSelectionPage(BasePage):
         self._chk_ignore_errors.setText(tr("page.selection.ignore_errors"))
         self._chk_show_violations.setText(tr("page.selection.filter.violation_only"))
         self._chk_show_violations.setToolTip(tr("page.selection.filter.violation_only_tooltip"))
+        self._chk_show_selection.setText(tr("page.selection.filter.selection_only"))
+        self._chk_show_selection.setToolTip(tr("page.selection.filter.selection_only_tooltip"))
 
         # Update category buttons
         for button in self._category_buttons.values():

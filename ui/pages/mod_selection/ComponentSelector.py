@@ -226,6 +226,7 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         self._filter_engine = FilterEngine()
         self._indexes = IndexManager.get_indexes()
         self._show_violations_only = False
+        self._show_selection_only = False
 
         # Configuration
         self.setRecursiveFilteringEnabled(True)
@@ -237,7 +238,13 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
 
         self._show_violations_only = show
         self.invalidateFilter()
-        logger.debug(f"Show violations only: {show}")
+
+    def set_show_selection_only(self, show: bool) -> None:
+        if self._show_selection_only == show:
+            return
+
+        self._show_selection_only = show
+        self.invalidateFilter()
 
     def get_show_violations_only(self) -> bool:
         return self._show_violations_only
@@ -297,6 +304,11 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
 
         if not standard_filter_passes:
             return False
+
+        if self._show_selection_only:
+            item = source_model.itemFromIndex(index)
+            if item.checkState() == Qt.CheckState.Unchecked:
+                return False
 
         if not self._show_violations_only:
             return True

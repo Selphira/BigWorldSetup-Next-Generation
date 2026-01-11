@@ -102,7 +102,9 @@
         "all_authors": "Tous les auteurs",
         "all_languages": "Toutes les langues",
         "violation_only": "Avec problème",
-        "violation_only_tooltip": "Afficher uniquement les mods et composants ayant des conflits ou dépendances à gérer"
+        "violation_only_tooltip": "Afficher uniquement les mods et composants ayant des conflits ou dépendances à gérer",
+        "selection_only": "Uniquement la sélection",
+        "selection_only_tooltip": "Afficher uniquement les mods et composants sélectionnés"
       },
       "violation": {
         "keep_this_component": "✅ Garder ce composant",
