@@ -2,9 +2,11 @@ from collections import defaultdict
 import json
 import logging
 from pathlib import Path
+from typing import Callable, Protocol
 
 from core.ComponentReference import ComponentReference, IndexManager
 from core.Rules import (
+    ComponentGroup,
     DependencyMode,
     DependencyRule,
     IncompatibilityRule,
@@ -18,16 +20,93 @@ from core.Rules import (
 logger = logging.getLogger(__name__)
 
 
+class ConditionEvaluator(Protocol):
+    """Protocol for evaluating source/target conditions."""
+
+    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+        """Check if condition is satisfied."""
+        ...
+
+    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get missing components."""
+        ...
+
+
+class StandardCondition:
+    """Evaluates standard source/target."""
+
+    __slots__ = ("components", "mode", "_matcher")
+
+    def __init__(
+        self,
+        components: tuple[ComponentReference, ...],
+        mode: DependencyMode,
+        matcher: Callable[[ComponentReference, set[ComponentReference]], bool],
+    ):
+        self.components = components
+        self.mode = mode
+        self._matcher = matcher
+
+    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+        """Check if condition is met."""
+        matches = [self._matcher(comp, selected_set) for comp in self.components]
+
+        if self.mode == DependencyMode.ALL:
+            return all(matches)
+        return any(matches)
+
+    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get components that don't match."""
+        return [comp for comp in self.components if not self._matcher(comp, selected_set)]
+
+
+class GroupCondition:
+    """Evaluates component groups (all groups must be satisfied)."""
+
+    __slots__ = ("groups",)
+
+    def __init__(self, groups: tuple[ComponentGroup, ...]):
+        self.groups = groups
+
+    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+        """All groups must be satisfied."""
+        return all(group.matches(selected_set) for group in self.groups)
+
+    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get missing components from unsatisfied groups."""
+        missing = []
+        for group in self.groups:
+            if not group.matches(selected_set):
+                missing.extend(group.get_missing_components(selected_set))
+        return missing
+
+
+class TrivialCondition:
+    """Trivial condition evaluator (for optimization)."""
+
+    __slots__ = ("_result",)
+
+    def __init__(self, result: bool):
+        self._result = result
+
+    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+        return self._result
+
+    @staticmethod
+    def get_missing(selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        return []
+
+
+# ===================================================================
+# Rule Manager with optimized checking
+# ===================================================================
+
+
 class RuleManager:
-    """Manages rules from separate files with implicit dependency ordering."""
+    """Manages rules."""
 
-    def __init__(self, rules_dir: Path | None = None):
-        """
-        Initialize rule manager.
-
-        Args:
-            rules_dir: Directory containing rule JSON files
-        """
+    def __init__(self, rules_dir: Path):
+        """Initialize rule manager."""
         self._dependency_rules: list[DependencyRule] = []
         self._incompatibility_rules: list[IncompatibilityRule] = []
         self._order_rules: list[OrderRule] = []
@@ -57,7 +136,6 @@ class RuleManager:
         self._rules_by_type.clear()
         self._components_by_mod.clear()
 
-        # Generic loader usage
         self._load_rules_file(
             rules_dir / "dependencies.json", DependencyRule, self._dependency_rules
         )
@@ -68,15 +146,18 @@ class RuleManager:
         )
         self._load_rules_file(rules_dir / "order.json", OrderRule, self._order_rules)
 
+        group_rules = sum(1 for rule in self._dependency_rules if rule.uses_groups())
+
         logger.info(
-            "Loaded rules: %d dependencies, %d incompatibilities, %d order rules",
+            "Loaded rules: %d dependencies (%d with groups), %d incompatibilities, %d order rules",
             len(self._dependency_rules),
+            group_rules,
             len(self._incompatibility_rules),
             len(self._order_rules),
         )
 
     def _load_rules_file(self, path: Path, cls, target_list: list) -> None:
-        """Generic loader for a rule JSON file into target_list."""
+        """Generic loader for a rule JSON file."""
         if not path.exists():
             return
 
@@ -112,6 +193,7 @@ class RuleManager:
 
         if loaded_count > 0:
             logger.info(f"Loaded {loaded_count} rule(s) from {path.name}")
+
         if error_count > 0:
             logger.warning(f"Skipped {error_count} invalid rule(s) from {path.name}")
 
@@ -140,16 +222,8 @@ class RuleManager:
     def validate_selection(
         self, selected_components: list[ComponentReference]
     ) -> list[RuleViolation]:
-        """Validate component selection against dependency and incompatibility rules.
-
-        Args:
-            selected_components: Dict mapping mod_id to list of selected components
-
-        Returns:
-            List of RuleViolation objects describing any violations
-        """
+        """Validate component selection against dependency and incompatibility rules."""
         references = [reference for reference in selected_components if not reference.is_mod()]
-
         selection_hash = hash(frozenset(references))
 
         if self._last_selection_hash == selection_hash:
@@ -178,18 +252,15 @@ class RuleManager:
                 continue
 
             for source in rule.sources:
-                if source.is_mod():
-                    if self._matches_reference(source, selected_set):
-                        # At least one component from this mod is selected
-                        # Check the rule for one of the matching components
-                        mod_id = source.mod_id
-                        for reference in selected_set:
-                            if reference.mod_id == mod_id:
-                                violation = self._check_rule(rule, reference, selected_set)
-                                if violation:
-                                    violations.append(violation)
-                                    self._indexes.add_selection_violation(violation)
-
+                if source.is_mod() and self._matches_reference(source, selected_set):
+                    # Find a matching component to use as source_ref
+                    for reference in selected_set:
+                        if reference.mod_id == source.mod_id:
+                            violation = self._check_rule(rule, reference, selected_set)
+                            if violation:
+                                violations.append(violation)
+                                self._indexes.add_selection_violation(violation)
+                            break
                     break
 
         return violations
@@ -211,6 +282,7 @@ class RuleManager:
     # -------------------------
     # Rule checking
     # -------------------------
+
     def _check_rule(
         self, rule: Rule, source_ref: ComponentReference, selected_set: set[ComponentReference]
     ) -> RuleViolation | None:
@@ -224,18 +296,9 @@ class RuleManager:
     def _matches_reference(
         reference: ComponentReference, selected_set: set[ComponentReference]
     ) -> bool:
-        """Check if a reference matches any selected component.
-
-        Args:
-            reference: Reference to check
-            selected_set: Set of selected component references
-
-        Returns:
-            True if reference matches at least one selected component
-        """
+        """Check if a reference matches any selected component."""
         if reference.is_mod():
             return any(selected.mod_id == reference.mod_id for selected in selected_set)
-
         return reference in selected_set
 
     def _check_dependency(
@@ -245,29 +308,43 @@ class RuleManager:
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check DependencyRule: supports ALL and ANY modes."""
-        satisfied_count = 0
-        missing: list[ComponentReference] = []
+        source_evaluator = self._create_source_evaluator(rule, source_ref)
 
-        for target in rule.targets:
-            if self._matches_reference(target, selected_set):
-                satisfied_count += 1
-            else:
-                missing.append(target)
-
-        if rule.dependency_mode == DependencyMode.ALL:
-            is_violated = bool(missing)
-        else:  # ANY
-            is_violated = satisfied_count == 0
-
-        if not is_violated:
+        if not source_evaluator.is_satisfied(selected_set):
             return None
 
+        target_evaluator = self._create_target_evaluator(rule)
+
+        if target_evaluator.is_satisfied(selected_set):
+            return None
+
+        missing = target_evaluator.get_missing(selected_set)
         affected = (source_ref,) + tuple(missing)
 
-        return RuleViolation(
-            rule=rule,
-            affected_components=affected,
-        )
+        return RuleViolation(rule=rule, affected_components=affected)
+
+    @staticmethod
+    def _create_source_evaluator(
+        rule: DependencyRule, source_ref: ComponentReference
+    ) -> ConditionEvaluator:
+        """Factory method: create appropriate source evaluator."""
+        if rule.source_groups:
+            return GroupCondition(rule.source_groups)
+        else:
+            # Standard source condition: just check if source_ref is in rule.sources
+            # For standard rules, source is already satisfied (we're here because it's selected)
+            return TrivialCondition(source_ref in rule.sources)
+
+    def _create_target_evaluator(self, rule: DependencyRule) -> ConditionEvaluator:
+        """Factory method: create appropriate target evaluator."""
+        if rule.target_groups:
+            return GroupCondition(rule.target_groups)
+        else:
+            return StandardCondition(
+                components=rule.targets,
+                mode=rule.dependency_mode,
+                matcher=self._matches_reference,
+            )
 
     def _check_incompatibility(
         self,
@@ -276,21 +353,15 @@ class RuleManager:
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check incompatibility: collect conflicting selected components."""
-        conflicts: list[ComponentReference] = []
-
-        for target in rule.targets:
-            if self._matches_reference(target, selected_set):
-                conflicts.append(target)
+        conflicts = [
+            target for target in rule.targets if self._matches_reference(target, selected_set)
+        ]
 
         if not conflicts:
             return None
 
         affected = (source_ref,) + tuple(conflicts)
-
-        return RuleViolation(
-            rule=rule,
-            affected_components=affected,
-        )
+        return RuleViolation(rule=rule, affected_components=affected)
 
     # -------------------------
     # Order validation
@@ -298,16 +369,8 @@ class RuleManager:
     def validate_order(
         self, sequences: dict[int, list[ComponentReference]]
     ) -> dict[int, list[RuleViolation]]:
-        """Validate order for multiple sequences at once.
-
-        Args:
-            sequences: Dict mapping sequence index to component order
-
-        Returns:
-            Dict mapping sequence index to list of violations
-        """
+        """Validate order for multiple sequences at once."""
         self._indexes.clear_order_violations()
-
         all_violations = {}
 
         for seq_idx, install_order in sequences.items():
@@ -362,10 +425,7 @@ class RuleManager:
                 if target_idx > source_idx:
                     violation = RuleViolation(
                         rule=rule,
-                        affected_components=(
-                            source_ref,
-                            target_ref,
-                        ),
+                        affected_components=(source_ref, target_ref),
                     )
                     violations.append(violation)
                     self._indexes.add_order_violation(violation)
@@ -407,10 +467,7 @@ class RuleManager:
                 if violation_detected:
                     violation = RuleViolation(
                         rule=rule,
-                        affected_components=(
-                            source_ref,
-                            target_ref,
-                        ),
+                        affected_components=(source_ref, target_ref),
                     )
                     violations.append(violation)
                     self._indexes.add_order_violation(violation)
@@ -422,82 +479,39 @@ class RuleManager:
     # -------------------------
 
     def get_rules_for_component(self, reference: ComponentReference) -> list[Rule]:
-        """Get all rules where the component is a source.
-
-        Args:
-            reference: Component reference
-
-        Returns:
-            List of rules where component appears as source
-        """
+        """Get all rules where the component is a source."""
         return self._rules_by_source.get(reference, [])
 
     def get_dependency_rules(self) -> tuple[DependencyRule, ...]:
-        """Get all dependency rules (read-only).
-
-        Returns:
-            Tuple of dependency rules (immutable)
-        """
+        """Get all dependency rules (read-only)."""
         return tuple(self._dependency_rules)
 
     def get_order_rules(self) -> tuple[OrderRule, ...]:
-        """Get all explicit order rules (read-only).
-
-        Returns:
-            Tuple of order rules (immutable)
-        """
+        """Get all explicit order rules (read-only)."""
         return tuple(self._order_rules)
 
     def get_incompatibility_rules(self) -> tuple[IncompatibilityRule, ...]:
-        """Get all incompatibility rules (read-only).
-
-        Returns:
-            Tuple of incompatibility rules (immutable)
-        """
+        """Get all incompatibility rules (read-only)."""
         return tuple(self._incompatibility_rules)
 
     def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
-        """Get cached selection violations for a specific component.
-
-        Args:
-            reference: Component reference
-
-        Returns:
-            List of violations affecting this component
-        """
+        """Get cached selection violations for a specific component."""
         return self._indexes.get_selection_violations(reference)
 
     def get_order_violations(self, reference: ComponentReference) -> list[RuleViolation]:
-        """Get cached order violations for a specific component.
-
-        Args:
-            reference: Component reference
-
-        Returns:
-            List of violations affecting this component
-        """
+        """Get cached order violations for a specific component."""
         return self._indexes.get_order_violations(reference)
 
     def get_requirements(
         self, mod_id: str, comp_key: str, recursive: bool = False
     ) -> set[tuple[str, str]]:
-        """Get all components required by a specific component.
-
-        Args:
-            mod_id: Mod identifier of the source component
-            comp_key: Component key of the source component
-            recursive: If True, include transitive dependencies
-
-        Returns:
-            List of (mod_id, comp_key) tuples representing required components
-        """
+        """Get all components required by a specific component."""
         requirements: set[tuple[str, str]] = set()
         visiting: set[tuple[str, str]] = set()
 
         def _collect_requirements(mod_id: str, comp_key: str):
             current = (mod_id, comp_key)
 
-            # Protection contre les cycles
             if current in visiting:
                 return
 
@@ -522,15 +536,3 @@ class RuleManager:
 
         _collect_requirements(mod_id, comp_key)
         return requirements
-
-    def has_error_violations(self, selected_components: list[str]) -> bool:
-        """Check if selection has any error-level violations.
-
-        Args:
-            selected_components: Components to check
-
-        Returns:
-            True if any error-level violations exist
-        """
-        violations = self.validate_selection(selected_components, use_cache=True)
-        return any(v.is_error for v in violations)

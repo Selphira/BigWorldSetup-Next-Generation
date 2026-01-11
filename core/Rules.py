@@ -40,6 +40,46 @@ class OrderDirection(Enum):
 
 
 @dataclass(frozen=True, slots=True)
+class ComponentGroup:
+    """Group of components with an operator."""
+
+    components: tuple[ComponentReference, ...]
+    operator: DependencyMode = DependencyMode.ANY
+
+    def matches(self, selected_set: set[ComponentReference]) -> bool:
+        """Check if this group is satisfied by the selection."""
+        if self.operator == DependencyMode.ANY:
+            # At least one component must be selected
+            return any(self._matches_reference(comp, selected_set) for comp in self.components)
+        else:  # ALL
+            # All components must be selected
+            return all(self._matches_reference(comp, selected_set) for comp in self.components)
+
+    def get_matched_components(
+        self, selected_set: set[ComponentReference]
+    ) -> list[ComponentReference]:
+        """Get components from this group that are selected."""
+        return [comp for comp in self.components if self._matches_reference(comp, selected_set)]
+
+    def get_missing_components(
+        self, selected_set: set[ComponentReference]
+    ) -> list[ComponentReference]:
+        """Get components from this group that are NOT selected."""
+        return [
+            comp for comp in self.components if not self._matches_reference(comp, selected_set)
+        ]
+
+    @staticmethod
+    def _matches_reference(
+        reference: ComponentReference, selected_set: set[ComponentReference]
+    ) -> bool:
+        """Check if a reference matches any selected component."""
+        if reference.is_mod():
+            return any(selected.mod_id == reference.mod_id for selected in selected_set)
+        return reference in selected_set
+
+
+@dataclass(frozen=True, slots=True)
 class Rule:
     """Base rule class.
 
@@ -119,29 +159,102 @@ class DependencyRule(Rule):
     Dependencies automatically create ordering constraints:
     - ALL mode: source requires ALL targets → all targets BEFORE source
     - ANY mode: source requires ANY target → at least one target BEFORE source
+
+    Supports advanced group syntax:
+    - source_groups: Multiple groups of sources (AND between groups, operator within)
+    - target_groups: Multiple groups of targets (AND between groups, operator within)
     """
 
     dependency_mode: DependencyMode = DependencyMode.ANY
     implicit_order: bool = True
+    source_groups: tuple[ComponentGroup, ...] | None = None
+    target_groups: tuple[ComponentGroup, ...] | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "DependencyRule":
         """Create DependencyRule from dictionary.
 
+        Supports three syntaxes:
+        1. Standard: {"source": [...], "target": [...], "mode": "any/all"}
+        2. Source groups: {"source_groups": [[...], [...]], "target": [...], "mode": "any/all"}
+        3. Target groups: {"source": [...], "target_groups": [[...], [...]], "mode": "any/all"}
+        4. Both groups: {"source_groups": [...], "target_groups": [...], "mode": "any/all"}
+
         Raises ValueError if required fields are missing or invalid.
         """
-        sources, targets = cls._parse_sources_and_targets(data)
+        has_source_groups = "source_groups" in data
+        has_target_groups = "target_groups" in data
+        has_standard_source = "source" in data
+        has_standard_target = "target" in data
+
+        # Must have at least source and target definition
+        if not (has_source_groups or has_standard_source):
+            raise ValueError("Missing required field: 'source' or 'source_groups'")
+        if not (has_target_groups or has_standard_target):
+            raise ValueError("Missing required field: 'target' or 'target_groups'")
+
+        # Cannot mix standard and groups for same side
+        if has_source_groups and has_standard_source:
+            raise ValueError("Cannot specify both 'source' and 'source_groups'")
+        if has_target_groups and has_standard_target:
+            raise ValueError("Cannot specify both 'target' and 'target_groups'")
+
+        dependency_mode = DependencyMode(data.get("mode", "any"))
+        severity = RuleSeverity(data.get("severity", "error"))
+        implicit_order = data.get("implicit_order", True)
+        description = data.get("description", "")
+        source_url = data.get("source_url")
+
+        if has_source_groups:
+            source_groups = cls._parse_component_groups(data["source_groups"])
+            # For indexing, we need a flat list of all source components
+            sources = tuple(comp for group in source_groups for comp in group.components)
+        else:
+            source_groups = None
+            sources = tuple(cls._parse_component_refs(data["source"]))
+
+        if has_target_groups:
+            target_groups = cls._parse_component_groups(data["target_groups"])
+            # For indexing, we need a flat list of all target components
+            targets = tuple(comp for group in target_groups for comp in group.components)
+        else:
+            target_groups = None
+            targets = tuple(cls._parse_component_refs(data["target"]))
 
         return cls(
             rule_type=RuleType.DEPENDENCY,
-            severity=RuleSeverity(data.get("severity", "error")),
+            severity=severity,
             sources=sources,
             targets=targets,
-            dependency_mode=DependencyMode(data.get("mode", "any")),
-            implicit_order=data.get("implicit_order", True),
-            description=data.get("description", ""),
-            source_url=data.get("source_url"),
+            dependency_mode=dependency_mode,
+            implicit_order=implicit_order,
+            description=description,
+            source_url=source_url,
+            source_groups=source_groups,
+            target_groups=target_groups,
         )
+
+    @classmethod
+    def _parse_component_groups(cls, groups_data: list[list]) -> tuple[ComponentGroup, ...]:
+        """Parse component groups from JSON data."""
+        if not isinstance(groups_data, list) or not groups_data:
+            raise ValueError("Component groups must be a non-empty list")
+
+        operator = DependencyMode("any")
+        groups = []
+
+        for idx, group_data in enumerate(groups_data):
+            if not isinstance(group_data, list) or not group_data:
+                raise ValueError(f"Group {idx} must be a non-empty list")
+
+            components = tuple(cls._parse_component_refs(group_data))
+            groups.append(ComponentGroup(components=components, operator=operator))
+
+        return tuple(groups)
+
+    def uses_groups(self) -> bool:
+        """Check if this rule uses group syntax."""
+        return self.source_groups is not None or self.target_groups is not None
 
 
 @dataclass(frozen=True, slots=True)
