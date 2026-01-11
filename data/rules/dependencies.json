@@ -1106,7 +1106,10 @@
       "description": "Composant de zgtweaks nécessite le mod mih_eq",
       "mode": "any"
     }, {
-      "source": ["bg1npc:50", "bg1npc:51", "bg1npc:52", "bg1npc:53", "bg1npc:54", "&drizztsaga:0", "&drizztsaga:1"],
+      "source_groups": [
+        ["bg1npc:50", "bg1npc:51", "bg1npc:52", "bg1npc:53", "bg1npc:54"],
+        ["drizztsaga:0", "drizztsaga:1"]
+      ],
       "target": ["drizztsaga:3"],
       "severity": "error",
       "description": "Debut repousse de Drizzt Saga est nécessaire si Dynaheir de BG1NPC est present",
