@@ -39,23 +39,36 @@
       "additionalProperties": false,
       "properties": {
         "mode": {"$ref": "#/definitions/dependencyMode"},
-        "severity": {"$ref": "#/definitions/ruleSeverity"},
-        "description": {"type": "string"},
+        "severity": {
+          "$ref": "#/definitions/ruleSeverity",
+          "description": "Severity level of the rule violation"
+        },
+        "description": {
+          "type": "string",
+          "description": "Severity level of the rule violation"
+        },
         "source_url": {
-          "type": ["string", "null"],
-          "format": "uri"
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URL for documentation"
         },
         "implicit_order": {
           "type": "boolean",
           "default": true
         },
-        "source": {"$ref": "#/definitions/componentReferenceList"},
+        "source": {
+          "$ref": "#/definitions/componentReferenceList",
+          "description": "Target component(s) of the rule"
+        },
         "source_groups": {
           "type": "array",
           "minItems": 1,
           "items": {"$ref": "#/definitions/componentReferenceList"}
         },
-        "target": {"$ref": "#/definitions/componentReferenceList"},
+        "target": {
+          "$ref": "#/definitions/componentReferenceList",
+          "description": "Target component(s) of the rule"
+        },
         "target_groups": {
           "type": "array",
           "minItems": 1,
