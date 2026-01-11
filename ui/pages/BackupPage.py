@@ -970,6 +970,7 @@ class BackupPage(BasePage):
                         )
 
             QMessageBox.information(self, tr("page.backup.success_title"), message)
+            self._load_backups()
         else:
             QMessageBox.critical(self, tr("page.backup.error_title"), message)
 
