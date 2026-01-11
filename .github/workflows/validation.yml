@@ -6,6 +6,7 @@ on:
     paths:
       - 'data/mods/**.json'
       - 'data/games/**.json'
+      - 'data/rules/**.json'
       - 'validation/schemas/mod-definition.json'
       - 'validation/schemas/game-definition.json'
       - 'validation/validator.py'
@@ -16,6 +17,7 @@ on:
     paths:
       - 'data/mods/**.json'
       - 'data/games/**.json'
+      - 'data/rules/**.json'
       - 'validation/schemas/mod-definition.json'
       - 'validation/schemas/game-definition.json'
       - 'validation/validator.py'
@@ -56,6 +58,14 @@ jobs:
           files: |
             data/games/**.json
 
+      - name: Get changed rules JSON files
+        id: changedrules
+        uses: tj-actions/changed-files@v47
+        with:
+          separator: ","
+          files: |
+            data/rules/**.json
+
       - name: Validate modified mods JSON files
         id: validatemods
         if: steps.changedmods.outputs.all_changed_files != ''
@@ -66,7 +76,6 @@ jobs:
           # Lire la sortie multiligne dans un tableau bash
           IFS=$',' read -a changed_files <<< "${{ steps.changedmods.outputs.modified_files }}"
           
-          results=""
           errors=""
           
           for file in "${changed_files[@]}"; do
@@ -77,8 +86,6 @@ jobs:
           
             if [ $status -ne 0 ]; then
               errors="$errors$output\n"
-            else
-              results="$results\n✅ $file passed validation."
             fi
           done
           
@@ -111,7 +118,6 @@ jobs:
           # Lire la sortie multiligne dans un tableau bash
           IFS=$',' read -a changed_files <<< "${{ steps.changedgames.outputs.modified_files }}"
           
-          results=""
           errors=""
           
           for file in "${changed_files[@]}"; do
@@ -122,8 +128,6 @@ jobs:
           
             if [ $status -ne 0 ]; then
               errors="$errors$output\n"
-            else
-              results="$results\n✅ $file passed validation."
             fi
           done
           
@@ -145,6 +149,63 @@ jobs:
       - name: Skip validation (no games JSON changes)
         if: steps.changedgames.outputs.all_changed_files == ''
         run: echo "✅ No modified games JSON files to validate."
+
+      - name: Validate modified rules JSON files
+        id: validaterules
+        if: steps.changedrules.outputs.all_changed_files != ''
+        shell: bash {0}
+        run: |
+          echo "🔍 Validating modified rules files..."
+
+          IFS=$',' read -a changed_files <<< "${{ steps.changedrules.outputs.modified_files }}"
+
+          errors=""
+
+          for file in "${changed_files[@]}"; do
+            echo "-------------------------------------"
+            echo "Validating $file..."
+
+            case "$file" in
+              data/rules/dependencies.json)
+                schema="validation/schemas/rule-dependencies-definition.json"
+                ;;
+              data/rules/incompatibilities.json)
+                schema="validation/schemas/rule-incompatibilities-definition.json"
+                ;;
+              data/rules/order.json)
+                schema="validation/schemas/rule-order-definition.json"
+                ;;
+              *)
+                echo "⚠️ No schema defined for $file, skipping."
+                continue
+                ;;
+            esac
+
+            output=$(python validation/validator.py "$file" "$schema" --errors-only 2>&1)
+            status=$?
+
+            if [ $status -ne 0 ]; then
+              errors="$errors$output\n"
+            fi
+          done
+
+          if [ -n "$errors" ]; then
+            echo "-------------------------------------"
+            echo -e "❌ Rule validation errors found."
+            echo -e "$errors"
+            {
+              echo "error_report<<EOF"
+              echo -e "$errors"
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "✅ All modified rules JSON files are valid."
+          fi
+
+      - name: Skip validation (no rules JSON changes)
+        if: steps.changedrules.outputs.all_changed_files == ''
+        run: echo "✅ No modified rules JSON files to validate."
 
       - name: Comment validation results on PR
         if: failure() && github.event_name == 'pull_request'
