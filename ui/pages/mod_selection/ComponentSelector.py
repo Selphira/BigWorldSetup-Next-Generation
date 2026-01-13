@@ -131,83 +131,85 @@ class FilterCriteria:
 class FilterEngine:
     """Handles all filtering logic separately from UI concerns."""
 
+    __slots__ = ("_text", "_game", "_category", "_authors", "_languages")
+
     def __init__(self):
-        self._criteria = FilterCriteria()
+        self._text = ""
+        self._game = ""
+        self._category = ""
+        self._authors: set[str] = set()
+        self._languages: set[str] = set()
 
     def set_criteria(self, criteria: FilterCriteria) -> None:
         """Set filter criteria."""
-        self._criteria = criteria
+        self._text = criteria.text.lower() if criteria.text else ""
+        self._game = criteria.game
+        self._category = criteria.category
+        self._authors = criteria.authors
+        self._languages = criteria.languages
 
     def get_criteria(self) -> FilterCriteria:
         """Get current filter criteria."""
-        return self._criteria
+        return FilterCriteria(
+            text=self._text,
+            game=self._game,
+            category=self._category,
+            authors=self._authors.copy(),
+            languages=self._languages.copy(),
+        )
+
+    def has_active_filters(self) -> bool:
+        """Check if any filter is active."""
+        return bool(
+            self._text or self._game or self._category or self._authors or self._languages
+        )
 
     def matches_item(self, index: QModelIndex) -> bool:
         """Check if an item matches all active filters."""
-        if not self._criteria.has_active_filters():
+        if not self.has_active_filters():
             return True
 
         # Text filter
-        if self._criteria.text and not self._matches_text(index):
-            return False
+        if self._text:
+            text = index.data(Qt.ItemDataRole.DisplayRole)
+            if not text or self._text not in text.lower():
+                return False
 
         # Games filter
-        if self._criteria.game and not self._matches_game(index):
+        if self._game and not self._matches_game(index):
             return False
 
         # Categories filter
-        if self._criteria.category and not self._matches_category(index):
-            return False
+        if self._category:
+            mod = index.data(ROLE_MOD)
+            if not mod or self._category not in mod.categories:
+                return False
 
         # Authors filter
-        if self._criteria.authors and not self._matches_authors(index):
-            return False
+        if self._authors:
+            author = index.data(ROLE_AUTHOR)
+            if author not in self._authors:
+                return False
 
         # Languages filter
-        if self._criteria.languages and not self._matches_languages(index):
-            return False
+        if self._languages:
+            mod = index.data(ROLE_MOD)
+            if not mod or not mod.supports_language(self._languages):
+                return False
 
         return True
-
-    def _matches_text(self, index: QModelIndex) -> bool:
-        """Check if item matches text filter."""
-        text = index.data(Qt.ItemDataRole.DisplayRole)
-        if not text:
-            return False
-        return self._criteria.text.lower() in text.lower()
 
     def _matches_game(self, index: QModelIndex) -> bool:
         """Check if item matches game filter."""
         component = index.data(ROLE_COMPONENT)
         if component:
-            return component.supports_game(self._criteria.game)
+            return component.supports_game(self._game)
 
         mod = index.data(ROLE_MOD)
         if mod:
-            return mod.supports_game(self._criteria.game)
+            return mod.supports_game(self._game)
 
         return False
-
-    def _matches_category(self, index: QModelIndex) -> bool:
-        """Check if item matches categories filter."""
-        mod = index.data(ROLE_MOD)
-
-        if not mod:
-            return False
-
-        return self._criteria.category in mod.categories
-
-    def _matches_authors(self, index: QModelIndex) -> bool:
-        """Check if item matches authors filter."""
-        item_author = index.data(ROLE_AUTHOR)
-        return item_author in self._criteria.authors
-
-    def _matches_languages(self, index: QModelIndex) -> bool:
-        """Check if item matches languages filter."""
-        mod = index.data(ROLE_MOD)
-        if not mod:
-            return False
-        return mod.supports_language(self._criteria.languages)
 
 
 # ============================================================================
@@ -227,27 +229,62 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         self._indexes = IndexManager.get_indexes()
         self._show_violations_only = False
         self._show_selection_only = False
+        self._matching_cache: dict[int, bool] = {}
 
         # Configuration
         self.setRecursiveFilteringEnabled(True)
         self.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
 
+    # ========================================
+    # Public API
+    # ========================================
+
     def set_show_violations_only(self, show: bool) -> None:
+        """Toggle violations filter."""
         if self._show_violations_only == show:
             return
-
         self._show_violations_only = show
+        self._clear_cache()
         self.invalidateFilter()
 
     def set_show_selection_only(self, show: bool) -> None:
+        """Toggle selection filter."""
         if self._show_selection_only == show:
             return
-
         self._show_selection_only = show
+        self._clear_cache()
         self.invalidateFilter()
 
     def get_show_violations_only(self) -> bool:
+        """Get violations filter state."""
         return self._show_violations_only
+
+    def set_filter_criteria(self, criteria: FilterCriteria) -> None:
+        """Set all filter criteria at once."""
+        self._filter_engine.set_criteria(criteria)
+        self._clear_cache()
+        self.invalidateFilter()
+
+    def get_filter_criteria(self) -> FilterCriteria:
+        """Get current filter criteria."""
+        return self._filter_engine.get_criteria()
+
+    def clear_all_filters(self) -> None:
+        """Reset all filters."""
+        self._filter_engine.get_criteria().clear()
+        self._filter_engine.set_criteria(FilterCriteria())
+        self._show_violations_only = False
+        self._show_selection_only = False
+        self._clear_cache()
+        self.invalidateFilter()
+
+    def has_active_filters(self) -> bool:
+        """Check if at least one filter is active."""
+        return (
+            self._filter_engine.has_active_filters()
+            or self._show_violations_only
+            or self._show_selection_only
+        )
 
     def lessThan(self, left: QModelIndex, right: QModelIndex) -> bool:
         """Compare two items for sorting.
@@ -258,80 +295,78 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         if left.parent().isValid():
             return left.row() < right.row()
 
-        # Sort mods normally
         return super().lessThan(left, right)
-
-    # ========================================
-    # Filter Configuration
-    # ========================================
-
-    def set_filter_criteria(self, criteria: FilterCriteria) -> None:
-        """Set all filter criteria at once."""
-        self._filter_engine.set_criteria(criteria)
-        self.invalidateFilter()
-
-    def get_filter_criteria(self) -> FilterCriteria:
-        """Get current filter criteria."""
-        return self._filter_engine.get_criteria()
-
-    def clear_all_filters(self) -> None:
-        """Reset all filters."""
-        self._filter_engine.get_criteria().clear()
-        self.invalidateFilter()
-
-    def has_active_filters(self) -> bool:
-        """Check if at least one filter is active."""
-        return self._filter_engine.get_criteria().has_active_filters()
 
     # ========================================
     # Filtering Logic
     # ========================================
 
     def filterAcceptsRow(self, source_row: int, source_parent: QModelIndex) -> bool:
-        """Determine if a row should be displayed.
-
-        A row is shown if:
-        - It matches filters
-        - OR one of its children matches filters
-        - OR one of its parents matches filters
-        - AND (if violations filter active) it or its children have violations
-        """
+        """Determine if a row should be displayed."""
         source_model = self.sourceModel()
         index = source_model.index(source_row, 0, source_parent)
 
-        # Standard filter first
-        standard_filter_passes = self._check_standard_filters(index, source_model)
-
-        if not standard_filter_passes:
+        if not self._check_stateless_filters(index, source_model):
             return False
 
-        if self._show_selection_only:
-            item = source_model.itemFromIndex(index)
-            if item.checkState() == Qt.CheckState.Unchecked:
-                return False
+        return self._check_stateful_filters(index, source_model)
 
-        if not self._show_violations_only:
+    def _check_stateless_filters(self, index: QModelIndex, source_model) -> bool:
+        """Check stateless filters with caching."""
+        if not self._filter_engine.has_active_filters():
             return True
 
-        return self._has_violations_recursive(index, source_model)
-
-    def _check_standard_filters(self, index: QModelIndex, source_model) -> bool:
-        if not self.has_active_filters():
-            return True
-
-        # Check if this item matches
         if self._filter_engine.matches_item(index):
             return True
 
-        # Check if any child matches (recursive)
-        if self._has_matching_child(index):
+        # Check children
+        cache_key = self._get_cache_key(index)
+
+        if cache_key in self._matching_cache:
+            return self._matching_cache[cache_key]
+
+        has_match = self._has_matching_child(index, source_model)
+        self._matching_cache[cache_key] = has_match
+
+        return has_match
+
+    def _check_stateful_filters(self, index: QModelIndex, source_model) -> bool:
+        """Check stateful filters (selection, violations)."""
+        if not self._show_violations_only and not self._show_selection_only:
             return True
+
+        item = source_model.itemFromIndex(index)
+        if not item:
+            return True
+
+        if self._show_selection_only:
+            if item.checkState() == Qt.CheckState.Unchecked:
+                return False
+
+        if self._show_violations_only:
+            return self._has_violations_recursive(index, source_model)
+
+        return True
+
+    def _has_matching_child(self, parent_index: QModelIndex, source_model) -> bool:
+        """Check if any child matches filters (recursive)."""
+        row_count = source_model.rowCount(parent_index)
+
+        for row in range(row_count):
+            child_index = source_model.index(row, 0, parent_index)
+
+            if self._filter_engine.matches_item(child_index):
+                return True
+
+            if self._has_matching_child(child_index, source_model):
+                return True
 
         return False
 
     def _has_violations_recursive(self, index: QModelIndex, source_model) -> bool:
+        """Check if item or children have violations."""
         item = source_model.itemFromIndex(index)
-        if not isinstance(item, TreeItem):
+        if not hasattr(item, "reference"):
             return False
 
         try:
@@ -340,7 +375,7 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
             if reference.is_mod():
                 for row in range(item.rowCount()):
                     child = item.child(row, 0)
-                    if not isinstance(child, TreeItem):
+                    if not hasattr(child, "reference"):
                         continue
 
                     try:
@@ -353,24 +388,17 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
             else:
                 return self._indexes.has_selection_violations(reference)
 
-        except ValueError:
+        except (ValueError, AttributeError):
             return False
 
-    def _has_matching_child(self, parent_index: QModelIndex) -> bool:
-        """Check if any child matches filters (recursive)."""
-        source_model = self.sourceModel()
-        row_count = source_model.rowCount(parent_index)
+    @staticmethod
+    def _get_cache_key(index: QModelIndex) -> int:
+        """Generate cache key for an index."""
+        return hash((index.row(), index.internalId()))
 
-        for row in range(row_count):
-            child_index = source_model.index(row, 0, parent_index)
-
-            if self._filter_engine.matches_item(child_index):
-                return True
-
-            if self._has_matching_child(child_index):
-                return True
-
-        return False
+    def _clear_cache(self) -> None:
+        """Clear matching cache."""
+        self._matching_cache.clear()
 
 
 class StatusColumnDelegate(QStyledItemDelegate):
