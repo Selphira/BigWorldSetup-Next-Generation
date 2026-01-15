@@ -2,14 +2,16 @@
   "name": "Ooze's Lounge",
   "version": "2.97",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/oozes-lounge/",
-    "download": "https://downloads.weaselmods.net/download/oozes-lounge/?wpdmdl=59"
+    "homepage": "https://downloads.weaselmods.net/download/oozes-lounge/"
   },
-  "file": {
-    "filename": "Oozes-Lounge-v2.97.zip",
-    "size": 14603186,
-    "sha256": "ac4c2fed5b1a5278de36c843863754819f4f28941dfd5af6a4a0f11eeeb1e421"
-  },
+  "files": [
+    {
+      "filename": "Oozes-Lounge-v2.97.zip",
+      "size": 14603186,
+      "sha256": "ac4c2fed5b1a5278de36c843863754819f4f28941dfd5af6a4a0f11eeeb1e421",
+      "download": "https://downloads.weaselmods.net/download/oozes-lounge/?wpdmdl=59"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -31,7 +33,11 @@
       },
       "description": "The mod introduces a brand new part of Athkatlan sewers. You may now use the originally inactive grate in Slums to enter a locked part of the sewers and discover its dark corners. The mod offers three new areas as well as a couple of mini-quests, new items and graphics. Gather your party and visit the Ooze's Lounge, a special place with spacial wares, locked from most commoners, yet opened for adventurers like yourself, Bhaalspawn.\nTo enjoy the new content you may first need to finish an important Bridge District quest."
     },
-    "ru_RU": {"components": {"0": "Ooze's Lounge: a new area under Athkatlan Slums"}},
+    "ru_RU": {
+      "components": {
+        "0": "Ooze's Lounge: a new area under Athkatlan Slums"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute une nouvelle zone dans les égouts d'Athkatla : le Salon des vases. Vous pouvez désormais utiliser la grille initialement inactive dans les bas quartiers pour entrer dans une partie verrouillée des égouts et découvrir ses endroits les plus sombres. Le mod propose trois nouvelles zones ainsi que quelques mini-quêtes, de nouveaux objets et de nouveaux graphismes. Rassemblez votre groupe et allez dans le Salon des vases, un lieu spécial avec des marchandises spéciales, inaccessible pour la plupart des gens ordinaires, mais disponible pour des aventuriers comme vous, Enfant de Bhaal.\nPour profiter de ce contenu, vous devez d'abord terminer une quête importante du Quartier du pont.",
       "components": {
@@ -44,9 +50,21 @@
         "0": "软泥会客厅：阿斯卡特拉贫民区的新地区"
       }
     },
-    "pl_PL": {"components": {"0": "Loza Szlamow: nowy obszar pod Slumsami Athkatli"}},
-    "ko_KR": {"components": {"0": "Ooze's Lounge: a new area under Athkatlan Slums"}},
-    "it_IT": {"components": {"0": "Luoghi di Athkatla: La Sala della Melma... la nuova area è sotto i Bassifondi di Athkatla"}}
+    "pl_PL": {
+      "components": {
+        "0": "Loza Szlamow: nowy obszar pod Slumsami Athkatli"
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "0": "Ooze's Lounge: a new area under Athkatlan Slums"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Luoghi di Athkatla: La Sala della Melma... la nuova area è sotto i Bassifondi di Athkatla"
+      }
+    }
   },
   "tp2": "ooze",
   "safe": 2,

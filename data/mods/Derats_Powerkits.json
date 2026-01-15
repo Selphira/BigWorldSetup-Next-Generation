@@ -2,14 +2,16 @@
   "name": "CrossClass Powerkits",
   "version": "5.1",
   "links": {
-    "homepage": "https://github.com/Deratiseur/CrossClass",
-    "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.1.0/win-Derats_Powerkits-v5.1.zip"
+    "homepage": "https://github.com/Deratiseur/CrossClass"
   },
-  "file": {
-    "filename": "win-Derats_Powerkits-v5.1.zip",
-    "size": 1492796,
-    "sha256": "b4532c347707a1ea4b7ef9156aa76e5b1b10cc0b18501b6883cea6808ee4585e"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Powerkits-v5.1.zip",
+      "size": 1492796,
+      "sha256": "b4532c347707a1ea4b7ef9156aa76e5b1b10cc0b18501b6883cea6808ee4585e",
+      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.1.0/win-Derats_Powerkits-v5.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

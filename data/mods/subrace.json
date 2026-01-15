@@ -2,14 +2,16 @@
   "name": "Subrace MOD for Enhanced Edition Games",
   "version": "0.3.2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/32267-subrace-mod/",
-    "download": "https://github.com/dark0dave/Subrace-mod/archive/refs/heads/main.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/32267-subrace-mod/"
   },
-  "file": {
-    "filename": "Subrace-mod-main.zip",
-    "size": 1517882,
-    "sha256": "03b8d09cd617d69ff7e2e5405ab41eb36a734b59046675d15ef7ade56bfdf1b2"
-  },
+  "files": [
+    {
+      "filename": "Subrace-mod-main.zip",
+      "size": 1517882,
+      "sha256": "03b8d09cd617d69ff7e2e5405ab41eb36a734b59046675d15ef7ade56bfdf1b2",
+      "download": "https://github.com/dark0dave/Subrace-mod/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
@@ -43,7 +45,8 @@
     "ru_RU": {
       "components": {
         "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
-        "100": "Change subrace colors (Hair and Skin)", "200": "No change subrace colors (Hair and Skin)"
+        "100": "Change subrace colors (Hair and Skin)",
+        "200": "No change subrace colors (Hair and Skin)"
       }
     }
   },

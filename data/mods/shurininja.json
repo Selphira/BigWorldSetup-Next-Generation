@@ -2,14 +2,16 @@
   "name": "Shuri Ninja kit",
   "version": "2.0.0",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33164",
-    "download": "https://github.com/GwendolyneFreddy/Shuri-Ninja/releases/download/v2.0.0/shuri-ninja-kit-2.0.0.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33164"
   },
-  "file": {
-    "filename": "shuri-ninja-kit-2.0.0.zip",
-    "size": 4820194,
-    "sha256": "da7ccab7ab0f0690928e060a55bcc9e9831dc004d0a409efa15a58a6ca791ad1"
-  },
+  "files": [
+    {
+      "filename": "shuri-ninja-kit-2.0.0.zip",
+      "size": 4820194,
+      "sha256": "da7ccab7ab0f0690928e060a55bcc9e9831dc004d0a409efa15a58a6ca791ad1",
+      "download": "https://github.com/GwendolyneFreddy/Shuri-Ninja/releases/download/v2.0.0/shuri-ninja-kit-2.0.0.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

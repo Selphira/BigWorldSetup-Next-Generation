@@ -2,14 +2,16 @@
   "name": "Isra NPC for BGII",
   "version": "3.1",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/1070-isra-bg2-pc/",
-    "download": "https://github.com/11jo/Isra-NPC-BG2/archive/refs/heads/master.zip"
+    "homepage": "https://www.shsforums.net/files/file/1070-isra-bg2-pc/"
   },
-  "file": {
-    "filename": "Isra-NPC-BG2-master.zip",
-    "size": 11103209,
-    "sha256": "8edd240d392eee757324f70e976fc3598c02838425513069f9839d475baa62f8"
-  },
+  "files": [
+    {
+      "filename": "Isra-NPC-BG2-master.zip",
+      "size": 11103209,
+      "sha256": "8edd240d392eee757324f70e976fc3598c02838425513069f9839d475baa62f8",
+      "download": "https://github.com/11jo/Isra-NPC-BG2/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {

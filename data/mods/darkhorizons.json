@@ -2,14 +2,16 @@
   "name": "Dark Horizons",
   "version": "3.05",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1",
-    "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/win-Dark.Horizons-v3.05.zip"
+    "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1"
   },
-  "file": {
-    "filename": "win-Dark.Horizons-v3.05.zip",
-    "size": 48531964,
-    "sha256": "446d19c8feaa0df4550b975d5fc5223bd01a61b9e0ef1ce40021f3cfb080a844"
-  },
+  "files": [
+    {
+      "filename": "win-Dark.Horizons-v3.05.zip",
+      "size": 48531964,
+      "sha256": "446d19c8feaa0df4550b975d5fc5223bd01a61b9e0ef1ce40021f3cfb080a844",
+      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/win-Dark.Horizons-v3.05.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bg2", "bgt", "bgee", "sod", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -44,11 +46,31 @@
         "0": "黑暗地平线"
       }
     },
-    "it_IT": {"components": {"0": "Mod \"Orizzonti Oscuri\""}},
-    "de_DE": {"components": {"0": "\"Dark Horizons\" Mod"}},
-    "ru_RU": {"components": {"0": "\"Dark Horizons\" Mod"}},
-    "pl_PL": {"components": {"0": "Mod \"Dark Horizons\""}},
-    "es_ES": {"components": {"0": "\"Horizontes Oscuros\" Mod"}}
+    "it_IT": {
+      "components": {
+        "0": "Mod \"Orizzonti Oscuri\""
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "\"Dark Horizons\" Mod"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "\"Dark Horizons\" Mod"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Mod \"Dark Horizons\""
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "\"Horizontes Oscuros\" Mod"
+      }
+    }
   },
   "tp2": "darkhorizons",
   "safe": 2,

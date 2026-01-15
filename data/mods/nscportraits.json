@@ -2,14 +2,16 @@
   "name": "Gerri's BGT NPC Portraits",
   "version": "3.1",
   "links": {
-    "homepage": "https://www.baldurs-gate.de/index.php?threads/gerris-nsc-portraits.44541/",
-    "download": "https://github.com/gboeck/NSC-Portraits/raw/master/BGT%20NSC%20Portraits%203.1.rar"
+    "homepage": "https://www.baldurs-gate.de/index.php?threads/gerris-nsc-portraits.44541/"
   },
-  "file": {
-    "filename": "BGT NSC Portraits 3.1.rar",
-    "size": 17118189,
-    "sha256": "ad358ecfa895ab92faf89ef8302a2b9d86525b06c74f540873f25a989da720f9"
-  },
+  "files": [
+    {
+      "filename": "BGT NSC Portraits 3.1.rar",
+      "size": 17118189,
+      "sha256": "ad358ecfa895ab92faf89ef8302a2b9d86525b06c74f540873f25a989da720f9",
+      "download": "https://github.com/gboeck/NSC-Portraits/raw/master/BGT%20NSC%20Portraits%203.1.rar"
+    }
+  ],
   "games": ["bgt", "eet"],
   "categories": ["portrait"],
   "components": {

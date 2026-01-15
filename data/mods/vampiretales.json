@@ -2,14 +2,16 @@
   "name": "Vampire Tales",
   "version": "108",
   "links": {
-    "homepage": "http://mods.chosenofmystra.net/vampiretales/index.html",
-    "download": "https://github.com/The-Gate-Project/VampireTales/releases/download/v108/vampire-tales-v108.zip"
+    "homepage": "http://mods.chosenofmystra.net/vampiretales/index.html"
   },
-  "file": {
-    "filename": "vampire-tales-v108.zip",
-    "size": 5790253,
-    "sha256": "362b6c6bb5f38c7e04c5e86aab7a26c8bce35698db1919dfe2b54606afc4715e"
-  },
+  "files": [
+    {
+      "filename": "vampire-tales-v108.zip",
+      "size": 5790253,
+      "sha256": "362b6c6bb5f38c7e04c5e86aab7a26c8bce35698db1919dfe2b54606afc4715e",
+      "download": "https://github.com/The-Gate-Project/VampireTales/releases/download/v108/vampire-tales-v108.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc", "smith"],
   "components": {
@@ -35,7 +37,14 @@
         "3": "CoM Store 1"
       }
     },
-    "it_IT": {"components": {"0": "Vampire Tales (Richiede Throne of Bhaal)", "1": "Migliorato il Culto dell'Occhio Offuscato", "2": "Migliorato il Combattimento degli Arpisti", "3": "CoM Store 1"}},
+    "it_IT": {
+      "components": {
+        "0": "Vampire Tales (Richiede Throne of Bhaal)",
+        "1": "Migliorato il Culto dell'Occhio Offuscato",
+        "2": "Migliorato il Combattimento degli Arpisti",
+        "3": "CoM Store 1"
+      }
+    },
     "fr_FR": {
       "description": "Les mods Miriam (PNJ vampire aux stats moins bourrines que celles de Valen NPC, mais semblant disposer d'un caractère tout aussi lunatique et violent) et Dark Ritual (ajoutant un marchand avec pas mal de nouveaux objets en provenance d'Icewind Dale 1 et 2, initialement traduit par Panaka) sont désormais réunis dans ce mod qui améliore en outre la quête de l'Œil Aveugle, la rencontre avec les Ménestrels, et ajoute une nouvelle rencontre dans le donjon de Firkraag. ToB est requis.\nMiriam : FOR 18/75, DEX 17, CON 11, INT 16, SAG 9, CHA 15.",
       "components": {
@@ -48,8 +57,22 @@
     "zh_CN": {
       "description": "Miriam（一个吸血鬼NPC，属性不如Valen NPC那么强力，但性格似乎同样反复无常和暴力）和Dark Ritual（添加了一个商人，出售许多来自冰风谷1和2的新物品，最初由Panaka翻译）这两个模组现在被整合到了这个模组中，此外还改进了“盲眼”任务、与游吟诗人的遭遇，并在费克雷格的地下城中添加了一次新的遭遇。需要巴尔王座。\nMiriam：力量18/75，敏捷17，体质11，智力16，智慧9，魅力15。"
     },
-    "es_ES": {"components": {"0": "Vampire Tales (Requiere Throne of Bhaal)", "1": "Culto del Ojo Ciego mejorado", "2": "Pelea Arpista mejorada", "3": "CoM Store 1"}},
-    "ru_RU": {"components": {"0": "Vampire Tales 2.0 (rework for EET compatibility)", "1": "Improved Cult of the Unseeing Eye", "2": "Improved Harper Fight", "3": "CoM Store 1"}}
+    "es_ES": {
+      "components": {
+        "0": "Vampire Tales (Requiere Throne of Bhaal)",
+        "1": "Culto del Ojo Ciego mejorado",
+        "2": "Pelea Arpista mejorada",
+        "3": "CoM Store 1"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Vampire Tales 2.0 (rework for EET compatibility)",
+        "1": "Improved Cult of the Unseeing Eye",
+        "2": "Improved Harper Fight",
+        "3": "CoM Store 1"
+      }
+    }
   },
   "tp2": "vampiretales",
   "safe": 2,

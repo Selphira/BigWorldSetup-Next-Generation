@@ -2,14 +2,16 @@
   "name": "Ruad Ro'fhessa Item Upgrade",
   "version": "29.4.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/790-ruad-rofhessa-item-upgrade/",
-    "download": "https://github.com/Spellhold-Studios/Ruad-Rofhessa-Item-Upgrade/releases/download/v29.4.0/ruad-rofhessa-item-upgrade-v29.4.0.zip"
+    "homepage": "http://www.shsforums.net/files/file/790-ruad-rofhessa-item-upgrade/"
   },
-  "file": {
-    "filename": "ruad-rofhessa-item-upgrade-v29.4.0.zip",
-    "size": 5293225,
-    "sha256": "656418ab9b56aaed9b56d699657c796d2fe42d9f8fd5dc0a605e92d962162b16"
-  },
+  "files": [
+    {
+      "filename": "ruad-rofhessa-item-upgrade-v29.4.0.zip",
+      "size": 5293225,
+      "sha256": "656418ab9b56aaed9b56d699657c796d2fe42d9f8fd5dc0a605e92d962162b16",
+      "download": "https://github.com/Spellhold-Studios/Ruad-Rofhessa-Item-Upgrade/releases/download/v29.4.0/ruad-rofhessa-item-upgrade-v29.4.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -39,13 +41,33 @@
         "10": "Ruad Ro'fhessa (ToB)"
       }
     },
-    "ru_RU": {"components": {"0": "Ruad Ro'fhessa (SoA)", "10": "Ruad Ro'fhessa (ToB)"}},
-    "it_IT": {"components": {"0": "Ruad Ro'fhessa (SoA)", "10": "Ruad Ro'fhessa (ToB)"}},
+    "ru_RU": {
+      "components": {
+        "0": "Ruad Ro'fhessa (SoA)",
+        "10": "Ruad Ro'fhessa (ToB)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Ruad Ro'fhessa (SoA)",
+        "10": "Ruad Ro'fhessa (ToB)"
+      }
+    },
     "zh_CN": {
       "description": "此模组在SoA（安姆阴影）中添加了一个矮人铁匠，随后在ToB（巴尔王座）中也会出现，他能够像克伦威尔一样组装物品。与模组Item Upgrade不同，大多数需要组装的物品都要求一定的牺牲，例如善最的心或浪之柄。"
     },
-    "de_DE": {"components": {"0": "Ruad Ro'fhessa (SvA)", "10": "Ruad Ro'fhessa (TdB)"}},
-    "es_ES": {"components": {"0": "Ruad Ro'fhessa (SoA)", "10": "Ruad Ro'fhessa (ToB)"}}
+    "de_DE": {
+      "components": {
+        "0": "Ruad Ro'fhessa (SvA)",
+        "10": "Ruad Ro'fhessa (TdB)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Ruad Ro'fhessa (SoA)",
+        "10": "Ruad Ro'fhessa (ToB)"
+      }
+    }
   },
   "tp2": "ruad",
   "safe": 2,

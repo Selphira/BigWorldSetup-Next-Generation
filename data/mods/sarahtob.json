@@ -2,14 +2,16 @@
   "name": "Sarah NPC Romance Mod for BG2: ToB",
   "version": "8",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/sarah/",
-    "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/sarahtob-v8.exe"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/sarah/"
   },
-  "file": {
-    "filename": "sarahtob-v8.exe",
-    "size": 58535213,
-    "sha256": "dd59a991a8e9760936998b98ec657e04e9041595c0f6b72f90852f337ed72edf"
-  },
+  "files": [
+    {
+      "filename": "sarahtob-v8.exe",
+      "size": 58535213,
+      "sha256": "dd59a991a8e9760936998b98ec657e04e9041595c0f6b72f90852f337ed72edf",
+      "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/sarahtob-v8.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -37,7 +39,13 @@
         "1": "Use revised audio from HalmyLyseas"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Sarah NPC Romance Mod for BG2:ToB", "0": "Use original audio", "1": "Use revised audio from HalmyLyseas"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "Sarah NPC Romance Mod for BG2:ToB",
+        "0": "Use original audio",
+        "1": "Use revised audio from HalmyLyseas"
+      }
+    },
     "zh_CN": {
       "description": "这位混乱善良的游侠来自博德之门的贫民区，由她的叔叔在友善之臂抚养长大，叔叔教导了她自然的道路和战斗的艺术。多年后，她离开友善之臂去探索世界，最终在乌玛丘陵附近的一个小屋里定居。莎拉相对害羞但意志坚定，她毫不掩饰地表示更喜欢自然而非人群。也许她还没遇到对的人？\n力量 16, 敏捷 17, 体质 15, 智力 14, 智慧 12, 魅力 10。"
     }

@@ -2,14 +2,16 @@
   "name": "Passive Warrior HLAs",
   "version": "1.0.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/37193-passive-warrior-hlas/",
-    "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/win-passive_warrior_hlas-v1.0.0.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/37193-passive-warrior-hlas/"
   },
-  "file": {
-    "filename": "win-passive_warrior_hlas-v1.0.0.zip",
-    "size": 1280337,
-    "sha256": "0df2eb3bc146b25a416afcd578fe5f81120e669ec1e91bb3d0cd5e38e162aeae"
-  },
+  "files": [
+    {
+      "filename": "win-passive_warrior_hlas-v1.0.0.zip",
+      "size": 1280337,
+      "sha256": "0df2eb3bc146b25a416afcd578fe5f81120e669ec1e91bb3d0cd5e38e162aeae",
+      "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/win-passive_warrior_hlas-v1.0.0.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Dark Side of the Sword Coast",
   "version": "4.2",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/73241/mod-dark-side-of-the-sword-coast-for-bg-ee/p1",
-    "download": "https://github.com/Spellhold-Studios/DSotSC/archive/refs/heads/master.zip"
+    "homepage": "https://forums.beamdog.com/discussion/73241/mod-dark-side-of-the-sword-coast-for-bg-ee/p1"
   },
-  "file": {
-    "filename": "DSotSC-master.zip",
-    "size": 40971017,
-    "sha256": "88476ad2ca0fc050d71941f4618b37f0477fd43637a089536a4e358daae3b4e2"
-  },
+  "files": [
+    {
+      "filename": "DSotSC-master.zip",
+      "size": 40971017,
+      "sha256": "88476ad2ca0fc050d71941f4618b37f0477fd43637a089536a4e358daae3b4e2",
+      "download": "https://github.com/Spellhold-Studios/DSotSC/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -59,10 +61,42 @@
         "4": "Distribute DSotSC items also in vanilla content"
       }
     },
-    "es_ES": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "it_IT": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "ru_RU": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}},
-    "pl_PL": {"components": {"0": "Dark Side of the Sword Coast (DSotSC)", "1": "DSotSC Wizard spells", "2": "DSotSC Priest spells", "3": "More common encounters in vanilla areas", "4": "Distribute DSotSC items also in vanilla content"}}
+    "es_ES": {
+      "components": {
+        "0": "Dark Side of the Sword Coast (DSotSC)",
+        "1": "DSotSC Wizard spells",
+        "2": "DSotSC Priest spells",
+        "3": "More common encounters in vanilla areas",
+        "4": "Distribute DSotSC items also in vanilla content"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Dark Side of the Sword Coast (DSotSC)",
+        "1": "DSotSC Wizard spells",
+        "2": "DSotSC Priest spells",
+        "3": "More common encounters in vanilla areas",
+        "4": "Distribute DSotSC items also in vanilla content"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Dark Side of the Sword Coast (DSotSC)",
+        "1": "DSotSC Wizard spells",
+        "2": "DSotSC Priest spells",
+        "3": "More common encounters in vanilla areas",
+        "4": "Distribute DSotSC items also in vanilla content"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Dark Side of the Sword Coast (DSotSC)",
+        "1": "DSotSC Wizard spells",
+        "2": "DSotSC Priest spells",
+        "3": "More common encounters in vanilla areas",
+        "4": "Distribute DSotSC items also in vanilla content"
+      }
+    }
   },
   "tp2": "dsotsc",
   "safe": 2,

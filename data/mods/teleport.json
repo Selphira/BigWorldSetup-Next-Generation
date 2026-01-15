@@ -2,14 +2,16 @@
   "name": "Teleport Spell",
   "version": "16a",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/78039/teleport-spell-for-bg2ee-eet-compatible",
-    "download": "https://github.com/Plutonium-X/SORT_Teleport/archive/refs/tags/v16a.zip"
+    "homepage": "https://forums.beamdog.com/discussion/78039/teleport-spell-for-bg2ee-eet-compatible"
   },
-  "file": {
-    "filename": "SORT_Teleport-16a.zip",
-    "size": 2194542,
-    "sha256": "e5903437ed35b5a239f85e5a83d2632c04405e0a48b422e2b68f0ed0caaec3b8"
-  },
+  "files": [
+    {
+      "filename": "SORT_Teleport-16a.zip",
+      "size": 2194542,
+      "sha256": "e5903437ed35b5a239f85e5a83d2632c04405e0a48b422e2b68f0ed0caaec3b8",
+      "download": "https://github.com/Plutonium-X/SORT_Teleport/archive/refs/tags/v16a.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -47,12 +49,48 @@
     "zh_CN": {
       "description": "此模组在冒险者市场深处的尤丝夫人商店以及奥术档案馆的拉撒路·利巴鲁斯商店中，增加了一个7级法术，允许传送到所有先前访问过的区域。不幸的是，该法术对由模组引入的区域无效。"
     },
-    "cs_CZ": {"components": {"0": "Teleportacni kouzlo pro BG2:SoA", "1": "Teleportacni kouzlo pro BG2:ToB", "2": "Uprava NPC a stronghold questu."}},
-    "ru_RU": {"components": {"0": "\"¥«¥¯®àâ\" ¤«ï BG2:SoA", "1": "\"¥«¥¯®àâ\" ¤«ï BG2:ToB", "2": "«ãçè¥­­ë¥ NPC ¨ ª¢¥áâë áâà®­£å®«¤®¢"}},
-    "it_IT": {"components": {"0": "Pergamena di Teletrasporto per BG2:SoA", "1": "Pergamena di Teletrasporto per BG2:ToB", "2": "Modifica NPC e roccaforti"}},
-    "pl_PL": {"components": {"0": "Zaklecie Teleportacji dla BG II: Cienie Amn", "1": "Zaklecie Teleportacji dla BG II: Tronu Bhalla", "2": "Poprawki dla NPC'ow i Twierdz."}},
-    "de_DE": {"components": {"0": "Teleportationsschriftrolle für BG2:SvA", "1": "Teleportationsschriftrolle für BG2:TdB", "2": "Modifikation der NPCs und der Festenquests."}},
-    "es_ES": {"components": {"0": "Conjuro de teletransporte para BG2: SoA", "1": "Conjuro de teletransporte para BG2: ToB", "2": "Modificación de las misiones de PNJ y fortalezas."}}
+    "cs_CZ": {
+      "components": {
+        "0": "Teleportacni kouzlo pro BG2:SoA",
+        "1": "Teleportacni kouzlo pro BG2:ToB",
+        "2": "Uprava NPC a stronghold questu."
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "\"¥«¥¯®àâ\" ¤«ï BG2:SoA",
+        "1": "\"¥«¥¯®àâ\" ¤«ï BG2:ToB",
+        "2": "«ãçè¥­­ë¥ NPC ¨ ª¢¥áâë áâà®­£å®«¤®¢"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Pergamena di Teletrasporto per BG2:SoA",
+        "1": "Pergamena di Teletrasporto per BG2:ToB",
+        "2": "Modifica NPC e roccaforti"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Zaklecie Teleportacji dla BG II: Cienie Amn",
+        "1": "Zaklecie Teleportacji dla BG II: Tronu Bhalla",
+        "2": "Poprawki dla NPC'ow i Twierdz."
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Teleportationsschriftrolle für BG2:SvA",
+        "1": "Teleportationsschriftrolle für BG2:TdB",
+        "2": "Modifikation der NPCs und der Festenquests."
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Conjuro de teletransporte para BG2: SoA",
+        "1": "Conjuro de teletransporte para BG2: ToB",
+        "2": "Modificación de las misiones de PNJ y fortalezas."
+      }
+    }
   },
   "tp2": "teleport",
   "safe": 2,

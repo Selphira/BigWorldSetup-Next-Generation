@@ -2,14 +2,16 @@
   "name": "Gemma",
   "version": "2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=518624",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/archive/refs/tags/v2.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=518624"
   },
-  "file": {
-    "filename": "1D_NPC_Gemma-2.zip",
-    "size": 2183244,
-    "sha256": "40eb01472df3e9d70ffdf08135a61d1b481127e081d7310e444da03cfbe17780"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Gemma-2.zip",
+      "size": 2183244,
+      "sha256": "40eb01472df3e9d70ffdf08135a61d1b481127e081d7310e444da03cfbe17780",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/archive/refs/tags/v2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {

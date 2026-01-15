@@ -2,14 +2,16 @@
   "name": "Gavin NPC Mod for BGEE, EET, BGT, or Tutu",
   "version": "15",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/gavin/",
-    "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/gavin-v15.exe"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/gavin/"
   },
-  "file": {
-    "filename": "gavin-v15.exe",
-    "size": 10043701,
-    "sha256": "77724d854c7b4e40d5090da5f2a21c5adf21cb05f2f4cc0abdea1bc476cacb73"
-  },
+  "files": [
+    {
+      "filename": "gavin-v15.exe",
+      "size": 10043701,
+      "sha256": "77724d854c7b4e40d5090da5f2a21c5adf21cb05f2f4cc0abdea1bc476cacb73",
+      "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/gavin-v15.exe"
+    }
+  ],
   "games": ["tutu", "bgt", "bgee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -71,8 +73,46 @@
     "zh_CN": {
       "description": "此模组添加了一位可恋爱的洛山达牧师，对所有种族和阵营的玩家角色开放（尽管他不会与刺客恋爱）。加文健谈、理想主义、有点胆小、浪漫、笨拙且是洛山达的信徒。他痛苦的过去萦绕着他，他陪伴你踏上冒险之路的原因（除了通常的渴望更美好的世界的愿望）将逐渐显现……伙伴闲聊、插话以及在贝尔苟斯特的一个小任务。在贝尔苟斯特附近的晨歌神殿找到他。\n力量16，敏捷12，体质16，智力12，智慧17，魅力12。"
     },
-    "de_DE": {"components": {"0": "Gavin NPC fuer Tutu, BGT oder BG:EE", "choice_0": "Gavin: Romanze (nicht jugendfrei)", "1": "1 Stunde Echtzeit (Standard) Minimum zwischen den Romanzen-Dialogen", "11": "45 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen", "12": "30 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen", "13": "15 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen", "14": "1 Stunde 30 Minuten (erweitert) zwischen den Romanzen-Dialogen", "2": "Gavin: Flirts (nicht jugendfrei)", "choice_1": "Gavin: alternative Portraits (das Defaultportrait ist bereits installiert)", "4": "Priester der Morgendaemmerung (Dawnbringer), von Amaurea", "5": "Morgenroete (Dawn skies), von Kaeloree", "6": "Grauer Himmel (Grey skies), von Kaeloree", "7": "Roter Umhang, von Miloch", "8": "Urspruengliche Alternative, von Kaeloree", "9": "Dragon Age style portrait by berelinde", "10": "Gavin: PID (von der Spielerin oder dem Spieler initiierter Dialog)"}},
-    "ru_RU": {"components": {"0": "Gavin NPC for Tutu, BGT, and BG:EE", "choice_0": "Gavin: Romance (mature content)", "1": "Speed: 1 hour real time (standard) minimum between LoveTalks", "11": "Speed: 45 minutes real time minimum between LoveTalks", "12": "Speed: 30 minutes real time minimum between LoveTalks", "13": "Speed: 15 minutes real time minimum between LoveTalks", "14": "Speed: 1 hour 30 minutes (extended) real time minimum between LoveTalks", "2": "Gavin: Flirts (adult content)", "choice_1": "Gavin: Alternate Portraits (Default portrait is already installed)", "4": "Dawnbringer, by Amaurea", "5": "Dawn skies, by Kaeloree", "6": "Grey skies, by Kaeloree", "7": "Red tunic, by Miloch", "8": "Original alternate, by Kaeloree", "9": "Dragon Age style portrait by berelinde", "10": "Gavin: Player Initiated Dialogue"}}
+    "de_DE": {
+      "components": {
+        "0": "Gavin NPC fuer Tutu, BGT oder BG:EE",
+        "choice_0": "Gavin: Romanze (nicht jugendfrei)",
+        "1": "1 Stunde Echtzeit (Standard) Minimum zwischen den Romanzen-Dialogen",
+        "11": "45 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen",
+        "12": "30 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen",
+        "13": "15 Minuten Echtzeit Minimum zwischen den Romanzen-Dialogen",
+        "14": "1 Stunde 30 Minuten (erweitert) zwischen den Romanzen-Dialogen",
+        "2": "Gavin: Flirts (nicht jugendfrei)",
+        "choice_1": "Gavin: alternative Portraits (das Defaultportrait ist bereits installiert)",
+        "4": "Priester der Morgendaemmerung (Dawnbringer), von Amaurea",
+        "5": "Morgenroete (Dawn skies), von Kaeloree",
+        "6": "Grauer Himmel (Grey skies), von Kaeloree",
+        "7": "Roter Umhang, von Miloch",
+        "8": "Urspruengliche Alternative, von Kaeloree",
+        "9": "Dragon Age style portrait by berelinde",
+        "10": "Gavin: PID (von der Spielerin oder dem Spieler initiierter Dialog)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Gavin NPC for Tutu, BGT, and BG:EE",
+        "choice_0": "Gavin: Romance (mature content)",
+        "1": "Speed: 1 hour real time (standard) minimum between LoveTalks",
+        "11": "Speed: 45 minutes real time minimum between LoveTalks",
+        "12": "Speed: 30 minutes real time minimum between LoveTalks",
+        "13": "Speed: 15 minutes real time minimum between LoveTalks",
+        "14": "Speed: 1 hour 30 minutes (extended) real time minimum between LoveTalks",
+        "2": "Gavin: Flirts (adult content)",
+        "choice_1": "Gavin: Alternate Portraits (Default portrait is already installed)",
+        "4": "Dawnbringer, by Amaurea",
+        "5": "Dawn skies, by Kaeloree",
+        "6": "Grey skies, by Kaeloree",
+        "7": "Red tunic, by Miloch",
+        "8": "Original alternate, by Kaeloree",
+        "9": "Dragon Age style portrait by berelinde",
+        "10": "Gavin: Player Initiated Dialogue"
+      }
+    }
   },
   "tp2": "gavin",
   "safe": 2,

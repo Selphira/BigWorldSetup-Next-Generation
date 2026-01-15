@@ -2,14 +2,16 @@
   "name": "Kit Mule kit",
   "version": "1.2",
   "links": {
-    "homepage": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-",
-    "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/archive/refs/tags/1.2.zip"
+    "homepage": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-"
   },
-  "file": {
-    "filename": "Kit-Mule-kit-for-IE-games--1.2.zip",
-    "size": 808866,
-    "sha256": "dd65bfc48da1b90e44adc4048187e10ef45fdc4f1f161c6f76c0a080924c5b37"
-  },
+  "files": [
+    {
+      "filename": "Kit-Mule-kit-for-IE-games--1.2.zip",
+      "size": 808866,
+      "sha256": "dd65bfc48da1b90e44adc4048187e10ef45fdc4f1f161c6f76c0a080924c5b37",
+      "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/archive/refs/tags/1.2.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

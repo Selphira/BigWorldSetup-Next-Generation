@@ -2,14 +2,16 @@
   "name": "Volcanic Armoury",
   "version": "1.6",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/VolcanicArmoury",
-    "download": "https://github.com/The-Gate-Project/VolcanicArmoury/releases/download/v1.6/volcanic-armoury-1.6.zip"
+    "homepage": "https://github.com/The-Gate-Project/VolcanicArmoury"
   },
-  "file": {
-    "filename": "volcanic-armoury-1.6.zip",
-    "size": 3250574,
-    "sha256": "f717ba7425d686c9f144343936d7f5147974032ee5855fa93976c70605a2159e"
-  },
+  "files": [
+    {
+      "filename": "volcanic-armoury-1.6.zip",
+      "size": 3250574,
+      "sha256": "f717ba7425d686c9f144343936d7f5147974032ee5855fa93976c70605a2159e",
+      "download": "https://github.com/The-Gate-Project/VolcanicArmoury/releases/download/v1.6/volcanic-armoury-1.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {

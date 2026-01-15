@@ -20,6 +20,8 @@ class ExtractionStatus(Enum):
     EXTRACTING = "extracting"
     EXTRACTED = "extracted"
     ERROR = "error"
+    MISSING_ARCHIVE = "missing_archive"
+    ARCHIVE_NOT_FOUND = "archive_not_found"
 
     @property
     def needs_extraction(self) -> bool:

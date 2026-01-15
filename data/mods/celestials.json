@@ -2,14 +2,16 @@
   "name": "P&P Celestials",
   "version": "10",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/spells/celestials/",
-    "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/celestials-v10.exe"
+    "homepage": "https://www.gibberlings3.net/mods/spells/celestials/"
   },
-  "file": {
-    "filename": "celestials-v10.exe",
-    "size": 3419954,
-    "sha256": "e6e1347055cbbdf68d656b1b0fdf3ed6696890661c2b9e2247bb14dbdf3f0869"
-  },
+  "files": [
+    {
+      "filename": "celestials-v10.exe",
+      "size": 3419954,
+      "sha256": "e6e1347055cbbdf68d656b1b0fdf3ed6696890661c2b9e2247bb14dbdf3f0869",
+      "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/celestials-v10.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["tactic"],
   "components": {
@@ -42,10 +44,30 @@
     "zh_CN": {
       "description": "此模组确保玩家召唤的天界生物（提婆和星界神使）更贴近桌面版规则，即大多数时候是强大而可怕的存在。此外，提婆的类型将取决于召唤地点：星界提婆、摩梵尼提婆或单子提婆。"
     },
-    "de_DE": {"components": {"0": "PnP Celestials", "1": "Animationen der finden und Planetars"}},
-    "pl_PL": {"components": {"0": "Podrecznikowi Niebianie", "1": "Aktualizacja animacji Devy i Planetara o skrzydla"}},
-    "ru_RU": {"components": {"0": "PnP Celestials", "1": "Deva and Planetar Animations"}},
-    "it_IT": {"components": {"0": "PnP Celestials", "1": "Animazioni dei Deva e Planetar"}}
+    "de_DE": {
+      "components": {
+        "0": "PnP Celestials",
+        "1": "Animationen der finden und Planetars"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Podrecznikowi Niebianie",
+        "1": "Aktualizacja animacji Devy i Planetara o skrzydla"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "PnP Celestials",
+        "1": "Deva and Planetar Animations"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "PnP Celestials",
+        "1": "Animazioni dei Deva e Planetar"
+      }
+    }
   },
   "tp2": "celestials",
   "safe": 2,

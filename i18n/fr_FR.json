@@ -275,7 +275,8 @@
     "extraction": {
       "title": "Extraction des archives",
       "filter_label": "Filtre :",
-      "btn_extract_all": "Tout extraire",
+      "btn_extract_all": "Extraire les archives",
+      "btn_change_archive": "Choisir une autre archive",
       "col_mod_name": "Mod",
       "col_archive": "Archive",
       "col_destination": "Destination",
@@ -285,14 +286,18 @@
         "extracting": "Extraction en cours...",
         "extracted": "Extrait",
         "structure_invalid": "Structure invalide",
-        "error": "Erreur"
+        "error": "Erreur",
+        "missing_archive": "Archive manquante",
+        "archive_not_found": "Fichier introuvable"
       },
       "filter": {
         "all": "Tous",
         "to_extract": "À extraire",
         "extracted": "Extrait",
         "structure_invalid": "Structure invalide",
-        "error": "Erreurs"
+        "error": "Erreurs",
+        "missing_archive": "Archive manquante",
+        "archive_not_found": "Fichier introuvable"
       },
       "error_extraction_failed": "Échec de l'extraction de l'archive",
       "error_structure_invalid": "Structure du mod invalide après extraction",
@@ -303,7 +308,20 @@
       "complete_title": "Extraction terminée",
       "complete_message": "{count} archive(s) extraite(s) avec succès",
       "complete_with_errors_title": "Extraction terminée avec des erreurs",
-      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)"
+      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)",
+      "no_archive": "Aucune archive",
+      "custom_archive_tooltip": "Archive personnalisée configurée",
+      "archive_not_found_title": "Archive introuvable",
+      "archive_not_found_text": "Le fichier '{filename}' est introuvable.",
+      "confirm_reextract_title": "Confirmer la ré-extraction",
+      "confirm_reextract_text": "Le mod '{mod_name}' est déjà extrait.\n\nVoulez-vous le ré-extraire ?\nCela supprimera les fichiers existants.",
+      "context": {
+        "extract": "Extraire",
+        "reextract": "Ré-extraire",
+        "change_archive": "Choisir une autre archive",
+        "restore_archive": "Restaurer l'archive par défaut",
+        "open_in_folder": "Ouvrir l'emplacement du fichier"
+      }
     },
     "backup": {
       "title": "Gestion des sauvegardes",

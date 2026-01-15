@@ -2,14 +2,16 @@
   "name": "Bank of Baldur's Gate",
   "version": "0.3",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1216-bank-of-baldurs-gate-for-eet/",
-    "download": "https://github.com/Spellhold-Studios/Bank-of-Baldurs-Gate/releases/download/v0.3/bank-of-baldurs-gate-v0.3.zip"
+    "homepage": "http://www.shsforums.net/files/file/1216-bank-of-baldurs-gate-for-eet/"
   },
-  "file": {
-    "filename": "bank-of-baldurs-gate-v0.3.zip",
-    "size": 4669257,
-    "sha256": "332b6fb4e57df456a3f02c1469d869a032e835e0b53541a2f82467f756c50f02"
-  },
+  "files": [
+    {
+      "filename": "bank-of-baldurs-gate-v0.3.zip",
+      "size": 4669257,
+      "sha256": "332b6fb4e57df456a3f02c1469d869a032e835e0b53541a2f82467f756c50f02",
+      "download": "https://github.com/Spellhold-Studios/Bank-of-Baldurs-Gate/releases/download/v0.3/bank-of-baldurs-gate-v0.3.zip"
+    }
+  ],
   "games": ["eet"],
   "categories": ["gameplay"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "这个模组的创作基于一个观察：玩家有时会身无分文。此外，像博德之门这样的大城市竟然没有任何银行，这令人费解。\n在铁王座的总部旁边，有一栋被锁住的建筑，里面挤满了法师食人魔。这是博德之门的公爵银行，由于被食人魔盗窃而停止营业。在杀死食人魔一天后返回该建筑，银行将重新运营。上楼向主管 Billboo 开设一个账户。您可以随时存取钱款。\n在龙矛围攻战役开启后，他会在银行附近等您，这样您就可以在需要时取出您的钱款。"
     },
-    "ru_RU": {"components": {"0": "Bank of Baldur's Gate)"}}
+    "ru_RU": {
+      "components": {
+        "0": "Bank of Baldur's Gate)"
+      }
+    }
   },
   "tp2": "bank_of_baldurs_gate",
   "safe": 2,

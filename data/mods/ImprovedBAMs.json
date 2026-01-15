@@ -2,14 +2,16 @@
   "name": "Improved BAMs",
   "version": "2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/719-improved-bams/",
-    "download": "https://www.gibberlings3.net/files/file/719-improved-bams/?do=download&r=4415&confirm=1&t=1"
+    "homepage": "https://www.gibberlings3.net/files/file/719-improved-bams/"
   },
-  "file": {
-    "filename": "ImprovedBAMs-v2.exe",
-    "size": 532030,
-    "sha256": "e5f42b61f60cb272af9f78f62bd3c32c66321976009f51a50e79fec31b56543f"
-  },
+  "files": [
+    {
+      "filename": "ImprovedBAMs-v2.exe",
+      "size": 532030,
+      "sha256": "e5f42b61f60cb272af9f78f62bd3c32c66321976009f51a50e79fec31b56543f",
+      "download": "https://www.gibberlings3.net/files/file/719-improved-bams/?do=download&r=4415&confirm=1&t=1"
+    }
+  ],
   "games": ["bg", "iwd", "bgee", "eet"],
   "categories": ["cosm"],
   "components": {

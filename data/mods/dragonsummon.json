@@ -2,14 +2,16 @@
   "name": "Red Dragon Summoning",
   "version": "2.1.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/799-dragon-summon-weidu/",
-    "download": "https://github.com/Spellhold-Studios/Red-Dragon-Summoning-Spell/releases/download/v2.1.0/red-dragon-summoning-v2.1.0.zip"
+    "homepage": "http://www.shsforums.net/files/file/799-dragon-summon-weidu/"
   },
-  "file": {
-    "filename": "red-dragon-summoning-v2.1.0.zip",
-    "size": 4218060,
-    "sha256": "0fe998d7f555d7116fbf5d461576cb9c6063769d9e0d3ab9db3fb28ad5761df9"
-  },
+  "files": [
+    {
+      "filename": "red-dragon-summoning-v2.1.0.zip",
+      "size": 4218060,
+      "sha256": "0fe998d7f555d7116fbf5d461576cb9c6063769d9e0d3ab9db3fb28ad5761df9",
+      "download": "https://github.com/Spellhold-Studios/Red-Dragon-Summoning-Spell/releases/download/v2.1.0/red-dragon-summoning-v2.1.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -29,15 +31,27 @@
         "0": "Red Dragon Summoning Spell"
       }
     },
-    "es_ES": {"components": {"0": "Hechizo de convocar Dragón rojo"}},
-    "ru_RU": {"components": {"0": "Red Dragon Summoning Spell"}},
+    "es_ES": {
+      "components": {
+        "0": "Hechizo de convocar Dragón rojo"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Red Dragon Summoning Spell"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute un nouveau parchemin de sort de niveau 9 dans le stock secret d'objets de Ribald. Cependant, n'oubliez pas que trop l'utiliser enlèvera le plaisir du jeu !",
       "components": {
         "0": "Sort Convocation de dragon rouge"
       }
     },
-    "it_IT": {"components": {"0": "Incantesimo dell'Evocazione del Drago Rosso"}},
+    "it_IT": {
+      "components": {
+        "0": "Incantesimo dell'Evocazione del Drago Rosso"
+      }
+    },
     "zh_CN": {
       "description": "这个模组在里巴德的秘密物品库存中添加了一个新的9级法术卷轴。但是，请记住，过度使用会削弱游戏的乐趣！"
     }

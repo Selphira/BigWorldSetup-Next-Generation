@@ -2,14 +2,16 @@
   "name": "Rupert the Dye Merchant",
   "version": "3.0.0",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/24786-rupert-the-dye-merchant-version-211/",
-    "download": "https://github.com/Spellhold-Studios/Rupert-the-Dye-Merchant/releases/download/v3.0.0/rupert-the-dye-merchant-v3.0.0.zip"
+    "homepage": "http://www.shsforums.net/topic/24786-rupert-the-dye-merchant-version-211/"
   },
-  "file": {
-    "filename": "rupert-the-dye-merchant-v3.0.0.zip",
-    "size": 4615063,
-    "sha256": "de6399a35968f820e2bde0d15dbeb09a08734ffe82f725bb5905ba2a8c765a9f"
-  },
+  "files": [
+    {
+      "filename": "rupert-the-dye-merchant-v3.0.0.zip",
+      "size": 4615063,
+      "sha256": "de6399a35968f820e2bde0d15dbeb09a08734ffe82f725bb5905ba2a8c765a9f",
+      "download": "https://github.com/Spellhold-Studios/Rupert-the-Dye-Merchant/releases/download/v3.0.0/rupert-the-dye-merchant-v3.0.0.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -30,19 +32,35 @@
         "0": "Rupert the Dye Merchant"
       }
     },
-    "it_IT": {"components": {"0": "Rupert il Mercante di Tinte"}},
+    "it_IT": {
+      "components": {
+        "0": "Rupert il Mercante di Tinte"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute un nouveau marchand qui vend divers colorants et de nouvelles tenues. Les colorants fonctionnent comme des potions. Ceux-ci peuvent être utilisés par n'importe qui et changeront de façon permanente les couleurs de l'utilisateur comme spécifié par le colorant : il existe des options séparées pour les couleurs principales et secondaires, le cuir (ceintures/bottes/sangles), les armures, les objets décoratifs (comme les boucles de ceinture/amulettes ) et les cheveux. Les tenues changeront l'apparence du personnage pour correspondre à la classe spécifiée : combattant, mage, voleur ou clerc.\nTous ces changements sont purement cosmétiques : vous ne gagnez ou ne perdez pas de capacités en utilisant quoi que ce soit acheté chez Rupert.",
       "components": {
         "0": "Rupert le vendeur de teintures"
       }
     },
-    "ru_RU": {"components": {"0": "Rupert the Dye Merchant"}},
+    "ru_RU": {
+      "components": {
+        "0": "Rupert the Dye Merchant"
+      }
+    },
     "zh_CN": {
       "description": "此模组添加了一个新的商人，他出售各种染料和新服装。染料的作用如同药水。任何人都可以使用它们，并根据染料的说明永久改变使用者的颜色：有分别用于主色、次色、皮革（腰带/靴子/带子）、盔甲、装饰性物品（如腰带搭扣/护身符）和头发的选项。服装会改变角色的外观以匹配指定的职业：战士、法师、盗贼或牧师。\n所有这些改变都纯粹是外观上的：使用在鲁伯特那里购买的任何东西都不会让你获得或失去任何能力。"
     },
-    "de_DE": {"components": {"0": "Rupert der Farbstoffhaendler"}},
-    "es_ES": {"components": {"0": "Rupert el Comerciante de Tinturas"}}
+    "de_DE": {
+      "components": {
+        "0": "Rupert der Farbstoffhaendler"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Rupert el Comerciante de Tinturas"
+      }
+    }
   },
   "tp2": "rupert",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "The Darkest Day",
   "version": "1.14",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/323-the-darkest-day-v114/",
-    "download": "http://www.shsforums.net/files/download/323-the-darkest-day-v114/"
+    "homepage": "http://www.shsforums.net/files/file/323-the-darkest-day-v114/"
   },
-  "file": {
-    "filename": "TDDv1.14.rar",
-    "size": 117153291,
-    "sha256": "51a93338e262cc4c4592c436b79c37fdc0daaf764893c1d29a3d9042c9f9868d"
-  },
+  "files": [
+    {
+      "filename": "TDDv1.14.rar",
+      "size": 117153291,
+      "sha256": "51a93338e262cc4c4592c436b79c37fdc0daaf764893c1d29a3d9042c9f9868d",
+      "download": "http://www.shsforums.net/files/download/323-the-darkest-day-v114/"
+    }
+  ],
   "games": ["bg2", "bgt", "eet"],
   "categories": ["quest", "spell", "kit"],
   "components": {
@@ -43,11 +45,36 @@
     "zh_CN": {
       "description": "这个巨大的扩展包添加了10个新NPC（其中一些来自博德之门I）、180件新物品、170个新法术、40多种额外生物、78个新宗派、5个大型任务和一个巨型任务。您必须安装了巴尔王座。"
     },
-    "ru_RU": {"components": {"0": "The Darkest Day,  v1.14", "1": "TDD Character Kits"}},
-    "pl_PL": {"components": {"0": "The Darkest Day, v1.14", "1": "Podklasy TDD"}},
-    "de_DE": {"components": {"0": "Der Dunkelste Tag, v1.14", "1": "TDD Klassen Charaktere"}},
-    "it_IT": {"components": {"0": "The Darkest Day, 1.14", "1": "Kit delle Classi dei Personaggi di TDD"}},
-    "es_ES": {"components": {"0": "The Darkest Day, v1.13", "1": "Kits de Personaje de TDD"}}
+    "ru_RU": {
+      "components": {
+        "0": "The Darkest Day,  v1.14",
+        "1": "TDD Character Kits"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "The Darkest Day, v1.14",
+        "1": "Podklasy TDD"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Der Dunkelste Tag, v1.14",
+        "1": "TDD Klassen Charaktere"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "The Darkest Day, 1.14",
+        "1": "Kit delle Classi dei Personaggi di TDD"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "The Darkest Day, v1.13",
+        "1": "Kits de Personaje de TDD"
+      }
+    }
   },
   "tp2": "tdd",
   "safe": 2,

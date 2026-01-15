@@ -804,11 +804,6 @@ class DownloadPage(BasePage):
     def _download_all_missing(self) -> None:
         """Start downloading all missing archives (with pre-verification)."""
         if self._is_verifying or self._is_downloading:
-            QMessageBox.warning(
-                self,
-                tr("page.download.operation_in_progress_title"),
-                tr("page.download.operation_in_progress_message"),
-            )
             return
 
         # Get all non-VALID archives (including manual ones for verification)
@@ -1192,13 +1187,13 @@ class DownloadPage(BasePage):
 
     def _open_download_folder(self) -> None:
         """Open download folder in file manager."""
-        import platform
         import subprocess
 
         try:
-            if platform.system() == "Windows":
+            platform = self.state_manager.get_current_platform()
+            if platform == "windows":
                 subprocess.run(["explorer", str(self._download_path)])
-            elif platform.system() == "Darwin":
+            elif platform == "macos":
                 subprocess.run(["open", str(self._download_path)])
             else:
                 subprocess.run(["xdg-open", str(self._download_path)])

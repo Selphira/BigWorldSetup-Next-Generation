@@ -2,14 +2,16 @@
   "name": "Trials of the Luremaster for Baldur's Gate",
   "version": "4.3",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1251-trials-of-the-luremaster-for-baldurs-gate/",
-    "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.3/win-A7-TotLM-BG2EE-v4.3.zip"
+    "homepage": "http://www.shsforums.net/files/file/1251-trials-of-the-luremaster-for-baldurs-gate/"
   },
-  "file": {
-    "filename": "win-A7-TotLM-BG2EE-v4.3.zip",
-    "size": 95233804,
-    "sha256": "6e98715804129f617650a62c7c22aa6d52d3935ef403e9b41ef745c6c7eefdf6"
-  },
+  "files": [
+    {
+      "filename": "win-A7-TotLM-BG2EE-v4.3.zip",
+      "size": 95233804,
+      "sha256": "6e98715804129f617650a62c7c22aa6d52d3935ef403e9b41ef745c6c7eefdf6",
+      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.3/win-A7-TotLM-BG2EE-v4.3.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -69,12 +71,78 @@
         "40": "允许在开始冒险前与霍巴进行交易"
       }
     },
-    "de_DE": {"components": {"0": "Die Herausforderungen des Meisters der Verlockung fuer Baldur's Gate", "20": "Waffen und Ausruestung anpassen", "choice_0": "Erfahrungspunkte von Monstern und Questbelohnungen verringern", "30": "Um 25 Prozent verringern", "31": "Um 50 Prozent verringern", "32": "Um 75 Prozent verringern", "33": "Keine Erfahrungspunkte vergeben", "40": "Handel mit Hobart vor Beginn des Abenteuers erlauben"}},
-    "it_IT": {"components": {"0": "Trials of the Luremaster per Baldur's Gate", "20": "Riequilibra armi ed equipaggiamento", "choice_0": "Riduci esperienza ottenuta da mostri e missioni", "30": "Riduci del 25 percento", "31": "Riduci del 50 percento", "32": "Riduci del 75 percento", "33": "Non conferire esperienza", "40": "Allow to trade with Hobart before starting the adventure"}},
-    "ru_RU": {"components": {"0": "á¯ëâ ­¨ï ®¢¥«¨â¥«ï ®¡« §­®¢ ¤«ï BG2:EE", "20": "§¬¥­¥­¨¥ ¡ « ­á  ®àã¦¨ï ¨ á­ àï¦¥­¨ï", "choice_0": "­¨¦¥­¨¥ ®¯ëâ  §  ¬®­áâà®¢ ¨ § ¤ ­¨ï", "30": "­¨¦¥­¨¥ ­  25 ¯à®æ¥­â®¢", "31": "­¨¦¥­¨¥ ­  50 ¯à®æ¥­â®¢", "32": "­¨¦¥­¨¥ ­  75 ¯à®æ¥­â®¢", "33": "¥ ¤ ¢ âì ®¯ëâ", "40": "Allow to trade with Hobart before starting the adventure"}},
-    "es_ES": {"components": {"0": "Los Desafios del Funambulista", "20": "Reequilibrar armas y equipo", "choice_0": "Reduce experience from monsters and quests", "30": "Reduce by 25 percent", "31": "Reduce by 50 percent", "32": "Reduce by 75 percent", "33": "Grant no experience", "40": "Allow to trade with Hobart before starting the adventure"}},
-    "pl_PL": {"components": {"0": "Trials of the Luremaster for Baldur's Gate", "20": "Rebalance weapons and equipment", "choice_0": "Reduce experience from monsters and quests", "30": "Reduce by 25 percent", "31": "Reduce by 50 percent", "32": "Reduce by 75 percent", "33": "Grant no experience", "40": "Allow to trade with Hobart before starting the adventure"}},
-    "pt_BR": {"components": {"0": "Trials of the Luremaster pro Baldur's Gate", "20": "Rebalancear as armas e o equipamento", "choice_0": "Reduzir a experiência dos monstros e missões", "30": "Reduzir em 25 por cento", "31": "Reduzir em 50 por cento", "32": "Reduzir em 75 por cento", "33": "Não conceder experiência", "40": "Permitir negociar com o Hobart antes de iniciar a aventura"}}
+    "de_DE": {
+      "components": {
+        "0": "Die Herausforderungen des Meisters der Verlockung fuer Baldur's Gate",
+        "20": "Waffen und Ausruestung anpassen",
+        "choice_0": "Erfahrungspunkte von Monstern und Questbelohnungen verringern",
+        "30": "Um 25 Prozent verringern",
+        "31": "Um 50 Prozent verringern",
+        "32": "Um 75 Prozent verringern",
+        "33": "Keine Erfahrungspunkte vergeben",
+        "40": "Handel mit Hobart vor Beginn des Abenteuers erlauben"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Trials of the Luremaster per Baldur's Gate",
+        "20": "Riequilibra armi ed equipaggiamento",
+        "choice_0": "Riduci esperienza ottenuta da mostri e missioni",
+        "30": "Riduci del 25 percento",
+        "31": "Riduci del 50 percento",
+        "32": "Riduci del 75 percento",
+        "33": "Non conferire esperienza",
+        "40": "Allow to trade with Hobart before starting the adventure"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "á¯ëâ ­¨ï ®¢¥«¨â¥«ï ®¡« §­®¢ ¤«ï BG2:EE",
+        "20": "§¬¥­¥­¨¥ ¡ « ­á  ®àã¦¨ï ¨ á­ àï¦¥­¨ï",
+        "choice_0": "­¨¦¥­¨¥ ®¯ëâ  §  ¬®­áâà®¢ ¨ § ¤ ­¨ï",
+        "30": "­¨¦¥­¨¥ ­  25 ¯à®æ¥­â®¢",
+        "31": "­¨¦¥­¨¥ ­  50 ¯à®æ¥­â®¢",
+        "32": "­¨¦¥­¨¥ ­  75 ¯à®æ¥­â®¢",
+        "33": "¥ ¤ ¢ âì ®¯ëâ",
+        "40": "Allow to trade with Hobart before starting the adventure"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Los Desafios del Funambulista",
+        "20": "Reequilibrar armas y equipo",
+        "choice_0": "Reduce experience from monsters and quests",
+        "30": "Reduce by 25 percent",
+        "31": "Reduce by 50 percent",
+        "32": "Reduce by 75 percent",
+        "33": "Grant no experience",
+        "40": "Allow to trade with Hobart before starting the adventure"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Trials of the Luremaster for Baldur's Gate",
+        "20": "Rebalance weapons and equipment",
+        "choice_0": "Reduce experience from monsters and quests",
+        "30": "Reduce by 25 percent",
+        "31": "Reduce by 50 percent",
+        "32": "Reduce by 75 percent",
+        "33": "Grant no experience",
+        "40": "Allow to trade with Hobart before starting the adventure"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "0": "Trials of the Luremaster pro Baldur's Gate",
+        "20": "Rebalancear as armas e o equipamento",
+        "choice_0": "Reduzir a experiência dos monstros e missões",
+        "30": "Reduzir em 25 por cento",
+        "31": "Reduzir em 50 por cento",
+        "32": "Reduzir em 75 por cento",
+        "33": "Não conceder experiência",
+        "40": "Permitir negociar com o Hobart antes de iniciar a aventura"
+      }
+    }
   },
   "tp2": "a7-totlm-bg2ee",
   "safe": 2,

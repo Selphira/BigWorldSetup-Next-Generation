@@ -2,14 +2,16 @@
   "name": "Weasels!",
   "version": "3.4",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/weasels/",
-    "download": "https://downloads.weaselmods.net/download/weasels/?wpdmdl=141"
+    "homepage": "https://downloads.weaselmods.net/download/weasels/"
   },
-  "file": {
-    "filename": "Weasels%21 v3.4.zip",
-    "size": 1635402,
-    "sha256": "0db38134ddab5df5b8d41c541fe557dc79912b7fd9fb89c9077ba2e800901a1c"
-  },
+  "files": [
+    {
+      "filename": "Weasels%21 v3.4.zip",
+      "size": 1635402,
+      "sha256": "0db38134ddab5df5b8d41c541fe557dc79912b7fd9fb89c9077ba2e800901a1c",
+      "download": "https://downloads.weaselmods.net/download/weasels/?wpdmdl=141"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["spell"],
   "components": {
@@ -42,9 +44,21 @@
         "0": "黄鼬！更多的黄鼬！"
       }
     },
-    "pl_PL": {"components": {"0": "Lasice! Bo gry IE potrzebuja wiecej lasic!"}},
-    "it_IT": {"components": {"0": "Donnole! Perche' nei giochi c'era bisogno di piu' donnole!"}},
-    "ru_RU": {"components": {"0": "Weasels! Because the IE games needed more weasels!"}}
+    "pl_PL": {
+      "components": {
+        "0": "Lasice! Bo gry IE potrzebuja wiecej lasic!"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Donnole! Perche' nei giochi c'era bisogno di piu' donnole!"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Weasels! Because the IE games needed more weasels!"
+      }
+    }
   },
   "tp2": "weasels!",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "The Tortured Soul Quest",
   "version": "7",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/1D_NPC_Tortured",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/Plutonium-X/1D_NPC_Tortured"
   },
-  "file": {
-    "filename": "1D_NPC_Tortured-main.zip",
-    "size": 2070486,
-    "sha256": "d8c934bcf017a4fa4632d3ab142f06ca45bf3a4434a0333423c3bdf514020ba5"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Tortured-main.zip",
+      "size": 2070486,
+      "sha256": "d8c934bcf017a4fa4632d3ab142f06ca45bf3a4434a0333423c3bdf514020ba5",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -39,10 +41,26 @@
     "zh_CN": {
       "description": "不要与巨型模组Tortured Souls-BP混淆，此模组添加了一个小任务，在任务结束时，你会获得一个全新的物品，可以让你随意召唤法师杀手巴恩伍尔德。他可以从奴役中被解放，加入你的队伍。要开启任务，使用一个新敌人在阿斯卡特拉墓园某个墓穴中“掉落”的魔杖。\n力量19，敏捷17，体质19，智力12，智慧15，魅力17。"
     },
-    "ru_RU": {"components": {"0": "The Tortured Soul Quest - WeiDU"}},
-    "de_DE": {"components": {"0": "Die Suche nach der gefolterten Seele - WeiDU"}},
-    "es_ES": {"components": {"0": "El Alma Torturada Misión - WeiDU"}},
-    "it_IT": {"components": {"0": "Missione dell'Anima Torturata - WeiDU"}}
+    "ru_RU": {
+      "components": {
+        "0": "The Tortured Soul Quest - WeiDU"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Die Suche nach der gefolterten Seele - WeiDU"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "El Alma Torturada Misión - WeiDU"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Missione dell'Anima Torturata - WeiDU"
+      }
+    }
   },
   "tp2": "ttsq",
   "safe": 2,

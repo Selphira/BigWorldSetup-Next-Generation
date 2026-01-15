@@ -2,14 +2,16 @@
   "name": "Isra NPC for BG",
   "version": "3.5",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/1042-isra/",
-    "download": "https://www.baldursgateworld.fr/download/file.php?id=15642"
+    "homepage": "https://www.shsforums.net/files/file/1042-isra/"
   },
-  "file": {
-    "filename": "Isra.rar",
-    "size": 6583280,
-    "sha256": "f15c01b2e033250a4c9dcfafe8f657abf5d0e4f10f5d4aa9e96811be96d868b3"
-  },
+  "files": [
+    {
+      "filename": "Isra.rar",
+      "size": 6583280,
+      "sha256": "f15c01b2e033250a4c9dcfafe8f657abf5d0e4f10f5d4aa9e96811be96d868b3",
+      "download": "https://www.baldursgateworld.fr/download/file.php?id=15642"
+    }
+  ],
   "games": ["tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npc"],
   "components": {
@@ -43,8 +45,20 @@
     "zh_CN": {
       "description": "作为混乱神祇淑娜·火焰之发（Sunie Cheveux-de-flamme）的追随者，Isra是一位不典型的圣武士，因为她经常光顾许多充满某种欢乐气息的场所，因此缺乏该职业角色典型的庄重。和所有圣武士一样，她非常看重与荣誉、纪律和秩序有关的一切，但她倾向于更重视自己职业的行为准则，而非她女神的要求。因此，她对某些混乱的行为会更为宽松。可以发展友谊线，也有一些调情选项。她的恋情计划在博德之门II中实现。如果安装了博德之门：增强版，Isra会有额外内容（对话）。\n力量16，敏捷12，体质16，智力13，智慧14，魅力17"
     },
-    "ru_RU": {"components": {"0": "Isra NPC Mod for BG:EE, EET, BGT and TuTu", "1": "Valerie/Isra crossmod content", "2": "Gavin/Isra crossmod content"}},
-    "it_IT": {"components": {"0": "Mod NPC Isra per BG:EE, EET, BGT e TuTu", "1": "Contenuto crossmod Valerie/Isra", "2": "Contenuti crossmod Gavin/Isra"}}
+    "ru_RU": {
+      "components": {
+        "0": "Isra NPC Mod for BG:EE, EET, BGT and TuTu",
+        "1": "Valerie/Isra crossmod content",
+        "2": "Gavin/Isra crossmod content"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Mod NPC Isra per BG:EE, EET, BGT e TuTu",
+        "1": "Contenuto crossmod Valerie/Isra",
+        "2": "Contenuti crossmod Gavin/Isra"
+      }
+    }
   },
   "tp2": "isra",
   "safe": 2,

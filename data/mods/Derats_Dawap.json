@@ -2,14 +2,16 @@
   "name": "Derat's Absolute Wacky Adventurers Pack",
   "version": "11",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33790",
-    "download": "https://github.com/Deratiseur/DAWAP/archive/refs/tags/v11.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33790"
   },
-  "file": {
-    "filename": "DAWAP-11.zip",
-    "size": 7399674,
-    "sha256": "190af99b4b6721f2397b0a9a109d0d7c50379fac4ae84d91b0cb178c0c7d67a1"
-  },
+  "files": [
+    {
+      "filename": "DAWAP-11.zip",
+      "size": 7399674,
+      "sha256": "190af99b4b6721f2397b0a9a109d0d7c50379fac4ae84d91b0cb178c0c7d67a1",
+      "download": "https://github.com/Deratiseur/DAWAP/archive/refs/tags/v11.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

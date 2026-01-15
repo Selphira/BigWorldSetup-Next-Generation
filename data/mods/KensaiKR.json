@@ -2,14 +2,16 @@
   "name": "Kensai Kit Revision Mod",
   "version": "2.6",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/41836/mod-kensai-rebalancing-for-bg-ee-and-bgii-ee-v2-6/p1",
-    "download": "https://github.com/Plutonium-X/KIT_Kensai_Rev/archive/refs/heads/main.zip"
+    "homepage": "https://forums.beamdog.com/discussion/41836/mod-kensai-rebalancing-for-bg-ee-and-bgii-ee-v2-6/p1"
   },
-  "file": {
-    "filename": "KIT_Kensai_Rev-main.zip",
-    "size": 1777816,
-    "sha256": "87d6a970a28948324bf8035c3131c1d74d81c38fc4d9e0277ffcc19c073cf709"
-  },
+  "files": [
+    {
+      "filename": "KIT_Kensai_Rev-main.zip",
+      "size": 1777816,
+      "sha256": "87d6a970a28948324bf8035c3131c1d74d81c38fc4d9e0277ffcc19c073cf709",
+      "download": "https://github.com/Plutonium-X/KIT_Kensai_Rev/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Auramaster Druid Kit",
   "version": "7_EE",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/KIT_Auramaster",
-    "download": "https://github.com/Plutonium-X/KIT_Auramaster/archive/refs/tags/v7_EE.zip"
+    "homepage": "https://github.com/Plutonium-X/KIT_Auramaster"
   },
-  "file": {
-    "filename": "KIT_Auramaster-7_EE.zip",
-    "size": 1065609,
-    "sha256": "fcf1c1af654753d15f8240bd3b36b5662f00dcd0e9a0656b571dc7c6ec5d0af9"
-  },
+  "files": [
+    {
+      "filename": "KIT_Auramaster-7_EE.zip",
+      "size": 1065609,
+      "sha256": "fcf1c1af654753d15f8240bd3b36b5662f00dcd0e9a0656b571dc7c6ec5d0af9",
+      "download": "https://github.com/Plutonium-X/KIT_Auramaster/archive/refs/tags/v7_EE.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "此模组添加了一个相当强大的德鲁伊职业包，他可以利用自然中漂浮的魔法能量更快、更频繁地施法。他还可以施放其他德鲁伊无法使用的亵渎和神圣法术。"
     },
-    "es_ES": {"components": {"0": "Kit de druida Señor de las Auras"}},
-    "cs_CZ": {"components": {"0": "Kit Stráce aury"}},
-    "pl_PL": {"components": {"0": "Podklasa druida Mistrz Aury"}}
+    "es_ES": {
+      "components": {
+        "0": "Kit de druida Señor de las Auras"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Kit Stráce aury"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Podklasa druida Mistrz Aury"
+      }
+    }
   },
   "tp2": "amdk",
   "safe": 2,

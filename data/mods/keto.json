@@ -2,14 +2,16 @@
   "name": "Keto NPC MOD For Baldur's Gate 2",
   "version": "6",
   "links": {
-    "homepage": "https://www.pocketplane.net/keto-npc/",
-    "download": "https://github.com/Pocket-Plane-Group/Keto/releases/download/v6/Keto-SoAv6.zip"
+    "homepage": "https://www.pocketplane.net/keto-npc/"
   },
-  "file": {
-    "filename": "Keto-SoAv6.zip",
-    "size": 27391373,
-    "sha256": "859c3b94746b23b48f6567fc77475205712303f16c60c1bd7af21f2807a24758"
-  },
+  "files": [
+    {
+      "filename": "Keto-SoAv6.zip",
+      "size": 27391373,
+      "sha256": "859c3b94746b23b48f6567fc77475205712303f16c60c1bd7af21f2807a24758",
+      "download": "https://github.com/Pocket-Plane-Group/Keto/releases/download/v6/Keto-SoAv6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {

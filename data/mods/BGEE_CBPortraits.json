@@ -2,14 +2,16 @@
   "name": "Color Balanced Portraits",
   "version": "1.0",
   "links": {
-    "homepage": "https://www.nexusmods.com/baldursgate/mods/39",
-    "download": "https://www.nexusmods.com/baldursgate/mods/39?tab=files&file_id=592"
+    "homepage": "https://www.nexusmods.com/baldursgate/mods/39"
   },
-  "file": {
-    "filename": "BG1EE BG2EE Color Balanced Portraits-39-1-0-1663620273.zip",
-    "size": 13702829,
-    "sha256": "1db39563ad2417555a15626b597d97e8f66bb35d11a2844e1ccba652530ecf74"
-  },
+  "files": [
+    {
+      "filename": "BG1EE BG2EE Color Balanced Portraits-39-1-0-1663620273.zip",
+      "size": 13702829,
+      "sha256": "1db39563ad2417555a15626b597d97e8f66bb35d11a2844e1ccba652530ecf74",
+      "download": "https://www.nexusmods.com/baldursgate/mods/39?tab=files&file_id=592"
+    }
+  ],
   "games": ["bg", "bg2", "sod", "bgee", "bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {

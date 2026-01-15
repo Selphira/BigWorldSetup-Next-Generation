@@ -2,14 +2,16 @@
   "name": "The Divine Remix",
   "version": "8.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/kits/cleric/",
-    "download": "https://github.com/TotoR115/Divine_Remix/archive/refs/heads/master.zip"
+    "homepage": "https://www.gibberlings3.net/mods/kits/cleric/"
   },
-  "file": {
-    "filename": "Divine_Remix-master.zip",
-    "size": 1423824,
-    "sha256": "fac4755a9c3be1f2926d98fab5057d282d5bff7cb7e570678b9da071802655c3"
-  },
+  "files": [
+    {
+      "filename": "Divine_Remix-master.zip",
+      "size": 1423824,
+      "sha256": "fac4755a9c3be1f2926d98fab5057d282d5bff7cb7e570678b9da071802655c3",
+      "download": "https://github.com/TotoR115/Divine_Remix/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "spell", "gameplay"],
   "components": {

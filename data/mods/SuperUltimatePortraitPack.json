@@ -2,14 +2,16 @@
   "name": "Super Ultimate Portrait Pack",
   "version": "2",
   "links": {
-    "homepage": "https://www.moddb.com/games/baldurs-gate-enhanced-edition/addons/super-ultimate-portrait-pack-zip",
-    "download": "Manual"
+    "homepage": "https://www.moddb.com/games/baldurs-gate-enhanced-edition/addons/super-ultimate-portrait-pack-zip"
   },
-  "file": {
-    "filename": "Super_Ultimate_Portrait_Pack_Unsupported_v2.zip",
-    "size": 153369327,
-    "sha256": "ea4ca92ffbc5fc1dff0a16970c716881ad2fc4d8423268f30420b22bbd9b036f"
-  },
+  "files": [
+    {
+      "filename": "Super_Ultimate_Portrait_Pack_Unsupported_v2.zip",
+      "size": 153369327,
+      "sha256": "ea4ca92ffbc5fc1dff0a16970c716881ad2fc4d8423268f30420b22bbd9b036f",
+      "download": "Manual"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["portrait"],
   "components": {

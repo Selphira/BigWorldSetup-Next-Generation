@@ -2,14 +2,16 @@
   "name": "Chantelame",
   "version": "7.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24080",
-    "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/win-Px_Chantelame-v7.2.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24080"
   },
-  "file": {
-    "filename": "win-Px_Chantelame-v7.2.zip",
-    "size": 1893588,
-    "sha256": "f6a56c2f9255eb1ae22c149ae21be8ffa38579eef5a87bde38d1cbd7c7ffe018"
-  },
+  "files": [
+    {
+      "filename": "win-Px_Chantelame-v7.2.zip",
+      "size": 1893588,
+      "sha256": "f6a56c2f9255eb1ae22c149ae21be8ffa38579eef5a87bde38d1cbd7c7ffe018",
+      "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/win-Px_Chantelame-v7.2.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

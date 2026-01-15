@@ -2,14 +2,16 @@
   "name": "Tashia NPC",
   "version": "2.06a",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/NPC_Tashia",
-    "download": "https://github.com/Plutonium-X/NPC_Tashia/archive/refs/tags/2.06a.zip"
+    "homepage": "https://github.com/Plutonium-X/NPC_Tashia"
   },
-  "file": {
-    "filename": "NPC_Tashia-2.06a.zip",
-    "size": 3636929,
-    "sha256": "332c3d1b5b73dcf53d9d45db80c4f0a9a00bcb52d6095c55e45d82e02e9dcd21"
-  },
+  "files": [
+    {
+      "filename": "NPC_Tashia-2.06a.zip",
+      "size": 3636929,
+      "sha256": "332c3d1b5b73dcf53d9d45db80c4f0a9a00bcb52d6095c55e45d82e02e9dcd21",
+      "download": "https://github.com/Plutonium-X/NPC_Tashia/archive/refs/tags/2.06a.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -41,9 +43,24 @@
     "zh_CN": {
       "description": "此模组添加了一个新的非玩家角色：一位来自北境的年轻中立善良精灵术士，她直接来自世界脊，并且可能与男性玩家角色发展恋情。此外，这段恋情在《巴尔王座》中继续。在《巴尔王座》的结尾，这段恋情有三个不同的结局，取决于你的选择。\n力量 11，敏捷 19，体质 15，智力 15，智慧 14，魅力 12。"
     },
-    "de_DE": {"components": {"0": "Tashia, eine zusaetzliche Mitstreiterin (mit TdB)", "1": "Tashia, eine zusaetzliche Mitstreiterin (ohne TdB)"}},
-    "es_ES": {"components": {"0": "Tashia NPC Add-on Mod (para ToB)", "1": "Tashia NPC Add-on Mod (sin ToB)"}},
-    "it_IT": {"components": {"0": "Tashia NPC Add-on Mod BG2:SoA/ToB v.2.05", "1": "Tashia NPC Add-on Mod (senza ToB)"}}
+    "de_DE": {
+      "components": {
+        "0": "Tashia, eine zusaetzliche Mitstreiterin (mit TdB)",
+        "1": "Tashia, eine zusaetzliche Mitstreiterin (ohne TdB)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Tashia NPC Add-on Mod (para ToB)",
+        "1": "Tashia NPC Add-on Mod (sin ToB)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Tashia NPC Add-on Mod BG2:SoA/ToB v.2.05",
+        "1": "Tashia NPC Add-on Mod (senza ToB)"
+      }
+    }
   },
   "tp2": "tashia",
   "safe": 2,

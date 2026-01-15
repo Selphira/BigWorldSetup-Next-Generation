@@ -2,14 +2,16 @@
   "name": "Will to Power",
   "version": "2.13",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/31024-subtlemods-will-to-power-a-2e-inspired-psionics-mod/",
-    "download": "https://github.com/UnearthedArcana/Will_to_Power/archive/refs/tags/2.13.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/31024-subtlemods-will-to-power-a-2e-inspired-psionics-mod/"
   },
-  "file": {
-    "filename": "Will_to_Power-2.13.zip",
-    "size": 2743730,
-    "sha256": "1d2cb4d23758b7bd883fd7d74a0116df5dc856cf80f7aa2ab44208f9327851fa"
-  },
+  "files": [
+    {
+      "filename": "Will_to_Power-2.13.zip",
+      "size": 2743730,
+      "sha256": "1d2cb4d23758b7bd883fd7d74a0116df5dc856cf80f7aa2ab44208f9327851fa",
+      "download": "https://github.com/UnearthedArcana/Will_to_Power/archive/refs/tags/2.13.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "gameplay"],
   "components": {

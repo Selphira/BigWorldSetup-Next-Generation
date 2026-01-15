@@ -2,14 +2,16 @@
   "name": "Mercenary",
   "version": "3.1",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/68151/fighter-kit-mercenary-iwdee-eet-bgee-bg2ee",
-    "download": "https://github.com/Raduziel/Mercenary-Kit/archive/refs/tags/3.1.zip"
+    "homepage": "https://forums.beamdog.com/discussion/68151/fighter-kit-mercenary-iwdee-eet-bgee-bg2ee"
   },
-  "file": {
-    "filename": "Mercenary-Kit-3.1.zip",
-    "size": 916358,
-    "sha256": "6b4ffe72d55c8c208940830f65af15fb6c0ac1de1557b35bd0bdd9f22717495a"
-  },
+  "files": [
+    {
+      "filename": "Mercenary-Kit-3.1.zip",
+      "size": 916358,
+      "sha256": "6b4ffe72d55c8c208940830f65af15fb6c0ac1de1557b35bd0bdd9f22717495a",
+      "download": "https://github.com/Raduziel/Mercenary-Kit/archive/refs/tags/3.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["kit"],
   "components": {

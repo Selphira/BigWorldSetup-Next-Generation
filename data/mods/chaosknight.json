@@ -2,14 +2,16 @@
   "name": "Askaria Npc and Quest & ChaosKnight Kit and Npc",
   "version": "2.1",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit",
-    "download": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit/releases/download/v2.1/Askaria-Quest_ChaosKnight-kit.v2.1.zip"
+    "homepage": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit"
   },
-  "file": {
-    "filename": "Askaria-Quest_ChaosKnight-kit.v2.1.zip",
-    "size": 8210822,
-    "sha256": "76e61d16d45494aacff289fb142673e888c98c8e4cc91fb828d1661abcda58f8"
-  },
+  "files": [
+    {
+      "filename": "Askaria-Quest_ChaosKnight-kit.v2.1.zip",
+      "size": 8210822,
+      "sha256": "76e61d16d45494aacff289fb142673e888c98c8e4cc91fb828d1661abcda58f8",
+      "download": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit/releases/download/v2.1/Askaria-Quest_ChaosKnight-kit.v2.1.zip"
+    }
+  ],
   "games": ["bgt", "bgee", "bg2ee", "eet"],
   "categories": ["npc1d", "kit"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "这是一个包含两个韩语模组的BGT模组包（已翻译成英文）：请先安装职业包，因为 Askaria 需要它。\n- 混沌骑士宗派：此模组添加了混沌骑士职业包和雅各布——一个可在贝尔苟斯特庄园附近招募的NPC，灵感来源于魔兽争霸3中的Dota。\n- Askaria 任务NPC：在贝尔苟斯特的 Feldpost 旅店一楼，Askaria 请求你帮助对抗强盗。一旦这些强盗被消灭，她会加入你，以寻找她的父母。"
     },
-    "ko_KR": {"components": {"0": "BGT, BGEE, BG2EE, IWDEE or EET»ç¿ëÀÚ¸¦ À§ÇÑ Ä«¿À½º ³ªÀÌÆ® Å°Æ®¿Í °ü·Ã ¸ðµå¼³Ä¡"}}
+    "ko_KR": {
+      "components": {
+        "0": "BGT, BGEE, BG2EE, IWDEE or EET»ç¿ëÀÚ¸¦ À§ÇÑ Ä«¿À½º ³ªÀÌÆ® Å°Æ®¿Í °ü·Ã ¸ðµå¼³Ä¡"
+      }
+    }
   },
   "tp2": "chaosknight",
   "safe": 2,

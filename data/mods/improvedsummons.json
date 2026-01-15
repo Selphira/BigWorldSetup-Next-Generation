@@ -2,14 +2,16 @@
   "name": "Improved Summons",
   "version": "2.03",
   "links": {
-    "homepage": "https://www.sorcerers.net/Games/BG2/index_mods_hosted_misc.php",
-    "download": "https://www.sorcerers.net/Games/dl.php?s=BG2&f=BG2/Improved_Summons.rar&download=yes"
+    "homepage": "https://www.sorcerers.net/Games/BG2/index_mods_hosted_misc.php"
   },
-  "file": {
-    "filename": "Improved_Summons.rar",
-    "size": 470742,
-    "sha256": "caf9682336fe2a17ff2f157a98acc7dc9754c0f61c284a3c1512c8c5149592bd"
-  },
+  "files": [
+    {
+      "filename": "Improved_Summons.rar",
+      "size": 470742,
+      "sha256": "caf9682336fe2a17ff2f157a98acc7dc9754c0f61c284a3c1512c8c5149592bd",
+      "download": "https://www.sorcerers.net/Games/dl.php?s=BG2&f=BG2/Improved_Summons.rar&download=yes"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -65,7 +67,21 @@
         "10": "Autres (Djinns, Efrits, etc.)"
       }
     },
-    "ru_RU": {"components": {"0": "«ãçè¥­­ë© à¨§ë¢  ­£¥«  (¥®¡å®¤¨¬ ToB)", "1": "«ãçè¥­­ë© à¨§ë¢ ¤¥¬®­  (¥®¡å®¤¨¬ ToB)", "2": "«ãçè¥­­ë© à¨§ë¢ í«¥¬¥­â «ï (¥®¡å®¤¨¬ ToB)", "3": "á¯®«ì§®¢ ­¨¥ IWD-¢¥àá¨¨ ¥ç  ®à¤¥­ª ©­¥­  ¯®á«¥ 21 ãà®¢­ï", "4": "«ãçè¥­­®¥ ®§¤ ­¨¥ ¬¥àâ¢®£® (¥®¡å®¤¨¬ ToB)", "5": "«ãçè¥­­ë© à¨§ë¢ «¥á­ëå áãé¥áâ¢", "6": "«ãçè¥­­ë© à¨§ë¢ ¦¨¢®â­ëå", "7": "«ãçè¥­­®¥ à¨§ë¢ ­¨¥ ¬®­áâà®¢", "8": " ¬¥­¨âì à¨§ë¢ âàã¯®¥¤®¢ ­  à¨§ë¢ á®§¥àæ â¥«ï", "9": " ¬¥­¨âì à¨§ë¢ ­¨¥ ¢¨¢¥à­  ­  à¨§ë¢ ­¨¥ ¢ ¬¯¨à", "10": "àã£®¥ (äà¨â, ¦¨­­, ¨ â.¤.)"}},
+    "ru_RU": {
+      "components": {
+        "0": "«ãçè¥­­ë© à¨§ë¢  ­£¥«  (¥®¡å®¤¨¬ ToB)",
+        "1": "«ãçè¥­­ë© à¨§ë¢ ¤¥¬®­  (¥®¡å®¤¨¬ ToB)",
+        "2": "«ãçè¥­­ë© à¨§ë¢ í«¥¬¥­â «ï (¥®¡å®¤¨¬ ToB)",
+        "3": "á¯®«ì§®¢ ­¨¥ IWD-¢¥àá¨¨ ¥ç  ®à¤¥­ª ©­¥­  ¯®á«¥ 21 ãà®¢­ï",
+        "4": "«ãçè¥­­®¥ ®§¤ ­¨¥ ¬¥àâ¢®£® (¥®¡å®¤¨¬ ToB)",
+        "5": "«ãçè¥­­ë© à¨§ë¢ «¥á­ëå áãé¥áâ¢",
+        "6": "«ãçè¥­­ë© à¨§ë¢ ¦¨¢®â­ëå",
+        "7": "«ãçè¥­­®¥ à¨§ë¢ ­¨¥ ¬®­áâà®¢",
+        "8": " ¬¥­¨âì à¨§ë¢ âàã¯®¥¤®¢ ­  à¨§ë¢ á®§¥àæ â¥«ï",
+        "9": " ¬¥­¨âì à¨§ë¢ ­¨¥ ¢¨¢¥à­  ­  à¨§ë¢ ­¨¥ ¢ ¬¯¨à",
+        "10": "àã£®¥ (äà¨â, ¦¨­­, ¨ â.¤.)"
+      }
+    },
     "zh_CN": {
       "description": "你是那种派炮灰大军冲击敌人的人吗？你寻找更强大的炽天使？你希望召唤那些令人作呕的食尸蠕虫的替代品——观者？你更喜欢吸血鬼而不是飞龙，并希望你的不死生物再强壮一点吗？这个模组就是为你准备的！",
       "components": {
@@ -82,7 +98,21 @@
         "10": "ÆäËü£¨»ð¾ÞÁé¡¢·ç¾ÞÁéµÈ£©"
       }
     },
-    "es_ES": {"components": {"0": "Mejorar Convocaciones Angelicales (Requiere ToB)", "1": "Mejorar Convocaciones Demoniacas (Requiere ToB)", "2": "Mejorar Convocaciones de Elementales (Requiere ToB)", "3": "Usar version de IWD de la Espada de Mordenkainen luego del nivel 21", "4": "Mejorar Animacion de la muerte (Requiere ToB)", "5": "Mejorar la llamada de los Seres del Bosque", "6": "Mejorar Convocar Animales", "7": "Mejorar Convocar Monstruos", "8": "Reemplazar Convocar Carroñeros con Convocar Contempladores", "9": "Reemplazar Convocar Draco con Convocar Vampiro", "10": "Otros (Ifriti, Djinni, etc.)"}}
+    "es_ES": {
+      "components": {
+        "0": "Mejorar Convocaciones Angelicales (Requiere ToB)",
+        "1": "Mejorar Convocaciones Demoniacas (Requiere ToB)",
+        "2": "Mejorar Convocaciones de Elementales (Requiere ToB)",
+        "3": "Usar version de IWD de la Espada de Mordenkainen luego del nivel 21",
+        "4": "Mejorar Animacion de la muerte (Requiere ToB)",
+        "5": "Mejorar la llamada de los Seres del Bosque",
+        "6": "Mejorar Convocar Animales",
+        "7": "Mejorar Convocar Monstruos",
+        "8": "Reemplazar Convocar Carroñeros con Convocar Contempladores",
+        "9": "Reemplazar Convocar Draco con Convocar Vampiro",
+        "10": "Otros (Ifriti, Djinni, etc.)"
+      }
+    }
   },
   "tp2": "improvedsummons",
   "safe": 1,

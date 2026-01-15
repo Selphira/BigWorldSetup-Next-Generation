@@ -2,14 +2,16 @@
   "name": "lefreut's Enhanced UI (SoD skin)",
   "version": "4.9.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30827-ui-lefreuts-enhanced-ui-bgee-sod-bg2ee-and-eet/",
-    "download": "https://github.com/r-e-d/LeUI-SoD/releases/download/v4.9.1/lefreuts-enhanced-ui-sod-skin-4.9.1.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/30827-ui-lefreuts-enhanced-ui-bgee-sod-bg2ee-and-eet/"
   },
-  "file": {
-    "filename": "lefreuts-enhanced-ui-sod-skin-4.9.1.zip",
-    "size": 22075724,
-    "sha256": "5348d3697a9e24ee3c7544070d1e13e8908dbe168ba389806aa32cb7d50494f0"
-  },
+  "files": [
+    {
+      "filename": "lefreuts-enhanced-ui-sod-skin-4.9.1.zip",
+      "size": 22075724,
+      "sha256": "5348d3697a9e24ee3c7544070d1e13e8908dbe168ba389806aa32cb7d50494f0",
+      "download": "https://github.com/r-e-d/LeUI-SoD/releases/download/v4.9.1/lefreuts-enhanced-ui-sod-skin-4.9.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["ui"],
   "components": {

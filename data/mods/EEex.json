@@ -2,14 +2,16 @@
   "name": "EEex",
   "version": "0.11.0-alpha",
   "links": {
-    "homepage": "https://github.com/Bubb13/EEex",
-    "download": "https://github.com/Bubb13/EEex/releases/download/v0.11.0-alpha/EEex-v0.11.0-alpha.exe"
+    "homepage": "https://github.com/Bubb13/EEex"
   },
-  "file": {
-    "filename": "EEex-v0.11.0-alpha.exe",
-    "size": 3547519,
-    "sha256": "958047ad674bfd1ab171729e3f10dbd00ad4b0dde47cd7ecfded36ddc41e04dd"
-  },
+  "files": [
+    {
+      "filename": "EEex-v0.11.0-alpha.exe",
+      "size": 3547519,
+      "sha256": "958047ad674bfd1ab171729e3f10dbd00ad4b0dde47cd7ecfded36ddc41e04dd",
+      "download": "https://github.com/Bubb13/EEex/releases/download/v0.11.0-alpha/EEex-v0.11.0-alpha.exe"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["util"],
   "components": {

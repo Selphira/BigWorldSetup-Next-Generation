@@ -2,14 +2,16 @@
   "name": "Auror Kit for the Ranger Class",
   "version": "2_EE",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/687-auror-kit-for-the-ranger-class/",
-    "download": "https://github.com/Plutonium-X/KIT_Aurore/archive/refs/tags/V2_EE.zip"
+    "homepage": "http://www.shsforums.net/files/file/687-auror-kit-for-the-ranger-class/"
   },
-  "file": {
-    "filename": "KIT_Aurore-2_EE.zip",
-    "size": 2074136,
-    "sha256": "83c898d5374cf264e0372894eb67555104c91e91692ea582b7e954b6aacb5bcb"
-  },
+  "files": [
+    {
+      "filename": "KIT_Aurore-2_EE.zip",
+      "size": 2074136,
+      "sha256": "83c898d5374cf264e0372894eb67555104c91e91692ea582b7e954b6aacb5bcb",
+      "download": "https://github.com/Plutonium-X/KIT_Aurore/archive/refs/tags/V2_EE.zip"
+    }
+  ],
   "games": ["bgee", "bg2", "bgt", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Extension de la quête de Jan remixée",
   "version": "2.0.6",
   "links": {
-    "homepage": "https://akadis.baldursgateworld.fr/Jan/JansQuestRemixFr.html",
-    "download": "https://akadis.baldursgateworld.fr/Jan/zip/JansQuestRemix2.0.6.zip"
+    "homepage": "https://akadis.baldursgateworld.fr/Jan/JansQuestRemixFr.html"
   },
-  "file": {
-    "filename": "JansQuestRemix2.0.6.zip",
-    "size": 9589165,
-    "sha256": "f5a4e8fdb266df4b43b83e112e92869397785d8f71498655ae0e3496d2d9ddcf"
-  },
+  "files": [
+    {
+      "filename": "JansQuestRemix2.0.6.zip",
+      "size": 9589165,
+      "sha256": "f5a4e8fdb266df4b43b83e112e92869397785d8f71498655ae0e3496d2d9ddcf",
+      "download": "https://akadis.baldursgateworld.fr/Jan/zip/JansQuestRemix2.0.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {

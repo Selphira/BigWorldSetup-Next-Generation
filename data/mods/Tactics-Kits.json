@@ -2,14 +2,16 @@
   "name": "Tactics kits",
   "version": "1",
   "links": {
-    "homepage": "https://weidu.org/tactics.html",
-    "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/archive/refs/tags/V1_EE.zip"
+    "homepage": "https://weidu.org/tactics.html"
   },
-  "file": {
-    "filename": "KIT_Tactics_kits-1_EE.zip",
-    "size": 1274307,
-    "sha256": "c3020671f6e01f4eb2ba1a8bf8137c56e6f70aefecb04284001e7f3e402d8005"
-  },
+  "files": [
+    {
+      "filename": "KIT_Tactics_kits-1_EE.zip",
+      "size": 1274307,
+      "sha256": "c3020671f6e01f4eb2ba1a8bf8137c56e6f70aefecb04284001e7f3e402d8005",
+      "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/archive/refs/tags/V1_EE.zip"
+    }
+  ],
   "games": ["bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Plasmocat's Portrait Pack",
   "version": "4",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack",
-    "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/plasmoportraits-v4.exe"
+    "homepage": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack"
   },
-  "file": {
-    "filename": "plasmoportraits-v4.exe",
-    "size": 6090858,
-    "sha256": "109159c26ee8f8824585b0f010e08a4967a0afa21ea9245157f204ef0f8704e0"
-  },
+  "files": [
+    {
+      "filename": "plasmoportraits-v4.exe",
+      "size": 6090858,
+      "sha256": "109159c26ee8f8824585b0f010e08a4967a0afa21ea9245157f204ef0f8704e0",
+      "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/plasmoportraits-v4.exe"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {

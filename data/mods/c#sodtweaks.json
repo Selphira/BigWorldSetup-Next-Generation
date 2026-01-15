@@ -2,14 +2,16 @@
   "name": "Jastey's Tweaks for SoD and EET",
   "version": "13",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack",
-    "download": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack/releases/download/v13/jasteys-tweaks-for-sod-and-eet-and-bgt-v13.zip"
+    "homepage": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack"
   },
-  "file": {
-    "filename": "jasteys-tweaks-for-sod-and-eet-and-bgt-v13.zip",
-    "size": 5171657,
-    "sha256": "b2598c56163fce3e35f9d3baf2b2196fa0554aeaad4013b15aa193e756162cef"
-  },
+  "files": [
+    {
+      "filename": "jasteys-tweaks-for-sod-and-eet-and-bgt-v13.zip",
+      "size": 5171657,
+      "sha256": "b2598c56163fce3e35f9d3baf2b2196fa0554aeaad4013b15aa193e756162cef",
+      "download": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack/releases/download/v13/jasteys-tweaks-for-sod-and-eet-and-bgt-v13.zip"
+    }
+  ],
   "games": ["bgt", "bgee", "sod", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -109,10 +111,102 @@
         "21": "海夫南拿着龙矛金库的钥匙"
       }
     },
-    "de_DE": {"components": {"1": "Ende unabhaengig von den HC-Antworten", "choice_0": "Keine HC-NPC-Dialoge verpassen", "2": "Nur fuer NPCs in der Gruppe", "3": "Immer alle HC-NPC-Dialoge ermoeglichen", "4": "Korlaszs Dungeon ueberspringen", "5": "Weitere Dialogoptionen und keine Sackgassen im Questverlauf", "6": "Imoens SoD Portrait fuer BGII in EET & BGT verwenden", "7": "Geskripteten Kampf am Ende von SoD wiederherstellen", "choice_1": "Start-EP des HC in SoD anpassen, von subtledoctor", "8": "EP auf 65.000 setzen", "9": "EP auf 90.000 setzen", "10": "EP auf 125.000 setzen", "11": "EP auf 161.000 setzen", "choice_2": "Ende von SoD: jasteys Ueberarbeitungen", "12": "Volle ueberarbeitete Version", "13": "Ueberarbeitete Version: Fassung ohne extra Cutscenes", "14": "Originales Ende: Fassung ohne extra Cutscenes", "15": "Kurzes Ende", "20": "Das Portal muss in der Burg Drachenspeer geschlossen werden (Aun Silberweiss ueberlebt immer)", "21": "Ifearnan nimmt den Drachenspeer-Gruftschluessel an sich"}},
-    "ru_RU": {"components": {"1": "Ending Independent on PC Replies", "choice_0": "Do Not Miss NPC-PC Dialogues", "2": "For NPCs in Party Only", "3": "Activate All NPC-PC Dialogues Always", "4": "Skip Korlasz's Dungeon", "5": "More Dialogue Choices & Prevent Dead Ends", "6": "Use Imoen's SoD Portrait for BGII in EET & BGT", "7": "Restore scripted Abduction Scene Fight", "choice_1": "Adjust PC's Starting XP at Beginning of SoD, by subtledoctor", "8": "Set Starting XP to 65,000", "9": "Set Starting XP to 90,000", "10": "Set Starting XP to 125,000", "11": "Set Starting XP to 161,000", "choice_2": "SoD Ending: jastey's Tweaks", "12": "Revised Full Version", "13": "Revised Streamlined Version", "14": "Original Streamlined Version", "15": "Skipit Version", "20": "Make Portal Close from Dragonspear Castle (Aun Argent survives always)", "21": "Hephernaan takes Dragonspear Vault Key"}},
-    "pl_PL": {"components": {"1": "Odpowiedzi postaci gracza nie wplywaja na zakonczenie", "choice_0": "Nie przegap dialogow postaci gracza z towarzyszami", "2": "Dotyczy tylko towarzyszy w druzynie", "3": "Zawsze aktywuj dialogi postaci gracza z towarzyszami", "4": "Pomin loch Korlasz", "5": "Dodaj wiecej opcji dialogowych i zapobiegaj sytuacjom bez wyjscia", "6": "Uzywaj portetu Imoen z SoD w BGII w EET i BGT", "7": "Przywroc pierwotnie zakodowana scene walki towarzyszaca uprowadzeniu", "choice_1": "Dopasuj poczatkowe PD postaci gracza na starcie SoD, autor: subtledoctor", "8": "Ustaw poczatkowa liczbe PD na 65,000", "9": "Ustaw poczatkowa liczbe PD na 90,000", "10": "Ustaw poczatkowa liczbe PD na 125,000", "11": "Ustaw poczatkowa liczbe PD na 161,000", "choice_2": "Zakonczenie SoD: Poprawki jastey", "12": "Wersja zmodyfikowana - pelna", "13": "Wersja zmodyfikowana - uproszczona", "14": "Wersja oryginalna - uproszczona", "15": "Wersja skrocona", "20": "Portal mozna zamknac ze strony Zamku Smoczej Wloczni (Aun Srebrzysty zawsze bedzie uratowany)", "21": "Hephernaan zabiera klucz do krypty w Zamku Smoczej Wloczni"}},
-    "es_ES": {"components": {"1": "Final independiente de las respuestas del PJ", "choice_0": "No te pierdas los dialogos entre PNJ-PJ", "2": "Solo para PNJ de grupo", "3": "Activar siempre todos los dialogos entre PNJ-PJ", "4": "Saltar la mazmorra de Korlasz", "5": "Mas opciones de dialogo y evitar callejones sin salida", "6": "Usar retrato de Imoen en SoD para BGII en EET & BGT", "7": "Restaurar la escena del secuestro", "choice_1": "Ajustar la experiencia inicial del PJ al comienzo de SoD", "8": "Fijar experiencia inicial en 65,000", "9": "Fijar experiencia inicial en 90,000", "10": "Fijar experiencia inicial en 125,000", "11": "Fijar experiencia inicial en 161,000", "choice_2": "Final SoD: Ajustes de jastey", "12": "Revised full version", "13": "Revised streamlined version", "14": "Original streamlined version", "15": "Skipit version", "20": "Cierra el portal desde el Castillo Dragasta (Aun Argentea sobrevive siempre)", "21": "Hephernaan toma la llave de la boveda de Dragasta"}}
+    "de_DE": {
+      "components": {
+        "1": "Ende unabhaengig von den HC-Antworten",
+        "choice_0": "Keine HC-NPC-Dialoge verpassen",
+        "2": "Nur fuer NPCs in der Gruppe",
+        "3": "Immer alle HC-NPC-Dialoge ermoeglichen",
+        "4": "Korlaszs Dungeon ueberspringen",
+        "5": "Weitere Dialogoptionen und keine Sackgassen im Questverlauf",
+        "6": "Imoens SoD Portrait fuer BGII in EET & BGT verwenden",
+        "7": "Geskripteten Kampf am Ende von SoD wiederherstellen",
+        "choice_1": "Start-EP des HC in SoD anpassen, von subtledoctor",
+        "8": "EP auf 65.000 setzen",
+        "9": "EP auf 90.000 setzen",
+        "10": "EP auf 125.000 setzen",
+        "11": "EP auf 161.000 setzen",
+        "choice_2": "Ende von SoD: jasteys Ueberarbeitungen",
+        "12": "Volle ueberarbeitete Version",
+        "13": "Ueberarbeitete Version: Fassung ohne extra Cutscenes",
+        "14": "Originales Ende: Fassung ohne extra Cutscenes",
+        "15": "Kurzes Ende",
+        "20": "Das Portal muss in der Burg Drachenspeer geschlossen werden (Aun Silberweiss ueberlebt immer)",
+        "21": "Ifearnan nimmt den Drachenspeer-Gruftschluessel an sich"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "1": "Ending Independent on PC Replies",
+        "choice_0": "Do Not Miss NPC-PC Dialogues",
+        "2": "For NPCs in Party Only",
+        "3": "Activate All NPC-PC Dialogues Always",
+        "4": "Skip Korlasz's Dungeon",
+        "5": "More Dialogue Choices & Prevent Dead Ends",
+        "6": "Use Imoen's SoD Portrait for BGII in EET & BGT",
+        "7": "Restore scripted Abduction Scene Fight",
+        "choice_1": "Adjust PC's Starting XP at Beginning of SoD, by subtledoctor",
+        "8": "Set Starting XP to 65,000",
+        "9": "Set Starting XP to 90,000",
+        "10": "Set Starting XP to 125,000",
+        "11": "Set Starting XP to 161,000",
+        "choice_2": "SoD Ending: jastey's Tweaks",
+        "12": "Revised Full Version",
+        "13": "Revised Streamlined Version",
+        "14": "Original Streamlined Version",
+        "15": "Skipit Version",
+        "20": "Make Portal Close from Dragonspear Castle (Aun Argent survives always)",
+        "21": "Hephernaan takes Dragonspear Vault Key"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "1": "Odpowiedzi postaci gracza nie wplywaja na zakonczenie",
+        "choice_0": "Nie przegap dialogow postaci gracza z towarzyszami",
+        "2": "Dotyczy tylko towarzyszy w druzynie",
+        "3": "Zawsze aktywuj dialogi postaci gracza z towarzyszami",
+        "4": "Pomin loch Korlasz",
+        "5": "Dodaj wiecej opcji dialogowych i zapobiegaj sytuacjom bez wyjscia",
+        "6": "Uzywaj portetu Imoen z SoD w BGII w EET i BGT",
+        "7": "Przywroc pierwotnie zakodowana scene walki towarzyszaca uprowadzeniu",
+        "choice_1": "Dopasuj poczatkowe PD postaci gracza na starcie SoD, autor: subtledoctor",
+        "8": "Ustaw poczatkowa liczbe PD na 65,000",
+        "9": "Ustaw poczatkowa liczbe PD na 90,000",
+        "10": "Ustaw poczatkowa liczbe PD na 125,000",
+        "11": "Ustaw poczatkowa liczbe PD na 161,000",
+        "choice_2": "Zakonczenie SoD: Poprawki jastey",
+        "12": "Wersja zmodyfikowana - pelna",
+        "13": "Wersja zmodyfikowana - uproszczona",
+        "14": "Wersja oryginalna - uproszczona",
+        "15": "Wersja skrocona",
+        "20": "Portal mozna zamknac ze strony Zamku Smoczej Wloczni (Aun Srebrzysty zawsze bedzie uratowany)",
+        "21": "Hephernaan zabiera klucz do krypty w Zamku Smoczej Wloczni"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "1": "Final independiente de las respuestas del PJ",
+        "choice_0": "No te pierdas los dialogos entre PNJ-PJ",
+        "2": "Solo para PNJ de grupo",
+        "3": "Activar siempre todos los dialogos entre PNJ-PJ",
+        "4": "Saltar la mazmorra de Korlasz",
+        "5": "Mas opciones de dialogo y evitar callejones sin salida",
+        "6": "Usar retrato de Imoen en SoD para BGII en EET & BGT",
+        "7": "Restaurar la escena del secuestro",
+        "choice_1": "Ajustar la experiencia inicial del PJ al comienzo de SoD",
+        "8": "Fijar experiencia inicial en 65,000",
+        "9": "Fijar experiencia inicial en 90,000",
+        "10": "Fijar experiencia inicial en 125,000",
+        "11": "Fijar experiencia inicial en 161,000",
+        "choice_2": "Final SoD: Ajustes de jastey",
+        "12": "Revised full version",
+        "13": "Revised streamlined version",
+        "14": "Original streamlined version",
+        "15": "Skipit version",
+        "20": "Cierra el portal desde el Castillo Dragasta (Aun Argentea sobrevive siempre)",
+        "21": "Hephernaan toma la llave de la boveda de Dragasta"
+      }
+    }
   },
   "tp2": "c#sodtweaks",
   "safe": 2,

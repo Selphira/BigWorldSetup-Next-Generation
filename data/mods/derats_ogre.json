@@ -2,14 +2,16 @@
   "name": "L'ogre et le gnome, une histoire de Bleu",
   "version": "5",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=28812",
-    "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/win-Derats_Ogre-Version_5.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=28812"
   },
-  "file": {
-    "filename": "win-Derats_Ogre-Version_5.zip",
-    "size": 2952039,
-    "sha256": "c1668e3a18fac448e2042be8c48bcffd333f195c40b9f2839a2133e7333af20a"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Ogre-Version_5.zip",
+      "size": 2952039,
+      "sha256": "c1668e3a18fac448e2042be8c48bcffd333f195c40b9f2839a2133e7333af20a",
+      "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/win-Derats_Ogre-Version_5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d", "quest"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "这个小型模组将让你遇到两个不寻常的主角：一个是可以招募的食人魔NPC（目前如果被招募，他是哑的），另一个是侏儒商人。要找到他们，不妨问自己一个问题：一个不想被看到的食人魔可能藏在哪里，而商人又可能在哪里？\n力量 19, 敏捷 7, 体质 18, 智力 6, 智慧 8, 魅力 6。\n"
     },
-    "ru_RU": {"components": {"0": "The ogre and the gnome, a story of blue"}}
+    "ru_RU": {
+      "components": {
+        "0": "The ogre and the gnome, a story of blue"
+      }
+    }
   },
   "tp2": "derats_ogre",
   "safe": 2,

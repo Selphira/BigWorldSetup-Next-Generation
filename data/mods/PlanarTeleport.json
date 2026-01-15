@@ -2,14 +2,16 @@
   "name": "Planar Sphere Teleporter",
   "version": "1.2",
   "links": {
-    "homepage": "http://mods.jo-ge.net/bg/index.htm",
-    "download": "https://github.com/Plutonium-X/MISC_Planar-teleport/archive/refs/tags/v1.2_EE.zip"
+    "homepage": "http://mods.jo-ge.net/bg/index.htm"
   },
-  "file": {
-    "filename": "MISC_Planar-teleport-1.2_EE.zip",
-    "size": 2527182,
-    "sha256": "e8a391de9fd90dd5988470520979760b93fe7b4b39081222e9ce26c75758a877"
-  },
+  "files": [
+    {
+      "filename": "MISC_Planar-teleport-1.2_EE.zip",
+      "size": 2527182,
+      "sha256": "e8a391de9fd90dd5988470520979760b93fe7b4b39081222e9ce26c75758a877",
+      "download": "https://github.com/Plutonium-X/MISC_Planar-teleport/archive/refs/tags/v1.2_EE.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {

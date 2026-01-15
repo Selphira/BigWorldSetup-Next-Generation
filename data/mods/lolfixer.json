@@ -2,8 +2,7 @@
   "name": "Lollorian's LolFixer",
   "version": "19022016",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/52508-lolfixer-thread/",
-    "download": "Manual"
+    "homepage": "http://www.shsforums.net/topic/52508-lolfixer-thread/"
   },
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["patch"],

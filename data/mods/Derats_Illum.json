@@ -2,14 +2,16 @@
   "name": "Illumisfhityroc",
   "version": "4.1",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33955",
-    "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/win-Derats_Illum-v4.1.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33955"
   },
-  "file": {
-    "filename": "win-Derats_Illum-v4.1.zip",
-    "size": 1395438,
-    "sha256": "3c004614facd50e310f29f5a55263ed2ff4c6b25c359eb2fe789172ec636b6de"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Illum-v4.1.zip",
+      "size": 1395438,
+      "sha256": "3c004614facd50e310f29f5a55263ed2ff4c6b25c359eb2fe789172ec636b6de",
+      "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/win-Derats_Illum-v4.1.zip"
+    }
+  ],
   "games": ["bgee", "eet", "iwdee"],
   "categories": ["smith"],
   "components": {

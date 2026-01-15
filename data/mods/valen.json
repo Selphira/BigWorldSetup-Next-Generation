@@ -2,14 +2,16 @@
   "name": "Valen NPC",
   "version": "0.0.1",
   "links": {
-    "homepage": "http://weidu.org/valen.html",
-    "download": "https://github.com/hellmouse/valen/archive/refs/tags/v0.0.1.zip"
+    "homepage": "http://weidu.org/valen.html"
   },
-  "file": {
-    "filename": "valen-0.0.1.zip",
-    "size": 1429776,
-    "sha256": "c6dd6790ea810e9a7df30e2e14e5c2ccaf6b378adc274bc96d5aaf59e96e91a1"
-  },
+  "files": [
+    {
+      "filename": "valen-0.0.1.zip",
+      "size": 1429776,
+      "sha256": "c6dd6790ea810e9a7df30e2e14e5c2ccaf6b378adc274bc96d5aaf59e96e91a1",
+      "download": "https://github.com/hellmouse/valen/archive/refs/tags/v0.0.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -46,10 +48,16 @@
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
-    "it_IT": {"components": {"0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead"}},
+    "it_IT": {
+      "components": {
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead"
+      }
+    },
     "ru_RU": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
@@ -63,31 +71,36 @@
     },
     "es_ES": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
     "de_DE": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
     "pl_PL": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
     "zh_TW": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     },
     "ja_JP": {
       "components": {
-        "0": "Valen", "10": "Give More Creatures Protection From Level Drain & Undead",
+        "0": "Valen",
+        "10": "Give More Creatures Protection From Level Drain & Undead",
         "11": "Add reaction to non evil priest (mandatory on original Weimer's Valen mod)"
       }
     }

@@ -2,14 +2,16 @@
   "name": "Todd le super gars testeur",
   "version": "9.1",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31924",
-    "download": "https://github.com/Deratiseur/Todd/releases/download/v9.1/win-Derats_Todd-v9.1.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31924"
   },
-  "file": {
-    "filename": "win-Derats_Todd-v9.1.zip",
-    "size": 2525166,
-    "sha256": "79d8f94ac7d56bb29b65d54a5953056e2d2cef9bd81649806fe61f5616f5c38b"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Todd-v9.1.zip",
+      "size": 2525166,
+      "sha256": "79d8f94ac7d56bb29b65d54a5953056e2d2cef9bd81649806fe61f5616f5c38b",
+      "download": "https://github.com/Deratiseur/Todd/releases/download/v9.1/win-Derats_Todd-v9.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["smith"],
   "components": {

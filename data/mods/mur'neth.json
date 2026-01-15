@@ -2,14 +2,16 @@
   "name": "Mur'Neth NPC Mod",
   "version": "14",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/murneth/",
-    "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/mur.neth-v14.exe"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/murneth/"
   },
-  "file": {
-    "filename": "mur.neth-v14.exe",
-    "size": 6209200,
-    "sha256": "2151b7a77a3c79e1f96dae531217c5421909353721fd33b40ca08c96f1e733ff"
-  },
+  "files": [
+    {
+      "filename": "mur.neth-v14.exe",
+      "size": 6209200,
+      "sha256": "2151b7a77a3c79e1f96dae531217c5421909353721fd33b40ca08c96f1e733ff",
+      "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/mur.neth-v14.exe"
+    }
+  ],
   "games": ["bgt", "bgee", "sod", "eet", "tutu"],
   "categories": ["npc"],
   "components": {
@@ -43,11 +45,36 @@
     "zh_CN": {
       "description": "这是一个在纳西凯矿场中添加了一个非常特别的NPC的模组。他是格纳达乌（Ghaunadaur）的仆从，这位神是软泥、淤泥、灰色粘土以及其他类似生物的造物主。他自己也是一团粘土，但被神赋予了人形。他可以随意变形，阵营为混乱中立，因此与你的团队（除了Xzar，纯属巧合）会产生许多紧张关系。他有一个基于盗贼宗派的特殊宗派。他有语音台词，以及许多互动，包括与Indira NPC的互动。我们在纳西凯矿场遇到他。\n力量 12, 敏捷 15, 体质 16, 智力 13, 智慧 12, 魅力 16"
     },
-    "pl_PL": {"components": {"0": "Nowa przylaczalna postac dla TuTu i Baldur's Gate Trylogy (WeiDU) - Mur'Neth", "1": "Usun rzadkie dzwieki wybierania"}},
-    "es_ES": {"components": {"0": "El mod Mur'Neth NPC para Baldur's Gate Tutu o Baldur's Gate Trilogy-WeiDU", "1": "Eliminar sonidos raros de selección"}},
-    "de_DE": {"components": {"0": "Der Mur'Neth NPC mod für Baldur's Gate Tutu von Baldur oder Baldur's Gate Trilogy-WeiDU", "1": "Entfernt Auswahl seltener Klänge"}},
-    "it_IT": {"components": {"0": "Mur'Neth NPC mod per Baldur's Gate Tutu o Baldur's Gate Trilogy-WeiDU", "1": "Rimuovi la Rara selezione dei suoni"}},
-    "ru_RU": {"components": {"0": "The Mur'Neth NPC Mod", "1": "Remove Rare selection sounds"}}
+    "pl_PL": {
+      "components": {
+        "0": "Nowa przylaczalna postac dla TuTu i Baldur's Gate Trylogy (WeiDU) - Mur'Neth",
+        "1": "Usun rzadkie dzwieki wybierania"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "El mod Mur'Neth NPC para Baldur's Gate Tutu o Baldur's Gate Trilogy-WeiDU",
+        "1": "Eliminar sonidos raros de selección"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Der Mur'Neth NPC mod für Baldur's Gate Tutu von Baldur oder Baldur's Gate Trilogy-WeiDU",
+        "1": "Entfernt Auswahl seltener Klänge"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Mur'Neth NPC mod per Baldur's Gate Tutu o Baldur's Gate Trilogy-WeiDU",
+        "1": "Rimuovi la Rara selezione dei suoni"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "The Mur'Neth NPC Mod",
+        "1": "Remove Rare selection sounds"
+      }
+    }
   },
   "tp2": "mur'neth",
   "safe": 2,

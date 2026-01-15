@@ -2,14 +2,16 @@
   "name": "Lucy the Wyvern",
   "version": "5.0",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/33667-lucy-the-wyvern/",
-    "download": "https://github.com/Spellhold-Studios/Lucy-the-Wyvern/releases/download/v5.0/lucy-the-wyvern-v5.0.zip"
+    "homepage": "http://www.shsforums.net/topic/33667-lucy-the-wyvern/"
   },
-  "file": {
-    "filename": "lucy-the-wyvern-v5.0.zip",
-    "size": 4228519,
-    "sha256": "d12a0d27d453af4ab483c235cc5764a06c361445b4256a1ff7d3c2697528bc29"
-  },
+  "files": [
+    {
+      "filename": "lucy-the-wyvern-v5.0.zip",
+      "size": 4228519,
+      "sha256": "d12a0d27d453af4ab483c235cc5764a06c361445b4256a1ff7d3c2697528bc29",
+      "download": "https://github.com/Spellhold-Studios/Lucy-the-Wyvern/releases/download/v5.0/lucy-the-wyvern-v5.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -31,8 +33,16 @@
       },
       "description": "This mini expansion mod adds a little surprise to the dialog with Lucy, the wiverne encountered in the Adventurer Mart. To trigger it, all you have to do is start a dialog with the player."
     },
-    "ru_RU": {"components": {"0": "Lucy the Wyvern"}},
-    "it_IT": {"components": {"0": "Lucy la Viverna"}},
+    "ru_RU": {
+      "components": {
+        "0": "Lucy the Wyvern"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Lucy la Viverna"
+      }
+    },
     "fr_FR": {
       "description": "Ce mini mod d'expansion ajoute une petite surprise au dialogue de Lucy, la wiverne rencontrée dans le Marché de l'Aventurier. Pour le déclencher, il suffit d'entamer le dialogue avec le PJ.",
       "components": {
@@ -42,9 +52,21 @@
     "zh_CN": {
       "description": "这个小型扩展模组为在冒险者市场遇到的雌性翼蛇露西的对话增加了一个小惊喜。要触发它，只需与玩家角色开启对话即可。"
     },
-    "de_DE": {"components": {"0": "Lucy der Lindwurm"}},
-    "es_ES": {"components": {"0": "Lucy la Draco"}},
-    "pl_PL": {"components": {"0": "Wiwerna Lucy"}}
+    "de_DE": {
+      "components": {
+        "0": "Lucy der Lindwurm"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Lucy la Draco"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Wiwerna Lucy"
+      }
+    }
   },
   "tp2": "lucy",
   "safe": 2,

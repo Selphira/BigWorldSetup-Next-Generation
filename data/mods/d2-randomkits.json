@@ -2,14 +2,16 @@
   "name": "D2 Misc kits",
   "version": "3.8",
   "links": {
-    "homepage": "https://github.com/D2-mods/Misc-kits/",
-    "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-windows-x64.zip"
+    "homepage": "https://github.com/D2-mods/Misc-kits/"
   },
-  "file": {
-    "filename": "d2-misc-kits-v3.8-windows-x64.zip",
-    "size": 3149303,
-    "sha256": "f443ce70d22f92d8122070ee65e562001c8bbe9755110f14b522659b205d5ecc"
-  },
+  "files": [
+    {
+      "filename": "d2-misc-kits-v3.8-windows-x64.zip",
+      "size": 3149303,
+      "sha256": "f443ce70d22f92d8122070ee65e562001c8bbe9755110f14b522659b205d5ecc",
+      "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-windows-x64.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgee", "bg2ee", "sod", "eet", "iwd", "iwdee"],
   "categories": ["kit"],
   "components": {

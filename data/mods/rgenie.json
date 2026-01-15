@@ -2,14 +2,16 @@
   "name": "Ribald's Genie",
   "version": "3.1",
   "links": {
-    "homepage": "http://forums.blackwyrmlair.net/index.php?showtopic=1629",
-    "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/win-RGenie-v3.1.zip"
+    "homepage": "http://forums.blackwyrmlair.net/index.php?showtopic=1629"
   },
-  "file": {
-    "filename": "win-RGenie-v3.1.zip",
-    "size": 2461295,
-    "sha256": "013b0c2f23f4dbb7d4f63200f00ed02a189aee648c1c31ac13bfbaf168689353"
-  },
+  "files": [
+    {
+      "filename": "win-RGenie-v3.1.zip",
+      "size": 2461295,
+      "sha256": "013b0c2f23f4dbb7d4f63200f00ed02a189aee648c1c31ac13bfbaf168689353",
+      "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/win-RGenie-v3.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -32,8 +34,16 @@
         "0": "Ribald's Genie"
       }
     },
-    "ru_RU": {"components": {"0": "¦¨­­ ¨¡ «ì¤"}},
-    "it_IT": {"components": {"0": "Genio di Ribald"}},
+    "ru_RU": {
+      "components": {
+        "0": "¦¨­­ ¨¡ «ì¤"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Genio di Ribald"
+      }
+    },
     "fr_FR": {
       "description": "Fatigués de devoir se taper la moitié de la carte aventure et de mettre une heure pour retourner au Marché de l'Aventurier pour dépenser vos deniers chèrement gagnés ? Désormais, une fois que vous lui aurez parlé cinq fois, Ribald vous donnera une flûte qui vous permettra de convoquer un génie. Celui-ci pourra vous téléporter directement au Marché de l'Aventurier (ou convoquer Ribald) pour commercer, et vous ramener à votre destination d'origine si vous le souhaitez. Si vous le lui demandez, il pourra aussi faire venir d'autres marchands.\nLe génie ne peut malheureusement pas être invoqué durant le chapitre 5 (ni à Suldanessalar ou en Enfer). Il ne peut pas non plus être invoqué dans la prison planaire d'Haer'Dalis ou dans le plan démoniaque vers lequel la Sphère planaire vous mène.",
       "components": {
@@ -43,10 +53,26 @@
     "zh_CN": {
       "description": "厌倦了冒险地图上一半的路程，花一个小时才能回到冒险者市场去花掉你辛苦赚来的钱吗？现在，一旦您和他交谈五次，里巴尔会给你一支笛子，让你可以召唤一个精灵。这个精灵可以直接将你传送到冒险者市场（或召唤里巴尔）进行交易，如果你愿意，还可以将你送回你原来的目的地。如果你要求，他还可以叫来其他商人。\n不幸的是，在第五章（以及在索丹尼斯拉或地狱）期间无法召唤精灵。他也不能在海尔达利的监狱位面或位面球带你前往的恶魔位面中被召唤。"
     },
-    "es_ES": {"components": {"0": "El Genio de Ribald"}},
-    "cs_CZ": {"components": {"0": "Ribaldùv džin"}},
-    "pl_PL": {"components": {"0": "Geniusz Ribalda"}},
-    "de_DE": {"components": {"0": "Ribalds Flaschengeist"}}
+    "es_ES": {
+      "components": {
+        "0": "El Genio de Ribald"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Ribaldùv džin"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Geniusz Ribalda"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Ribalds Flaschengeist"
+      }
+    }
   },
   "tp2": "rgenie",
   "safe": 2,

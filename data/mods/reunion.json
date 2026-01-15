@@ -2,14 +2,16 @@
   "name": "The Reunion",
   "version": "7",
   "links": {
-    "homepage": "https://www.pocketplane.net/reunion/",
-    "download": "https://github.com/Pocket-Plane-Group/Reunion/releases/download/v7/the-reunion-v7.zip"
+    "homepage": "https://www.pocketplane.net/reunion/"
   },
-  "file": {
-    "filename": "the-reunion-v7.zip",
-    "size": 7835533,
-    "sha256": "38afa353b55e3c722a01db6b9daf5402a48a678f119fd4d4beb40b7dbd5949e9"
-  },
+  "files": [
+    {
+      "filename": "the-reunion-v7.zip",
+      "size": 7835533,
+      "sha256": "38afa353b55e3c722a01db6b9daf5402a48a678f119fd4d4beb40b7dbd5949e9",
+      "download": "https://github.com/Pocket-Plane-Group/Reunion/releases/download/v7/the-reunion-v7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -41,8 +43,16 @@
         "0": "ÔÙ¶ÈÖØ¾Û"
       }
     },
-    "ru_RU": {"components": {"0": "The Reunion mod for Baldur's Gate II"}},
-    "pl_PL": {"components": {"0": "The Reunion mod do Baldur's Gate II"}}
+    "ru_RU": {
+      "components": {
+        "0": "The Reunion mod for Baldur's Gate II"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "The Reunion mod do Baldur's Gate II"
+      }
+    }
   },
   "tp2": "reunion",
   "safe": 2,

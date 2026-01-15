@@ -2,14 +2,16 @@
   "name": "Wares of the Planes",
   "version": "2.0",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-WaresOfThePlanes",
-    "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.0/win-A7-WaresOfThePlanes-v2.0.zip"
+    "homepage": "https://github.com/Argent77/A7-WaresOfThePlanes"
   },
-  "file": {
-    "filename": "win-A7-WaresOfThePlanes-v2.0.zip",
-    "size": 8758841,
-    "sha256": "5adc5099b1dac0ebc63891d87e2e89729c23119e148a814ef0ca9833f9f9fd70"
-  },
+  "files": [
+    {
+      "filename": "win-A7-WaresOfThePlanes-v2.0.zip",
+      "size": 8758841,
+      "sha256": "5adc5099b1dac0ebc63891d87e2e89729c23119e148a814ef0ca9833f9f9fd70",
+      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.0/win-A7-WaresOfThePlanes-v2.0.zip"
+    }
+  ],
   "games": ["bgee", "sod", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -48,7 +50,13 @@
         "200": "替代商人形象"
       }
     },
-    "de_DE": {"components": {"0": "Waren der Ebenen", "100": "Alle Waren identifizieren (nicht empfohlen)", "200": "Alternatives Haendlerportrait"}}
+    "de_DE": {
+      "components": {
+        "0": "Waren der Ebenen",
+        "100": "Alle Waren identifizieren (nicht empfohlen)",
+        "200": "Alternatives Haendlerportrait"
+      }
+    }
   },
   "tp2": "a7-waresoftheplanes",
   "safe": 2,

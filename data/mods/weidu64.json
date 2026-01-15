@@ -2,14 +2,16 @@
   "name": "WeiDU (64-bit)",
   "version": "249",
   "links": {
-    "homepage": "http://weidu.org/main.html#weidu",
-    "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-amd64.zip"
+    "homepage": "http://weidu.org/main.html#weidu"
   },
-  "file": {
-    "filename": "WeiDU-Windows-249-amd64.zip",
-    "size": 2154755,
-    "sha256": "b156910cbec69359fc2e42f6739aa959d49047d6fd3dc172f6bed88ffad8f927"
-  },
+  "files": [
+    {
+      "filename": "WeiDU-Windows-249-amd64.zip",
+      "size": 2154755,
+      "sha256": "b156910cbec69359fc2e42f6739aa959d49047d6fd3dc172f6bed88ffad8f927",
+      "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-amd64.zip"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "pst", "pstee", "iwd", "iwd2", "iwdee"],
   "categories": ["util"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Rodeur de l'ombre",
   "version": "1.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=23996",
-    "download": "https://github.com/GwendolyneFreddy/Rodeur_Ombre/releases/download/v1.2/rodeur-de-lombre-v1.2.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=23996"
   },
-  "file": {
-    "filename": "rodeur-de-lombre-v1.2.zip",
-    "size": 4696810,
-    "sha256": "d05aa4696ae2d7c827f2e64808b85cc788dc727b40ffe72b62d7354b3e2007c9"
-  },
+  "files": [
+    {
+      "filename": "rodeur-de-lombre-v1.2.zip",
+      "size": 4696810,
+      "sha256": "d05aa4696ae2d7c827f2e64808b85cc788dc727b40ffe72b62d7354b3e2007c9",
+      "download": "https://github.com/GwendolyneFreddy/Rodeur_Ombre/releases/download/v1.2/rodeur-de-lombre-v1.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "此模组在游戏中添加了一个新的游侠配置，仅限人类、精灵和半精灵，且必须是守序邪恶或中立邪恶阵营。影贼游侠是一个与影德鲁伊有关联的秘密教派。他们宣扬黑夜及其阴影中的力量，并毫不犹豫地采用马基雅维利式的诡计来达成目的。他们通常崇拜黑暗女神莎儿，并在暮色中割断敌人喉咙时低声念着她的名字。影贼游侠是危险的战士，能够召唤阴影来协助自己……"
     },
-    "ru_RU": {"components": {"0": "Shadow Stalker Kit"}}
+    "ru_RU": {
+      "components": {
+        "0": "Shadow Stalker Kit"
+      }
+    }
   },
   "tp2": "fr_ombre",
   "safe": 2,

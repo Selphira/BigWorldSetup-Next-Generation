@@ -2,14 +2,16 @@
   "name": "Semi Multi Clerics",
   "version": "0.4.4",
   "links": {
-    "homepage": "https://spellholdstudios.net/ie/smm/",
-    "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/win-Semi-Multi-Clerics-v0.4.4.zip"
+    "homepage": "https://spellholdstudios.net/ie/smm/"
   },
-  "file": {
-    "filename": "win-Semi-Multi-Clerics-v0.4.4.zip",
-    "size": 2060913,
-    "sha256": "2e241e8513662b5c14b46bad420050f11accca919c24be839cb9786c5080ce7b"
-  },
+  "files": [
+    {
+      "filename": "win-Semi-Multi-Clerics-v0.4.4.zip",
+      "size": 2060913,
+      "sha256": "2e241e8513662b5c14b46bad420050f11accca919c24be839cb9786c5080ce7b",
+      "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/win-Semi-Multi-Clerics-v0.4.4.zip"
+    }
+  ],
   "games": ["bgee", "bg2", "bgt", "bg2ee", "eet", "iwd", "iwdee"],
   "categories": ["smith"],
   "components": {

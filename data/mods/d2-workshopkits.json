@@ -2,14 +2,16 @@
   "name": "The Workshop Kitpack",
   "version": "5.29",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack-v516-soulsborne-inspired-kit-and-item-pack/",
-    "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-windows-x64.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack-v516-soulsborne-inspired-kit-and-item-pack/"
   },
-  "file": {
-    "filename": "the-workshop-kitpack-v5.29-windows-x64.zip",
-    "size": 12985553,
-    "sha256": "4209a7806d024766eb0832132f0198bd6938a80f27e01a8096344b9593b305a3"
-  },
+  "files": [
+    {
+      "filename": "the-workshop-kitpack-v5.29-windows-x64.zip",
+      "size": 12985553,
+      "sha256": "4209a7806d024766eb0832132f0198bd6938a80f27e01a8096344b9593b305a3",
+      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-windows-x64.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "spell"],
   "components": {

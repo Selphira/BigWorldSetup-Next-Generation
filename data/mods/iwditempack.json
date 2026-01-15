@@ -2,14 +2,16 @@
   "name": "IWD Item Pack",
   "version": "1.3",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/46557-iwd-item-pack-for-bg2/",
-    "download": "https://github.com/The-Gate-Project/IWD_Item-Pack/releases/download/v1.3/iwd-item-pack-1.3.zip"
+    "homepage": "http://www.shsforums.net/topic/46557-iwd-item-pack-for-bg2/"
   },
-  "file": {
-    "filename": "iwd-item-pack-1.3.zip",
-    "size": 3332863,
-    "sha256": "7426a46972cfd8f9b6fc5956012e763b75e5042aff8fe0cb25bd61752e1fcea6"
-  },
+  "files": [
+    {
+      "filename": "iwd-item-pack-1.3.zip",
+      "size": 3332863,
+      "sha256": "7426a46972cfd8f9b6fc5956012e763b75e5042aff8fe0cb25bd61752e1fcea6",
+      "download": "https://github.com/The-Gate-Project/IWD_Item-Pack/releases/download/v1.3/iwd-item-pack-1.3.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -71,12 +73,60 @@
         "61": "Amulette du jeune Ned"
       }
     },
-    "ru_RU": {"components": {"100": "12 new items in Joluv store", "1": "Black Wolf Talisman", "6": "Chain of Drakkas' Fury", "11": "House of Despana Insignia", "19": "Kegsplitter of Shaengarne Ford", "24": "Kresselack's Full Plate Mail", "29": "Mantle of the Coming Storm", "35": "SkullFlail", "40": "Spear of White Ash", "45": "Twelve Paces", "51": "Belib's Everlasting Torch", "56": "Binding Sash of the Black Raven", "61": "Young Ned's Knucky"}},
-    "it_IT": {"components": {"100": "12 new items in Joluv store", "1": "Talismano del Lupo Nero", "6": "Catena della Furia di Drakkas", "11": "Insegne della Casata Despana", "19": "Spaccabarili del Guado Shaengarne", "24": "Corazza di piastre completa di Kresselack", "29": "Manto della Tempesta Incombente", "35": "Mazzafrusto del Teschio", "40": "Lancia della Cenere Bianca", "45": "Dodici Passi", "51": "Torcia Eterna di Belib", "56": "Fascia Avvolgente del Corvo Nero", "61": "Knucky del Giovane Ned"}},
+    "ru_RU": {
+      "components": {
+        "100": "12 new items in Joluv store",
+        "1": "Black Wolf Talisman",
+        "6": "Chain of Drakkas' Fury",
+        "11": "House of Despana Insignia",
+        "19": "Kegsplitter of Shaengarne Ford",
+        "24": "Kresselack's Full Plate Mail",
+        "29": "Mantle of the Coming Storm",
+        "35": "SkullFlail",
+        "40": "Spear of White Ash",
+        "45": "Twelve Paces",
+        "51": "Belib's Everlasting Torch",
+        "56": "Binding Sash of the Black Raven",
+        "61": "Young Ned's Knucky"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "100": "12 new items in Joluv store",
+        "1": "Talismano del Lupo Nero",
+        "6": "Catena della Furia di Drakkas",
+        "11": "Insegne della Casata Despana",
+        "19": "Spaccabarili del Guado Shaengarne",
+        "24": "Corazza di piastre completa di Kresselack",
+        "29": "Manto della Tempesta Incombente",
+        "35": "Mazzafrusto del Teschio",
+        "40": "Lancia della Cenere Bianca",
+        "45": "Dodici Passi",
+        "51": "Torcia Eterna di Belib",
+        "56": "Fascia Avvolgente del Corvo Nero",
+        "61": "Knucky del Giovane Ned"
+      }
+    },
     "zh_CN": {
       "description": "对于那些仍在《博德之门2》中寻找新物品的玩家，这个小模组在铜冠旅店的额外商人乔卢夫的商品中添加了12件来自《冰风谷》和《冰风谷2》的物品。每件物品都可以单独安装。注意，有些物品非常不平衡（强力物品）。"
     },
-    "pl_PL": {"components": {"100": "12 new items in Joluv store", "1": "Talizman Czarnego Wilka", "6": "£añcuch Furii Drakkasa", "11": "Insygnia Domu Despana", "19": "Roz³upywacz Bary³ek z Brodu Shaengarne", "24": "Pe³na zbroja p³ytowa Kresselack'a", "29": "Peleryna Nadci¹gaj¹cej Burzy", "35": "Korbacz Czaszki", "40": "W³ócznia z Bia³ego Jesionu", "45": "Dwanaœcie Kroków", "51": "Niegasn¹ca pochodnia Beliba", "56": "Wi¹¿¹ca Szarfa Czarnego Kruka", "61": "Rybka szczêœliwka M³odego Neda"}}
+    "pl_PL": {
+      "components": {
+        "100": "12 new items in Joluv store",
+        "1": "Talizman Czarnego Wilka",
+        "6": "£añcuch Furii Drakkasa",
+        "11": "Insygnia Domu Despana",
+        "19": "Roz³upywacz Bary³ek z Brodu Shaengarne",
+        "24": "Pe³na zbroja p³ytowa Kresselack'a",
+        "29": "Peleryna Nadci¹gaj¹cej Burzy",
+        "35": "Korbacz Czaszki",
+        "40": "W³ócznia z Bia³ego Jesionu",
+        "45": "Dwanaœcie Kroków",
+        "51": "Niegasn¹ca pochodnia Beliba",
+        "56": "Wi¹¿¹ca Szarfa Czarnego Kruka",
+        "61": "Rybka szczêœliwka M³odego Neda"
+      }
+    }
   },
   "tp2": "iwditempack",
   "safe": 2,

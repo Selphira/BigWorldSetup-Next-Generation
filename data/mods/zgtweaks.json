@@ -2,14 +2,16 @@
   "name": "Random Graion Tweaks",
   "version": "1.17",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/34458-random-graion-tweaks/",
-    "download": "https://github.com/GraionDilach/RandomGraionTweaks/releases/download/version-1.17/random-graion-tweaks-1.17.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/34458-random-graion-tweaks/"
   },
-  "file": {
-    "filename": "random-graion-tweaks-1.17.zip",
-    "size": 18582848,
-    "sha256": "4774fe5637a1341d70d3d00535ce8dc434e14d635243b138b4087ecab2986625"
-  },
+  "files": [
+    {
+      "filename": "random-graion-tweaks-1.17.zip",
+      "size": 18582848,
+      "sha256": "4774fe5637a1341d70d3d00535ce8dc434e14d635243b138b4087ecab2986625",
+      "download": "https://github.com/GraionDilach/RandomGraionTweaks/releases/download/version-1.17/random-graion-tweaks-1.17.zip"
+    }
+  ],
   "games": ["tutu", "bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwdee"],
   "categories": ["gameplay"],
   "components": {
@@ -186,7 +188,76 @@
     "zh_CN": {
       "description": "这个模组提供了Graion Dilach为无限引擎游戏所做的各种修改。"
     },
-    "ru_RU": {"components": {"10": "Add random arcane spell scrolls to arcane casters of their highest memorized level", "11": "Add random arcane spell scrolls to arcane casters of their highest memorized level - 4", "12": "Add random arcane spell scrolls to arcane casters up until their highest memorized level", "13": "Add random arcane spell scrolls to arcane casters up until their highest memorized level - 4", "20": "Add random arcane spell scrolls to divine casters of their highest memorized level", "21": "Add random arcane spell scrolls to divine casters of their highest memorized level - 4", "22": "Add random arcane spell scrolls to divine casters up until their highest memorized level", "23": "Add random arcane spell scrolls to divine casters up until their highest memorized level - 4", "choice_0": "Replace nondroppable magic arrow clones with droppable counterparts", "31": "Do not change amounts in affected stacks", "32": "Decrease affected arrow stacks to 75%", "33": "Decrease affected arrow stacks to 66%", "34": "Decrease affected arrow stacks to 50%", "35": "Decrease affected arrow stacks to 33%", "36": "Decrease affected arrow stacks to 25%", "choice_1": "Change the amount of gold carried by creatures", "41": "Increase to 200%", "42": "Increase to 150%", "43": "Decrease to 83%", "44": "Decrease to 75%", "45": "Decrease to 66%", "46": "Decrease to 50%", "47": "Decrease to 33%", "48": "Decrease to 25%", "choice_2": "Change the value of standard jewellery (does not affect amulets/rings with magical effects/abilities)", "51": "Increase to 200%", "52": "Increase to 150%", "53": "Decrease to 83%", "54": "Decrease to 75%", "55": "Decrease to 66%", "56": "Decrease to 50%", "57": "Decrease to 33%", "58": "Decrease to 25%", "choice_3": "Change the percentage of the money merchants demand for an item", "61": "Decrease to 50%", "62": "Increase to 125%", "63": "Increase to 133%", "64": "Increase to 150%", "65": "Increase to 175%", "66": "Increase to 200%", "67": "Increase to 300%", "68": "Increase to 400%", "69": "Increase to 500%", "choice_4": "Change the percentage of the money merchants pay for an item", "71": "Increase to 200%", "72": "Increase to 150%", "73": "Decrease to 83%", "74": "Decrease to 75%", "75": "Decrease to 66%", "76": "Decrease to 50%", "77": "Decrease to 33%", "78": "Decrease to 25%", "choice_5": "Change the nonmagical common ammunition amount carried by creatures", "81": "Increase affected stacks to 150%", "82": "Decrease affected stacks to 75%", "83": "Decrease affected stacks to 66%", "84": "Decrease affected stacks to 50%", "85": "Decrease affected stacks to 33%", "86": "Decrease affected stacks to 25%", "100": "Mixed PnP-BG wisdom-based bonus spells table", "101": "Grant Ranger spell slots to Cleric-Ranger multiclasses", "1000": "Change Worgs to use IWD2 artwork", "1001": "Change Planetars to use their SoD solar-based artwork", "1002": "Use NWN Basilisk artwork from Infinity Animations for Made in Heaven Dracolisk", "9999": "Equip items from inventory to fill empty slots", "10000": "Bag of Spilling (move bugged supposed-to-be-available items to a bag in the creature's inventory)"}}
+    "ru_RU": {
+      "components": {
+        "10": "Add random arcane spell scrolls to arcane casters of their highest memorized level",
+        "11": "Add random arcane spell scrolls to arcane casters of their highest memorized level - 4",
+        "12": "Add random arcane spell scrolls to arcane casters up until their highest memorized level",
+        "13": "Add random arcane spell scrolls to arcane casters up until their highest memorized level - 4",
+        "20": "Add random arcane spell scrolls to divine casters of their highest memorized level",
+        "21": "Add random arcane spell scrolls to divine casters of their highest memorized level - 4",
+        "22": "Add random arcane spell scrolls to divine casters up until their highest memorized level",
+        "23": "Add random arcane spell scrolls to divine casters up until their highest memorized level - 4",
+        "choice_0": "Replace nondroppable magic arrow clones with droppable counterparts",
+        "31": "Do not change amounts in affected stacks",
+        "32": "Decrease affected arrow stacks to 75%",
+        "33": "Decrease affected arrow stacks to 66%",
+        "34": "Decrease affected arrow stacks to 50%",
+        "35": "Decrease affected arrow stacks to 33%",
+        "36": "Decrease affected arrow stacks to 25%",
+        "choice_1": "Change the amount of gold carried by creatures",
+        "41": "Increase to 200%",
+        "42": "Increase to 150%",
+        "43": "Decrease to 83%",
+        "44": "Decrease to 75%",
+        "45": "Decrease to 66%",
+        "46": "Decrease to 50%",
+        "47": "Decrease to 33%",
+        "48": "Decrease to 25%",
+        "choice_2": "Change the value of standard jewellery (does not affect amulets/rings with magical effects/abilities)",
+        "51": "Increase to 200%",
+        "52": "Increase to 150%",
+        "53": "Decrease to 83%",
+        "54": "Decrease to 75%",
+        "55": "Decrease to 66%",
+        "56": "Decrease to 50%",
+        "57": "Decrease to 33%",
+        "58": "Decrease to 25%",
+        "choice_3": "Change the percentage of the money merchants demand for an item",
+        "61": "Decrease to 50%",
+        "62": "Increase to 125%",
+        "63": "Increase to 133%",
+        "64": "Increase to 150%",
+        "65": "Increase to 175%",
+        "66": "Increase to 200%",
+        "67": "Increase to 300%",
+        "68": "Increase to 400%",
+        "69": "Increase to 500%",
+        "choice_4": "Change the percentage of the money merchants pay for an item",
+        "71": "Increase to 200%",
+        "72": "Increase to 150%",
+        "73": "Decrease to 83%",
+        "74": "Decrease to 75%",
+        "75": "Decrease to 66%",
+        "76": "Decrease to 50%",
+        "77": "Decrease to 33%",
+        "78": "Decrease to 25%",
+        "choice_5": "Change the nonmagical common ammunition amount carried by creatures",
+        "81": "Increase affected stacks to 150%",
+        "82": "Decrease affected stacks to 75%",
+        "83": "Decrease affected stacks to 66%",
+        "84": "Decrease affected stacks to 50%",
+        "85": "Decrease affected stacks to 33%",
+        "86": "Decrease affected stacks to 25%",
+        "100": "Mixed PnP-BG wisdom-based bonus spells table",
+        "101": "Grant Ranger spell slots to Cleric-Ranger multiclasses",
+        "1000": "Change Worgs to use IWD2 artwork",
+        "1001": "Change Planetars to use their SoD solar-based artwork",
+        "1002": "Use NWN Basilisk artwork from Infinity Animations for Made in Heaven Dracolisk",
+        "9999": "Equip items from inventory to fill empty slots",
+        "10000": "Bag of Spilling (move bugged supposed-to-be-available items to a bag in the creature's inventory)"
+      }
+    }
   },
   "tp2": "zgtweaks",
   "safe": 2,

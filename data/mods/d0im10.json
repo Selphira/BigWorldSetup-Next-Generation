@@ -2,14 +2,16 @@
   "name": "Iron Modder 10 - The Oldest Trick In The Book",
   "version": "1.2",
   "links": {
-    "homepage": "https://www.pocketplane.net/iron-modder-competition/",
-    "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/win-d0im10-v1.2.zip"
+    "homepage": "https://www.pocketplane.net/iron-modder-competition/"
   },
-  "file": {
-    "filename": "win-d0im10-v1.2.zip",
-    "size": 1279996,
-    "sha256": "c52790253a694553e20bed3b5f66aa44ac603920bf87c07a44c4941de432eb22"
-  },
+  "files": [
+    {
+      "filename": "win-d0im10-v1.2.zip",
+      "size": 1279996,
+      "sha256": "c52790253a694553e20bed3b5f66aa44ac603920bf87c07a44c4941de432eb22",
+      "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/win-d0im10-v1.2.zip"
+    }
+  ],
   "games": ["bg2"],
   "categories": ["quest"],
   "components": {

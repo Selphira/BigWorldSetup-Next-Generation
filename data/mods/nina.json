@@ -2,14 +2,16 @@
   "name": "Ninafer",
   "version": "1.02b",
   "links": {
-    "homepage": "https://davelevy.info/wiki/ninafer-a-bg1-mod/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Ninafer/archive/refs/heads/main.zip"
+    "homepage": "https://davelevy.info/wiki/ninafer-a-bg1-mod/"
   },
-  "file": {
-    "filename": "1D_NPC_Ninafer-main.zip",
-    "size": 3298363,
-    "sha256": "930088af2b59e4afbd3e7c26c4052b5d7696c13e2e67b76e4d5f01bc121e3fad"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Ninafer-main.zip",
+      "size": 3298363,
+      "sha256": "930088af2b59e4afbd3e7c26c4052b5d7696c13e2e67b76e4d5f01bc121e3fad",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Ninafer/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {

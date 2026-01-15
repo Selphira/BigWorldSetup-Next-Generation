@@ -2,14 +2,16 @@
   "name": "Fixing Saving throws BUG for Lecgacy of Bhaal difficulty",
   "version": "0.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/38985-legacyofbhaalfix-v04-fixing-saving-throws-bug-for-lecgacy-of-bhaal-difficulty/",
-    "download": "https://github.com/shohysie/LegacyofBhaalFix/archive/refs/tags/v0.5.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/38985-legacyofbhaalfix-v04-fixing-saving-throws-bug-for-lecgacy-of-bhaal-difficulty/"
   },
-  "file": {
-    "filename": "LegacyofBhaalFix-0.5.zip",
-    "size": 1281315,
-    "sha256": "5bfa044479ad083e9dd6dbf3ae86c49016e9a8e0a8d71c7bc3d21f13b9cd87a0"
-  },
+  "files": [
+    {
+      "filename": "LegacyofBhaalFix-0.5.zip",
+      "size": 1281315,
+      "sha256": "5bfa044479ad083e9dd6dbf3ae86c49016e9a8e0a8d71c7bc3d21f13b9cd87a0",
+      "download": "https://github.com/shohysie/LegacyofBhaalFix/archive/refs/tags/v0.5.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["patch"],
   "components": {

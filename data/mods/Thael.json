@@ -2,14 +2,16 @@
   "name": "Thael NPC",
   "version": "2.35",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/776-thael-npc-v-232/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/win-Thael-v2.35.zip"
+    "homepage": "http://www.shsforums.net/files/file/776-thael-npc-v-232/"
   },
-  "file": {
-    "filename": "win-Thael-v2.35.zip",
-    "size": 7488963,
-    "sha256": "33e5ed4e4d55e0044220c257bf6b4254c51b123b75960427596b2006a5e0e7b7"
-  },
+  "files": [
+    {
+      "filename": "win-Thael-v2.35.zip",
+      "size": 7488963,
+      "sha256": "33e5ed4e4d55e0044220c257bf6b4254c51b123b75960427596b2006a5e0e7b7",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/win-Thael-v2.35.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -40,8 +42,18 @@
     "zh_CN": {
       "description": "此模组增加了一个新的NPC：一个精灵法师/盗贼。他与BioWare的NPC、玩家角色都有对话，还有一个始于安姆阴影并在巴尔王座中继续的主线任务。赛尔位于渥金商场，离马戏团很近。他有一把神秘的短剑，维尔维洛斯，是在同样不寻常的情况下获得的；这个强大的神器对他有很大影响。\n在与维尔维洛斯所蕴含的可怕魔法能量接触后，赛尔发生了一些变异。其中之一，“变异之力”，在战斗中非常有用。你可以在角色特殊能力部分找到它。\n力量 16, 敏捷 20, 体质 16, 智力 18, 智慧 9, 魅力 10。"
     },
-    "es_ES": {"components": {"0": "THAEL, Elfo Mago-Ladron y VELVEVLOS, Hoja Sangrienta", "1": "Opcional: Instalar primera version de las voces para Thael"}},
-    "de_DE": {"components": {"0": "THAEL, Elfen Magier/Dieb und VELVEVLOS, das Blutige Blatt", "1": "Option: Install the first version of Thael´s sounds"}}
+    "es_ES": {
+      "components": {
+        "0": "THAEL, Elfo Mago-Ladron y VELVEVLOS, Hoja Sangrienta",
+        "1": "Opcional: Instalar primera version de las voces para Thael"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "THAEL, Elfen Magier/Dieb und VELVEVLOS, das Blutige Blatt",
+        "1": "Option: Install the first version of Thael´s sounds"
+      }
+    }
   },
   "tp2": "thael",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "BG1 Icons pack mod",
   "version": "1.0",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/88871/bg1-icons-pack-mod-released",
-    "download": "https://github.com/Alexander12-creator/bg1_icons_pack_mod/archive/refs/tags/1.0.zip"
+    "homepage": "https://forums.beamdog.com/discussion/88871/bg1-icons-pack-mod-released"
   },
-  "file": {
-    "filename": "bg1_icons_pack_mod-1.0.zip",
-    "size": 5638690,
-    "sha256": "5c7aab60a22610caf6a23c0644e6e5f809ed35fe59e2246ac566561f68853b59"
-  },
+  "files": [
+    {
+      "filename": "bg1_icons_pack_mod-1.0.zip",
+      "size": 5638690,
+      "sha256": "5c7aab60a22610caf6a23c0644e6e5f809ed35fe59e2246ac566561f68853b59",
+      "download": "https://github.com/Alexander12-creator/bg1_icons_pack_mod/archive/refs/tags/1.0.zip"
+    }
+  ],
   "games": ["bgee", "eet"],
   "categories": ["cosm"],
   "components": {

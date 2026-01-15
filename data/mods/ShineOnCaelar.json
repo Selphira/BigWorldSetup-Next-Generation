@@ -2,14 +2,16 @@
   "name": "Shine On Caelar",
   "version": "1.5",
   "links": {
-    "homepage": "https://github.com/RoxanneSHS/Caelar",
-    "download": "https://github.com/RoxanneSHS/Caelar/archive/refs/tags/V1.5.zip"
+    "homepage": "https://github.com/RoxanneSHS/Caelar"
   },
-  "file": {
-    "filename": "Caelar-1.5.zip",
-    "size": 1193289,
-    "sha256": "92d5fe650f21b9c814e6ba1508e642e6a54ee65bf8925ba34bdb5f4f9c96ddd1"
-  },
+  "files": [
+    {
+      "filename": "Caelar-1.5.zip",
+      "size": 1193289,
+      "sha256": "92d5fe650f21b9c814e6ba1508e642e6a54ee65bf8925ba34bdb5f4f9c96ddd1",
+      "download": "https://github.com/RoxanneSHS/Caelar/archive/refs/tags/V1.5.zip"
+    }
+  ],
   "games": ["bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -44,7 +46,12 @@
         "1": "Caelar's Rescue"
       }
     },
-    "ru_RU": {"components": {"0": "SoD Alternative", "1": "Caelar's Rescue"}}
+    "ru_RU": {
+      "components": {
+        "0": "SoD Alternative",
+        "1": "Caelar's Rescue"
+      }
+    }
   },
   "tp2": "shineoncaelar",
   "safe": 2,

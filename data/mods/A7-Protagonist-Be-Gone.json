@@ -2,14 +2,16 @@
   "name": "Protagonist-Be-Gone!",
   "version": "1.2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/36598-protagonist-be-gone-for-bg2-bgt-tutu-bgee-bg2ee-and-eet/",
-    "download": "https://github.com/Argent77/A7-Protagonist-Be-Gone/releases/download/v1.2/win-A7-Protagonist-Be-Gone-v1.2.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/36598-protagonist-be-gone-for-bg2-bgt-tutu-bgee-bg2ee-and-eet/"
   },
-  "file": {
-    "filename": "win-A7-Protagonist-Be-Gone-v1.2.zip",
-    "size": 2669526,
-    "sha256": "a2a31e03dcde9b4ba63eec8bf97ec2959a67a03b5e1a1346dd3949a48e30de4b"
-  },
+  "files": [
+    {
+      "filename": "win-A7-Protagonist-Be-Gone-v1.2.zip",
+      "size": 2669526,
+      "sha256": "a2a31e03dcde9b4ba63eec8bf97ec2959a67a03b5e1a1346dd3949a48e30de4b",
+      "download": "https://github.com/Argent77/A7-Protagonist-Be-Gone/releases/download/v1.2/win-A7-Protagonist-Be-Gone-v1.2.zip"
+    }
+  ],
   "games": ["bg", "bg2", "bgt", "tutu", "bgee", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -40,8 +42,18 @@
     "zh_CN": {
       "description": "此模组移除了主角，以便爱蒙最终能在游戏中占据她应有的位置。因此，该模组为游戏系列的BG1和BG2部分提供了“略有”修改的开场。游戏扩展（ToB和SoD）未被修改。"
     },
-    "de_DE": {"components": {"0": "Protagonist-ist-fort in BG1", "1": "Protagonist-ist-fort in BG2"}},
-    "ru_RU": {"components": {"0": "Protagonist-be-gone in BG1", "1": "Protagonist-be-gone in BG2"}}
+    "de_DE": {
+      "components": {
+        "0": "Protagonist-ist-fort in BG1",
+        "1": "Protagonist-ist-fort in BG2"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Protagonist-be-gone in BG1",
+        "1": "Protagonist-be-gone in BG2"
+      }
+    }
   },
   "tp2": "a7-protagonist-be-gone",
   "safe": 1,

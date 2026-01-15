@@ -2,14 +2,16 @@
   "name": "IWDification",
   "version": "11",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/spells/iwdification/",
-    "download": "https://github.com/Gibberlings3/iwdification/releases/download/v11/iwdification-v11.exe"
+    "homepage": "https://www.gibberlings3.net/mods/spells/iwdification/"
   },
-  "file": {
-    "filename": "iwdification-v11.exe",
-    "size": 43292159,
-    "sha256": "d33df198b3bf8ae392ac27fbd9e31b16a33498da191d85a622bf69249e99df9b"
-  },
+  "files": [
+    {
+      "filename": "iwdification-v11.exe",
+      "size": 43292159,
+      "sha256": "d33df198b3bf8ae392ac27fbd9e31b16a33498da191d85a622bf69249e99df9b",
+      "download": "https://github.com/Gibberlings3/iwdification/releases/download/v11/iwdification-v11.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "tutu"],
   "categories": ["spell"],
   "components": {
@@ -136,9 +138,96 @@
         "80": "附加的头像图标"
       }
     },
-    "es_ES": {"components": {"10": "Graficos de hechizos de Icewind Dale (Andyr)", "20": "Los plebeyos usan colores oscuros", "60": "Pack de hachas a 2 manos", "90": "Poliformarse expandido", "130": "Usar animaciones al herir de IWD", "choice_0": "Equipamiento de enemigos aleatorio", "140": "Agregar objetos de alta calidad", "141": "No agregar objetos de alta calidad", "190": "Increase Spear Damage", "50": "Actualizacion de clases a IWD: Bardo: Agregar canciones de bardo de IWD", "180": "Bard Class Update: Selectable Bard Songs for Jesters and Skalds", "150": "Actualizacion de clase a IWD: Bardo: Usar progresion de hechizos de IWD", "70": "Actualizacion de clases a IWD: Druida: Usar progresion de cambiaformas y habilidades de IWD", "71": "Actualizacion de clases a IWD: Druida: Permitir que los elfos sean druidas", "100": "Actualizacion de clase a IWD: Paladin: Habilidades de IWD", "160": "Actualizacion de clase a IWD: Paladin: Usar progresion de hechizos de IWD", "choice_1": "Actualizacion de clase a IWD: Explorador: Rastrear", "110": "Change Tracking for all rangers and ranger kits", "111": "Change Tracking only for non-kitted rangers", "170": "Actualizacion de clase a IWD: Explorador: Usar progresion de hechizos de IWD", "choice_2": "Actualizacion de clase a IWD: Ladron: Evasion", "120": "Add evasion to thieves and all thief kits", "121": "Add evasion only to non-kitted thieves", "30": "Pack de hechizos arcanos de IWD", "40": "Pack de hechizos divinos de IWD", "80": "Iconos de retrato adicionales"}},
-    "ru_RU": {"components": {"10": "Icewind Dale Casting Graphics (Andyr)", "20": "Commoners Use Drab Colors", "60": "Two-Handed Axe Item Pack", "90": "Expanded Polymorph Self", "130": "Use IWD Damage Animations", "choice_0": "Randomized Enemy Equipment", "140": "Add High Quality Items", "141": "Do Not Add High Quality Items", "190": "Increase Spear Damage", "50": "IWD Class Updates: Bard: Add IWD Bard Songs", "180": "IWD Class Updates: Bard: Selectable Bard Songs for Jesters and Skalds", "150": "IWD Class Updates: Bard: Use IWD Spell Progression", "70": "IWD Class Updates: Druid: Use IWD Shapeshifting and Ability Progression", "71": "IWD Class Updates: Druid: Allow Elves to be Druids", "100": "IWD Class Updates: Paladin: IWD Abilities and Skills", "160": "IWD Class Updates: Paladin: Use IWD Spell Progression", "choice_1": "IWD Class Updates: Ranger: Tracking", "110": "Change Tracking for all rangers and ranger kits", "111": "Change Tracking only for non-kitted rangers", "170": "IWD Class Updates: Ranger: Use IWD Spell Progression", "choice_2": "IWD Class Updates: Thief: Evasion", "120": "Add evasion to thieves and all thief kits", "121": "Add evasion only to non-kitted thieves", "30": "IWD Arcane Spell Pack", "40": "IWD Divine Spell Pack", "80": "Additional Portrait Icons"}},
-    "pl_PL": {"components": {"10": "Efekty rzucania zakleć z Icewind Dale (Andyr)", "20": "Mieszczanie noszą ubrania w bladych odcieniach", "60": "Paczka Toporów Oburęcznych", "90": "Rozszerzone Polimorfowanie Siebie", "130": "Użyj efektów obrażeń z IWD", "choice_0": "Losowy ekwipunek przeciwników", "140": "Dodaj wysokiej jakości niemagiczny ekwipunek", "141": "Nie dodawaj wysokiej jakości niemagicznego ekwipunku", "190": "Increase Spear Damage", "50": "Zmiany klas w stylu IWD: Bard: Dodaj bardowskie pieśni z IWD", "180": "Zmiany klas w stylu IWD: Bard: Możliwy wybór bardowskich pieśni dla Błaznów i Skaldów", "150": "Zmiany klas w stylu IWD: Bard: Użyj progresji zaklęć z IWD", "70": "Zmiany klas w stylu IWD: Zmiennokształtność i rozwój cech z IWD", "71": "Zmiany klas w stylu IWD: Druid: Pozwól elfom wybrać klasę Druida", "100": "Zmiany klas w stylu IWD: Paladyn: Cechy i Umiejetności z IWD", "160": "Zmiany klas w stylu IWD: Paladyn: Użyj progresji zaklęć z IWD", "choice_1": "Zmiany klas w stylu IWD: Łowca: Tropienie", "110": "Zmień Tropienie dla Łowcy i jego podklas", "111": "Zmień Tropienie wyłącznie dla Łowców bez podklasy", "170": "Zmiany klas w stylu IWD: Łowca: Użyj progresji zaklęć z IWD", "choice_2": "Zmiany klas w stylu IWD: Złodziej: Odskok", "120": "Dodaj Odskok dla Złodzieja i jego podklas", "121": "Dodaj Odskok wyłącznie dla Złodziei bez podklasy", "30": "Paczka zaklęć magii wtajemniczeń/tajemnej z IWD", "40": "Paczka zaklęć magii objawień z IWD", "80": "Dodatkowe ikony portretów"}}
+    "es_ES": {
+      "components": {
+        "10": "Graficos de hechizos de Icewind Dale (Andyr)",
+        "20": "Los plebeyos usan colores oscuros",
+        "60": "Pack de hachas a 2 manos",
+        "90": "Poliformarse expandido",
+        "130": "Usar animaciones al herir de IWD",
+        "choice_0": "Equipamiento de enemigos aleatorio",
+        "140": "Agregar objetos de alta calidad",
+        "141": "No agregar objetos de alta calidad",
+        "190": "Increase Spear Damage",
+        "50": "Actualizacion de clases a IWD: Bardo: Agregar canciones de bardo de IWD",
+        "180": "Bard Class Update: Selectable Bard Songs for Jesters and Skalds",
+        "150": "Actualizacion de clase a IWD: Bardo: Usar progresion de hechizos de IWD",
+        "70": "Actualizacion de clases a IWD: Druida: Usar progresion de cambiaformas y habilidades de IWD",
+        "71": "Actualizacion de clases a IWD: Druida: Permitir que los elfos sean druidas",
+        "100": "Actualizacion de clase a IWD: Paladin: Habilidades de IWD",
+        "160": "Actualizacion de clase a IWD: Paladin: Usar progresion de hechizos de IWD",
+        "choice_1": "Actualizacion de clase a IWD: Explorador: Rastrear",
+        "110": "Change Tracking for all rangers and ranger kits",
+        "111": "Change Tracking only for non-kitted rangers",
+        "170": "Actualizacion de clase a IWD: Explorador: Usar progresion de hechizos de IWD",
+        "choice_2": "Actualizacion de clase a IWD: Ladron: Evasion",
+        "120": "Add evasion to thieves and all thief kits",
+        "121": "Add evasion only to non-kitted thieves",
+        "30": "Pack de hechizos arcanos de IWD",
+        "40": "Pack de hechizos divinos de IWD",
+        "80": "Iconos de retrato adicionales"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "10": "Icewind Dale Casting Graphics (Andyr)",
+        "20": "Commoners Use Drab Colors",
+        "60": "Two-Handed Axe Item Pack",
+        "90": "Expanded Polymorph Self",
+        "130": "Use IWD Damage Animations",
+        "choice_0": "Randomized Enemy Equipment",
+        "140": "Add High Quality Items",
+        "141": "Do Not Add High Quality Items",
+        "190": "Increase Spear Damage",
+        "50": "IWD Class Updates: Bard: Add IWD Bard Songs",
+        "180": "IWD Class Updates: Bard: Selectable Bard Songs for Jesters and Skalds",
+        "150": "IWD Class Updates: Bard: Use IWD Spell Progression",
+        "70": "IWD Class Updates: Druid: Use IWD Shapeshifting and Ability Progression",
+        "71": "IWD Class Updates: Druid: Allow Elves to be Druids",
+        "100": "IWD Class Updates: Paladin: IWD Abilities and Skills",
+        "160": "IWD Class Updates: Paladin: Use IWD Spell Progression",
+        "choice_1": "IWD Class Updates: Ranger: Tracking",
+        "110": "Change Tracking for all rangers and ranger kits",
+        "111": "Change Tracking only for non-kitted rangers",
+        "170": "IWD Class Updates: Ranger: Use IWD Spell Progression",
+        "choice_2": "IWD Class Updates: Thief: Evasion",
+        "120": "Add evasion to thieves and all thief kits",
+        "121": "Add evasion only to non-kitted thieves",
+        "30": "IWD Arcane Spell Pack",
+        "40": "IWD Divine Spell Pack",
+        "80": "Additional Portrait Icons"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "10": "Efekty rzucania zakleć z Icewind Dale (Andyr)",
+        "20": "Mieszczanie noszą ubrania w bladych odcieniach",
+        "60": "Paczka Toporów Oburęcznych",
+        "90": "Rozszerzone Polimorfowanie Siebie",
+        "130": "Użyj efektów obrażeń z IWD",
+        "choice_0": "Losowy ekwipunek przeciwników",
+        "140": "Dodaj wysokiej jakości niemagiczny ekwipunek",
+        "141": "Nie dodawaj wysokiej jakości niemagicznego ekwipunku",
+        "190": "Increase Spear Damage",
+        "50": "Zmiany klas w stylu IWD: Bard: Dodaj bardowskie pieśni z IWD",
+        "180": "Zmiany klas w stylu IWD: Bard: Możliwy wybór bardowskich pieśni dla Błaznów i Skaldów",
+        "150": "Zmiany klas w stylu IWD: Bard: Użyj progresji zaklęć z IWD",
+        "70": "Zmiany klas w stylu IWD: Zmiennokształtność i rozwój cech z IWD",
+        "71": "Zmiany klas w stylu IWD: Druid: Pozwól elfom wybrać klasę Druida",
+        "100": "Zmiany klas w stylu IWD: Paladyn: Cechy i Umiejetności z IWD",
+        "160": "Zmiany klas w stylu IWD: Paladyn: Użyj progresji zaklęć z IWD",
+        "choice_1": "Zmiany klas w stylu IWD: Łowca: Tropienie",
+        "110": "Zmień Tropienie dla Łowcy i jego podklas",
+        "111": "Zmień Tropienie wyłącznie dla Łowców bez podklasy",
+        "170": "Zmiany klas w stylu IWD: Łowca: Użyj progresji zaklęć z IWD",
+        "choice_2": "Zmiany klas w stylu IWD: Złodziej: Odskok",
+        "120": "Dodaj Odskok dla Złodzieja i jego podklas",
+        "121": "Dodaj Odskok wyłącznie dla Złodziei bez podklasy",
+        "30": "Paczka zaklęć magii wtajemniczeń/tajemnej z IWD",
+        "40": "Paczka zaklęć magii objawień z IWD",
+        "80": "Dodatkowe ikony portretów"
+      }
+    }
   },
   "tp2": "iwdification",
   "safe": 2,

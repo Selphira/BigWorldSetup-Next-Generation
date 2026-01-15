@@ -2,14 +2,16 @@
   "name": "Realistic Portraits for BG2EE",
   "version": "3.0",
   "links": {
-    "homepage": "https://www.nexusmods.com/baldursgate2ee/mods/76?tab=description",
-    "download": "https://www.nexusmods.com/baldursgate2ee/mods/76?tab=files&file_id=269"
+    "homepage": "https://www.nexusmods.com/baldursgate2ee/mods/76?tab=description"
   },
-  "file": {
-    "filename": "Realistic Portraits for BG2EE - Complete Pack-76-3-0-1727086602.zip",
-    "size": 45339434,
-    "sha256": "d23cd86a9fee23c2878eab59cf640101ba27c32db09c8e97ef6cd69afba5a49c"
-  },
+  "files": [
+    {
+      "filename": "Realistic Portraits for BG2EE - Complete Pack-76-3-0-1727086602.zip",
+      "size": 45339434,
+      "sha256": "d23cd86a9fee23c2878eab59cf640101ba27c32db09c8e97ef6cd69afba5a49c",
+      "download": "https://www.nexusmods.com/baldursgate2ee/mods/76?tab=files&file_id=269"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["portrait"],
   "components": {

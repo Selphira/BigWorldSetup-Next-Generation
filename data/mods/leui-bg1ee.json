@@ -2,14 +2,16 @@
   "name": "lefreut's Enhanced UI (BG1EE skin)",
   "version": "4.9.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30827-ui-lefreuts-enhanced-ui-bgee-sod-bg2ee-and-eet/",
-    "download": "https://github.com/r-e-d/LeUI-BG1EE/releases/download/v4.9.1/lefreuts-enhanced-ui-bg1ee-skin-4.9.1.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/30827-ui-lefreuts-enhanced-ui-bgee-sod-bg2ee-and-eet/"
   },
-  "file": {
-    "filename": "lefreuts-enhanced-ui-bg1ee-skin-4.9.1.zip",
-    "size": 24597404,
-    "sha256": "dd429a7c195a80ace9092522ed9cb82899d20c2a1bc39a94de88ca4c64cc99a6"
-  },
+  "files": [
+    {
+      "filename": "lefreuts-enhanced-ui-bg1ee-skin-4.9.1.zip",
+      "size": 24597404,
+      "sha256": "dd429a7c195a80ace9092522ed9cb82899d20c2a1bc39a94de88ca4c64cc99a6",
+      "download": "https://github.com/r-e-d/LeUI-BG1EE/releases/download/v4.9.1/lefreuts-enhanced-ui-bg1ee-skin-4.9.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["ui"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Prêtre de Bhaal",
   "version": "1.4",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31643",
-    "download": "https://github.com/Plutonium-X/KIT_Bhaal/releases/download/v1.4/win-P.Bhaal.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31643"
   },
-  "file": {
-    "filename": "win-P.Bhaal.zip",
-    "size": 1288353,
-    "sha256": "7520b400f6b8b89da1fd5c1c9ea988afde30444755e1e417066be04727ee2a92"
-  },
+  "files": [
+    {
+      "filename": "win-P.Bhaal.zip",
+      "size": 1288353,
+      "sha256": "7520b400f6b8b89da1fd5c1c9ea988afde30444755e1e417066be04727ee2a92",
+      "download": "https://github.com/Plutonium-X/KIT_Bhaal/releases/download/v1.4/win-P.Bhaal.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Improved HaerDalis Swords",
   "version": "3.1.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/804-improved-haerdalis-swords/",
-    "download": "https://github.com/Spellhold-Studios/HaerDalis-Swords/releases/download/v3.1.0/improved-haerdalis-swords-v3.1.0.zip"
+    "homepage": "http://www.shsforums.net/files/file/804-improved-haerdalis-swords/"
   },
-  "file": {
-    "filename": "improved-haerdalis-swords-v3.1.0.zip",
-    "size": 4240069,
-    "sha256": "8831c4ec2ff1afc70b198aefea42bde629f8efc6c5e23883b3c0af3aa422dad2"
-  },
+  "files": [
+    {
+      "filename": "improved-haerdalis-swords-v3.1.0.zip",
+      "size": 4240069,
+      "sha256": "8831c4ec2ff1afc70b198aefea42bde629f8efc6c5e23883b3c0af3aa422dad2",
+      "download": "https://github.com/Spellhold-Studios/HaerDalis-Swords/releases/download/v3.1.0/improved-haerdalis-swords-v3.1.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -30,7 +32,11 @@
         "0": "Improved Haer'Dalis' swords (special for Kania)"
       }
     },
-    "ru_RU": {"components": {"0": "Improved Haer'Dalis' swords (special for Kania)"}},
+    "ru_RU": {
+      "components": {
+        "0": "Improved Haer'Dalis' swords (special for Kania)"
+      }
+    },
     "fr_FR": {
       "description": "Ce mini mod permet d'améliorer les épées d'Haer'Dalis en Ombreterre.",
       "components": {
@@ -40,9 +46,21 @@
     "zh_CN": {
       "description": "这个迷你模组可以提升海尔达利在幽暗地域的剑。"
     },
-    "de_DE": {"components": {"0": "Verbesserte Haer'Dalis' Schwerter (Special fuer Kania)"}},
-    "pl_PL": {"components": {"0": "Ulepszone miecze Haer'Dalisa (specjalnie dla Kanii)"}},
-    "it_IT": {"components": {"0": "Spade di Haer'Dalis migliorate (special for Kania)"}}
+    "de_DE": {
+      "components": {
+        "0": "Verbesserte Haer'Dalis' Schwerter (Special fuer Kania)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Ulepszone miecze Haer'Dalisa (specjalnie dla Kanii)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Spade di Haer'Dalis migliorate (special for Kania)"
+      }
+    }
   },
   "tp2": "swordap",
   "safe": 2,

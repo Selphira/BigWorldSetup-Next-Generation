@@ -2,14 +2,16 @@
   "name": "Relieve Wizard Slayer",
   "version": "1.7",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/68377/kit-revision-relieve-wizard-slayer-v1-7-iwdee-eet-bgee-bg2ee",
-    "download": "https://github.com/Raduziel/Relieve-Wizard-Slayer/archive/refs/tags/1.7.zip"
+    "homepage": "https://forums.beamdog.com/discussion/68377/kit-revision-relieve-wizard-slayer-v1-7-iwdee-eet-bgee-bg2ee"
   },
-  "file": {
-    "filename": "Relieve-Wizard-Slayer-1.7.zip",
-    "size": 909794,
-    "sha256": "9c6b5f6bd5206ed217f8020570c92e80bb49d3c6dcc31e3167f11f25edbce0b1"
-  },
+  "files": [
+    {
+      "filename": "Relieve-Wizard-Slayer-1.7.zip",
+      "size": 909794,
+      "sha256": "9c6b5f6bd5206ed217f8020570c92e80bb49d3c6dcc31e3167f11f25edbce0b1",
+      "download": "https://github.com/Raduziel/Relieve-Wizard-Slayer/archive/refs/tags/1.7.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -39,7 +41,12 @@
     "zh_CN": {
       "description": "这个模组修改（改进？）了法师杀手的专长。一个可选组件允许将其赋予瓦里格。"
     },
-    "ru_RU": {"components": {"0": "Relieve Wizard Slayer", "1": "Valygar, the Wizard Slayer"}}
+    "ru_RU": {
+      "components": {
+        "0": "Relieve Wizard Slayer",
+        "1": "Valygar, the Wizard Slayer"
+      }
+    }
   },
   "tp2": "relievewizardslayer",
   "safe": 2,

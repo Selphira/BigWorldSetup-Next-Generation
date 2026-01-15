@@ -2,14 +2,16 @@
   "name": "SelphiraTweaks",
   "version": "1.4",
   "links": {
-    "homepage": "https://github.com/Selphira/SelphiraTweaks",
-    "download": "https://github.com/Selphira/SelphiraTweaks/releases/download/1.4/SelphiraTweaks-v1.4.zip"
+    "homepage": "https://github.com/Selphira/SelphiraTweaks"
   },
-  "file": {
-    "filename": "SelphiraTweaks-v1.4.zip",
-    "size": 11227,
-    "sha256": "64097360fd289be9def20f4d5a94fc2b9730d8b15c40f09f693a0d8c9028fdb9"
-  },
+  "files": [
+    {
+      "filename": "SelphiraTweaks-v1.4.zip",
+      "size": 11227,
+      "sha256": "64097360fd289be9def20f4d5a94fc2b9730d8b15c40f09f693a0d8c9028fdb9",
+      "download": "https://github.com/Selphira/SelphiraTweaks/releases/download/1.4/SelphiraTweaks-v1.4.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

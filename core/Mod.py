@@ -166,14 +166,26 @@ class ModFile:
 
     filename: str
     size: int
-    sha256: str
+    sha256: str | None
+    download: str | None
+    platforms: tuple[str, ...] = ("windows", "linux", "macos")
+
+    def supports_platform(self, platform: str) -> bool:
+        """Check if this file supports the given platform."""
+        return platform in self.platforms
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "ModFile":
+        platforms = data.get("platforms")
+        if platforms is None:
+            platforms = ["windows", "linux", "macos"]
+
         return cls(
             filename=data.get("filename", ""),
             size=int(data.get("size", 0)),
-            sha256=data.get("sha256", ""),
+            sha256=data.get("sha256"),
+            download=data.get("download"),
+            platforms=tuple(platforms),
         )
 
 
@@ -194,7 +206,6 @@ class Mod:
         "languages",
         "version",
         "description",
-        "download",
         "readme",
         "homepage",
         "safe",
@@ -202,7 +213,7 @@ class Mod:
         "_components_raw",
         "_translations",
         "_components_cache",
-        "file",
+        "files",
     )
 
     def __init__(self, data: dict[str, Any]) -> None:
@@ -231,7 +242,6 @@ class Mod:
         # Optional links
         links = data.get("links")
         self.homepage: str | None = links.get("homepage")
-        self.download: str | None = links.get("download")
         self.readme: str | None = links.get("readme")
 
         # Other
@@ -243,11 +253,24 @@ class Mod:
 
         self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
 
-        self.file: ModFile | None = (
-            ModFile.from_dict(file_data) if (file_data := data.get("file")) else None
-        )
+        self.files: list[ModFile] = [ModFile.from_dict(f) for f in data.get("files", [])]
 
         self._create_components()
+
+    def get_file_for_platform(self, platform: str) -> ModFile | None:
+        """Get the first compatible file for the given platform."""
+        for file in self.files:
+            if file.supports_platform(platform):
+                return file
+        return None
+
+    def get_all_files_for_platform(self, platform: str) -> list[ModFile]:
+        """Get all compatible files for the given platform."""
+        return [f for f in self.files if f.supports_platform(platform)]
+
+    def has_file(self) -> bool:
+        """Check if mod has at least one file."""
+        return len(self.files) > 0
 
     def get_component(self, key: str) -> Component | None:
         """

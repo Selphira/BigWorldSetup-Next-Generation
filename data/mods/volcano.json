@@ -2,14 +2,16 @@
   "name": "The Improved Volcano! Pack",
   "version": "2.5",
   "links": {
-    "homepage": "https://github.com/Black-Wyrm-Lair/Volcano_Pack",
-    "download": "https://github.com/Black-Wyrm-Lair/Volcano_Pack/releases/download/v2.5/the-improved-volcano-pack-v2.5.zip"
+    "homepage": "https://github.com/Black-Wyrm-Lair/Volcano_Pack"
   },
-  "file": {
-    "filename": "the-improved-volcano-pack-v2.5.zip",
-    "size": 4829774,
-    "sha256": "169a763912a283f8987295271de13f6585981a8ab283b7f13dc0d83e2a0f60a8"
-  },
+  "files": [
+    {
+      "filename": "the-improved-volcano-pack-v2.5.zip",
+      "size": 4829774,
+      "sha256": "169a763912a283f8987295271de13f6585981a8ab283b7f13dc0d83e2a0f60a8",
+      "download": "https://github.com/Black-Wyrm-Lair/Volcano_Pack/releases/download/v2.5/the-improved-volcano-pack-v2.5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "这个模组在阿姆凯森村的渥金神殿附近添加了商人佐德萨克。他出售强大的物品和法术，但价格高昂。由于这个模组是应狂热玩家的要求编写的，作者并不喜欢其“土豪”风格，因此避开了这一点。"
     },
-    "de_DE": {"components": {"0": "Improved Volcano! Pack"}},
-    "it_IT": {"components": {"0": "Vulcano Migliorato! Pacchetto"}},
-    "ru_RU": {"components": {"0": "Improved Volcano! Pack"}}
+    "de_DE": {
+      "components": {
+        "0": "Improved Volcano! Pack"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Vulcano Migliorato! Pacchetto"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Improved Volcano! Pack"
+      }
+    }
   },
   "tp2": "volcano",
   "safe": 2,

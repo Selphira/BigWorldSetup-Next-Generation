@@ -2,14 +2,16 @@
   "name": "Hanna NPC",
   "version": "2.5",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/821-hanna-pnj/",
-    "download": "http://www.shsforums.net/files/download/821-hanna-pnj/"
+    "homepage": "http://www.shsforums.net/files/file/821-hanna-pnj/"
   },
-  "file": {
-    "filename": "Hanna PNJ v2.5.zip",
-    "size": 9751132,
-    "sha256": "cca6abe0a67c8f212fc07f0d675d53e8aaffabc606aba33e40d4a2c38ebdd20e"
-  },
+  "files": [
+    {
+      "filename": "Hanna PNJ v2.5.zip",
+      "size": 9751132,
+      "sha256": "cca6abe0a67c8f212fc07f0d675d53e8aaffabc606aba33e40d4a2c38ebdd20e",
+      "download": "http://www.shsforums.net/files/download/821-hanna-pnj/"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -57,15 +59,23 @@
     },
     "es_ES": {
       "components": {
-        "0": "Hanna NPC (Requiere ToB)", "1": "Castillo De´Arnise Mejorado", "2": "Irenicus Mejorado",
-        "3": "Genio del Infierno mejorado", "4": "Dragon de Irenicus mejorado", "5": "Dragon del infierno mejorado",
+        "0": "Hanna NPC (Requiere ToB)",
+        "1": "Castillo De´Arnise Mejorado",
+        "2": "Irenicus Mejorado",
+        "3": "Genio del Infierno mejorado",
+        "4": "Dragon de Irenicus mejorado",
+        "5": "Dragon del infierno mejorado",
         "6": "Cripta de Caravasar mejorada"
       }
     },
     "de_DE": {
       "components": {
-        "0": "Hanna NPC (Setzt TdB voraus)", "1": "Erweiterte De´Arnise Festung", "2": "Verbesserter Irenicus",
-        "3": "Verbesserter Höllendschinn", "4": "Verbesserter Drachen des Irenicus", "5": "Verbesserter Höllendrache",
+        "0": "Hanna NPC (Setzt TdB voraus)",
+        "1": "Erweiterte De´Arnise Festung",
+        "2": "Verbesserter Irenicus",
+        "3": "Verbesserter Höllendschinn",
+        "4": "Verbesserter Drachen des Irenicus",
+        "5": "Verbesserter Höllendrache",
         "6": "verbesserte Krypta der Karawanserei"
       }
     }

@@ -2,14 +2,16 @@
   "name": "Aerie in BG:EE",
   "version": "2.5",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/38824/aerie-in-bg-ee-v1-1/p1",
-    "download": "https://github.com/The-Gate-Project/AerieBG1/releases/download/v2.5/aerie-in-bgee-2.5.zip"
+    "homepage": "https://forums.beamdog.com/discussion/38824/aerie-in-bg-ee-v1-1/p1"
   },
-  "file": {
-    "filename": "aerie-in-bgee-2.5.zip",
-    "size": 14238571,
-    "sha256": "f3bb12a127cbc5315b383e9220289ed1ae107c8dbc6ea94c340de410f02c742b"
-  },
+  "files": [
+    {
+      "filename": "aerie-in-bgee-2.5.zip",
+      "size": 14238571,
+      "sha256": "f3bb12a127cbc5315b383e9220289ed1ae107c8dbc6ea94c340de410f02c742b",
+      "download": "https://github.com/The-Gate-Project/AerieBG1/releases/download/v2.5/aerie-in-bgee-2.5.zip"
+    }
+  ],
   "games": ["bgee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -40,8 +42,18 @@
     "zh_CN": {
       "description": "这个小模组让艾黎出现在博德之门1中。如果你已经在博德之门2中认识她，你就已经知道最有可能在哪里找到她了。否则……嗯，就在那西凯的集市里（在博德之门2中，她说马戏团过去常去那里……）。她不能被招募，但你可以为她完成一些小任务，之后她会搬到班塔的帐篷里，并提供她的服务（神殿和商店）。"
     },
-    "ru_RU": {"components": {"5000": "Aerie for BG:EE", "5001": "Install a lighter variant of the portrait for Aerie? (This changes her BG2 portrait as well in EET.)"}},
-    "es_ES": {"components": {"5000": "Aerie para BG:EE", "5001": "¿Instalar una variante más clara del retrato para Aerie? (Esto cambia su retrato BG2 también en EET.)"}}
+    "ru_RU": {
+      "components": {
+        "5000": "Aerie for BG:EE",
+        "5001": "Install a lighter variant of the portrait for Aerie? (This changes her BG2 portrait as well in EET.)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "5000": "Aerie para BG:EE",
+        "5001": "¿Instalar una variante más clara del retrato para Aerie? (Esto cambia su retrato BG2 también en EET.)"
+      }
+    }
   },
   "tp2": "bg1aerie",
   "safe": 2,

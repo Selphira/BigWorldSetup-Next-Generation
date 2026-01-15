@@ -2,14 +2,16 @@
   "name": "Tipun's User Interface",
   "version": "2.1.3",
   "links": {
-    "homepage": "https://arcanecoast.ru/forum/viewtopic.php?f=31&t=1604",
-    "download": "https://github.com/tipun81/tipun_gui_mod/archive/refs/heads/main.zip"
+    "homepage": "https://arcanecoast.ru/forum/viewtopic.php?f=31&t=1604"
   },
-  "file": {
-    "filename": "tipun_gui_mod-main.zip",
-    "size": 79451131,
-    "sha256": "9ea5317a53d3d1f88e85f2f30d2842584f0a07ec2c1c77c9ebfb3cf07050ada2"
-  },
+  "files": [
+    {
+      "filename": "tipun_gui_mod-main.zip",
+      "size": 79451131,
+      "sha256": "9ea5317a53d3d1f88e85f2f30d2842584f0a07ec2c1c77c9ebfb3cf07050ada2",
+      "download": "https://github.com/tipun81/tipun_gui_mod/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "sod", "bg2ee", "eet"],
   "categories": ["ui"],
   "components": {
@@ -39,7 +41,12 @@
     "zh_CN": {
       "description": "此模组修改了博德之门：龙矛围攻、博德之门II增强版和Enhanced Edition Trilogy的用户界面。\n注意：许多新功能默认是关闭的。你可以在“附加选项”菜单中启用它们。"
     },
-    "ru_RU": {"components": {"10": "Tipun's User Interface (main component)", "20": "Tipun's User Interface (create data tables)"}}
+    "ru_RU": {
+      "components": {
+        "10": "Tipun's User Interface (main component)",
+        "20": "Tipun's User Interface (create data tables)"
+      }
+    }
   },
   "tp2": "tipun_gui",
   "safe": 2,

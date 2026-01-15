@@ -2,14 +2,16 @@
   "name": "Imoen Friendship",
   "version": "3.6",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/901-imoen-friendship-soa-tob/",
-    "download": "https://github.com/Spellhold-Studios/Imoen-Friendship/releases/download/v3.6/imoen-friendship-v3.6.zip"
+    "homepage": "http://www.shsforums.net/files/file/901-imoen-friendship-soa-tob/"
   },
-  "file": {
-    "filename": "imoen-friendship-v3.6.zip",
-    "size": 4272305,
-    "sha256": "60cf8815708121ee0e71a8271b4b740dcde47b6c004ee006a7e812ec6ea129e6"
-  },
+  "files": [
+    {
+      "filename": "imoen-friendship-v3.6.zip",
+      "size": 4272305,
+      "sha256": "60cf8815708121ee0e71a8271b4b740dcde47b6c004ee006a7e812ec6ea129e6",
+      "download": "https://github.com/Spellhold-Studios/Imoen-Friendship/releases/download/v3.6/imoen-friendship-v3.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -30,7 +32,11 @@
         "0": "Imoen Friendship"
       }
     },
-    "ru_RU": {"components": {"0": "Imoen Friendship for SoA"}},
+    "ru_RU": {
+      "components": {
+        "0": "Imoen Friendship for SoA"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute une série de dialogues avec Imoen, la soeur du PJ, développant son vécu et les luttes d'Imoen.",
       "components": {
@@ -43,8 +49,16 @@
         "0": "°®ÃÉÓÑÒê²å»°°ü"
       }
     },
-    "pl_PL": {"components": {"0": "Sciezka przyjazni z Imoen dla BG2"}},
-    "es_ES": {"components": {"0": "Imoen Friendship para BG2"}}
+    "pl_PL": {
+      "components": {
+        "0": "Sciezka przyjazni z Imoen dla BG2"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Imoen Friendship para BG2"
+      }
+    }
   },
   "tp2": "imoenfriendship",
   "safe": 2,

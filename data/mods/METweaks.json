@@ -2,14 +2,16 @@
   "name": "Olvyn's Tweaks",
   "version": "Latest Github release",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/74322/mod-metweaks-version-1-0",
-    "download": "https://github.com/OlvynChuru/Olvyn-Tweaks/archive/master.zip"
+    "homepage": "https://forums.beamdog.com/discussion/74322/mod-metweaks-version-1-0"
   },
-  "file": {
-    "filename": "Olvyn-Tweaks-master.zip",
-    "size": 992073,
-    "sha256": "145a6ab8307fcc8614829eb2bd87bd72e42cc8284d1a90dbf0b26dbed5fc0a38"
-  },
+  "files": [
+    {
+      "filename": "Olvyn-Tweaks-master.zip",
+      "size": 992073,
+      "sha256": "145a6ab8307fcc8614829eb2bd87bd72e42cc8284d1a90dbf0b26dbed5fc0a38",
+      "download": "https://github.com/OlvynChuru/Olvyn-Tweaks/archive/master.zip"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee", "pst", "pstee"],
   "categories": ["gameplay"],
   "components": {

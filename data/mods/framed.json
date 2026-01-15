@@ -2,14 +2,16 @@
   "name": "Framed",
   "version": "1.14",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/1025-framed/",
-    "download": "https://github.com/Gibberlings3/framed/releases/download/v1.14/framed-v1.14.zip"
+    "homepage": "https://www.gibberlings3.net/files/file/1025-framed/"
   },
-  "file": {
-    "filename": "framed-v1.14.zip",
-    "size": 4190732,
-    "sha256": "5387b6bf5efd0cea77a3bad7031451a96aa15ac4930f3c847f147f6215971ff4"
-  },
+  "files": [
+    {
+      "filename": "framed-v1.14.zip",
+      "size": 4190732,
+      "sha256": "5387b6bf5efd0cea77a3bad7031451a96aa15ac4930f3c847f147f6215971ff4",
+      "download": "https://github.com/Gibberlings3/framed/releases/download/v1.14/framed-v1.14.zip"
+    }
+  ],
   "games": ["bgee", "eet"],
   "categories": ["quest"],
   "components": {

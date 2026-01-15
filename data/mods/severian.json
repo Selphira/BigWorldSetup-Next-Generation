@@ -2,14 +2,16 @@
   "name": "Severian de Demerya",
   "version": "034",
   "links": {
-    "homepage": "http://www.baldursgateworld.fr/lacouronne/severian-de-demerya/",
-    "download": "https://github.com/The-Gate-Project/Severian-de-Demerya/releases/download/v034/severian-de-demerya-v034.zip"
+    "homepage": "http://www.baldursgateworld.fr/lacouronne/severian-de-demerya/"
   },
-  "file": {
-    "filename": "severian-de-demerya-v034.zip",
-    "size": 79107286,
-    "sha256": "0f8234b9aa01877b50e34096cfce9023799c687126c54731f66c2d77eb1a3805"
-  },
+  "files": [
+    {
+      "filename": "severian-de-demerya-v034.zip",
+      "size": 79107286,
+      "sha256": "0f8234b9aa01877b50e34096cfce9023799c687126c54731f66c2d77eb1a3805",
+      "download": "https://github.com/The-Gate-Project/Severian-de-Demerya/releases/download/v034/severian-de-demerya-v034.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {

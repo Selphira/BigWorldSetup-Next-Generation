@@ -2,14 +2,16 @@
   "name": "de'Arnise Romance",
   "version": "7",
   "links": {
-    "homepage": "https://www.pocketplane.net/dearnise-romance/",
-    "download": "https://github.com/Pocket-Plane-Group/deArnise_Romance/releases/download/v7/deArnise_v7.zip"
+    "homepage": "https://www.pocketplane.net/dearnise-romance/"
   },
-  "file": {
-    "filename": "deArnise_v7.zip",
-    "size": 8998803,
-    "sha256": "7bd0ff99bf9e9c389ce857f708acfc8e65c21b0ebac41fdaeb4b2f65accb80ac"
-  },
+  "files": [
+    {
+      "filename": "deArnise_v7.zip",
+      "size": 8998803,
+      "sha256": "7bd0ff99bf9e9c389ce857f708acfc8e65c21b0ebac41fdaeb4b2f65accb80ac",
+      "download": "https://github.com/Pocket-Plane-Group/deArnise_Romance/releases/download/v7/deArnise_v7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -27,7 +29,11 @@
         "0": "de'Arnise Romance for Baldur's Gate II"
       }
     },
-    "ru_RU": {"components": {"0": "de'Arnise Romance for Baldur's Gate II"}},
+    "ru_RU": {
+      "components": {
+        "0": "de'Arnise Romance for Baldur's Gate II"
+      }
+    },
     "fr_FR": {
       "description": "Enfin, la possibilité réelle de pouvoir romancer l'aristocrate voleuse de Shadows of Amn ! L'antique version (Nalia Romance) était tellement boguée qu'elle laissait les fans de la jeune rouquine sur leur faim. Qu'ils soient enfin comblés avec cette version (uniquement prévue pour SoA) du mod qui pourra faire vaciller la belle Nalia.",
       "components": {

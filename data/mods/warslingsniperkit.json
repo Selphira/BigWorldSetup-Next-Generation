@@ -2,14 +2,16 @@
   "name": "Warsling Sniper Kit",
   "version": "2.2",
   "links": {
-    "homepage": "https://github.com/11jo/WarslingSniperKit",
-    "download": "https://github.com/11jo/WarslingSniperKit/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/11jo/WarslingSniperKit"
   },
-  "file": {
-    "filename": "WarslingSniperKit-main.zip",
-    "size": 2052699,
-    "sha256": "9690fb0d87ff962931eba634dc80b5e9d19967aa49fc7c8e9c0173a4bca5d59f"
-  },
+  "files": [
+    {
+      "filename": "WarslingSniperKit-main.zip",
+      "size": 2052699,
+      "sha256": "9690fb0d87ff962931eba634dc80b5e9d19967aa49fc7c8e9c0173a4bca5d59f",
+      "download": "https://github.com/11jo/WarslingSniperKit/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

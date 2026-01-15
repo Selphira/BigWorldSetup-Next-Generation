@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass, field
 import json
 import logging
 from pathlib import Path
+import platform
 import shutil
 from typing import Any, Callable
 
@@ -38,6 +39,7 @@ class InstallationState:
             "backup_folder": None,
             "languages_order": [],
             "install_order": {},
+            "custom_archives": {},
         }
     )
     installation: dict[str, Any] = field(
@@ -109,6 +111,14 @@ class StateManager:
         self._mod_manager: ModManager | None = None
         self._rule_manager: RuleManager | None = None
         self._reset_workflow_callback: Callable[[], None] | None = None
+
+    @staticmethod
+    def get_current_platform() -> str:
+        """Get current platform identifier."""
+        system = platform.system().lower()
+        return {"windows": "windows", "linux": "linux", "darwin": "macos"}.get(
+            system, "windows"
+        )
 
     # ========================================
     # UI PREFERENCES (QSettings)
@@ -223,6 +233,25 @@ class StateManager:
         install_order = self.installation_state.configuration.get("install_order", {}).copy()
 
         return {int(seq_idx): order_list for seq_idx, order_list in install_order.items()}
+
+    def add_custom_archive(self, mod_id: str, archive_path: Path):
+        """Add a custom archive for a mod."""
+        self.installation_state.configuration["custom_archives"][mod_id] = str(archive_path)
+
+    def get_custom_archive(self, mod_id: str) -> Path | None:
+        """Get custom archive path for a mod."""
+        custom_archive = self.installation_state.configuration["custom_archives"].get(mod_id)
+        if custom_archive:
+            return Path(custom_archive)
+        return None
+
+    def has_custom_archive(self, mod_id: str) -> bool:
+        """Check if mod has a custom archive."""
+        return mod_id in self.installation_state.configuration["custom_archives"]
+
+    def remove_custom_archive(self, mod_id: str):
+        """Remove custom archive association."""
+        self.installation_state.configuration["custom_archives"].pop(mod_id, None)
 
     def set_page_option(self, page: str, option: str, value: Any) -> None:
         """Set page-specific boolean option.

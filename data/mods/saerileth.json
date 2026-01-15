@@ -2,14 +2,16 @@
   "name": "Saerileth",
   "version": "23",
   "links": {
-    "homepage": "https://smolderingmodsbar.com/saerileth-bg2-ee/",
-    "download": "https://github.com/PaulaMigrate/Saerileth/archive/refs/tags/V23.zip"
+    "homepage": "https://smolderingmodsbar.com/saerileth-bg2-ee/"
   },
-  "file": {
-    "filename": "Saerileth-23.zip",
-    "size": 40300569,
-    "sha256": "08a66419c5b0aa48c7cf8fdd05b7a0a0ac5099b3fcee71aeab056e89df40c4cc"
-  },
+  "files": [
+    {
+      "filename": "Saerileth-23.zip",
+      "size": 40300569,
+      "sha256": "08a66419c5b0aa48c7cf8fdd05b7a0a0ac5099b3fcee71aeab056e89df40c4cc",
+      "download": "https://github.com/PaulaMigrate/Saerileth/archive/refs/tags/V23.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -43,10 +45,26 @@
         "0": "Saerileth mod"
       }
     },
-    "de_DE": {"components": {"0": "Saerileth mod"}},
-    "es_ES": {"components": {"0": "Saerileth mod"}},
-    "ru_RU": {"components": {"0": "Saerileth mod"}},
-    "cs_CZ": {"components": {"0": "Saerileth mod"}}
+    "de_DE": {
+      "components": {
+        "0": "Saerileth mod"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Saerileth mod"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Saerileth mod"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Saerileth mod"
+      }
+    }
   },
   "tp2": "saerileth",
   "safe": 2,

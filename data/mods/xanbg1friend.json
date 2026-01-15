@@ -2,14 +2,16 @@
   "name": "Xan's friendship path for BG1",
   "version": "11",
   "links": {
-    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/",
-    "download": "https://github.com/Pocket-Plane-Group/Xan_BG1_Friendship/releases/download/v11/xanbg1friend_v11.zip"
+    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/"
   },
-  "file": {
-    "filename": "xanbg1friend_v11.zip",
-    "size": 6700740,
-    "sha256": "4309420a5b585e249aae0a6ca1444d4c93f2b1b00d474aa9a0a8cf8c91525298"
-  },
+  "files": [
+    {
+      "filename": "xanbg1friend_v11.zip",
+      "size": 6700740,
+      "sha256": "4309420a5b585e249aae0a6ca1444d4c93f2b1b00d474aa9a0a8cf8c91525298",
+      "download": "https://github.com/Pocket-Plane-Group/Xan_BG1_Friendship/releases/download/v11/xanbg1friend_v11.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -29,18 +31,30 @@
       },
       "description": "This mod lets you befriend the famous morose elf. It features sixteen separate conversations, plus five dialogues that occur after certain key events."
     },
-    "ru_RU": {"components": {"0": "Xan's friendship path for BG1"}},
+    "ru_RU": {
+      "components": {
+        "0": "Xan's friendship path for BG1"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod vous permet de vous lier d'amitié avec le célèbre elfe morose. Il comporte seize conversations distinctes, ainsi que cinq dialogues qui surviennent après certains évènements clés.",
       "components": {
         "0": "Xan's friendship path for BG1"
       }
     },
-    "it_IT": {"components": {"0": "Xan's friendship path for BG1"}},
+    "it_IT": {
+      "components": {
+        "0": "Xan's friendship path for BG1"
+      }
+    },
     "zh_CN": {
       "description": "此模组让您有机会与那位著名的忧郁精灵建立友谊。它包含十六个独特的对话，以及在某些关键事件后发生的五个对话。"
     },
-    "de_DE": {"components": {"0": "Xan's friendship path for BG1"}}
+    "de_DE": {
+      "components": {
+        "0": "Xan's friendship path for BG1"
+      }
+    }
   },
   "tp2": "xanbg1friend",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Un souhait inhabituel",
   "version": "4",
   "links": {
-    "homepage": "http://athkatla.cob-bg.pl/viewtopic.php?t=6419",
-    "download": "https://github.com/Plutonium-X/QUETE_WISH/releases/download/v4/win-TLol-v4.zip"
+    "homepage": "http://athkatla.cob-bg.pl/viewtopic.php?t=6419"
   },
-  "file": {
-    "filename": "win-TLol-v4.zip",
-    "size": 1369567,
-    "sha256": "6ef2f000347170ade5bc27d64674b898fae41ce9ee35facffca1423da3b6cdf6"
-  },
+  "files": [
+    {
+      "filename": "win-TLol-v4.zip",
+      "size": 1369567,
+      "sha256": "6ef2f000347170ade5bc27d64674b898fae41ce9ee35facffca1423da3b6cdf6",
+      "download": "https://github.com/Plutonium-X/QUETE_WISH/releases/download/v4/win-TLol-v4.zip"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "这个模组通过“有限祈愿”法术提供了一个可接取的任务。然后，神灯精灵会交给你一张由吟游诗人写的便条。这是一个关于公主的故事。最后，差不多吧。"
     },
-    "pl_PL": {"components": {"0": "Niezwykle zyczenie v1.82 (by Tuldor88)"}}
+    "pl_PL": {
+      "components": {
+        "0": "Niezwykle zyczenie v1.82 (by Tuldor88)"
+      }
+    }
   },
   "tp2": "tlol",
   "safe": 2,

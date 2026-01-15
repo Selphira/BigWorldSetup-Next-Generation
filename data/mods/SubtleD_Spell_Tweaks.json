@@ -2,14 +2,16 @@
   "name": "SubtleD's Spell Tweaks",
   "version": "2.9.1",
   "links": {
-    "homepage": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks",
-    "download": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks/archive/refs/tags/2.9.1.zip"
+    "homepage": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks"
   },
-  "file": {
-    "filename": "SubtleD_Spell_Tweaks-2.9.1.zip",
-    "size": 1881080,
-    "sha256": "23eb649c0c500a48c3741bfdf0128d1f7c0b18e64a1d0f4eaaa96c7f336b4b4b"
-  },
+  "files": [
+    {
+      "filename": "SubtleD_Spell_Tweaks-2.9.1.zip",
+      "size": 1881080,
+      "sha256": "23eb649c0c500a48c3741bfdf0128d1f7c0b18e64a1d0f4eaaa96c7f336b4b4b",
+      "download": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks/archive/refs/tags/2.9.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Chanter Kit",
   "version": "1.7",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/Chanter_Kit",
-    "download": "https://github.com/The-Gate-Project/Chanter_Kit/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/The-Gate-Project/Chanter_Kit"
   },
-  "file": {
-    "filename": "Chanter_Kit-main.zip",
-    "size": 2167875,
-    "sha256": "63a8ebfa8800c404e6de755565ea386b6455aff1836b6a9068fd774527c37a3f"
-  },
+  "files": [
+    {
+      "filename": "Chanter_Kit-main.zip",
+      "size": 2167875,
+      "sha256": "63a8ebfa8800c404e6de755565ea386b6455aff1836b6a9068fd774527c37a3f",
+      "download": "https://github.com/The-Gate-Project/Chanter_Kit/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

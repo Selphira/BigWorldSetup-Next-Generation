@@ -2,14 +2,16 @@
   "name": "Secret of Bone Hill EET",
   "version": "34",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1076-the-secret-of-bonehill/",
-    "download": "https://github.com/RoxanneSHS/BoneHill/archive/refs/tags/v34.zip"
+    "homepage": "http://www.shsforums.net/files/file/1076-the-secret-of-bonehill/"
   },
-  "file": {
-    "filename": "BoneHill-34.zip",
-    "size": 176126730,
-    "sha256": "42e87a7688bc2bd515d839382f08a55b17660b6e35712d77382aca5ecc218f62"
-  },
+  "files": [
+    {
+      "filename": "BoneHill-34.zip",
+      "size": 176126730,
+      "sha256": "42e87a7688bc2bd515d839382f08a55b17660b6e35712d77382aca5ecc218f62",
+      "download": "https://github.com/RoxanneSHS/BoneHill/archive/refs/tags/v34.zip"
+    }
+  ],
   "games": ["bgee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -43,10 +45,26 @@
         "0": "埋骨丘的秘密v34 (EET)"
       }
     },
-    "de_DE": {"components": {"0": "Bone Hill-Mod v275a (Setzt EET voraus)"}},
-    "it_IT": {"components": {"0": "Secret of BoneHill (Richiede EET)"}},
-    "ru_RU": {"components": {"0": "Secret of BoneHill (EET)"}},
-    "es_ES": {"components": {"0": "Secret of BoneHill (Se requiere EET)"}}
+    "de_DE": {
+      "components": {
+        "0": "Bone Hill-Mod v275a (Setzt EET voraus)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Secret of BoneHill (Richiede EET)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Secret of BoneHill (EET)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Secret of BoneHill (Se requiere EET)"
+      }
+    }
   },
   "tp2": "bonehilleet",
   "safe": 2,

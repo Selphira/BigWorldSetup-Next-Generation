@@ -2,14 +2,16 @@
   "name": "BG1 NPC Project Music Pack",
   "version": "6-rc1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/subpages/bg1npc/bg1music/",
-    "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/bg1npcmusic-v6.exe"
+    "homepage": "https://www.gibberlings3.net/subpages/bg1npc/bg1music/"
   },
-  "file": {
-    "filename": "bg1npcmusic-v6.exe",
-    "size": 20645603,
-    "sha256": "eb4b86e5bac3e9e8b04977d429955e2bfc3d5a112fd92dc181f99a5b3b9d71a6"
-  },
+  "files": [
+    {
+      "filename": "bg1npcmusic-v6.exe",
+      "size": 20645603,
+      "sha256": "eb4b86e5bac3e9e8b04977d429955e2bfc3d5a112fd92dc181f99a5b3b9d71a6",
+      "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/bg1npcmusic-v6.exe"
+    }
+  ],
   "games": ["tutu", "bgt", "bgee", "eet"],
   "categories": ["portrait"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "The Chaos Sorcerer: A Wild Magic Kit for Sorcerers",
   "version": "2.11",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/59482-mod-the-chaos-sorcerer-a-wild-magic-kit-for-sorcerers/",
-    "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip"
+    "homepage": "http://www.shsforums.net/topic/59482-mod-the-chaos-sorcerer-a-wild-magic-kit-for-sorcerers/"
   },
-  "file": {
-    "filename": "win-A7-ChaosSorcerer-v2.11.zip",
-    "size": 3032723,
-    "sha256": "ed3c7e95dfd00e68faac9f7a7452ac6afd8eee55a9c72e132fb4398998ff852f"
-  },
+  "files": [
+    {
+      "filename": "win-A7-ChaosSorcerer-v2.11.zip",
+      "size": 3032723,
+      "sha256": "ed3c7e95dfd00e68faac9f7a7452ac6afd8eee55a9c72e132fb4398998ff852f",
+      "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -49,22 +51,26 @@
     },
     "de_DE": {
       "components": {
-        "0": "Klasse \"Chaos Hexenmeister\"", "10": "Zauberlisten fuer \"Chaotisches Gefuege\" neu erstellen",
+        "0": "Klasse \"Chaos Hexenmeister\"",
+        "10": "Zauberlisten fuer \"Chaotisches Gefuege\" neu erstellen",
         "20": "Hasardeur aus der Klassenliste fuer Charaktererstellung entfernen",
         "30": "\"Artefakte der Urtitanen\" hinzufuegen"
       }
     },
     "pl_PL": {
       "components": {
-        "0": "Podklasa \"Czarownik chaosu\"", "10": "Odtworz listy wyboru czarow dla zaklecia \"Fala chaosu\"",
+        "0": "Podklasa \"Czarownik chaosu\"",
+        "10": "Odtworz listy wyboru czarow dla zaklecia \"Fala chaosu\"",
         "20": "Zablokuj mozliwosc wyboru podklasy \"Dziki mag\" na etapie tworzenia postaci",
         "30": "Dodaj \"Artefakty przedwiecznych\""
       }
     },
     "ru_RU": {
       "components": {
-        "0": "\"Chaos Sorcerer\" kit", "10": "Recreate \"Chaos Weave\" spell selection lists",
-        "20": "Make \"Wild Mage\" kit unavailable for character creation", "30": "Add \"Primordial Artifacts\""
+        "0": "\"Chaos Sorcerer\" kit",
+        "10": "Recreate \"Chaos Weave\" spell selection lists",
+        "20": "Make \"Wild Mage\" kit unavailable for character creation",
+        "30": "Add \"Primordial Artifacts\""
       }
     }
   },

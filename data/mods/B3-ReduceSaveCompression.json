@@ -2,14 +2,16 @@
   "name": "Reduce Save Compression",
   "version": "1.1",
   "links": {
-    "homepage": "https://github.com/Bubb13/B3-ReduceSaveCompression",
-    "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/win-B3-ReduceSaveCompression-v1.1.zip"
+    "homepage": "https://github.com/Bubb13/B3-ReduceSaveCompression"
   },
-  "file": {
-    "filename": "win-B3-ReduceSaveCompression-v1.1.zip",
-    "size": 1271239,
-    "sha256": "aaf5e3a1c8d9907c5c491c9f8b5c3b33dd04cf4f5b0779f77e3d76fafd1f183b"
-  },
+  "files": [
+    {
+      "filename": "win-B3-ReduceSaveCompression-v1.1.zip",
+      "size": 1271239,
+      "sha256": "aaf5e3a1c8d9907c5c491c9f8b5c3b33dd04cf4f5b0779f77e3d76fafd1f183b",
+      "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/win-B3-ReduceSaveCompression-v1.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["util"],
   "components": {

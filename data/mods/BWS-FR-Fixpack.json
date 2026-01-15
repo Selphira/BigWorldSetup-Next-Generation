@@ -2,14 +2,16 @@
   "name": "BWS-FR Fixpack",
   "version": "master",
   "links": {
-    "homepage": "https://github.com/Selphira/BWS-FR-Fixpack",
-    "download": "https://github.com/Selphira/BWS-FR-Fixpack/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/Selphira/BWS-FR-Fixpack"
   },
-  "file": {
-    "filename": "BWS-FR-Fixpack-master.zip",
-    "size": 4711333,
-    "sha256": "0f72799ae34b09ee0f3948adcfca24462d6d6010841b760021870600ead5db80"
-  },
+  "files": [
+    {
+      "filename": "BWS-FR-Fixpack-master.zip",
+      "size": 4711333,
+      "sha256": "0f72799ae34b09ee0f3948adcfca24462d6d6010841b760021870600ead5db80",
+      "download": "https://github.com/Selphira/BWS-FR-Fixpack/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["patch"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "RiskBreaker",
   "version": "8",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/KIT_Riskbreaker",
-    "download": "https://github.com/Plutonium-X/KIT_Riskbreaker/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/Plutonium-X/KIT_Riskbreaker"
   },
-  "file": {
-    "filename": "KIT_Riskbreaker-main.zip",
-    "size": 2055472,
-    "sha256": "df486559cf07f5790d90405c9b0e2510225c781efae4dd90bcc1438a692aa4d9"
-  },
+  "files": [
+    {
+      "filename": "KIT_Riskbreaker-main.zip",
+      "size": 2055472,
+      "sha256": "df486559cf07f5790d90405c9b0e2510225c781efae4dd90bcc1438a692aa4d9",
+      "download": "https://github.com/Plutonium-X/KIT_Riskbreaker/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -37,8 +39,16 @@
     "zh_CN": {
       "description": "一个敏捷的战士，速度的大师。他身轻如燕，行动自由，可以加速自身以闪电般的速度攻击，同时减缓敌人的速度。然而，这位战士为了保持其非凡的机动性，牺牲了所有重型盔甲和防护。"
     },
-    "cs_CZ": {"components": {"0": "kit Odvazlivec"}},
-    "es_ES": {"components": {"0": "Kit de Intrépido"}}
+    "cs_CZ": {
+      "components": {
+        "0": "kit Odvazlivec"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Kit de Intrépido"
+      }
+    }
   },
   "tp2": "rbk",
   "safe": 2,

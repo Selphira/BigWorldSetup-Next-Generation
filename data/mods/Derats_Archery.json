@@ -2,14 +2,16 @@
   "name": "Au bonheur du tireur",
   "version": "7",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=506162#p506162",
-    "download": "https://github.com/Deratiseur/Archery/releases/download/v7/win-Derats_Archery-v7.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=506162#p506162"
   },
-  "file": {
-    "filename": "win-Derats_Archery-v7.zip",
-    "size": 2159676,
-    "sha256": "cf7f0310607624095e98ae45ed97397e2be9e8a913bc2abea59af1f6352c683f"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Archery-v7.zip",
+      "size": 2159676,
+      "sha256": "cf7f0310607624095e98ae45ed97397e2be9e8a913bc2abea59af1f6352c683f",
+      "download": "https://github.com/Deratiseur/Archery/releases/download/v7/win-Derats_Archery-v7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Fade NPC",
   "version": "3.1",
   "links": {
-    "homepage": "https://spellholdstudios.net/ie/fade",
-    "download": "https://github.com/Plutonium-X/NPC_Fade/archive/refs/tags/v3.1.zip"
+    "homepage": "https://spellholdstudios.net/ie/fade"
   },
-  "file": {
-    "filename": "NPC_Fade-3.1.zip",
-    "size": 2906888,
-    "sha256": "36f9f2a02a3434e02801bd652b67079923d4957828882c9015265ff116026a0e"
-  },
+  "files": [
+    {
+      "filename": "NPC_Fade-3.1.zip",
+      "size": 2906888,
+      "sha256": "36f9f2a02a3434e02801bd652b67079923d4957828882c9015265ff116026a0e",
+      "download": "https://github.com/Plutonium-X/NPC_Fade/archive/refs/tags/v3.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {

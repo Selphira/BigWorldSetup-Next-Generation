@@ -2,14 +2,16 @@
   "name": "Sir Renal",
   "version": "2.6",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/Sir_Renal",
-    "download": "https://github.com/The-Gate-Project/Sir_Renal/releases/download/v2.6/sir-renal-2.6.zip"
+    "homepage": "https://github.com/The-Gate-Project/Sir_Renal"
   },
-  "file": {
-    "filename": "sir-renal-2.6.zip",
-    "size": 3288737,
-    "sha256": "955d7a1bf07c9d7268b6f25a17993359bd37ee195bb4b817718207641a15be15"
-  },
+  "files": [
+    {
+      "filename": "sir-renal-2.6.zip",
+      "size": 3288737,
+      "sha256": "955d7a1bf07c9d7268b6f25a17993359bd37ee195bb4b817718207641a15be15",
+      "download": "https://github.com/The-Gate-Project/Sir_Renal/releases/download/v2.6/sir-renal-2.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "此模组添加了一个名为罗诺尔爵士的商人，负责处理最高贵的光辉之心骑士团的交易。除了神殿的常规服务外，他还拥有一些对抗邪恶势力的有用物品。你可以在骑士团的总部找到他。"
     },
-    "es_ES": {"components": {"0": "Renal"}},
-    "it_IT": {"components": {"0": "Sir Renal"}},
-    "ru_RU": {"components": {"0": "Sir Renal"}}
+    "es_ES": {
+      "components": {
+        "0": "Renal"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Sir Renal"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Sir Renal"
+      }
+    }
   },
   "tp2": "renal",
   "safe": 2,

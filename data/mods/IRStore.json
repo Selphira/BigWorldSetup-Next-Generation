@@ -2,14 +2,16 @@
   "name": "IRStore",
   "version": "2.0",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/IRStore",
-    "download": "https://github.com/The-Gate-Project/IRStore/releases/download/v2.0/irstore-2.0.zip"
+    "homepage": "https://github.com/The-Gate-Project/IRStore"
   },
-  "file": {
-    "filename": "irstore-2.0.zip",
-    "size": 5021915,
-    "sha256": "385dc8dec2594960b4052e7dc8be9ce26dc68fde55923600c995549dd16eda9c"
-  },
+  "files": [
+    {
+      "filename": "irstore-2.0.zip",
+      "size": 5021915,
+      "sha256": "385dc8dec2594960b4052e7dc8be9ce26dc68fde55923600c995549dd16eda9c",
+      "download": "https://github.com/The-Gate-Project/IRStore/releases/download/v2.0/irstore-2.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {

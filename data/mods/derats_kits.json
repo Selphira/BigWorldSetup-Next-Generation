@@ -2,14 +2,16 @@
   "name": "Deratiseur's Unused Kits Pack",
   "version": "18.6",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24001",
-    "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/win-Derats_kits-v18.6.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24001"
   },
-  "file": {
-    "filename": "win-Derats_kits-v18.6.zip",
-    "size": 32474430,
-    "sha256": "ad369252f32b280e193fcd3b4fec30a32aaff551312212c2ee7bda0c62093fd6"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_kits-v18.6.zip",
+      "size": 32474430,
+      "sha256": "ad369252f32b280e193fcd3b4fec30a32aaff551312212c2ee7bda0c62093fd6",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/win-Derats_kits-v18.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "sod", "bg2ee", "eet", "iwd", "iwdee"],
   "categories": ["kit"],
   "components": {

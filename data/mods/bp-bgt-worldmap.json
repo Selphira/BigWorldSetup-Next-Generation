@@ -2,21 +2,20 @@
   "name": "Worldmap",
   "version": "13.1.1",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap",
-    "download": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap/releases/download/v13.1.1/worldmap-v13.1.1.zip"
+    "homepage": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap"
   },
-  "file": {
-    "filename": "worldmap-v13.1.1.zip",
-    "size": 292616082,
-    "sha256": "727cc44ecda959f7194db5702b120284369edf10aaa84178b6b20b08b66b2825"
-  },
+  "files": [
+    {
+      "filename": "worldmap-v13.1.1.zip",
+      "size": 292616082,
+      "sha256": "727cc44ecda959f7194db5702b120284369edf10aaa84178b6b20b08b66b2825",
+      "download": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap/releases/download/v13.1.1/worldmap-v13.1.1.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["patch"],
   "components": {
-    "0": {
-      "type": "sub",
-      "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}
-    },
+    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}},
     "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1"},
     "3": {"type": "std"},
     "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui"}
@@ -82,28 +81,37 @@
     "de_DE": {
       "components": {
         "0": "berarbeitete Weltkarte fr Baldurs Gate - mit farbigen Baldurs Gate Kartenicons",
-        "choice_0": "Karte fr Thron des Bhaal", "1": "Benutze die Weltkarte ebenso fr Thron des Bhaal",
+        "choice_0": "Karte fr Thron des Bhaal",
+        "1": "Benutze die Weltkarte ebenso fr Thron des Bhaal",
         "2": "Stoffkartenstil fr Thron des Bhaal",
         "3": "Wiederherstellen der Savegames (Kein Neustart ntig)\n\n>>Willst du diese Komponente wieder deinstallieren,\nso muss manuell ein Backup des Savegame-Verzeichnisses erstellt werden!<<",
-        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     },
     "it_IT": {
       "components": {
         "0": "Mappa per Baldur's Gate - include le icone colorate della mappa di Baldur's Gate",
-        "choice_0": "Mappa per Throne of Bhaal", "1": "Usa la nuova mappa anche per Throne of Bhaal",
+        "choice_0": "Mappa per Throne of Bhaal",
+        "1": "Usa la nuova mappa anche per Throne of Bhaal",
         "2": "Mappa stile stoffa per Throne of Bhaal",
         "3": "Convertitore per i vecchi Giochi Salvati (Non  necessario ricominciare un \"Nuovo Gioco\")\n\n>>Se vuoi disinstallare questo componente,\ndevi fare manualmente un backup nella cartella del tuo gioco salvato!<<",
-        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     },
     "pl_PL": {
       "components": {
         "0": "Rozszerzona mapa swiata dla Baldur's Gate - wlacznie z kolorowymi ikonami miejsc dla Baldur's Gate",
-        "choice_0": "Mapa swiata dla Tronu Bhaala", "1": "Uzyj nowej mapy dla Tronu Bhaala",
+        "choice_0": "Mapa swiata dla Tronu Bhaala",
+        "1": "Uzyj nowej mapy dla Tronu Bhaala",
         "2": "Mapa swiata stylizowana na malowana na plotnie dla Tronu Bhaala",
         "3": "Przekonwertowanie starych zapisanych stanow gry do nowej mapy swiata (nie musisz rozpoczynac gry na nowo)\n\n>>   Jesli chcesz usunac ten komponent, musisz\nsamodzielnie zrobic sobie kopie folderu z zapisanymi stanami gry! <<",
-        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     },
     "es_ES": {
@@ -113,16 +121,21 @@
         "1": "Utilizar tambien el nuevo Mapa del mundo para Throne of Bhaal",
         "2": "Estilo de mapa en tela para Throne of Bhaal",
         "3": "Convertir viejas partidas guardadas (no se necesita un \"Nuevo Juego\")\n\n>>­Si quieres desinstalar mas tarde este componente, tendras que hacer\nuna copia de seguridad de tu carpeta de partidas guardadas manualmente!<<",
-        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     },
     "ru_RU": {
       "components": {
         "0": "Worldmap for Baldur's Gate - including colored Baldur's Gate map icons",
-        "choice_0": "Worldmap for Throne of Bhaal", "1": "Use new Worldmap for Throne of Bhaal as well",
+        "choice_0": "Worldmap for Throne of Bhaal",
+        "1": "Use new Worldmap for Throne of Bhaal as well",
         "2": "Clothmap-style map for Throne of Bhaal",
         "3": "Convert old Savegames (No \"New Game\" needed)\n\n>> If you want to uninstall this component,\nyou have to make a backup of your savegame folder manually! <<",
-        "choice_1": "Larger worldmap screen window for the worldmap menu.ui", "4": "BG2 style", "5": "Dragonspear style"
+        "choice_1": "Larger worldmap screen window for the worldmap menu.ui",
+        "4": "BG2 style",
+        "5": "Dragonspear style"
       }
     }
   },

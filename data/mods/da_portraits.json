@@ -2,14 +2,16 @@
   "name": "berelinde's Dragon Age: Origins Style Portraits",
   "version": "8",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Dragon_Age_Origins_Style_Portraits",
-    "download": "https://github.com/Gibberlings3/Dragon_Age_Origins_Style_Portraits/releases/download/v8/da_portraits-v8.exe"
+    "homepage": "https://github.com/Gibberlings3/Dragon_Age_Origins_Style_Portraits"
   },
-  "file": {
-    "filename": "da_portraits-v8.exe",
-    "size": 45607733,
-    "sha256": "7806ec630e85f7a87dc7ea351ad8774f181d222f65fbba02d22202b5ee8ec422"
-  },
+  "files": [
+    {
+      "filename": "da_portraits-v8.exe",
+      "size": 45607733,
+      "sha256": "7806ec630e85f7a87dc7ea351ad8774f181d222f65fbba02d22202b5ee8ec422",
+      "download": "https://github.com/Gibberlings3/Dragon_Age_Origins_Style_Portraits/releases/download/v8/da_portraits-v8.exe"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {

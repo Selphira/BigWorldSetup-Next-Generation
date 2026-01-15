@@ -2,14 +2,16 @@
   "name": "Tower of Deception",
   "version": "4.1.0",
   "links": {
-    "homepage": "http://www.blackwyrmlair.net/~valiant/",
-    "download": "https://github.com/Black-Wyrm-Lair/TowerOfDeception/releases/download/v4.1.0/tower-of-deception-v4.1.0.zip"
+    "homepage": "http://www.blackwyrmlair.net/~valiant/"
   },
-  "file": {
-    "filename": "tower-of-deception-v4.1.0.zip",
-    "size": 27929483,
-    "sha256": "fa00bb65b5c825f02f7d4a0aa00a0b937709760de77622d6676b24f51f2a8a6f"
-  },
+  "files": [
+    {
+      "filename": "tower-of-deception-v4.1.0.zip",
+      "size": 27929483,
+      "sha256": "fa00bb65b5c825f02f7d4a0aa00a0b937709760de77622d6676b24f51f2a8a6f",
+      "download": "https://github.com/Black-Wyrm-Lair/TowerOfDeception/releases/download/v4.1.0/tower-of-deception-v4.1.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -39,8 +41,22 @@
         "3": "Fix Acceleration status of Warblade of Twilight."
       }
     },
-    "ru_RU": {"components": {"0": "Tower of Deception", "1": "Improved Astral Shard Guardian", "2": "Encounter with Ustrain", "3": "Fix Acceleration status of Warblade of Twilight."}},
-    "it_IT": {"components": {"0": "La Torre dell'Inganno", "1": "Migliorato il Guardiano del Frammento Astrale", "2": "L'incontro con Ustrain", "3": "Correggi lo stato di accelerazione di La Lama del Crepuscolo."}},
+    "ru_RU": {
+      "components": {
+        "0": "Tower of Deception",
+        "1": "Improved Astral Shard Guardian",
+        "2": "Encounter with Ustrain",
+        "3": "Fix Acceleration status of Warblade of Twilight."
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "La Torre dell'Inganno",
+        "1": "Migliorato il Guardiano del Frammento Astrale",
+        "2": "L'incontro con Ustrain",
+        "3": "Correggi lo stato di accelerazione di La Lama del Crepuscolo."
+      }
+    },
     "fr_FR": {
       "description": "Il s'agit d'une quête d'exploration d'une tour (nouveaux graphiques selon la FAQ) qui attire certains pour les emprisonner (un peu comme l'île de glace de TotSC). Il nécessite ToB et s'adresse à des personnages de niveau 10-13, équipés d'armes assez puissantes (il faut avoir au moins une paire d'armes +3) car il y a quelques monstres assez costauds. Pour lancer l'aventure, il vous suffit d'aller voir le mage Tian à l'auberge du Crâne Tordu (portes de la ville), et lui parler. Il a une mission pour vous : récupérer un livre, caché dans une vieille tour abandonnée, la tour sans retour... Il est prêt à payer une grosse somme pour cela. Relèverez-vous le défi ?",
       "components": {
@@ -59,10 +75,38 @@
         "3": "修复曙光战刃的加速状态"
       }
     },
-    "es_ES": {"components": {"0": "Torre del engaño", "1": "Guardián del Fragmento Astral Mejorado", "2": "Encuentro con Ustrain", "3": "Arreglar estado de aceleración de Filo guerrero del Crepúsculo."}},
-    "cs_CZ": {"components": {"0": "Vez Klamu", "1": "Vylepseny Strazce Strepu hvezdy", "2": "Setkani s Ustrainem", "3": "Oprava stavu zrychlení Válečná čepel soumraku."}},
-    "de_DE": {"components": {"0": "Der Turm der Täuschung", "1": "Verbesserter Wächter des Astralsplitters", "2": "Begegnung mit Ustrain", "3": "Beschleunigungsstatus von Kriegsklinge des Zwielichts reparieren."}},
-    "pl_PL": {"components": {"0": "Wieża Oszustw", "1": "Ulepszony Strażnik Astralnego Kryształu", "2": "Spotkanie z Ustrainem", "3": "Popraw status Akceleracji Ostrza Zmierzchu."}}
+    "es_ES": {
+      "components": {
+        "0": "Torre del engaño",
+        "1": "Guardián del Fragmento Astral Mejorado",
+        "2": "Encuentro con Ustrain",
+        "3": "Arreglar estado de aceleración de Filo guerrero del Crepúsculo."
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Vez Klamu",
+        "1": "Vylepseny Strazce Strepu hvezdy",
+        "2": "Setkani s Ustrainem",
+        "3": "Oprava stavu zrychlení Válečná čepel soumraku."
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Der Turm der Täuschung",
+        "1": "Verbesserter Wächter des Astralsplitters",
+        "2": "Begegnung mit Ustrain",
+        "3": "Beschleunigungsstatus von Kriegsklinge des Zwielichts reparieren."
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Wieża Oszustw",
+        "1": "Ulepszony Strażnik Astralnego Kryształu",
+        "2": "Spotkanie z Ustrainem",
+        "3": "Popraw status Akceleracji Ostrza Zmierzchu."
+      }
+    }
   },
   "tp2": "tod",
   "safe": 2,

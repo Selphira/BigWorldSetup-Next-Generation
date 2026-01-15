@@ -2,14 +2,16 @@
   "name": "RTT Kitpack",
   "version": "1.14",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/51-return-to-trademeet-kit-pack/",
-    "download": "https://github.com/Plutonium-X/KIT_RTT/archive/refs/tags/1.14_EE.zip"
+    "homepage": "http://www.shsforums.net/files/file/51-return-to-trademeet-kit-pack/"
   },
-  "file": {
-    "filename": "KIT_RTT-1.14_EE.zip",
-    "size": 2373705,
-    "sha256": "f38a9c058d754322a9b225061b9eb86e1fbcfda893cdb1a3e43ecdbc3f7b7d19"
-  },
+  "files": [
+    {
+      "filename": "KIT_RTT-1.14_EE.zip",
+      "size": 2373705,
+      "sha256": "f38a9c058d754322a9b225061b9eb86e1fbcfda893cdb1a3e43ecdbc3f7b7d19",
+      "download": "https://github.com/Plutonium-X/KIT_RTT/archive/refs/tags/1.14_EE.zip"
+    }
+  ],
   "games": ["bg2", "bgt"],
   "categories": ["kit"],
   "components": {
@@ -128,13 +130,36 @@
     },
     "it_IT": {
       "components": {
-        "0": "Amazzone", "1": "Gladiatore", "2": "Investigatore", "3": "Lanciatore Halfling", "4": "Samurai",
-        "5": "Uccisore di Giganti", "6": "Antipaladino", "7": "Cavaliere Oscuro", "8": "Elfo Paladino", "9": "Messia",
-        "10": "Arcano", "11": "Elementale", "12": "Guardiano del Tempo", "13": "Ranger Oscuro", "14": "Convertitore",
-        "15": "Sacerdote di Cyric", "16": "Sacerdote di Mask", "17": "Sacerdote di Mystra", "18": "Sacerdote di Tempus",
-        "19": "Druido Oscuro", "20": "Guardiano dell'Acqua", "21": "Guardiano del Fuoco", "22": "Guardiano del Gento",
-        "23": "Cacciatore di Tesori", "24": "Furfante", "25": "Gentiluomo", "26": "Ninja",
-        "27": "Ammaestratore di Golem", "28": "Giocoliere", "29": "Menestrello",
+        "0": "Amazzone",
+        "1": "Gladiatore",
+        "2": "Investigatore",
+        "3": "Lanciatore Halfling",
+        "4": "Samurai",
+        "5": "Uccisore di Giganti",
+        "6": "Antipaladino",
+        "7": "Cavaliere Oscuro",
+        "8": "Elfo Paladino",
+        "9": "Messia",
+        "10": "Arcano",
+        "11": "Elementale",
+        "12": "Guardiano del Tempo",
+        "13": "Ranger Oscuro",
+        "14": "Convertitore",
+        "15": "Sacerdote di Cyric",
+        "16": "Sacerdote di Mask",
+        "17": "Sacerdote di Mystra",
+        "18": "Sacerdote di Tempus",
+        "19": "Druido Oscuro",
+        "20": "Guardiano dell'Acqua",
+        "21": "Guardiano del Fuoco",
+        "22": "Guardiano del Gento",
+        "23": "Cacciatore di Tesori",
+        "24": "Furfante",
+        "25": "Gentiluomo",
+        "26": "Ninja",
+        "27": "Ammaestratore di Golem",
+        "28": "Giocoliere",
+        "29": "Menestrello",
         "30": "Magie e armi dei kit (questo componente e' necessario)"
       }
     }

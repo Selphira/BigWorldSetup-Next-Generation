@@ -2,14 +2,16 @@
   "name": "Achievements!",
   "version": "3.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/",
-    "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/win-A7-Achievements-v3.0.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/"
   },
-  "file": {
-    "filename": "win-A7-Achievements-v3.0.zip",
-    "size": 1416290,
-    "sha256": "99f501a71e98c1229fb86fcf5d479b0583b7d521c9e7b92301133c084567dc7d"
-  },
+  "files": [
+    {
+      "filename": "win-A7-Achievements-v3.0.zip",
+      "size": 1416290,
+      "sha256": "99f501a71e98c1229fb86fcf5d479b0583b7d521c9e7b92301133c084567dc7d",
+      "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/win-A7-Achievements-v3.0.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
   "categories": ["util"],
   "components": {

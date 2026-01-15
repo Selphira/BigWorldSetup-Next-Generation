@@ -2,14 +2,16 @@
   "name": "Kalah",
   "version": "4.1",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/QUETE_KALAH",
-    "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/win-Kalah-v4.1.zip"
+    "homepage": "https://github.com/Plutonium-X/QUETE_KALAH"
   },
-  "file": {
-    "filename": "win-Kalah-v4.1.zip",
-    "size": 3162503,
-    "sha256": "04ee05d06415b43d6c651fbdc9bd6dfaa0c7cf6d9bf34db0c1027d4809c1a0a1"
-  },
+  "files": [
+    {
+      "filename": "win-Kalah-v4.1.zip",
+      "size": 3162503,
+      "sha256": "04ee05d06415b43d6c651fbdc9bd6dfaa0c7cf6d9bf34db0c1027d4809c1a0a1",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/win-Kalah-v4.1.zip"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -34,7 +36,12 @@
     "zh_CN": {
       "description": "此模组修改了马戏团的任务，在其中加入了一些小考验。这些考验的结果会影响最终战斗的难度。另一个组件将恢复艾黎变形后的原始外观（剧透：她不是食人魔）。"
     },
-    "pl_PL": {"components": {"0": "Przywrocony pierwotny (?) wyglad Aerie.", "1": "Namiot Kalaha 2.0"}}
+    "pl_PL": {
+      "components": {
+        "0": "Przywrocony pierwotny (?) wyglad Aerie.",
+        "1": "Namiot Kalaha 2.0"
+      }
+    }
   },
   "tp2": "kalah",
   "safe": 2,

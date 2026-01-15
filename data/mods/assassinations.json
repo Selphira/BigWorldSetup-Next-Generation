@@ -2,14 +2,16 @@
   "name": "Assassinations",
   "version": "19",
   "links": {
-    "homepage": "https://www.pocketplane.net/assassinations/",
-    "download": "https://github.com/Pocket-Plane-Group/Assassinations/archive/refs/heads/master.zip"
+    "homepage": "https://www.pocketplane.net/assassinations/"
   },
-  "file": {
-    "filename": "Assassinations-master.zip",
-    "size": 8673242,
-    "sha256": "da3ced59beaf6734d6088080f045ab636ffdd0815a4dcec4b43dd317ac0d0345"
-  },
+  "files": [
+    {
+      "filename": "Assassinations-master.zip",
+      "size": 8673242,
+      "sha256": "da3ced59beaf6734d6088080f045ab636ffdd0815a4dcec4b43dd317ac0d0345",
+      "download": "https://github.com/Pocket-Plane-Group/Assassinations/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -32,8 +34,16 @@
       },
       "description": "Want to bring out the darkest side of your murder god's child? This mod is for you! With a dozen new quests designed to test your skills as a cold-blooded killer, you'll have everything you need to satisfy your most sinister sneak attack urges... You'll also have the option, for male characters, of romancing Lynn, a thief who will commission you to carry out your missions..."
     },
-    "ru_RU": {"components": {"0": "Assassinations mod for Baldur's Gate II"}},
-    "it_IT": {"components": {"0": "Assassinations mod per Baldur's Gate II"}},
+    "ru_RU": {
+      "components": {
+        "0": "Assassinations mod for Baldur's Gate II"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Assassinations mod per Baldur's Gate II"
+      }
+    },
     "fr_FR": {
       "description": "Envie de faire rejaillir la partie la plus sombre de votre âme d'enfant de dieu du meurtre ? Ce mod est fait pour vous ! Avec une dizaine de nouvelles quêtes visant à éprouver vos capacités de tueur froid, vous aurez de quoi assouvir vos pulsions d'attaque sournoise les plus sinistres... Vous aurez également la possibilité, pour les personnages masculins, de romancer Lynn, une voleuse qui vous mandatera lors de vos missions...",
       "components": {
@@ -46,9 +56,21 @@
         "0": "´ÌÉ±ºÏÔ¼"
       }
     },
-    "es_ES": {"components": {"0": "Asesinatos. Mod para Baldur's Gate II"}},
-    "de_DE": {"components": {"0": "Assassinations Mod fuer Baldur's Gate II"}},
-    "pl_PL": {"components": {"0": "Assassinations - mod do Baldur's Gate II"}}
+    "es_ES": {
+      "components": {
+        "0": "Asesinatos. Mod para Baldur's Gate II"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Assassinations Mod fuer Baldur's Gate II"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Assassinations - mod do Baldur's Gate II"
+      }
+    }
   },
   "tp2": "assassinations",
   "safe": 2,

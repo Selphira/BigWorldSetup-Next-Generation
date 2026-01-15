@@ -2,14 +2,16 @@
   "name": "NPC Kitpack",
   "version": "5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/kits/npckit/",
-    "download": "https://www.gibberlings3.net/files/file/793-npc-kitpack/?do=download&r=3967&confirm=1&t=1"
+    "homepage": "https://www.gibberlings3.net/mods/kits/npckit/"
   },
-  "file": {
-    "filename": "npckit-v5.exe",
-    "size": 1849428,
-    "sha256": "18eca313a34c394a0cf234e1166940f2c3b00f8095613a19f719575337c1bed6"
-  },
+  "files": [
+    {
+      "filename": "npckit-v5.exe",
+      "size": 1849428,
+      "sha256": "18eca313a34c394a0cf234e1166940f2c3b00f8095613a19f719575337c1bed6",
+      "download": "https://www.gibberlings3.net/files/file/793-npc-kitpack/?do=download&r=3967&confirm=1&t=1"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -107,13 +109,145 @@
         "2800": "Donne a Sarevok le vrai Kit de Semeur de Mort"
       }
     },
-    "it_IT": {"components": {"30": "Migliora le descrizioni del Mago Specialista", "31": "Sostituisci il Kit Berserker con Furia Battagliera per i Nani", "400": "Anomen ottiene il Kit di Helm superando la Prova per il Cavalierato", "410": "Anomen ottiene il Kit Berserker fallendo la Prova per il Cavalierato", "420": "Impedisci che Anomen CN ottenga il Simbolo Sacro", "900": "Aggiungi Stregone Rosso alla descrizione del Kit di Edwin", "1400": "Da' ad Imoen il Kit da Avventuriero", "choice_0": "Da' ad Imoen un Kit da Mago", "1410": "Abiuratore", "1411": "Scongiuratore", "1412": "Divinatore", "1413": "Incantatore", "1414": "Illusionista", "1415": "Invocatore", "1416": "Necromante", "1417": "Alteratore", "2100": "Cambia il Kit di Korgan in Furia Battagliera", "2200": "Da' a Mazzy un appropriato Kit Spada della Fede di Arvoreen", "2300": "Cambia il titolo di Minsc in Ranger di Rashemen", "2500": "Da' a Nalia il Kit da Avventuriero", "choice_1": "Da' a Nalia il Kit da Mago", "2510": "Abiuratore", "2511": "Scongiuratore", "2512": "Divinatore", "2513": "Incantatore", "2514": "Illusionista", "2515": "Invocatore", "2516": "Necromante", "2517": "Alteratore", "2800": "Da' a Sarevok un appropriato Kit del Latore di Morte"}},
-    "ru_RU": {"components": {"30": "Improved Specialist Mage Descriptions", "31": "Replace Berserker Kit with Battlerager for Dwarves", "400": "Anomen Gains Helm Kit on Passing Knighthood Test", "410": "Anomen Gains Berserker Kit on Failing Knighthood Test", "420": "Prevent CN Anomen Gaining a Holy Symbol", "900": "Add Red Wizard to Edwin's Kit Description", "1400": "Give Imoen Adventurer Kit", "choice_0": "Give Imoen a Mage Kit", "1410": "Abjurer", "1411": "Conjurer", "1412": "Diviner", "1413": "Enchanter", "1414": "Illusionist", "1415": "Invoker", "1416": "Necromancer", "1417": "Transmuter", "2100": "Change Korgan's Kit to Battlerager", "2200": "Give Mazzy a Proper Truesword of Arvoreen Kit", "2300": "Change Minsc's Title to Rashemaar Ranger", "2500": "Give Nalia Adventurer Kit", "choice_1": "Give Nalia a Mage Kit", "2510": "Abjurer", "2511": "Conjurer", "2512": "Diviner", "2513": "Enchanter", "2514": "Illusionist", "2515": "Invoker", "2516": "Necromancer", "2517": "Transmuter", "2800": "Give Sarevok a Proper Deathbringer Kit"}},
+    "it_IT": {
+      "components": {
+        "30": "Migliora le descrizioni del Mago Specialista",
+        "31": "Sostituisci il Kit Berserker con Furia Battagliera per i Nani",
+        "400": "Anomen ottiene il Kit di Helm superando la Prova per il Cavalierato",
+        "410": "Anomen ottiene il Kit Berserker fallendo la Prova per il Cavalierato",
+        "420": "Impedisci che Anomen CN ottenga il Simbolo Sacro",
+        "900": "Aggiungi Stregone Rosso alla descrizione del Kit di Edwin",
+        "1400": "Da' ad Imoen il Kit da Avventuriero",
+        "choice_0": "Da' ad Imoen un Kit da Mago",
+        "1410": "Abiuratore",
+        "1411": "Scongiuratore",
+        "1412": "Divinatore",
+        "1413": "Incantatore",
+        "1414": "Illusionista",
+        "1415": "Invocatore",
+        "1416": "Necromante",
+        "1417": "Alteratore",
+        "2100": "Cambia il Kit di Korgan in Furia Battagliera",
+        "2200": "Da' a Mazzy un appropriato Kit Spada della Fede di Arvoreen",
+        "2300": "Cambia il titolo di Minsc in Ranger di Rashemen",
+        "2500": "Da' a Nalia il Kit da Avventuriero",
+        "choice_1": "Da' a Nalia il Kit da Mago",
+        "2510": "Abiuratore",
+        "2511": "Scongiuratore",
+        "2512": "Divinatore",
+        "2513": "Incantatore",
+        "2514": "Illusionista",
+        "2515": "Invocatore",
+        "2516": "Necromante",
+        "2517": "Alteratore",
+        "2800": "Da' a Sarevok un appropriato Kit del Latore di Morte"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "30": "Improved Specialist Mage Descriptions",
+        "31": "Replace Berserker Kit with Battlerager for Dwarves",
+        "400": "Anomen Gains Helm Kit on Passing Knighthood Test",
+        "410": "Anomen Gains Berserker Kit on Failing Knighthood Test",
+        "420": "Prevent CN Anomen Gaining a Holy Symbol",
+        "900": "Add Red Wizard to Edwin's Kit Description",
+        "1400": "Give Imoen Adventurer Kit",
+        "choice_0": "Give Imoen a Mage Kit",
+        "1410": "Abjurer",
+        "1411": "Conjurer",
+        "1412": "Diviner",
+        "1413": "Enchanter",
+        "1414": "Illusionist",
+        "1415": "Invoker",
+        "1416": "Necromancer",
+        "1417": "Transmuter",
+        "2100": "Change Korgan's Kit to Battlerager",
+        "2200": "Give Mazzy a Proper Truesword of Arvoreen Kit",
+        "2300": "Change Minsc's Title to Rashemaar Ranger",
+        "2500": "Give Nalia Adventurer Kit",
+        "choice_1": "Give Nalia a Mage Kit",
+        "2510": "Abjurer",
+        "2511": "Conjurer",
+        "2512": "Diviner",
+        "2513": "Enchanter",
+        "2514": "Illusionist",
+        "2515": "Invoker",
+        "2516": "Necromancer",
+        "2517": "Transmuter",
+        "2800": "Give Sarevok a Proper Deathbringer Kit"
+      }
+    },
     "zh_CN": {
       "description": "这个模组可以修改您NPC的职业档案，使他们更符合他们的想法。除此之外，阿诺门在成功加入最高贵的光辉之心骑士团后成为海姆的牧师，如果失败则成为狂战士；爱蒙和娜里亚成为冒险者（盗贼职业档案）或法师；艾德温成为红袍术士；寇根成为狂怒者（战士职业档案）；沙洛佛克成为死亡播种者；玛兹成为阿尔孚琳的圣武士；明斯克的宗派名称被修改为拉西曼游侠，等等。"
     },
-    "pl_PL": {"components": {"30": "Ulepszone opisy Magow Specjalistow", "31": "Zamien podklase \"Berserkera\" na \"Krasnoludzkiego Berserkera\" dla Krasnoludow", "400": "Anomen dostaje podklase \"Kaplana Helma\" gdy ukonczy Test Rycerskosci", "410": "Anomen dostaje podklase \"Berserkera\" gdy nie powiedzie mu sie Test Rycerskosci", "420": "Zapobiegaj otrzymaniu symbolu przez Chaotycznego Neutralnego Anomena", "900": "Dodanie \"Czerwonego Maga\" do opisu podklasy Edwina", "1400": "Zamieñ podklase Z³odzieja Imoen na \"Poszukiwacza Przygod\"", "choice_0": "Zamien podklase maga Imoen na:", "1410": "Mistrz Odrzucania", "1411": "Mistrz Przywo³añ", "1412": "Mistrz Poznania", "1413": "Mistrz Zauroczeñ", "1414": "Iluzjonista", "1415": "Mistrz Inwokacji", "1416": "Nekromanta", "1417": "Mistrz Przemian", "2100": "Zamien podklase Korgana na \"Krasnoludzkiego Berserkera\"", "2200": "Zamien podklase Mazzy na \"Miecz Prawdy Arvoreen\"", "2300": "Zamien tytul Minsca na \"Rashemickiego Lowce\"", "2500": "Zamien podklase Nalii na \"Poszukiwacza Przygod\"", "choice_1": "Zamien podklasê maga Nalii na:", "2510": "Mistrz Odrzucania", "2511": "Mistrz Przywo³añ", "2512": "Mistrz Poznania", "2513": "Mistrz Zauroczeñ", "2514": "Iluzjonista", "2515": "Mistrz Inwokacji", "2516": "Nekromanta", "2517": "Mistrz Przemian", "2800": "Zamien podklase Sarevoka na \"Zwiastuna Smierci\""}},
-    "es_ES": {"components": {"30": "Descripciones de Mago Especialista Mejoradas", "31": "Cambiar el Kit Bersérker por Guerrero Rabioso para los enanos", "400": "Anomen obtiene el Perfil de Helmo al pasar la Prueba de la Orden", "410": "Anomen obtiene el Perfil de Bersérker al fallar la Prueba de la Orden", "420": "Evitar que Anomen CN obtenga un Símbolo Sagrado", "900": "Añadir Mago Rojo a la descripción del Perfil de Edwin", "1400": "Dar a Imoen el Perfil de Aventurero", "choice_0": "Dar a Imoen el kit de Maga", "1410": "Abjurador", "1411": "Conjurador", "1412": "Adivinador", "1413": "Encantador", "1414": "Ilusionista", "1415": "Invocador", "1416": "Nigromante", "1417": "Transmutador", "2100": "Cambiar el Perfil de Korgan a Guerrero Rabioso", "2200": "Dar a Mazzy el Perfil de Espada Veraz de Arvorin", "2300": "Cambiar el Título de Minsc a Explorador Rashemaar", "2500": "Dar a Nalia el Perfil de Aventurero", "choice_1": "Dar a Nalia el kit de Maga", "2510": "Abjurador", "2511": "Conjurador", "2512": "Adivinador", "2513": "Encantador", "2514": "Ilusionista", "2515": "Invocador", "2516": "Nigromante", "2517": "Transmutador", "2800": "Dar a Sarevok el Perfil de Portador de la Muerte"}}
+    "pl_PL": {
+      "components": {
+        "30": "Ulepszone opisy Magow Specjalistow",
+        "31": "Zamien podklase \"Berserkera\" na \"Krasnoludzkiego Berserkera\" dla Krasnoludow",
+        "400": "Anomen dostaje podklase \"Kaplana Helma\" gdy ukonczy Test Rycerskosci",
+        "410": "Anomen dostaje podklase \"Berserkera\" gdy nie powiedzie mu sie Test Rycerskosci",
+        "420": "Zapobiegaj otrzymaniu symbolu przez Chaotycznego Neutralnego Anomena",
+        "900": "Dodanie \"Czerwonego Maga\" do opisu podklasy Edwina",
+        "1400": "Zamieñ podklase Z³odzieja Imoen na \"Poszukiwacza Przygod\"",
+        "choice_0": "Zamien podklase maga Imoen na:",
+        "1410": "Mistrz Odrzucania",
+        "1411": "Mistrz Przywo³añ",
+        "1412": "Mistrz Poznania",
+        "1413": "Mistrz Zauroczeñ",
+        "1414": "Iluzjonista",
+        "1415": "Mistrz Inwokacji",
+        "1416": "Nekromanta",
+        "1417": "Mistrz Przemian",
+        "2100": "Zamien podklase Korgana na \"Krasnoludzkiego Berserkera\"",
+        "2200": "Zamien podklase Mazzy na \"Miecz Prawdy Arvoreen\"",
+        "2300": "Zamien tytul Minsca na \"Rashemickiego Lowce\"",
+        "2500": "Zamien podklase Nalii na \"Poszukiwacza Przygod\"",
+        "choice_1": "Zamien podklasê maga Nalii na:",
+        "2510": "Mistrz Odrzucania",
+        "2511": "Mistrz Przywo³añ",
+        "2512": "Mistrz Poznania",
+        "2513": "Mistrz Zauroczeñ",
+        "2514": "Iluzjonista",
+        "2515": "Mistrz Inwokacji",
+        "2516": "Nekromanta",
+        "2517": "Mistrz Przemian",
+        "2800": "Zamien podklase Sarevoka na \"Zwiastuna Smierci\""
+      }
+    },
+    "es_ES": {
+      "components": {
+        "30": "Descripciones de Mago Especialista Mejoradas",
+        "31": "Cambiar el Kit Bersérker por Guerrero Rabioso para los enanos",
+        "400": "Anomen obtiene el Perfil de Helmo al pasar la Prueba de la Orden",
+        "410": "Anomen obtiene el Perfil de Bersérker al fallar la Prueba de la Orden",
+        "420": "Evitar que Anomen CN obtenga un Símbolo Sagrado",
+        "900": "Añadir Mago Rojo a la descripción del Perfil de Edwin",
+        "1400": "Dar a Imoen el Perfil de Aventurero",
+        "choice_0": "Dar a Imoen el kit de Maga",
+        "1410": "Abjurador",
+        "1411": "Conjurador",
+        "1412": "Adivinador",
+        "1413": "Encantador",
+        "1414": "Ilusionista",
+        "1415": "Invocador",
+        "1416": "Nigromante",
+        "1417": "Transmutador",
+        "2100": "Cambiar el Perfil de Korgan a Guerrero Rabioso",
+        "2200": "Dar a Mazzy el Perfil de Espada Veraz de Arvorin",
+        "2300": "Cambiar el Título de Minsc a Explorador Rashemaar",
+        "2500": "Dar a Nalia el Perfil de Aventurero",
+        "choice_1": "Dar a Nalia el kit de Maga",
+        "2510": "Abjurador",
+        "2511": "Conjurador",
+        "2512": "Adivinador",
+        "2513": "Encantador",
+        "2514": "Ilusionista",
+        "2515": "Invocador",
+        "2516": "Nigromante",
+        "2517": "Transmutador",
+        "2800": "Dar a Sarevok el Perfil de Portador de la Muerte"
+      }
+    }
   },
   "tp2": "npckit",
   "safe": 2,

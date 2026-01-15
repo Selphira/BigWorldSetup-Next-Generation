@@ -2,14 +2,16 @@
   "name": "Mersetek le Joaillier",
   "version": "1.3.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=12721",
-    "download": "https://github.com/Plutonium-X/SHOP_Mersetek/archive/refs/tags/1.3.2.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=12721"
   },
-  "file": {
-    "filename": "SHOP_Mersetek-1.3.2.zip",
-    "size": 2102735,
-    "sha256": "c15f7881ed2cf6d79aabb8de4ce837c8a20ab6a5a7f2d271b4bae15f259a786b"
-  },
+  "files": [
+    {
+      "filename": "SHOP_Mersetek-1.3.2.zip",
+      "size": 2102735,
+      "sha256": "c15f7881ed2cf6d79aabb8de4ce837c8a20ab6a5a7f2d271b4bae15f259a786b",
+      "download": "https://github.com/Plutonium-X/SHOP_Mersetek/archive/refs/tags/1.3.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -35,12 +37,24 @@
         "0": "Mersetek"
       }
     },
-    "it_IT": {"components": {"0": "Mersetek"}},
-    "ru_RU": {"components": {"0": "Mersetek"}},
+    "it_IT": {
+      "components": {
+        "0": "Mersetek"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Mersetek"
+      }
+    },
     "zh_CN": {
       "description": "您会在您的门厅找到一个这种特殊商人。他将弥补您为制作模组Item Upgrade的物品所需的宝石的不足。Kay'est的原创作品。"
     },
-    "es_ES": {"components": {"0": "Mersetek"}}
+    "es_ES": {
+      "components": {
+        "0": "Mersetek"
+      }
+    }
   },
   "tp2": "merskstore",
   "safe": 2,

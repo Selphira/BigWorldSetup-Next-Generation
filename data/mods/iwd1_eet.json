@@ -2,14 +2,16 @@
   "name": "IWD1-IWD2-EET",
   "version": "1.1",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/IWD1_EET",
-    "download": "https://github.com/The-Gate-Project/IWD1_EET/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/The-Gate-Project/IWD1_EET"
   },
-  "file": {
-    "filename": "IWD1_EET-main.zip",
-    "size": 1356735205,
-    "sha256": "a62f4107a84d6f273c73bd2edfb23e090c418229b11b86835d8b415c0ed392d3"
-  },
+  "files": [
+    {
+      "filename": "IWD1_EET-main.zip",
+      "size": 1356735205,
+      "sha256": "a62f4107a84d6f273c73bd2edfb23e090c418229b11b86835d8b415c0ed392d3",
+      "download": "https://github.com/The-Gate-Project/IWD1_EET/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["conv"],
   "components": {
@@ -57,10 +59,42 @@
         "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy", "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES", "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES", "0": "Use <CHARNAME> instead of <GABBER> etc.", "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"}},
-    "de_DE": {"components": {"choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy", "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES", "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES", "0": "Use <CHARNAME> instead of <GABBER> etc.", "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"}},
-    "es_ES": {"components": {"choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy", "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES", "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES", "0": "Use <CHARNAME> instead of <GABBER> etc.", "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"}},
-    "pl_PL": {"components": {"choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy", "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES", "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES", "0": "Use <CHARNAME> instead of <GABBER> etc.", "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"}}
+    "ru_RU": {
+      "components": {
+        "choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy",
+        "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES",
+        "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES",
+        "0": "Use <CHARNAME> instead of <GABBER> etc.",
+        "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy",
+        "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES",
+        "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES",
+        "0": "Use <CHARNAME> instead of <GABBER> etc.",
+        "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy",
+        "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES",
+        "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES",
+        "0": "Use <CHARNAME> instead of <GABBER> etc.",
+        "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy",
+        "2": "Special : Icewind Dale MOVIES IN Russian WITH Russian VOICES",
+        "3": "Special : Icewind Dale MOVIES IN Russian WITH English VOICES",
+        "0": "Use <CHARNAME> instead of <GABBER> etc.",
+        "1": "Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    }
   },
   "tp2": "iwd1_eet",
   "safe": 2,

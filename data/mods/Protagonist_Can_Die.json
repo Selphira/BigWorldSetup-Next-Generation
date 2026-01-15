@@ -2,14 +2,16 @@
   "name": "Protagonist can die",
   "version": "0.93",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/28910-protagonist-can-die/page/2/#comment-280191",
-    "download": "https://github.com/Endarire/Protagonist-Can-Die-Mod-for-EET/releases/download/0.93/Protagonist.Can.Die.v0.93.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/28910-protagonist-can-die/page/2/#comment-280191"
   },
-  "file": {
-    "filename": "Protagonist.Can.Die.v0.93.zip",
-    "size": 977119,
-    "sha256": "c7ded7eefbbe39314ed9b869bb29f13451f57a379ccff9dc889885f62ed6a04b"
-  },
+  "files": [
+    {
+      "filename": "Protagonist.Can.Die.v0.93.zip",
+      "size": 977119,
+      "sha256": "c7ded7eefbbe39314ed9b869bb29f13451f57a379ccff9dc889885f62ed6a04b",
+      "download": "https://github.com/Endarire/Protagonist-Can-Die-Mod-for-EET/releases/download/0.93/Protagonist.Can.Die.v0.93.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

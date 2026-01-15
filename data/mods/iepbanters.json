@@ -2,14 +2,16 @@
   "name": "IEP Extended Banters",
   "version": "5.9",
   "links": {
-    "homepage": "https://spellholdstudios.github.io/readmes/iepbanters-readme-english.html",
-    "download": "https://github.com/Spellhold-Studios/IEP-Extended-Banters/releases/download/v5.9/iep-extended-banters-v5.9.zip"
+    "homepage": "https://spellholdstudios.github.io/readmes/iepbanters-readme-english.html"
   },
-  "file": {
-    "filename": "iep-extended-banters-v5.9.zip",
-    "size": 5081141,
-    "sha256": "110b06d613585f03ba6ea09fb0cd95ae8fd5860c0ba30357bbb62f20835aba51"
-  },
+  "files": [
+    {
+      "filename": "iep-extended-banters-v5.9.zip",
+      "size": 5081141,
+      "sha256": "110b06d613585f03ba6ea09fb0cd95ae8fd5860c0ba30357bbb62f20835aba51",
+      "download": "https://github.com/Spellhold-Studios/IEP-Extended-Banters/releases/download/v5.9/iep-extended-banters-v5.9.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -48,7 +50,23 @@
         "11": "60 Minutes"
       }
     },
-    "ru_RU": {"components": {"0": " áè¨à¥­­ë¥ ¤¨ «®£¨ NPC-NPC ¢ SoA", "1": " áè¨à¥­­ë¥ ¤¨ «®£¨ ¨­áª  ¨ ¥à¨ ¢ ToB", "2": "\"¥âà®á¯¥ªâ¨¢­ë©\" ¤¨ «®£ á ¬®¥­ ¢ BGII: ToB", "3": "á¯à ¢«¥­­ë© ¤¨ «®£ ¢ à®¬ ­¥ á ­®¬¥­®¬ \n( ¢â®à David Gaider á ¤®¡ ¢«¥­¨ï¬¨ Kulyok)", "4": "¥à¥à ¡®â ­­ë¥ ª®­ä«¨ªâë NPC", "5": "®ááâ ­®¢«¥­­ë¥ ¤¨ «®£¨ ¥à¨/¦ å¥©àë/­®¬¥­  \n¢ ­¤¥à¤ àª¥", "choice_0": "áâ ­®¢¨âì ãáª®à¨â¥«ì ¤¨ «®£®¢? \n(ãª ¦¨â¥ ¢à¥¬ï ¯®ï¢«¥­¨ï ¤¨ «®£®¢)", "6": "10 ¬¨­ãâ", "7": "15 ¬¨­ãâ", "8": "20 ¬¨­ãâ", "9": "30 ¬¨­ãâ", "10": "45 ¬¨­ãâ", "11": "60 ¬¨­ãâ"}},
+    "ru_RU": {
+      "components": {
+        "0": " áè¨à¥­­ë¥ ¤¨ «®£¨ NPC-NPC ¢ SoA",
+        "1": " áè¨à¥­­ë¥ ¤¨ «®£¨ ¨­áª  ¨ ¥à¨ ¢ ToB",
+        "2": "\"¥âà®á¯¥ªâ¨¢­ë©\" ¤¨ «®£ á ¬®¥­ ¢ BGII: ToB",
+        "3": "á¯à ¢«¥­­ë© ¤¨ «®£ ¢ à®¬ ­¥ á ­®¬¥­®¬ \n( ¢â®à David Gaider á ¤®¡ ¢«¥­¨ï¬¨ Kulyok)",
+        "4": "¥à¥à ¡®â ­­ë¥ ª®­ä«¨ªâë NPC",
+        "5": "®ááâ ­®¢«¥­­ë¥ ¤¨ «®£¨ ¥à¨/¦ å¥©àë/­®¬¥­  \n¢ ­¤¥à¤ àª¥",
+        "choice_0": "áâ ­®¢¨âì ãáª®à¨â¥«ì ¤¨ «®£®¢? \n(ãª ¦¨â¥ ¢à¥¬ï ¯®ï¢«¥­¨ï ¤¨ «®£®¢)",
+        "6": "10 ¬¨­ãâ",
+        "7": "15 ¬¨­ãâ",
+        "8": "20 ¬¨­ãâ",
+        "9": "30 ¬¨­ãâ",
+        "10": "45 ¬¨­ãâ",
+        "11": "60 ¬¨­ãâ"
+      }
+    },
     "fr_FR": {
       "description": "Ce projet a pour intention de développer le réalisme et l'intérêt des PNJ de Bioware en les dotant d'interjections, de dialogues, de banters et de relations amicales supplémentaires. 13 mods sont d'ores et déjà issus de ce projet ambitieux. Il s'agit de : \nCernd Friendship, Dorn Friendship, Haer'dalis Friendship, Hexxat Friendship, Imoen Friendship, Jaheira Friendship, Korgan Friendship, Mazzy Friendship, Minsc Friendship, Sarevok Friendship, Valygar Friendship, Viconia Friendship et Yoshimo Friendship.",
       "components": {
@@ -85,8 +103,40 @@
         "11": "60·ÖÖÓ"
       }
     },
-    "de_DE": {"components": {"0": "- Erweiterte Dialoge der NPC's untereinander für SvA", "1": "- Dialoge Minsc/Aerie TdB", "2": "- Imoen Erinnerungsdialoge", "3": "- Anomendialog nach gemeinsamer Nacht", "4": "- Konflikte", "5": "Wiederhergestellte Interjektion von Aerie/Jaheira/Anomen im Unterreich", "choice_0": "Banter-Beschleuniger installieren? Wieviel Zeit soll zwischen den NSC-Bantern im Spiel vergehen?", "6": "10 Minuten", "7": "15 Minuten", "8": "20 Minuten", "9": "30 Minuten", "10": "45 Minuten", "11": "60 Minuten"}},
-    "es_ES": {"components": {"0": "Extended NPC-NPC Interaction SoA", "1": "Extended Minsc/Aerie Interaction ToB", "2": "Imoen \"Retrospection\" dialogue for BGII: ToB", "3": "Wake-Up dialogue for Anomen Romance (By David Gaider with additions from Kulyok)", "4": "NPC Conflict Revisions", "5": "Restored Aerie/Jaheira/Anomen interjection in Underdark", "choice_0": "Install Banter Accelerator? How much time would you like in between NPC banters in-game?", "6": "10 Minutes", "7": "15 Minutes", "8": "20 Minutes", "9": "30 Minutes", "10": "45 Minutes", "11": "60 Minutes"}}
+    "de_DE": {
+      "components": {
+        "0": "- Erweiterte Dialoge der NPC's untereinander für SvA",
+        "1": "- Dialoge Minsc/Aerie TdB",
+        "2": "- Imoen Erinnerungsdialoge",
+        "3": "- Anomendialog nach gemeinsamer Nacht",
+        "4": "- Konflikte",
+        "5": "Wiederhergestellte Interjektion von Aerie/Jaheira/Anomen im Unterreich",
+        "choice_0": "Banter-Beschleuniger installieren? Wieviel Zeit soll zwischen den NSC-Bantern im Spiel vergehen?",
+        "6": "10 Minuten",
+        "7": "15 Minuten",
+        "8": "20 Minuten",
+        "9": "30 Minuten",
+        "10": "45 Minuten",
+        "11": "60 Minuten"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Extended NPC-NPC Interaction SoA",
+        "1": "Extended Minsc/Aerie Interaction ToB",
+        "2": "Imoen \"Retrospection\" dialogue for BGII: ToB",
+        "3": "Wake-Up dialogue for Anomen Romance (By David Gaider with additions from Kulyok)",
+        "4": "NPC Conflict Revisions",
+        "5": "Restored Aerie/Jaheira/Anomen interjection in Underdark",
+        "choice_0": "Install Banter Accelerator? How much time would you like in between NPC banters in-game?",
+        "6": "10 Minutes",
+        "7": "15 Minutes",
+        "8": "20 Minutes",
+        "9": "30 Minutes",
+        "10": "45 Minutes",
+        "11": "60 Minutes"
+      }
+    }
   },
   "tp2": "iepbanters",
   "safe": 2,

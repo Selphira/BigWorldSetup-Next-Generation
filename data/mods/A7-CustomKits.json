@@ -2,14 +2,16 @@
   "name": "Custom Kits: Spellsword",
   "version": "1.6",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/45487-custom-kits-the-spellsword/",
-    "download": "http://www.shsforums.net/files/download/913-custom-kits-the-spellsword/"
+    "homepage": "http://www.shsforums.net/topic/45487-custom-kits-the-spellsword/"
   },
-  "file": {
-    "filename": "A7-CustomKits-v1.6.zip",
-    "size": 3245290,
-    "sha256": "87aa30452ad262d6101169c3689e11ad082f65081f86efd334ff5f8970be7735"
-  },
+  "files": [
+    {
+      "filename": "A7-CustomKits-v1.6.zip",
+      "size": 3245290,
+      "sha256": "87aa30452ad262d6101169c3689e11ad082f65081f86efd334ff5f8970be7735",
+      "download": "http://www.shsforums.net/files/download/913-custom-kits-the-spellsword/"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -40,7 +42,13 @@
     "zh_CN": {
       "description": "此模组增加了一个战士宗派：剑刃法师，他可以召唤一把精神之剑，在战斗中与他并肩作战一回合。在高等级时，他还可以在短时间内分身，有点类似一个幻象体。"
     },
-    "de_DE": {"components": {"choice_0": "Schwertmagier Kit", "0": "Abgeschwaechte Version", "1": "Originale Version"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Schwertmagier Kit",
+        "0": "Abgeschwaechte Version",
+        "1": "Originale Version"
+      }
+    }
   },
   "tp2": "a7-customkits",
   "safe": 2,

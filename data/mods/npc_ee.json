@@ -2,14 +2,16 @@
   "name": "NPCs Enhanced... um, for Everyone!",
   "version": "6.5.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/27526-npc_ee-new-class-and-kit-options-for-bgee-and-bg2ee-npcs/",
-    "download": "https://github.com/UnearthedArcana/NPC_EE/archive/refs/tags/6.5.5.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/27526-npc_ee-new-class-and-kit-options-for-bgee-and-bg2ee-npcs/"
   },
-  "file": {
-    "filename": "NPC_EE-6.5.5.zip",
-    "size": 3267165,
-    "sha256": "b89d1d746be339d5190a0cb9bcc16d7cde5a578cd8f2b833cfbd9dbedaba3779"
-  },
+  "files": [
+    {
+      "filename": "NPC_EE-6.5.5.zip",
+      "size": 3267165,
+      "sha256": "b89d1d746be339d5190a0cb9bcc16d7cde5a578cd8f2b833cfbd9dbedaba3779",
+      "download": "https://github.com/UnearthedArcana/NPC_EE/archive/refs/tags/6.5.5.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["npcx"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Isaac's missile storm",
   "version": "0.8",
   "links": {
-    "homepage": "https://github.com/shohysie/Isaac-s_Missile_Storm",
-    "download": "https://github.com/shohysie/Isaac-s_Missile_Storm/archive/refs/tags/v0.8.zip"
+    "homepage": "https://github.com/shohysie/Isaac-s_Missile_Storm"
   },
-  "file": {
-    "filename": "Isaac-s_Missile_Storm-0.8.zip",
-    "size": 2079339,
-    "sha256": "7d85d44e159dccb73cb70795d94681ef16d492c08f75a5de74bf0d65e1f9f7a4"
-  },
+  "files": [
+    {
+      "filename": "Isaac-s_Missile_Storm-0.8.zip",
+      "size": 2079339,
+      "sha256": "7d85d44e159dccb73cb70795d94681ef16d492c08f75a5de74bf0d65e1f9f7a4",
+      "download": "https://github.com/shohysie/Isaac-s_Missile_Storm/archive/refs/tags/v0.8.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Check the Bodies",
   "version": "3.1",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Check-the-Bodies",
-    "download": "https://github.com/SpellholdStudios/Check_the_Bodies/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Check-the-Bodies"
   },
-  "file": {
-    "filename": "Check_the_Bodies-master.zip",
-    "size": 447502500,
-    "sha256": "62f8bf09a1fe8453441a3fccded9f02a120d69a17d63b544772a7583324cea9c"
-  },
+  "files": [
+    {
+      "filename": "Check_the_Bodies-master.zip",
+      "size": 447502500,
+      "sha256": "62f8bf09a1fe8453441a3fccded9f02a120d69a17d63b544772a7583324cea9c",
+      "download": "https://github.com/SpellholdStudios/Check_the_Bodies/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest", "gameplay"],
   "components": {
@@ -41,7 +43,16 @@
         "5": "CtB Wizard Spells"
       }
     },
-    "ru_RU": {"components": {"0": "Check The Bodies", "1": "Candlekeep Chores", "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)", "3": "Other Improvements", "4": "Check The Bodies Resource biffing", "5": "CtB Wizard Spells"}},
+    "ru_RU": {
+      "components": {
+        "0": "Check The Bodies",
+        "1": "Candlekeep Chores",
+        "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)",
+        "3": "Other Improvements",
+        "4": "Check The Bodies Resource biffing",
+        "5": "CtB Wizard Spells"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute un nombre incalculable de quêtes (24 dont certaines assez longues) plus des quêtes de classe inédites. De nouvelles maps (15 + 160 modifiées), de nouveaux objets, de nouvelles recettes pour Cromwell, une nouvelle ville à explorer (Hlondeth), un nouveau personnage à recruter (Rynn, guerrière humaine).... Bref, c'est alléchant. Throne of Bhaal est requis. L'aventure débute à Château-Suif, et après quelques corvées, vous deviendrez plus puissant et poursuivrez le cours normal de BG2 tout en ayant de nombreuses quêtes et nombreuses rencontres à faire.\nLa nouvelle version englobe les modules complémentaires `Candlekeep Chores (tutoriel)` et `Candlekeep Chores Fast Forward`.",
       "components": {
@@ -53,7 +64,16 @@
         "5": "CtB Wizard Spells"
       }
     },
-    "it_IT": {"components": {"0": "Check The Bodies", "1": "Candlekeep Chores", "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)", "3": "Other Improvements", "4": "Check The Bodies Resource biffing", "5": "CtB Wizard Spells"}},
+    "it_IT": {
+      "components": {
+        "0": "Check The Bodies",
+        "1": "Candlekeep Chores",
+        "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)",
+        "3": "Other Improvements",
+        "4": "Check The Bodies Resource biffing",
+        "5": "CtB Wizard Spells"
+      }
+    },
     "zh_CN": {
       "description": "这个模组增加了无数的任务（其中一些相当长）以及全新的职业任务。新的地图（15张 + 160张被修改的）、新物品、为克伦威尔提供的新配方、一个可以探索的新城市（赫隆德）、一个可以招募的新角色（瑞恩，人类女战士）……总之，很吸引人。需要巴尔王座。冒险始于烛堡，在完成一些杂务后，你会变得更强大，并继续正常的博德之门2进程，同时还要完成许多任务和遭遇。\n新版本包含了补充模块《烛堡杂务（教程）》和《烛堡杂务快进》。",
       "components": {
@@ -65,8 +85,26 @@
         "5": "CtB Wizard Spells"
       }
     },
-    "de_DE": {"components": {"0": "Check The Bodies", "1": "Candlekeep Chores", "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)", "3": "Other Improvements", "4": "Check The Bodies Resource biffing", "5": "CtB Wizard Spells"}},
-    "es_ES": {"components": {"0": "Check The Bodies", "1": "Candlekeep Chores", "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)", "3": "Other Improvements", "4": "Check The Bodies Resource biffing", "5": "CtB Wizard Spells"}}
+    "de_DE": {
+      "components": {
+        "0": "Check The Bodies",
+        "1": "Candlekeep Chores",
+        "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)",
+        "3": "Other Improvements",
+        "4": "Check The Bodies Resource biffing",
+        "5": "CtB Wizard Spells"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Check The Bodies",
+        "1": "Candlekeep Chores",
+        "2": "Candlekeep Chores Fast Forward (for CtB v2.2 or later)",
+        "3": "Other Improvements",
+        "4": "Check The Bodies Resource biffing",
+        "5": "CtB Wizard Spells"
+      }
+    }
   },
   "tp2": "ctb",
   "safe": 2,

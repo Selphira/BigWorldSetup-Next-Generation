@@ -2,14 +2,16 @@
   "name": "Plasmocat's \"Picks of the Litter\" Portrait Pack",
   "version": "4",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack",
-    "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/picks_of_the_litter-v4.exe"
+    "homepage": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack"
   },
-  "file": {
-    "filename": "picks_of_the_litter-v4.exe",
-    "size": 13270647,
-    "sha256": "d75257b529d4223cab903ca1d9c23ebe9fec2291d4991c479c07cb5b30a1e1ce"
-  },
+  "files": [
+    {
+      "filename": "picks_of_the_litter-v4.exe",
+      "size": 13270647,
+      "sha256": "d75257b529d4223cab903ca1d9c23ebe9fec2291d4991c479c07cb5b30a1e1ce",
+      "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/picks_of_the_litter-v4.exe"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {

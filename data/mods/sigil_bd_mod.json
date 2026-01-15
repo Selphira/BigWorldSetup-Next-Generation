@@ -2,14 +2,16 @@
   "name": "Sigil's Birthday Mod",
   "version": "2",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/MISC_Sigil",
-    "download": "https://github.com/Plutonium-X/MISC_Sigil/releases/download/v2/win-sigil_bd_mod.zip"
+    "homepage": "https://github.com/Plutonium-X/MISC_Sigil"
   },
-  "file": {
-    "filename": "win-sigil_bd_mod.zip",
-    "size": 2072005,
-    "sha256": "865268b14407b09397cdb93220b4398c4a8be33863116d7523d73872fb203a5b"
-  },
+  "files": [
+    {
+      "filename": "win-sigil_bd_mod.zip",
+      "size": 2072005,
+      "sha256": "865268b14407b09397cdb93220b4398c4a8be33863116d7523d73872fb203a5b",
+      "download": "https://github.com/Plutonium-X/MISC_Sigil/releases/download/v2/win-sigil_bd_mod.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],
   "categories": ["spell"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "这个模组相当有趣，它会在你的背包里添加一个新的护身符，让你可以召唤印记城论坛上12位名人中的任意一位。她们中的每一位都会在你非战斗状态下为你提供一个有效的增益效果，或在战斗状态下释放一个强大的攻击性法术。"
     },
-    "cs_CZ": {"components": {"0": "Narozeninovy mod Sigilu"}}
+    "cs_CZ": {
+      "components": {
+        "0": "Narozeninovy mod Sigilu"
+      }
+    }
   },
   "tp2": "sigil_bd_mod",
   "safe": 2,

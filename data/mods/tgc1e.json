@@ -2,14 +2,16 @@
   "name": "The Grey Clan Episode I: In Candlelight",
   "version": "1.9",
   "links": {
-    "homepage": "https://github.com/Black-Wyrm-Lair/The-Gray-Clan-Episode-1",
-    "download": "https://github.com/Black-Wyrm-Lair/The-Gray-Clan-Episode-1/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/Black-Wyrm-Lair/The-Gray-Clan-Episode-1"
   },
-  "file": {
-    "filename": "The-Gray-Clan-Episode-1-master.zip",
-    "size": 6156412,
-    "sha256": "8da42e9cced57f3fec6bc9eafcee06ab6e5ccf74ad79ed8a94cf053ea78017b4"
-  },
+  "files": [
+    {
+      "filename": "The-Gray-Clan-Episode-1-master.zip",
+      "size": 6156412,
+      "sha256": "8da42e9cced57f3fec6bc9eafcee06ab6e5ccf74ad79ed8a94cf053ea78017b4",
+      "download": "https://github.com/Black-Wyrm-Lair/The-Gray-Clan-Episode-1/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -32,7 +34,13 @@
       },
       "description": "You've arrived at Baldur's Gate, proud to have eliminated the threat of bandits on the Sword Coast. But is it really? There may be another, darker and more dangerous threat. You'll find out in this mod, aimed more at characters of neutral or good alignment, which adds a moderately long quest, improved AI for certain opponents, new items, and the possibility of epic battles alongside the Flaming Fist. If the battles seem too difficult, you can choose to install an easier version of certain battles (choose the \"lite\" version on installation).\nThe GitHub link is a recoded version that concerns the EE and BGT games."
     },
-    "it_IT": {"components": {"choice_0": "Il Clan Grigio Episodio Uno: a Lume di Candela", "0": "Edizione Normale", "1": "Edizione Ridotta"}},
+    "it_IT": {
+      "components": {
+        "choice_0": "Il Clan Grigio Episodio Uno: a Lume di Candela",
+        "0": "Edizione Normale",
+        "1": "Edizione Ridotta"
+      }
+    },
     "fr_FR": {
       "description": "Vous êtes arrivés à la Porte de Baldur, fier(e) d'avoir éliminé la menace des bandits sur la Côte des Épées. Mais l'est-elle réellement ? Il y a peut-être une autre menace, bien plus sombre, bien plus dangereuse. Vous le découvrirez dans ce mod, plutôt destiné aux personnages d'alignement neutre ou bon, qui ajoute une quête moyennement longue, une AI améliorée pour certains adversaires, de nouveaux objets, et la possibilité de batailles épiques au côté du Poing Enflammé. Si les combats vous paraissent trop difficiles, vous pouvez choisir d'installer une version plus facile de certains combats (choisir la version \"allégée\" à l'installation).\nLe lien GitHub est une version recodée qui concerne les jeux EE et BGT.",
       "components": {
@@ -41,7 +49,13 @@
         "1": "Edition allegee"
       }
     },
-    "ru_RU": {"components": {"choice_0": "The Grey Clan Episode One: In Candlelight", "0": "Normal edition (translation provided by Big World Textpack)", "1": "Lite edition (translation provided by Big World Textpack)"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "The Grey Clan Episode One: In Candlelight",
+        "0": "Normal edition (translation provided by Big World Textpack)",
+        "1": "Lite edition (translation provided by Big World Textpack)"
+      }
+    },
     "zh_CN": {
       "description": "你抵达了博德之门，为消除了剑湾的盗贼威胁而自豪。但威胁真的解除了吗？也许还有另一个威胁，更黑暗，更危险。你将在这个模组中发现它，该模组更适合中立或善良阵营的角色，它添加了一个中等长度的任务、一些敌人的增强AI、新物品，以及与燃烧之拳并肩作战进行史诗级战斗的可能性。如果战斗对你来说太难，你可以选择安装某些战斗的简化版本（安装时选择“精简”版本）。\nGitHub链接是一个针对EE和BGT游戏的重新编码版本。"
     }

@@ -2,14 +2,16 @@
   "name": "Minor NPC Portraits for BGEE",
   "version": "1.5",
   "links": {
-    "homepage": "https://github.com/smeagolheart/MinorNPCPortraitsforBGEE",
-    "download": "https://github.com/smeagolheart/MinorNPCPortraitsforBGEE/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/smeagolheart/MinorNPCPortraitsforBGEE"
   },
-  "file": {
-    "filename": "MinorNPCPortraitsforBGEE-master.zip",
-    "size": 69332175,
-    "sha256": "b508f6c30003530913c0a113f9f6406401b8341ecd6290597be7e596b6cecdd2"
-  },
+  "files": [
+    {
+      "filename": "MinorNPCPortraitsforBGEE-master.zip",
+      "size": 69332175,
+      "sha256": "b508f6c30003530913c0a113f9f6406401b8341ecd6290597be7e596b6cecdd2",
+      "download": "https://github.com/smeagolheart/MinorNPCPortraitsforBGEE/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bgee", "eet"],
   "categories": ["portrait"],
   "components": {

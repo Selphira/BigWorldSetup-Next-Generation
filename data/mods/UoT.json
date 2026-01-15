@@ -2,14 +2,16 @@
   "name": "Umbra of Torto",
   "version": "2.4.0",
   "links": {
-    "homepage": "https://trow.cc/board/index.php?showtopic=13329",
-    "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/win-UoT-v2.4.0.zip"
+    "homepage": "https://trow.cc/board/index.php?showtopic=13329"
   },
-  "file": {
-    "filename": "win-UoT-v2.4.0.zip",
-    "size": 10898904,
-    "sha256": "f98340f63a8089555c841d59342c07107152efb41919d591665435d20696bf2b"
-  },
+  "files": [
+    {
+      "filename": "win-UoT-v2.4.0.zip",
+      "size": 10898904,
+      "sha256": "f98340f63a8089555c841d59342c07107152efb41919d591665435d20696bf2b",
+      "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/win-UoT-v2.4.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {

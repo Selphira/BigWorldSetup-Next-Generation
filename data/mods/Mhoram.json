@@ -2,14 +2,16 @@
   "name": "Mhoram",
   "version": "2.5",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/769-mhoram-npc-v23/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/win-Mhoram-v2.5.zip"
+    "homepage": "http://www.shsforums.net/files/file/769-mhoram-npc-v23/"
   },
-  "file": {
-    "filename": "win-Mhoram-v2.5.zip",
-    "size": 2252395,
-    "sha256": "4b18d4e2e3d456634f659a9b9f9559c88e62c8d3bd6c6c4347eec318036a029a"
-  },
+  "files": [
+    {
+      "filename": "win-Mhoram-v2.5.zip",
+      "size": 2252395,
+      "sha256": "4b18d4e2e3d456634f659a9b9f9559c88e62c8d3bd6c6c4347eec318036a029a",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/win-Mhoram-v2.5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -37,8 +39,16 @@
     "zh_CN": {
       "description": "这个迷你模组添加了一个北地诗人，一个来自大北地的精灵诗人，在桥区有一个可选的任务。\n力量 16，敏捷 18，体质 15，智力 10，智慧 14，魅力 16。"
     },
-    "es_ES": {"components": {"0": "Mhoram NPC"}},
-    "it_IT": {"components": {"0": "Mhoram NPC v1.2"}}
+    "es_ES": {
+      "components": {
+        "0": "Mhoram NPC"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Mhoram NPC v1.2"
+      }
+    }
   },
   "tp2": "mhoram",
   "safe": 2,

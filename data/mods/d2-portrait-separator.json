@@ -2,14 +2,16 @@
   "name": "Portrait Gender Separator",
   "version": "1.7",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/83575/mod-portrait-gender-separator/",
-    "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.7/portrait-gender-separator-1.7.7z"
+    "homepage": "https://forums.beamdog.com/discussion/83575/mod-portrait-gender-separator/"
   },
-  "file": {
-    "filename": "portrait-gender-separator-1.7.7z",
-    "size": 2206791,
-    "sha256": "1428063df2634872224dabc6b136102eb768a7d6271035cd8d59122decbe3542"
-  },
+  "files": [
+    {
+      "filename": "portrait-gender-separator-1.7.7z",
+      "size": 2206791,
+      "sha256": "1428063df2634872224dabc6b136102eb768a7d6271035cd8d59122decbe3542",
+      "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.7/portrait-gender-separator-1.7.7z"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["util"],
   "components": {

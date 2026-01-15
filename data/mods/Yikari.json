@@ -2,14 +2,16 @@
   "name": "Yikari",
   "version": "1.8.1",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/34-yikari-v-17/",
-    "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/win-yikari.zip"
+    "homepage": "http://www.shsforums.net/files/file/34-yikari-v-17/"
   },
-  "file": {
-    "filename": "win-yikari.zip",
-    "size": 1583456,
-    "sha256": "1a18df112c4f8b09b97efa4a5446274c035673f99e563c389ffc79d1a31dc8bf"
-  },
+  "files": [
+    {
+      "filename": "win-yikari.zip",
+      "size": 1583456,
+      "sha256": "1a18df112c4f8b09b97efa4a5446274c035673f99e563c389ffc79d1a31dc8bf",
+      "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/win-yikari.zip"
+    }
+  ],
   "games": ["bg2", "bgt"],
   "categories": ["npc1d"],
   "components": {
@@ -46,8 +48,22 @@
     "zh_CN": {
       "description": "这个模组添加了一个新的NPC，一位来自卡拉-图的守序中立武僧。他有自己的任务以及与每个角色的互动。他立下誓言，在完成任务前保持沉默，因此你们的初次相遇将是一场有趣的猜谜游戏。是否拥有天界怒刃（+3或+5版）会影响他的反应。如果没有天界怒刃，他不会加入队伍。\n力量 16，敏捷 18，体质 14，智力 8，智慧 18，魅力 4。"
     },
-    "ru_RU": {"components": {"0": "ª à¨, ¬®­ å NPC", "1": "®¢¬¥áâ¨¬®áâì á Item Upgrade (¥­¨ ¬­ )", "2": "®¢¬¥áâ¨¬®áâì á Item Upgrade (à®­   « )", "3": "®¢¬¥áâ¨¬®áâì á ãà®¨á ­®¬ (Kuroisan) (¨§ ¬®¤®¢ Tactics ¨«¨ Big Picture)"}},
-    "it_IT": {"components": {"0": "Yikari, un NPC monaco", "1": "Compatibilità con Item Upgrade SoA", "2": "Compatibilità con Item Upgrades ToB", "3": "Compatibilità con Kuroisan (da Tactics o Big Picture)"}}
+    "ru_RU": {
+      "components": {
+        "0": "ª à¨, ¬®­ å NPC",
+        "1": "®¢¬¥áâ¨¬®áâì á Item Upgrade (¥­¨ ¬­ )",
+        "2": "®¢¬¥áâ¨¬®áâì á Item Upgrade (à®­   « )",
+        "3": "®¢¬¥áâ¨¬®áâì á ãà®¨á ­®¬ (Kuroisan) (¨§ ¬®¤®¢ Tactics ¨«¨ Big Picture)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Yikari, un NPC monaco",
+        "1": "Compatibilità con Item Upgrade SoA",
+        "2": "Compatibilità con Item Upgrades ToB",
+        "3": "Compatibilità con Kuroisan (da Tactics o Big Picture)"
+      }
+    }
   },
   "tp2": "yikari",
   "safe": 2,

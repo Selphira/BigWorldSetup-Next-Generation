@@ -2,14 +2,16 @@
   "name": "Charlatan",
   "version": "2.7",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/68297/bard-kit-charlatan-iwdee-eet-bgee-bg2ee/",
-    "download": "https://github.com/Raduziel/Charlatan-Kit/archive/master.zip"
+    "homepage": "https://forums.beamdog.com/discussion/68297/bard-kit-charlatan-iwdee-eet-bgee-bg2ee/"
   },
-  "file": {
-    "filename": "Charlatan-Kit-master.zip",
-    "size": 926207,
-    "sha256": "c8f426e07d074839608b7beac5f67b7926d7ed88aab41bd369979420670b3e61"
-  },
+  "files": [
+    {
+      "filename": "Charlatan-Kit-master.zip",
+      "size": 926207,
+      "sha256": "c8f426e07d074839608b7beac5f67b7926d7ed88aab41bd369979420670b3e61",
+      "download": "https://github.com/Raduziel/Charlatan-Kit/archive/master.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -39,7 +41,12 @@
     "zh_CN": {
       "description": "这个模组允许你安装一个新的吟游诗人职业，专精于操纵和欺骗。\n在博德之门：增强版和增强版三部曲中，一个可选组件允许将其分配给亚多士。"
     },
-    "ru_RU": {"components": {"0": "Install Charlatan kit for Bards", "1": "Eldoth, the Charlatan."}}
+    "ru_RU": {
+      "components": {
+        "0": "Install Charlatan kit for Bards",
+        "1": "Eldoth, the Charlatan."
+      }
+    }
   },
   "tp2": "charlatan",
   "safe": 2,

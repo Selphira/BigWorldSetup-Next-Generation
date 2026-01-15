@@ -2,14 +2,16 @@
   "name": "Improved Horns of Valhalla",
   "version": "2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/items/horns/",
-    "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/valhorn-v2.exe"
+    "homepage": "https://www.gibberlings3.net/mods/items/horns/"
   },
-  "file": {
-    "filename": "valhorn-v2.exe",
-    "size": 1188432,
-    "sha256": "d5fab20afa7be8f0185a275eaf4fc49b7d1c57ec60b47a29bfbc9a08eb36150f"
-  },
+  "files": [
+    {
+      "filename": "valhorn-v2.exe",
+      "size": 1188432,
+      "sha256": "d5fab20afa7be8f0185a275eaf4fc49b7d1c57ec60b47a29bfbc9a08eb36150f",
+      "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/valhorn-v2.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "这个迷你模组改进了由三个瓦尔哈拉号角召唤的狂战士。只有生物和他们的物品被修改。号角本身保持不变。狂战士拥有更好的武器和技能，并且始终处于狂怒状态（就像狂战士宗派一样）。"
     },
-    "de_DE": {"components": {"0": "Verbesserte Odins-Horner"}},
-    "it_IT": {"components": {"0": "Corni del Valhalla Migliorati"}},
-    "pl_PL": {"components": {"0": "Ulepszony rog Walhalli"}}
+    "de_DE": {
+      "components": {
+        "0": "Verbesserte Odins-Horner"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Corni del Valhalla Migliorati"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Ulepszony rog Walhalli"
+      }
+    }
   },
   "tp2": "valhorn",
   "safe": 2,

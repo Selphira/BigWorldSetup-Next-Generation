@@ -2,14 +2,16 @@
   "name": "KimNPC",
   "version": "1.7",
   "links": {
-    "homepage": "https://akadis.baldursgateworld.fr/Kim/KimFr.html",
-    "download": "https://github.com/11jo/Kim_NPC/releases/download/v1.7/kimnpc-v1.7.zip"
+    "homepage": "https://akadis.baldursgateworld.fr/Kim/KimFr.html"
   },
-  "file": {
-    "filename": "kimnpc-v1.7.zip",
-    "size": 6098985,
-    "sha256": "41558918e9e4cf1c38fa69be333b6aa5239510c55ac74cace4074cd12be6108c"
-  },
+  "files": [
+    {
+      "filename": "kimnpc-v1.7.zip",
+      "size": 6098985,
+      "sha256": "41558918e9e4cf1c38fa69be333b6aa5239510c55ac74cace4074cd12be6108c",
+      "download": "https://github.com/11jo/Kim_NPC/releases/download/v1.7/kimnpc-v1.7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -39,7 +41,12 @@
     "zh_CN": {
       "description": "难以置信的美丽，令人愉悦的性感……但又极其挑剔，女海盗金在阿斯卡特拉停靠。你驯服得了她吗？此模组添加了一个新NPC金，一个专属任务以及一段浪漫关系。你可以在瑞纳·血鳞附近找到她。\n力量 17，敏捷 18，体质 10，智力 14，智慧 7，魅力 16"
     },
-    "de_DE": {"components": {"0": "Kim fur BG2: SOA (ToB: benotigt) Version 1.62d", "1": "Installation der Mystische Axt der Entropie angepassten (fügt einen Rettungswurf von -4 gegen seine Effekte hinzu)"}}
+    "de_DE": {
+      "components": {
+        "0": "Kim fur BG2: SOA (ToB: benotigt) Version 1.62d",
+        "1": "Installation der Mystische Axt der Entropie angepassten (fügt einen Rettungswurf von -4 gegen seine Effekte hinzu)"
+      }
+    }
   },
   "tp2": "kimnpc",
   "safe": 2,

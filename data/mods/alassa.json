@@ -2,14 +2,16 @@
   "name": "Alassa",
   "version": "4",
   "links": {
-    "homepage": "https://www.pocketplane.net/one-day-npcs/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/archive/refs/tags/v4.zip"
+    "homepage": "https://www.pocketplane.net/one-day-npcs/"
   },
-  "file": {
-    "filename": "1D_NPC_Alassa-4.zip",
-    "size": 3568939,
-    "sha256": "db271d19bc73d6109843cc62c21c757f69b60e19784438af2374906330e654a0"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Alassa-4.zip",
+      "size": 3568939,
+      "sha256": "db271d19bc73d6109843cc62c21c757f69b60e19784438af2374906330e654a0",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/archive/refs/tags/v4.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "一个中立邪恶的女盗贼，有配音、一些轻松的闲聊和一张原创肖像。你可以在贫民区找到她。\n力量10，敏捷15，体质9，智力14，智慧12，魅力16。"
     },
-    "de_DE": {"components": {"0": "Alassa NPC"}}
+    "de_DE": {
+      "components": {
+        "0": "Alassa NPC"
+      }
+    }
   },
   "tp2": "alassa",
   "safe": 2,

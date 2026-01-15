@@ -2,14 +2,16 @@
   "name": "Derats Mods Tweaker",
   "version": "3.2",
   "links": {
-    "homepage": "https://github.com/Deratiseur/Mods_Tweaker",
-    "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/win-Derats_Mods_Tweaker-v3.2.zip"
+    "homepage": "https://github.com/Deratiseur/Mods_Tweaker"
   },
-  "file": {
-    "filename": "win-Derats_Mods_Tweaker-v3.2.zip",
-    "size": 3143510,
-    "sha256": "245c3fbf59382bccc7c57c7cbdbe3d9abab344573d8c82c43a8e5f00ad5a380f"
-  },
+  "files": [
+    {
+      "filename": "win-Derats_Mods_Tweaker-v3.2.zip",
+      "size": 3143510,
+      "sha256": "245c3fbf59382bccc7c57c7cbdbe3d9abab344573d8c82c43a8e5f00ad5a380f",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/win-Derats_Mods_Tweaker-v3.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Made in Heaven: Tweaks",
   "version": "2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/29992-my-new-made-in-heaven-mods/",
-    "download": "https://github.com/AngelGryph/MadeInHeaven_Tweaks/releases/download/v2/mih_tweaks-v2.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/29992-my-new-made-in-heaven-mods/"
   },
-  "file": {
-    "filename": "mih_tweaks-v2.zip",
-    "size": 3445501,
-    "sha256": "edabc92a2fd032830a85e21457229d943b061af87c013589a091d9be6fd61ee9"
-  },
+  "files": [
+    {
+      "filename": "mih_tweaks-v2.zip",
+      "size": 3445501,
+      "sha256": "edabc92a2fd032830a85e21457229d943b061af87c013589a091d9be6fd61ee9",
+      "download": "https://github.com/AngelGryph/MadeInHeaven_Tweaks/releases/download/v2/mih_tweaks-v2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["gameplay"],
   "components": {

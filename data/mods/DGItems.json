@@ -2,14 +2,16 @@
   "name": "DGItems",
   "version": "2.0",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/DGItems",
-    "download": "https://github.com/The-Gate-Project/DGItems/releases/download/v2.0/dgitems-2.0.zip"
+    "homepage": "https://github.com/The-Gate-Project/DGItems"
   },
-  "file": {
-    "filename": "dgitems-2.0.zip",
-    "size": 4917774,
-    "sha256": "7a5433c7cc5d04dc379b74a440d274b9e0a93a97a9aa6a85fdea5b0fc69baf0c"
-  },
+  "files": [
+    {
+      "filename": "dgitems-2.0.zip",
+      "size": 4917774,
+      "sha256": "7a5433c7cc5d04dc379b74a440d274b9e0a93a97a9aa6a85fdea5b0fc69baf0c",
+      "download": "https://github.com/The-Gate-Project/DGItems/releases/download/v2.0/dgitems-2.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {

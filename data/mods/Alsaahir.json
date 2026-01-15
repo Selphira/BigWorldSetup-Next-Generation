@@ -2,14 +2,16 @@
   "name": "Alsaahir kit for BG2",
   "version": "5.0",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/61617-what-can-change-the-nature-of-a-member/",
-    "download": "https://github.com/TotoR115/Alsaahir/releases/download/v5/Alsaahir_v5.zip"
+    "homepage": "http://www.shsforums.net/topic/61617-what-can-change-the-nature-of-a-member/"
   },
-  "file": {
-    "filename": "Alsaahir_v5.zip",
-    "size": 2383571,
-    "sha256": "63d06cbc57dd27ab19bf86373d39bc18764bb78b1a9ec8136b371a45f0b417b9"
-  },
+  "files": [
+    {
+      "filename": "Alsaahir_v5.zip",
+      "size": 2383571,
+      "sha256": "63d06cbc57dd27ab19bf86373d39bc18764bb78b1a9ec8136b371a45f0b417b9",
+      "download": "https://github.com/TotoR115/Alsaahir/releases/download/v5/Alsaahir_v5.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["kit"],
   "components": {

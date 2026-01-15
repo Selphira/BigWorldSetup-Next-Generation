@@ -2,14 +2,16 @@
   "name": "Banana! NPC Mod",
   "version": "2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/12947-banana-npc-mod-released/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/win-Banana.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/12947-banana-npc-mod-released/"
   },
-  "file": {
-    "filename": "win-Banana.zip",
-    "size": 6991292,
-    "sha256": "1577b33c6b52bacb7e1104e304d45dac122f80b5cc715d8cfefdf4d2653bb6c2"
-  },
+  "files": [
+    {
+      "filename": "win-Banana.zip",
+      "size": 6991292,
+      "sha256": "1577b33c6b52bacb7e1104e304d45dac122f80b5cc715d8cfefdf4d2653bb6c2",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/win-Banana.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {

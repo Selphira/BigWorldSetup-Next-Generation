@@ -2,14 +2,16 @@
   "name": "Ajantis Portrait Pack",
   "version": "5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/",
-    "download": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/?do=download"
+    "homepage": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/"
   },
-  "file": {
-    "filename": "ajantis-portrait-pack-5.zip",
-    "size": 5001915,
-    "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443"
-  },
+  "files": [
+    {
+      "filename": "ajantis-portrait-pack-5.zip",
+      "size": 5001915,
+      "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443",
+      "download": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/?do=download"
+    }
+  ],
   "games": ["bg", "bg2", "bg2ee", "eet"],
   "categories": ["portrait"],
   "components": {
@@ -58,7 +60,22 @@
     "zh_CN": {
       "description": "该模组为阿詹提斯添加了由社区成员创作的新肖像。"
     },
-    "de_DE": {"components": {"choice_0": "Installiert ein alternatives Portrait für Ajantis", "10": "Portrait  1 von Amaurea: Heath Ledger als Ajantis (erste Version)", "11": "Portrait  2 von Amaurea: Heath Ledger als Ajantis (finale Version)", "12": "Portrait  3 von berelinde (kurzhaariges Portrait)", "13": "Portrait  4 von berelinde (langhaariges Portrait)", "14": "Portrait  5 von Azguz aka Azze", "15": "Portrait  6 von wonnimchunha", "16": "Portrait  7 von Senka (juengeres Defaultportrait)", "17": "Portrait  8 von Catlepha (Frontportrait)", "18": "Portrait  9 von Catlepha (Seitenportrait)", "19": "Portrait 10 von Casul", "20": "Portrait 11 von Miloch (Default Portrait mit rotem Stoff)"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Installiert ein alternatives Portrait für Ajantis",
+        "10": "Portrait  1 von Amaurea: Heath Ledger als Ajantis (erste Version)",
+        "11": "Portrait  2 von Amaurea: Heath Ledger als Ajantis (finale Version)",
+        "12": "Portrait  3 von berelinde (kurzhaariges Portrait)",
+        "13": "Portrait  4 von berelinde (langhaariges Portrait)",
+        "14": "Portrait  5 von Azguz aka Azze",
+        "15": "Portrait  6 von wonnimchunha",
+        "16": "Portrait  7 von Senka (juengeres Defaultportrait)",
+        "17": "Portrait  8 von Catlepha (Frontportrait)",
+        "18": "Portrait  9 von Catlepha (Seitenportrait)",
+        "19": "Portrait 10 von Casul",
+        "20": "Portrait 11 von Miloch (Default Portrait mit rotem Stoff)"
+      }
+    }
   },
   "tp2": "ajantisportraitpack",
   "safe": 2,

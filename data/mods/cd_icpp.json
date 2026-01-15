@@ -2,14 +2,16 @@
   "name": "Infinity Collection Portrait Pack",
   "version": "2",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack",
-    "download": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack/archive/refs/tags/v2.zip"
+    "homepage": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack"
   },
-  "file": {
-    "filename": "Infinity_Collection_Portrait_Pack-2.zip",
-    "size": 33421857,
-    "sha256": "10fa9e302b5d9d91f8f2dad741b2266f6eab7ccead08f30c79e0f2939770536b"
-  },
+  "files": [
+    {
+      "filename": "Infinity_Collection_Portrait_Pack-2.zip",
+      "size": 33421857,
+      "sha256": "10fa9e302b5d9d91f8f2dad741b2266f6eab7ccead08f30c79e0f2939770536b",
+      "download": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack/archive/refs/tags/v2.zip"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {

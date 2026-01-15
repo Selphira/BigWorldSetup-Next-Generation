@@ -2,14 +2,16 @@
   "name": "Tyris Flare NPC",
   "version": "12",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/tyris/",
-    "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/tyrisflare-v12.exe"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/tyris/"
   },
-  "file": {
-    "filename": "tyrisflare-v12.exe",
-    "size": 22625258,
-    "sha256": "163770006e7e48d9605cd9b80e6f21aff14b377d1a78c47066c80b4145b6079b"
-  },
+  "files": [
+    {
+      "filename": "tyrisflare-v12.exe",
+      "size": 22625258,
+      "sha256": "163770006e7e48d9605cd9b80e6f21aff14b377d1a78c47066c80b4145b6079b",
+      "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/tyrisflare-v12.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -65,7 +67,19 @@
         "107": "备选头像7"
       }
     },
-    "ru_RU": {"components": {"0": "Tyris Flare NPC", "choice_0": "Alternative portraits  Tyris", "101": "Alternative portrait 1", "102": "Alternative portrait 2", "103": "Alternative portrait 3", "104": "Alternative portrait 4", "105": "Alternative portrait 5", "106": "Alternative portrait 6", "107": "Alternative portrait 7"}}
+    "ru_RU": {
+      "components": {
+        "0": "Tyris Flare NPC",
+        "choice_0": "Alternative portraits  Tyris",
+        "101": "Alternative portrait 1",
+        "102": "Alternative portrait 2",
+        "103": "Alternative portrait 3",
+        "104": "Alternative portrait 4",
+        "105": "Alternative portrait 5",
+        "106": "Alternative portrait 6",
+        "107": "Alternative portrait 7"
+      }
+    }
   },
   "tp2": "tyrisflare",
   "safe": 2,

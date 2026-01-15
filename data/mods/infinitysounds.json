@@ -2,14 +2,16 @@
   "name": "Infinity Sounds",
   "version": "2.2",
   "links": {
-    "homepage": "https://spellhold-studios.github.io/",
-    "download": "https://github.com/Spellhold-Studios/Infinity-Sounds/releases/download/v2.2/infinitysounds-v2.2.zip"
+    "homepage": "https://spellhold-studios.github.io/"
   },
-  "file": {
-    "filename": "infinitysounds-v2.2.zip",
-    "size": 38900041,
-    "sha256": "99042d186f8cae4f1568f8f1a3986aefa3bc7a054acc886fd8a3ade1c8c50738"
-  },
+  "files": [
+    {
+      "filename": "infinitysounds-v2.2.zip",
+      "size": 38900041,
+      "sha256": "99042d186f8cae4f1568f8f1a3986aefa3bc7a054acc886fd8a3ade1c8c50738",
+      "download": "https://github.com/Spellhold-Studios/Infinity-Sounds/releases/download/v2.2/infinitysounds-v2.2.zip"
+    }
+  ],
   "games": ["bg", "bg2", "bgt", "bgee", "sod", "bg2ee", "eet"],
   "categories": ["portrait"],
   "components": {
@@ -95,9 +97,78 @@
     "zh_CN": {
       "description": "前身为《剑湾传奇之声》，这个小模组为博德之门II恢复了原版博德之门游戏中使用的许多音效，只是为了给那些似乎有些怀旧感的玩家带来更完整的“博德之门I体验”。\n一些恢复的音频文件已清理了可听见的压缩伪影或任何程度的削波。施法者的原始语音尤其受到影响，而且听起来常常令人不快。\n请在任何修改法术的其他模组之后安装它。"
     },
-    "de_DE": {"components": {"100": "Restore BG1 Spellcasting Voices", "110": "Restore BG1 Spellcasting Sounds", "120": "Restore BG1 Weapon Sounds", "130": "Restore BG1 Armor Sounds", "140": "Restore BG1 GUI Sounds", "150": "Restore BG1 PC Soundsets", "160": "Restore Gulp Sound", "170": "Restore Chunked Death Sound", "180": "Tweak Sound Channel Volume Levels", "189": "Enable Footsteps During Combat", "190": "Mute Reputation Change Sounds", "200": "Mute Tooltip Paper Sound", "210": "Restore BG1 Ambient Sounds", "220": "Restore Environmental & Positional Audio", "221": "Enhance Positional Audio", "230": "Restore & Tweak Soundsets", "240": "More Existence Sounds", "250": "Tweak Existence Sound Delay", "265": "Restore NPC Voiceovers", "270": "Additional NPC Voiceovers (by Salk)"}},
-    "pl_PL": {"components": {"100": "Restore BG1 Spellcasting Voices", "110": "Restore BG1 Spellcasting Sounds", "120": "Restore BG1 Weapon Sounds", "130": "Restore BG1 Armor Sounds", "140": "Restore BG1 GUI Sounds", "150": "Restore BG1 PC Soundsets", "160": "Restore Gulp Sound", "170": "Restore Chunked Death Sound", "180": "Tweak Sound Channel Volume Levels", "189": "Enable Footsteps During Combat", "190": "Mute Reputation Change Sounds", "200": "Mute Tooltip Paper Sound", "210": "Restore BG1 Ambient Sounds", "220": "Restore Environmental & Positional Audio", "221": "Enhance Positional Audio", "230": "Restore & Tweak Soundsets", "240": "More Existence Sounds", "250": "Tweak Existence Sound Delay", "265": "Restore NPC Voiceovers", "270": "Additional NPC Voiceovers (by Salk)"}},
-    "ru_RU": {"components": {"100": "Restore BG1 Spellcasting Voices", "110": "Restore BG1 Spellcasting Sounds", "120": "Restore BG1 Weapon Sounds", "130": "Restore BG1 Armor Sounds", "140": "Restore BG1 GUI Sounds", "150": "Restore BG1 PC Soundsets", "160": "Restore Gulp Sound", "170": "Restore Chunked Death Sound", "180": "Tweak Sound Channel Volume Levels", "189": "Enable Footsteps During Combat", "190": "Mute Reputation Change Sounds", "200": "Mute Tooltip Paper Sound", "210": "Restore BG1 Ambient Sounds", "220": "Restore Environmental & Positional Audio", "221": "Enhance Positional Audio", "230": "Restore & Tweak Soundsets", "240": "More Existence Sounds", "250": "Tweak Existence Sound Delay", "265": "Restore NPC Voiceovers", "270": "Additional NPC Voiceovers (by Salk)"}}
+    "de_DE": {
+      "components": {
+        "100": "Restore BG1 Spellcasting Voices",
+        "110": "Restore BG1 Spellcasting Sounds",
+        "120": "Restore BG1 Weapon Sounds",
+        "130": "Restore BG1 Armor Sounds",
+        "140": "Restore BG1 GUI Sounds",
+        "150": "Restore BG1 PC Soundsets",
+        "160": "Restore Gulp Sound",
+        "170": "Restore Chunked Death Sound",
+        "180": "Tweak Sound Channel Volume Levels",
+        "189": "Enable Footsteps During Combat",
+        "190": "Mute Reputation Change Sounds",
+        "200": "Mute Tooltip Paper Sound",
+        "210": "Restore BG1 Ambient Sounds",
+        "220": "Restore Environmental & Positional Audio",
+        "221": "Enhance Positional Audio",
+        "230": "Restore & Tweak Soundsets",
+        "240": "More Existence Sounds",
+        "250": "Tweak Existence Sound Delay",
+        "265": "Restore NPC Voiceovers",
+        "270": "Additional NPC Voiceovers (by Salk)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "100": "Restore BG1 Spellcasting Voices",
+        "110": "Restore BG1 Spellcasting Sounds",
+        "120": "Restore BG1 Weapon Sounds",
+        "130": "Restore BG1 Armor Sounds",
+        "140": "Restore BG1 GUI Sounds",
+        "150": "Restore BG1 PC Soundsets",
+        "160": "Restore Gulp Sound",
+        "170": "Restore Chunked Death Sound",
+        "180": "Tweak Sound Channel Volume Levels",
+        "189": "Enable Footsteps During Combat",
+        "190": "Mute Reputation Change Sounds",
+        "200": "Mute Tooltip Paper Sound",
+        "210": "Restore BG1 Ambient Sounds",
+        "220": "Restore Environmental & Positional Audio",
+        "221": "Enhance Positional Audio",
+        "230": "Restore & Tweak Soundsets",
+        "240": "More Existence Sounds",
+        "250": "Tweak Existence Sound Delay",
+        "265": "Restore NPC Voiceovers",
+        "270": "Additional NPC Voiceovers (by Salk)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "100": "Restore BG1 Spellcasting Voices",
+        "110": "Restore BG1 Spellcasting Sounds",
+        "120": "Restore BG1 Weapon Sounds",
+        "130": "Restore BG1 Armor Sounds",
+        "140": "Restore BG1 GUI Sounds",
+        "150": "Restore BG1 PC Soundsets",
+        "160": "Restore Gulp Sound",
+        "170": "Restore Chunked Death Sound",
+        "180": "Tweak Sound Channel Volume Levels",
+        "189": "Enable Footsteps During Combat",
+        "190": "Mute Reputation Change Sounds",
+        "200": "Mute Tooltip Paper Sound",
+        "210": "Restore BG1 Ambient Sounds",
+        "220": "Restore Environmental & Positional Audio",
+        "221": "Enhance Positional Audio",
+        "230": "Restore & Tweak Soundsets",
+        "240": "More Existence Sounds",
+        "250": "Tweak Existence Sound Delay",
+        "265": "Restore NPC Voiceovers",
+        "270": "Additional NPC Voiceovers (by Salk)"
+      }
+    }
   },
   "tp2": "infinitysounds",
   "safe": 2,

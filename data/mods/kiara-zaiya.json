@@ -2,14 +2,16 @@
   "name": "Kiara Zaiya",
   "version": "2.0.1",
   "links": {
-    "homepage": "https://spellholdstudios.github.io/readmes/kiara_zaiya-readme-english.html",
-    "download": "https://github.com/Spellhold-Studios/Kiara-Zaiya/releases/download/v2.0.1/kiara-zaiya-v2.0.1.zip"
+    "homepage": "https://spellholdstudios.github.io/readmes/kiara_zaiya-readme-english.html"
   },
-  "file": {
-    "filename": "kiara-zaiya-v2.0.1.zip",
-    "size": 13152826,
-    "sha256": "a4d33333c9503897ca5debc0513db9821ba761364d2462601222e8fd0e2e192c"
-  },
+  "files": [
+    {
+      "filename": "kiara-zaiya-v2.0.1.zip",
+      "size": 13152826,
+      "sha256": "a4d33333c9503897ca5debc0513db9821ba761364d2462601222e8fd0e2e192c",
+      "download": "https://github.com/Spellhold-Studios/Kiara-Zaiya/releases/download/v2.0.1/kiara-zaiya-v2.0.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -57,12 +59,48 @@
         "7": "Irenicus plus fort a l'Arbre de Vie"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Kiara-Zaiya for BG2", "0": "Kiara-Zaiya for BG2 with vanilla sound sets", "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)", "2": "Alternate Monk High level abilities by TG Maestro", "3": "Original Amaralis battles", "4": "Tougher Kiara vampire", "5": "Revised Suldalanessar", "6": "Jao and party for SOA: another tough fight", "7": "Tougher Irenicus at the Tree of life"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "Kiara-Zaiya for BG2",
+        "0": "Kiara-Zaiya for BG2 with vanilla sound sets",
+        "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)",
+        "2": "Alternate Monk High level abilities by TG Maestro",
+        "3": "Original Amaralis battles",
+        "4": "Tougher Kiara vampire",
+        "5": "Revised Suldalanessar",
+        "6": "Jao and party for SOA: another tough fight",
+        "7": "Tougher Irenicus at the Tree of life"
+      }
+    },
     "zh_CN": {
       "description": "此模组添加了2个新的女性角色，一位混乱善良的狂乱法师半精灵（扎伊娅）和一位中立邪恶的修女（凯拉）。有大量的互动、新的敌人、对武僧高级能力的重新调整、对德阿尼斯堡魔像战斗的改进，以及第二章和第六章与阿玛拉莉斯的战斗（与Tactics或第六章的Ascension类似），更不用说拥有特殊能力和装备的角色了。最后，点睛之笔，是与凯拉的浪漫关系，也许能让她得到救赎。浪漫关系有时会很大胆（扎伊娅会与瑟恩发展浪漫关系）。\n扎伊娅：力量 9，敏捷 16，体质 16，智力 17，智慧 15，魅力 10。\n凯拉：力量 14，敏捷 17，体质 12，智力 15，智慧 10，魅力 16。"
     },
-    "es_ES": {"components": {"choice_0": "Kiara-Zaiya para BG2", "0": "Kiara-Zaiya for BG2 with vanilla sound sets", "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)", "2": "Alternate Monk High level abilities by TG Maestro", "3": "Batallas de Amaralis originales", "4": "Vampiresa Kiara mas fuerte", "5": "Suldanessalar revisado", "6": "Jao y grupo para SOA: otra lucha difícil", "7": "Irenicus Mejorado en el Árbol de la Vida"}},
-    "de_DE": {"components": {"choice_0": "Kiara-Zaiya fuer BG2", "0": "Kiara-Zaiya for BG2 with vanilla sound sets", "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)", "2": "Alternate Monk High level abilities by TG Maestro", "3": "Original Amaralis Kampf", "4": "Zaeherer Kiara Vampir", "5": "Ueberarbeitetes Suldalanessar", "6": "Jao und Gruppe fuer SvA: ein weiterer harter Kampf", "7": "Zaeherer Irenicus beim Baum des Lebens"}}
+    "es_ES": {
+      "components": {
+        "choice_0": "Kiara-Zaiya para BG2",
+        "0": "Kiara-Zaiya for BG2 with vanilla sound sets",
+        "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)",
+        "2": "Alternate Monk High level abilities by TG Maestro",
+        "3": "Batallas de Amaralis originales",
+        "4": "Vampiresa Kiara mas fuerte",
+        "5": "Suldanessalar revisado",
+        "6": "Jao y grupo para SOA: otra lucha difícil",
+        "7": "Irenicus Mejorado en el Árbol de la Vida"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Kiara-Zaiya fuer BG2",
+        "0": "Kiara-Zaiya for BG2 with vanilla sound sets",
+        "1": "Kiara-Zaiya for BG2 with custom sound sets (English only)",
+        "2": "Alternate Monk High level abilities by TG Maestro",
+        "3": "Original Amaralis Kampf",
+        "4": "Zaeherer Kiara Vampir",
+        "5": "Ueberarbeitetes Suldalanessar",
+        "6": "Jao und Gruppe fuer SvA: ein weiterer harter Kampf",
+        "7": "Zaeherer Irenicus beim Baum des Lebens"
+      }
+    }
   },
   "tp2": "kiara-zaiya",
   "safe": 2,

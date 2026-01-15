@@ -2,14 +2,16 @@
   "name": "Prêtre de Mystra",
   "version": "2.1",
   "links": {
-    "homepage": "https://akadis.baldursgateworld.fr/Mystra/Mystra.html",
-    "download": "https://github.com/Plutonium-X/KIT_Mystra/archive/refs/heads/main.zip"
+    "homepage": "https://akadis.baldursgateworld.fr/Mystra/Mystra.html"
   },
-  "file": {
-    "filename": "KIT_Mystra-main.zip",
-    "size": 1282155,
-    "sha256": "756a93605f51f67bf8b476ee75a601cd6991924b235048a1ec5a6c0e3020cfc3"
-  },
+  "files": [
+    {
+      "filename": "KIT_Mystra-main.zip",
+      "size": 1282155,
+      "sha256": "756a93605f51f67bf8b476ee75a601cd6991924b235048a1ec5a6c0e3020cfc3",
+      "download": "https://github.com/Plutonium-X/KIT_Mystra/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

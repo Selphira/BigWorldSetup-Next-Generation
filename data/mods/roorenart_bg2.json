@@ -2,14 +2,16 @@
   "name": "RoorenArt's Portrait Pack",
   "version": "3",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/roorenart_bg2",
-    "download": "https://github.com/Gibberlings3/roorenart_bg2/archive/refs/tags/v3.zip"
+    "homepage": "https://github.com/Gibberlings3/roorenart_bg2"
   },
-  "file": {
-    "filename": "roorenart_bg2-3.zip",
-    "size": 14666016,
-    "sha256": "257c5b8010a2722e91aaf3205289382ef79d2b2b4366f79cd96058440d6dfdbb"
-  },
+  "files": [
+    {
+      "filename": "roorenart_bg2-3.zip",
+      "size": 14666016,
+      "sha256": "257c5b8010a2722e91aaf3205289382ef79d2b2b4366f79cd96058440d6dfdbb",
+      "download": "https://github.com/Gibberlings3/roorenart_bg2/archive/refs/tags/v3.zip"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {

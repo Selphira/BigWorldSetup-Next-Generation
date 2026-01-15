@@ -2,14 +2,16 @@
   "name": "Geomantic Sorcerer Kit",
   "version": "9",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/kits/geomantic/",
-    "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/druidsor-v9.exe"
+    "homepage": "https://www.gibberlings3.net/mods/kits/geomantic/"
   },
-  "file": {
-    "filename": "druidsor-v9.exe",
-    "size": 7340517,
-    "sha256": "6a82cc698d393955dfba06f13fc7bccc7995c8b52a7c719437726561400507c7"
-  },
+  "files": [
+    {
+      "filename": "druidsor-v9.exe",
+      "size": 7340517,
+      "sha256": "6a82cc698d393955dfba06f13fc7bccc7995c8b52a7c719437726561400507c7",
+      "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/druidsor-v9.exe"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -240,7 +242,73 @@
         "49": "oWolf3 (黑狼) - By Amaurea"
       }
     },
-    "es_ES": {"components": {"0": "Kit de Hechicero Geomántico", "1": "Retratos para el Cambio de Forma Druídico\nNO INSTALAR SI VAIS A DARLE EL KIT A UN NPC", "choice_0": "Retratos para el Cambio de Forma Druídico\nNO INSTALAR SI VAIS A DARLE EL KIT A UN NPC", "2": "PCs masculinos", "3": "PCs femeninos", "choice_1": "Retrato de forma humaniode masculino\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "4": "mCast2 (Lanzador con relámpagos)", "5": "mCast5 (Lanzador rubio encapuchado)", "6": "mDruid2 (Druida con pintura facial) - Por Amaurea", "7": "mDruid (Druida en la vegetación)", "8": "mElf1 (Elfo de piel ligeramente oscura)", "9": "mElf2 (Elfo lanzador, cuello abierto) - Por Amaurea", "10": "mElf3 (Elfo lanzador, primer plano) - Por Amaurea", "11": "mGeo01 (Lnazador con runas y señales) - Por Amedyr", "choice_2": "Retrato de forma humanoide femenino\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "12": "fCast02 (Encapuchada verde, posiblemente elfa/semielfa)", "13": "fCast15 (Lanzadora tatuada)", "14": "fCast16 (Con ornamentos metálicos)", "15": "fCast18 (Humana/semielfa de pelo castaño)", "16": "fDruid7 (Druida con tocado)", "17": "fDruid9 (Druida pelirroja con túnica marrón)", "18": "fHaEl1 (Lanzadora elfa/semielfa) - Por Amaurea", "19": "fHaEl2 (Semielfa/elfa con túnica blanca) - Por Amaurea", "choice_3": "Retrato de forma de oso\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "20": "oBear1 (Oso negro oscuro mirando por encima del hombro) - Por Amaurea", "21": "oBear2 (Oso pardo con la boca sonriente ligeramente abierta) - Por Amaurea", "22": "oBear3 (Oso de mirada seria) - Por Amaurea", "choice_4": "Retrato de forma de gato\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "23": "oCat1 (Gato con motas amarillas y naranjas con barba blanca) - Por Amaurea", "24": "oCat2 (Gato gris con bandas negras alrededor del cuello) - Por Amaurea", "25": "oCat3 (Gato gris) - Por Amaurea", "choice_5": "Retrato de forma de perro\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "26": "oDog1 (Mastín gris) - Por Amaurea", "27": "oDog2 (Perro peludo color beige) - Por Amaurea", "28": "oDog3 (Collie de la frontera) - Por Amaurea, foto de Skye por Caedwyr", "choice_6": "Retrato de forma de leopardo\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "29": "oLeop1 (Leopardo) - Por Amaurea", "30": "oLeop2 (Leopardo con nieve) - Por Amaurea", "31": "oLeop3 (Leopardo con lengua) - Por Amaurea", "choice_7": "Retrato de forma de alce macho\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "32": "omMoo1 (Alce con la cabeza baja) - Por Amaurea", "33": "omMoo2 (Alce con la cabeza de perfil) - Por Amaurea", "34": "omMoo3 (Alce de color castaño) - Por Amaurea", "choice_8": "Retrato de forma de alce hembra\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "35": "ofMoo1 (Alce en medio perfil) - Por Amaurea", "36": "ofMoo2 (Alce de color castaño con la cabeza baja) - Por Amaurea", "37": "ofMoo3 (Alce de color castaño con la cabeza alta) - Por Amaurea", "choice_9": "Retrato de forma de pantera\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "38": "oPan1 (Pantera negra brillante) - Por Amaurea", "39": "oPan2 (Pantera con la cabeza ladeada a un lado) - Por Amaurea", "40": "oPan3 (Pantera con la boca parcialmente abierta) - Por Amaurea", "choice_10": "Retrato de forma de rata\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "41": "oRat1 (Rata beige) - Por Amaurea", "42": "oRat2 (Rata sacando la cabeza del agujero) - Por Amaurea", "43": "oRat3 (Rata clara con comida) - Por Amaurea", "choice_11": "Retrato de forma de serpiente\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "44": "oSnak1 (Serpiente alzando la cabeza de la hierba) - Por Amaurea", "45": "oSnak2 (Cobra oliendo los alrededores) - Por Amaurea", "46": "oSnak3 (Cobra con capucha parcialmente extendida) - Por Amaurea", "choice_12": "Retrato de forma de lobo\n(Ir a la sección de Retratos del Léeme para ver los retratos)", "47": "oWolf1 (Lobo blanco) - Por Amaurea", "48": "oWolf2 (Lobo gris y blanco) - Por Amaurea", "49": "oWolf3 (Lobo negro) - Por Amaurea"}}
+    "es_ES": {
+      "components": {
+        "0": "Kit de Hechicero Geomántico",
+        "1": "Retratos para el Cambio de Forma Druídico\nNO INSTALAR SI VAIS A DARLE EL KIT A UN NPC",
+        "choice_0": "Retratos para el Cambio de Forma Druídico\nNO INSTALAR SI VAIS A DARLE EL KIT A UN NPC",
+        "2": "PCs masculinos",
+        "3": "PCs femeninos",
+        "choice_1": "Retrato de forma humaniode masculino\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "4": "mCast2 (Lanzador con relámpagos)",
+        "5": "mCast5 (Lanzador rubio encapuchado)",
+        "6": "mDruid2 (Druida con pintura facial) - Por Amaurea",
+        "7": "mDruid (Druida en la vegetación)",
+        "8": "mElf1 (Elfo de piel ligeramente oscura)",
+        "9": "mElf2 (Elfo lanzador, cuello abierto) - Por Amaurea",
+        "10": "mElf3 (Elfo lanzador, primer plano) - Por Amaurea",
+        "11": "mGeo01 (Lnazador con runas y señales) - Por Amedyr",
+        "choice_2": "Retrato de forma humanoide femenino\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "12": "fCast02 (Encapuchada verde, posiblemente elfa/semielfa)",
+        "13": "fCast15 (Lanzadora tatuada)",
+        "14": "fCast16 (Con ornamentos metálicos)",
+        "15": "fCast18 (Humana/semielfa de pelo castaño)",
+        "16": "fDruid7 (Druida con tocado)",
+        "17": "fDruid9 (Druida pelirroja con túnica marrón)",
+        "18": "fHaEl1 (Lanzadora elfa/semielfa) - Por Amaurea",
+        "19": "fHaEl2 (Semielfa/elfa con túnica blanca) - Por Amaurea",
+        "choice_3": "Retrato de forma de oso\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "20": "oBear1 (Oso negro oscuro mirando por encima del hombro) - Por Amaurea",
+        "21": "oBear2 (Oso pardo con la boca sonriente ligeramente abierta) - Por Amaurea",
+        "22": "oBear3 (Oso de mirada seria) - Por Amaurea",
+        "choice_4": "Retrato de forma de gato\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "23": "oCat1 (Gato con motas amarillas y naranjas con barba blanca) - Por Amaurea",
+        "24": "oCat2 (Gato gris con bandas negras alrededor del cuello) - Por Amaurea",
+        "25": "oCat3 (Gato gris) - Por Amaurea",
+        "choice_5": "Retrato de forma de perro\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "26": "oDog1 (Mastín gris) - Por Amaurea",
+        "27": "oDog2 (Perro peludo color beige) - Por Amaurea",
+        "28": "oDog3 (Collie de la frontera) - Por Amaurea, foto de Skye por Caedwyr",
+        "choice_6": "Retrato de forma de leopardo\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "29": "oLeop1 (Leopardo) - Por Amaurea",
+        "30": "oLeop2 (Leopardo con nieve) - Por Amaurea",
+        "31": "oLeop3 (Leopardo con lengua) - Por Amaurea",
+        "choice_7": "Retrato de forma de alce macho\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "32": "omMoo1 (Alce con la cabeza baja) - Por Amaurea",
+        "33": "omMoo2 (Alce con la cabeza de perfil) - Por Amaurea",
+        "34": "omMoo3 (Alce de color castaño) - Por Amaurea",
+        "choice_8": "Retrato de forma de alce hembra\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "35": "ofMoo1 (Alce en medio perfil) - Por Amaurea",
+        "36": "ofMoo2 (Alce de color castaño con la cabeza baja) - Por Amaurea",
+        "37": "ofMoo3 (Alce de color castaño con la cabeza alta) - Por Amaurea",
+        "choice_9": "Retrato de forma de pantera\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "38": "oPan1 (Pantera negra brillante) - Por Amaurea",
+        "39": "oPan2 (Pantera con la cabeza ladeada a un lado) - Por Amaurea",
+        "40": "oPan3 (Pantera con la boca parcialmente abierta) - Por Amaurea",
+        "choice_10": "Retrato de forma de rata\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "41": "oRat1 (Rata beige) - Por Amaurea",
+        "42": "oRat2 (Rata sacando la cabeza del agujero) - Por Amaurea",
+        "43": "oRat3 (Rata clara con comida) - Por Amaurea",
+        "choice_11": "Retrato de forma de serpiente\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "44": "oSnak1 (Serpiente alzando la cabeza de la hierba) - Por Amaurea",
+        "45": "oSnak2 (Cobra oliendo los alrededores) - Por Amaurea",
+        "46": "oSnak3 (Cobra con capucha parcialmente extendida) - Por Amaurea",
+        "choice_12": "Retrato de forma de lobo\n(Ir a la sección de Retratos del Léeme para ver los retratos)",
+        "47": "oWolf1 (Lobo blanco) - Por Amaurea",
+        "48": "oWolf2 (Lobo gris y blanco) - Por Amaurea",
+        "49": "oWolf3 (Lobo negro) - Por Amaurea"
+      }
+    }
   },
   "tp2": "druidsor",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Unfinished Business",
   "version": "29",
   "links": {
-    "homepage": "https://www.pocketplane.net/unfinished-business/",
-    "download": "https://github.com/Pocket-Plane-Group/UnfinishedBusiness/archive/refs/heads/master.zip"
+    "homepage": "https://www.pocketplane.net/unfinished-business/"
   },
-  "file": {
-    "filename": "UnfinishedBusiness-master.zip",
-    "size": 5666386,
-    "sha256": "655ba2d76472ed070fac27e104d59633a6e0660747de00b73824aff84248eaa6"
-  },
+  "files": [
+    {
+      "filename": "UnfinishedBusiness-master.zip",
+      "size": 5666386,
+      "sha256": "655ba2d76472ed070fac27e104d59633a6e0660747de00b73824aff84248eaa6",
+      "download": "https://github.com/Pocket-Plane-Group/UnfinishedBusiness/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest", "kit"],
   "components": {
@@ -108,8 +110,62 @@
         "25": "Le meurtre d'Acton Balthis, par Kulyok"
       }
     },
-    "ru_RU": {"components": {"0": "The Kidnapping of Boo by Cliffette", "1": "The Suna Seni/Valygar Relationship", "2": "Kalah and What He Was Promised", "3": "\"Cat and Mouse\" (Bodhi hunts you in Spellhold) by Ghreyfain", "4": "Gorje Hilldark and the Extended Illithium Quest", "5": "The Pai'Na/Spider's Bane Quest", "6": "Restored Crooked Crane Inn", "7": "Restored Encounters", "8": "Artemis Entreri in Bodhi's Lair", "9": "Corrected \"Xzar's Creations\"", "10": "Restored Hell Minions, by SimDing0", "12": "Item Restorations", "13": "Yoshimo's Original Portrait", "14": "Anomen's Original Portrait", "15": "NPC Portrait Restorations", "17": "Corrected Character Names and Biographies", "18": "Restored Minor Dialogs", "19": "Restored Bhaalspawn Powers, by David Gaider", "20": "Extended ToB Item Descriptions", "21": "Throne of Bhaal Minor Restorations", "22": "Justifier Kit", "23": "Feralan Kit", "24": "Sarevok's Remorse", "25": "Óáèéñòâî Ýêòîíà Áàëòèñà."}},
-    "it_IT": {"components": {"0": "Il furto di Boo di Cliffette", "1": "La relazione tra Suna Seni/Valygar", "2": "Kalah e cio' che gli era stato promesso", "3": "\"Gatto e Topo\" (Bodhi ti da' la caccia a Spellhold) di Ghreyfain", "4": "Gorje Hilldark e l'ampliamento della missione dell'Illithium", "5": "Missione Pai'Na/Rovina dei Ragni", "6": "Reintegrati contenuti per \"La Gru Zoppa\"", "7": "Reintegrati alcuni incontri", "8": "Artemis Entreri nel covo di Bodhi", "9": "Corrette \"Le Creazioni Di Xzar\"", "10": "Reintegrate le abilità dei Demoni nell'Abisso di SimDing0", "12": "Reintegrati alcuni oggetti", "13": "Ritratto originale di Yoshimo", "14": "Ritratto originale di Anomen", "15": "Reintegrati Ritratti NPC", "17": "Corretti i nomi di alcuni personaggi", "18": "Reintegrati dialoghi minori", "19": "Reintegrate capacità della Progenie di Bhaal di David Gaider", "20": "Estesa la descrizione degli oggetti di ToB", "21": "Reintegra contenuti minori di Throne of Bhaal", "22": "Kit del Giustiziere", "23": "Kit del Selvaggio", "24": "I rimorsi di Sarevok", "25": "The Murder of Acton Balthis, by Kulyok"}},
+    "ru_RU": {
+      "components": {
+        "0": "The Kidnapping of Boo by Cliffette",
+        "1": "The Suna Seni/Valygar Relationship",
+        "2": "Kalah and What He Was Promised",
+        "3": "\"Cat and Mouse\" (Bodhi hunts you in Spellhold) by Ghreyfain",
+        "4": "Gorje Hilldark and the Extended Illithium Quest",
+        "5": "The Pai'Na/Spider's Bane Quest",
+        "6": "Restored Crooked Crane Inn",
+        "7": "Restored Encounters",
+        "8": "Artemis Entreri in Bodhi's Lair",
+        "9": "Corrected \"Xzar's Creations\"",
+        "10": "Restored Hell Minions, by SimDing0",
+        "12": "Item Restorations",
+        "13": "Yoshimo's Original Portrait",
+        "14": "Anomen's Original Portrait",
+        "15": "NPC Portrait Restorations",
+        "17": "Corrected Character Names and Biographies",
+        "18": "Restored Minor Dialogs",
+        "19": "Restored Bhaalspawn Powers, by David Gaider",
+        "20": "Extended ToB Item Descriptions",
+        "21": "Throne of Bhaal Minor Restorations",
+        "22": "Justifier Kit",
+        "23": "Feralan Kit",
+        "24": "Sarevok's Remorse",
+        "25": "Óáèéñòâî Ýêòîíà Áàëòèñà."
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Il furto di Boo di Cliffette",
+        "1": "La relazione tra Suna Seni/Valygar",
+        "2": "Kalah e cio' che gli era stato promesso",
+        "3": "\"Gatto e Topo\" (Bodhi ti da' la caccia a Spellhold) di Ghreyfain",
+        "4": "Gorje Hilldark e l'ampliamento della missione dell'Illithium",
+        "5": "Missione Pai'Na/Rovina dei Ragni",
+        "6": "Reintegrati contenuti per \"La Gru Zoppa\"",
+        "7": "Reintegrati alcuni incontri",
+        "8": "Artemis Entreri nel covo di Bodhi",
+        "9": "Corrette \"Le Creazioni Di Xzar\"",
+        "10": "Reintegrate le abilità dei Demoni nell'Abisso di SimDing0",
+        "12": "Reintegrati alcuni oggetti",
+        "13": "Ritratto originale di Yoshimo",
+        "14": "Ritratto originale di Anomen",
+        "15": "Reintegrati Ritratti NPC",
+        "17": "Corretti i nomi di alcuni personaggi",
+        "18": "Reintegrati dialoghi minori",
+        "19": "Reintegrate capacità della Progenie di Bhaal di David Gaider",
+        "20": "Estesa la descrizione degli oggetti di ToB",
+        "21": "Reintegra contenuti minori di Throne of Bhaal",
+        "22": "Kit del Giustiziere",
+        "23": "Kit del Selvaggio",
+        "24": "I rimorsi di Sarevok",
+        "25": "The Murder of Acton Balthis, by Kulyok"
+      }
+    },
     "zh_CN": {
       "description": "此模组旨在弥补BioWare计划中从未实现的一些任务的缺失，例如布布的绑架事件。它还添加了两个职业配置（复仇者和嗜血者）和一些肖像。",
       "components": {
@@ -139,10 +195,118 @@
         "25": "艾克顿·巴西斯谋杀案 作者：Kulyok"
       }
     },
-    "pl_PL": {"components": {"0": "Porwanie Boo zrobione przez Cliffette", "1": "Relacje Suna Seni i Valygara", "2": "Kalah i To Co Bylo Mu Obiecane", "3": "\"Kot i mysz\" (Bodhi poluje na ciebie w Czarowiezach) zrobione przez Ghreyfain", "4": "Gorje Ciemne Wzgórze i rozszerzone poszukiwania Ilitu", "5": "Pai'Na/Zbuga paj¹ka - rozszerzona przygoda", "6": "Ulepszona tawerna Pod Krzywym Zurawiem", "7": "Przywrócone losowe spotkania w mieœcie", "8": "Artemis Entreri w Siedzibie Bodhi", "9": "Poprawione \"Stworzenia Xzara\"", "10": "Przywroceni Piekielni Sludzy, autorstwa SimDing0", "12": "Przywrócone przedmioty", "13": "Oryginalny portret Yoshimo", "14": "Oryginalny portret Anomena", "15": "Przywrocone portrety NPC", "17": "Poprawione imiona bohaterow", "18": "Przywrocone pomniejsze dialogi", "19": "Przywrocone Moce Bhaala, autorstwa David Gaider", "20": "Rozszerzone opisy przedmiotow z ToB", "21": "Pomniejsze przywrocenia do Tronu Bhaala", "22": "Podklasa Smialka", "23": "Podklasa Dzikusa", "24": "Wyrzuty Sumienia Sarevoka", "25": "The Murder of Acton Balthis, by Kulyok"}},
-    "de_DE": {"components": {"0": "Boo's Entführung von Cliffette", "1": "Die Suna Seni/Valygar-Beziehung", "2": "Kalah und was ihm versprochen wurde", "3": "\"Katz und Maus\" (Bodhi jagt euch durch die Zauberfeste) von Ghreyfain", "4": "Gorje Dunkelhügel und die erweiterte Illithium-Quest", "5": "Die Pai'Na/Spinnenfluch-Quest", "6": "Wiederhergestellter \"Krummer Kranich\"", "7": "Wiederherstellung: Zufallsbegegnungen", "8": "Artemis Entreri in Bodhis Lager", "9": "Korrigierte \"Schöpfungen\" Xzars", "10": "Wiederhergestellte Höllenkreaturen, von SimDing0", "12": "Wiederherstellung: Gegenstände", "13": "Yoshimos ursprüngliches Porträt", "14": "Anomens ursprüngliches Porträt", "15": "Wiederherstellung von NPC-Porträts", "17": "Korrigierte Namen und Biographien der Charaktere", "18": "Wiederhergestellte kleinere Dialoge", "19": "Wiederhergestellte Bhaalbrut-Kräfte, von David Gaider", "20": "Erweiterte Gegenstandsbeschreibungen für ToB", "21": "Thron des Bhaal: Kleine Wiederherstellungen", "22": "Kit: Rechtfertiger", "23": "Kit: Wilder", "24": "Sarevoks Reue", "25": "The Murder of Acton Balthis, by Kulyok"}},
-    "es_ES": {"components": {"0": "El Rapto de Bubu, por Cliffette", "1": "La relación Suna Seni/Valygar", "2": "Kalah y lo que le fue prometido", "3": "\"Gato y ratón\" (Bodhi os persigue en la prisión del hechicero) por Ghreyfain", "4": "Gorje Colinaoscura y la quest extendida del Ilitio", "5": "Quest de Pai'Na", "6": "Taberna Grúa Torcida restaurada", "7": "Encuentros Restaurados", "8": "Artemis Entreri en la Cripta de Bodhi", "9": "\"Creaciones de Xar\" Corregidas", "10": "Demonios del Infierno restaurados, por SimDing0", "12": "Restauraciones de objetos", "13": "Portrait Original de Yoshimo", "14": "Portrait Original de Anomen", "15": "Restauraciones de portraits de NPCs", "17": "Nombres de Personajes Corregidos", "18": "Diálogos menores corregidos", "19": "Poderes del Hijo de Baal restaurados, por David Gaider", "20": "Descripciones de Objetos de ToB Extendidas", "21": "Restauración Menor del Trono de Bhaal", "22": "Equipo de Justiciero", "23": "Kit de bosquimán", "24": "El Remordimiento de Sarevok", "25": "The Murder of Acton Balthis, by Kulyok"}},
-    "cs_CZ": {"components": {"0": "Unos Booa, autorka: Cliffette", "1": "Vztah mezi Sunou Seni a Valygarem", "2": "Kalah a to, co mu bylo slibeno", "3": "\"Hra na kocku a mys\" (Bodhi te lovi v Carotvrzi), autor: Ghreyfain", "4": "Gorje Hilldark a rozsireny ukol s illithiem", "5": "Ukol s Pai'Nou a Pavouci zhoubou", "6": "Navraceni U Kriveho jeraba", "7": "Navraceni nahodnych setkani", "8": "Artemis Entreri v Bodhiine doupeti", "9": "Opravene \"Xzarovy vytvory\"", "10": "Navraceni pekelnych nohsledu, autor: SimDing0", "12": "Navraceni predmetu", "13": "Yoshimuv puvodni portret", "14": "Anomenuv puvodni portret", "15": "Navraceni portretu NPC", "17": "Opravena jmena postav a zivotopisy", "18": "Navraceni mensich rozhovoru", "19": "Navraceni schopnosti Bhaalova potomka, autor: David Gaider", "20": "Obsahlejsi popisy predmetu z ToB", "21": "Mensi obnovy v Throne of Bhaal", "22": "Kit Obrance", "23": "Kit Divy clovek", "24": "Sarevokovy vycitky svedomi", "25": "Vrazda Acton Balthis, autor: Kulyok"}}
+    "pl_PL": {
+      "components": {
+        "0": "Porwanie Boo zrobione przez Cliffette",
+        "1": "Relacje Suna Seni i Valygara",
+        "2": "Kalah i To Co Bylo Mu Obiecane",
+        "3": "\"Kot i mysz\" (Bodhi poluje na ciebie w Czarowiezach) zrobione przez Ghreyfain",
+        "4": "Gorje Ciemne Wzgórze i rozszerzone poszukiwania Ilitu",
+        "5": "Pai'Na/Zbuga paj¹ka - rozszerzona przygoda",
+        "6": "Ulepszona tawerna Pod Krzywym Zurawiem",
+        "7": "Przywrócone losowe spotkania w mieœcie",
+        "8": "Artemis Entreri w Siedzibie Bodhi",
+        "9": "Poprawione \"Stworzenia Xzara\"",
+        "10": "Przywroceni Piekielni Sludzy, autorstwa SimDing0",
+        "12": "Przywrócone przedmioty",
+        "13": "Oryginalny portret Yoshimo",
+        "14": "Oryginalny portret Anomena",
+        "15": "Przywrocone portrety NPC",
+        "17": "Poprawione imiona bohaterow",
+        "18": "Przywrocone pomniejsze dialogi",
+        "19": "Przywrocone Moce Bhaala, autorstwa David Gaider",
+        "20": "Rozszerzone opisy przedmiotow z ToB",
+        "21": "Pomniejsze przywrocenia do Tronu Bhaala",
+        "22": "Podklasa Smialka",
+        "23": "Podklasa Dzikusa",
+        "24": "Wyrzuty Sumienia Sarevoka",
+        "25": "The Murder of Acton Balthis, by Kulyok"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Boo's Entführung von Cliffette",
+        "1": "Die Suna Seni/Valygar-Beziehung",
+        "2": "Kalah und was ihm versprochen wurde",
+        "3": "\"Katz und Maus\" (Bodhi jagt euch durch die Zauberfeste) von Ghreyfain",
+        "4": "Gorje Dunkelhügel und die erweiterte Illithium-Quest",
+        "5": "Die Pai'Na/Spinnenfluch-Quest",
+        "6": "Wiederhergestellter \"Krummer Kranich\"",
+        "7": "Wiederherstellung: Zufallsbegegnungen",
+        "8": "Artemis Entreri in Bodhis Lager",
+        "9": "Korrigierte \"Schöpfungen\" Xzars",
+        "10": "Wiederhergestellte Höllenkreaturen, von SimDing0",
+        "12": "Wiederherstellung: Gegenstände",
+        "13": "Yoshimos ursprüngliches Porträt",
+        "14": "Anomens ursprüngliches Porträt",
+        "15": "Wiederherstellung von NPC-Porträts",
+        "17": "Korrigierte Namen und Biographien der Charaktere",
+        "18": "Wiederhergestellte kleinere Dialoge",
+        "19": "Wiederhergestellte Bhaalbrut-Kräfte, von David Gaider",
+        "20": "Erweiterte Gegenstandsbeschreibungen für ToB",
+        "21": "Thron des Bhaal: Kleine Wiederherstellungen",
+        "22": "Kit: Rechtfertiger",
+        "23": "Kit: Wilder",
+        "24": "Sarevoks Reue",
+        "25": "The Murder of Acton Balthis, by Kulyok"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "El Rapto de Bubu, por Cliffette",
+        "1": "La relación Suna Seni/Valygar",
+        "2": "Kalah y lo que le fue prometido",
+        "3": "\"Gato y ratón\" (Bodhi os persigue en la prisión del hechicero) por Ghreyfain",
+        "4": "Gorje Colinaoscura y la quest extendida del Ilitio",
+        "5": "Quest de Pai'Na",
+        "6": "Taberna Grúa Torcida restaurada",
+        "7": "Encuentros Restaurados",
+        "8": "Artemis Entreri en la Cripta de Bodhi",
+        "9": "\"Creaciones de Xar\" Corregidas",
+        "10": "Demonios del Infierno restaurados, por SimDing0",
+        "12": "Restauraciones de objetos",
+        "13": "Portrait Original de Yoshimo",
+        "14": "Portrait Original de Anomen",
+        "15": "Restauraciones de portraits de NPCs",
+        "17": "Nombres de Personajes Corregidos",
+        "18": "Diálogos menores corregidos",
+        "19": "Poderes del Hijo de Baal restaurados, por David Gaider",
+        "20": "Descripciones de Objetos de ToB Extendidas",
+        "21": "Restauración Menor del Trono de Bhaal",
+        "22": "Equipo de Justiciero",
+        "23": "Kit de bosquimán",
+        "24": "El Remordimiento de Sarevok",
+        "25": "The Murder of Acton Balthis, by Kulyok"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Unos Booa, autorka: Cliffette",
+        "1": "Vztah mezi Sunou Seni a Valygarem",
+        "2": "Kalah a to, co mu bylo slibeno",
+        "3": "\"Hra na kocku a mys\" (Bodhi te lovi v Carotvrzi), autor: Ghreyfain",
+        "4": "Gorje Hilldark a rozsireny ukol s illithiem",
+        "5": "Ukol s Pai'Nou a Pavouci zhoubou",
+        "6": "Navraceni U Kriveho jeraba",
+        "7": "Navraceni nahodnych setkani",
+        "8": "Artemis Entreri v Bodhiine doupeti",
+        "9": "Opravene \"Xzarovy vytvory\"",
+        "10": "Navraceni pekelnych nohsledu, autor: SimDing0",
+        "12": "Navraceni predmetu",
+        "13": "Yoshimuv puvodni portret",
+        "14": "Anomenuv puvodni portret",
+        "15": "Navraceni portretu NPC",
+        "17": "Opravena jmena postav a zivotopisy",
+        "18": "Navraceni mensich rozhovoru",
+        "19": "Navraceni schopnosti Bhaalova potomka, autor: David Gaider",
+        "20": "Obsahlejsi popisy predmetu z ToB",
+        "21": "Mensi obnovy v Throne of Bhaal",
+        "22": "Kit Obrance",
+        "23": "Kit Divy clovek",
+        "24": "Sarevokovy vycitky svedomi",
+        "25": "Vrazda Acton Balthis, autor: Kulyok"
+      }
+    }
   },
   "tp2": "ub",
   "safe": 2,

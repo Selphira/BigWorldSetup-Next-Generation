@@ -2,14 +2,16 @@
   "name": "Black Pits in BGEE",
   "version": "1.2.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/35843-lets-put-the-black-pits-1-into-bgee/",
-    "download": "https://github.com/UnearthedArcana/BP_in_BG/archive/refs/tags/1.2.1.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/35843-lets-put-the-black-pits-1-into-bgee/"
   },
-  "file": {
-    "filename": "BP_in_BG-1.2.1.zip",
-    "size": 1713393,
-    "sha256": "231929cf1df4009a0712a85a57ef6f4ff562b2ba0afb9e15c04918a9e085dab8"
-  },
+  "files": [
+    {
+      "filename": "BP_in_BG-1.2.1.zip",
+      "size": 1713393,
+      "sha256": "231929cf1df4009a0712a85a57ef6f4ff562b2ba0afb9e15c04918a9e085dab8",
+      "download": "https://github.com/UnearthedArcana/BP_in_BG/archive/refs/tags/1.2.1.zip"
+    }
+  ],
   "games": ["bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {

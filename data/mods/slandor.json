@@ -2,14 +2,16 @@
   "name": "The Minotaur and Lilacor",
   "version": "2.1",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/41667-the-minotaur-and-lilacor/",
-    "download": "https://github.com/Spellhold-Studios/Minotaur-and-Lilacor/releases/download/v2.1/the-minotaur-and-lilacor-2.1.zip"
+    "homepage": "http://www.shsforums.net/topic/41667-the-minotaur-and-lilacor/"
   },
-  "file": {
-    "filename": "the-minotaur-and-lilacor-2.1.zip",
-    "size": 4818071,
-    "sha256": "1d948bef86daa43a6ad92bbaa6dc7c189f780d89f8a201a59183a49c0e31bbfe"
-  },
+  "files": [
+    {
+      "filename": "the-minotaur-and-lilacor-2.1.zip",
+      "size": 4818071,
+      "sha256": "1d948bef86daa43a6ad92bbaa6dc7c189f780d89f8a201a59183a49c0e31bbfe",
+      "download": "https://github.com/Spellhold-Studios/Minotaur-and-Lilacor/releases/download/v2.1/the-minotaur-and-lilacor-2.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -37,14 +39,34 @@
         "0": "Le minotaure et Lilarcor"
       }
     },
-    "it_IT": {"components": {"0": "Il Minotauro e Lilacor"}},
-    "ru_RU": {"components": {"0": "Œ¨­®â ¢à ¨ ‹¨« ª®à"}},
+    "it_IT": {
+      "components": {
+        "0": "Il Minotauro e Lilacor"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Œ¨­®â ¢à ¨ ‹¨« ª®à"
+      }
+    },
     "zh_CN": {
       "description": "在阿斯卡特拉的下水道里，你遇到一只被4个蘑菇人攻击的米诺陶，以及3具倒在地上的尸体，没有任何解释。这个小型模组旨在讲述这个故事。"
     },
-    "de_DE": {"components": {"0": "Der Minotaurus und Lilarcor"}},
-    "es_ES": {"components": {"0": "El Minotauro y Lilarcor"}},
-    "pl_PL": {"components": {"0": "Minotaur i Lilacor"}}
+    "de_DE": {
+      "components": {
+        "0": "Der Minotaurus und Lilarcor"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "El Minotauro y Lilarcor"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Minotaur i Lilacor"
+      }
+    }
   },
   "tp2": "slandor",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Drizzt Saga",
   "version": "3.00",
   "links": {
-    "homepage": "http://www.blackwyrmlair.net/Mods/drizztsaga.php",
-    "download": "https://github.com/Black-Wyrm-Lair/Drizzt-Saga/archive/refs/heads/master.zip"
+    "homepage": "http://www.blackwyrmlair.net/Mods/drizztsaga.php"
   },
-  "file": {
-    "filename": "Drizzt-Saga-master.zip",
-    "size": 75883991,
-    "sha256": "a8825cca678c9de0f10e313fd119e58df0aef0a3b42b089fd3a8016f66264feb"
-  },
+  "files": [
+    {
+      "filename": "Drizzt-Saga-master.zip",
+      "size": 75883991,
+      "sha256": "a8825cca678c9de0f10e313fd119e58df0aef0a3b42b089fd3a8016f66264feb",
+      "download": "https://github.com/Black-Wyrm-Lair/Drizzt-Saga/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -71,34 +73,49 @@
     },
     "it_IT": {
       "components": {
-        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
-        "1": "Installando il Supporto della Worldmap v6", "3": "Delayed start: Drizzt joins after Durlag's Tower",
-        "4": "Fewer NPC's items exploit", "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4",
+        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT",
+        "0": "Default version: areas connected by travel triggers",
+        "1": "Installando il Supporto della Worldmap v6",
+        "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit",
+        "5": "Magical Items Nerfing",
+        "6": "XP from Creatures lowered by 3/4",
         "1000": "Resource biffing"
       }
     },
     "pl_PL": {
       "components": {
-        "choice_0": "Saga Drizzta dla BG:EE/TuTu/BGT", "0": "Obszary polaczone poprzez krawedzie map (domyslnie)",
+        "choice_0": "Saga Drizzta dla BG:EE/TuTu/BGT",
+        "0": "Obszary polaczone poprzez krawedzie map (domyslnie)",
         "1": "Wszystkie obszary dodane do mapy swiata (wymaga BP-BGT Worldmap)",
         "3": "Opozniony poczatek: Drizzt dolaczy po ukonczeniu Wiezy Durlaga",
         "4": "Usuniecie naduzyc zwiazanych z ekwipunkiem Bohaterow Niezaleznych",
-        "5": "Oslabienie magicznych przedmiotow", "6": "Obnizenie PD za potwory o 3/4", "1000": "Kompresja zasobow"
+        "5": "Oslabienie magicznych przedmiotow",
+        "6": "Obnizenie PD za potwory o 3/4",
+        "1000": "Kompresja zasobow"
       }
     },
     "ru_RU": {
       "components": {
-        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
+        "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT",
+        "0": "Default version: areas connected by travel triggers",
         "1": "BP-BGT Worldmap version: all areas added to worldmap (requires BP-BGT Worldmap)",
-        "3": "Delayed start: Drizzt joins after Durlag's Tower", "4": "Fewer NPC's items exploit",
-        "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4", "1000": "Resource biffing"
+        "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit",
+        "5": "Magical Items Nerfing",
+        "6": "XP from Creatures lowered by 3/4",
+        "1000": "Resource biffing"
       }
     },
     "es_ES": {
       "components": {
-        "choice_0": "La Saga Drizzt para BGEE/Tutu/BGT", "0": "Default version: areas connected by travel triggers",
-        "1": "Instalando soporte para Worldmap v6", "3": "Delayed start: Drizzt joins after Durlag's Tower",
-        "4": "Fewer NPC's items exploit", "5": "Magical Items Nerfing", "6": "XP from Creatures lowered by 3/4",
+        "choice_0": "La Saga Drizzt para BGEE/Tutu/BGT",
+        "0": "Default version: areas connected by travel triggers",
+        "1": "Instalando soporte para Worldmap v6",
+        "3": "Delayed start: Drizzt joins after Durlag's Tower",
+        "4": "Fewer NPC's items exploit",
+        "5": "Magical Items Nerfing",
+        "6": "XP from Creatures lowered by 3/4",
         "1000": "Resource biffing"
       }
     }

@@ -2,14 +2,16 @@
   "name": "Homeward Bound",
   "version": "8",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/30937-homeward-bound/",
-    "download": "https://github.com/Plutonium-X/MISC_Homeward/archive/refs/tags/v8.zip"
+    "homepage": "http://www.shsforums.net/topic/30937-homeward-bound/"
   },
-  "file": {
-    "filename": "MISC_Homeward-8.zip",
-    "size": 6614813,
-    "sha256": "1ec21dd331be335130a0b11c9b07b18748ed49369e775d44ccc983cd5e667e58"
-  },
+  "files": [
+    {
+      "filename": "MISC_Homeward-8.zip",
+      "size": 6614813,
+      "sha256": "1ec21dd331be335130a0b11c9b07b18748ed49369e775d44ccc983cd5e667e58",
+      "download": "https://github.com/Plutonium-X/MISC_Homeward/archive/refs/tags/v8.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

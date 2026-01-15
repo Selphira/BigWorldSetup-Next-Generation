@@ -2,14 +2,16 @@
   "name": "Summon Bhaalspawn (Sandra NPC)",
   "version": "4",
   "links": {
-    "homepage": "https://github.com/11jo/Summon_Bhaalspawn",
-    "download": "https://github.com/11jo/Summon_Bhaalspawn/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/11jo/Summon_Bhaalspawn"
   },
-  "file": {
-    "filename": "Summon_Bhaalspawn-master.zip",
-    "size": 5575746,
-    "sha256": "4bb4eafe964cbcdae9c623d78bb2ccc8b82c6c1788bbf5c1eb1d0f1c44b1af80"
-  },
+  "files": [
+    {
+      "filename": "Summon_Bhaalspawn-master.zip",
+      "size": 5575746,
+      "sha256": "4bb4eafe964cbcdae9c623d78bb2ccc8b82c6c1788bbf5c1eb1d0f1c44b1af80",
+      "download": "https://github.com/11jo/Summon_Bhaalspawn/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -49,7 +51,17 @@
     "zh_CN": {
       "description": "此模组允许你在码头招募这位猎杀不死生物的圣武士。没有爱情线，只有一些初步的对话，但有一些闲聊，以及给爱蒙的一个特殊惊喜。作为吸血鬼坦克非常有效。\n力量19，敏捷18，体质18，智力8，智慧15，魅力17。"
     },
-    "es_ES": {"components": {"choice_0": "Convocar Engendro de Bhaal", "0": "Instalar el retrato de Skie (Retrato Original del Mod)", "1": "Recuerda instalar al menos uno de los retratos, o Sandra no tendrá ninguno.", "2": "Instalar el retrato de Paladin Pelirrojo (De Autor Desconocido)", "3": "Instalar el retrato de Salma Hayek de El Portal del Retrato", "4": "Instalar el retrato edita de Skie por Xenobia (de Baldur's Goth Expansion Pack)", "6": "Summon Bhaalspawn in ToB"}}
+    "es_ES": {
+      "components": {
+        "choice_0": "Convocar Engendro de Bhaal",
+        "0": "Instalar el retrato de Skie (Retrato Original del Mod)",
+        "1": "Recuerda instalar al menos uno de los retratos, o Sandra no tendrá ninguno.",
+        "2": "Instalar el retrato de Paladin Pelirrojo (De Autor Desconocido)",
+        "3": "Instalar el retrato de Salma Hayek de El Portal del Retrato",
+        "4": "Instalar el retrato edita de Skie por Xenobia (de Baldur's Goth Expansion Pack)",
+        "6": "Summon Bhaalspawn in ToB"
+      }
+    }
   },
   "tp2": "sbs",
   "safe": 2,

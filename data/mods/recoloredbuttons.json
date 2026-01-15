@@ -2,14 +2,16 @@
   "name": "Recolored character's toolbar buttons for BG:EE and BG2:EE",
   "version": "4.3",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-recoloredbuttons",
-    "download": "https://github.com/Argent77/A7-recoloredbuttons/releases/download/v4.3/win-A7-recoloredbuttons-v4.3.zip"
+    "homepage": "https://github.com/Argent77/A7-recoloredbuttons"
   },
-  "file": {
-    "filename": "win-A7-recoloredbuttons-v4.3.zip",
-    "size": 1439175,
-    "sha256": "ee50fb3d6b5878022a2d7745791977f914ba05da3d74d26427d08f280feaef3c"
-  },
+  "files": [
+    {
+      "filename": "win-A7-recoloredbuttons-v4.3.zip",
+      "size": 1439175,
+      "sha256": "ee50fb3d6b5878022a2d7745791977f914ba05da3d74d26427d08f280feaef3c",
+      "download": "https://github.com/Argent77/A7-recoloredbuttons/releases/download/v4.3/win-A7-recoloredbuttons-v4.3.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["ui"],
   "components": {
@@ -40,14 +42,18 @@
     },
     "pl_PL": {
       "components": {
-        "choice_0": "Zmiana koloru przyciskow paska postaci(BG:EE)", "0": "Niebieskawa tonacja kolorystyczna",
-        "1": "Zlota tonacja kolorystyczna", "2": "Zmiana koloru przyciskow paska postaci(BG2:EE)"
+        "choice_0": "Zmiana koloru przyciskow paska postaci(BG:EE)",
+        "0": "Niebieskawa tonacja kolorystyczna",
+        "1": "Zlota tonacja kolorystyczna",
+        "2": "Zmiana koloru przyciskow paska postaci(BG2:EE)"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG:EE)", "0": "Blaeuliches Farbschema",
-        "1": "Goldenes Farbschema", "2": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG2:EE)"
+        "choice_0": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG:EE)",
+        "0": "Blaeuliches Farbschema",
+        "1": "Goldenes Farbschema",
+        "2": "Eingefaerbte Schaltflaechen in der Charakterleiste (BG2:EE)"
       }
     }
   },

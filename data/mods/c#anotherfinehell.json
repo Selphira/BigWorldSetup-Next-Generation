@@ -2,14 +2,16 @@
   "name": "Another Fine Hell for SoD",
   "version": "Alpha_230919",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/1034-another-fine-hell/",
-    "download": "https://github.com/Gibberlings3/Another_Fine_Hell/releases/download/vAlpha_230919/another-fine-hell-for-sod-alpha_230919.zip"
+    "homepage": "https://www.gibberlings3.net/files/file/1034-another-fine-hell/"
   },
-  "file": {
-    "filename": "another-fine-hell-for-sod-alpha_230919.zip",
-    "size": 4926206,
-    "sha256": "23b457a67684d20ff61f6af3a7ea735583a44ce9d7b81d45a560c64499a1f323"
-  },
+  "files": [
+    {
+      "filename": "another-fine-hell-for-sod-alpha_230919.zip",
+      "size": 4926206,
+      "sha256": "23b457a67684d20ff61f6af3a7ea735583a44ce9d7b81d45a560c64499a1f323",
+      "download": "https://github.com/Gibberlings3/Another_Fine_Hell/releases/download/vAlpha_230919/another-fine-hell-for-sod-alpha_230919.zip"
+    }
+  ],
   "games": ["bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -42,7 +44,13 @@
     "zh_CN": {
       "description": "这个模组为 PJ 在 SoD 结尾时失宠并必须离开城市提供了一个新的原因。"
     },
-    "es_ES": {"components": {"0": "Another Fine Hell - Final opcional para el cierre de SoD y BGII", "1": "Get the Hells Out - Busqueda opcional con contenido extendido para BGII", "2": "PJ's y el cofre de Imoen en palacio deben tener su contenido"}}
+    "es_ES": {
+      "components": {
+        "0": "Another Fine Hell - Final opcional para el cierre de SoD y BGII",
+        "1": "Get the Hells Out - Busqueda opcional con contenido extendido para BGII",
+        "2": "PJ's y el cofre de Imoen en palacio deben tener su contenido"
+      }
+    }
   },
   "tp2": "c#anotherfinehell",
   "safe": 2,

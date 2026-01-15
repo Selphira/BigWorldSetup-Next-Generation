@@ -2,14 +2,16 @@
   "name": "Kit de Mutant de gelée",
   "version": "2",
   "links": {
-    "homepage": "https://cafe.naver.com/f-e/cafes/12857088/articles/85256?boardtype=I&menuid=25&referrerAllArticles=false",
-    "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/win-SB.zip"
+    "homepage": "https://cafe.naver.com/f-e/cafes/12857088/articles/85256?boardtype=I&menuid=25&referrerAllArticles=false"
   },
-  "file": {
-    "filename": "win-SB.zip",
-    "size": 1597159,
-    "sha256": "998c3d30bb4169d886c6b60347975cd3f310c6b03fe914cab70bdb11df86bb20"
-  },
+  "files": [
+    {
+      "filename": "win-SB.zip",
+      "size": 1597159,
+      "sha256": "998c3d30bb4169d886c6b60347975cd3f310c6b03fe914cab70bdb11df86bb20",
+      "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/win-SB.zip"
+    }
+  ],
   "games": ["bg2", "bgee", "bg2ee", "bgt", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -32,7 +34,11 @@
     "zh_CN": {
       "description": "这个战士宗派允许角色变成芥末凝胶。它拥有许多优势，如对毒素、睡眠和精神攻击的免疫，以及豁免检定的加值。其变形的特性会随着等级提升而进化，特别是护甲等级、属性和再生的加值。他的肤色……很不寻常。"
     },
-    "ko_KR": {"components": {"0": "½½¶óÀÓ ½ºÆ÷ÀÏ·¯ Å°Æ® ¼³Ä¡"}}
+    "ko_KR": {
+      "components": {
+        "0": "½½¶óÀÓ ½ºÆ÷ÀÏ·¯ Å°Æ® ¼³Ä¡"
+      }
+    }
   },
   "tp2": "sb",
   "safe": 2,

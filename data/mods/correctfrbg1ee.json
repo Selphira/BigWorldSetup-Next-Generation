@@ -2,14 +2,16 @@
   "name": "Correction de la traduction de Baldur's Gate : Enhanced Edition",
   "version": "0.11",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33797",
-    "download": "https://github.com/r-e-d/correctfrBG1EE/releases/download/0.11/correctfrbg1ee-0.11.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33797"
   },
-  "file": {
-    "filename": "correctfrbg1ee-0.11.zip",
-    "size": 208251980,
-    "sha256": "ca75c7b6a6272653795e31fb598f7d88c87c6c4502076f63c83653ca0d893f75"
-  },
+  "files": [
+    {
+      "filename": "correctfrbg1ee-0.11.zip",
+      "size": 208251980,
+      "sha256": "ca75c7b6a6272653795e31fb598f7d88c87c6c4502076f63c83653ca0d893f75",
+      "download": "https://github.com/r-e-d/correctfrBG1EE/releases/download/0.11/correctfrbg1ee-0.11.zip"
+    }
+  ],
   "games": ["bgee", "sod", "eet"],
   "categories": ["patch"],
   "components": {

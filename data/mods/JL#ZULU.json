@@ -2,14 +2,16 @@
   "name": "Lion Warrior kit",
   "version": "3.01",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/31691-the-lion-warrior-kit-formerly-zulu-still-a-ranger/",
-    "download": "https://github.com/Plutonium-X/KIT_Lion/releases/download/v3.01/win-JL.ZULU.zip"
+    "homepage": "http://www.shsforums.net/topic/31691-the-lion-warrior-kit-formerly-zulu-still-a-ranger/"
   },
-  "file": {
-    "filename": "win-JL.ZULU.zip",
-    "size": 2061215,
-    "sha256": "70c1b4fe12a13e757039a5a3a0a7b81dc1bae888f1cb068dd962ede677133aaf"
-  },
+  "files": [
+    {
+      "filename": "win-JL.ZULU.zip",
+      "size": 2061215,
+      "sha256": "70c1b4fe12a13e757039a5a3a0a7b81dc1bae888f1cb068dd962ede677133aaf",
+      "download": "https://github.com/Plutonium-X/KIT_Lion/releases/download/v3.01/win-JL.ZULU.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

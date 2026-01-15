@@ -2,14 +2,16 @@
   "name": "Auren Aseph NPC Mod for BG2",
   "version": "12",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/auren/",
-    "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/aurenaseph-v12.exe"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/auren/"
   },
-  "file": {
-    "filename": "aurenaseph-v12.exe",
-    "size": 19306201,
-    "sha256": "7973ca250aecbb4e1a4031699c2d9bf933f3d20df22dd5466cf440bddef306cc"
-  },
+  "files": [
+    {
+      "filename": "aurenaseph-v12.exe",
+      "size": 19306201,
+      "sha256": "7973ca250aecbb4e1a4031699c2d9bf933f3d20df22dd5466cf440bddef306cc",
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/aurenaseph-v12.exe"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -33,7 +35,14 @@
         "2": "Portrait 2 (From Neverwinter Nights)"
       }
     },
-    "ru_RU": {"components": {"0": "Auren Aseph for BG2:ToB", "choice_0": "Alternate Auren Portrait", "1": "Portrait 1 (From Neverwinter Nights Vault)", "2": "Portrait 2 (From Neverwinter Nights)"}},
+    "ru_RU": {
+      "components": {
+        "0": "Auren Aseph for BG2:ToB",
+        "choice_0": "Alternate Auren Portrait",
+        "1": "Portrait 1 (From Neverwinter Nights Vault)",
+        "2": "Portrait 2 (From Neverwinter Nights)"
+      }
+    },
     "fr_FR": {
       "description": "Auren est une jeune humaine, guerrière, d'alignement neutre bon, originaire de Bérégost. On la trouve à l'intérieur de la Couronne de Cuivre, mais elle n'apparaît pas si le PJ est d'alignement mauvais, et disparaît pour de bon si on la vire du groupe. Auren a une romance gay avec Nalia si vous avez celle-ci dans l'équipe, et une quête personnelle. Elle commence la partie avec des compétences en combat à deux armes, épée longue et épée courte. Mod avec voix et musique personnalisée.\nFOR 16, DEX 15, CON 16, INT 13, SAG 12, CHA 15.",
       "components": {
@@ -46,8 +55,22 @@
     "zh_CN": {
       "description": "奥伦是一位年轻的女性人类战士，中立善良阵营，来自贝尔苟斯特。她在铜冠旅店内部，但如果玩家的阵营是邪恶的，她就不会出现，如果被逐出队伍，她就会永远消失。Auren 与娜里亚有一段同性恋情，如果你在队伍中带着她，并且她有一个个人任务。她开始游戏时拥有双武器、长剑和短剑的技能。带有自定义语音和音乐的模组。\n力量 16，敏捷 15，体质 16，智力 13，智慧 12，魅力 15。"
     },
-    "de_DE": {"components": {"0": "Auren Aseph für BG2:ToB", "choice_0": "Alternatives Auren Portrait", "1": "Portrait 1 (From Neverwinter Nights Vault)", "2": "Portrait 2 (From Neverwinter Nights)"}},
-    "es_ES": {"components": {"0": "Auren Aseph para BG2:ToB", "choice_0": "Alternate Auren Portrait", "1": "Portrait 1 (From Neverwinter Nights Vault)", "2": "Portrait 2 (From Neverwinter Nights)"}}
+    "de_DE": {
+      "components": {
+        "0": "Auren Aseph für BG2:ToB",
+        "choice_0": "Alternatives Auren Portrait",
+        "1": "Portrait 1 (From Neverwinter Nights Vault)",
+        "2": "Portrait 2 (From Neverwinter Nights)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Auren Aseph para BG2:ToB",
+        "choice_0": "Alternate Auren Portrait",
+        "1": "Portrait 1 (From Neverwinter Nights Vault)",
+        "2": "Portrait 2 (From Neverwinter Nights)"
+      }
+    }
   },
   "tp2": "aurenaseph",
   "safe": 2,

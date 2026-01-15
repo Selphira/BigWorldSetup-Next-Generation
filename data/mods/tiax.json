@@ -2,14 +2,16 @@
   "name": "Tiax NPC MOD for Baldur's Gate II",
   "version": "6",
   "links": {
-    "homepage": "https://forums.pocketplane.net/index.php/topic,23660.0.html",
-    "download": "https://github.com/Pocket-Plane-Group/Tiax_for_BGII/releases/download/v6/Tiax_v6.zip"
+    "homepage": "https://forums.pocketplane.net/index.php/topic,23660.0.html"
   },
-  "file": {
-    "filename": "Tiax_v6.zip",
-    "size": 8304518,
-    "sha256": "6a1769928345d3a2641145bb67bdfe2c242b0f63e6340673362e7d1d4b6f3274"
-  },
+  "files": [
+    {
+      "filename": "Tiax_v6.zip",
+      "size": 8304518,
+      "sha256": "6a1769928345d3a2641145bb67bdfe2c242b0f63e6340673362e7d1d4b6f3274",
+      "download": "https://github.com/Pocket-Plane-Group/Tiax_for_BGII/releases/download/v6/Tiax_v6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -27,7 +29,11 @@
         "0": "Tiax NPC MOD for Baldur's Gate II"
       }
     },
-    "ru_RU": {"components": {"0": "Tiax NPC MOD for Baldur's Gate II"}},
+    "ru_RU": {
+      "components": {
+        "0": "Tiax NPC MOD for Baldur's Gate II"
+      }
+    },
     "fr_FR": {
       "description": "Vous vous souvenez certainement de ce prêtre/voleur dément et mégalomane ? L'occasion de (re)faire sa connaissance.\nFOR 9, DEX 16, CON 16, INT 10, SAG 13, CHA 9.",
       "components": {
