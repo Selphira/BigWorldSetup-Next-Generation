@@ -2,7 +2,7 @@
   "name": "Animal Companions",
   "version": "1.6",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/56242-animal-companions/"
+    "homepage": "https://www.shsforums.net/topic/56242-animal-companions/"
   },
   "files": [
     {
@@ -15,7 +15,9 @@
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}}
+    "0": {
+      "type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}
+    }
   },
   "languages": {
     "en_US": 0,

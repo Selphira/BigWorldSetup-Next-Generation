@@ -2,14 +2,14 @@
   "name": "Tethyr Forest Patch",
   "version": "3b",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/855-tethyr-forest-patch-version-3b-112609/"
+    "homepage": "https://www.shsforums.net/files/file/855-tethyr-forest-patch-version-3b-112609/"
   },
   "files": [
     {
       "filename": "Tethyr_Forest_Patch_3b.7z",
       "size": 558616,
       "sha256": "33af711df8635622e43754f37a17c9ee3e6d7386dc50d10735ff5973ff5dab56",
-      "download": "http://www.shsforums.net/files/download/855-tethyr-forest-patch-version-3b-112609/"
+      "download": "https://www.shsforums.net/files/download/855-tethyr-forest-patch-version-3b-112609/"
     }
   ],
   "games": ["bg2", "bgt", "eet"],

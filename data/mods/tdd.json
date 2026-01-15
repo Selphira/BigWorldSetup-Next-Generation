@@ -2,14 +2,14 @@
   "name": "The Darkest Day",
   "version": "1.14",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/323-the-darkest-day-v114/"
+    "homepage": "https://www.shsforums.net/files/file/323-the-darkest-day-v114/"
   },
   "files": [
     {
       "filename": "TDDv1.14.rar",
       "size": 117153291,
       "sha256": "51a93338e262cc4c4592c436b79c37fdc0daaf764893c1d29a3d9042c9f9868d",
-      "download": "http://www.shsforums.net/files/download/323-the-darkest-day-v114/"
+      "download": "https://www.shsforums.net/files/download/323-the-darkest-day-v114/"
     }
   ],
   "games": ["bg2", "bgt", "eet"],

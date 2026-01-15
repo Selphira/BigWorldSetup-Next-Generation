@@ -2,14 +2,14 @@
   "name": "Wizard Slayer Rebalancing",
   "version": "1.14",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/49205-wizard-slayer-rebalancing-v102/"
+    "homepage": "https://www.shsforums.net/topic/49205-wizard-slayer-rebalancing-v102/"
   },
   "files": [
     {
       "filename": "wsr_v114.exe",
       "size": 1269121,
       "sha256": "a8be0be674b7ac1c3075c12703cc2f653889843035edd4942866d78355ac4865",
-      "download": "http://www.shsforums.net/files/download/960-wizard-slayer-rebalancing-v113-windows-version/"
+      "download": "https://www.shsforums.net/files/download/960-wizard-slayer-rebalancing-v113-windows-version/"
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],

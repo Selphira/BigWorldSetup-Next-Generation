@@ -2,14 +2,14 @@
   "name": "Hanna NPC",
   "version": "2.5",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/821-hanna-pnj/"
+    "homepage": "https://www.shsforums.net/files/file/821-hanna-pnj/"
   },
   "files": [
     {
       "filename": "Hanna PNJ v2.5.zip",
       "size": 9751132,
       "sha256": "cca6abe0a67c8f212fc07f0d675d53e8aaffabc606aba33e40d4a2c38ebdd20e",
-      "download": "http://www.shsforums.net/files/download/821-hanna-pnj/"
+      "download": "https://www.shsforums.net/files/download/821-hanna-pnj/"
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
