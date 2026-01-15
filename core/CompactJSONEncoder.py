@@ -1,94 +1,84 @@
 import json
+from typing import Any, Tuple
+
+Scalar = (str, int, float, bool, type(None))
 
 
-class CompactJSONEncoder(json.JSONEncoder):
+class CompactJSONEncoder:
     """Custom JSON encoder with smart formatting for mod definitions."""
 
-    # Component types that support compact formatting
-    COMPACT_TYPES = {"std", "muc", "sub"}
+    def __init__(self, indent: int = 2, ensure_ascii: bool = False):
+        self.indent = indent
+        self.ensure_ascii = ensure_ascii
 
-    # Maximum keys for compact type objects
-    MAX_COMPACT_KEYS = 10
+    def encode(self, obj: Any) -> str:
+        """Encode object with custom formatting rules."""
+        return self._encode(obj, path=(), level=0)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.current_indent_level = 0
-
-    def encode(self, obj):
+    def _encode(self, obj: Any, path: Tuple[str, ...], level: int) -> str:
         """Encode object with custom formatting rules."""
         if isinstance(obj, dict):
-            return self._encode_dict(obj, indent_level=0)
-        return super().encode(obj)
+            return self._encode_dict(obj, path, level)
 
-    def _encode_dict(self, data: dict, indent_level: int) -> str:
+        if isinstance(obj, list):
+            return self._encode_list(obj, path, level)
+
+        return json.dumps(obj, ensure_ascii=self.ensure_ascii)
+
+    def _encode_dict(self, data: dict, path: Tuple[str, ...], level: int) -> str:
         """Encode dictionary with appropriate indentation."""
         if not data:
             return "{}"
 
-        if self._should_format_compact(data):
-            return self._format_compact(data)
-
-        return self._format_indented(data, indent_level)
-
-    def _format_indented(self, data: dict, indent_level: int) -> str:
-        """Format dictionary with indentation and line breaks."""
-        indent = "  " * indent_level
-        next_indent = "  " * (indent_level + 1)
+        indent = " " * self.indent * level
+        next_indent = " " * self.indent * (level + 1)
 
         items = []
+
         for key, value in data.items():
-            key_str = json.dumps(key)
-            value_str = self._encode_value(value, indent_level + 1)
-            items.append(f"{next_indent}{key_str}: {value_str}")
+            key_json = json.dumps(key, ensure_ascii=self.ensure_ascii)
+
+            # Special case: root-level components
+            if path == () and key == "components" and isinstance(value, dict):
+                value_json = self._encode_components(value, level + 1)
+            else:
+                value_json = self._encode(value, path + (key,), level + 1)
+
+            items.append(f"{next_indent}{key_json}: {value_json}")
 
         return "{\n" + ",\n".join(items) + f"\n{indent}}}"
 
-    def _encode_value(self, value, indent_level: int) -> str:
-        """Encode a value based on its type."""
-        if isinstance(value, dict):
-            if self._should_format_compact(value):
-                return self._format_compact(value)
-            return self._encode_dict(value, indent_level)
-
-        if isinstance(value, list):
-            return self._format_list(value)
-
-        return json.dumps(value, ensure_ascii=False)
-
-    def _format_compact(self, data: dict) -> str:
-        """Format dictionary as compact single-line JSON."""
-        items = []
-        for key, value in data.items():
-            value_str = (
-                self._format_list(value)
-                if isinstance(value, list)
-                else json.dumps(value, ensure_ascii=False)
-            )
-            items.append(f'"{key}": {value_str}')
-
-        return "{" + ", ".join(items) + "}"
-
-    @staticmethod
-    def _format_list(items: list) -> str:
-        """Format list as compact single-line JSON."""
-        if not items:
+    def _encode_list(self, data: list, path: Tuple[str, ...], level: int) -> str:
+        if not data:
             return "[]"
 
-        encoded_items = [json.dumps(item, ensure_ascii=False) for item in items]
-        return "[" + ", ".join(encoded_items) + "]"
+        # Scalar lists are always compact
+        if self._is_scalar_list(data):
+            return (
+                "["
+                + ", ".join(json.dumps(v, ensure_ascii=self.ensure_ascii) for v in data)
+                + "]"
+            )
 
-    def _should_format_compact(self, data: dict) -> bool:
-        """Determine if dictionary should use compact formatting."""
-        keys = set(data.keys())
+        indent = " " * self.indent * level
+        next_indent = " " * self.indent * (level + 1)
 
-        # Single-key dictionaries with specific keys
-        if keys in ({"type"}, {"options"}, {"components"}):
-            return True
+        items = [self._encode(item, path, level + 1) for item in data]
 
-        # Component type objects with reasonable number of keys
-        if "type" in keys:
-            component_type = data.get("type")
-            if component_type in self.COMPACT_TYPES and len(data) <= self.MAX_COMPACT_KEYS:
-                return True
+        return "[\n" + ",\n".join(f"{next_indent}{i}" for i in items) + f"\n{indent}]"
 
-        return False
+    def _encode_components(self, components: dict, level: int) -> str:
+        indent = " " * self.indent * level
+        next_indent = " " * self.indent * (level + 1)
+
+        items = []
+        for key, component in components.items():
+            key_json = json.dumps(key, ensure_ascii=self.ensure_ascii)
+            component_json = json.dumps(component, ensure_ascii=self.ensure_ascii)
+            items.append(f"{next_indent}{key_json}: {component_json}")
+
+        return "{\n" + ",\n".join(items) + f"\n{indent}}}"
+
+    @staticmethod
+    def _is_scalar_list(values: list) -> bool:
+        return all(isinstance(v, Scalar) for v in values)
