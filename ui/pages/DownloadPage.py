@@ -609,6 +609,7 @@ class DownloadPage(BasePage):
                 self._update_archive_cache(mod_id, archive_info)
 
         self._refresh_archive_table()
+        self._archive_table.sortItems(COL_MOD_NAME, Qt.SortOrder.AscendingOrder)
         self._update_navigation_buttons()
 
         # Count verified archives
