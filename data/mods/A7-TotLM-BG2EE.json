@@ -9,19 +9,22 @@
       "filename": "lin-A7-TotLM-BG2EE-v4.4.zip",
       "size": 95413788,
       "sha256": "146b0f455dd3c9b8ef7baa1b0c7b0a299483df26a5850860665b4a7dcc388991",
-      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/lin-A7-TotLM-BG2EE-v4.4.zip"
+      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/lin-A7-TotLM-BG2EE-v4.4.zip",
+      "platforms": ["linux"]
     },
     {
       "filename": "mac-A7-TotLM-BG2EE-v4.4.zip",
       "size": 95641320,
       "sha256": "4dafca0f833a33d5bf226f25d07a6b4aabd5b13133712c76166f40a4f4cbaecb",
-      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/mac-A7-TotLM-BG2EE-v4.4.zip"
+      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/mac-A7-TotLM-BG2EE-v4.4.zip",
+      "platforms": ["macos"]
     },
     {
       "filename": "win-A7-TotLM-BG2EE-v4.4.zip",
       "size": 95586129,
       "sha256": "6be44e5074ba32432d0c5dbfb1ff801ba21afb93a4d784c5cb0105bf5e20509f",
-      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/win-A7-TotLM-BG2EE-v4.4.zip"
+      "download": "https://github.com/Argent77/A7-TotLM-BG2EE/releases/download/v4.4/win-A7-TotLM-BG2EE-v4.4.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet"],

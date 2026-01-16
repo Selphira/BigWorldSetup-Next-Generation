@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-A7-DjinniCompanion-v2.11.zip",
+      "size": 24998218,
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/lin-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-DjinniCompanion-v2.11.zip",
+      "size": 25225752,
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/mac-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-DjinniCompanion-v2.11.zip",
       "size": 24998144,
       "sha256": "074ee662bcfed4825571f45048e5ef99e0e30ea09f628a4ed92d0de4f9704701",
-      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/win-A7-DjinniCompanion-v2.11.zip"
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/win-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],

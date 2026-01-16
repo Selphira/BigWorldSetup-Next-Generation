@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-B3-ReduceSaveCompression-v1.1.zip",
+      "size": 1098898,
+      "sha256": "dd79bb931ed13d5b9436bc039ae09bb0fdc5b3212e745c6419da64f9ae092af7",
+      "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/lin-B3-ReduceSaveCompression-v1.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-B3-ReduceSaveCompression-v1.1.zip",
+      "size": 1326450,
+      "sha256": "b951951ccd719f0216f573a5e9b1eae07418d32cf0e473130892010b0bf280d8",
+      "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/mac-B3-ReduceSaveCompression-v1.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-B3-ReduceSaveCompression-v1.1.zip",
       "size": 1271239,
       "sha256": "aaf5e3a1c8d9907c5c491c9f8b5c3b33dd04cf4f5b0779f77e3d76fafd1f183b",
-      "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/win-B3-ReduceSaveCompression-v1.1.zip"
+      "download": "https://github.com/Bubb13/B3-ReduceSaveCompression/releases/download/v1.1/win-B3-ReduceSaveCompression-v1.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "eet", "iwdee", "pstee"],

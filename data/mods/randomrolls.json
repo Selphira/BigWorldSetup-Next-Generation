@@ -6,10 +6,17 @@
   },
   "files": [
     {
+      "filename": "randomrolls-linux.zip",
+      "size": 19756,
+      "download": "https://github.com/drake127/randomrolls/releases/download/v1.1.0/randomrolls-linux.zip",
+      "platforms": ["linux"]
+    },
+    {
       "filename": "randomrolls-win.zip",
       "size": 1274804,
       "sha256": "bd0d6483cee72c62d82f95a034dc15ed8983a2cf8bac87f6b64bf532ec774e82",
-      "download": "https://github.com/drake127/randomrolls/releases/download/v1.1.0/randomrolls-win.zip"
+      "download": "https://github.com/drake127/randomrolls/releases/download/v1.1.0/randomrolls-win.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "iwdee", "pstee", "eet"],

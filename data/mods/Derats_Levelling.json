@@ -6,10 +6,25 @@
   },
   "files": [
     {
-      "filename": "Levelling-5.zip",
-      "size": 1277956,
-      "sha256": "7a748a1debab956a7152fc0c4a10f5bb5ef775c0a283748ede75b0acfdfd956c",
-      "download": "https://github.com/Deratiseur/Levelling/archive/refs/tags/v5.zip"
+      "filename": "lin-Derats_Levelling-v4.zip",
+      "size": 1104960,
+      "sha256": "e230f1deff248404589e56954680e93aa5933a7ba7519f8535cd7d107345da90",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/lin-Derats_Levelling-v4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Levelling-v4.zip",
+      "size": 1332496,
+      "sha256": "f80101172fa574cc00e9ee7da52e1111d3a7d32eef620ac7ba17fdcaa6700aee",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/mac-Derats_Levelling-v4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Levelling-v4.zip",
+      "size": 1277301,
+      "sha256": "dd00107bdd8ecc0da1c61e4f769c0761b3d6252b0df787ba7a5e254c068e0fb9",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/win-Derats_Levelling-v4.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "bgee", "eet", "iwdee"],

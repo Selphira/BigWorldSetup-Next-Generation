@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-chiara.zip",
+      "size": 3947406,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/lin-chiara.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-chiara.zip",
+      "size": 4174922,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/mac-chiara.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-chiara.zip",
       "size": 4119747,
       "sha256": "27a74e1256101b0afaf1faea0a4d3ab4bb3fea55e90c34d854bd337f9a1c7577",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/win-chiara.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/win-chiara.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

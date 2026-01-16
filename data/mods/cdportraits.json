@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-cdportraits-v3.tar.gz",
+      "size": 5372995,
+      "download": "https://github.com/Gibberlings3/Continuous_NPC_Portraits/releases/download/v3/lin-cdportraits-v3.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-cdportraits-v3.tar.gz",
+      "size": 5372995,
+      "download": "https://github.com/Gibberlings3/Continuous_NPC_Portraits/releases/download/v3/osx-cdportraits-v3.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "cdportraits-v3.exe",
       "size": 5603583,
       "sha256": "bfdd9a70accba2cef265c3c39000c63d75b190205c4990d30259e79d9cac1868",
-      "download": "https://github.com/Gibberlings3/Continuous_NPC_Portraits/releases/download/v3/cdportraits-v3.exe"
+      "download": "https://github.com/Gibberlings3/Continuous_NPC_Portraits/releases/download/v3/cdportraits-v3.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],

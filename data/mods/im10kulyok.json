@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-im10kulyok-v1.2.zip",
+      "size": 1121138,
+      "sha256": "1c82cc1cfe42bbb5cf3f429e81df062b3366380a3e08ff79a472ddf25b6d1380",
+      "download": "https://github.com/Plutonium-X/IronModder10_Kulyok/releases/download/v1.2/lin-im10kulyok-v1.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-im10kulyok-v1.2.zip",
+      "size": 1348662,
+      "sha256": "a36290a785adb52736ace998e330f39fba026ae2ef641bdea9e9c3f9e392d906",
+      "download": "https://github.com/Plutonium-X/IronModder10_Kulyok/releases/download/v1.2/mac-im10kulyok-v1.2.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-im10kulyok-v1.2.zip",
       "size": 1293479,
       "sha256": "e0ac4c748d751cc012d3f16b262c10be717cabcad7e0159ba42de3ba67675ec6",
-      "download": "https://github.com/Plutonium-X/IronModder10_Kulyok/releases/download/v1.2/win-im10kulyok-v1.2.zip"
+      "download": "https://github.com/Plutonium-X/IronModder10_Kulyok/releases/download/v1.2/win-im10kulyok-v1.2.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2"],

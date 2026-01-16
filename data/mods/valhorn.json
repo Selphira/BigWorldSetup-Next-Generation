@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-valhorn-v2.tar.gz",
+      "size": 70569,
+      "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/lin-valhorn-v2.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-valhorn-v2.tar.gz",
+      "size": 70569,
+      "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/osx-valhorn-v2.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "valhorn-v2.exe",
       "size": 1188432,
       "sha256": "d5fab20afa7be8f0185a275eaf4fc49b7d1c57ec60b47a29bfbc9a08eb36150f",
-      "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/valhorn-v2.exe"
+      "download": "https://github.com/Gibberlings3/Improved_Horns_of_Valhalla/releases/download/v2/valhorn-v2.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

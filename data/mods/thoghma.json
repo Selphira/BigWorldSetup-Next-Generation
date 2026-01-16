@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-thoghma-v1.8.zip",
+      "size": 1923734,
+      "download": "https://github.com/Plutonium-X/Quete_Oghma/releases/download/v1.8/lin-thoghma-v1.8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-thoghma-v1.8.zip",
+      "size": 2151252,
+      "download": "https://github.com/Plutonium-X/Quete_Oghma/releases/download/v1.8/mac-thoghma-v1.8.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-thoghma-v1.8.zip",
       "size": 2096075,
       "sha256": "64fae476e1e05f1854e2e4b7de012c214bce8cf03866b843b3bbc45c4a5710d4",
-      "download": "https://github.com/Plutonium-X/Quete_Oghma/releases/download/v1.8/win-thoghma-v1.8.zip"
+      "download": "https://github.com/Plutonium-X/Quete_Oghma/releases/download/v1.8/win-thoghma-v1.8.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

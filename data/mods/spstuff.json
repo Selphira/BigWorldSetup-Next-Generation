@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-spstuff-v14.tar.gz",
+      "size": 446992,
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/lin-spstuff-v14.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-spstuff-v14.tar.gz",
+      "size": 446992,
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/osx-spstuff-v14.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "spstuff-v14.exe",
       "size": 2566287,
       "sha256": "8101a620f0ceb1cda7ef85d756a703ccaccbc70fd2aff88505ecbb89a4fd06e0",
-      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/spstuff-v14.exe"
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/spstuff-v14.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],

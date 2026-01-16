@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-SkipChateauIrenicus-v3.5.zip",
+      "size": 3421009,
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/lin-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-SkipChateauIrenicus-v3.5.zip",
+      "size": 3648551,
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/mac-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-SkipChateauIrenicus-v3.5.zip",
       "size": 3420935,
       "sha256": "0ed3e4059e2dc4224505e5a80aa4ae61ef19863b81af71ba7c1699ff4153429b",
-      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/win-SkipChateauIrenicus-v3.5.zip"
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/win-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

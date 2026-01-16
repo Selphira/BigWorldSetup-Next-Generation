@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-LightingPack-v3.2.zip",
+      "size": 2026707,
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/lin-LightingPack-v3.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-LightingPack-v3.2.zip",
+      "size": 2254235,
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/mac-LightingPack-v3.2.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-LightingPack-v3.2.zip",
       "size": 2199048,
       "sha256": "e57e3d90739eeaa8c9eea2a2163fad41598c16e1849ebb619b3e5b98c22f0897",
-      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/win-LightingPack-v3.2.zip"
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/win-LightingPack-v3.2.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],

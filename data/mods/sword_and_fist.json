@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-sword_and_fist-v12.zip",
+      "size": 162824,
+      "download": "https://github.com/Gibberlings3/sword_and_fist/releases/download/v12/lin-sword_and_fist-v12.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-sword_and_fist-v12.zip",
+      "size": 1433143,
+      "download": "https://github.com/Gibberlings3/sword_and_fist/releases/download/v12/mac-sword_and_fist-v12.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "sword_and_fist-v12.exe",
       "size": 2249183,
       "sha256": "28a30a3514ce463e71087ee7917c155384d7b0ed073e9d3851ce50a7adbe818b",
-      "download": "https://github.com/Gibberlings3/sword_and_fist/releases/download/v12/sword_and_fist-v12.exe"
+      "download": "https://github.com/Gibberlings3/sword_and_fist/releases/download/v12/sword_and_fist-v12.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],

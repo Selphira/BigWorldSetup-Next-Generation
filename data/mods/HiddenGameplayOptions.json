@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-A7-HiddenGameplayOptions-v5.0.zip",
+      "size": 2545681,
+      "sha256": "8df8336ac9c424d674effc641f125ccf70de907bf86bb5b1bb9aa8248fe83d70",
+      "download": "https://github.com/Argent77/A7-HiddenGameplayOptions/releases/download/v5.0/lin-A7-HiddenGameplayOptions-v5.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-HiddenGameplayOptions-v5.0.zip",
+      "size": 2773227,
+      "sha256": "77e7d73c8abe434da1db4ee1d6a039c890bca780ec257385de413fd1274b1aaa",
+      "download": "https://github.com/Argent77/A7-HiddenGameplayOptions/releases/download/v5.0/mac-A7-HiddenGameplayOptions-v5.0.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-HiddenGameplayOptions-v5.0.zip",
       "size": 2718022,
       "sha256": "849c672adf03631d55ae3735f17b0ec43d1f25ae4f27bb2c1e08007b52afc83f",
-      "download": "https://github.com/Argent77/A7-HiddenGameplayOptions/releases/download/v5.0/win-A7-HiddenGameplayOptions-v5.0.zip"
+      "download": "https://github.com/Argent77/A7-HiddenGameplayOptions/releases/download/v5.0/win-A7-HiddenGameplayOptions-v5.0.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],

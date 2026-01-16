@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-wladca.zip",
+      "size": 1115971,
+      "download": "https://github.com/Plutonium-X/KIT_Elements/releases/download/v2.1/lin-wladca.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-wladca.zip",
+      "size": 1343487,
+      "download": "https://github.com/Plutonium-X/KIT_Elements/releases/download/v2.1/mac-wladca.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-wladca.zip",
       "size": 1288312,
       "sha256": "a54c65035db9151e2331eb95d1eb1726915e8a17c172f7409abeec4493db93d3",
-      "download": "https://github.com/Plutonium-X/KIT_Elements/releases/download/v2.1/win-wladca.zip"
+      "download": "https://github.com/Plutonium-X/KIT_Elements/releases/download/v2.1/win-wladca.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],

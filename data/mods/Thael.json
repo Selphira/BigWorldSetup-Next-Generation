@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Thael-v2.35.zip",
+      "size": 7316622,
+      "sha256": "668a9c8a865bcad30d711a01771cd03d51435db0470914444156b159ead49e36",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/lin-Thael-v2.35.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Thael-v2.35.zip",
+      "size": 7544136,
+      "sha256": "f9db5ddff8ada6f3e141a58c19d176e8275217b21889b8aaa8ec9f5f8f331c4d",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/mac-Thael-v2.35.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Thael-v2.35.zip",
       "size": 7488963,
       "sha256": "33e5ed4e4d55e0044220c257bf6b4254c51b123b75960427596b2006a5e0e7b7",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/win-Thael-v2.35.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Thael/releases/download/v2.35/win-Thael-v2.35.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

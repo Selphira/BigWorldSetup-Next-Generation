@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-SlightlyImprovedIlyich.zip",
+      "size": 1192617,
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/lin-SlightlyImprovedIlyich.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-SlightlyImprovedIlyich.zip",
+      "size": 1420165,
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/mac-SlightlyImprovedIlyich.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-SlightlyImprovedIlyich.zip",
       "size": 1364958,
       "sha256": "6afc5132f83f5acdfc81f039c298eba64457798c5291137c1328624e40cb5987",
-      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/win-SlightlyImprovedIlyich.zip"
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/win-SlightlyImprovedIlyich.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

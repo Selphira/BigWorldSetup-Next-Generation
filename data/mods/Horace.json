@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Horace-v1.8.zip",
+      "size": 3017317,
+      "sha256": "1730d1b94f717c48e4424b7bde82127e8e6c88f5f5767c77b16c96bf45a78a3a",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/lin-Horace-v1.8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Horace-v1.8.zip",
+      "size": 3244833,
+      "sha256": "3bafb894ca194f823a4be286aaf9401897ef86d987c1f2f624bea43d7578acce",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/mac-Horace-v1.8.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Horace-v1.8.zip",
       "size": 3189658,
       "sha256": "4c4abc1b431f97e21ece3e6779923c84aca89f0957f61e823452517cf432b5bb",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/win-Horace-v1.8.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/win-Horace-v1.8.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

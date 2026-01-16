@@ -17,10 +17,7 @@
   "components": {
     "1000": {"type": "std", "category": "spell"},
     "choice_0": {"type": "muc", "components": ["2100", "2200", "2300", "2400"], "category": "spell", "default": "2100"},
-    "choice_1": {
-      "type": "muc", "components": ["3100", "3200", "3300", "3400", "3500", "3600", "3700", "3800"],
-      "category": "spell", "default": "3100"
-    },
+    "choice_1": {"type": "muc", "components": ["3100", "3200", "3300", "3400", "3500", "3600", "3700", "3800"], "category": "spell", "default": "3100"},
     "4000": {"type": "std", "category": "spell"},
     "5000": {"type": "std", "category": "spell"}
   },

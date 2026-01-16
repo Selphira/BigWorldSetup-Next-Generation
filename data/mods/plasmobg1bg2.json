@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-plasmobg1bg2-v5.tar.gz",
+      "size": 9781989,
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/lin-plasmobg1bg2-v5.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-plasmobg1bg2-v5.tar.gz",
+      "size": 9781989,
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/osx-plasmobg1bg2-v5.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "plasmobg1bg2-v5.exe",
       "size": 10555694,
       "sha256": "1bfde863001df55f5ad2e3d9315e2895f1e2735de807f50b5d888ae5695da33d",
-      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/plasmobg1bg2-v5.exe"
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/plasmobg1bg2-v5.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],

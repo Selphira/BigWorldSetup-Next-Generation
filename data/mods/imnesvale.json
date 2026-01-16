@@ -1,15 +1,30 @@
 {
   "name": "D's Odd Quest Mod (Imnesvale)",
-  "version": "2.2.2",
+  "version": "2.2.2.0",
   "links": {
     "homepage": "https://www.shsforums.net/topic/32419-ds-odd-quest-mod/"
   },
   "files": [
     {
+      "filename": "lin-imnesvale-v2.2.2.zip",
+      "size": 3488500,
+      "sha256": "f3c32f33778d36f6413c98057201fa6508d85f862ac99e82df3dd359933d5378",
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/lin-imnesvale-v2.2.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-imnesvale-v2.2.2.zip",
+      "size": 3716022,
+      "sha256": "109fe3e3882362b1dadedfd77511e592ef7ec0a75f5e3e5867453b6fda43f283",
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/mac-imnesvale-v2.2.2.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-imnesvale-v2.2.2.zip",
       "size": 3660841,
       "sha256": "15d09499ecf2847aa44b57436edecea04ad92e626c3965849f0f0e94d11cb5f8",
-      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/win-imnesvale-v2.2.2.zip"
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/win-imnesvale-v2.2.2.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

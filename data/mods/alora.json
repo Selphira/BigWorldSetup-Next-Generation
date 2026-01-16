@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Alora.NPC-for-BG2-v2.1.zip",
+      "size": 10120757,
+      "sha256": "731e1ab1d63381819e54d478e5637d5709ea745bf14652fa31ca9a73be247080",
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/lin-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Alora.NPC-for-BG2-v2.1.zip",
+      "size": 10348271,
+      "sha256": "f5b86589237f5f863ed9f76d5ce3dbac30046a4476c4c77f80e825521109d80b",
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/mac-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Alora.NPC-for-BG2-v2.1.zip",
       "size": 10293098,
       "sha256": "71828f8d5b37dd4c10e501e9c3e824a4551bff462d56c74b7a17dd28932f5cb0",
-      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/win-Alora.NPC-for-BG2-v2.1.zip"
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/win-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

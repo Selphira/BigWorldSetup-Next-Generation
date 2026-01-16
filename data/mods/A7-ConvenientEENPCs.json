@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-A7-ConvenientEENPCs-v5.3.zip",
+      "size": 4243018,
+      "sha256": "bdd1731fdc5f7abdc0035f7250641db3b9c72a4b5a403713077a974b08639fa0",
+      "download": "https://github.com/Argent77/A7-NoEENPCs/releases/download/v5.3/lin-A7-ConvenientEENPCs-v5.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ConvenientEENPCs-v5.3.zip",
+      "size": 4470560,
+      "sha256": "d4dae16f7e052e701e8a726f71e9fbe5d42c57da8442adce2398342d49a7561a",
+      "download": "https://github.com/Argent77/A7-NoEENPCs/releases/download/v5.3/mac-A7-ConvenientEENPCs-v5.3.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-ConvenientEENPCs-v5.3.zip",
       "size": 4415359,
       "sha256": "4518e90b3e8d638e5eeb02e6ac6bb79549139c1337596de1e6c81f50dfd1efd4",
-      "download": "https://github.com/Argent77/A7-NoEENPCs/releases/download/v5.3/win-A7-ConvenientEENPCs-v5.3.zip"
+      "download": "https://github.com/Argent77/A7-NoEENPCs/releases/download/v5.3/win-A7-ConvenientEENPCs-v5.3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet"],

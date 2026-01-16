@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-UoT-v2.4.0.zip",
+      "size": 10726563,
+      "sha256": "faed5cc90d912db6199a285db36568524f5e27b9257ac12ec53ca1703354145a",
+      "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/lin-UoT-v2.4.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-UoT-v2.4.0.zip",
+      "size": 10954073,
+      "sha256": "08ece6417e6cf351d47ef393c6d2ec34a1b1ea8e2907e251469e86275c2a7b97",
+      "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/mac-UoT-v2.4.0.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-UoT-v2.4.0.zip",
       "size": 10898904,
       "sha256": "f98340f63a8089555c841d59342c07107152efb41919d591665435d20696bf2b",
-      "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/win-UoT-v2.4.0.zip"
+      "download": "https://github.com/Plutonium-X/FIGHT_Umbra-of-Torto/releases/download/2.4.0/win-UoT-v2.4.0.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

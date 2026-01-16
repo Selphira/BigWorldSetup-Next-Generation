@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-A7-BanterAccelerator-v1.6.zip",
+      "size": 1116613,
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/lin-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-BanterAccelerator-v1.6.zip",
+      "size": 1322942,
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/mac-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-BanterAccelerator-v1.6.zip",
       "size": 1288951,
       "sha256": "13f3b967b87b3e8b2721bcb6cc92143a4ca6a2b8b09e2797b9b1a0e56b2d3650",
-      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/win-A7-BanterAccelerator-v1.6.zip"
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/win-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],

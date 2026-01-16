@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-tyrisflare-v12.zip",
+      "size": 21251394,
+      "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/lin-tyrisflare-v12.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-tyrisflare-v12.zip",
+      "size": 22521693,
+      "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/mac-tyrisflare-v12.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "tyrisflare-v12.exe",
       "size": 22625258,
       "sha256": "163770006e7e48d9605cd9b80e6f21aff14b377d1a78c47066c80b4145b6079b",
-      "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/tyrisflare-v12.exe"
+      "download": "https://github.com/Gibberlings3/TyrisFlare/releases/download/v12/tyrisflare-v12.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

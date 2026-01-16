@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-i686-drunkshaders-0.3.5.tar.gz",
+      "size": 2553545,
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/lin-i686-drunkshaders-0.3.5.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-drunkshaders-0.3.5.zip",
+      "size": 1770492,
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/mac-drunkshaders-0.3.5.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-drunkshaders-0.3.5.zip",
       "size": 1921919,
       "sha256": "86c66e146549e08333179f7b44f7947cde87110285d693b4f446615f9a590628",
-      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/win-drunkshaders-0.3.5.zip"
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/win-drunkshaders-0.3.5.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "eet", "pstee", "iwdee"],
@@ -18,10 +31,18 @@
     "1000": {"type": "std", "category": "portrait"},
     "choice_0": {"type": "muc", "components": ["1105", "1125"], "category": "portrait", "default": "1105"},
     "choice_1": {"type": "muc", "components": ["1205", "1215", "1225"], "category": "portrait", "default": "1205"},
-    "choice_2": {"type": "muc", "components": ["1304", "1314", "1305", "1315"], "category": "portrait", "default": "1304"},
-    "choice_3": {"type": "muc", "components": ["1405", "1415", "1425", "1435", "1445", "1455", "1465", "1475"], "category": "portrait", "default": "1405"},
+    "choice_2": {
+      "type": "muc", "components": ["1304", "1314", "1305", "1315"], "category": "portrait", "default": "1304"
+    },
+    "choice_3": {
+      "type": "muc", "components": ["1405", "1415", "1425", "1435", "1445", "1455", "1465", "1475"],
+      "category": "portrait", "default": "1405"
+    },
     "choice_4": {"type": "muc", "components": ["1505", "1515"], "category": "portrait", "default": "1505"},
-    "choice_5": {"type": "muc", "components": ["1605", "1615", "1625", "1635", "1645", "1655", "1665", "1675"], "category": "portrait", "default": "1605"},
+    "choice_5": {
+      "type": "muc", "components": ["1605", "1615", "1625", "1635", "1645", "1655", "1665", "1675"],
+      "category": "portrait", "default": "1605"
+    },
     "choice_6": {"type": "muc", "components": ["1705"], "category": "portrait", "default": "1705"},
     "choice_7": {"type": "muc", "components": ["1805"], "category": "portrait", "default": "1805"},
     "choice_8": {"type": "muc", "components": ["9005"], "category": "portrait", "default": "9005"}

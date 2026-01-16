@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_Ogre-Version_5.zip",
+      "size": 2779698,
+      "sha256": "7e82db5cb3d6a8f586d40d2dd8f658aa0ac8f13c7edafbb4dd91507b7365b8b8",
+      "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/lin-Derats_Ogre-Version_5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Ogre-Version_5.zip",
+      "size": 3007224,
+      "sha256": "37565f59757dccdd268950cd211d47e69af5ab853de47902cfc3e19429ccf9bd",
+      "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/mac-Derats_Ogre-Version_5.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_Ogre-Version_5.zip",
       "size": 2952039,
       "sha256": "c1668e3a18fac448e2042be8c48bcffd333f195c40b9f2839a2133e7333af20a",
-      "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/win-Derats_Ogre-Version_5.zip"
+      "download": "https://github.com/Deratiseur/Ogre/releases/download/v5/win-Derats_Ogre-Version_5.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

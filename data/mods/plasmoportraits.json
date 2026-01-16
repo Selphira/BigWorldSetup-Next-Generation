@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-plasmoportraits-v4.tar.gz",
+      "size": 5014637,
+      "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/lin-plasmoportraits-v4.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-plasmoportraits-v4.tar.gz",
+      "size": 5014637,
+      "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/osx-plasmoportraits-v4.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "plasmoportraits-v4.exe",
       "size": 6090858,
       "sha256": "109159c26ee8f8824585b0f010e08a4967a0afa21ea9245157f204ef0f8704e0",
-      "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/plasmoportraits-v4.exe"
+      "download": "https://github.com/Gibberlings3/Plasmocats_Portrait_Pack/releases/download/v4/plasmoportraits-v4.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],

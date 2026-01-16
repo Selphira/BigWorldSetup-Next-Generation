@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-sarahtob-v8.zip",
+      "size": 52555021,
+      "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/lin-sarahtob-v8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-sarahtob-v8.zip",
+      "size": 54719226,
+      "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/mac-sarahtob-v8.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "sarahtob-v8.exe",
       "size": 58535213,
       "sha256": "dd59a991a8e9760936998b98ec657e04e9041595c0f6b72f90852f337ed72edf",
-      "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/sarahtob-v8.exe"
+      "download": "https://github.com/Gibberlings3/Sarah/releases/download/v8/sarahtob-v8.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

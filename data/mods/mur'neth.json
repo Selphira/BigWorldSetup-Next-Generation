@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-mur.neth-v14.zip",
+      "size": 4145316,
+      "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/lin-mur.neth-v14.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-mur.neth-v14.zip",
+      "size": 6356943,
+      "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/mac-mur.neth-v14.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "mur.neth-v14.exe",
       "size": 6209200,
       "sha256": "2151b7a77a3c79e1f96dae531217c5421909353721fd33b40ca08c96f1e733ff",
-      "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/mur.neth-v14.exe"
+      "download": "https://github.com/Gibberlings3/Murneth/releases/download/v14/mur.neth-v14.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgt", "bgee", "sod", "eet", "tutu"],

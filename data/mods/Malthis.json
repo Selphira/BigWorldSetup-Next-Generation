@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-Malthis-Version_2.3.zip",
+      "size": 3210843,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Malthis/releases/download/v2.3/lin-Malthis-Version_2.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Malthis-Version_2.3.zip",
+      "size": 3438361,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Malthis/releases/download/v2.3/mac-Malthis-Version_2.3.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Malthis-Version_2.3.zip",
       "size": 3383184,
       "sha256": "87c9b76e3ca1c77b38fc0f74917c7e4007396c5ee8df2f5bd3951c9bfdfee95a",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Malthis/releases/download/v2.3/win-Malthis-Version_2.3.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Malthis/releases/download/v2.3/win-Malthis-Version_2.3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

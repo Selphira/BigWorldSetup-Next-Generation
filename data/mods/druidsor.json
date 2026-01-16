@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-druidsor-v9.zip",
+      "size": 5579053,
+      "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/lin-druidsor-v9.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-druidsor-v9.zip",
+      "size": 6849342,
+      "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/mac-druidsor-v9.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "druidsor-v9.exe",
       "size": 7340517,
       "sha256": "6a82cc698d393955dfba06f13fc7bccc7995c8b52a7c719437726561400507c7",
-      "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/druidsor-v9.exe"
+      "download": "https://github.com/Gibberlings3/Geomantic_Sorcerer/releases/download/v9/druidsor-v9.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
@@ -19,7 +32,9 @@
     "1": {"type": "std"},
     "choice_0": {"type": "muc", "components": ["2", "3"], "games": ["tutu", "bgt"]},
     "choice_1": {"type": "muc", "components": ["4", "5", "6", "7", "8", "9", "10", "11"], "games": ["tutu", "bgt"]},
-    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15", "16", "17", "18", "19"], "games": ["tutu", "bgt"]},
+    "choice_2": {
+      "type": "muc", "components": ["12", "13", "14", "15", "16", "17", "18", "19"], "games": ["tutu", "bgt"]
+    },
     "choice_3": {"type": "muc", "components": ["20", "21", "22"], "games": ["tutu", "bgt"]},
     "choice_4": {"type": "muc", "components": ["23", "24", "25"], "games": ["tutu", "bgt"]},
     "choice_5": {"type": "muc", "components": ["26", "27", "28"], "games": ["tutu", "bgt"]},

@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-A7-ImprovedShamanicDance-v4.6.zip",
+      "size": 1306257,
+      "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.6/lin-A7-ImprovedShamanicDance-v4.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ImprovedShamanicDance-v4.6.zip",
+      "size": 1533809,
+      "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.6/mac-A7-ImprovedShamanicDance-v4.6.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-ImprovedShamanicDance-v4.6.zip",
       "size": 1478598,
       "sha256": "d96b03a462a765f5c7830506164db24e396ed091ed5b8f2595f6552b39461708",
-      "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.6/win-A7-ImprovedShamanicDance-v4.6.zip"
+      "download": "https://github.com/Argent77/A7-ImprovedShamanicDance/releases/download/v4.6/win-A7-ImprovedShamanicDance-v4.6.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],

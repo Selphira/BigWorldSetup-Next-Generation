@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Larsha.zip",
+      "size": 1405601,
+      "sha256": "de45decd04a5bb0da9b6f6431dc8ddd0223393ca274b2709567fc1dd3a88fba3",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/lin-Larsha.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Larsha.zip",
+      "size": 1633117,
+      "sha256": "8e880c5cf5a62a90c33abad480a20bdbf6f56ea63a95dc620d2fb46245e74570",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/mac-Larsha.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Larsha.zip",
       "size": 1577942,
       "sha256": "d1df406a1ddacc4766d2983a058f87f4f0479fc896ea07981e5d4f7997dd145c",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/win-Larsha.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/win-Larsha.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

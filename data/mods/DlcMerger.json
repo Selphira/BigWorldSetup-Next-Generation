@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-DlcMerger-v1.7.zip",
+      "size": 1214742,
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/lin-DlcMerger-v1.7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-DlcMerger-v1.7.zip",
+      "size": 1442264,
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/mac-DlcMerger-v1.7.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-64bit-DlcMerger-v1.7.zip",
       "size": 1387083,
       "sha256": "b984cfaf9ba8cdacc52928e50ad2fa3435f98471642e1ff004290d02d42711ea",
-      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/win-64bit-DlcMerger-v1.7.zip"
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/win-64bit-DlcMerger-v1.7.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"],

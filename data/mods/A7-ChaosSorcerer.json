@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-A7-ChaosSorcerer-v2.11.zip",
+      "size": 2860382,
+      "sha256": "4885b21ee4fe01a918b2bc98c186d75ad9199ef27ddc5c7dc1838672532cc27c",
+      "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/lin-A7-ChaosSorcerer-v2.11.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ChaosSorcerer-v2.11.zip",
+      "size": 3087918,
+      "sha256": "5e445b7d72f563e0c936c8e1741198c2c1f948e82c43ecf83fcc05ca6bfce409",
+      "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/mac-A7-ChaosSorcerer-v2.11.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-ChaosSorcerer-v2.11.zip",
       "size": 3032723,
       "sha256": "ed3c7e95dfd00e68faac9f7a7452ac6afd8eee55a9c72e132fb4398998ff852f",
-      "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip"
+      "download": "https://github.com/Argent77/A7-ChaosSorcerer/releases/download/v2.11/win-A7-ChaosSorcerer-v2.11.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],

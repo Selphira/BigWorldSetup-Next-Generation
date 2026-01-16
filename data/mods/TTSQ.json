@@ -1,15 +1,28 @@
 {
   "name": "The Tortured Soul Quest",
-  "version": "7",
+  "version": "8",
   "links": {
     "homepage": "https://github.com/Plutonium-X/1D_NPC_Tortured"
   },
   "files": [
     {
+      "filename": "lin-TTSQ-v7.zip",
+      "size": 1907632,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v8/lin-TTSQ-v7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-TTSQ-v7.zip",
+      "size": 2135144,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v8/mac-TTSQ-v7.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "1D_NPC_Tortured-main.zip",
       "size": 2070486,
       "sha256": "d8c934bcf017a4fa4632d3ab142f06ca45bf3a4434a0333423c3bdf514020ba5",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/archive/refs/heads/main.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/archive/refs/heads/main.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

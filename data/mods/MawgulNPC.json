@@ -1,15 +1,28 @@
 {
   "name": "Mawgul NPC",
-  "version": "2.3",
+  "version": "2.4",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/767-mawgul-npc-v22/"
   },
   "files": [
     {
+      "filename": "lin-MawgulNPC-v2.3.zip",
+      "size": 2103084,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/lin-MawgulNPC-v2.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-MawgulNPC-v2.3.zip",
+      "size": 2330606,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/mac-MawgulNPC-v2.3.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-MawgulNPC-v2.3.zip",
       "size": 2275425,
       "sha256": "a1a6cfd78bfa589b51ceeee9b95d89ccf665a65b13ca596c6efb5ce913ee65a0",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

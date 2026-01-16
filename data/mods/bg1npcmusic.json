@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-bg1npcmusic-v6.tar.gz",
+      "size": 19441484,
+      "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/lin-bg1npcmusic-v6.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-bg1npcmusic-v6.tar.gz",
+      "size": 19441484,
+      "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/osx-bg1npcmusic-v6.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "bg1npcmusic-v6.exe",
       "size": 20645603,
       "sha256": "eb4b86e5bac3e9e8b04977d429955e2bfc3d5a112fd92dc181f99a5b3b9d71a6",
-      "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/bg1npcmusic-v6.exe"
+      "download": "https://github.com/Gibberlings3/bg1npcmusic/releases/download/v6-rc1/bg1npcmusic-v6.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["tutu", "bgt", "bgee", "eet"],

@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "d2-misc-kits-v3.8-linux-x64.zip",
+      "size": 2976962,
+      "sha256": "74cc0dc473b715fe85d0ce9cb1fb2916d5cfbb3aa869b018ecc0742ee6878485",
+      "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-linux-x64.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "d2-misc-kits-v3.8-macos-x64.zip",
+      "size": 2976962,
+      "sha256": "74cc0dc473b715fe85d0ce9cb1fb2916d5cfbb3aa869b018ecc0742ee6878485",
+      "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-macos-x64.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "d2-misc-kits-v3.8-windows-x64.zip",
       "size": 3149303,
       "sha256": "f443ce70d22f92d8122070ee65e562001c8bbe9755110f14b522659b205d5ecc",
-      "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-windows-x64.zip"
+      "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-windows-x64.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgee", "bg2ee", "sod", "eet", "iwd", "iwdee"],

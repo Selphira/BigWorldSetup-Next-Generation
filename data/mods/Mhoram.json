@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Mhoram-v2.5.zip",
+      "size": 2080054,
+      "sha256": "95577c94e1ce9e23b618c6553b18a09ba4098c72fc90dacbeb0c5412f0634e44",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/lin-Mhoram-v2.5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Mhoram-v2.5.zip",
+      "size": 2307570,
+      "sha256": "c0dd01ae034521e4c7e7a2635e2d32af1a9a4082c2ca4938f367d3469ef0193c",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/mac-Mhoram-v2.5.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Mhoram-v2.5.zip",
       "size": 2252395,
       "sha256": "4b18d4e2e3d456634f659a9b9f9559c88e62c8d3bd6c6c4347eec318036a029a",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/win-Mhoram-v2.5.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/win-Mhoram-v2.5.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

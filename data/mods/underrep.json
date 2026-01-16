@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-underrep-v14.zip",
+      "size": 527937,
+      "sha256": "9736f15f6b43537eed0c2a3dab677f4b3a248524dd5f3b16075e24d2c954f6d8",
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/lin-underrep-v14.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-underrep-v14.zip",
+      "size": 1798226,
+      "sha256": "82f0d97a0f099e316e1ed41727c645fd2612cc6d9733c795b9dcd9fc75cfd85e",
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/mac-underrep-v14.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "underrep-v14.exe",
       "size": 2570734,
       "sha256": "07b51943bf8e9596da1c2177c2f97d3d5b10c4faf71cb238d1202aad24ae9b18",
-      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/underrep-v14.exe"
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/underrep-v14.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

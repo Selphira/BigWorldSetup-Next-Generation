@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-.-v11.zip",
+      "size": 15693331,
+      "sha256": "d7c908828f904fee0f263734778476d53c37a6b17d41367f6267bc510ecb9890",
+      "download": "https://github.com/Deratiseur/DAWAP/releases/download/v11/lin-.-v11.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-.-v11.zip",
+      "size": 16148159,
+      "sha256": "df67c6a890781f37225dd6efae6eebd2a69c6a362da2b290c946d38374d22e95",
+      "download": "https://github.com/Deratiseur/DAWAP/releases/download/v11/mac-.-v11.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "DAWAP-11.zip",
       "size": 7399674,
       "sha256": "190af99b4b6721f2397b0a9a109d0d7c50379fac4ae84d91b0cb178c0c7d67a1",
-      "download": "https://github.com/Deratiseur/DAWAP/archive/refs/tags/v11.zip"
+      "download": "https://github.com/Deratiseur/DAWAP/archive/refs/tags/v11.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],

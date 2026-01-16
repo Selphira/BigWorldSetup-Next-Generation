@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_kits-v18.6.zip",
+      "size": 32302089,
+      "sha256": "3a5b865031e58bebfcc168d5c46e971df8f648549d34fa62c278103d70d51526",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/lin-Derats_kits-v18.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_kits-v18.6.zip",
+      "size": 32529615,
+      "sha256": "f47947578ae1df6953c4c109266a2bd681098ce092b997e9429c861821abc370",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/mac-Derats_kits-v18.6.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_kits-v18.6.zip",
       "size": 32474430,
       "sha256": "ad369252f32b280e193fcd3b4fec30a32aaff551312212c2ee7bda0c62093fd6",
-      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/win-Derats_kits-v18.6.zip"
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/win-Derats_kits-v18.6.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bgee", "sod", "bg2ee", "eet", "iwd", "iwdee"],

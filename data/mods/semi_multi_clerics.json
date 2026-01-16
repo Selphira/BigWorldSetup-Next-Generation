@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Semi-Multi-Clerics-v0.4.4.zip",
+      "size": 1888572,
+      "sha256": "9e1c9f0c34ebc28d86bc4d32742013c5c1df242c51bf53dec40c625607ad116a",
+      "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/lin-Semi-Multi-Clerics-v0.4.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Semi-Multi-Clerics-v0.4.4.zip",
+      "size": 2116112,
+      "sha256": "b147193a9b7c0ab1e7b8e70416103818138f6c2d9add037e9ba8cb12c5d115ec",
+      "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/mac-Semi-Multi-Clerics-v0.4.4.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Semi-Multi-Clerics-v0.4.4.zip",
       "size": 2060913,
       "sha256": "2e241e8513662b5c14b46bad420050f11accca919c24be839cb9786c5080ce7b",
-      "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/win-Semi-Multi-Clerics-v0.4.4.zip"
+      "download": "https://github.com/Spellhold-Studios/Semi-Multi-Clerics/releases/download/v0.4.4/win-Semi-Multi-Clerics-v0.4.4.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2", "bgt", "bg2ee", "eet", "iwd", "iwdee"],

@@ -6,10 +6,17 @@
   },
   "files": [
     {
+      "filename": "lin-anishai-v3.zip",
+      "size": 344194,
+      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/lin-anishai-v3.zip",
+      "platforms": ["linux"]
+    },
+    {
       "filename": "win-anishai-v3.zip",
       "size": 2033854,
       "sha256": "eb180ca339ff10b11383026d6cb72b9765bfdbc12e300cb01c49d80334234e9f",
-      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/win-anishai-v3.zip"
+      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/win-anishai-v3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

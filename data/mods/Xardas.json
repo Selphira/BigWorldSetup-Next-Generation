@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-Xardas.zip",
+      "size": 1351467,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/lin-Xardas.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Xardas.zip",
+      "size": 1578983,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/mac-Xardas.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Xardas.zip",
       "size": 1523808,
       "sha256": "42ef02a1787f871586c1e27da0db3866aecaeaca92c2962386dfd641273884d3",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/win-Xardas.zip"
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/win-Xardas.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

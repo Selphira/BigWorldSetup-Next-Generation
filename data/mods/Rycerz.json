@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-Rycerz.zip",
+      "size": 1117436,
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/lin-Rycerz.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Rycerz.zip",
+      "size": 1344952,
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/mac-Rycerz.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Rycerz.zip",
       "size": 1289777,
       "sha256": "a2ffafd89bed8dfc6e9baa84b05ebe91076c42463c11cfd5086b4786b8dff08d",
-      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/win-Rycerz.zip"
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/win-Rycerz.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],

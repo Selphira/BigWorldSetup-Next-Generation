@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_Combino-v7.1.zip",
+      "size": 1416440,
+      "sha256": "d484a2dfcad850e5af878e818fde7e818a80bd7811afc3050e9fef7730a3548e",
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/lin-Derats_Combino-v7.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Combino-v7.1.zip",
+      "size": 1643972,
+      "sha256": "10343137bb70b81cd075d676949fcf1bf0d13a4baf5bef54d3ce9643b1c76669",
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/mac-Derats_Combino-v7.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_Combino-v7.1.zip",
       "size": 1588781,
       "sha256": "2c7a717d842a64a8dd83c44f92a9adf7beb9d20868c7c9f7407ea22e82a8c60e",
-      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/win-Derats_Combino-v7.1.zip"
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/win-Derats_Combino-v7.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "eet"],

@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_magasin_2-v9.1.zip",
+      "size": 48021423,
+      "sha256": "10b8d6d62f883a11d47986ec95fe84c44d13ac7819885e893801901e0fac9dcb",
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/lin-Derats_magasin_2-v9.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_magasin_2-v9.1.zip",
+      "size": 48248959,
+      "sha256": "de322e68e9ef061c9d416c57ee630be00bfcd26c25c7ef00184ee135ddaaba97",
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/mac-Derats_magasin_2-v9.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_magasin_2-v9.1.zip",
       "size": 48193764,
       "sha256": "caff8d349f7282c8be46867c3fd56d0a6c336ee821a9bbc0937bd2b275d0d1f2",
-      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/win-Derats_magasin_2-v9.1.zip"
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/win-Derats_magasin_2-v9.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],

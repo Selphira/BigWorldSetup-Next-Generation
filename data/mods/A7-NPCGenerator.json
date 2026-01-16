@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-A7-NPCGenerator-v1.7.zip",
+      "size": 1948844,
+      "download": "https://github.com/Argent77/A7-NPCGenerator/releases/download/v1.7/lin-A7-NPCGenerator-v1.7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-NPCGenerator-v1.7.zip",
+      "size": 2155158,
+      "download": "https://github.com/Argent77/A7-NPCGenerator/releases/download/v1.7/mac-A7-NPCGenerator-v1.7.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-NPCGenerator-v1.7.zip",
       "size": 1948755,
       "sha256": "e37e89dac076fe0ef070cbb2ead5d1c8d922b9507dfab1cd3d2ba82184403729",
-      "download": "https://github.com/Argent77/A7-NPCGenerator/releases/download/v1.7/win-A7-NPCGenerator-v1.7.zip"
+      "download": "https://github.com/Argent77/A7-NPCGenerator/releases/download/v1.7/win-A7-NPCGenerator-v1.7.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],

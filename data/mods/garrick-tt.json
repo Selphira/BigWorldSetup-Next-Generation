@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+      "size": 6977378,
+      "sha256": "63a2b7a95e9a1b6152d9d44554e2e75dca6458a75a875889ddebe6e73b337536",
+      "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.28/lin-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+      "size": 7204902,
+      "sha256": "fec329be84334b3f59f9592035c16af70209873957b442252c8d340a8aa440b1",
+      "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.28/mac-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Garrick.Tales-of-a-Troubadour-v1.28.zip",
       "size": 7149719,
       "sha256": "1135ff57b3e61a155fce7282ae110a5f133f532723313e92eb1d275ec0b2db6c",
-      "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.28/win-Garrick.Tales-of-a-Troubadour-v1.28.zip"
+      "download": "https://github.com/The-Gate-Project/Garrick_Tales-of-a-Troubadour/releases/download/v1.28/win-Garrick.Tales-of-a-Troubadour-v1.28.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgt", "bgee", "eet"],

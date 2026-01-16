@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-DNT.zip",
+      "size": 32362436,
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/lin-DNT.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-DNT.zip",
+      "size": 32589946,
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/mac-DNT.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-DNT.zip",
       "size": 32534777,
       "sha256": "7fef205dbcfb82bbf4176ffdc4c67ad133a75f702c4816ac8b89434953c065b1",
-      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/win-DNT.zip"
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/win-DNT.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

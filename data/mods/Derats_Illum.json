@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_Illum-v4.1.zip",
+      "size": 1223097,
+      "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/lin-Derats_Illum-v4.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Illum-v4.1.zip",
+      "size": 1450625,
+      "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/mac-Derats_Illum-v4.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_Illum-v4.1.zip",
       "size": 1395438,
       "sha256": "3c004614facd50e310f29f5a55263ed2ff4c6b25c359eb2fe789172ec636b6de",
-      "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/win-Derats_Illum-v4.1.zip"
+      "download": "https://github.com/Deratiseur/Illumisfhityroc/releases/download/v4.1/win-Derats_Illum-v4.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "eet", "iwdee"],

@@ -9,7 +9,20 @@
       "filename": "aurenaseph-v12.exe",
       "size": 19306201,
       "sha256": "7973ca250aecbb4e1a4031699c2d9bf933f3d20df22dd5466cf440bddef306cc",
-      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/aurenaseph-v12.exe"
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/aurenaseph-v12.exe",
+      "platforms": ["windows"]
+    },
+    {
+      "filename": "osx-aurenaseph-v12.zip",
+      "size": 16366695,
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/osx-aurenaseph-v12.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "lin-aurenaseph-v12.zip",
+      "size": 16366695,
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/lin-aurenaseph-v12.zip",
+      "platforms": ["linux"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

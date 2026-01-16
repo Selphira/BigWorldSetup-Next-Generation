@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Derats_Illo-v5.3.zip",
+      "size": 2217491,
+      "sha256": "f361de3fd89a040916f2e76957071cdab551c6cce9d526d39c36959d80cf19fc",
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/lin-Derats_Illo-v5.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Illo-v5.3.zip",
+      "size": 2445017,
+      "sha256": "5b29f42f44c4e67c3414861f02f9be125c70894f98a1911174cf0f147658997c",
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/mac-Derats_Illo-v5.3.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-Derats_Illo-v5.3.zip",
       "size": 2389832,
       "sha256": "6f6b820b9edc56febc9300182e9ffa0f89e8bc6c08747027159422faea40a3ac",
-      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/win-Derats_Illo-v5.3.zip"
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/win-Derats_Illo-v5.3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],

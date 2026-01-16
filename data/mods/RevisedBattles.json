@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-RevisedBattles-v6.6.zip",
+      "size": 2664699,
+      "sha256": "c4588ee650790eda15c31d34022c0d7cd78277a63ab669fae5a5057a4b84b73d",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/lin-RevisedBattles-v6.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-RevisedBattles-v6.6.zip",
+      "size": 2892231,
+      "sha256": "bfc2c1a5f389612fb7a3e30f925d31e75fdcd28398f22b0d0686610355f01d14",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/mac-RevisedBattles-v6.6.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-RevisedBattles-v6.6.zip",
       "size": 2837040,
       "sha256": "4a6e33cfe5a405ecb22a27a4fd637c3e0af360069fdf7974ca7b50bb871eb310",
-      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip"
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

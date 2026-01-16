@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-A7-ImprovedArcher-v4.4.zip",
+      "size": 3729475,
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/lin-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ImprovedArcher-v4.4.zip",
+      "size": 3957013,
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/mac-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-A7-ImprovedArcher-v4.4.zip",
       "size": 3729401,
       "sha256": "6cab5ea1e50b7f7defdff0980eff72ccbee133b8ffe3c75c3e225f22ed084f2f",
-      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/win-A7-ImprovedArcher-v4.4.zip"
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/win-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],

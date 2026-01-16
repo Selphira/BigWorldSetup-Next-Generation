@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-RGenie-v3.1.zip",
+      "size": 2288954,
+      "sha256": "92e4a0a696c0bed3e5ab6bc747707aaba210464f0c172e005028d602dd6d9427",
+      "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/lin-RGenie-v3.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-RGenie-v3.1.zip",
+      "size": 2516470,
+      "sha256": "ccef036b8f60f1306a3dc9bca53738cfc7e2a1cbee068207dc1d1d12d0e2c800",
+      "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/mac-RGenie-v3.1.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-RGenie-v3.1.zip",
       "size": 2461295,
       "sha256": "013b0c2f23f4dbb7d4f63200f00ed02a189aee648c1c31ac13bfbaf168689353",
-      "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/win-RGenie-v3.1.zip"
+      "download": "https://github.com/Plutonium-X/MISC_Genie/releases/download/v3.1/win-RGenie-v3.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

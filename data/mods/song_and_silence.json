@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-song_and_silence-v19.zip",
+      "size": 919333,
+      "download": "https://github.com/Gibberlings3/SongAndSilence/releases/download/v19/lin-song_and_silence-v19.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-song_and_silence-v19.zip",
+      "size": 3083594,
+      "download": "https://github.com/Gibberlings3/SongAndSilence/releases/download/v19/mac-song_and_silence-v19.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "song_and_silence-v19.exe",
       "size": 3121466,
       "sha256": "d95c64a9ff1318b8021c8bf38577a52de0ce883507086f13328af9bc620df0a0",
-      "download": "https://github.com/Gibberlings3/SongAndSilence/releases/download/v19/song_and_silence-v19.exe"
+      "download": "https://github.com/Gibberlings3/SongAndSilence/releases/download/v19/song_and_silence-v19.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

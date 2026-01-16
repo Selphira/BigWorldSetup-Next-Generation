@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-thecalling-v5.zip",
+      "size": 663414,
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/lin-thecalling-v5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-thecalling-v5.zip",
+      "size": 1933713,
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/mac-thecalling-v5.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "thecalling-v5.exe",
       "size": 2745620,
       "sha256": "a20fdaf226273fefcdfc6650c7e3fa021fdb12efc69e411b5894573242364b30",
-      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/thecalling-v5.exe"
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/thecalling-v5.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgt", "bgee", "eet", "tutu"],

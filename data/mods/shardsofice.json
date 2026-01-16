@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-shardsofice-v8.zip",
+      "size": 144862,
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/lin-shardsofice-v8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-shardsofice-v8.zip",
+      "size": 1415166,
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/mac-shardsofice-v8.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "shardsofice-v8.exe",
       "size": 2232887,
       "sha256": "35cda8f37af3c3be18c38b63c90bdfc99c0d9204e42e36855670e12f0d829514",
-      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/shardsofice-v8.exe"
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/shardsofice-v8.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],

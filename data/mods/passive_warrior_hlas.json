@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-passive_warrior_hlas-v1.0.0.zip",
+      "size": 1107996,
+      "sha256": "d97d7d300bc28ab5a91c8a39501edeaacad874e01820fb3458a232c9ac4ef0e0",
+      "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/lin-passive_warrior_hlas-v1.0.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-passive_warrior_hlas-v1.0.0.zip",
+      "size": 1335540,
+      "sha256": "a80f3dcee9a273cd8ecae316672b4a8d99cd9c984bb8cb4278070712cca3cb39",
+      "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/mac-passive_warrior_hlas-v1.0.0.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-passive_warrior_hlas-v1.0.0.zip",
       "size": 1280337,
       "sha256": "0df2eb3bc146b25a416afcd578fe5f81120e669ec1e91bb3d0cd5e38e162aeae",
-      "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/win-passive_warrior_hlas-v1.0.0.zip"
+      "download": "https://github.com/Plutonium-X/FORK__Passive-Warrior-HLAs/releases/download/v1.1/win-passive_warrior_hlas-v1.0.0.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "eet"],

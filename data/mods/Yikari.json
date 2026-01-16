@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-yikari.zip",
+      "size": 1411115,
+      "sha256": "3967dfa236cd291cfc07be91a424980690a728244c6c0f3bce82974afb0554b6",
+      "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/lin-yikari.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-yikari.zip",
+      "size": 1638631,
+      "sha256": "2c53a1f1b92887fb5c2590887923780781735698a758544660155a74907dc217",
+      "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/mac-yikari.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-yikari.zip",
       "size": 1583456,
       "sha256": "1a18df112c4f8b09b97efa4a5446274c035673f99e563c389ffc79d1a31dc8bf",
-      "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/win-yikari.zip"
+      "download": "https://github.com/Plutonium-X/Yikari-NPC/releases/download/v1.8.1/win-yikari.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt"],

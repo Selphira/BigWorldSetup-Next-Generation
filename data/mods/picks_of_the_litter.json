@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-picks_of_the_litter-v4.tar.gz",
+      "size": 13242667,
+      "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/lin-picks_of_the_litter-v4.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-picks_of_the_litter-v4.tar.gz",
+      "size": 13242667,
+      "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/osx-picks_of_the_litter-v4.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "picks_of_the_litter-v4.exe",
       "size": 13270647,
       "sha256": "d75257b529d4223cab903ca1d9c23ebe9fec2291d4991c479c07cb5b30a1e1ce",
-      "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/picks_of_the_litter-v4.exe"
+      "download": "https://github.com/Gibberlings3/Plasmocats_Picks_of_the_Litter_Portrait_Pack/releases/download/v4/picks_of_the_litter-v4.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],

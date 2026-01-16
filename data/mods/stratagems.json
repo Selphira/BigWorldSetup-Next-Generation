@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-stratagems-35.21.zip",
+      "size": 58517195,
+      "download": "https://github.com/Gibberlings3/SwordCoastStratagems/releases/download/v35.21/lin-stratagems-35.21.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-stratagems-35.21.zip",
+      "size": 58517195,
+      "download": "https://github.com/Gibberlings3/SwordCoastStratagems/releases/download/v35.21/osx-stratagems-35.21.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "stratagems-35.21.exe",
       "size": 58464696,
       "sha256": "7e8754e1bb541fce1686314e0d4967b66c5740615907521dca5e63153326602f",
-      "download": "https://github.com/Gibberlings3/SwordCoastStratagems/releases/download/v35.21/stratagems-35.21.exe"
+      "download": "https://github.com/Gibberlings3/SwordCoastStratagems/releases/download/v35.21/stratagems-35.21.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
@@ -57,8 +70,12 @@
     "4140": {"type": "std", "category": "spell"},
     "choice_6": {"type": "muc", "components": ["4145", "4146"], "category": "smith", "default": "4145"},
     "4150": {"type": "std", "category": "spell"},
-    "choice_7": {"type": "muc", "components": ["4160", "4161", "4162", "4163", "4164"], "category": "smith", "default": "4161"},
-    "choice_8": {"type": "muc", "components": ["4170", "4171", "4172", "4173", "4174"], "category": "smith", "default": "4171"},
+    "choice_7": {
+      "type": "muc", "components": ["4160", "4161", "4162", "4163", "4164"], "category": "smith", "default": "4161"
+    },
+    "choice_8": {
+      "type": "muc", "components": ["4170", "4171", "4172", "4173", "4174"], "category": "smith", "default": "4171"
+    },
     "4190": {"type": "std", "category": "spell"},
     "4210": {"type": "std", "category": "spell"},
     "4215": {"type": "std", "category": "spell"},

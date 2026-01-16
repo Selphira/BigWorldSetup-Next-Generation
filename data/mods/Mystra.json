@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-Mystra.zip",
+      "size": 1109602,
+      "sha256": "c6f6e8c95e4fe51fa7ea8fe833bfdf4549cb8f338e8954fd820f1706fc349b81",
+      "download": "https://github.com/Plutonium-X/KIT_Mystra/releases/download/v2.1/lin-Mystra.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Mystra.zip",
+      "size": 1337118,
+      "sha256": "eb9601101741200bdc29d5c9d8bef0bb2c406e89f1063d60c921217e0790135b",
+      "download": "https://github.com/Plutonium-X/KIT_Mystra/releases/download/v2.1/mac-Mystra.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "KIT_Mystra-main.zip",
       "size": 1282155,
       "sha256": "756a93605f51f67bf8b476ee75a601cd6991924b235048a1ec5a6c0e3020cfc3",
-      "download": "https://github.com/Plutonium-X/KIT_Mystra/archive/refs/heads/main.zip"
+      "download": "https://github.com/Plutonium-X/KIT_Mystra/archive/refs/heads/main.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],

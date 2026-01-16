@@ -6,10 +6,25 @@
   },
   "files": [
     {
+      "filename": "lin-d0im10-v1.2.zip",
+      "size": 1107655,
+      "sha256": "11951dce340199e8828ab000f5e30f1b8ea28eba246afb2a115e20fff70cfaea",
+      "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/lin-d0im10-v1.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-d0im10-v1.2.zip",
+      "size": 1335171,
+      "sha256": "dc6cc472d0f870bfe3c1fa7946b9ab4639d5f65ad6c969ed386a60029a919428",
+      "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/mac-d0im10-v1.2.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-d0im10-v1.2.zip",
       "size": 1279996,
       "sha256": "c52790253a694553e20bed3b5f66aa44ac603920bf87c07a44c4941de432eb22",
-      "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/win-d0im10-v1.2.zip"
+      "download": "https://github.com/Plutonium-X/IronModder10_Ding0/releases/download/v1.2/win-d0im10-v1.2.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2"],

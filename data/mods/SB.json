@@ -6,10 +6,23 @@
   },
   "files": [
     {
+      "filename": "lin-SB.zip",
+      "size": 1424818,
+      "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/lin-SB.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-SB.zip",
+      "size": 1652326,
+      "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/mac-SB.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-SB.zip",
       "size": 1597159,
       "sha256": "998c3d30bb4169d886c6b60347975cd3f310c6b03fe914cab70bdb11df86bb20",
-      "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/win-SB.zip"
+      "download": "https://github.com/Plutonium-X/KIT_Slime/releases/download/v2/win-SB.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bgee", "bg2ee", "bgt", "eet", "iwdee"],
