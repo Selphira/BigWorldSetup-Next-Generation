@@ -1,15 +1,15 @@
 {
   "name": "The Lure of the Sirine's Call",
-  "version": "16.5.1",
+  "version": "16.5.2",
   "links": {
     "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/"
   },
   "files": [
     {
       "filename": "the-lure-of-the-sirines-call-v16.5.1.zip",
-      "size": 58118172,
-      "sha256": "503cbb10705d53ecc5db080503e578b6d5f64756750a2836fff6971e0eae7951",
-      "download": "https://github.com/Pocket-Plane-Group/Lure_Of_Sirines_Call/releases/download/v16.5.1/the-lure-of-the-sirines-call-v16.5.1.zip"
+      "size": 58118180,
+      "sha256": "6bcf2d1e2e9ae46ae5c86cefc5e3bbba240bb546b82211aa410c1a475224b511",
+      "download": "https://github.com/Pocket-Plane-Group/Lure_Of_Sirines_Call/releases/download/v16.5.2/the-lure-of-the-sirines-call-v16.5.1.zip"
     }
   ],
   "games": ["bg", "tutu", "bgt", "bgee", "eet"],
