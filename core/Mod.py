@@ -174,6 +174,10 @@ class ModFile:
         """Check if this file supports the given platform."""
         return platform in self.platforms
 
+    def has_download_url(self) -> bool:
+        """Check if file has a download URL."""
+        return self.download is not None and self.download != ""
+
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "ModFile":
         platforms = data.get("platforms")

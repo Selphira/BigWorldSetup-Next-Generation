@@ -23,7 +23,6 @@ class ArchiveStatus(str, Enum):
         INVALID_HASH: Archive present but hash mismatch
         INVALID_SIZE: Archive present but size mismatch
         MISSING: Archive not present in download folder
-        MANUAL: Archive requires manual download (no URL provided)
         DOWNLOADING: Archive is currently being downloaded
         ERROR: Download or verification error
     """
@@ -32,7 +31,6 @@ class ArchiveStatus(str, Enum):
     INVALID_HASH = "invalid_hash"
     INVALID_SIZE = "invalid_size"
     MISSING = "missing"
-    MANUAL = "manual"
     DOWNLOADING = "downloading"
     ERROR = "error"
     VERIFYING = "verifying"
@@ -110,19 +108,9 @@ class ArchiveInfo:
     hash_algorithm: HashAlgorithm = HashAlgorithm.SHA256
     file_size: int = 0
 
-    @property
-    def requires_manual_download(self) -> bool:
-        """Check if archive requires manual download.
-
-        Returns:
-            True if no URL is provided
-        """
-        return self.url is None or self.url == ""
-
     def __str__(self) -> str:
         """String representation for logging."""
-        manual = " (manual)" if self.requires_manual_download else ""
-        return f"{self.mod_id}: {self.filename}{manual}"
+        return f"{self.mod_id}: {self.filename}"
 
 
 @dataclass
@@ -230,12 +218,13 @@ class ArchiveVerifier:
                     )
                     return ArchiveStatus.INVALID_SIZE
 
-            actual_hash = self.calculate_hash(file_path, info.hash_algorithm)
-            if actual_hash.lower() != info.expected_hash.lower():
-                logger.warning(
-                    f"Invalid hash for {file_path}: {actual_hash.lower()} (Expected: {info.expected_hash.lower()})"
-                )
-                return ArchiveStatus.INVALID_HASH
+            if info.expected_hash:
+                actual_hash = self.calculate_hash(file_path, info.hash_algorithm)
+                if actual_hash.lower() != info.expected_hash.lower():
+                    logger.warning(
+                        f"Invalid hash for {file_path}: {actual_hash.lower()} (Expected: {info.expected_hash.lower()})"
+                    )
+                    return ArchiveStatus.INVALID_HASH
 
             return ArchiveStatus.VALID
         except Exception as e:
@@ -469,6 +458,7 @@ class DownloadManager(QObject):
     download_canceled = Signal(str)
     download_error = Signal(str, str)
     queue_changed = Signal()
+    all_completed = Signal()
 
     MAX_CONCURRENT_DOWNLOADS = 5
 
@@ -582,12 +572,10 @@ class DownloadManager(QObject):
                 Qt.ConnectionType.QueuedConnection,
             )
 
-            # Connect thread signals
             thread.started.connect(worker.start_download)
             thread.finished.connect(thread.deleteLater)
             thread.finished.connect(worker.deleteLater)
 
-            # Store in active downloads
             self._active_downloads[mod_id] = (worker, thread, progress)
 
             thread.start()
@@ -640,6 +628,7 @@ class DownloadManager(QObject):
             self.download_finished.emit(mod_id)
             self.queue_changed.emit()
             self._process_queue()
+            self._check_completion()
 
         except Exception as e:
             logger.error(f"Error in finished handler: {e}", exc_info=True)
@@ -663,8 +652,15 @@ class DownloadManager(QObject):
             self.download_error.emit(mod_id, error_message)
             self.queue_changed.emit()
             self._process_queue()
+            self._check_completion()
         except Exception as e:
             logger.error(f"Error in error handler: {e}", exc_info=True)
+
+    def _check_completion(self) -> None:
+        """Check if all downloads are complete and emit signal if so."""
+        if not self._active_downloads and not self._download_queue:
+            logger.info("All downloads completed")
+            self.all_completed.emit()
 
     def _process_queue(self) -> None:
         """Process download queue to start new downloads."""
