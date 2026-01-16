@@ -1,15 +1,14 @@
 {
   "name": "Edwin Romance",
-  "version": "3.1",
+  "version": "4.0",
   "links": {
     "homepage": "https://www.shsforums.net/forum/69-edwin-romance/"
   },
   "files": [
     {
-      "filename": "edwinromance-v3.1.zip",
-      "size": 14068674,
-      "sha256": "b04a899d67c3459da288f469bbd84f52b02f9bc9d2ce48021f188a6824eb2b3b",
-      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v3.1/edwinromance-v3.1.zip"
+      "filename": "edwin-romance-v4.0.zip",
+      "size": 15514980,
+      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip"
     }
   ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
