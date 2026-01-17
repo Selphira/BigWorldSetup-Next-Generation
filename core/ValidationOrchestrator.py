@@ -113,7 +113,7 @@ class ValidationOrchestrator:
         failed = []
 
         for target in to_select:
-            if self._controller.select(target, emit_signal=False):
+            if self._controller.select(target):
                 added.append(target)
             else:
                 failed.append(target)
@@ -158,7 +158,7 @@ class ValidationOrchestrator:
         failed = []
 
         for conflict in to_deselect:
-            if self._controller.unselect(conflict, emit_signal=False):
+            if self._controller.unselect(conflict):
                 removed.append(conflict)
             else:
                 failed.append(conflict)
