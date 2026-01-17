@@ -50,7 +50,8 @@ class GameManager:
     # INTERNALS
     # ----------------------------------------------------------------------
 
-    def _load_game_file(self, path: Path) -> GameDefinition:
+    @staticmethod
+    def _load_game_file(path: Path) -> GameDefinition:
         """Parse one JSON file and return a GameDefinition instance."""
         with open(path, "r", encoding="utf-8") as f:
             raw = json.load(f)

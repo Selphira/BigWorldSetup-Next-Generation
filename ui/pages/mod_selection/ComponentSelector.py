@@ -667,7 +667,8 @@ class ComponentSelector(QTreeView):
 
             parent.appendRow([prompt_item, prompt_status_item, prompt_selection_item])
 
-    def _create_selection_item(self) -> QStandardItem:
+    @staticmethod
+    def _create_selection_item() -> QStandardItem:
         """Create status column item."""
         item = QStandardItem(tr("widget.component_selector.selection.none"))
         item.setForeground(QColor(COLOR_STATUS_NONE))

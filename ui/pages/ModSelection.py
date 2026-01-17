@@ -176,8 +176,9 @@ class HighlightDelegate(QStyledItemDelegate):
         # Render HTML text
         self._render_html_text(painter, text_rect, html, option)
 
+    @staticmethod
     def _create_highlighted_html(
-        self, text: str, match_start: int, match_length: int, option: QStyleOptionViewItem
+        text: str, match_start: int, match_length: int, option: QStyleOptionViewItem
     ) -> str:
         """Create HTML with highlighted match."""
         before = text[:match_start]

@@ -322,11 +322,13 @@ class SelectionController(QObject):
         parent = self._indexes.get_parent(reference)
         return parent and parent.is_muc()
 
-    def _is_sub_prompt(self, reference: ComponentReference) -> bool:
+    @staticmethod
+    def _is_sub_prompt(reference: ComponentReference) -> bool:
         """Check if SUB prompt."""
         return reference.comp_key.count(".") == 1
 
-    def _is_sub_prompt_option(self, reference: ComponentReference) -> bool:
+    @staticmethod
+    def _is_sub_prompt_option(reference: ComponentReference) -> bool:
         """Check if SUB prompt option."""
         return reference.comp_key.count(".") == 2
 
