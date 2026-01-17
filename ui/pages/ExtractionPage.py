@@ -31,6 +31,7 @@ from constants import (
 from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo, ExtractionStatus
 from core.DirectoryMerger import ConflictResolution, DirectoryMerger
 from core.Mod import Mod
+from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.validators.StructureValidator import StructureValidator
@@ -330,7 +331,7 @@ class ExtractionPage(BasePage):
             return custom_path
 
         if mod.has_file():
-            platform = self.state_manager.get_current_platform()
+            platform = Platform.get_current()
             mod_file = mod.get_file_for_platform(platform)
             if mod_file:
                 return self._download_path / mod_file.filename

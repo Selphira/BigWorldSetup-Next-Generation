@@ -4,7 +4,6 @@ from dataclasses import asdict, dataclass, field
 import json
 import logging
 from pathlib import Path
-import platform
 import shutil
 from typing import Any, Callable
 
@@ -111,14 +110,6 @@ class StateManager:
         self._mod_manager: ModManager | None = None
         self._rule_manager: RuleManager | None = None
         self._reset_workflow_callback: Callable[[], None] | None = None
-
-    @staticmethod
-    def get_current_platform() -> str:
-        """Get current platform identifier."""
-        system = platform.system().lower()
-        return {"windows": "windows", "linux": "linux", "darwin": "macos"}.get(
-            system, "windows"
-        )
 
     # ========================================
     # UI PREFERENCES (QSettings)

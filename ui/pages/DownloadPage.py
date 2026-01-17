@@ -43,6 +43,7 @@ from core.DownloadManager import (
     HashAlgorithm,
 )
 from core.File import format_size
+from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
@@ -628,7 +629,7 @@ class DownloadPage(BasePage):
         if not mod.has_file():
             return None
 
-        platform = self.state_manager.get_current_platform()
+        platform = Platform.get_current()
         mod_file = mod.get_file_for_platform(platform)
 
         if not mod_file:
@@ -1250,7 +1251,7 @@ class DownloadPage(BasePage):
         import subprocess
 
         try:
-            platform = self.state_manager.get_current_platform()
+            platform = Platform.get_current()
             if platform == "windows":
                 subprocess.run(["explorer", str(self._download_path)])
             elif platform == "macos":

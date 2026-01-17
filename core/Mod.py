@@ -11,6 +11,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Iterable, Union, cast
 
+from core.Platform import Platform
+
 
 class ComponentType(Enum):
     """Component type classification."""
@@ -275,6 +277,21 @@ class Mod:
     def has_file(self) -> bool:
         """Check if mod has at least one file."""
         return len(self.files) > 0
+
+    def get_download_url(self, platform: str | None = None) -> str | None:
+        """Get download URL for the mod, optionally filtered by platform."""
+        if not self.files:
+            return None
+
+        if platform is None:
+            platform = Platform.get_current()
+
+        file = self.get_file_for_platform(platform)
+
+        if file and file.has_download_url():
+            return file.download
+
+        return None
 
     def get_component(self, key: str) -> Component | None:
         """

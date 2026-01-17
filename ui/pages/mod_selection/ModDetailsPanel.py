@@ -380,7 +380,7 @@ class ModDetailsPanel(QWidget):
         links = {
             mod.homepage: ("🏠", tr("widget.mod_details.link.homepage")),
             mod.readme: ("📄", tr("widget.mod_details.link.readme")),
-            mod.download: ("📦", tr("widget.mod_details.link.download")),
+            mod.get_download_url(): ("📦", tr("widget.mod_details.link.download")),
         }
 
         # Filter only existing links
