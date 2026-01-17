@@ -1064,7 +1064,7 @@
       "mode": "any"
     }, {
       "source": ["BoneHillEET:*", "CtB:*", "TDDz:*", "drizztsaga:1"],
-      "target": ["bp-bgt-worldmap:*"],
+      "target": ["bp-bgt-worldmap:0"],
       "severity": "error",
       "description": "Mods qui nécessitent Worldmap",
       "mode": "any"
