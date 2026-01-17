@@ -984,6 +984,7 @@ class ModSelectionPage(BasePage):
         if selected_game != self._current_game:
             game = self.state_manager.get_game_manager().get(selected_game)
             self._selection_controller.set_game(game)
+            self._component_selector.set_game(selected_game)
             self._apply_all_filters()
 
         self._search_input.setFocus()

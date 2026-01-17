@@ -211,14 +211,12 @@ class SelectionController(QObject):
 
         elif reference.is_sub():
             for child in children:
-                if self._is_visible(child):
-                    self.select(child, cascade=True, emit_validation=False)
+                self.select(child, cascade=True, emit_validation=False)
 
         else:
             # STD / MOD
             for child in children:
-                if self._is_visible(child):
-                    self.select(child, cascade=True, emit_validation=False)
+                self.select(child, cascade=True, emit_validation=False)
 
     def _ensure_one_child_selected(self, reference: ComponentReference) -> None:
         """Ensure exactly one visible child is selected."""
@@ -226,14 +224,14 @@ class SelectionController(QObject):
         if not children:
             return
 
-        visible = [c for c in children if self._is_visible(c)]
-        if not visible:
+        compatible = [c for c in children if self._is_compatible_with_game(c)]
+        if not compatible:
             return
 
-        if any(self._indexes.is_selected(c) for c in visible):
+        if any(self._indexes.is_selected(c) for c in compatible):
             return
 
-        default = self._find_default_child(visible)
+        default = self._find_default_child(compatible)
         if not default:
             return
 

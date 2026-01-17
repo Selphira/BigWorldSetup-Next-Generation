@@ -522,6 +522,7 @@ class ComponentSelector(QTreeView):
         self._controller = controller
         self._context_menu: ComponentContextMenu | None = None
         self._indexes = IndexManager.get_indexes()
+        self._current_game: str | None = None
 
         self._setup_model()
         self._setup_ui()
@@ -792,24 +793,22 @@ class ComponentSelector(QTreeView):
 
     def _update_mod_status(self, mod_item: TreeItem) -> None:
         """Update mod selection status."""
-        total_visible = 0
-        checked_count = 0
+        total_components = 0
+        total_checked = 0
 
         for row in range(mod_item.rowCount()):
             child = mod_item.child(row, 0)
             if not child:
                 continue
 
-            # Check if visible through proxy
-            child_index = self._model.indexFromItem(child)
-            proxy_index = self._proxy_model.mapFromSource(child_index)
+            if self._current_game:
+                component = child.data(ROLE_COMPONENT)
+                if component and not component.supports_game(self._current_game):
+                    continue
 
-            if not proxy_index.isValid():
-                continue
-
-            total_visible += 1
+            total_components += 1
             if child.checkState() == Qt.CheckState.Checked:
-                checked_count += 1
+                total_checked += 1
 
         parent = mod_item.parent()
         status_item = (
@@ -819,27 +818,27 @@ class ComponentSelector(QTreeView):
         if not status_item:
             return
 
-        if total_visible == 0:
+        if total_components == 0:
             text = tr("widget.component_selector.selection.none")
             color = COLOR_STATUS_NONE
             mod_item.setCheckState(Qt.CheckState.Unchecked)
-        elif checked_count == 0:
-            text = tr("widget.component_selector.selection.none", total=total_visible)
+        elif total_checked == 0:
+            text = tr("widget.component_selector.selection.none", total=total_components)
             color = COLOR_STATUS_NONE
             mod_item.setCheckState(Qt.CheckState.Unchecked)
-        elif checked_count == total_visible:
+        elif total_checked == total_components:
             text = tr(
                 "widget.component_selector.selection.complete",
-                count=checked_count,
-                total=total_visible,
+                count=total_checked,
+                total=total_components,
             )
             color = COLOR_STATUS_COMPLETE
             mod_item.setCheckState(Qt.CheckState.Checked)
         else:
             text = tr(
                 "widget.component_selector.selection.partial",
-                count=checked_count,
-                total=total_visible,
+                count=total_checked,
+                total=total_components,
             )
             color = COLOR_STATUS_PARTIAL
             mod_item.setCheckState(Qt.CheckState.PartiallyChecked)
@@ -924,6 +923,11 @@ class ComponentSelector(QTreeView):
     # ========================================
     # Public API
     # ========================================
+
+    def set_game(self, game_id: str | None) -> None:
+        """Set current game for compatibility checks."""
+        self._current_game = game_id
+        self._update_all_mod_statuses()
 
     def apply_filters(
         self,
