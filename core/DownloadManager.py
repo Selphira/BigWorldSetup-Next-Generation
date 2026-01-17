@@ -516,7 +516,6 @@ class DownloadManager(QObject):
         try:
             if mod_id in self._active_downloads:
                 worker, thread, _ = self._active_downloads[mod_id]
-                archive_info = worker.archive_info
                 worker.cancel()
                 del self._active_downloads[mod_id]
                 thread.quit()
