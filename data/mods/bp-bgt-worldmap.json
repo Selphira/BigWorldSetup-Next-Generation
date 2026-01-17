@@ -15,7 +15,10 @@
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["patch"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}},
+    "0": {
+      "type": "sub",
+      "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}
+    },
     "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1"},
     "3": {"type": "std"},
     "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui"}
@@ -52,8 +55,10 @@
       "description": "Ce mod est absolument indispensable avec n'importe quel gros mod ajoutant des lieux sur la carte du monde (Baldur's Gate Trilogy, The Darkest Day, Check the Bodies, Shadows over Soubar, Dark Side of the Sword Coast, Northern Tales of the Sword Coast, Secret of Bone Hill, Drizzt Saga...). Il permet de disposer d'une carte du monde unique, plus grande et plus jolie.\nIl doit être installé au minimum après tous les mods susceptibles d'ajouter des emplacements dans la carte du monde. Attention à éviter de désinstaller ou réinstaller ce mod, cela pourrait tout simplement détruire votre partie.\nIl vous est fortement conseillé de choisir l'option `Temps de voyages originaux` et la petite carte (si on vous pose la question). Les temps de voyages \"revus\" comportent des bugs non résolus, et la grande carte est plus lourde à charger sans présenter d'avantages (mais si vous installez un mod qui requiert la grande carte, cette dernière sera installée d'office sans qu'on vous pose la question).",
       "components": {
         "0": "Carte du monde pour Baldur's Gate - icones de carte en couleurs pour Baldur's Gate incluses",
+        "0.1": "Durees de trajet et visibilites des zones",
         "0.1.1": "Durees de trajet et visibilites des zones d'origine",
         "0.1.2": "Durees de trajet et visibilites des zones corrigees",
+        "0.2": "Taille de la carte du monde",
         "0.2.1": "Grande carte du monde 4900x3500",
         "0.2.2": "Immense carte du monde 8500x6300",
         "choice_0": "Carte du monde pour Throne of Bhaal",
