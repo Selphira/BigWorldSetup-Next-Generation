@@ -2,14 +2,16 @@
   "name": "Bolsa",
   "version": "6.0.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/772-bolsa/",
-    "download": "https://github.com/Spellhold-Studios/Bolsa/releases/download/v6.0.0/bolsa-v6.0.0.zip"
+    "homepage": "https://www.shsforums.net/files/file/772-bolsa/"
   },
-  "file": {
-    "filename": "bolsa-v6.0.0.zip",
-    "size": 4299241,
-    "sha256": "31a505965f8a55d53418b4f5e08e08f76b49b5627abfbc9ce795ce98f221b66a"
-  },
+  "files": [
+    {
+      "filename": "bolsa-v6.0.0.zip",
+      "size": 4299241,
+      "sha256": "31a505965f8a55d53418b4f5e08e08f76b49b5627abfbc9ce795ce98f221b66a",
+      "download": "https://github.com/Spellhold-Studios/Bolsa/releases/download/v6.0.0/bolsa-v6.0.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -34,11 +36,19 @@
         "0": "Bolsa"
       }
     },
-    "it_IT": {"components": {"0": "Bolsa"}},
+    "it_IT": {
+      "components": {
+        "0": "Bolsa"
+      }
+    },
     "zh_CN": {
       "description": "博尔萨是一个新商人，出售各种背包（用于存放药剂和弹药），还有法师之杖，这是一种类固醇加强版的法师杖（以及一些经典物品）。"
     },
-    "es_ES": {"components": {"0": "Bolsa"}}
+    "es_ES": {
+      "components": {
+        "0": "Bolsa"
+      }
+    }
   },
   "tp2": "bolsa",
   "safe": 2,

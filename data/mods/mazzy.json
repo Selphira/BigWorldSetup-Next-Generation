@@ -2,14 +2,16 @@
   "name": "Mazzy Friendship",
   "version": "3.5",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Mazzy-Friendship",
-    "download": "https://github.com/Spellhold-Studios/Mazzy-Friendship/releases/download/v3.5/mazzy-friendship-v3.5.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Mazzy-Friendship"
   },
-  "file": {
-    "filename": "mazzy-friendship-v3.5.zip",
-    "size": 2845780,
-    "sha256": "1e8bb8f4732f79a1c9a09e3ace08a55e72c762b0dfc1c9bc2dcb791ab24a1df3"
-  },
+  "files": [
+    {
+      "filename": "mazzy-friendship-v3.5.zip",
+      "size": 2845780,
+      "sha256": "1e8bb8f4732f79a1c9a09e3ace08a55e72c762b0dfc1c9bc2dcb791ab24a1df3",
+      "download": "https://github.com/Spellhold-Studios/Mazzy-Friendship/releases/download/v3.5/mazzy-friendship-v3.5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -41,8 +43,16 @@
         "0": "Âê×ÈÓÑÒê²å»°°ü"
       }
     },
-    "de_DE": {"components": {"0": "Mazzy Freundschaft"}},
-    "ru_RU": {"components": {"0": "Mazzy Friendship"}}
+    "de_DE": {
+      "components": {
+        "0": "Mazzy Freundschaft"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Mazzy Friendship"
+      }
+    }
   },
   "tp2": "mazzy",
   "safe": 2,

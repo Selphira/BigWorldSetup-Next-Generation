@@ -1,10 +1,3 @@
-"""
-BigWorldSetup NextGen - Main entry point (Optimized).
-
-Handles application initialization with integrated splash screen,
-data updates, cache management, and version checking.
-"""
-
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -51,6 +44,108 @@ else:
 sys.path.insert(0, str(application_path))
 
 
+class CacheInitializer:
+    """Helper class for initializing caches with feedback."""
+
+    def __init__(self, app: QApplication, splash: SplashScreen):
+        """Initialize cache initializer."""
+        self.app = app
+        self.splash = splash
+
+    def initialize_cache(
+        self,
+        manager,
+        manager_name: str,
+        progress_range: tuple[int, int],
+    ) -> None:
+        """Initialize or rebuild a manager's cache with splash feedback."""
+        if manager.needs_cache_rebuild():
+            logger.info(f"{manager_name} cache rebuild required")
+
+            if not self._build_cache_with_feedback(manager, manager_name, progress_range):
+                raise RuntimeError(f"{manager_name} cache build failed")
+
+        else:
+            logger.info(f"Loading existing {manager_name} cache")
+
+            if not manager.load_cache():
+                logger.error(f"{manager_name} cache load failed")
+                raise RuntimeError(f"Failed to load {manager_name} cache")
+
+            logger.info(f"{manager_name} cache loaded: {manager.get_count()} items")
+
+    def _build_cache_with_feedback(
+        self,
+        manager,
+        manager_name: str,
+        progress_range: tuple[int, int],
+    ) -> bool:
+        """Build cache with splash screen feedback."""
+        start_pct, end_pct = progress_range
+        progress_span = end_pct - start_pct
+
+        success = False
+        error_msg = None
+
+        def on_cache_ready():
+            nonlocal success
+            success = True
+
+        def on_cache_error(msg):
+            nonlocal error_msg
+            error_msg = msg
+
+        manager.cache_ready.connect(on_cache_ready)
+        manager.cache_error.connect(on_cache_error)
+
+        if not manager.build_cache_async():
+            QMessageBox.critical(
+                None, tr("error.critical_title"), tr("error.unable_to_start_cache_building")
+            )
+
+        if manager.builder_thread:
+            manager.builder_thread.progress.connect(
+                lambda p: self.splash.set_progress(start_pct + int(p * progress_span / 100))
+            )
+            manager.builder_thread.status_changed.connect(self.splash.set_status)
+
+        # Wait for completion while processing events
+        while not success and error_msg is None:
+            self.app.processEvents()
+
+        self._disconnect_signals(manager)
+
+        if error_msg:
+            logger.error(f"{manager_name} cache build failed: {error_msg}")
+
+            QMessageBox.critical(
+                None,
+                tr("error.critical_title"),
+                tr("error.cache_build_failed", mods_dir=str(MODS_DIR)),
+            )
+
+            return False
+
+        logger.info(f"{manager_name} cache built successfully")
+        return True
+
+    @staticmethod
+    def _disconnect_signals(manager) -> None:
+        """Safely disconnect all signals from manager."""
+        try:
+            manager.cache_ready.disconnect()
+            manager.cache_error.disconnect()
+
+            if manager.builder_thread:
+                try:
+                    manager.builder_thread.progress.disconnect()
+                    manager.builder_thread.status_changed.disconnect()
+                except (RuntimeError, TypeError):
+                    pass
+        except RuntimeError:
+            pass
+
+
 class ApplicationInitializer:
     """Handles application initialization in stages."""
 
@@ -66,7 +161,7 @@ class ApplicationInitializer:
         self.state = None
         self.window = None
         self.data_updater = None
-        self.version_checker = None
+        self.cache_initializer = None
 
     def run(self) -> tuple[MainWindow, StateManager]:
         """
@@ -82,14 +177,19 @@ class ApplicationInitializer:
         self.splash.show()
         self.app.processEvents()
 
+        self.cache_initializer = CacheInitializer(self.app, self.splash)
+
         self.splash.set_stage("Initializing...", 5)
         self.state = self._initialize_state()
 
-        self.splash.set_stage(tr("app.checking_data_update"), 15)
+        self.splash.set_stage(tr("app.checking_data_update"), 10)
         self._check_and_update_data()
 
-        self.splash.set_stage(tr("app.loading_mods"), 50)
-        self._initialize_cache()
+        self.splash.set_stage(tr("app.loading_rules"), 30)
+        self._initialize_rule_cache()
+
+        self.splash.set_stage(tr("app.loading_mods"), 60)
+        self._initialize_mod_cache()
 
         self.splash.set_stage(tr("app.setting_up_interface"), 90)
         self.window = self._create_main_window()
@@ -129,7 +229,6 @@ class ApplicationInitializer:
         try:
             if self.data_updater.check_for_updates():
                 logger.info("Data updates available, downloading...")
-
                 self.data_updater.update_data()
             else:
                 logger.info("Data is up to date")
@@ -138,7 +237,8 @@ class ApplicationInitializer:
             logger.error(f"Error during data update check: {e}", exc_info=True)
 
     def _on_update_data_progress(self, progress: int) -> None:
-        self.splash.set_progress(15 + int(progress * 0.35))  # 15-50% range
+        # Map update progress to 10-30% range
+        self.splash.set_progress(10 + int(progress * 0.20))
 
     @staticmethod
     def _on_update_data_error(message: str) -> None:
@@ -147,88 +247,25 @@ class ApplicationInitializer:
         )
         logger.warning("Continuing with existing data")
 
-    def _initialize_cache(self) -> None:
+    def _initialize_rule_cache(self) -> None:
+        """Initialize or rebuild rule cache."""
+        rule_manager = self.state.get_rule_manager()
+
+        self.cache_initializer.initialize_cache(
+            manager=rule_manager,
+            manager_name="Rule",
+            progress_range=(30, 60),
+        )
+
+    def _initialize_mod_cache(self) -> None:
         """Initialize or rebuild mod cache."""
         mod_manager = self.state.get_mod_manager()
 
-        if mod_manager.needs_cache_rebuild():
-            logger.info("Cache rebuild required")
-
-            if not self._build_cache_with_feedback(mod_manager):
-                raise RuntimeError("Cache build failed")
-
-        else:
-            logger.info("Loading existing cache")
-
-            if not mod_manager.load_cache():
-                logger.error("Cache load failed")
-                raise RuntimeError("Failed to load mod cache")
-
-            logger.info(f"Cache loaded: {mod_manager.get_count()} mods")
-
-    def _build_cache_with_feedback(self, mod_manager) -> bool:
-        """
-        Build cache with splash screen feedback.
-
-        Args:
-            mod_manager: ModManager instance
-
-        Returns:
-            True if successful
-        """
-        success = False
-        error_msg = None
-
-        def on_cache_ready():
-            nonlocal success
-            success = True
-
-        def on_cache_error(msg):
-            nonlocal error_msg
-            error_msg = msg
-
-        mod_manager.cache_ready.connect(on_cache_ready)
-        mod_manager.cache_error.connect(on_cache_error)
-
-        if not mod_manager.build_cache_async():
-            QMessageBox.critical(
-                None, tr("error.critical_title"), tr("error.unable_to_start_cache_building")
-            )
-            return False
-
-        if mod_manager.builder_thread:
-            mod_manager.builder_thread.progress.connect(
-                lambda p: self.splash.set_progress(50 + int(p * 0.4))  # 50-90% range
-            )
-            mod_manager.builder_thread.status_changed.connect(self.splash.set_status)
-
-        # Wait for completion while processing events
-        while not success and error_msg is None:
-            self.app.processEvents()
-
-        try:
-            mod_manager.cache_ready.disconnect(on_cache_ready)
-            mod_manager.cache_error.disconnect(on_cache_error)
-
-            if mod_manager.builder_thread:
-                try:
-                    mod_manager.builder_thread.progress.disconnect()
-                    mod_manager.builder_thread.status_changed.disconnect()
-                except (RuntimeError, TypeError):
-                    pass
-        except RuntimeError:
-            pass
-
-        if error_msg:
-            QMessageBox.critical(
-                None,
-                tr("error.critical_title"),
-                tr("error.cache_build_failed", mods_dir=str(MODS_DIR)),
-            )
-            return False
-
-        logger.info("Cache built successfully")
-        return True
+        self.cache_initializer.initialize_cache(
+            manager=mod_manager,
+            manager_name="Mod",
+            progress_range=(60, 90),
+        )
 
     def _create_main_window(self) -> MainWindow:
         """Create and configure main window."""

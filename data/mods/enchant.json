@@ -2,14 +2,16 @@
   "name": "Enchant the Missile Launchers",
   "version": "1",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/58374/enchant-the-missile-launchers-ranged-weapon-tweak/p1",
-    "download": "https://forums.beamdog.com/uploads/editor/hc/n0q8dnnbhnsc.zip"
+    "homepage": "https://forums.beamdog.com/discussion/58374/enchant-the-missile-launchers-ranged-weapon-tweak/p1"
   },
-  "file": {
-    "filename": "n0q8dnnbhnsc.zip",
-    "size": 17899,
-    "sha256": "3b68510079187d6d4f30a9db2a2a87374f422223900e69b36730858d45bd5de7"
-  },
+  "files": [
+    {
+      "filename": "n0q8dnnbhnsc.zip",
+      "size": 17899,
+      "sha256": "3b68510079187d6d4f30a9db2a2a87374f422223900e69b36730858d45bd5de7",
+      "download": "https://forums.beamdog.com/uploads/editor/hc/n0q8dnnbhnsc.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "iwdee", "eet"],
   "categories": ["spell"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Phaere NPC Portraits for BG2",
   "version": "5.0",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Phaere-NPC-Portraits-BG2",
-    "download": "https://github.com/Spellhold-Studios/Phaere-NPC-Portraits-BG2/releases/download/v5.0/phaere-npc-portraits-for-bg2-v5.0.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Phaere-NPC-Portraits-BG2"
   },
-  "file": {
-    "filename": "phaere-npc-portraits-for-bg2-v5.0.zip",
-    "size": 5116908,
-    "sha256": "b59d49b18f126d0d6e8214d12019ec5507b831f4d84d99c2919d25e204ac6b88"
-  },
+  "files": [
+    {
+      "filename": "phaere-npc-portraits-for-bg2-v5.0.zip",
+      "size": 5116908,
+      "sha256": "b59d49b18f126d0d6e8214d12019ec5507b831f4d84d99c2919d25e204ac6b88",
+      "download": "https://github.com/Spellhold-Studios/Phaere-NPC-Portraits-BG2/releases/download/v5.0/phaere-npc-portraits-for-bg2-v5.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["portrait"],
   "components": {

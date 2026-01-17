@@ -2,14 +2,16 @@
   "name": "Dungeon Crawl",
   "version": "13.1",
   "links": {
-    "homepage": "https://www.pocketplane.net/dungeon-crawl/",
-    "download": "https://github.com/Pocket-Plane-Group/Dungeon_Crawl/releases/download/v13.1/DungeonCrawl_v13-1.zip"
+    "homepage": "https://www.pocketplane.net/dungeon-crawl/"
   },
-  "file": {
-    "filename": "DungeonCrawl_v13-1.zip",
-    "size": 11617122,
-    "sha256": "46d69a1e2fb5c45830d4f68b77c3725a28e60bd878c8e8936f0fd5801ba972db"
-  },
+  "files": [
+    {
+      "filename": "DungeonCrawl_v13-1.zip",
+      "size": 11617122,
+      "sha256": "46d69a1e2fb5c45830d4f68b77c3725a28e60bd878c8e8936f0fd5801ba972db",
+      "download": "https://github.com/Pocket-Plane-Group/Dungeon_Crawl/releases/download/v13.1/DungeonCrawl_v13-1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -31,8 +33,16 @@
         "0": "Dungeon Crawl"
       }
     },
-    "ru_RU": {"components": {"0": "Dungeon Crawl"}},
-    "it_IT": {"components": {"0": "Dungeon Crawl"}},
+    "ru_RU": {
+      "components": {
+        "0": "Dungeon Crawl"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Dungeon Crawl"
+      }
+    },
     "fr_FR": {
       "description": "Un peu d'humour dans ce monde de brute semble être la philosophie de ce mod, qui ajoute quelques quêtes ainsi que des nouvelles cartes, apparemment remplies d'aventuriers plutôt genre \"Naheulbeuk\" que \"Lancelot\" ! Le mod fonctionne sans Throne of Bhaal et est adapté de la bande dessinée du même nom, célèbre aux États-Unis.",
       "components": {
@@ -45,8 +55,16 @@
         "0": "µØ³ÇÅÀÐÐÕß"
       }
     },
-    "de_DE": {"components": {"0": "Dungeon Crawl"}},
-    "pl_PL": {"components": {"0": "Dungeon Crawl mod do Baldur's Gate II"}}
+    "de_DE": {
+      "components": {
+        "0": "Dungeon Crawl"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Dungeon Crawl mod do Baldur's Gate II"
+      }
+    }
   },
   "tp2": "dc",
   "safe": 2,

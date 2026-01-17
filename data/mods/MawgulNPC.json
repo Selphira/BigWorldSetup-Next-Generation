@@ -1,15 +1,30 @@
 {
   "name": "Mawgul NPC",
-  "version": "2.3",
+  "version": "2.4",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/767-mawgul-npc-v22/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip"
+    "homepage": "https://www.shsforums.net/files/file/767-mawgul-npc-v22/"
   },
-  "file": {
-    "filename": "win-MawgulNPC-v2.3.zip",
-    "size": 2275425,
-    "sha256": "a1a6cfd78bfa589b51ceeee9b95d89ccf665a65b13ca596c6efb5ce913ee65a0"
-  },
+  "files": [
+    {
+      "filename": "lin-MawgulNPC-v2.3.zip",
+      "size": 2103084,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/lin-MawgulNPC-v2.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-MawgulNPC-v2.3.zip",
+      "size": 2330606,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/mac-MawgulNPC-v2.3.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-MawgulNPC-v2.3.zip",
+      "size": 2275425,
+      "sha256": "a1a6cfd78bfa589b51ceeee9b95d89ccf665a65b13ca596c6efb5ce913ee65a0",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -37,8 +52,16 @@
     "zh_CN": {
       "description": "Mawgul是一个绝对中立善良的精灵法师/战士，侍奉海姆，拥有非常强大的装备，以及类似于海姆牧师的特殊能力。此模组内容很少。\n力量10，敏捷19，体质10，智力18，智慧16，魅力17。"
     },
-    "es_ES": {"components": {"0": "MawgulNPC"}},
-    "it_IT": {"components": {"0": "Mawgul NPC"}}
+    "es_ES": {
+      "components": {
+        "0": "MawgulNPC"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Mawgul NPC"
+      }
+    }
   },
   "tp2": "mawgulnpc",
   "safe": 2,

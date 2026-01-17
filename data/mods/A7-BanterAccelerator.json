@@ -2,14 +2,29 @@
   "name": "Banter Accelerator for Enhanced Edition games",
   "version": "1.6",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-BanterAccelerator",
-    "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/win-A7-BanterAccelerator-v1.6.zip"
+    "homepage": "https://github.com/Argent77/A7-BanterAccelerator"
   },
-  "file": {
-    "filename": "win-A7-BanterAccelerator-v1.6.zip",
-    "size": 1288951,
-    "sha256": "13f3b967b87b3e8b2721bcb6cc92143a4ca6a2b8b09e2797b9b1a0e56b2d3650"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-BanterAccelerator-v1.6.zip",
+      "size": 1116613,
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/lin-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-BanterAccelerator-v1.6.zip",
+      "size": 1322942,
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/mac-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-BanterAccelerator-v1.6.zip",
+      "size": 1288951,
+      "sha256": "13f3b967b87b3e8b2721bcb6cc92143a4ca6a2b8b09e2797b9b1a0e56b2d3650",
+      "download": "https://github.com/Argent77/A7-BanterAccelerator/releases/download/v1.6/win-A7-BanterAccelerator-v1.6.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
   "categories": ["npcx"],
   "components": {
@@ -80,8 +95,42 @@
         "99": "用户自定义"
       }
     },
-    "de_DE": {"components": {"choice_0": "Banterbeschleuniger", "10": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 10%", "11": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 25%", "12": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 50%", "20": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 10% (Standard)", "21": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 25%", "22": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 50%", "30": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 10%", "31": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 25%", "32": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 50%", "40": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 10%", "41": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 25%", "42": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 50%", "99": "Benutzerdefiniert"}},
-    "pt_BR": {"components": {"choice_0": "Banter Accelerator", "10": "Frequência: 60 segundos, Probabilidade: 10%", "11": "Frequência: 60 segundos, Probabilidade: 25%", "12": "Frequência: 60 segundos, Probabilidade: 50%", "20": "Frequência: 40 segundos, Probabilidade: 10% (padrão)", "21": "Frequência: 40 segundos, Probabilidade: 25%", "22": "Frequência: 40 segundos, Probabilidade: 50%", "30": "Frequência: 30 segundos, Probabilidade: 10%", "31": "Frequência: 30 segundos, Probabilidade: 25%", "32": "Frequência: 30 segundos, Probabilidade: 50%", "40": "Frequência: 10 segundos, Probabilidade: 10%", "41": "Frequência: 10 segundos, Probabilidade: 25%", "42": "Frequência: 10 segundos, Probabilidade: 50%", "99": "Definido-pelo-usuário"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Banterbeschleuniger",
+        "10": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 10%",
+        "11": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 25%",
+        "12": "Frequenz: 60 Sekunden, Wahrscheinlichkeit: 50%",
+        "20": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 10% (Standard)",
+        "21": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 25%",
+        "22": "Frequenz: 40 Sekunden, Wahrscheinlichkeit: 50%",
+        "30": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 10%",
+        "31": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 25%",
+        "32": "Frequenz: 30 Sekunden, Wahrscheinlichkeit: 50%",
+        "40": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 10%",
+        "41": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 25%",
+        "42": "Frequenz: 10 Sekunden, Wahrscheinlichkeit: 50%",
+        "99": "Benutzerdefiniert"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "choice_0": "Banter Accelerator",
+        "10": "Frequência: 60 segundos, Probabilidade: 10%",
+        "11": "Frequência: 60 segundos, Probabilidade: 25%",
+        "12": "Frequência: 60 segundos, Probabilidade: 50%",
+        "20": "Frequência: 40 segundos, Probabilidade: 10% (padrão)",
+        "21": "Frequência: 40 segundos, Probabilidade: 25%",
+        "22": "Frequência: 40 segundos, Probabilidade: 50%",
+        "30": "Frequência: 30 segundos, Probabilidade: 10%",
+        "31": "Frequência: 30 segundos, Probabilidade: 25%",
+        "32": "Frequência: 30 segundos, Probabilidade: 50%",
+        "40": "Frequência: 10 segundos, Probabilidade: 10%",
+        "41": "Frequência: 10 segundos, Probabilidade: 25%",
+        "42": "Frequência: 10 segundos, Probabilidade: 50%",
+        "99": "Definido-pelo-usuário"
+      }
+    }
   },
   "tp2": "a7-banteraccelerator",
   "safe": 2,

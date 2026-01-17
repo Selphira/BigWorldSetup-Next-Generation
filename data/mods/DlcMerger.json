@@ -2,14 +2,29 @@
   "name": "DLC Merger",
   "version": "1.7",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-DlcMerger",
-    "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/win-64bit-DlcMerger-v1.7.zip"
+    "homepage": "https://github.com/Argent77/A7-DlcMerger"
   },
-  "file": {
-    "filename": "win-64bit-DlcMerger-v1.7.zip",
-    "size": 1387083,
-    "sha256": "b984cfaf9ba8cdacc52928e50ad2fa3435f98471642e1ff004290d02d42711ea"
-  },
+  "files": [
+    {
+      "filename": "lin-DlcMerger-v1.7.zip",
+      "size": 1214742,
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/lin-DlcMerger-v1.7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-DlcMerger-v1.7.zip",
+      "size": 1442264,
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/mac-DlcMerger-v1.7.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-64bit-DlcMerger-v1.7.zip",
+      "size": 1387083,
+      "sha256": "b984cfaf9ba8cdacc52928e50ad2fa3435f98471642e1ff004290d02d42711ea",
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v1.7/win-64bit-DlcMerger-v1.7.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["util"],
   "components": {
@@ -47,20 +62,26 @@
     },
     "de_DE": {
       "components": {
-        "choice_0": "DLC mit Spiel zusammenfuehren", "1": "DLC \"Die Belagerung von Drachenspeer\" zusammenfuehren",
-        "2": "Eine benutzerdefinierte DLC zusammenfuehren", "3": "Alle vorhandenen DLCs zusammenfuehren"
+        "choice_0": "DLC mit Spiel zusammenfuehren",
+        "1": "DLC \"Die Belagerung von Drachenspeer\" zusammenfuehren",
+        "2": "Eine benutzerdefinierte DLC zusammenfuehren",
+        "3": "Alle vorhandenen DLCs zusammenfuehren"
       }
     },
     "pt_BR": {
       "components": {
-        "choice_0": "Unir o DLC no game", "1": "Unir o DLC \"Siege of Dragonspear\"",
-        "2": "Unir o DLC definido pelo usuário", "3": "Unir todos os DLCs disponíveis"
+        "choice_0": "Unir o DLC no game",
+        "1": "Unir o DLC \"Siege of Dragonspear\"",
+        "2": "Unir o DLC definido pelo usuário",
+        "3": "Unir todos os DLCs disponíveis"
       }
     },
     "es_ES": {
       "components": {
-        "choice_0": "Fusionar el DLC con el juego", "1": "Fusionar el DLC \"Siege of Dragonspear\"",
-        "2": "Fusionar el DLC definido por el usuario", "3": "Fusionar todos los DLC disponibles"
+        "choice_0": "Fusionar el DLC con el juego",
+        "1": "Fusionar el DLC \"Siege of Dragonspear\"",
+        "2": "Fusionar el DLC definido por el usuario",
+        "3": "Fusionar todos los DLC disponibles"
       }
     }
   },

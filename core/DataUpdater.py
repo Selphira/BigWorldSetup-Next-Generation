@@ -32,7 +32,6 @@ class DataUpdater(QObject):
     def check_for_updates(self) -> bool:
         """Check if data updates are available."""
         try:
-            self.status_changed.emit(tr("app.checking_data_update"))
             remote_version = self._fetch_remote_version()
 
             if not remote_version:

@@ -2,14 +2,16 @@
   "name": "Spiritwalker - A Shaman Shapeshifter Kit",
   "version": "1.4",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1187-spiritwalker-a-shaman-shapeshifter-kit/",
-    "download": "https://github.com/thisisulb/SpiritwalkerKit/archive/refs/heads/master.zip"
+    "homepage": "https://www.shsforums.net/files/file/1187-spiritwalker-a-shaman-shapeshifter-kit/"
   },
-  "file": {
-    "filename": "SpiritwalkerKit-master.zip",
-    "size": 70163641,
-    "sha256": "b9398b623bed5a484c32731a3bf805ba171554e9ee2aca575f7f549b3d2e0406"
-  },
+  "files": [
+    {
+      "filename": "SpiritwalkerKit-master.zip",
+      "size": 70163641,
+      "sha256": "b9398b623bed5a484c32731a3bf805ba171554e9ee2aca575f7f549b3d2e0406",
+      "download": "https://github.com/thisisulb/SpiritwalkerKit/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["kit"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "此模组允许您扮演一个新的角色宗派：变形萨满，灵魂携带者，他与少数精选但强大的动物灵魂保持着更紧密、更个人化的联系。当他在萨满之舞中召唤这些灵魂时，他不是要求它们为自己战斗，而是邀请它们融入自己的身体，帮助他直接变形为所选的动物形态（牦牛、老虎和鹤）。"
     },
-    "it_IT": {"components": {"0": "Spiritwalker Shaman Kit"}}
+    "it_IT": {
+      "components": {
+        "0": "Spiritwalker Shaman Kit"
+      }
+    }
   },
   "tp2": "spiritwalker",
   "safe": 2,

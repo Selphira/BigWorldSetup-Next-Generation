@@ -2,14 +2,16 @@
   "name": "Enhanced Edition Trilogy",
   "version": "14.1",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/EET",
-    "download": "https://github.com/Gibberlings3/EET/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/Gibberlings3/EET"
   },
-  "file": {
-    "filename": "EET-master.zip",
-    "size": 215019885,
-    "sha256": "3ba76d99fb2515cf6c5d620a41ca8cb9df7e5c41f968357b69e396efa8fc058e"
-  },
+  "files": [
+    {
+      "filename": "EET-master.zip",
+      "size": 215019885,
+      "sha256": "3ba76d99fb2515cf6c5d620a41ca8cb9df7e5c41f968357b69e396efa8fc058e",
+      "download": "https://github.com/Gibberlings3/EET/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["eet"],
   "categories": ["conv"],
   "components": {
@@ -48,11 +50,36 @@
         "100": "创建桌面快捷方式"
       }
     },
-    "pl_PL": {"components": {"0": "EET core (import zasobow)", "100": "Create desktop shortcut"}},
-    "es_ES": {"components": {"0": "EET core (resource importation)", "100": "Create desktop shortcut"}},
-    "cs_CZ": {"components": {"0": "EET core (import zdroju)", "100": "Create desktop shortcut"}},
-    "ru_RU": {"components": {"0": "EET core (resource importation)", "100": "Create desktop shortcut"}},
-    "de_DE": {"components": {"0": "EET core (Ressourcen werden importiert)", "100": "Desktop-Verknuepfung erstellen"}}
+    "pl_PL": {
+      "components": {
+        "0": "EET core (import zasobow)",
+        "100": "Create desktop shortcut"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "EET core (resource importation)",
+        "100": "Create desktop shortcut"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "EET core (import zdroju)",
+        "100": "Create desktop shortcut"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "EET core (resource importation)",
+        "100": "Create desktop shortcut"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "EET core (Ressourcen werden importiert)",
+        "100": "Desktop-Verknuepfung erstellen"
+      }
+    }
   },
   "tp2": "eet",
   "safe": 2,

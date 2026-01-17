@@ -2,14 +2,16 @@
   "name": "Thrown Hammers",
   "version": "6.1.2",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/34099-thrown-hammers/",
-    "download": "https://github.com/Sampsca/ThrownHammers/releases/download/v6.1.2/thrown-hammers-v6.1.2.zip"
+    "homepage": "https://www.shsforums.net/topic/34099-thrown-hammers/"
   },
-  "file": {
-    "filename": "thrown-hammers-v6.1.2.zip",
-    "size": 4972665,
-    "sha256": "14ebfa88535da1d87ec5033995a0c9a552b0a86f072c7d264077eedab7118626"
-  },
+  "files": [
+    {
+      "filename": "thrown-hammers-v6.1.2.zip",
+      "size": 4972665,
+      "sha256": "14ebfa88535da1d87ec5033995a0c9a552b0a86f072c7d264077eedab7118626",
+      "download": "https://github.com/Sampsca/ThrownHammers/releases/download/v6.1.2/thrown-hammers-v6.1.2.zip"
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["spell"],
   "components": {
@@ -49,14 +51,54 @@
         "50": "Objets magiques supplementaires"
       }
     },
-    "it_IT": {"components": {"0": "Martelli da Lancio", "15": "Martelli Spirituali da lancio", "25": "Martello da lancio normale", "35": "+1 alle armi da lancio", "50": "Oggetti magici aggiuntivi"}},
-    "ru_RU": {"components": {"0": "¥â â¥«ì­ë¥ ¬®«®âë", "15": "¥â â¥«ì­ë© ãå®¢­ë© ®«®â", "25": "¡ëç­ë¥ ¬¥â â¥«ì­ë¥ ®àã¤¨ï", "35": "+1 ¬¥â â¥«ì­ë¥ ®àã¤¨ï", "50": "®¯®«­¨â¥«ì­ë¥ ¬ £¨ç¥áª¨¥ ¯à¥¤¬¥âë"}},
+    "it_IT": {
+      "components": {
+        "0": "Martelli da Lancio",
+        "15": "Martelli Spirituali da lancio",
+        "25": "Martello da lancio normale",
+        "35": "+1 alle armi da lancio",
+        "50": "Oggetti magici aggiuntivi"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "¥â â¥«ì­ë¥ ¬®«®âë",
+        "15": "¥â â¥«ì­ë© ãå®¢­ë© ®«®â",
+        "25": "¡ëç­ë¥ ¬¥â â¥«ì­ë¥ ®àã¤¨ï",
+        "35": "+1 ¬¥â â¥«ì­ë¥ ®àã¤¨ï",
+        "50": "®¯®«­¨â¥«ì­ë¥ ¬ £¨ç¥áª¨¥ ¯à¥¤¬¥âë"
+      }
+    },
     "zh_CN": {
       "description": "此模组为投掷锤添加了动画（它们之前显示为斧头）。它还修改了“精神之锤”法术，以及普通、魔法和一些独特的飞锤。"
     },
-    "de_DE": {"components": {"0": "Wurfhaemmer", "15": "Wurf-Geisterhammer", "25": "Normale Wurfhaemmer", "35": "+1 Wurfwaffen", "50": "Zusaetzliche magische Gegenstaende"}},
-    "es_ES": {"components": {"0": "Martillos arrojadizos", "15": "Martillos espirituales arrojadizos", "25": "Martillos arrojadizos normales", "35": "Armas arrojadizas +1", "50": "Objetos magicos extras"}},
-    "pl_PL": {"components": {"0": "Mloty do rzucania", "15": "Miotany Duchowy M³ot", "25": "Zwyczajne mloty miotane", "35": "Mloty miotane/rzucane o umagicznieniu +1", "50": "Dodatkowe magiczne przedmioty"}}
+    "de_DE": {
+      "components": {
+        "0": "Wurfhaemmer",
+        "15": "Wurf-Geisterhammer",
+        "25": "Normale Wurfhaemmer",
+        "35": "+1 Wurfwaffen",
+        "50": "Zusaetzliche magische Gegenstaende"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Martillos arrojadizos",
+        "15": "Martillos espirituales arrojadizos",
+        "25": "Martillos arrojadizos normales",
+        "35": "Armas arrojadizas +1",
+        "50": "Objetos magicos extras"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Mloty do rzucania",
+        "15": "Miotany Duchowy M³ot",
+        "25": "Zwyczajne mloty miotane",
+        "35": "Mloty miotane/rzucane o umagicznieniu +1",
+        "50": "Dodatkowe magiczne przedmioty"
+      }
+    }
   },
   "tp2": "hammers",
   "safe": 2,

@@ -1,15 +1,16 @@
 {
   "name": "Edwin Romance",
-  "version": "3.1",
+  "version": "4.0",
   "links": {
-    "homepage": "http://www.shsforums.net/forum/69-edwin-romance/",
-    "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v3.1/edwinromance-v3.1.zip"
+    "homepage": "https://www.shsforums.net/forum/69-edwin-romance/"
   },
-  "file": {
-    "filename": "edwinromance-v3.1.zip",
-    "size": 14068674,
-    "sha256": "b04a899d67c3459da288f469bbd84f52b02f9bc9d2ce48021f188a6824eb2b3b"
-  },
+  "files": [
+    {
+      "filename": "edwin-romance-v4.0.zip",
+      "size": 15514980,
+      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -59,10 +60,42 @@
         "4": "Give Edwina a Portrait"
       }
     },
-    "es_ES": {"components": {"0": "Romance de Edwin", "1": "Restaurar el portrait de Edwin en BG1", "2": "Edwin flirts", "3": "Nuevo final para el romance de Viconia por Laufey", "4": "Give Edwina a Portrait"}},
-    "ru_RU": {"components": {"0": "Edwin Romance", "1": "Restore Edwin's BG1 portrait", "2": "Edwin flirts", "3": "New ending for Viconia Romance by Laufey", "4": "Give Edwina a Portrait"}},
-    "de_DE": {"components": {"0": "Edwin Romanze", "1": "Edwins BG1 Portrait wieder herstellen", "2": "Edwins Flirts", "3": "Neues Ende der Viconia Romanze von Laufey", "4": "Edwina ein Portrait geben"}},
-    "pl_PL": {"components": {"0": "Edwin Romance", "1": "Przywrocic portret Edwina z BG1", "2": "Edwin flirts", "3": "New ending for Viconia Romance by Laufey", "4": "Give Edwina a Portrait"}}
+    "es_ES": {
+      "components": {
+        "0": "Romance de Edwin",
+        "1": "Restaurar el portrait de Edwin en BG1",
+        "2": "Edwin flirts",
+        "3": "Nuevo final para el romance de Viconia por Laufey",
+        "4": "Give Edwina a Portrait"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Edwin Romance",
+        "1": "Restore Edwin's BG1 portrait",
+        "2": "Edwin flirts",
+        "3": "New ending for Viconia Romance by Laufey",
+        "4": "Give Edwina a Portrait"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Edwin Romanze",
+        "1": "Edwins BG1 Portrait wieder herstellen",
+        "2": "Edwins Flirts",
+        "3": "Neues Ende der Viconia Romanze von Laufey",
+        "4": "Edwina ein Portrait geben"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Edwin Romance",
+        "1": "Przywrocic portret Edwina z BG1",
+        "2": "Edwin flirts",
+        "3": "New ending for Viconia Romance by Laufey",
+        "4": "Give Edwina a Portrait"
+      }
+    }
   },
   "tp2": "edwinromance",
   "safe": 2,

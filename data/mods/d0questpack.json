@@ -2,14 +2,16 @@
   "name": "Ding0's Quest Pack",
   "version": "3.5",
   "links": {
-    "homepage": "https://www.pocketplane.net/quest-pack/",
-    "download": "http://mods.pocketplane.net/questpack-v35-win.zip"
+    "homepage": "https://www.pocketplane.net/quest-pack/"
   },
-  "file": {
-    "filename": "questpack-v35-win.zip",
-    "size": 21707615,
-    "sha256": "5c149eae88e343e0ff08a19d2a8d3d3980056c70da81168f3fb18521aa99db00"
-  },
+  "files": [
+    {
+      "filename": "questpack-v35-win.zip",
+      "size": 21707615,
+      "sha256": "5c149eae88e343e0ff08a19d2a8d3d3980056c70da81168f3fb18521aa99db00",
+      "download": "http://mods.pocketplane.net/questpack-v35-win.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest", "tactic"],
   "components": {
@@ -73,7 +75,36 @@
         "21": "Infernal Thievery"
       }
     },
-    "it_IT": {"components": {"0": "Miglioramenti di IA Generali", "choice_0": "Miglioramenti Creature & Aree", "1": "Miglioramenti a tutte le Creature e Aree", "2": "Miglioramenti a tutte le Creature", "3": "Miglioramento Nemici Principali", "choice_1": "Miglioramenti Vari", "4": "Con Incontri Occasionali Addizionali", "401": "Senza Incontri Occasionali Addizionali", "5": "Contenuto Addizionale Ladri Tenebrosi", "6": "Svolgimento Alternativo Arpisti/Xzar", "7": "Sequenza Estesa di Reynald", "8": "Intrigo al Diadema di Rame", "9": "Missione della Pozione di Rahul Kanakia", "10": "Prove dell'Inferno Riviste", "choice_2": "Oasis II Migliorata", "11": "IO2 Dialogo & Combattimento Migliorati", "12": "IO2 Solo Dialogo Migliorato", "13": "Salvataggio di Sanik a Brynnlaw", "14": "Furto dal Libraio", "15": "Nuovo Fato per le Ghiande delle Driadi", "16": "La Tragedia di Besamen", "17": "Ulteriore Coinvolgimento con Schiavisti", "18": "Mandare a Casa i Cavalieri di Solamnia", "19": "Nazariel il Lich", "20": "Negoziazione Ricompense", "21": "Furto Infernale"}},
+    "it_IT": {
+      "components": {
+        "0": "Miglioramenti di IA Generali",
+        "choice_0": "Miglioramenti Creature & Aree",
+        "1": "Miglioramenti a tutte le Creature e Aree",
+        "2": "Miglioramenti a tutte le Creature",
+        "3": "Miglioramento Nemici Principali",
+        "choice_1": "Miglioramenti Vari",
+        "4": "Con Incontri Occasionali Addizionali",
+        "401": "Senza Incontri Occasionali Addizionali",
+        "5": "Contenuto Addizionale Ladri Tenebrosi",
+        "6": "Svolgimento Alternativo Arpisti/Xzar",
+        "7": "Sequenza Estesa di Reynald",
+        "8": "Intrigo al Diadema di Rame",
+        "9": "Missione della Pozione di Rahul Kanakia",
+        "10": "Prove dell'Inferno Riviste",
+        "choice_2": "Oasis II Migliorata",
+        "11": "IO2 Dialogo & Combattimento Migliorati",
+        "12": "IO2 Solo Dialogo Migliorato",
+        "13": "Salvataggio di Sanik a Brynnlaw",
+        "14": "Furto dal Libraio",
+        "15": "Nuovo Fato per le Ghiande delle Driadi",
+        "16": "La Tragedia di Besamen",
+        "17": "Ulteriore Coinvolgimento con Schiavisti",
+        "18": "Mandare a Casa i Cavalieri di Solamnia",
+        "19": "Nazariel il Lich",
+        "20": "Negoziazione Ricompense",
+        "21": "Furto Infernale"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod de SimDing0 ajoute une multitude de petites quêtes, mais modifie également l'IA de certains monstres, leur rajoutant également certaines capacités (par exemple, les momies peuvent désormais lancer une sorte de souffle étourdissant sur vous... gnark). Vous aurez également la possibilité d'effectuer d'autres choix lors de quêtes déjà existantes, comme trahir Edwin, voire Renal Bloodscalp lui-même... à vos risques et périls.",
       "components": {
@@ -108,9 +139,96 @@
     "zh_CN": {
       "description": "SimDing0的这个模组添加了大量的支线任务，同时也修改了某些怪物的AI，并为他们增加了一些能力（例如，木乃伊现在可以对你们施放一种令人眩晕的气息……呃）。在现有的任务中，你也将有其他选择的机会，比如背叛艾德温，甚至背叛瑞纳·血鳞……一切风险自负。"
     },
-    "es_ES": {"components": {"0": "Mejoras de AI", "choice_0": "Creature & Area Improvements", "1": "All Creature & Area Improvements", "2": "All Creature Improvements", "3": "Mejoras en los jefes", "choice_1": "Mejoras Varias", "4": "With Additional Random Encounters", "401": "Without Additonal Random Encounters", "5": "Contenido adicional para los Ladrones de las Sombras", "6": "Busqueda alternativa de los arpistas/Xzar", "7": "Extended Reynald Sequence", "8": "Intriga en la Corona de Cobre", "9": "Busqueda de las pociones de Rahul Kanakia", "10": "Pruebas Infernales Revisado", "choice_2": "Oasis Mejorado II", "11": "IO2 Dialogue & Combat Enhancement", "12": "Oasis Mejorado II (Sólo mejora de diálogo)", "13": "Salvando a Sanik en Brynnlaw", "14": "El robo del Vendedor de Libros", "15": "Nuevo destino para las bellotas de las driadas", "16": "La tragedia de Besamen", "17": "Mas involucracion con los esclavistas", "18": "Sending The Solamnic Knights Home", "19": "Nazariel el Lich", "20": "Negociacion de Recompensa", "21": "Infernal Thievery"}},
-    "de_DE": {"components": {"0": "Generelle KI-Verbesserungen", "choice_0": "Kreatur- & Orts-Verbesserungen", "1": "Alle Kreatur- & Orts-Verbesserungen", "2": "Alle Kreatur-Verbesserungen", "3": "nur Endgegner-Verbesserungen", "choice_1": "Verschiedene Verbesserungen", "4": "With Additional Random Encounters", "401": "Without Additonal Random Encounters", "5": "Zusätzlicher Inhalt bei den Schattendieben", "6": "Alternative Harfner/Xzar-Handlung", "7": "Verlängerte Reynald-Handlung", "8": "Intrige in der Kupferkrone", "9": "Rahul Kanakias Trank-Quest", "10": "Überarbeitet Höllenprüfung", "choice_2": "Verbesserte Oase II", "11": "Dialog- & Kampf-Verbesserung", "12": "nur Dialog-Verbesserung", "13": "Sanik in Brynnlaw retten", "14": "Einbruch beim Buchhändler", "15": "Neues Schicksal für die Eicheln der Dryaden", "16": "Die Tragödie des Besamen", "17": "Weitere Sklaverei-Verwicklungen", "18": "Solamnischen Ritter nach Hause schicken", "19": "Nazariel, der Leichnam", "20": "Verhandlung über Belohnungen", "21": "Höllicher Diebstahl"}},
-    "ru_RU": {"components": {"0": "¡é¨¥ ã«ãçè¥­¨ï AI", "choice_0": "«ãçè¥­¨ï áãé¥áâ¢ ¨ «®ª æ¨©", "1": "á¥ ã«ãçè¥­¨ï áãé¥áâ¢ ¨ «®ª æ¨©", "2": "á¥ ã«ãçè¥­¨ï áãé¥áâ¢", "3": "®«ìª® ã«ãçè¥­¨ï ¡®áá", "choice_1": " §­ë¥ áâ®«ª­®¢¥­¨ï", "4": "®¯®«­¨â¥«ì­ë¥ á«ãç ©­ë¥ ¯à®¨áè¥áâ¢¨ï", "401": "¥§ ¤®¯®«­¨â¥«ì­ëå á«ãç ©­ëå ¯à®¨áè¥áâ¢¨©", "5": "®¯®«­¥­¨¥ ª ª®¬¯®­¥­âã '¥­¥¢ë¥ ®àë'", "6": "«ìâ¥à­ â¨¢­ ï ¨­âà¨£  ¤«ï  à¯¥à®¢/§ à", "7": " áè¨à¥­­ë© í¯¨§®¤ á ¥©­ «ì¤®¬", "8": "­âà¨£  ¢ ¥¤­®© ®à®­¥", "9": "¢¥áâ á §¥«ì¥¬ ®â Rahul Kanakia", "10": "¥à¥à ¡®â ­­ë¥ ¨á¯ëâ ­¨ï ¢ ¤ã", "choice_2": "«ãçè¥­­ë© ® §¨á II", "11": "IO2 «ãçè¥­¨¥ ¤¨ «®£®¢ ¨ ¡®ï", "12": "IO2 ®«ìª® ã«ãçè¥­¨ï ¤¨ «®£®¢", "13": "¯ á¥­¨¥  ­­¨ª  ¨§ à¨­­«®", "14": "£à ¡«¥­¨¥ ¡ãå£ «â¥à", "15": "®¢ ï áã¤ì¡  ¦¥«ã¤¥© ®â ¤à¨ ¤", "16": "à £¥¤¨ï ¥á ¬¥­", "17": "®¢ë¥ ¯à®¡¥«¬ë á à ¡ ¬¨", "18": "®§¢à é¥­¨¥ ¤®¬®© ®« ¬­¨©áª¨å àëæ à¥©", "19": "¨ç  § à¨í«ì", "20": "¥à¥£®¢®àë ® ­ £à ¤¥", "21": "¤áª ï ¢®à®¢ª"}}
+    "es_ES": {
+      "components": {
+        "0": "Mejoras de AI",
+        "choice_0": "Creature & Area Improvements",
+        "1": "All Creature & Area Improvements",
+        "2": "All Creature Improvements",
+        "3": "Mejoras en los jefes",
+        "choice_1": "Mejoras Varias",
+        "4": "With Additional Random Encounters",
+        "401": "Without Additonal Random Encounters",
+        "5": "Contenido adicional para los Ladrones de las Sombras",
+        "6": "Busqueda alternativa de los arpistas/Xzar",
+        "7": "Extended Reynald Sequence",
+        "8": "Intriga en la Corona de Cobre",
+        "9": "Busqueda de las pociones de Rahul Kanakia",
+        "10": "Pruebas Infernales Revisado",
+        "choice_2": "Oasis Mejorado II",
+        "11": "IO2 Dialogue & Combat Enhancement",
+        "12": "Oasis Mejorado II (Sólo mejora de diálogo)",
+        "13": "Salvando a Sanik en Brynnlaw",
+        "14": "El robo del Vendedor de Libros",
+        "15": "Nuevo destino para las bellotas de las driadas",
+        "16": "La tragedia de Besamen",
+        "17": "Mas involucracion con los esclavistas",
+        "18": "Sending The Solamnic Knights Home",
+        "19": "Nazariel el Lich",
+        "20": "Negociacion de Recompensa",
+        "21": "Infernal Thievery"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Generelle KI-Verbesserungen",
+        "choice_0": "Kreatur- & Orts-Verbesserungen",
+        "1": "Alle Kreatur- & Orts-Verbesserungen",
+        "2": "Alle Kreatur-Verbesserungen",
+        "3": "nur Endgegner-Verbesserungen",
+        "choice_1": "Verschiedene Verbesserungen",
+        "4": "With Additional Random Encounters",
+        "401": "Without Additonal Random Encounters",
+        "5": "Zusätzlicher Inhalt bei den Schattendieben",
+        "6": "Alternative Harfner/Xzar-Handlung",
+        "7": "Verlängerte Reynald-Handlung",
+        "8": "Intrige in der Kupferkrone",
+        "9": "Rahul Kanakias Trank-Quest",
+        "10": "Überarbeitet Höllenprüfung",
+        "choice_2": "Verbesserte Oase II",
+        "11": "Dialog- & Kampf-Verbesserung",
+        "12": "nur Dialog-Verbesserung",
+        "13": "Sanik in Brynnlaw retten",
+        "14": "Einbruch beim Buchhändler",
+        "15": "Neues Schicksal für die Eicheln der Dryaden",
+        "16": "Die Tragödie des Besamen",
+        "17": "Weitere Sklaverei-Verwicklungen",
+        "18": "Solamnischen Ritter nach Hause schicken",
+        "19": "Nazariel, der Leichnam",
+        "20": "Verhandlung über Belohnungen",
+        "21": "Höllicher Diebstahl"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "¡é¨¥ ã«ãçè¥­¨ï AI",
+        "choice_0": "«ãçè¥­¨ï áãé¥áâ¢ ¨ «®ª æ¨©",
+        "1": "á¥ ã«ãçè¥­¨ï áãé¥áâ¢ ¨ «®ª æ¨©",
+        "2": "á¥ ã«ãçè¥­¨ï áãé¥áâ¢",
+        "3": "®«ìª® ã«ãçè¥­¨ï ¡®áá",
+        "choice_1": " §­ë¥ áâ®«ª­®¢¥­¨ï",
+        "4": "®¯®«­¨â¥«ì­ë¥ á«ãç ©­ë¥ ¯à®¨áè¥áâ¢¨ï",
+        "401": "¥§ ¤®¯®«­¨â¥«ì­ëå á«ãç ©­ëå ¯à®¨áè¥áâ¢¨©",
+        "5": "®¯®«­¥­¨¥ ª ª®¬¯®­¥­âã '¥­¥¢ë¥ ®àë'",
+        "6": "«ìâ¥à­ â¨¢­ ï ¨­âà¨£  ¤«ï  à¯¥à®¢/§ à",
+        "7": " áè¨à¥­­ë© í¯¨§®¤ á ¥©­ «ì¤®¬",
+        "8": "­âà¨£  ¢ ¥¤­®© ®à®­¥",
+        "9": "¢¥áâ á §¥«ì¥¬ ®â Rahul Kanakia",
+        "10": "¥à¥à ¡®â ­­ë¥ ¨á¯ëâ ­¨ï ¢ ¤ã",
+        "choice_2": "«ãçè¥­­ë© ® §¨á II",
+        "11": "IO2 «ãçè¥­¨¥ ¤¨ «®£®¢ ¨ ¡®ï",
+        "12": "IO2 ®«ìª® ã«ãçè¥­¨ï ¤¨ «®£®¢",
+        "13": "¯ á¥­¨¥  ­­¨ª  ¨§ à¨­­«®",
+        "14": "£à ¡«¥­¨¥ ¡ãå£ «â¥à",
+        "15": "®¢ ï áã¤ì¡  ¦¥«ã¤¥© ®â ¤à¨ ¤",
+        "16": "à £¥¤¨ï ¥á ¬¥­",
+        "17": "®¢ë¥ ¯à®¡¥«¬ë á à ¡ ¬¨",
+        "18": "®§¢à é¥­¨¥ ¤®¬®© ®« ¬­¨©áª¨å àëæ à¥©",
+        "19": "¨ç  § à¨í«ì",
+        "20": "¥à¥£®¢®àë ® ­ £à ¤¥",
+        "21": "¤áª ï ¢®à®¢ª"
+      }
+    }
   },
   "tp2": "d0questpack",
   "safe": 2,

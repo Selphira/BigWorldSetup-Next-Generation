@@ -2,14 +2,16 @@
   "name": "Chloe NPC",
   "version": "1.7",
   "links": {
-    "homepage": "https://www.spellholdstudios.net/ie/chloe",
-    "download": "https://github.com/Plutonium-X/NPC_Chloe/archive/refs/tags/v1.7.zip"
+    "homepage": "https://www.spellholdstudios.net/ie/chloe"
   },
-  "file": {
-    "filename": "NPC_Chloe-1.7.zip",
-    "size": 8333006,
-    "sha256": "d2abd6312bcc17a7516d0ba9663881ad62d3e625e0d3b42bb14a690bac5b3e99"
-  },
+  "files": [
+    {
+      "filename": "NPC_Chloe-1.7.zip",
+      "size": 8333006,
+      "sha256": "d2abd6312bcc17a7516d0ba9663881ad62d3e625e0d3b42bb14a690bac5b3e99",
+      "download": "https://github.com/Plutonium-X/NPC_Chloe/archive/refs/tags/v1.7.zip"
+    }
+  ],
   "games": ["bg2", "bgt"],
   "categories": ["npc"],
   "components": {
@@ -39,10 +41,26 @@
     "zh_CN": {
       "description": "此模组添加了一位严格中立的女性半神剑圣，拥有专属的语音和武器，并且只能与女性角色恋爱。已为每个角色编写了互动内容，但目前恋爱剧情仅存在于安姆阴影中。与克洛伊相关的任务完善了整个模组。\n力量 13, 敏捷 25, 体质 16, 智力 12, 智慧 12, 魅力 14。"
     },
-    "es_ES": {"components": {"0": "Chloe NPC mod"}},
-    "it_IT": {"components": {"0": "Chloe NPC mod"}},
-    "ru_RU": {"components": {"0": "Chloe NPC mod"}},
-    "pl_PL": {"components": {"0": "Chloe NPC mod"}}
+    "es_ES": {
+      "components": {
+        "0": "Chloe NPC mod"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Chloe NPC mod"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Chloe NPC mod"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Chloe NPC mod"
+      }
+    }
   },
   "tp2": "chloe",
   "safe": 2,

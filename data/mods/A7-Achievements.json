@@ -2,14 +2,31 @@
   "name": "Achievements!",
   "version": "3.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/",
-    "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/win-A7-Achievements-v3.0.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/"
   },
-  "file": {
-    "filename": "win-A7-Achievements-v3.0.zip",
-    "size": 1416290,
-    "sha256": "99f501a71e98c1229fb86fcf5d479b0583b7d521c9e7b92301133c084567dc7d"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-Achievements-v3.0.zip",
+      "size": 1243949,
+      "sha256": "b6562357e153ae972b5fbb3fb774af746393bcd66cb0d2b97a31c479cca60bd5",
+      "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/lin-A7-Achievements-v3.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-Achievements-v3.0.zip",
+      "size": 1471483,
+      "sha256": "81762e3dda686159fc4e27f3a287b623d0b75e56e3c51ddefe8544e3bfb2a68b",
+      "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/mac-A7-Achievements-v3.0.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-Achievements-v3.0.zip",
+      "size": 1416290,
+      "sha256": "99f501a71e98c1229fb86fcf5d479b0583b7d521c9e7b92301133c084567dc7d",
+      "download": "https://github.com/Argent77/A7-Achievements/releases/download/v3.0/win-A7-Achievements-v3.0.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
   "categories": ["util"],
   "components": {

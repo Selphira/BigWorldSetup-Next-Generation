@@ -12,6 +12,8 @@
     "error": "Erreur",
     "checking_data_update": "Vérification des mises à jour des données...",
     "loading_mods": "Chargement des mods...",
+    "loading_rules": "Chargement des règles...",
+    "parsing_rules": "Analyse des règles...",
     "setting_up_interface": "Configuration de l'interface...",
     "backing_up_existing_data": "Sauvegarde des données existantes...",
     "installing_update": "Installation de la mise à jour...",
@@ -20,7 +22,7 @@
     "validating_download": "Validation du téléchargement...",
     "extracting_data": "Extraction des données...",
     "restoring_backup": "Restauration de la sauvegarde...",
-    "searching_mod_iles": "Recherche de fichiers mod...",
+    "searching_mod_files": "Recherche de fichiers mod...",
     "loading_count_mods": "Chargement de {count} mods...",
     "generating_cache_for_lang": "Génération du cache pour {lang}...",
     "cache_generated_successfully": "Cache généré avec succès !",
@@ -196,7 +198,6 @@
         "all": "Tous",
         "missing": "Manquants",
         "invalid": "Hash invalide",
-        "manual": "Téléchargement manuel",
         "valid": "Valides",
         "unknown": "Inconnus"
       },
@@ -209,8 +210,7 @@
         "size": "Taille",
         "hash": "Hash",
         "status": "État",
-        "url": "URL de téléchargement",
-        "manual_download": "Téléchargement manuel"
+        "url": "URL de téléchargement"
       },
       "col_mod_name": "Mod",
       "col_filename": "Fichier",
@@ -220,7 +220,6 @@
         "invalid_hash": "Hash différent",
         "invalid_size": "Taille différente",
         "missing": "Manquant",
-        "manual": "Téléchargement manuel",
         "downloading": "Téléchargement...",
         "verifying": "Vérification...",
         "paused": "En pause",
@@ -231,14 +230,18 @@
         "title": "Résumé des téléchargements",
         "valid": "{count} fichier(s) valide(s)",
         "warnings": "{count} fichier(s) avec avertissement(s)",
-        "manual": "{count} fichier(s) à télécharger manuellement",
         "errors": "{count} fichier(s) en erreur",
         "warnings_title": "Avertissements",
-        "errors_title": "Erreurs",
-        "manual_title": "Téléchargements manuels requis"
+        "errors_title": "Erreurs"
+      },
+      "context": {
+        "download": "Lancer le téléchargement",
+        "verify": "Vérifier l'archive",
+        "open_homepage": "Aller à la page d'accueil",
+        "open_download_url": "Télécharger manuellement"
       },
       "btn_verify_all": "Vérifier les archives",
-      "btn_download_all": "Télécharger les archives",
+      "btn_download_all": "Vérifier et télécharger les archives",
       "btn_open_folder": "Ouvrir le dossier de téléchargement",
       "btn_cancel": "Annuler le téléchargement",
       "btn_open_homepage": "Ouvrir la page d'accueil",
@@ -254,17 +257,15 @@
       "stats": "{downloaded} / {total} - {speed} - {time} restant",
       "error_status": "Erreur : {error}",
       "error_download_failed": "Le fichier n'a pu être téléchargé pour la raison suivante:\n\n{message}\n\nVeuillez réessayer, le télécharger manuellement ou retirer le mod concerné",
+      "warning_invalid_meta": "Le fichier téléchargé diffère de celui attendu (taille ou empreinte différente).\nCela peut indiquer une mise à jour récente du mod.\nVous pouvez continuer l'installation, mais faites attention.",
       "download_in_progress_title": "Téléchargements en cours",
       "download_in_progress_message": "Veuillez attendre la fin du téléchargement en cours.",
       "download_error_title": "Échec du téléchargement",
       "download_error_message": "Le téléchargement de {filename} a échoué.\n\nVous pouvez tenter un téléchargement manuel.",
+      "redownload_title": "Retélécharger l'archive ?",
+      "redownload_message": "Le fichier '{filename}' existe déjà.\n\nVoulez-vous le retélécharger ?",
       "no_downloads_title": "Aucun téléchargement nécessaire",
       "no_downloads_message": "Toutes les archives téléchargeables sont déjà présentes et valides.",
-      "manual_download_required_title": "Téléchargement manuel requis",
-      "manual_archive_missing": "Archive manquante: {filename}\n\nVeuillez télécharger ce fichier manuellement",
-      "manual_archive_invalid_hash": "Hash invalide pour: {filename}\n\nLe fichier présent ne correspond pas au hash attendu ({expected}...)\nVeuillez le retélécharger. Il est possible que la cause soit une mise à jour du mod.",
-      "manual_archive_invalid_size": "Taille invalide pour: {filename}\n\nTaille attendue: {expected}\nVeuillez vérifier le fichier téléchargé. Il est possible que la cause soit une mise à jour du mod.",
-      "manual_archive_error": "Erreur lors de la vérification de: {filename}",
       "all_valid_title": "Tous les téléchargements sont complets",
       "all_valid_message": "Toutes les archives sont valides et prêtes pour l'installation",
       "open_folder_error_title": "Impossible d'ouvrir le dossier",
@@ -275,7 +276,8 @@
     "extraction": {
       "title": "Extraction des archives",
       "filter_label": "Filtre :",
-      "btn_extract_all": "Tout extraire",
+      "btn_extract_all": "Extraire les archives",
+      "btn_change_archive": "Choisir une autre archive",
       "col_mod_name": "Mod",
       "col_archive": "Archive",
       "col_destination": "Destination",
@@ -285,14 +287,18 @@
         "extracting": "Extraction en cours...",
         "extracted": "Extrait",
         "structure_invalid": "Structure invalide",
-        "error": "Erreur"
+        "error": "Erreur",
+        "missing_archive": "Archive manquante",
+        "archive_not_found": "Fichier introuvable"
       },
       "filter": {
         "all": "Tous",
         "to_extract": "À extraire",
         "extracted": "Extrait",
         "structure_invalid": "Structure invalide",
-        "error": "Erreurs"
+        "error": "Erreurs",
+        "missing_archive": "Archive manquante",
+        "archive_not_found": "Fichier introuvable"
       },
       "error_extraction_failed": "Échec de l'extraction de l'archive",
       "error_structure_invalid": "Structure du mod invalide après extraction",
@@ -303,7 +309,20 @@
       "complete_title": "Extraction terminée",
       "complete_message": "{count} archive(s) extraite(s) avec succès",
       "complete_with_errors_title": "Extraction terminée avec des erreurs",
-      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)"
+      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} erreur(s)",
+      "no_archive": "Aucune archive",
+      "custom_archive_tooltip": "Archive personnalisée configurée",
+      "archive_not_found_title": "Archive introuvable",
+      "archive_not_found_text": "Le fichier '{filename}' est introuvable.",
+      "confirm_reextract_title": "Confirmer la ré-extraction",
+      "confirm_reextract_text": "Le mod '{mod_name}' est déjà extrait.\n\nVoulez-vous le ré-extraire ?\nCela supprimera les fichiers existants.",
+      "context": {
+        "extract": "Extraire",
+        "reextract": "Ré-extraire",
+        "change_archive": "Choisir une autre archive",
+        "restore_archive": "Restaurer l'archive par défaut",
+        "open_in_folder": "Ouvrir l'emplacement du fichier"
+      }
     },
     "backup": {
       "title": "Gestion des sauvegardes",
@@ -537,5 +556,9 @@
     "cache_build_failed": "Impossible de construire le cache des mods.\n\nVérifiez que les fichiers sont présents dans le dossier :\n{mods_dir}",
     "cache_load_failed": "Impossible de charger le cache des mods.\n\nLe cache est peut-être corrompu. Essayez de le reconstruire.",
     "uncaught_exception": "Une erreur inattendue s'est produite :\n\n{error}\n\nConsultez le fichier de log pour plus de détails."
+  },
+  "warning": {
+    "title": "Avertissement",
+    "data_update_failed_detail": "Échec de la mise à jour des données: {message}"
   }
 }

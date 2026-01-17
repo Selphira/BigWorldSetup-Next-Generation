@@ -2,14 +2,16 @@
   "name": "Road to Discovery for SoD",
   "version": "5.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/1030-road-to-discovery/",
-    "download": "https://github.com/Gibberlings3/Road_To_Discovery_for_SoD/releases/download/v5.0/road-to-discovery-for-sod-5.0.zip"
+    "homepage": "https://www.gibberlings3.net/files/file/1030-road-to-discovery/"
   },
-  "file": {
-    "filename": "road-to-discovery-for-sod-5.0.zip",
-    "size": 2867398,
-    "sha256": "6592437b490f915e6b2e67a8e147153aeb07f5c4235f003da0f767af4949e931"
-  },
+  "files": [
+    {
+      "filename": "road-to-discovery-for-sod-5.0.zip",
+      "size": 2867398,
+      "sha256": "6592437b490f915e6b2e67a8e147153aeb07f5c4235f003da0f767af4949e931",
+      "download": "https://github.com/Gibberlings3/Road_To_Discovery_for_SoD/releases/download/v5.0/road-to-discovery-for-sod-5.0.zip"
+    }
+  ],
   "games": ["bgee", "sod", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -75,10 +77,58 @@
         "70": "增加与联军官员的额外对话"
       }
     },
-    "de_DE": {"components": {"80": "SoD - Stat-basierte Beobachtungen und Quest-Optionen von \"Lauriel's Themed Tweaks Mod\"", "0": "Hauptkomponente: Tracking-System", "10": "Konsistenzaenderungen an Spieldialogen", "20": "Offiziere wissen Bescheid", "30": "HC erhaelt umfangreichere Antwortmoeglichkeiten", "40": "HC kann den Offizieren berichten", "50": "Zusaetzliche Offiziersreaktionen", "60": "Zusaetzliche Informationsquellen", "70": "Zusaetzliche Kommunikation mit Offizieren"}},
-    "it_IT": {"components": {"80": "SoD - Osservazioni basate sulle statistiche e opzioni per le missioni dalla mod Lauriel's Themed Tweaks", "0": "Componente principale: Sistema di Tracciamento", "10": "Modifiche di coerenza ai dialoghi di gioco", "20": "Gli Ufficiali sono Consapevoli", "30": "Dare al personaggio opzioni di risposta informate", "40": "Il personaggio puo riferire agli ufficiali", "50": "Aggiungi Reazioni degli Ufficiali", "60": "Punti informativi aggiuntivi", "70": "Aggiungi Dialoghi Aggiuntivi con gli ufficiali"}},
-    "es_ES": {"components": {"80": "Observaciones basadas en estadisticas y opciones de busqueda del mod \"Lauriel's Themed Tweaks\"", "0": "Componente principal: Sistema de seguimiento", "10": "Cambios de consistencia en los dialogos del juego", "20": "Los oficiales estan enterados", "30": "Dar opciones de respuesta informada al PJ", "40": "El PJ puede informar a los oficiales", "50": "Reacciones de los oficiales", "60": "Puntos de informacion adicionales", "70": "Comunicacion adicional con los oficiales"}},
-    "ru_RU": {"components": {"80": "SoD - Stat-based observations and quest options from Lauriel's Themed Tweaks Mod", "0": "Main Component: Tracking System", "10": "Consistency Changes to Game Dialogues", "20": "Officers Are Aware", "30": "Give PC Informed Reply Options", "40": "PC Can Tell the Officers", "50": "Add Officers Reactions", "60": "Additional Info Points", "70": "Add Additional Communication with Officers"}}
+    "de_DE": {
+      "components": {
+        "80": "SoD - Stat-basierte Beobachtungen und Quest-Optionen von \"Lauriel's Themed Tweaks Mod\"",
+        "0": "Hauptkomponente: Tracking-System",
+        "10": "Konsistenzaenderungen an Spieldialogen",
+        "20": "Offiziere wissen Bescheid",
+        "30": "HC erhaelt umfangreichere Antwortmoeglichkeiten",
+        "40": "HC kann den Offizieren berichten",
+        "50": "Zusaetzliche Offiziersreaktionen",
+        "60": "Zusaetzliche Informationsquellen",
+        "70": "Zusaetzliche Kommunikation mit Offizieren"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "80": "SoD - Osservazioni basate sulle statistiche e opzioni per le missioni dalla mod Lauriel's Themed Tweaks",
+        "0": "Componente principale: Sistema di Tracciamento",
+        "10": "Modifiche di coerenza ai dialoghi di gioco",
+        "20": "Gli Ufficiali sono Consapevoli",
+        "30": "Dare al personaggio opzioni di risposta informate",
+        "40": "Il personaggio puo riferire agli ufficiali",
+        "50": "Aggiungi Reazioni degli Ufficiali",
+        "60": "Punti informativi aggiuntivi",
+        "70": "Aggiungi Dialoghi Aggiuntivi con gli ufficiali"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "80": "Observaciones basadas en estadisticas y opciones de busqueda del mod \"Lauriel's Themed Tweaks\"",
+        "0": "Componente principal: Sistema de seguimiento",
+        "10": "Cambios de consistencia en los dialogos del juego",
+        "20": "Los oficiales estan enterados",
+        "30": "Dar opciones de respuesta informada al PJ",
+        "40": "El PJ puede informar a los oficiales",
+        "50": "Reacciones de los oficiales",
+        "60": "Puntos de informacion adicionales",
+        "70": "Comunicacion adicional con los oficiales"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "80": "SoD - Stat-based observations and quest options from Lauriel's Themed Tweaks Mod",
+        "0": "Main Component: Tracking System",
+        "10": "Consistency Changes to Game Dialogues",
+        "20": "Officers Are Aware",
+        "30": "Give PC Informed Reply Options",
+        "40": "PC Can Tell the Officers",
+        "50": "Add Officers Reactions",
+        "60": "Additional Info Points",
+        "70": "Add Additional Communication with Officers"
+      }
+    }
   },
   "tp2": "sodrtd",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "The Longer Road",
   "version": "2.0.7",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/LongerRoad",
-    "download": "https://github.com/Spellhold-Studios/LongerRoad/releases/download/2.0.7/the-longer-road-2.0.7.zip"
+    "homepage": "https://github.com/Spellhold-Studios/LongerRoad"
   },
-  "file": {
-    "filename": "the-longer-road-2.0.7.zip",
-    "size": 12660911,
-    "sha256": "3311f8d88be4f50929cfcd5b97296aa55f3882319d58eaaf2174503f425f57f6"
-  },
+  "files": [
+    {
+      "filename": "the-longer-road-2.0.7.zip",
+      "size": 12660911,
+      "sha256": "3311f8d88be4f50929cfcd5b97296aa55f3882319d58eaaf2174503f425f57f6",
+      "download": "https://github.com/Spellhold-Studios/LongerRoad/releases/download/2.0.7/the-longer-road-2.0.7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -41,9 +43,24 @@
     "zh_CN": {
       "description": "终于，艾瑞尼卡斯在《巴尔王座》一开始就成为一个可招募的角色！这个模组增加了任务、对话，以及一个同样令人惊叹的结局。注意，你的回答会极大地影响你和艾瑞尼卡斯的关系，并且将他纳入队伍时与他签订的协议也会带来负面影响。"
     },
-    "es_ES": {"components": {"0": "Longer Road", "1": "Restaura el portrait original de Irenious de SoA."}},
-    "pl_PL": {"components": {"0": "Longer Road", "1": "Przywrócenie oryginalnego portretu Irenicusa z SoA."}},
-    "ru_RU": {"components": {"0": "Longer Road", "1": "Restore Irenicus's original portrait from SoA."}}
+    "es_ES": {
+      "components": {
+        "0": "Longer Road",
+        "1": "Restaura el portrait original de Irenious de SoA."
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Longer Road",
+        "1": "Przywrócenie oryginalnego portretu Irenicusa z SoA."
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Longer Road",
+        "1": "Restore Irenicus's original portrait from SoA."
+      }
+    }
   },
   "tp2": "longerroad",
   "safe": 2,

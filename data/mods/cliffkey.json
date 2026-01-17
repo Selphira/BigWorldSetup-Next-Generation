@@ -2,14 +2,16 @@
   "name": "A Mod for the Orderly",
   "version": "7",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/702-a-mod-for-the-orderly/",
-    "download": "https://www.gibberlings3.net/files/file/702-a-mod-for-the-orderly/?do=download&r=4925&confirm=1&t=1"
+    "homepage": "https://www.gibberlings3.net/files/file/702-a-mod-for-the-orderly/"
   },
-  "file": {
-    "filename": "cliffkey-v7.zip",
-    "size": 1720188,
-    "sha256": "22ae04559006d010082f9c7266147df027b3705abea7734eef07f6a87a350562"
-  },
+  "files": [
+    {
+      "filename": "cliffkey-v7.zip",
+      "size": 1720188,
+      "sha256": "22ae04559006d010082f9c7266147df027b3705abea7734eef07f6a87a350562",
+      "download": "https://www.gibberlings3.net/files/file/702-a-mod-for-the-orderly/?do=download&r=4925&confirm=1&t=1"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -39,12 +41,30 @@
         "1": "Version 2 : l'acheter dans des magasins"
       }
     },
-    "ru_RU": {"components": {"choice_0": "A Mod for the Orderly - Add a Keyring to Faerun! See readme for more details about the choices below.", "0": "Nanoquest version", "1": "Consistency Plus version"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "A Mod for the Orderly - Add a Keyring to Faerun! See readme for more details about the choices below.",
+        "0": "Nanoquest version",
+        "1": "Consistency Plus version"
+      }
+    },
     "zh_CN": {
       "description": "这是一个为强迫症患者准备的模组，因为它通过一个有趣的小任务或从商人处（安装时可选）添加了一个钥匙扣。"
     },
-    "de_DE": {"components": {"choice_0": "A Mod for the Orderly - Ein Schluesselring fur Faerun! Bitte die Readme lesen um mehr ueber die nachfolgenden Einstellungen zu erfahren.", "0": "Nanoquest Version", "1": "Consistency Plus Version"}},
-    "es_ES": {"components": {"choice_0": "Un Mod para ser ordenado - Agrega un llavero a Faerun! Ver archivo Leame para obtener mas detalles acerca de las opciones.", "0": "Version Micro-Busqueda", "1": "Version de Consistencia Extra"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "A Mod for the Orderly - Ein Schluesselring fur Faerun! Bitte die Readme lesen um mehr ueber die nachfolgenden Einstellungen zu erfahren.",
+        "0": "Nanoquest Version",
+        "1": "Consistency Plus Version"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Un Mod para ser ordenado - Agrega un llavero a Faerun! Ver archivo Leame para obtener mas detalles acerca de las opciones.",
+        "0": "Version Micro-Busqueda",
+        "1": "Version de Consistencia Extra"
+      }
+    }
   },
   "tp2": "cliffkey",
   "safe": 2,

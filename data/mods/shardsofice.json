@@ -2,14 +2,29 @@
   "name": "Shards of Ice",
   "version": "8",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/other/shards/",
-    "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/shardsofice-v8.exe"
+    "homepage": "https://www.gibberlings3.net/mods/other/shards/"
   },
-  "file": {
-    "filename": "shardsofice-v8.exe",
-    "size": 2232887,
-    "sha256": "35cda8f37af3c3be18c38b63c90bdfc99c0d9204e42e36855670e12f0d829514"
-  },
+  "files": [
+    {
+      "filename": "lin-shardsofice-v8.zip",
+      "size": 144862,
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/lin-shardsofice-v8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-shardsofice-v8.zip",
+      "size": 1415166,
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/mac-shardsofice-v8.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "shardsofice-v8.exe",
+      "size": 2232887,
+      "sha256": "35cda8f37af3c3be18c38b63c90bdfc99c0d9204e42e36855670e12f0d829514",
+      "download": "https://github.com/Gibberlings3/Shards_of_Ice/releases/download/v8/shardsofice-v8.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -34,7 +49,13 @@
         "2": "You Could Restore the Summon Cow Spell, But Why?"
       }
     },
-    "ru_RU": {"components": {"0": "„аг¦Ў  ЇаҐўлиҐ ўбҐЈ®.", "1": "‹оЎЁ¬ п бв вгнвЄ  ЉЁ®Ў®.", "2": "‚л ¬®¦ҐвҐ ў®ббв ­®ўЁвм ў ЁЈаҐ § Є«Ё­ ­ЁҐ \"ЏаЁ§лў Љ®а®ўл\", ­® бв®Ёв «Ё?"}},
+    "ru_RU": {
+      "components": {
+        "0": "„аг¦Ў  ЇаҐўлиҐ ўбҐЈ®.",
+        "1": "‹оЎЁ¬ п бв вгнвЄ  ЉЁ®Ў®.",
+        "2": "‚л ¬®¦ҐвҐ ў®ббв ­®ўЁвм ў ЁЈаҐ § Є«Ё­ ­ЁҐ \"ЏаЁ§лў Љ®а®ўл\", ­® бв®Ёв «Ё?"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod comprend trois composants, dont deux quêtes inédites et fun. La première quête, intitulée `The Price of Friendship` (le prix de l'amitié), se déroule à Franc-Marché. Pour la déclencher, vous devrez vous reposer à l'auberge de la ville avec Imoen dans votre groupe. Votre demi-sœur disparaît au terme de la nuit, et il vous incombe de la retrouver. La deuxième quête, qui s'intitule `Some of my best friends are Slimes` (certains de mes meilleurs amis sont des vases), se déroule dans la forêt de Téthyr. Vous ferez là-bas une surprenante rencontre avec une femme qui semble beaucoup apprécier les vases, et qui vous confiera une quête. Le dernier composant s'appelle `You could restore the Summon Cow spell, but why ?` (vous pourriez restaurer le sort de Convocation de Vache, mais pour quoi faire ?). Il s'agit de l'ajout dans le jeu d'une version du sort de Convocation de Vache, disponible dans un nouveau magasin à Athkatla.",
       "components": {
@@ -43,7 +64,13 @@
         "2": "Restaurer la convocation de vache ? Mais pourquoi faire ?"
       }
     },
-    "it_IT": {"components": {"0": "Il Prezzo dell’Amicizia", "1": "Alcuni dei Miei Migliori Amici sono Fanghiglie", "2": "Ripristina l'Incantesimo Evocare Mucca"}},
+    "it_IT": {
+      "components": {
+        "0": "Il Prezzo dell’Amicizia",
+        "1": "Alcuni dei Miei Migliori Amici sono Fanghiglie",
+        "2": "Ripristina l'Incantesimo Evocare Mucca"
+      }
+    },
     "zh_CN": {
       "description": "这个模组包含三个组件，其中有两个新颖有趣的全新任务。第一个任务名为《友谊的代价》，发生在商贸集会。要触发它，您需要带着爱蒙在城市的旅店休息。您的妹妹在当晚消失了，您需要找到她。第二个任务名为《我最好的朋友之一是史莱姆》，发生在泰斯尔的森林里。您会在那里遇到一位非常喜爱史莱姆的女士，她会委托您一个任务。最后一个组件名为《你可以恢复召唤奶牛法术，但为什么呢？》。它是在游戏中添加了一个召唤奶牛法术的版本，可以在阿斯卡特拉的一个新商店中找到。",
       "components": {
@@ -52,7 +79,13 @@
         "2": "你可以回复召唤母牛魔法，但是为什么呢？"
       }
     },
-    "de_DE": {"components": {"0": "Der Preis der Freundschaft", "1": "Einige meiner besten Freunde sind Schleime", "2": "Sie könnten den Zauber Kuhbeschwörung wiederherstellen, aber warum?"}}
+    "de_DE": {
+      "components": {
+        "0": "Der Preis der Freundschaft",
+        "1": "Einige meiner besten Freunde sind Schleime",
+        "2": "Sie könnten den Zauber Kuhbeschwörung wiederherstellen, aber warum?"
+      }
+    }
   },
   "tp2": "shardsofice",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Druid Grove Area Visual Makeover",
   "version": "1.2",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/62981/mod-druid-grove-makeover",
-    "download": "https://github.com/thisisulb/DruidGroveMakeover/archive/refs/tags/V1.2.zip"
+    "homepage": "https://forums.beamdog.com/discussion/62981/mod-druid-grove-makeover"
   },
-  "file": {
-    "filename": "DruidGroveMakeover-1.2.zip",
-    "size": 23439594,
-    "sha256": "deb37e672dccfa4789a262cfc1b6401f7113426327e48417a1b054fa1e89d6fd"
-  },
+  "files": [
+    {
+      "filename": "DruidGroveMakeover-1.2.zip",
+      "size": 23439594,
+      "sha256": "deb37e672dccfa4789a262cfc1b6401f7113426327e48417a1b054fa1e89d6fd",
+      "download": "https://github.com/thisisulb/DruidGroveMakeover/archive/refs/tags/V1.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {

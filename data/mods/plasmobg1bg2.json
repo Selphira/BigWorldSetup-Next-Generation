@@ -2,14 +2,29 @@
   "name": "Plasmocat's BG NPC Portraits in BG2 Style",
   "version": "5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/872-plasmocats-bg-npc-portraits-in-bg2-style/",
-    "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/plasmobg1bg2-v5.exe"
+    "homepage": "https://www.gibberlings3.net/files/file/872-plasmocats-bg-npc-portraits-in-bg2-style/"
   },
-  "file": {
-    "filename": "plasmobg1bg2-v5.exe",
-    "size": 10555694,
-    "sha256": "1bfde863001df55f5ad2e3d9315e2895f1e2735de807f50b5d888ae5695da33d"
-  },
+  "files": [
+    {
+      "filename": "lin-plasmobg1bg2-v5.tar.gz",
+      "size": 9781989,
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/lin-plasmobg1bg2-v5.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-plasmobg1bg2-v5.tar.gz",
+      "size": 9781989,
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/osx-plasmobg1bg2-v5.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "plasmobg1bg2-v5.exe",
+      "size": 10555694,
+      "sha256": "1bfde863001df55f5ad2e3d9315e2895f1e2735de807f50b5d888ae5695da33d",
+      "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/plasmobg1bg2-v5.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["portrait"],
   "components": {
@@ -58,10 +73,13 @@
     },
     "de_DE": {
       "components": {
-        "1000": "Make all portraits available for use by the PC", "1001": "Plasmocats BG NPC Porträts im BG2 Stil",
-        "choice_0": "Plasmocats BG1 Imoen Porträts", "1002": "Plasmocats BG1 NPC Auswahl: Imoen #1, BG2 (Kragen)",
+        "1000": "Make all portraits available for use by the PC",
+        "1001": "Plasmocats BG NPC Porträts im BG2 Stil",
+        "choice_0": "Plasmocats BG1 Imoen Porträts",
+        "1002": "Plasmocats BG1 NPC Auswahl: Imoen #1, BG2 (Kragen)",
         "1003": "Plasmocats BG1 NPC Auswahl: Imoen #2, BG1 (Pink mit Halskette)",
-        "choice_1": "Plasmocats BG1 Xzar Porträts", "1004": "Plasmocats BG1 NPC Auswahl: Xzar #1, BG2 Farben (rot)",
+        "choice_1": "Plasmocats BG1 Xzar Porträts",
+        "1004": "Plasmocats BG1 NPC Auswahl: Xzar #1, BG2 Farben (rot)",
         "1005": "Plasmocats BG1 NPC Auswahl: Xzar #2, BG1 Farben (grün)"
       }
     },
@@ -81,9 +99,12 @@
       "components": {
         "1000": "Make all portraits available for use by the PC",
         "1001": "®àâà¥âë ¤«ï ¯¥àá®­ ¦¥© ¨§ BG1 ¢ áâ¨«¥ BG2,  ¢â®à Plasmocat",
-        "choice_0": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: ¬®¥­", "1002": " à¨ ­â 1: ¬®¥­ ¨§ BG2 (á ªàã¦¥¢ ¬¨)",
-        "1003": " à¨ ­â 2: ¬®¥­ ¨§ BG2 (à®§®¢ ï á ®¦¥à¥«ì¥¬)", "choice_1": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: § à",
-        "1004": " à¨ ­â 1: § à ¨§ BG2 (ªà á­ë©)", "1005": " à¨ ­â 2: § à ¨§ BG2 (§¥«¥­ë©)"
+        "choice_0": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: ¬®¥­",
+        "1002": " à¨ ­â 1: ¬®¥­ ¨§ BG2 (á ªàã¦¥¢ ¬¨)",
+        "1003": " à¨ ­â 2: ¬®¥­ ¨§ BG2 (à®§®¢ ï á ®¦¥à¥«ì¥¬)",
+        "choice_1": "ë¡®à ¯®àâà¥â  ¤«ï ¯¥àá®­ ¦  BG1: § à",
+        "1004": " à¨ ­â 1: § à ¨§ BG2 (ªà á­ë©)",
+        "1005": " à¨ ­â 2: § à ¨§ BG2 (§¥«¥­ë©)"
       }
     }
   },

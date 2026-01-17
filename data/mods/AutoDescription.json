@@ -2,14 +2,16 @@
   "name": "AutoDescription",
   "version": "0.9.37",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33168",
-    "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33168"
   },
-  "file": {
-    "filename": "win-AutoDescription-v0.9.37.zip",
-    "size": 2999654,
-    "sha256": "7e2920e6d93e5f077418ec5c3a6d71124335d496ed64d715063fcc6a3bbbc7d9"
-  },
+  "files": [
+    {
+      "filename": "win-AutoDescription-v0.9.37.zip",
+      "size": 2999654,
+      "sha256": "7e2920e6d93e5f077418ec5c3a6d71124335d496ed64d715063fcc6a3bbbc7d9",
+      "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["patch"],
   "components": {

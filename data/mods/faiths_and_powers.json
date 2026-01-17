@@ -2,14 +2,16 @@
   "name": "Faiths and Powers",
   "version": "0.91.4",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30792-unearthed-arcana-presents-faiths-powers-gods-of-the-realms/",
-    "download": "https://github.com/UnearthedArcana/Faiths_and_Powers/archive/refs/tags/0.91.4.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/30792-unearthed-arcana-presents-faiths-powers-gods-of-the-realms/"
   },
-  "file": {
-    "filename": "Faiths_and_Powers-0.91.4.zip",
-    "size": 73758995,
-    "sha256": "1f7453626d8f252dbfd83a094e09b01f1bc16450223750f2c1fdafe3c6fba237"
-  },
+  "files": [
+    {
+      "filename": "Faiths_and_Powers-0.91.4.zip",
+      "size": 73758995,
+      "sha256": "1f7453626d8f252dbfd83a094e09b01f1bc16450223750f2c1fdafe3c6fba237",
+      "download": "https://github.com/UnearthedArcana/Faiths_and_Powers/archive/refs/tags/0.91.4.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "gameplay"],
   "components": {

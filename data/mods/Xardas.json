@@ -2,14 +2,29 @@
   "name": "Xardas",
   "version": "2",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/1D_NPC_Xardas",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/win-Xardas.zip"
+    "homepage": "https://github.com/Plutonium-X/1D_NPC_Xardas"
   },
-  "file": {
-    "filename": "win-Xardas.zip",
-    "size": 1523808,
-    "sha256": "42ef02a1787f871586c1e27da0db3866aecaeaca92c2962386dfd641273884d3"
-  },
+  "files": [
+    {
+      "filename": "lin-Xardas.zip",
+      "size": 1351467,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/lin-Xardas.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Xardas.zip",
+      "size": 1578983,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/mac-Xardas.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Xardas.zip",
+      "size": 1523808,
+      "sha256": "42ef02a1787f871586c1e27da0db3866aecaeaca92c2962386dfd641273884d3",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/win-Xardas.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -32,7 +47,11 @@
     "zh_CN": {
       "description": "此模组在德阿尼斯堡入口处添加了死灵法师玛格·萨达斯。他装备着一个大法师戒指。\n力量 12，敏捷 18，体质 14，智力 20，智慧 19，魅力 17。"
     },
-    "pl_PL": {"components": {"0": "NPC Xardas"}}
+    "pl_PL": {
+      "components": {
+        "0": "NPC Xardas"
+      }
+    }
   },
   "tp2": "xardas",
   "safe": 2,

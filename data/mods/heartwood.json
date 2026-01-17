@@ -2,14 +2,16 @@
   "name": "Heart of the Wood",
   "version": "7.0.0",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Heart-of-the-Wood",
-    "download": "https://github.com/Spellhold-Studios/Heart-of-the-Wood/releases/download/v7.0.0/heart-of-the-wood-7.0.0.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Heart-of-the-Wood"
   },
-  "file": {
-    "filename": "heart-of-the-wood-7.0.0.zip",
-    "size": 4230995,
-    "sha256": "1dac7879a30de78d0924b3c7124bef0d29e0ec9e4815d06ec1a9ea0320c9a6f9"
-  },
+  "files": [
+    {
+      "filename": "heart-of-the-wood-7.0.0.zip",
+      "size": 4230995,
+      "sha256": "1dac7879a30de78d0924b3c7124bef0d29e0ec9e4815d06ec1a9ea0320c9a6f9",
+      "download": "https://github.com/Spellhold-Studios/Heart-of-the-Wood/releases/download/v7.0.0/heart-of-the-wood-7.0.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -29,8 +31,16 @@
         "0": "Heart of the Wood (WeiDU version)"
       }
     },
-    "ru_RU": {"components": {"0": "‘¥à¤æ¥ ‹¥á  (WeiDU-¢¥àá¨ï)"}},
-    "it_IT": {"components": {"0": "Il Cuore della Foresta (versione WeiDU)"}},
+    "ru_RU": {
+      "components": {
+        "0": "‘¥à¤æ¥ ‹¥á  (WeiDU-¢¥àá¨ï)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Il Cuore della Foresta (versione WeiDU)"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute une baguette druidique magique qui invoque de puissants monstres et créatures de la forêt (dont certains nouveaux issus du bestiaire monstrueux) pour aider votre druide au combat, bien que le nombre total de points de vie des créatures invoquées soit limité à 13. Cet objet peut être obtenu auprès de Kyland Lind (Bosquet des druides). Vous devez bien sûr le tuer au préalable pour l'obtenir.",
       "components": {
@@ -40,7 +50,11 @@
     "zh_CN": {
       "description": "这个模组添加了一根德鲁伊法杖，可以召唤强大的森林怪物和生物（其中一些来自怪物图鉴的新生物）来帮助你的德鲁伊战斗，尽管被召唤生物的总生命值限制在13。这个物品可以从德鲁伊圣所的凯兰·林德处获得。当然，你必须先杀死他才能得到它。"
     },
-    "de_DE": {"components": {"0": "Herz des Waldes (WeiDU version)"}}
+    "de_DE": {
+      "components": {
+        "0": "Herz des Waldes (WeiDU version)"
+      }
+    }
   },
   "tp2": "heartwood",
   "safe": 2,

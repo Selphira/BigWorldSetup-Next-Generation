@@ -2,14 +2,29 @@
   "name": "Shader Pack: Lighting Adjustments for the Enhanced Editions",
   "version": "3.2",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-LightingPackEE",
-    "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/win-LightingPack-v3.2.zip"
+    "homepage": "https://github.com/Argent77/A7-LightingPackEE"
   },
-  "file": {
-    "filename": "win-LightingPack-v3.2.zip",
-    "size": 2199048,
-    "sha256": "e57e3d90739eeaa8c9eea2a2163fad41598c16e1849ebb619b3e5b98c22f0897"
-  },
+  "files": [
+    {
+      "filename": "lin-LightingPack-v3.2.zip",
+      "size": 2026707,
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/lin-LightingPack-v3.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-LightingPack-v3.2.zip",
+      "size": 2254235,
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/mac-LightingPack-v3.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-LightingPack-v3.2.zip",
+      "size": 2199048,
+      "sha256": "e57e3d90739eeaa8c9eea2a2163fad41598c16e1849ebb619b3e5b98c22f0897",
+      "download": "https://github.com/Argent77/A7-LightingPackEE/releases/download/v3.2/win-LightingPack-v3.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
   "categories": ["cosm"],
   "components": {
@@ -115,8 +130,90 @@
     "zh_CN": {
       "description": "这个模组旨在解决博德之门增强版和博德之门2增强版中缺少亮度调节的问题。它提供了二十多种预设，您需要选择其中一种。只需重新安装模组即可选择另一个。该[模组readme](https://argent77.github.io/A7-LightingPackEE/index.html)还说明了安装后如何修改文件以根据自己的喜好调整设置。"
     },
-    "pl_PL": {"components": {"choice_0": "Pliki skryptowe shaderow dla kontroli oswietlenia", "0": "Neutralne ustawienia poziomu kontrastu, jaskrawosci i korekcji gamma", "1": "Nieznacznie zwiekszone poziomy kontrastu, jaskrawosci i korekcji gamma", "2": "Srednio zwiekszone poziomy kontrasu, jaskrawosci i korekcji gamma (zalecane)", "3": "Znacznie zwiekszone poziomy kontrastu, jaskrawosci i korekcji gamma", "4": "Nieznacznie zmniejszone poziomy kontrastu, jaskrawosci i korekcji gamma", "5": "Srednio zmniejszone poziomy kontrastu, jaskrawosci i korekcji gamma", "6": "Nieznacznie zwiekszony poziom kontrastu", "7": "Srednio zwiekszony poziom kontrastu", "8": "Znacznie zwiekszony poziom kontrastu", "9": "Nieznacznie zmniejszony poziom kontrastu", "10": "Srednio zmniejszony poziom kontrastu", "11": "Nieznacznie zwiekszony poziom jaskrawosci", "12": "Srednio zwiekszony poziom jaskrawosci", "13": "Znacznie zwiekszony poziom jaskrawoscii", "14": "Nieznacznie zmniejszony poziom jaskrawosci", "15": "Srednio zmniejszony poziom jaskrawosci", "16": "Nieznacznie zwiekszony poziom korekcji gamma", "17": "Srednio zwiekszony poziom korekcji gamma", "18": "Znacznie zwiekszony poziom korekcji gamma", "19": "Nieznacznie zmniejszony poziom korekcji gamma", "20": "Srednio zmniejszony poziom korekcji gamma", "21": "Wprowadz recznie wartosci oswietlenia", "choice_1": "Modyfikacja temperatury barwowej", "100": "Zastosowano ustawienia wstepne \"Arktyczny blekit\" (15,000 kelwinow)", "101": "Zastosowano ustawienia wstepne \"Pochmurne niebo\" (7,500 kelwinow)", "102": "Zastosowano ustawienia wstepne \"Swiatlo dzienne (neutralna)\" (6,500 kelwinow)", "103": "Zastosowano ustawienia wstepne \"Swiatlo sloneczne\" (5,500 kelwinow)", "104": "Zastosowano ustawienia wstepne \"Swiatlo ksiezyca\" (4,200 kelwinow)", "105": "Zastosowano ustawienia wstepne \"Zachod slonca\" (3,500 kelwinow)", "106": "Zastosowano ustawienia wstepne \"Zarowka\" (2,800 kelwinow)", "107": "Zastosowano ustawienia wstepne \"Swieca\" (1,900 kelwinow)", "108": "Wprowadz recznie wartosci temperatury barwowej", "choice_2": "Ustawienia zaawansowane: modyfikowanie barwy/nasycenia/jasnosci", "200": "Wprowadz recznie wartosc odpowiadajaca danej barwie", "201": "Wprowadz recznie wartosc poziomu nasycenia", "202": "Wprowadz recznie wartosc poziomu jasnosci", "203": "Wprowadz wartosci odpowiadajaca danej barwie, poziomowi nasycenia i jasnosci"}},
-    "de_DE": {"components": {"choice_0": "Shaderskripte fuer Helligkeitseinstellungen", "0": "Neutrale Werte fuer Kontrast, Helligkeit und Gamma", "1": "Leicht erhoehte Werte fuer Kontrast, Helligkeit und Gamma", "2": "Maessig erhoehte Werte fuer Kontrast, Helligkeit und Gamma (empfohlen)", "3": "Stark erhoehte Werte fuer Kontrast, Helligkeit und Gamma", "4": "Leicht verminderte Werte fuer Kontrast, Helligkeit und Gamma", "5": "Maessig verminderte Werte fuer Kontrast, Helligkeit und Gamma", "6": "Leicht erhoehter Kontrast", "7": "Maessig erhoehter Kontrast", "8": "Stark erhoehter Kontrast", "9": "Leicht verminderter Kontrast", "10": "Maessig verminderter Kontrast", "11": "Leicht erhoehte Helligkeit", "12": "Maessig erhoehte Helligkeit", "13": "Stark erhoehte Helligkeit", "14": "Leicht verminderte Helligkeit", "15": "Maessig verminderte Helligkeit", "16": "Leicht erhoehter Gammawert", "17": "Maessig erhoehter Gammawert", "18": "Stark erhoehter Gammawert", "19": "Leicht verminderter Gammawert", "20": "Maessig verminderter Gammawert", "21": "Helligkeitswerte manuell eingeben", "choice_1": "Farbtemperatur aendern", "100": "Vorgabe \"Arktisches Blau\" anwenden (15.000 Kelvin)", "101": "Vorgabe \"Bedeckter Himmel\" anwenden (7.500 Kelvin)", "102": "Vorgabe \"Tageslicht (neutral)\" anwenden (6.500 Kelvin)", "103": "Vorgabe \"Sonnenlicht\" anwenden (5.500 Kelvin)", "104": "Vorgabe \"Mondlicht\" anwenden (4,200 Kelvin)", "105": "Vorgabe \"Sonnenuntergang\" anwenden (3.500 Kelvin)", "106": "Vorgabe \"Gluehlampe\" anwenden (2.800 Kelvin)", "107": "Vorgabe \"Kerzenlicht\" anwenden (1.900 Kelvin)", "108": "Farbtemperatur manuell eingeben", "choice_2": "Erweiterte Einstellungen: Farbwert/Saettigung/Hellwert aendern", "200": "Farbwert manuell eingeben", "201": "Saettigung manuell eingeben", "202": "Hellwert manuell eingeben", "203": "Werte fuer Farbwert, Saettigung, Hellwert manuell eingeben"}}
+    "pl_PL": {
+      "components": {
+        "choice_0": "Pliki skryptowe shaderow dla kontroli oswietlenia",
+        "0": "Neutralne ustawienia poziomu kontrastu, jaskrawosci i korekcji gamma",
+        "1": "Nieznacznie zwiekszone poziomy kontrastu, jaskrawosci i korekcji gamma",
+        "2": "Srednio zwiekszone poziomy kontrasu, jaskrawosci i korekcji gamma (zalecane)",
+        "3": "Znacznie zwiekszone poziomy kontrastu, jaskrawosci i korekcji gamma",
+        "4": "Nieznacznie zmniejszone poziomy kontrastu, jaskrawosci i korekcji gamma",
+        "5": "Srednio zmniejszone poziomy kontrastu, jaskrawosci i korekcji gamma",
+        "6": "Nieznacznie zwiekszony poziom kontrastu",
+        "7": "Srednio zwiekszony poziom kontrastu",
+        "8": "Znacznie zwiekszony poziom kontrastu",
+        "9": "Nieznacznie zmniejszony poziom kontrastu",
+        "10": "Srednio zmniejszony poziom kontrastu",
+        "11": "Nieznacznie zwiekszony poziom jaskrawosci",
+        "12": "Srednio zwiekszony poziom jaskrawosci",
+        "13": "Znacznie zwiekszony poziom jaskrawoscii",
+        "14": "Nieznacznie zmniejszony poziom jaskrawosci",
+        "15": "Srednio zmniejszony poziom jaskrawosci",
+        "16": "Nieznacznie zwiekszony poziom korekcji gamma",
+        "17": "Srednio zwiekszony poziom korekcji gamma",
+        "18": "Znacznie zwiekszony poziom korekcji gamma",
+        "19": "Nieznacznie zmniejszony poziom korekcji gamma",
+        "20": "Srednio zmniejszony poziom korekcji gamma",
+        "21": "Wprowadz recznie wartosci oswietlenia",
+        "choice_1": "Modyfikacja temperatury barwowej",
+        "100": "Zastosowano ustawienia wstepne \"Arktyczny blekit\" (15,000 kelwinow)",
+        "101": "Zastosowano ustawienia wstepne \"Pochmurne niebo\" (7,500 kelwinow)",
+        "102": "Zastosowano ustawienia wstepne \"Swiatlo dzienne (neutralna)\" (6,500 kelwinow)",
+        "103": "Zastosowano ustawienia wstepne \"Swiatlo sloneczne\" (5,500 kelwinow)",
+        "104": "Zastosowano ustawienia wstepne \"Swiatlo ksiezyca\" (4,200 kelwinow)",
+        "105": "Zastosowano ustawienia wstepne \"Zachod slonca\" (3,500 kelwinow)",
+        "106": "Zastosowano ustawienia wstepne \"Zarowka\" (2,800 kelwinow)",
+        "107": "Zastosowano ustawienia wstepne \"Swieca\" (1,900 kelwinow)",
+        "108": "Wprowadz recznie wartosci temperatury barwowej",
+        "choice_2": "Ustawienia zaawansowane: modyfikowanie barwy/nasycenia/jasnosci",
+        "200": "Wprowadz recznie wartosc odpowiadajaca danej barwie",
+        "201": "Wprowadz recznie wartosc poziomu nasycenia",
+        "202": "Wprowadz recznie wartosc poziomu jasnosci",
+        "203": "Wprowadz wartosci odpowiadajaca danej barwie, poziomowi nasycenia i jasnosci"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Shaderskripte fuer Helligkeitseinstellungen",
+        "0": "Neutrale Werte fuer Kontrast, Helligkeit und Gamma",
+        "1": "Leicht erhoehte Werte fuer Kontrast, Helligkeit und Gamma",
+        "2": "Maessig erhoehte Werte fuer Kontrast, Helligkeit und Gamma (empfohlen)",
+        "3": "Stark erhoehte Werte fuer Kontrast, Helligkeit und Gamma",
+        "4": "Leicht verminderte Werte fuer Kontrast, Helligkeit und Gamma",
+        "5": "Maessig verminderte Werte fuer Kontrast, Helligkeit und Gamma",
+        "6": "Leicht erhoehter Kontrast",
+        "7": "Maessig erhoehter Kontrast",
+        "8": "Stark erhoehter Kontrast",
+        "9": "Leicht verminderter Kontrast",
+        "10": "Maessig verminderter Kontrast",
+        "11": "Leicht erhoehte Helligkeit",
+        "12": "Maessig erhoehte Helligkeit",
+        "13": "Stark erhoehte Helligkeit",
+        "14": "Leicht verminderte Helligkeit",
+        "15": "Maessig verminderte Helligkeit",
+        "16": "Leicht erhoehter Gammawert",
+        "17": "Maessig erhoehter Gammawert",
+        "18": "Stark erhoehter Gammawert",
+        "19": "Leicht verminderter Gammawert",
+        "20": "Maessig verminderter Gammawert",
+        "21": "Helligkeitswerte manuell eingeben",
+        "choice_1": "Farbtemperatur aendern",
+        "100": "Vorgabe \"Arktisches Blau\" anwenden (15.000 Kelvin)",
+        "101": "Vorgabe \"Bedeckter Himmel\" anwenden (7.500 Kelvin)",
+        "102": "Vorgabe \"Tageslicht (neutral)\" anwenden (6.500 Kelvin)",
+        "103": "Vorgabe \"Sonnenlicht\" anwenden (5.500 Kelvin)",
+        "104": "Vorgabe \"Mondlicht\" anwenden (4,200 Kelvin)",
+        "105": "Vorgabe \"Sonnenuntergang\" anwenden (3.500 Kelvin)",
+        "106": "Vorgabe \"Gluehlampe\" anwenden (2.800 Kelvin)",
+        "107": "Vorgabe \"Kerzenlicht\" anwenden (1.900 Kelvin)",
+        "108": "Farbtemperatur manuell eingeben",
+        "choice_2": "Erweiterte Einstellungen: Farbwert/Saettigung/Hellwert aendern",
+        "200": "Farbwert manuell eingeben",
+        "201": "Saettigung manuell eingeben",
+        "202": "Hellwert manuell eingeben",
+        "203": "Werte fuer Farbwert, Saettigung, Hellwert manuell eingeben"
+      }
+    }
   },
   "tp2": "lightingpack",
   "safe": 2,

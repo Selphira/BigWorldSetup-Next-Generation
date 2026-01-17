@@ -2,14 +2,16 @@
   "name": "Sentrizeal's Alternate Avatar Pack",
   "version": "1.4",
   "links": {
-    "homepage": "http://www.sentrizeal.com/pst_7.htm",
-    "download": "Manual"
+    "homepage": "http://www.sentrizeal.com/pst_7.htm"
   },
-  "file": {
-    "filename": "SentrizealAvatarPack.zip",
-    "size": 9824986,
-    "sha256": "9b4fc30354bbde977fb27f7eeaf5e1a4409067e2c323d6b002c9e4a49198cfc8"
-  },
+  "files": [
+    {
+      "filename": "SentrizealAvatarPack.zip",
+      "size": 9824986,
+      "sha256": "9b4fc30354bbde977fb27f7eeaf5e1a4409067e2c323d6b002c9e4a49198cfc8",
+      "download": "Manual"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
   "categories": ["cosm"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Wizard Slayer Rebalancing",
   "version": "1.14",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/49205-wizard-slayer-rebalancing-v102/",
-    "download": "http://www.shsforums.net/files/download/960-wizard-slayer-rebalancing-v113-windows-version/"
+    "homepage": "https://www.shsforums.net/topic/49205-wizard-slayer-rebalancing-v102/"
   },
-  "file": {
-    "filename": "wsr_v114.exe",
-    "size": 1269121,
-    "sha256": "a8be0be674b7ac1c3075c12703cc2f653889843035edd4942866d78355ac4865"
-  },
+  "files": [
+    {
+      "filename": "wsr_v114.exe",
+      "size": 1269121,
+      "sha256": "a8be0be674b7ac1c3075c12703cc2f653889843035edd4942866d78355ac4865",
+      "download": "https://www.shsforums.net/files/download/960-wizard-slayer-rebalancing-v113-windows-version/"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -43,8 +45,11 @@
     },
     "ru_RU": {
       "components": {
-        "100": "Wizard Slayer kit revision", "200": "Wizard Slayer High Level Ability revision",
-        "choice_0": "Revised Wizard Slayer item restrictions", "301": "Minimal changes", "302": "Moderate changes",
+        "100": "Wizard Slayer kit revision",
+        "200": "Wizard Slayer High Level Ability revision",
+        "choice_0": "Revised Wizard Slayer item restrictions",
+        "301": "Minimal changes",
+        "302": "Moderate changes",
         "999": "BG2-style icons for WSR content"
       }
     },
@@ -63,8 +68,10 @@
       "components": {
         "100": "Revisione sottoclasse Ammazzastregoni",
         "200": "Revisione Abilita' di Alto Livello dell'Ammazzastregoni",
-        "choice_0": "Revisione Restrizione Oggetti per l'Ammazzastregoni", "301": "Cambiamenti minimi",
-        "302": "Cambiamenti moderati", "999": "Icone in stile BG2 per i contenuti del mod"
+        "choice_0": "Revisione Restrizione Oggetti per l'Ammazzastregoni",
+        "301": "Cambiamenti minimi",
+        "302": "Cambiamenti moderati",
+        "999": "Icone in stile BG2 per i contenuti del mod"
       }
     },
     "zh_CN": {
@@ -82,29 +89,39 @@
       "components": {
         "100": "Magierkiller - Klassenüberarbeitung",
         "200": "Überarbeitung der Hochstufigen Fertigkeiten für Magierkiller",
-        "choice_0": "Überarbeiteter Magierkiller - Gegenstandsbeschränkungen", "301": "Minimale Veränderungen",
-        "302": "Moderate Änderungen", "999": "WSR Icons im BG2 Stil"
+        "choice_0": "Überarbeiteter Magierkiller - Gegenstandsbeschränkungen",
+        "301": "Minimale Veränderungen",
+        "302": "Moderate Änderungen",
+        "999": "WSR Icons im BG2 Stil"
       }
     },
     "es_ES": {
       "components": {
         "100": "Revisi¢n del Kit de Asesino de Magos",
         "200": "Revisi¢n de Habilidades de Alto Nivel del Asesino de Magos",
-        "choice_0": "Revisi¢n de las restricciones de los objetos para los Asesinos de Magos", "301": "Cambios m¡nimos",
-        "302": "Cambios moderados", "999": "Estilo de iconos del BG2 para el contenido de WSR"
+        "choice_0": "Revisi¢n de las restricciones de los objetos para los Asesinos de Magos",
+        "301": "Cambios m¡nimos",
+        "302": "Cambios moderados",
+        "999": "Estilo de iconos del BG2 para el contenido de WSR"
       }
     },
     "pl_PL": {
       "components": {
-        "100": "Zmiany w podklasie zabojcy magow", "200": "Zmiany zdolnosci wysokiego poziomu zabojcy magow",
-        "choice_0": "Zmiany w ograniczeniach uzywania przedmiotow dla zabojcy magow", "301": "Minimalne zmiany",
-        "302": "Umiarkowane zmiany", "999": "Styl ikon z BG2 dla zawartosci ZZM"
+        "100": "Zmiany w podklasie zabojcy magow",
+        "200": "Zmiany zdolnosci wysokiego poziomu zabojcy magow",
+        "choice_0": "Zmiany w ograniczeniach uzywania przedmiotow dla zabojcy magow",
+        "301": "Minimalne zmiany",
+        "302": "Umiarkowane zmiany",
+        "999": "Styl ikon z BG2 dla zawartosci ZZM"
       }
     },
     "zh_TW": {
       "components": {
-        "100": "Wizard Slayer kit revision", "200": "Wizard Slayer High Level Ability revision",
-        "choice_0": "Revised Wizard Slayer item restrictions", "301": "Minimal changes", "302": "Moderate changes",
+        "100": "Wizard Slayer kit revision",
+        "200": "Wizard Slayer High Level Ability revision",
+        "choice_0": "Revised Wizard Slayer item restrictions",
+        "301": "Minimal changes",
+        "302": "Moderate changes",
         "999": "BG2-style icons for WSR content"
       }
     }

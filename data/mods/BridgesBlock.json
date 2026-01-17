@@ -2,14 +2,16 @@
   "name": "Bridge's Block",
   "version": "2.01",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/bridges-block/",
-    "download": "Manual"
+    "homepage": "https://downloads.weaselmods.net/download/bridges-block/"
   },
-  "file": {
-    "filename": "BridgesBlock-v2.01.zip",
-    "size": 4824110,
-    "sha256": "94d4b3573cc6a1680420e94635941e915f3b46ea26a5b79ae5ac90d05037fc35"
-  },
+  "files": [
+    {
+      "filename": "BridgesBlock-v2.01.zip",
+      "size": 4824110,
+      "sha256": "94d4b3573cc6a1680420e94635941e915f3b46ea26a5b79ae5ac90d05037fc35",
+      "download": "Manual"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -45,12 +47,36 @@
         "0": "阿斯卡特拉新地区：大桥街区"
       }
     },
-    "pl_PL": {"components": {"0": "Athkatlan Grounds: The Bridge's Block"}},
-    "de_DE": {"components": {"0": "Athkatlan Grounds: Der Brueckenblock"}},
-    "ru_RU": {"components": {"0": "Çåìëè Àòêàòëû, Æèëèùå íà Ìîñòó."}},
-    "ko_KR": {"components": {"0": "Athkatlan Grounds: The Bridge's Block"}},
-    "it_IT": {"components": {"0": "Luoghi di Athkatla: l'Isolato del Ponte"}},
-    "es_ES": {"components": {"0": "Athkatlan Terrenos: El Bloque del Puente"}}
+    "pl_PL": {
+      "components": {
+        "0": "Athkatlan Grounds: The Bridge's Block"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Athkatlan Grounds: Der Brueckenblock"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Çåìëè Àòêàòëû, Æèëèùå íà Ìîñòó."
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "0": "Athkatlan Grounds: The Bridge's Block"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Luoghi di Athkatla: l'Isolato del Ponte"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Athkatlan Terrenos: El Bloque del Puente"
+      }
+    }
   },
   "tp2": "bridgesblock",
   "safe": 2,

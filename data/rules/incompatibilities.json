@@ -4,7 +4,10 @@
       "source": ["5E_spellcasting:100"],
       "target": ["5E_spellcasting:300"],
       "severity": "error",
-      "description": "Conflits internes de 5E_spellcasting"
+      "translations": {
+        "en_US": "Internal conflict",
+        "fr_FR": "Conflit interne"
+      }
     }, {
       "source": ["A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:101"],
       "target": [

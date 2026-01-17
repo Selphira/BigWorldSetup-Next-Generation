@@ -2,14 +2,16 @@
   "name": "Might & Guile",
   "version": "5.8.8",
   "links": {
-    "homepage": "https://github.com/UnearthedArcana/Might_and_Guile",
-    "download": "https://github.com/UnearthedArcana/Might_and_Guile/archive/refs/tags/5.8.8.zip"
+    "homepage": "https://github.com/UnearthedArcana/Might_and_Guile"
   },
-  "file": {
-    "filename": "Might_and_Guile-5.8.8.zip",
-    "size": 5061992,
-    "sha256": "1cec66d08c94a5ef2c45436b4e28e91d61b0d6c99c03cca5da9d56499212750f"
-  },
+  "files": [
+    {
+      "filename": "Might_and_Guile-5.8.8.zip",
+      "size": 5061992,
+      "sha256": "1cec66d08c94a5ef2c45436b4e28e91d61b0d6c99c03cca5da9d56499212750f",
+      "download": "https://github.com/UnearthedArcana/Might_and_Guile/archive/refs/tags/5.8.8.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit", "gameplay"],
   "components": {

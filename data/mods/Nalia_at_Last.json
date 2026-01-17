@@ -2,14 +2,16 @@
   "name": "Nalia At Last",
   "version": "1.14",
   "links": {
-    "homepage": "https://github.com/Skitia/Nalia_At_Last",
-    "download": "https://github.com/Skitia/Nalia_At_Last/archive/refs/tags/v1.14.zip"
+    "homepage": "https://github.com/Skitia/Nalia_At_Last"
   },
-  "file": {
-    "filename": "Nalia_At_Last-1.14.zip",
-    "size": 3506492,
-    "sha256": "efc938e84dc31524bcd470fdd30389c6628260ce09e9d672f638fb161f67f590"
-  },
+  "files": [
+    {
+      "filename": "Nalia_At_Last-1.14.zip",
+      "size": 3506492,
+      "sha256": "efc938e84dc31524bcd470fdd30389c6628260ce09e9d672f638fb161f67f590",
+      "download": "https://github.com/Skitia/Nalia_At_Last/archive/refs/tags/v1.14.zip"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {

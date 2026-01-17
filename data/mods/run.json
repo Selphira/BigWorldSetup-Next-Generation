@@ -2,14 +2,29 @@
   "name": "Chantelame runique",
   "version": "3",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/KIT_Runic",
-    "download": "https://github.com/Plutonium-X/KIT_Runic/releases/download/v3/win-Run.zip"
+    "homepage": "https://github.com/Plutonium-X/KIT_Runic"
   },
-  "file": {
-    "filename": "win-Run.zip",
-    "size": 1282528,
-    "sha256": "fcfbf10212ef8b8a8e76ff76969a51101167f2bd8f2b5d73468261816ca2fc9c"
-  },
+  "files": [
+    {
+      "filename": "lin-Run.zip",
+      "size": 1110187,
+      "download": "https://github.com/Plutonium-X/KIT_Runic/releases/download/v3/lin-Run.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Run.zip",
+      "size": 1337697,
+      "download": "https://github.com/Plutonium-X/KIT_Runic/releases/download/v3/mac-Run.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Run.zip",
+      "size": 1282528,
+      "sha256": "fcfbf10212ef8b8a8e76ff76969a51101167f2bd8f2b5d73468261816ca2fc9c",
+      "download": "https://github.com/Plutonium-X/KIT_Runic/releases/download/v3/win-Run.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -36,7 +51,11 @@
     "zh_CN": {
       "description": "Runiczny Pieśniarz Klingi，真名，此模组安装了一个名为“符文剑歌者”的战士宗派，仅限精灵族战士。随着等级提升，他获得施展法术位的能力。"
     },
-    "pl_PL": {"components": {"0": "Runiczny Pieœniarz"}}
+    "pl_PL": {
+      "components": {
+        "0": "Runiczny Pieœniarz"
+      }
+    }
   },
   "tp2": "run",
   "safe": 2,

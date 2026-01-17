@@ -2,14 +2,16 @@
   "name": "SubtleD's Stat Overhauls",
   "version": "1.8",
   "links": {
-    "homepage": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls",
-    "download": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls/archive/refs/tags/1.8.zip"
+    "homepage": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls"
   },
-  "file": {
-    "filename": "SubtleD_Stat_Overhauls-1.8.zip",
-    "size": 1692177,
-    "sha256": "c867d1c81a17fa478e002903bfd1829eaf2c343e555018f021f789f5f73b22d7"
-  },
+  "files": [
+    {
+      "filename": "SubtleD_Stat_Overhauls-1.8.zip",
+      "size": 1692177,
+      "sha256": "c867d1c81a17fa478e002903bfd1829eaf2c343e555018f021f789f5f73b22d7",
+      "download": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls/archive/refs/tags/1.8.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -110,18 +112,37 @@
     },
     "pl_PL": {
       "components": {
-        "100": "Rewizja premii do statystyk", "110": "Stat-based Bonus Spells",
-        "choice_0": "Stat-based Bonus Spells for 5E Casters", "121": "bonuses for memorization slots AND casting slots",
-        "122": "bonuses only for casting slots", "130": "Pelna Sila tylko dla broni oburecznych",
-        "140": "Plinkification", "choice_1": "Rewizja Kostek Wytrzymalosci",
-        "151": "Hojne (ponadprzecietne) punkty zycia", "152": "Hardcorowe (blizsze usrednionym) punkty zycia",
-        "153": "Zredukowane punkty zycia", "160": "Rewizja rzutow obronnych", "180": "Lower Dual-Class Requirements",
-        "200": "Ujednolicone tabele PD", "choice_2": "Mniejsza ilosc PD za walke", "211": "zabicie daje 1/8 PD",
-        "212": "zabicie daje 1/4 PD", "213": "zabicie daje połowę PD", "choice_3": "Choose SoD Starting XP",
-        "221": "65,000", "222": "90,000", "223": "125,000", "224": "161,000", "choice_4": "Choose SoA Starting XP",
-        "231": "90,000", "232": "161,000", "233": "240,000", "234": "400,000",
+        "100": "Rewizja premii do statystyk",
+        "110": "Stat-based Bonus Spells",
+        "choice_0": "Stat-based Bonus Spells for 5E Casters",
+        "121": "bonuses for memorization slots AND casting slots",
+        "122": "bonuses only for casting slots",
+        "130": "Pelna Sila tylko dla broni oburecznych",
+        "140": "Plinkification",
+        "choice_1": "Rewizja Kostek Wytrzymalosci",
+        "151": "Hojne (ponadprzecietne) punkty zycia",
+        "152": "Hardcorowe (blizsze usrednionym) punkty zycia",
+        "153": "Zredukowane punkty zycia",
+        "160": "Rewizja rzutow obronnych",
+        "180": "Lower Dual-Class Requirements",
+        "200": "Ujednolicone tabele PD",
+        "choice_2": "Mniejsza ilosc PD za walke",
+        "211": "zabicie daje 1/8 PD",
+        "212": "zabicie daje 1/4 PD",
+        "213": "zabicie daje połowę PD",
+        "choice_3": "Choose SoD Starting XP",
+        "221": "65,000",
+        "222": "90,000",
+        "223": "125,000",
+        "224": "161,000",
+        "choice_4": "Choose SoA Starting XP",
+        "231": "90,000",
+        "232": "161,000",
+        "233": "240,000",
+        "234": "400,000",
         "choice_5": "Rewizja odpornosci na magie (zainstaluj po modyfikacji aTweaks!)",
-        "251": "Replace Magic Resistance with Other Effects", "252": "Reduce Magic Resistance"
+        "251": "Replace Magic Resistance with Other Effects",
+        "252": "Reduce Magic Resistance"
       }
     }
   },

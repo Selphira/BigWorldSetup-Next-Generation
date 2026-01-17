@@ -2,14 +2,29 @@
   "name": "The Calling",
   "version": "5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/999-the-calling/",
-    "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/thecalling-v5.exe"
+    "homepage": "https://www.gibberlings3.net/files/file/999-the-calling/"
   },
-  "file": {
-    "filename": "thecalling-v5.exe",
-    "size": 2745620,
-    "sha256": "a20fdaf226273fefcdfc6650c7e3fa021fdb12efc69e411b5894573242364b30"
-  },
+  "files": [
+    {
+      "filename": "lin-thecalling-v5.zip",
+      "size": 663414,
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/lin-thecalling-v5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-thecalling-v5.zip",
+      "size": 1933713,
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/mac-thecalling-v5.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "thecalling-v5.exe",
+      "size": 2745620,
+      "sha256": "a20fdaf226273fefcdfc6650c7e3fa021fdb12efc69e411b5894573242364b30",
+      "download": "https://github.com/Gibberlings3/The_Calling/releases/download/v5/thecalling-v5.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgt", "bgee", "eet", "tutu"],
   "categories": ["quest"],
   "components": {
@@ -54,13 +69,55 @@
         "40": "珍奇的物品"
       }
     },
-    "cs_CZ": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Sada exotickych predmetu"}},
-    "de_DE": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Exotische Gegenstaende"}},
-    "it_IT": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Pacchetto \"Oggetti esotici\""}},
-    "ko_KR": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "색다른 아이템 팩"}},
-    "pl_PL": {"components": {"0": "Misja", "20": "Pokojowe rozwiazanie przygody na Wyspie Baldurana", "40": "Zestaw egzotycznych przedmiotow"}},
-    "ru_RU": {"components": {"0": "The Calling", "20": "Peaceful Werewolf Isle Resolution", "40": "Exotic Item Pack"}},
-    "es_ES": {"components": {"0": "The Calling", "20": "Resolución pacífica de la Isla de los Hombres Lobo", "40": "Paquete de objetos exóticos"}}
+    "cs_CZ": {
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "Sada exotickych predmetu"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "Exotische Gegenstaende"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "Pacchetto \"Oggetti esotici\""
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "색다른 아이템 팩"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Misja",
+        "20": "Pokojowe rozwiazanie przygody na Wyspie Baldurana",
+        "40": "Zestaw egzotycznych przedmiotow"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "The Calling",
+        "20": "Peaceful Werewolf Isle Resolution",
+        "40": "Exotic Item Pack"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "The Calling",
+        "20": "Resolución pacífica de la Isla de los Hombres Lobo",
+        "40": "Paquete de objetos exóticos"
+      }
+    }
   },
   "tp2": "thecalling",
   "safe": 2,

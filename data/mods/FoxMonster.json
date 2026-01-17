@@ -2,14 +2,31 @@
   "name": "Moddie the vixen",
   "version": "1.4.2",
   "links": {
-    "homepage": "https://forums.pocketplane.net/index.php?topic=24075.msg301127#msg301127",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Moddie/releases/download/v1.4.2/win-FoxMonster-v1.4.zip"
+    "homepage": "https://forums.pocketplane.net/index.php?topic=24075.msg301127#msg301127"
   },
-  "file": {
-    "filename": "win-FoxMonster-v1.4.zip",
-    "size": 8372099,
-    "sha256": "5ba4d997d78242f32c64e6ddb1b3be739a9e4b1f12930dd1d47bc06f66b69aa4"
-  },
+  "files": [
+    {
+      "filename": "lin-FoxMonster-v1.4.zip",
+      "size": 8199758,
+      "sha256": "edeb73e8eeda1500fc92baaf5d047711a8b2d73f4c46c7eb815ef082852189a8",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Moddie/releases/download/v1.4.2/lin-FoxMonster-v1.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-FoxMonster-v1.4.zip",
+      "size": 8427282,
+      "sha256": "385abe0156839c3512d3f33d3f8759dc5643efe24f19c1d6fb3782e4d9ba9cb4",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Moddie/releases/download/v1.4.2/mac-FoxMonster-v1.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-FoxMonster-v1.4.zip",
+      "size": 8372099,
+      "sha256": "5ba4d997d78242f32c64e6ddb1b3be739a9e4b1f12930dd1d47bc06f66b69aa4",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Moddie/releases/download/v1.4.2/win-FoxMonster-v1.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -37,8 +54,16 @@
     "zh_CN": {
       "description": "这是艾瑞尼卡斯实验的产物，这只雌狐狸痴迷于食物。它可以变形为狼人或高级狼人，其属性也会随之改变。计划中包含与主角的闲谈和一些对话。\n力量 13，敏捷 18，体质 16，智力 9，智慧 13，魅力 11。"
     },
-    "de_DE": {"components": {"0": "Moddie, \"das Fuchs-Monster in Eurem Rucksack\""}},
-    "ru_RU": {"components": {"0": "Moddie, \"the fox monster in your backpack\""}}
+    "de_DE": {
+      "components": {
+        "0": "Moddie, \"das Fuchs-Monster in Eurem Rucksack\""
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Moddie, \"the fox monster in your backpack\""
+      }
+    }
   },
   "tp2": "foxmonster",
   "safe": 2,

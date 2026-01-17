@@ -2,14 +2,31 @@
   "name": "Alora NPC for BG2",
   "version": "2.1",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/",
-    "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/win-Alora.NPC-for-BG2-v2.1.zip"
+    "homepage": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/"
   },
-  "file": {
-    "filename": "win-Alora.NPC-for-BG2-v2.1.zip",
-    "size": 10293098,
-    "sha256": "71828f8d5b37dd4c10e501e9c3e824a4551bff462d56c74b7a17dd28932f5cb0"
-  },
+  "files": [
+    {
+      "filename": "lin-Alora.NPC-for-BG2-v2.1.zip",
+      "size": 10120757,
+      "sha256": "731e1ab1d63381819e54d478e5637d5709ea745bf14652fa31ca9a73be247080",
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/lin-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Alora.NPC-for-BG2-v2.1.zip",
+      "size": 10348271,
+      "sha256": "f5b86589237f5f863ed9f76d5ce3dbac30046a4476c4c77f80e825521109d80b",
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/mac-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Alora.NPC-for-BG2-v2.1.zip",
+      "size": 10293098,
+      "sha256": "71828f8d5b37dd4c10e501e9c3e824a4551bff462d56c74b7a17dd28932f5cb0",
+      "download": "https://github.com/The-Gate-Project/Alora-NPC-for-BG2/releases/download/v2.1/win-Alora.NPC-for-BG2-v2.1.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -29,7 +46,11 @@
       },
       "description": "The halfling thief from Baldur's Gate returns with this mod, much to the delight of her fans. She's just as charismatic as she was in the first installment of the saga, with her good-natured manner and friendly exclamations.\nSTR 12, DEX 19, CON 12, INT 14, WIS 7, CHA 15."
     },
-    "ru_RU": {"components": {"0": "Chosen of Mystra's Alora NPC Mod (Requires Throne of Bhaal)"}},
+    "ru_RU": {
+      "components": {
+        "0": "Chosen of Mystra's Alora NPC Mod (Requires Throne of Bhaal)"
+      }
+    },
     "fr_FR": {
       "description": "La voleuse halfelin de la Porte de Baldur revient avec ce mod, pour le plus grand plaisir de ses fans. Sa bonhommie et ses exclamations sympathiques la rendent tout autant charismatique que dans le premier opus de la saga.\nFOR 12, DEX 19, CON 12, INT 14, SAG 7, CHA 15.",
       "components": {
@@ -39,8 +60,16 @@
     "zh_CN": {
       "description": "博德之门的半身人女盗贼在这个模组中回归，让她的粉丝们欣喜若狂。她的开朗和有趣的感叹使她和传奇系列的第一部一样充满魅力。\n力量 12，敏捷 19，体质 12，智力 14，智慧 7，魅力 15。"
     },
-    "de_DE": {"components": {"0": "Chosen of Mystra's Alora NPC Mod (Benoetigt Thron des Bhaal)"}},
-    "pl_PL": {"components": {"0": "Chosen of Mystra's Alora NPC Mod (Wymaga Tronu Bhaala)"}}
+    "de_DE": {
+      "components": {
+        "0": "Chosen of Mystra's Alora NPC Mod (Benoetigt Thron des Bhaal)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Chosen of Mystra's Alora NPC Mod (Wymaga Tronu Bhaala)"
+      }
+    }
   },
   "tp2": "alora",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Sequencer ColoredText",
   "version": "1.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1273-sequencer-coloredtext/",
-    "download": "http://america.iegmc.com/gamemacik/Sequencer_ColoredText_v1.0.rar"
+    "homepage": "https://www.shsforums.net/files/file/1273-sequencer-coloredtext/"
   },
-  "file": {
-    "filename": "Sequencer_ColoredText_v1.0.rar",
-    "size": 1046725,
-    "sha256": "d114b95dbd19fc34de302b42ad44232984d2c289c9bcaa668bbd8646226b209d"
-  },
+  "files": [
+    {
+      "filename": "Sequencer_ColoredText_v1.0.rar",
+      "size": 1046725,
+      "sha256": "d114b95dbd19fc34de302b42ad44232984d2c289c9bcaa668bbd8646226b209d",
+      "download": "http://america.iegmc.com/gamemacik/Sequencer_ColoredText_v1.0.rar"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet"],
   "categories": ["cosm"],
   "components": {

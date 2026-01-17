@@ -2,14 +2,16 @@
   "name": "Finch NPC Mod",
   "version": "6.0",
   "links": {
-    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/",
-    "download": "https://github.com/Pocket-Plane-Group/Finch_NPC/releases/download/v6.0/finch-npc-mod-v6.0.zip"
+    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/"
   },
-  "file": {
-    "filename": "finch-npc-mod-v6.0.zip",
-    "size": 7719279,
-    "sha256": "92e82f5b53e57fd8a9e3d9213c5bca4265d1d06918144c4439cd7dc78d3164c6"
-  },
+  "files": [
+    {
+      "filename": "finch-npc-mod-v6.0.zip",
+      "size": 7719279,
+      "sha256": "92e82f5b53e57fd8a9e3d9213c5bca4265d1d06918144c4439cd7dc78d3164c6",
+      "download": "https://github.com/Pocket-Plane-Group/Finch_NPC/releases/download/v6.0/finch-npc-mod-v6.0.zip"
+    }
+  ],
   "games": ["tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npc"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "芬奇是天神妮尔的牧师，生来就是中立善良的侏儒，博学且总是埋头于他的羊皮纸和著作中。她与每个角色都有互动，一个语音包，还有一个个人任务。如果她没有过冒险生活，她也会不厌其烦地向您讲述她读到的惊心动魄的故事。\n力量13，敏捷13，体质16，智力15，智慧16，魅力10。"
     },
-    "es_ES": {"components": {"0": "Finch NPC"}},
-    "de_DE": {"components": {"0": "Fink NPC"}},
-    "ru_RU": {"components": {"0": "Finch NPC"}}
+    "es_ES": {
+      "components": {
+        "0": "Finch NPC"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Fink NPC"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Finch NPC"
+      }
+    }
   },
   "tp2": "finchnpc",
   "safe": 2,

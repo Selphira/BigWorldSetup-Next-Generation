@@ -2,14 +2,16 @@
   "name": "SubtleD's Item Tweaks",
   "version": "1.4.1",
   "links": {
-    "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks",
-    "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.4.1.zip"
+    "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks"
   },
-  "file": {
-    "filename": "SubtleD_Item_Tweaks-1.4.1.zip",
-    "size": 2048857,
-    "sha256": "957b47e69bd5145845adae7840dc49a966f8c04fef743ab6563cb74c2247be33"
-  },
+  "files": [
+    {
+      "filename": "SubtleD_Item_Tweaks-1.4.1.zip",
+      "size": 2048857,
+      "sha256": "957b47e69bd5145845adae7840dc49a966f8c04fef743ab6563cb74c2247be33",
+      "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.4.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {

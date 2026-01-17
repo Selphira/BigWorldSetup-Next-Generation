@@ -2,14 +2,16 @@
   "name": "Trap Overhaul",
   "version": "0.20",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/71763/trap-detection-recovery-evasion",
-    "download": "https://github.com/Plutonium-X/MISC_Traps/archive/refs/tags/0.20_fr.zip"
+    "homepage": "https://forums.beamdog.com/discussion/71763/trap-detection-recovery-evasion"
   },
-  "file": {
-    "filename": "MISC_Traps-0.20_fr.zip",
-    "size": 3764932,
-    "sha256": "896c17ac5914758a3827c7d6e963b1818bdbb2adff2b9385a562deffecc5b940"
-  },
+  "files": [
+    {
+      "filename": "MISC_Traps-0.20_fr.zip",
+      "size": 3764932,
+      "sha256": "896c17ac5914758a3827c7d6e963b1818bdbb2adff2b9385a562deffecc5b940",
+      "download": "https://github.com/Plutonium-X/MISC_Traps/archive/refs/tags/0.20_fr.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {

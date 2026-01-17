@@ -2,51 +2,46 @@
   "name": "Levelling Changer",
   "version": "5",
   "links": {
-    "homepage": "https://github.com/Deratiseur/Levelling",
-    "download": "https://github.com/Deratiseur/Levelling/archive/refs/tags/v5.zip"
+    "homepage": "https://github.com/Deratiseur/Levelling"
   },
-  "file": {
-    "filename": "Levelling-5.zip",
-    "size": 1277956,
-    "sha256": "7a748a1debab956a7152fc0c4a10f5bb5ef775c0a283748ede75b0acfdfd956c"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Levelling-v4.zip",
+      "size": 1104960,
+      "sha256": "e230f1deff248404589e56954680e93aa5933a7ba7519f8535cd7d107345da90",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/lin-Derats_Levelling-v4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Levelling-v4.zip",
+      "size": 1332496,
+      "sha256": "f80101172fa574cc00e9ee7da52e1111d3a7d32eef620ac7ba17fdcaa6700aee",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/mac-Derats_Levelling-v4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Levelling-v4.zip",
+      "size": 1277301,
+      "sha256": "dd00107bdd8ecc0da1c61e4f769c0761b3d6252b0df787ba7a5e254c068e0fb9",
+      "download": "https://github.com/Deratiseur/Levelling/releases/download/v5/win-Derats_Levelling-v4.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "bgee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["2", "3", "4", "5", "6", "7"], "category": "spell", "default": "2"},
-    "choice_1": {
-      "type": "muc", "components": ["152", "153", "154", "155", "156", "157"], "category": "spell", "default": "152"
-    },
-    "choice_2": {
-      "type": "muc", "components": ["162", "163", "164", "165", "166", "167"], "category": "spell", "default": "162"
-    },
-    "choice_3": {
-      "type": "muc", "components": ["92", "93", "94", "95", "96", "97"], "category": "spell", "default": "92"
-    },
-    "choice_4": {
-      "type": "muc", "components": ["102", "103", "104", "105", "106", "107"], "category": "spell", "default": "102"
-    },
-    "choice_5": {
-      "type": "muc", "components": ["112", "113", "114", "115", "116", "117"], "category": "spell", "default": "112"
-    },
-    "choice_6": {
-      "type": "muc", "components": ["182", "183", "184", "185", "186", "187"], "category": "spell", "default": "182"
-    },
-    "choice_7": {
-      "type": "muc", "components": ["122", "123", "124", "125", "126", "127"], "category": "spell", "default": "122"
-    },
-    "choice_8": {
-      "type": "muc", "components": ["132", "133", "134", "123", "136", "137"], "category": "spell", "default": "132"
-    },
-    "choice_9": {
-      "type": "muc", "components": ["192", "193", "194", "195", "196", "197"], "category": "spell", "default": "192"
-    },
-    "choice_10": {
-      "type": "muc", "components": ["142", "143", "144", "145", "146", "147"], "category": "spell", "default": "142"
-    },
-    "choice_11": {
-      "type": "muc", "components": ["172", "173", "174", "175", "176", "177"], "category": "spell", "default": "172"
-    }
+    "choice_1": {"type": "muc", "components": ["152", "153", "154", "155", "156", "157"], "category": "spell", "default": "152"},
+    "choice_2": {"type": "muc", "components": ["162", "163", "164", "165", "166", "167"], "category": "spell", "default": "162"},
+    "choice_3": {"type": "muc", "components": ["92", "93", "94", "95", "96", "97"], "category": "spell", "default": "92"},
+    "choice_4": {"type": "muc", "components": ["102", "103", "104", "105", "106", "107"], "category": "spell", "default": "102"},
+    "choice_5": {"type": "muc", "components": ["112", "113", "114", "115", "116", "117"], "category": "spell", "default": "112"},
+    "choice_6": {"type": "muc", "components": ["182", "183", "184", "185", "186", "187"], "category": "spell", "default": "182"},
+    "choice_7": {"type": "muc", "components": ["122", "123", "124", "125", "126", "127"], "category": "spell", "default": "122"},
+    "choice_8": {"type": "muc", "components": ["132", "133", "134", "123", "136", "137"], "category": "spell", "default": "132"},
+    "choice_9": {"type": "muc", "components": ["192", "193", "194", "195", "196", "197"], "category": "spell", "default": "192"},
+    "choice_10": {"type": "muc", "components": ["142", "143", "144", "145", "146", "147"], "category": "spell", "default": "142"},
+    "choice_11": {"type": "muc", "components": ["172", "173", "174", "175", "176", "177"], "category": "spell", "default": "172"}
   },
   "languages": {
     "fr_FR": 0,

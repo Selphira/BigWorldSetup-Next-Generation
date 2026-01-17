@@ -2,14 +2,16 @@
   "name": "Cassius",
   "version": "1.6",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=231482",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/archive/refs/tags/v1.6.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=231482"
   },
-  "file": {
-    "filename": "1D_NPC_Cassius-1.6.zip",
-    "size": 2955246,
-    "sha256": "8a70eff409daa561408dcf33938b4be60a35ebe5f09658f873b2d7b239ce8816"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Cassius-1.6.zip",
+      "size": 2955246,
+      "sha256": "8a70eff409daa561408dcf33938b4be60a35ebe5f09658f873b2d7b239ce8816",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/archive/refs/tags/v1.6.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "Cassius是一个神秘而寡言的人类北地诗人。他很少谈论自己的过去。我们所知道的是，他从博德之门、深水城、卡林珊等地旅行了很远，但从未在任何地方停留太久。他总是在寻找冒险，以便讲述他遇到的大故事。他最近在安姆停留，收集关于在那里冒险的冒险者的故事。传闻他是一名吟游诗人的特工。力量16，敏捷17，体质13，智力16，智慧9，魅力15。"
     },
-    "de_DE": {"components": {"0": "Cassius NSC Mod (benoetigt Thron des Bhaal)"}},
-    "cs_CZ": {"components": {"0": "Cassius NPC Mod (vyzaduje Throne Of Bhaal)"}},
-    "it_IT": {"components": {"0": "Cassius NPC Mod (Richiede Throne of Bhaal)"}}
+    "de_DE": {
+      "components": {
+        "0": "Cassius NSC Mod (benoetigt Thron des Bhaal)"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Cassius NPC Mod (vyzaduje Throne Of Bhaal)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Cassius NPC Mod (Richiede Throne of Bhaal)"
+      }
+    }
   },
   "tp2": "cassius",
   "safe": 2,

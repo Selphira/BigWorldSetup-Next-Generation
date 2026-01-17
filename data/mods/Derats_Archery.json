@@ -2,14 +2,31 @@
   "name": "Au bonheur du tireur",
   "version": "7",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=506162#p506162",
-    "download": "https://github.com/Deratiseur/Archery/releases/download/v7/win-Derats_Archery-v7.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=506162#p506162"
   },
-  "file": {
-    "filename": "win-Derats_Archery-v7.zip",
-    "size": 2159676,
-    "sha256": "cf7f0310607624095e98ae45ed97397e2be9e8a913bc2abea59af1f6352c683f"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Archery-v7.zip",
+      "size": 1987335,
+      "sha256": "f1e2cd76430644d1a42e8e7797f2d896cde661ad3d4c3148ab442a1d063bd31f",
+      "download": "https://github.com/Deratiseur/Archery/releases/download/v7/lin-Derats_Archery-v7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Archery-v7.zip",
+      "size": 2214867,
+      "sha256": "981bbb68e7495a6fadcb1e5733c7c914e2778eeeda9970b58f7e4c01afdd4988",
+      "download": "https://github.com/Deratiseur/Archery/releases/download/v7/mac-Derats_Archery-v7.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Archery-v7.zip",
+      "size": 2159676,
+      "sha256": "cf7f0310607624095e98ae45ed97397e2be9e8a913bc2abea59af1f6352c683f",
+      "download": "https://github.com/Deratiseur/Archery/releases/download/v7/win-Derats_Archery-v7.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {

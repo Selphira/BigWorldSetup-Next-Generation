@@ -2,14 +2,16 @@
   "name": "IWD1-IWD2-EET",
   "version": "1.0",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/IWD_EET_End",
-    "download": "https://github.com/The-Gate-Project/IWD_EET_End/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/The-Gate-Project/IWD_EET_End"
   },
-  "file": {
-    "filename": "IWD_EET_End-main.zip",
-    "size": 8277949,
-    "sha256": "4890dc504e9d3f5990789681122886754f4dc8fce9b9ca2965cb0dc38d96054b"
-  },
+  "files": [
+    {
+      "filename": "IWD_EET_End-main.zip",
+      "size": 8277949,
+      "sha256": "4890dc504e9d3f5990789681122886754f4dc8fce9b9ca2965cb0dc38d96054b",
+      "download": "https://github.com/The-Gate-Project/IWD_EET_End/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["conv"],
   "components": {
@@ -42,9 +44,21 @@
         "0": "IWD_EET_End"
       }
     },
-    "ru_RU": {"components": {"0": "IWD_EET_End"}},
-    "de_DE": {"components": {"0": "IWD_EET_End"}},
-    "pl_PL": {"components": {"0": "IWD_EET_End"}}
+    "ru_RU": {
+      "components": {
+        "0": "IWD_EET_End"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "IWD_EET_End"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "IWD_EET_End"
+      }
+    }
   },
   "tp2": "iwd_eet_end",
   "safe": 2,

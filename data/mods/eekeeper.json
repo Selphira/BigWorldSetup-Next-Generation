@@ -2,14 +2,16 @@
   "name": "EE Keeper",
   "version": "Sourceforge latest release",
   "links": {
-    "homepage": "https://sourceforge.net/projects/eekeeper/",
-    "download": "http://sourceforge.net/projects/eekeeper/files/latest/download"
+    "homepage": "https://sourceforge.net/projects/eekeeper/"
   },
-  "file": {
-    "filename": "EEKeeper 1.0.4.0.zip",
-    "size": 2728765,
-    "sha256": "62c3893b8a7c3bcec1805f86038c3720bec766efb54dbc5351a12523acbb7859"
-  },
+  "files": [
+    {
+      "filename": "EEKeeper 1.0.4.0.zip",
+      "size": 2728765,
+      "sha256": "62c3893b8a7c3bcec1805f86038c3720bec766efb54dbc5351a12523acbb7859",
+      "download": "http://sourceforge.net/projects/eekeeper/files/latest/download"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "pstee", "iwdee"],
   "categories": ["util"],
   "components": {

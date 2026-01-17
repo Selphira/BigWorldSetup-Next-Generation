@@ -2,14 +2,16 @@
   "name": "Back to Brynnlaw MOD for Baldur's Gate II",
   "version": "9",
   "links": {
-    "homepage": "https://www.pocketplane.net/back-to-brynnlaw/",
-    "download": "https://github.com/Pocket-Plane-Group/Back_to_Brynnlaw/releases/download/v9/back-to-brynnlaw-mod-for-baldurs-gate-ii-bgii-bgt-bgiiee-and-eet-v9.zip"
+    "homepage": "https://www.pocketplane.net/back-to-brynnlaw/"
   },
-  "file": {
-    "filename": "back-to-brynnlaw-mod-for-baldurs-gate-ii-bgii-bgt-bgiiee-and-eet-v9.zip",
-    "size": 7878510,
-    "sha256": "13a188fc893766b5402d7ae6e19981cec3ffc7dff7531c59f29a26816f2405c8"
-  },
+  "files": [
+    {
+      "filename": "back-to-brynnlaw-mod-for-baldurs-gate-ii-bgii-bgt-bgiiee-and-eet-v9.zip",
+      "size": 7878510,
+      "sha256": "13a188fc893766b5402d7ae6e19981cec3ffc7dff7531c59f29a26816f2405c8",
+      "download": "https://github.com/Pocket-Plane-Group/Back_to_Brynnlaw/releases/download/v9/back-to-brynnlaw-mod-for-baldurs-gate-ii-bgii-bgt-bgiiee-and-eet-v9.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -30,7 +32,11 @@
       },
       "description": "The mod begins in chapter 6 when a messenger intercepts you near the Adventurer Mart. You'll have to accompany a hooded mage to help him rescue another victim of Irenicus' experiments. The mod features additional content for Imoen and for the Xan NPC MOD for Baldur's Gate II mod."
     },
-    "ru_RU": {"components": {"0": "Back to Brynnlaw mod for Baldur's Gate II"}},
+    "ru_RU": {
+      "components": {
+        "0": "Back to Brynnlaw mod for Baldur's Gate II"
+      }
+    },
     "fr_FR": {
       "description": "Le mod débute au chapitre 6 lorsqu'un messager vous intercepte près du Marché de l'Aventurier. Vous devrez accompagner un mage cagoulé afin de l'aider à secourir une autre victime des expérimentations d'Irenicus. Le mod dispose de contenu supplémentaire pour Imoen et pour le mod Xan NPC MOD for Baldur's Gate II.",
       "components": {
@@ -43,8 +49,16 @@
         "0": "ÖØ·µ²¼ÁÖÂÞµº"
       }
     },
-    "de_DE": {"components": {"0": "Zurueck nach Brynnlaw Modifikation fuer Baldurs Gate II"}},
-    "pl_PL": {"components": {"0": "Back to Brynnlaw mod do Baldur's Gate II"}}
+    "de_DE": {
+      "components": {
+        "0": "Zurueck nach Brynnlaw Modifikation fuer Baldurs Gate II"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Back to Brynnlaw mod do Baldur's Gate II"
+      }
+    }
   },
   "tp2": "backbrynnlaw",
   "safe": 2,

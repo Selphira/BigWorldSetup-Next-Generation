@@ -2,14 +2,31 @@
   "name": "Larsha NPC",
   "version": "1.06",
   "links": {
-    "homepage": "https://baldur.cob-bg.pl/larsha",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/win-Larsha.zip"
+    "homepage": "https://baldur.cob-bg.pl/larsha"
   },
-  "file": {
-    "filename": "win-Larsha.zip",
-    "size": 1577942,
-    "sha256": "d1df406a1ddacc4766d2983a058f87f4f0479fc896ea07981e5d4f7997dd145c"
-  },
+  "files": [
+    {
+      "filename": "lin-Larsha.zip",
+      "size": 1405601,
+      "sha256": "de45decd04a5bb0da9b6f6431dc8ddd0223393ca274b2709567fc1dd3a88fba3",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/lin-Larsha.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Larsha.zip",
+      "size": 1633117,
+      "sha256": "8e880c5cf5a62a90c33abad480a20bdbf6f56ea63a95dc620d2fb46245e74570",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/mac-Larsha.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Larsha.zip",
+      "size": 1577942,
+      "sha256": "d1df406a1ddacc4766d2983a058f87f4f0479fc896ea07981e5d4f7997dd145c",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Larsha/releases/download/v1.06/win-Larsha.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -36,7 +53,11 @@
     "zh_CN": {
       "description": "拉尔莎是一位树精，她在寻找自己的树木，以便与树木结合，从而获得一种非常有趣法术的强大力量。也可能发展出一段恋情。你会在长矛丘陵找到她。她拥有一把能发射自身箭矢的弓，这把弓会随着她的经验而提升，还有一个头冠，能赋予她自由行动、加速和对抗+1武器等效果。此外，她还会随着等级提升获得新能力。\n力量 16，敏捷 19，体质 10，智力 15，智慧 18，魅力 25。"
     },
-    "pl_PL": {"components": {"0": "Larsha"}}
+    "pl_PL": {
+      "components": {
+        "0": "Larsha"
+      }
+    }
   },
   "tp2": "larsha",
   "safe": 2,

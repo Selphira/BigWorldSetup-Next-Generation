@@ -2,14 +2,31 @@
   "name": "Jazon le revenant",
   "version": "4.4.0",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34466",
-    "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/win-Derats_Jazon-v4.4.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34466"
   },
-  "file": {
-    "filename": "win-Derats_Jazon-v4.4.zip",
-    "size": 1278820,
-    "sha256": "799a07e639b0f57798f540f48de213d28cc4ecf5b9f42d5aae2a81a0da212b8e"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Jazon-v4.4.zip",
+      "size": 1106479,
+      "sha256": "239b9fd7618e929ee3b61654e3cfb18e12cac2ec5ad05717ebbecf1468de4686",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/lin-Derats_Jazon-v4.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Jazon-v4.4.zip",
+      "size": 1334007,
+      "sha256": "23222adca4af38e230c1bdac225bfe24b3cab2f44807ec591567f9218c66c5a7",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/mac-Derats_Jazon-v4.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Jazon-v4.4.zip",
+      "size": 1278820,
+      "sha256": "799a07e639b0f57798f540f48de213d28cc4ecf5b9f42d5aae2a81a0da212b8e",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/win-Derats_Jazon-v4.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2ee", "eet", "iwdee"],
   "categories": ["npc1d"],
   "components": {
@@ -39,7 +56,12 @@
     "zh_CN": {
       "description": "Jazon the revenant（杰森，亡者归来者）是一个沉默的亡者战士，可以作为队伍的第7名成员跟随您。他8级，不会升级，但攻击力强且能抵抗一切（力量和体质19，亡者生物免疫，75%全抗性，快速再生）。他的武器一开始不是魔法武器，但会随着主角的进度而进化。如果他死亡，会掉落他的心脏，您在睡一觉后可以使用它来重新召唤他。您可以在一座坟墓中找到他的心脏：在博德之门2的阿斯卡特拉墓园，在冰风谷：增强版的阴影谷中。\n力量19，敏捷10，体质19，智力8，智慧8，魅力6。"
     },
-    "ru_RU": {"components": {"0": "Язон-ревенант", "1": "Язон - убийца-психопат"}}
+    "ru_RU": {
+      "components": {
+        "0": "Язон-ревенант",
+        "1": "Язон - убийца-психопат"
+      }
+    }
   },
   "tp2": "derats_jazon",
   "safe": 2,

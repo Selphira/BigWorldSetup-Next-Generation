@@ -2,14 +2,16 @@
   "name": "I Hate Undead",
   "version": "3.8.3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30786-kit-pack-i-hate-undead-bgee-bg2ee-iwdee-and-eet/",
-    "download": "https://github.com/Raduziel/I-Hate-Undead-Kitpack/archive/refs/tags/3.8.3.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/30786-kit-pack-i-hate-undead-bgee-bg2ee-iwdee-and-eet/"
   },
-  "file": {
-    "filename": "I-Hate-Undead-Kitpack-3.8.3.zip",
-    "size": 1501727,
-    "sha256": "0bc8af5491375b6d559fd27c53b020c482baf9b4f42d67f0d3a7a2ab2f11249c"
-  },
+  "files": [
+    {
+      "filename": "I-Hate-Undead-Kitpack-3.8.3.zip",
+      "size": 1501727,
+      "sha256": "0bc8af5491375b6d559fd27c53b020c482baf9b4f42d67f0d3a7a2ab2f11249c",
+      "download": "https://github.com/Raduziel/I-Hate-Undead-Kitpack/archive/refs/tags/3.8.3.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -69,7 +71,22 @@
     "zh_CN": {
       "description": "此模组允许你选择11个新的职业专长，它们都专注于对抗不死生物：不死生物猎手（游侠），救赎圣徒（牧师），亡灵杀手（法师），修订版不死生物猎人（圣武士 - 注意：会覆盖游戏中的原版职业），戏弄死神（盗贼），陵墓守护者（战士），哀悼者（吟游诗人），圆环保证人（德鲁伊），苍白面具（武僧），厄运女巫（萨满），以及被囚之魂（术士）。"
     },
-    "ru_RU": {"components": {"0": "Undead Predator (Ranger Kit)", "1": "Holy Redeemer (Cleric Kit)", "2": "Deathslayer (Wizard Kit)", "3": "Undead Hunter Revision (Paladin Kit)", "4": "Death Tricker (Thief Kit)", "5": "Burial Defender (Fighter Kit)", "6": "Grave Mourner (Bard Kit)", "7": "Circle Enforcer (Druid Kit)", "8": "Jaheira, the Circle Enforcer", "9": "Pallid Mask (Monk Kit)", "10": "Dreadful Witch (Shaman Kit)", "11": "Imprisoned Soul (Sorcerer Kit)"}}
+    "ru_RU": {
+      "components": {
+        "0": "Undead Predator (Ranger Kit)",
+        "1": "Holy Redeemer (Cleric Kit)",
+        "2": "Deathslayer (Wizard Kit)",
+        "3": "Undead Hunter Revision (Paladin Kit)",
+        "4": "Death Tricker (Thief Kit)",
+        "5": "Burial Defender (Fighter Kit)",
+        "6": "Grave Mourner (Bard Kit)",
+        "7": "Circle Enforcer (Druid Kit)",
+        "8": "Jaheira, the Circle Enforcer",
+        "9": "Pallid Mask (Monk Kit)",
+        "10": "Dreadful Witch (Shaman Kit)",
+        "11": "Imprisoned Soul (Sorcerer Kit)"
+      }
+    }
   },
   "tp2": "ihateundead",
   "safe": 2,

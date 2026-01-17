@@ -2,14 +2,16 @@
   "name": "The Sellswords MOD for Baldur's Gate II",
   "version": "9.1",
   "links": {
-    "homepage": "https://www.pocketplane.net/the-sellswords/",
-    "download": "https://github.com/Pocket-Plane-Group/Sellswords/releases/download/v9.1/the-sellswords-mod-for-baldurs-gate-ii-v9.1.zip"
+    "homepage": "https://www.pocketplane.net/the-sellswords/"
   },
-  "file": {
-    "filename": "the-sellswords-mod-for-baldurs-gate-ii-v9.1.zip",
-    "size": 26446268,
-    "sha256": "0275a1b72f50e6f4ecaafb94cfac2b81d153d32e6c980b7b947612de491ef47f"
-  },
+  "files": [
+    {
+      "filename": "the-sellswords-mod-for-baldurs-gate-ii-v9.1.zip",
+      "size": 26446268,
+      "sha256": "0275a1b72f50e6f4ecaafb94cfac2b81d153d32e6c980b7b947612de491ef47f",
+      "download": "https://github.com/Pocket-Plane-Group/Sellswords/releases/download/v9.1/the-sellswords-mod-for-baldurs-gate-ii-v9.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -30,7 +32,11 @@
       },
       "description": "Inspired by R. A. Salvatore's trilogy, this mod lets you meet Kimmuriel Oblodra, the current leader of Bregan D'aerthe. Travel with him to Menzoberranzan to confront a powerful Mother Matron, rescue Jarlaxle, and receive unexpected help from Artemis Entreri. The mod begins in Chapter 6 when you enter the Waukeen's Promenade."
     },
-    "ru_RU": {"components": {"0": "The Sellswords mod for Baldur's Gate II"}},
+    "ru_RU": {
+      "components": {
+        "0": "The Sellswords mod for Baldur's Gate II"
+      }
+    },
     "fr_FR": {
       "description": "Inspiré de la trilogie de R. A. Salvatore, ce mod permet de rencontrer Kimmuriel Oblodra, l'actuel leader de Bregan D'aerthe. Voyagez avec lui jusqu'à Menzoberranzan pour vous confronter à une puissante Mère Matrone, secourir Jarlaxle, et recevoir l'aide inattendue d'Artemis Entreri. Le mod débute au chapitre 6 lorsque vous pénétrez dans la Promenade de Waukyne.",
       "components": {
@@ -43,8 +49,16 @@
         "0": "Ó¶±øÉúÑÄ"
       }
     },
-    "de_DE": {"components": {"0": "The Sellswords mod for Baldur's Gate II"}},
-    "pl_PL": {"components": {"0": "The Sellswords mod do Baldur's Gate II"}}
+    "de_DE": {
+      "components": {
+        "0": "The Sellswords mod for Baldur's Gate II"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "The Sellswords mod do Baldur's Gate II"
+      }
+    }
   },
   "tp2": "sellswords",
   "safe": 2,

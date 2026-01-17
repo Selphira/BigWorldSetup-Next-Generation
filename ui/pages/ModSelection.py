@@ -176,8 +176,9 @@ class HighlightDelegate(QStyledItemDelegate):
         # Render HTML text
         self._render_html_text(painter, text_rect, html, option)
 
+    @staticmethod
     def _create_highlighted_html(
-        self, text: str, match_start: int, match_length: int, option: QStyleOptionViewItem
+        text: str, match_start: int, match_length: int, option: QStyleOptionViewItem
     ) -> str:
         """Create HTML with highlighted match."""
         before = text[:match_start]
@@ -984,6 +985,7 @@ class ModSelectionPage(BasePage):
         if selected_game != self._current_game:
             game = self.state_manager.get_game_manager().get(selected_game)
             self._selection_controller.set_game(game)
+            self._component_selector.set_game(selected_game)
             self._apply_all_filters()
 
         self._search_input.setFocus()
@@ -1064,3 +1066,4 @@ class ModSelectionPage(BasePage):
 
         # Reapply filters to update display
         self._apply_all_filters()
+        self._trigger_validation()

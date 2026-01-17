@@ -2,14 +2,16 @@
   "name": "New travel system between Baldur's Gate City areas",
   "version": "2.1",
   "links": {
-    "homepage": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET",
-    "download": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET/releases/download/v2.1/BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe"
+    "homepage": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET"
   },
-  "file": {
-    "filename": "BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe",
-    "size": 974147,
-    "sha256": "3c648761ff9aad8b29d24a2ce3b1ffa1b13718c7304026e7db5f401e8d3f65e6"
-  },
+  "files": [
+    {
+      "filename": "BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe",
+      "size": 974147,
+      "sha256": "3c648761ff9aad8b29d24a2ce3b1ffa1b13718c7304026e7db5f401e8d3f65e6",
+      "download": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET/releases/download/v2.1/BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -43,13 +45,15 @@
     },
     "pl_PL": {
       "components": {
-        "choice_0": "Nowy system podrozowania w obrebie Wrot Baldura", "66": "Pelna wersja komponentu",
+        "choice_0": "Nowy system podrozowania w obrebie Wrot Baldura",
+        "66": "Pelna wersja komponentu",
         "661": "Wersja minimalistyczna, umozliwia odwiedzenie dwoch oryginalnie niedostepnych zaulkow Wrot Baldura"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "Neue Wanderungsystem nach Baldur's Tor herum", "66": "Vollversion der Komponente",
+        "choice_0": "Neue Wanderungsystem nach Baldur's Tor herum",
+        "66": "Vollversion der Komponente",
         "661": "Minimalistisch-Version ermöglicht den Eintritt zu zwei ursprünglich unzugänglichen kleinen Gebieten von Baldurs Tor."
       }
     }

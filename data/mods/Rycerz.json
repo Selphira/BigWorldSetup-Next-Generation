@@ -2,14 +2,29 @@
   "name": "Rycerz Światłości",
   "version": "1.03",
   "links": {
-    "homepage": "http://athkatla.cob-bg.pl/viewtopic.php?t=3486&sid=473c7240dfe94ad896e7ad10dffebce6",
-    "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/win-Rycerz.zip"
+    "homepage": "http://athkatla.cob-bg.pl/viewtopic.php?t=3486&sid=473c7240dfe94ad896e7ad10dffebce6"
   },
-  "file": {
-    "filename": "win-Rycerz.zip",
-    "size": 1289777,
-    "sha256": "a2ffafd89bed8dfc6e9baa84b05ebe91076c42463c11cfd5086b4786b8dff08d"
-  },
+  "files": [
+    {
+      "filename": "lin-Rycerz.zip",
+      "size": 1117436,
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/lin-Rycerz.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Rycerz.zip",
+      "size": 1344952,
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/mac-Rycerz.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Rycerz.zip",
+      "size": 1289777,
+      "sha256": "a2ffafd89bed8dfc6e9baa84b05ebe91076c42463c11cfd5086b4786b8dff08d",
+      "download": "https://github.com/Plutonium-X/KIT_Lumiere/releases/download/v1.03/win-Rycerz.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -32,7 +47,11 @@
     "zh_CN": {
       "description": "此模组安装了“圣光骑士”圣武士的配置。他可以精通长剑和手半剑。他拥有比普通圣武士更强的战斗技巧，但代价是施法能力有所削弱。随着等级提升，他还能获得强大的被动效果：10级时获得恐惧免疫，15级时获得邪恶防护等。"
     },
-    "pl_PL": {"components": {"0": "(nowa podklasa) Rycerz œwiat³oœci"}}
+    "pl_PL": {
+      "components": {
+        "0": "(nowa podklasa) Rycerz œwiat³oœci"
+      }
+    }
   },
   "tp2": "rycerz",
   "safe": 2,

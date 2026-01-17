@@ -2,14 +2,16 @@
   "name": "Tangled Oak Isle",
   "version": "4.5.3",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/tangled-oak-isle/",
-    "download": "https://downloads.weaselmods.net/download/tangled-oak-isle/?wpdmdl=317"
+    "homepage": "https://downloads.weaselmods.net/download/tangled-oak-isle/"
   },
-  "file": {
-    "filename": "TangledIsle-v4.5.3.zip",
-    "size": 58174851,
-    "sha256": "efe492185e5d3d4fc2b772ae6fb3917e5aee47eb80fd6fecd96eb6fd89e48229"
-  },
+  "files": [
+    {
+      "filename": "TangledIsle-v4.5.3.zip",
+      "size": 58174851,
+      "sha256": "efe492185e5d3d4fc2b772ae6fb3917e5aee47eb80fd6fecd96eb6fd89e48229",
+      "download": "https://downloads.weaselmods.net/download/tangled-oak-isle/?wpdmdl=317"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -34,7 +36,13 @@
       },
       "description": "This mod adds a new area to the town of Athkatla. Once an independent village located on an Isle, the Tangled Oak Isle became the part of Athkatla. As the city grew bigger and bigger, it swallowed the isle, which now can be accessed not only by boats but also by a bridge. While Isle is by law part of the City of Coin, it kept its identity, mostly because of the isle's villagers and the symbol that unite them: the Tangled Oak that grows between houses on the isle.\nAlso, the Cowled Wizards don't seem to be much interested in what was once called Tangled Oak Village and consider those that live there quite insignificant to Athkatla as a while, that means the islanders are on their own when it comes to solving problems and a serious one has just threatened that quiet place. Will you, the Hero of Baldur's Gate, help in restoring the isle's peace?"
     },
-    "ru_RU": {"components": {"choice_0": "The Tangled Oak Isle: the new area of Athkatla", "0": "Yes, but don't patch existing save games", "1": "Yes and patch existing save games"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "The Tangled Oak Isle: the new area of Athkatla",
+        "0": "Yes, but don't patch existing save games",
+        "1": "Yes and patch existing save games"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute une nouvelle zone dans la ville d'Athkatla. Autrefois village indépendant situé sur une île, l'île du Chêne enchevêtré est devenue une partie d'Athkatla. Au fur et à mesure que la ville s'est agrandie, elle a englobé l'île, à laquelle on peut maintenant accéder non seulement par des bateaux, mais aussi par un pont. Bien que l'île fasse légalement partie de la Cité de la monnaie, elle a conservé son identité, principalement grâce à ses villageois et au symbole qui les unit : le Chêne enchevêtré qui pousse entre les maisons.\nEn outre, les Mages cagoulés ne semblent pas s'intéresser beaucoup à ce qu'on appelait autrefois le Village du Chêne enchevêtré et considèrent que ceux qui y vivent sont insignifiants pour Athkatla depuis longtemps. Ce qui signifie que les habitants de l'île sont livrés à eux-mêmes quand il s'agit de résoudre les problèmes. Et un problème grave vient menacer cet endroit tranquille. Voulez-vous, vous, le héros de la Porte de Baldur, aider à restaurer la paix sur l'île ?",
       "components": {
@@ -51,10 +59,34 @@
         "1": "是的，并且修改存档文件"
       }
     },
-    "pl_PL": {"components": {"choice_0": "Tangled Oak Isle - mod do Baldur's Gate II: Enhanced Edition", "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry", "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"}},
-    "ko_KR": {"components": {"choice_0": "Athkatlan Grounds: The Tangled Oak Isle", "0": "Yes, but don't patch existing save games", "1": "Yes and patch existing save games"}},
-    "it_IT": {"components": {"choice_0": "L'Isola della Quercia Aggrovigliata: una nuova zona di Athkatla", "0": "Si, ma non patchare i salvataggi esistenti", "1": "Si e patcha i salvataggi esistenti"}},
-    "es_ES": {"components": {"choice_0": "Terrenos de Athkatla: La Isla del Roble Enmarañado", "0": "Sí, pero no se parchean las partidas guardadas existentes", "1": "Sí y parchear las partidas guardadas existentes"}}
+    "pl_PL": {
+      "components": {
+        "choice_0": "Tangled Oak Isle - mod do Baldur's Gate II: Enhanced Edition",
+        "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry",
+        "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "choice_0": "Athkatlan Grounds: The Tangled Oak Isle",
+        "0": "Yes, but don't patch existing save games",
+        "1": "Yes and patch existing save games"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "L'Isola della Quercia Aggrovigliata: una nuova zona di Athkatla",
+        "0": "Si, ma non patchare i salvataggi esistenti",
+        "1": "Si e patcha i salvataggi esistenti"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Terrenos de Athkatla: La Isla del Roble Enmarañado",
+        "0": "Sí, pero no se parchean las partidas guardadas existentes",
+        "1": "Sí y parchear las partidas guardadas existentes"
+      }
+    }
   },
   "tp2": "tangledisle",
   "safe": 2,

@@ -2,14 +2,29 @@
   "name": "Test Your Mettle!",
   "version": "1.6",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1241-test-your-mettle/",
-    "download": "https://github.com/Argent77/A7-TestYourMettle/releases/download/v1.6/win-A7-TestYourMettle-v1.6.zip"
+    "homepage": "https://www.shsforums.net/files/file/1241-test-your-mettle/"
   },
-  "file": {
-    "filename": "win-A7-TestYourMettle-v1.6.zip",
-    "size": 37565142,
-    "sha256": "60ad250a9e852a9e87ec9f1ecef4838d6d24ce94ede7d9f401ec38e2d742780e"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-TestYourMettle-v1.6.zip",
+      "size": 37392801,
+      "download": "https://github.com/Argent77/A7-TestYourMettle/releases/download/v1.6/lin-A7-TestYourMettle-v1.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-TestYourMettle-v1.6.zip",
+      "size": 37620339,
+      "download": "https://github.com/Argent77/A7-TestYourMettle/releases/download/v1.6/mac-A7-TestYourMettle-v1.6.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-TestYourMettle-v1.6.zip",
+      "size": 37565142,
+      "sha256": "60ad250a9e852a9e87ec9f1ecef4838d6d24ce94ede7d9f401ec38e2d742780e",
+      "download": "https://github.com/Argent77/A7-TestYourMettle/releases/download/v1.6/win-A7-TestYourMettle-v1.6.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -61,8 +76,28 @@
         "20": "使“空间扭曲”可在商店购买"
       }
     },
-    "de_DE": {"components": {"0": "Teste Deinen Mut!", "choice_0": "Erfahrungspunkte fuer besiegte Monster verringern", "11": "Um 50% verringern", "12": "Um 75% verringern (empfohlen)", "13": "Um 90% verringern", "14": "Keine Erfahrungspunkte", "20": "Den Zauber \"Raumkruemmung\" in Geschaeften anbieten"}},
-    "ru_RU": {"components": {"0": "Test Your Mettle!", "choice_0": "Reduced experience for killing monsters", "11": "Reduce by 50%", "12": "Reduce by 75% (recommended)", "13": "Reduce by 90%", "14": "No experience", "20": "Make \"Spacewarp\" available to stores"}}
+    "de_DE": {
+      "components": {
+        "0": "Teste Deinen Mut!",
+        "choice_0": "Erfahrungspunkte fuer besiegte Monster verringern",
+        "11": "Um 50% verringern",
+        "12": "Um 75% verringern (empfohlen)",
+        "13": "Um 90% verringern",
+        "14": "Keine Erfahrungspunkte",
+        "20": "Den Zauber \"Raumkruemmung\" in Geschaeften anbieten"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Test Your Mettle!",
+        "choice_0": "Reduced experience for killing monsters",
+        "11": "Reduce by 50%",
+        "12": "Reduce by 75% (recommended)",
+        "13": "Reduce by 90%",
+        "14": "No experience",
+        "20": "Make \"Spacewarp\" available to stores"
+      }
+    }
   },
   "tp2": "a7-testyourmettle",
   "safe": 2,

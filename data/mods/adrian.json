@@ -2,14 +2,16 @@
   "name": "Adrian NPC",
   "version": "6.1",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1007-adrian/",
-    "download": "https://github.com/Spellhold-Studios/Adrian-NPC/releases/download/v6.1/adrian-npc-for-bgii-v6.1.zip"
+    "homepage": "https://www.shsforums.net/files/file/1007-adrian/"
   },
-  "file": {
-    "filename": "adrian-npc-for-bgii-v6.1.zip",
-    "size": 11370543,
-    "sha256": "0c09635592a0e51f682cc351aa94eec63661b340aa28962fe7ecb9aa0ce387ab"
-  },
+  "files": [
+    {
+      "filename": "adrian-npc-for-bgii-v6.1.zip",
+      "size": 11370543,
+      "sha256": "0c09635592a0e51f682cc351aa94eec63661b340aa28962fe7ecb9aa0ce387ab",
+      "download": "https://github.com/Spellhold-Studios/Adrian-NPC/releases/download/v6.1/adrian-npc-for-bgii-v6.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -59,7 +61,21 @@
     "zh_CN": {
       "description": "艾德里安·西亚诺德尔是一位33岁的守序邪恶半精灵法师，你将在艾瑞尼卡斯地牢的尽头遇到他。他有一个个人任务，并且会与女性人类或半精灵玩家角色（不限阵营和职业）发展恋情。然而，你的玩家角色魅力值必须至少为12。德鲁伊并非他的菜。"
     },
-    "de_DE": {"components": {"choice_0": "Adrian fuer BGII", "0": "Adrian ist Hexenmeister", "1": "Aendere Adrians Klasse zu Kleriker/Magier", "2": "Aendere Adrians Klasse zu Magier/Dieb", "choice_1": "Optionales Soundset fuer Adrian installieren (nur englisch)?", "10": "Phaelins Soundset", "11": "Tatterdemalions Soundset", "20": "Crossmod-Inhalte installieren", "choice_2": "Adrian toleriert hohen Ruf", "30": "Immer", "31": "In einer aktiven Romanze oder Freundschaft"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Adrian fuer BGII",
+        "0": "Adrian ist Hexenmeister",
+        "1": "Aendere Adrians Klasse zu Kleriker/Magier",
+        "2": "Aendere Adrians Klasse zu Magier/Dieb",
+        "choice_1": "Optionales Soundset fuer Adrian installieren (nur englisch)?",
+        "10": "Phaelins Soundset",
+        "11": "Tatterdemalions Soundset",
+        "20": "Crossmod-Inhalte installieren",
+        "choice_2": "Adrian toleriert hohen Ruf",
+        "30": "Immer",
+        "31": "In einer aktiven Romanze oder Freundschaft"
+      }
+    }
   },
   "tp2": "adrian",
   "safe": 2,

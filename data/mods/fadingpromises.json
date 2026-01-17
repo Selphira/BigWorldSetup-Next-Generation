@@ -2,14 +2,16 @@
   "name": "Fading Promises",
   "version": "9",
   "links": {
-    "homepage": "http://www.shsforums.net/forum/528-fading-promises/",
-    "download": "https://github.com/Spellhold-Studios/Fading-Promises/releases/download/v9/fading-promises-v9.zip"
+    "homepage": "https://www.shsforums.net/forum/528-fading-promises/"
   },
-  "file": {
-    "filename": "fading-promises-v9.zip",
-    "size": 10333235,
-    "sha256": "a3a6ee85833c711ccfc3b2a71356021fee8891a17248616dd44895e0c1105ae1"
-  },
+  "files": [
+    {
+      "filename": "fading-promises-v9.zip",
+      "size": 10333235,
+      "sha256": "a3a6ee85833c711ccfc3b2a71356021fee8891a17248616dd44895e0c1105ae1",
+      "download": "https://github.com/Spellhold-Studios/Fading-Promises/releases/download/v9/fading-promises-v9.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -30,8 +32,16 @@
         "0": "Fading Promises"
       }
     },
-    "it_IT": {"components": {"0": "Promesse avvizzite"}},
-    "ru_RU": {"components": {"0": "Fading Promises"}},
+    "it_IT": {
+      "components": {
+        "0": "Promesse avvizzite"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Fading Promises"
+      }
+    },
     "fr_FR": {
       "description": "« <i>Une âme en peine hante le cimetière d'Athkatla... Paladin fauché par trop de désinvolture, Aidan est condamné à errer entre la vie et la mort tant que son ultime quête ne trouve pas sa résolution... Serez-vous suffisamment désintéressé(e) pour lui venir en aide ?</i> »\nCe mod introduit Aidan, un paladin déchu d'Amaunator, qui a de sérieux problèmes à vous soumettre. L'un d'eux est qu'il est mort... et l'autre qu'il n'est jamais parvenu à mener à bien sa dernière quête. Aidez-le et qui sait ? Peut-être lui insufflerez-vous le courage de faire face au jugement qu'il a tant de fois évité.\nFading Promises est un mod axé dialogues. Si vous aimez les conversations sur le sens de la vie, de la mort et de l'honneur (et n'êtes pas allergique aux paladins) n'hésitez pas à le télécharger !",
       "components": {
@@ -41,8 +51,16 @@
     "zh_CN": {
       "description": "« <i>一个饱受折磨的灵魂在阿斯卡特拉的墓园中游荡……由于过于轻率，圣武士艾丹被判处生与死之间徘徊，直到他最终的使命得到解决……您会足够无私地帮助他吗？</i> »\n这个模组引入了艾丹，一位来自阿默那托的堕落圣武士，他有一些严重的问题需要您解决。其中之一是，他已经死了……另一个是，他从未能完成他最后的使命。帮助他，谁知道呢？也许您会给他勇气去面对他多次逃避的审判。\n《褪色的承诺》是一个以对话为核心的模组。如果您喜欢关于生命、死亡和荣誉的对话（并且不排斥圣武士），请毫不犹豫地下载它！"
     },
-    "es_ES": {"components": {"0": "Promesas Marchitas (Fading Promises)"}},
-    "de_DE": {"components": {"0": "Fading Promises"}}
+    "es_ES": {
+      "components": {
+        "0": "Promesas Marchitas (Fading Promises)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Fading Promises"
+      }
+    }
   },
   "tp2": "fadingpromises",
   "safe": 2,

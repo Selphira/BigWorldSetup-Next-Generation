@@ -2,14 +2,16 @@
   "name": "Better Spell Visuals",
   "version": "1",
   "links": {
-    "homepage": "https://github.com/subtledoctor/Better-Spell-Visuals",
-    "download": "https://github.com/subtledoctor/Better-Spell-Visuals/archive/refs/heads/master.zip"
+    "homepage": "https://github.com/subtledoctor/Better-Spell-Visuals"
   },
-  "file": {
-    "filename": "Better-Spell-Visuals-master.zip",
-    "size": 2138945,
-    "sha256": "a82bb6c172abaec6540bc154cd725734e866771b969786e191380eb58a20b534"
-  },
+  "files": [
+    {
+      "filename": "Better-Spell-Visuals-master.zip",
+      "size": 2138945,
+      "sha256": "a82bb6c172abaec6540bc154cd725734e866771b969786e191380eb58a20b534",
+      "download": "https://github.com/subtledoctor/Better-Spell-Visuals/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["cosm"],
   "components": {

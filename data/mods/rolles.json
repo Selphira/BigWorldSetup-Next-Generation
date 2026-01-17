@@ -2,14 +2,16 @@
   "name": "Rolles Safyer",
   "version": "5.0.5",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/36655-rolles-v505/",
-    "download": "https://github.com/Spellhold-Studios/Rolles/releases/download/v5.0.5/rolles-safyer-v5.0.5.zip"
+    "homepage": "https://www.shsforums.net/topic/36655-rolles-v505/"
   },
-  "file": {
-    "filename": "rolles-safyer-v5.0.5.zip",
-    "size": 5165236,
-    "sha256": "132cc46f673cc1e8bd7eb869ddf664774ce0e37bc49fce5f5a3e6c1dacf01316"
-  },
+  "files": [
+    {
+      "filename": "rolles-safyer-v5.0.5.zip",
+      "size": 5165236,
+      "sha256": "132cc46f673cc1e8bd7eb869ddf664774ce0e37bc49fce5f5a3e6c1dacf01316",
+      "download": "https://github.com/Spellhold-Studios/Rolles/releases/download/v5.0.5/rolles-safyer-v5.0.5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -24,7 +26,12 @@
     "pl_PL": 4
   },
   "translations": {
-    "ru_RU": {"components": {"0": "Rolles Safyer", "10": "Bag of Holding in Irenicus Dungeon"}},
+    "ru_RU": {
+      "components": {
+        "0": "Rolles Safyer",
+        "10": "Bag of Holding in Irenicus Dungeon"
+      }
+    },
     "en_US": {
       "description": "Rolles Safyer is a vendor on Athkatla's Waukeen's Promenade. While he sells many items - and quite a lot of money - (including a few of those famous books that increase stats), his main function is as a blacksmith of magical items. Like a Cromwell or Ruad, he will analyze your inventory to see if any of your weapons or items can be improved or combined with other items. The result can be powerful, if you pay the price, which can be substantial...",
       "components": {
@@ -42,8 +49,18 @@
     "zh_CN": {
       "description": "Rolles Safyer是一位出现在阿斯卡特拉渥金商场的商人。他出售许多物品——价格相当昂贵——（其中一些是那些能提升属性的著名书籍），但他的主要功能是打造魔法物品。像克伦威尔或鲁阿德一样，他会分析你的物品栏，看看你的某些武器或物品是否可以被强化或与其他物品组合。结果可能非常强大，前提是你愿意支付可能相当高昂的价格……"
     },
-    "it_IT": {"components": {"0": "Rolles Safyer", "10": "Borsa Conservante nel Dungeon di Irenicus"}},
-    "pl_PL": {"components": {"0": "Rolles Safyer", "10": "Bag of Holding in Irenicus Dungeon"}}
+    "it_IT": {
+      "components": {
+        "0": "Rolles Safyer",
+        "10": "Borsa Conservante nel Dungeon di Irenicus"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Rolles Safyer",
+        "10": "Bag of Holding in Irenicus Dungeon"
+      }
+    }
   },
   "tp2": "rolles",
   "safe": 2,

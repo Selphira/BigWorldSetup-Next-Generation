@@ -2,14 +2,16 @@
   "name": "The Boareskyr Bridge Scene",
   "version": "8",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/1033-the-boareskyr-bridge-scene/",
-    "download": "https://github.com/Gibberlings3/The_Boareskyr_Bridge_Scene/releases/download/v8/the-boareskyr-bridge-scene-v8.zip"
+    "homepage": "https://www.gibberlings3.net/files/file/1033-the-boareskyr-bridge-scene/"
   },
-  "file": {
-    "filename": "the-boareskyr-bridge-scene-v8.zip",
-    "size": 4890382,
-    "sha256": "17baea8d6f809caf69173bc4367ebe5e7276cf2acffebe2bcd38ff1e0b01ce19"
-  },
+  "files": [
+    {
+      "filename": "the-boareskyr-bridge-scene-v8.zip",
+      "size": 4890382,
+      "sha256": "17baea8d6f809caf69173bc4367ebe5e7276cf2acffebe2bcd38ff1e0b01ce19",
+      "download": "https://github.com/Gibberlings3/The_Boareskyr_Bridge_Scene/releases/download/v8/the-boareskyr-bridge-scene-v8.zip"
+    }
+  ],
   "games": ["sod", "eet"],
   "categories": ["quest"],
   "components": {
@@ -56,11 +58,46 @@
         "3": "为大桥动画的选择添加属性变化"
       }
     },
-    "de_DE": {"components": {"0": "NSCs reagieren auf die Szene an der Eberfellbruecke", "1": "Originale Szene an der Bruecke mit Beschreibungstext versehen", "2": "Szene an Bruecke mit Reaktionsmoeglichkeiten versehen", "3": "HC-Reaktionen fuehren zu Stataenderungen"}},
-    "it_IT": {"components": {"0": "La scena al ponte di Boareskyr sara riconosciuta: aggiungi reazioni PNG", "1": "Aggiungi testo di descrizione alla scena originale del ponte", "2": "La scena del ponte ha diverse scelte", "3": "Aggiungi modifiche statistiche alle scelte sul ponte"}},
-    "ru_RU": {"components": {"0": "Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions", "1": "Add Description Text to Original Scene at Bridge", "2": "Bridge Scene has Different Choices", "3": "Add Stat Changes to Choices at Bridge"}},
-    "pl_PL": {"components": {"0": "Towarzysze reaguja na scene na Moscie Boareskyr", "1": "Dodatkowe opisy przy oryginalnej scenie na moscie", "2": "Scena na Moscie Boareskyr daje mozliwosci wyboru", "3": "Wybory dokonane w scenie na moscie wplywaja na cechy postaci"}},
-    "es_ES": {"components": {"0": "Los NPC mencionan la escena en el puente de Boareskyr: Reacciones de los NPC", "1": "Texto descriptivo en la escena original del puente", "2": "La escena del puente tiene diferentes elecciones", "3": "Cambios en las estadisticas con las elecciones del puente"}}
+    "de_DE": {
+      "components": {
+        "0": "NSCs reagieren auf die Szene an der Eberfellbruecke",
+        "1": "Originale Szene an der Bruecke mit Beschreibungstext versehen",
+        "2": "Szene an Bruecke mit Reaktionsmoeglichkeiten versehen",
+        "3": "HC-Reaktionen fuehren zu Stataenderungen"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "La scena al ponte di Boareskyr sara riconosciuta: aggiungi reazioni PNG",
+        "1": "Aggiungi testo di descrizione alla scena originale del ponte",
+        "2": "La scena del ponte ha diverse scelte",
+        "3": "Aggiungi modifiche statistiche alle scelte sul ponte"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions",
+        "1": "Add Description Text to Original Scene at Bridge",
+        "2": "Bridge Scene has Different Choices",
+        "3": "Add Stat Changes to Choices at Bridge"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Towarzysze reaguja na scene na Moscie Boareskyr",
+        "1": "Dodatkowe opisy przy oryginalnej scenie na moscie",
+        "2": "Scena na Moscie Boareskyr daje mozliwosci wyboru",
+        "3": "Wybory dokonane w scenie na moscie wplywaja na cechy postaci"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Los NPC mencionan la escena en el puente de Boareskyr: Reacciones de los NPC",
+        "1": "Texto descriptivo en la escena original del puente",
+        "2": "La escena del puente tiene diferentes elecciones",
+        "3": "Cambios en las estadisticas con las elecciones del puente"
+      }
+    }
   },
   "tp2": "c#sodboabri",
   "safe": 2,

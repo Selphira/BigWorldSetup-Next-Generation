@@ -1063,8 +1063,8 @@
       "description": "Xan nécessite le composant de XanFrenchMini pour avoir les voix françaises",
       "mode": "any"
     }, {
-      "source": ["BoneHillEET:*", "CtB:*", "TDDz:*"],
-      "target": ["bp-bgt-worldmap:*"],
+      "source": ["BoneHillEET:*", "CtB:*", "TDDz:*", "drizztsaga:1"],
+      "target": ["bp-bgt-worldmap:0"],
       "severity": "error",
       "description": "Mods qui nécessitent Worldmap",
       "mode": "any"

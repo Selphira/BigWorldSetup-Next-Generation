@@ -1,15 +1,31 @@
 {
   "name": "WeiDU (64-bit)",
-  "version": "249",
+  "version": "249.00",
   "links": {
-    "homepage": "http://weidu.org/main.html#weidu",
-    "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-amd64.zip"
+    "homepage": "http://weidu.org/main.html#weidu"
   },
-  "file": {
-    "filename": "WeiDU-Windows-249-amd64.zip",
-    "size": 2154755,
-    "sha256": "b156910cbec69359fc2e42f6739aa959d49047d6fd3dc172f6bed88ffad8f927"
-  },
+  "files": [
+    {
+      "filename": "WeiDU-Linux-249-amd64.zip",
+      "size": 3421681,
+      "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Linux-249-amd64.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Oops-v4.4.1.zip",
+      "size": 2148644,
+      "sha256": "dec01059efcf4ee5f4a950df7a921f67d412fae28fb726ff9b88bcc69991c8e1",
+      "download": "https://github.com/Deratiseur/Oops/releases/download/v4.4.1/mac-Derats_Oops-v4.4.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "WeiDU-Windows-249-amd64.zip",
+      "size": 2154755,
+      "sha256": "b156910cbec69359fc2e42f6739aa959d49047d6fd3dc172f6bed88ffad8f927",
+      "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-amd64.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "pst", "pstee", "iwd", "iwd2", "iwdee"],
   "categories": ["util"],
   "components": {

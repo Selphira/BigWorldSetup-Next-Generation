@@ -1,15 +1,17 @@
 {
   "name": "Ajantis BG1 Expansion Modification",
-  "version": "21",
+  "version": "22",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/13889-ajantis-bg1-expansion-modifikation-diskussion/",
-    "download": "https://github.com/Gibberlings3/Ajantis_BG1_Expansion/releases/download/v21/ajantis-bg1-expansion-modification-21.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/13889-ajantis-bg1-expansion-modifikation-diskussion/"
   },
-  "file": {
-    "filename": "ajantis-bg1-expansion-modification-21.zip",
-    "size": 5714884,
-    "sha256": "3598f44a01a285ab4b2895746c735be6df842fa5eb9202c1fc25e2287b1a45b0"
-  },
+  "files": [
+    {
+      "filename": "ajantis-bg1-expansion-modification-22.zip",
+      "size": 5714989,
+      "sha256": "38b3c9ff7d9aa9ef748c70acdca4ddeeec1fb46f165d87587a3d7566c0c7f7ff",
+      "download": "https://github.com/Gibberlings3/Ajantis_BG1_Expansion/releases/download/v22/ajantis-bg1-expansion-modification-22.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -48,7 +50,13 @@
         "30": "阿詹提斯龙矛围攻（SoD）可入队：跨MOD内容"
       }
     },
-    "de_DE": {"components": {"0": "Installiert Ajantis BG1 Erweiterungen", "1": "Installiere das BG:EE BAM fuer Ajantis' Familienschild", "30": "Ajantis SoD NPC: Crossmod Content"}}
+    "de_DE": {
+      "components": {
+        "0": "Installiert Ajantis BG1 Erweiterungen",
+        "1": "Installiere das BG:EE BAM fuer Ajantis' Familienschild",
+        "30": "Ajantis SoD NPC: Crossmod Content"
+      }
+    }
   },
   "tp2": "ajantisbg1",
   "safe": 2,

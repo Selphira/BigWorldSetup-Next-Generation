@@ -110,7 +110,8 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         raise NotImplementedError(f"{self.__class__.__name__} must implement get_page_id()")
 
-    def get_page_description(self) -> str:
+    @staticmethod
+    def get_page_description() -> str:
         """Get optional page description for tooltips or help text.
 
         Returns:
@@ -166,7 +167,8 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
     # CONDITIONAL NAVIGATION
     # ========================================
 
-    def get_next_page_id(self) -> str | None:
+    @staticmethod
+    def get_next_page_id() -> str | None:
         """Get the ID of the next page for conditional navigation.
 
         Enables dynamic navigation flow based on user choices:
@@ -179,7 +181,8 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         return None
 
-    def get_previous_page_id(self) -> str | None:
+    @staticmethod
+    def get_previous_page_id() -> str | None:
         """Get the ID of the previous page for conditional navigation.
 
         Less commonly needed than get_next_page_id(), but useful for
@@ -190,7 +193,8 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         return None
 
-    def should_skip_page(self) -> bool:
+    @staticmethod
+    def should_skip_page() -> bool:
         """Determine if this page should be skipped in navigation.
 
         Useful for context-dependent page visibility:

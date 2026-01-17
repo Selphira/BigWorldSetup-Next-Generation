@@ -2,14 +2,16 @@
   "name": "Almateria's Restoration Project",
   "version": "10.1",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1053-almaterias-restoration-project/",
-    "download": "https://github.com/Spellhold-Studios/Almaterias-Restoration-Project/releases/download/v10.1/arestorationp-v10.1.zip"
+    "homepage": "https://www.shsforums.net/files/file/1053-almaterias-restoration-project/"
   },
-  "file": {
-    "filename": "arestorationp-v10.1.zip",
-    "size": 4921804,
-    "sha256": "78aa81458a8f8aa42ab50720a55bed3f5075b3b9b3f77471f7f1a4632b505477"
-  },
+  "files": [
+    {
+      "filename": "arestorationp-v10.1.zip",
+      "size": 4921804,
+      "sha256": "78aa81458a8f8aa42ab50720a55bed3f5075b3b9b3f77471f7f1a4632b505477",
+      "download": "https://github.com/Spellhold-Studios/Almateria-Restoration-Project/releases/download/v10.1/arestorationp-v10.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -96,15 +98,159 @@
         "13": "渥金商场动画补全"
       }
     },
-    "pl_PL": {"components": {"0": "Przywrocenie lokacji", "1": "Przywrocenie postaci i dialogow", "2": "Przywrocenie dzwiekow", "3": "Przywrocenie przedmiotow", "4": "Przywrocone opcji Zyczenia", "5": "Przywrocone XP za niewielkie rzeczy", "6": "Lisz Deril", "7": "Przywrocenie losowych spotkan", "8": "Pomniejsze przywrocenia", "10": "Ulepszony system importu przedmiotow", "11": "Przywrocony ostatni sen o Zabojcy", "12": "Alternatywna przemiana w zabojce", "13": "Rozszerzona cutscenka na Promenadzie"}},
-    "it_IT": {"components": {"0": "Ristorati luoghi", "1": "Ristorati personaggi e dialoghi", "2": "Ristorati suoni", "3": "Ristorati oggetti", "4": "Ristorate opzioni per l’incantesimo Wish", "5": "Ristorati XP per cose minori", "6": "Lich Deril", "7": "Ristorati incontri casuali", "8": "Restaurazioni minori", "10": "Miglior metodo d’importo degli oggetti", "11": "Restaurato l’ultimo sogno dell’uccisore", "12": "Cambiamento nell’uccisore alternativo", "13": "Restored Waukeen's Promenade Cutscene"}},
-    "de_DE": {"components": {"0": "Wiederherstellung von Orten", "1": "Wiederherstellung von Charaktern und Dialogen", "2": "Wiederherstellung von Sounds", "3": "Wiederherstellung von Gegenstaenden", "4": "Wiederherstellung von Optionen beim Wunsch", "5": "Wiederherstellung von EP fuer TdB", "6": "Leichnam Deril", "7": "Wiederherstellung von zufaelligen Begegnungen", "8": "Kleinere Wiederherstellungen", "10": "Verbessertes Importieren von Gegenstaenden", "11": "Wiederherstellung des letzten Traums des Schlaechters", "12": "Alternative Transformation in den Schlaechter", "13": "Wiederherstellung der Cutscene von Waukeens Promenade"}},
-    "la_LA": {"components": {"0": "loci refecti", "1": "homines uerbaeque refecti", "2": "soni refecti", "3": "instrumenta refecta", "4": "optiones de Uoto refectae", "5": "XP paruorum refecta", "6": "Deril corpora", "7": "fortes errabundae refectae", "8": "parua refecta", "10": "melior importaticis modus", "11": "somnium ultimum Mactatoris refectum", "12": "altera in Mactatorem mutatio", "13": "Restored Waukeen's Promenade Cutscene"}},
-    "fo_FO": {"components": {"0": "Endurboett stoed", "1": "Endurboettir leiklutir og samroedur", "2": "Endurboett ljód", "3": "Endurboettir lutir", "4": "Endurboettir ynskimoeguleikar", "5": "Endurboett royndarstig fyri smaerri lutir", "6": "Líkid Deril", "7": "Endurboettar tilvildarhendingar", "8": "Smaerri endurboetingar", "10": "Fraegari háttur at innflyta lutir", "11": "Endurboettur endaligi Slayer dreymur", "12": "Alternativ Slayer umskapan", "13": "Restored Waukeen's Promenade Cutscene"}},
-    "pt_BR": {"components": {"0": "Locais Restaurados", "1": "Personagens e Diálogos Restaurados", "2": "Sons Restaurados", "3": "Itens Restaurados", "4": "Opções de Desejos Restauradas", "5": "EXP para Coisas Menores Restaurada", "6": "Lich Deril", "7": "Encontros Aleatórios Restaurados", "8": "Restaurações Menores", "10": "Melhor Importação de Itens", "11": "Restaurado o Sonho Final do Assassino", "12": "Mudança Alternativa do Assassino", "13": "Restaurada a Cena da Alameda de Waukeen"}},
-    "ru_RU": {"components": {"0": "Restored Locations", "1": "Restored Characters and Dialogs", "2": "Restored Sounds", "3": "Restored Items", "4": "Restored Wish Options", "5": "Restored XP for Minor Things", "6": "Lich Deril", "7": "Restored Random Encounters", "8": "Minor Restorations", "10": "Better Item Import", "11": "Restored Final Slayer Dream", "12": "Alternate Slayer Change", "13": "Restored Waukeen's Promenade Cutscene"}},
-    "es_ES": {"components": {"0": "Lugares restauradas", "1": "Personajes y diálogos restaurados", "2": "Sonidos restaurados", "3": "Objetos restaurados", "4": "Opciones de Deseo restauradas", "5": "Experiencia restaurada para menudencias", "6": "Liche Deril", "7": "Encuentros aleatorios restaurados", "8": "Restauraciones menores", "10": "Importación de objetos mejorada", "11": "Restaurado el último sueño del Asesino", "12": "Cambio de Asesino alternativo", "13": "Escena restaurada en el Paseo de Waukin"}},
-    "cs_CZ": {"components": {"0": "Obnovene oblasti", "1": "Obnovene postavy a dialogy", "2": "Obnovene zvuky", "3": "Obnovene predmety", "4": "Obnovena volba kouzla Prani", "5": "Obnoveny zisk zkusenosti za drobne skutky", "6": "Lich Deril", "7": "Obnovena nahodna setkani", "8": "Drobne obnovy", "10": "Lepsi import predmetu", "11": "Obnoveni posledniho snu o Zabijakovim", "12": "Alternativni zmena v Zabijaka (dalsi dodatecne nevyhody)", "13": "Obnovena cutscena na promenade"}}
+    "pl_PL": {
+      "components": {
+        "0": "Przywrocenie lokacji",
+        "1": "Przywrocenie postaci i dialogow",
+        "2": "Przywrocenie dzwiekow",
+        "3": "Przywrocenie przedmiotow",
+        "4": "Przywrocone opcji Zyczenia",
+        "5": "Przywrocone XP za niewielkie rzeczy",
+        "6": "Lisz Deril",
+        "7": "Przywrocenie losowych spotkan",
+        "8": "Pomniejsze przywrocenia",
+        "10": "Ulepszony system importu przedmiotow",
+        "11": "Przywrocony ostatni sen o Zabojcy",
+        "12": "Alternatywna przemiana w zabojce",
+        "13": "Rozszerzona cutscenka na Promenadzie"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Ristorati luoghi",
+        "1": "Ristorati personaggi e dialoghi",
+        "2": "Ristorati suoni",
+        "3": "Ristorati oggetti",
+        "4": "Ristorate opzioni per l’incantesimo Wish",
+        "5": "Ristorati XP per cose minori",
+        "6": "Lich Deril",
+        "7": "Ristorati incontri casuali",
+        "8": "Restaurazioni minori",
+        "10": "Miglior metodo d’importo degli oggetti",
+        "11": "Restaurato l’ultimo sogno dell’uccisore",
+        "12": "Cambiamento nell’uccisore alternativo",
+        "13": "Restored Waukeen's Promenade Cutscene"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Wiederherstellung von Orten",
+        "1": "Wiederherstellung von Charaktern und Dialogen",
+        "2": "Wiederherstellung von Sounds",
+        "3": "Wiederherstellung von Gegenstaenden",
+        "4": "Wiederherstellung von Optionen beim Wunsch",
+        "5": "Wiederherstellung von EP fuer TdB",
+        "6": "Leichnam Deril",
+        "7": "Wiederherstellung von zufaelligen Begegnungen",
+        "8": "Kleinere Wiederherstellungen",
+        "10": "Verbessertes Importieren von Gegenstaenden",
+        "11": "Wiederherstellung des letzten Traums des Schlaechters",
+        "12": "Alternative Transformation in den Schlaechter",
+        "13": "Wiederherstellung der Cutscene von Waukeens Promenade"
+      }
+    },
+    "la_LA": {
+      "components": {
+        "0": "loci refecti",
+        "1": "homines uerbaeque refecti",
+        "2": "soni refecti",
+        "3": "instrumenta refecta",
+        "4": "optiones de Uoto refectae",
+        "5": "XP paruorum refecta",
+        "6": "Deril corpora",
+        "7": "fortes errabundae refectae",
+        "8": "parua refecta",
+        "10": "melior importaticis modus",
+        "11": "somnium ultimum Mactatoris refectum",
+        "12": "altera in Mactatorem mutatio",
+        "13": "Restored Waukeen's Promenade Cutscene"
+      }
+    },
+    "fo_FO": {
+      "components": {
+        "0": "Endurboett stoed",
+        "1": "Endurboettir leiklutir og samroedur",
+        "2": "Endurboett ljód",
+        "3": "Endurboettir lutir",
+        "4": "Endurboettir ynskimoeguleikar",
+        "5": "Endurboett royndarstig fyri smaerri lutir",
+        "6": "Líkid Deril",
+        "7": "Endurboettar tilvildarhendingar",
+        "8": "Smaerri endurboetingar",
+        "10": "Fraegari háttur at innflyta lutir",
+        "11": "Endurboettur endaligi Slayer dreymur",
+        "12": "Alternativ Slayer umskapan",
+        "13": "Restored Waukeen's Promenade Cutscene"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "0": "Locais Restaurados",
+        "1": "Personagens e Diálogos Restaurados",
+        "2": "Sons Restaurados",
+        "3": "Itens Restaurados",
+        "4": "Opções de Desejos Restauradas",
+        "5": "EXP para Coisas Menores Restaurada",
+        "6": "Lich Deril",
+        "7": "Encontros Aleatórios Restaurados",
+        "8": "Restaurações Menores",
+        "10": "Melhor Importação de Itens",
+        "11": "Restaurado o Sonho Final do Assassino",
+        "12": "Mudança Alternativa do Assassino",
+        "13": "Restaurada a Cena da Alameda de Waukeen"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Restored Locations",
+        "1": "Restored Characters and Dialogs",
+        "2": "Restored Sounds",
+        "3": "Restored Items",
+        "4": "Restored Wish Options",
+        "5": "Restored XP for Minor Things",
+        "6": "Lich Deril",
+        "7": "Restored Random Encounters",
+        "8": "Minor Restorations",
+        "10": "Better Item Import",
+        "11": "Restored Final Slayer Dream",
+        "12": "Alternate Slayer Change",
+        "13": "Restored Waukeen's Promenade Cutscene"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Lugares restauradas",
+        "1": "Personajes y diálogos restaurados",
+        "2": "Sonidos restaurados",
+        "3": "Objetos restaurados",
+        "4": "Opciones de Deseo restauradas",
+        "5": "Experiencia restaurada para menudencias",
+        "6": "Liche Deril",
+        "7": "Encuentros aleatorios restaurados",
+        "8": "Restauraciones menores",
+        "10": "Importación de objetos mejorada",
+        "11": "Restaurado el último sueño del Asesino",
+        "12": "Cambio de Asesino alternativo",
+        "13": "Escena restaurada en el Paseo de Waukin"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Obnovene oblasti",
+        "1": "Obnovene postavy a dialogy",
+        "2": "Obnovene zvuky",
+        "3": "Obnovene predmety",
+        "4": "Obnovena volba kouzla Prani",
+        "5": "Obnoveny zisk zkusenosti za drobne skutky",
+        "6": "Lich Deril",
+        "7": "Obnovena nahodna setkani",
+        "8": "Drobne obnovy",
+        "10": "Lepsi import predmetu",
+        "11": "Obnoveni posledniho snu o Zabijakovim",
+        "12": "Alternativni zmena v Zabijaka (dalsi dodatecne nevyhody)",
+        "13": "Obnovena cutscena na promenade"
+      }
+    }
   },
   "tp2": "arestorationp",
   "safe": 2,

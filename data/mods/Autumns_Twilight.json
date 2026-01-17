@@ -2,14 +2,16 @@
   "name": "Autumn's Twilight for BGII",
   "version": "1.3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/38791-bg2-autumns-twilight-bg2at/",
-    "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.3.0/bg2-autumns-twilight-mod-1_3_0.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/38791-bg2-autumns-twilight-bg2at/"
   },
-  "file": {
-    "filename": "bg2-autumns-twilight-mod-1_3_0.zip",
-    "size": 808647809,
-    "sha256": "c0f645efb614edc6c3509bd2e83f25effcca85f70330f03aaa4828c1d42397cd"
-  },
+  "files": [
+    {
+      "filename": "bg2-autumns-twilight-mod-1_3_0.zip",
+      "size": 808647809,
+      "sha256": "c0f645efb614edc6c3509bd2e83f25effcca85f70330f03aaa4828c1d42397cd",
+      "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.3.0/bg2-autumns-twilight-mod-1_3_0.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["quest", "npc"],
   "components": {
@@ -48,11 +50,36 @@
         "1": "Enemy Difficulty: Hard"
       }
     },
-    "es_ES": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
-    "it_IT": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
-    "de_DE": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
-    "pl_PL": {"components": {"0": "Autumn's Twilight MOD", "1": "Enemy Difficulty: Hard"}},
-    "ru_RU": {"components": {"0": "Осень в закатном моде", "1": "Enemy Difficulty: Hard"}}
+    "es_ES": {
+      "components": {
+        "0": "Autumn's Twilight MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Autumn's Twilight MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Autumn's Twilight MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Autumn's Twilight MOD",
+        "1": "Enemy Difficulty: Hard"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Осень в закатном моде",
+        "1": "Enemy Difficulty: Hard"
+      }
+    }
   },
   "tp2": "autumns_twilight",
   "safe": 2,

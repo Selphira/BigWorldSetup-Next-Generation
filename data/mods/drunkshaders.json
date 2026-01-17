@@ -2,14 +2,29 @@
   "name": "Sharpening filter",
   "version": "0.3.5",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/87794/mod-sharpening-filter-bgee1-3-like-look-and-more-via-shaders/p1",
-    "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/win-drunkshaders-0.3.5.zip"
+    "homepage": "https://forums.beamdog.com/discussion/87794/mod-sharpening-filter-bgee1-3-like-look-and-more-via-shaders/p1"
   },
-  "file": {
-    "filename": "win-drunkshaders-0.3.5.zip",
-    "size": 1921919,
-    "sha256": "86c66e146549e08333179f7b44f7947cde87110285d693b4f446615f9a590628"
-  },
+  "files": [
+    {
+      "filename": "lin-i686-drunkshaders-0.3.5.tar.gz",
+      "size": 2553545,
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/lin-i686-drunkshaders-0.3.5.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-drunkshaders-0.3.5.zip",
+      "size": 1770492,
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/mac-drunkshaders-0.3.5.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-drunkshaders-0.3.5.zip",
+      "size": 1921919,
+      "sha256": "86c66e146549e08333179f7b44f7947cde87110285d693b4f446615f9a590628",
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/win-drunkshaders-0.3.5.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "pstee", "iwdee"],
   "categories": ["cosm"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Animal Companions",
   "version": "1.6",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/56242-animal-companions/",
-    "download": "https://github.com/thisisulb/AnimalCompanions/archive/refs/heads/master.zip"
+    "homepage": "https://www.shsforums.net/topic/56242-animal-companions/"
   },
-  "file": {
-    "filename": "AnimalCompanions-master.zip",
-    "size": 3489400,
-    "sha256": "c157f8e172f177e86609ceefac80e53afde8a51b769ad94da97762d538fb4f94"
-  },
+  "files": [
+    {
+      "filename": "AnimalCompanions-master.zip",
+      "size": 3489400,
+      "sha256": "c157f8e172f177e86609ceefac80e53afde8a51b769ad94da97762d538fb4f94",
+      "download": "https://github.com/thisisulb/AnimalCompanions/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
@@ -48,12 +50,24 @@
         "0.3.1": "Oui"
       }
     },
-    "it_IT": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}},
+    "it_IT": {
+      "components": {
+        "0": "Animal Companions For All Rangers (Optional: Druids)"
+      }
+    },
     "zh_CN": {
       "description": "这个小型模组允许游侠（如果你愿意，也包括德鲁伊）获得一个动物伙伴，它会在整个游戏中跟随你（有点像 familiars）。从3级开始，他们可以去寻找它。\n可能的动物类型：熊、狼、豹、美洲豹、狗、蜘蛛、飞龙、土拨鼠、兔子。"
     },
-    "de_DE": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}},
-    "pl_PL": {"components": {"0": "Animal Companions For All Rangers (Optional: Druids)"}}
+    "de_DE": {
+      "components": {
+        "0": "Animal Companions For All Rangers (Optional: Druids)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Animal Companions For All Rangers (Optional: Druids)"
+      }
+    }
   },
   "tp2": "animalcompanions",
   "safe": 1,

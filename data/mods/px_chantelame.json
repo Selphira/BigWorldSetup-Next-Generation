@@ -2,14 +2,31 @@
   "name": "Chantelame",
   "version": "7.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24080",
-    "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/win-Px_Chantelame-v7.2.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24080"
   },
-  "file": {
-    "filename": "win-Px_Chantelame-v7.2.zip",
-    "size": 1893588,
-    "sha256": "f6a56c2f9255eb1ae22c149ae21be8ffa38579eef5a87bde38d1cbd7c7ffe018"
-  },
+  "files": [
+    {
+      "filename": "lin-Px_Chantelame-v7.2.zip",
+      "size": 1721247,
+      "sha256": "afef68cb18b22a22e7d97de02a03026eae0e3abe30f8b25c56fa9bd118521edf",
+      "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/lin-Px_Chantelame-v7.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Px_Chantelame-v7.2.zip",
+      "size": 1948777,
+      "sha256": "53cc94804f50bc2ec2e7fc7c666dfbe08ff31920a9b88aaff159162e390da5ac",
+      "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/mac-Px_Chantelame-v7.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Px_Chantelame-v7.2.zip",
+      "size": 1893588,
+      "sha256": "f6a56c2f9255eb1ae22c149ae21be8ffa38579eef5a87bde38d1cbd7c7ffe018",
+      "download": "https://github.com/Plutonium-X/KIT_Chantelame/releases/download/v7.2/win-Px_Chantelame-v7.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

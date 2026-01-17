@@ -2,20 +2,20 @@
   "name": "W_Packmule",
   "version": "1.4b",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/954-w-packmule/",
-    "download": "https://github.com/Endarire/W_Packmule/releases/download/1.4b/w_packmule-v1.4b.zip"
+    "homepage": "https://www.shsforums.net/files/file/954-w-packmule/"
   },
-  "file": {
-    "filename": "w_packmule-v1.4b.zip",
-    "size": 11482227,
-    "sha256": "0c802cb4a36132f2ac62408078a0dcf5a9c3797729f41a966bc16f34b0b7e38c"
-  },
+  "files": [
+    {
+      "filename": "w_packmule-v1.4b.zip",
+      "size": 11482227,
+      "sha256": "0c802cb4a36132f2ac62408078a0dcf5a9c3797729f41a966bc16f34b0b7e38c",
+      "download": "https://github.com/Endarire/W_Packmule/releases/download/1.4b/w_packmule-v1.4b.zip"
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {
-      "type": "muc", "components": ["0", "1"], "category": "smith", "default": "2", "games": ["bg2", "tutu", "bgt"]
-    },
+    "choice_0": {"type": "muc", "components": ["0", "1"], "category": "smith", "default": "2", "games": ["bg2", "tutu", "bgt"]},
     "choice_1": {"type": "muc", "components": ["2", "3"], "games": ["bgee", "bg2ee", "eet"]},
     "choice_2": {"type": "muc", "components": ["4", "5"]}
   },
@@ -60,23 +60,41 @@
     },
     "pl_PL": {
       "components": {
-        "choice_0": "Juczny Mul", "0": "Standardowe sakwy", "1": "Sakwy \"bez dna\"", "choice_1": "Juczny Mul (bgee)",
-        "2": "Standardowe sakwy", "3": "Sakwy \"bez dna\"", "choice_2": "Juczny Mul (iwd_in_bg2)",
-        "4": "Standardowe sakwy", "5": "Sakwy \"bez dna\""
+        "choice_0": "Juczny Mul",
+        "0": "Standardowe sakwy",
+        "1": "Sakwy \"bez dna\"",
+        "choice_1": "Juczny Mul (bgee)",
+        "2": "Standardowe sakwy",
+        "3": "Sakwy \"bez dna\"",
+        "choice_2": "Juczny Mul (iwd_in_bg2)",
+        "4": "Standardowe sakwy",
+        "5": "Sakwy \"bez dna\""
       }
     },
     "it_IT": {
       "components": {
-        "choice_0": "Mulo da soma (Pack Mule)", "0": "Bisaccia classica", "1": "Bisaccia senza fondo",
-        "choice_1": "Mulo da soma (Pack Mule bgee)", "2": "Bisaccia classica", "3": "Bisaccia senza fondo",
-        "choice_2": "Mulo da soma (Pack Mule iwd_in_bg2)", "4": "Bisaccia classica", "5": "Bisaccia senza fondo"
+        "choice_0": "Mulo da soma (Pack Mule)",
+        "0": "Bisaccia classica",
+        "1": "Bisaccia senza fondo",
+        "choice_1": "Mulo da soma (Pack Mule bgee)",
+        "2": "Bisaccia classica",
+        "3": "Bisaccia senza fondo",
+        "choice_2": "Mulo da soma (Pack Mule iwd_in_bg2)",
+        "4": "Bisaccia classica",
+        "5": "Bisaccia senza fondo"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "Maultier", "0": "Standard Satteltaschen", "1": "Bodenlose Satteltaschen",
-        "choice_1": "Maultier (bgee)", "2": "Standard Satteltaschen", "3": "Bodenlose Satteltaschen",
-        "choice_2": "Maultier (iwd_in_bg2)", "4": "Standard Satteltaschen", "5": "Bodenlose Satteltaschen"
+        "choice_0": "Maultier",
+        "0": "Standard Satteltaschen",
+        "1": "Bodenlose Satteltaschen",
+        "choice_1": "Maultier (bgee)",
+        "2": "Standard Satteltaschen",
+        "3": "Bodenlose Satteltaschen",
+        "choice_2": "Maultier (iwd_in_bg2)",
+        "4": "Standard Satteltaschen",
+        "5": "Bodenlose Satteltaschen"
       }
     }
   },

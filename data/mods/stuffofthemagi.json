@@ -2,14 +2,16 @@
   "name": "Stuff of the Magi",
   "version": "6.0.0",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Stuff-of-the-Magi/blob/master/README-FR.md",
-    "download": "https://github.com/Spellhold-Studios/Stuff-of-the-Magi/releases/download/v6.0.0/stuff-of-the-magi-6.0.0.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Stuff-of-the-Magi/blob/master/README-FR.md"
   },
-  "file": {
-    "filename": "stuff-of-the-magi-6.0.0.zip",
-    "size": 4349035,
-    "sha256": "ba3c0d5c3c381405ccb8fc68cd3305547fadff95c880fe7a60c5e35487ddcfcb"
-  },
+  "files": [
+    {
+      "filename": "stuff-of-the-magi-6.0.0.zip",
+      "size": 4349035,
+      "sha256": "ba3c0d5c3c381405ccb8fc68cd3305547fadff95c880fe7a60c5e35487ddcfcb",
+      "download": "https://github.com/Spellhold-Studios/Stuff-of-the-Magi/releases/download/v6.0.0/stuff-of-the-magi-6.0.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -42,11 +44,27 @@
         "3": "Utiliser les objets originaux, surpuissants ET les ajouter a l'inventaire des creatures"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Stuff of the Magi", "0": "Use new, less cheesy items AND Add them to creatures' equipment (recommended)", "1": "Use new, less cheesy items AND Add them to creatures' inventory", "2": "Use original, overpowered items AND Add them to creatures' equipment", "3": "Use original, overpowered items AND Add them to creatures' inventory"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "Stuff of the Magi",
+        "0": "Use new, less cheesy items AND Add them to creatures' equipment (recommended)",
+        "1": "Use new, less cheesy items AND Add them to creatures' inventory",
+        "2": "Use original, overpowered items AND Add them to creatures' equipment",
+        "3": "Use original, overpowered items AND Add them to creatures' inventory"
+      }
+    },
     "zh_CN": {
       "description": "此模组将法师的武器库分散在多个生物的物品栏中。如果你拥有所有物品，那么佩戴所有物品的人会获得一个非凡的加成，并且你会在前厅遇到一个想和你说话的人……"
     },
-    "it_IT": {"components": {"choice_0": "Materiale per i Maghi", "0": "Utilizza i nuovi oggetti meno scadenti ed aggiungili all'equipaggiamento delle creature (raccomandato)", "1": "Utilizza i nuovi oggetti meno scadenti ed aggiungili nell'inventario delle creature", "2": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’equipaggiamento delle creature", "3": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’inventario delle creature"}}
+    "it_IT": {
+      "components": {
+        "choice_0": "Materiale per i Maghi",
+        "0": "Utilizza i nuovi oggetti meno scadenti ed aggiungili all'equipaggiamento delle creature (raccomandato)",
+        "1": "Utilizza i nuovi oggetti meno scadenti ed aggiungili nell'inventario delle creature",
+        "2": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’equipaggiamento delle creature",
+        "3": "Utilizza gli oggetti originali sovrapotenziati ed aggiungili all’inventario delle creature"
+      }
+    }
   },
   "tp2": "stuffofthemagi",
   "safe": 2,

@@ -2,14 +2,29 @@
   "name": "Skip Chateau Irenicus",
   "version": "3.5",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/58730-mod-skip-chateau-irenicus",
-    "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/win-SkipChateauIrenicus-v3.5.zip"
+    "homepage": "https://www.shsforums.net/topic/58730-mod-skip-chateau-irenicus"
   },
-  "file": {
-    "filename": "win-SkipChateauIrenicus-v3.5.zip",
-    "size": 3420935,
-    "sha256": "0ed3e4059e2dc4224505e5a80aa4ae61ef19863b81af71ba7c1699ff4153429b"
-  },
+  "files": [
+    {
+      "filename": "lin-SkipChateauIrenicus-v3.5.zip",
+      "size": 3421009,
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/lin-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-SkipChateauIrenicus-v3.5.zip",
+      "size": 3648551,
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/mac-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-SkipChateauIrenicus-v3.5.zip",
+      "size": 3420935,
+      "sha256": "0ed3e4059e2dc4224505e5a80aa4ae61ef19863b81af71ba7c1699ff4153429b",
+      "download": "https://github.com/Argent77/A7-SkipChateauIrenicus/releases/download/v3.5/win-SkipChateauIrenicus-v3.5.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -50,11 +65,51 @@
     "zh_CN": {
       "description": "你是否厌倦了一次又一次地跑过初始地牢？好吧，你再也不需要了！这个模组让你可以避免完成艾瑞尼卡斯地牢中所有无聊的任务。你甚至可以收集到其中通常能找到的所有物品。你只需要检查渥金商场被毁建筑物的废墟来回收它们。作为奖励，你还将获得经验值，也许还有一点零花钱。“跳过艾瑞尼卡斯城堡”被设计为（不幸地）著名的Dungeon-Be-Gone模组的一个替代方案，后者提供了一个类似的选项，但方式至少可以说不太可信。"
     },
-    "de_DE": {"components": {"0": "Ueberspringe Chateau Irenicus", "choice_0": "Uebersprungene NSCs mit einbeziehen", "101": "Nur originale NSCs", "102": "Alle verfuegbaren NSCs", "200": "Realistischere Eroeffnungssequenz"}},
-    "pl_PL": {"components": {"0": "Pomin lochy Irenicusa", "choice_0": "Zarzadzaj pominietymi BN", "101": "Tylko BN z podstawowej wersji", "102": "Wszyscy dostepni BN", "200": "Bardziej realistyczny wprowadzajacy przerywnik filmowy"}},
-    "ru_RU": {"components": {"0": "Skip Chateau Irenicus", "choice_0": "Deal with skipped NPCs", "101": "Vanilla NPCs only", "102": "All available NPCs", "200": "More realistic opening cutscene"}},
-    "es_ES": {"components": {"0": "Saltar Chateau Irenicus", "choice_0": "Tratar con los NPCs omitidos", "101": "Solo NPCs estandar", "102": "Todos los NPCs disponibles", "200": "Escena de apertura mas realista"}},
-    "pt_BR": {"components": {"0": "Ignorar o Chateau Irenicus", "choice_0": "Lidar com os NPCs ignorados", "101": "Só os NPCs Vanilla", "102": "Todos os NPCs disponíveis", "200": "Cena de abertura mais realista"}}
+    "de_DE": {
+      "components": {
+        "0": "Ueberspringe Chateau Irenicus",
+        "choice_0": "Uebersprungene NSCs mit einbeziehen",
+        "101": "Nur originale NSCs",
+        "102": "Alle verfuegbaren NSCs",
+        "200": "Realistischere Eroeffnungssequenz"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Pomin lochy Irenicusa",
+        "choice_0": "Zarzadzaj pominietymi BN",
+        "101": "Tylko BN z podstawowej wersji",
+        "102": "Wszyscy dostepni BN",
+        "200": "Bardziej realistyczny wprowadzajacy przerywnik filmowy"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Skip Chateau Irenicus",
+        "choice_0": "Deal with skipped NPCs",
+        "101": "Vanilla NPCs only",
+        "102": "All available NPCs",
+        "200": "More realistic opening cutscene"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Saltar Chateau Irenicus",
+        "choice_0": "Tratar con los NPCs omitidos",
+        "101": "Solo NPCs estandar",
+        "102": "Todos los NPCs disponibles",
+        "200": "Escena de apertura mas realista"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "0": "Ignorar o Chateau Irenicus",
+        "choice_0": "Lidar com os NPCs ignorados",
+        "101": "Só os NPCs Vanilla",
+        "102": "Todos os NPCs disponíveis",
+        "200": "Cena de abertura mais realista"
+      }
+    }
   },
   "tp2": "skipchateauirenicus",
   "safe": 2,

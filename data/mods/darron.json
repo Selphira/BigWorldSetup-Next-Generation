@@ -2,14 +2,16 @@
   "name": "Darron",
   "version": "2.0.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/842-darron/",
-    "download": "https://github.com/Spellhold-Studios/Darron/releases/download/v2.0.0/darron-v2.0.0.zip"
+    "homepage": "https://www.shsforums.net/files/file/842-darron/"
   },
-  "file": {
-    "filename": "darron-v2.0.0.zip",
-    "size": 4530605,
-    "sha256": "37a5d750bf6079f55dfd9f256f5cd7ebd2fa8c7b4f1b8d85a1aacd6e39ea9444"
-  },
+  "files": [
+    {
+      "filename": "darron-v2.0.0.zip",
+      "size": 4530605,
+      "sha256": "37a5d750bf6079f55dfd9f256f5cd7ebd2fa8c7b4f1b8d85a1aacd6e39ea9444",
+      "download": "https://github.com/Spellhold-Studios/Darron/releases/download/v2.0.0/darron-v2.0.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -30,19 +32,35 @@
         "0": "Darron"
       }
     },
-    "it_IT": {"components": {"0": "Darron"}},
+    "it_IT": {
+      "components": {
+        "0": "Darron"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod ajoute Darron, un marchand chargé de négocier les biens spéciaux des Voleurs de l'Ombre. Vous pouvez le trouver dans le sous-sol de la guilde des voleurs dans le quartier du port.",
       "components": {
         "0": "Darron"
       }
     },
-    "ru_RU": {"components": {"0": "Darron"}},
+    "ru_RU": {
+      "components": {
+        "0": "Darron"
+      }
+    },
     "zh_CN": {
       "description": "此模组添加了达伦，一位负责交易影贼特殊商品的商人。你可以在港口区的盗贼公会地下室找到他。"
     },
-    "es_ES": {"components": {"0": "Darron"}},
-    "de_DE": {"components": {"0": "Darron"}}
+    "es_ES": {
+      "components": {
+        "0": "Darron"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Darron"
+      }
+    }
   },
   "tp2": "darron",
   "safe": 2,

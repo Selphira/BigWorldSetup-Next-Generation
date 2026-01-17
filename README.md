@@ -30,7 +30,7 @@ progressivement plusieurs limitations :
 * Impossibilité d'ajouter des mods non supportés
 * Impossibilité de modifier l'ordre d'installation
 
-**Big World SetupEnhanced Edition** a été conçu tout d'abord par désir d'apprendre le Python, et pour répondre à ces
+**Big World Setup - Enhanced Edition** a été conçu tout d'abord par désir d'apprendre le Python, et pour répondre à ces
 problèmes de fond, sans renier les acquis fonctionnels du projet d’origine.
 
 ---
@@ -43,7 +43,7 @@ problèmes de fond, sans renier les acquis fonctionnels du projet d’origine.
 * Synchronisation des données avec
   la [Liste des mods de l'Infinity Engine](<https://riwspy.github.io/lcc-docs/>)
 * Support de multiples langues pour l'interface et les mods
-* Divers filtre sur les mods et les composants
+* Divers filtres sur les mods et les composants
 * Possibilité d'ajouter des mods non supportés
 * Possibilité de modifier l'ordre d'installation
 * Gestion des règles d'ordre d'installation

@@ -2,14 +2,16 @@
   "name": "Yasraena",
   "version": "21",
   "links": {
-    "homepage": "https://github.com/RoxanneSHS/YasraenaEET",
-    "download": "https://github.com/RoxanneSHS/YasraenaEET/archive/refs/tags/V21.zip"
+    "homepage": "https://github.com/RoxanneSHS/YasraenaEET"
   },
-  "file": {
-    "filename": "YasraenaEET-21.zip",
-    "size": 17156214,
-    "sha256": "43737d7c82deca5846aeaa281d44b484050cfe85700df5826a21d64f1fbee123"
-  },
+  "files": [
+    {
+      "filename": "YasraenaEET-21.zip",
+      "size": 17156214,
+      "sha256": "43737d7c82deca5846aeaa281d44b484050cfe85700df5826a21d64f1fbee123",
+      "download": "https://github.com/RoxanneSHS/YasraenaEET/archive/refs/tags/V21.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee"],
   "categories": ["npc"],
   "components": {
@@ -39,10 +41,26 @@
     "zh_CN": {
       "description": "这个模组添加了一个卓尔族NPC，她有专属的对话、语音和物品。她是一位纯粹的战士，混乱善良阵营，拥有两把专属剑和一枚护身符。你会在艾瑞尼卡斯的监狱尽头遇到她（注意：如果你让她离开，你将再也找不到她）。如果你的队伍捍卫高尚的目标（善良或中立阵营角色），她会很好地融入你的队伍，并且她会获得一个独特的语音。\n请注意，她每轮有一次额外的攻击；这至少可以说是有点过分了...\n力量 18/97，敏捷 18，体质 12，智力 13，智慧 12，魅力 16。"
     },
-    "de_DE": {"components": {"0": "Yasraena"}},
-    "es_ES": {"components": {"0": "Yasraena (BG2:SoA & TOB NPC) creado por nethrin & Sillara de Tamari."}},
-    "ru_RU": {"components": {"0": "Yasraena"}},
-    "pl_PL": {"components": {"0": "Yasraena"}}
+    "de_DE": {
+      "components": {
+        "0": "Yasraena"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Yasraena (BG2:SoA & TOB NPC) creado por nethrin & Sillara de Tamari."
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Yasraena"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Yasraena"
+      }
+    }
   },
   "tp2": "yasraena",
   "safe": 2,

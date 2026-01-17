@@ -2,14 +2,29 @@
   "name": "The Sorcerer's Place Collection",
   "version": "14",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/kits/spc",
-    "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/spstuff-v14.exe"
+    "homepage": "https://www.gibberlings3.net/mods/kits/spc"
   },
-  "file": {
-    "filename": "spstuff-v14.exe",
-    "size": 2566287,
-    "sha256": "8101a620f0ceb1cda7ef85d756a703ccaccbc70fd2aff88505ecbb89a4fd06e0"
-  },
+  "files": [
+    {
+      "filename": "lin-spstuff-v14.tar.gz",
+      "size": 446992,
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/lin-spstuff-v14.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-spstuff-v14.tar.gz",
+      "size": 446992,
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/osx-spstuff-v14.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "spstuff-v14.exe",
+      "size": 2566287,
+      "sha256": "8101a620f0ceb1cda7ef85d756a703ccaccbc70fd2aff88505ecbb89a4fd06e0",
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/spstuff-v14.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "spell"],
   "components": {
@@ -58,11 +73,61 @@
     "zh_CN": {
       "description": "这个模组添加了六个由Drizzt1180创建的新职业（Sylvan Mystic Kit，`舞剑士`，Death Knight，`武氏忍者`，` Sylvanus的弓箭手`，Arcane Fist），以及新物品（Creslyn's BG2 Custom Items）到现有商店中。所有这些元素都来自Sorcerer's Place网站上发布的物品包和职业配置文件，并已转换为WeiDU格式以方便安装。"
     },
-    "de_DE": {"components": {"0": "Mystiker des Waldes-Klasse, von Polar Bear", "1": "Schwertmeister-Klasse, von Drizzt1180", "2": "Ritter des Todes-Klasse, von Drizzt1180", "3": "Wushi Ninja Klasse, by Drizzt1180", "5": "Bogenschütze des Sylvanus, von Drizzt1180", "6": "Arkane Faust, von Drizzt1180", "4": "Creslyns Gegenstände für BG2"}},
-    "es_ES": {"components": {"0": "kit Silvano Místico, por Polar Bear", "1": "Kit Maestro de la Espada, por Drizzt1180", "2": "kit Caballero de la Muerte, por Drizzt1180", "3": "Wushi Ninja Kit, por Drizzt1180", "5": "Arquero de Sylvanus, por Drizzt1180", "6": "Puño Arcano, por Drizzt1180", "4": "BG2 Item Pack de Creslyn"}},
-    "cs_CZ": {"components": {"0": "Kit Sylvanin mystik, od Polar Bear", "1": "Kit Mistr èepele, od Drizzt1180", "2": "Kit Temný rytíø, od Drizzt1180", "3": "Kit Wushi Ninja, od Drizzt1180", "5": "Sylvanský luèištník, od Drizzt1180", "6": "Mystická pìst, od Drizzt1180", "4": "Creslynùv BG2 Item Pack"}},
-    "it_IT": {"components": {"0": "Sottoclasse Mistico del Bosco, di Polar Bear", "1": "Sottoclasse Maestro Spadaccino, di Drizzt1180", "2": "Sottoclasse Cavaliere della Morte, di Drizzt1180", "3": "Sottoclasse Wushi Ninja, di Drizzt1180", "5": "Sottoclasse Arciere di Silvanus, di Drizzt1180", "6": "Sottoclasse Pugno Arcano, di Drizzt1180", "4": "Pacchetto Oggetti di Creslyn per BG2"}},
-    "ru_RU": {"components": {"0": "Sylvan Mystic Kit, by Polar Bear", "1": "Blade Master Kit, by Drizzt1180", "2": "Death Knight Kit, by Drizzt1180", "3": "Wushi Ninja Kit, by Drizzt1180", "5": "Archer of Sylvanus, by Drizzt1180", "6": "Arcane Fist, by Drizzt1180", "4": "Creslyn's BG2 Item Pack"}}
+    "de_DE": {
+      "components": {
+        "0": "Mystiker des Waldes-Klasse, von Polar Bear",
+        "1": "Schwertmeister-Klasse, von Drizzt1180",
+        "2": "Ritter des Todes-Klasse, von Drizzt1180",
+        "3": "Wushi Ninja Klasse, by Drizzt1180",
+        "5": "Bogenschütze des Sylvanus, von Drizzt1180",
+        "6": "Arkane Faust, von Drizzt1180",
+        "4": "Creslyns Gegenstände für BG2"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "kit Silvano Místico, por Polar Bear",
+        "1": "Kit Maestro de la Espada, por Drizzt1180",
+        "2": "kit Caballero de la Muerte, por Drizzt1180",
+        "3": "Wushi Ninja Kit, por Drizzt1180",
+        "5": "Arquero de Sylvanus, por Drizzt1180",
+        "6": "Puño Arcano, por Drizzt1180",
+        "4": "BG2 Item Pack de Creslyn"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Kit Sylvanin mystik, od Polar Bear",
+        "1": "Kit Mistr èepele, od Drizzt1180",
+        "2": "Kit Temný rytíø, od Drizzt1180",
+        "3": "Kit Wushi Ninja, od Drizzt1180",
+        "5": "Sylvanský luèištník, od Drizzt1180",
+        "6": "Mystická pìst, od Drizzt1180",
+        "4": "Creslynùv BG2 Item Pack"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Sottoclasse Mistico del Bosco, di Polar Bear",
+        "1": "Sottoclasse Maestro Spadaccino, di Drizzt1180",
+        "2": "Sottoclasse Cavaliere della Morte, di Drizzt1180",
+        "3": "Sottoclasse Wushi Ninja, di Drizzt1180",
+        "5": "Sottoclasse Arciere di Silvanus, di Drizzt1180",
+        "6": "Sottoclasse Pugno Arcano, di Drizzt1180",
+        "4": "Pacchetto Oggetti di Creslyn per BG2"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Sylvan Mystic Kit, by Polar Bear",
+        "1": "Blade Master Kit, by Drizzt1180",
+        "2": "Death Knight Kit, by Drizzt1180",
+        "3": "Wushi Ninja Kit, by Drizzt1180",
+        "5": "Archer of Sylvanus, by Drizzt1180",
+        "6": "Arcane Fist, by Drizzt1180",
+        "4": "Creslyn's BG2 Item Pack"
+      }
+    }
   },
   "tp2": "spstuff",
   "safe": 1,

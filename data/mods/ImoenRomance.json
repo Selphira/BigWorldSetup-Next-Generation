@@ -2,14 +2,16 @@
   "name": "Imoen Romance",
   "version": "4.1.2",
   "links": {
-    "homepage": "http://www.blindmonkey.org/imoen/",
-    "download": "http://www.blindmonkey.org/imoen/files/Imoen%20Romance.zip"
+    "homepage": "http://www.blindmonkey.org/imoen/"
   },
-  "file": {
-    "filename": "Imoen Romance.zip",
-    "size": 40689946,
-    "sha256": "c10bbf002cb065c73cad87e727576e5962f1a4e044c484b7271bb72899034e83"
-  },
+  "files": [
+    {
+      "filename": "Imoen Romance.zip",
+      "size": 40689946,
+      "sha256": "c10bbf002cb065c73cad87e727576e5962f1a4e044c484b7271bb72899034e83",
+      "download": "http://www.blindmonkey.org/imoen/files/Imoen%20Romance.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -39,7 +41,14 @@
     "zh_CN": {
       "description": "这个模组让你能和她妹妹建立更亲密的关系。这可以是友谊，也可以是爱情，无论玩家角色的性别如何。对话内容特别丰富，模组还包含大量新音乐。它需要《巴尔王座》。"
     },
-    "ru_RU": {"components": {"0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.2 Version!)", "choice_0": "Romance Option", "1": "Allow Multiple Romance's", "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"}}
+    "ru_RU": {
+      "components": {
+        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.2 Version!)",
+        "choice_0": "Romance Option",
+        "1": "Allow Multiple Romance's",
+        "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"
+      }
+    }
   },
   "tp2": "imoenromance",
   "safe": 2,

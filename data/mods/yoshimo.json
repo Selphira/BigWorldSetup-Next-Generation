@@ -2,14 +2,16 @@
   "name": "Yoshimo Friendship",
   "version": "5.0",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Yoshimo-Friendship",
-    "download": "https://github.com/Spellhold-Studios/Yoshimo-Friendship/releases/download/v5.0/yoshimo-friendship-v5.0.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Yoshimo-Friendship"
   },
-  "file": {
-    "filename": "yoshimo-friendship-v5.0.zip",
-    "size": 4898848,
-    "sha256": "3819af3346cac731cc70b5609828001e635e0262854ed624fd678fc02e456c6d"
-  },
+  "files": [
+    {
+      "filename": "yoshimo-friendship-v5.0.zip",
+      "size": 4898848,
+      "sha256": "3819af3346cac731cc70b5609828001e635e0262854ed624fd678fc02e456c6d",
+      "download": "https://github.com/Spellhold-Studios/Yoshimo-Friendship/releases/download/v5.0/yoshimo-friendship-v5.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -41,8 +43,16 @@
         "0": "ØüÐñÄ¦ÓÑÒê²å»°°ü"
       }
     },
-    "pl_PL": {"components": {"0": "Przyjazn z Yoshimo dla BGII: SoA"}},
-    "ru_RU": {"components": {"0": "Yoshimo Friendship Mod for BGII: SoA"}}
+    "pl_PL": {
+      "components": {
+        "0": "Przyjazn z Yoshimo dla BGII: SoA"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Yoshimo Friendship Mod for BGII: SoA"
+      }
+    }
   },
   "tp2": "yoshimo",
   "safe": 2,

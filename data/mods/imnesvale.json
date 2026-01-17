@@ -1,15 +1,32 @@
 {
   "name": "D's Odd Quest Mod (Imnesvale)",
-  "version": "2.2.2",
+  "version": "2.2.2.0",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/32419-ds-odd-quest-mod/",
-    "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/win-imnesvale-v2.2.2.zip"
+    "homepage": "https://www.shsforums.net/topic/32419-ds-odd-quest-mod/"
   },
-  "file": {
-    "filename": "win-imnesvale-v2.2.2.zip",
-    "size": 3660841,
-    "sha256": "15d09499ecf2847aa44b57436edecea04ad92e626c3965849f0f0e94d11cb5f8"
-  },
+  "files": [
+    {
+      "filename": "lin-imnesvale-v2.2.2.zip",
+      "size": 3488500,
+      "sha256": "f3c32f33778d36f6413c98057201fa6508d85f862ac99e82df3dd359933d5378",
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/lin-imnesvale-v2.2.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-imnesvale-v2.2.2.zip",
+      "size": 3716022,
+      "sha256": "109fe3e3882362b1dadedfd77511e592ef7ec0a75f5e3e5867453b6fda43f283",
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/mac-imnesvale-v2.2.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-imnesvale-v2.2.2.zip",
+      "size": 3660841,
+      "sha256": "15d09499ecf2847aa44b57436edecea04ad92e626c3965849f0f0e94d11cb5f8",
+      "download": "https://github.com/Plutonium-X/FORK_Duality-Odd-Quest-Mod/releases/download/v2.2.2.0/win-imnesvale-v2.2.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -44,9 +61,30 @@
     "zh_CN": {
       "description": "这个小型模组在第6章的乌玛丘陵增加了一次额外的遭遇。这只是一个借口，用来一场相当艰难的战斗，对手是15到20级且装备精良的敌人。作者设置了3个难度等级：简单（已经相当艰难）、困难和彻底疯狂。"
     },
-    "de_DE": {"components": {"choice_0": "Installiert Imnestal Mod", "0": "Leicht", "1": "Hart", "2": "Habt Ihr Euren verdammten Verstand verloren??!"}},
-    "ru_RU": {"components": {"choice_0": "Install Imnesvale Mod", "0": "Easy", "1": "Hard", "2": "Are You Out Of Your Freaking Mind?!"}},
-    "it_IT": {"components": {"choice_0": "Installa il mod Imnesvale", "0": "Facile", "1": "Difficile", "2": "Sei fuori di testa?!"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Installiert Imnestal Mod",
+        "0": "Leicht",
+        "1": "Hart",
+        "2": "Habt Ihr Euren verdammten Verstand verloren??!"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Install Imnesvale Mod",
+        "0": "Easy",
+        "1": "Hard",
+        "2": "Are You Out Of Your Freaking Mind?!"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "Installa il mod Imnesvale",
+        "0": "Facile",
+        "1": "Difficile",
+        "2": "Sei fuori di testa?!"
+      }
+    }
   },
   "tp2": "imnesvale",
   "safe": 2,

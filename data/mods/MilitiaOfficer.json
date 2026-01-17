@@ -2,14 +2,16 @@
   "name": "Militia Officer",
   "version": "1.8",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/68238/fighter-kit-bodyguard-iwdee-eet-bgee-bg2ee",
-    "download": "https://github.com/Raduziel/MilitiaOfficer-Kit/archive/refs/tags/1.8.zip"
+    "homepage": "https://forums.beamdog.com/discussion/68238/fighter-kit-bodyguard-iwdee-eet-bgee-bg2ee"
   },
-  "file": {
-    "filename": "MilitiaOfficer-Kit-1.8.zip",
-    "size": 923271,
-    "sha256": "2e870badfc23934d03de528fe7457c697f83e2c53e7934608a35e1aca626c000"
-  },
+  "files": [
+    {
+      "filename": "MilitiaOfficer-Kit-1.8.zip",
+      "size": 923271,
+      "sha256": "2e870badfc23934d03de528fe7457c697f83e2c53e7934608a35e1aca626c000",
+      "download": "https://github.com/Raduziel/MilitiaOfficer-Kit/archive/refs/tags/1.8.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {

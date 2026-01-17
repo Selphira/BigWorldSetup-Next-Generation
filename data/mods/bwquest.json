@@ -2,14 +2,16 @@
   "name": "Black Rose Part I: Market Prices",
   "version": "1",
   "links": {
-    "homepage": "http://baldur.cob-bg.pl/bg2-mody?pg=3",
-    "download": "http://baldur.cob-bg.pl/download/bg2/quests/MarketPrices.zip"
+    "homepage": "http://baldur.cob-bg.pl/bg2-mody?pg=3"
   },
-  "file": {
-    "filename": "MarketPrices.zip",
-    "size": 4494724,
-    "sha256": "8e168647e4342d6eb19d3457d864a9c55d8c7fe851ea753fd456b36a24d29ce0"
-  },
+  "files": [
+    {
+      "filename": "MarketPrices.zip",
+      "size": 4494724,
+      "sha256": "8e168647e4342d6eb19d3457d864a9c55d8c7fe851ea753fd456b36a24d29ce0",
+      "download": "http://baldur.cob-bg.pl/download/bg2/quests/MarketPrices.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -38,15 +40,39 @@
       },
       "description": "Ce mod ajoute une quête initiée par le magicien Menelaun, dans l'Antre des Sept Vaux, sur la Promenade de Waukyne."
     },
-    "it_IT": {"components": {"0": "Black Rose Part I: Market Prices"}},
-    "ru_RU": {"components": {"0": "Black Rose Part I: Market Prices"}},
+    "it_IT": {
+      "components": {
+        "0": "Black Rose Part I: Market Prices"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Black Rose Part I: Market Prices"
+      }
+    },
     "zh_CN": {
       "description": "此模组添加了一个由法师梅内劳在渥金商场的七谷洞穴发起的新任务。"
     },
-    "de_DE": {"components": {"0": "Schwarze Rose Teil I: Marktpreise"}},
-    "cs_CZ": {"components": {"0": "Èerná rùe, èást I: Trní ceny"}},
-    "pl_PL": {"components": {"0": "Black Rose Part I: Market Prices"}},
-    "es_ES": {"components": {"0": "Black Rose Part I: Market Prices"}}
+    "de_DE": {
+      "components": {
+        "0": "Schwarze Rose Teil I: Marktpreise"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Èerná rùe, èást I: Trní ceny"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Black Rose Part I: Market Prices"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Black Rose Part I: Market Prices"
+      }
+    }
   },
   "tp2": "bwquest",
   "safe": 2,

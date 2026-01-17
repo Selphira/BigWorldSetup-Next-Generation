@@ -2,14 +2,16 @@
   "name": "I Shall Never Forget",
   "version": "6.3",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/i-shall-never-forget/",
-    "download": "https://downloads.weaselmods.net/download/i-shall-never-forget/?wpdmdl=77"
+    "homepage": "https://downloads.weaselmods.net/download/i-shall-never-forget/"
   },
-  "file": {
-    "filename": "I Shall Never Forget v6.3.zip",
-    "size": 25025891,
-    "sha256": "b7576fab3ed1ba384321b5263adb021afc0a56eb4458cc80d760e573577be088"
-  },
+  "files": [
+    {
+      "filename": "I Shall Never Forget v6.3.zip",
+      "size": 25025891,
+      "sha256": "b7576fab3ed1ba384321b5263adb021afc0a56eb4458cc80d760e573577be088",
+      "download": "https://downloads.weaselmods.net/download/i-shall-never-forget/?wpdmdl=77"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -44,11 +46,31 @@
         "0": "无限颜色系列：矢志不渝的爱"
       }
     },
-    "pl_PL": {"components": {"0": "Colours of Infinity: I Shall Never Forget"}},
-    "de_DE": {"components": {"0": "Farben der Unendlichkeit: Ich Werde Niemals Vergessen"}},
-    "it_IT": {"components": {"0": "I Colori dell'Infinito: Non La Dimentichero Mai"}},
-    "ru_RU": {"components": {"0": "Colours of Infinity: I Shall Never Forget"}},
-    "ko_KR": {"components": {"0": "Colour Of Infinity: I Shall Never Forget"}}
+    "pl_PL": {
+      "components": {
+        "0": "Colours of Infinity: I Shall Never Forget"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Farben der Unendlichkeit: Ich Werde Niemals Vergessen"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "I Colori dell'Infinito: Non La Dimentichero Mai"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Colours of Infinity: I Shall Never Forget"
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "0": "Colour Of Infinity: I Shall Never Forget"
+      }
+    }
   },
   "tp2": "isnf",
   "safe": 2,

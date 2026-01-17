@@ -2,14 +2,16 @@
   "name": "Mortis Mini mod",
   "version": "2.35",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/MISC_Mortis",
-    "download": "https://github.com/Plutonium-X/MISC_Mortis/archive/refs/tags/v2.35.zip"
+    "homepage": "https://github.com/Plutonium-X/MISC_Mortis"
   },
-  "file": {
-    "filename": "MISC_Mortis-2.35.zip",
-    "size": 2901343,
-    "sha256": "6e516c4fb77642ba548e329530e3f0d0c44f52643a48f013c03412785893d01f"
-  },
+  "files": [
+    {
+      "filename": "MISC_Mortis-2.35.zip",
+      "size": 2901343,
+      "sha256": "6e516c4fb77642ba548e329530e3f0d0c44f52643a48f013c03412785893d01f",
+      "download": "https://github.com/Plutonium-X/MISC_Mortis/archive/refs/tags/v2.35.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {

@@ -2,14 +2,16 @@
   "name": "Branwen NPC for BGII",
   "version": "8",
   "links": {
-    "homepage": "https://forums.pocketplane.net/index.php/topic,28623.0.html",
-    "download": "https://github.com/Pocket-Plane-Group/Branwen_for_BGII/releases/download/v8/branwen-v8pre.zip"
+    "homepage": "https://forums.pocketplane.net/index.php/topic,28623.0.html"
   },
-  "file": {
-    "filename": "branwen-v8pre.zip",
-    "size": 13926210,
-    "sha256": "f82c93e67f1910f0754364c17d40e7f4ee2c9609a39cd081efbfc69c9faaea17"
-  },
+  "files": [
+    {
+      "filename": "branwen-v8pre.zip",
+      "size": 13926210,
+      "sha256": "f82c93e67f1910f0754364c17d40e7f4ee2c9609a39cd081efbfc69c9faaea17",
+      "download": "https://github.com/Pocket-Plane-Group/Branwen_for_BGII/releases/download/v8/branwen-v8pre.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -36,7 +38,11 @@
     "zh_CN": {
       "description": "此模组旨在为希望创建NPC的新手模组作者提供一个教程，因此包含了一个完整的NPC，并附有安姆阴影和巴尔王座的内容、闲聊、插话、友谊线等……"
     },
-    "ru_RU": {"components": {"0": "Branwen BG2 NPC mod for players and modders"}}
+    "ru_RU": {
+      "components": {
+        "0": "Branwen BG2 NPC mod for players and modders"
+      }
+    }
   },
   "tp2": "branwen",
   "safe": 2,

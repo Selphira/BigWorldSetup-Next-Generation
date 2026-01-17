@@ -2,14 +2,16 @@
   "name": "Indira NPC",
   "version": "15.1",
   "links": {
-    "homepage": "https://forums.pocketplane.net/index.php/topic,29214.0.html",
-    "download": "https://github.com/Pocket-Plane-Group/Indira_NPC/releases/download/v15.1/indira-npc-v15.1.zip"
+    "homepage": "https://forums.pocketplane.net/index.php/topic,29214.0.html"
   },
-  "file": {
-    "filename": "indira-npc-v15.1.zip",
-    "size": 8564799,
-    "sha256": "0d0c5457eb7f4d5423453aa50aa719f451bd25bf9ac0e82cbb1c26d70f550376"
-  },
+  "files": [
+    {
+      "filename": "indira-npc-v15.1.zip",
+      "size": 8564799,
+      "sha256": "0d0c5457eb7f4d5423453aa50aa719f451bd25bf9ac0e82cbb1c26d70f550376",
+      "download": "https://github.com/Pocket-Plane-Group/Indira_NPC/releases/download/v15.1/indira-npc-v15.1.zip"
+    }
+  ],
   "games": ["tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["npc"],
   "components": {
@@ -43,11 +45,36 @@
     "zh_CN": {
       "description": "该模组添加了一个新的NPC，一位守序善良的半精灵战士法师，可以在火焰之桥的废墟中找到她。她与大多数其他角色都有俏皮的互动。\n力量14，敏捷17，体质15，智力16，智慧7，魅力13。"
     },
-    "it_IT": {"components": {"0": "Indira PNG per BG1Tutu", "1": "Installa Interiezioni per Indira (BETA)"}},
-    "pl_PL": {"components": {"0": "Indira NPC do BG1", "1": "Install Interjections for Indira (BETA)"}},
-    "es_ES": {"components": {"0": "Indira NPC para BG1", "1": "Install Interjections for Indira (BETA)"}},
-    "de_DE": {"components": {"0": "Indira NPC", "1": "Einmischdialoge fuer Indira (BETA)"}},
-    "ru_RU": {"components": {"0": "Indira NPC", "1": "Install Interjections for Indira (BETA)"}}
+    "it_IT": {
+      "components": {
+        "0": "Indira PNG per BG1Tutu",
+        "1": "Installa Interiezioni per Indira (BETA)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Indira NPC do BG1",
+        "1": "Install Interjections for Indira (BETA)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Indira NPC para BG1",
+        "1": "Install Interjections for Indira (BETA)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Indira NPC",
+        "1": "Einmischdialoge fuer Indira (BETA)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Indira NPC",
+        "1": "Install Interjections for Indira (BETA)"
+      }
+    }
   },
   "tp2": "indinpc",
   "safe": 2,

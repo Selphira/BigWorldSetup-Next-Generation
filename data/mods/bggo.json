@@ -2,14 +2,16 @@
   "name": "Baldur's Gate Graphical Overhaul",
   "version": "3.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/27768-baldurs-gate-graphics-overhaul-for-eet/",
-    "download": "https://github.com/Spellhold-Studios/Baldurs-Gate-Graphical-Overhaul/releases/download/v3.5/baldurs-gate-graphical-overhaul-v3.5.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/27768-baldurs-gate-graphics-overhaul-for-eet/"
   },
-  "file": {
-    "filename": "baldurs-gate-graphical-overhaul-v3.5.zip",
-    "size": 1386261605,
-    "sha256": "e35f3d79aa327f9150aa9a0ed010a21d4b515e966d5f6689778656bd3aad38e6"
-  },
+  "files": [
+    {
+      "filename": "baldurs-gate-graphical-overhaul-v3.5.zip",
+      "size": 1386261605,
+      "sha256": "e35f3d79aa327f9150aa9a0ed010a21d4b515e966d5f6689778656bd3aad38e6",
+      "download": "https://github.com/Spellhold-Studios/Baldurs-Gate-Graphical-Overhaul/releases/download/v3.5/baldurs-gate-graphical-overhaul-v3.5.zip"
+    }
+  ],
   "games": ["tutu", "bgt", "bg2", "sod", "bgee", "bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {

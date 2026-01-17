@@ -2,14 +2,16 @@
   "name": "Bubb's Spell Menu Extended",
   "version": "5.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/35838-ui-bubbs-spell-menu-v51/",
-    "download": "https://github.com/Bubb13/Bubbs-Spell-Menu-Extended/archive/refs/tags/v5.1.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/35838-ui-bubbs-spell-menu-v51/"
   },
-  "file": {
-    "filename": "Bubbs-Spell-Menu-Extended-5.1.zip",
-    "size": 1428377,
-    "sha256": "bbe15a58e01c8ffc3415da0b9fecc34d9b924d5c8efcfc5dbd05d7820b664d81"
-  },
+  "files": [
+    {
+      "filename": "Bubbs-Spell-Menu-Extended-5.1.zip",
+      "size": 1428377,
+      "sha256": "bbe15a58e01c8ffc3415da0b9fecc34d9b924d5c8efcfc5dbd05d7820b664d81",
+      "download": "https://github.com/Bubb13/Bubbs-Spell-Menu-Extended/archive/refs/tags/v5.1.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["ui"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "如果你不喜欢此模组普通版本的法术列表视图，这个版本可能会让你喜欢。它模拟了默认的法术选择槽位，并将它们组织起来，使所有法术都能同时显示。"
     },
-    "pt_BR": {"components": {"0": "Bubb's Spell Menu Extended"}},
-    "de_DE": {"components": {"0": "Bubb's Spell Menu Extended"}},
-    "es_ES": {"components": {"0": "Bubb's Spell Menu Extended"}}
+    "pt_BR": {
+      "components": {
+        "0": "Bubb's Spell Menu Extended"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Bubb's Spell Menu Extended"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Bubb's Spell Menu Extended"
+      }
+    }
   },
   "tp2": "bubb_spell_menu_extended",
   "safe": 2,

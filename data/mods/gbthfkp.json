@@ -2,14 +2,16 @@
   "name": "Expanded Thief Stronghold",
   "version": "3.0.0",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/757-expanded-thief-stronghold/",
-    "download": "https://github.com/Spellhold-Studios/Expanded-Thief-Stronghold/releases/download/v3.0.0/expanded-thief-stronghold-v3.0.0.zip"
+    "homepage": "https://www.shsforums.net/files/file/757-expanded-thief-stronghold/"
   },
-  "file": {
-    "filename": "expanded-thief-stronghold-v3.0.0.zip",
-    "size": 8344586,
-    "sha256": "a2e4bde2f45e1aee50f3228cfd0714784143148643181845e903d6d79bf123ef"
-  },
+  "files": [
+    {
+      "filename": "expanded-thief-stronghold-v3.0.0.zip",
+      "size": 8344586,
+      "sha256": "a2e4bde2f45e1aee50f3228cfd0714784143148643181845e903d6d79bf123ef",
+      "download": "https://github.com/Spellhold-Studios/Expanded-Thief-Stronghold/releases/download/v3.0.0/expanded-thief-stronghold-v3.0.0.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -39,10 +41,26 @@
     "zh_CN": {
       "description": "这个模组扩展了盗贼要塞的任务，使其更有趣。你会在途中遇到博德之门中的人物，如黑发莉丝、纳伦·影木……"
     },
-    "de_DE": {"components": {"0": "Erweiterte Diebesgilde"}},
-    "es_ES": {"components": {"0": "Expanded Thief Stronghold (Fortaleza de Ladrones Expandida)"}},
-    "ru_RU": {"components": {"0": "Expanded Thief Stronghold"}},
-    "it_IT": {"components": {"0": "Roccaforte Estesa del Ladro"}}
+    "de_DE": {
+      "components": {
+        "0": "Erweiterte Diebesgilde"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Expanded Thief Stronghold (Fortaleza de Ladrones Expandida)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Expanded Thief Stronghold"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Roccaforte Estesa del Ladro"
+      }
+    }
   },
   "tp2": "gbthfkp",
   "safe": 2,

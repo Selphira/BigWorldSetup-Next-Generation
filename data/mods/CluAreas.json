@@ -2,14 +2,31 @@
   "name": "CluAreas",
   "version": "2.0",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/CluAreas",
-    "download": "https://github.com/The-Gate-Project/CluAreas/releases/download/v2.0/win-CluAreas-v2.0.zip"
+    "homepage": "https://github.com/The-Gate-Project/CluAreas"
   },
-  "file": {
-    "filename": "win-CluAreas-v2.0.zip",
-    "size": 1425725,
-    "sha256": "22b89757df578e7c53ac507a408d865cd4f0bedc4c0e1b0cbeec7560812e8335"
-  },
+  "files": [
+    {
+      "filename": "lin-CluAreas-v2.0.zip",
+      "size": 1253384,
+      "sha256": "d4ef150cac73294bd2cb2e3ff9111c314970ef3f13a8cef03eb9e2b38e65ca61",
+      "download": "https://github.com/The-Gate-Project/CluAreas/releases/download/v2.0/lin-CluAreas-v2.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-CluAreas-v2.0.zip",
+      "size": 1480904,
+      "sha256": "851b3404fe4264dc4f7041deb11cb9dd1fda8438fc7f3788d2aa625bff20be7d",
+      "download": "https://github.com/The-Gate-Project/CluAreas/releases/download/v2.0/mac-CluAreas-v2.0.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-CluAreas-v2.0.zip",
+      "size": 1425725,
+      "sha256": "22b89757df578e7c53ac507a408d865cd4f0bedc4c0e1b0cbeec7560812e8335",
+      "download": "https://github.com/The-Gate-Project/CluAreas/releases/download/v2.0/win-CluAreas-v2.0.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bgee", "sod", "bg2ee", "eet", "iwdee"],
   "categories": ["patch"],
   "components": {

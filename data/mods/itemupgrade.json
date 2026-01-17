@@ -2,14 +2,29 @@
   "name": "Item Upgrade",
   "version": "55",
   "links": {
-    "homepage": "http://weidu.org/item.html",
-    "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/itemupgrade-v55.exe"
+    "homepage": "http://weidu.org/item.html"
   },
-  "file": {
-    "filename": "itemupgrade-v55.exe",
-    "size": 6213662,
-    "sha256": "e8163bf2f4d3ded63052239fc8e459cbfdcd396f0bf74762f02b74ee54399518"
-  },
+  "files": [
+    {
+      "filename": "lin-itemupgrade-v55.zip",
+      "size": 4049209,
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/lin-itemupgrade-v55.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-itemupgrade-v55.zip",
+      "size": 6213435,
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/mac-itemupgrade-v55.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "itemupgrade-v55.exe",
+      "size": 6213662,
+      "sha256": "e8163bf2f4d3ded63052239fc8e459cbfdcd396f0bf74762f02b74ee54399518",
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/itemupgrade-v55.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -52,8 +67,28 @@
         "12": "Install supplemental Cespenar audio for Item Upgrade"
       }
     },
-    "ru_RU": {"components": {"choice_0": "Shadows Of Amn Item Upgrades", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "Throne Of Bhaal Item Upgrades", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
-    "ko_KR": {"components": {"choice_0": "쉐도우 오브 앰 아이템 업그레이드", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "스론 오브 바알 아이템 업그레이드", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
+    "ru_RU": {
+      "components": {
+        "choice_0": "Shadows Of Amn Item Upgrades",
+        "0": "Original Version (new upgrades in a list)",
+        "10": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "choice_1": "Throne Of Bhaal Item Upgrades",
+        "1": "Original Version (new upgrades in a list)",
+        "11": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "12": "Install supplemental Cespenar audio for Item Upgrade"
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "choice_0": "쉐도우 오브 앰 아이템 업그레이드",
+        "0": "Original Version (new upgrades in a list)",
+        "10": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "choice_1": "스론 오브 바알 아이템 업그레이드",
+        "1": "Original Version (new upgrades in a list)",
+        "11": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "12": "Install supplemental Cespenar audio for Item Upgrade"
+      }
+    },
     "zh_CN": {
       "description": "此模组旨在锻造爱好者们带来欢乐……它允许你将海量的物品进行组合，从而创造出更强大的装备……赛斯潘纳和克伦威尔会为你大显身手……",
       "components": {
@@ -66,9 +101,39 @@
         "12": "为新增物品强化安装额外的塞斯潘纳语音"
       }
     },
-    "de_DE": {"components": {"choice_0": "Verbesserte Ausruestung fuer 'Die Schatten von Amn'", "0": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)", "10": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)", "choice_1": "Verbesserte Ausruestung fuer 'Thron des Bhaal'", "1": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)", "11": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
-    "es_ES": {"components": {"choice_0": "Item Upgrade para Shadows of Amn", "0": "Original Version (new upgrades in a list)", "10": "Revised Version (new upgrades presented in the same style as existing upgrades)", "choice_1": "Item Upgrade para Throne of Bhaal", "1": "Original Version (new upgrades in a list)", "11": "Revised Version (new upgrades presented in the same style as existing upgrades)", "12": "Install supplemental Cespenar audio for Item Upgrade"}},
-    "pl_PL": {"components": {"choice_0": "Ulepszenia przedmiotów dla Cienii Amn", "0": "Wersja oryginalna (nowe ulepszenia na liscie)", "10": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)", "choice_1": "Ulepszenia przedmiotów dla Tronu Bhaala", "1": "Wersja oryginalna (nowe ulepszenia na liscie)", "11": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)", "12": "Install supplemental Cespenar audio for Item Upgrade"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Verbesserte Ausruestung fuer 'Die Schatten von Amn'",
+        "0": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)",
+        "10": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)",
+        "choice_1": "Verbesserte Ausruestung fuer 'Thron des Bhaal'",
+        "1": "Urspruegliche Version (neue Verbesserungen als extra Dialogoption)",
+        "11": "Ueberarbeitete Version (neue Verbesserungen werden genauso wie die bestehenden Verbesserungen praesentiert)",
+        "12": "Install supplemental Cespenar audio for Item Upgrade"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Item Upgrade para Shadows of Amn",
+        "0": "Original Version (new upgrades in a list)",
+        "10": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "choice_1": "Item Upgrade para Throne of Bhaal",
+        "1": "Original Version (new upgrades in a list)",
+        "11": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "12": "Install supplemental Cespenar audio for Item Upgrade"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Ulepszenia przedmiotów dla Cienii Amn",
+        "0": "Wersja oryginalna (nowe ulepszenia na liscie)",
+        "10": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)",
+        "choice_1": "Ulepszenia przedmiotów dla Tronu Bhaala",
+        "1": "Wersja oryginalna (nowe ulepszenia na liscie)",
+        "11": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)",
+        "12": "Install supplemental Cespenar audio for Item Upgrade"
+      }
+    }
   },
   "tp2": "itemupgrade",
   "safe": 2,

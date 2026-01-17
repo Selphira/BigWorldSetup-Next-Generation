@@ -2,14 +2,16 @@
   "name": "The Sword of Noober",
   "version": "2.1.1",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/36038-the-sword-of-noober/",
-    "download": "https://github.com/Spellhold-Studios/Sword-of-Noober/releases/download/v2.1.1/the-sword-of-noober-2.1.1.zip"
+    "homepage": "https://www.shsforums.net/topic/36038-the-sword-of-noober/"
   },
-  "file": {
-    "filename": "the-sword-of-noober-2.1.1.zip",
-    "size": 4813925,
-    "sha256": "2a454f03f51f5cedd15a897e2054479bdfa462b7df927ef9a1d8330f6c5661f5"
-  },
+  "files": [
+    {
+      "filename": "the-sword-of-noober-2.1.1.zip",
+      "size": 4813925,
+      "sha256": "2a454f03f51f5cedd15a897e2054479bdfa462b7df927ef9a1d8330f6c5661f5",
+      "download": "https://github.com/Spellhold-Studios/Sword-of-Noober/releases/download/v2.1.1/the-sword-of-noober-2.1.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
@@ -33,7 +35,11 @@
         "0": "L'epee de Noober"
       }
     },
-    "ru_RU": {"components": {"0": "The Sword of Noober"}},
+    "ru_RU": {
+      "components": {
+        "0": "The Sword of Noober"
+      }
+    },
     "zh_CN": {
       "description": "如果你喜欢莉拉科尔，这个最古怪的模组就是为你准备的。它添加了一把拥有无与伦比力量、完全无用、像喜鹊一样喋喋不休的剑，而且它的幽默感……呃……那就是尼伯风格。"
     }

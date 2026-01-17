@@ -2,14 +2,29 @@
   "name": "Turnabout",
   "version": "1.8",
   "links": {
-    "homepage": "https://www.pocketplane.net/turnabout/",
-    "download": "https://github.com/Pocket-Plane-Group/Turnabout/releases/download/v1.8/win-turnabout-v1.8.zip"
+    "homepage": "https://www.pocketplane.net/turnabout/"
   },
-  "file": {
-    "filename": "win-turnabout-v1.8.zip",
-    "size": 9295982,
-    "sha256": "79a2c47ef4b96f356e2fe4b230054edcb40867617d17078abf220968df493468"
-  },
+  "files": [
+    {
+      "filename": "lin-turnabout-v1.8.zip",
+      "size": 2953618,
+      "download": "https://github.com/Pocket-Plane-Group/Turnabout/releases/download/v1.8/lin-turnabout-v1.8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-turnabout-v1.8.zip",
+      "size": 4717449,
+      "download": "https://github.com/Pocket-Plane-Group/Turnabout/releases/download/v1.8/mac-turnabout-v1.8.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-turnabout-v1.8.zip",
+      "size": 9295982,
+      "sha256": "79a2c47ef4b96f356e2fe4b230054edcb40867617d17078abf220968df493468",
+      "download": "https://github.com/Pocket-Plane-Group/Turnabout/releases/download/v1.8/win-turnabout-v1.8.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

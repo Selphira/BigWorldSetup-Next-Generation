@@ -2,14 +2,23 @@
   "name": "Anishai one-day NPC",
   "version": "3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/files/file/687-anishai-one-day-npc/",
-    "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/win-anishai-v3.zip"
+    "homepage": "https://www.gibberlings3.net/files/file/687-anishai-one-day-npc/"
   },
-  "file": {
-    "filename": "win-anishai-v3.zip",
-    "size": 2033854,
-    "sha256": "eb180ca339ff10b11383026d6cb72b9765bfdbc12e300cb01c49d80334234e9f"
-  },
+  "files": [
+    {
+      "filename": "lin-anishai-v3.zip",
+      "size": 344194,
+      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/lin-anishai-v3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "win-anishai-v3.zip",
+      "size": 2033854,
+      "sha256": "eb180ca339ff10b11383026d6cb72b9765bfdbc12e300cb01c49d80334234e9f",
+      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/win-anishai-v3.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -38,9 +47,21 @@
     "zh_CN": {
       "description": "一位混乱中立的女修士，在 Mae'Var 的帮派完成清理阶段后可以招募。\n力量 14，敏捷 17，体质 10，智力 13，智慧 9，魅力 16。"
     },
-    "de_DE": {"components": {"0": "Anishai one-day NPC"}},
-    "it_IT": {"components": {"0": "Anishai one-day NPC"}},
-    "ru_RU": {"components": {"0": "Anishai one-day NPC"}}
+    "de_DE": {
+      "components": {
+        "0": "Anishai one-day NPC"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Anishai one-day NPC"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Anishai one-day NPC"
+      }
+    }
   },
   "tp2": "anishai",
   "safe": 2,

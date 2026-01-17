@@ -2,14 +2,16 @@
   "name": "Viconia Friendship",
   "version": "4.5",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Viconia-Friendship",
-    "download": "https://github.com/Spellhold-Studios/Viconia-Friendship/releases/download/v4.5/Viconia-Friendship-v4.5.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Viconia-Friendship"
   },
-  "file": {
-    "filename": "Viconia-Friendship-v4.5.zip",
-    "size": 2891915,
-    "sha256": "e448bcfd34fb21a883a89363a842e7979f7a279130190d3205c444b10c5b9c98"
-  },
+  "files": [
+    {
+      "filename": "Viconia-Friendship-v4.5.zip",
+      "size": 2891915,
+      "sha256": "e448bcfd34fb21a883a89363a842e7979f7a279130190d3205c444b10c5b9c98",
+      "download": "https://github.com/Spellhold-Studios/Viconia-Friendship/releases/download/v4.5/Viconia-Friendship-v4.5.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -34,7 +36,11 @@
         "0": "Viconia Friendship"
       }
     },
-    "ru_RU": {"components": {"0": "Viconia Friendship"}},
+    "ru_RU": {
+      "components": {
+        "0": "Viconia Friendship"
+      }
+    },
     "zh_CN": {
       "description": "此模组为所有拒绝过维康妮亚的男性或女性玩家角色添加了一系列对话。对于那些不感兴趣于浪漫关系的玩家，他试图提供一些别的内容。但要记住，维康妮亚可不是个容易接近的人，更别提友谊了。她我行我素，即使同意与你同行，也可能不愿成为你的知己。",
       "components": {

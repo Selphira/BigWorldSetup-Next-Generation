@@ -2,14 +2,16 @@
   "name": "Portraits Portraits Everywhere",
   "version": "1.02",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/61015/mod-portraits-portraits-everywhere-for-bg1ee-sod-bg2ee-iwdee-eet/p1",
-    "download": "https://github.com/DaftHunk/Portraits-Portraits-Everywhere/archive/refs/heads/master.zip"
+    "homepage": "https://forums.beamdog.com/discussion/61015/mod-portraits-portraits-everywhere-for-bg1ee-sod-bg2ee-iwdee-eet/p1"
   },
-  "file": {
-    "filename": "Portraits-Portraits-Everywhere-master.zip",
-    "size": 387072763,
-    "sha256": "b04f057993d1faed88b095938f91af2e3bc44205be0f697dc9328b93758854c8"
-  },
+  "files": [
+    {
+      "filename": "Portraits-Portraits-Everywhere-master.zip",
+      "size": 387072763,
+      "sha256": "b04f057993d1faed88b095938f91af2e3bc44205be0f697dc9328b93758854c8",
+      "download": "https://github.com/DaftHunk/Portraits-Portraits-Everywhere/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["portrait"],
   "components": {
@@ -100,7 +102,37 @@
     "zh_CN": {
       "description": "与模组Gerri's NPC Portraits Pack和Ajantis BG1 Expansion Modification类似，此模组为EE游戏中所有涉及对话的NPC都分配了一个肖像（总共4617个！）。\n一个可选组件允许从随机肖像池中为组件主程序未分配特定肖像的演员（主要是具有通用名称的生物）分配肖像。例如，名为“盗贼”的人类角色将从男性或女性盗贼肖像池中获得肖像。有超过九十种随机肖像池，从几个到二十多个不等。\n注意：此模组整合了每个游戏的“次要NPC肖像”系列模组。"
     },
-    "ru_RU": {"components": {"0": "Portraits Portraits Everywhere (PPE) - core component", "choice_0": "Category Portraits (Recommended)", "100": "Sequenced", "150": "Random", "10": "Isandir's CHARNAME Portraits", "20": "Replace Low Quality TOB & SOA Portraits", "25": "Edwin/Edwina", "choice_1": "Change Imoen portraits", "300": "BG1 Portrait", "301": "SOD Portrait", "302": "BG2 Portrait", "choice_2": "Change Viconia portraits", "310": "BG1 Portrait", "311": "SOD Portrait", "312": "BG2 Portrait", "choice_3": "Change Jaheira portraits", "320": "BG1 Portrait", "322": "BG2 Portrait", "choice_4": "Change Minsc portraits", "330": "BG1 Portrait", "332": "BG2 Portrait", "choice_5": "Change Edwin portraits", "340": "BG1 Portrait", "342": "BG2 Portrait", "350": "Longhair Aerie", "30": "Ust Natha Drow NPCs", "40": "Vampire NPCs"}}
+    "ru_RU": {
+      "components": {
+        "0": "Portraits Portraits Everywhere (PPE) - core component",
+        "choice_0": "Category Portraits (Recommended)",
+        "100": "Sequenced",
+        "150": "Random",
+        "10": "Isandir's CHARNAME Portraits",
+        "20": "Replace Low Quality TOB & SOA Portraits",
+        "25": "Edwin/Edwina",
+        "choice_1": "Change Imoen portraits",
+        "300": "BG1 Portrait",
+        "301": "SOD Portrait",
+        "302": "BG2 Portrait",
+        "choice_2": "Change Viconia portraits",
+        "310": "BG1 Portrait",
+        "311": "SOD Portrait",
+        "312": "BG2 Portrait",
+        "choice_3": "Change Jaheira portraits",
+        "320": "BG1 Portrait",
+        "322": "BG2 Portrait",
+        "choice_4": "Change Minsc portraits",
+        "330": "BG1 Portrait",
+        "332": "BG2 Portrait",
+        "choice_5": "Change Edwin portraits",
+        "340": "BG1 Portrait",
+        "342": "BG2 Portrait",
+        "350": "Longhair Aerie",
+        "30": "Ust Natha Drow NPCs",
+        "40": "Vampire NPCs"
+      }
+    }
   },
   "tp2": "ppe",
   "safe": 2,

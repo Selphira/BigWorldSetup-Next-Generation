@@ -2,14 +2,16 @@
   "name": "Wild Mage Additions",
   "version": "2.4",
   "links": {
-    "homepage": "https://github.com/BGforgeNet/bg2-wildmage?tab=readme-ov-file#new-wild-magic-spells",
-    "download": "https://github.com/BGforgeNet/bg2-wildmage/releases/download/v2.4/wild-mage-additions-v2.4.zip"
+    "homepage": "https://github.com/BGforgeNet/bg2-wildmage?tab=readme-ov-file#new-wild-magic-spells"
   },
-  "file": {
-    "filename": "wild-mage-additions-v2.4.zip",
-    "size": 3987095,
-    "sha256": "3d0c1f4e9a4870dfc6a9a142d5791200e3e9f558f16f6296de4213d7133fbbbb"
-  },
+  "files": [
+    {
+      "filename": "wild-mage-additions-v2.4.zip",
+      "size": 3987095,
+      "sha256": "3d0c1f4e9a4870dfc6a9a142d5791200e3e9f558f16f6296de4213d7133fbbbb",
+      "download": "https://github.com/BGforgeNet/bg2-wildmage/releases/download/v2.4/wild-mage-additions-v2.4.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit", "spell"],
   "components": {
@@ -68,11 +70,66 @@
         "5": "杂项法术修改"
       }
     },
-    "de_DE": {"components": {"choice_0": "Neue Zaubersprüche", "0": "Eisenmann", "1": "Haugthy pansy", "2": "Rhialtos Gegenstände beibehalten", "choice_1": "Sprücheweber", "3": "Originaler Avatar", "4": "Veränderter Avatar", "5": "Allgemeine Zauberspruch Modifikationen"}},
-    "pl_PL": {"components": {"choice_0": "Nowe czary Dzikiej Magii", "0": "Ironman", "1": "Haugthy pansy", "2": "Zachowaj przedmioty Rhialto", "choice_1": "Podklasa Czarotworcy", "3": "Oryginalny awatar", "4": "Zmieniony awatar", "5": "Niewielkie Zmiany w Czarach"}},
-    "pt_PT": {"components": {"choice_0": "Novos Feitiços da Mágica Selvagem", "0": "Homem de Ferro", "1": "Haugthy pansy", "2": "Retém os itens do Rhialto", "choice_1": "Spellshaper Kit", "3": "Avatar original", "4": "Avatar modificado", "5": "Modificações mistas dos feitiços"}},
-    "ru_RU": {"components": {"choice_0": "Новые заклинания Дикой Магии", "0": "Стальная воля", "1": "Тютя", "2": "Получить вещи Риалто", "choice_1": "Творец Заклинаний", "3": "Оригинальный аватар", "4": "Измененный аватар", "5": "Различные изменения заклинаний"}},
-    "sv_SE": {"components": {"choice_0": "Nya Trollformler för Vild Magi", "0": "Järnman", "1": "Finsmakig fegis", "2": "Behåll Rhialtos föremål", "choice_1": "Besvärjelseformar-kit", "3": "Ursprunglig avatar", "4": "Ändrad avatar", "5": "Diverse modifieringar av formler"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Neue Zaubersprüche",
+        "0": "Eisenmann",
+        "1": "Haugthy pansy",
+        "2": "Rhialtos Gegenstände beibehalten",
+        "choice_1": "Sprücheweber",
+        "3": "Originaler Avatar",
+        "4": "Veränderter Avatar",
+        "5": "Allgemeine Zauberspruch Modifikationen"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Nowe czary Dzikiej Magii",
+        "0": "Ironman",
+        "1": "Haugthy pansy",
+        "2": "Zachowaj przedmioty Rhialto",
+        "choice_1": "Podklasa Czarotworcy",
+        "3": "Oryginalny awatar",
+        "4": "Zmieniony awatar",
+        "5": "Niewielkie Zmiany w Czarach"
+      }
+    },
+    "pt_PT": {
+      "components": {
+        "choice_0": "Novos Feitiços da Mágica Selvagem",
+        "0": "Homem de Ferro",
+        "1": "Haugthy pansy",
+        "2": "Retém os itens do Rhialto",
+        "choice_1": "Spellshaper Kit",
+        "3": "Avatar original",
+        "4": "Avatar modificado",
+        "5": "Modificações mistas dos feitiços"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Новые заклинания Дикой Магии",
+        "0": "Стальная воля",
+        "1": "Тютя",
+        "2": "Получить вещи Риалто",
+        "choice_1": "Творец Заклинаний",
+        "3": "Оригинальный аватар",
+        "4": "Измененный аватар",
+        "5": "Различные изменения заклинаний"
+      }
+    },
+    "sv_SE": {
+      "components": {
+        "choice_0": "Nya Trollformler för Vild Magi",
+        "0": "Järnman",
+        "1": "Finsmakig fegis",
+        "2": "Behåll Rhialtos föremål",
+        "choice_1": "Besvärjelseformar-kit",
+        "3": "Ursprunglig avatar",
+        "4": "Ändrad avatar",
+        "5": "Diverse modifieringar av formler"
+      }
+    }
   },
   "tp2": "wildmage",
   "safe": 2,

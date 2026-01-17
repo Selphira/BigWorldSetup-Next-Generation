@@ -2,14 +2,29 @@
   "name": "Pirate Kit",
   "version": "2.1",
   "links": {
-    "homepage": "https://weiducommando.forumgaming.fr/t270-kit-de-pirate-compatible-bgt-termine",
-    "download": "https://github.com/Plutonium-X/KIT_Pirate/releases/download/v2.1/win-Pirate-v2.1.zip"
+    "homepage": "https://weiducommando.forumgaming.fr/t270-kit-de-pirate-compatible-bgt-termine"
   },
-  "file": {
-    "filename": "win-Pirate-v2.1.zip",
-    "size": 4117272,
-    "sha256": "2d4689c33b07f87ea8b9afebd64966e2fda75a38c79db3634c1f03b09b420869"
-  },
+  "files": [
+    {
+      "filename": "lin-Pirate-v2.1.zip",
+      "size": 3944931,
+      "download": "https://github.com/Plutonium-X/KIT_Pirate/releases/download/v2.1/lin-Pirate-v2.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Pirate-v2.1.zip",
+      "size": 4172447,
+      "download": "https://github.com/Plutonium-X/KIT_Pirate/releases/download/v2.1/mac-Pirate-v2.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Pirate-v2.1.zip",
+      "size": 4117272,
+      "sha256": "2d4689c33b07f87ea8b9afebd64966e2fda75a38c79db3634c1f03b09b420869",
+      "download": "https://github.com/Plutonium-X/KIT_Pirate/releases/download/v2.1/win-Pirate-v2.1.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "iwdee", "eet"],
   "categories": ["kit"],
   "components": {

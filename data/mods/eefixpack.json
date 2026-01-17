@@ -2,14 +2,16 @@
   "name": "Enhanced Edition Fixpack",
   "version": "Alpha 3",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/EE_Fixpack",
-    "download": "https://github.com/Gibberlings3/EE_Fixpack/releases/download/Alpha_3/eefixpack-Alpha_3.exe"
+    "homepage": "https://github.com/Gibberlings3/EE_Fixpack"
   },
-  "file": {
-    "filename": "eefixpack-Alpha_3.exe",
-    "size": 131260816,
-    "sha256": "d595f5b43da09002fb2533128d3968dcc846241984673a565d3d76a33dc3aa58"
-  },
+  "files": [
+    {
+      "filename": "eefixpack-Alpha_3.exe",
+      "size": 131260816,
+      "sha256": "d595f5b43da09002fb2533128d3968dcc846241984673a565d3d76a33dc3aa58",
+      "download": "https://github.com/Gibberlings3/EE_Fixpack/releases/download/Alpha_3/eefixpack-Alpha_3.exe"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["patch"],
   "components": {
@@ -48,7 +50,13 @@
         "2": "游戏文本更新"
       }
     },
-    "ru_RU": {"components": {"0": "Core Fixes", "1": "Beta Core Fixes", "2": "Game Text Update"}}
+    "ru_RU": {
+      "components": {
+        "0": "Core Fixes",
+        "1": "Beta Core Fixes",
+        "2": "Game Text Update"
+      }
+    }
   },
   "tp2": "eefixpack",
   "safe": 1,

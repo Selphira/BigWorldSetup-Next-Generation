@@ -2,14 +2,29 @@
   "name": "Afaaq, the Djinni Companion",
   "version": "2.11",
   "links": {
-    "homepage": "https://argent77.github.io/DjinniCompanion/index.html",
-    "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/win-A7-DjinniCompanion-v2.11.zip"
+    "homepage": "https://argent77.github.io/DjinniCompanion/index.html"
   },
-  "file": {
-    "filename": "win-A7-DjinniCompanion-v2.11.zip",
-    "size": 24998144,
-    "sha256": "074ee662bcfed4825571f45048e5ef99e0e30ea09f628a4ed92d0de4f9704701"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-DjinniCompanion-v2.11.zip",
+      "size": 24998218,
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/lin-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-DjinniCompanion-v2.11.zip",
+      "size": 25225752,
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/mac-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-DjinniCompanion-v2.11.zip",
+      "size": 24998144,
+      "sha256": "074ee662bcfed4825571f45048e5ef99e0e30ea09f628a4ed92d0de4f9704701",
+      "download": "https://github.com/Argent77/DjinniCompanion/releases/download/v2.11/win-A7-DjinniCompanion-v2.11.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],
   "categories": ["npc"],
   "components": {
@@ -85,7 +100,24 @@
         "900": "增加Infinity Animation生物？"
       }
     },
-    "de_DE": {"components": {"choice_0": "Afaaq, der Dschinngefaehrte", "0": "Vollversion (beinhaltet Abenteuer, Dialoge und mehr)", "1": "Eingeschraenkte Version (beinhaltet nur den Dschinn)", "2": "Afaaq, der Dschinngefaehrte (IWD:EE-Version)", "choice_1": "Banter Beschleunigungsskript fuer den Dschinn installieren? (Vorgabe: 60 Minuten)", "101": "15 Minuten", "102": "30 Minuten", "103": "45 Minuten", "104": "90 Minuten", "105": "120 Minuten", "200": "Afaaqs Bantermusik entfernen?", "300": "Alternatives Dschinnportrait von Ulb", "400": "IWD:EE-Abenteuer entfernen?", "900": "Infinity Animations fuer ausgewaehlte Kreaturen installieren?"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Afaaq, der Dschinngefaehrte",
+        "0": "Vollversion (beinhaltet Abenteuer, Dialoge und mehr)",
+        "1": "Eingeschraenkte Version (beinhaltet nur den Dschinn)",
+        "2": "Afaaq, der Dschinngefaehrte (IWD:EE-Version)",
+        "choice_1": "Banter Beschleunigungsskript fuer den Dschinn installieren? (Vorgabe: 60 Minuten)",
+        "101": "15 Minuten",
+        "102": "30 Minuten",
+        "103": "45 Minuten",
+        "104": "90 Minuten",
+        "105": "120 Minuten",
+        "200": "Afaaqs Bantermusik entfernen?",
+        "300": "Alternatives Dschinnportrait von Ulb",
+        "400": "IWD:EE-Abenteuer entfernen?",
+        "900": "Infinity Animations fuer ausgewaehlte Kreaturen installieren?"
+      }
+    }
   },
   "tp2": "djinnicompanion",
   "safe": 2,

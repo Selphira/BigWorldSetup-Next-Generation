@@ -2,14 +2,31 @@
   "name": "Spell Revisions",
   "version": "4.20",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/26517-sr-v4-open-beta-last-update-25-october-2018/page/60/#comment-240486",
-    "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/spell_rev-v4-20.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/26517-sr-v4-open-beta-last-update-25-october-2018/page/60/#comment-240486"
   },
-  "file": {
-    "filename": "spell_rev-v4-20.zip",
-    "size": 7620514,
-    "sha256": "77a54f44826ec27cccd9e8c5292f474b52df7e92b8d0b6ec61755fdc20b37bb9"
-  },
+  "files": [
+    {
+      "filename": "lin-spell_rev-v4-20.tar.gz",
+      "size": 5146233,
+      "sha256": "da5eb330513c19e6870cc665d86398943c7be37b852abdf4380b982fbbca9724",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/lin-spell_rev-v4-20.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-spell_rev-v4-20.tar.gz",
+      "size": 5146233,
+      "sha256": "da5eb330513c19e6870cc665d86398943c7be37b852abdf4380b982fbbca9724",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/osx-spell_rev-v4-20.tar.gz",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "spell_rev-v4-20.zip",
+      "size": 7620514,
+      "sha256": "77a54f44826ec27cccd9e8c5292f474b52df7e92b8d0b6ec61755fdc20b37bb9",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/spell_rev-v4-20.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["spell"],
   "components": {

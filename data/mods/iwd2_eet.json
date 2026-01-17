@@ -2,14 +2,16 @@
   "name": "IWD1-IWD2-EET",
   "version": "1.1",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/IWD2_EET",
-    "download": "https://github.com/The-Gate-Project/IWD2_EET/archive/refs/heads/main.zip"
+    "homepage": "https://github.com/The-Gate-Project/IWD2_EET"
   },
-  "file": {
-    "filename": "IWD2_EET-main.zip",
-    "size": 1273446876,
-    "sha256": "7e0bbf6bdf1864324261011dac734abaaf3edf1af487aaf3561b6d69d2d5f2b1"
-  },
+  "files": [
+    {
+      "filename": "IWD2_EET-main.zip",
+      "size": 1273446876,
+      "sha256": "7e0bbf6bdf1864324261011dac734abaaf3edf1af487aaf3561b6d69d2d5f2b1",
+      "download": "https://github.com/The-Gate-Project/IWD2_EET/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet"],
   "categories": ["conv"],
   "components": {
@@ -43,10 +45,26 @@
         "0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"
       }
     },
-    "ru_RU": {"components": {"0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"}},
-    "de_DE": {"components": {"0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"}},
-    "es_ES": {"components": {"0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"}},
-    "pl_PL": {"components": {"0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"}}
+    "ru_RU": {
+      "components": {
+        "0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Icewind Dale 2 in Baldur's Gate Enhanced Edition Trilogy"
+      }
+    }
   },
   "tp2": "iwd2_eet",
   "safe": 2,

@@ -2,14 +2,16 @@
   "name": "Adalon's Blood",
   "version": "17.2",
   "links": {
-    "homepage": "https://www.baldurs-gate.de/index.php?resources/adalons-blood-silberdrachenblutmod.5/",
-    "download": "https://github.com/Gitjas/Adalons_Blood/releases/download/v17.2/adalons-blood-17.2.zip"
+    "homepage": "https://www.baldurs-gate.de/index.php?resources/adalons-blood-silberdrachenblutmod.5/"
   },
-  "file": {
-    "filename": "adalons-blood-17.2.zip",
-    "size": 4981047,
-    "sha256": "c7f16a2ead1e080111a13a9cdbb642650cc8c242f9355f2d436d56e629e08238"
-  },
+  "files": [
+    {
+      "filename": "adalons-blood-17.2.zip",
+      "size": 4981047,
+      "sha256": "c7f16a2ead1e080111a13a9cdbb642650cc8c242f9355f2d436d56e629e08238",
+      "download": "https://github.com/Gitjas/Adalons_Blood/releases/download/v17.2/adalons-blood-17.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -39,18 +41,42 @@
         "0": "Adalon's Blood - Modification pour BGII par Gandalf the white"
       }
     },
-    "it_IT": {"components": {"0": "Il Sangue di Adalon – Modificato per BGII da Gandalf the white"}},
-    "ru_RU": {"components": {"0": "Adalon's Blood - Modification for BGII by Gandalf the white"}},
+    "it_IT": {
+      "components": {
+        "0": "Il Sangue di Adalon – Modificato per BGII da Gandalf the white"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Adalon's Blood - Modification for BGII by Gandalf the white"
+      }
+    },
     "zh_CN": {
       "description": "此迷你模组主要允许善良阵营的玩家完成大桥区的谋杀任务，而无需杀死艾达隆来获取它的血液。邪恶阵营的玩家也可以尝试他们的运气：他们将会有很小的机会欺骗这头银龙。有了血液，现在就有可能找出制革商的幕后黑手，并在神殿中净化盔甲。",
       "components": {
         "0": "艾达隆之血 - 博德之门2的修改 by Gandalf the white"
       }
     },
-    "de_DE": {"components": {"0": "Silberdrachenblut - Quest Add-On von Gandalf the white"}},
-    "es_ES": {"components": {"0": "La Sangre de Adalon - Modificación para BGII por Gandalf the white (Traducido por Clan REO)"}},
-    "pl_PL": {"components": {"0": "Adalon's Blood - Modyfikacja BG II autorstwa Gandalf the white"}},
-    "cs_CZ": {"components": {"0": "Krev Adalon - Modifikace pro BGII:EE"}}
+    "de_DE": {
+      "components": {
+        "0": "Silberdrachenblut - Quest Add-On von Gandalf the white"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "La Sangre de Adalon - Modificación para BGII por Gandalf the white (Traducido por Clan REO)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Adalon's Blood - Modyfikacja BG II autorstwa Gandalf the white"
+      }
+    },
+    "cs_CZ": {
+      "components": {
+        "0": "Krev Adalon - Modifikace pro BGII:EE"
+      }
+    }
   },
   "tp2": "c#sb_silber",
   "safe": 2,

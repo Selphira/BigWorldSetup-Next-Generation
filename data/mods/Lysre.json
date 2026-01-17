@@ -2,8 +2,7 @@
   "name": "Lysre, dragonne de poche",
   "version": "1.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=25036",
-    "download": "https://drive.google.com/drive/folders/1th1e5fmZQDAqQI7tSPH5lKyi_rXiZ4ps"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=25036"
   },
   "games": ["bg2", "bgt"],
   "categories": ["npc"],

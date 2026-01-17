@@ -2,14 +2,16 @@
   "name": "Remastered Spell Icons",
   "version": "1.2",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/88266/mod-remastered-spell-icons-v1-2",
-    "download": "https://github.com/Renegade0/RemasteredSpellIcons/archive/refs/tags/v1.2.zip"
+    "homepage": "https://forums.beamdog.com/discussion/88266/mod-remastered-spell-icons-v1-2"
   },
-  "file": {
-    "filename": "RemasteredSpellIcons-1.2.zip",
-    "size": 6059463,
-    "sha256": "f003dd418ba7f145be41a5e60439881815c791329b37592427a2b73acfbfbd72"
-  },
+  "files": [
+    {
+      "filename": "RemasteredSpellIcons-1.2.zip",
+      "size": 6059463,
+      "sha256": "f003dd418ba7f145be41a5e60439881815c791329b37592427a2b73acfbfbd72",
+      "download": "https://github.com/Renegade0/RemasteredSpellIcons/archive/refs/tags/v1.2.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "iwdee", "eet"],
   "categories": ["cosm"],
   "components": {

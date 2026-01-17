@@ -2,14 +2,31 @@
   "name": "Banana! NPC Mod",
   "version": "2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/12947-banana-npc-mod-released/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/win-Banana.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/12947-banana-npc-mod-released/"
   },
-  "file": {
-    "filename": "win-Banana.zip",
-    "size": 6991292,
-    "sha256": "1577b33c6b52bacb7e1104e304d45dac122f80b5cc715d8cfefdf4d2653bb6c2"
-  },
+  "files": [
+    {
+      "filename": "lin-Banana.zip",
+      "size": 6818951,
+      "sha256": "0fe61f293f551ed57f9fd2a6a8cde8bd0a9227327e7d9bafd5ba94e3dba5e0a8",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/lin-Banana.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Banana.zip",
+      "size": 7046467,
+      "sha256": "7722990dca86b130c1aaa2588d385a7c3ea1542cb7c6d6b3b5c7e1ce6408c943",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/mac-Banana.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Banana.zip",
+      "size": 6991292,
+      "sha256": "1577b33c6b52bacb7e1104e304d45dac122f80b5cc715d8cfefdf4d2653bb6c2",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/win-Banana.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {

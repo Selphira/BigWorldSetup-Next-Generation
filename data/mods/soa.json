@@ -1,15 +1,17 @@
 {
   "name": "The Stone of Askavar",
-  "version": "2.6",
+  "version": "2.7",
   "links": {
-    "homepage": "http://www.users.totalise.co.uk/~bluerift/#Downloads",
-    "download": "https://github.com/red-carnelian/The-Stone-of-Askavar/releases/download/2.6/tsoaV2_6.zip"
+    "homepage": "http://www.users.totalise.co.uk/~bluerift/#Downloads"
   },
-  "file": {
-    "filename": "tsoaV2_6.zip",
-    "size": 42291360,
-    "sha256": "f6859a8e81e765f4751fbcc6eb88ca1767982053ab3b30e3e597345285d8ebcb"
-  },
+  "files": [
+    {
+      "filename": "tsoaV2_7.zip",
+      "size": 42291539,
+      "sha256": "1c6ab7c358ca6769f3df57ce770bab22c0fe6dc04157299a446f7ab25b401d68",
+      "download": "https://github.com/red-carnelian/The-Stone-of-Askavar/releases/download/2.7/tsoaV2_7.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
   "categories": ["quest"],
   "components": {

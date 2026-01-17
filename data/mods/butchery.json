@@ -2,14 +2,16 @@
   "name": "BuTcHeRy",
   "version": "5.0.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/filesmods/ModsBG/butchery-readme-french.html",
-    "download": "https://github.com/The-Gate-Project/butchery/releases/download/v5.0.2/butchery-v5.0.2.zip"
+    "homepage": "https://www.baldursgateworld.fr/filesmods/ModsBG/butchery-readme-french.html"
   },
-  "file": {
-    "filename": "butchery-v5.0.2.zip",
-    "size": 10032234,
-    "sha256": "9f9770ba7aca704a2aa46bdedc0a940428e0560d14a457de1988ea5af7777590"
-  },
+  "files": [
+    {
+      "filename": "butchery-v5.0.2.zip",
+      "size": 10032234,
+      "sha256": "9f9770ba7aca704a2aa46bdedc0a940428e0560d14a457de1988ea5af7777590",
+      "download": "https://github.com/The-Gate-Project/BuTcheRy/releases/download/v5.0.2/butchery-v5.0.2.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["tactic"],
   "components": {
@@ -149,8 +151,70 @@
         "90": "外观组件[安装前或安装后请安装Stratagems]"
       }
     },
-    "ru_RU": {"components": {"10": "DrAzTiK's revisited fight against Tazok and DigDag [install before Stratagems]", "11": "Rebalancing some generic creatures [install before Stratagems]", "12": "Rebalancing Tazok and DigDag [install before Stratagems]", "20": "Groumf and Bourrinos Encounter at Firkraag's Hideout entrance [install before Stratagems]", "21": "Groumf and Bourrinos Encounter at Brynnlaw [install before Stratagems]", "22": "Groumf and Bourrinos Encounter in the Underdark [install before Stratagems]", "30": "Revisited fight against Wraith Sarevok in the Abyss [install before Stratagems]", "32": "Add battle songs in some areas that do not have any [install before or after Stratagems]", "40": "DrAzTiK's Creatures [install before Stratagems, some following components need it]", "41": "Butchery in Irenicus Dungeon (Dwarves) [install after Stratagems]", "43": "Butchery in the Forest of Tethyr (Animals and Druids) [install after Stratagems]", "44": "Butchery in the planar sphere (Demonic creatures) [install after Stratagems]", "45": "3 butcheries in Spellhold (Golems, Vampires and Trolls) [install after Stratagems]", "46": "Butchery outside de'Arnise Keep (Trolls) [install after Stratagems]", "47": "Butchery in Windspear Hills (Orcs) [install after Stratagems]", "48": "Butchery in Umar Hills (Wolves) [install after Stratagems]", "49": "2 butcheries in Trademeet and outside Watcher's Keep (Animals) [install) after Stratagems]", "50": "2 butcheries of Golems in Suldanessellar and Watcher's Keep (Machine of Lum the Mad floor) [install after Stratagems]", "51": "Butchery of Yaga-Shura revisited [install after Ascension and Stratagems]", "52": "Butchery in the Druid Grove area (Animals and Druids) [install after Stratagems]", "53": "Butchery in the Beholder Hideout (Fanatics) [install after Stratagems]", "54": "Butchery in Bodhi's Hideout (chapter 2, before Underdark) - Vampires [install after Stratagems]", "55": "Butchery in Bodhi's Hideout (chapter 6, after Underdark) - Vampires [install after Stratagems]", "56": "2 butcheries of Sahuagins in Sahuagin City and Watcher's Keep (Githyanki Encampment) [install after Stratagems]", "57": "4 butcheries of spiders in Pai'Na's Hideout entrance, Temple City (Unseeing Eye Plot), Watcher's Keep first floor (Altar level) and in the area outside Sendai's Hideout [install after Stratagems]", "58": "6 butcheries of skeletons in the lower tombs of Athkatla, Shadow Temple Land, Spellhold, Watcher's Keep (Last Seals), and 2 in Nyalee's Hideout [install after Stratagems]", "80": "More enemies scattered throughout the game [install after Stratagems]", "90": "Cosmetic component [install before or after Stratagems]"}},
-    "es_ES": {"components": {"10": "Lucha revisitada de DrAzTiK contra Tazok y DigDag [instalar antes de Stratagems]", "11": "Reequilibrio de algunas criaturas genericas [instalar antes de Stratagems]", "12": "Reequilibrio de Tazok y DigDag [instalar antes de Stratagems]", "20": "Encuentro de Groumf y Bourrinos en la entrada del Escondite de Firkraag [instalar antes de Stratagems]", "21": "Encuentro de Groumf y Bourrinos en Brynnlaw [instalar antes de Stratagems]", "22": "Encuentro de Groumf y Bourrinos en la Infraoscuridad [instalar antes de Stratagems]", "30": "Lucha revisitada contra el Espectro Sarevok en el Abismo [instalar antes de Stratagems]", "32": "Anadir canciones de batalla en algunas areas que no tienen ninguna [instalar antes o despues de Stratagems]", "40": "Criaturas de DrAzTiK [instalar antes de Stratagems, algunos componentes siguientes lo necesitan]", "41": "Carniceria en la Mazmorra de Irenicus (Enanos) [instalar despues de Stratagems]", "43": "Carniceria en el bosque de Tethyr (Animales y druidas) [instalar despues de Stratagems]", "44": "Carniceria en la esfera planar (criaturas demoniacas) [instalar despues de Stratagems]", "45": "3 carnicerias en la Prision del Hechicero (Golems, Vampiros y Trolls) [instalar despues de Stratagems]", "46": "Carniceria fuera de la Fortaleza de'Arnise (Trolls) [instalar despues de Stratagems]", "47": "Carniceria en Colinas de Ventolanza (Orcos) [instalar despues de Stratagems]", "48": "Carniceria en las Colinas de Umar (Lobos) [instalar despues de Stratagems]", "49": "2 carnicerias en Caravasar y fuera del Torreon del Vigilante (Animales) [instalar) despues de Stratagems]", "50": "2 carnicerias de Golems en Suldanessalar y del Torreon del Vigilante (Maquina de Lum el loco) [instalar despues de Stratagems]", "51": "Carniceria de Yaga-Shura revisada [instalar despues de Ascension y Stratagems]", "52": "Carniceria en la zona de la Arboleda druida (Animales y druidas) [instalar despues de Stratagems]", "53": "Carniceria en el escondite del contemplador (Fanaticos) [instalar despues de Stratagems]", "54": "Carniceria en el escondite de Bodhi (capitulo 2, antes de la Infraoscuridad) - Vampiros [instalar despues de Stratagems]", "55": "Carniceria en el escondite de Bodhi (capitulo 6, despues de la Infraoscuridad) - Vampiros [instalar despues de Stratagems]", "56": "2 carnicerias de sajuaguines en Ciudad sajuaguin y Torreon del Vigilante (Campamento Githyanki) [instalar despues de Stratagems]", "57": "4 carnicerias de aranas en la entrada del Escondite de Pai'Na, la Ciudad del Templo (Parcela del Ojo que no ve), el primer piso del Torreon del Vigilante (nivel del Altar) y en la zona exterior del Enclave de Sendai [instalar despues de Stratagems]", "58": "6 carnicerias de esqueletos en las tumbas inferiores de Athkatla, Templo de las Sombras, Prision del Hechicero, Torreon del Vigilante (Ultimos Sellos), y 2 en Escondite de Nyalee [instalar despues de Stratagems]", "80": "Mas enemigos repartidos por el juego [instalar despues de Stratagems]", "90": "Componentes cosmeticos [instalar antes o despues de Stratagems]"}}
+    "ru_RU": {
+      "components": {
+        "10": "DrAzTiK's revisited fight against Tazok and DigDag [install before Stratagems]",
+        "11": "Rebalancing some generic creatures [install before Stratagems]",
+        "12": "Rebalancing Tazok and DigDag [install before Stratagems]",
+        "20": "Groumf and Bourrinos Encounter at Firkraag's Hideout entrance [install before Stratagems]",
+        "21": "Groumf and Bourrinos Encounter at Brynnlaw [install before Stratagems]",
+        "22": "Groumf and Bourrinos Encounter in the Underdark [install before Stratagems]",
+        "30": "Revisited fight against Wraith Sarevok in the Abyss [install before Stratagems]",
+        "32": "Add battle songs in some areas that do not have any [install before or after Stratagems]",
+        "40": "DrAzTiK's Creatures [install before Stratagems, some following components need it]",
+        "41": "Butchery in Irenicus Dungeon (Dwarves) [install after Stratagems]",
+        "43": "Butchery in the Forest of Tethyr (Animals and Druids) [install after Stratagems]",
+        "44": "Butchery in the planar sphere (Demonic creatures) [install after Stratagems]",
+        "45": "3 butcheries in Spellhold (Golems, Vampires and Trolls) [install after Stratagems]",
+        "46": "Butchery outside de'Arnise Keep (Trolls) [install after Stratagems]",
+        "47": "Butchery in Windspear Hills (Orcs) [install after Stratagems]",
+        "48": "Butchery in Umar Hills (Wolves) [install after Stratagems]",
+        "49": "2 butcheries in Trademeet and outside Watcher's Keep (Animals) [install) after Stratagems]",
+        "50": "2 butcheries of Golems in Suldanessellar and Watcher's Keep (Machine of Lum the Mad floor) [install after Stratagems]",
+        "51": "Butchery of Yaga-Shura revisited [install after Ascension and Stratagems]",
+        "52": "Butchery in the Druid Grove area (Animals and Druids) [install after Stratagems]",
+        "53": "Butchery in the Beholder Hideout (Fanatics) [install after Stratagems]",
+        "54": "Butchery in Bodhi's Hideout (chapter 2, before Underdark) - Vampires [install after Stratagems]",
+        "55": "Butchery in Bodhi's Hideout (chapter 6, after Underdark) - Vampires [install after Stratagems]",
+        "56": "2 butcheries of Sahuagins in Sahuagin City and Watcher's Keep (Githyanki Encampment) [install after Stratagems]",
+        "57": "4 butcheries of spiders in Pai'Na's Hideout entrance, Temple City (Unseeing Eye Plot), Watcher's Keep first floor (Altar level) and in the area outside Sendai's Hideout [install after Stratagems]",
+        "58": "6 butcheries of skeletons in the lower tombs of Athkatla, Shadow Temple Land, Spellhold, Watcher's Keep (Last Seals), and 2 in Nyalee's Hideout [install after Stratagems]",
+        "80": "More enemies scattered throughout the game [install after Stratagems]",
+        "90": "Cosmetic component [install before or after Stratagems]"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "10": "Lucha revisitada de DrAzTiK contra Tazok y DigDag [instalar antes de Stratagems]",
+        "11": "Reequilibrio de algunas criaturas genericas [instalar antes de Stratagems]",
+        "12": "Reequilibrio de Tazok y DigDag [instalar antes de Stratagems]",
+        "20": "Encuentro de Groumf y Bourrinos en la entrada del Escondite de Firkraag [instalar antes de Stratagems]",
+        "21": "Encuentro de Groumf y Bourrinos en Brynnlaw [instalar antes de Stratagems]",
+        "22": "Encuentro de Groumf y Bourrinos en la Infraoscuridad [instalar antes de Stratagems]",
+        "30": "Lucha revisitada contra el Espectro Sarevok en el Abismo [instalar antes de Stratagems]",
+        "32": "Anadir canciones de batalla en algunas areas que no tienen ninguna [instalar antes o despues de Stratagems]",
+        "40": "Criaturas de DrAzTiK [instalar antes de Stratagems, algunos componentes siguientes lo necesitan]",
+        "41": "Carniceria en la Mazmorra de Irenicus (Enanos) [instalar despues de Stratagems]",
+        "43": "Carniceria en el bosque de Tethyr (Animales y druidas) [instalar despues de Stratagems]",
+        "44": "Carniceria en la esfera planar (criaturas demoniacas) [instalar despues de Stratagems]",
+        "45": "3 carnicerias en la Prision del Hechicero (Golems, Vampiros y Trolls) [instalar despues de Stratagems]",
+        "46": "Carniceria fuera de la Fortaleza de'Arnise (Trolls) [instalar despues de Stratagems]",
+        "47": "Carniceria en Colinas de Ventolanza (Orcos) [instalar despues de Stratagems]",
+        "48": "Carniceria en las Colinas de Umar (Lobos) [instalar despues de Stratagems]",
+        "49": "2 carnicerias en Caravasar y fuera del Torreon del Vigilante (Animales) [instalar) despues de Stratagems]",
+        "50": "2 carnicerias de Golems en Suldanessalar y del Torreon del Vigilante (Maquina de Lum el loco) [instalar despues de Stratagems]",
+        "51": "Carniceria de Yaga-Shura revisada [instalar despues de Ascension y Stratagems]",
+        "52": "Carniceria en la zona de la Arboleda druida (Animales y druidas) [instalar despues de Stratagems]",
+        "53": "Carniceria en el escondite del contemplador (Fanaticos) [instalar despues de Stratagems]",
+        "54": "Carniceria en el escondite de Bodhi (capitulo 2, antes de la Infraoscuridad) - Vampiros [instalar despues de Stratagems]",
+        "55": "Carniceria en el escondite de Bodhi (capitulo 6, despues de la Infraoscuridad) - Vampiros [instalar despues de Stratagems]",
+        "56": "2 carnicerias de sajuaguines en Ciudad sajuaguin y Torreon del Vigilante (Campamento Githyanki) [instalar despues de Stratagems]",
+        "57": "4 carnicerias de aranas en la entrada del Escondite de Pai'Na, la Ciudad del Templo (Parcela del Ojo que no ve), el primer piso del Torreon del Vigilante (nivel del Altar) y en la zona exterior del Enclave de Sendai [instalar despues de Stratagems]",
+        "58": "6 carnicerias de esqueletos en las tumbas inferiores de Athkatla, Templo de las Sombras, Prision del Hechicero, Torreon del Vigilante (Ultimos Sellos), y 2 en Escondite de Nyalee [instalar despues de Stratagems]",
+        "80": "Mas enemigos repartidos por el juego [instalar despues de Stratagems]",
+        "90": "Componentes cosmeticos [instalar antes o despues de Stratagems]"
+      }
+    }
   },
   "tp2": "butchery",
   "safe": 2,

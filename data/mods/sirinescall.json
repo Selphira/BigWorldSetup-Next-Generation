@@ -1,15 +1,17 @@
 {
   "name": "The Lure of the Sirine's Call",
-  "version": "16.5.1",
+  "version": "16.5.2",
   "links": {
-    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/",
-    "download": "https://github.com/Pocket-Plane-Group/Lure_Of_Sirines_Call/releases/download/v16.5.1/the-lure-of-the-sirines-call-v16.5.1.zip"
+    "homepage": "https://www.pocketplane.net/bg1tutu-enhancements/"
   },
-  "file": {
-    "filename": "the-lure-of-the-sirines-call-v16.5.1.zip",
-    "size": 58118172,
-    "sha256": "503cbb10705d53ecc5db080503e578b6d5f64756750a2836fff6971e0eae7951"
-  },
+  "files": [
+    {
+      "filename": "the-lure-of-the-sirines-call-v16.5.1.zip",
+      "size": 58118180,
+      "sha256": "6bcf2d1e2e9ae46ae5c86cefc5e3bbba240bb546b82211aa410c1a475224b511",
+      "download": "https://github.com/Pocket-Plane-Group/Lure_Of_Sirines_Call/releases/download/v16.5.2/the-lure-of-the-sirines-call-v16.5.1.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bgt", "bgee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -41,8 +43,18 @@
         "1": "Extended Lighthouse Area"
       }
     },
-    "it_IT": {"components": {"0": "Il canto delle Sirene", "1": "Extended Lighthouse Area"}},
-    "ru_RU": {"components": {"0": "The Lure of the Sirine's Call", "1": "Extended Lighthouse Area"}},
+    "it_IT": {
+      "components": {
+        "0": "Il canto delle Sirene",
+        "1": "Extended Lighthouse Area"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "The Lure of the Sirine's Call",
+        "1": "Extended Lighthouse Area"
+      }
+    },
     "zh_CN": {
       "description": "这个小型模组以烛堡以南的区域为背景，完善了希尔和剑湾海岸上废弃灯塔的任务。它涉及（如其名称所示）的塞壬、海盗、充满宝藏的洞穴以及许多其他危险。虽然非常适合德鲁伊，但这个任务的所有内容都可以由任何职业游玩而不会缺失。",
       "components": {
@@ -50,9 +62,24 @@
         "1": "扩展的灯塔地区"
       }
     },
-    "es_ES": {"components": {"0": "La seduccion de el canto de la sirena", "1": "Area del faro extendida"}},
-    "de_DE": {"components": {"0": "Die Verlockung des lieblichen Gesangs der Sirenen", "1": "Extended Lighthouse Area"}},
-    "pl_PL": {"components": {"0": "Zwodniczy Spiew Siriny", "1": "Rozszerzony obszar latarni"}}
+    "es_ES": {
+      "components": {
+        "0": "La seduccion de el canto de la sirena",
+        "1": "Area del faro extendida"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Die Verlockung des lieblichen Gesangs der Sirenen",
+        "1": "Extended Lighthouse Area"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Zwodniczy Spiew Siriny",
+        "1": "Rozszerzony obszar latarni"
+      }
+    }
   },
   "tp2": "sirinescall",
   "safe": 2,

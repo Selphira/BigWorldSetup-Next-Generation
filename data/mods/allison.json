@@ -2,14 +2,16 @@
   "name": "Allison",
   "version": "1.9",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1260-allison-one-day-npc/",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Allison/archive/refs/tags/v1.9.zip"
+    "homepage": "https://www.shsforums.net/files/file/1260-allison-one-day-npc/"
   },
-  "file": {
-    "filename": "1D_NPC_Allison-1.9.zip",
-    "size": 14043996,
-    "sha256": "98b88bfc34b2179174f0ead7030ed3c73b05df261c2321ce6960692eed7a775e"
-  },
+  "files": [
+    {
+      "filename": "1D_NPC_Allison-1.9.zip",
+      "size": 14043996,
+      "sha256": "98b88bfc34b2179174f0ead7030ed3c73b05df261c2321ce6960692eed7a775e",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Allison/archive/refs/tags/v1.9.zip"
+    }
+  ],
   "games": ["bg2", "bgt"],
   "categories": ["npc1d"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "这位年轻、活泼、色彩斑斓的精灵德鲁伊在德鲁伊圣树丛向你求助，甚至提议加入你，以结束法多尔的统治。她与游戏中的许多NPC都有大量对话。\n力量 14，敏捷 14，体质 7，智力 12，智慧 18，魅力 12。"
     },
-    "ru_RU": {"components": {"0": "Allison (One-Day NPC)"}},
-    "de_DE": {"components": {"0": "Allison (One-Day NPC)"}},
-    "it_IT": {"components": {"0": "Allison (One-Day NPC) v1.9"}}
+    "ru_RU": {
+      "components": {
+        "0": "Allison (One-Day NPC)"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Allison (One-Day NPC)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Allison (One-Day NPC) v1.9"
+      }
+    }
   },
   "tp2": "allison",
   "safe": 2,

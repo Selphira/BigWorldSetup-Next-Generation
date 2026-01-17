@@ -47,7 +47,7 @@ class CacheBuilderThread(QThread):
     def run(self) -> None:
         """Build cache for all languages."""
         try:
-            self.status_changed.emit(tr("app.searching_mod_iles"))
+            self.status_changed.emit(tr("app.searching_mod_files"))
 
             # Find all JSON files
             source_files = list(self.mods_dir.glob("*.json"))

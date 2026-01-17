@@ -2,14 +2,16 @@
   "name": "Alabaster Sands",
   "version": "1.9.2",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/alabaster-sands/",
-    "download": "https://downloads.weaselmods.net/download/alabaster-sands/?wpdmdl=593"
+    "homepage": "https://downloads.weaselmods.net/download/alabaster-sands/"
   },
-  "file": {
-    "filename": "AlabasterSands-v1.9.2.zip",
-    "size": 16248742,
-    "sha256": "6fb48144f2c19c35e615dcacc7c65d207a13ebce273a79628459e13e06ff373f"
-  },
+  "files": [
+    {
+      "filename": "AlabasterSands-v1.9.2.zip",
+      "size": 16248742,
+      "sha256": "6fb48144f2c19c35e615dcacc7c65d207a13ebce273a79628459e13e06ff373f",
+      "download": "https://downloads.weaselmods.net/download/alabaster-sands/?wpdmdl=593"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -48,9 +50,27 @@
         "1": "是的，并且修改存档文件"
       }
     },
-    "pl_PL": {"components": {"choice_0": "Alabaster Sands - mod do Baldur's Gate II: Enhanced Edition", "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry", "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"}},
-    "ru_RU": {"components": {"choice_0": "Alabaster Sands: the new area of Athkatla", "0": "Yes, but don't patch existing save games", "1": "Yes and patch existing save games"}},
-    "it_IT": {"components": {"choice_0": "Sabbie Opalescenti: la nuova area di Athkatla", "0": "Si', ma non applicare patch ai salvataggi esistenti", "1": "Si' e applica patch ai salvataggi esistenti"}}
+    "pl_PL": {
+      "components": {
+        "choice_0": "Alabaster Sands - mod do Baldur's Gate II: Enhanced Edition",
+        "0": "Tak, ale nie dokonuj aktualizacji istniejacych zapisow gry",
+        "1": "Tak i dokonaj aktualizacji istniejacych zapisow gry"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Alabaster Sands: the new area of Athkatla",
+        "0": "Yes, but don't patch existing save games",
+        "1": "Yes and patch existing save games"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "Sabbie Opalescenti: la nuova area di Athkatla",
+        "0": "Si', ma non applicare patch ai salvataggi esistenti",
+        "1": "Si' e applica patch ai salvataggi esistenti"
+      }
+    }
   },
   "tp2": "alabastersands",
   "safe": 2,

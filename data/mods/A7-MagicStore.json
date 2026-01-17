@@ -2,14 +2,29 @@
   "name": "Magic Store of Vergadain",
   "version": "4.2",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/32357-magic-store-of-vergadain-visit-any-store-anywhere-and-anytime",
-    "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.2/win-A7-MagicStore-v4.2.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/32357-magic-store-of-vergadain-visit-any-store-anywhere-and-anytime"
   },
-  "file": {
-    "filename": "win-A7-MagicStore-v4.2.zip",
-    "size": 4669392,
-    "sha256": "0f9ad55e742cdb532e43addb596f9190c95d20d81aeb42e6a9d8b24746a9feaa"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-MagicStore-v4.2.zip",
+      "size": 4669466,
+      "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.2/lin-A7-MagicStore-v4.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-MagicStore-v4.2.zip",
+      "size": 4896996,
+      "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.2/mac-A7-MagicStore-v4.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-MagicStore-v4.2.zip",
+      "size": 4669392,
+      "sha256": "0f9ad55e742cdb532e43addb596f9190c95d20d81aeb42e6a9d8b24746a9feaa",
+      "download": "https://github.com/Argent77/A7-MagicStore/releases/download/v4.2/win-A7-MagicStore-v4.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
@@ -90,9 +105,66 @@
         "36": "可以召唤无限次"
       }
     },
-    "de_DE": {"components": {"choice_0": "Magischer Laden von Vergadain", "1": "Gebuehrenpflichtig", "2": "Gebuehrenfrei", "10": "Alternatives Portrait fuer den geisterhaften Haendler", "choice_1": "Verfuegbare Angebote in herbeigerufenen Laeden einschraenken", "21": "Verbiete Rasten", "22": "Verbiete Rasten und Heilen", "23": "Verbiete Rasten, Heilen, Spenden und Trinken", "24": "Erlaube nur Handeln", "choice_2": "Anzahl Ladungen des Magischen Ladens aendern (Standard: 3x taeglich)", "31": "1x taeglich", "32": "10x taeglich", "33": "10 Ladungen", "34": "50 Ladungen", "35": "100 Ladungen", "36": "Unbegrenzt"}},
-    "ru_RU": {"components": {"choice_0": "Magic store of Vergadain", "1": "Fee required", "2": "Free of charge", "10": "Alternate portrait for Ghostly Merchant", "choice_1": "Restrict available services in summoned stores", "21": "Prohibit resting", "22": "Prohibit resting and curing", "23": "Prohibit resting, curing, donating and drinking", "24": "Allow only trading", "choice_2": "Tweak item charges of the Magic Store (default: 3x/day)", "31": "Once per day", "32": "10 times per day", "33": "10 charges", "34": "50 charges", "35": "100 charges", "36": "Unlimited charges"}},
-    "pl_PL": {"components": {"choice_0": "Magiczny sklep Vergadaina", "1": "Wymagana oplata", "2": "Bez oplat", "10": "Alternatywny portret widmowego kupca", "choice_1": "Ograniczenie dostepnych uslug w przyzwanym sklepie", "21": "Brak mozliwosci odpoczynku", "22": "Brak mozliwosci odpoczynku i leczenia", "23": "Brak mozliwosci odpoczynku, leczenia, skladania ofiary i spozywania alkoholu", "24": "Dostepny tylko handel", "choice_2": "Modyfikacja ilosci ladunkow w Magicznym sklepie (domyslnie 3 razy dziennie)", "31": "Raz dziennie", "32": "10 razy dziennie", "33": "10 ladunkow", "34": "50 ladunkow", "35": "100 ladunkow", "36": "Nieograniczona ilosc ladunkow"}}
+    "de_DE": {
+      "components": {
+        "choice_0": "Magischer Laden von Vergadain",
+        "1": "Gebuehrenpflichtig",
+        "2": "Gebuehrenfrei",
+        "10": "Alternatives Portrait fuer den geisterhaften Haendler",
+        "choice_1": "Verfuegbare Angebote in herbeigerufenen Laeden einschraenken",
+        "21": "Verbiete Rasten",
+        "22": "Verbiete Rasten und Heilen",
+        "23": "Verbiete Rasten, Heilen, Spenden und Trinken",
+        "24": "Erlaube nur Handeln",
+        "choice_2": "Anzahl Ladungen des Magischen Ladens aendern (Standard: 3x taeglich)",
+        "31": "1x taeglich",
+        "32": "10x taeglich",
+        "33": "10 Ladungen",
+        "34": "50 Ladungen",
+        "35": "100 Ladungen",
+        "36": "Unbegrenzt"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Magic store of Vergadain",
+        "1": "Fee required",
+        "2": "Free of charge",
+        "10": "Alternate portrait for Ghostly Merchant",
+        "choice_1": "Restrict available services in summoned stores",
+        "21": "Prohibit resting",
+        "22": "Prohibit resting and curing",
+        "23": "Prohibit resting, curing, donating and drinking",
+        "24": "Allow only trading",
+        "choice_2": "Tweak item charges of the Magic Store (default: 3x/day)",
+        "31": "Once per day",
+        "32": "10 times per day",
+        "33": "10 charges",
+        "34": "50 charges",
+        "35": "100 charges",
+        "36": "Unlimited charges"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Magiczny sklep Vergadaina",
+        "1": "Wymagana oplata",
+        "2": "Bez oplat",
+        "10": "Alternatywny portret widmowego kupca",
+        "choice_1": "Ograniczenie dostepnych uslug w przyzwanym sklepie",
+        "21": "Brak mozliwosci odpoczynku",
+        "22": "Brak mozliwosci odpoczynku i leczenia",
+        "23": "Brak mozliwosci odpoczynku, leczenia, skladania ofiary i spozywania alkoholu",
+        "24": "Dostepny tylko handel",
+        "choice_2": "Modyfikacja ilosci ladunkow w Magicznym sklepie (domyslnie 3 razy dziennie)",
+        "31": "Raz dziennie",
+        "32": "10 razy dziennie",
+        "33": "10 ladunkow",
+        "34": "50 ladunkow",
+        "35": "100 ladunkow",
+        "36": "Nieograniczona ilosc ladunkow"
+      }
+    }
   },
   "tp2": "a7-magicstore",
   "safe": 2,

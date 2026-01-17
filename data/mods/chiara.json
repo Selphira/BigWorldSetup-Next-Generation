@@ -2,14 +2,29 @@
   "name": "Chiara NPC",
   "version": "1.0.41",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/1D_NPC_Chiara",
-    "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/win-chiara.zip"
+    "homepage": "https://github.com/Plutonium-X/1D_NPC_Chiara"
   },
-  "file": {
-    "filename": "win-chiara.zip",
-    "size": 4119747,
-    "sha256": "27a74e1256101b0afaf1faea0a4d3ab4bb3fea55e90c34d854bd337f9a1c7577"
-  },
+  "files": [
+    {
+      "filename": "lin-chiara.zip",
+      "size": 3947406,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/lin-chiara.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-chiara.zip",
+      "size": 4174922,
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/mac-chiara.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-chiara.zip",
+      "size": 4119747,
+      "sha256": "27a74e1256101b0afaf1faea0a4d3ab4bb3fea55e90c34d854bd337f9a1c7577",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Chiara/releases/download/v1.0.41/win-chiara.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc1d"],
   "components": {
@@ -36,7 +51,11 @@
     "zh_CN": {
       "description": "这个模组添加了一位拥有特殊能力的女吸血鬼战士。如果你帮助她，她可以成为团队中非凡的助力。如果你抛弃她，她会成为一个不可预测的敌人！你会在神殿区下方的下水道里找到她。包含安姆阴影和巴尔王座的内容。她装备有一把吸取生命值的剑和一件秘银甲胄。她的属性会根据环境（光线/阴影）而改变。请注意，她每天至少需要进食一次，否则会陷入狂暴。\n力量 18/47，敏捷 18，体质 18，智力 12，智慧 11，魅力 11。"
     },
-    "de_DE": {"components": {"0": "Chiara - Ein Charakter aus dem Rosenranken-Forum"}}
+    "de_DE": {
+      "components": {
+        "0": "Chiara - Ein Charakter aus dem Rosenranken-Forum"
+      }
+    }
   },
   "tp2": "chiara",
   "safe": 2,

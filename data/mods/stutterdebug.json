@@ -2,14 +2,16 @@
   "name": "Stutter Debug Tool",
   "version": "4.1",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Stutter-Debug-Tool",
-    "download": "https://github.com/Spellhold-Studios/Stutter-Debug-Tool/releases/download/v4.1/stutterdebug-4.1.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Stutter-Debug-Tool"
   },
-  "file": {
-    "filename": "stutterdebug-4.1.zip",
-    "size": 7374348,
-    "sha256": "811fb46a5fbc2ab436a2e3504ce1bf8fd5147a44d77b81e3addc16c1b751b54a"
-  },
+  "files": [
+    {
+      "filename": "stutterdebug-4.1.zip",
+      "size": 7374348,
+      "sha256": "811fb46a5fbc2ab436a2e3504ce1bf8fd5147a44d77b81e3addc16c1b751b54a",
+      "download": "https://github.com/Spellhold-Studios/Stutter-Debug-Tool/releases/download/v4.1/stutterdebug-4.1.zip"
+    }
+  ],
   "games": ["bg", "tutu", "bg2", "bgt", "bgee", "bg2ee", "eet", "iwd", "iwd2", "iwdee", "pstee", "sod", "pst"],
   "categories": ["util"],
   "components": {

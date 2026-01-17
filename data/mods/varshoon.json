@@ -2,14 +2,16 @@
   "name": "Varshoon",
   "version": "8.1.1",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/varshoon/",
-    "download": "https://downloads.weaselmods.net/download/varshoon/?wpdmdl=125"
+    "homepage": "https://downloads.weaselmods.net/download/varshoon/"
   },
-  "file": {
-    "filename": "Varshoon v8.1.1.zip",
-    "size": 6608591,
-    "sha256": "54b26e98af6b4affe74ad332a55a4a1dfe843d172da290f0b54ac5a800b0410a"
-  },
+  "files": [
+    {
+      "filename": "Varshoon v8.1.1.zip",
+      "size": 6608591,
+      "sha256": "54b26e98af6b4affe74ad332a55a4a1dfe843d172da290f0b54ac5a800b0410a",
+      "download": "https://downloads.weaselmods.net/download/varshoon/?wpdmdl=125"
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -40,8 +42,18 @@
     "zh_CN": {
       "description": "这个模组添加了一个有点特别的邪恶新NPC：一个夺心魔！在强烈求知欲的驱使下，瓦尔枢恩并没有真正的爱情线，也没有真正的友谊……但类似的关系依然有可能。在对话中，瓦尔枢恩对地表生物的文化感到好奇。关系基于你的影响力、智力和种族。\n他有他自己的心灵执法者宗派。瓦尔枢恩是一种精神战士。他使用自己的精神能力来眩晕、削弱并迷惑敌人。他有自己专属的装备，无法被替换。这个模组还修改了幽暗地域中夺心魔隧道的常规任务区域。\n力量 13，敏捷 18，体质 9，智力 19，智慧 15，魅力 13。"
     },
-    "it_IT": {"components": {"0": "Varshoon - un NPC illithid per BG2", "1": "Nuovo paperdoll per gli illithid (con l'illustrazione nell'inventario)"}},
-    "ru_RU": {"components": {"0": "Varshoon - an illithid NPC for BG2", "1": "New paperdoll for illithids (inventory illustration)"}}
+    "it_IT": {
+      "components": {
+        "0": "Varshoon - un NPC illithid per BG2",
+        "1": "Nuovo paperdoll per gli illithid (con l'illustrazione nell'inventario)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Varshoon - an illithid NPC for BG2",
+        "1": "New paperdoll for illithids (inventory illustration)"
+      }
+    }
   },
   "tp2": "varshoon",
   "safe": 2,

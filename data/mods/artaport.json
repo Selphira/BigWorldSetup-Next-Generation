@@ -2,14 +2,16 @@
   "name": "Artaport",
   "version": "2.0",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/51904/mod-artaport-4-0/p1",
-    "download": "https://github.com/Eltamin/artaport/archive/refs/heads/master.zip"
+    "homepage": "https://forums.beamdog.com/discussion/51904/mod-artaport-4-0/p1"
   },
-  "file": {
-    "filename": "artaport-master.zip",
-    "size": 42039024,
-    "sha256": "bac5343aa6b58b2e9459768b3c46a4212b257db10f4bd312b1029fb0a06342c2"
-  },
+  "files": [
+    {
+      "filename": "artaport-master.zip",
+      "size": 42039024,
+      "sha256": "bac5343aa6b58b2e9459768b3c46a4212b257db10f4bd312b1029fb0a06342c2",
+      "download": "https://github.com/Eltamin/artaport/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet"],
   "categories": ["portrait"],
   "components": {
@@ -45,7 +47,17 @@
     "zh_CN": {
       "description": "这是 PaintBG 的EE游戏版本，这个模组修改了一些NPC的肖像，为没有肖像的NPC分配了[Artastrophe](https://artastrophe.deviantart.com)的肖像，等等..."
     },
-    "pl_PL": {"components": {"0": "Zmienic portrety w BG2:EE", "1": "Zmienic portrety w BG1:EE", "2": "Zmienic portrety w SoD", "3": "Dodac portrety w dialogach dla nierekrutowalnych NPC w BG1:EE", "4": "Dodac portrety w dialogach dla nierekrutowalnych NPC w BG2:EE", "5": "Przywrocic portrety dla NPC z BG1:EE", "1180": "Dodac portret dla Edwiny"}}
+    "pl_PL": {
+      "components": {
+        "0": "Zmienic portrety w BG2:EE",
+        "1": "Zmienic portrety w BG1:EE",
+        "2": "Zmienic portrety w SoD",
+        "3": "Dodac portrety w dialogach dla nierekrutowalnych NPC w BG1:EE",
+        "4": "Dodac portrety w dialogach dla nierekrutowalnych NPC w BG2:EE",
+        "5": "Przywrocic portrety dla NPC z BG1:EE",
+        "1180": "Dodac portret dla Edwiny"
+      }
+    }
   },
   "tp2": "artaport",
   "safe": 1,

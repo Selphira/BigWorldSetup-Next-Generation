@@ -2,14 +2,31 @@
   "name": "Derats Mods Tweaker",
   "version": "3.2",
   "links": {
-    "homepage": "https://github.com/Deratiseur/Mods_Tweaker",
-    "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/win-Derats_Mods_Tweaker-v3.2.zip"
+    "homepage": "https://github.com/Deratiseur/Mods_Tweaker"
   },
-  "file": {
-    "filename": "win-Derats_Mods_Tweaker-v3.2.zip",
-    "size": 3143510,
-    "sha256": "245c3fbf59382bccc7c57c7cbdbe3d9abab344573d8c82c43a8e5f00ad5a380f"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Mods_Tweaker-v3.2.zip",
+      "size": 2971169,
+      "sha256": "d51a5052394c50b7506f4cbb9d9db267049c48104ebdd6c4215e5375a77367ee",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/lin-Derats_Mods_Tweaker-v3.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Mods_Tweaker-v3.2.zip",
+      "size": 3198711,
+      "sha256": "8b865207a595086d1bd2173b9adefe549a43628a4fa77467b7f43aea016fd902",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/mac-Derats_Mods_Tweaker-v3.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Mods_Tweaker-v3.2.zip",
+      "size": 3143510,
+      "sha256": "245c3fbf59382bccc7c57c7cbdbe3d9abab344573d8c82c43a8e5f00ad5a380f",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/win-Derats_Mods_Tweaker-v3.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {

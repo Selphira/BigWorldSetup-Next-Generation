@@ -35,37 +35,48 @@
           "type": "string",
           "format": "uri"
         },
-        "download": {
+        "forum": {
           "type": "string",
           "format": "uri"
         }
       },
       "additionalProperties": false
     },
-    "file": {
-      "type": "object",
-      "required": ["filename", "size"],
-      "properties": {
-        "filename": {
-          "type": "string",
-          "pattern": "^[^/\\\\:*?\"<>|]+\\.(zip|rar|7z|exe|tar\\.gz|tgz)$"
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["filename", "size"],
+        "properties": {
+          "filename": {
+            "type": "string",
+            "pattern": "^[^/\\\\:*?\"<>|]+\\.(zip|rar|7z|exe|tar\\.gz|tgz)$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$",
+            "description": "SHA256 hash of the download file"
+          },
+          "download": {
+            "type": "string",
+            "format": "uri"
+          },
+          "platforms": {
+            "type": "array",
+            "description": "List of supported platforms",
+            "items": {
+              "$ref": "#/definitions/platformEnum"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
         },
-        "size": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "sha256": {
-          "type": "string",
-          "pattern": "^[a-fA-F0-9]{64}$",
-          "description": "SHA256 hash of the download file"
-        },
-        "md5": {
-          "type": "string",
-          "pattern": "^[a-fA-F0-9]{32}$",
-          "description": "MD5 hash of the download file"
-        }
-      },
-      "additionalProperties": false
+        "additionalProperties": false
+      }
     },
     "games": {
       "type": "array",
@@ -160,6 +171,10 @@
     "gameEnum": {
       "type": "string",
       "enum": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "pst", "pstee", "iwd", "iwd2", "iwdee"]
+    },
+    "platformEnum": {
+      "type": "string",
+      "enum": ["windows", "linux", "macos"]
     },
     "flagEnum": {
       "type": "string",

@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 
 from PySide6.QtCore import Qt, QThread, QTimer, QUrl, Signal
-from PySide6.QtGui import QColor, QDesktopServices
+from PySide6.QtGui import QAction, QColor, QCursor, QDesktopServices
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -10,6 +10,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QHeaderView,
     QLabel,
+    QMenu,
     QMessageBox,
     QProgressBar,
     QPushButton,
@@ -26,7 +27,6 @@ from constants import (
     COLOR_ERROR,
     COLOR_STATUS_COMPLETE,
     COLOR_STATUS_NONE,
-    COLOR_STATUS_PARTIAL,
     COLOR_TEXT,
     COLOR_WARNING,
     MARGIN_SMALL,
@@ -43,6 +43,7 @@ from core.DownloadManager import (
     HashAlgorithm,
 )
 from core.File import format_size
+from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
@@ -108,9 +109,6 @@ class VerificationWorker(QThread):
 
     def _verify_archive_status(self, archive_info: ArchiveInfo) -> ArchiveStatus:
         """Verify status of an archive."""
-        if archive_info.requires_manual_download:
-            return ArchiveStatus.MANUAL
-
         file_path = self.download_path / archive_info.filename
 
         return self.verifier.verify_archive(file_path, archive_info)
@@ -347,11 +345,6 @@ class ArchiveDetailsPanel(QFrame):
 
 
 # ============================================================================
-# Sortable Table Widget with Row Hover
-# ============================================================================
-
-
-# ============================================================================
 # Download Page
 # ============================================================================
 
@@ -365,7 +358,6 @@ class DownloadPage(BasePage):
         ArchiveStatus.INVALID_SIZE: QColor(COLOR_WARNING),
         ArchiveStatus.MISSING: QColor(COLOR_STATUS_NONE),
         ArchiveStatus.UNKNOWN: QColor(COLOR_STATUS_NONE),
-        ArchiveStatus.MANUAL: QColor(COLOR_STATUS_PARTIAL),
         ArchiveStatus.DOWNLOADING: QColor(COLOR_WARNING),
         ArchiveStatus.VERIFYING: QColor(COLOR_WARNING),
         ArchiveStatus.ERROR: QColor(COLOR_ERROR),
@@ -495,7 +487,8 @@ class DownloadPage(BasePage):
             False,  # Not sortable
         )
 
-        # Connect selection change
+        self._archive_table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self._archive_table.customContextMenuRequested.connect(self._show_context_menu)
         self._archive_table.itemSelectionChanged.connect(self._on_selection_changed)
         self._archive_table.itemDoubleClicked.connect(self._on_archive_double_click)
 
@@ -575,6 +568,7 @@ class DownloadPage(BasePage):
         self._download_manager.download_finished.connect(self._on_download_finished)
         self._download_manager.download_canceled.connect(self._on_download_canceled)
         self._download_manager.download_error.connect(self._on_download_error)
+        self._download_manager.all_completed.connect(self._on_all_downloads_completed)
 
     # ========================================
     # Archive Loading
@@ -616,6 +610,7 @@ class DownloadPage(BasePage):
                 self._update_archive_cache(mod_id, archive_info)
 
         self._refresh_archive_table()
+        self._archive_table.sortItems(COL_MOD_NAME, Qt.SortOrder.AscendingOrder)
         self._update_navigation_buttons()
 
         # Count verified archives
@@ -631,18 +626,26 @@ class DownloadPage(BasePage):
 
     def _get_archive_info_from_mod(self, mod) -> ArchiveInfo | None:
         """Extract archive information from mod object."""
-        if not hasattr(mod, "download"):
+        if not mod.has_file():
             return None
 
-        download_info = mod.download
+        platform = Platform.get_current()
+        mod_file = mod.get_file_for_platform(platform)
+
+        if not mod_file:
+            logger.warning(f"No file available for platform {platform}: {mod.id}")
+            return None
+
+        if not mod_file.has_download_url():
+            return None
 
         return ArchiveInfo(
             mod_id=mod.id,
-            filename=mod.file.filename if mod.file else None,
-            url=download_info,
-            expected_hash=mod.file.sha256 if mod.file else None,
+            filename=mod_file.filename,
+            url=mod_file.download,
+            expected_hash=mod_file.sha256,
             hash_algorithm=HashAlgorithm.SHA256,
-            file_size=mod.file.size if mod.file else None,
+            file_size=mod_file.size,
         )
 
     def _refresh_archive_table(self) -> None:
@@ -713,9 +716,14 @@ class DownloadPage(BasePage):
 
                     color = self.STATUS_COLORS.get(status, QColor(COLOR_STATUS_NONE))
                     status_item.setForeground(color)
-                    status_item.setToolTip(
-                        tr("page.download.error_download_failed", message=message)
-                    )
+                    if status == ArchiveStatus.ERROR:
+                        status_item.setToolTip(
+                            tr("page.download.error_download_failed", message=message)
+                        )
+                    elif status in [ArchiveStatus.INVALID_SIZE, ArchiveStatus.INVALID_HASH]:
+                        status_item.setToolTip(tr("page.download.warning_invalid_meta"))
+                    else:
+                        status_item.setToolTip("")
 
                 break
 
@@ -804,26 +812,32 @@ class DownloadPage(BasePage):
     def _download_all_missing(self) -> None:
         """Start downloading all missing archives (with pre-verification)."""
         if self._is_verifying or self._is_downloading:
-            QMessageBox.warning(
-                self,
-                tr("page.download.operation_in_progress_title"),
-                tr("page.download.operation_in_progress_message"),
-            )
             return
 
-        # Get all non-VALID archives (including manual ones for verification)
+        # Get all UNKNOWN archives
         to_verify = {
             mod_id: archive_info
             for mod_id, archive_info in self._archives.items()
-            if self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN) != ArchiveStatus.VALID
+            if self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN) == ArchiveStatus.UNKNOWN
         }
 
         if not to_verify:
-            QMessageBox.information(
-                self,
-                tr("page.download.all_valid_title"),
-                tr("page.download.all_valid_message"),
-            )
+            to_download_directly = [
+                archive_info
+                for mod_id, archive_info in self._archives.items()
+                if self._archive_status.get(mod_id, ArchiveStatus.MISSING)
+                == ArchiveStatus.MISSING
+            ]
+
+            if not to_download_directly:
+                QMessageBox.information(
+                    self,
+                    tr("page.download.all_valid_title"),
+                    tr("page.download.all_valid_message"),
+                )
+                return
+
+            self._start_downloads_from_list(to_download_directly)
             return
 
         # Start verification process
@@ -874,10 +888,7 @@ class DownloadPage(BasePage):
         to_download = [
             archive_info
             for mod_id, archive_info in self._archives.items()
-            if (
-                self._archive_status.get(mod_id, ArchiveStatus.MISSING).needs_download
-                and not archive_info.requires_manual_download
-            )
+            if self._archive_status.get(mod_id, ArchiveStatus.MISSING) == ArchiveStatus.MISSING
         ]
 
         if not to_download:
@@ -885,37 +896,106 @@ class DownloadPage(BasePage):
             self._update_navigation_buttons()
             return
 
+        self._start_downloads_from_list(to_download)
+
+    def _start_downloads_from_list(self, archives: list[ArchiveInfo]) -> None:
+        """Start downloading a list of archives."""
         self._is_downloading = True
         self._update_navigation_buttons()
 
-        # Show progress bar for downloads
         self._global_progress.setVisible(True)
-        self._global_progress.setMaximum(len(to_download))
+        self._global_progress.setMaximum(len(archives))
         self._global_progress.setValue(0)
         self._global_progress.setFormat(tr("page.download.downloading_progress"))
 
-        for archive_info in to_download:
+        for archive_info in archives:
             self._download_manager.add_to_queue(archive_info)
 
-        logger.info(f"Downloads queued: {len(to_download)}")
+        logger.info(f"Downloads queued: {len(archives)}")
 
         if not self._update_timer.isActive():
             self._update_timer.start()
+
+    def _start_single_download(self, mod_id: str, force: bool = False) -> None:
+        """Start downloading a single archive."""
+        if self._is_downloading and not force:
+            QMessageBox.warning(
+                self,
+                tr("page.download.operation_in_progress_title"),
+                tr("page.download.download_in_progress_message"),
+            )
+            return
+
+        if mod_id not in self._archives:
+            return
+
+        self._start_downloads_from_list([self._archives[mod_id]])
+
+    # ========================================
+    # Context Menu
+    # ========================================
+
+    def _show_context_menu(self, position):
+        """Show context menu for archive table."""
+        item = self._archive_table.itemAt(position)
+        if not item:
+            return
+
+        row = item.row()
+        mod_id_item = self._archive_table.item(row, COL_MOD_NAME)
+        if not mod_id_item:
+            return
+
+        mod_id = mod_id_item.data(Qt.ItemDataRole.UserRole)
+        if not mod_id or mod_id not in self._archives:
+            return
+
+        archive_info = self._archives[mod_id]
+        status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
+
+        menu = QMenu(self)
+
+        action_download = QAction(tr("page.download.context.download"), self)
+        action_download.triggered.connect(
+            lambda: self._start_single_download(mod_id, force=True)
+        )
+        menu.addAction(action_download)
+
+        if status != ArchiveStatus.MISSING:
+            action_verify = QAction(tr("page.download.context.verify"), self)
+            action_verify.triggered.connect(lambda: self._verify_archive(mod_id))
+            menu.addAction(action_verify)
+
+        menu.addSeparator()
+
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        if mod and hasattr(mod, "homepage") and mod.homepage:
+            action_homepage = QAction(tr("page.download.context.open_homepage"), self)
+            action_homepage.triggered.connect(
+                lambda: QDesktopServices.openUrl(QUrl(mod.homepage))
+            )
+            menu.addAction(action_homepage)
+
+        if archive_info.url:
+            action_url = QAction(tr("page.download.context.open_download_url"), self)
+            action_url.triggered.connect(
+                lambda: QDesktopServices.openUrl(QUrl(archive_info.url))
+            )
+            menu.addAction(action_url)
+
+        menu.exec(QCursor.pos())
 
     def _show_final_summary(self) -> None:
         """Show comprehensive summary of download/verification results."""
         # Count archives by status
         valid_count = 0
         warning_count = 0  # INVALID_HASH or INVALID_SIZE
-        manual_missing_count = 0
-        manual_invalid_count = 0
         error_count = 0
 
         warning_details = []
-        manual_details = []
         error_details = []
 
-        for mod_id, archive_info in self._archives.items():
+        for mod_id, _ in self._archives.items():
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
             mod = self._mod_manager.get_mod_by_id(mod_id)
             mod_name = mod.name if mod else mod_id
@@ -927,15 +1007,6 @@ class DownloadPage(BasePage):
                 warning_details.append(
                     f"• {mod_name} ({tr(f'page.download.status.{status.value}')})"
                 )
-            elif archive_info.requires_manual_download:
-                if status == ArchiveStatus.MISSING:
-                    manual_missing_count += 1
-                    manual_details.append(f"• {mod_name} (missing)")
-                else:
-                    manual_invalid_count += 1
-                    manual_details.append(
-                        f"• {mod_name} ({tr(f'page.download.status.{status.value}')})"
-                    )
             elif status in (ArchiveStatus.ERROR, ArchiveStatus.MISSING):
                 error_count += 1
                 error_details.append(f"• {mod_name}")
@@ -949,10 +1020,6 @@ class DownloadPage(BasePage):
         if warning_count > 0:
             summary_parts.append(tr("page.download.summary.warnings", count=warning_count))
 
-        manual_total = manual_missing_count + manual_invalid_count
-        if manual_total > 0:
-            summary_parts.append(tr("page.download.summary.manual", count=manual_total))
-
         if error_count > 0:
             summary_parts.append(tr("page.download.summary.errors", count=error_count))
 
@@ -960,16 +1027,12 @@ class DownloadPage(BasePage):
 
         # Create detailed message if there are issues
         details_text = ""
-        if warning_details or manual_details or error_details:
+        if warning_details or error_details:
             details_parts = []
 
             if warning_details:
                 details_parts.append("\n" + tr("page.download.summary.warnings_title") + ":")
                 details_parts.extend(warning_details)
-
-            if manual_details:
-                details_parts.append("\n" + tr("page.download.summary.manual_title") + ":")
-                details_parts.extend(manual_details)
 
             if error_details:
                 details_parts.append("\n" + tr("page.download.summary.errors_title") + ":")
@@ -987,7 +1050,7 @@ class DownloadPage(BasePage):
         # Determine icon based on worst status
         if error_count > 0:
             msg.setIcon(QMessageBox.Icon.Critical)
-        elif warning_count > 0 or manual_total > 0:
+        elif warning_count > 0:
             msg.setIcon(QMessageBox.Icon.Warning)
         else:
             msg.setIcon(QMessageBox.Icon.Information)
@@ -1029,6 +1092,14 @@ class DownloadPage(BasePage):
         logger.info(f"Download completed: {mod_id}")
         self._update_after_download(mod_id)
 
+    def _on_all_downloads_completed(self) -> None:
+        """Handle completion of all downloads."""
+        self._update_timer.stop()
+        self._is_downloading = False
+        self._global_progress.setVisible(False)
+        self._update_navigation_buttons()
+        self._show_final_summary()
+
     def _update_after_download(self, mod_id: str):
         """Handle post-download updates with cache update."""
         # Remove widget
@@ -1038,20 +1109,11 @@ class DownloadPage(BasePage):
             widget.deleteLater()
             del self._progress_widgets[mod_id]
 
-            # Verify downloaded file
         if mod_id in self._archives:
             self._verify_archive(mod_id)
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)
-
-        # Check if all downloads finished
-        if not self._progress_widgets and not self._download_manager.get_queue_size():
-            self._update_timer.stop()
-            self._is_downloading = False
-            self._global_progress.setVisible(False)
-            self._update_navigation_buttons()
-            self._show_final_summary()
 
     def _on_download_error(self, mod_id: str, error_message: str) -> None:
         """Handle download error."""
@@ -1067,12 +1129,6 @@ class DownloadPage(BasePage):
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)
-
-        if not self._progress_widgets and not self._download_manager.get_queue_size():
-            self._update_timer.stop()
-            self._is_downloading = False
-            self._global_progress.setVisible(False)
-            self._update_navigation_buttons()
 
     def _update_active_downloads(self) -> None:
         """Update all active download widgets."""
@@ -1192,13 +1248,13 @@ class DownloadPage(BasePage):
 
     def _open_download_folder(self) -> None:
         """Open download folder in file manager."""
-        import platform
         import subprocess
 
         try:
-            if platform.system() == "Windows":
+            platform = Platform.get_current()
+            if platform == "windows":
                 subprocess.run(["explorer", str(self._download_path)])
-            elif platform.system() == "Darwin":
+            elif platform == "macos":
                 subprocess.run(["open", str(self._download_path)])
             else:
                 subprocess.run(["xdg-open", str(self._download_path)])
@@ -1223,139 +1279,22 @@ class DownloadPage(BasePage):
             return
 
         archive_info = self._archives[mod_id]
-        mod = self._mod_manager.get_mod_by_id(mod_id)
-        status = ArchiveStatus.VALID
         current_status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
-        if current_status != ArchiveStatus.VALID:
-            status = self._verify_archive(mod_id)
 
-        if status == ArchiveStatus.VALID:
-            QMessageBox.information(
-                self,
-                tr("page.download.verification_success_title"),
-                tr(
-                    "page.download.verification_success_message", filename=archive_info.filename
-                ),
-            )
-            self._update_navigation_buttons()
+        if current_status == ArchiveStatus.MISSING:
+            self._start_single_download(mod_id)
             return
 
-        if archive_info.requires_manual_download:
-            self._show_manual_download_dialog(mod_id, archive_info, status, mod)
-            return
+        reply = QMessageBox.question(
+            self,
+            tr("page.download.redownload_title"),
+            tr("page.download.redownload_message", filename=archive_info.filename),
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No,
+        )
 
-        if status == ArchiveStatus.ERROR:
-            self._show_error_download_dialog(mod_id, archive_info, mod)
-            return
-
-        if status.needs_download:
-            if self._is_downloading:
-                QMessageBox.warning(
-                    self,
-                    tr("page.download.operation_in_progress_title"),
-                    tr("page.download.download_in_progress_message"),
-                )
-                return
-
-            # Start single download
-            self._is_downloading = True
-            self._update_navigation_buttons()
-
-            self._global_progress.setVisible(True)
-            self._global_progress.setMaximum(1)
-            self._global_progress.setValue(0)
-            self._global_progress.setFormat(tr("page.download.downloading_progress"))
-
-            self._download_manager.start_download(archive_info)
-
-            if not self._update_timer.isActive():
-                self._update_timer.start()
-
-    def _show_manual_download_dialog(
-        self, mod_id: str, archive_info: ArchiveInfo, status: ArchiveStatus, mod
-    ) -> None:
-        """
-        Show dialog for manual download requirement with appropriate links.
-
-        Args:
-            mod_id: Mod identifier
-            archive_info: Archive information
-            status: Current archive status
-            mod: Mod object for homepage link
-        """
-        msg = QMessageBox(self)
-        msg.setWindowTitle(tr("page.download.manual_download_required_title"))
-        msg.setIcon(QMessageBox.Icon.Warning)
-
-        if status == ArchiveStatus.MISSING:
-            text = tr("page.download.manual_archive_missing", filename=archive_info.filename)
-        elif status == ArchiveStatus.INVALID_HASH:
-            text = tr(
-                "page.download.manual_archive_invalid_hash",
-                filename=archive_info.filename,
-                expected=archive_info.expected_hash[:16] + "...",
-            )
-        elif status == ArchiveStatus.INVALID_SIZE:
-            text = tr(
-                "page.download.manual_archive_invalid_size",
-                filename=archive_info.filename,
-                expected=format_size(archive_info.file_size),
-            )
-        else:
-            text = tr("page.download.manual_archive_error", filename=archive_info.filename)
-
-        msg.setText(text)
-
-        # Add homepage link if available
-        btn_homepage = None
-        if mod and hasattr(mod, "homepage") and mod.homepage:
-            btn_homepage = msg.addButton(
-                tr("page.download.btn_open_homepage"), QMessageBox.ButtonRole.ActionRole
-            )
-
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        msg.exec()
-
-        if btn_homepage and msg.clickedButton() == btn_homepage:
-            QDesktopServices.openUrl(QUrl(mod.homepage))
-
-    def _show_error_download_dialog(self, mod_id: str, archive_info: ArchiveInfo, mod) -> None:
-        """
-        Show dialog for download error with manual download option.
-
-        Args:
-            mod_id: Mod identifier
-            archive_info: Archive information
-            mod: Mod object for links
-        """
-        msg = QMessageBox(self)
-        msg.setWindowTitle(tr("page.download.download_error_title"))
-        msg.setIcon(QMessageBox.Icon.Warning)
-
-        text = tr("page.download.download_error_message", filename=archive_info.filename)
-        msg.setText(text)
-
-        # Add buttons for opening links
-        buttons = []
-        if mod and hasattr(mod, "homepage") and mod.homepage:
-            btn_homepage = msg.addButton(
-                tr("page.download.btn_open_homepage"), QMessageBox.ButtonRole.ActionRole
-            )
-            buttons.append((btn_homepage, mod.homepage))
-
-        if archive_info.url:
-            btn_download = msg.addButton(
-                tr("page.download.btn_open_download"), QMessageBox.ButtonRole.ActionRole
-            )
-            buttons.append((btn_download, archive_info.url))
-
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        msg.exec()
-
-        for button, url in buttons:
-            if msg.clickedButton() == button:
-                QDesktopServices.openUrl(QUrl(url))
-                break
+        if reply == QMessageBox.StandardButton.Yes:
+            self._start_single_download(mod_id, force=True)
 
     def _apply_filter(self) -> None:
         """Apply status filter to archive table."""
@@ -1389,7 +1328,7 @@ class DownloadPage(BasePage):
         ignore_warnings = self._chk_ignore_warnings.isChecked()
         ignore_errors = self._chk_ignore_errors.isChecked()
 
-        for mod_id, archive_info in self._archives.items():
+        for mod_id, _ in self._archives.items():
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
 
             if status == ArchiveStatus.UNKNOWN:
@@ -1480,7 +1419,6 @@ class DownloadPage(BasePage):
         self._filter_combo.addItem(
             tr("page.download.filter.invalid"), ArchiveStatus.INVALID_HASH
         )
-        self._filter_combo.addItem(tr("page.download.filter.manual"), ArchiveStatus.MANUAL)
         self._filter_combo.addItem(tr("page.download.filter.valid"), ArchiveStatus.VALID)
         self._filter_combo.addItem(tr("page.download.filter.unknown"), ArchiveStatus.UNKNOWN)
 

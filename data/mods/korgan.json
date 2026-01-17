@@ -2,14 +2,16 @@
   "name": "Korgan's Redemption",
   "version": "10.0.1",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Korgan-Redemption",
-    "download": "https://github.com/Spellhold-Studios/Korgan-Redemption/releases/download/v10.0.1/korgans-redemption-v10.0.1.zip"
+    "homepage": "https://github.com/Spellhold-Studios/Korgan-Redemption"
   },
-  "file": {
-    "filename": "korgans-redemption-v10.0.1.zip",
-    "size": 2763184,
-    "sha256": "447fbb39631efd8f9ed17c9343dff9bf0e0460019302c0090cc1c0cd0eade284"
-  },
+  "files": [
+    {
+      "filename": "korgans-redemption-v10.0.1.zip",
+      "size": 2763184,
+      "sha256": "447fbb39631efd8f9ed17c9343dff9bf0e0460019302c0090cc1c0cd0eade284",
+      "download": "https://github.com/Spellhold-Studios/Korgan-Redemption/releases/download/v10.0.1/korgans-redemption-v10.0.1.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "这个扩展模组如果玛兹在队伍中，就为寇根提供了一个救赎的机会。"
     },
-    "pl_PL": {"components": {"0": "Nawrócenie Korgana"}},
-    "ru_RU": {"components": {"0": "Korgan's Redemption"}},
-    "de_DE": {"components": {"0": "Korgans Erlösung"}}
+    "pl_PL": {
+      "components": {
+        "0": "Nawrócenie Korgana"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Korgan's Redemption"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Korgans Erlösung"
+      }
+    }
   },
   "tp2": "korgan",
   "safe": 2,

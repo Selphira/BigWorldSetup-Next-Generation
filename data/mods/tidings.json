@@ -1,15 +1,17 @@
 {
   "name": "Dark Tidings",
-  "version": "2.8",
+  "version": "2.9",
   "links": {
-    "homepage": "https://baldurs-gate.de/index.php?resources/dark-tidings.65/",
-    "download": "https://github.com/AciferBG/Dark-Tidings/releases/download/v2.8/Dark_Tidings_v2.8.zip"
+    "homepage": "https://baldurs-gate.de/index.php?resources/dark-tidings.65/"
   },
-  "file": {
-    "filename": "Dark_Tidings_v2.8.zip",
-    "size": 104170545,
-    "sha256": "7d9736514457171a614dab83e9c164fe7fff3da1f71ac011f9804dc2911d4bd4"
-  },
+  "files": [
+    {
+      "filename": "Dark_Tidings_v2.9.zip",
+      "size": 104170551,
+      "sha256": "8288dcde9fda06d757dc50a29aad14d929ea9f31c8e8cb66ee585a23ecae11e7",
+      "download": "https://github.com/AciferBG/Dark-Tidings/releases/download/v2.9/Dark_Tidings_v2.9.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -42,9 +44,21 @@
         "0": "暗潮涌动"
       }
     },
-    "de_DE": {"components": {"0": "Dark Tidings"}},
-    "pl_PL": {"components": {"0": "Dark Tidings - mod do Baldur's Gate II"}},
-    "ru_RU": {"components": {"0": "Dark Tidings"}}
+    "de_DE": {
+      "components": {
+        "0": "Dark Tidings"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Dark Tidings - mod do Baldur's Gate II"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Dark Tidings"
+      }
+    }
   },
   "tp2": "tidings",
   "safe": 2,

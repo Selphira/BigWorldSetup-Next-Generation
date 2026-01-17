@@ -2,14 +2,31 @@
   "name": "Kalah",
   "version": "4.1",
   "links": {
-    "homepage": "https://github.com/Plutonium-X/QUETE_KALAH",
-    "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/win-Kalah-v4.1.zip"
+    "homepage": "https://github.com/Plutonium-X/QUETE_KALAH"
   },
-  "file": {
-    "filename": "win-Kalah-v4.1.zip",
-    "size": 3162503,
-    "sha256": "04ee05d06415b43d6c651fbdc9bd6dfaa0c7cf6d9bf34db0c1027d4809c1a0a1"
-  },
+  "files": [
+    {
+      "filename": "lin-Kalah-v4.1.zip",
+      "size": 2990162,
+      "sha256": "3ff254e35098a4f7f51feaea6720b9e5546063529a8a0cb3563e4e0f91c18032",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/lin-Kalah-v4.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Kalah-v4.1.zip",
+      "size": 3217676,
+      "sha256": "bacb53dd77b888e0521c4ccac256af8981adbd840373fabcd171f0283917940e",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/mac-Kalah-v4.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Kalah-v4.1.zip",
+      "size": 3162503,
+      "sha256": "04ee05d06415b43d6c651fbdc9bd6dfaa0c7cf6d9bf34db0c1027d4809c1a0a1",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/win-Kalah-v4.1.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -34,7 +51,12 @@
     "zh_CN": {
       "description": "此模组修改了马戏团的任务，在其中加入了一些小考验。这些考验的结果会影响最终战斗的难度。另一个组件将恢复艾黎变形后的原始外观（剧透：她不是食人魔）。"
     },
-    "pl_PL": {"components": {"0": "Przywrocony pierwotny (?) wyglad Aerie.", "1": "Namiot Kalaha 2.0"}}
+    "pl_PL": {
+      "components": {
+        "0": "Przywrocony pierwotny (?) wyglad Aerie.",
+        "1": "Namiot Kalaha 2.0"
+      }
+    }
   },
   "tp2": "kalah",
   "safe": 2,

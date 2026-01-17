@@ -6,9 +6,11 @@ from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QComboBox,
+    QFileDialog,
     QHBoxLayout,
     QHeaderView,
     QLabel,
+    QMenu,
     QMessageBox,
     QProgressBar,
     QPushButton,
@@ -28,6 +30,8 @@ from constants import (
 )
 from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo, ExtractionStatus
 from core.DirectoryMerger import ConflictResolution, DirectoryMerger
+from core.Mod import Mod
+from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.validators.StructureValidator import StructureValidator
@@ -57,7 +61,7 @@ class ExtractionWorker(QThread):
     extraction_started = Signal(str)  # mod_id
     extraction_completed = Signal(str)  # mod_id
     extraction_error = Signal(str, str)  # mod_id, error_message
-    all_completed = Signal()
+    all_completed = Signal(list)  # extractions
 
     def __init__(self, extractions: list[ExtractionInfo]):
         """Initialize worker.
@@ -111,11 +115,11 @@ class ExtractionWorker(QThread):
                     if temp_dir.exists():
                         shutil.rmtree(temp_dir, ignore_errors=True)
 
-            self.all_completed.emit()
+            self.all_completed.emit(self._extractions)
 
         except Exception as e:
             logger.error(f"Critical error in extraction thread: {e}")
-            self.all_completed.emit()
+            self.all_completed.emit(self._extractions)
 
     def cancel(self) -> None:
         """Cancel extraction process."""
@@ -135,6 +139,8 @@ class ExtractionPage(BasePage):
         ExtractionStatus.EXTRACTING: QColor(COLOR_WARNING),
         ExtractionStatus.EXTRACTED: QColor(COLOR_STATUS_COMPLETE),
         ExtractionStatus.ERROR: QColor(COLOR_ERROR),
+        ExtractionStatus.MISSING_ARCHIVE: QColor(COLOR_WARNING),
+        ExtractionStatus.ARCHIVE_NOT_FOUND: QColor(COLOR_ERROR),
     }
 
     def __init__(self, state_manager: StateManager):
@@ -199,6 +205,9 @@ class ExtractionPage(BasePage):
         # Extraction table
         self._extraction_table = HoverTableWidget()
         self._extraction_table.setColumnCount(COLUMN_COUNT)
+        self._extraction_table.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self._extraction_table.customContextMenuRequested.connect(self._show_context_menu)
+        self._extraction_table.itemDoubleClicked.connect(self._on_extraction_double_click)
 
         header = self._extraction_table.horizontalHeader()
         header.setSectionResizeMode(COL_MOD_NAME, QHeaderView.ResizeMode.Stretch)
@@ -268,7 +277,6 @@ class ExtractionPage(BasePage):
                 continue
 
             mod_references = ["weidu64:0"] + mod_references
-
             sequence, folder_path = game_folders[seq_idx]
             unique_mods_in_sequence = list(
                 dict.fromkeys(ref.split(":")[0] for ref in mod_references if ref)
@@ -276,13 +284,8 @@ class ExtractionPage(BasePage):
 
             for mod_id in unique_mods_in_sequence:
                 mod = self._mod_manager.get_mod_by_id(mod_id)
-                if not mod or not hasattr(mod, "file") or not mod.file:
-                    logger.warning(f"Mod not found or has no file: {mod_id}")
-                    continue
-
-                archive_path = self._download_path / mod.file.filename
-                if not archive_path.exists():
-                    logger.warning(f"Archive not found for {mod_id}: {archive_path}")
+                if not mod:
+                    logger.warning(f"Mod not found: {mod_id}")
                     continue
 
                 # Check if mod is allowed in this sequence
@@ -300,6 +303,7 @@ class ExtractionPage(BasePage):
                 else:
                     display_name = mod.name
 
+                archive_path = self._resolve_archive_path(mod, mod_id)
                 destination_path = folder_path
                 if not mod.tp2:
                     destination_path = Path(f"{destination_path}/{EXTRACT_DIR}/{mod.id}")
@@ -313,15 +317,39 @@ class ExtractionPage(BasePage):
                     destination_path=destination_path,
                 )
 
+                initial_status = self._determine_initial_status(extraction_info)
                 self._extractions[extraction_id] = extraction_info
-                self._extraction_status[extraction_id] = ExtractionStatus.TO_EXTRACT
+                self._extraction_status[extraction_id] = initial_status
 
         self._refresh_extraction_table()
-
-        # Check which mods are already extracted
-        self._check_existing_extractions()
-
         logger.info(f"Extractions loaded: {len(self._extractions)}")
+
+    def _resolve_archive_path(self, mod: Mod, mod_id: str) -> Path | None:
+        """Resolve the archive path for a mod."""
+        custom_path = self.state_manager.get_custom_archive(mod_id)
+        if custom_path:
+            return custom_path
+
+        if mod.has_file():
+            platform = Platform.get_current()
+            mod_file = mod.get_file_for_platform(platform)
+            if mod_file:
+                return self._download_path / mod_file.filename
+
+        return None
+
+    def _determine_initial_status(self, extraction_info: ExtractionInfo) -> ExtractionStatus:
+        """Determine the initial extraction status for a mod."""
+        if self._is_already_extracted(extraction_info):
+            return ExtractionStatus.EXTRACTED
+
+        if extraction_info.archive_path is None:
+            return ExtractionStatus.MISSING_ARCHIVE
+
+        if not extraction_info.archive_path.exists():
+            return ExtractionStatus.ARCHIVE_NOT_FOUND
+
+        return ExtractionStatus.TO_EXTRACT
 
     def _refresh_extraction_table(self) -> None:
         """Refresh the extraction table display."""
@@ -344,12 +372,26 @@ class ExtractionPage(BasePage):
             self._extraction_table.insertRow(row)
 
             # Column 0: Mod name (sortable)
-            name_item = QTableWidgetItem(extraction_info.mod_name)
+            display_name = extraction_info.mod_name
+            has_custom = self.state_manager.has_custom_archive(extraction_info.mod_id)
+
+            name_item = QTableWidgetItem(display_name)
             name_item.setData(Qt.ItemDataRole.UserRole, extraction_id)
             self._extraction_table.setItem(row, COL_MOD_NAME, name_item)
 
             # Column 1: Archive (sortable)
-            archive_item = QTableWidgetItem(extraction_info.archive_path.name)
+            if extraction_info.archive_path:
+                archive_text = extraction_info.archive_path.name
+                if has_custom:
+                    archive_text = f"{archive_text} ⚙️"
+            else:
+                archive_text = tr("page.extraction.no_archive")
+
+            archive_item = QTableWidgetItem(archive_text)
+            if status in [ExtractionStatus.MISSING_ARCHIVE, ExtractionStatus.ARCHIVE_NOT_FOUND]:
+                archive_item.setForeground(QColor(self.STATUS_COLORS.get(status)))
+            if has_custom:
+                archive_item.setToolTip(tr("page.extraction.custom_archive_tooltip"))
             self._extraction_table.setItem(row, COL_ARCHIVE, archive_item)
 
             # Column 2: Destination (sortable)
@@ -379,22 +421,18 @@ class ExtractionPage(BasePage):
     # Verification
     # ========================================
 
-    def _check_existing_extractions(self) -> None:
-        """Check which extractions already exist on disk."""
+    @staticmethod
+    def _is_already_extracted(extraction_info: ExtractionInfo) -> bool:
+        """Check if mod is already extracted."""
         validator = StructureValidator()
 
-        for extraction_id, extraction_info in self._extractions.items():
-            if not extraction_info.tp2_name:
-                valid = extraction_info.destination_path.exists()
-            else:
-                valid, _ = validator.validate_structure(
-                    extraction_info.destination_path, extraction_info.tp2_name
-                )
-
-            if valid:
-                self._update_extraction_status(extraction_id, ExtractionStatus.EXTRACTED)
-
-        logger.info("Checked existing extractions")
+        if not extraction_info.tp2_name:
+            return extraction_info.destination_path.exists()
+        else:
+            valid, _ = validator.validate_structure(
+                extraction_info.destination_path, extraction_info.tp2_name
+            )
+            return valid
 
     # ========================================
     # Extraction
@@ -421,10 +459,27 @@ class ExtractionPage(BasePage):
             )
             return
 
+        self._extract_archives(to_extract)
+
+        logger.info(f"Started extraction of {len(to_extract)} archives")
+
+    def _extract_single(self, extraction_info: ExtractionInfo) -> None:
+        """Extract a single archive."""
+        if self._is_extracting:
+            return
+
+        if not extraction_info.archive_path or not extraction_info.archive_path.exists():
+            self._show_archive_not_found_dialog(extraction_info)
+            return
+
+        self._extract_archives([extraction_info])
+
+        logger.info(f"Started single extraction: {extraction_info.extraction_id}")
+
+    def _extract_archives(self, to_extract: list[ExtractionInfo]) -> None:
         self._is_extracting = True
         self._update_navigation_buttons()
 
-        self._progress_bar.setVisible(True)
         self._progress_bar.setMaximum(len(to_extract))
         self._progress_bar.setValue(0)
 
@@ -435,8 +490,6 @@ class ExtractionPage(BasePage):
         self._extraction_worker.all_completed.connect(self._on_all_extractions_completed)
 
         self._extraction_worker.start()
-
-        logger.info(f"Started extraction of {len(to_extract)} archives")
 
     def _on_extraction_started(self, extraction_id: str) -> None:
         """Handle extraction start."""
@@ -461,21 +514,24 @@ class ExtractionPage(BasePage):
 
         logger.error(f"Extraction error for {extraction_id}: {error_message}")
 
-    def _on_all_extractions_completed(self) -> None:
+    def _on_all_extractions_completed(self, extractions: list[ExtractionInfo]) -> None:
         """Handle completion of all extractions."""
         self._is_extracting = False
         self._extraction_worker = None
-        self._progress_bar.setVisible(False)
+        self._progress_bar.reset()
         self._update_navigation_buttons()
 
         # Count successes and failures
         success_count = sum(
             1
-            for status in self._extraction_status.values()
-            if status == ExtractionStatus.EXTRACTED
+            for extraction in extractions
+            if self._extraction_status.get(extraction.extraction_id)
+            == ExtractionStatus.EXTRACTED
         )
         error_count = sum(
-            1 for status in self._extraction_status.values() if status == ExtractionStatus.ERROR
+            1
+            for extraction in extractions
+            if self._extraction_status.get(extraction.extraction_id) == ExtractionStatus.ERROR
         )
 
         if error_count > 0:
@@ -496,6 +552,148 @@ class ExtractionPage(BasePage):
             )
 
         logger.info(f"Extraction completed: {success_count} success, {error_count} errors")
+
+    def _on_extraction_double_click(self, item: QTableWidgetItem) -> None:
+        """Handle double-click on extraction entry."""
+        row = item.row()
+        item = self._extraction_table.item(row, COL_MOD_NAME)
+
+        if not item:
+            return
+
+        extraction_id = item.data(Qt.ItemDataRole.UserRole)
+        extraction_info = self._extractions[extraction_id]
+        status = self._extraction_status.get(extraction_id, ExtractionStatus.TO_EXTRACT)
+
+        if status == ExtractionStatus.MISSING_ARCHIVE:
+            self._show_change_archive_dialog(extraction_info)
+            return
+
+        if status == ExtractionStatus.ARCHIVE_NOT_FOUND:
+            self._show_archive_not_found_dialog(extraction_info)
+            return
+
+        if status == ExtractionStatus.EXTRACTED:
+            self._show_reextract_dialog(extraction_info)
+            return
+
+        if status == ExtractionStatus.TO_EXTRACT:
+            self._extract_single(extraction_info)
+
+    def _show_change_archive_dialog(self, extraction_info: ExtractionInfo):
+        """Show dialog to link an archive to a mod."""
+        archive_path, _ = QFileDialog.getOpenFileName(
+            self,
+            tr("dialog.link_archive.select_file"),
+            str(self._download_path or Path.home()),
+            "Archives (*.zip *.rar *.7z *.tar.gz *.exe);;All files (*)",
+        )
+
+        if archive_path:
+            archive_path = Path(archive_path)
+
+            self.state_manager.add_custom_archive(extraction_info.mod_id, archive_path)
+            self._load_extractions()
+
+    def _show_archive_not_found_dialog(self, extraction_info: ExtractionInfo):
+        """Show dialog when archive file is not found."""
+        msg = QMessageBox(self)
+        msg.setWindowTitle(tr("page.extraction.archive_not_found_title"))
+        msg.setIcon(QMessageBox.Icon.Warning)
+        msg.setText(
+            tr(
+                "page.extraction.archive_not_found_text",
+                filename=extraction_info.archive_path.name,
+            )
+        )
+
+        btn_change = msg.addButton(
+            tr("page.extraction.btn_change_archive"), QMessageBox.ButtonRole.AcceptRole
+        )
+        msg.addButton(QMessageBox.StandardButton.Cancel)
+
+        msg.exec()
+
+        if msg.clickedButton() == btn_change:
+            self._show_change_archive_dialog(extraction_info)
+
+    def _show_reextract_dialog(self, extraction_info: ExtractionInfo):
+        """Show dialog to confirm re-extraction."""
+        reply = QMessageBox.question(
+            self,
+            tr("page.extraction.confirm_reextract_title"),
+            tr("page.extraction.confirm_reextract_text", mod_name=extraction_info.mod_name),
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No,
+        )
+
+        if reply == QMessageBox.StandardButton.Yes:
+            if extraction_info.destination_path.exists():
+                if extraction_info.tp2_name:
+                    mod_folder = extraction_info.destination_path / extraction_info.tp2_name
+                    if mod_folder.exists():
+                        shutil.rmtree(mod_folder, ignore_errors=True)
+                else:
+                    if extraction_info.destination_path.exists():
+                        shutil.rmtree(extraction_info.destination_path, ignore_errors=True)
+
+            self._update_extraction_status(
+                extraction_info.extraction_id, ExtractionStatus.TO_EXTRACT
+            )
+            self._extract_single(extraction_info)
+
+    def _show_context_menu(self, pos):
+        """Show context menu on extraction table."""
+        item = self._extraction_table.itemAt(pos)
+        if not item:
+            return
+
+        row = item.row()
+        extraction_id_item = self._extraction_table.item(row, COL_MOD_NAME)
+        extraction_id = extraction_id_item.data(Qt.ItemDataRole.UserRole)
+        extraction_info = self._extractions.get(extraction_id)
+
+        if not extraction_info:
+            return
+
+        status = self._extraction_status.get(extraction_id, ExtractionStatus.TO_EXTRACT)
+        has_custom = self.state_manager.has_custom_archive(extraction_info.mod_id)
+
+        menu = QMenu(self)
+
+        action_extract = None
+        action_restore = None
+
+        if status == ExtractionStatus.EXTRACTED and extraction_info.archive_path is not None:
+            action_extract = menu.addAction(tr("page.extraction.context.reextract"))
+        elif (
+            status in [ExtractionStatus.TO_EXTRACT, ExtractionStatus.ERROR]
+            and extraction_info.archive_path is not None
+        ):
+            action_extract = menu.addAction(tr("page.extraction.context.extract"))
+
+        menu.addSeparator()
+
+        action_change = menu.addAction(tr("page.extraction.context.change_archive"))
+
+        if has_custom:
+            action_restore = menu.addAction(tr("page.extraction.context.restore_archive"))
+
+        action = menu.exec(self._extraction_table.viewport().mapToGlobal(pos))
+
+        if not action:
+            return
+
+        if action == action_extract:
+            if status == ExtractionStatus.EXTRACTED:
+                self._show_reextract_dialog(extraction_info)
+            else:
+                self._extract_single(extraction_info)
+        elif action == action_change:
+            self._show_change_archive_dialog(extraction_info)
+        elif action_restore and action == action_restore:
+            self.state_manager.remove_custom_archive(extraction_info.mod_id)
+            self._load_extractions()
 
     # ========================================
     # UI Actions
@@ -621,6 +819,12 @@ class ExtractionPage(BasePage):
             tr("page.extraction.filter.extracted"), ExtractionStatus.EXTRACTED
         )
         self._filter_combo.addItem(tr("page.extraction.filter.error"), ExtractionStatus.ERROR)
+        self._filter_combo.addItem(
+            tr("page.extraction.filter.missing_archive"), ExtractionStatus.MISSING_ARCHIVE
+        )
+        self._filter_combo.addItem(
+            tr("page.extraction.filter.archive_not_found"), ExtractionStatus.ARCHIVE_NOT_FOUND
+        )
 
         for i in range(self._filter_combo.count()):
             if self._filter_combo.itemData(i) == current:

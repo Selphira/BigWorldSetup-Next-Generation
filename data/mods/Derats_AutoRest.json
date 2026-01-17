@@ -2,21 +2,36 @@
   "name": "Derat's Auto Rest",
   "version": "8.0",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33320",
-    "download": "https://github.com/Deratiseur/AutoRest/releases/download/v8.0/win-Derats_AutoRest-v8.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33320"
   },
-  "file": {
-    "filename": "win-Derats_AutoRest-v8.zip",
-    "size": 1280989,
-    "sha256": "afe491e7e8495e03465e046e475e550fcbccd6cc66252935733de237669d3420"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_AutoRest-v8.zip",
+      "size": 1108648,
+      "sha256": "6029e85798f05f6a2889463b8450c5e8799d4564889e380ee5da22ef33c0d9ef",
+      "download": "https://github.com/Deratiseur/AutoRest/releases/download/v8.0/lin-Derats_AutoRest-v8.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_AutoRest-v8.zip",
+      "size": 1336182,
+      "sha256": "26a4cc36e057d5e4501860ac0fac9b92d443e4af47f983af1616d6bd70c02643",
+      "download": "https://github.com/Deratiseur/AutoRest/releases/download/v8.0/mac-Derats_AutoRest-v8.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_AutoRest-v8.zip",
+      "size": 1280989,
+      "sha256": "afe491e7e8495e03465e046e475e550fcbccd6cc66252935733de237669d3420",
+      "download": "https://github.com/Deratiseur/AutoRest/releases/download/v8.0/win-Derats_AutoRest-v8.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["11", "12", "13"], "category": "util", "default": "11"},
-    "choice_1": {
-      "type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27", "28"], "category": "util", "default": "21"
-    },
+    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27", "28"], "category": "util", "default": "21"},
     "choice_2": {"type": "muc", "components": ["31", "32", "33", "34"], "category": "util", "default": "31"}
   },
   "languages": {

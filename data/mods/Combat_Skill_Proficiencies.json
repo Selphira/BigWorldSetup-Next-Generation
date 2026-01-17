@@ -2,14 +2,16 @@
   "name": "Combat Skills & Proficiencies",
   "version": "1.5.2",
   "links": {
-    "homepage": "https://github.com/subtledoctor/Combat_Skill_Proficiencies",
-    "download": "https://github.com/subtledoctor/Combat_Skill_Proficiencies/archive/refs/tags/1.5.2.zip"
+    "homepage": "https://github.com/subtledoctor/Combat_Skill_Proficiencies"
   },
-  "file": {
-    "filename": "Combat_Skill_Proficiencies-1.5.2.zip",
-    "size": 1695416,
-    "sha256": "125b336366d6ee515f2b0b75039652d66e2fcffed5e73fa9fed1ff6c753ceae6"
-  },
+  "files": [
+    {
+      "filename": "Combat_Skill_Proficiencies-1.5.2.zip",
+      "size": 1695416,
+      "sha256": "125b336366d6ee515f2b0b75039652d66e2fcffed5e73fa9fed1ff6c753ceae6",
+      "download": "https://github.com/subtledoctor/Combat_Skill_Proficiencies/archive/refs/tags/1.5.2.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
@@ -48,7 +50,15 @@
     "zh_CN": {
       "description": "此模组重新定义了武术技能的游戏玩法。每个组件都可以独立于其他组件进行选择。"
     },
-    "pl_PL": {"components": {"10": "Revised Proficiency System", "30": "Combat Skills System", "50": "Zwiniecie kategorii broni", "70": "Zmiany stylow walki", "90": "Atak na runde w podklasach"}}
+    "pl_PL": {
+      "components": {
+        "10": "Revised Proficiency System",
+        "30": "Combat Skills System",
+        "50": "Zwiniecie kategorii broni",
+        "70": "Zmiany stylow walki",
+        "90": "Atak na runde w podklasach"
+      }
+    }
   },
   "tp2": "combat_skill_proficiencies",
   "safe": 2,

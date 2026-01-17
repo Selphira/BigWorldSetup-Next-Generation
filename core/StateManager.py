@@ -38,6 +38,7 @@ class InstallationState:
             "backup_folder": None,
             "languages_order": [],
             "install_order": {},
+            "custom_archives": {},
         }
     )
     installation: dict[str, Any] = field(
@@ -223,6 +224,25 @@ class StateManager:
         install_order = self.installation_state.configuration.get("install_order", {}).copy()
 
         return {int(seq_idx): order_list for seq_idx, order_list in install_order.items()}
+
+    def add_custom_archive(self, mod_id: str, archive_path: Path):
+        """Add a custom archive for a mod."""
+        self.installation_state.configuration["custom_archives"][mod_id] = str(archive_path)
+
+    def get_custom_archive(self, mod_id: str) -> Path | None:
+        """Get custom archive path for a mod."""
+        custom_archive = self.installation_state.configuration["custom_archives"].get(mod_id)
+        if custom_archive:
+            return Path(custom_archive)
+        return None
+
+    def has_custom_archive(self, mod_id: str) -> bool:
+        """Check if mod has a custom archive."""
+        return mod_id in self.installation_state.configuration["custom_archives"]
+
+    def remove_custom_archive(self, mod_id: str):
+        """Remove custom archive association."""
+        self.installation_state.configuration["custom_archives"].pop(mod_id, None)
 
     def set_page_option(self, page: str, option: str, value: Any) -> None:
         """Set page-specific boolean option.
@@ -537,7 +557,7 @@ class StateManager:
     def get_rule_manager(self) -> RuleManager:
         """Get rule manager instance."""
         if self._rule_manager is None:
-            self._rule_manager = RuleManager(Path(RULES_DIR))
+            self._rule_manager = RuleManager(rules_dir=RULES_DIR, cache_dir=CACHE_DIR)
             logger.debug("RuleManager initialized")
         return self._rule_manager
 

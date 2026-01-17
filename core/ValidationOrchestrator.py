@@ -113,7 +113,7 @@ class ValidationOrchestrator:
         failed = []
 
         for target in to_select:
-            if self._controller.select(target, emit_signal=False):
+            if self._controller.select(target):
                 added.append(target)
             else:
                 failed.append(target)
@@ -158,7 +158,7 @@ class ValidationOrchestrator:
         failed = []
 
         for conflict in to_deselect:
-            if self._controller.unselect(conflict, emit_signal=False):
+            if self._controller.unselect(conflict):
                 removed.append(conflict)
             else:
                 failed.append(conflict)
@@ -210,8 +210,8 @@ class ValidationOrchestrator:
     # Message Formatting
     # ========================================
 
+    @staticmethod
     def _format_dependency_message(
-        self,
         source: ComponentReference,
         added: list[ComponentReference],
         failed: list[ComponentReference],
@@ -231,8 +231,8 @@ class ValidationOrchestrator:
 
         return "\n".join(parts)
 
+    @staticmethod
     def _format_conflict_keep_message(
-        self,
         source: ComponentReference,
         removed: list[ComponentReference],
         failed: list[ComponentReference],
@@ -252,8 +252,8 @@ class ValidationOrchestrator:
 
         return "\n".join(parts)
 
+    @staticmethod
     def _format_auto_resolve_message(
-        self,
         source: ComponentReference,
         added: list[ComponentReference],
         removed: list[ComponentReference],

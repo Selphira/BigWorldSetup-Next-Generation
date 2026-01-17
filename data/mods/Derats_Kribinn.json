@@ -1,15 +1,32 @@
 {
   "name": "Kri'binn l'araignée semi-mécanique",
-  "version": "2.1",
+  "version": "3",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/89435/mod-kribinn-the-half-mechanical-spider/p1",
-    "download": "https://github.com/Deratiseur/Gilbertus/archive/refs/tags/v2.1.zip"
+    "homepage": "https://forums.beamdog.com/discussion/89435/mod-kribinn-the-half-mechanical-spider/p1"
   },
-  "file": {
-    "filename": "Gilbertus-2.1.zip",
-    "size": 2175114,
-    "sha256": "9ea34dcc007153a6504f514babff8d1299a0409ef337a0b2f8b2bd8d9663d8bd"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Kribinn-v2.1.zip",
+      "size": 2009731,
+      "sha256": "a7781ac9192af97a2e72bd1abb247c6e92b815bb73e16d4a0b6d9163a8b29ceb",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v3/lin-Derats_Kribinn-v2.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Kribinn-v2.1.zip",
+      "size": 2237263,
+      "sha256": "66f9ecf86b907aa908ca2521d651121d7e52f893bbb4c48be84d330e069d2654",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v3/mac-Derats_Kribinn-v2.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Kribinn-v2.1.zip",
+      "size": 2182072,
+      "sha256": "cd3f40b6bd9b2eb9ed1f80977a7fc8067b943b0f5913fdb0390837761b1e89cf",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v3/win-Derats_Kribinn-v2.1.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2ee", "eet", "iwdee"],
   "categories": ["npc1d"],
   "components": {

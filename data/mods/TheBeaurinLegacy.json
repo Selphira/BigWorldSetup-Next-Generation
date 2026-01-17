@@ -2,14 +2,16 @@
   "name": "The Beaurin Legacy",
   "version": "5.3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/beaurin/",
-    "download": "https://www.gibberlings3.net/files/file/998-beaurin-legacy/?do=download&r=6343&confirm=1&t=1"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/beaurin/"
   },
-  "file": {
-    "filename": "TheBeaurinLegacy.zip",
-    "size": 29880225,
-    "sha256": "cfef29fe99a42f736f3f90b4595784789387e02a141ddcbd3f59f68c5f182486"
-  },
+  "files": [
+    {
+      "filename": "TheBeaurinLegacy.zip",
+      "size": 29880225,
+      "sha256": "cfef29fe99a42f736f3f90b4595784789387e02a141ddcbd3f59f68c5f182486",
+      "download": "https://www.gibberlings3.net/files/file/998-beaurin-legacy/?do=download&r=6343&confirm=1&t=1"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -48,7 +50,16 @@
     "zh_CN": {
       "description": "此模组增加了一个精灵附魔师/盗贼和一个隐藏的NPC。你可以在城市外的扭曲骷髅旅店门口找到米妮雅·波林。他包含自定义肖像、米妮雅和隐藏NPC的友谊路线、许多笑话和感叹词、遭遇和任务、两个NPC的语音（只有米妮雅有完整的配音）、与BioWare NPC的浪漫关系……\n力量 11, 敏捷 19, 体质 12, 智力 17, 智慧 12, 魅力 16。"
     },
-    "ru_RU": {"components": {"1000": "The Beaurin Legacy for BG2:SoA & ToB & BGII:EE", "2000": "Change Minyae's class to Enchanter (from Enchanter/Thief)", "choice_0": "Minyae's Portrait", "3010": "Change Minyae's portrait to alternative by TamikaProud at DeviantArt", "3020": "Change Minyae's Portrait to alternative by ErisForan at DeviantArt", "3030": "Change Minyae's Portrait to alternative by Aerwindale at DeviantArt"}}
+    "ru_RU": {
+      "components": {
+        "1000": "The Beaurin Legacy for BG2:SoA & ToB & BGII:EE",
+        "2000": "Change Minyae's class to Enchanter (from Enchanter/Thief)",
+        "choice_0": "Minyae's Portrait",
+        "3010": "Change Minyae's portrait to alternative by TamikaProud at DeviantArt",
+        "3020": "Change Minyae's Portrait to alternative by ErisForan at DeviantArt",
+        "3030": "Change Minyae's Portrait to alternative by Aerwindale at DeviantArt"
+      }
+    }
   },
   "tp2": "thebeaurinlegacy",
   "safe": 2,

@@ -2,14 +2,31 @@
   "name": "Revised Battles",
   "version": "6.6",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/655-revised-battles-v63/",
-    "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip"
+    "homepage": "https://www.shsforums.net/files/file/655-revised-battles-v63/"
   },
-  "file": {
-    "filename": "win-RevisedBattles-v6.6.zip",
-    "size": 2837040,
-    "sha256": "4a6e33cfe5a405ecb22a27a4fd637c3e0af360069fdf7974ca7b50bb871eb310"
-  },
+  "files": [
+    {
+      "filename": "lin-RevisedBattles-v6.6.zip",
+      "size": 2664699,
+      "sha256": "c4588ee650790eda15c31d34022c0d7cd78277a63ab669fae5a5057a4b84b73d",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/lin-RevisedBattles-v6.6.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-RevisedBattles-v6.6.zip",
+      "size": 2892231,
+      "sha256": "bfc2c1a5f389612fb7a3e30f925d31e75fdcd28398f22b0d0686610355f01d14",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/mac-RevisedBattles-v6.6.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-RevisedBattles-v6.6.zip",
+      "size": 2837040,
+      "sha256": "4a6e33cfe5a405ecb22a27a4fd637c3e0af360069fdf7974ca7b50bb871eb310",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["tactic", "kit"],
   "components": {
@@ -125,9 +142,111 @@
     "zh_CN": {
       "description": "Improved Battles的混音版，此模组增加了许多战斗的难度（崔斯特、费尔克拉格等），同时也增加了掉落率。此外，它还添加了四个新的战士宗派：\n`私生子`：对偷袭免疫，获得一些能暂时提升他的技能。\n`恶魔骑士`：对恐惧和定身免疫，同时拥有40%的火焰抗性，并且魔法抗性会随等级提升。\n`武器大师`：随着等级提升，他的THAC0、伤害和AC都会得到改善，他可以使用“凯伊”技能，并拥有轻微的移动速度加成。\n`奥术复仇者`：对法师和术士有巨大的THAC0和伤害加成，并且对法术的豁免检定也有加成。他还拥有两个法术，可以驱散隐形效果并在数回合内偏转法术。"
     },
-    "de_DE": {"components": {"0": "Verbesserter Kämpfe - \"Die reparierte Version\" v6", "1": "Verbesserter Drizzt", "2": "Verbesserter Mencar Felsschmetterer", "3": "Verbesserter Verrückter Kleriker", "4": "Verbesserter Haus Jae'llat", "5": "Verbesserter Lord Roenall", "6": "Verbessertes Ältestenhirn", "7": "Verbesserter Todesalb Sarevok", "8": "Verbesserte Cohrvale, Bregg & Alamas", "9": "Verbesserter Firkraag", "choice_0": "Verbesserter Firkraag NEJ2v691 Kompatibilitäts-Patch", "10": "Verbesserter Firkraag", "choice_1": "Verbesserter Firkraag FR_ROV Kompatibilitäts-Patch", "11": "Verbesserter Firkraag", "choice_2": "Verbesserter Firkraag \"Romantic Encounters\" Kompatibilitäts-Patch", "12": "Verbesserter Firkraag", "13": "Verbesserte Feuergiganten (erfordert TdB)", "14": "Verbesserter Schattenfürst", "15": "Verbesserte Gruft von Handelstreff", "16": "Verbessertes Verlies", "17": "Sehr verbesserte Tempel Abwasserkanäle Gruppe", "18": "Verbesserter Kiser Jhaeri (erfordert TdB)", "19": "Verbesserter Falahar", "20": "Verbesserte Drow Grubenkämpfe", "21": "Verbesserter Vielfarbiger Dämon", "22": "Ritter des finsteren Rufen", "23": "Geheimnisvoller Rächer Kit", "24": "Klingenmeister Kit", "25": "Dämonenritter Kit", "26": "Bastard Kit", "27": "Abändern der .CRE Fertigkeiten, Fähigkeiten und Wirkungen. Dieser Bestandteil MUSS installiert werden."}},
-    "it_IT": {"components": {"0": "Battaglie Migliorate - \"The Patching Version\" v6", "1": "Migliorato Drizzt", "2": "Migliorato Mencar Pebblecrusher", "3": "Migliorato il Chierico Pazzo", "4": "Migliorata la Casata Jae'llat", "5": "Migliorato Lord Roenall", "6": "Migliorato il Cervello Maestro", "7": "Migliorato lo Spettro(Wraith)di Sarevok", "8": "Migliorati Cohrvale, Bregg ed Alamas", "9": "Migliorato Firkraag", "choice_0": "Migliorato Firkraag NEJ2v691 Compatibility Patch", "10": "Migliorato Firkraag", "choice_1": "Migliorato Firkraag FR_ROV Compatibility Patch", "11": "Migliorato Firkraag", "choice_2": "Migliorato Firkraag Romantic Encounters Compatibility Patch", "12": "Migliorato Firkraag", "13": "Migliorati i Giganti del Fuoco (richiede ToB)", "14": "Migliorato il Signore delle Ombre", "15": "Migliorata la Cripta di Trademeet", "16": "Dungeon Migliorato", "17": "Di molto migliorato il Gruppo delle Fogne del Quartiere del Tempio", "18": "Migliorato Kiser Jhaeri (richiede ToB)", "19": "Migliorato Falahar", "20": "Migliorati i Combattimenti nell'Arena dei Drow", "21": "Migliorato il Demone Cromatico", "22": "Cavalieri dalla Fama Oscura", "23": "Kit del Vendicatore Arcano", "24": "Kit del Maestro d'Armi", "25": "Kit del Cavaliere Demoniaco", "26": "Kit del Bastardo", "27": "Modifica .CRE Capacità, Abilità ed Effetti. Questo componente DEVE essere installato."}},
-    "es_ES": {"components": {"0": "Batallas mejoradas - \"Versión del Parche de erebusant\" v6", "1": "Drizzt mejorado", "2": "Mencar Pisaguijarros mejorado", "3": "Clérigo loco mejorado", "4": "Casa Jae'llat mejorada", "5": "Lord Roenall mejorado", "6": "Cerebro Maestro mejorado", "7": "Sarevok incorpóreo mejorado", "8": "Cohrvale, Bregg & Alamas mejorados", "9": "Firkraag mejorado", "choice_0": "Firkraag Parche de compatibilidad NEJ2v691 mejorado", "10": "Firkraag mejorado", "choice_1": "Firkraag Parche de compatibilidad FR_ROV mejorado", "11": "Firkraag mejorado", "choice_2": "Firkraag Parche de compatibilidad con  - Romantic Encounters - mejorado", "12": "Firkraag mejorado", "13": "Gigantes del fuego mejorados (necesario ToB)", "14": "Señor de las Sombras mejorado", "15": "Cripta de Caravasar mejorada", "16": "Subterráneo mejorado", "17": "Grupo de las alcantarillas del templo muy mejorado", "18": "Kíser Jhaeri mejorado (necesario ToB)", "19": "Falahar mejorado", "20": "Combates de la arena drow mejorados", "21": "Demonio cromático mejorado", "22": "Caballeros de Reputación Oscura", "23": "Kit Vengador arcano", "24": "Kit Maestro de la espada", "25": "Kit Caballero demoníaco", "26": "Kit Bastardo", "27": "Modificar los Talentos marciales .CRE, habilidaes y efectos. Este comoponente DEBE ser instalado."}}
+    "de_DE": {
+      "components": {
+        "0": "Verbesserter Kämpfe - \"Die reparierte Version\" v6",
+        "1": "Verbesserter Drizzt",
+        "2": "Verbesserter Mencar Felsschmetterer",
+        "3": "Verbesserter Verrückter Kleriker",
+        "4": "Verbesserter Haus Jae'llat",
+        "5": "Verbesserter Lord Roenall",
+        "6": "Verbessertes Ältestenhirn",
+        "7": "Verbesserter Todesalb Sarevok",
+        "8": "Verbesserte Cohrvale, Bregg & Alamas",
+        "9": "Verbesserter Firkraag",
+        "choice_0": "Verbesserter Firkraag NEJ2v691 Kompatibilitäts-Patch",
+        "10": "Verbesserter Firkraag",
+        "choice_1": "Verbesserter Firkraag FR_ROV Kompatibilitäts-Patch",
+        "11": "Verbesserter Firkraag",
+        "choice_2": "Verbesserter Firkraag \"Romantic Encounters\" Kompatibilitäts-Patch",
+        "12": "Verbesserter Firkraag",
+        "13": "Verbesserte Feuergiganten (erfordert TdB)",
+        "14": "Verbesserter Schattenfürst",
+        "15": "Verbesserte Gruft von Handelstreff",
+        "16": "Verbessertes Verlies",
+        "17": "Sehr verbesserte Tempel Abwasserkanäle Gruppe",
+        "18": "Verbesserter Kiser Jhaeri (erfordert TdB)",
+        "19": "Verbesserter Falahar",
+        "20": "Verbesserte Drow Grubenkämpfe",
+        "21": "Verbesserter Vielfarbiger Dämon",
+        "22": "Ritter des finsteren Rufen",
+        "23": "Geheimnisvoller Rächer Kit",
+        "24": "Klingenmeister Kit",
+        "25": "Dämonenritter Kit",
+        "26": "Bastard Kit",
+        "27": "Abändern der .CRE Fertigkeiten, Fähigkeiten und Wirkungen. Dieser Bestandteil MUSS installiert werden."
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Battaglie Migliorate - \"The Patching Version\" v6",
+        "1": "Migliorato Drizzt",
+        "2": "Migliorato Mencar Pebblecrusher",
+        "3": "Migliorato il Chierico Pazzo",
+        "4": "Migliorata la Casata Jae'llat",
+        "5": "Migliorato Lord Roenall",
+        "6": "Migliorato il Cervello Maestro",
+        "7": "Migliorato lo Spettro(Wraith)di Sarevok",
+        "8": "Migliorati Cohrvale, Bregg ed Alamas",
+        "9": "Migliorato Firkraag",
+        "choice_0": "Migliorato Firkraag NEJ2v691 Compatibility Patch",
+        "10": "Migliorato Firkraag",
+        "choice_1": "Migliorato Firkraag FR_ROV Compatibility Patch",
+        "11": "Migliorato Firkraag",
+        "choice_2": "Migliorato Firkraag Romantic Encounters Compatibility Patch",
+        "12": "Migliorato Firkraag",
+        "13": "Migliorati i Giganti del Fuoco (richiede ToB)",
+        "14": "Migliorato il Signore delle Ombre",
+        "15": "Migliorata la Cripta di Trademeet",
+        "16": "Dungeon Migliorato",
+        "17": "Di molto migliorato il Gruppo delle Fogne del Quartiere del Tempio",
+        "18": "Migliorato Kiser Jhaeri (richiede ToB)",
+        "19": "Migliorato Falahar",
+        "20": "Migliorati i Combattimenti nell'Arena dei Drow",
+        "21": "Migliorato il Demone Cromatico",
+        "22": "Cavalieri dalla Fama Oscura",
+        "23": "Kit del Vendicatore Arcano",
+        "24": "Kit del Maestro d'Armi",
+        "25": "Kit del Cavaliere Demoniaco",
+        "26": "Kit del Bastardo",
+        "27": "Modifica .CRE Capacità, Abilità ed Effetti. Questo componente DEVE essere installato."
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Batallas mejoradas - \"Versión del Parche de erebusant\" v6",
+        "1": "Drizzt mejorado",
+        "2": "Mencar Pisaguijarros mejorado",
+        "3": "Clérigo loco mejorado",
+        "4": "Casa Jae'llat mejorada",
+        "5": "Lord Roenall mejorado",
+        "6": "Cerebro Maestro mejorado",
+        "7": "Sarevok incorpóreo mejorado",
+        "8": "Cohrvale, Bregg & Alamas mejorados",
+        "9": "Firkraag mejorado",
+        "choice_0": "Firkraag Parche de compatibilidad NEJ2v691 mejorado",
+        "10": "Firkraag mejorado",
+        "choice_1": "Firkraag Parche de compatibilidad FR_ROV mejorado",
+        "11": "Firkraag mejorado",
+        "choice_2": "Firkraag Parche de compatibilidad con  - Romantic Encounters - mejorado",
+        "12": "Firkraag mejorado",
+        "13": "Gigantes del fuego mejorados (necesario ToB)",
+        "14": "Señor de las Sombras mejorado",
+        "15": "Cripta de Caravasar mejorada",
+        "16": "Subterráneo mejorado",
+        "17": "Grupo de las alcantarillas del templo muy mejorado",
+        "18": "Kíser Jhaeri mejorado (necesario ToB)",
+        "19": "Falahar mejorado",
+        "20": "Combates de la arena drow mejorados",
+        "21": "Demonio cromático mejorado",
+        "22": "Caballeros de Reputación Oscura",
+        "23": "Kit Vengador arcano",
+        "24": "Kit Maestro de la espada",
+        "25": "Kit Caballero demoníaco",
+        "26": "Kit Bastardo",
+        "27": "Modificar los Talentos marciales .CRE, habilidaes y efectos. Este comoponente DEBE ser instalado."
+      }
+    }
   },
   "tp2": "revisedbattles",
   "safe": 2,

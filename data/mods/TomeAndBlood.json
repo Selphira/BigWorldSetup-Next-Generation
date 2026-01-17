@@ -2,14 +2,16 @@
   "name": "Tome and Blood",
   "version": "1.4",
   "links": {
-    "homepage": "https://github.com/UnearthedArcana/TomeAndBlood",
-    "download": "https://github.com/UnearthedArcana/TomeAndBlood/archive/refs/tags/1.4.zip"
+    "homepage": "https://github.com/UnearthedArcana/TomeAndBlood"
   },
-  "file": {
-    "filename": "TomeAndBlood-1.4.zip",
-    "size": 1973707,
-    "sha256": "773cfad6b1a7c53a81c68a18428b346faee09e9b523e55a912f3e4fb634950f2"
-  },
+  "files": [
+    {
+      "filename": "TomeAndBlood-1.4.zip",
+      "size": 1973707,
+      "sha256": "773cfad6b1a7c53a81c68a18428b346faee09e9b523e55a912f3e4fb634950f2",
+      "download": "https://github.com/UnearthedArcana/TomeAndBlood/archive/refs/tags/1.4.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["kit", "gameplay"],
   "components": {

@@ -2,14 +2,31 @@
   "name": "Follower_It",
   "version": "6.3",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=518215",
-    "download": "https://github.com/Deratiseur/Follower_It/releases/download/v6.3/win-Derats_Follower_it-v6.3.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=518215"
   },
-  "file": {
-    "filename": "win-Derats_Follower_it-v6.3.zip",
-    "size": 2074923,
-    "sha256": "0b2f76eca606cc16c6117dcdc5d775ba3aa943bc4e72acd599a60d3ed69d2268"
-  },
+  "files": [
+    {
+      "filename": "lin-Derats_Follower_it-v6.3.zip",
+      "size": 1902582,
+      "sha256": "981f87f6f78d4e67854d99929107b6a052e6baf3ea447332c5426d7acb700103",
+      "download": "https://github.com/Deratiseur/Follower_It/releases/download/v6.3/lin-Derats_Follower_it-v6.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Derats_Follower_it-v6.3.zip",
+      "size": 2130122,
+      "sha256": "73e88580cbac91faf4f0755aad6ef208f6ca7cefc174c027a9d00fdb087ad352",
+      "download": "https://github.com/Deratiseur/Follower_It/releases/download/v6.3/mac-Derats_Follower_it-v6.3.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Derats_Follower_it-v6.3.zip",
+      "size": 2074923,
+      "sha256": "0b2f76eca606cc16c6117dcdc5d775ba3aa943bc4e72acd599a60d3ed69d2268",
+      "download": "https://github.com/Deratiseur/Follower_It/releases/download/v6.3/win-Derats_Follower_it-v6.3.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {

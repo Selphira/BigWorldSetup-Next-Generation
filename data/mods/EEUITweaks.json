@@ -2,14 +2,16 @@
   "name": "EEUITweaks",
   "version": "4.0.7",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30832-ui-eeuitweaks-mod-collection-all-ees/",
-    "download": "https://github.com/r-e-d/EEUITweaks/releases/download/v4.0.7/eeuitweaks-4.0.7.zip"
+    "homepage": "https://www.gibberlings3.net/forums/topic/30832-ui-eeuitweaks-mod-collection-all-ees/"
   },
-  "file": {
-    "filename": "eeuitweaks-4.0.7.zip",
-    "size": 24735177,
-    "sha256": "fc2ccb8885e8ec541d5c01fa8d81dd00fd6ae7d25ba0739cdf8172497f27c6fe"
-  },
+  "files": [
+    {
+      "filename": "eeuitweaks-4.0.7.zip",
+      "size": 24735177,
+      "sha256": "fc2ccb8885e8ec541d5c01fa8d81dd00fd6ae7d25ba0739cdf8172497f27c6fe",
+      "download": "https://github.com/r-e-d/EEUITweaks/releases/download/v4.0.7/eeuitweaks-4.0.7.zip"
+    }
+  ],
   "games": ["bgee", "bg2ee", "sod", "eet", "pstee", "iwdee"],
   "categories": ["ui"],
   "components": {

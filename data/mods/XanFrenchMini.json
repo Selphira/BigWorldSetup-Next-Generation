@@ -2,14 +2,16 @@
   "name": "Xan's French Soundset for BG2",
   "version": "2",
   "links": {
-    "homepage": "https://www.pocketplane.net/diversions-and-soundsets/",
-    "download": "https://github.com/The-Gate-Project/Xan-BG2_French-Soundset/archive/refs/heads/main.zip"
+    "homepage": "https://www.pocketplane.net/diversions-and-soundsets/"
   },
-  "file": {
-    "filename": "Xan-BG2_French-Soundset-main.zip",
-    "size": 5812890,
-    "sha256": "4dac7bd96aba4385bd89c7a22667c3b0256fb6a6aaba70dd4393c9f04c6bae85"
-  },
+  "files": [
+    {
+      "filename": "Xan-BG2_French-Soundset-main.zip",
+      "size": 5812890,
+      "sha256": "4dac7bd96aba4385bd89c7a22667c3b0256fb6a6aaba70dd4393c9f04c6bae85",
+      "download": "https://github.com/The-Gate-Project/Xan-BG2_French-Soundset/archive/refs/heads/main.zip"
+    }
+  ],
   "games": ["bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {

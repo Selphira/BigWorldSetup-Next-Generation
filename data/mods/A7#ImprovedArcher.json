@@ -2,14 +2,29 @@
   "name": "Improved Archer Kit",
   "version": "4.4",
   "links": {
-    "homepage": "http://www.shsforums.net/topic/58012-improved-archer-kit/",
-    "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/win-A7-ImprovedArcher-v4.4.zip"
+    "homepage": "https://www.shsforums.net/topic/58012-improved-archer-kit/"
   },
-  "file": {
-    "filename": "win-A7-ImprovedArcher-v4.4.zip",
-    "size": 3729401,
-    "sha256": "6cab5ea1e50b7f7defdff0980eff72ccbee133b8ffe3c75c3e225f22ed084f2f"
-  },
+  "files": [
+    {
+      "filename": "lin-A7-ImprovedArcher-v4.4.zip",
+      "size": 3729475,
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/lin-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ImprovedArcher-v4.4.zip",
+      "size": 3957013,
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/mac-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-ImprovedArcher-v4.4.zip",
+      "size": 3729401,
+      "sha256": "6cab5ea1e50b7f7defdff0980eff72ccbee133b8ffe3c75c3e225f22ed084f2f",
+      "download": "https://github.com/Argent77/A7-ImprovedArcher/releases/download/v4.4/win-A7-ImprovedArcher-v4.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
   "categories": ["kit"],
   "components": {
@@ -60,11 +75,51 @@
         "100": "在游戏中添加+4的箭、矢以及强大的弓"
       }
     },
-    "de_DE": {"components": {"0": "Verbessertes Bogenschuetzen-Kit", "10": "Kaempfer-Kit: Kampfschuetze", "20": "Paladin-Kit: Ritterschuetze", "30": "Diebes-Kit: Scharfschuetze", "100": "Maechtige Boegen sowie +4 Pfeile und Bolzen dem Spiel hinzufuegen"}},
-    "it_IT": {"components": {"0": "Sottoclasse dell'Arciere Migliorata", "10": "Aggiungi sottoclasse del guerriero: Tiratore Scelto", "20": "Aggiungi sottoclasse del paladino: Arciere a Cavallo", "30": "Aggiungi sottoclasse del ladro: Cecchino", "100": "Aggiungi nel gioco frecce e quadrelli +4 e due potenti archi"}},
-    "pl_PL": {"components": {"0": "Ulepszona podklasa: Lucznik", "10": "Dodaj do gry nowa podklase Wojownika: Snajper", "20": "Dodaj do gry nowa podklase Paladyna: Rycerz lucznik", "30": "Dodaj do gry nowa podklase Zlodzieja: Strzelec wyborowy", "100": "Dodaj do gry strzaly i belty +4, a takze dwa potezne luki"}},
-    "ru_RU": {"components": {"0": "Improved Archer Kit", "10": "Add fighter kit: Marksman", "20": "Add paladin kit: Bow Knight", "30": "Add thief kit: Sharpshooter", "100": "Add +4 arrows, bolts and two powerful bows to the game"}},
-    "es_ES": {"components": {"0": "Kit de Arquero mejorado", "10": "Kit de guerrero: Campeon tirador", "20": "Kit de paladin: Caballero tirador", "30": "Kit de ladron: Tirador salteador", "100": "Flechas +4, virotes y arcos potentes en el juego"}}
+    "de_DE": {
+      "components": {
+        "0": "Verbessertes Bogenschuetzen-Kit",
+        "10": "Kaempfer-Kit: Kampfschuetze",
+        "20": "Paladin-Kit: Ritterschuetze",
+        "30": "Diebes-Kit: Scharfschuetze",
+        "100": "Maechtige Boegen sowie +4 Pfeile und Bolzen dem Spiel hinzufuegen"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Sottoclasse dell'Arciere Migliorata",
+        "10": "Aggiungi sottoclasse del guerriero: Tiratore Scelto",
+        "20": "Aggiungi sottoclasse del paladino: Arciere a Cavallo",
+        "30": "Aggiungi sottoclasse del ladro: Cecchino",
+        "100": "Aggiungi nel gioco frecce e quadrelli +4 e due potenti archi"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Ulepszona podklasa: Lucznik",
+        "10": "Dodaj do gry nowa podklase Wojownika: Snajper",
+        "20": "Dodaj do gry nowa podklase Paladyna: Rycerz lucznik",
+        "30": "Dodaj do gry nowa podklase Zlodzieja: Strzelec wyborowy",
+        "100": "Dodaj do gry strzaly i belty +4, a takze dwa potezne luki"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Improved Archer Kit",
+        "10": "Add fighter kit: Marksman",
+        "20": "Add paladin kit: Bow Knight",
+        "30": "Add thief kit: Sharpshooter",
+        "100": "Add +4 arrows, bolts and two powerful bows to the game"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Kit de Arquero mejorado",
+        "10": "Kit de guerrero: Campeon tirador",
+        "20": "Kit de paladin: Caballero tirador",
+        "30": "Kit de ladron: Tirador salteador",
+        "100": "Flechas +4, virotes y arcos potentes en el juego"
+      }
+    }
   },
   "tp2": "a7#improvedarcher",
   "safe": 2,

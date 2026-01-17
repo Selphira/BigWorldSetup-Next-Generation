@@ -2,14 +2,16 @@
   "name": "Tsujatha Melalor",
   "version": "15_charsets",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=20092",
-    "download": "https://github.com/Plutonium-X/NPC_Tsujatha/archive/refs/tags/v15_EET.zip"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=20092"
   },
-  "file": {
-    "filename": "NPC_Tsujatha-15_EET.zip",
-    "size": 18014681,
-    "sha256": "55cdf37d500d686f2b1e10333ff8d043b093ed0a35a287dd82ce43b94d77fa25"
-  },
+  "files": [
+    {
+      "filename": "NPC_Tsujatha-15_EET.zip",
+      "size": 18014681,
+      "sha256": "55cdf37d500d686f2b1e10333ff8d043b093ed0a35a287dd82ce43b94d77fa25",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/archive/refs/tags/v15_EET.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
@@ -38,9 +40,21 @@
     "zh_CN": {
       "description": "这个模组添加了一个可恋爱角色，苏贾塔·梅拉洛，一个来自吉拉利昂王国的中立邪恶精灵死灵法师，该王国位于托瑞尔之外的另一个位面。他的心理描写非常丰富，这尤其得益于他的个人任务（他的野心和父亲的背叛使他成为自己王国中的弃儿）。恋爱线很长，互动也非常多，足以让那些希望永远不要和阿诺门在一起的人感到高兴。注意，即使苏贾塔是一个邪恶阵营的角色（但可以获得救赎），他也只会与善良阵营的女性人类、精灵和半精灵角色恋爱。你可以在位面球找到他。尽快去，因为闲聊对话很多。\n力量17，敏捷12，体质12，智力19，智慧16，魅力14。"
     },
-    "de_DE": {"components": {"0": "Tsujatha (BG2:SvA und TdB NSC) von Sillara"}},
-    "es_ES": {"components": {"0": "Tsujatha (BG2:SoA NPC) creado por Sillara de los Tamari"}},
-    "ru_RU": {"components": {"0": "®¢ë© ¯à¨á®¥¤¨­ï¥¬ë© ¯¥àá®­ ¦ - áã¤¦ â , ¢¥àá¨ï 9, á®§¤ â¥«ì - Sillara of the Tamari"}}
+    "de_DE": {
+      "components": {
+        "0": "Tsujatha (BG2:SvA und TdB NSC) von Sillara"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Tsujatha (BG2:SoA NPC) creado por Sillara de los Tamari"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "®¢ë© ¯à¨á®¥¤¨­ï¥¬ë© ¯¥àá®­ ¦ - áã¤¦ â , ¢¥àá¨ï 9, á®§¤ â¥«ì - Sillara of the Tamari"
+      }
+    }
   },
   "tp2": "tsujatha",
   "safe": 2,

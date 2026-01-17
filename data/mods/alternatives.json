@@ -2,14 +2,16 @@
   "name": "Alternatives",
   "version": "15",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/quests/alternatives/",
-    "download": "https://github.com/Gibberlings3/Alternatives/releases/download/v15/Alternatives_v15.zip"
+    "homepage": "https://www.gibberlings3.net/mods/quests/alternatives/"
   },
-  "file": {
-    "filename": "Alternatives_v15.zip",
-    "size": 7439553,
-    "sha256": "e85cc75d0a2c48f552f8be899cb102551d7461969979289979dad80ba413617b"
-  },
+  "files": [
+    {
+      "filename": "Alternatives_v15.zip",
+      "size": 7439553,
+      "sha256": "e85cc75d0a2c48f552f8be899cb102551d7461969979289979dad80ba413617b",
+      "download": "https://github.com/Gibberlings3/Alternatives/releases/download/v15/Alternatives_v15.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -31,7 +33,11 @@
       },
       "description": "This mod offers two new options to the traditional choice of helping the Shadow Thieves or Valen's mistress. The player can opt for a group to which the paladins won't even object. The 2nd option is to ignore these 3 paths and set sail for Maztica."
     },
-    "ru_RU": {"components": {"0": "Alternatives"}},
+    "ru_RU": {
+      "components": {
+        "0": "Alternatives"
+      }
+    },
     "fr_FR": {
       "description": "Ce mod offre deux nouvelles possibilités au traditionnel choix d'aider les Voleurs de l'Ombre ou la maîtresse de Valen. Le PJ pourra ainsi opter pour un groupe pour lequel les paladins n'émettront même aucune objection. La 2ème possibilité consiste à ignorer ces 3 voies et à prendre la mer pour Maztica.",
       "components": {
@@ -44,9 +50,21 @@
         "0": "G3: Alternatives£¨Ìá¹©Á½ÖÖÐÂµÄ³öº£Â·Ïß£© ºº»¯£ºc4_angel Ð­Öú£ºÎäæø½ðÐÇ"
       }
     },
-    "de_DE": {"components": {"0": "Alternativen"}},
-    "it_IT": {"components": {"0": "Alternative"}},
-    "pl_PL": {"components": {"0": "Alternatives"}}
+    "de_DE": {
+      "components": {
+        "0": "Alternativen"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Alternative"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Alternatives"
+      }
+    }
   },
   "tp2": "alternatives",
   "safe": 2,

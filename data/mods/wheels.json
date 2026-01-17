@@ -2,14 +2,16 @@
   "name": "Wheels of Prophecy",
   "version": "8.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/quests/wheels/",
-    "download": "https://github.com/Gibberlings3/WheelsOfProphecy/archive/refs/heads/master.zip"
+    "homepage": "https://www.gibberlings3.net/mods/quests/wheels/"
   },
-  "file": {
-    "filename": "WheelsOfProphecy-master.zip",
-    "size": 4799720,
-    "sha256": "8a319da02bc6f1a9e65d190f4f58aee35afc5a90aca1eb19d3a3f8a9088d3f1b"
-  },
+  "files": [
+    {
+      "filename": "WheelsOfProphecy-master.zip",
+      "size": 4799720,
+      "sha256": "8a319da02bc6f1a9e65d190f4f58aee35afc5a90aca1eb19d3a3f8a9088d3f1b",
+      "download": "https://github.com/Gibberlings3/WheelsOfProphecy/archive/refs/heads/master.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
@@ -40,7 +42,11 @@
         "0": "Ô¤ÑÔÖ®ÂÖ"
       }
     },
-    "ru_RU": {"components": {"0": "The Wheels of Prophecy"}}
+    "ru_RU": {
+      "components": {
+        "0": "The Wheels of Prophecy"
+      }
+    }
   },
   "tp2": "wheels",
   "safe": 2,

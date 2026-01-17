@@ -2,14 +2,16 @@
   "name": "Refinements",
   "version": "4.36",
   "links": {
-    "homepage": "https://github.com/UnearthedArcana/refinements",
-    "download": "https://github.com/UnearthedArcana/refinements/archive/refs/tags/4.36.zip"
+    "homepage": "https://github.com/UnearthedArcana/refinements"
   },
-  "file": {
-    "filename": "refinements-4.36.zip",
-    "size": 10566532,
-    "sha256": "a431fdf55e38e24ad47530d895a6063b7502c42a4b6e3bbcca1976456a2cba3d"
-  },
+  "files": [
+    {
+      "filename": "refinements-4.36.zip",
+      "size": 10566532,
+      "sha256": "a431fdf55e38e24ad47530d895a6063b7502c42a4b6e3bbcca1976456a2cba3d",
+      "download": "https://github.com/UnearthedArcana/refinements/archive/refs/tags/4.36.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
@@ -112,9 +114,108 @@
     "zh_CN": {
       "description": "这个模组旨在为博德之门2的规则带来各种改进。其中包括：一个专长（剑天使）；对变形者更合理的再平衡，比Ease-of-Use Mod Collection更合理；完善盔甲系统，考虑重量、对世俗法术的失败率和盗贼技能；以及完全重塑的HLA，使每个职业和专长更具独特性。"
     },
-    "ja_JP": {"components": {"choice_0": "Revised High Level Abilities", "10": "Install revised HLAs for all classes", "11": "Choose which classes get revised HLAs", "101": "Fighter HLAs", "102": "Barbarian HLAs", "103": "Ranger HLAs", "104": "Paladin HLAs", "105": "Cleric HLAs", "106": "Druid HLAs", "107": "Monk HLAs", "108": "Wizard HLAs", "109": "Bard HLAs", "110": "Thief HLAs", "choice_1": "\"XbVCG\" : \"SwashImoen\"", "20": "\"XbVCG\"A®SÅi§j : \"SwashImoen\", full revision (suggested)", "21": "\"XbVCG\"ALbgÌÝÏXiðàÈµj : \"SwashImoen\", simple kit change (undocumented)", "22": "\"SwashImoen\", points in Detect Illusions rather than Set Traps.", "choice_2": "VFCvVtgC³ : Shapeshifting fix", "30": "Heal on shifting back to human (Default)", "31": "Heal on shifting to animal (by Borsook)", "40": "ºÊCW[uÌêÊ» : Universal lesser mage robes", "50": "\\[hEGWF : Sword Angel - New Fighter Kit", "choice_3": "A[}[AV[hÌüèFRevised Armours and Shields", "70": "Only if in Japanese", "71": "In Japanese or, if missing, in English", "72": "No description update at all.", "choice_4": "Revised Armors & Shields.", "73": "Update the descriptions.", "74": "No description update at all.", "75": "Update the descriptions, no penalties to movement rate."}},
-    "pl_PL": {"components": {"choice_0": "Revised High Level Abilities", "10": "Install revised HLAs for all classes", "11": "Choose which classes get revised HLAs", "101": "Fighter HLAs", "102": "Barbarian HLAs", "103": "Ranger HLAs", "104": "Paladin HLAs", "105": "Cleric HLAs", "106": "Druid HLAs", "107": "Monk HLAs", "108": "Wizard HLAs", "109": "Bard HLAs", "110": "Thief HLAs", "choice_1": "Imoen - Zawadiaka/Mag", "20": "Imoen - Zawadiaka/Mag (Pelne ulepszenie)", "21": "Imoen - Zawadiaka/Mag (Zmiana podklasy)", "22": "Imoen - Zawadiaka/Mag (Wykrywanie iluzji zamiast zast. pulapek)", "choice_2": "Poprawki zmiany ksztaltu", "30": "Uzdrowienie przy wracaniu do naturalnej formy (Stand.)", "31": "Uzdrowienie przy przemianie w zwierzecie (by Borsook)", "40": "Uniwersalne slabsze szaty", "50": "Nowa podklasa wojownika - Aniol Miecza", "choice_3": "Ulepszone pancerze i tarcze", "70": "Zaktualizuj opisy (Tylko polskie)", "71": "Zaktualizuj opisy (Polskie, lub angielskie jesli brakuje)", "72": "Nie aktualizuj opisow.", "choice_4": "Ulepszone pancerze i tarcze.", "73": "Aktualizuj opisy.", "74": "Nie aktualizuj opisow.", "75": "Update the descriptions, no penalties to movement rate."}},
-    "ru_RU": {"components": {"choice_0": "Revised High Level Abilities", "10": "Install revised HLAs for all classes", "11": "Choose which classes get revised HLAs", "101": "Fighter HLAs", "102": "Barbarian HLAs", "103": "Ranger HLAs", "104": "Paladin HLAs", "105": "Cleric HLAs", "106": "Druid HLAs", "107": "Monk HLAs", "108": "Wizard HLAs", "109": "Bard HLAs", "110": "Thief HLAs", "choice_1": "\"SwashImoen\"", "20": "\"SwashImoen\", full revision (suggested)", "21": "\"SwashImoen\", simple kit change (undocumented)", "22": "\"SwashImoen\", points in Detect Illusions rather than Set Traps.", "choice_2": "Shapeshifting fix", "30": "Heal on shifting back to human (Default)", "31": "Heal on shifting to animal (by Borsook)", "40": "Universal lesser mage robes", "50": "Sword Angel - New Fighter Kit", "choice_3": "Revised Armors & Shields", "70": "Update the descriptions only in YOUR_LANGUAGE", "71": "Update the descriptions in YOUR_LANGUAGE or, if missing, in English", "72": "No description update at all.", "choice_4": "Revised Armors & Shields.", "73": "Update the descriptions.", "74": "No description update at all.", "75": "Update the descriptions, no penalties to movement rate."}}
+    "ja_JP": {
+      "components": {
+        "choice_0": "Revised High Level Abilities",
+        "10": "Install revised HLAs for all classes",
+        "11": "Choose which classes get revised HLAs",
+        "101": "Fighter HLAs",
+        "102": "Barbarian HLAs",
+        "103": "Ranger HLAs",
+        "104": "Paladin HLAs",
+        "105": "Cleric HLAs",
+        "106": "Druid HLAs",
+        "107": "Monk HLAs",
+        "108": "Wizard HLAs",
+        "109": "Bard HLAs",
+        "110": "Thief HLAs",
+        "choice_1": "\"XbVCG\" : \"SwashImoen\"",
+        "20": "\"XbVCG\"A®SÅi§j : \"SwashImoen\", full revision (suggested)",
+        "21": "\"XbVCG\"ALbgÌÝÏXiðàÈµj : \"SwashImoen\", simple kit change (undocumented)",
+        "22": "\"SwashImoen\", points in Detect Illusions rather than Set Traps.",
+        "choice_2": "VFCvVtgC³ : Shapeshifting fix",
+        "30": "Heal on shifting back to human (Default)",
+        "31": "Heal on shifting to animal (by Borsook)",
+        "40": "ºÊCW[uÌêÊ» : Universal lesser mage robes",
+        "50": "\\[hEGWF : Sword Angel - New Fighter Kit",
+        "choice_3": "A[}[AV[hÌüèFRevised Armours and Shields",
+        "70": "Only if in Japanese",
+        "71": "In Japanese or, if missing, in English",
+        "72": "No description update at all.",
+        "choice_4": "Revised Armors & Shields.",
+        "73": "Update the descriptions.",
+        "74": "No description update at all.",
+        "75": "Update the descriptions, no penalties to movement rate."
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Revised High Level Abilities",
+        "10": "Install revised HLAs for all classes",
+        "11": "Choose which classes get revised HLAs",
+        "101": "Fighter HLAs",
+        "102": "Barbarian HLAs",
+        "103": "Ranger HLAs",
+        "104": "Paladin HLAs",
+        "105": "Cleric HLAs",
+        "106": "Druid HLAs",
+        "107": "Monk HLAs",
+        "108": "Wizard HLAs",
+        "109": "Bard HLAs",
+        "110": "Thief HLAs",
+        "choice_1": "Imoen - Zawadiaka/Mag",
+        "20": "Imoen - Zawadiaka/Mag (Pelne ulepszenie)",
+        "21": "Imoen - Zawadiaka/Mag (Zmiana podklasy)",
+        "22": "Imoen - Zawadiaka/Mag (Wykrywanie iluzji zamiast zast. pulapek)",
+        "choice_2": "Poprawki zmiany ksztaltu",
+        "30": "Uzdrowienie przy wracaniu do naturalnej formy (Stand.)",
+        "31": "Uzdrowienie przy przemianie w zwierzecie (by Borsook)",
+        "40": "Uniwersalne slabsze szaty",
+        "50": "Nowa podklasa wojownika - Aniol Miecza",
+        "choice_3": "Ulepszone pancerze i tarcze",
+        "70": "Zaktualizuj opisy (Tylko polskie)",
+        "71": "Zaktualizuj opisy (Polskie, lub angielskie jesli brakuje)",
+        "72": "Nie aktualizuj opisow.",
+        "choice_4": "Ulepszone pancerze i tarcze.",
+        "73": "Aktualizuj opisy.",
+        "74": "Nie aktualizuj opisow.",
+        "75": "Update the descriptions, no penalties to movement rate."
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Revised High Level Abilities",
+        "10": "Install revised HLAs for all classes",
+        "11": "Choose which classes get revised HLAs",
+        "101": "Fighter HLAs",
+        "102": "Barbarian HLAs",
+        "103": "Ranger HLAs",
+        "104": "Paladin HLAs",
+        "105": "Cleric HLAs",
+        "106": "Druid HLAs",
+        "107": "Monk HLAs",
+        "108": "Wizard HLAs",
+        "109": "Bard HLAs",
+        "110": "Thief HLAs",
+        "choice_1": "\"SwashImoen\"",
+        "20": "\"SwashImoen\", full revision (suggested)",
+        "21": "\"SwashImoen\", simple kit change (undocumented)",
+        "22": "\"SwashImoen\", points in Detect Illusions rather than Set Traps.",
+        "choice_2": "Shapeshifting fix",
+        "30": "Heal on shifting back to human (Default)",
+        "31": "Heal on shifting to animal (by Borsook)",
+        "40": "Universal lesser mage robes",
+        "50": "Sword Angel - New Fighter Kit",
+        "choice_3": "Revised Armors & Shields",
+        "70": "Update the descriptions only in YOUR_LANGUAGE",
+        "71": "Update the descriptions in YOUR_LANGUAGE or, if missing, in English",
+        "72": "No description update at all.",
+        "choice_4": "Revised Armors & Shields.",
+        "73": "Update the descriptions.",
+        "74": "No description update at all.",
+        "75": "Update the descriptions, no penalties to movement rate."
+      }
+    }
   },
   "tp2": "refinements",
   "safe": 1,

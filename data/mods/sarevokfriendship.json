@@ -2,14 +2,16 @@
   "name": "Sarevok Friendship",
   "version": "2.7",
   "links": {
-    "homepage": "http://www.shsforums.net/files/file/1036-sarevok-friendship/",
-    "download": "https://github.com/Spellhold-Studios/Sarevok-Friendship/releases/download/v2.7/sarevok-friendship-v2.7.zip"
+    "homepage": "https://www.shsforums.net/files/file/1036-sarevok-friendship/"
   },
-  "file": {
-    "filename": "sarevok-friendship-v2.7.zip",
-    "size": 3403434,
-    "sha256": "a5ce8af9239a797717a0d7aadfe1f5afcab1332139d67cc319b6ed940a6e0b1a"
-  },
+  "files": [
+    {
+      "filename": "sarevok-friendship-v2.7.zip",
+      "size": 3403434,
+      "sha256": "a5ce8af9239a797717a0d7aadfe1f5afcab1332139d67cc319b6ed940a6e0b1a",
+      "download": "https://github.com/Spellhold-Studios/Sarevok-Friendship/releases/download/v2.7/sarevok-friendship-v2.7.zip"
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
@@ -41,8 +43,16 @@
         "0": "É³Âå·ð¿ËÓÑÒê²å»°°ü"
       }
     },
-    "pl_PL": {"components": {"0": "Sarevok Friendship mod dla Baldu's Gate II: Tron Bhaala"}},
-    "ru_RU": {"components": {"0": "Sarevok Friendship for BGII: ToB"}}
+    "pl_PL": {
+      "components": {
+        "0": "Sarevok Friendship mod dla Baldu's Gate II: Tron Bhaala"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Sarevok Friendship for BGII: ToB"
+      }
+    }
   },
   "tp2": "sarevokfriendship",
   "safe": 2,

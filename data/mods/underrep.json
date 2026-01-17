@@ -2,14 +2,31 @@
   "name": "Under-Represented Items",
   "version": "14",
   "links": {
-    "homepage": "http://weidu.org/underrep.html",
-    "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/underrep-v14.exe"
+    "homepage": "http://weidu.org/underrep.html"
   },
-  "file": {
-    "filename": "underrep-v14.exe",
-    "size": 2570734,
-    "sha256": "07b51943bf8e9596da1c2177c2f97d3d5b10c4faf71cb238d1202aad24ae9b18"
-  },
+  "files": [
+    {
+      "filename": "lin-underrep-v14.zip",
+      "size": 527937,
+      "sha256": "9736f15f6b43537eed0c2a3dab677f4b3a248524dd5f3b16075e24d2c954f6d8",
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/lin-underrep-v14.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-underrep-v14.zip",
+      "size": 1798226,
+      "sha256": "82f0d97a0f099e316e1ed41727c645fd2612cc6d9733c795b9dcd9fc75cfd85e",
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/mac-underrep-v14.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "underrep-v14.exe",
+      "size": 2570734,
+      "sha256": "07b51943bf8e9596da1c2177c2f97d3d5b10c4faf71cb238d1202aad24ae9b18",
+      "download": "https://github.com/Pocket-Plane-Group/Under-Respresented_Items/releases/download/v14/underrep-v14.exe",
+      "platforms": ["windows"]
+    }
+  ],
   "games": ["bg2", "bgt", "bg2ee", "eet"],
   "categories": ["smith"],
   "components": {
@@ -36,15 +53,27 @@
         "0": "Objets peu representes provenant d'Icewind Dale II"
       }
     },
-    "ru_RU": {"components": {"0": "Underrepresented Items From Icewind Dale II"}},
-    "it_IT": {"components": {"0": "Oggetti Poco Rappresentati da Icewind Dale II"}},
+    "ru_RU": {
+      "components": {
+        "0": "Underrepresented Items From Icewind Dale II"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Oggetti Poco Rappresentati da Icewind Dale II"
+      }
+    },
     "zh_CN": {
       "description": "此模组添加了一个来自冰风谷2的商人，他提供游戏中较少出现的强大武器（手杖、匕首、双手剑、双手斧、飞镖、长戟、长矛、锤、硬头锤）。",
       "components": {
         "0": "未发表的物品:来自冰风之谷2的物品 (中文版 by eco)"
       }
     },
-    "pl_PL": {"components": {"0": "Niedostatecznie Reprezentowane Przedmioty"}}
+    "pl_PL": {
+      "components": {
+        "0": "Niedostatecznie Reprezentowane Przedmioty"
+      }
+    }
   },
   "tp2": "underrep",
   "safe": 2,
