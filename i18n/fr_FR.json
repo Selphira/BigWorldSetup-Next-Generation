@@ -12,6 +12,8 @@
     "error": "Erreur",
     "checking_data_update": "Vérification des mises à jour des données...",
     "loading_mods": "Chargement des mods...",
+    "loading_rules": "Chargement des règles...",
+    "parsing_rules": "Analyse des règles...",
     "setting_up_interface": "Configuration de l'interface...",
     "backing_up_existing_data": "Sauvegarde des données existantes...",
     "installing_update": "Installation de la mise à jour...",
@@ -20,7 +22,7 @@
     "validating_download": "Validation du téléchargement...",
     "extracting_data": "Extraction des données...",
     "restoring_backup": "Restauration de la sauvegarde...",
-    "searching_mod_iles": "Recherche de fichiers mod...",
+    "searching_mod_files": "Recherche de fichiers mod...",
     "loading_count_mods": "Chargement de {count} mods...",
     "generating_cache_for_lang": "Génération du cache pour {lang}...",
     "cache_generated_successfully": "Cache généré avec succès !",
@@ -554,5 +556,9 @@
     "cache_build_failed": "Impossible de construire le cache des mods.\n\nVérifiez que les fichiers sont présents dans le dossier :\n{mods_dir}",
     "cache_load_failed": "Impossible de charger le cache des mods.\n\nLe cache est peut-être corrompu. Essayez de le reconstruire.",
     "uncaught_exception": "Une erreur inattendue s'est produite :\n\n{error}\n\nConsultez le fichier de log pour plus de détails."
+  },
+  "warning": {
+    "title": "Avertissement",
+    "data_update_failed_detail": "Échec de la mise à jour des données: {message}"
   }
 }

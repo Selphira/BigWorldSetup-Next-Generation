@@ -1066,3 +1066,4 @@ class ModSelectionPage(BasePage):
 
         # Reapply filters to update display
         self._apply_all_filters()
+        self._trigger_validation()

@@ -548,6 +548,7 @@ class MainWindow(QMainWindow):
             code: New language code
         """
         self.state_manager.get_mod_manager().reload_for_language(code)
+        self.state_manager.get_rule_manager().reload_for_language(code)
         get_translator().set_language(code)
         self.state_manager.set_ui_language(code)
         self._update_ui_language(code)

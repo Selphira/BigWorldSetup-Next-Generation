@@ -45,7 +45,18 @@
         },
         "description": {
           "type": "string",
-          "description": "Severity level of the rule violation"
+          "description": "Human-readable explanation of the rule"
+        },
+        "translations": {
+          "type": "object",
+          "description": "Translations per language",
+          "minProperties": 1,
+          "patternProperties": {
+            "^[a-z]{2}_[A-Z]{2}$": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
         },
         "source_url": {
           "type": "string",
