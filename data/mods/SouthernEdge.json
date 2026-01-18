@@ -1,14 +1,14 @@
 {
   "name": "Southern Edge",
-  "version": "5.2.1",
+  "version": "5.4",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/southern-edge/"
   },
   "files": [
     {
-      "filename": "SouthernEdge-v5.2.1.zip",
-      "size": 39649135,
-      "sha256": "4240b5d1346ff6f2c1c59028d325306c3c28aba76bd5567fb31301a382748f66",
+      "filename": "SouthernEdge-v5.4.zip",
+      "size": 39702130,
+      "sha256": "835f800cd41dd5a51d6be997903828cb19f7d447e77ff7d98bd42d20c37206de",
       "download": "https://downloads.weaselmods.net/download/southern-edge/?wpdmdl=36"
     }
   ],
