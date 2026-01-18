@@ -1,14 +1,14 @@
 {
   "name": "Tales of the Deep Gardens",
-  "version": "12.94",
+  "version": "12.96",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/tales-of-the-deep-gardens/"
   },
   "files": [
     {
-      "filename": "Tales-of-the-Deep-Gardens-v12.94.zip",
-      "size": 29867812,
-      "sha256": "c9a19a8e01600ea46266092e9de95bdd30557f548169f9425446e7adcefb08f3",
+      "filename": "Tales-of-the-Deep-Gardens-v12.96.zip",
+      "size": 29902596,
+      "sha256": "1397cc355f1b4f3a8c07a784c8a8699da0deef4994ffebfffa6f92f50c8e8a1c",
       "download": "https://downloads.weaselmods.net/download/tales-of-the-deep-gardens/?wpdmdl=68"
     }
   ],
