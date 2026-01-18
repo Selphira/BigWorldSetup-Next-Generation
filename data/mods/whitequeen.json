@@ -1,14 +1,14 @@
 {
   "name": "The White Queen",
-  "version": "7.3.1",
+  "version": "7.4.1",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/the-white-queen/"
   },
   "files": [
     {
-      "filename": "The-White-Queen-v7.3.1.zip",
-      "size": 31960870,
-      "sha256": "c203ecc056f4e08906f6a308cae62cefbb6e122c87b3695210805757af856aed",
+      "filename": "The-White-Queen-v7.4.1.zip",
+      "size": 31969615,
+      "sha256": "8f8745a54421f3a373f6502740e0f609b245fe2e14225174be92cd5fa0aa9e7b",
       "download": "https://downloads.weaselmods.net/download/the-white-queen/?wpdmdl=75"
     }
   ],
@@ -77,8 +77,8 @@
     "it_IT": {
       "components": {
         "choice_0": "I Colori dell'Infinito - La Regina Bianca",
-        "0": "Si, ma non applicare la patch a salvataggi già esistenti",
-        "1": "Si ed applica la patch a salvataggi già esistenti"
+        "0": "Si ma non applicare patch ai salvataggi esistenti",
+        "1": "Si e applica patch ai salvataggi esistenti"
       }
     },
     "ko_KR": {
