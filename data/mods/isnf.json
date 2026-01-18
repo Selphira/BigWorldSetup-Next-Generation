@@ -1,14 +1,14 @@
 {
   "name": "I Shall Never Forget",
-  "version": "6.3",
+  "version": "6.5.3",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/i-shall-never-forget/"
   },
   "files": [
     {
-      "filename": "I Shall Never Forget v6.3.zip",
-      "size": 25025891,
-      "sha256": "b7576fab3ed1ba384321b5263adb021afc0a56eb4458cc80d760e573577be088",
+      "filename": "I Shall Never Forget v6.5.3.zip",
+      "size": 25035512,
+      "sha256": "e9758f4f30f44269e612d8801bd3aa3b4378bfbc33d3450423b0c911bf218546",
       "download": "https://downloads.weaselmods.net/download/i-shall-never-forget/?wpdmdl=77"
     }
   ],
