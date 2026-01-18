@@ -1,14 +1,14 @@
 {
   "name": "Bridge's Block",
-  "version": "2.01",
+  "version": "2.02",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/bridges-block/"
   },
   "files": [
     {
-      "filename": "BridgesBlock-v2.01.zip",
-      "size": 4824110,
-      "sha256": "94d4b3573cc6a1680420e94635941e915f3b46ea26a5b79ae5ac90d05037fc35",
+      "filename": "BridgesBlock-v2.02.zip",
+      "size": 4847433,
+      "sha256": "79d9a0fa619cf2bd5336272e349ca5ed5978d60ff7f0b4430cc0697f8543375f",
       "download": "Manual"
     }
   ],
