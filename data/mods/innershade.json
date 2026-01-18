@@ -1,14 +1,14 @@
 {
   "name": "Innershade",
-  "version": "11.13",
+  "version": "11.16",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/innershade/"
   },
   "files": [
     {
-      "filename": "Innershade-v11.13.zip",
-      "size": 43791044,
-      "sha256": "39f70744348ff6be8fa9ec01cc45877a11a00e9c04376342ed542d50daca3a5f",
+      "filename": "Innershade-v11.16.zip",
+      "size": 43789721,
+      "sha256": "ee1ce60e6167387230a685149dec9094084bcdb1cb807e3b3dcb30e90be4973f",
       "download": "https://downloads.weaselmods.net/download/innershade/?wpdmdl=73"
     }
   ],
