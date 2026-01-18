@@ -1,14 +1,14 @@
 {
   "name": "Ooze's Lounge",
-  "version": "2.97",
+  "version": "3.0",
   "links": {
     "homepage": "https://downloads.weaselmods.net/download/oozes-lounge/"
   },
   "files": [
     {
-      "filename": "Oozes-Lounge-v2.97.zip",
-      "size": 14603186,
-      "sha256": "ac4c2fed5b1a5278de36c843863754819f4f28941dfd5af6a4a0f11eeeb1e421",
+      "filename": "Oozes-Lounge-v3.0.zip",
+      "size": 14628211,
+      "sha256": "8edcfc8a8d5a9536df87e4561b884305fc9dadbb66720a33c531b6a320b51506",
       "download": "https://downloads.weaselmods.net/download/oozes-lounge/?wpdmdl=59"
     }
   ],
