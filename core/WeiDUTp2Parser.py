@@ -78,6 +78,8 @@ DEFAULT_OS_CODE: str = "unix"
 _WEIDU_OS_VAR: str = "%WEIDU_OS%"
 _MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
 
+SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
+
 RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z.\-_]*)[~"]?')
 RE_TRA_TRANSLATION = re.compile(
     r"""
@@ -181,12 +183,14 @@ class Component:
         designated: Unique component identifier
         text_ref: Reference to translation string ID
         text: Direct text (if not using translation reference)
+        games: List of supported game codes (lowercase)
         metadata: Extensible metadata for future features (e.g., predicates)
     """
 
     designated: str
     text_ref: str | None = None
     text: str | None = None
+    games: list[str] | None = None
     metadata: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
@@ -245,6 +249,172 @@ class WeiDUTp2:
         return None
 
 
+class GamePredicateParser:
+    """Parser for GAME_IS and GAME_INCLUDES."""
+
+    def __init__(self, supported_games: set[str] | None = None):
+        """Initialize parser with supported games."""
+        self.supported_games = (
+            supported_games if supported_games is not None else SUPPORTED_GAMES.copy()
+        )
+        if "bg" in self.supported_games:
+            self.supported_games.add("bg1")
+        self.tokenizer = Tokenizer()
+
+    def parse_from_tokens(self, tokens: list[Token], pos: int) -> tuple[list[str] | None, int]:
+        """Parse game predicate from a token stream."""
+        games, pos = self._parse_or_expression(tokens, pos)
+
+        if games is None or len(games) == 0:
+            return None, pos
+
+        # If all games are supported, return None
+        if games == self.supported_games:
+            return None, pos
+
+        return sorted(list(games)), pos
+
+    def _parse_or_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+        """Parse OR expression (union of conditions)."""
+        games, pos = self._parse_and_expression(tokens, pos)
+
+        while pos < len(tokens):
+            token = tokens[pos]
+
+            if token.type == TokenType.OR or (
+                token.type == TokenType.IDENTIFIER and token.value.upper() == "OR"
+            ):
+                pos += 1
+                right_games, pos = self._parse_and_expression(tokens, pos)
+                games = games.union(right_games)
+            else:
+                break
+
+        return games, pos
+
+    def _parse_and_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+        """Parse AND expression (intersection of conditions)."""
+        games, pos = self._parse_primary_expression(tokens, pos)
+
+        while pos < len(tokens):
+            token = tokens[pos]
+
+            if token.type == TokenType.AND or (
+                token.type == TokenType.IDENTIFIER and token.value.upper() == "AND"
+            ):
+                pos += 1
+                right_games, pos = self._parse_primary_expression(tokens, pos)
+                games = games.intersection(right_games)
+            else:
+                break
+
+        return games, pos
+
+    def _parse_primary_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+        """Parse primary expression (NOT, parentheses, or condition)."""
+        if pos >= len(tokens):
+            return set(), pos
+
+        token = tokens[pos]
+
+        if token.type == TokenType.NOT or (
+            token.type == TokenType.IDENTIFIER and token.value.upper() == "NOT"
+        ):
+            pos += 1
+            games, pos = self._parse_primary_expression(tokens, pos)
+            # Negate: all games except those in the set
+            return self.supported_games - games, pos
+
+        if token.type == TokenType.LPAREN:
+            pos += 1
+            games, pos = self._parse_or_expression(tokens, pos)
+            # Skip closing parenthesis if present
+            if pos < len(tokens) and tokens[pos].type == TokenType.RPAREN:
+                pos += 1
+            return games, pos
+
+        if token.type == TokenType.GAME_IS:
+            return self._parse_game_is(tokens, pos)
+
+        if token.type == TokenType.GAME_INCLUDES:
+            return self._parse_game_includes(tokens, pos)
+
+        if token.type in (
+            TokenType.BEGIN,
+            TokenType.DESIGNATED,
+            TokenType.SUBCOMPONENT,
+            TokenType.FORCED_SUBCOMPONENT,
+            TokenType.LABEL,
+            TokenType.GROUP,
+            TokenType.DEPRECATED,
+            TokenType.REQUIRE_PREDICATE,
+            TokenType.REQUIRE_COMPONENT,
+            TokenType.EOF,
+        ):
+            return set(), pos
+
+        while pos < len(tokens):
+            t = tokens[pos]
+            if t.type in (TokenType.AND, TokenType.OR, TokenType.RPAREN):
+                break
+            if t.type in (
+                TokenType.BEGIN,
+                TokenType.DESIGNATED,
+                TokenType.SUBCOMPONENT,
+                TokenType.FORCED_SUBCOMPONENT,
+                TokenType.LABEL,
+                TokenType.GROUP,
+                TokenType.DEPRECATED,
+                TokenType.REQUIRE_PREDICATE,
+                TokenType.REQUIRE_COMPONENT,
+                TokenType.EOF,
+            ):
+                break
+            pos += 1
+
+        return set(), pos
+
+    def _parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+        """Parse GAME_IS ~games~."""
+        pos += 1
+
+        if pos >= len(tokens):
+            return set(), pos
+
+        if tokens[pos].type == TokenType.STRING_LITERAL:
+            game_list = tokens[pos].value.strip()
+            games = set()
+            for game in game_list.split():
+                game = game.lower()
+                if game in self.supported_games:
+                    games.add(game)
+            return games, pos + 1
+
+        return set(), pos
+
+    def _parse_game_includes(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+        """Parse GAME_INCLUDES ~game~."""
+        pos += 1
+
+        if pos >= len(tokens):
+            return set(), pos
+
+        if tokens[pos].type == TokenType.STRING_LITERAL:
+            game = tokens[pos].value.strip().lower()
+            if game == "bg1":
+                game = "bgee"
+            if game == "bg2":
+                game = "bg2ee"
+            if game in self.supported_games:
+                if game == "bgee":
+                    return {"bgee", "eet", "sod"}, pos + 1
+                if game == "bg2ee":
+                    return {"bg2ee", "eet"}, pos + 1
+                return {game}, pos + 1
+
+        return set(), pos
+
+
 # ============================================================================
 # Tokenizer
 # ============================================================================
@@ -254,20 +424,26 @@ class TokenType(Enum):
     """Types of tokens in TP2 component declarations."""
 
     ACTION_IF = auto()
+    AND = auto()
     BEGIN = auto()
     COPY_EXISTING = auto()
     DEPRECATED = auto()
     DESIGNATED = auto()
     FORCED_SUBCOMPONENT = auto()
+    GAME_INCLUDES = auto()
     GAME_IS = auto()
     GROUP = auto()
     IDENTIFIER = auto()
     LABEL = auto()
+    LPAREN = auto()
     MOD_IS_INSTALLED = auto()
+    NOT = auto()
     NUMBER = auto()
+    OR = auto()
     PRINT = auto()
     REQUIRE_COMPONENT = auto()
     REQUIRE_PREDICATE = auto()
+    RPAREN = auto()
     STRING_LITERAL = auto()  # ~text~ or "text"
     STRING_REF = auto()  # @123
     SUBCOMPONENT = auto()
@@ -292,15 +468,19 @@ class Tokenizer:
 
     KEYWORDS = {
         "ACTION_IF": TokenType.ACTION_IF,
+        "AND": TokenType.AND,
         "BEGIN": TokenType.BEGIN,
         "COPY_EXISTING": TokenType.COPY_EXISTING,
         "DEPRECATED": TokenType.DEPRECATED,
         "DESIGNATED": TokenType.DESIGNATED,
         "FORCED_SUBCOMPONENT": TokenType.FORCED_SUBCOMPONENT,
+        "GAME_INCLUDES": TokenType.GAME_INCLUDES,
         "GAME_IS": TokenType.GAME_IS,
         "GROUP": TokenType.GROUP,
         "LABEL": TokenType.LABEL,
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
+        "NOT": TokenType.NOT,
+        "OR": TokenType.OR,
         "PRINT": TokenType.PRINT,
         "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
@@ -364,6 +544,33 @@ class Tokenizer:
                     i += len(token.value) + 1
                     continue
 
+            # Operators: || (OR) and && (AND)
+            if i + 1 < length:
+                two_char = text[i : i + 2]
+                if two_char == "||":
+                    tokens.append(Token(TokenType.OR, "||", line, column))
+                    column += 2
+                    i += 2
+                    continue
+                elif two_char == "&&":
+                    tokens.append(Token(TokenType.AND, "&&", line, column))
+                    column += 2
+                    i += 2
+                    continue
+
+            # Single character operators
+            if char == "|":
+                tokens.append(Token(TokenType.OR, "|", line, column))
+                column += 1
+                i += 1
+                continue
+
+            if char == "&":
+                tokens.append(Token(TokenType.AND, "&", line, column))
+                column += 1
+                i += 1
+                continue
+
             # Numbers
             if char.isdigit():
                 token = self._extract_number(text, i, line, column)
@@ -381,6 +588,26 @@ class Tokenizer:
                     column += len(token.value)
                     i += len(token.value)
                     continue
+
+            # Parentheses
+            if char == "(":
+                tokens.append(Token(TokenType.LPAREN, "(", line, column))
+                column += 1
+                i += 1
+                continue
+
+            if char == ")":
+                tokens.append(Token(TokenType.RPAREN, ")", line, column))
+                column += 1
+                i += 1
+                continue
+
+            # Exclamation mark for negation
+            if char == "!":
+                tokens.append(Token(TokenType.NOT, "!", line, column))
+                column += 1
+                i += 1
+                continue
 
             # Unknown character, skip
             column += 1
@@ -549,8 +776,9 @@ class ComponentParser:
         re.MULTILINE | re.IGNORECASE,
     )
 
-    def __init__(self):
+    def __init__(self, supported_games: set[str] | None = None):
         self.tokenizer = Tokenizer()
+        self.game_parser = GamePredicateParser(supported_games)
 
     def extract_blocks(self, text: str) -> list[str]:
         """Extract component blocks from TP2 content.
@@ -595,6 +823,7 @@ class ComponentParser:
             "subcomponent_text": None,
             "label": None,
             "group": None,
+            "games": None,
             "metadata": {},
         }
 
@@ -643,20 +872,28 @@ class ComponentParser:
                 component["deprecated"] = True
                 i += 1
 
-            # TODO: Future extension
+            elif token.type == TokenType.REQUIRE_PREDICATE:
+                games, i = self.game_parser.parse_from_tokens(tokens, i + 1)
+                if games:
+                    component["games"] = games
+                continue
+
             elif token.type in (
                 TokenType.GAME_IS,
+                TokenType.GAME_INCLUDES,
                 TokenType.IDENTIFIER,
                 TokenType.MOD_IS_INSTALLED,
                 TokenType.NUMBER,
                 TokenType.REQUIRE_COMPONENT,
-                TokenType.REQUIRE_PREDICATE,
                 TokenType.STRING_LITERAL,
                 TokenType.STRING_REF,
+                TokenType.LPAREN,
+                TokenType.RPAREN,
             ):
-                pass  # Placeholder for future implementation
+                pass
 
             else:
+                # EOF or unknown token
                 break
 
             i += 1
@@ -689,7 +926,7 @@ class WeiDUTp2Parser:
 
         logger.info(f"Initialized TP2 parser with base_dir: {self.base_dir}")
 
-    def parse_file(self, path: str | Path) -> WeiDUTp2:
+    def parse_file(self, path: str | Path, supported_games: set[str] | None = None) -> WeiDUTp2:
         """Parse a TP2 file from disk.
 
         Args:
@@ -715,12 +952,14 @@ class WeiDUTp2Parser:
 
         try:
             content = file_path.read_text(encoding="utf-8", errors="ignore")
-            return self.parse_string(content, file_path.stem)
+            return self.parse_string(content, file_path.stem, supported_games)
         except Exception as e:
             logger.error(f"Failed to parse TP2 file: {file_path}", exc_info=True)
             raise Tp2ParseError(f"Error parsing {file_path}: {e}") from e
 
-    def parse_string(self, tp2_content: str, tp2_name: str) -> WeiDUTp2:
+    def parse_string(
+        self, tp2_content: str, tp2_name: str, supported_games: set[str] | None = None
+    ) -> WeiDUTp2:
         """Parse TP2 content from a string.
 
         Args:
@@ -734,6 +973,9 @@ class WeiDUTp2Parser:
             Tp2ParseError: If parsing fails
         """
         try:
+            self.supported_games = (
+                supported_games if supported_games is not None else SUPPORTED_GAMES.copy()
+            )
             clean_content = self._strip_comments(tp2_content)
 
             tp2 = WeiDUTp2()
@@ -741,7 +983,7 @@ class WeiDUTp2Parser:
 
             self._extract_version(clean_content, tp2)
             self._extract_languages(clean_content, tp2)
-            self._parse_components(clean_content, tp2)
+            self._parse_components(clean_content, tp2, self.supported_games)
             self._build_translations(tp2)
 
             logger.info(
@@ -840,9 +1082,9 @@ class WeiDUTp2Parser:
             logger.warning("No LANGUAGE declarations found in TP2")
 
     @staticmethod
-    def _parse_components(text: str, tp2: WeiDUTp2) -> None:
+    def _parse_components(text: str, tp2: WeiDUTp2, supported_games: set[str]) -> None:
         """Parse all component declarations from TP2 content using robust token-based approach."""
-        parser = ComponentParser()
+        parser = ComponentParser(supported_games)
         blocks = parser.extract_blocks(text)
 
         logger.info(f"Extracted {len(blocks)} component blocks")
@@ -878,6 +1120,7 @@ class WeiDUTp2Parser:
                     designated=str(designated),
                     text_ref=component_data["text_ref"],
                     text=component_data["text"],
+                    games=component_data["games"],
                 )
 
                 if component_data["subcomponent_ref"] or component_data["subcomponent_text"]:
@@ -892,6 +1135,7 @@ class WeiDUTp2Parser:
                             designated=f"choice_{len(muc_groups)}",
                             text_ref=component_data["subcomponent_ref"],
                             text=component_data["subcomponent_text"],
+                            games=component_data["games"],
                         )
                         tp2.components.append(muc)
                         muc_groups[subcomponent_key] = muc
