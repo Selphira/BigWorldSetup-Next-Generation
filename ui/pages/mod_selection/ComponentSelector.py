@@ -182,7 +182,10 @@ class FilterEngine:
         # Categories filter
         if self._category:
             mod = index.data(ROLE_MOD)
+            component = index.data(ROLE_COMPONENT)
             if not mod or self._category not in mod.categories:
+                return False
+            if component and component.category and self._category not in component.category:
                 return False
 
         # Authors filter
