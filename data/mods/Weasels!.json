@@ -12,7 +12,7 @@
       "download": "https://downloads.weaselmods.net/download/weasels/?wpdmdl=141"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std"}

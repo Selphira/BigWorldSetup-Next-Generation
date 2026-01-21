@@ -12,7 +12,7 @@
       "download": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET/releases/download/v2.1/BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["66", "661"]}

@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["npcx"],
   "components": {
     "choice_0": {"type": "muc", "components": ["10", "11", "12", "20", "21", "22", "30", "31", "32", "40", "41", "42", "99"], "default": "10"}

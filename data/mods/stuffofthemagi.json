@@ -12,10 +12,10 @@
       "download": "https://github.com/Spellhold-Studios/Stuff-of-the-Magi/releases/download/v6.0.0/stuff-of-the-magi-6.0.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3"], "category": "smith", "default": "0"}
+    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3"], "category": "smith", "default": "0", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

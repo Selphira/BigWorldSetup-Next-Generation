@@ -12,7 +12,7 @@
       "download": "https://github.com/Bubb13/EEex/releases/download/v0.11.0-alpha/EEex-v0.11.0-alpha.exe"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["util"],
   "components": {
     "0": {"type": "std", "category": "patch"},

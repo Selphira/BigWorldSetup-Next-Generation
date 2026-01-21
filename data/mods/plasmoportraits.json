@@ -25,23 +25,23 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "8": {"type": "std"},
-    "9": {"type": "std"},
-    "10": {"type": "std"},
-    "11": {"type": "std"},
-    "12": {"type": "std"},
-    "13": {"type": "std"}
+    "1": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "2": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "3": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "4": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "5": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "6": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "7": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "8": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "9": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "10": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "11": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "12": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "13": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

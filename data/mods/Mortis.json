@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/MISC_Mortis/archive/refs/tags/v2.35.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
     "0": {"type": "std"}

@@ -12,7 +12,7 @@
       "download": "https://github.com/Gibberlings3/BG1NPC/releases/download/v32/the-bg1npc-project-v32.zip"
     }
   ],
-  "games": ["tutu", "bgt", "bgee", "eet"],
+  "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"},
@@ -24,9 +24,9 @@
     "choice_4": {"type": "muc", "components": ["60", "61", "62", "63", "64"], "default": "62"},
     "choice_5": {"type": "muc", "components": ["70", "71", "72", "73", "74"], "default": "72"},
     "80": {"type": "std"},
-    "90": {"type": "std"},
-    "100": {"type": "std"},
-    "choice_6": {"type": "muc", "components": ["110", "111", "112", "113", "114"], "default": "110"},
+    "90": {"type": "std", "games": ["bgee", "eet", "sod", "tutu"]},
+    "100": {"type": "std", "games": ["bgt", "tutu"]},
+    "choice_6": {"type": "muc", "components": ["110", "111", "112", "113", "114"], "default": "110", "games": ["bgee", "eet", "sod"]},
     "120": {"type": "std"},
     "choice_7": {"type": "muc", "components": ["130", "131"], "default": "130"},
     "choice_8": {"type": "muc", "components": ["240", "241"], "default": "240"},

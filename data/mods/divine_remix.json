@@ -12,7 +12,7 @@
       "download": "https://github.com/TotoR115/Divine_Remix/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit", "spell", "gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["10", "11"], "default": "10"},
@@ -39,9 +39,9 @@
     "409": {"type": "std"},
     "412": {"type": "std"},
     "415": {"type": "std"},
-    "600": {"type": "std", "category": "npcx"},
-    "605": {"type": "std", "category": "npcx"},
-    "610": {"type": "std", "category": "npcx"},
+    "600": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "605": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "610": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "1000": {"type": "std", "games": ["bg2", "tutu", "bgt"]}
   },
   "languages": {

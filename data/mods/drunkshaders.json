@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "pstee", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["cosm"],
   "components": {
     "1000": {"type": "std", "category": "portrait"},

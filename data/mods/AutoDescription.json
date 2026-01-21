@@ -12,7 +12,7 @@
       "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["patch"],
   "components": {
     "10": {"type": "std", "category": "util"},

@@ -12,19 +12,19 @@
       "download": "https://github.com/Gitjas/Ascalons_Questpack/releases/download/v6.4/ascalons-questpack-6.4.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "3"},
-    "4": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["5", "6"], "default": "5"},
-    "7": {"type": "std"},
-    "8": {"type": "std"},
-    "9": {"type": "std"},
-    "choice_2": {"type": "muc", "components": ["10", "11"], "default": "11"},
-    "12": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]}
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "1": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "3", "games": ["bgee", "bgt", "eet", "sod"]},
+    "4": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "choice_1": {"type": "muc", "components": ["5", "6"], "default": "5", "games": ["bgee", "bgt", "eet", "sod"]},
+    "7": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "8": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "9": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
+    "choice_2": {"type": "muc", "components": ["10", "11"], "default": "11", "games": ["bgee", "bgt", "eet", "sod"]},
+    "12": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "de_DE": 0,

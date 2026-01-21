@@ -12,11 +12,11 @@
       "download": "https://github.com/subtledoctor/ItemRevisions/archive/refs/tags/v4b10sd19.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith"},
-    "1030": {"type": "std", "category": "smith"},
+    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "1030": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
     "choice_0": {"type": "muc", "components": ["1040", "1042"], "category": "smith", "default": "2"},
     "choice_1": {"type": "muc", "components": ["2", "3"], "category": "smith", "default": "9"},
     "choice_2": {"type": "muc", "components": ["9", "1101"], "category": "smith", "default": "15"},

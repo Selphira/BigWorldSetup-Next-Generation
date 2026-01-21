@@ -12,7 +12,7 @@
       "download": "https://github.com/Bubb13/Bubbs-Spell-Menu-Extended/archive/refs/tags/v5.1.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["ui"],
   "components": {
     "0": {"type": "std"}

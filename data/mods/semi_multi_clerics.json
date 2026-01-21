@@ -27,13 +27,13 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2", "bgt", "bg2ee", "eet", "iwd", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"]},
-    "choice_1": {"type": "muc", "components": ["5", "6", "7", "8"]},
-    "choice_2": {"type": "muc", "components": ["9", "10", "11", "12"]},
-    "50": {"type": "std", "category": "kit"}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "games": ["bg2ee", "bgt", "eet"]},
+    "choice_1": {"type": "muc", "components": ["5", "6", "7", "8"], "games": ["iwd", "iwdee"]},
+    "choice_2": {"type": "muc", "components": ["9", "10", "11", "12"], "games": ["bgee", "eet", "sod"]},
+    "50": {"type": "std", "category": "kit", "games": ["bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"]}
   },
   "languages": {
     "en_US": 0,

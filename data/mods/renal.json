@@ -12,7 +12,7 @@
       "download": "https://github.com/The-Gate-Project/Sir_Renal/releases/download/v2.6/sir-renal-2.6.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
     "0": {"type": "std"}

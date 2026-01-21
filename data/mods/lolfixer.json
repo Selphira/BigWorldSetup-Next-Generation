@@ -4,7 +4,7 @@
   "links": {
     "homepage": "https://www.shsforums.net/topic/52508-lolfixer-thread/"
   },
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["patch"],
   "components": {
     "0": {"type": "std"},

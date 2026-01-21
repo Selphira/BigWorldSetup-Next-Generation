@@ -12,10 +12,13 @@
       "download": "https://github.com/Gibberlings3/BG1_Romantic_Encounters/releases/download/v15/baldurs-gate-romantic-encounters-modification-bg1re-15pre.zip"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["100", "101", "102", "103", "104", "105"], "default": "103"},
+    "choice_0": {
+      "type": "muc", "components": ["100", "101", "102", "103", "104", "105"], "default": "103",
+      "games": ["bgee", "bgt", "eet", "sod", "tutu"]
+    },
     "1": {"type": "std"},
     "2": {"type": "std"},
     "3": {"type": "std"},

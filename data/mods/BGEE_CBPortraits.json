@@ -12,7 +12,7 @@
       "download": "https://www.nexusmods.com/baldursgate/mods/39?tab=files&file_id=592"
     }
   ],
-  "games": ["bg", "bg2", "sod", "bgee", "bg2ee", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "eet", "sod"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std", "category": "portrait"}

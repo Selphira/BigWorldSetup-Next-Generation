@@ -27,21 +27,44 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "bgee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["2", "3", "4", "5", "6", "7"], "category": "spell", "default": "2"},
-    "choice_1": {"type": "muc", "components": ["152", "153", "154", "155", "156", "157"], "category": "spell", "default": "152"},
-    "choice_2": {"type": "muc", "components": ["162", "163", "164", "165", "166", "167"], "category": "spell", "default": "162"},
-    "choice_3": {"type": "muc", "components": ["92", "93", "94", "95", "96", "97"], "category": "spell", "default": "92"},
-    "choice_4": {"type": "muc", "components": ["102", "103", "104", "105", "106", "107"], "category": "spell", "default": "102"},
-    "choice_5": {"type": "muc", "components": ["112", "113", "114", "115", "116", "117"], "category": "spell", "default": "112"},
-    "choice_6": {"type": "muc", "components": ["182", "183", "184", "185", "186", "187"], "category": "spell", "default": "182"},
-    "choice_7": {"type": "muc", "components": ["122", "123", "124", "125", "126", "127"], "category": "spell", "default": "122"},
-    "choice_8": {"type": "muc", "components": ["132", "133", "134", "123", "136", "137"], "category": "spell", "default": "132"},
-    "choice_9": {"type": "muc", "components": ["192", "193", "194", "195", "196", "197"], "category": "spell", "default": "192"},
-    "choice_10": {"type": "muc", "components": ["142", "143", "144", "145", "146", "147"], "category": "spell", "default": "142"},
-    "choice_11": {"type": "muc", "components": ["172", "173", "174", "175", "176", "177"], "category": "spell", "default": "172"}
+    "choice_1": {
+      "type": "muc", "components": ["152", "153", "154", "155", "156", "157"], "category": "spell", "default": "152"
+    },
+    "choice_2": {
+      "type": "muc", "components": ["162", "163", "164", "165", "166", "167"], "category": "spell", "default": "162"
+    },
+    "choice_3": {
+      "type": "muc", "components": ["92", "93", "94", "95", "96", "97"], "category": "spell", "default": "92"
+    },
+    "choice_4": {
+      "type": "muc", "components": ["102", "103", "104", "105", "106", "107"], "category": "spell", "default": "102"
+    },
+    "choice_5": {
+      "type": "muc", "components": ["112", "113", "114", "115", "116", "117"], "category": "spell", "default": "112"
+    },
+    "choice_6": {
+      "type": "muc", "components": ["182", "183", "184", "185", "186", "187"], "category": "spell", "default": "182"
+    },
+    "choice_7": {
+      "type": "muc", "components": ["122", "123", "124", "125", "126", "127"], "category": "spell", "default": "122"
+    },
+    "choice_8": {
+      "type": "muc", "components": ["132", "133", "134", "123", "136", "137"], "category": "spell", "default": "132"
+    },
+    "choice_9": {
+      "type": "muc", "components": ["192", "193", "194", "195", "196", "197"], "category": "spell", "default": "192",
+      "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]
+    },
+    "choice_10": {
+      "type": "muc", "components": ["142", "143", "144", "145", "146", "147"], "category": "spell", "default": "142"
+    },
+    "choice_11": {
+      "type": "muc", "components": ["172", "173", "174", "175", "176", "177"], "category": "spell", "default": "172"
+    }
   },
   "languages": {
     "fr_FR": 0,

@@ -33,7 +33,7 @@
     "0": {"type": "std"},
     "1": {"type": "std"},
     "2": {"type": "std"},
-    "3": {"type": "std"},
+    "3": {"type": "std", "games": ["eet"]},
     "4": {"type": "std"}
   },
   "languages": {

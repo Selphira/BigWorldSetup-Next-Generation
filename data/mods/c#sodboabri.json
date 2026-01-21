@@ -12,7 +12,7 @@
       "download": "https://github.com/Gibberlings3/The_Boareskyr_Bridge_Scene/releases/download/v8/the-boareskyr-bridge-scene-v8.zip"
     }
   ],
-  "games": ["sod", "eet"],
+  "games": ["eet", "sod"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std", "category": "gameplay"},

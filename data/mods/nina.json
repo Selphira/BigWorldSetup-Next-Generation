@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/1D_NPC_Ninafer/archive/refs/heads/main.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc1d"],
   "components": {
     "0": {"type": "std"}

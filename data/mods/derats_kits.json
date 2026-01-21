@@ -27,21 +27,21 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "sod", "bg2ee", "eet", "iwd", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "30": {"type": "std"},
-    "10": {"type": "std"},
-    "110": {"type": "std"},
-    "20": {"type": "std"},
-    "140": {"type": "std"},
-    "120": {"type": "std"},
-    "40": {"type": "std"},
-    "90": {"type": "std"},
-    "70": {"type": "std"},
-    "80": {"type": "std"},
-    "60": {"type": "std"},
-    "150": {"type": "std"}
+    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "110": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "140": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "120": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "40": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "90": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "70": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "80": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "60": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
+    "150": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]}
   },
   "languages": {
     "fr_FR": 0,

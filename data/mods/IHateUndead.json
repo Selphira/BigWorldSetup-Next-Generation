@@ -12,7 +12,7 @@
       "download": "https://github.com/Raduziel/I-Hate-Undead-Kitpack/archive/refs/tags/3.8.3.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
@@ -23,7 +23,7 @@
     "5": {"type": "std"},
     "6": {"type": "std"},
     "7": {"type": "std"},
-    "8": {"type": "std", "category": "npcx"},
+    "8": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "9": {"type": "std"},
     "10": {"type": "std"},
     "11": {"type": "std"}

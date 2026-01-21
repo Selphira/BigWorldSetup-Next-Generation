@@ -12,22 +12,22 @@
       "download": "https://github.com/DaftHunk/Portraits-Portraits-Everywhere/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},
     "choice_0": {"type": "muc", "components": ["100", "150"], "default": "100"},
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "25": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["300", "301", "302"], "default": "300"},
-    "choice_2": {"type": "muc", "components": ["310", "311", "312"], "default": "310"},
-    "choice_3": {"type": "muc", "components": ["320", "322"], "default": "320"},
-    "choice_4": {"type": "muc", "components": ["330", "332"], "default": "330"},
-    "choice_5": {"type": "muc", "components": ["340", "342"], "default": "340"},
-    "350": {"type": "std"},
-    "30": {"type": "std"},
-    "40": {"type": "std"}
+    "10": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "20": {"type": "std", "games": ["bg2ee", "eet"]},
+    "25": {"type": "std", "games": ["bg2ee", "eet"]},
+    "choice_1": {"type": "muc", "components": ["300", "301", "302"], "default": "300", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_2": {"type": "muc", "components": ["310", "311", "312"], "default": "310", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_3": {"type": "muc", "components": ["320", "322"], "default": "320", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_4": {"type": "muc", "components": ["330", "332"], "default": "330", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_5": {"type": "muc", "components": ["340", "342"], "default": "340", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "350": {"type": "std", "games": ["bg2ee", "eet"]},
+    "30": {"type": "std", "games": ["bg2ee", "eet"]},
+    "40": {"type": "std", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

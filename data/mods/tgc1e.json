@@ -12,7 +12,7 @@
       "download": "https://github.com/Black-Wyrm-Lair/The-Gray-Clan-Episode-1/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"]}

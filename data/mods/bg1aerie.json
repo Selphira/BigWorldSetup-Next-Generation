@@ -12,7 +12,7 @@
       "download": "https://github.com/The-Gate-Project/AerieBG1/releases/download/v2.5/aerie-in-bgee-2.5.zip"
     }
   ],
-  "games": ["bgee", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
     "5000": {"type": "std"},

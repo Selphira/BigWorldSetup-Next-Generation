@@ -30,7 +30,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith", "gameplay"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "fr_FR": 0,

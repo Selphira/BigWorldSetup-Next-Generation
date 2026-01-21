@@ -12,19 +12,19 @@
       "download": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack/releases/download/v13/jasteys-tweaks-for-sod-and-eet-and-bgt-v13.zip"
     }
   ],
-  "games": ["bgt", "bgee", "sod", "eet"],
+  "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "1": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "2"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["8", "9", "10", "11"], "default": "8"},
-    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15"], "default": "12"},
-    "20": {"type": "std"},
-    "21": {"type": "std"}
+    "1": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "2", "games": ["bgee", "eet", "sod"]},
+    "4": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "5": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "6": {"type": "std", "games": ["bgt", "eet"]},
+    "7": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "choice_1": {"type": "muc", "components": ["8", "9", "10", "11"], "default": "8", "games": ["bgee", "eet", "sod"]},
+    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15"], "default": "12", "games": ["bgee", "eet", "sod"]},
+    "20": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "21": {"type": "std", "games": ["bgee", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

@@ -12,7 +12,7 @@
       "download": "https://github.com/Gibberlings3/Ascension/releases/download/2.1.0/ascension-2.1.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest", "tactic"],
   "components": {
     "0": {"type": "std"},
@@ -30,8 +30,8 @@
     "1500": {"type": "std"},
     "2000": {"type": "std"},
     "2100": {"type": "std"},
-    "2200": {"type": "std"},
-    "2300": {"type": "std"},
+    "2200": {"type": "std", "games": ["bg2ee", "eet"]},
+    "2300": {"type": "std", "games": ["bg2ee", "eet"]},
     "2400": {"type": "std"}
   },
   "languages": {

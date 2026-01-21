@@ -12,11 +12,11 @@
       "download": "https://github.com/Gibberlings3/Ajantis_BG1_Expansion/releases/download/v22/ajantis-bg1-expansion-modification-22.zip"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
+    "1": {"type": "std", "games": ["bgee", "eet", "sod"]},
     "30": {"type": "std"}
   },
   "languages": {

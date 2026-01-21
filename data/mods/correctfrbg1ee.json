@@ -12,14 +12,14 @@
       "download": "https://github.com/r-e-d/correctfrBG1EE/releases/download/0.11/correctfrbg1ee-0.11.zip"
     }
   ],
-  "games": ["bgee", "sod", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["patch"],
   "components": {
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "30": {"type": "std"},
-    "40": {"type": "std"},
-    "50": {"type": "std"}
+    "10": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "20": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "30": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "40": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "50": {"type": "std", "games": ["bgee", "eet", "sod"]}
   },
   "languages": {
     "fr_FR": 0

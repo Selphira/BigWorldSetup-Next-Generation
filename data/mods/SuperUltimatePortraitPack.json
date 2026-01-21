@@ -12,7 +12,7 @@
       "download": "Manual"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"}

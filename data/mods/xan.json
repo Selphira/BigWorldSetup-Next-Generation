@@ -12,12 +12,12 @@
       "download": "https://github.com/Pocket-Plane-Group/Xan_for_BGII/releases/download/v19/Xan_v19.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
     "0": {"type": "std", "category": "npcx"},
     "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1"},
-    "5": {"type": "std", "category": "npcx"},
+    "5": {"type": "std", "category": "npcx", "games": ["bg2", "bgt"]},
     "6": {"type": "std", "category": "npcx"}
   },
   "languages": {

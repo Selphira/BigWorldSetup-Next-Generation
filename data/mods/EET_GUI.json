@@ -46,27 +46,37 @@
     },
     "pl_PL": {
       "components": {
-        "choice_0": "EET alternatywne GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+        "choice_0": "EET alternatywne GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       }
     },
     "es_ES": {
       "components": {
-        "choice_0": "EET alternative GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+        "choice_0": "EET alternative GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       }
     },
     "cs_CZ": {
       "components": {
-        "choice_0": "EET alternativni GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+        "choice_0": "EET alternativni GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       }
     },
     "ru_RU": {
       "components": {
-        "choice_0": "EET alternative GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+        "choice_0": "EET alternative GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "EET alternatives GUI", "0": "Siege of Dragonspear", "1": "Icewind Dale: Enhanced Edition"
+        "choice_0": "EET alternatives GUI",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
       }
     }
   },

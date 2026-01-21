@@ -25,10 +25,10 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgt", "eet", "iwdee"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"]},
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]},
     "2": {"type": "std", "games": ["iwdee"]},
     "choice_1": {"type": "muc", "components": ["101", "102", "103", "104", "105"]},
     "200": {"type": "std"},

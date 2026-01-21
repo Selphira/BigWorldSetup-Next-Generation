@@ -25,74 +25,48 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["2", "3", "4"], "default": "2"},
-    "choice_1": {
-      "type": "muc", "components": ["5", "6", "7", "8"], "default": "5", "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "9": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_2": {
-      "type": "muc", "components": ["10", "11", "12"], "default": "10", "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
-    "choice_3": {
-      "type": "muc", "components": ["13", "14", "15"], "default": "13", "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "16": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]},
-    "choice_4": {"type": "muc", "components": ["17", "18"], "default": "17", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_5": {
-      "type": "muc", "components": ["19", "20", "21", "22", "23"], "default": "19",
-      "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "choice_6": {"type": "muc", "components": ["24", "25"], "default": "24"},
-    "26": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_7": {"type": "muc", "components": ["27", "28"], "default": "27", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "29": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "30": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]},
-    "choice_8": {"type": "muc", "components": ["31", "32", "33"], "default": "31"},
-    "choice_9": {"type": "muc", "components": ["34", "35", "36"], "default": "34"},
-    "37": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]},
-    "38": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_10": {
-      "type": "muc", "components": ["39", "40", "41"], "default": "39", "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
-    "42": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_11": {
-      "type": "muc", "components": ["43", "44", "45", "46"], "default": "43", "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "47": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]},
-    "48": {"type": "std", "games": ["bg2", "bgt", "bg2ee", "eet"]},
-    "choice_12": {"type": "muc", "components": ["49", "50"], "default": "49"},
-    "51": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_13": {
-      "type": "muc", "components": ["52", "53", "54", "55"], "default": "52", "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
-    "choice_14": {"type": "muc", "components": ["56", "57"], "default": "56", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_15": {"type": "muc", "components": ["58", "59"], "default": "58", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_16": {
-      "type": "muc", "components": ["60", "61", "62", "63", "64", "65", "66"], "default": "60",
-      "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
-    "choice_17": {
-      "type": "muc", "components": ["67", "68", "69"], "default": "67", "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "70": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "71": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_18": {
-      "type": "muc", "components": ["72", "73", "74", "75"], "default": "72", "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
-    "choice_19": {"type": "muc", "components": ["76", "77"], "default": "76"},
-    "choice_20": {
-      "type": "muc", "components": ["78", "79", "80"], "default": "78", "games": ["bg", "tutu", "bgt", "bgee"]
-    },
-    "choice_21": {"type": "muc", "components": ["81", "82"], "default": "81", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "83": {"type": "std", "games": ["bg", "tutu", "bgt", "bgee"]},
-    "choice_22": {
-      "type": "muc", "components": ["84", "85", "86"], "default": "84", "games": ["bg2", "bgt", "bg2ee", "eet"]
-    },
+    "1": {"type": "std", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_0": {"type": "muc", "components": ["2", "3", "4"], "default": "2", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_1": {"type": "muc", "components": ["5", "6", "7", "8"], "default": "5", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "9": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_2": {"type": "muc", "components": ["10", "11", "12"], "default": "10", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_3": {"type": "muc", "components": ["13", "14", "15"], "default": "13", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "16": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_4": {"type": "muc", "components": ["17", "18"], "default": "17", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_5": {"type": "muc", "components": ["19", "20", "21", "22", "23"], "default": "19", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_6": {"type": "muc", "components": ["24", "25"], "default": "24", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "26": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_7": {"type": "muc", "components": ["27", "28"], "default": "27", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "29": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "30": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_8": {"type": "muc", "components": ["31", "32", "33"], "default": "31", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_9": {"type": "muc", "components": ["34", "35", "36"], "default": "34", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "37": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "38": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_10": {"type": "muc", "components": ["39", "40", "41"], "default": "39", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "42": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_11": {"type": "muc", "components": ["43", "44", "45", "46"], "default": "43", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "47": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "48": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_12": {"type": "muc", "components": ["49", "50"], "default": "49", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "51": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_13": {"type": "muc", "components": ["52", "53", "54", "55"], "default": "52", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_14": {"type": "muc", "components": ["56", "57"], "default": "56", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_15": {"type": "muc", "components": ["58", "59"], "default": "58", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_16": {"type": "muc", "components": ["60", "61", "62", "63", "64", "65", "66"], "default": "60", "games": ["bg2ee", "bgt", "eet"]},
+    "choice_17": {"type": "muc", "components": ["67", "68", "69"], "default": "67", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "70": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "71": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_18": {"type": "muc", "components": ["72", "73", "74", "75"], "default": "72", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "choice_19": {"type": "muc", "components": ["76", "77"], "default": "76", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_20": {"type": "muc", "components": ["78", "79", "80"], "default": "78", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_21": {"type": "muc", "components": ["81", "82"], "default": "81", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "83": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_22": {"type": "muc", "components": ["84", "85", "86"], "default": "84", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "87": {"type": "std"},
     "88": {"type": "std"},
     "89": {"type": "std"},

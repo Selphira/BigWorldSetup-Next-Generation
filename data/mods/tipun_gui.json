@@ -12,10 +12,10 @@
       "download": "https://github.com/tipun81/tipun_gui_mod/archive/refs/heads/main.zip"
     }
   ],
-  "games": ["bgee", "sod", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["ui"],
   "components": {
-    "10": {"type": "std"},
+    "10": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
     "20": {"type": "std"}
   },
   "languages": {

@@ -12,7 +12,7 @@
       "download": "http://www.blindmonkey.org/imoen/files/Imoen%20Romance.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"},

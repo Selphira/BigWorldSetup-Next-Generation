@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/Tiax_for_BGII/releases/download/v6/Tiax_v6.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc1d"],
   "components": {
     "0": {"type": "std"}

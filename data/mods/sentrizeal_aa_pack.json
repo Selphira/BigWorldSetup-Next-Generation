@@ -12,7 +12,7 @@
       "download": "Manual"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std"},

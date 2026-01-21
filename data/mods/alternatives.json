@@ -12,7 +12,7 @@
       "download": "https://github.com/Gibberlings3/Alternatives/releases/download/v15/Alternatives_v15.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"}

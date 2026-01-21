@@ -12,7 +12,7 @@
       "download": "https://github.com/The-Gate-Project/Morituri_Kit/releases/download/v5.2/morituri-kit-5.2.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "choice_0": {"type": "muc", "components": ["35", "36", "37"], "default": "35"}

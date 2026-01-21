@@ -22,7 +22,7 @@
     "4": {"type": "std"},
     "5": {"type": "std"},
     "6": {"type": "std"},
-    "1000": {"type": "std"}
+    "1000": {"type": "std", "games": ["eet"]}
   },
   "languages": {
     "en_US": 0,

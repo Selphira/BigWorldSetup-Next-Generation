@@ -12,11 +12,14 @@
       "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.4.1.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "100": {"type": "std", "category": "spell"},
-    "choice_0": {"type": "muc", "components": ["111", "112"], "category": "spell", "default": "111"},
+    "choice_0": {
+      "type": "muc", "components": ["111", "112"], "category": "spell", "default": "111",
+      "games": ["bg2ee", "bgee", "eet", "sod"]
+    },
     "120": {"type": "std", "category": "spell"},
     "140": {"type": "std", "category": "spell"},
     "160": {"type": "std", "category": "spell"},
@@ -36,7 +39,9 @@
     "choice_2": {"type": "muc", "components": ["1091", "1092", "1093"], "category": "spell", "default": "1051"},
     "1100": {"type": "std", "category": "spell"},
     "1109": {"type": "std", "category": "spell"},
-    "choice_3": {"type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1091"}
+    "choice_3": {
+      "type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1091", "games": ["eet"]
+    }
   },
   "languages": {
     "en_US": 0,

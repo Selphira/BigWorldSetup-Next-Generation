@@ -12,7 +12,7 @@
       "download": "https://github.com/UnearthedArcana/Faiths_and_Powers/archive/refs/tags/0.91.4.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["12", "13"], "category": "spell"},

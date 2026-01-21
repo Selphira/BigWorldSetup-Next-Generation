@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/Almateria-Restoration-Project/releases/download/v10.1/arestorationp-v10.1.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std", "category": "spell"},
@@ -24,7 +24,7 @@
     "6": {"type": "std", "category": "spell"},
     "7": {"type": "std"},
     "8": {"type": "std", "category": "spell"},
-    "10": {"type": "std"},
+    "10": {"type": "std", "games": ["bg2", "bgt"]},
     "11": {"type": "std", "category": "spell"},
     "12": {"type": "std", "category": "spell"},
     "13": {"type": "std", "category": "spell"}

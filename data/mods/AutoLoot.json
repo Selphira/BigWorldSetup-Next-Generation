@@ -12,7 +12,7 @@
       "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.2.6/AutoLoot.zip"
     }
   ],
-  "games": ["bgee", "sod", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std", "category": "ui"}

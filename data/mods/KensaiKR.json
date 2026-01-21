@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/KIT_Kensai_Rev/archive/refs/heads/main.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},

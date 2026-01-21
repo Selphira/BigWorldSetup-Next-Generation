@@ -27,11 +27,11 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std", "category": "npcx"},
-    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1"}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1", "games": ["bg2ee", "eet", "iwdee"]}
   },
   "languages": {
     "fr_FR": 0,

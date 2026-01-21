@@ -12,7 +12,7 @@
       "download": "https://github.com/thisisulb/SpiritwalkerKit/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"}

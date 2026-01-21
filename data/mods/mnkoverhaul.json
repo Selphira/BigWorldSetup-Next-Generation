@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/KIT_Moine_Rev/archive/refs/tags/v1.2_FR.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std", "category": "spell"},

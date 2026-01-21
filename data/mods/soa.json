@@ -12,10 +12,10 @@
       "download": "https://github.com/red-carnelian/The-Stone-of-Askavar/releases/download/2.7/tsoaV2_7.zip"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "games": ["bgee", "bgt", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

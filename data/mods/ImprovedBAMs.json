@@ -12,7 +12,7 @@
       "download": "https://www.gibberlings3.net/files/file/719-improved-bams/?do=download&r=4415&confirm=1&t=1"
     }
   ],
-  "games": ["bg", "iwd", "bgee", "eet"],
+  "games": ["bg", "bgee", "eet", "iwd", "sod"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std", "category": "portrait"}

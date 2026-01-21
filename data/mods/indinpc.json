@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/Indira_NPC/releases/download/v15.1/indira-npc-v15.1.zip"
     }
   ],
-  "games": ["tutu", "bgt", "bgee", "sod", "eet"],
+  "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"},

@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
     "100": {"type": "std"},

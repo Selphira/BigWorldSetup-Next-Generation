@@ -12,25 +12,25 @@
       "download": "https://github.com/Pocket-Plane-Group/NPC_Flirt_Packs/releases/download/v1.07/NPCFlirtV107.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"},
     "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
+    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "4": {"type": "std"},
     "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
+    "6": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "7": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "8": {"type": "std"},
     "9": {"type": "std"},
-    "10": {"type": "std"},
-    "11": {"type": "std"},
+    "10": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "11": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "12": {"type": "std"},
     "13": {"type": "std"},
-    "14": {"type": "std"},
-    "15": {"type": "std"}
+    "14": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "15": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

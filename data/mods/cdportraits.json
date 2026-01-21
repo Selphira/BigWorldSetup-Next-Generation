@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
     "choice_0": {"type": "muc", "components": ["10", "11"], "default": "11"},

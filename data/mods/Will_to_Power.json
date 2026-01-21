@@ -12,7 +12,7 @@
       "download": "https://github.com/UnearthedArcana/Will_to_Power/archive/refs/tags/2.13.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "gameplay"],
   "components": {
     "200": {"type": "std"},

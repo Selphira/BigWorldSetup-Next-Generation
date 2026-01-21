@@ -12,7 +12,7 @@
       "download": "https://github.com/smeagolheart/MinorNPCPortraitsforBGEE/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bgee", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},

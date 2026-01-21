@@ -12,13 +12,13 @@
       "download": "https://github.com/Sampsca/ThrownHammers/releases/download/v6.1.2/thrown-hammers-v6.1.2.zip"
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std", "category": "portrait"},
     "15": {"type": "std", "category": "smith"},
-    "25": {"type": "std", "category": "smith"},
-    "35": {"type": "std", "category": "smith"},
+    "25": {"type": "std", "category": "smith", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "35": {"type": "std", "category": "smith", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
     "50": {"type": "std", "category": "smith"}
   },
   "languages": {

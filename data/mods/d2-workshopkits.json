@@ -27,7 +27,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "spell"],
   "components": {
     "choice_0": {"type": "muc", "components": ["90", "91", "92", "93", "94", "95"]},

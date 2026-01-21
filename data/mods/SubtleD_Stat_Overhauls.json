@@ -12,7 +12,7 @@
       "download": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls/archive/refs/tags/1.8.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
     "100": {"type": "std", "category": "spell"},
@@ -26,7 +26,10 @@
     "200": {"type": "std", "category": "spell"},
     "choice_2": {"type": "muc", "components": ["211", "212", "213"], "category": "spell", "default": "211"},
     "choice_3": {"type": "muc", "components": ["221", "222", "223", "224"], "category": "spell", "default": "221"},
-    "choice_4": {"type": "muc", "components": ["231", "232", "233", "234"], "category": "spell", "default": "231"},
+    "choice_4": {
+      "type": "muc", "components": ["231", "232", "233", "234"], "category": "spell", "default": "231",
+      "games": ["bg2ee", "eet"]
+    },
     "choice_5": {"type": "muc", "components": ["251", "252"], "category": "spell", "default": "251"}
   },
   "languages": {

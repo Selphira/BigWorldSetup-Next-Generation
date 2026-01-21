@@ -27,7 +27,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee", "pstee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["util"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "1"},

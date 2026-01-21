@@ -12,7 +12,7 @@
       "download": "https://www.gibberlings3.net/files/file/702-a-mod-for-the-orderly/?do=download&r=4925&confirm=1&t=1"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "category": "smith"}

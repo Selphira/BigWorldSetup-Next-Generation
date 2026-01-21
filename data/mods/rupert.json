@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/Rupert-the-Dye-Merchant/releases/download/v3.0.0/rupert-the-dye-merchant-v3.0.0.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["smith"],
   "components": {
     "0": {"type": "std"}

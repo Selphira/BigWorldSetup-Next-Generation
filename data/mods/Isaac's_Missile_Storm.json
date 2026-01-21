@@ -12,7 +12,7 @@
       "download": "https://github.com/shohysie/Isaac-s_Missile_Storm/archive/refs/tags/v0.8.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std"}

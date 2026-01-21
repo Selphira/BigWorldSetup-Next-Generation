@@ -12,11 +12,11 @@
       "download": "https://github.com/Raduziel/Relieve-Wizard-Slayer/archive/refs/tags/1.7.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"}
+    "1": {"type": "std", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

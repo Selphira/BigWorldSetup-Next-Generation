@@ -25,14 +25,14 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
     "1": {"type": "std", "category": "spell"},
     "30": {"type": "std"},
     "31": {"type": "std"},
     "32": {"type": "std"},
-    "33": {"type": "std"},
+    "33": {"type": "std", "games": ["bg2", "bgt", "tutu"]},
     "34": {"type": "std"}
   },
   "languages": {

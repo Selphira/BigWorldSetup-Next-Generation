@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/Xan_BG1_Friendship/releases/download/v11/xanbg1friend_v11.zip"
     }
   ],
-  "games": ["bg", "tutu", "bgt", "bgee", "eet"],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"}

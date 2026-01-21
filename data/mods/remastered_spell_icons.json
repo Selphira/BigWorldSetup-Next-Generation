@@ -12,11 +12,11 @@
       "download": "https://github.com/Renegade0/RemasteredSpellIcons/archive/refs/tags/v1.2.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "iwdee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std", "category": "portrait"},
-    "1": {"type": "std", "category": "portrait"}
+    "1": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgee", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

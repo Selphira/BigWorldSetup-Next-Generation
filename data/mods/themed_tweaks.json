@@ -12,19 +12,19 @@
       "download": "https://github.com/lzenner/themed_tweaks/releases/download/v0.4/themed-tweaks-v0.4.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "60": {"type": "std", "category": "gameplay"},
-    "70": {"type": "std", "category": "gameplay"},
-    "80": {"type": "std", "category": "gameplay"},
-    "90": {"type": "std", "category": "gameplay"},
-    "100": {"type": "std"},
-    "140": {"type": "std", "category": "gameplay"},
-    "150": {"type": "std", "category": "gameplay"},
-    "160": {"type": "std", "category": "gameplay"},
-    "180": {"type": "std", "category": "spell"},
-    "200": {"type": "std", "category": "spell"}
+    "60": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
+    "70": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
+    "80": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
+    "90": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
+    "100": {"type": "std", "games": ["eet", "sod"]},
+    "140": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
+    "150": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
+    "160": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
+    "180": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"]},
+    "200": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

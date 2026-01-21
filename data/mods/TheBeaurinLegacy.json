@@ -12,7 +12,7 @@
       "download": "https://www.gibberlings3.net/files/file/998-beaurin-legacy/?do=download&r=6343&confirm=1&t=1"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
     "1000": {"type": "std"},

@@ -1,5 +1,5 @@
 {
-  "name": "Hanna NPC",
+  "name": "Hanna PNJ",
   "version": "2.5",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/821-hanna-pnj/"
@@ -12,10 +12,10 @@
       "download": "https://www.shsforums.net/files/download/821-hanna-pnj/"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc1d"],
   "components": {
-    "0": {"type": "std"},
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "1": {"type": "std"},
     "2": {"type": "std"},
     "3": {"type": "std"},

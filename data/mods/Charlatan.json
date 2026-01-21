@@ -12,11 +12,11 @@
       "download": "https://github.com/Raduziel/Charlatan-Kit/archive/master.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std", "category": "npcx"}
+    "1": {"type": "std", "category": "npcx", "games": ["bgee", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

@@ -12,10 +12,10 @@
       "download": "https://github.com/Spellhold-Studios/Bolsa/releases/download/v6.0.0/bolsa-v6.0.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "es_ES": 0,

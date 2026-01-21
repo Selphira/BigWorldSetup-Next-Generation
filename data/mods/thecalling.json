@@ -25,11 +25,11 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgt", "bgee", "eet", "tutu"],
+  "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"},
-    "20": {"type": "std"},
+    "20": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
     "40": {"type": "std", "category": "smith"}
   },
   "languages": {

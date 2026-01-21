@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/Minotaur-and-Lilacor/releases/download/v2.1/the-minotaur-and-lilacor-2.1.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"}

@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "eet", "iwdee"],
+  "games": ["bgee", "eet", "iwdee", "sod"],
   "categories": ["smith"],
   "components": {
     "0": {"type": "std"}

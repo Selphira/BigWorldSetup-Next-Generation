@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/Sellswords/releases/download/v9.1/the-sellswords-mod-for-baldurs-gate-ii-v9.1.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"}

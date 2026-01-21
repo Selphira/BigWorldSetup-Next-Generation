@@ -12,7 +12,7 @@
       "download": "https://github.com/shohysie/LegacyofBhaalFix/archive/refs/tags/v0.5.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["patch"],
   "components": {
     "0": {"type": "std"},

@@ -12,7 +12,7 @@
       "download": "https://github.com/UnearthedArcana/BP_in_BG/archive/refs/tags/1.2.1.zip"
     }
   ],
-  "games": ["bgee", "sod", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
     "100": {"type": "std"}

@@ -12,7 +12,7 @@
       "download": "http://america.iegmc.com/gamemacik/Sequencer_ColoredText_v1.0.rar"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std", "category": "ui"}

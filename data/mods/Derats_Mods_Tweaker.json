@@ -1,5 +1,5 @@
 {
-  "name": "Derats Mods Tweaker",
+  "name": "Mods_Tweaker",
   "version": "3.2",
   "links": {
     "homepage": "https://github.com/Deratiseur/Mods_Tweaker"
@@ -27,7 +27,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
     "1": {"type": "std", "category": "npcx"},

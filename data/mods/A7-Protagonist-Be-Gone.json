@@ -25,10 +25,10 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "bgt", "tutu", "bgee", "bg2ee", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "category": "spell"},
+    "0": {"type": "std", "category": "spell", "games": ["bgee", "eet", "sod"]},
     "1": {"type": "std", "category": "spell"}
   },
   "languages": {

@@ -25,10 +25,10 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2"], "category": "smith", "default": "1"},
+    "choice_0": {"type": "muc", "components": ["1", "2"], "category": "smith", "default": "1", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "10": {"type": "std", "category": "smith"},
     "choice_1": {"type": "muc", "components": ["21", "22", "23", "24"], "category": "smith", "default": "21"},
     "choice_2": {"type": "muc", "components": ["31", "32", "33", "34", "35", "36"], "category": "smith", "default": "31"}

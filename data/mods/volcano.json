@@ -12,10 +12,10 @@
       "download": "https://github.com/Black-Wyrm-Lair/Volcano_Pack/releases/download/v2.5/the-improved-volcano-pack-v2.5.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

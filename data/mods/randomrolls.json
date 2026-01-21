@@ -19,7 +19,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "iwdee", "pstee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["util"],
   "components": {
     "0": {"type": "std", "category": "patch"}

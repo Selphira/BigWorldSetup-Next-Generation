@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["kit", "spell"],
   "components": {
     "0": {"type": "std"},
@@ -34,7 +34,7 @@
     "3": {"type": "std"},
     "5": {"type": "std"},
     "6": {"type": "std"},
-    "4": {"type": "std", "category": "smith"}
+    "4": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

@@ -12,11 +12,11 @@
       "download": "https://github.com/Endarire/W_Packmule/releases/download/1.4b/w_packmule-v1.4b.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "category": "smith", "default": "2", "games": ["bg2", "tutu", "bgt"]},
-    "choice_1": {"type": "muc", "components": ["2", "3"], "games": ["bgee", "bg2ee", "eet"]},
+    "choice_1": {"type": "muc", "components": ["2", "3"], "games": ["bg2ee", "bgee", "eet", "sod"]},
     "choice_2": {"type": "muc", "components": ["4", "5"]}
   },
   "languages": {

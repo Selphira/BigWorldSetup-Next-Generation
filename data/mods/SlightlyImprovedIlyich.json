@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["tactic"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}

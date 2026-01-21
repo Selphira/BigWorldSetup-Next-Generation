@@ -12,23 +12,23 @@
       "download": "https://www.gibberlings3.net/files/file/793-npc-kitpack/?do=download&r=3967&confirm=1&t=1"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
     "30": {"type": "std", "category": "patch"},
     "31": {"type": "std", "category": "patch"},
-    "400": {"type": "std"},
-    "410": {"type": "std"},
-    "420": {"type": "std"},
+    "400": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "410": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "420": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "900": {"type": "std"},
     "1400": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["1410", "1411", "1412", "1413", "1414", "1415", "1416", "1417"], "default": "1410"},
-    "2100": {"type": "std"},
-    "2200": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["1410", "1411", "1412", "1413", "1414", "1415", "1416", "1417"], "default": "1410", "games": ["bg2ee", "bgt", "eet"]},
+    "2100": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "2200": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
     "2300": {"type": "std"},
-    "2500": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["2510", "2511", "2512", "2513", "2514", "2515", "2516", "2517"], "default": "2510"},
-    "2800": {"type": "std"}
+    "2500": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "choice_1": {"type": "muc", "components": ["2510", "2511", "2512", "2513", "2514", "2515", "2516", "2517"], "default": "2510", "games": ["bg2ee", "bgt", "eet"]},
+    "2800": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

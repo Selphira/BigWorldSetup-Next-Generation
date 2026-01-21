@@ -12,10 +12,10 @@
       "download": "https://github.com/The-Gate-Project/Com_encounters/releases/download/v1.22/com-encounters-v1.22.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "category": "tactic"},
+    "0": {"type": "std", "category": "tactic", "games": ["bg2ee", "bgt", "eet"]},
     "1": {"type": "std", "category": "tactic"},
     "2": {"type": "std", "category": "tactic"}
   },

@@ -25,14 +25,14 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "30": {"type": "std"},
-    "100": {"type": "std", "category": "smith"}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "100": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet", "iwdee"]}
   },
   "languages": {
     "en_US": 0,

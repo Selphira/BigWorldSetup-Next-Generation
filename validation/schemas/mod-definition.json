@@ -170,7 +170,7 @@
     },
     "gameEnum": {
       "type": "string",
-      "enum": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "pst", "pstee", "iwd", "iwd2", "iwdee"]
+      "enum": ["bg", "bg1", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "pst", "pstee", "iwd", "iwd2", "iwdee"]
     },
     "platformEnum": {
       "type": "string",

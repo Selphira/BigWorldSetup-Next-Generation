@@ -12,10 +12,10 @@
       "download": "https://github.com/Spellhold-Studios/BGSpawn/releases/download/1.3.4/bgspawn-system-1.3.4.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["tactic"],
   "components": {
-    "1000": {"type": "std", "category": "spell"},
+    "1000": {"type": "std", "category": "spell", "games": ["bgt", "eet"]},
     "choice_0": {"type": "muc", "components": ["2100", "2200", "2300", "2400"], "category": "spell", "default": "2100"},
     "choice_1": {"type": "muc", "components": ["3100", "3200", "3300", "3400", "3500", "3600", "3700", "3800"], "category": "spell", "default": "3100"},
     "4000": {"type": "std", "category": "spell"},

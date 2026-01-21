@@ -12,10 +12,10 @@
       "download": "https://github.com/The-Gate-Project/Askaria-Quest_ChaosKnight-kit/releases/download/v2.1/Askaria-Quest_ChaosKnight-kit.v2.1.zip"
     }
   ],
-  "games": ["bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["npc1d", "kit"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]}
   },
   "languages": {
     "ko_KR": 0,

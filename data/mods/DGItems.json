@@ -12,10 +12,10 @@
       "download": "https://github.com/The-Gate-Project/DGItems/releases/download/v2.0/dgitems-2.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith"},
+    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]},
     "1000": {"type": "std", "category": "smith"}
   },
   "languages": {

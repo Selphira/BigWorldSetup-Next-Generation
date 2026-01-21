@@ -12,7 +12,7 @@
       "download": "https://github.com/Alexander12-creator/bg1_icons_pack_mod/archive/refs/tags/1.0.zip"
     }
   ],
-  "games": ["bgee", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["cosm"],
   "components": {
     "0": {"type": "std", "category": "portrait"}

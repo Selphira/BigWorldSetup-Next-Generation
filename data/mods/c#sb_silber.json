@@ -12,10 +12,10 @@
       "download": "https://github.com/Gitjas/Adalons_Blood/releases/download/v17.2/adalons-blood-17.2.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

@@ -27,7 +27,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "tutu", "bg2", "bgt", "bgee", "sod", "bg2ee", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"}

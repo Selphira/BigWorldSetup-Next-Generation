@@ -12,10 +12,10 @@
       "download": "https://github.com/GwendolyneFreddy/Shuri-Ninja/releases/download/v2.0.0/shuri-ninja-kit-2.0.0.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "20", "30"], "default": "10"}
+    "choice_0": {"type": "muc", "components": ["10", "20", "30"], "default": "10", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]}
   },
   "languages": {
     "en_US": 0,

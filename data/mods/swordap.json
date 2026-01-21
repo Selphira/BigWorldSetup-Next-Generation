@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/HaerDalis-Swords/releases/download/v3.1.0/improved-haerdalis-swords-v3.1.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std", "category": "smith"}

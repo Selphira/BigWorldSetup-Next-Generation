@@ -25,7 +25,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["tutu", "bgt", "bgee", "eet"],
+  "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"},

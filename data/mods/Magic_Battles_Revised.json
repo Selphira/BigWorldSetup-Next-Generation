@@ -12,7 +12,7 @@
       "download": "https://github.com/UnearthedArcana/magic_battles_revised/archive/refs/tags/1.9.4.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "10": {"type": "std", "category": "spell"}

@@ -27,11 +27,11 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgt", "eet", "iwdee"],
   "categories": ["smith", "spell"],
   "components": {
-    "33": {"type": "std"},
-    "38": {"type": "std"}
+    "33": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]},
+    "38": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]}
   },
   "languages": {
     "fr_FR": 0

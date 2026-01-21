@@ -12,17 +12,17 @@
       "download": "https://github.com/Argent77/A7-GolemConstruction/archive/refs/heads/devel.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std"},
-    "10": {"type": "std"},
-    "15": {"type": "std"},
-    "20": {"type": "std"},
-    "25": {"type": "std"},
-    "30": {"type": "std"},
-    "35": {"type": "std"},
-    "40": {"type": "std"},
+    "10": {"type": "std", "games": ["bg2ee", "eet"]},
+    "15": {"type": "std", "games": ["bg2ee", "eet"]},
+    "20": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
+    "25": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
+    "30": {"type": "std", "games": ["bg2ee", "eet"]},
+    "35": {"type": "std", "games": ["bg2ee", "eet", "iwdee", "sod"]},
+    "40": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
     "45": {"type": "std"},
     "50": {"type": "std"}
   },

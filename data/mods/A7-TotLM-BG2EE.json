@@ -27,11 +27,11 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "20": {"type": "std"},
+    "0": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
+    "20": {"type": "std", "games": ["bg2ee", "eet"]},
     "choice_0": {"type": "muc", "components": ["30", "31", "32", "33"], "default": "31"},
     "40": {"type": "std"}
   },

@@ -12,7 +12,7 @@
       "download": "https://github.com/cgordon/customs/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bgee", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["smith"],
   "components": {
     "0": {"type": "std"},

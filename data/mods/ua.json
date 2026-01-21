@@ -12,15 +12,15 @@
       "download": "https://github.com/BGforgeNet/bg2-uniqueartifacts/releases/download/v7.14/unique-artifacts-v7.14.zip"
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith"},
-    "1": {"type": "std", "category": "smith"},
-    "2": {"type": "std", "category": "smith"},
-    "choice_0": {"type": "muc", "components": ["3", "4"], "category": "smith", "default": "3"},
-    "5": {"type": "std", "category": "smith"},
-    "6": {"type": "std", "category": "smith"}
+    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "1": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "2": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_0": {"type": "muc", "components": ["3", "4"], "category": "smith", "default": "3", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "5": {"type": "std", "category": "smith", "games": ["bg2ee", "eet"]},
+    "6": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

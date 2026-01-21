@@ -12,18 +12,18 @@
       "download": "https://github.com/Gibberlings3/Road_To_Discovery_for_SoD/releases/download/v5.0/road-to-discovery-for-sod-5.0.zip"
     }
   ],
-  "games": ["bgee", "sod", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "80": {"type": "std"},
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "30": {"type": "std"},
-    "40": {"type": "std"},
-    "50": {"type": "std"},
-    "60": {"type": "std"},
-    "70": {"type": "std"}
+    "80": {"type": "std", "games": ["eet", "sod"]},
+    "0": {"type": "std", "games": ["eet", "sod"]},
+    "10": {"type": "std", "games": ["eet", "sod"]},
+    "20": {"type": "std", "games": ["eet", "sod"]},
+    "30": {"type": "std", "games": ["eet", "sod"]},
+    "40": {"type": "std", "games": ["eet", "sod"]},
+    "50": {"type": "std", "games": ["eet", "sod"]},
+    "60": {"type": "std", "games": ["eet", "sod"]},
+    "70": {"type": "std", "games": ["eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

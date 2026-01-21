@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/Kiara-Zaiya/releases/download/v2.0.1/kiara-zaiya-v2.0.1.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"},

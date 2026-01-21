@@ -46,31 +46,36 @@
     },
     "pl_PL": {
       "components": {
-        "choice_0": "EET end (ostatni mod w kolejnosci instalacji)", "0": "Standardowa instalacja",
+        "choice_0": "EET end (ostatni mod w kolejnosci instalacji)",
+        "0": "Standardowa instalacja",
         "1": "Instalacja z aktualizacja zapisow gry (bez kopii zapasowej, sprawdz readme)"
       }
     },
     "es_ES": {
       "components": {
-        "choice_0": "EET end (ultimo mod en el orden de instalacion)", "0": "Standard installation",
+        "choice_0": "EET end (ultimo mod en el orden de instalacion)",
+        "0": "Standard installation",
         "1": "Also update saves (no backups, check the readme file)"
       }
     },
     "cs_CZ": {
       "components": {
-        "choice_0": "EET end (posledni mod instalace)", "0": "Standardni instalace",
+        "choice_0": "EET end (posledni mod instalace)",
+        "0": "Standardni instalace",
         "1": "Take aktualizovat zaznamy her (zadne zalohy, viz soubor readme)"
       }
     },
     "ru_RU": {
       "components": {
-        "choice_0": "EET end (last mod in install order)", "0": "Standard installation",
+        "choice_0": "EET end (last mod in install order)",
+        "0": "Standard installation",
         "1": "Also update saves (no backups, check the readme file)"
       }
     },
     "de_DE": {
       "components": {
-        "choice_0": "EET end (letze Mod der Installationsreihenfolge)", "0": "Standardinstallation",
+        "choice_0": "EET end (letze Mod der Installationsreihenfolge)",
+        "0": "Standardinstallation",
         "1": "Auch gespeicherte Spielstaende aktualisieren (keine Backups, siehe Readme)"
       }
     }

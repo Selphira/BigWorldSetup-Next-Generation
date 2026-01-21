@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/Back_to_Brynnlaw/releases/download/v9/back-to-brynnlaw-mod-for-baldurs-gate-ii-bgii-bgt-bgiiee-and-eet-v9.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std"}

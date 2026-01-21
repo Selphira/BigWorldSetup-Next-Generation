@@ -12,11 +12,11 @@
       "download": "https://github.com/RoxanneSHS/Caelar/archive/refs/tags/V1.5.zip"
     }
   ],
-  "games": ["bgee", "sod", "eet"],
+  "games": ["bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "std", "category": "npc"},
-    "1": {"type": "std", "category": "npc"}
+    "1": {"type": "std", "category": "npc", "games": ["eet"]}
   },
   "languages": {
     "en_US": 0,

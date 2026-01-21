@@ -12,17 +12,17 @@
       "download": "https://github.com/GraionDilach/RandomGraionTweaks/releases/download/version-1.17/random-graion-tweaks-1.17.zip"
     }
   ],
-  "games": ["tutu", "bg2", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
-    "10": {"type": "std", "category": "spell"},
-    "11": {"type": "std", "category": "spell"},
-    "12": {"type": "std", "category": "spell"},
-    "13": {"type": "std", "category": "spell"},
-    "20": {"type": "std", "category": "spell"},
-    "21": {"type": "std", "category": "spell"},
-    "22": {"type": "std", "category": "spell"},
-    "23": {"type": "std", "category": "spell"},
+    "10": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "11": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "12": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "13": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "20": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "21": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "22": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "23": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "choice_0": {"type": "muc", "components": ["31", "32", "33", "34", "35", "36"], "category": "spell", "default": "31"},
     "choice_1": {"type": "muc", "components": ["41", "42", "43", "44", "45", "46", "47", "48"], "category": "spell", "default": "41"},
     "choice_2": {"type": "muc", "components": ["51", "52", "53", "54", "55", "56", "57", "58"], "category": "spell", "default": "51"},
@@ -31,11 +31,11 @@
     "choice_5": {"type": "muc", "components": ["81", "82", "83", "84", "85", "86"]},
     "100": {"type": "std", "category": "spell"},
     "101": {"type": "std", "category": "spell"},
-    "1000": {"type": "std", "category": "portrait"},
-    "1001": {"type": "std", "category": "portrait"},
+    "1000": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
+    "1001": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "1002": {"type": "std", "category": "portrait"},
-    "9999": {"type": "std", "category": "spell"},
-    "10000": {"type": "std", "category": "spell"}
+    "9999": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "10000": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]}
   },
   "languages": {
     "en_US": 0,

@@ -12,25 +12,25 @@
       "download": "https://github.com/Gibberlings3/EndlessBG1/releases/download/v20.1/endless-bg1-mod-20.1.zip"
     }
   ],
-  "games": ["bgt", "bgee", "sod", "eet"],
+  "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std"},
     "1": {"type": "std"},
-    "2": {"type": "std"},
+    "2": {"type": "std", "games": ["bgee", "eet", "sod"]},
     "3": {"type": "std"},
     "4": {"type": "std"},
     "5": {"type": "std"},
     "6": {"type": "std"},
     "7": {"type": "std"},
     "choice_0": {"type": "muc", "components": ["8", "9"], "default": "8"},
-    "10": {"type": "std"},
-    "11": {"type": "std"},
+    "10": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "11": {"type": "std", "games": ["bgee", "eet", "sod"]},
     "12": {"type": "std"},
     "13": {"type": "std"},
-    "14": {"type": "std"},
-    "15": {"type": "std"},
-    "16": {"type": "std"}
+    "14": {"type": "std", "games": ["eet", "sod"]},
+    "15": {"type": "std", "games": ["eet", "sod"]},
+    "16": {"type": "std", "games": ["eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

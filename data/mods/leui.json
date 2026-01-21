@@ -12,7 +12,7 @@
       "download": "https://github.com/r-e-d/LeUI/releases/download/v4.9.1/lefreuts-enhanced-ui-bg2ee-skin-4.9.1.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["ui"],
   "components": {
     "0": {"type": "std"},

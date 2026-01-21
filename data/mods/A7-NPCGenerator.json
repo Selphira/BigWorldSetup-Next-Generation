@@ -25,12 +25,12 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["npc", "gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "spell", "default": "1"},
-    "20": {"type": "std", "category": "spell"},
-    "21": {"type": "std", "category": "spell"},
+    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "spell", "default": "1", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "20": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "21": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "choice_1": {"type": "muc", "components": ["100", "101"], "category": "spell"}
   },
   "languages": {

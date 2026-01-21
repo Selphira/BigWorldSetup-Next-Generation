@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/MISC_Fairy/archive/refs/tags/v6.1.zip"
     }
   ],
-  "games": ["bgee", "bg2", "tutu", "bgt", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std", "category": "spell"}

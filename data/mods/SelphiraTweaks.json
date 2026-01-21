@@ -12,21 +12,21 @@
       "download": "https://github.com/Selphira/SelphiraTweaks/releases/download/1.4/SelphiraTweaks-v1.4.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "10": {"type": "std", "category": "spell"},
-    "11": {"type": "std", "category": "spell"},
-    "20": {"type": "std", "category": "spell"},
-    "21": {"type": "std", "category": "spell"},
-    "22": {"type": "std", "category": "spell"},
-    "23": {"type": "std", "category": "spell"},
-    "24": {"type": "std", "category": "spell"},
-    "25": {"type": "std", "category": "spell"},
-    "26": {"type": "std", "category": "spell"},
-    "30": {"type": "std", "category": "spell"},
+    "10": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "11": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "20": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "21": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "22": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "23": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "24": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "25": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "26": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
+    "30": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "40": {"type": "std", "category": "spell"},
-    "50": {"type": "std", "category": "spell"}
+    "50": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "fr_FR": 0,

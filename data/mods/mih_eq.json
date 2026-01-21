@@ -12,18 +12,18 @@
       "download": "https://github.com/AngelGryph/MadeInHeaven_EncountersAndQuests/archive/cf68539e06843259faea6c02e0998ef34e6850f3.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["tactic"],
   "components": {
     "105": {"type": "std"},
-    "156": {"type": "std"},
+    "156": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
     "143": {"type": "std"},
-    "151": {"type": "std"},
+    "151": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
     "103": {"type": "std"},
     "106": {"type": "std"},
     "107": {"type": "std"},
     "104": {"type": "std"},
-    "108": {"type": "std"},
+    "108": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
     "150": {"type": "std"},
     "109": {"type": "std"},
     "112": {"type": "std"},

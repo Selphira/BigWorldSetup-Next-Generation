@@ -12,10 +12,10 @@
       "download": "https://github.com/Plutonium-X/SHOP_Mersetek/archive/refs/tags/1.3.2.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "fr_FR": 0,

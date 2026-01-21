@@ -12,14 +12,14 @@
       "download": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap/releases/download/v13.1.1/worldmap-v13.1.1.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["patch"],
   "components": {
     "0": {
       "type": "sub",
       "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}
     },
-    "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1"},
+    "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "3": {"type": "std"},
     "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui"}
   },

@@ -1,6 +1,6 @@
 {
   "name": "D's Odd Quest Mod (Imnesvale)",
-  "version": "2.2.2.0",
+  "version": "2.2.2",
   "links": {
     "homepage": "https://www.shsforums.net/topic/32419-ds-odd-quest-mod/"
   },
@@ -27,10 +27,10 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2"]}
+    "choice_0": {"type": "muc", "components": ["0", "1", "2"], "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

@@ -12,12 +12,12 @@
       "download": "https://github.com/Gibberlings3/EE_Fixpack/releases/download/Alpha_3/eefixpack-Alpha_3.exe"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee", "pstee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["patch"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std", "languages": ["en_US"]},
-    "2": {"type": "std", "languages": ["en_US"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
+    "1": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
+    "2": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]}
   },
   "languages": {
     "en_US": 0,

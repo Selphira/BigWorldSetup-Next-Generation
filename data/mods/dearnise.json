@@ -12,7 +12,7 @@
       "download": "https://github.com/Pocket-Plane-Group/deArnise_Romance/releases/download/v7/deArnise_v7.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"}

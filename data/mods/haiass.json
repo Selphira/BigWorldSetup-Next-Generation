@@ -12,10 +12,10 @@
       "download": "https://github.com/Endarire/Haiass-el-Lobo-for-EET/releases/download/2.4/haiass_v2_4.zip"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc1d"],
   "components": {
-    "0": {"type": "std"},
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "choice_0": {"type": "muc", "components": ["10", "15"], "default": "10"}
   },
   "languages": {

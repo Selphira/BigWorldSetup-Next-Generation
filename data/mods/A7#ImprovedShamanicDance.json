@@ -25,14 +25,14 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std", "category": "kit"},
     "10": {"type": "std", "category": "kit"},
     "20": {"type": "std", "category": "spell"},
     "30": {"type": "std", "category": "kit"},
-    "40": {"type": "std", "category": "kit"}
+    "40": {"type": "std", "category": "kit", "games": ["bg2ee", "eet", "iwdee"]}
   },
   "languages": {
     "en_US": 0,

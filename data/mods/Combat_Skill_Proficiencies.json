@@ -12,7 +12,7 @@
       "download": "https://github.com/subtledoctor/Combat_Skill_Proficiencies/archive/refs/tags/1.5.2.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "10": {"type": "std", "category": "spell"},

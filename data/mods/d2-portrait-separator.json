@@ -12,7 +12,7 @@
       "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.7/portrait-gender-separator-1.7.7z"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["util"],
   "components": {
     "0": {"type": "std", "category": "portrait"}

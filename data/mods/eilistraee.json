@@ -12,7 +12,7 @@
       "download": "https://downloads.weaselmods.net/download/eilistraees-song/?wpdmdl=89"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"]}

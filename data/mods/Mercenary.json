@@ -12,12 +12,12 @@
       "download": "https://github.com/Raduziel/Mercenary-Kit/archive/refs/tags/3.1.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std", "category": "npcx"},
-    "2": {"type": "std", "category": "npcx"}
+    "1": {"type": "std", "category": "npcx", "games": ["bgee", "eet", "sod"]},
+    "2": {"type": "std", "category": "npcx", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

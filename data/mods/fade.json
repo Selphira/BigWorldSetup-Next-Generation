@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/NPC_Fade/archive/refs/tags/v3.1.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"}

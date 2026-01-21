@@ -12,12 +12,12 @@
       "download": "https://github.com/The-Gate-Project/IWD1_EET/archive/refs/heads/main.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["conv"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["2", "3"]},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "games": ["eet"]},
     "0": {"type": "std"},
-    "1": {"type": "std"}
+    "1": {"type": "std", "games": ["eet"]}
   },
   "languages": {
     "ru_RU": 0,

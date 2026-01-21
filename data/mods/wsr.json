@@ -12,11 +12,11 @@
       "download": "https://www.shsforums.net/files/download/960-wizard-slayer-rebalancing-v113-windows-version/"
     }
   ],
-  "games": ["bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
     "100": {"type": "std"},
-    "200": {"type": "std"},
+    "200": {"type": "std", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "choice_0": {"type": "muc", "components": ["301", "302"], "default": "301"},
     "999": {"type": "std"}
   },

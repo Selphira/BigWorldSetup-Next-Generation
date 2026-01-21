@@ -12,10 +12,10 @@
       "download": "https://github.com/The-Gate-Project/IRStore/releases/download/v2.0/irstore-2.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "2", "3", "4", "5"], "default": "0"},
+    "choice_0": {"type": "muc", "components": ["0", "2", "3", "4", "5"], "default": "0", "games": ["bg2ee", "bgt", "eet"]},
     "6": {"type": "std"}
   },
   "languages": {

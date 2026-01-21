@@ -25,10 +25,10 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg", "bg2", "tutu", "bgt", "bgee", "bg2ee", "sod", "eet", "iwd", "iwd2", "iwdee"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
-    "10": {"type": "std"},
+    "10": {"type": "std", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "20": {"type": "std"}
   },
   "languages": {

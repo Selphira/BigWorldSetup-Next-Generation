@@ -12,7 +12,7 @@
       "download": "https://forums.beamdog.com/uploads/editor/hc/n0q8dnnbhnsc.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "sod", "iwdee", "eet"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std", "category": "smith"},

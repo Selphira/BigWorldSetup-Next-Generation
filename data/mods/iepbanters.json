@@ -12,16 +12,16 @@
       "download": "https://github.com/Spellhold-Studios/IEP-Extended-Banters/releases/download/v5.9/iep-extended-banters-v5.9.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "4": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "5": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "choice_0": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"], "games": ["bg2ee", "bgt", "eet"]}
   },
   "languages": {
     "en_US": 0,

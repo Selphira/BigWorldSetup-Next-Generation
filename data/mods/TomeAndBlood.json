@@ -12,7 +12,7 @@
       "download": "https://github.com/UnearthedArcana/TomeAndBlood/archive/refs/tags/1.4.zip"
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["11", "12"], "category": "spell", "default": "11"},

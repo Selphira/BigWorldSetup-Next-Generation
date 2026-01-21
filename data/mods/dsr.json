@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/Demon-Summoning-Ritual/releases/download/v8.0.0/demon-summoning-ritual-v8.0.0.zip"
     }
   ],
-  "games": ["bg2", "bgt", "bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std", "category": "smith"}
