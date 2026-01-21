@@ -2,7 +2,8 @@
   "name": "Weasels!",
   "version": "3.4",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/weasels/"
+    "homepage": "https://downloads.weaselmods.net/download/weasels/",
+    "forums": ["https://www.weaselmods.net/showthread.php?tid=41"]
   },
   "files": [
     {

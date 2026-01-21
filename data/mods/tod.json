@@ -2,7 +2,8 @@
   "name": "Tower of Deception",
   "version": "4.1.0",
   "links": {
-    "homepage": "http://www.blackwyrmlair.net/~valiant/"
+    "homepage": "http://www.blackwyrmlair.net/~valiant/",
+    "forums": ["http://forums.blackwyrmlair.net/index.php?showforum=117"]
   },
   "files": [
     {

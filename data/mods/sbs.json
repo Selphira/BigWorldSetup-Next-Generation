@@ -2,7 +2,8 @@
   "name": "Summon Bhaalspawn (Sandra NPC)",
   "version": "4",
   "links": {
-    "homepage": "https://github.com/11jo/Summon_Bhaalspawn"
+    "homepage": "https://github.com/11jo/Summon_Bhaalspawn",
+    "forums": ["https://github.com/The-Gate-Project/Summon_Bhaalspawn"]
   },
   "files": [
     {

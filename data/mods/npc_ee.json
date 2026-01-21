@@ -2,7 +2,8 @@
   "name": "NPCs Enhanced... um, for Everyone!",
   "version": "6.5.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/27526-npc_ee-new-class-and-kit-options-for-bgee-and-bg2ee-npcs/"
+    "homepage": "https://github.com/UnearthedArcana/NPC_EE",
+    "forums": ["https://www.gibberlings3.net/forums/topic/27526-subtlemods-npc_ee-in-game-customization-for-npcs/"]
   },
   "files": [
     {

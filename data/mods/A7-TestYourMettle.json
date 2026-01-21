@@ -2,7 +2,8 @@
   "name": "Test Your Mettle!",
   "version": "1.6",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/1241-test-your-mettle/"
+    "homepage": "https://www.shsforums.net/files/file/1241-test-your-mettle/",
+    "forums": ["https://www.shsforums.net/forum/666-test-your-mettle-ee/", "https://forums.beamdog.com/discussion/70489"]
   },
   "files": [
     {

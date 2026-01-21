@@ -2,7 +2,8 @@
   "name": "Convenient Enhanced Edition NPCs",
   "version": "5.3",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/43074"
+    "homepage": "https://forums.beamdog.com/discussion/43074",
+    "forums": ["https://www.shsforums.net/topic/58322-mod-disable-enhanced-edition-npcs/", "https://forums.beamdog.com/discussion/43074"]
   },
   "files": [
     {

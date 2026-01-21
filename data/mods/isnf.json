@@ -1,8 +1,9 @@
 {
-  "name": "I Shall Never Forget",
+  "name": "Colours of Infinity: I Shall Never Forget",
   "version": "6.5.3",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/i-shall-never-forget/"
+    "homepage": "https://downloads.weaselmods.net/download/i-shall-never-forget/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=6"]
   },
   "files": [
     {

@@ -2,7 +2,8 @@
   "name": "Custom Kits: Spellsword",
   "version": "1.6",
   "links": {
-    "homepage": "https://www.shsforums.net/topic/45487-custom-kits-the-spellsword/"
+    "homepage": "https://www.shsforums.net/topic/45487-custom-kits-the-spellsword/",
+    "forums": ["https://www.shsforums.net/topic/45487-custom-kits-the-spellsword/"]
   },
   "files": [
     {

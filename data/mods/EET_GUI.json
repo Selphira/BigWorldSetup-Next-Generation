@@ -2,7 +2,8 @@
   "name": "EET Alternative GUI (SoD)",
   "version": "14.1",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/EET"
+    "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
   },
   "games": ["eet"],
   "categories": ["conv"],

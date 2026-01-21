@@ -1,8 +1,9 @@
 {
-  "name": "Bridge's Block",
+  "name": "Athkatlan Grounds: Bridge's Block",
   "version": "2.02",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/bridges-block/"
+    "homepage": "https://downloads.weaselmods.net/download/bridges-block/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=5"]
   },
   "files": [
     {

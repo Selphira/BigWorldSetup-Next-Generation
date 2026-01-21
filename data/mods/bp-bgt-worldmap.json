@@ -2,7 +2,8 @@
   "name": "Worldmap",
   "version": "13.1.1",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap"
+    "homepage": "https://github.com/Spellhold-Studios/BP-BGT-Worldmap",
+    "forums": ["https://www.shsforums.net/forum/401-worldmap/"]
   },
   "files": [
     {

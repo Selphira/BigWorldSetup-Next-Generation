@@ -2,7 +2,8 @@
   "name": "Baldur's Gate Graphical Overhaul",
   "version": "3.5",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/27768-baldurs-gate-graphics-overhaul-for-eet/"
+    "homepage": "https://www.gibberlings3.net/forums/topic/27768-baldurs-gate-graphics-overhaul-for-eet/",
+    "forums": ["https://www.shsforums.net/forum/641-bg-graphics-overhaul/"]
   },
   "files": [
     {

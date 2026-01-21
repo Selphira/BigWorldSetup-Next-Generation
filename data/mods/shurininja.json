@@ -2,7 +2,8 @@
   "name": "Shuri Ninja kit",
   "version": "2.0.0",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33164"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33164",
+    "forums": ["https://www.baldursgateworld.fr/lacouronne/modules-crees-ou-en-cours-de-developpement/33164-kit-le-mod-shuri-ninja-est-disponible-pour-les-jeux-ee.html"]
   },
   "files": [
     {

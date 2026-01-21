@@ -2,7 +2,10 @@
   "name": "Rodeur de l'ombre",
   "version": "1.2",
   "links": {
-    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=23996"
+    "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=23996",
+    "forums": [
+      "https://www.baldursgateworld.fr/lacouronne/modules-crees-ou-en-cours-de-developpement/12359-kit-rodeur-de-l-ombre-rodeur.html"
+    ]
   },
   "files": [
     {

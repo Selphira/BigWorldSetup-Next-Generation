@@ -2,7 +2,8 @@
   "name": "Ascalon's Questpack",
   "version": "6.4",
   "links": {
-    "homepage": "https://www.baldurs-gate.de/index.php?resources/ascalons-questpack.4/"
+    "homepage": "https://www.baldurs-gate.de/index.php?resources/ascalons-questpack.4/",
+    "forums": ["https://www.gibberlings3.net/forums/topic/33156-ascalons-questpack-discussion-and-bug-report-thread/"]
   },
   "files": [
     {

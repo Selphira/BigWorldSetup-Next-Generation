@@ -2,7 +2,8 @@
   "name": "Sir Renal",
   "version": "2.6",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/Sir_Renal"
+    "homepage": "https://github.com/The-Gate-Project/Sir_Renal",
+    "forums": ["https://github.com/The-Gate-Project/Sir_Renal/issues"]
   },
   "files": [
     {

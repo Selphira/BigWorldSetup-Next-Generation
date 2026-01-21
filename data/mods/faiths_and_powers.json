@@ -2,7 +2,10 @@
   "name": "Faiths and Powers",
   "version": "0.91.4",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30792-unearthed-arcana-presents-faiths-powers-gods-of-the-realms/"
+    "homepage": "https://github.com/subtledoctor/Faiths_and_Powers",
+    "forums": [
+      "https://www.gibberlings3.net/forums/topic/30792-unearthed-arcana-presents-faiths-powers-gods-of-the-realms/#comments"
+    ]
   },
   "files": [
     {

@@ -2,7 +2,8 @@
   "name": "Morituri Kit",
   "version": "5.2",
   "links": {
-    "homepage": "http://www.baldursgatemods.com/forums/index.php?topic=142.0"
+    "homepage": "http://www.baldursgatemods.com/forums/index.php?topic=142.0",
+    "forums": ["https://forums.beamdog.com/discussion/73295/many-old-mods-adapted-for-bg2ee/p1"]
   },
   "files": [
     {

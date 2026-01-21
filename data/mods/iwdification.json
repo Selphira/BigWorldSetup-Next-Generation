@@ -2,7 +2,8 @@
   "name": "IWDification",
   "version": "11",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/spells/iwdification/"
+    "homepage": "https://www.gibberlings3.net/mods/spells/iwdification/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/185-iwdification/", "Homepage", "=", "https://www.gibberlings3.net/mods/spells/iwdification/"]
   },
   "files": [
     {

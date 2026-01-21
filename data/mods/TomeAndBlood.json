@@ -2,7 +2,10 @@
   "name": "Tome and Blood",
   "version": "1.4",
   "links": {
-    "homepage": "https://github.com/UnearthedArcana/TomeAndBlood"
+    "homepage": "https://github.com/subtledoctor/TomeAndBlood",
+    "forums": [
+      "https://www.gibberlings3.net/forums/topic/30797-unearthed-arcana-present-tome-blood-more-options-for-arcane-casters/#comments"
+    ]
   },
   "files": [
     {

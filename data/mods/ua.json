@@ -2,7 +2,8 @@
   "name": "Unique Artifacts",
   "version": "7.14",
   "links": {
-    "homepage": "https://github.com/BGforgeNet/bg2-uniqueartifacts"
+    "homepage": "https://bgforge.net/unique-artifacts/",
+    "forums": ["https://forums.bgforge.net/viewforum.php?f=30"]
   },
   "files": [
     {

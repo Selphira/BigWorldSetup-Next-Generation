@@ -2,7 +2,8 @@
   "name": "Dark Horizons",
   "version": "3.05",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1"
+    "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1",
+    "forums": ["https://www.gibberlings3.net/forums/topic/36756-the-gate-project/"]
   },
   "files": [
     {

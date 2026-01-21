@@ -2,7 +2,8 @@
   "name": "Wild Mage Additions",
   "version": "2.4",
   "links": {
-    "homepage": "https://github.com/BGforgeNet/bg2-wildmage?tab=readme-ov-file#new-wild-magic-spells"
+    "homepage": "https://bgforge.net/wild-mage-additions/",
+    "forums": ["https://forums.bgforge.net/viewtopic.php?f=4&t=17"]
   },
   "files": [
     {

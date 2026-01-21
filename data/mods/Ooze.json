@@ -1,8 +1,9 @@
 {
-  "name": "Ooze's Lounge",
+  "name": "Athkatlan Grounds: The Ooze's Lounge",
   "version": "3.0",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/oozes-lounge/"
+    "homepage": "https://downloads.weaselmods.net/download/oozes-lounge/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=5"]
   },
   "files": [
     {

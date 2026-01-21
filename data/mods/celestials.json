@@ -2,7 +2,8 @@
   "name": "P&P Celestials",
   "version": "10",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/spells/celestials/"
+    "homepage": "https://www.gibberlings3.net/mods/spells/celestials/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/28-miscellaneous-released-mods/", "Homepage", "=", "https://www.gibberlings3.net/mods/spells/celestials/"]
   },
   "files": [
     {

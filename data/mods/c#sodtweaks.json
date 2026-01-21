@@ -1,8 +1,9 @@
 {
-  "name": "Jastey's Tweaks for SoD and EET",
+  "name": "Jastey's Tweaks for SoD and EET (and BGT)",
   "version": "13",
   "links": {
-    "homepage": "https://github.com/Gibberlings3/Jasteys_SoD_Tweakpack"
+    "homepage": "https://www.gibberlings3.net/mods/tweaks/jasteys-sod-tweak-pack/",
+    "forums": ["https://www.gibberlings3.net/forums/topic/30427-jasteys-sod-tweakpack/"]
   },
   "files": [
     {

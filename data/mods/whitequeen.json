@@ -1,8 +1,9 @@
 {
-  "name": "The White Queen",
+  "name": "Colours of Infinity: The White Queen",
   "version": "7.4.1",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/the-white-queen/"
+    "homepage": "https://downloads.weaselmods.net/download/the-white-queen/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=6"]
   },
   "files": [
     {

@@ -2,7 +2,8 @@
   "name": "Achievements!",
   "version": "3.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/"
+    "homepage": "https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/",
+    "forums": ["https://www.gibberlings3.net/forums/topic/33035-achievements-for-everyone/"]
   },
   "files": [
     {

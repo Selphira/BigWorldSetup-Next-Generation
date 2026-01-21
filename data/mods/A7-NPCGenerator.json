@@ -2,7 +2,8 @@
   "name": "NPC Generator",
   "version": "1.7",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/80057/mod-npc-generator-npc-creation-made-easy"
+    "homepage": "https://forums.beamdog.com/discussion/80057/mod-npc-generator-npc-creation-made-easy",
+    "forums": ["https://www.gibberlings3.net/forums/topic/31809-npc-generator-npc-creation-made-easy", "https://forums.beamdog.com/discussion/80057/mod-npc-generator-npc-creation-made-easy"]
   },
   "files": [
     {

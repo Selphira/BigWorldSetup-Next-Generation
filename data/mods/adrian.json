@@ -1,8 +1,9 @@
 {
-  "name": "Adrian NPC",
+  "name": "Adrian NPC for BGII",
   "version": "6.1",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/1007-adrian/"
+    "homepage": "http://www.spellholdstudios.net/ie/adrian",
+    "forums": ["https://www.shsforums.net/forum/627-adrian/"]
   },
   "files": [
     {

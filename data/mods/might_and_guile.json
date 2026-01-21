@@ -2,7 +2,8 @@
   "name": "Might & Guile",
   "version": "5.8.8",
   "links": {
-    "homepage": "https://github.com/UnearthedArcana/Might_and_Guile"
+    "homepage": "https://github.com/UnearthedArcana/Might_and_Guile",
+    "forums": ["https://www.gibberlings3.net/forums/topic/27573-unearthed-arcana-presents-might-guile-tweaks-and-kits-for-warriors-and-rogues/#comments"]
   },
   "files": [
     {

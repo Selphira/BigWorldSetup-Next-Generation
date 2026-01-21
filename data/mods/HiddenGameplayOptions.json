@@ -2,7 +2,8 @@
   "name": "Reveal Hidden Gameplay Options",
   "version": "5.0",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-HiddenGameplayOptions"
+    "homepage": "https://github.com/Argent77/A7-HiddenGameplayOptions",
+    "forums": ["https://forums.beamdog.com/discussion/64524", "https://www.shsforums.net/forum/654-hidden-options-ee/"]
   },
   "files": [
     {

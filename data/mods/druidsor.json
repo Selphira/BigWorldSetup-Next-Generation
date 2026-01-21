@@ -2,7 +2,8 @@
   "name": "Geomantic Sorcerer Kit",
   "version": "9",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/kits/geomantic/"
+    "homepage": "https://www.gibberlings3.net/mods/kits/geomantic/",
+    "forums": ["https://www.gibberlings3.net/forum/28-miscellaneous-released-mods/"]
   },
   "files": [
     {

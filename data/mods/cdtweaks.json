@@ -2,7 +2,8 @@
   "name": "The Tweaks Anthology",
   "version": "18",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/tweaks/tweaks/"
+    "homepage": "https://www.gibberlings3.net/mods/tweaks/tweaks/",
+    "forums": ["https://www.gibberlings3.net/forum/34-tweaks-anthology-forum/"]
   },
   "files": [
     {

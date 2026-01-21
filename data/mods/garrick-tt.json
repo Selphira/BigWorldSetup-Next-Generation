@@ -2,7 +2,8 @@
   "name": "Garrick: Tales of a Troubadour",
   "version": "1.28",
   "links": {
-    "homepage": "https://mirandir.baldursgateworld.fr/garrick-tt/fr.html"
+    "homepage": "https://mirandir.baldursgateworld.fr/garrick-tt/fr.html",
+    "forums": ["https://www.baldursgateworld.fr/viewtopic.php?t=26267"]
   },
   "files": [
     {

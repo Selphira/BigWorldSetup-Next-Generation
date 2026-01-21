@@ -2,7 +2,8 @@
   "name": "Ascension",
   "version": "2.1.0",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/30299-g3-ascension-v20-now-available/"
+    "homepage": "https://www.gibberlings3.net/mods/quests/ascension/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/207-ascension/"]
   },
   "files": [
     {

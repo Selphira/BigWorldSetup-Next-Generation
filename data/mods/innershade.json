@@ -1,8 +1,9 @@
 {
-  "name": "Innershade",
+  "name": "Colours of Infinity: Innershade",
   "version": "11.16",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/innershade/"
+    "homepage": "https://downloads.weaselmods.net/download/innershade/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=6"]
   },
   "files": [
     {

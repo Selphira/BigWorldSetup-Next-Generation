@@ -214,6 +214,7 @@ class Mod:
         "description",
         "readme",
         "homepage",
+        "forums",
         "safe",
         "authors",
         "_components_raw",
@@ -249,6 +250,7 @@ class Mod:
         links = data.get("links")
         self.homepage: str | None = links.get("homepage")
         self.readme: str | None = links.get("readme")
+        self.forums: tuple[str, ...] = tuple(links.get("forums", []))
 
         # Other
         self.safe: int = data.get("safe", 2)

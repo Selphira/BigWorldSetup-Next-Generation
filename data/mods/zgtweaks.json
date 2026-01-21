@@ -2,7 +2,8 @@
   "name": "Random Graion Tweaks",
   "version": "1.17",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/34458-random-graion-tweaks/"
+    "homepage": "https://www.gibberlings3.net/forums/topic/34458-random-graion-tweaks/",
+    "forums": ["https://github.com/GraionDilach/RandomGraionTweaks/discussions"]
   },
   "files": [
     {

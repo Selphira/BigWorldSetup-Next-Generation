@@ -2,7 +2,8 @@
   "name": "Banter Accelerator for Enhanced Edition games",
   "version": "1.6",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-BanterAccelerator"
+    "homepage": "https://github.com/Argent77/A7-BanterAccelerator",
+    "forums": ["https://forums.beamdog.com/discussion/64551/mod-banter-accelerator-for-enhanced-edition-games"]
   },
   "files": [
     {

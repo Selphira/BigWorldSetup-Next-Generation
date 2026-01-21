@@ -1,8 +1,9 @@
 {
-  "name": "Southern Edge",
+  "name": "Athkatlan Grounds: Southern Edge",
   "version": "5.4",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/southern-edge/"
+    "homepage": "https://downloads.weaselmods.net/download/southern-edge/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=5"]
   },
   "files": [
     {

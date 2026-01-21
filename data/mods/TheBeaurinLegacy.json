@@ -2,7 +2,8 @@
   "name": "The Beaurin Legacy",
   "version": "5.3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/beaurin/"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/beaurin/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/200-the-beaurin-legacy/"]
   },
   "files": [
     {

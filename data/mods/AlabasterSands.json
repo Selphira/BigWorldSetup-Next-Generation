@@ -1,8 +1,9 @@
 {
-  "name": "Alabaster Sands",
+  "name": "Athkatlan Grounds: Alabaster Sands",
   "version": "1.9.2",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/alabaster-sands/"
+    "homepage": "https://downloads.weaselmods.net/download/alabaster-sands/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=5"]
   },
   "files": [
     {

@@ -35,9 +35,18 @@
           "type": "string",
           "format": "uri"
         },
-        "forum": {
+        "readme": {
           "type": "string",
           "format": "uri"
+        },
+        "forums": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "minItems": 1,
+          "uniqueItems": true
         }
       },
       "additionalProperties": false

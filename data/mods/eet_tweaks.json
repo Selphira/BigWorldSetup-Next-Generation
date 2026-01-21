@@ -1,8 +1,9 @@
 {
-  "name": "Baldur's Gate: Enhanced Edition Trilogy Tweaks",
+  "name": "Baldur's Gate: Enhanced Edition Trilogy Tweaks (EET Tweaks)",
   "version": "1.12",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/27754-eet-tweaks-overview/"
+    "homepage": "https://www.gibberlings3.net/forums/topic/27754-eet-tweaks-overview/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/196-eet-tweaks/"]
   },
   "files": [
     {

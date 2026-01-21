@@ -2,7 +2,8 @@
   "name": "5E Spellcasting",
   "version": "2.7.1",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/32551-5e-spellcasting-rules-conversion/"
+    "homepage": "https://github.com/UnearthedArcana/5E_spellcasting",
+    "forums": ["https://www.gibberlings3.net/forums/topic/32551-subtlemods-5e-spellcasting-rules-conversion/"]
   },
   "files": [
     {

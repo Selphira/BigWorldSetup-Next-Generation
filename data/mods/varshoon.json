@@ -1,8 +1,9 @@
 {
-  "name": "Varshoon",
+  "name": "Varshoon - the Illithid NPC SoA & ToB",
   "version": "8.2",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/varshoon/"
+    "homepage": "https://downloads.weaselmods.net/download/varshoon/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=15"]
   },
   "files": [
     {

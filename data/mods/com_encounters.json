@@ -2,7 +2,8 @@
   "name": "Com_encounters",
   "version": "1.22",
   "links": {
-    "homepage": "http://mods.chosenofmystra.net/encounters/index.html"
+    "homepage": "http://mods.chosenofmystra.net/encounters/index.html",
+    "forums": ["https://www.gibberlings3.net/forums/topic/36756-the-gate-project/"]
   },
   "files": [
     {

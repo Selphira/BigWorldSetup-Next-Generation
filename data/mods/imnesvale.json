@@ -1,8 +1,9 @@
 {
-  "name": "D's Odd Quest Mod (Imnesvale)",
+  "name": "Imnesvale",
   "version": "2.2.2",
   "links": {
-    "homepage": "https://www.shsforums.net/topic/32419-ds-odd-quest-mod/"
+    "homepage": "https://www.shsforums.net/forum/234-miscellaneous-released-mods/",
+    "forums": ["https://www.shsforums.net/topic/32419-ds-odd-quest-mod/"]
   },
   "files": [
     {

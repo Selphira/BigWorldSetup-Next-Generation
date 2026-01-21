@@ -1,8 +1,9 @@
 {
-  "name": "Tangled Oak Isle",
+  "name": "Athkatlan Grounds: The Tangled Oak Isle",
   "version": "4.5.3",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/tangled-oak-isle/"
+    "homepage": "https://downloads.weaselmods.net/download/tangled-oak-isle/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=5"]
   },
   "files": [
     {

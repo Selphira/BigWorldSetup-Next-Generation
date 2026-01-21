@@ -530,7 +530,8 @@
       "link": {
         "homepage": "Page d'accueil",
         "download": "Téléchargement",
-        "readme": "Documentation"
+        "readme": "Documentation",
+        "forum": "Forum"
       },
       "quality": {
         "safe": "Mod de qualité",

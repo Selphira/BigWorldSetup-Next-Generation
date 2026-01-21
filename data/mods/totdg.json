@@ -1,8 +1,9 @@
 {
-  "name": "Tales of the Deep Gardens",
+  "name": "Colours of Infinity: Tales of the Deep Gardens",
   "version": "12.96",
   "links": {
-    "homepage": "https://downloads.weaselmods.net/download/tales-of-the-deep-gardens/"
+    "homepage": "https://downloads.weaselmods.net/download/tales-of-the-deep-gardens/",
+    "forums": ["https://www.weaselmods.net/forumdisplay.php?fid=6"]
   },
   "files": [
     {

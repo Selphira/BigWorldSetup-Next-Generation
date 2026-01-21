@@ -2,7 +2,8 @@
   "name": "Vampire Tales",
   "version": "108",
   "links": {
-    "homepage": "http://mods.chosenofmystra.net/vampiretales/index.html"
+    "homepage": "http://mods.chosenofmystra.net/vampiretales/index.html",
+    "forums": ["https://www.gibberlings3.net/forums/topic/36756-the-gate-project/"]
   },
   "files": [
     {

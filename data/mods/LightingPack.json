@@ -2,7 +2,8 @@
   "name": "Shader Pack: Lighting Adjustments for the Enhanced Editions",
   "version": "3.2",
   "links": {
-    "homepage": "https://github.com/Argent77/A7-LightingPackEE"
+    "homepage": "https://github.com/Argent77/A7-LightingPackEE",
+    "forums": ["https://www.shsforums.net/topic/57097-mod-lighting-pack-shader-scripts-for-the-enhanced-edition/", "https://forums.beamdog.com/discussion/36828/mod-lighting-pack-for-the-enhanced-edition"]
   },
   "files": [
     {

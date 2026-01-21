@@ -2,7 +2,8 @@
   "name": "Thalantyr Item Upgrade",
   "version": "4.5.1",
   "links": {
-    "homepage": "https://www.shsforums.net/topic/57944-thalantyr-item-upgrade-updated-again/"
+    "homepage": "https://www.shsforums.net/topic/57944-thalantyr-item-upgrade-updated-again/",
+    "forums": ["https://forums.beamdog.com/discussion/75981/thalantyr-item-upgrade-bg-ee-eet", "https://www.shsforums.net/topic/57944-thalantyr-item-upgrade-updated-again/"]
   },
   "files": [
     {

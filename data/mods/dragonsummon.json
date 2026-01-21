@@ -2,7 +2,8 @@
   "name": "Red Dragon Summoning",
   "version": "2.1.0",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/799-dragon-summon-weidu/"
+    "homepage": "https://www.shsforums.net/files/file/799-dragon-summon-weidu/",
+    "forums": ["https://www.shsforums.net/topic/40883-red-dragon-summoning-spell-weidu-version/"]
   },
   "files": [
     {

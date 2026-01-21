@@ -2,7 +2,8 @@
   "name": "The Minotaur and Lilacor",
   "version": "2.1",
   "links": {
-    "homepage": "https://www.shsforums.net/topic/41667-the-minotaur-and-lilacor/"
+    "homepage": "https://www.shsforums.net/topic/41667-the-minotaur-and-lilacor/",
+    "forums": ["https://www.shsforums.net/topic/41667-the-minotaur-and-lilacor/"]
   },
   "files": [
     {

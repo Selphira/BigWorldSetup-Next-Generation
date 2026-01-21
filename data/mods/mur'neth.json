@@ -2,7 +2,8 @@
   "name": "Mur'Neth NPC Mod",
   "version": "14",
   "links": {
-    "homepage": "https://www.gibberlings3.net/mods/npcs/murneth/"
+    "homepage": "https://www.gibberlings3.net/mods/npcs/murneth/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/50-murneth/"]
   },
   "files": [
     {

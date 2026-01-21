@@ -1,8 +1,9 @@
 {
-  "name": "IWD1-IWD2-EET",
+  "name": "IWD2_EET",
   "version": "1.1",
   "links": {
-    "homepage": "https://github.com/The-Gate-Project/IWD2_EET"
+    "homepage": "https://github.com/The-Gate-Project/IWD2_EET",
+    "forums": ["https://github.com/orgs/The-Gate-Project/discussions"]
   },
   "files": [
     {

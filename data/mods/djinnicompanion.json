@@ -2,7 +2,8 @@
   "name": "Afaaq, the Djinni Companion",
   "version": "2.11",
   "links": {
-    "homepage": "https://argent77.github.io/DjinniCompanion/index.html"
+    "homepage": "https://argent77.github.io/DjinniCompanion/index.html",
+    "forums": ["https://www.shsforums.net/forum/651-djinni-companion/", "https://forums.beamdog.com/discussion/41108/mod-afaaq-the-djinni-companion-for-bg2-and-bg2-ee-released/"]
   },
   "files": [
     {

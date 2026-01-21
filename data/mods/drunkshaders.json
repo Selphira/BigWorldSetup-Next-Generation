@@ -1,8 +1,11 @@
 {
-  "name": "Sharpening filter",
+  "name": "drunkshaders",
   "version": "0.3.5",
   "links": {
-    "homepage": "https://forums.beamdog.com/discussion/87794/mod-sharpening-filter-bgee1-3-like-look-and-more-via-shaders/p1"
+    "homepage": "https://github.com/dtiefling/dshaders",
+    "forums": [
+      "https://forums.beamdog.com/discussion/87794/request-for-comments-potential-mod-sharpening-filter-via-shaders"
+    ]
   },
   "files": [
     {

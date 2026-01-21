@@ -2,7 +2,8 @@
   "name": "Isra NPC for BG",
   "version": "3.5",
   "links": {
-    "homepage": "https://www.shsforums.net/files/file/1042-isra/"
+    "homepage": "https://www.shsforums.net/files/file/1042-isra/",
+    "forums": ["https://www.shsforums.net/forum/638-isra/"]
   },
   "files": [
     {

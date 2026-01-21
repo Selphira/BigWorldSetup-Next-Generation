@@ -2,7 +2,8 @@
   "name": "The Unusual Oddities Shop",
   "version": "5.0",
   "links": {
-    "homepage": "https://github.com/Spellhold-Studios/Unusual-Oddities-Shop"
+    "homepage": "https://github.com/Spellhold-Studios/Unusual-Oddities-Shop",
+    "forums": ["https://www.shsforums.net/topic/60756-the-unusual-oddities-shop-updated-to-v50/"]
   },
   "files": [
     {
