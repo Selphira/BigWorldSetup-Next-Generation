@@ -313,7 +313,7 @@ class GamePredicateParser:
     def _parse_primary_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse primary expression (NOT, parentheses, or condition)."""
         if pos >= len(tokens):
-            return set(), pos
+            return self.supported_games.copy(), pos
 
         token = tokens[pos]
 
@@ -351,7 +351,7 @@ class GamePredicateParser:
             TokenType.REQUIRE_COMPONENT,
             TokenType.EOF,
         ):
-            return set(), pos
+            return self.supported_games.copy(), pos
 
         while pos < len(tokens):
             t = tokens[pos]
@@ -372,7 +372,7 @@ class GamePredicateParser:
                 break
             pos += 1
 
-        return set(), pos
+        return self.supported_games.copy(), pos
 
     def _parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse GAME_IS ~games~."""
@@ -386,6 +386,8 @@ class GamePredicateParser:
             games = set()
             for game in game_list.split():
                 game = game.lower()
+                if game == "bgee" and "sod" in self.supported_games:
+                    games.add("sod")
                 if game in self.supported_games:
                     games.add(game)
             return games, pos + 1
