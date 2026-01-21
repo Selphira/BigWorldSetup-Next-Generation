@@ -1,15 +1,16 @@
 {
   "name": "SubtleD's Item Tweaks",
-  "version": "1.4.1",
+  "version": "1.5",
   "links": {
-    "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks"
+    "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks",
+    "forums": ["https://www.gibberlings3.net/forums/topic/37239-subtlemods-subtleds-item-tweaks/#comment-328377"]
   },
   "files": [
     {
-      "filename": "SubtleD_Item_Tweaks-1.4.1.zip",
-      "size": 2048857,
-      "sha256": "957b47e69bd5145845adae7840dc49a966f8c04fef743ab6563cb74c2247be33",
-      "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.4.1.zip"
+      "filename": "SubtleD_Item_Tweaks-1.5.zip",
+      "size": 2053097,
+      "sha256": "0b9aa4c40c7392f92f336c6c0d0557381d55c9df95fc499901bc68bc906ebe52",
+      "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.5.zip"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
