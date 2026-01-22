@@ -1,0 +1,44 @@
+{
+  "name": "Sylmar Battlefield",
+  "version": "1.03a",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/564-sylmar-battlefield-v1025/"
+  },
+  "files": [
+    {
+      "filename": "1SylmAlphaUP.zip",
+      "size": 4136467,
+      "sha256": "584c076941978451326084db3116a85c5eb59e630a0f9b11239bed0c1e5176ca",
+      "download": "https://github.com/Spellhold-Studios/Sylmar-Battlefield/releases/download/v1.03a/1SylmAlphaUP.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "fr_FR": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute un combat et une quête stratégique au contenu de Baldur's Gate II: Shadows of Amn. Aidez une nation d'elfes dont les lieux sacrés de sépulture ont été envahis. Combattez aux côtés de l'armée elfique et testez votre sens tactique contre des hordes d'orques qui attaquent continuellement et même contre des démons mortels et cauchemardesques, tout en gardant le commandant elfe en vie et en préservant leurs terres sacrées.\nAttention : ce mod est difficile, les orcs et autres créatures évoluant en fonction de votre niveau.",
+      "components": {
+        "0": "Sylmar - Elves vs Orcs"
+      }
+    },
+    "en_US": {
+      "description": "This mod adds combat and a strategic quest to the content of Baldur's Gate II: Shadows of Amn. Help a nation of elves whose sacred burial grounds have been invaded. Fight alongside the elven army and test your tactical acumen against continually attacking hordes of orcs and even deadly, nightmarish demons, all the while keeping the elven commander alive and preserving their sacred lands.\nWarning: this mod is difficult, as orcs and other creatures evolve according to your level.",
+      "components": {
+        "0": "Sylmar - Elves vs Orcs"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组在博德之门 II：安姆阴影的内容中增加了一场战斗和一个战略性任务。帮助一个精灵国家，他们的圣地被入侵了。与精灵军队并肩作战，测试你的战术感，对抗不断攻击的兽人大军，甚至对抗致命而噩梦般的恶魔，同时保持精灵指挥官的 alive 并保护他们的圣地。\n注意：这个模组很难，兽人和其他生物会根据你的等级而进化。"
+    }
+  },
+  "tp2": "1sylm",
+  "safe": 2,
+  "authors": ["Zyraen"]
+}
