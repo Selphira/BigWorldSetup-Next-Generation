@@ -1,0 +1,81 @@
+{
+  "name": "\"Level Up\" Icon Tweaks",
+  "version": "2.7",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/1222-level-up-icon-tweaks/",
+    "forums": ["https://forums.beamdog.com/discussion/64259/"]
+  },
+  "files": [
+    {
+      "filename": "lin-A7-LevelUpTweaks-v2.7.zip",
+      "size": 1108455,
+      "download": "https://github.com/Argent77/A7-LevelUpTweaks/releases/download/v2.7/lin-A7-LevelUpTweaks-v2.7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-LevelUpTweaks-v2.7.zip",
+      "size": 1314772,
+      "download": "https://github.com/Argent77/A7-LevelUpTweaks/releases/download/v2.7/mac-A7-LevelUpTweaks-v2.7.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-LevelUpTweaks-v2.7.zip",
+      "size": 1280793,
+      "download": "https://github.com/Argent77/A7-LevelUpTweaks/releases/download/v2.7/win-A7-LevelUpTweaks-v2.7.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["pstee"],
+  "categories": ["cosm"],
+  "components": {
+    "0": {"type": "std"},
+    "10": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "it_IT": 1,
+    "pl_PL": 2,
+    "de_DE": 3,
+    "fr_FR": 4
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mini mod apporte une modification cosmétique de confort à l'interface de PST:EE. Vous pouvez configurer l'affichage ou non de l'icône de passage au niveau supérieur et choisir de la déplacer sur le portrait du personnage.",
+      "components": {
+        "0": "Configurer l'activation de l'icone de \"niveau superieur\" dans baldur.lua",
+        "10": "Deplacer l'icone de \"niveau superieur\" sur le portrait du personnage"
+      }
+    },
+    "en_US": {
+      "description": "This mini mod brings a cosmetic comfort modification to the PST:EE interface. You can configure whether or not the level-up icon is displayed, and choose to move it to the character portrait.",
+      "components": {
+        "0": "Enable \"level up\" icon activation switch in baldur.lua",
+        "10": "Move \"level up\" icon into character portrait"
+      }
+    },
+    "zh_CN": {
+      "description": "此迷你模组为《异度风景：苦难》增强版的界面带来了一项舒适性的外观修改。您可以配置是否显示升级图标，并选择将其移动到角色肖像上。"
+    },
+    "it_IT": {
+      "components": {
+        "0": "Attiva il passaggio dell'icona \"Livello Superiore\" nel file baldur.lua",
+        "10": "Sposta l'icona \"Livello Superiore\" nel ritratto del personaggio"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Umozliwia wlaczenie ikony zmiany poziomu w pliku baldur.lua",
+        "10": "Przenosi ikone zmiany poziomu na portret postaci"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Aktivierungsschluessel fuer \"Stufe erhoehen\"-Symbol in baldur.lua einrichten",
+        "10": "\"Stufe erhoehen\"-Symbol in Charakterportraets verschieben"
+      }
+    }
+  },
+  "tp2": "a7-leveluptweaks",
+  "safe": 2,
+  "authors": ["Argent77"]
+}
