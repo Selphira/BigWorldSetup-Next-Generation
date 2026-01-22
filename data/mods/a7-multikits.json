@@ -1,0 +1,162 @@
+{
+  "name": "Multiclass Kits",
+  "version": "1.1",
+  "links": {
+    "homepage": "https://github.com/Argent77/A7-MultiKits",
+    "forums": ["https://forums.beamdog.com/discussion/89800/", "https://www.gibberlings3.net/forums/topic/40601-mod-multiclass-kits"]
+  },
+  "files": [
+    {
+      "filename": "lin-A7-MultiKits-v1.1.zip",
+      "size": 1901765,
+      "sha256": "2ff706de89d53f585bede7bbf0a65de1ed45f94080f8c9593e8ad5bb659df768",
+      "download": "https://github.com/Argent77/A7-MultiKits/releases/download/v1.1/lin-A7-MultiKits-v1.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-MultiKits-v1.1.zip",
+      "size": 2129293,
+      "sha256": "4f8f75fd251e5b8de3f4373bfecdbc8c983b3415a95c89bd53198788adb8a390",
+      "download": "https://github.com/Argent77/A7-MultiKits/releases/download/v1.1/mac-A7-MultiKits-v1.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-MultiKits-v1.1.zip",
+      "size": 2074106,
+      "sha256": "f4c47af7f291714b41c7229687a407666ecdfe4e6033d9752b37555d407219bf",
+      "download": "https://github.com/Argent77/A7-MultiKits/releases/download/v1.1/win-A7-MultiKits-v1.1.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
+  "categories": ["kit"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["10", "11"]},
+    "choice_1": {"type": "muc", "components": ["20", "21"]},
+    "choice_2": {"type": "muc", "components": ["30", "31"]},
+    "choice_3": {"type": "muc", "components": ["40", "41"]},
+    "choice_4": {"type": "muc", "components": ["50", "51"]},
+    "choice_5": {"type": "muc", "components": ["60", "61"]},
+    "choice_6": {"type": "muc", "components": ["70", "71"]},
+    "choice_7": {"type": "muc", "components": ["80", "81"]},
+    "choice_8": {"type": "muc", "components": ["90", "91"]},
+    "choice_9": {"type": "muc", "components": ["100", "101"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "fr_FR": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod vous permet d'installer toutes sortes de kits multiclassés authentiques à partir de n'importe quelle combinaison de kits monoclassés, ce qui permet des combinaisons inhabituelles telles que Kensaï/Assassin ou Berserker/Entropiste/Bretteur. Les kits personnalisés provenant de mods sont également pris en compte s'ils sont détectés.",
+      "components": {
+        "choice_0": "Kits multiclases pour Guerrier/Mage",
+        "10": "Toutes les combinaisons de kits",
+        "11": "Choisir manuellement",
+        "choice_1": "Kits multiclases pour Guerrier/Clerc",
+        "20": "Toutes les combinaisons de kits",
+        "21": "Choisir manuellement",
+        "choice_2": "Kits multiclases pour Guerrier/Voleur",
+        "30": "Toutes les combinaisons de kits",
+        "31": "Choisir manuellement",
+        "choice_3": "Kits multiclases pour Guerrier/Mage/Voleur",
+        "40": "Toutes les combinaisons de kits",
+        "41": "Choisir manuellement",
+        "choice_4": "Kits multiclases pour Mage/Voleur",
+        "50": "Toutes les combinaisons de kits",
+        "51": "Choisir manuellement",
+        "choice_5": "Kits multiclases pour Clerc/Mage",
+        "60": "Toutes les combinaisons de kits",
+        "61": "Choisir manuellement",
+        "choice_6": "Kits multiclases pour Clerc/Voleur",
+        "70": "Toutes les combinaisons de kits",
+        "71": "Choisir manuellement",
+        "choice_7": "Kits multiclases pour Guerrier/Druid",
+        "80": "Toutes les combinaisons de kits",
+        "81": "Choisir manuellement",
+        "choice_8": "Kits multiclases pour Guerrier/Mage/Clerc",
+        "90": "Toutes les combinaisons de kits",
+        "91": "Choisir manuellement",
+        "choice_9": "Kits multiclases pour Clerc/Ranger",
+        "100": "Toutes les combinaisons de kits",
+        "101": "Choisir manuellement"
+      }
+    },
+    "en_US": {
+      "description": "This mod allows you to install all kinds of true multiclass kits from any combination of single-class kits which allows unusual combinations such as Kensai/Assassin or Berserker/Wild Mage/Swashbuckler. Custom kits from mods are considered as well if detected.",
+      "components": {
+        "choice_0": "Multiclass kits for Fighter/Mage",
+        "10": "All kit combinations",
+        "11": "Choose manually",
+        "choice_1": "Multiclass kits for Fighter/Cleric",
+        "20": "All kit combinations",
+        "21": "Choose manually",
+        "choice_2": "Multiclass kits for Fighter/Thief",
+        "30": "All kit combinations",
+        "31": "Choose manually",
+        "choice_3": "Multiclass kits for Fighter/Mage/Thief",
+        "40": "All kit combinations",
+        "41": "Choose manually",
+        "choice_4": "Multiclass kits for Mage/Thief",
+        "50": "All kit combinations",
+        "51": "Choose manually",
+        "choice_5": "Multiclass kits for Cleric/Mage",
+        "60": "All kit combinations",
+        "61": "Choose manually",
+        "choice_6": "Multiclass kits for Cleric/Thief",
+        "70": "All kit combinations",
+        "71": "Choose manually",
+        "choice_7": "Multiclass kits for Fighter/Druid",
+        "80": "All kit combinations",
+        "81": "Choose manually",
+        "choice_8": "Multiclass kits for Fighter/Mage/Cleric",
+        "90": "All kit combinations",
+        "91": "Choose manually",
+        "choice_9": "Multiclass kits for Cleric/Ranger",
+        "100": "All kit combinations",
+        "101": "Choose manually"
+      }
+    },
+    "zh_CN": {
+      "description": "该模组允许您安装各类标准多职业套组（由任意单职业套组组合而成），可实现诸如剑圣/刺客或狂战士/狂乱法师/游荡剑客等非常规组合。若检测到来自其他模组的自定义职业套组，系统亦会将其纳入兼容范围。"
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Mehrklassige Kits fuer Kaempfer/Magier",
+        "10": "Alle Kitkombinationen",
+        "11": "Manuell auswaehlen",
+        "choice_1": "Mehrklassige Kits fuer Kaempfer/Kleriker",
+        "20": "Alle Kitkombinationen",
+        "21": "Manuell auswaehlen",
+        "choice_2": "Mehrklassige Kits fuer Kaempfer/Dieb",
+        "30": "Alle Kitkombinationen",
+        "31": "Manuell auswaehlen",
+        "choice_3": "Mehrklassige Kits fuer Kaempfer/Magier/Dieb",
+        "40": "Alle Kitkombinationen",
+        "41": "Manuell auswaehlen",
+        "choice_4": "Mehrklassige Kits fuer Magier/Dieb",
+        "50": "Alle Kitkombinationen",
+        "51": "Manuell auswaehlen",
+        "choice_5": "Mehrklassige Kits fuer Kleriker/Magier",
+        "60": "Alle Kitkombinationen",
+        "61": "Manuell auswaehlen",
+        "choice_6": "Mehrklassige Kits fuer Kleriker/Dieb",
+        "70": "Alle Kitkombinationen",
+        "71": "Manuell auswaehlen",
+        "choice_7": "Mehrklassige Kits fuer Kaempfer/Druide",
+        "80": "Alle Kitkombinationen",
+        "81": "Manuell auswaehlen",
+        "choice_8": "Mehrklassige Kits fuer Kaempfer/Magier/Kleriker",
+        "90": "Alle Kitkombinationen",
+        "91": "Manuell auswaehlen",
+        "choice_9": "Mehrklassige Kits fuer Kleriker/Waldlaeufer",
+        "100": "Alle Kitkombinationen",
+        "101": "Manuell auswaehlen"
+      }
+    }
+  },
+  "tp2": "a7-multikits",
+  "safe": 2,
+  "authors": ["Argent77"]
+}
