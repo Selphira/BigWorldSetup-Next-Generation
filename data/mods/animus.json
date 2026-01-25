@@ -1,0 +1,40 @@
+{
+  "name": "Animus Weapon",
+  "version": "1.1",
+  "links": {
+    "homepage": "https://github.com/BartVanBeurden/bgee-animus",
+    "forums": ["https://forums.beamdog.com/discussion/22982/"]
+  },
+  "files": [
+    {
+      "filename": "Animus.1.1.zip",
+      "size": 895245,
+      "download": "https://github.com/BartVanBeurden/bgee-animus/releases/download/1.1/Animus.1.1.zip"
+    }
+  ],
+  "games": ["bgee", "eet", "sod"],
+  "categories": ["spell"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute une nouvelle épée télépathique dans le jeu : Animus. Contrairement à Lilarcor, Animus est raisonnablement intelligente et capable de tenir une vraie conversation. Il s'agit d'une arme +1 sans avantages particuliers, mais lorsque vous en saurez un peu plus sur votre héritage, elle pourra être améliorée en une épée longue +2 avec quelques avantages supplémentaires, au prix de sa capacité à converser. Vous pourrez l'acquérir pour un prix raisonnable dans le magasin général de Nashkel."
+    },
+    "en_US": {
+      "description": "This mod adds a new telepathic sword to the game: Animus. Unlike Lilarcor, Animus is reasonably intelligent and capable of holding a real conversation. It's a +1 weapon with no particular benefits, but once you know a little more about your heritage, it can be upgraded to a +2 longsword with a few extra benefits, at the cost of its ability to converse. You can buy it for a reasonable price in Nashkel's general store.",
+      "components": {
+        "0": "Animus Weapon"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组在游戏中添加了一把新的心灵之剑：Animus。与 Lilarcor 不同，Animus 相当理智，能够进行真正的对话。这是一把 +1 的武器，没有特殊优势，但当你对自己的身世有了更多了解后，它可以被升级为一把 +2 的长剑，并增加一些额外优势，代价是其对话能力。你可以在那西凯的杂货店以合理的价格买到它。"
+    }
+  },
+  "tp2": "animus",
+  "safe": 1,
+  "authors": ["Tome", "Alkalurops", "Eleandor"]
+}
