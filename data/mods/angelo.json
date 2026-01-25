@@ -1,0 +1,69 @@
+{
+  "name": "Angelo NPC for BGII",
+  "version": "9",
+  "links": {
+    "homepage": "https://www.gibberlings3.net/mods/npcs/angelo/",
+    "forums": ["https://www.gibberlings3.net/forums/forum/147-angelo/"]
+  },
+  "files": [
+    {
+      "filename": "lin-angelo-v9.zip",
+      "size": 11363711,
+      "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/lin-angelo-v9.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-angelo-v9.zip",
+      "size": 13142879,
+      "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/osx-angelo-v9.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "angelo-v9.exe",
+      "size": 14420522,
+      "sha256": "aae922229614e8b737e595d454cf6d314c3beaf567c18836d4d8898b6eee5f46",
+      "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/angelo-v9.exe",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce nom vous rappelle-t-il quelque chose ? Eh oui ! La sombre brute alliée de Sarevok et infiltrée au sein du Poing Enflammé... Vous avez désormais la certitude que vous ne l'avez pas tué lors de votre sinistre combat sous la Porte de Baldur, et il vous fera une offre lorsqu'il vous rencontrera au cimetière d'Athkatla. Il dispose de quelques interactions avec la plupart des PNJ du jeu de base. Si vous jouez une femme, vous pourrez également tenter de le romancer. Enfin, il dispose d'une quête personnelle qui peut se prolonger jusque dans ToB.\nFOR 15, DEX 15, CON 16, INT 17, SAG 11, CHA 10."
+    },
+    "en_US": {
+      "description": "Does the name ring a bell? Yes, it does! The dark brute allied to Sarevok and infiltrated into the Flaming Fist... You're now certain that you didn't kill him in your sinister fight under Baldur's Gate, and he'll make you an offer when he meets you in the Athkatla Graveyard. He has a few interactions with most of the NPCs in the base game. If you're playing a woman, you can also try to romance him. Finally, he has a personal quest that can extend into ToB.\nSTR 15, DEX 15, CON 16, INT 17, WIS 11, CHA 10.",
+      "components": {
+        "0": "Angelo NPC MOD for Baldur's Gate II",
+        "choice_0": "Angelo's alternative portraits",
+        "1": "Angelo's portrait, edited by SisterVigilante",
+        "2": "Angelo's alternative portrait by Amaurea",
+        "3": "Angelo's alternative portrait from http://cassinus.free.fr"
+      }
+    },
+    "zh_CN": {
+      "description": "这个名字让你想起什么了吗？没错！就是那个与沙洛佛克为盟、并潜入燃烧之拳的黑暗打手……你现在可以确定，在那次 Baldur 之门的恶战之后，你没有杀死他，当你在阿斯卡特拉墓地与他相遇时，他会向你提出一个提议。他与游戏中的大多数 NPC 都有一些互动。如果你玩的是女性角色，你还可以尝试与他发展浪漫关系。最后，他有一个个人任务线，可以一直延续到 ToB。\n力量 15，敏捷 15，体质 16，智力 17，智慧 11，魅力 10。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Angelo NPC MOD for Baldur's Gate II",
+        "choice_0": "Angelo's alternative portraits",
+        "1": "Angelo's portrait, edited by SisterVigilante",
+        "2": "Angelo's alternative portrait by Amaurea",
+        "3": "Angelo's alternative portrait from http://cassinus.free.fr"
+      }
+    }
+  },
+  "tp2": "angelo",
+  "safe": 2,
+  "authors": ["Sister Vigilante", "Kulyok", "CamDawg"]
+}
