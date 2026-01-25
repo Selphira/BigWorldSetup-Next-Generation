@@ -1,0 +1,60 @@
+{
+  "name": "A7-TextureConvert",
+  "version": "3.4",
+  "links": {
+    "homepage": "https://github.com/Argent77/A7-TextureConvert",
+    "forums": []
+  },
+  "files": [
+    {
+      "filename": "A7-TextureConvert-v3.4.zip",
+      "size": 11546982,
+      "download": "https://github.com/Argent77/A7-TextureConvert/releases/download/v3.4/A7-TextureConvert-v3.4.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
+  "categories": ["util"],
+  "components": {
+    "choice_0": {
+      "type": "muc",
+      "components": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
+    }
+  },
+  "languages": {
+    "en_US": 0,
+    "all": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Un mod d'aide qui vous permet d'automatiser la conversion des textures PVRZ vers les différents types de compression utilisés par les variantes mobiles des jeux de l'Enhanced Edition."
+    },
+    "en_US": {
+      "components": {
+        "choice_0": "Convert PVRZ files",
+        "0": "PVRTC 2bpp: All game files",
+        "1": "PVRTC 2bpp: All game files, alpha-blended files only",
+        "2": "PVRTC 2bpp: Override files only",
+        "3": "PVRTC 2bpp: Override files only, alpha-blended files only",
+        "4": "PVRTC 4bpp: All game files (iOS recommended)",
+        "5": "PVRTC 4bpp: All game files, alpha-blended files only (iOS recommended)",
+        "6": "PVRTC 4bpp: Override files only (iOS recommended)",
+        "7": "PVRTC 4bpp: Override files only, alpha-blended files only (iOS recommended)",
+        "8": "ETC1: All game files",
+        "9": "ETC1: All game files, alpha-blended files only",
+        "10": "ETC1: Override files only",
+        "11": "ETC1: Override files only, alpha-blended files only",
+        "12": "ETC2: All game files",
+        "13": "ETC2: All game files, alpha-blended files only",
+        "14": "ETC2: Override files only",
+        "15": "ETC2: Override files only, alpha-blended files only"
+      },
+      "description": "A helper mod that lets you automate the conversion of PVRZ textures to the different compression types used by the mobile variants of Enhanced Edition games."
+    },
+    "zh_CN": {
+      "description": "这是一个辅助模组，可让您自动将PVRZ纹理转换为增强版游戏移动版本所使用的不同压缩类型。"
+    }
+  },
+  "tp2": "a7-textureconvert",
+  "safe": 2,
+  "authors": ["Argent77"]
+}
