@@ -1,0 +1,71 @@
+{
+  "name": "Ascalon's Breagar",
+  "version": "12.2.1",
+  "links": {
+    "homepage": "https://www.baldurs-gate.de/index.php?resources/ascalons-breagar.3/"
+  },
+  "files": [
+    {
+      "filename": "ascalons-breagar-12.2.1.zip",
+      "size": 46147933,
+      "download": "https://github.com/Gitjas/Ascalons_Breagar/releases/download/v12.2.1/ascalons-breagar-12.2.1.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
+  "categories": ["npc", "kit"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
+    "2": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
+    "choice_0": {"type": "muc", "components": ["10", "11", "12", "13"]}
+  },
+  "languages": {
+    "de_DE": 0,
+    "en_US": 1,
+    "ru_RU": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute Breagar du clan Bardormar en tant que PNJ recrutable dans Baldur's Gate I et II. D'alignement loyal bon, il dispose de son propre profil de forgeron nain. Le mod contient des dialogues, des créatures, des objets et des quêtes.\nPour BGT et EET, Breagar fonctionne comme un personnage continu tout au long de la trilogie. Il existe trois épilogues différents dans ToB selon les choix du joueur.\nPour BG:EE, Tutu, BGII et BG2:EE, seul le contenu correspondant au jeu sera installé."
+    },
+    "en_US": {
+      "description": "This mod adds Breagar of the Bardormar clan as a recruitable NPC in Baldur's Gate I and II. Aligned as a lawful good, he has his own dwarven blacksmith profile. For BGT and EET, Breagar functions as a continuous character throughout the trilogy. For BG:EE, Tutu, BGII and BG2:EE, only content corresponding to the game will be installed.",
+      "components": {
+        "0": "Breagar: Contents",
+        "2": "Breagar: Crossmods and PID",
+        "choice_0": "Change Breagar's dialog timer? (Default is 30 minutes between dialogues.)",
+        "10": "45 minutes real time between talks",
+        "11": "1 hour real time between talks",
+        "12": "15 minutes real time between talks",
+        "13": "1 hour 30 minutes real time between talks"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组在博德之门I和II中添加了来自巴多尔玛尔氏族的Breagar作为可招募的NPC。他拥有守序善良的阵营，并有自己独特的矮人锻造师档案。该模组包含对话、生物、物品和任务。\n对于博德之门三部曲和增强版三部曲，Breagar在整个三部曲中作为一个持续的角色存在。在巴尔王座中，根据玩家的选择，有三个不同的结局。\n对于博德之门：增强版、Tutu、博德之门II和博德之门II：增强版，只会安装与游戏相对应的内容。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Breagar: Inhalte",
+        "2": "Breagar: Crossmods und PID",
+        "choice_0": "Zeit zwischen Breagars Gespraechen veraendern? (Default ist 30 Minuten Realzeit zwischen den Gespraechen.)",
+        "10": "45 Minuten Realzeit zwischen den Gespraechen",
+        "11": "1 Stunde Realzeit zwischen den Gespraechen",
+        "12": "15 Minuten Realzeit zwischen den Gespraechen",
+        "13": "1 Stunde 30 Minuten Realzeit zwischen den Gespraechen"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Breagar: Contents",
+        "2": "Breagar: Crossmods and PID",
+        "choice_0": "Change Breagar's dialog timer? (Default is 30 minutes between dialogues.)",
+        "10": "45 minutes real time between talks",
+        "11": "1 hour real time between talks",
+        "12": "15 minutes real time between talks",
+        "13": "1 hour 30 minutes real time between talks"
+      }
+    }
+  },
+  "tp2": "acbre",
+  "safe": 2,
+  "authors": ["Ascalon", "White Agnus", "jastey"]
+}
