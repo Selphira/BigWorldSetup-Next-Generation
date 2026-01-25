@@ -1,0 +1,83 @@
+{
+  "name": "Sir Ajantis NPC for BGII",
+  "version": "21",
+  "links": {
+    "homepage": "https://www.gibberlings3.net/mods/npcs/ajantis-bg2/"
+  },
+  "files": [
+    {
+      "filename": "lin-ajantisbg2-v21.zip",
+      "size": 7285474,
+      "sha256": "13e5017eb362ce70785b54321adea80fd32d9d10a72dc52aef9c2f1eb7c4a000",
+      "download": "https://github.com/Gibberlings3/Ajantis_BG2/releases/download/v21/lin-ajantisbg2-v21.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-ajantisbg2-v21.zip",
+      "size": 7512998,
+      "sha256": "494473540152ab3548fc83648d6daac26f28f09220e98bfc3f7cdbb31b4c1f99",
+      "download": "https://github.com/Gibberlings3/Ajantis_BG2/releases/download/v21/mac-ajantisbg2-v21.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-ajantisbg2-v21.zip",
+      "size": 7457815,
+      "sha256": "8fd9c7fce50d0f690196c5982d27f71ef83b0ccfdba7a3ebcb2e1cca100b8601",
+      "download": "https://github.com/Gibberlings3/Ajantis_BG2/releases/download/v21/win-ajantisbg2-v21.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "1": {"type": "std", "games": ["bg2ee", "eet"]},
+    "3": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["40", "41", "42", "43", "44"]},
+    "5": {"type": "std"}
+  },
+  "languages": {
+    "de_DE": 0,
+    "en_US": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Avec ce mod, Ajantis, le paladin de l'Ordre du Cœur Radieux dans BG1, peut intégrer le groupe après le combat dans les Collines de Lancevent. Il comporte une romance qui poursuit celle du Ajantis BG1 Expansion Modification (en cas de trilogie), ou toute une nouvelle, ainsi que la possibilité de développer une profonde amitié avec lui. Le mod suppose qu'Ajantis a voyagé avec le PC dans BG1 pendant un certain temps. C'est là qu'Ajantis a gagné suffisamment d'honneur pour être fait chevalier.\nFOR 17, DEX 13, CON 16, INT 12, SAG 16, CHA 17."
+    },
+    "en_US": {
+      "description": "With this mod, Ajantis, the paladin of the Order of the Radiant Heart in BG1, can join the party after the battle in the Windspear Hills. It includes a romance that continues the one in Ajantis BG1 Expansion Modification (in case of a trilogy), or a whole new one, as well as the possibility of developing a deep friendship with him. The mod assumes that Ajantis has been traveling with the PC in BG1 for some time. This is where Ajantis earned enough honor to be knighted.\nSTR 17, DEX 13, CON 16, INT 12, WIS 16, CHA 17.",
+      "components": {
+        "0": "Sir Ajantis NPC for BGII",
+        "1": "Install the unique BG(II):EE BAM for Ajantis' Family Shield",
+        "3": "Installation of adult romance content",
+        "choice_0": "Select Ajantis' Friendship Dialogues and Romance Speed:",
+        "40": "Speed: 1 hour real time (standard) minimum between Dialogues",
+        "41": "Speed: 45 minutes real time minimum between Dialogues",
+        "42": "Speed: 30 minutes real time minimum between Dialogues",
+        "43": "Speed: 15 minutes real time minimum between Dialogues",
+        "44": "Speed: 1 hour 30 minutes (extended) real time minimum between Dialogues",
+        "5": "Ajantis kit choice: make Ajantis Cavalier"
+      }
+    },
+    "zh_CN": {
+      "description": "通过此模组，博德之门1中最高贵的光辉之心骑士团的圣武士阿詹提斯，可以在长矛丘陵的战斗后加入队伍。它包含一段恋情，延续了Ajantis BG1 Expansion Modification的恋情线（如果是三部曲），或者是一段全新的恋情，以及与他发展深厚友谊的可能性。该模组假设阿詹提斯在博德之门1期间与主角一起旅行了一段时间。正是在那里，阿詹提斯赢得了足够的荣誉，被封为骑士。\n力量17，敏捷13，体质16，智力12，智慧16，魅力17。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Sir Ajantis NPC fuer BGII",
+        "1": "Installiere das spezielle BG(II):EE BAM fuer Ajantis' Familienschild",
+        "3": "AEndern der Romanzenfreigabe: Romanze mit Intimszenen installieren.",
+        "choice_0": "Zeitabstaende zwischen den Freundschaftsdialogen und Lovetalks mit Ajantis:",
+        "40": "1 Stunde Realzeit zwischen Dialogen (Standard).",
+        "41": "45 Minuten Realzeit zwischen Dialogen.",
+        "42": "30 Minuten Realzeit zwischen Dialogen.",
+        "43": "15 Minuten Realzeit zwischen Dialogen.",
+        "44": "1 Stunde und 30 Minuten Realzeit zwischen Dialogen.",
+        "5": "Wahl des Kits fuer Ajantis: Ritter"
+      }
+    }
+  },
+  "tp2": "ajantisbg2",
+  "safe": 2,
+  "authors": ["jastey"]
+}
