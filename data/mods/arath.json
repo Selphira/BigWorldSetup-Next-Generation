@@ -1,0 +1,45 @@
+{
+  "name": "Arath NPC mod for Baldur's Gate 2: SoA & ToB",
+  "version": "6",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/1001-arath/"
+  },
+  "files": [
+    {
+      "filename": "arath-v6.zip",
+      "size": 12432597,
+      "download": "https://github.com/Spellhold-Studios/Arath-NPC/releases/download/v6/arath-v6.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Un nouveau druide humain, avec du contenu pour SoA et ToB. Ce personnage est présenté comme complexe dans ses opinions et croyances. Hédoniste, il peut s'intéresser aux PJ masculins comme féminins, et est relativement direct dans ses manières même s'il n'arrivera pas toujours à ses fins. Il a une aversion pour les morts-vivants et toutes les créatures non naturelles. Une nouvelle quête (chapitre 6) est également au programme, ainsi qu'une voie de l'amitié, des réactions à la quête du PJ, banters... Vous le rencontrerez durant la quête des esclavagistes au chapitre 2.\nFOR 13, DEX 11, CON 13, INT 13, SAG 16, CHA 15."
+    },
+    "en_US": {
+      "description": "A new human druid, with content for SoA and ToB. This character is presented as complex in his opinions and beliefs. A hedonist, he can be interested in both male and female PJs, and is relatively direct in his manners even if he won't always get his way. He has an aversion to the undead and all unnatural creatures. A new quest (chapter 6) is also on the program, as well as a path of friendship, reactions to the PJ's quest, banters... You'll meet him during the slavers' quest in chapter 2.\nSTR 13, DEX 11, CON 13, INT 13, WIS 16, CHA 15.",
+      "components": {
+        "0": "Arath NPC for BGII: SoA & ToB"
+      }
+    },
+    "zh_CN": {
+      "description": "一位新的人类德鲁伊，带有 SoA 和 ToB 的内容。这个角色在观点和信仰上被认为是复杂的。他是享乐主义者，可能会对男性或女性玩家角色感兴趣，并且方式相当直接，尽管他并不总能如愿以偿。他厌恶不死生物和所有非自然的生物。还有一个新的任务（第6章），以及友谊路线、对主角任务的反应、banters……你将在第2章的奴隶贩子任务期间遇到他。\n力量 13，敏捷 11，体质 13，智力 13，智慧 16，魅力 15。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Arath NPC for BGII: SoA & ToB"
+      }
+    }
+  },
+  "tp2": "arath",
+  "safe": 2,
+  "authors": ["K'aeloree"]
+}
