@@ -1,0 +1,75 @@
+{
+  "name": "Freely resizeable combat log for PST:EE",
+  "version": "1.4",
+  "links": {
+    "homepage": "https://github.com/Argent77/A7-ResizeableCombatLog",
+    "forums": ["https://www.shsforums.net/files/file/1221-freely-resizeable-combat-log-for-PSTee/"]
+  },
+  "files": [
+    {
+      "filename": "lin-A7-ResizeableCombatLog-v1.4.zip",
+      "size": 1112977,
+      "download": "https://github.com/Argent77/A7-ResizeableCombatLog/releases/download/v1.4/lin-A7-ResizeableCombatLog-v1.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-ResizeableCombatLog-v1.4.zip",
+      "size": 1319312,
+      "download": "https://github.com/Argent77/A7-ResizeableCombatLog/releases/download/v1.4/mac-A7-ResizeableCombatLog-v1.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-ResizeableCombatLog-v1.4.zip",
+      "size": 1285315,
+      "download": "https://github.com/Argent77/A7-ResizeableCombatLog/releases/download/v1.4/win-A7-ResizeableCombatLog-v1.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["pstee"],
+  "categories": ["cosm"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "it_IT": 1,
+    "pl_PL": 2,
+    "de_DE": 3,
+    "fr_FR": 4
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod permet de redimensionner dans toutes les directions le journal de combat de PST:EE qui ne pouvait l'être que sur l'axe vertical.",
+      "components": {
+        "0": "Journal de combat librement redimensionnable"
+      }
+    },
+    "en_US": {
+      "description": "This mod resizes the PST:EE battle log in all directions, which could only be resized vertically.",
+      "components": {
+        "0": "Freely resizeable combat log"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组允许在所有方向上调整异度风景：苦难的战斗日志，而原版只能在垂直轴上调整。"
+    },
+    "it_IT": {
+      "components": {
+        "0": "Modifica liberamente le dimensioni della finestra che mostra la cronologia di combattimento"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Dowolnie skalowalny dziennik bitewny"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Frei skalierbares Kampflogbuch"
+      }
+    }
+  },
+  "tp2": "a7-resizeablecombatlog",
+  "safe": 2,
+  "authors": ["Argent77"]
+}
