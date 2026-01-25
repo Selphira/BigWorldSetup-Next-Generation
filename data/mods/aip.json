@@ -1,0 +1,58 @@
+{
+  "name": "Adventures in Papperland",
+  "version": "6.0",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/139-adventures-in-papperland/",
+    "forums": ["https://www.shsforums.net/forum/127-mod-resurrections/"]
+  },
+  "files": [
+    {
+      "filename": "adventures-in-papperland-v6.0.zip",
+      "size": 5263000,
+      "download": "https://github.com/Spellhold-Studios/Adventures-in-Papperland/releases/download/v6.0/adventures-in-papperland-v6.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "de_DE": 2,
+    "es_ES": 3
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mini mod n'est rien d'autre qu'une plaisanterie. Il vous permet de rencontrer et de discuter avec un groupe légendaire, les Beatles. Vous les trouverez dans l'auberge des Cinq Chopes."
+    },
+    "en_US": {
+      "description": "This mini-mod is nothing but a joke. It lets you meet and chat with a legendary band, The Beatles. You'll find them in the Five Flagons Inn.",
+      "components": {
+        "0": "Adventures in Papperland"
+      }
+    },
+    "zh_CN": {
+      "description": "这个迷你模组不过是个玩笑。它让你可以在游戏中遇见并交谈一支传奇乐队——披头士。你会在五酒壶旅店里找到他们。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Adventures in Papperland"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Abenteuer im Pfefferland"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Adventuras en Papperland"
+      }
+    }
+  },
+  "tp2": "aip",
+  "safe": 2,
+  "authors": ["CBisson"]
+}
