@@ -1,0 +1,94 @@
+{
+  "name": "Bags of Torment",
+  "version": "1.3",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/1224-bags-of-torment/"
+  },
+  "files": [
+    {
+      "filename": "lin-A7-BagsOfTorment-v1.3.zip",
+      "size": 1170994,
+      "download": "https://github.com/Argent77/A7-BagsOfTorment/releases/download/v1.3/lin-A7-BagsOfTorment-v1.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-BagsOfTorment-v1.3.zip",
+      "size": 1377302,
+      "download": "https://github.com/Argent77/A7-BagsOfTorment/releases/download/v1.3/mac-A7-BagsOfTorment-v1.3.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-BagsOfTorment-v1.3.zip",
+      "size": 1343332,
+      "download": "https://github.com/Argent77/A7-BagsOfTorment/releases/download/v1.3/win-A7-BagsOfTorment-v1.3.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["pstee"],
+  "categories": ["spell"],
+  "components": {
+    "0": {"type": "std"},
+    "10": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ko_KR": 2,
+    "pl_PL": 3,
+    "ru_RU": 4,
+    "fr_FR": 5,
+    "it_IT": 6
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mini mod ajoute quelques conteneurs au jeu, qui peuvent être achetés dans différents magasins : le sac en cuir de diablotin, le cristal de stockage modrone et la singularité de poche. L'un d'eux pourrait même déclencher une petite quête.\nUn composant optionnel permet aux contenants du jeu de stocker plus de 32 000 objets.",
+      "components": {
+        "0": "Conteneurs pour PST:EE",
+        "10": "Augmentation de la capacite des contenants"
+      }
+    },
+    "en_US": {
+      "description": "This mini mod adds a few containers to the game, which can be purchased in different stores: the Imp leather bag, the modrone storage crystal and the pocket singularity. An optional component enables the game's containers to store over 32,000 items.",
+      "components": {
+        "0": "Containers for PST:EE",
+        "10": "Increase storage capacity of containers"
+      }
+    },
+    "zh_CN": {
+      "description": "此小型模组在游戏中添加了一些容器，这些容器可以在不同的商店中买到：小魔鬼皮袋、模机存储水晶和口袋奇点。其中甚至可能触发一个小任务。\n一个可选组件允许游戏中的容器存储超过32,000个物品。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Taschen fuer PST:EE",
+        "10": "Kapazitaet der Taschen erhoehen"
+      }
+    },
+    "ko_KR": {
+      "components": {
+        "0": "PST:EE ¿ë º¸°üÇÔ",
+        "10": "º¸°üÇÔÀÇ ¼ö¿ë·® Áõ°¡"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Pojemniki dla PST:EE",
+        "10": "Zwieksz pojemnosc toreb"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Containers for PST:EE",
+        "10": "Increase storage capacity of containers"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Containers for PST:EE",
+        "10": "Aumenta lo spazio disponibile nei contenitori"
+      }
+    }
+  },
+  "tp2": "bagsoftorment",
+  "safe": 2,
+  "authors": ["Argent77"]
+}
