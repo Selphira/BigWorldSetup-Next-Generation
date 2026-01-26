@@ -1,0 +1,41 @@
+{
+  "name": "BS Balduran's Seatower",
+  "version": "EAOB.9",
+  "links": {
+    "homepage": "https://www.gibberlings3.net/mods/quests/baldurans-seatower/",
+    "forums": ["https://forums.beamdog.com/discussion/77570/"]
+  },
+  "files": [
+    {
+      "filename": "bs-baldurans-seatower-veaob.9.zip",
+      "size": 97496802,
+      "sha256": "b1f8c6c6d7eef08580f17de2fbca8571740d0e0bdacd0e4999731a347be28648",
+      "download": "https://github.com/Gibberlings3/BS_Baldurans_Seatower/releases/download/vEAOB.9/bs-baldurans-seatower-veaob.9.zip"
+    }
+  ],
+  "games": ["bgee", "bgt", "eet", "sod"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod est le fruit d'une collaboration entre de nombreux moddeurs. Il ajoute un nouveau quartier à La Porte de Baldur, avec de nombreuses quêtes qui vous obligeront à arpenter la Côte des Épées."
+    },
+    "en_US": {
+      "description": "This mod is the fruit of collaboration between many modders. It adds a new district to Baldur's Gate, with numerous quests that will require you to roam the Sword Coast.",
+      "components": {
+        "0": "The BS Company presents Balduran's Seatower"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组是众多模组作者合作的成果。它为博德之门添加了一个新区域，并包含许多任务，这些任务将迫使你游历剑湾海岸。"
+    }
+  },
+  "tp2": "bst",
+  "safe": 2,
+  "authors": ["Multiple"]
+}
