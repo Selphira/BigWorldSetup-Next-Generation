@@ -1,34 +1,53 @@
 {
   "name": "Subrace MOD for Enhanced Edition Games",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "links": {
-    "homepage": "https://www.gibberlings3.net/forums/topic/32267-subrace-mod/"
+    "homepage": "https://github.com/dark0dave/Subrace-mod",
+    "forums": ["https://www.gibberlings3.net/forums/topic/32267-subrace-mod/#comment-290572"]
   },
   "files": [
     {
-      "filename": "Subrace-mod-main.zip",
-      "size": 1517882,
-      "sha256": "03b8d09cd617d69ff7e2e5405ab41eb36a734b59046675d15ef7ade56bfdf1b2",
-      "download": "https://github.com/dark0dave/Subrace-mod/archive/refs/heads/main.zip"
+      "filename": "lin-subrace-v0.3.3.zip",
+      "size": 1346466,
+      "sha256": "78e715b188e8f553120a3facb13e6f714a95e8995eff5670145756727f6f0df3",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/lin-subrace-v0.3.3.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-subrace-v0.3.3.zip",
+      "size": 1573984,
+      "sha256": "7ea0b87dbf9bb5da54d874696bcd63191b7265bf1e5b3472b7a93621254171e4",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/mac-subrace-v0.3.3.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-subrace-v0.3.3.zip",
+      "size": 1518807,
+      "sha256": "6857b82fd5c609546ec6a6588c04edafdb81a8e75215e99ffca53f923b2d906b",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/win-subrace-v0.3.3.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bg2ee", "eet", "iwdee"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"}
+    "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"},
+    "300": {"type": "std"}
   },
   "languages": {
-    "ru_RU": 0,
-    "en_US": 1,
-    "fr_FR": 2
+    "en_US": 0,
+    "ru_RU": 1,
+    "fr_FR": 2,
+    "pt_BR": 3
   },
   "translations": {
     "fr_FR": {
       "description": "Voici un mod qui propose des sous-races pour les personnages.",
       "components": {
-        "choice_0": "Mod Subrace ( sous-race ) pour Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
+        "choice_0": "Sous-races pour Enhanced Edition",
         "100": "Change les couleurs de la sous-race (Cheveux et Peau)",
-        "200": "Ne pas changer les couleurs de la sous-race (Cheveux et Peau)"
+        "200": "Ne pas changer les couleurs de la sous-race (Cheveux et Peau)",
+        "300": "Kitsune"
       }
     },
     "en_US": {
@@ -36,7 +55,8 @@
       "components": {
         "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
         "100": "Change subrace colors (Hair and Skin)",
-        "200": "No change subrace colors (Hair and Skin)"
+        "200": "No change subrace colors (Hair and Skin)",
+        "300": "Kitsune"
       }
     },
     "zh_CN": {
@@ -46,7 +66,16 @@
       "components": {
         "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
         "100": "Change subrace colors (Hair and Skin)",
-        "200": "No change subrace colors (Hair and Skin)"
+        "200": "No change subrace colors (Hair and Skin)",
+        "300": "Kitsune"
+      }
+    },
+    "pt_BR": {
+      "components": {
+        "choice_0": "Mod de Sub-raças para Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
+        "100": "Alterar cores das sub-raças (Cabelo e Pele)",
+        "200": "Não alterar cores das sub-raças (Cabelo e Pele)",
+        "300": "Kitsune"
       }
     }
   },
