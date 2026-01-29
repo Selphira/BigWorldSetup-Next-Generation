@@ -81,17 +81,6 @@ class ComponentGroup:
 
 @dataclass(frozen=True, slots=True)
 class Rule:
-    """Base rule class.
-
-    Attributes:
-        rule_type: Type of rule
-        severity: Rule severity
-        sources: Reference/source components
-        targets: List of target components
-        description: Human-readable explanation
-        source_url: Optional URL for documentation
-    """
-
     rule_type: RuleType
     severity: RuleSeverity
     sources: tuple[ComponentReference, ...]
@@ -100,71 +89,64 @@ class Rule:
     source_url: str | None = None
 
     @staticmethod
-    def _parse_component_refs(data: Any) -> list[ComponentReference]:
-        """Parse component references from various formats.
-
-        Accepts:
-        - Single string: "mod_id" or "mod_id:comp"
-        - Single dict: {"mod": "mod_id", "component": "comp"}
-        - List of strings or dicts
-
-        Returns list of ComponentReference objects.
-        Raises ValueError if data is invalid.
-        """
-
+    def _parse_component_refs(data: Any) -> tuple[ComponentReference, ...]:
         if not isinstance(data, list):
             data = [data]
 
         if not data:
             raise ValueError("Component reference list cannot be empty")
 
-        refs = []
-        for item in data:
-            if isinstance(item, str):
-                refs.append(ComponentReference.from_string(item))
-            elif isinstance(item, dict):
-                if "mod" not in item:
-                    raise ValueError(f"Component reference dict missing 'mod' key: {item}")
-                refs.append(ComponentReference(item["mod"], item.get("component")))
-            else:
-                raise ValueError(f"Invalid component reference type: {type(item)}")
-
-        return refs
+        return tuple(ComponentReference.from_string(item) for item in data)
 
     @classmethod
-    def _parse_sources_and_targets(
-        cls, data: dict[str, Any]
-    ) -> tuple[tuple[ComponentReference, ...], tuple[ComponentReference, ...]]:
-        """Parse and validate sources and targets from rule data.
+    def _parse_groups(cls, data: list) -> tuple[ComponentGroup, ...]:
+        if not isinstance(data, list) or not data:
+            raise ValueError("Component groups must be a non-empty list")
 
-        Returns tuple of (sources, targets).
-        Raises ValueError if required fields are missing or invalid.
-        """
-        if "source" not in data:
-            raise ValueError("Missing required field: 'source'")
+        groups: list[ComponentGroup] = []
 
-        if "target" not in data:
-            raise ValueError("Missing required field: 'target'")
+        for idx, item in enumerate(data):
+            if isinstance(item, dict):
+                components = item.get("components", [])
+                operator = DependencyMode(item.get("operator", "any"))
+            elif isinstance(item, list):
+                components = item
+                operator = DependencyMode.ANY
+            else:
+                raise ValueError(f"Group {idx} must be list or dict")
 
-        sources = cls._parse_component_refs(data["source"])
-        targets = cls._parse_component_refs(data["target"])
+            if not components:
+                raise ValueError(f"Group {idx} must not be empty")
 
-        return tuple(sources), tuple(targets)
+            groups.append(
+                ComponentGroup(
+                    components=cls._parse_component_refs(components),
+                    operator=operator,
+                )
+            )
+
+        return tuple(groups)
+
+    @classmethod
+    def _parse_side(
+        cls, data: dict, name: str
+    ) -> tuple[
+        tuple[ComponentReference, ...],
+        tuple[ComponentGroup, ...] | None,
+    ]:
+        std = data.get(name)
+        groups = data.get(f"{name}_groups")
+
+        if groups:
+            parsed_groups = cls._parse_groups(groups)
+            flat = tuple(c for g in parsed_groups for c in g.components)
+            return flat, parsed_groups
+
+        return cls._parse_component_refs(std), None
 
 
 @dataclass(frozen=True, slots=True)
 class DependencyRule(Rule):
-    """Dependency rule with mode and implicit ordering.
-
-    Dependencies automatically create ordering constraints:
-    - ALL mode: source requires ALL targets → all targets BEFORE source
-    - ANY mode: source requires ANY target → at least one target BEFORE source
-
-    Supports advanced group syntax:
-    - source_groups: Multiple groups of sources (AND between groups, operator within)
-    - target_groups: Multiple groups of targets (AND between groups, operator within)
-    """
-
     dependency_mode: DependencyMode = DependencyMode.ANY
     implicit_order: bool = True
     source_groups: tuple[ComponentGroup, ...] | None = None
@@ -172,102 +154,35 @@ class DependencyRule(Rule):
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "DependencyRule":
-        """Create DependencyRule from dictionary.
-
-        Supports three syntaxes:
-        1. Standard: {"source": [...], "target": [...], "mode": "any/all"}
-        2. Source groups: {"source_groups": [[...], [...]], "target": [...], "mode": "any/all"}
-        3. Target groups: {"source": [...], "target_groups": [[...], [...]], "mode": "any/all"}
-        4. Both groups: {"source_groups": [...], "target_groups": [...], "mode": "any/all"}
-
-        Raises ValueError if required fields are missing or invalid.
-        """
-        has_source_groups = "source_groups" in data
-        has_target_groups = "target_groups" in data
-        has_standard_source = "source" in data
-        has_standard_target = "target" in data
-
-        # Must have at least source and target definition
-        if not (has_source_groups or has_standard_source):
-            raise ValueError("Missing required field: 'source' or 'source_groups'")
-        if not (has_target_groups or has_standard_target):
-            raise ValueError("Missing required field: 'target' or 'target_groups'")
-
-        # Cannot mix standard and groups for same side
-        if has_source_groups and has_standard_source:
-            raise ValueError("Cannot specify both 'source' and 'source_groups'")
-        if has_target_groups and has_standard_target:
-            raise ValueError("Cannot specify both 'target' and 'target_groups'")
-
-        dependency_mode = DependencyMode(data.get("mode", "any"))
-        severity = RuleSeverity(data.get("severity", "error"))
-        implicit_order = data.get("implicit_order", True)
-        description = data.get("description", "")
-        source_url = data.get("source_url")
-
-        if has_source_groups:
-            source_groups = cls._parse_component_groups(data["source_groups"])
-            # For indexing, we need a flat list of all source components
-            sources = tuple(comp for group in source_groups for comp in group.components)
-        else:
-            source_groups = None
-            sources = tuple(cls._parse_component_refs(data["source"]))
-
-        if has_target_groups:
-            target_groups = cls._parse_component_groups(data["target_groups"])
-            # For indexing, we need a flat list of all target components
-            targets = tuple(comp for group in target_groups for comp in group.components)
-        else:
-            target_groups = None
-            targets = tuple(cls._parse_component_refs(data["target"]))
+        sources, source_groups = cls._parse_side(data, "source")
+        targets, target_groups = cls._parse_side(data, "target")
 
         return cls(
             rule_type=RuleType.DEPENDENCY,
-            severity=severity,
+            severity=RuleSeverity(data.get("severity", "error")),
             sources=sources,
             targets=targets,
-            dependency_mode=dependency_mode,
-            implicit_order=implicit_order,
-            description=description,
-            source_url=source_url,
+            dependency_mode=DependencyMode(data.get("mode", "any")),
+            implicit_order=data.get("implicit_order", True),
+            description=data.get("description", ""),
+            source_url=data.get("source_url"),
             source_groups=source_groups,
             target_groups=target_groups,
         )
 
-    @classmethod
-    def _parse_component_groups(cls, groups_data: list[list]) -> tuple[ComponentGroup, ...]:
-        """Parse component groups from JSON data."""
-        if not isinstance(groups_data, list) or not groups_data:
-            raise ValueError("Component groups must be a non-empty list")
-
-        operator = DependencyMode("any")
-        groups = []
-
-        for idx, group_data in enumerate(groups_data):
-            if not isinstance(group_data, list) or not group_data:
-                raise ValueError(f"Group {idx} must be a non-empty list")
-
-            components = tuple(cls._parse_component_refs(group_data))
-            groups.append(ComponentGroup(components=components, operator=operator))
-
-        return tuple(groups)
-
     def uses_groups(self) -> bool:
-        """Check if this rule uses group syntax."""
-        return self.source_groups is not None or self.target_groups is not None
+        return bool(self.source_groups or self.target_groups)
 
 
 @dataclass(frozen=True, slots=True)
 class IncompatibilityRule(Rule):
-    """Incompatibility rule - mutual exclusion."""
+    source_groups: tuple[ComponentGroup, ...] | None = None
+    target_groups: tuple[ComponentGroup, ...] | None = None
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "IncompatibilityRule":
-        """Create IncompatibilityRule from dictionary.
-
-        Raises ValueError if required fields are missing or invalid.
-        """
-        sources, targets = cls._parse_sources_and_targets(data)
+        sources, source_groups = cls._parse_side(data, "source")
+        targets, target_groups = cls._parse_side(data, "target")
 
         return cls(
             rule_type=RuleType.INCOMPATIBILITY,
@@ -276,7 +191,12 @@ class IncompatibilityRule(Rule):
             targets=targets,
             description=data.get("description", ""),
             source_url=data.get("source_url"),
+            source_groups=source_groups,
+            target_groups=target_groups,
         )
+
+    def uses_groups(self) -> bool:
+        return bool(self.source_groups or self.target_groups)
 
 
 @dataclass(frozen=True, slots=True)
@@ -291,7 +211,8 @@ class OrderRule(Rule):
 
         Raises ValueError if required fields are missing or invalid.
         """
-        sources, targets = cls._parse_sources_and_targets(data)
+        sources, _ = cls._parse_side(data, "source")
+        targets, _ = cls._parse_side(data, "target")
 
         return cls(
             rule_type=RuleType.ORDER,

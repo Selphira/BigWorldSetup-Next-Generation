@@ -1,10 +1,7 @@
 {
   "rules": [
     {
-      "source": [
-        "correctfrbg1ee:10", "correctfrbg1ee:20", "correctfrbg1ee:30", "correctfrbg1ee:40", "correctfrbg1ee:50"
-      ],
-      "target": ["dlcmerger:1"],
+      "rule": "correctfrbg1ee(10,20,30,40,50):dlcmerger(1)",
       "severity": "error",
       "direction": "after",
       "description": "Règle définie dans le TP2 de correctfrbg1ee"

@@ -1,4 +1,8 @@
+from __future__ import annotations
+
 from collections import defaultdict
+from dataclasses import dataclass
+from enum import Enum
 import json
 import logging
 from pathlib import Path
@@ -22,6 +26,182 @@ from core.Rules import (
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
+
+
+class GroupOperator(Enum):
+    """Operator within a side expression."""
+
+    AND = "and"
+    OR = "or"
+
+
+@dataclass(frozen=True, slots=True)
+class ComponentSet:
+    """A set of components from a single mod."""
+
+    mod_id: str
+    component_keys: tuple[str, ...] | None
+
+    def get_references(self) -> tuple[ComponentReference, ...]:
+        """Convert to ComponentReferences."""
+        if self.component_keys is None:
+            return (ComponentReference(self.mod_id, "*"),)
+        return tuple(ComponentReference(self.mod_id, key) for key in self.component_keys)
+
+    @classmethod
+    def parse(cls, text: str) -> ComponentSet:
+        """Parse 'ModID(1,2,...)' or 'ModID(-)'."""
+        text = text.strip()
+
+        mod_id, components_str = text.split("(", 1)
+        mod_id = mod_id.strip()
+        components_str = components_str.rstrip(")").strip()
+
+        if components_str == "-":
+            return cls(mod_id=mod_id, component_keys=None)
+
+        comp_keys = tuple(c.strip() for c in components_str.split(",") if c.strip())
+
+        return cls(mod_id=mod_id, component_keys=comp_keys)
+
+
+@dataclass(frozen=True, slots=True)
+class SideExpression:
+    """A side expression like 'ModA(1,2)&ModB(3)' or 'ModC(-)|ModD(5,6)'."""
+
+    component_sets: tuple[ComponentSet, ...]
+    operator: GroupOperator
+
+    def to_groups_format(self) -> list[dict[str, Any]]:
+        """Convert to source_groups/target_groups format."""
+        if self.operator == GroupOperator.OR:
+            all_refs = [
+                ref for comp_set in self.component_sets for ref in comp_set.get_references()
+            ]
+            return [{"components": [str(ref) for ref in all_refs], "operator": "any"}]
+
+        return [
+            {"components": [str(ref) for ref in comp_set.get_references()], "operator": "any"}
+            for comp_set in self.component_sets
+        ]
+
+    def inject_into_rule(self, rule: dict[str, Any], key: str) -> None:
+        use_groups = self.operator == GroupOperator.AND or len(self.component_sets) > 1
+
+        if use_groups:
+            rule[f"{key}_groups"] = self.to_groups_format()
+        else:
+            rule[key] = [str(ref) for ref in self.get_all_references()]
+
+    def get_all_references(self) -> tuple[ComponentReference, ...]:
+        """Get all component references in this expression."""
+        all_refs = []
+        for comp_set in self.component_sets:
+            all_refs.extend(comp_set.get_references())
+        return tuple(all_refs)
+
+    @classmethod
+    def parse(cls, text: str) -> SideExpression:
+        """Parse a side expression like 'ModA(1,2)&ModB(3)' or 'ModC(-)|ModD(5,6)'."""
+        text = text.strip()
+
+        has_and = "&" in text
+        has_or = "|" in text
+
+        if has_and and has_or:
+            raise ValueError(f"Cannot mix & and | in same side: '{text}'")
+
+        if has_and:
+            operator, delimiter = GroupOperator.AND, "&"
+        elif has_or:
+            operator, delimiter = GroupOperator.OR, "|"
+        else:
+            operator, delimiter = GroupOperator.OR, None
+
+        parts = text.split(delimiter) if delimiter else [text]
+
+        component_sets = []
+        for part in parts:
+            part = part.strip()
+            if part:
+                component_sets.append(ComponentSet.parse(part))
+
+        return cls(component_sets=tuple(component_sets), operator=operator)
+
+
+@dataclass(frozen=True, slots=True)
+class RuleExpression:
+    """Parsed compact rule notation."""
+
+    sides: tuple[SideExpression, ...]
+
+    @classmethod
+    def parse(cls, compact_str: str) -> RuleExpression:
+        """Parse rule expression."""
+        sides = tuple(
+            SideExpression.parse(side.strip())
+            for side in compact_str.split(":")
+            if side.strip()
+        )
+
+        if len(sides) < 2:
+            raise ValueError("Need at least 2 sides (source:target)")
+
+        return cls(sides=sides)
+
+    def to_incompatibility_rules(
+        self,
+        base_rule: dict[str, Any],
+    ) -> list[dict[str, Any]]:
+        """Expand to incompatibility rules."""
+        rules = []
+
+        for i in range(len(self.sides)):
+            for j in range(i + 1, len(self.sides)):
+                source_side = self.sides[i]
+                target_side = self.sides[j]
+
+                for source, target in ((source_side, target_side), (target_side, source_side)):
+                    rule = base_rule.copy()
+
+                    source.inject_into_rule(rule, "source")
+                    target.inject_into_rule(rule, "target")
+
+                    rules.append(rule)
+
+        return rules
+
+    def to_dependency_rule(
+        self,
+        rule: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Expand to dependency rule."""
+        if len(self.sides) != 2:
+            raise ValueError("Dependency rules must have exactly 2 sides (source:target)")
+
+        source_side = self.sides[0]
+        target_side = self.sides[1]
+
+        source_side.inject_into_rule(rule, "source")
+        target_side.inject_into_rule(rule, "target")
+
+        return rule
+
+    def to_order_rule(
+        self,
+        rule: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Expand to dependency rule."""
+        if len(self.sides) != 2:
+            raise ValueError("Order rules must have exactly 2 sides (source:target)")
+
+        source_side = self.sides[0]
+        target_side = self.sides[1]
+
+        source_side.inject_into_rule(rule, "source")
+        target_side.inject_into_rule(rule, "target")
+
+        return rule
 
 
 class RuleCacheBuilderThread(QThread):
@@ -52,14 +232,12 @@ class RuleCacheBuilderThread(QThread):
         try:
             self.status_changed.emit(tr("app.loading_rules"))
 
-            # Check if source files exist
             source_files = {
                 "dependencies": self.rules_dir / "dependencies.json",
                 "incompatibilities": self.rules_dir / "incompatibilities.json",
                 "order": self.rules_dir / "order.json",
             }
 
-            # Load all source files
             self.status_changed.emit(tr("app.parsing_rules"))
             source_data = {}
 
@@ -68,7 +246,32 @@ class RuleCacheBuilderThread(QThread):
                     try:
                         with open(file_path, "r", encoding="utf-8") as f:
                             data = json.load(f)
-                            source_data[rule_type] = data.get("rules", [])
+                            raw_rules = data.get("rules", [])
+
+                            expanded_rules = []
+                            for rule in raw_rules:
+                                try:
+                                    expression = RuleExpression.parse(rule["rule"])
+
+                                    if rule_type == "incompatibilities":
+                                        expanded = expression.to_incompatibility_rules(rule)
+                                        expanded_rules.extend(expanded)
+
+                                    elif rule_type == "dependencies":
+                                        expanded_rule = expression.to_dependency_rule(rule)
+                                        expanded_rules.append(expanded_rule)
+
+                                    elif rule_type == "order":
+                                        expanded_rule = expression.to_order_rule(rule)
+                                        expanded_rules.append(expanded_rule)
+
+                                except Exception as e:
+                                    logger.error(
+                                        f"Error expanding rule '{rule.get('rule')}': {e}"
+                                    )
+
+                            source_data[rule_type] = expanded_rules
+
                     except Exception as e:
                         logger.error(f"Error loading {file_path.name}: {e}")
                         source_data[rule_type] = []
@@ -88,7 +291,7 @@ class RuleCacheBuilderThread(QThread):
             current_step = 0
             total_steps = total_languages * total_rules if total_rules > 0 else total_languages
 
-            for lang_idx, lang in enumerate(self.languages):
+            for lang in self.languages:
                 if self._should_stop:
                     self.finished.emit(False)
                     return
@@ -521,13 +724,23 @@ class RuleManager(QObject):
 
         violations: list[RuleViolation] = []
         selected_set = set(references)
+        checked_rules = set()
 
         for reference in references:
-            rules = self._rules_by_source.get(reference, [])
+            rules = list(self._rules_by_source.get(reference, []))
+
+            wildcard_ref = ComponentReference(reference.mod_id, "*")
+            wildcard_rules = self._rules_by_source.get(wildcard_ref, [])
+            rules.extend(wildcard_rules)
 
             for rule in rules:
                 if rule.rule_type == RuleType.ORDER:
                     continue  # Order rules validated separately
+
+                rule_id = id(rule)
+                if rule_id in checked_rules:
+                    continue
+                checked_rules.add(rule_id)
 
                 violation = self._check_rule(rule, reference, selected_set)
                 if violation:
@@ -538,11 +751,16 @@ class RuleManager(QObject):
             if rule.rule_type == RuleType.ORDER:
                 continue
 
+            rule_id = id(rule)
+            if rule_id in checked_rules:
+                continue
+
             for source in rule.sources:
                 if source.is_mod() and self._matches_reference(source, selected_set):
                     # Find a matching component to use as source_ref
                     for reference in selected_set:
                         if reference.mod_id == source.mod_id:
+                            checked_rules.add(rule_id)
                             violation = self._check_rule(rule, reference, selected_set)
                             if violation:
                                 violations.append(violation)
@@ -606,17 +824,30 @@ class RuleManager(QObject):
 
         return RuleViolation(rule=rule, affected_components=affected)
 
-    @staticmethod
     def _create_source_evaluator(
-        rule: DependencyRule, source_ref: ComponentReference
+        self, rule: DependencyRule, source_ref: ComponentReference
     ) -> ConditionEvaluator:
         """Factory method: create appropriate source evaluator."""
         if rule.source_groups:
             return GroupCondition(rule.source_groups)
-        else:
-            # Standard source condition: just check if source_ref is in rule.sources
-            # For standard rules, source is already satisfied (we're here because it's selected)
-            return TrivialCondition(source_ref in rule.sources)
+
+        for rule_source in rule.sources:
+            if self._references_match_for_source(source_ref, rule_source):
+                return TrivialCondition(True)
+        return TrivialCondition(False)
+
+    @staticmethod
+    def _references_match_for_source(
+        selected_ref: ComponentReference, rule_source: ComponentReference
+    ) -> bool:
+        """Check if a selected component matches a rule source (handles wildcards)."""
+        if rule_source.mod_id != selected_ref.mod_id:
+            return False
+
+        if rule_source.is_mod():
+            return True
+
+        return rule_source.comp_key == selected_ref.comp_key
 
     def _create_target_evaluator(self, rule: DependencyRule) -> ConditionEvaluator:
         """Factory method: create appropriate target evaluator."""
@@ -636,12 +867,28 @@ class RuleManager(QObject):
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check incompatibility: collect conflicting selected components."""
-        conflicts = [
-            target for target in rule.targets if self._matches_reference(target, selected_set)
-        ]
+        if rule.source_groups:
+            if not all(group.matches(selected_set) for group in rule.source_groups):
+                return None
 
-        if not conflicts:
-            return None
+        if rule.target_groups:
+            conflicts = [
+                comp
+                for group in rule.target_groups
+                for comp in group.get_matched_components(selected_set)
+            ]
+
+            if not all(group.matches(selected_set) for group in rule.target_groups):
+                return None
+        else:
+            conflicts = [
+                target
+                for target in rule.targets
+                if self._matches_reference(target, selected_set)
+            ]
+
+            if not conflicts:
+                return None
 
         affected = (source_ref,) + tuple(conflicts)
         return RuleViolation(rule=rule, affected_components=affected)
@@ -705,8 +952,7 @@ class RuleManager(QObject):
                 if target_ref not in positions:
                     continue
 
-                target_idx = positions[target_ref]
-                if target_idx > source_idx:
+                if positions[target_ref] > source_idx:
                     violation = RuleViolation(
                         rule=rule,
                         affected_components=(source_ref, target_ref),
@@ -815,7 +1061,7 @@ class RuleManager(QObject):
                     requirements.add((target.mod_id, target.comp_key))
 
                     if recursive:
-                        if target.comp_key == "*":
+                        if target.is_mod():
                             known_comps = self._get_known_components(target.mod_id)
                             for comp in known_comps:
                                 _collect_requirements(target.mod_id, comp)

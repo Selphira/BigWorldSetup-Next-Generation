@@ -1,1530 +1,1170 @@
 {
   "rules": [
     {
-      "source": [
-        "A7-ConvenientEENPCs:101", "A7-ConvenientEENPCs:102", "A7-ConvenientEENPCs:103", "A7-ConvenientEENPCs:104",
-        "A7-ConvenientEENPCs:105", "A7-ConvenientEENPCs:201", "A7-ConvenientEENPCs:202", "A7-ConvenientEENPCs:203",
-        "A7-ConvenientEENPCs:204"
-      ],
-      "target": ["A7-ConvenientEENPCs:3"],
-      "severity": "error",
-      "description": "Dépendance interne A7-ConvenientEENPCs 1",
-      "mode": "any"
-    }, {
-      "source": ["A7-Achievements:10"],
-      "target": ["A7-Achievements:0", "A7-Achievements:1"],
-      "severity": "error",
-      "description": "Dépendance interne A7-Achievements",
-      "mode": "any"
-    }, {
-      "source": ["A7-ConvenientEENPCs:301"],
-      "target": [
-        "A7-ConvenientEENPCs:1", "A7-ConvenientEENPCs:101", "A7-ConvenientEENPCs:102", "A7-ConvenientEENPCs:103",
-        "A7-ConvenientEENPCs:104", "A7-ConvenientEENPCs:105"
-      ],
-      "severity": "error",
-      "description": "Dépendance interne A7-ConvenientEENPCs 2",
-      "mode": "any"
-    }, {
-      "source": [
-        "A7-GolemConstruction:10", "A7-GolemConstruction:15", "A7-GolemConstruction:20", "A7-GolemConstruction:25",
-        "A7-GolemConstruction:30", "A7-GolemConstruction:40", "A7-GolemConstruction:45", "A7-GolemConstruction:50"
-      ],
-      "target": ["A7-GolemConstruction:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7-GolemConstruction",
-      "mode": "any"
-    }, {
-      "source": [
-        "A7-MagicStore:10", "A7-MagicStore:21", "A7-MagicStore:22", "A7-MagicStore:23", "A7-MagicStore:24",
-        "A7-MagicStore:31", "A7-MagicStore:32", "A7-MagicStore:33", "A7-MagicStore:34", "A7-MagicStore:35",
-        "A7-MagicStore:36"
-      ],
-      "target": ["A7-MagicStore:1", "A7-MagicStore:2"],
-      "severity": "error",
-      "description": "Dépendance interne A7-MagicStore",
-      "mode": "any"
-    }, {
-      "source": ["A7-TestYourMettle:11", "A7-TestYourMettle:12", "A7-TestYourMettle:13", "A7-TestYourMettle:14"],
-      "target": ["A7-TestYourMettle:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7-TestYourMettle",
-      "mode": "any"
-    }, {
-      "source": [
-        "A7-TotLM-BG2EE:20", "A7-TotLM-BG2EE:30", "A7-TotLM-BG2EE:31", "A7-TotLM-BG2EE:32", "A7-TotLM-BG2EE:33",
-        "A7-TotLM-BG2EE:40"
-      ],
-      "target": ["A7-TotLM-BG2EE:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7-TotLM-BG2EE",
-      "mode": "any"
-    }, {
-      "source": ["A7-WaresOfThePlanes:100", "A7-WaresOfThePlanes:200"],
-      "target": ["A7-WaresOfThePlanes:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7-WaresOfThePlanes",
-      "mode": "any"
-    }, {
-      "source": ["ajantisbg1:30"],
-      "target": ["ajantisbg1:0"],
-      "severity": "error",
-      "description": "Dépendance interne ajantisbg1",
-      "mode": "any"
-    }, {
-      "source": ["atweaks:154", "atweaks:156"],
-      "target": ["atweaks:150", "atweaks:151", "atweaks:152"],
-      "severity": "error",
-      "description": "Dépendance interne atweaks 1",
-      "mode": "any"
-    }, {
-      "source": ["atweaks:155"],
-      "target": ["atweaks:154"],
-      "severity": "error",
-      "description": "Dépendance interne atweaks 2",
-      "mode": "any"
-    }, {
-      "source": ["Autumns_Twilight:1"],
-      "target": ["Autumns_Twilight:0"],
-      "severity": "error",
-      "description": "Dépendance interne Autumns_Twilight",
-      "mode": "any"
-    }, {
-      "source": ["bg1npc:*"],
-      "target": ["bg1npc:0"],
-      "severity": "error",
-      "description": "Dépendance interne bg1npc",
-      "mode": "any"
-    }, {
-      "source": ["arestorationp:12"],
-      "target": ["arestorationp:11"],
-      "severity": "error",
-      "description": "Dépend de la restauration du rêve de fin avec l'Ecorcheur",
-      "mode": "any"
-    }, {
-      "source": ["bg1re:*"],
-      "target": ["bg1re:100", "bg1re:101", "bg1re:102", "bg1re:103", "bg1re:104", "bg1re:105"],
-      "severity": "error",
-      "description": "Dépendance à l'un des composants principaux",
-      "mode": "any"
-    }, {
-      "source": ["EEex:1", "EEex:2", "EEex:3", "EEex:4", "EEex:8", "EEex:9"],
-      "target": ["EEex:0"],
-      "severity": "error",
-      "description": "Dépendance interne EEex - Principal",
-      "mode": "any"
-    }, {
-      "source": ["EEex:5", "EEex:6", "EEex:7"],
-      "target": ["EEex:2"],
-      "severity": "error",
-      "description": "Dépendance interne EEex - Timer",
-      "mode": "any"
-    }, {
-      "source": [
-        "c#endlessbg1:1", "c#endlessbg1:3", "c#endlessbg1:4", "c#endlessbg1:5", "c#endlessbg1:6", "c#endlessbg1:7",
-        "c#endlessbg1:8", "c#endlessbg1:9", "c#endlessbg1:10", "c#endlessbg1:11", "c#endlessbg1:12", "c#endlessbg1:13",
-        "c#endlessbg1:14", "c#endlessbg1:15", "c#endlessbg1:16"
-      ],
-      "target": ["c#endlessbg1:0"],
-      "severity": "error",
-      "description": "Dépendance au composant principal de c#endlessbg1",
-      "mode": "any"
-    }, {
-      "source": ["c#endlessbg1:2"],
-      "target": ["c#endlessbg1:0", "c#endlessbg1:1"],
-      "severity": "error",
-      "description": "Dépendance au composant 1 de c#endlessbg1",
-      "mode": "all"
-    }, {
-      "source": ["A7-ChaosSorcerer:20", "A7-ChaosSorcerer:30"],
-      "target": ["A7-ChaosSorcerer:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7-ChaosSorcerer",
-      "mode": "any"
-    }, {
-      "source": ["A7#ImprovedShamanicDance:10", "A7#ImprovedShamanicDance:30"],
-      "target": ["A7#ImprovedShamanicDance:0"],
-      "severity": "error",
-      "description": "Dépendance interne A7#ImprovedShamanicDance",
-      "mode": "any"
-    }, {
-      "source": ["adrian:10", "adrian:11", "adrian:20", "adrian:30", "adrian:31"],
-      "target": ["adrian:0", "adrian:1", "adrian:2"],
-      "severity": "error",
-      "description": "Dépendance interne adrian",
-      "mode": "any"
-    }, {
-      "source": ["aurenaseph:1", "aurenaseph:2"],
-      "target": ["aurenaseph:0"],
-      "severity": "error",
-      "description": "Dépendance interne aurenaseph",
-      "mode": "any"
-    }, {
-      "source": [
-        "bgspawn:2100", "bgspawn:2200", "bgspawn:2300", "bgspawn:2400", "bgspawn:3100", "bgspawn:3200", "bgspawn:3300",
-        "bgspawn:3400", "bgspawn:3500", "bgspawn:3600", "bgspawn:3700", "bgspawn:3800"
-      ],
-      "target": ["bgspawn:1000"],
-      "severity": "error",
-      "description": "Dépendance interne bgspawn",
-      "mode": "any"
-    }, {
-      "source": ["butchery:21"],
-      "target": ["butchery:20"],
-      "severity": "error",
-      "description": "Dépendance interne butchery",
-      "mode": "any"
-    }, {
-      "source": ["butchery:41", "butchery:45", "butchery:46", "butchery:58", "butchery:80"],
-      "target": ["butchery:40"],
-      "severity": "error",
-      "description": "Dépendance interne 2 butchery",
-      "mode": "any"
-    }, {
-      "source": ["c#anotherfinehell:1", "c#anotherfinehell:2"],
-      "target": ["c#anotherfinehell:0"],
-      "severity": "error",
-      "description": "Dépendance interne c#anotherfinehell",
-      "mode": "any"
-    }, {
-      "source": ["c#sodboabri:1", "c#sodboabri:3"],
-      "target": ["c#sodboabri:0"],
-      "severity": "error",
-      "description": "Dépendance interne c#sodboabri 1",
-      "mode": "any"
-    }, {
-      "source": ["c#sodboabri:2"],
-      "target": ["c#sodboabri:0", "c#sodboabri:1"],
-      "severity": "error",
-      "description": "Dépendance interne c#sodboabri 2",
-      "mode": "all"
-    }, {
-      "source": ["c#sodboabri:3"],
-      "target": ["c#sodboabri:0", "c#sodboabri:2"],
-      "severity": "error",
-      "description": "Dépendance interne c#sodboabri 3",
-      "mode": "all"
-    }, {
-      "source": ["cdtweaks:2300"],
-      "target": ["cdtweaks:2090"],
-      "severity": "error",
-      "description": "Dépendance interne cdtweaks",
-      "mode": "any"
-    }, {
-      "source": ["ChanterKit:37"],
-      "target": ["ChanterKit:0"],
-      "severity": "error",
-      "description": "Dépendance interne ChanterKit",
-      "mode": "any"
-    }, {
-      "source": ["Charlatan:1"],
-      "target": ["Charlatan:0"],
-      "severity": "error",
-      "description": "Dépendance interne Charlatan",
-      "mode": "any"
-    }, {
-      "source": ["chattyimoen:10"],
-      "target": ["chattyimoen:0"],
-      "severity": "error",
-      "description": "Dépendance interne chattyimoen",
-      "mode": "any"
-    }, {
-      "source": ["correctfrbg1ee:30"],
-      "target": ["correctfrbg1ee:20"],
-      "severity": "error",
-      "description": "Dépendance interne correctfrbg1ee",
-      "mode": "any"
-    }, {
-      "source": ["correctfrbg2ee:30"],
-      "target": ["correctfrbg2ee:20"],
-      "severity": "error",
-      "description": "Dépendance interne correctfrbg2ee",
-      "mode": "any"
-    }, {
-      "source": ["CtB:1", "CtB:3"],
-      "target": ["CtB:0"],
-      "severity": "error",
-      "description": "Dépendance interne CtB 1",
-      "mode": "any"
-    }, {
-      "source": ["CtB:2"],
-      "target": ["CtB:1"],
-      "severity": "error",
-      "description": "Dépendance interne CtB 2",
-      "mode": "any"
-    }, {
-      "source": ["d2-randomkits:20", "d2-randomkits:21", "d2-randomkits:30"],
-      "target": ["d2-randomkits:9999"],
-      "severity": "error",
-      "description": "Dépendance interne d2-randomkits",
-      "mode": "any"
-    }, {
-      "source": ["d2-workshopkits:4", "d2-workshopkits:10", "d2-workshopkits:11", "d2-workshopkits:90"],
-      "target": ["d2-workshopkits:9999", "d2-workshopkits:10000"],
-      "severity": "error",
-      "description": "Dépendance interne d2-workshopkits",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Archery:3"],
-      "target": ["Derats_Archery:0"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_Archery",
-      "mode": "any"
-    }, {
-      "source": [
-        "Derats_AutoRest:21", "Derats_AutoRest:22", "Derats_AutoRest:23", "Derats_AutoRest:24", "Derats_AutoRest:25",
-        "Derats_AutoRest:26", "Derats_AutoRest:27", "Derats_AutoRest:28", "Derats_AutoRest:31", "Derats_AutoRest:32",
-        "Derats_AutoRest:33", "Derats_AutoRest:34"
-      ],
-      "target": ["Derats_AutoRest:11", "Derats_AutoRest:12", "Derats_AutoRest:13"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_AutoRest",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Combino:1", "Derats_Combino:2", "Derats_Combino:3", "Derats_Combino:4"],
-      "target": ["Derats_Combino:0"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_Combino",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Follower_it:1", "Derats_Follower_it:2", "Derats_Follower_it:3", "Derats_Follower_it:4"],
-      "target": ["Derats_Follower_it:0"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_Follower_it",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Illo:1"],
-      "target": ["Derats_Illo:0"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_Illo",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Jazon:1"],
-      "target": ["Derats_Jazon:0"],
-      "severity": "error",
-      "description": "Dépendance interne Derats_Jazon",
-      "mode": "any"
-    }, {
-      "source": ["derats_magasin_2:38"],
-      "target": ["derats_magasin_2:33"],
-      "severity": "error",
-      "description": "Dépendance interne derats_magasin_2",
-      "mode": "any"
-    }, {
-      "source": [
-        "divine_remix:103", "divine_remix:106", "divine_remix:107", "divine_remix:109", "divine_remix:112",
-        "divine_remix:115", "divine_remix:118", "divine_remix:121", "divine_remix:124", "divine_remix:127",
-        "divine_remix:130"
-      ],
-      "target": ["divine_remix:100"],
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 1",
-      "mode": "any"
-    }, {
-      "source": ["divine_remix:203", "divine_remix:605"],
-      "target": ["divine_remix:200"],
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 2",
-      "mode": "any"
-    }, {
-      "source": ["divine_remix:600"],
-      "target": ["divine_remix:100", "divine_remix:109"],
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 3",
-      "mode": "all"
-    }, {
-      "source": ["divine_remix:610"],
-      "target": ["divine_remix:100", "divine_remix:106"],
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 4",
-      "mode": "all"
-    }, {
-      "source": ["DjinniCompanion:300"],
-      "target": ["DjinniCompanion:0", "DjinniCompanion:1"],
-      "severity": "error",
-      "description": "Dépendance interne DjinniCompanion",
-      "mode": "any"
-    }, {
-      "source": [
-        "DjinniCompanion:101", "DjinniCompanion:102", "DjinniCompanion:103", "DjinniCompanion:104",
-        "DjinniCompanion:105", "DjinniCompanion:200", "DjinniCompanion:1000"
-      ],
-      "target": ["DjinniCompanion:0"],
-      "severity": "error",
-      "description": "Dépendance interne DjinniCompanion",
-      "mode": "any"
-    }, {
-      "source": ["DofD:100"],
-      "target": ["DofD:0"],
-      "severity": "error",
-      "description": "Dépendance interne DofD",
-      "mode": "any"
-    }, {
-      "source": ["drizztsaga:3", "drizztsaga:4", "drizztsaga:5", "drizztsaga:6"],
-      "target": ["drizztsaga:0", "drizztsaga:1"],
-      "severity": "error",
-      "description": "Dépendance interne drizztsaga",
-      "mode": "any"
-    }, {
-      "source": [
-        "drunkshaders:1105", "drunkshaders:1125", "drunkshaders:1205", "drunkshaders:1215", "drunkshaders:1225",
-        "drunkshaders:1304", "drunkshaders:1314", "drunkshaders:1305", "drunkshaders:1315", "drunkshaders:1405",
-        "drunkshaders:1415", "drunkshaders:1425", "drunkshaders:1435", "drunkshaders:1445", "drunkshaders:1455",
-        "drunkshaders:1465", "drunkshaders:1475", "drunkshaders:1505", "drunkshaders:1515", "drunkshaders:1605",
-        "drunkshaders:1615", "drunkshaders:1625", "drunkshaders:1635", "drunkshaders:1645", "drunkshaders:1655",
-        "drunkshaders:1665", "drunkshaders:1675", "drunkshaders:1705", "drunkshaders:1805", "drunkshaders:9005"
-      ],
-      "target": ["drunkshaders:1000"],
-      "severity": "error",
-      "description": "Dépendance interne drunkshaders",
-      "mode": "any"
-    }, {
-      "source": ["DSotSC:1", "DSotSC:2", "DSotSC:3", "DSotSC:4"],
-      "target": ["DSotSC:0"],
-      "severity": "error",
-      "description": "Dépendance interne DSotSC",
-      "mode": "any"
-    }, {
-      "source": ["edwinromance:1", "edwinromance:2"],
-      "target": ["edwinromance:0"],
-      "severity": "error",
-      "description": "Dépendance interne EdwinRomance",
-      "mode": "any"
-    }, {
-      "source": ["EET:100"],
-      "target": ["EET:0"],
-      "severity": "error",
-      "description": "Dépendance interne EET",
-      "mode": "any"
-    }, {
-      "source": ["EEUITweaks:1010"],
-      "target": ["EEUITweaks:1000"],
-      "severity": "error",
-      "description": "Dépendance interne EEUITweaks",
-      "mode": "any"
-    }, {
-      "source": ["EEUITweaks:1042", "EEUITweaks:1044"],
-      "target": ["EEUITweaks:1040", "EEUITweaks:1041"],
-      "severity": "error",
-      "description": "Dépendance interne EEUITweaks",
-      "mode": "any"
-    }, {
-      "source": ["EEUITweaks:3010"],
-      "target": ["EEUITweaks:1000", "EEUITweaks:3000"],
-      "severity": "error",
-      "description": "Dépendance interne EEUITweaks",
-      "mode": "all"
-    }, {
-      "source": ["enhanced-powergaming-scripts:9", "enhanced-powergaming-scripts:10"],
-      "target": ["enhanced-powergaming-scripts:14", "enhanced-powergaming-scripts:15"],
-      "severity": "error",
-      "description": "Dépendance interne enhanced-powergaming-scripts",
-      "mode": "any"
-    }, {
-      "source": ["faiths_and_powers:80"],
-      "target": [
-        "faiths_and_powers:21", "faiths_and_powers:22", "faiths_and_powers:23", "faiths_and_powers:24",
-        "faiths_and_powers:25"
-      ],
-      "severity": "error",
-      "description": "Dépendance interne faiths_and_powers 1",
-      "mode": "any"
-    }, {
-      "source": ["faiths_and_powers:99"],
-      "target": [
-        "faiths_and_powers:31", "faiths_and_powers:33", "faiths_and_powers:35", "faiths_and_powers:91",
-        "faiths_and_powers:95"
-      ],
-      "severity": "error",
-      "description": "Dépendance interne faiths_and_powers 2",
-      "mode": "any"
-    }, {
-      "source": [
-        "gavin:1", "gavin:4", "gavin:5", "gavin:6", "gavin:7", "gavin:8", "gavin:9", "gavin:10", "gavin:11", "gavin:12",
-        "gavin:13", "gavin:14"
-      ],
-      "target": ["gavin:0"],
-      "severity": "error",
-      "description": "Dépendance interne gavin",
-      "mode": "any"
-    }, {
-      "source": ["gavin:2", "gavin:3"],
-      "target": ["gavin:1", "gavin:11", "gavin:12", "gavin:13", "gavin:14"],
-      "severity": "error",
-      "description": "Dépendance interne à la romance de gavin",
-      "mode": "any"
-    }, {
-      "source": ["haiass:10", "haiass:15"],
-      "target": ["haiass:0"],
-      "severity": "error",
-      "description": "Dépendance interne haiass",
-      "mode": "any"
-    }, {
-      "source": ["hammers:15", "hammers:25", "hammers:35", "hammers:50"],
-      "target": ["hammers:0"],
-      "severity": "error",
-      "description": "Dépendance interne hammers",
-      "mode": "any"
-    }, {
-      "source": ["HiddenGameplayOptions:201"],
-      "target": ["HiddenGameplayOptions:200"],
-      "severity": "error",
-      "description": "Dépendance interne HiddenGameplayOptions",
-      "mode": "any"
-    }, {
-      "source": ["Horace:1"],
-      "target": ["Horace:0"],
-      "severity": "error",
-      "description": "Dépendance interne Horace",
-      "mode": "any"
-    }, {
-      "source": ["IHateUndead:8"],
-      "target": ["IHateUndead:7"],
-      "severity": "error",
-      "description": "Dépendance interne IHateUndead",
-      "mode": "any"
-    }, {
-      "source": ["IndiNPC:2001"],
-      "target": ["IndiNPC:0"],
-      "severity": "error",
-      "description": "Dépendance interne IndiNPC",
-      "mode": "any"
-    }, {
-      "source": ["IRStore:6"],
-      "target": ["IRStore:0", "IRStore:2", "IRStore:3", "IRStore:4", "IRStore:5"],
-      "severity": "error",
-      "description": "Dépendance interne IRStore",
-      "mode": "any"
-    }, {
-      "source": ["isra:1", "isra:2"],
-      "target": ["isra:0"],
-      "severity": "error",
-      "description": "Dépendance interne isra",
-      "mode": "any"
-    }, {
-      "source": ["isra_bg2:1"],
-      "target": ["isra_bg2:0"],
-      "severity": "error",
-      "description": "Dépendance interne isra_bg2",
-      "mode": "any"
-    }, {
-      "source": ["itemupgrade:12"],
-      "target": ["itemupgrade:1", "itemupgrade:11"],
-      "severity": "error",
-      "description": "Dépendance interne itemupgrade",
-      "mode": "any"
-    }, {
-      "source": ["iwd1_eet:1"],
-      "target": ["iwd1_eet:0"],
-      "severity": "error",
-      "description": "Dépendance interne iwd1_eet",
-      "mode": "any"
-    }, {
-      "source": ["kiara-zaiya:3", "kiara-zaiya:4"],
-      "target": ["Kiara-Zaiya:0", "Kiara-Zaiya:1"],
-      "severity": "error",
-      "description": "Dépendance interne kiara-zaiya",
-      "mode": "any"
-    }, {
-      "source": ["KimNPC:1"],
-      "target": ["KimNPC:0"],
-      "severity": "error",
-      "description": "Dépendance interne KimNPC",
-      "mode": "any"
-    }, {
-      "source": ["kitmule:99"],
-      "target": ["kitmule:9999", "kitmule:10000"],
-      "severity": "error",
-      "description": "Dépendance interne kitmule",
-      "mode": "any"
-    }, {
-      "source": ["LegacyofBhaalFix:1"],
-      "target": ["LegacyofBhaalFix:0"],
-      "severity": "error",
-      "description": "Dépendance interne LegacyofBhaalFix",
-      "mode": "any"
-    }, {
-      "source": ["lolfixer:2", "lolfixer:3", "lolfixer:4", "lolfixer:5", "lolfixer:6"],
-      "target": ["lolfixer:1"],
-      "severity": "error",
-      "description": "Dépendance interne lolfixer #1",
-      "mode": "any"
-    }, {
-      "source": ["lolfixer:6"],
-      "target": ["lolfixer:5"],
-      "severity": "error",
-      "description": "Dépendance interne lolfixer #2",
-      "mode": "any"
-    }, {
-      "source": ["lolfixer:8", "lolfixer:9", "lolfixer:10", "lolfixer:11", "lolfixer:12"],
-      "target": ["lolfixer:7"],
-      "severity": "error",
-      "description": "Dépendance interne lolfixer #3",
-      "mode": "any"
-    }, {
-      "source": ["lolfixer:14"],
-      "target": ["lolfixer:13"],
-      "severity": "error",
-      "description": "Dépendance interne lolfixer #4",
-      "mode": "any"
-    }, {
-      "source": ["Mercenary:1", "Mercenary:2"],
-      "target": ["Mercenary:0"],
-      "severity": "error",
-      "description": "Dépendance interne Mercenary",
-      "mode": "any"
-    }, {
-      "source": ["MilitiaOfficer:1"],
-      "target": ["MilitiaOfficer:0"],
-      "severity": "error",
-      "description": "Dépendance interne MilitiaOfficer",
-      "mode": "any"
-    }, {
-      "source": ["Pirate:1", "Pirate:2", "Pirate:3", "Pirate:4", "Pirate:5", "Pirate:6"],
-      "target": ["Pirate:0"],
-      "severity": "error",
-      "description": "Dépendance interne Pirate",
-      "mode": "any"
-    }, {
-      "source": ["PPE:100", "PPE:150"],
-      "target": ["PPE:0"],
-      "severity": "error",
-      "description": "Dépendance interne PPE",
-      "mode": "any"
-    }, {
-      "source": ["PPK:*"],
-      "target": ["PPK:0"],
-      "severity": "error",
-      "description": "Dépendance interne PPK",
-      "mode": "any"
-    }, {
-      "source": [
-        "refinements:101", "refinements:102", "refinements:103", "refinements:104", "refinements:105",
-        "refinements:106", "refinements:107", "refinements:108", "refinements:109", "refinements:110"
-      ],
-      "target": ["refinements:11"],
-      "severity": "error",
-      "description": "Dépendance interne refinements",
-      "mode": "any"
-    }, {
-      "source": ["RevisedBattles:*"],
-      "target": ["RevisedBattles:0"],
-      "severity": "error",
-      "description": "Dépendance interne RevisedBattles 1",
-      "mode": "any"
-    }, {
-      "source": ["RevisedBattles:0"],
-      "target": ["RevisedBattles:27"],
-      "severity": "error",
-      "description": "Dépendance interne RevisedBattles 2",
-      "mode": "any"
-    }, {
-      "source": ["rttkit:*"],
-      "target": ["rttkit:30"],
-      "severity": "error",
-      "description": "Dépendance interne rttkit",
-      "mode": "any"
-    }, {
-      "source": ["ruad:10"],
-      "target": ["ruad:0"],
-      "severity": "error",
-      "description": "Dépendance interne ruad",
-      "mode": "any"
-    }, {
-      "source": ["sbs:6"],
-      "target": ["sbs:0", "sbs:1", "sbs:2", "sbs:3", "sbs:4"],
-      "severity": "error",
-      "description": "Dépendance interne sbs",
-      "mode": "any"
-    }, {
-      "source": ["semi_multi_clerics:50"],
-      "target": [
-        "semi_multi_clerics:1", "semi_multi_clerics:2", "semi_multi_clerics:3", "semi_multi_clerics:4",
-        "semi_multi_clerics:5", "semi_multi_clerics:6", "semi_multi_clerics:7", "semi_multi_clerics:8",
-        "semi_multi_clerics:9", "semi_multi_clerics:10", "semi_multi_clerics:11", "semi_multi_clerics:12"
-      ],
-      "severity": "error",
-      "description": "Dépendance interne semi_multi_clerics",
-      "mode": "any"
-    }, {
-      "source": ["Severian:1", "Severian:2"],
-      "target": ["Severian:0"],
-      "severity": "error",
-      "description": "Dépendance interne Severian",
-      "mode": "any"
-    }, {
-      "source": ["sirinescall:1"],
-      "target": ["sirinescall:0"],
-      "severity": "error",
-      "description": "Dépendance interne sirinescall",
-      "mode": "any"
-    }, {
-      "source": ["SkipChateauIrenicus:101", "SkipChateauIrenicus:102"],
-      "target": ["SkipChateauIrenicus:0"],
-      "severity": "error",
-      "description": "Dépendance interne SkipChateauIrenicus",
-      "mode": "any"
-    }, {
-      "source": ["sodrtd:10", "sodrtd:20", "sodrtd:40", "sodrtd:60"],
-      "target": ["sodrtd:0"],
-      "severity": "error",
-      "description": "Dépendance interne sodrtd 1",
-      "mode": "any"
-    }, {
-      "source": ["sodrtd:30"],
-      "target": ["sodrtd:0", "sodrtd:10"],
-      "severity": "error",
-      "description": "Dépendance interne sodrtd 2",
-      "mode": "all"
-    }, {
-      "source": ["sodrtd:50", "sodrtd:70"],
-      "target": ["sodrtd:0", "sodrtd:20", "sodrtd:40"],
-      "severity": "error",
-      "description": "Dépendance interne sodrtd 3",
-      "mode": "all"
-    }, {
-      "source": [
-        "song_and_silence:2", "song_and_silence:3", "song_and_silence:4", "song_and_silence:5", "song_and_silence:6",
-        "song_and_silence:7", "song_and_silence:8", "song_and_silence:9"
-      ],
-      "target": ["song_and_silence:0"],
-      "severity": "error",
-      "description": "Dépendance interne song_and_silence",
-      "mode": "any"
-    }, {
-      "source": ["spell_rev:60"],
-      "target": ["spell_rev:0"],
-      "severity": "error",
-      "description": "Dépendance interne spell_rev",
-      "mode": "any"
-    }, {
-      "source": [
-        "stratagems:6000", "stratagems:6010", "stratagems:6030", "stratagems:6040", "stratagems:6200",
-        "stratagems:6300", "stratagems:6320", "stratagems:6500", "stratagems:6510", "stratagems:6520",
-        "stratagems:6540", "stratagems:6550", "stratagems:6560", "stratagems:6580", "stratagems:6590",
-        "stratagems:6800", "stratagems:6810", "stratagems:6820", "stratagems:6830", "stratagems:7000",
-        "stratagems:7010", "stratagems:7020", "stratagems:7030", "stratagems:7040", "stratagems:7050",
-        "stratagems:7060", "stratagems:7070", "stratagems:7080", "stratagems:7100", "stratagems:7110",
-        "stratagems:7140", "stratagems:7200", "stratagems:7210", "stratagems:7220", "stratagems:7230",
-        "stratagems:7250", "stratagems:7900", "stratagems:8000", "stratagems:8010", "stratagems:8040",
-        "stratagems:8050", "stratagems:8060", "stratagems:8090", "stratagems:8100", "stratagems:8110",
-        "stratagems:8120", "stratagems:8130", "stratagems:8140", "stratagems:8150", "stratagems:8160",
-        "stratagems:8170", "stratagems:8180", "stratagems:8190"
-      ],
-      "target": ["stratagems:5900"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems",
-      "mode": "any"
-    }, {
-      "source": ["stratagems:6100", "stratagems:6310", "stratagems:6570"],
-      "target": ["stratagems:5900", "stratagems:6000"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 2",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:6840", "stratagems:7130", "stratagems:8020"],
-      "target": ["stratagems:5900", "stratagems:6030"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 3",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:6850"],
-      "target": ["stratagems:5900", "stratagems:6510"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 4",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:7090"],
-      "target": ["stratagems:5900", "stratagems:6040"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 5",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:8070"],
-      "target": ["stratagems:5900", "stratagems:6030", "stratagems:6550"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 6",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:8080"],
-      "target": ["stratagems:5900", "stratagems:6580"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 7",
-      "mode": "all"
-    }, {
-      "source": ["stratagems:8085"],
-      "target": ["stratagems:8080"],
-      "severity": "error",
-      "description": "Dépendance interne stratagems 8",
-      "mode": "any"
-    }, {
-      "source": ["SubtleD_Stat_Overhauls:121"],
-      "target": ["SubtleD_Stat_Overhauls:110"],
-      "severity": "error",
-      "description": "Dépendance interne SubtleD_Spell_Tweaks #2",
-      "mode": "any"
-    }, {
-      "source": ["TDDz:*"],
-      "target": ["TDDz:0"],
-      "severity": "error",
-      "description": "Dépendance interne TDDz",
-      "mode": "any"
-    }, {
-      "source": ["TDDz:1000"],
-      "target": ["TDDz:2", "TDDz:3", "TDDz:4"],
-      "severity": "error",
-      "description": "Dépendance interne TDDz",
-      "mode": "any"
-    }, {
-      "source": ["Thael:1"],
-      "target": ["Thael:0"],
-      "severity": "error",
-      "description": "Dépendance interne Thael",
-      "mode": "any"
-    }, {
-      "source": ["TheBeaurinLegacy:2000", "TheBeaurinLegacy:3010", "TheBeaurinLegacy:3020", "TheBeaurinLegacy:3030"],
-      "target": ["TheBeaurinLegacy:1000"],
-      "severity": "error",
-      "description": "Dépendance interne TheBeaurinLegacy",
-      "mode": "any"
-    }, {
-      "source": ["tipun_gui:10"],
-      "target": ["tipun_gui:20"],
-      "severity": "error",
-      "description": "Dépendance interne tipun_gui 1",
-      "mode": "any"
-    }, {
-      "source": ["tipun_gui:20"],
-      "target": ["tipun_gui:10"],
-      "severity": "error",
-      "description": "Dépendance interne tipun_gui 2",
-      "mode": "any"
-    }, {
-      "source": [
-        "tnt:2", "tnt:3", "tnt:4", "tnt:5", "tnt:6", "tnt:7", "tnt:8", "tnt:9", "tnt:10", "tnt:11", "tnt:12", "tnt:13"
-      ],
-      "target": ["tnt:14"],
-      "severity": "error",
-      "description": "Dépendance interne tnt 1",
-      "mode": "any"
-    }, {
-      "source": ["tnt:8", "tnt:9", "tnt:10", "tnt:11", "tnt:12", "tnt:13"],
-      "target": ["tnt:6", "tnt:7"],
-      "severity": "error",
-      "description": "Dépendance interne tnt 2",
-      "mode": "any"
-    }, {
-      "source": ["tod:1", "tod:2"],
-      "target": ["tod:0"],
-      "severity": "error",
-      "description": "Dépendance interne tod",
-      "mode": "any"
-    }, {
-      "source": ["Varshoon:1"],
-      "target": ["Varshoon:0"],
-      "severity": "error",
-      "description": "Dépendance interne Varshoon",
-      "mode": "any"
-    }, {
-      "source": ["Vaulteet:1"],
-      "target": ["Vaulteet:0"],
-      "severity": "error",
-      "description": "Dépendance interne Vaulteet 1",
-      "mode": "any"
-    }, {
-      "source": ["Will_to_Power:900"],
-      "target": ["Will_to_Power:200", "Will_to_Power:300", "Will_to_Power:400", "Will_to_Power:500"],
-      "severity": "error",
-      "description": "Dépendance interne Will_to_Power",
-      "mode": "any"
-    }, {
-      "source": ["xan:1", "xan:2", "xan:3", "xan:4", "xan:5", "xan:6"],
-      "target": ["xan:0"],
-      "severity": "error",
-      "description": "Dépendance interne xan",
-      "mode": "any"
-    }, {
-      "source": ["XPexchange:1"],
-      "target": ["XPexchange:0"],
-      "severity": "error",
-      "description": "Dépendance interne XPexchange",
-      "mode": "any"
-    }, {
-      "source": ["A7-ConvenientEENPCs:513", "A7-ConvenientEENPCs:542"],
-      "target": ["A7-ChaosSorcerer:0"],
-      "severity": "error",
-      "description": "A7-ConvenientEENPCs nécessite A7-ChaosSorcerer",
-      "mode": "any"
-    }, {
-      "source": ["A7-ConvenientEENPCs:514"],
-      "target": ["shadowadept:0"],
-      "severity": "error",
-      "description": "A7-ConvenientEENPCs nécessite shadowadept",
-      "mode": "any"
-    }, {
-      "source": ["A7-ConvenientEENPCs:563"],
-      "target": ["divine_remix:103"],
-      "severity": "error",
-      "description": "A7-ConvenientEENPCs nécessite divine_remix",
-      "mode": "any"
-    }, {
-      "source": ["Askaria:0"],
-      "target": ["ChaosKnight:0"],
-      "severity": "error",
-      "description": "Askaria nécessite ChaosKnight",
-      "mode": "any"
-    }, {
-      "source": ["better_spell_visuals:10"],
-      "target": ["spell_rev:0"],
-      "severity": "error",
-      "description": "Composant de better_spell_visuals nécessite le composant principal de spell_rev",
-      "mode": "any"
-    }, {
-      "source": ["bg1npcmusic:*"],
-      "target": ["bg1npc:0"],
-      "severity": "error",
-      "description": "BG1NPC Music nécessite BG1NPC",
-      "mode": "any"
-    }, {
-      "source": ["EET:*"],
-      "target": ["EET_end:*"],
+      "rule": "A7-ConvenientEENPCs(101,102,103,104,105,201,202,203,204):A7-ConvenientEENPCs(3)",
+      "severity": "error",
+      "description": "Dépendance interne A7-ConvenientEENPCs 1"
+    },
+    {
+      "rule": "A7-Achievements(10):A7-Achievements(0,1)",
+      "severity": "error",
+      "description": "Dépendance interne A7-Achievements"
+    },
+    {
+      "rule": "A7-ConvenientEENPCs(301):A7-ConvenientEENPCs(1,101,102,103,104,105)",
+      "severity": "error",
+      "description": "Dépendance interne A7-ConvenientEENPCs 2"
+    },
+    {
+      "rule": "A7-GolemConstruction(10,15,20,25,30,40,45,50):A7-GolemConstruction(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7-GolemConstruction"
+    },
+    {
+      "rule": "A7-MagicStore(10,21,22,23,24,31,32,33,34,35,36):A7-MagicStore(1,2)",
+      "severity": "error",
+      "description": "Dépendance interne A7-MagicStore"
+    },
+    {
+      "rule": "A7-TestYourMettle(11,12,13,14):A7-TestYourMettle(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7-TestYourMettle"
+    },
+    {
+      "rule": "A7-TotLM-BG2EE(20,30,31,32,33,40):A7-TotLM-BG2EE(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7-TotLM-BG2EE"
+    },
+    {
+      "rule": "A7-WaresOfThePlanes(100,200):A7-WaresOfThePlanes(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7-WaresOfThePlanes"
+    },
+    {
+      "rule": "ajantisbg1(30):ajantisbg1(0)",
+      "severity": "error",
+      "description": "Dépendance interne ajantisbg1"
+    },
+    {
+      "rule": "atweaks(154,156):atweaks(150,151,152)",
+      "severity": "error",
+      "description": "Dépendance interne atweaks 1"
+    },
+    {
+      "rule": "atweaks(155):atweaks(154)",
+      "severity": "error",
+      "description": "Dépendance interne atweaks 2"
+    },
+    {
+      "rule": "Autumns_Twilight(1):Autumns_Twilight(0)",
+      "severity": "error",
+      "description": "Dépendance interne Autumns_Twilight"
+    },
+    {
+      "rule": "bg1npc(-):bg1npc(0)",
+      "severity": "error",
+      "description": "Dépendance interne bg1npc"
+    },
+    {
+      "rule": "arestorationp(12):arestorationp(11)",
+      "severity": "error",
+      "description": "Dépend de la restauration du rêve de fin avec l'Ecorcheur"
+    },
+    {
+      "rule": "bg1re(-):bg1re(100,101,102,103,104,105)",
+      "severity": "error",
+      "description": "Dépendance à l'un des composants principaux"
+    },
+    {
+      "rule": "EEex(1,2,3,4,8,9):EEex(0)",
+      "severity": "error",
+      "description": "Dépendance interne EEex - Principal"
+    },
+    {
+      "rule": "EEex(5,6,7):EEex(2)",
+      "severity": "error",
+      "description": "Dépendance interne EEex - Timer"
+    },
+    {
+      "rule": "c#endlessbg1(1,10,11,12,13,14,15,16,3,4,5,6,7,8,9):c#endlessbg1(0)",
+      "severity": "error",
+      "description": "Dépendance au composant principal de c#endlessbg1"
+    },
+    {
+      "rule": "c#endlessbg1(2):c#endlessbg1(0,1)",
+      "severity": "error",
+      "description": "Dépendance au composant 1 de c#endlessbg1"
+    },
+    {
+      "rule": "A7-ChaosSorcerer(20,30):A7-ChaosSorcerer(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7-ChaosSorcerer"
+    },
+    {
+      "rule": "A7#ImprovedShamanicDance(10,30):A7#ImprovedShamanicDance(0)",
+      "severity": "error",
+      "description": "Dépendance interne A7#ImprovedShamanicDance"
+    },
+    {
+      "rule": "adrian(10,11,20,30,31):adrian(0,1,2)",
+      "severity": "error",
+      "description": "Dépendance interne adrian"
+    },
+    {
+      "rule": "aurenaseph(1,2):aurenaseph(0)",
+      "severity": "error",
+      "description": "Dépendance interne aurenaseph"
+    },
+    {
+      "rule": "bgspawn(2100,2200,2300,2400,3100,3200,3300,3400,3500,3600,3700,3800):bgspawn(1000)",
+      "severity": "error",
+      "description": "Dépendance interne bgspawn"
+    },
+    {
+      "rule": "butchery(21):butchery(20)",
+      "severity": "error",
+      "description": "Dépendance interne butchery"
+    },
+    {
+      "rule": "butchery(41,45,46,58,80):butchery(40)",
+      "severity": "error",
+      "description": "Dépendance interne 2 butchery"
+    },
+    {
+      "rule": "c#anotherfinehell(1,2):c#anotherfinehell(0)",
+      "severity": "error",
+      "description": "Dépendance interne c#anotherfinehell"
+    },
+    {
+      "rule": "c#sodboabri(1,3):c#sodboabri(0)",
+      "severity": "error",
+      "description": "Dépendance interne c#sodboabri 1"
+    },
+    {
+      "rule": "c#sodboabri(2):c#sodboabri(0,1)",
+      "severity": "error",
+      "description": "Dépendance interne c#sodboabri 2"
+    },
+    {
+      "rule": "c#sodboabri(3):c#sodboabri(0,2)",
+      "severity": "error",
+      "description": "Dépendance interne c#sodboabri 3"
+    },
+    {
+      "rule": "cdtweaks(2300):cdtweaks(2090)",
+      "severity": "error",
+      "description": "Dépendance interne cdtweaks"
+    },
+    {
+      "rule": "ChanterKit(37):ChanterKit(0)",
+      "severity": "error",
+      "description": "Dépendance interne ChanterKit"
+    },
+    {
+      "rule": "Charlatan(1):Charlatan(0)",
+      "severity": "error",
+      "description": "Dépendance interne Charlatan"
+    },
+    {
+      "rule": "chattyimoen(10):chattyimoen(0)",
+      "severity": "error",
+      "description": "Dépendance interne chattyimoen"
+    },
+    {
+      "rule": "correctfrbg1ee(30):correctfrbg1ee(20)",
+      "severity": "error",
+      "description": "Dépendance interne correctfrbg1ee"
+    },
+    {
+      "rule": "correctfrbg2ee(30):correctfrbg2ee(20)",
+      "severity": "error",
+      "description": "Dépendance interne correctfrbg2ee"
+    },
+    {
+      "rule": "CtB(1,3):CtB(0)",
+      "severity": "error",
+      "description": "Dépendance interne CtB 1"
+    },
+    {
+      "rule": "CtB(2):CtB(1)",
+      "severity": "error",
+      "description": "Dépendance interne CtB 2"
+    },
+    {
+      "rule": "d2-randomkits(20,21,30):d2-randomkits(9999)",
+      "severity": "error",
+      "description": "Dépendance interne d2-randomkits"
+    },
+    {
+      "rule": "d2-workshopkits(10,11,90):d2-workshopkits(10000,9999)",
+      "severity": "error",
+      "description": "Dépendance interne d2-workshopkits"
+    },
+    {
+      "rule": "Derats_Archery(3):Derats_Archery(0)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_Archery"
+    },
+    {
+      "rule": "Derats_AutoRest(21,22,23,24,25,26,27,28,31,32,33,34):Derats_AutoRest(11,12,13)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_AutoRest"
+    },
+    {
+      "rule": "Derats_Combino(1,2,3,4):Derats_Combino(0)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_Combino"
+    },
+    {
+      "rule": "Derats_Follower_it(1,2,3,4):Derats_Follower_it(0)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_Follower_it"
+    },
+    {
+      "rule": "Derats_Illo(1):Derats_Illo(0)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_Illo"
+    },
+    {
+      "rule": "Derats_Jazon(1):Derats_Jazon(0)",
+      "severity": "error",
+      "description": "Dépendance interne Derats_Jazon"
+    },
+    {
+      "rule": "derats_magasin_2(38):derats_magasin_2(33)",
+      "severity": "error",
+      "description": "Dépendance interne derats_magasin_2"
+    },
+    {
+      "rule": "divine_remix(103,106,107,109,112,115,118,121,124,127,130):divine_remix(100)",
+      "severity": "error",
+      "description": "Dépendance interne divine_remix 1"
+    },
+    {
+      "rule": "divine_remix(203,605):divine_remix(200)",
+      "severity": "error",
+      "description": "Dépendance interne divine_remix 2"
+    },
+    {
+      "rule": "divine_remix(600):divine_remix(100,109)",
+      "severity": "error",
+      "description": "Dépendance interne divine_remix 3"
+    },
+    {
+      "rule": "divine_remix(610):divine_remix(100,106)",
+      "severity": "error",
+      "description": "Dépendance interne divine_remix 4"
+    },
+    {
+      "rule": "DjinniCompanion(300):DjinniCompanion(0,1)",
+      "severity": "error",
+      "description": "Dépendance interne DjinniCompanion"
+    },
+    {
+      "rule": "DjinniCompanion(1000,101,102,103,104,105,200):DjinniCompanion(0)",
+      "severity": "error",
+      "description": "Dépendance interne DjinniCompanion"
+    },
+    {
+      "rule": "DofD(100):DofD(0)",
+      "severity": "error",
+      "description": "Dépendance interne DofD"
+    },
+    {
+      "rule": "drizztsaga(3,4,5,6):drizztsaga(0,1)",
+      "severity": "error",
+      "description": "Dépendance interne drizztsaga"
+    },
+    {
+      "rule": "drunkshaders(1105,1125,1205,1215,1225,1304,1305,1314,1315,1405,1415,1425,1435,1445,1455,1465,1475,1505,1515,1605,1615,1625,1635,1645,1655,1665,1675,1705,1805,9005):drunkshaders(1000)",
+      "severity": "error",
+      "description": "Dépendance interne drunkshaders"
+    },
+    {
+      "rule": "DSotSC(1,2,3,4):DSotSC(0)",
+      "severity": "error",
+      "description": "Dépendance interne DSotSC"
+    },
+    {
+      "rule": "edwinromance(1,2):edwinromance(0)",
+      "severity": "error",
+      "description": "Dépendance interne EdwinRomance"
+    },
+    {
+      "rule": "EET(100):EET(0)",
+      "severity": "error",
+      "description": "Dépendance interne EET"
+    },
+    {
+      "rule": "EEUITweaks(1010):EEUITweaks(1000)",
+      "severity": "error",
+      "description": "Dépendance interne EEUITweaks"
+    },
+    {
+      "rule": "EEUITweaks(1042,1044):EEUITweaks(1040,1041)",
+      "severity": "error",
+      "description": "Dépendance interne EEUITweaks"
+    },
+    {
+      "rule": "EEUITweaks(3010):EEUITweaks(1000,3000)",
+      "severity": "error",
+      "description": "Dépendance interne EEUITweaks"
+    },
+    {
+      "rule": "enhanced-powergaming-scripts(10,9):enhanced-powergaming-scripts(14,15)",
+      "severity": "error",
+      "description": "Dépendance interne enhanced-powergaming-scripts"
+    },
+    {
+      "rule": "faiths_and_powers(80):faiths_and_powers(21,22,23,24,25)",
+      "severity": "error",
+      "description": "Dépendance interne faiths_and_powers 1"
+    },
+    {
+      "rule": "faiths_and_powers(99):faiths_and_powers(31,33,35,91,95)",
+      "severity": "error",
+      "description": "Dépendance interne faiths_and_powers 2"
+    },
+    {
+      "rule": "gavin(1,10,11,12,13,14,4,5,6,7,8,9):gavin(0)",
+      "severity": "error",
+      "description": "Dépendance interne gavin"
+    },
+    {
+      "rule": "gavin(2,3):gavin(1,11,12,13,14)",
+      "severity": "error",
+      "description": "Dépendance interne à la romance de gavin"
+    },
+    {
+      "rule": "haiass(10,15):haiass(0)",
+      "severity": "error",
+      "description": "Dépendance interne haiass"
+    },
+    {
+      "rule": "hammers(15,25,35,50):hammers(0)",
+      "severity": "error",
+      "description": "Dépendance interne hammers"
+    },
+    {
+      "rule": "HiddenGameplayOptions(201):HiddenGameplayOptions(200)",
+      "severity": "error",
+      "description": "Dépendance interne HiddenGameplayOptions"
+    },
+    {
+      "rule": "Horace(1):Horace(0)",
+      "severity": "error",
+      "description": "Dépendance interne Horace"
+    },
+    {
+      "rule": "IHateUndead(8):IHateUndead(7)",
+      "severity": "error",
+      "description": "Dépendance interne IHateUndead"
+    },
+    {
+      "rule": "IndiNPC(2001):IndiNPC(0)",
+      "severity": "error",
+      "description": "Dépendance interne IndiNPC"
+    },
+    {
+      "rule": "IRStore(6):IRStore(0,2,3,4,5)",
+      "severity": "error",
+      "description": "Dépendance interne IRStore"
+    },
+    {
+      "rule": "isra(1,2):isra(0)",
+      "severity": "error",
+      "description": "Dépendance interne isra"
+    },
+    {
+      "rule": "isra_bg2(1):isra_bg2(0)",
+      "severity": "error",
+      "description": "Dépendance interne isra_bg2"
+    },
+    {
+      "rule": "itemupgrade(12):itemupgrade(1,11)",
+      "severity": "error",
+      "description": "Dépendance interne itemupgrade"
+    },
+    {
+      "rule": "iwd1_eet(1):iwd1_eet(0)",
+      "severity": "error",
+      "description": "Dépendance interne iwd1_eet"
+    },
+    {
+      "rule": "kiara-zaiya(3,4):Kiara-Zaiya(0,1)",
+      "severity": "error",
+      "description": "Dépendance interne kiara-zaiya"
+    },
+    {
+      "rule": "KimNPC(1):KimNPC(0)",
+      "severity": "error",
+      "description": "Dépendance interne KimNPC"
+    },
+    {
+      "rule": "kitmule(99):kitmule(10000,9999)",
+      "severity": "error",
+      "description": "Dépendance interne kitmule"
+    },
+    {
+      "rule": "LegacyofBhaalFix(1):LegacyofBhaalFix(0)",
+      "severity": "error",
+      "description": "Dépendance interne LegacyofBhaalFix"
+    },
+    {
+      "rule": "lolfixer(2,3,4,5,6):lolfixer(1)",
+      "severity": "error",
+      "description": "Dépendance interne lolfixer #1"
+    },
+    {
+      "rule": "lolfixer(6):lolfixer(5)",
+      "severity": "error",
+      "description": "Dépendance interne lolfixer #2"
+    },
+    {
+      "rule": "lolfixer(10,11,12,8,9):lolfixer(7)",
+      "severity": "error",
+      "description": "Dépendance interne lolfixer #3"
+    },
+    {
+      "rule": "lolfixer(14):lolfixer(13)",
+      "severity": "error",
+      "description": "Dépendance interne lolfixer #4"
+    },
+    {
+      "rule": "Mercenary(1,2):Mercenary(0)",
+      "severity": "error",
+      "description": "Dépendance interne Mercenary"
+    },
+    {
+      "rule": "MilitiaOfficer(1):MilitiaOfficer(0)",
+      "severity": "error",
+      "description": "Dépendance interne MilitiaOfficer"
+    },
+    {
+      "rule": "Pirate(1,2,3,4,5,6):Pirate(0)",
+      "severity": "error",
+      "description": "Dépendance interne Pirate"
+    },
+    {
+      "rule": "PPE(100,150):PPE(0)",
+      "severity": "error",
+      "description": "Dépendance interne PPE"
+    },
+    {
+      "rule": "PPK(-):PPK(0)",
+      "severity": "error",
+      "description": "Dépendance interne PPK"
+    },
+    {
+      "rule": "refinements(101,102,103,104,105,106,107,108,109,110):refinements(11)",
+      "severity": "error",
+      "description": "Dépendance interne refinements"
+    },
+    {
+      "rule": "RevisedBattles(-):RevisedBattles(0)",
+      "severity": "error",
+      "description": "Dépendance interne RevisedBattles 1"
+    },
+    {
+      "rule": "RevisedBattles(0):RevisedBattles(27)",
+      "severity": "error",
+      "description": "Dépendance interne RevisedBattles 2"
+    },
+    {
+      "rule": "rttkit(-):rttkit(30)",
+      "severity": "error",
+      "description": "Dépendance interne rttkit"
+    },
+    {
+      "rule": "ruad(10):ruad(0)",
+      "severity": "error",
+      "description": "Dépendance interne ruad"
+    },
+    {
+      "rule": "sbs(6):sbs(0,1,2,3,4)",
+      "severity": "error",
+      "description": "Dépendance interne sbs"
+    },
+    {
+      "rule": "semi_multi_clerics(50):semi_multi_clerics(1,10,11,12,2,3,4,5,6,7,8,9)",
+      "severity": "error",
+      "description": "Dépendance interne semi_multi_clerics"
+    },
+    {
+      "rule": "Severian(1,2):Severian(0)",
+      "severity": "error",
+      "description": "Dépendance interne Severian"
+    },
+    {
+      "rule": "sirinescall(1):sirinescall(0)",
+      "severity": "error",
+      "description": "Dépendance interne sirinescall"
+    },
+    {
+      "rule": "SkipChateauIrenicus(101,102):SkipChateauIrenicus(0)",
+      "severity": "error",
+      "description": "Dépendance interne SkipChateauIrenicus"
+    },
+    {
+      "rule": "sodrtd(10,20,40,60):sodrtd(0)",
+      "severity": "error",
+      "description": "Dépendance interne sodrtd 1"
+    },
+    {
+      "rule": "sodrtd(30):sodrtd(0,10)",
+      "severity": "error",
+      "description": "Dépendance interne sodrtd 2"
+    },
+    {
+      "rule": "sodrtd(50,70):sodrtd(0,20,40)",
+      "severity": "error",
+      "description": "Dépendance interne sodrtd 3"
+    },
+    {
+      "rule": "song_and_silence(2,3,4,5,6,7,8,9):song_and_silence(0)",
+      "severity": "error",
+      "description": "Dépendance interne song_and_silence"
+    },
+    {
+      "rule": "spell_rev(60):spell_rev(0)",
+      "severity": "error",
+      "description": "Dépendance interne spell_rev"
+    },
+    {
+      "rule": "stratagems(6000,6010,6030,6040,6200,6300,6320,6500,6510,6520,6540,6550,6560,6580,6590,6800,6810,6820,6830,7000,7010,7020,7030,7040,7050,7060,7070,7080,7100,7110,7140,7200,7210,7220,7230,7250,7900,8000,8010,8040,8050,8060,8090,8100,8110,8120,8130,8140,8150,8160,8170,8180,8190):stratagems(5900)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems"
+    },
+    {
+      "rule": "stratagems(6100,6310,6570):stratagems(5900,6000)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 2"
+    },
+    {
+      "rule": "stratagems(6840,7130,8020):stratagems(5900,6030)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 3"
+    },
+    {
+      "rule": "stratagems(6850):stratagems(5900,6510)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 4"
+    },
+    {
+      "rule": "stratagems(7090):stratagems(5900,6040)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 5"
+    },
+    {
+      "rule": "stratagems(8070):stratagems(5900,6030,6550)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 6"
+    },
+    {
+      "rule": "stratagems(8080):stratagems(5900,6580)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 7"
+    },
+    {
+      "rule": "stratagems(8085):stratagems(8080)",
+      "severity": "error",
+      "description": "Dépendance interne stratagems 8"
+    },
+    {
+      "rule": "SubtleD_Stat_Overhauls(121):SubtleD_Stat_Overhauls(110)",
+      "severity": "error",
+      "description": "Dépendance interne SubtleD_Spell_Tweaks #2"
+    },
+    {
+      "rule": "TDDz(-):TDDz(0)",
+      "severity": "error",
+      "description": "Dépendance interne TDDz"
+    },
+    {
+      "rule": "TDDz(1000):TDDz(2,3,4)",
+      "severity": "error",
+      "description": "Dépendance interne TDDz"
+    },
+    {
+      "rule": "Thael(1):Thael(0)",
+      "severity": "error",
+      "description": "Dépendance interne Thael"
+    },
+    {
+      "rule": "TheBeaurinLegacy(2000,3010,3020,3030):TheBeaurinLegacy(1000)",
+      "severity": "error",
+      "description": "Dépendance interne TheBeaurinLegacy"
+    },
+    {
+      "rule": "tipun_gui(10):tipun_gui(20)",
+      "severity": "error",
+      "description": "Dépendance interne tipun_gui 1"
+    },
+    {
+      "rule": "tipun_gui(20):tipun_gui(10)",
+      "severity": "error",
+      "description": "Dépendance interne tipun_gui 2"
+    },
+    {
+      "rule": "tnt(10,11,12,13,2,3,4,5,6,7,8,9):tnt(14)",
+      "severity": "error",
+      "description": "Dépendance interne tnt 1"
+    },
+    {
+      "rule": "tnt(10,11,12,13,8,9):tnt(6,7)",
+      "severity": "error",
+      "description": "Dépendance interne tnt 2"
+    },
+    {
+      "rule": "tod(1,2):tod(0)",
+      "severity": "error",
+      "description": "Dépendance interne tod"
+    },
+    {
+      "rule": "Varshoon(1):Varshoon(0)",
+      "severity": "error",
+      "description": "Dépendance interne Varshoon"
+    },
+    {
+      "rule": "Vaulteet(1):Vaulteet(0)",
+      "severity": "error",
+      "description": "Dépendance interne Vaulteet 1"
+    },
+    {
+      "rule": "Will_to_Power(900):Will_to_Power(200,300,400,500)",
+      "severity": "error",
+      "description": "Dépendance interne Will_to_Power"
+    },
+    {
+      "rule": "xan(1,2,3,4,5,6):xan(0)",
+      "severity": "error",
+      "description": "Dépendance interne xan"
+    },
+    {
+      "rule": "XPexchange(1):XPexchange(0)",
+      "severity": "error",
+      "description": "Dépendance interne XPexchange"
+    },
+    {
+      "rule": "A7-ConvenientEENPCs(513,542):A7-ChaosSorcerer(0)",
+      "severity": "error",
+      "description": "A7-ConvenientEENPCs nécessite A7-ChaosSorcerer"
+    },
+    {
+      "rule": "A7-ConvenientEENPCs(514):shadowadept(0)",
+      "severity": "error",
+      "description": "A7-ConvenientEENPCs nécessite shadowadept"
+    },
+    {
+      "rule": "A7-ConvenientEENPCs(563):divine_remix(103)",
+      "severity": "error",
+      "description": "A7-ConvenientEENPCs nécessite divine_remix"
+    },
+    {
+      "rule": "Askaria(0):ChaosKnight(0)",
+      "severity": "error",
+      "description": "Askaria nécessite ChaosKnight"
+    },
+    {
+      "rule": "better_spell_visuals(10):spell_rev(0)",
+      "severity": "error",
+      "description": "Composant de better_spell_visuals nécessite le composant principal de spell_rev"
+    },
+    {
+      "rule": "bg1npcmusic(-):bg1npc(0)",
+      "severity": "error",
+      "description": "BG1NPC Music nécessite BG1NPC"
+    },
+    {
+      "rule": "EET(-):EET_end(-)",
       "severity": "error",
       "description": "EET s'installe en 2 parties",
-      "mode": "any",
       "implicit_order": false
-    }, {
-      "source": ["EET_End:*"],
-      "target": ["EET:*"],
+    },
+    {
+      "rule": "EET_End(-):EET(-)",
       "severity": "error",
-      "description": "EET s'installe en 2 parties",
-      "mode": "any"
-    }, {
-      "source": ["iwd1_eet:*"],
-      "target": ["iwd_eet_end:*"],
+      "description": "EET s'installe en 2 parties"
+    },
+    {
+      "rule": "iwd1_eet(-):iwd_eet_end(-)",
       "severity": "error",
-      "description": "iwd1_eet nécessite iwd_eet_end",
-      "mode": "any"
-    }, {
-      "source": ["iwd2_eet:*"],
-      "target": ["iwd_eet_end:*"],
+      "description": "iwd1_eet nécessite iwd_eet_end"
+    },
+    {
+      "rule": "iwd2_eet(0):iwd_eet_end(-)",
       "severity": "error",
-      "description": "iwd2_eet nécessite iwd_eet_end",
-      "mode": "any"
-    }, {
-      "source": ["iwd_eet_end:*"],
-      "target": ["iwd1_eet:*", "iwd2_eet:*"],
+      "description": "iwd2_eet nécessite iwd_eet_end"
+    },
+    {
+      "rule": "iwd_eet_end(-):iwd1_eet(-)|iwd2_eet(-)",
       "severity": "error",
-      "description": "iwd_eet_end nécessite iwd1_eet ou iwd2_eet",
-      "mode": "any"
-    }, {
-      "source": ["bubb_spell_menu_extended:*"],
-      "target": ["EEex:0"],
+      "description": "iwd_eet_end nécessite iwd1_eet ou iwd2_eet"
+    },
+    {
+      "rule": "bubb_spell_menu_extended(-):EEex(0)",
       "severity": "error",
-      "description": "Bubb's Spell Menu Extended nécessite EEex",
-      "mode": "any"
-    }, {
-      "source": ["butchery:51"],
-      "target": ["ascension:1500", "stratagems:6000"],
+      "description": "Bubb's Spell Menu Extended nécessite EEex"
+    },
+    {
+      "rule": "butchery(51):ascension(1500)&stratagems(6000)",
       "severity": "error",
-      "description": "Composant de Butchery nécessite les mods Ascension et Strategems",
-      "mode": "all"
-    }, {
-      "source": ["HiddenGameplayOptions:38"],
-      "target": [
-        "cdtweaks:3350", "cdtweaks:3351", "cdtweaks:3352", "cdtweaks:3353", "cdtweaks:3354", "cdtweaks:3355",
-        "cdtweaks:3356", "cdtweaks:3357", "cdtweaks:3358"
-      ],
+      "description": "Composant de Butchery nécessite les mods Ascension et Strategems"
+    },
+    {
+      "rule": "HiddenGameplayOptions(38):cdtweaks(3350,3351,3352,3353,3354,3355,3356,3357,3358)",
       "severity": "error",
-      "description": "Dépendance avec \"Tweaks Anthology\"",
-      "mode": "any"
-    }, {
-      "source": ["LongerRoad:*"],
-      "target": ["Ascension:0"],
+      "description": "Dépendance avec \"Tweaks Anthology\""
+    },
+    {
+      "rule": "LongerRoad(-):Ascension(0)",
       "severity": "error",
-      "description": "Longer Road nécessite Ascension",
-      "mode": "any"
-    }, {
-      "source": ["ajantisbg1:1"],
-      "target": ["bg1npc:10"],
+      "description": "Longer Road nécessite Ascension"
+    },
+    {
+      "rule": "ajantisbg1(1):bg1npc(10)",
       "severity": "error",
-      "description": "Ajantis nécessite le composant de BG1NPC",
-      "mode": "any"
-    }, {
-      "source": ["DjinniCompanion:900"],
-      "target": ["infinityanimations:*"],
+      "description": "Ajantis nécessite le composant de BG1NPC"
+    },
+    {
+      "rule": "DjinniCompanion(900):infinityanimations(-)",
       "severity": "error",
-      "description": "DjinniCompanion nécessite le mod infinityanimations",
-      "mode": "any"
-    }, {
-      "source": ["d2-workshopkits:4"],
-      "target": ["d2-workshopkits:9999", "5E_spellcasting:*"],
+      "description": "DjinniCompanion nécessite le mod infinityanimations"
+    },
+    {
+      "rule": "SubtleD_Item_Tweaks(140):IWD1_EET(1)",
       "severity": "error",
-      "description": "Composants de d2-workshopkits nécessite le mod 5E_spellcasting",
-      "mode": "all"
-    }, {
-      "source": ["d2-workshopkits:5"],
-      "target": ["d2-workshopkits:9999", "dw_talents:*"],
+      "description": "SubtleD_Item_Tweaks nécessite IWD1_EET"
+    },
+    {
+      "rule": "SubtleD_Item_Tweaks(1051,1052,1100):item_rev(0)",
       "severity": "error",
-      "description": "Composants de d2-workshopkits nécessite le mod dw_talents",
-      "mode": "all"
-    }, {
-      "source": ["SubtleD_Item_Tweaks:140"],
-      "target": ["IWD1_EET:1"],
+      "description": "SubtleD_Item_Tweaks nécessite item_rev"
+    },
+    {
+      "rule": "SubtleD_Spell_Tweaks(50):spell_rev(0)",
       "severity": "error",
-      "description": "SubtleD_Item_Tweaks nécessite IWD1_EET",
-      "mode": "any"
-    }, {
-      "source": ["SubtleD_Item_Tweaks:1051", "SubtleD_Item_Tweaks:1052", "SubtleD_Item_Tweaks:1100"],
-      "target": ["item_rev:0"],
+      "description": "SubtleD_Spell_Tweaks nécessite spell_rev #1"
+    },
+    {
+      "rule": "SubtleD_Spell_Tweaks(1151,1603,1613,2151,2213,2418,2508,2518,2714,2808):spell_rev(0)",
       "severity": "error",
-      "description": "SubtleD_Item_Tweaks nécessite item_rev",
-      "mode": "any"
-    }, {
-      "source": ["SubtleD_Spell_Tweaks:50"],
-      "target": ["spell_rev:0"],
+      "description": "SubtleD_Spell_Tweaks nécessite spell_rev #2"
+    },
+    {
+      "rule": "SubtleD_Stat_Overhauls(121,122):5E_spellcasting(100)",
       "severity": "error",
-      "description": "SubtleD_Spell_Tweaks nécessite spell_rev #1",
-      "mode": "any"
-    }, {
-      "source": [
-        "SubtleD_Spell_Tweaks:1151", "SubtleD_Spell_Tweaks:1603", "SubtleD_Spell_Tweaks:1613",
-        "SubtleD_Spell_Tweaks:2151", "SubtleD_Spell_Tweaks:2213", "SubtleD_Spell_Tweaks:2418",
-        "SubtleD_Spell_Tweaks:2508", "SubtleD_Spell_Tweaks:2518", "SubtleD_Spell_Tweaks:2714",
-        "SubtleD_Spell_Tweaks:2808"
-      ],
-      "target": ["spell_rev:0", "SubtleD_Spell_Tweaks:1"],
+      "description": "SubtleD_Spell_Tweaks nécessite 5E_spellcasting"
+    },
+    {
+      "rule": "keto(1):kelsey(0)&keto(0)",
       "severity": "error",
-      "description": "SubtleD_Spell_Tweaks nécessite spell_rev #2",
-      "mode": "all"
-    }, {
-      "source": ["SubtleD_Stat_Overhauls:121", "SubtleD_Stat_Overhauls:122"],
-      "target": ["5E_spellcasting:100"],
+      "description": "Interactions Keto/Kelsey nécessite keto et kesley"
+    },
+    {
+      "rule": "stratagems(6800,6810,6820,6830,6840,6850,8085):ascension(0)",
       "severity": "error",
-      "description": "SubtleD_Spell_Tweaks nécessite 5E_spellcasting",
-      "mode": "any"
-    }, {
-      "source": ["keto:1"],
-      "target": ["keto:0", "kelsey:0"],
+      "description": "Composants de Stratagems qui nécessitent le mod Ascension"
+    },
+    {
+      "rule": "skills-and-abilities(11,12,120,20,50,60,750):EEex(0)",
       "severity": "error",
-      "description": "Interactions Keto/Kelsey nécessite keto et kesley",
-      "mode": "all"
-    }, {
-      "source": [
-        "stratagems:6800", "stratagems:6810", "stratagems:6820", "stratagems:6830", "stratagems:6840",
-        "stratagems:6850", "stratagems:8085"
-      ],
-      "target": ["ascension:0"],
+      "description": "skills-and-abilities nécessite EEex"
+    },
+    {
+      "rule": "EET_Tweaks(2080):EEex(0)",
       "severity": "error",
-      "description": "Composants de Stratagems qui nécessitent le mod Ascension",
-      "mode": "any"
-    }, {
-      "source": [
-        "skills-and-abilities:11", "skills-and-abilities:12", "skills-and-abilities:20", "skills-and-abilities:50",
-        "skills-and-abilities:60", "skills-and-abilities:120", "skills-and-abilities:750"
-      ],
-      "target": ["EEex:0"],
+      "description": "EET_Tweaks nécessite EEex"
+    },
+    {
+      "rule": "thieving-skills-for-bards(-):EEex(0)",
       "severity": "error",
-      "description": "skills-and-abilities nécessite EEex",
-      "mode": "any"
-    }, {
-      "source": ["EET_Tweaks:2080"],
-      "target": ["EEex:0"],
+      "description": "thieving-skills-for-bards nécessite EEex"
+    },
+    {
+      "rule": "turnabout(-):ascension(0)",
       "severity": "error",
-      "description": "EET_Tweaks nécessite EEex",
-      "mode": "any"
-    }, {
-      "source": ["thieving-skills-for-bards:*"],
-      "target": ["EEex:0"],
+      "description": "Turnabout nécessite Ascension"
+    },
+    {
+      "rule": "Vaulteet(0)&item_rev(0):Vaulteet(1)",
       "severity": "error",
-      "description": "thieving-skills-for-bards nécessite EEex",
-      "mode": "any"
-    }, {
-      "source": ["turnabout:*"],
-      "target": ["ascension:0"],
+      "description": "Composant de Vaulteet nécessite item_rev"
+    },
+    {
+      "rule": "XanFrenchMini(-):Xan(0)",
       "severity": "error",
-      "description": "Turnabout nécessite Ascension",
-      "mode": "any"
-    }, {
-      "source": ["Vaulteet:0", "item_rev:0"],
-      "target": ["Vaulteet:1"],
+      "description": "XanFrenchMini nécessite le composant de Xan"
+    },
+    {
+      "rule": "Xan(0):XanFrenchMini(-)",
       "severity": "error",
-      "description": "Composant de Vaulteet nécessite item_rev",
-      "mode": "all"
-    }, {
-      "source": ["XanFrenchMini:*"],
-      "target": ["Xan:0"],
+      "description": "Xan nécessite le composant de XanFrenchMini pour avoir les voix françaises"
+    },
+    {
+      "rule": "BoneHillEET(-)|CtB(-)|TDDz(-)|drizztsaga(1):bp-bgt-worldmap(0)",
       "severity": "error",
-      "description": "XanFrenchMini nécessite le composant de Xan",
-      "mode": "any"
-    }, {
-      "source": ["Xan:0"],
-      "target": ["XanFrenchMini:*"],
+      "description": "Mods qui nécessitent Worldmap"
+    },
+    {
+      "rule": "CtB(-):tethyrforestpatch(-)",
       "severity": "error",
-      "description": "Xan nécessite le composant de XanFrenchMini pour avoir les voix françaises",
-      "mode": "any"
-    }, {
-      "source": ["BoneHillEET:*", "CtB:*", "TDDz:*", "drizztsaga:1"],
-      "target": ["bp-bgt-worldmap:0"],
+      "description": "Amélioration de la compatibilité de CtB avec d'autres mods utilisant la même grotte"
+    },
+    {
+      "rule": "TDDz(-):TDD(0)",
       "severity": "error",
-      "description": "Mods qui nécessitent Worldmap",
-      "mode": "any"
-    }, {
-      "source": ["CtB:*"],
-      "target": ["tethyrforestpatch:*"],
+      "description": "TDD version originale est nécessaire pour la version EE"
+    },
+    {
+      "rule": "TDDz(7):bggo(-)",
       "severity": "error",
-      "description": "Amélioration de la compatibilité de CtB avec d'autres mods utilisant la même grotte",
-      "mode": "any"
-    }, {
-      "source": ["TDDz:*"],
-      "target": ["TDD:0"],
+      "description": "Composant de TDDz nécessite le mod BGGO"
+    },
+    {
+      "rule": "npcflirt(1,11,13,15,3,5,7,9):solaufein(0)",
       "severity": "error",
-      "description": "TDD version originale est nécessaire pour la version EE",
-      "mode": "any"
-    }, {
-      "source": ["TDDz:7"],
-      "target": ["bggo:*"],
+      "description": "Composants de npcflirt nécessitent le mod solaufein"
+    },
+    {
+      "rule": "zgtweaks(1002):mih_eq(109,112,113,115,119,123,124,126,128,130,131,132,133,134,135,138,139,142,148,149,154,155,157)",
       "severity": "error",
-      "description": "Composant de TDDz nécessite le mod BGGO",
-      "mode": "any"
-    }, {
-      "source": [
-        "npcflirt:1", "npcflirt:3", "npcflirt:5", "npcflirt:7", "npcflirt:9", "npcflirt:11", "npcflirt:13",
-        "npcflirt:15"
-      ],
-      "target": ["solaufein:0"],
+      "description": "Composant de zgtweaks nécessite le mod mih_eq"
+    },
+    {
+      "rule": "bg1npc(50,51,52,53,54)&drizztsaga(0,1):drizztsaga(3)",
       "severity": "error",
-      "description": "Composants de npcflirt nécessitent le mod solaufein",
-      "mode": "any"
-    }, {
-      "source": ["zgtweaks:1002"],
-      "target": [
-        "mih_eq:109", "mih_eq:112", "mih_eq:113", "mih_eq:115", "mih_eq:119", "mih_eq:123", "mih_eq:124", "mih_eq:126",
-        "mih_eq:128", "mih_eq:130", "mih_eq:131", "mih_eq:132", "mih_eq:133", "mih_eq:134", "mih_eq:135", "mih_eq:138",
-        "mih_eq:139", "mih_eq:142", "mih_eq:148", "mih_eq:149", "mih_eq:154", "mih_eq:155", "mih_eq:157"
-      ],
+      "description": "Début repoussé de Drizzt Saga est nécessaire si Dynaheir de BG1NPC est présent"
+    },
+    {
+      "rule": "garrick-tt(0):bg1npc(200)",
       "severity": "error",
-      "description": "Composant de zgtweaks nécessite le mod mih_eq",
-      "mode": "any"
-    }, {
-      "source_groups": [
-        ["bg1npc:50", "bg1npc:51", "bg1npc:52", "bg1npc:53", "bg1npc:54"],
-        ["drizztsaga:0", "drizztsaga:1"]
-      ],
-      "target": ["drizztsaga:3"],
+      "description": "garrick-tt nécessite le composant 200 de bg1npc"
+    },
+    {
+      "rule": "DGItems(0)&volcano(0):DGItems(1000)",
       "severity": "error",
-      "description": "Debut repousse de Drizzt Saga est nécessaire si Dynaheir de BG1NPC est present",
-      "mode": "any"
-    }, {
-      "source": ["garrick-tt:0"],
-      "target": ["bg1npc:200"],
+      "description": "Composant de DGItems nécessite le mod volcano"
+    },
+    {
+      "rule": "isra(1):valerie(0)",
       "severity": "error",
-      "description": "garrick-tt nécessite le composant 200 de bg1npc",
-      "mode": "any"
-    }, {
-      "source": ["DGItems:1000"],
-      "target": ["DGItems:0", "volcano:0"],
+      "description": "Composant de isra nécessite le mod valerie"
+    },
+    {
+      "rule": "isra(2):gavin(0)",
       "severity": "error",
-      "description": "Composant de DGItems nécessite le mod volcano",
-      "mode": "all"
-    }, {
-      "source": ["isra:1"],
-      "target": ["valerie:0"],
+      "description": "Composant de isra nécessite le mod gavin"
+    },
+    {
+      "rule": "tnt(75):Saerileth(-)|bg1npc(30,31,32,33,34,50,51,52,53,54,60,61,62,63,64)|dearnise(-)|tyrisflare(-)",
       "severity": "error",
-      "description": "Composant de isra nécessite le mod valerie",
-      "mode": "any"
-    }, {
-      "source": ["isra:2"],
-      "target": ["gavin:0"],
+      "description": "Composant de tnt nécessite certains mods de pnj"
+    },
+    {
+      "rule": "cdtweaks(260,2650,2660,2670,2680,2690,2691,2692,2693,2700,2710,3420,3430,3440,3450,3460,3470,3480,4200,6000,6010,6020,6030,6040,6050,6060,6070,6080,6090,6100,6110,6120,6130,6140,6150,6160,6170,6180,6190,6200,6210,6220,6230,6240,6250,6260,6270,6280,6290,6300,6310,6320,6330,6340,6350):EEex(0)",
       "severity": "error",
-      "description": "Composant de isra nécessite le mod gavin",
-      "mode": "any"
-    }, {
-      "source": ["tnt:75"],
-      "target": [
-        "bg1npc:30", "bg1npc:31", "bg1npc:32", "bg1npc:33", "bg1npc:34", "bg1npc:50", "bg1npc:51", "bg1npc:52",
-        "bg1npc:53", "bg1npc:54", "bg1npc:60", "bg1npc:61", "bg1npc:62", "bg1npc:63", "bg1npc:64", "dearnise:*",
-        "tyrisflare:*", "Saerileth:*"
-      ],
+      "description": "Composant de cdtweaks nécessite EEex"
+    },
+    {
+      "rule": "Yikari(1):itemupgrade(0,10)",
       "severity": "error",
-      "description": "Composant de tnt nécessite certains mods de pnj",
-      "mode": "any"
-    }, {
-      "source": [
-        "cdtweaks:260", "cdtweaks:2650", "cdtweaks:2660", "cdtweaks:2670", "cdtweaks:2680", "cdtweaks:2690",
-        "cdtweaks:2691", "cdtweaks:2692", "cdtweaks:2693", "cdtweaks:2700", "cdtweaks:2710", "cdtweaks:3420",
-        "cdtweaks:3430", "cdtweaks:3440", "cdtweaks:3450", "cdtweaks:3460", "cdtweaks:3470", "cdtweaks:3480",
-        "cdtweaks:4200", "cdtweaks:6000", "cdtweaks:6010", "cdtweaks:6020", "cdtweaks:6030", "cdtweaks:6040",
-        "cdtweaks:6050", "cdtweaks:6060", "cdtweaks:6070", "cdtweaks:6080", "cdtweaks:6090", "cdtweaks:6100",
-        "cdtweaks:6110", "cdtweaks:6120", "cdtweaks:6130", "cdtweaks:6140", "cdtweaks:6150", "cdtweaks:6160",
-        "cdtweaks:6170", "cdtweaks:6180", "cdtweaks:6190", "cdtweaks:6200", "cdtweaks:6210", "cdtweaks:6220",
-        "cdtweaks:6230", "cdtweaks:6240", "cdtweaks:6250", "cdtweaks:6260", "cdtweaks:6270", "cdtweaks:6280",
-        "cdtweaks:6290", "cdtweaks:6300", "cdtweaks:6310", "cdtweaks:6320", "cdtweaks:6330", "cdtweaks:6340",
-        "cdtweaks:6350"
-      ],
-      "target": ["EEex:0"],
+      "description": "Composant de Yikari nécessite le mod itemupgrade SOA"
+    },
+    {
+      "rule": "Yikari(2):itemupgrade(1,11)",
       "severity": "error",
-      "description": "Composant de cdtweaks nécessite EEex",
-      "mode": "any"
-    }, {
-      "source": ["Yikari:1"],
-      "target": ["itemupgrade:0", "itemupgrade:10"],
+      "description": "Composant de Yikari nécessite le mod itemupgrade TOB"
+    },
+    {
+      "rule": "RevisedBattles(9)&RE(17):RevisedBattles(12)",
       "severity": "error",
-      "description": "Composant de Yikari nécessite le mod itemupgrade SOA",
-      "mode": "any"
-    }, {
-      "source": ["Yikari:2"],
-      "target": ["itemupgrade:1", "itemupgrade:11"],
+      "description": "Patch de compatibilité entre Improved Firkraag et Romantic Encounters"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(1,2):Horace(-)",
       "severity": "error",
-      "description": "Composant de Yikari nécessite le mod itemupgrade TOB",
-      "mode": "any"
-    }, {
-      "source": ["RevisedBattles:9", "RE:17"],
-      "target": ["RevisedBattles:12"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Horace"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(3):chiara(-)",
       "severity": "error",
-      "description": "Patch de compatibilité entre Improved Firkraag et Romantic Encounters",
-      "mode": "all"
-    }, {
-      "source": ["Derats_Mods_Tweaker:1", "Derats_Mods_Tweaker:2"],
-      "target": ["Horace:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod chiara"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(4,5):FoxMonster(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Horace",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:3"],
-      "target": ["chiara:*"],
-      "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod chiara",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:4", "Derats_Mods_Tweaker:5"],
-      "target": ["FoxMonster:*"],
-      "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod FoxMonster",
-      "mode": "any"
-    }, {
-      "source": ["FoxMonster:0"],
-      "target": ["Derats_Mods_Tweaker:4", "Derats_Mods_Tweaker:5"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod FoxMonster"
+    },
+    {
+      "rule": "FoxMonster(0):Derats_Mods_Tweaker(4,5)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #3",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:6", "Derats_Mods_Tweaker:7"],
-      "target": ["nina:*"],
+      "description": "Recommandation de dépendance #3"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(6,7):nina(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod nina",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:9"],
-      "target": ["Yikari:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod nina"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(9):Yikari(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Yikari",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:10", "Derats_Mods_Tweaker:13"],
-      "target": ["UoT:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Yikari"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(10,13):UoT(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod UoT",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:12"],
-      "target": ["Thael:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod UoT"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(12):Thael(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Thael",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:14"],
-      "target": ["jl#Zulu:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Thael"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(14):jl#Zulu(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod jl#Zulu",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:17"],
-      "target": ["DNT:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod jl#Zulu"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(17):DNT(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod DNT",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:18"],
-      "target": ["MawgulNPC:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod DNT"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(18):MawgulNPC(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod MawgulNPC",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:19", "Derats_Mods_Tweaker:22", "Derats_Mods_Tweaker:23"],
-      "target": ["TTSQ:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod MawgulNPC"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(19,22,23):TTSQ(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod TTSQ",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:20"],
-      "target": ["Banana:*"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod TTSQ"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(20):Banana(-)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Banana",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:15", "Derats_Mods_Tweaker:16"],
-      "target": ["derats_magasin_2:33"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod Banana"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(15,16):derats_magasin_2(33)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod derats_magasin_2",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:21"],
-      "target": ["SB:0"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod derats_magasin_2"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(21):SB(0)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod SB",
-      "mode": "any"
-    }, {
-      "source": ["Derats_Mods_Tweaker:24", "Derats_Mods_Tweaker:25"],
-      "target": ["sigil_bd_mod:0"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod SB"
+    },
+    {
+      "rule": "Derats_Mods_Tweaker(24,25):sigil_bd_mod(0)",
       "severity": "error",
-      "description": "Composant de Derats_Mods_Tweaker nécessite le mod sigil_bd_mod",
-      "mode": "any"
-    }, {
-      "source": ["Horace:0"],
-      "target": ["Derats_Mods_Tweaker:1", "Derats_Mods_Tweaker:2"],
+      "description": "Composant de Derats_Mods_Tweaker nécessite le mod sigil_bd_mod"
+    },
+    {
+      "rule": "Horace(0):Derats_Mods_Tweaker(1,2)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #1",
-      "mode": "any"
-    }, {
-      "source": ["chiara:0"],
-      "target": ["Derats_Mods_Tweaker:3"],
+      "description": "Recommandation de dépendance #1"
+    },
+    {
+      "rule": "chiara(0):Derats_Mods_Tweaker(3)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #2",
-      "mode": "any"
-    }, {
-      "source": ["nina:0"],
-      "target": ["Derats_Mods_Tweaker:6", "Derats_Mods_Tweaker:7"],
+      "description": "Recommandation de dépendance #2"
+    },
+    {
+      "rule": "nina(0):Derats_Mods_Tweaker(6,7)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #4",
-      "mode": "any"
-    }, {
-      "source": ["Yikari:0"],
-      "target": ["Derats_Mods_Tweaker:9"],
+      "description": "Recommandation de dépendance #4"
+    },
+    {
+      "rule": "Yikari(0):Derats_Mods_Tweaker(9)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #6",
-      "mode": "any"
-    }, {
-      "source": ["UoT:0"],
-      "target": ["Derats_Mods_Tweaker:10", "Derats_Mods_Tweaker:13"],
+      "description": "Recommandation de dépendance #6"
+    },
+    {
+      "rule": "UoT(0):Derats_Mods_Tweaker(10,13)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #7",
-      "mode": "any"
-    }, {
-      "source": ["Thael:0"],
-      "target": ["Derats_Mods_Tweaker:12"],
+      "description": "Recommandation de dépendance #7"
+    },
+    {
+      "rule": "Thael(0):Derats_Mods_Tweaker(12)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #5",
-      "mode": "any"
-    }, {
-      "source": ["jl#Zulu:0"],
-      "target": ["Derats_Mods_Tweaker:14"],
+      "description": "Recommandation de dépendance #5"
+    },
+    {
+      "rule": "jl#Zulu(0):Derats_Mods_Tweaker(14)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #6",
-      "mode": "any"
-    }, {
-      "source": ["DNT:0"],
-      "target": ["Derats_Mods_Tweaker:17"],
+      "description": "Recommandation de dépendance #6"
+    },
+    {
+      "rule": "DNT(0):Derats_Mods_Tweaker(17)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #7",
-      "mode": "any"
-    }, {
-      "source": ["MawgulNPC:0"],
-      "target": ["Derats_Mods_Tweaker:18"],
+      "description": "Recommandation de dépendance #7"
+    },
+    {
+      "rule": "MawgulNPC(0):Derats_Mods_Tweaker(18)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #8",
-      "mode": "any"
-    }, {
-      "source": ["TTSQ:0"],
-      "target": ["Derats_Mods_Tweaker:19", "Derats_Mods_Tweaker:22", "Derats_Mods_Tweaker:23"],
+      "description": "Recommandation de dépendance #8"
+    },
+    {
+      "rule": "TTSQ(0):Derats_Mods_Tweaker(19,22,23)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #9",
-      "mode": "any"
-    }, {
-      "source": ["Banana:0"],
-      "target": ["Derats_Mods_Tweaker:20"],
+      "description": "Recommandation de dépendance #9"
+    },
+    {
+      "rule": "Banana(0):Derats_Mods_Tweaker(20)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #10",
-      "mode": "any"
-    }, {
-      "source": ["derats_magasin_2:33"],
-      "target": ["Derats_Mods_Tweaker:15", "Derats_Mods_Tweaker:16"],
+      "description": "Recommandation de dépendance #10"
+    },
+    {
+      "rule": "derats_magasin_2(33):Derats_Mods_Tweaker(15,16)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #11",
-      "mode": "any"
-    }, {
-      "source": ["SB:0"],
-      "target": ["Derats_Mods_Tweaker:21"],
+      "description": "Recommandation de dépendance #11"
+    },
+    {
+      "rule": "SB(0):Derats_Mods_Tweaker(21)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #12",
-      "mode": "any"
-    }, {
-      "source": ["sigil_bd_mod:0"],
-      "target": ["Derats_Mods_Tweaker:24", "Derats_Mods_Tweaker:25"],
+      "description": "Recommandation de dépendance #12"
+    },
+    {
+      "rule": "sigil_bd_mod(0):Derats_Mods_Tweaker(24,25)",
       "severity": "warning",
-      "description": "Recommandation de dépendance #13",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1550"],
-      "target": ["DjinniCompanion:*"],
+      "description": "Recommandation de dépendance #13"
+    },
+    {
+      "rule": "nscportraits(1550):DjinniCompanion(-)",
       "severity": "error",
-      "description": "Portraits pour Afaaq Djinni Companion",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1610"],
-      "target": ["alternatives:*"],
+      "description": "Portraits pour Afaaq Djinni Companion"
+    },
+    {
+      "rule": "nscportraits(1610):alternatives(-)",
       "severity": "error",
-      "description": "Portraits pour Alternatives",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1380"],
-      "target": ["ac_quest:*"],
+      "description": "Portraits pour Alternatives"
+    },
+    {
+      "rule": "nscportraits(1380):ac_quest(-)",
       "severity": "error",
-      "description": "Portraits pour Ascalons Questpack",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1310"],
-      "target": ["Assassinations:*"],
+      "description": "Portraits pour Ascalons Questpack"
+    },
+    {
+      "rule": "nscportraits(1310):Assassinations(-)",
       "severity": "error",
-      "description": "Portraits pour Assassinations",
-      "mode": "any"
-    }, {
-      "source": ["da_portraits:87", "da_portraits:88"],
-      "target": ["aurenaseph:*"],
+      "description": "Portraits pour Assassinations"
+    },
+    {
+      "rule": "da_portraits(87,88):aurenaseph(-)",
       "severity": "error",
-      "description": "Portraits pour Auren Aseph NPC",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1470"],
-      "target": ["BackBrynnlaw:*"],
+      "description": "Portraits pour Auren Aseph NPC"
+    },
+    {
+      "rule": "nscportraits(1470):BackBrynnlaw(-)",
       "severity": "error",
-      "description": "Portraits pour Back to Brynnlaw",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:300"],
-      "target": ["bgqe:*"],
+      "description": "Portraits pour Back to Brynnlaw"
+    },
+    {
+      "rule": "nscportraits(300):bgqe(-)",
       "severity": "error",
-      "description": "Portraits pour BG1 Mini-Quests and Encounters",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1370"],
-      "target": ["DarkHorizons:0"],
+      "description": "Portraits pour BG1 Mini-Quests and Encounters"
+    },
+    {
+      "rule": "nscportraits(1370):DarkHorizons(0)",
       "severity": "error",
-      "description": "Portraits pour Dark Horizons",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1520"],
-      "target": ["d0questpack:*"],
+      "description": "Portraits pour Dark Horizons"
+    },
+    {
+      "rule": "nscportraits(1520):d0questpack(-)",
       "severity": "error",
-      "description": "Portraits pour Ding0's Quest Pack",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1430"],
-      "target": ["Eilistraee:*"],
+      "description": "Portraits pour Ding0's Quest Pack"
+    },
+    {
+      "rule": "nscportraits(1430):Eilistraee(-)",
       "severity": "error",
-      "description": "Portraits pour Eilistraees Song",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1440"],
-      "target": ["gbthfkp:*"],
+      "description": "Portraits pour Eilistraees Song"
+    },
+    {
+      "rule": "nscportraits(1440):gbthfkp(-)",
       "severity": "error",
-      "description": "Portraits pour Expanded Thief Stronghold",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1450", "da_portraits:89", "da_portraits:90"],
-      "target": ["gavin:0"],
+      "description": "Portraits pour Expanded Thief Stronghold"
+    },
+    {
+      "rule": "da_portraits(89,90)|nscportraits(1450):gavin(0)",
       "severity": "error",
-      "description": "Portraits pour Gavin BG1 NPC",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:310"],
-      "target": ["TGC1E:*"],
+      "description": "Portraits pour Gavin BG1 NPC"
+    },
+    {
+      "rule": "nscportraits(310):TGC1E(-)",
       "severity": "error",
-      "description": "Portraits pour Grey Clan Episode I",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1590"],
-      "target": ["isnf:*"],
+      "description": "Portraits pour Grey Clan Episode I"
+    },
+    {
+      "rule": "nscportraits(1590):isnf(-)",
       "severity": "error",
-      "description": "Portraits pour I Shall Never Forget",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1410"],
-      "target": ["Innershade:*"],
+      "description": "Portraits pour I Shall Never Forget"
+    },
+    {
+      "rule": "nscportraits(1410):Innershade(-)",
       "severity": "error",
-      "description": "Portraits pour Innershade",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1390"],
-      "target": ["JanQuest:*", "JanQuestRemix:*"],
+      "description": "Portraits pour Innershade"
+    },
+    {
+      "rule": "nscportraits(1390):JanQuest(-)|JanQuestRemix(-)",
       "severity": "error",
-      "description": "Portraits pour Jans Quest",
-      "mode": "any"
-    }, {
-      "source": ["da_portraits:95"],
-      "target": ["keto:*"],
+      "description": "Portraits pour Jans Quest"
+    },
+    {
+      "rule": "da_portraits(95):keto(-)",
       "severity": "error",
-      "description": "Portraits pour Keto",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:305", "nscportraits:1540"],
-      "target": ["SirinesCall:*"],
+      "description": "Portraits pour Keto"
+    },
+    {
+      "rule": "nscportraits(1540,305):SirinesCall(-)",
       "severity": "error",
-      "description": "Portraits pour Lure of the Sirines Call",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1780"],
-      "target": ["bg1re:100", "bg1re:101", "bg1re:102", "bg1re:103", "bg1re:104", "bg1re:105"],
+      "description": "Portraits pour Lure of the Sirines Call"
+    },
+    {
+      "rule": "nscportraits(1780):bg1re(100,101,102,103,104,105)",
       "severity": "error",
-      "description": "Portraits pour Romantic Encounters BG1",
-      "mode": "any"
-    }, {
-      "source": ["da_portraits:102"],
-      "target": ["sarahtob:0"],
+      "description": "Portraits pour Romantic Encounters BG1"
+    },
+    {
+      "rule": "da_portraits(102):sarahtob(0)",
       "severity": "error",
-      "description": "Portraits pour Sarah NPC",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1480"],
-      "target": ["Sellswords:0"],
+      "description": "Portraits pour Sarah NPC"
+    },
+    {
+      "rule": "nscportraits(1480):Sellswords(0)",
       "severity": "error",
-      "description": "Portraits pour Sellswords",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:50"],
-      "target": ["soa:1", "soa:0"],
+      "description": "Portraits pour Sellswords"
+    },
+    {
+      "rule": "nscportraits(50):soa(0,1)",
       "severity": "error",
-      "description": "Portraits pour Stone of Askavar",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1360"],
-      "target": ["TotDG:0"],
+      "description": "Portraits pour Stone of Askavar"
+    },
+    {
+      "rule": "nscportraits(1360):TotDG(0)",
       "severity": "error",
-      "description": "Portraits pour Tales of the Deep Gardens",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1000", "nscportraits:1001"],
-      "target": ["TDDz:0"],
+      "description": "Portraits pour Tales of the Deep Gardens"
+    },
+    {
+      "rule": "nscportraits(1000,1001):TDDz(0)",
       "severity": "error",
-      "description": "Portraits pour The Darkest Day",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1530"],
-      "target": ["slandor:0"],
+      "description": "Portraits pour The Darkest Day"
+    },
+    {
+      "rule": "nscportraits(1530):slandor(0)",
       "severity": "error",
-      "description": "Portraits pour The Minotaur and Lilacor",
-      "mode": "any"
-    }, {
-      "source": ["nscportraits:1300"],
-      "target": ["tod:*"],
+      "description": "Portraits pour The Minotaur and Lilacor"
+    },
+    {
+      "rule": "nscportraits(1300):tod(-)",
       "severity": "error",
-      "description": "Portraits pour Tower of Deception",
-      "mode": "any"
-    }, {
-      "source": ["da_portraits:105"],
-      "target": ["valen:0"],
+      "description": "Portraits pour Tower of Deception"
+    },
+    {
+      "rule": "da_portraits(105):valen(0)",
       "severity": "error",
-      "description": "Portraits pour Valen",
-      "mode": "any"
+      "description": "Portraits pour Valen"
     }
   ]
 }
