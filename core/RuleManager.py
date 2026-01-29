@@ -871,6 +871,18 @@ class RuleManager(QObject):
             if not all(group.matches(selected_set) for group in rule.source_groups):
                 return None
 
+        matching_sources = []
+        for source in rule.sources:
+            if source.is_mod():
+                matching_sources.extend(
+                    ref for ref in selected_set if ref.mod_id == source.mod_id
+                )
+            elif source in selected_set:
+                matching_sources.append(source)
+
+        if not matching_sources:
+            return None
+
         if rule.target_groups:
             conflicts = [
                 comp
@@ -890,7 +902,7 @@ class RuleManager(QObject):
             if not conflicts:
                 return None
 
-        affected = (source_ref,) + tuple(conflicts)
+        affected = tuple(matching_sources) + tuple(conflicts)
         return RuleViolation(rule=rule, affected_components=affected)
 
     # ========================================
