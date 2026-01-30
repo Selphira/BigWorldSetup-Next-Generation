@@ -125,6 +125,16 @@ QFrame#gameButtonFrame[selected="true"] {
     border-radius: 8px;
 }
 
+QFrame#dropdown, #lineEdit {
+    background-color: #1e1e1e;
+    background-image: url("resources/background.jpg");
+    color: #ffffff;
+    padding: 0px 5px;
+    border: 1px solid #96846e;
+    border-radius: 6px;
+    selection-background-color: #655949;
+}
+
 /* ============================================================================
  * SCROLL AREAS
  * ============================================================================ */

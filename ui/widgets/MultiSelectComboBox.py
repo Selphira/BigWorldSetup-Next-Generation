@@ -1,400 +1,220 @@
-"""
-Multi-selection combo box widget with icon-only display.
-
-This widget provides a combo box that allows multiple item selection with visual
-feedback through icons.
-"""
-
-import logging
-from typing import cast, override
-
-from PySide6.QtCore import QSize, Qt, Signal
-from PySide6.QtGui import QIcon, QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QComboBox, QHBoxLayout, QLabel, QListView, QSizePolicy, QWidget
-
-from constants import COLOR_BACKGROUND_SECONDARY, ICON_SIZE_MEDIUM
-
-logger = logging.getLogger(__name__)
+from PySide6.QtCore import QEvent, QSize, Qt, QTimer, Signal
+from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QVBoxLayout,
+    QWidget,
+)
 
 
-class MultiSelectComboBox(QComboBox):
-    """
-    A combo box allowing multi-selection with icon display.
-
-    Features:
-    - Popup remains open during selection
-    - Checkboxes for item selection
-    - Icon preview row in the combo field
-    - Enforces minimum selection count (default: 1)
-
-    Signals:
-        selection_changed: Emitted when selection changes, provides list of selected keys
-    """
-
+class MultiSelectComboBox(QWidget):
     selection_changed = Signal(list)
 
     def __init__(
         self,
-        parent: QWidget | None = None,
+        parent=None,
         min_selection_count: int = 1,
-    ) -> None:
-        """
-        Initialize the multi-select combo box.
-
-        Args:
-            parent: Parent widget
-        """
+        separator: str | None = None,
+        show_text_selection: bool = True,
+        show_icon_selection: bool = True,
+    ):
         super().__init__(parent)
 
-        self._icon_size = ICON_SIZE_MEDIUM
-        self._icons: dict[str, QIcon] = {}
+        self.items: dict[str, str | None] = {}
+        self.selected: set[str] = set()
+        self.is_open = False
+        self._separator = separator
+        self._show_text_selection = show_text_selection
+        self._show_icon_selection = show_icon_selection
         self._min_selection_count = min_selection_count
-        self._updating_selection = False
+        self._just_closed = False
 
-        self._setup_combo_box()
-        self._setup_model_and_view()
-        self._setup_preview_widget()
-        self._connect_signals()
-        self._update_preview()
+        main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(0, 0, 0, 0)
 
-    @override
-    def model(self) -> QStandardItemModel:  # type: ignore[override]
-        return cast(QStandardItemModel, super().model())
+        self.label_container = QFrame()
+        self.label_container.setFrameStyle(QFrame.Shape.Box)
 
-    # -------------------------------------------------------------------------
-    # Setup methods
-    # -------------------------------------------------------------------------
+        self.label_container.setObjectName("lineEdit")
 
-    def _setup_combo_box(self) -> None:
-        """Configure the combo box appearance and behavior."""
-        self.setEditable(True)
-        self.lineEdit().setReadOnly(True)
-        self.lineEdit().setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-        self.lineEdit().setFrame(False)
-        self.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
-        self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.label_layout = QHBoxLayout()
+        self.label_container.setLayout(self.label_layout)
+        self.label_layout.setContentsMargins(0, 0, 0, 0)
+        self.label_layout.setSpacing(4)
 
-        # Hide dropdown arrow
-        self.setStyleSheet("""
-            QComboBox::drop-down {
-                border: none;
-                width: 0px;
-            }
-            QComboBox::down-arrow {
-                image: none;
-                border: none;
-            }
-        """)
+        self.selection_widget = QWidget()
+        self.selection_widget.setStyleSheet("background:transparent")
+        self.selection_widget.hide()
+        self.selection_layout = QHBoxLayout(self.selection_widget)
+        self.selection_layout.setContentsMargins(0, 0, 0, 0)
+        self.selection_layout.setSpacing(4)
 
-        # Force zero icon size to prevent display
-        self.setIconSize(QSize(0, 0))
+        self.placeholder = QLabel("Sélectionner...")
+        self.placeholder.setMinimumHeight(24)
 
-    def _setup_model_and_view(self) -> None:
-        """Configure the model and view for the combo box."""
-        model = QStandardItemModel()
-        self.setModel(model)
+        self.arrow = QLabel("▼")
 
-        view = QListView()
-        view.setSelectionRectVisible(False)
-        view.setMouseTracking(True)
-        self.setView(view)
+        self.label_layout.addWidget(self.selection_widget)
+        self.label_layout.addWidget(self.placeholder)
+        self.label_layout.addStretch()
+        self.label_layout.addWidget(self.arrow)
 
-    def _setup_preview_widget(self) -> None:
-        """Create and configure the icon preview widget."""
-        self._preview = QWidget(self.lineEdit())
-        self._preview_layout = QHBoxLayout(self._preview)
-        self._preview_layout.setContentsMargins(2, 0, 2, 0)
-        self._preview_layout.setSpacing(4)
-        self._preview_layout.setAlignment(
-            Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
-        )
+        main_layout.addWidget(self.label_container)
 
-        # Make preview clickable to open popup
-        self._preview.mousePressEvent = lambda e: self.showPopup()
-        self._preview.setStyleSheet(f"background-color: {COLOR_BACKGROUND_SECONDARY};")
+        self.dropdown = QFrame(self, Qt.WindowType.Popup)
+        self.dropdown.setObjectName("dropdown")
+        self.dropdown.setFrameStyle(QFrame.Shape.Box)
+        self.dropdown.installEventFilter(self)
+        self.label_container.installEventFilter(self)
 
-    def _connect_signals(self) -> None:
-        """Connect internal signals."""
-        self.view().pressed.connect(self._on_item_pressed)
-        self.model().dataChanged.connect(self._on_data_changed)
+        self.dropdown_layout = QVBoxLayout(self.dropdown)
+        self.dropdown_layout.setContentsMargins(5, 5, 5, 5)
+        self.dropdown_layout.setSpacing(2)
 
-        self._update_preview()
+        self.checkboxes: dict[str, tuple[str, QCheckBox]] = {}
 
-    # -------------------------------------------------------------------------
-    # Public API - Adding items
-    # -------------------------------------------------------------------------
+        self.dropdown.hide()
 
-    def add_item(
-        self,
-        key: str,
-        icon_path: str,
-        text: str = "",
-        selected: bool = False,
-    ) -> None:
-        """
-        Add an item to the combo box.
+    # ------------------------------------------------------------------
+    # Event handling
+    # ------------------------------------------------------------------
 
-        Args:
-            key: Unique identifier for the item
-            icon_path: Path to the icon file
-            text: text to display
-            selected: Whether the item should be selected by default
-        """
-        icon = QIcon(icon_path)
-        self._icons[key] = icon
+    def eventFilter(self, obj, event):
+        if obj == self.label_container and event.type() == QEvent.Type.MouseButtonPress:
+            if self._just_closed:
+                return True
 
-        item = QStandardItem()
-        item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
-        item.setCheckable(True)
+            if self.is_open:
+                self._close_dropdown()
+            else:
+                self._open_dropdown()
 
-        must_be_selected = self._count_selected_items() < self._min_selection_count
-        check_state = (
-            Qt.CheckState.Checked if (must_be_selected or selected) else Qt.CheckState.Unchecked
-        )
-        item.setCheckState(check_state)
+        if obj == self.dropdown and event.type() == QEvent.Type.Hide:
+            self.is_open = False
+            self.arrow.setText("▼")
+            self._just_closed = True
+            QTimer.singleShot(100, lambda: setattr(self, "_just_closed", False))
 
-        item.setData(key, Qt.ItemDataRole.UserRole)
-        item.setIcon(icon)
-        item.setText(text)
+        return super().eventFilter(obj, event)
 
-        self.model().appendRow(item)
-        self._update_preview()
+    # ------------------------------------------------------------------
+    # Dropdown control
+    # ------------------------------------------------------------------
 
-        logger.debug("Added item: key=%s, selected=%s", key, must_be_selected or selected)
+    def _open_dropdown(self):
+        pos = self.label_container.mapToGlobal(self.label_container.rect().bottomLeft())
+        self.dropdown.move(pos)
+        self.dropdown.setFixedWidth(self.label_container.width())
+        self.is_open = True
+        self.arrow.setText("▲")
+        self.dropdown.show()
 
-    def set_items(
-        self,
-        items: dict[str, str],
-        selected_keys: list[str] | None = None,
-    ) -> None:
-        """
-        Set all items at once, replacing existing items.
+    def _close_dropdown(self):
+        self.is_open = False
+        self.arrow.setText("▼")
+        self.dropdown.hide()
 
-        Args:
-            items: Dictionary mapping keys to icon paths
-            selected_keys: List of keys to select (if None, selects first item)
-        """
-        self.model().clear()
-        self._icons.clear()
+    def _update_selection(self, item: str, checked: bool):
+        if checked:
+            self.selected.add(item)
+        else:
+            self.selected.discard(item)
 
-        for key, icon_path in items.items():
-            self.add_item(key, icon_path, selected=False)
-
-        # Set selection
-        if selected_keys:
-            self.set_selected_keys(selected_keys)
-        elif self.model().rowCount() > 0:
-            # Select first item by default
-            self.model().item(0).setCheckState(Qt.CheckState.Checked)
-            self._update_preview()
-
-        logger.info("Set %d items with %d selected", len(items), len(selected_keys or []))
-
-    def count_items(self) -> int:
-        """Get the count of items."""
-        return self.model().rowCount()
-
-    # -------------------------------------------------------------------------
-    # Public API - Selection management
-    # -------------------------------------------------------------------------
-
-    def selected_keys(self) -> list[str]:
-        """Get the list of selected item keys."""
-        return [
-            item.data(Qt.ItemDataRole.UserRole)
-            for item in self._iter_items()
-            if item.checkState() == Qt.CheckState.Checked
-        ]
-
-    def set_selected_keys(self, keys: list[str]) -> None:
-        """
-        Set the selected items by their keys.
-
-        Ensures at least one item remains selected. If an empty list is provided,
-        the first item will be selected.
-
-        Args:
-            keys: List of keys to select (enforces minimum selection)
-        """
-        if not keys and self.model().rowCount():
-            keys = [self.model().item(0).data(Qt.ItemDataRole.UserRole)]
-
-        if not keys:
-            return
-
-        self._updating_selection = True
-        self.model().blockSignals(True)
-
-        key_set = set(keys)
-        for item in self._iter_items():
-            item.setCheckState(
-                Qt.CheckState.Checked
-                if item.data(Qt.ItemDataRole.UserRole) in key_set
-                else Qt.CheckState.Unchecked
-            )
-
-        self.model().blockSignals(False)
-        self._updating_selection = False
-
-        self._update_preview()
-        self.selection_changed.emit(self.selected_keys())
-
-    def clear_selection(self) -> None:
-        """
-        Clear selection, keeping only the first item selected.
-
-        Ensures at least one item remains selected.
-        """
-        if self.model().rowCount():
-            self.set_selected_keys([self.model().item(0).data(Qt.ItemDataRole.UserRole)])
-
-    # -------------------------------------------------------------------------
-    # Private - Item interaction
-    # -------------------------------------------------------------------------
-
-    def _iter_items(self):
-        for row in range(self.model().rowCount()):
-            yield self.model().item(row)
-
-    def _on_item_pressed(self, index) -> None:
-        """
-        Handle item press to toggle checkbox and keep popup open.
-
-        Prevents deselecting the last selected item to enforce minimum selection.
-
-        Args:
-            index: Model index of the pressed item
-        """
-        item = self.model().itemFromIndex(index)
-        if not item:
-            return
-
-        # Check if trying to deselect the last item
-        if (
-            item.checkState() == Qt.CheckState.Checked
-            and self._count_selected_items() <= self._min_selection_count
-        ):
-            self.showPopup()
-            return
-
-        self.model().blockSignals(True)
-        new_state = (
-            Qt.CheckState.Unchecked
-            if item.checkState() == Qt.CheckState.Checked
-            else Qt.CheckState.Checked
-        )
-        item.setCheckState(new_state)
-        self.model().blockSignals(False)
-
-        self._update_preview()
-        self.showPopup()
-        selected = self.selected_keys()
-        self.selection_changed.emit(selected)
-
-        logger.debug("Item toggled: state=%s, selected=%s", new_state, selected)
-
-    def _on_data_changed(self, top_left, bottom_right, roles):
-        """
-        Appelé quand les données du modèle changent (notamment les checkboxes).
-        Empêche de tout désélectionner.
-        """
-        if self._updating_selection:
-            return
-        # Vérifier si c'est un changement de CheckState
-        if Qt.ItemDataRole.CheckStateRole not in roles:
-            return
-
-        selected_count = self._count_selected_items()
-
-        if selected_count < self._min_selection_count:
-            for row in range(top_left.row(), bottom_right.row() + 1):
-                item = self.model().item(row)
-                if item and item.checkState() == Qt.CheckState.Unchecked:
-                    # Bloquer temporairement les signaux pour éviter une récursion
-                    self.model().blockSignals(True)
-                    item.setCheckState(Qt.CheckState.Checked)
-                    self.model().blockSignals(False)
-                    break
-
-        self._update_preview()
-        self.selection_changed.emit(self.selected_keys())
-
-    def _count_selected_items(self) -> int:
-        """Count the number of selected items."""
-        return sum(item.checkState() == Qt.CheckState.Checked for item in self._iter_items())
-
-    # -------------------------------------------------------------------------
-    # Private - Preview display
-    # -------------------------------------------------------------------------
-
-    def _update_preview(self) -> None:
-        """Update the display of selected item icons."""
-        # Clear existing layout
-        while self._preview_layout.count():
-            child = self._preview_layout.takeAt(0)
+        while self.selection_layout.count():
+            child = self.selection_layout.takeAt(0)
             if child.widget():
                 child.widget().deleteLater()
 
-        selected = self.selected_keys()
-
-        # Hide placeholder and show icons
-        self.lineEdit().setPlaceholderText("")
-
-        for key in selected:
-            icon = self._icons.get(key)
-            if not icon:
-                logger.warning("Icon not found for key: %s", key)
-                continue
-
-            label = QLabel(self._preview)
-            label.setPixmap(icon.pixmap(self._icon_size, self._icon_size))
-            label.setFixedSize(self._icon_size, self._icon_size)
-            label.setScaledContents(True)
-            self._preview_layout.addWidget(label)
-
-        self._preview_layout.addStretch()
-        self._position_preview()
-        self.updateGeometry()
-
-    def _position_preview(self) -> None:
-        """Position the preview widget within the line edit area."""
-        line_edit = self.lineEdit()
-        if not line_edit:
+        if not self.selected:
+            self.selection_widget.hide()
+            self.placeholder.show()
             return
 
-        rect = line_edit.rect()
-        self._preview.setGeometry(rect)
-        self._preview.raise_()
+        self.selection_widget.show()
+        self.placeholder.hide()
 
-    # -------------------------------------------------------------------------
-    # Qt overrides
-    # -------------------------------------------------------------------------
+        for i, key in enumerate(self.selected):
+            cb = self.checkboxes[key]
+            entry = QWidget()
+            entry.setStyleSheet("background:transparent")
+            entry_layout = QHBoxLayout(entry)
+            entry_layout.setContentsMargins(0, 0, 0, 0)
+            entry_layout.setSpacing(2)
+            entry.setMinimumHeight(24)
 
-    def resizeEvent(self, event) -> None:
-        """
-        Handle resize events to reposition the preview.
+            if self._show_icon_selection:
+                icon_path = self.items[key]
+                if icon_path:
+                    icon = QLabel()
+                    pixmap = QPixmap(icon_path).scaled(
+                        24,
+                        24,
+                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.TransformationMode.SmoothTransformation,
+                    )
+                    icon.setPixmap(pixmap)
+                    entry_layout.addWidget(icon)
 
-        Args:
-            event: Resize event
-        """
-        super().resizeEvent(event)
-        self._position_preview()
+            if self._show_text_selection:
+                entry_layout.addWidget(QLabel(cb[0]))
 
-    def showPopup(self) -> None:
-        """Show the popup with adjusted width."""
-        super().showPopup()
-        self.view().setMinimumWidth(self.width())
+            self.selection_layout.addWidget(entry)
 
-    def sizeHint(self) -> QSize:
-        """
-        Calculate ideal size based on content.
+            if self._separator is not None:
+                if i < len(self.selected) - 1:
+                    self.selection_layout.addWidget(QLabel(self._separator))
 
-        Returns:
-            Suggested size for the widget
-        """
-        selected_count = len(self.selected_keys())
-        content_width = self._icon_size * selected_count + 4 * (selected_count - 1) + 20
+        self.selection_changed.emit(self.selected_keys())
 
-        height = super().sizeHint().height()
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
-        return QSize(content_width, height)
+    def set_items(
+        self,
+        items: dict[str, str | tuple[str, str]],
+    ) -> None:
+        for key, item in items.items():
+            if isinstance(item, tuple):
+                text, icon_path = item
+                self.items[key] = icon_path
+                cb = QCheckBox(text)
+                cb.setIcon(QIcon(icon_path))
+                cb.setIconSize(QSize(24, 24))
+            else:
+                text = item
+                self.items[key] = None
+                cb = QCheckBox(text)
+
+            must_be_selected = self.count_selected_items() < self._min_selection_count
+
+            cb.setStyleSheet("background:transparent")
+            cb.toggled.connect(lambda checked, t=key: self._update_selection(t, checked))
+            self.dropdown_layout.addWidget(cb)
+            self.checkboxes[key] = (text, cb)
+
+            if must_be_selected:
+                cb.setCheckState(Qt.CheckState.Checked)
+                self._update_selection(key, True)
+
+    def count_selected_items(self) -> int:
+        """Count the number of selected items."""
+        return sum(
+            item[1].checkState() == Qt.CheckState.Checked for item in self.checkboxes.values()
+        )
+
+    def selected_keys(self) -> list[str]:
+        """Get the list of selected item keys."""
+        return list(self.selected)
+
+    def set_selected_keys(self, keys: list[str]) -> None:
+        """Set the selected items by their keys."""
+        keys = set(keys)
+        for key, item in self.checkboxes.items():
+            item[1].setCheckState(
+                Qt.CheckState.Checked if key in keys else Qt.CheckState.Unchecked
+            )
+        self.selection_changed.emit(self.selected_keys())

@@ -51,7 +51,7 @@ from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.StateManager import StateManager
-from core.TranslationManager import get_supported_languages, tr
+from core.TranslationManager import get_supported_languages, get_translator, tr
 from core.ValidationOrchestrator import ValidationOrchestrator
 from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage, ButtonConfig
@@ -527,8 +527,8 @@ class ModSelectionPage(BasePage):
         self._lang_label = QLabel(tr("page.selection.desired_languages"))
         sub_filters_layout.addWidget(self._lang_label)
 
-        self._lang_select = MultiSelectComboBox()
-        self._lang_select.setMinimumWidth(100)
+        self._lang_select = MultiSelectComboBox(show_text_selection=False)
+        self._lang_select.setMinimumWidth(120)
         self._lang_select.selection_changed.connect(self._apply_all_filters)
         sub_filters_layout.addWidget(self._lang_select)
 
@@ -1000,7 +1000,10 @@ class ModSelectionPage(BasePage):
         if not languages:
             languages = [code for code, _ in get_supported_languages()]
 
-        language_icons = {code: str(FLAGS_DIR / f"{code}.png") for code in languages}
+        language_icons = {
+            code: (get_translator().get_language_name(code), str(FLAGS_DIR / f"{code}.png"))
+            for code in languages
+        }
         self._lang_select.set_items(language_icons)
 
         selected_languages = self.state_manager.get_page_option(
