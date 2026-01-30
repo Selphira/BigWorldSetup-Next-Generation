@@ -30,14 +30,17 @@ class MultiSelectComboBox(QWidget):
         self._show_text_selection = show_text_selection
         self._show_icon_selection = show_icon_selection
         self._min_selection_count = min_selection_count
+        self._block_selection_update = False
+        self._batch_update = False
         self._just_closed = False
+
+        self.setMaximumHeight(30)
 
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(0, 0, 0, 0)
 
         self.label_container = QFrame()
         self.label_container.setFrameStyle(QFrame.Shape.Box)
-
         self.label_container.setObjectName("lineEdit")
 
         self.label_layout = QHBoxLayout()
@@ -67,6 +70,7 @@ class MultiSelectComboBox(QWidget):
         self.dropdown = QFrame(self, Qt.WindowType.Popup)
         self.dropdown.setObjectName("dropdown")
         self.dropdown.setFrameStyle(QFrame.Shape.Box)
+        self.dropdown.hide()
         self.dropdown.installEventFilter(self)
         self.label_container.installEventFilter(self)
 
@@ -75,8 +79,6 @@ class MultiSelectComboBox(QWidget):
         self.dropdown_layout.setSpacing(2)
 
         self.checkboxes: dict[str, tuple[str, QCheckBox]] = {}
-
-        self.dropdown.hide()
 
     # ------------------------------------------------------------------
     # Event handling
@@ -118,10 +120,22 @@ class MultiSelectComboBox(QWidget):
         self.dropdown.hide()
 
     def _update_selection(self, item: str, checked: bool):
-        if checked:
-            self.selected.add(item)
-        else:
+        if self._block_selection_update:
+            return
+
+        if not checked:
+            if (
+                not self._batch_update
+                and self.count_selected_items() <= self._min_selection_count
+            ):
+                self._block_selection_update = True
+                self.checkboxes[item][1].setCheckState(Qt.CheckState.Checked)
+                self._block_selection_update = False
+                return
+
             self.selected.discard(item)
+        else:
+            self.selected.add(item)
 
         while self.selection_layout.count():
             child = self.selection_layout.takeAt(0)
@@ -189,22 +203,16 @@ class MultiSelectComboBox(QWidget):
                 self.items[key] = None
                 cb = QCheckBox(text)
 
-            must_be_selected = self.count_selected_items() < self._min_selection_count
-
             cb.setStyleSheet("background:transparent")
             cb.toggled.connect(lambda checked, t=key: self._update_selection(t, checked))
             self.dropdown_layout.addWidget(cb)
             self.checkboxes[key] = (text, cb)
 
-            if must_be_selected:
-                cb.setCheckState(Qt.CheckState.Checked)
-                self._update_selection(key, True)
+            self.set_selected_keys([])
 
     def count_selected_items(self) -> int:
         """Count the number of selected items."""
-        return sum(
-            item[1].checkState() == Qt.CheckState.Checked for item in self.checkboxes.values()
-        )
+        return len(self.selected)
 
     def selected_keys(self) -> list[str]:
         """Get the list of selected item keys."""
@@ -213,8 +221,18 @@ class MultiSelectComboBox(QWidget):
     def set_selected_keys(self, keys: list[str]) -> None:
         """Set the selected items by their keys."""
         keys = set(keys)
-        for key, item in self.checkboxes.items():
-            item[1].setCheckState(
-                Qt.CheckState.Checked if key in keys else Qt.CheckState.Unchecked
-            )
+
+        self._batch_update = True
+
+        for key, (_, cb) in self.checkboxes.items():
+            cb.setCheckState(Qt.CheckState.Checked if key in keys else Qt.CheckState.Unchecked)
+
+        self._batch_update = False
+
+        if self.count_selected_items() < self._min_selection_count:
+            for key, (_, cb) in self.checkboxes.items():
+                if cb.checkState() != Qt.CheckState.Checked:
+                    cb.setCheckState(Qt.CheckState.Checked)
+                    break
+
         self.selection_changed.emit(self.selected_keys())
