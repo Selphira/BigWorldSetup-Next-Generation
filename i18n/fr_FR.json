@@ -29,7 +29,7 @@
     "downloaded_file_corrupted": "Le fichier téléchargé est corrompu",
     "ready": "Terminé !",
     "cache_ready_signal_received": "Signal de disponibilité du cache reçu",
-    "update_available": "\uD83D\uDD14 Nouvelle version : {version}",
+    "update_available": "🔔 Nouvelle version : {version}",
     "update_available_tooltip": "La version {version} est disponible.\nCliquez pour la télécharger."
   },
   "category": {
@@ -50,7 +50,8 @@
     "kit": "Kit",
     "gameplay": "Gameplay",
     "tactic": "Script et tactique",
-    "party": "Personnalisation du groupe"
+    "party": "Personnalisation du groupe",
+    "custom": "Mods ajoutés"
   },
   "button": {
     "next": "Suivant",
@@ -90,6 +91,8 @@
       "btn_import": "Importer une sélection",
       "btn_export": "Exporter la sélection",
       "btn_deselect_all": "Tout désélectionner",
+      "btn_add_custom_mod": "Ajouter un mod",
+      "btn_add_custom_mod_tooltip": "Ajouter un mod depuis un fichier .tp2",
       "action_import_file": "Depuis un fichier exporté",
       "action_import_weidu": "Depuis un Weidu.log",
       "select_category": "Sélectionnez une catégorie",
@@ -107,6 +110,32 @@
         "violation_only_tooltip": "Afficher uniquement les mods et composants ayant des conflits ou dépendances à gérer",
         "selection_only": "Uniquement la sélection",
         "selection_only_tooltip": "Afficher uniquement les mods et composants sélectionnés"
+      },
+      "custom_mod": {
+        "title": "Ajouter un mod",
+        "select_tp2_file": "Sélectionner le fichier TP2",
+        "browse": "Parcourir...",
+        "no_file_selected": "Aucun fichier sélectionné",
+        "mod_information": "Informations du mod",
+        "name": "Nom",
+        "version": "Version",
+        "games": "Jeux supportés",
+        "categories": "Catégories",
+        "languages": "Langues",
+        "description": "Description",
+        "components": "Composants",
+        "required": "Requis",
+        "optional": "Optionnel",
+        "no_translation": "Aucune traduction",
+        "detected_components": "{total} composants détectés",
+        "error_title": "Erreur",
+        "error_parsing": "Échec de l'analyse du fichier .tp2 :\n{error}",
+        "error_creating": "Échec de la création du fichier mod :\n{error}",
+        "success_title": "Succès",
+        "success_message": "Le mod '{name}' a été ajouté avec succès !",
+        "confirm_overwrite_title": "Confirmer l'Écrasement",
+        "confirm_overwrite_message": "Un mod '{mod_id}' existe déjà. Voulez-vous l'écraser ?",
+        "failed_to_add_custom_mod": "Échec de l'ajout du mod '{mod_id}' à la base de données."
       },
       "violation": {
         "keep_this_component": "✅ Garder ce composant",

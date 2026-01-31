@@ -30,6 +30,7 @@ class CategoryEnum(Enum):
     GAMEPLAY = ("gameplay", "🎮")
     TACTIC = ("tactic", "♜")
     PARTY = ("party", "⚔️")
+    CUSTOM = ("custom", "⭐")
 
     def __init__(self, value: str, icon: str) -> None:
         """

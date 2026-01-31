@@ -107,6 +107,9 @@ class MultiSelectComboBox(QWidget):
     # ------------------------------------------------------------------
 
     def _open_dropdown(self):
+        if not self.isEnabled():
+            return
+
         pos = self.label_container.mapToGlobal(self.label_container.rect().bottomLeft())
         self.dropdown.move(pos)
         self.dropdown.setFixedWidth(self.label_container.width())
