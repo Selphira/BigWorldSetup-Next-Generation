@@ -393,10 +393,7 @@ class ComponentContextMenu:
         for reference, action in actions:
             if isinstance(action, Mod):
                 action = menu.addAction(
-                    tr(
-                        text_key,
-                        mod=action.name,
-                    )
+                    tr("page.selection.violation.unselect_mod", mod=action.name)
                 )
             else:
                 action = menu.addAction(
