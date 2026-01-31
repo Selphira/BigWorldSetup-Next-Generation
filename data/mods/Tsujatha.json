@@ -1,15 +1,30 @@
 {
   "name": "Tsujatha Melalor",
-  "version": "15_charsets",
+  "version": "16",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=20092"
   },
   "files": [
     {
-      "filename": "NPC_Tsujatha-15_EET.zip",
-      "size": 18014681,
-      "sha256": "55cdf37d500d686f2b1e10333ff8d043b093ed0a35a287dd82ce43b94d77fa25",
-      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/archive/refs/tags/v15_EET.zip"
+      "filename": "lin-Tsujatha-v16_sch.zip",
+      "size": 18254068,
+      "sha256": "0cb6224cef8994a8f60bfd482e3588762b037006d74f20452079a393b9819f6d",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/lin-Tsujatha-v16_sch.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Tsujatha-v16_sch.zip",
+      "size": 18481588,
+      "sha256": "61e9ab6c2fcb47bc29a621e620d17054ac3a7fc9ffb9d05d02306c6210ce73a9",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/mac-Tsujatha-v16_sch.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Tsujatha-v16_sch.zip",
+      "size": 18426409,
+      "sha256": "728e0c9f30ac04446e851cdf30d87c1102a050366c931ca0f676561cb9c101f0",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/win-Tsujatha-v16_sch.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
