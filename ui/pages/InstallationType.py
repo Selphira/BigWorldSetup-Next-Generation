@@ -12,7 +12,6 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from constants import ICONS_DIR
 from core.enums.GameEnum import GameEnum
 from core.GameModels import GameDefinition
 from core.StateManager import StateManager
@@ -162,7 +161,7 @@ class InstallationTypePage(BasePage):
         Returns:
             Configured game button
         """
-        icon_path = ICONS_DIR / f"{game.id}.png"
+        icon_path = game.get_icon()
         button = GameButton(game, icon_path if icon_path.exists() else None, parent=self)
         button.clicked.connect(self._on_game_selected)
         self.game_buttons[game.id] = button

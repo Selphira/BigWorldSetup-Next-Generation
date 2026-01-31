@@ -11,7 +11,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 import logging
+from pathlib import Path
 from typing import Any
+
+from constants import ICONS_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -348,6 +351,10 @@ class GameDefinition:
     def has_multiple_sequences(self) -> bool:
         """Check if this game requires multiple installation sequences."""
         return self.sequence_count > 1
+
+    def get_icon(self) -> Path:
+        """Return the path to the game icon."""
+        return ICONS_DIR / f"{self.id}.png"
 
     def get_folder_keys(self) -> tuple[str, ...]:
         """Get unique folder keys needed for UI widgets.
