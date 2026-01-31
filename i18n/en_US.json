@@ -30,7 +30,8 @@
     "ready": "Ready!",
     "cache_ready_signal_received": "Cache ready signal received",
     "update_available": "🔔 New version: {version}",
-    "update_available_tooltip": "Version {version} is available.\nClick to download."
+    "update_available_tooltip": "Version {version} is available.\nClick to download.",
+    "incompatible_data_schema": "Data update is not compatible with this app version"
   },
   "category": {
     "all": "All",

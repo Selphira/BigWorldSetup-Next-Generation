@@ -13,6 +13,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  DATA_SCHEMA_VERSION: "1.0"
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -36,6 +39,7 @@ jobs:
           echo "short_hash=${SHORT_HASH}" >> $GITHUB_OUTPUT
           echo "timestamp=${TIMESTAMP}" >> $GITHUB_OUTPUT
           echo "date=${DATE}" >> $GITHUB_OUTPUT
+          echo "schema_version=${DATA_SCHEMA_VERSION}" >> $GITHUB_OUTPUT
           
           # Create data.zip
           cd data
@@ -54,6 +58,7 @@ jobs:
           # Create version file with all info
           cat > data_version.json << EOF
           {
+            "data_schema_version": "${DATA_SCHEMA_VERSION}",
             "commit_hash": "${HASH}",
             "short_hash": "${SHORT_HASH}",
             "timestamp": ${TIMESTAMP},
@@ -75,6 +80,7 @@ jobs:
           echo "Package created:"
           ls -lh public/
           echo ""
+          echo "Data Schema Version: ${DATA_SCHEMA_VERSION}"
           echo "Version: data-${SHORT_HASH}"
           echo "Size: ${SIZE}"
           echo "SHA256: ${SHA256}"
@@ -93,6 +99,7 @@ jobs:
           cat >> $GITHUB_STEP_SUMMARY << EOF
           ## Data Update Published
           
+          - **Data Schema Version:** \`${{ steps.build.outputs.schema_version }}\`
           - **Version:** \`data-${{ steps.build.outputs.short_hash }}\`
           - **Commit:** \`${{ steps.build.outputs.hash }}\`
           - **Date:** ${{ steps.build.outputs.date }}

@@ -30,7 +30,8 @@
     "ready": "Terminé !",
     "cache_ready_signal_received": "Signal de disponibilité du cache reçu",
     "update_available": "🔔 Nouvelle version : {version}",
-    "update_available_tooltip": "La version {version} est disponible.\nCliquez pour la télécharger."
+    "update_available_tooltip": "La version {version} est disponible.\nCliquez pour la télécharger.",
+    "incompatible_data_schema": "La mise à jour des données n'est pas compatible avec cette version de l'application"
   },
   "category": {
     "all": "Toutes",
