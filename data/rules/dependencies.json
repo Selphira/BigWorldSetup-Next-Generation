@@ -286,6 +286,11 @@
       "description": "Dépendance interne DSotSC"
     },
     {
+      "rule": "ntotsc(1,2,3,4,5,6,7,8,9,10,11,12,13,14):ntotsc(0)",
+      "severity": "error",
+      "description": "Dépendance interne ntotsc"
+    },
+    {
       "rule": "edwinromance(1,2):edwinromance(0)",
       "severity": "error",
       "description": "Dépendance interne EdwinRomance"

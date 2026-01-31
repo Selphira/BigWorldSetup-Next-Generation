@@ -1,0 +1,239 @@
+{
+  "name": "Northern Tales of the Sword Coast",
+  "version": "5.0.0",
+  "links": {
+    "homepage": "https://www.shsforums.net/files/file/71-northern-tales-of-the-sword-coast/",
+    "forums": [
+      "https://forums.beamdog.com/discussion/66572/"
+    ]
+  },
+  "files": [
+    {
+      "filename": "NTotSC-Streen.zip",
+      "size": 135710987,
+      "sha256": "8ca8c0dfb8fc075f151e03a6769917296a7921c5fafa50e9539ee71031f28458",
+      "download": "https://github.com/11jo/NTotSC/archive/refs/heads/Streen.zip"
+    }
+  ],
+  "games": ["bgee", "bgt", "eet", "sod"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"},
+    "2": {"type": "std"},
+    "3": {"type": "std"},
+    "4": {"type": "std"},
+    "5": {"type": "std"},
+    "6": {"type": "std"},
+    "7": {"type": "std"},
+    "8": {"type": "std"},
+    "9": {"type": "std"},
+    "10": {"type": "std"},
+    "11": {"type": "std"},
+    "12": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["13", "14"]},
+    "choice_1": {"type": "muc", "components": ["15", "16"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "it_IT": 2,
+    "pl_PL": 3,
+    "ru_RU": 4,
+    "fr_FR": 5,
+    "es_ES": 6,
+    "zh_CN": 7
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "À l'origine, ce mod reprenait l'intégralité de Dark Side of the Sword Coast, ajoutait des quêtes supplémentaires, de nouveaux lieux, ainsi qu'un nouveau personnage recrutable.\nÀ partir de la version 2.0, il est indépendant de Dark Side of the Sword Coast et vous pouvez l'installer sans ce dernier. Si vous souhaitez jouer aussi Dark Side of the Sword Coast, installez-le avant NTotSC.\nCe mod ajoute des sorts, des objets, des zones à explorer et plusieurs grandes quêtes à la partie BG du jeu.",
+      "components": {
+        "0": "Histoires du Nord de la Cote des Epees (NTotSC) pour BGT-Weidu, BG:EE et EET",
+        "1": "Créer moins de monstres en fonction de la difficulté du jeu",
+        "2": "Keelor le Nain",
+        "3": "Fleche porte-bonheur de Llindellyn",
+        "4": "Les chiens de chasse de Nim Furlwing",
+        "5": "Pilar et Gheldehar",
+        "6": "Le tourment de Svlast",
+        "7": "Will O'Hara PNJ",
+        "8": "Will O'Hara : Installer le son du jeu en anglais",
+        "9": "Rencontres de combats",
+        "10": "Demons mineurs ameliores",
+        "11": "Haeball ameliore",
+        "12": "Ghotal ameliore",
+        "choice_0": "Réduction du nombre de capes de chaman",
+        "13": "Supprimer les capes generiques des pretres orques",
+        "14": "Impossibilité de jeter les capes",
+        "choice_1": "Parchemins de sort",
+        "15": "Version revisee (Sorts de niveau 6)",
+        "16": "Version originale (Sorts de niveau 7/8)"
+      }
+    },
+    "en_US": {
+      "description": "Originally, this mod took over the entire Dark Side of the Sword Coast, adding extra quests, new locations and a new recruitable character.\nAs of version 2.0, it is independent of Dark Side of the Sword Coast and you can install it without the latter. If you also want to play Dark Side of the Sword Coast, install it before NTotSC.\nThis mod adds spells, items, areas to explore and several major quests to the BG part of the game.",
+      "components": {
+        "0": "Northern Tales of the Sword Coast (NTotSC) for BGT-Weidu, BG:EE, and EET",
+        "1": "Spawn less Monsters depending on Game Difficulty",
+        "2": "Keelor the Dwarf",
+        "3": "Llindellyn's Lucky Arrow",
+        "4": "Nim Furlwing's Hunting Hounds",
+        "5": "Pilar and Gheldehar",
+        "6": "Svlast's Torment",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara: Install English Soundset",
+        "9": "Fighting Encounters",
+        "10": "Improved Lesser Fiends",
+        "11": "Improved Haeball",
+        "12": "Improved Ghotal",
+        "choice_0": "Reduce Number of Shaman Cloaks",
+        "13": "Remove Cloaks from generic Orc Priests",
+        "14": "Make Cloaks Undroppable",
+        "choice_1": "Spell Scrolls",
+        "15": "Revised Version (level 6 spells)",
+        "16": "Original Version (level 7/8 spells)"
+      }
+    },
+    "zh_CN": {
+      "description": "最初，此模组整合了Dark Side of the Sword Coast的全部内容，并增加了额外的任务、新地点以及一个可招募的新角色。\n从2.0版本开始，它已独立于Dark Side of the Sword Coast，你可以不安装Dark Side of the Sword Coast来安装此模组。如果你想同时游玩Dark Side of the Sword Coast，请在安装NTotSC之前安装它。\n此模组为游戏的博德之门部分添加了法术、物品、可探索区域和几个大型任务。",
+      "components": {
+        "0": "北部剑湾",
+        "1": "根据游戏难度减少怪物数量",
+        "2": "侏儒克勒",
+        "3": "林德林的幸运箭",
+        "4": "尼姆费莫林的猎犬",
+        "5": "派拉和盖德哈尔",
+        "6": "司瓦拉斯特的痛苦",
+        "7": "威尔·奥哈拉NPC",
+        "8": "威尔·奥哈拉安装英语语音",
+        "9": "战斗遭遇",
+        "10": "增强的小恶魔",
+        "11": "增强的希勃尔",
+        "12": "增强的高特尔",
+        "choice_0": "减少萨满斗篷的数量",
+        "13": "移除普通兽人牧师的斗篷",
+        "14": "不再掉落斗篷",
+        "choice_1": "法术卷轴",
+        "15": "修订版本（6级法术）",
+        "16": "原始版本（7/8级法术）"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "NTotSC fuer BGT-WeiDU, BG:EE und EET",
+        "1": "Weniger Monster in Abhaengigkeit vom Schweregrad des Spiels",
+        "2": "Keelor der Zwerg",
+        "3": "Llindellyns Glueckspfeil",
+        "4": "Nim Furlwings Jagdhunde",
+        "5": "Pilar und Gheldehar",
+        "6": "Svlasts Pein",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara: Englisches Soundset installieren",
+        "9": "Kampfbegegnungen",
+        "10": "Improved Lesser Fiends",
+        "11": "Improved Haeball",
+        "12": "Improved Ghotal",
+        "choice_0": "Reduce Number of Shaman Cloaks",
+        "13": "Remove Cloaks from generic Orc Priests",
+        "14": "Make Cloaks Undroppable",
+        "choice_1": "Spell Scrolls",
+        "15": "Revised Version (level 6 spells)",
+        "16": "Original Version (level 7/8 spells)"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Northern Tales of the Sword Coast (NTotSC) for BGT-Weidu, BG:EE, and EET",
+        "1": "Meno mostri a seconda della difficolta del gioco",
+        "2": "Keelor il Nano",
+        "3": "La Freccia Fortunata di Llindellyn",
+        "4": "Cani da caccia di Nim Furlwing",
+        "5": "Pilar e Gheldehar",
+        "6": "Il Tormento di Svlast",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara: Installare il soundset in inglese",
+        "9": "Incontri di Combattimento",
+        "10": "Demoni minori migliorati",
+        "11": "Migliorato Haeball",
+        "12": "Migliorato Ghotal",
+        "choice_0": "Ridurre il Numero di Mantelli degli Sciamani",
+        "13": "Rimuovere i Mantelli dai Sacerdoti Orchi Generici",
+        "14": "Rendere i Mantelli non Scartabili",
+        "choice_1": "Spell Scrolls",
+        "15": "Revised Version (level 6 spells)",
+        "16": "Original Version (level 7/8 spells)"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "NTotSC dla BGT-Weidu, BG:EE i EET przetlumaczyl Kelthar (na podstawie tlumaczenia Evendura) (v.1.0) i Roberciiik (korekta od v3.2.0)",
+        "1": "Przywoluje mniej potworow w zaleznosci od poziomu trudnosci gry",
+        "2": "Keelor Krasnolud (Keelor the Dwarf)",
+        "3": "Szczesliwa strzala Llindellyna (Llindellyn's Lucky Arrow)",
+        "4": "Ogary mysliwskie Nima Furlwinga (Nim Furlwing's Hunting Hounds)",
+        "5": "Pilar i Gheldehar (Pilar and Gheldehar)",
+        "6": "Duch dreczacy Svlasta (Svlast's Torment)",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara: instaluj odglosy postaci (polskie udzwiekowienie dzieki uprzejmosci Anoim2666)",
+        "9": "Nowe spotkania i walki",
+        "10": "Ulepszone pomniejsze demony",
+        "11": "Ulepszony Haeball",
+        "12": "Ulepszony Ghotal",
+        "choice_0": "Ogranicz liczbe szat szamana orkow",
+        "13": "Usun szaty z ekwipunku orkow kaplanow",
+        "14": "Ustaw szaty jako nieupuszczalne",
+        "choice_1": "Nowe zwoje z zakleciami",
+        "15": "Poprawiona wersja zaklec (poziom 6.)",
+        "16": "Oryginalna wersja zaklec (poziom 7. i 8.)"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Northern Tales of the Sword Coast (NTotSC) for BGT-Weidu, BG:EE, and EET",
+        "1": "Spawn less Monsters depending on Game Difficulty",
+        "2": "Keelor the Dwarf",
+        "3": "Llindellyn's Lucky Arrow",
+        "4": "Nim Furlwing's Hunting Hounds",
+        "5": "Pilar and Gheldehar",
+        "6": "Svlast's Torment",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara: Install English Soundset",
+        "9": "Fighting Encounters",
+        "10": "Improved Lesser Fiends",
+        "11": "Improved Haeball",
+        "12": "Improved Ghotal",
+        "choice_0": "Reduce Number of Shaman Cloaks",
+        "13": "Remove Cloaks from generic Orc Priests",
+        "14": "Make Cloaks Undroppable",
+        "choice_1": "Spell Scrolls",
+        "15": "Revised Version (level 6 spells)",
+        "16": "Original Version (level 7/8 spells)"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "NTotSC para BGT-Weidu",
+        "1": "Engendra menos monstruos en función de la dificultad del juego",
+        "2": "Keelor el Enano",
+        "3": "La Flecha de la Suerte de Llindellyn",
+        "4": "Los sabuesos de caza Nim Furlwing",
+        "5": "Pilar y Gheldehar",
+        "6": "El tormento de Svlast's",
+        "7": "Will O'Hara NPC",
+        "8": "Will O'Hara Instalar Conjunto de sonido Inglés",
+        "9": "Encuentros de combates",
+        "10": "Demonios menores mejorados",
+        "11": "Haeball mejorado",
+        "12": "Ghotal mejorado",
+        "choice_0": "Reduce el número de capas de chamán",
+        "13": "Elimina las capas de los sacerdotes orcos genéricos",
+        "14": "Hacer que las capas no se puedan soltar",
+        "choice_1": "Spell Scrolls",
+        "15": "Revised Version (level 6 spells)",
+        "16": "Original Version (level 7/8 spells)"
+      }
+    }
+  },
+  "tp2": "ntotsc",
+  "safe": 2,
+  "authors": ["Aurelinus", "Erebusant", "Sir BillyBob"]
+}
