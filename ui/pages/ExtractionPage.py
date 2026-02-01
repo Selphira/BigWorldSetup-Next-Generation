@@ -774,8 +774,10 @@ class ExtractionPage(BasePage):
             return False
 
         # All extractions must be extracted successfully
+        # FIXME: Authorize MISSING_ARCHIVE temporary
         return all(
-            status == ExtractionStatus.EXTRACTED for status in self._extraction_status.values()
+            status in [ExtractionStatus.EXTRACTED, ExtractionStatus.MISSING_ARCHIVE]
+            for status in self._extraction_status.values()
         )
 
     def can_go_to_previous_page(self) -> bool:
