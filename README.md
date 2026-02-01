@@ -6,18 +6,17 @@
 
 ## Présentation
 
-**Big World Setup - Enhanced Edition** est une application graphique dédiée à l’installation, la configuration et la
-gestion
+**Big World Setup - Enhanced Edition** est une application graphique dédiée à l'installation automatisée
 de mods pour les jeux Infinity Engine.
 
 Elle a pour objectif de fournir un outil moderne, fiable et maintenable permettant de gérer des installations
-complexes de mods, tout en restant fidèle aux principes et à l’esprit du projet historique **Big World Setup FR**.
+complexes de mods, tout en restant fidèle aux principes et à l'esprit du projet historique **Big World Setup FR**.
 
 ---
 
 ## Héritage de Big World Setup FR
 
-**Big World Setup - Enhanced Edition** est l’évolution directe
+**Big World Setup - Enhanced Edition** est l'évolution directe
 de [Big World Setup FR](<https://github.com/Selphira/BigWorldSetupFR>).
 
 Le projet original a rendu de grands services à la communauté pendant plusieurs années, mais il présentait
@@ -31,7 +30,7 @@ progressivement plusieurs limitations :
 * Impossibilité de modifier l'ordre d'installation
 
 **Big World Setup - Enhanced Edition** a été conçu tout d'abord par désir d'apprendre le Python, et pour répondre à ces
-problèmes de fond, sans renier les acquis fonctionnels du projet d’origine.
+problèmes de fond, sans renier les acquis fonctionnels du projet d'origine.
 
 ---
 
@@ -48,6 +47,35 @@ problèmes de fond, sans renier les acquis fonctionnels du projet d’origine.
 * Possibilité de modifier l'ordre d'installation
 * Gestion des règles d'ordre d'installation
 * Possibilité d'importer un ordre d'installation depuis un fichier Weidu.log
+
+## Mise à jour automatique
+
+Au démarrage de l'application, une vérification automatique des données est effectuée.
+
+Les informations relatives aux mods et aux règles d'installation sont comparées à celles disponibles sur le dépôt
+officiel.
+Si vos données locales sont plus anciennes, elles sont mises à jour automatiquement, sans action de votre part.
+
+Une vérification distincte concerne la version de l'application elle-même.
+Si une nouvelle version est disponible, vous en serez informé au lancement, mais la mise à jour de l'application reste
+manuelle.
+
+## Déroulement d'une installation
+
+L'installation d'un ensemble de mods est conçue pour être simple et largement automatisée.
+Une fois vos choix effectués, l'application prend en charge la majorité des opérations techniques.
+
+Voici le déroulement typique d'une installation :
+
+- Lancez l'application
+- Sélectionnez le jeu que vous souhaitez modder
+- Configurez les dossiers du jeu, de sauvegarde et de téléchargement
+- Créez ou restaurez une sauvegarde des fichiers du jeu
+- Sélectionnez les mods et les composants à installer
+- Vérifiez et, si nécessaire, ajustez l'ordre d'installation proposé
+- Lancez le téléchargement des archives
+- Lancez l'extraction des archives
+- Lancez l'installation des mods
 
 ## État du projet
 
