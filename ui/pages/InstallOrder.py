@@ -48,7 +48,6 @@ from constants import (
 from core.ComponentReference import ComponentReference
 from core.GameModels import GameDefinition
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
-from core.OrderGenerator import OrderGenerator
 from core.OrderImportExportManager import OrderImportError, OrderImportExportManager
 from core.StateManager import StateManager
 from core.TranslationManager import tr
@@ -253,7 +252,6 @@ class InstallOrderPage(BasePage):
         self._game_manager = self.state_manager.get_game_manager()
         self._rule_manager = self.state_manager.get_rule_manager()
         self._import_export_manager = OrderImportExportManager(WeiDULogParser())
-        self._order_generator = OrderGenerator(self._rule_manager)
 
         # Game state
         self._current_game: str | None = None
@@ -727,14 +725,10 @@ class InstallOrderPage(BasePage):
         if not self._game_def:
             return
 
-        selected_components = ComponentReference.from_string_list(
-            self.state_manager.get_selected_components()
-        )
         for seq_idx, sequence in enumerate(self._game_def.sequences):
             if seq_idx in self._sequences_data:
                 base_order = ComponentReference.from_string_list(list(sequence.order))
-                order = self._order_generator.generate(selected_components, base_order)
-                self._apply_order_from_list(seq_idx, order)
+                self._apply_order_from_list(seq_idx, base_order)
 
         logger.info("Loaded default order for all sequences")
 
@@ -1267,7 +1261,18 @@ class InstallOrderPage(BasePage):
 
     def get_additional_buttons(self) -> list[QPushButton]:
         """Get additional buttons."""
-        return [self._btn_reset, self._btn_default, self._btn_import, self._btn_export]
+        print("get_additional_buttons")
+        has_default_order = False
+        for sequence in self._game_def.sequences:
+            if hasattr(sequence, "order") and len(sequence.order) > 0:
+                has_default_order = True
+
+        return [
+            self._btn_reset,
+            *([self._btn_default] if has_default_order else []),
+            self._btn_import,
+            self._btn_export,
+        ]
 
     def can_go_to_next_page(self) -> bool:
         """Check if can proceed to next page.

@@ -424,10 +424,9 @@ class MainWindow(QMainWindow):
         """Show buttons for a specific page."""
         self._hide_additional_buttons()
 
-        if page_id not in self._page_buttons:
-            self._page_buttons[page_id] = buttons
-            for button in buttons:
-                self._additional_buttons_layout.addWidget(button)
+        self._page_buttons[page_id] = buttons
+        for button in buttons:
+            self._additional_buttons_layout.addWidget(button)
 
         for button in self._page_buttons[page_id]:
             button.show()
