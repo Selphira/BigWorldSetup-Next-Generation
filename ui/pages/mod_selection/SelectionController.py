@@ -40,12 +40,16 @@ class SelectionController(QObject):
         """Set current game and enforce forced components."""
         self._game = game
 
+        unselected = self._unselect_incompatible_components()
         forced = self._select_forced_components()
 
-        if forced:
+        if forced or unselected:
             self.validation_needed.emit()
 
-        logger.info(f"Game set to {game.id}, {len(forced)} forced components")
+        logger.info(
+            f"Game set to {game.id}, {len(forced)} forced components, "
+            f"{len(unselected)} incompatible components unselected"
+        )
 
     def set_proxy_model(self, proxy_model) -> None:
         """Inject proxy model for visibility checks."""
@@ -176,6 +180,28 @@ class SelectionController(QObject):
             self.select(reference, cascade=True, emit_validation=False)
 
         return forced
+
+    def _unselect_incompatible_components(self) -> list[ComponentReference]:
+        """Unselect all components that are incompatible with current game."""
+        if not self._game:
+            return []
+
+        unselected = []
+        currently_selected = list(self._indexes.selection_index)
+
+        for reference in currently_selected:
+            if self._is_forced_component(reference):
+                continue
+
+            if reference.is_sub() or reference.is_sub_option():
+                continue
+
+            if not self._is_compatible_with_game(reference):
+                if self.unselect(reference, cascade=True, emit_validation=False):
+                    unselected.append(reference)
+                    logger.debug(f"Unselected incompatible component: {reference}")
+
+        return unselected
 
     def _cascade_to_children_by_type(self, reference: ComponentReference) -> None:
         """Cascade to children according to component type."""
