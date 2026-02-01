@@ -15,6 +15,7 @@
     "loading_rules": "Loading rules...",
     "parsing_rules": "Parsing rules...",
     "setting_up_interface": "Setting up interface...",
+    "backing_up_custom_mods": "Backing up custom mods...",
     "backing_up_existing_data": "Backing up existing data...",
     "installing_update": "Installing update...",
     "update_complete": "Update complete!",
