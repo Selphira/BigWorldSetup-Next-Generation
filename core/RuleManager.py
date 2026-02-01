@@ -839,6 +839,14 @@ class RuleManager(QObject):
 
         return rule_source.comp_key == selected_ref.comp_key
 
+    def _matches_any_source(
+        self, component_ref: ComponentReference, sources: tuple[ComponentReference, ...]
+    ) -> bool:
+        """Check if component matches any source (handles wildcards)."""
+        return any(
+            self._references_match_for_source(component_ref, source) for source in sources
+        )
+
     def _create_target_evaluator(self, rule: DependencyRule) -> ConditionEvaluator:
         """Factory method: create appropriate target evaluator."""
         if rule.target_groups:
@@ -930,7 +938,9 @@ class RuleManager(QObject):
 
         # find sources (dependents) positions - check all sources
         source_positions = [
-            (positions[ref], ref) for ref in install_order if ref in rule.sources
+            (positions[ref], ref)
+            for ref in install_order
+            if self._matches_any_source(ref, rule.sources)
         ]
 
         if not source_positions:
@@ -939,16 +949,22 @@ class RuleManager(QObject):
         # For each source, ensure all targets come before it
         for source_idx, source_ref in source_positions:
             for target_ref in rule.targets:
-                if target_ref not in positions:
-                    continue
+                matching_components = [
+                    ref
+                    for ref in positions.keys()
+                    if self._references_match_for_source(ref, target_ref)
+                ]
 
-                if positions[target_ref] > source_idx:
-                    violation = RuleViolation(
-                        rule=rule,
-                        affected_components=(source_ref, target_ref),
-                    )
-                    violations.append(violation)
-                    self._indexes.add_order_violation(violation)
+                for matching_component in matching_components:
+                    target_position = positions[matching_component]
+
+                    if target_position > source_idx:
+                        violation = RuleViolation(
+                            rule=rule,
+                            affected_components=(source_ref, matching_component),
+                        )
+                        violations.append(violation)
+                        self._indexes.add_order_violation(violation)
 
         return violations
 
@@ -963,7 +979,9 @@ class RuleManager(QObject):
 
         # Find source positions
         source_positions = [
-            (positions[ref], ref) for ref in install_order if ref in rule.sources
+            (positions[ref], ref)
+            for ref in install_order
+            if self._matches_any_source(ref, rule.sources)
         ]
 
         if not source_positions:
@@ -971,26 +989,33 @@ class RuleManager(QObject):
 
         for source_idx, source_ref in source_positions:
             for target_ref in rule.targets:
-                if target_ref not in positions or target_ref == source_ref:
-                    continue
+                matching_components = [
+                    ref
+                    for ref in positions.keys()
+                    if self._references_match_for_source(ref, target_ref)
+                ]
 
-                target_idx = positions[target_ref]
-                violation_detected = False
+                for matching_component in matching_components:
+                    target_idx = positions[matching_component]
+                    if target_idx == source_idx:
+                        continue
 
-                if rule.order_direction == OrderDirection.BEFORE:
-                    if source_idx > target_idx:
-                        violation_detected = True
-                else:  # AFTER
-                    if source_idx < target_idx:
-                        violation_detected = True
+                    violation_detected = False
 
-                if violation_detected:
-                    violation = RuleViolation(
-                        rule=rule,
-                        affected_components=(source_ref, target_ref),
-                    )
-                    violations.append(violation)
-                    self._indexes.add_order_violation(violation)
+                    if rule.order_direction == OrderDirection.BEFORE:
+                        if source_idx > target_idx:
+                            violation_detected = True
+                    else:  # AFTER
+                        if source_idx < target_idx:
+                            violation_detected = True
+
+                    if violation_detected:
+                        violation = RuleViolation(
+                            rule=rule,
+                            affected_components=(source_ref, matching_component),
+                        )
+                        violations.append(violation)
+                        self._indexes.add_order_violation(violation)
 
         return violations
 
