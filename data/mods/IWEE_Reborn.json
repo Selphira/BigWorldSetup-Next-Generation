@@ -14,7 +14,7 @@
     }
   ],
   "games": ["iwdee"],
-  "categories": ["quest"],
+  "categories": ["conv"],
   "components": {
     "0": {"type": "std"}
   },
