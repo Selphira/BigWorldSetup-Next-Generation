@@ -152,6 +152,20 @@ class ViolationPanel(QWidget):
 
     def _populate_table(self, violations: list[RuleViolation]) -> None:
         """Populate the table with violations."""
+        filtered = {}
+        for violation in violations:
+            sources = tuple(sorted(violation.rule.sources, key=str))
+            targets = tuple(sorted(violation.rule.targets, key=str))
+            key = tuple(sorted((sources, targets), key=str))
+
+            if key not in filtered or (
+                self._current_reference in violation.rule.sources
+                and self._current_reference not in filtered[key].rule.sources
+            ):
+                filtered[key] = violation
+
+        violations = list(filtered.values())
+
         self._table.setRowCount(len(violations))
 
         for row, violation in enumerate(violations):
