@@ -1,10 +1,3151 @@
 {
   "rules": [
     {
+      "rule": "5e_spellcasting(-):scales_of_balance(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the 5e_spellcasting's ini file",
+        "fr_FR": "Règle définie dans l'ini de 5e_spellcasting"
+      }
+    },
+    {
+      "rule": "5e_spellcasting(-):spell_rev(-)|iwdification(-)|tome_and_blood(-)|might_and_guile(-)|faiths_and_powers(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the 5e_spellcasting's ini file",
+        "fr_FR": "Règle définie dans l'ini de 5e_spellcasting"
+      }
+    },
+    {
+      "rule": "a7#improvedarcher(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7#improvedarcher's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7#improvedarcher"
+      }
+    },
+    {
+      "rule": "a7#improvedarcher(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7#improvedarcher's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7#improvedarcher"
+      }
+    },
+    {
+      "rule": "a7#improvedshamanicdance(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7#improvedshamanicdance's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7#improvedshamanicdance"
+      }
+    },
+    {
+      "rule": "a7#improvedshamanicdance(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7#improvedshamanicdance's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7#improvedshamanicdance"
+      }
+    },
+    {
+      "rule": "a7-achievements(-):EET(-)|JackOfAllPlanes(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-achievements's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-achievements"
+      }
+    },
+    {
+      "rule": "a7-chaossorcerer(-):EET(-)|spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-chaossorcerer's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-chaossorcerer"
+      }
+    },
+    {
+      "rule": "a7-chaossorcerer(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-chaossorcerer's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-chaossorcerer"
+      }
+    },
+    {
+      "rule": "a7-convenienteenpcs(-):EET(-)|A7-ChaosSorcerer(-)|divine_remix(-)|iwdification(-)|shadowadept(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-convenienteenpcs's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-convenienteenpcs"
+      }
+    },
+    {
+      "rule": "a7-convenienteenpcs(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-convenienteenpcs's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-convenienteenpcs"
+      }
+    },
+    {
+      "rule": "a7-customkits(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-customkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-customkits"
+      }
+    },
+    {
+      "rule": "a7-customkits(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-customkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-customkits"
+      }
+    },
+    {
+      "rule": "a7-golemconstruction(-):EET(-)|arestorationp(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-golemconstruction's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-golemconstruction"
+      }
+    },
+    {
+      "rule": "a7-golemconstruction(-):EET_end(-)|DjinniCompanion(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-golemconstruction's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-golemconstruction"
+      }
+    },
+    {
+      "rule": "a7-leveluptweaks(-):HiddenGameplayOptions(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-leveluptweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-leveluptweaks"
+      }
+    },
+    {
+      "rule": "a7-magicstore(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-magicstore's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-magicstore"
+      }
+    },
+    {
+      "rule": "a7-magicstore(-):bg2fixpack(-)|EET(-)|A7-GolemConstruction(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-magicstore's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-magicstore"
+      }
+    },
+    {
+      "rule": "a7-multikits(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-multikits's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-multikits"
+      }
+    },
+    {
+      "rule": "a7-multikits(-):dw_talents(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-multikits's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-multikits"
+      }
+    },
+    {
+      "rule": "a7-npcgenerator(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-npcgenerator's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-npcgenerator"
+      }
+    },
+    {
+      "rule": "a7-npcgenerator(-):cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-npcgenerator's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-npcgenerator"
+      }
+    },
+    {
+      "rule": "a7-protagonist-be-gone(-):EET(-)|cdtweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-protagonist-be-gone's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-protagonist-be-gone"
+      }
+    },
+    {
+      "rule": "a7-protagonist-be-gone(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-protagonist-be-gone's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-protagonist-be-gone"
+      }
+    },
+    {
+      "rule": "a7-testyourmettle(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-testyourmettle's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-testyourmettle"
+      }
+    },
+    {
+      "rule": "a7-testyourmettle(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-testyourmettle's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-testyourmettle"
+      }
+    },
+    {
+      "rule": "a7-totlm-bg2ee(-):EET(-)|iwd1_eet(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-totlm-bg2ee's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-totlm-bg2ee"
+      }
+    },
+    {
+      "rule": "a7-totlm-bg2ee(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-totlm-bg2ee's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-totlm-bg2ee"
+      }
+    },
+    {
+      "rule": "a7-waresoftheplanes(-):EET(-)|ub(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-waresoftheplanes's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-waresoftheplanes"
+      }
+    },
+    {
+      "rule": "a7-waresoftheplanes(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the a7-waresoftheplanes's ini file",
+        "fr_FR": "Règle définie dans l'ini de a7-waresoftheplanes"
+      }
+    },
+    {
+      "rule": "ac_quest(-):ACBre(-)|c#brandock(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ac_quest's ini file",
+        "fr_FR": "Règle définie dans l'ini de ac_quest"
+      }
+    },
+    {
+      "rule": "ac_quest(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ac_quest's ini file",
+        "fr_FR": "Règle définie dans l'ini de ac_quest"
+      }
+    },
+    {
+      "rule": "acbre(-):AC_QUEST(-)|alternatives(-)|amber(-)|aurenaseph(-)|bgqe(-)|bst(-)|c#anotherfinehell(-)|c#endlessbg1(-)|DSotSC(-)|EET(-)|imoen_forever(-)|Transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the acbre's ini file",
+        "fr_FR": "Règle définie dans l'ini de acbre"
+      }
+    },
+    {
+      "rule": "acbre(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the acbre's ini file",
+        "fr_FR": "Règle définie dans l'ini de acbre"
+      }
+    },
+    {
+      "rule": "adrian(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the adrian's ini file",
+        "fr_FR": "Règle définie dans l'ini de adrian"
+      }
+    },
+    {
+      "rule": "adrian(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the adrian's ini file",
+        "fr_FR": "Règle définie dans l'ini de adrian"
+      }
+    },
+    {
+      "rule": "ajantisbg1(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ajantisbg1's ini file",
+        "fr_FR": "Règle définie dans l'ini de ajantisbg1"
+      }
+    },
+    {
+      "rule": "ajantisbg1(-):bg1npc(-)|c#anotherfinehell(-)|c#endlessbg1(-)|c#sodboabri(-)|EET(-)|imoen_forever(-)|transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ajantisbg1's ini file",
+        "fr_FR": "Règle définie dans l'ini de ajantisbg1"
+      }
+    },
+    {
+      "rule": "ajantisbg2(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ajantisbg2's ini file",
+        "fr_FR": "Règle définie dans l'ini de ajantisbg2"
+      }
+    },
+    {
+      "rule": "ajantisbg2(-):transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ajantisbg2's ini file",
+        "fr_FR": "Règle définie dans l'ini de ajantisbg2"
+      }
+    },
+    {
+      "rule": "alcool(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the alcool's ini file",
+        "fr_FR": "Règle définie dans l'ini de alcool"
+      }
+    },
+    {
+      "rule": "alora(-):iwd_eet-party-banter(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the alora's ini file",
+        "fr_FR": "Règle définie dans l'ini de alora"
+      }
+    },
+    {
+      "rule": "alora(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the alora's ini file",
+        "fr_FR": "Règle définie dans l'ini de alora"
+      }
+    },
+    {
+      "rule": "angelo(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the angelo's ini file",
+        "fr_FR": "Règle définie dans l'ini de angelo"
+      }
+    },
+    {
+      "rule": "angelo(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the angelo's ini file",
+        "fr_FR": "Règle définie dans l'ini de angelo"
+      }
+    },
+    {
+      "rule": "arath(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the arath's ini file",
+        "fr_FR": "Règle définie dans l'ini de arath"
+      }
+    },
+    {
+      "rule": "arath(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the arath's ini file",
+        "fr_FR": "Règle définie dans l'ini de arath"
+      }
+    },
+    {
+      "rule": "arestorationp(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the arestorationp's ini file",
+        "fr_FR": "Règle définie dans l'ini de arestorationp"
+      }
+    },
+    {
+      "rule": "arestorationp(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the arestorationp's ini file",
+        "fr_FR": "Règle définie dans l'ini de arestorationp"
+      }
+    },
+    {
+      "rule": "ascension(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ascension's ini file",
+        "fr_FR": "Règle définie dans l'ini de ascension"
+      }
+    },
+    {
+      "rule": "ascension(-):EET_end(-)|spell_rev(-)|stratagems(-)|wheels(-)|iylos(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ascension's ini file",
+        "fr_FR": "Règle définie dans l'ini de ascension"
+      }
+    },
+    {
+      "rule": "aurenaseph(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the aurenaseph's ini file",
+        "fr_FR": "Règle définie dans l'ini de aurenaseph"
+      }
+    },
+    {
+      "rule": "aurenaseph(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the aurenaseph's ini file",
+        "fr_FR": "Règle définie dans l'ini de aurenaseph"
+      }
+    },
+    {
+      "rule": "autumns_twilight(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the autumns_twilight's ini file",
+        "fr_FR": "Règle définie dans l'ini de autumns_twilight"
+      }
+    },
+    {
+      "rule": "autumns_twilight(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the autumns_twilight's ini file",
+        "fr_FR": "Règle définie dans l'ini de autumns_twilight"
+      }
+    },
+    {
+      "rule": "bank_of_baldurs_gate(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bank_of_baldurs_gate's ini file",
+        "fr_FR": "Règle définie dans l'ini de bank_of_baldurs_gate"
+      }
+    },
+    {
+      "rule": "bank_of_baldurs_gate(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bank_of_baldurs_gate's ini file",
+        "fr_FR": "Règle définie dans l'ini de bank_of_baldurs_gate"
+      }
+    },
+    {
+      "rule": "banterpack(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the banterpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de banterpack"
+      }
+    },
+    {
+      "rule": "banterpack(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the banterpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de banterpack"
+      }
+    },
+    {
+      "rule": "bg1aerie(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1aerie's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1aerie"
+      }
+    },
+    {
+      "rule": "bg1npc(-):atweaks(-)|cdtweaks(-)|c#brandock(-)|c#greythedog(-)|EET_end(-)|Framed(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1npc's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1npc"
+      }
+    },
+    {
+      "rule": "bg1npc(-):bg2fixpack(-)|bgqe(-)|Tweak_early(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1npc's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1npc"
+      }
+    },
+    {
+      "rule": "bg1npcsoa(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1npcsoa's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1npcsoa"
+      }
+    },
+    {
+      "rule": "bg1npcsoa(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1npcsoa's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1npcsoa"
+      }
+    },
+    {
+      "rule": "bg1re(-):bg2fixpack(-)|c#endlessbg1(-)|EET(-)|JA#BGT_AdvPack(-)|transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1re's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1re"
+      }
+    },
+    {
+      "rule": "bg1re(-):cdtweaks(-)|EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1re's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1re"
+      }
+    },
+    {
+      "rule": "bg1ub(-):BGT(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bg1ub's ini file",
+        "fr_FR": "Règle définie dans l'ini de bg1ub"
+      }
+    },
+    {
+      "rule": "bgee-graphics-enhanced(-):EEex(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgee-graphics-enhanced's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgee-graphics-enhanced"
+      }
+    },
+    {
+      "rule": "bgeeclassicmovies(-):LeUI-BG1EE(-)|LeUI-SoD(-)|LeUI(-)|EET(-)|EET_gui(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgeeclassicmovies's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgeeclassicmovies"
+      }
+    },
+    {
+      "rule": "bgeespawn(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgeespawn's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgeespawn"
+      }
+    },
+    {
+      "rule": "bggo(-):EET(-)|BGT(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bggo's ini file",
+        "fr_FR": "Règle définie dans l'ini de bggo"
+      }
+    },
+    {
+      "rule": "bggo(-):EET_end(-)|Widescreen(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bggo's ini file",
+        "fr_FR": "Règle définie dans l'ini de bggo"
+      }
+    },
+    {
+      "rule": "bgqe(-):bg1npc(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgqe's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgqe"
+      }
+    },
+    {
+      "rule": "bgqe(-):eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgqe's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgqe"
+      }
+    },
+    {
+      "rule": "bgspawn(-):BGT(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bgspawn's ini file",
+        "fr_FR": "Règle définie dans l'ini de bgspawn"
+      }
+    },
+    {
+      "rule": "branwen(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the branwen's ini file",
+        "fr_FR": "Règle définie dans l'ini de branwen"
+      }
+    },
+    {
+      "rule": "branwen(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the branwen's ini file",
+        "fr_FR": "Règle définie dans l'ini de branwen"
+      }
+    },
+    {
+      "rule": "bst(-):ACBre(-)|c#brage(-)|c#brandock(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bst's ini file",
+        "fr_FR": "Règle définie dans l'ini de bst"
+      }
+    },
+    {
+      "rule": "bst(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bst's ini file",
+        "fr_FR": "Règle définie dans l'ini de bst"
+      }
+    },
+    {
+      "rule": "btl(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the btl's ini file",
+        "fr_FR": "Règle définie dans l'ini de btl"
+      }
+    },
+    {
+      "rule": "btl(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the btl's ini file",
+        "fr_FR": "Règle définie dans l'ini de btl"
+      }
+    },
+    {
+      "rule": "bubb_spell_menu_extended(-):dragonspear_ui++(-)|EEex(-)|EET(-)|EET_gui(-)|LeUI(-)|LeUI-BG1EE(-)|LeUI-IWDEE(-)|LeUI-SoD(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the bubb_spell_menu_extended's ini file",
+        "fr_FR": "Règle définie dans l'ini de bubb_spell_menu_extended"
+      }
+    },
+    {
+      "rule": "butchery(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the butchery's ini file",
+        "fr_FR": "Règle définie dans l'ini de butchery"
+      }
+    },
+    {
+      "rule": "butchery(-):tobex(-)|bg2fixpack(-)|ascension(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the butchery's ini file",
+        "fr_FR": "Règle définie dans l'ini de butchery"
+      }
+    },
+    {
+      "rule": "c#anotherfinehell(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#anotherfinehell's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#anotherfinehell"
+      }
+    },
+    {
+      "rule": "c#anotherfinehell(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#anotherfinehell's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#anotherfinehell"
+      }
+    },
+    {
+      "rule": "c#brage(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#brage's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#brage"
+      }
+    },
+    {
+      "rule": "c#brage(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#brage's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#brage"
+      }
+    },
+    {
+      "rule": "c#brandock(-):DlcMerger(-)|eefixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#brandock's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#brandock"
+      }
+    },
+    {
+      "rule": "c#brandock(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#brandock's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#brandock"
+      }
+    },
+    {
+      "rule": "c#endlessbg1(-):EET_End(-)|transitions(-)|JA#BGT_AdvPack(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#endlessbg1's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#endlessbg1"
+      }
+    },
+    {
+      "rule": "c#endlessbg1(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#endlessbg1's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#endlessbg1"
+      }
+    },
+    {
+      "rule": "c#greythedog(-):ACBre(-)|ajantisbg1(-)|ajantisbg2(-)|bg1npc(-)|bg2fixpack(-)|bst(-)|c#brage(-)|c#brandock(-)|c#husam(-)|c#sodboabri(-)|EET(-)|JA#BGT_AdvPack(-)|imoen_forever(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#greythedog's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#greythedog"
+      }
+    },
+    {
+      "rule": "c#greythedog(-):atweaks(-)|EET_end(-)|cdtweaks(-)|Tweak(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#greythedog's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#greythedog"
+      }
+    },
+    {
+      "rule": "c#husam(-):ajantisbg1(-)|ajantisbg2(-)|alternatives(-)|bg2fixpack(-)|c#brage(-)|c#brandock(-)|c#sodboabri(-)|EET(-)|GBThfKp(-)|imoen_forever(-)|transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#husam's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#husam"
+      }
+    },
+    {
+      "rule": "c#husam(-):atweaks(-)|cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#husam's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#husam"
+      }
+    },
+    {
+      "rule": "c#sb_silber(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sb_silber's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sb_silber"
+      }
+    },
+    {
+      "rule": "c#sb_silber(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sb_silber's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sb_silber"
+      }
+    },
+    {
+      "rule": "c#sodboabri(-):EET_end(-)|sodrtd(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sodboabri's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sodboabri"
+      }
+    },
+    {
+      "rule": "c#sodboabri(-):eefixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sodboabri's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sodboabri"
+      }
+    },
+    {
+      "rule": "c#sodtweaks(-):atweaks(-)|cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sodtweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sodtweaks"
+      }
+    },
+    {
+      "rule": "c#sodtweaks(-):bg2fixpack(-)|c#anotherfinehell(-)|c#endlessbg1(-)|EET(-)|transitions(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#sodtweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#sodtweaks"
+      }
+    },
+    {
+      "rule": "c#solaufein(-):BGII-Subrace(-)|EET(-)|Eilistraee(-)|infinityanimations(-)|subrace(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#solaufein's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#solaufein"
+      }
+    },
+    {
+      "rule": "c#solaufein(-):c#brandock(-)|corthalaromantique(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the c#solaufein's ini file",
+        "fr_FR": "Règle définie dans l'ini de c#solaufein"
+      }
+    },
+    {
+      "rule": "cd_icpp(-):bg2fixpack(-)|iwdfixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the cd_icpp's ini file",
+        "fr_FR": "Règle définie dans l'ini de cd_icpp"
+      }
+    },
+    {
+      "rule": "cdportraits(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the cdportraits's ini file",
+        "fr_FR": "Règle définie dans l'ini de cdportraits"
+      }
+    },
+    {
+      "rule": "cdtweaks(-):1pp(-)|ab(-)|arestorationp(-)|bg1npc(-)|bg2fixpack(-)|eefixpack(-)|item_rev(-)|itemupgrade(-)|iu_iwd(-)|iwdfixpack(-)|iwdification(-)|mts_crappackv2(-)|oversight(-)|thecalling(-)|tobex(-)|tomeandblood(-)|ub_iwd(-)|underrep(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the cdtweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de cdtweaks"
+      }
+    },
+    {
+      "rule": "cdtweaks(-):hiddengameplayoptions(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the cdtweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de cdtweaks"
+      }
+    },
+    {
+      "rule": "celestials(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the celestials's ini file",
+        "fr_FR": "Règle définie dans l'ini de celestials"
+      }
+    },
+    {
+      "rule": "celestials(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the celestials's ini file",
+        "fr_FR": "Règle définie dans l'ini de celestials"
+      }
+    },
+    {
+      "rule": "chanterkit(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the chanterkit's ini file",
+        "fr_FR": "Règle définie dans l'ini de chanterkit"
+      }
+    },
+    {
+      "rule": "chattyimoen(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the chattyimoen's ini file",
+        "fr_FR": "Règle définie dans l'ini de chattyimoen"
+      }
+    },
+    {
+      "rule": "chattyimoen(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the chattyimoen's ini file",
+        "fr_FR": "Règle définie dans l'ini de chattyimoen"
+      }
+    },
+    {
+      "rule": "cluareas(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the cluareas's ini file",
+        "fr_FR": "Règle définie dans l'ini de cluareas"
+      }
+    },
+    {
+      "rule": "com_encounters(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the com_encounters's ini file",
+        "fr_FR": "Règle définie dans l'ini de com_encounters"
+      }
+    },
+    {
+      "rule": "combat_skill_proficiencies(-):NPC_EE(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the combat_skill_proficiencies's ini file",
+        "fr_FR": "Règle définie dans l'ini de combat_skill_proficiencies"
+      }
+    },
+    {
+      "rule": "combat_skill_proficiencies(-):rr(-)|cdtweaks(-)|sd_item_tweaks(-)|stratagems(-)|atweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the combat_skill_proficiencies's ini file",
+        "fr_FR": "Règle définie dans l'ini de combat_skill_proficiencies"
+      }
+    },
+    {
+      "rule": "coran(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the coran's ini file",
+        "fr_FR": "Règle définie dans l'ini de coran"
+      }
+    },
+    {
+      "rule": "coran(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the coran's ini file",
+        "fr_FR": "Règle définie dans l'ini de coran"
+      }
+    },
+    {
+      "rule": "coranbgfriend(-):EET(-)|BG1NPC(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the coranbgfriend's ini file",
+        "fr_FR": "Règle définie dans l'ini de coranbgfriend"
+      }
+    },
+    {
+      "rule": "coranbgfriend(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the coranbgfriend's ini file",
+        "fr_FR": "Règle définie dans l'ini de coranbgfriend"
+      }
+    },
+    {
       "rule": "correctfrbg1ee(10,20,30,40,50):dlcmerger(1)",
       "severity": "error",
       "direction": "after",
       "description": "Règle définie dans le TP2 de correctfrbg1ee"
+    },
+    {
+      "rule": "corthalaromantique(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the corthalaromantique's ini file",
+        "fr_FR": "Règle définie dans l'ini de corthalaromantique"
+      }
+    },
+    {
+      "rule": "corthalaromantique(-):c#solaufein(-)|EET(-)|kelsey(-)|solarom(-)|UB(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the corthalaromantique's ini file",
+        "fr_FR": "Règle définie dans l'ini de corthalaromantique"
+      }
+    },
+    {
+      "rule": "ctb(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ctb's ini file",
+        "fr_FR": "Règle définie dans l'ini de ctb"
+      }
+    },
+    {
+      "rule": "ctb(-):EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ctb's ini file",
+        "fr_FR": "Règle définie dans l'ini de ctb"
+      }
+    },
+    {
+      "rule": "d2-iwdee-fixes(-):BetterHOF(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-iwdee-fixes's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-iwdee-fixes"
+      }
+    },
+    {
+      "rule": "d2-mira(-):EET(-)|iwd2ee(-)|iwdfixpack(-)|iu_iwd(-)|ub_iwd(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-mira's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-mira"
+      }
+    },
+    {
+      "rule": "d2-mira(-):EET_end(-)|iwd2ee_mod_compatibility_patch(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-mira's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-mira"
+      }
+    },
+    {
+      "rule": "d2-portrait-separator(-):EET(-)|infinity_ui(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-portrait-separator's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-portrait-separator"
+      }
+    },
+    {
+      "rule": "d2-randomkits(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-randomkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-randomkits"
+      }
+    },
+    {
+      "rule": "d2-randomkits(-):d2-script(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-randomkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-randomkits"
+      }
+    },
+    {
+      "rule": "d2-script(-):EET(-)|stratagems(-)|cdtweaks(-)|atweaks(-)|iwd2ee(-)|bg2improvedgui(-)|bg2fixpack(-)|iwdfixpack(-)|TobEx(-)|TobEx_AfterLife(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-script's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-script"
+      }
+    },
+    {
+      "rule": "d2-weapon(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-weapon's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-weapon"
+      }
+    },
+    {
+      "rule": "d2-weapon(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-weapon's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-weapon"
+      }
+    },
+    {
+      "rule": "d2-workshopkits(-):EET(-)|DeitiesOfFaerun(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-workshopkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-workshopkits"
+      }
+    },
+    {
+      "rule": "d2-workshopkits(-):d2-script(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the d2-workshopkits's ini file",
+        "fr_FR": "Règle définie dans l'ini de d2-workshopkits"
+      }
+    },
+    {
+      "rule": "da_portraits(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the da_portraits's ini file",
+        "fr_FR": "Règle définie dans l'ini de da_portraits"
+      }
+    },
+    {
+      "rule": "dace(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dace's ini file",
+        "fr_FR": "Règle définie dans l'ini de dace"
+      }
+    },
+    {
+      "rule": "dace(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dace's ini file",
+        "fr_FR": "Règle définie dans l'ini de dace"
+      }
+    },
+    {
+      "rule": "darian(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the darian's ini file",
+        "fr_FR": "Règle définie dans l'ini de darian"
+      }
+    },
+    {
+      "rule": "darian(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the darian's ini file",
+        "fr_FR": "Règle définie dans l'ini de darian"
+      }
+    },
+    {
+      "rule": "darkhorizons(-):EET(-)|BGT(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the darkhorizons's ini file",
+        "fr_FR": "Règle définie dans l'ini de darkhorizons"
+      }
+    },
+    {
+      "rule": "dc(-):atweaks(-)|cdtweaks(-)|EET_end(-)|NPC(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dc's ini file",
+        "fr_FR": "Règle définie dans l'ini de dc"
+      }
+    },
+    {
+      "rule": "dc(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dc's ini file",
+        "fr_FR": "Règle définie dans l'ini de dc"
+      }
+    },
+    {
+      "rule": "djinnicompanion(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the djinnicompanion's ini file",
+        "fr_FR": "Règle définie dans l'ini de djinnicompanion"
+      }
+    },
+    {
+      "rule": "djinnicompanion(-):bg2fixpack(-)|EET(-)|ascension(-)|d0questpack(-)|infinityanimations(-)|ub(-)|wheels(-)|A7-GolemConstruction(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the djinnicompanion's ini file",
+        "fr_FR": "Règle définie dans l'ini de djinnicompanion"
+      }
+    },
+    {
+      "rule": "dofd(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dofd's ini file",
+        "fr_FR": "Règle définie dans l'ini de dofd"
+      }
+    },
+    {
+      "rule": "dornfriendship(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dornfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de dornfriendship"
+      }
+    },
+    {
+      "rule": "dornfriendship(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dornfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de dornfriendship"
+      }
+    },
+    {
+      "rule": "druidsor(-):cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the druidsor's ini file",
+        "fr_FR": "Règle définie dans l'ini de druidsor"
+      }
+    },
+    {
+      "rule": "druidsor(-):eefixpack(-)|bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the druidsor's ini file",
+        "fr_FR": "Règle définie dans l'ini de druidsor"
+      }
+    },
+    {
+      "rule": "drunkshaders(-):LightingPack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the drunkshaders's ini file",
+        "fr_FR": "Règle définie dans l'ini de drunkshaders"
+      }
+    },
+    {
+      "rule": "dusk(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dusk's ini file",
+        "fr_FR": "Règle définie dans l'ini de dusk"
+      }
+    },
+    {
+      "rule": "dusk(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the dusk's ini file",
+        "fr_FR": "Règle définie dans l'ini de dusk"
+      }
+    },
+    {
+      "rule": "edwinromance(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the edwinromance's ini file",
+        "fr_FR": "Règle définie dans l'ini de edwinromance"
+      }
+    },
+    {
+      "rule": "edwinromance(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the edwinromance's ini file",
+        "fr_FR": "Règle définie dans l'ini de edwinromance"
+      }
+    },
+    {
+      "rule": "eefixpack(-):1pp(-)|ab(-)|arestorationp(-)|bg1npc(-)|bg2fixpack(-)|cdtweaks(-)|item_rev(-)|itemupgrade(-)|iu_iwd(-)|iwdfixpack(-)|iwdification(-)|mts_crappackv2(-)|oversight(-)|thecalling(-)|tobex(-)|tomeandblood(-)|ub_iwd(-)|underrep(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the eefixpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de eefixpack"
+      }
+    },
+    {
+      "rule": "eefixpack(-):dlcmerger(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the eefixpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de eefixpack"
+      }
+    },
+    {
+      "rule": "extraexpandedenhancedencounters(-):EET(-)|AC_QUEST(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the extraexpandedenhancedencounters's ini file",
+        "fr_FR": "Règle définie dans l'ini de extraexpandedenhancedencounters"
+      }
+    },
+    {
+      "rule": "extraexpandedenhancedencounters(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the extraexpandedenhancedencounters's ini file",
+        "fr_FR": "Règle définie dans l'ini de extraexpandedenhancedencounters"
+      }
+    },
+    {
+      "rule": "faiths_and_powers(-):5E_spellcasting(-)|cdtweaks(-)|scales_of_balance(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the faiths_and_powers's ini file",
+        "fr_FR": "Règle définie dans l'ini de faiths_and_powers"
+      }
+    },
+    {
+      "rule": "faiths_and_powers(-):tomeandblood(-)|item_rev(-)|a7#improvedshamanicdance(-)|setup-divine_remix(-)|spell_rev(-)|will_to_power(-)|might_and_guile(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the faiths_and_powers's ini file",
+        "fr_FR": "Règle définie dans l'ini de faiths_and_powers"
+      }
+    },
+    {
+      "rule": "finchnpc(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the finchnpc's ini file",
+        "fr_FR": "Règle définie dans l'ini de finchnpc"
+      }
+    },
+    {
+      "rule": "finchnpc(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the finchnpc's ini file",
+        "fr_FR": "Règle définie dans l'ini de finchnpc"
+      }
+    },
+    {
+      "rule": "framed(-):EET(-)|bg1re(-)|bg1npc(-)|bgqe(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the framed's ini file",
+        "fr_FR": "Règle définie dans l'ini de framed"
+      }
+    },
+    {
+      "rule": "framed(-):c#brandock(-)|c#greythedog(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the framed's ini file",
+        "fr_FR": "Règle définie dans l'ini de framed"
+      }
+    },
+    {
+      "rule": "gaenemyrando(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gaenemyrando's ini file",
+        "fr_FR": "Règle définie dans l'ini de gaenemyrando"
+      }
+    },
+    {
+      "rule": "gaenemyrando(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gaenemyrando's ini file",
+        "fr_FR": "Règle définie dans l'ini de gaenemyrando"
+      }
+    },
+    {
+      "rule": "garrick-tt(-):BP-BGT-Worldmap(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the garrick-tt's ini file",
+        "fr_FR": "Règle définie dans l'ini de garrick-tt"
+      }
+    },
+    {
+      "rule": "garrick-tt(-):EET(-)|bg1npc(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the garrick-tt's ini file",
+        "fr_FR": "Règle définie dans l'ini de garrick-tt"
+      }
+    },
+    {
+      "rule": "gavin(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gavin's ini file",
+        "fr_FR": "Règle définie dans l'ini de gavin"
+      }
+    },
+    {
+      "rule": "gavin(-):cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gavin's ini file",
+        "fr_FR": "Règle définie dans l'ini de gavin"
+      }
+    },
+    {
+      "rule": "gbthfkp(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gbthfkp's ini file",
+        "fr_FR": "Règle définie dans l'ini de gbthfkp"
+      }
+    },
+    {
+      "rule": "gbthfkp(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the gbthfkp's ini file",
+        "fr_FR": "Règle définie dans l'ini de gbthfkp"
+      }
+    },
+    {
+      "rule": "hammers(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hammers's ini file",
+        "fr_FR": "Règle définie dans l'ini de hammers"
+      }
+    },
+    {
+      "rule": "hammers(-):aTweaks(-)|spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hammers's ini file",
+        "fr_FR": "Règle définie dans l'ini de hammers"
+      }
+    },
+    {
+      "rule": "herthimoney(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the herthimoney's ini file",
+        "fr_FR": "Règle définie dans l'ini de herthimoney"
+      }
+    },
+    {
+      "rule": "herthimoney(-):bg2fixpack(-)|EET(-)|Hubelpot(-)|imoen_forever(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the herthimoney's ini file",
+        "fr_FR": "Règle définie dans l'ini de herthimoney"
+      }
+    },
+    {
+      "rule": "hiddenadventure(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hiddenadventure's ini file",
+        "fr_FR": "Règle définie dans l'ini de hiddenadventure"
+      }
+    },
+    {
+      "rule": "hiddenadventure(-):cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hiddenadventure's ini file",
+        "fr_FR": "Règle définie dans l'ini de hiddenadventure"
+      }
+    },
+    {
+      "rule": "hiddengameplayoptions(-):cdtweaks(-)|dragonspear_ui++(-)|infinity_ui(-)|leui(-)|leui-bg1ee(-)|leui-sod(-)|leui-iwdee(-)|tipun_gui(-)|EET_gui(-)|A7-LevelUpTweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hiddengameplayoptions's ini file",
+        "fr_FR": "Règle définie dans l'ini de hiddengameplayoptions"
+      }
+    },
+    {
+      "rule": "hubelpot(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hubelpot's ini file",
+        "fr_FR": "Règle définie dans l'ini de hubelpot"
+      }
+    },
+    {
+      "rule": "hubelpot(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the hubelpot's ini file",
+        "fr_FR": "Règle définie dans l'ini de hubelpot"
+      }
+    },
+    {
+      "rule": "iepbanters(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iepbanters's ini file",
+        "fr_FR": "Règle définie dans l'ini de iepbanters"
+      }
+    },
+    {
+      "rule": "iepbanters(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iepbanters's ini file",
+        "fr_FR": "Règle définie dans l'ini de iepbanters"
+      }
+    },
+    {
+      "rule": "ihateundead(-):A7-ImprovedShamanicDance(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ihateundead's ini file",
+        "fr_FR": "Règle définie dans l'ini de ihateundead"
+      }
+    },
+    {
+      "rule": "ihateundead(-):DeitiesOfFaerun(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ihateundead's ini file",
+        "fr_FR": "Règle définie dans l'ini de ihateundead"
+      }
+    },
+    {
+      "rule": "imoen_forever(-):atweaks(-)|cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the imoen_forever's ini file",
+        "fr_FR": "Règle définie dans l'ini de imoen_forever"
+      }
+    },
+    {
+      "rule": "imoen_forever(-):c#anotherfinehell(-)|c#sodboabri(-)|c#sodtweaks(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the imoen_forever's ini file",
+        "fr_FR": "Règle définie dans l'ini de imoen_forever"
+      }
+    },
+    {
+      "rule": "indinpc(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the indinpc's ini file",
+        "fr_FR": "Règle définie dans l'ini de indinpc"
+      }
+    },
+    {
+      "rule": "indinpc(-):bgqe(-)|c#brage(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the indinpc's ini file",
+        "fr_FR": "Règle définie dans l'ini de indinpc"
+      }
+    },
+    {
+      "rule": "infinitysounds(-):generalized_biffing(-)|eet_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the infinitysounds's ini file",
+        "fr_FR": "Règle définie dans l'ini de infinitysounds"
+      }
+    },
+    {
+      "rule": "infinitysounds(-):tobex(-)|tobex_afterlife(-)|bg2fixpack(-)|bg2gtueestyle(-)|bgt(-)|eet(-)|lolfixer(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the infinitysounds's ini file",
+        "fr_FR": "Règle définie dans l'ini de infinitysounds"
+      }
+    },
+    {
+      "rule": "isra(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the isra's ini file",
+        "fr_FR": "Règle définie dans l'ini de isra"
+      }
+    },
+    {
+      "rule": "isra(-):tobex(-)|bg2fixpack(-)|EET(-)|valerie(-)|gavin(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the isra's ini file",
+        "fr_FR": "Règle définie dans l'ini de isra"
+      }
+    },
+    {
+      "rule": "itemupgrade(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the itemupgrade's ini file",
+        "fr_FR": "Règle définie dans l'ini de itemupgrade"
+      }
+    },
+    {
+      "rule": "itemupgrade(-):stratagems(-)|cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the itemupgrade's ini file",
+        "fr_FR": "Règle définie dans l'ini de itemupgrade"
+      }
+    },
+    {
+      "rule": "iwd1_eet(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd1_eet's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd1_eet"
+      }
+    },
+    {
+      "rule": "iwd1_eet(-):tipun_gui(-)|IWD2_EET(-)|iwd_eet-party-banter(-)|IWD_EET_End(-)|IWD_EET_Integration(-)|EET_end(-)|BP-BGT-Worldmap(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd1_eet's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd1_eet"
+      }
+    },
+    {
+      "rule": "iwd2_eet(-):EET(-)|IWD1_EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd2_eet's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd2_eet"
+      }
+    },
+    {
+      "rule": "iwd2_eet(-):tipun_gui(-)|iwd_eet-party-banter(-)|IWD_EET_End(-)|IWD_EET_Integration(-)|EET_end(-)|BP-BGT-Worldmap(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd2_eet's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd2_eet"
+      }
+    },
+    {
+      "rule": "iwd_compat(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd_compat's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd_compat"
+      }
+    },
+    {
+      "rule": "iwd_eet_end(-):EET(-)|IWD1_EET(-)|IWD2_EET(-)|iwd_eet-party-banter(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd_eet_end's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd_eet_end"
+      }
+    },
+    {
+      "rule": "iwd_eet_end(-):EET_end(-)|IWD_EET_Integration(-)|BP-BGT-Worldmap(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwd_eet_end's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwd_eet_end"
+      }
+    },
+    {
+      "rule": "iwdification(-):bg2fixpack(-)|garrick-tt(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwdification's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwdification"
+      }
+    },
+    {
+      "rule": "iwdification(-):cdtweaks(-)|a7-totlm-bg2ee(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwdification's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwdification"
+      }
+    },
+    {
+      "rule": "iwditempack(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iwditempack's ini file",
+        "fr_FR": "Règle définie dans l'ini de iwditempack"
+      }
+    },
+    {
+      "rule": "iylos(-):EET(-)|Ascension(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iylos's ini file",
+        "fr_FR": "Règle définie dans l'ini de iylos"
+      }
+    },
+    {
+      "rule": "iylos(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the iylos's ini file",
+        "fr_FR": "Règle définie dans l'ini de iylos"
+      }
+    },
+    {
+      "rule": "ja#bgt_advpack(-):bg1re(-)|bg1npc(-)|garrick-tt(-)|c#greythedog(-)|stratagems(-)|EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ja#bgt_advpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de ja#bgt_advpack"
+      }
+    },
+    {
+      "rule": "ja#bgt_advpack(-):bg2fixpack(-)|bg1ub(-)|EET(-)|BGEEClassicMovies(-)|c#endlessbg1(-)|ntotsc(-)|Loretakers(-)|bgqe(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ja#bgt_advpack's ini file",
+        "fr_FR": "Règle définie dans l'ini de ja#bgt_advpack"
+      }
+    },
+    {
+      "rule": "jaheirafriendship(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jaheirafriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de jaheirafriendship"
+      }
+    },
+    {
+      "rule": "jaheirafriendship(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jaheirafriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de jaheirafriendship"
+      }
+    },
+    {
+      "rule": "jaheirarecast(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jaheirarecast's ini file",
+        "fr_FR": "Règle définie dans l'ini de jaheirarecast"
+      }
+    },
+    {
+      "rule": "jimfix(-):stratagems(-)|ascension(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jimfix's ini file",
+        "fr_FR": "Règle définie dans l'ini de jimfix"
+      }
+    },
+    {
+      "rule": "jz(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jz's ini file",
+        "fr_FR": "Règle définie dans l'ini de jz"
+      }
+    },
+    {
+      "rule": "jz(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the jz's ini file",
+        "fr_FR": "Règle définie dans l'ini de jz"
+      }
+    },
+    {
+      "rule": "karatur(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the karatur's ini file",
+        "fr_FR": "Règle définie dans l'ini de karatur"
+      }
+    },
+    {
+      "rule": "keldorn_rom(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the keldorn_rom's ini file",
+        "fr_FR": "Règle définie dans l'ini de keldorn_rom"
+      }
+    },
+    {
+      "rule": "keldorn_rom(-):cdtweaks(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the keldorn_rom's ini file",
+        "fr_FR": "Règle définie dans l'ini de keldorn_rom"
+      }
+    },
+    {
+      "rule": "kiara-zaiya(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the kiara-zaiya's ini file",
+        "fr_FR": "Règle définie dans l'ini de kiara-zaiya"
+      }
+    },
+    {
+      "rule": "kiara-zaiya(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the kiara-zaiya's ini file",
+        "fr_FR": "Règle définie dans l'ini de kiara-zaiya"
+      }
+    },
+    {
+      "rule": "kimnpc(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the kimnpc's ini file",
+        "fr_FR": "Règle définie dans l'ini de kimnpc"
+      }
+    },
+    {
+      "rule": "kitmule(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the kitmule's ini file",
+        "fr_FR": "Règle définie dans l'ini de kitmule"
+      }
+    },
+    {
+      "rule": "klatu(-):EET(-)|ctb(-)|isra_bg2(-)|kivan(-)|rot(-)|bg1npc(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the klatu's ini file",
+        "fr_FR": "Règle définie dans l'ini de klatu"
+      }
+    },
+    {
+      "rule": "leui(-):EEUITweaks(-)|TomeAndBlood(-)|DeitiesOfFaerun(-)|faiths_and_powers(-)|might_and_guile(-)|shadowadept(-)|stratagems(-)|dw_talents(-)|HiddenGameplayOptions(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the leui's ini file",
+        "fr_FR": "Règle définie dans l'ini de leui"
+      }
+    },
+    {
+      "rule": "leui-bg1ee(-):EEUITweaks(-)|TomeAndBlood(-)|DeitiesOfFaerun(-)|faiths_and_powers(-)|might_and_guile(-)|shadowadept(-)|stratagems(-)|dw_talents(-)|HiddenGameplayOptions(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the leui-bg1ee's ini file",
+        "fr_FR": "Règle définie dans l'ini de leui-bg1ee"
+      }
+    },
+    {
+      "rule": "leui-iwdee(-):EEUITweaks(-)|TomeAndBlood(-)|DeitiesOfFaerun(-)|faiths_and_powers(-)|might_and_guile(-)|shadowadept(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the leui-iwdee's ini file",
+        "fr_FR": "Règle définie dans l'ini de leui-iwdee"
+      }
+    },
+    {
+      "rule": "leui-sod(-):EEUITweaks(-)|TomeAndBlood(-)|DeitiesOfFaerun(-)|faiths_and_powers(-)|might_and_guile(-)|shadowadept(-)|stratagems(-)|dw_talents(-)|HiddenGameplayOptions(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the leui-sod's ini file",
+        "fr_FR": "Règle définie dans l'ini de leui-sod"
+      }
+    },
+    {
+      "rule": "longerroad(-):EET(-)|Ascension(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the longerroad's ini file",
+        "fr_FR": "Règle définie dans l'ini de longerroad"
+      }
+    },
+    {
+      "rule": "longerroad(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the longerroad's ini file",
+        "fr_FR": "Règle définie dans l'ini de longerroad"
+      }
+    },
+    {
+      "rule": "luxleysoa(-):tobex(-)|bg2fixpack(-)|EET(-)|nathaniel(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the luxleysoa's ini file",
+        "fr_FR": "Règle définie dans l'ini de luxleysoa"
+      }
+    },
+    {
+      "rule": "luxleysoa(-):virtue(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the luxleysoa's ini file",
+        "fr_FR": "Règle définie dans l'ini de luxleysoa"
+      }
+    },
+    {
+      "rule": "magic_battles_revised(-):spell_rev(-)|IWDification(-)|stratagems(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the magic_battles_revised's ini file",
+        "fr_FR": "Règle définie dans l'ini de magic_battles_revised"
+      }
+    },
+    {
+      "rule": "might_and_guile(-):faiths_and_powers(-)|scales_of_balance(-)|cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the might_and_guile's ini file",
+        "fr_FR": "Règle définie dans l'ini de might_and_guile"
+      }
+    },
+    {
+      "rule": "might_and_guile(-):tomeandblood(-)|rr(-)|song_and_silence(-)|spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the might_and_guile's ini file",
+        "fr_FR": "Règle définie dans l'ini de might_and_guile"
+      }
+    },
+    {
+      "rule": "minscfriendship(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the minscfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de minscfriendship"
+      }
+    },
+    {
+      "rule": "minscfriendship(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the minscfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de minscfriendship"
+      }
+    },
+    {
+      "rule": "miscellaneous(-):EET(-)|BGT(-)|ToBEx(-)|1PP(-)|InfinityAnimations(-)|bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the miscellaneous's ini file",
+        "fr_FR": "Règle définie dans l'ini de miscellaneous"
+      }
+    },
+    {
+      "rule": "miscellaneous(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the miscellaneous's ini file",
+        "fr_FR": "Règle définie dans l'ini de miscellaneous"
+      }
+    },
+    {
+      "rule": "morituri(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the morituri's ini file",
+        "fr_FR": "Règle définie dans l'ini de morituri"
+      }
+    },
+    {
+      "rule": "mptweaks(-):EET_end(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the mptweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de mptweaks"
+      }
+    },
+    {
+      "rule": "mur'neth(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the mur'neth's ini file",
+        "fr_FR": "Règle définie dans l'ini de mur'neth"
+      }
+    },
+    {
+      "rule": "mur'neth(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the mur'neth's ini file",
+        "fr_FR": "Règle définie dans l'ini de mur'neth"
+      }
+    },
+    {
+      "rule": "nanstein(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nanstein's ini file",
+        "fr_FR": "Règle définie dans l'ini de nanstein"
+      }
+    },
+    {
+      "rule": "neera(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the neera's ini file",
+        "fr_FR": "Règle définie dans l'ini de neera"
+      }
+    },
+    {
+      "rule": "neera(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the neera's ini file",
+        "fr_FR": "Règle définie dans l'ini de neera"
+      }
+    },
+    {
+      "rule": "neerabanters(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the neerabanters's ini file",
+        "fr_FR": "Règle définie dans l'ini de neerabanters"
+      }
+    },
+    {
+      "rule": "neerabanters(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the neerabanters's ini file",
+        "fr_FR": "Règle définie dans l'ini de neerabanters"
+      }
+    },
+    {
+      "rule": "nephele(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nephele's ini file",
+        "fr_FR": "Règle définie dans l'ini de nephele"
+      }
+    },
+    {
+      "rule": "nephele(-):crossmodbg2(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nephele's ini file",
+        "fr_FR": "Règle définie dans l'ini de nephele"
+      }
+    },
+    {
+      "rule": "nostalgiapack(-):EET(-)|ARESTORATION(-)|BG1UB(-)|UB(-)|XAN(-)|TYRISFLARE(-)|KELSEY(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nostalgiapack's ini file",
+        "fr_FR": "Règle définie dans l'ini de nostalgiapack"
+      }
+    },
+    {
+      "rule": "nostalgiapack(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nostalgiapack's ini file",
+        "fr_FR": "Règle définie dans l'ini de nostalgiapack"
+      }
+    },
+    {
+      "rule": "npc_ee(-):DUAL_TO_KIT(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the npc_ee's ini file",
+        "fr_FR": "Règle définie dans l'ini de npc_ee"
+      }
+    },
+    {
+      "rule": "npc_ee(-):stratagems(-)|cdtweaks(-)|scales_of_balance(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the npc_ee's ini file",
+        "fr_FR": "Règle définie dans l'ini de npc_ee"
+      }
+    },
+    {
+      "rule": "ntotsc(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ntotsc's ini file",
+        "fr_FR": "Règle définie dans l'ini de ntotsc"
+      }
+    },
+    {
+      "rule": "ntotsc(-):bg2fixpack(-)|eefixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ntotsc's ini file",
+        "fr_FR": "Règle définie dans l'ini de ntotsc"
+      }
+    },
+    {
+      "rule": "nwn2soundsets(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nwn2soundsets's ini file",
+        "fr_FR": "Règle définie dans l'ini de nwn2soundsets"
+      }
+    },
+    {
+      "rule": "nwn2soundsets(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the nwn2soundsets's ini file",
+        "fr_FR": "Règle définie dans l'ini de nwn2soundsets"
+      }
+    },
+    {
+      "rule": "plasmobg1bg2(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the plasmobg1bg2's ini file",
+        "fr_FR": "Règle définie dans l'ini de plasmobg1bg2"
+      }
+    },
+    {
+      "rule": "plasmoportraits(-):bg2fixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the plasmoportraits's ini file",
+        "fr_FR": "Règle définie dans l'ini de plasmoportraits"
+      }
+    },
+    {
+      "rule": "refinements(-):cdtweaks(-)|stratagems(-)|atweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the refinements's ini file",
+        "fr_FR": "Règle définie dans l'ini de refinements"
+      }
+    },
+    {
+      "rule": "refinements(-):rr(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the refinements's ini file",
+        "fr_FR": "Règle définie dans l'ini de refinements"
+      }
+    },
+    {
+      "rule": "renal(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the renal's ini file",
+        "fr_FR": "Règle définie dans l'ini de renal"
+      }
+    },
+    {
+      "rule": "rolles(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the rolles's ini file",
+        "fr_FR": "Règle définie dans l'ini de rolles"
+      }
+    },
+    {
+      "rule": "rolles(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the rolles's ini file",
+        "fr_FR": "Règle définie dans l'ini de rolles"
+      }
+    },
+    {
+      "rule": "roorenart_bg2(-):bg2fixpack(-)|kivan(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the roorenart_bg2's ini file",
+        "fr_FR": "Règle définie dans l'ini de roorenart_bg2"
+      }
+    },
+    {
+      "rule": "roorenart_bg2(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the roorenart_bg2's ini file",
+        "fr_FR": "Règle définie dans l'ini de roorenart_bg2"
+      }
+    },
+    {
+      "rule": "rot(-):Icewind_EET(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the rot's ini file",
+        "fr_FR": "Règle définie dans l'ini de rot"
+      }
+    },
+    {
+      "rule": "rot(-):bg2fixpack(-)|eefixpack(-)|EET(-)|IWD1_EE(-)|IWD2_EE(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the rot's ini file",
+        "fr_FR": "Règle définie dans l'ini de rot"
+      }
+    },
+    {
+      "rule": "rttitempack(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the rttitempack's ini file",
+        "fr_FR": "Règle définie dans l'ini de rttitempack"
+      }
+    },
+    {
+      "rule": "ruad(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ruad's ini file",
+        "fr_FR": "Règle définie dans l'ini de ruad"
+      }
+    },
+    {
+      "rule": "ruad(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ruad's ini file",
+        "fr_FR": "Règle définie dans l'ini de ruad"
+      }
+    },
+    {
+      "rule": "saradas_magic(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the saradas_magic's ini file",
+        "fr_FR": "Règle définie dans l'ini de saradas_magic"
+      }
+    },
+    {
+      "rule": "saradas_magic_2(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the saradas_magic_2's ini file",
+        "fr_FR": "Règle définie dans l'ini de saradas_magic_2"
+      }
+    },
+    {
+      "rule": "saradas_magic_2(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the saradas_magic_2's ini file",
+        "fr_FR": "Règle définie dans l'ini de saradas_magic_2"
+      }
+    },
+    {
+      "rule": "sarahtob(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sarahtob's ini file",
+        "fr_FR": "Règle définie dans l'ini de sarahtob"
+      }
+    },
+    {
+      "rule": "sarahtob(-):cdtweaks(-)|crossmodbg2(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sarahtob's ini file",
+        "fr_FR": "Règle définie dans l'ini de sarahtob"
+      }
+    },
+    {
+      "rule": "sbs(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sbs's ini file",
+        "fr_FR": "Règle définie dans l'ini de sbs"
+      }
+    },
+    {
+      "rule": "searchguild(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the searchguild's ini file",
+        "fr_FR": "Règle définie dans l'ini de searchguild"
+      }
+    },
+    {
+      "rule": "searchguild(-):bg2fixpack(-)|EET(-)|coran(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the searchguild's ini file",
+        "fr_FR": "Règle définie dans l'ini de searchguild"
+      }
+    },
+    {
+      "rule": "selphiratweaks(-):bg2fixpack(-)|d0tweak(-)|cdtweaks(-)|xpmod(-)|bp-balancer(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the selphiratweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de selphiratweaks"
+      }
+    },
+    {
+      "rule": "selphiratweaks(-):stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the selphiratweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de selphiratweaks"
+      }
+    },
+    {
+      "rule": "semi_multi_clerics(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the semi_multi_clerics's ini file",
+        "fr_FR": "Règle définie dans l'ini de semi_multi_clerics"
+      }
+    },
+    {
+      "rule": "severian(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the severian's ini file",
+        "fr_FR": "Règle définie dans l'ini de severian"
+      }
+    },
+    {
+      "rule": "shardsofice(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the shardsofice's ini file",
+        "fr_FR": "Règle définie dans l'ini de shardsofice"
+      }
+    },
+    {
+      "rule": "shardsofice(-):cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the shardsofice's ini file",
+        "fr_FR": "Règle définie dans l'ini de shardsofice"
+      }
+    },
+    {
+      "rule": "shurininja(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the shurininja's ini file",
+        "fr_FR": "Règle définie dans l'ini de shurininja"
+      }
+    },
+    {
+      "rule": "shurininja(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the shurininja's ini file",
+        "fr_FR": "Règle définie dans l'ini de shurininja"
+      }
+    },
+    {
+      "rule": "sirinescall(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sirinescall's ini file",
+        "fr_FR": "Règle définie dans l'ini de sirinescall"
+      }
+    },
+    {
+      "rule": "sirinescall(-):c#brandock(-)|EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sirinescall's ini file",
+        "fr_FR": "Règle définie dans l'ini de sirinescall"
+      }
+    },
+    {
+      "rule": "skipchateauirenicus(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the skipchateauirenicus's ini file",
+        "fr_FR": "Règle définie dans l'ini de skipchateauirenicus"
+      }
+    },
+    {
+      "rule": "skipchateauirenicus(-):bg2fixpack(-)|cdtweaks(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the skipchateauirenicus's ini file",
+        "fr_FR": "Règle définie dans l'ini de skipchateauirenicus"
+      }
+    },
+    {
+      "rule": "slandor(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the slandor's ini file",
+        "fr_FR": "Règle définie dans l'ini de slandor"
+      }
+    },
+    {
+      "rule": "slandor(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the slandor's ini file",
+        "fr_FR": "Règle définie dans l'ini de slandor"
+      }
+    },
+    {
+      "rule": "smilingimpcrossbantermod(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the smilingimpcrossbantermod's ini file",
+        "fr_FR": "Règle définie dans l'ini de smilingimpcrossbantermod"
+      }
+    },
+    {
+      "rule": "smilingimpcrossbantermod(-):bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the smilingimpcrossbantermod's ini file",
+        "fr_FR": "Règle définie dans l'ini de smilingimpcrossbantermod"
+      }
+    },
+    {
+      "rule": "sodrtd(-):ACBre(-)|ajantisbg1(-)|bg2fixpack(-)|biffsodtutorial(-)|c#anotherfinehell(-)|c#brage(-)|c#brandock(-)|c#husam(-)|c#sodboabri(-)|c#sodtweaks(-)|EET(-)|imoen_forever(-)|themed_tweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sodrtd's ini file",
+        "fr_FR": "Règle définie dans l'ini de sodrtd"
+      }
+    },
+    {
+      "rule": "sodrtd(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sodrtd's ini file",
+        "fr_FR": "Règle définie dans l'ini de sodrtd"
+      }
+    },
+    {
+      "rule": "song_and_silence(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the song_and_silence's ini file",
+        "fr_FR": "Règle définie dans l'ini de song_and_silence"
+      }
+    },
+    {
+      "rule": "song_and_silence(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the song_and_silence's ini file",
+        "fr_FR": "Règle définie dans l'ini de song_and_silence"
+      }
+    },
+    {
+      "rule": "sos(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sos's ini file",
+        "fr_FR": "Règle définie dans l'ini de sos"
+      }
+    },
+    {
+      "rule": "sos(-):EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sos's ini file",
+        "fr_FR": "Règle définie dans l'ini de sos"
+      }
+    },
+    {
+      "rule": "spstuff(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the spstuff's ini file",
+        "fr_FR": "Règle définie dans l'ini de spstuff"
+      }
+    },
+    {
+      "rule": "spstuff(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the spstuff's ini file",
+        "fr_FR": "Règle définie dans l'ini de spstuff"
+      }
+    },
+    {
+      "rule": "star(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the star's ini file",
+        "fr_FR": "Règle définie dans l'ini de star"
+      }
+    },
+    {
+      "rule": "star(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the star's ini file",
+        "fr_FR": "Règle définie dans l'ini de star"
+      }
+    },
+    {
+      "rule": "subrace(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subrace's ini file",
+        "fr_FR": "Règle définie dans l'ini de subrace"
+      }
+    },
+    {
+      "rule": "subtled_item_tweaks(-):NPC_EE(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subtled_item_tweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de subtled_item_tweaks"
+      }
+    },
+    {
+      "rule": "subtled_item_tweaks(-):spell_rev(-)|cdtweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subtled_item_tweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de subtled_item_tweaks"
+      }
+    },
+    {
+      "rule": "subtled_spell_tweaks(-):TomeandBlood(-)|faiths_and_powers(-)|will_to_power(-)|might_and_guile(-)|cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subtled_spell_tweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de subtled_spell_tweaks"
+      }
+    },
+    {
+      "rule": "subtled_spell_tweaks(-):spell_rev(-)|iwdification(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subtled_spell_tweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de subtled_spell_tweaks"
+      }
+    },
+    {
+      "rule": "subtled_stat_overhauls(-):rr(-)|cdtweaks(-)|stratagems(-)|atweaks(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the subtled_stat_overhauls's ini file",
+        "fr_FR": "Règle définie dans l'ini de subtled_stat_overhauls"
+      }
+    },
+    {
+      "rule": "sword_and_fist(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sword_and_fist's ini file",
+        "fr_FR": "Règle définie dans l'ini de sword_and_fist"
+      }
+    },
+    {
+      "rule": "sword_and_fist(-):cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the sword_and_fist's ini file",
+        "fr_FR": "Règle définie dans l'ini de sword_and_fist"
+      }
+    },
+    {
+      "rule": "thalan(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the thalan's ini file",
+        "fr_FR": "Règle définie dans l'ini de thalan"
+      }
+    },
+    {
+      "rule": "thalan(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the thalan's ini file",
+        "fr_FR": "Règle définie dans l'ini de thalan"
+      }
+    },
+    {
+      "rule": "thecalling(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the thecalling's ini file",
+        "fr_FR": "Règle définie dans l'ini de thecalling"
+      }
+    },
+    {
+      "rule": "thecalling(-):cdtweaks(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the thecalling's ini file",
+        "fr_FR": "Règle définie dans l'ini de thecalling"
+      }
+    },
+    {
+      "rule": "themed_tweaks(-):c#endlessbg1(-)|transitions(-)|bg1npc(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the themed_tweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de themed_tweaks"
+      }
+    },
+    {
+      "rule": "tod(-):Divine_Remix(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the tod's ini file",
+        "fr_FR": "Règle définie dans l'ini de tod"
+      }
+    },
+    {
+      "rule": "tomeandblood(-):faiths_and_powers(-)|will_to_power(-)|might_and_guile(-)|cdtweaks(-)|scales_of_balance(-)|stratagems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the tomeandblood's ini file",
+        "fr_FR": "Règle définie dans l'ini de tomeandblood"
+      }
+    },
+    {
+      "rule": "tomeandblood(-):spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the tomeandblood's ini file",
+        "fr_FR": "Règle définie dans l'ini de tomeandblood"
+      }
+    },
+    {
+      "rule": "transitions(-):EET(-)|c#endlessbg1(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the transitions's ini file",
+        "fr_FR": "Règle définie dans l'ini de transitions"
+      }
+    },
+    {
+      "rule": "transitions(-):NPC(-)|bg1re(-)|EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the transitions's ini file",
+        "fr_FR": "Règle définie dans l'ini de transitions"
+      }
+    },
+    {
+      "rule": "trovador(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the trovador's ini file",
+        "fr_FR": "Règle définie dans l'ini de trovador"
+      }
+    },
+    {
+      "rule": "trovador(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the trovador's ini file",
+        "fr_FR": "Règle définie dans l'ini de trovador"
+      }
+    },
+    {
+      "rule": "turnabout(-):EET_End(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the turnabout's ini file",
+        "fr_FR": "Règle définie dans l'ini de turnabout"
+      }
+    },
+    {
+      "rule": "turnabout(-):ascension(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the turnabout's ini file",
+        "fr_FR": "Règle définie dans l'ini de turnabout"
+      }
+    },
+    {
+      "rule": "tyrisflare(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the tyrisflare's ini file",
+        "fr_FR": "Règle définie dans l'ini de tyrisflare"
+      }
+    },
+    {
+      "rule": "tyrisflare(-):bg2fixpack(-)|BGT(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the tyrisflare's ini file",
+        "fr_FR": "Règle définie dans l'ini de tyrisflare"
+      }
+    },
+    {
+      "rule": "ua(-):randomiser(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the ua's ini file",
+        "fr_FR": "Règle définie dans l'ini de ua"
+      }
+    },
+    {
+      "rule": "underrep(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the underrep's ini file",
+        "fr_FR": "Règle définie dans l'ini de underrep"
+      }
+    },
+    {
+      "rule": "underrep(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the underrep's ini file",
+        "fr_FR": "Règle définie dans l'ini de underrep"
+      }
+    },
+    {
+      "rule": "valygarfriendship(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the valygarfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de valygarfriendship"
+      }
+    },
+    {
+      "rule": "valygarfriendship(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the valygarfriendship's ini file",
+        "fr_FR": "Règle définie dans l'ini de valygarfriendship"
+      }
+    },
+    {
+      "rule": "vampiretales(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the vampiretales's ini file",
+        "fr_FR": "Règle définie dans l'ini de vampiretales"
+      }
+    },
+    {
+      "rule": "volcanicarmoury(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the volcanicarmoury's ini file",
+        "fr_FR": "Règle définie dans l'ini de volcanicarmoury"
+      }
+    },
+    {
+      "rule": "volcano(-):DGItems(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the volcano's ini file",
+        "fr_FR": "Règle définie dans l'ini de volcano"
+      }
+    },
+    {
+      "rule": "volcano(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the volcano's ini file",
+        "fr_FR": "Règle définie dans l'ini de volcano"
+      }
+    },
+    {
+      "rule": "will_to_power(-):faiths_and_powers(-)|scales_of_balance(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the will_to_power's ini file",
+        "fr_FR": "Règle définie dans l'ini de will_to_power"
+      }
+    },
+    {
+      "rule": "will_to_power(-):tomeandblood(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the will_to_power's ini file",
+        "fr_FR": "Règle définie dans l'ini de will_to_power"
+      }
+    },
+    {
+      "rule": "yoshimo(-):EET_end(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the yoshimo's ini file",
+        "fr_FR": "Règle définie dans l'ini de yoshimo"
+      }
+    },
+    {
+      "rule": "yoshimo(-):tobex(-)|bg2fixpack(-)|EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the yoshimo's ini file",
+        "fr_FR": "Règle définie dans l'ini de yoshimo"
+      }
+    },
+    {
+      "rule": "yoshimosremorse(-):bg2fixpack(-)|eefixpack(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the yoshimosremorse's ini file",
+        "fr_FR": "Règle définie dans l'ini de yoshimosremorse"
+      }
+    },
+    {
+      "rule": "yoshimosremorse(-):cdtweaks(-)",
+      "direction": "before",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the yoshimosremorse's ini file",
+        "fr_FR": "Règle définie dans l'ini de yoshimosremorse"
+      }
+    },
+    {
+      "rule": "zgbg2evermemory(-):EET(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the zgbg2evermemory's ini file",
+        "fr_FR": "Règle définie dans l'ini de zgbg2evermemory"
+      }
+    },
+    {
+      "rule": "zgmagic(-):EET(-)|spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the zgmagic's ini file",
+        "fr_FR": "Règle définie dans l'ini de zgmagic"
+      }
+    },
+    {
+      "rule": "zgtweaks(-):EET(-)|abel_nonrandom_treasures(-)|stratagems(-)|BetterHOF(-)|HighPower(-)|celestials(-)|spell_rev(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule defined in the zgtweaks's ini file",
+        "fr_FR": "Règle définie dans l'ini de zgtweaks"
+      }
     }
   ]
 }
