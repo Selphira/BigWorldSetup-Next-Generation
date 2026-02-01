@@ -13,7 +13,6 @@ import requests
 from constants import (
     APP_UPDATE_CHECK_FILE,
     APP_VERSION,
-    CACHE_DIR,
     DOWNLOAD_TIMEOUT,
     GITHUB_API_BASE,
     GITHUB_REPO_NAME,
@@ -38,7 +37,6 @@ class VersionChecker:
 
     def __init__(self):
         """Initialize version checker."""
-        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         self._cache_file = APP_UPDATE_CHECK_FILE
 
     def check_for_update(self) -> VersionInfo | None:
