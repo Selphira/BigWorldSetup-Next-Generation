@@ -529,7 +529,7 @@ class ModSelectionPage(BasePage):
         sub_filters_layout.setSpacing(SPACING_SMALL)
 
         # Languages
-        self._lang_label = QLabel(tr("page.selection.desired_languages"))
+        self._lang_label = QLabel()
         sub_filters_layout.addWidget(self._lang_label)
 
         self._lang_select = MultiSelectComboBox(show_text_selection=False)
@@ -1053,6 +1053,7 @@ class ModSelectionPage(BasePage):
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
+        self._lang_label.setText(tr("page.selection.desired_languages"))
         self._left_title.setText(tr("page.selection.select_category"))
         self._btn_export.setText(tr("page.selection.btn_export"))
         self._btn_import.setText(tr("page.selection.btn_import"))
