@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -38,6 +38,11 @@ class AddModDialog(QDialog):
         """Initialize the dialog."""
         super().__init__(parent)
         self.setWindowTitle(tr("page.selection.custom_mod.title"))
+        self.setWindowFlags(
+            Qt.WindowType.Window
+            | Qt.WindowType.WindowMaximizeButtonHint
+            | Qt.WindowType.WindowCloseButtonHint
+        )
         self.setMinimumWidth(600)
         self.setMinimumHeight(700)
 
