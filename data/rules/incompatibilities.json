@@ -986,7 +986,8 @@
     {
       "rule": "bg1npc(130,131):bg1ub(27)",
       "severity": "error",
-      "description": "Inclus dans bg1npc de manière plus complète"
+      "description": "Inclus dans bg1npc de manière plus complète",
+      "source_url": "https://gibberlings3.github.io/Documentation/readmes/readme-bg1npc.html"
     },
     {
       "rule": "JanQuestRemix(-):JanQuest(-)",
@@ -1016,7 +1017,8 @@
     {
       "rule": "reunion(-):turnabout(-)",
       "severity": "error",
-      "description": "Conflits entre le mod reunion et turnabout"
+      "description": "Conflits entre le mod reunion et turnabout",
+      "source_url": "https://www.gibberlings3.net/forums/topic/33228-modlist-discussion-a-prelude-to-sigil/page/3/#comment-298916"
     },
     {
       "rule": "turnabout(-):ub(24)",
@@ -1031,7 +1033,8 @@
     {
       "rule": "framed(-):BoneHillEET(-):vaulteet(-)",
       "severity": "error",
-      "description": "Choisir un final de SoD"
+      "description": "Choisir un final de SoD",
+      "source_url": "https://www.gibberlings3.net/forums/topic/35798-mod-orderfeedback-request/page/12/#comment-314298"
     },
     {
       "rule": "Ascension(2300):PPE(340,342)",
