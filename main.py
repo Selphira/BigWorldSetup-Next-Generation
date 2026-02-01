@@ -10,6 +10,7 @@ from constants import (
     APP_NAME,
     APP_ORG,
     APP_VERSION,
+    CACHE_DIR,
     ICONS_DIR,
     LOG_BACKUP_COUNT,
     LOG_DATE_FORMAT,
@@ -162,6 +163,8 @@ class ApplicationInitializer:
         self.window = None
         self.data_updater = None
         self.cache_initializer = None
+
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
     def run(self) -> tuple[MainWindow, StateManager]:
         """
