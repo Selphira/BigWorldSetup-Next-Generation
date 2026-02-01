@@ -1,0 +1,35 @@
+{
+  "name": "Icewind Dale EE Reborn",
+  "version": "1.0",
+  "links": {
+    "homepage": "https://github.com/peteSmith1229/Icewind-Dale-Enhanced-Edition-Reborn",
+    "forums": [
+      "https://www.gibberlings3.net/forums/topic/41010-icewind-dale-ee-reborn-lore-breaking-mod-with-new-content/"
+    ]
+  },
+  "files": [
+    {
+      "filename": "Icewind-Dale-Enhanced-Edition-Reborn-1.0.zip",
+      "download": "https://github.com/peteSmith1229/Icewind-Dale-Enhanced-Edition-Reborn/archive/refs/tags/v1.0.zip"
+    }
+  ],
+  "games": ["iwdee"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "en_US": {
+      "description": "Lore-breaking reimagination of Icewind Dale with new items, item abilities, quests, NPCs, bounties, weapons (with new ranged staves and spears), and armor-set bonuses. All new in-game texts are coloured to help players easily see new conversations (blue), responses (yellow) or descriptions (green/red).\nThis mod is designed for a new Level 1 Party for the Heart of Fury difficulty mode (the party will gain experience early).",
+      "components": {
+        "0": "IWEE_Reborn component name"
+      }
+    }
+  },
+  "tp2": "iwee_reborn",
+  "safe": 2,
+  "authors": ["pete_smith1229"]
+}
