@@ -1,6 +1,8 @@
 import logging
 from typing import Callable
 
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QMenu
 
 from core.ComponentReference import ComponentReference, IndexManager
@@ -147,6 +149,13 @@ class ComponentContextMenu:
                 tr("page.selection.violation.unselect_this_component")
             )
             remove_action.triggered.connect(lambda: self._controller.unselect(reference))
+
+        if violation.rule.source_url:
+            menu.addSeparator()
+            show_source = menu.addAction(tr("page.selection.violation.show_source"))
+            show_source.triggered.connect(
+                lambda: QDesktopServices.openUrl(QUrl(violation.rule.source_url))
+            )
 
     # ========================================
     # Section Builders

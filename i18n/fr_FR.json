@@ -148,7 +148,8 @@
         "unselect_component": "❌ Supprimer : {mod}: [{comp_key}] {component}",
         "unselect_mod": "❌ Supprimer le mod : {mod}",
         "type_dependency": "Dépendance",
-        "type_incompatibility": "Conflit"
+        "type_incompatibility": "Conflit",
+        "show_source": "Voir la source"
       },
       "violation_type": "Type",
       "violation_description": "Description",
