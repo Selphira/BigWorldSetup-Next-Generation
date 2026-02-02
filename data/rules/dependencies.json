@@ -694,12 +694,14 @@
     {
       "rule": "iwd1_eet(-):iwd_eet_end(-)",
       "severity": "error",
-      "description": "iwd1_eet nécessite iwd_eet_end"
+      "description": "iwd1_eet nécessite iwd_eet_end",
+      "implicit_order": false
     },
     {
       "rule": "iwd2_eet(0):iwd_eet_end(-)",
       "severity": "error",
-      "description": "iwd2_eet nécessite iwd_eet_end"
+      "description": "iwd2_eet nécessite iwd_eet_end",
+      "implicit_order": false
     },
     {
       "rule": "iwd_eet_end(-):iwd1_eet(-)|iwd2_eet(-)",
