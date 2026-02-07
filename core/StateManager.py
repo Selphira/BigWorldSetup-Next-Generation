@@ -557,7 +557,9 @@ class StateManager:
     def get_rule_manager(self) -> RuleManager:
         """Get rule manager instance."""
         if self._rule_manager is None:
-            self._rule_manager = RuleManager(rules_dir=RULES_DIR, cache_dir=CACHE_DIR)
+            self._rule_manager = RuleManager(
+                self.get_mod_manager(), rules_dir=RULES_DIR, cache_dir=CACHE_DIR
+            )
             logger.debug("RuleManager initialized")
         return self._rule_manager
 

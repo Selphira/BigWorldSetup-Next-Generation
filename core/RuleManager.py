@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 import json
 import logging
@@ -12,6 +12,7 @@ from PySide6.QtCore import QObject, QThread, Signal
 
 from constants import CACHE_DIR, RULES_DIR
 from core.ComponentReference import ComponentReference, IndexManager
+from core.ModManager import ModManager
 from core.Rules import (
     ComponentGroup,
     DependencyMode,
@@ -191,7 +192,7 @@ class RuleExpression:
         self,
         rule: dict[str, Any],
     ) -> dict[str, Any]:
-        """Expand to dependency rule."""
+        """Expand to order rule."""
         if len(self.sides) != 2:
             raise ValueError("Order rules must have exactly 2 sides (source:target)")
 
@@ -202,6 +203,24 @@ class RuleExpression:
         target_side.inject_into_rule(rule, "target")
 
         return rule
+
+
+@dataclass
+class ValidationState:
+    """Valdiation state."""
+
+    positions: dict[ComponentReference, int] = field(default_factory=dict)
+
+    violations_by_rule: dict[int, list[RuleViolation]] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+
+    active_components: set[ComponentReference] = field(default_factory=set)
+
+    def update_positions(self, order: list[ComponentReference]) -> None:
+        """Update positions AND active components set."""
+        self.positions = {ref: idx for idx, ref in enumerate(order)}
+        self.active_components = set(order)
 
 
 class RuleCacheBuilderThread(QThread):
@@ -421,6 +440,10 @@ class StandardCondition:
         """Get components that don't match."""
         return [comp for comp in self.components if not self._matcher(comp, selected_set)]
 
+    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get components that match."""
+        return [comp for comp in self.components if self._matcher(comp, selected_set)]
+
 
 class GroupCondition:
     """Evaluates component groups (all groups must be satisfied)."""
@@ -442,6 +465,14 @@ class GroupCondition:
                 missing.extend(group.get_missing_components(selected_set))
         return missing
 
+    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get components that match."""
+        matching = []
+        for group in self.groups:
+            if group.matches(selected_set):
+                matching.extend(group.get_matched_components(selected_set))
+        return matching
+
 
 class TrivialCondition:
     """Trivial condition evaluator (for optimization)."""
@@ -458,9 +489,13 @@ class TrivialCondition:
     def get_missing(selected_set: set[ComponentReference]) -> list[ComponentReference]:
         return []
 
+    @staticmethod
+    def get_matching(selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        return []
+
 
 # ===================================================================
-# Rule Manager with optimized checking
+# Rule Manager
 # ===================================================================
 
 
@@ -471,7 +506,9 @@ class RuleManager(QObject):
     cache_building = Signal()  # Emitted when cache building starts
     cache_error = Signal(str)  # Emitted on error
 
-    def __init__(self, rules_dir: Path = RULES_DIR, cache_dir: Path = CACHE_DIR) -> None:
+    def __init__(
+        self, mod_manager: ModManager, rules_dir: Path = RULES_DIR, cache_dir: Path = CACHE_DIR
+    ) -> None:
         """Initialize rule manager."""
         super().__init__()
 
@@ -479,20 +516,24 @@ class RuleManager(QObject):
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
+        self._mod_manager = mod_manager
+        self._current_game_id: str | None = None
+        self._validation_states: dict[tuple[str, int], ValidationState] = {}
         self.translator = get_translator()
         self.current_language = self.translator.current_language
 
         # Rule storage
+        self._all_rules: list[Rule] = []
         self._dependency_rules: list[DependencyRule] = []
         self._incompatibility_rules: list[IncompatibilityRule] = []
         self._order_rules: list[OrderRule] = []
 
         # Indexes
         self._indexes = IndexManager.get_indexes()
-        self._all_rules: list[Rule] = []
-        self._rules_by_source: dict[ComponentReference, list[Rule]] = defaultdict(list)
-        self._rules_by_type: dict[RuleType, list[Rule]] = defaultdict(list)
-        self._components_by_mod: dict[str, set[str]] = defaultdict(set)
+        self._rules_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
+        self._resolved_wildcards_cache: dict[
+            int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
+        ] = {}
 
         self._last_selection_hash: int | None = None
 
@@ -605,9 +646,8 @@ class RuleManager(QObject):
             self._incompatibility_rules.clear()
             self._order_rules.clear()
             self._all_rules.clear()
-            self._rules_by_source.clear()
-            self._rules_by_type.clear()
-            self._components_by_mod.clear()
+            self._rules_by_component.clear()
+            self._validation_states.clear()
 
             self._load_rules_from_cache(data.get("dependencies", []), DependencyRule)
             self._load_rules_from_cache(data.get("incompatibilities", []), IncompatibilityRule)
@@ -623,6 +663,8 @@ class RuleManager(QObject):
                 len(self._incompatibility_rules),
                 len(self._order_rules),
             )
+
+            self._build_indexes()
 
             return True
 
@@ -672,7 +714,7 @@ class RuleManager(QObject):
             try:
                 rule = cls.from_dict(rule_data)
                 target_list.append(rule)
-                self._add_rule_to_indexes(rule)
+                self._all_rules.append(rule)
                 loaded_count += 1
             except (ValueError, KeyError, TypeError) as e:
                 error_count += 1
@@ -684,26 +726,56 @@ class RuleManager(QObject):
                     exc_info=True,
                 )
 
+        logger.debug(f"{loaded_count} rules loaded from cache")
         if error_count > 0:
             logger.warning(f"Skipped {error_count} invalid {cls.__name__}(s)")
 
-    def _add_rule_to_indexes(self, rule: Rule) -> None:
-        """Add rule to all indexes."""
-        self._all_rules.append(rule)
-        self._rules_by_type[rule.rule_type].append(rule)
+    def _get_all_known_components(
+        self,
+    ) -> tuple[set[ComponentReference], dict[str, set[ComponentReference]]]:
+        """Retrieve all components from all known mods."""
+        all_components = set()
+        components_by_mod: dict[str, set[ComponentReference]] = defaultdict(set)
 
-        for source_ref in rule.sources:
-            self._rules_by_source[source_ref].append(rule)
-            if not source_ref.is_mod():
-                self._components_by_mod[source_ref.mod_id].add(source_ref.comp_key)
+        for mod in self._mod_manager.get_all_mods().values():
+            for comp_ref in ComponentReference.from_string_list(list(mod.get_component_refs())):
+                all_components.add(comp_ref)
+                components_by_mod[comp_ref.mod_id].add(comp_ref)
 
-        for target_ref in rule.targets:
-            if not target_ref.is_mod():
-                self._components_by_mod[target_ref.mod_id].add(target_ref.comp_key)
+        return all_components, components_by_mod
 
-    def _get_known_components(self, mod_id: str) -> set[str]:
-        """Get all known component keys for a mod from indexed rules."""
-        return self._components_by_mod.get(mod_id.lower(), set())
+    @staticmethod
+    def _resolve_refs_globally(
+        refs: tuple[ComponentReference, ...],
+        by_mod: dict[str, set[ComponentReference]],
+    ) -> set[ComponentReference]:
+        """Resolve references with all known components."""
+        result = set()
+
+        for ref in refs:
+            if ref.is_mod():
+                result.update(by_mod.get(ref.mod_id, set()))
+            else:
+                result.add(ref)
+
+        return result
+
+    def _build_indexes(self) -> None:
+        all_components, components_by_mod = self._get_all_known_components()
+
+        for rule in self._all_rules:
+            rule_id = id(rule)
+
+            sources = self._resolve_refs_globally(rule.sources, components_by_mod)
+            targets = self._resolve_refs_globally(rule.targets, components_by_mod)
+
+            if not sources or not targets:
+                continue
+
+            self._resolved_wildcards_cache[rule_id] = (frozenset(sources), frozenset(targets))
+
+            for comp in sources | targets:
+                self._rules_by_component[comp].add(rule)
 
     # ========================================
     # SELECTION VALIDATION
@@ -715,7 +787,6 @@ class RuleManager(QObject):
         """Validate component selection against dependency and incompatibility rules."""
         references = [reference for reference in selected_components if not reference.is_mod()]
         selection_hash = hash(frozenset(references))
-
         if self._last_selection_hash == selection_hash:
             return self._get_all_cached_selection_violations()
 
@@ -724,13 +795,12 @@ class RuleManager(QObject):
 
         violations: list[RuleViolation] = []
         selected_set = set(references)
-        checked_rules = set()
 
         for reference in references:
-            rules = list(self._rules_by_source.get(reference, []))
+            rules = list(self._rules_by_component.get(reference, []))
 
             wildcard_ref = ComponentReference(reference.mod_id, "*")
-            wildcard_rules = self._rules_by_source.get(wildcard_ref, [])
+            wildcard_rules = self._rules_by_component.get(wildcard_ref, [])
             rules.extend(wildcard_rules)
 
             for rule in rules:
@@ -815,7 +885,7 @@ class RuleManager(QObject):
         return RuleViolation(rule=rule, affected_components=affected)
 
     def _create_source_evaluator(
-        self, rule: DependencyRule, source_ref: ComponentReference
+        self, rule: DependencyRule | IncompatibilityRule, source_ref: ComponentReference
     ) -> ConditionEvaluator:
         """Factory method: create appropriate source evaluator."""
         if rule.source_groups:
@@ -839,24 +909,20 @@ class RuleManager(QObject):
 
         return rule_source.comp_key == selected_ref.comp_key
 
-    def _matches_any_source(
-        self, component_ref: ComponentReference, sources: tuple[ComponentReference, ...]
-    ) -> bool:
-        """Check if component matches any source (handles wildcards)."""
-        return any(
-            self._references_match_for_source(component_ref, source) for source in sources
-        )
-
-    def _create_target_evaluator(self, rule: DependencyRule) -> ConditionEvaluator:
+    def _create_target_evaluator(
+        self, rule: DependencyRule | IncompatibilityRule
+    ) -> ConditionEvaluator:
         """Factory method: create appropriate target evaluator."""
         if rule.target_groups:
             return GroupCondition(rule.target_groups)
-        else:
-            return StandardCondition(
-                components=rule.targets,
-                mode=rule.dependency_mode,
-                matcher=self._matches_reference,
-            )
+
+        return StandardCondition(
+            components=rule.targets,
+            mode=rule.dependency_mode
+            if isinstance(rule, DependencyRule)
+            else DependencyMode.ANY,
+            matcher=self._matches_reference,
+        )
 
     def _check_incompatibility(
         self,
@@ -865,29 +931,15 @@ class RuleManager(QObject):
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check incompatibility: collect conflicting selected components."""
-        if rule.source_groups:
-            if not all(group.matches(selected_set) for group in rule.source_groups):
-                return None
+        source_evaluator = self._create_source_evaluator(rule, source_ref)
+        if not source_evaluator.is_satisfied(selected_set):
+            return None
 
-        if rule.target_groups:
-            conflicts = [
-                comp
-                for group in rule.target_groups
-                for comp in group.get_matched_components(selected_set)
-            ]
+        target_evaluator = self._create_target_evaluator(rule)
+        if not target_evaluator.is_satisfied(selected_set):
+            return None
 
-            if not all(group.matches(selected_set) for group in rule.target_groups):
-                return None
-        else:
-            conflicts = [
-                target
-                for target in rule.targets
-                if self._matches_reference(target, selected_set)
-            ]
-
-            if not conflicts:
-                return None
-
+        conflicts = target_evaluator.get_matching(selected_set)
         affected = (source_ref,) + tuple(conflicts)
         return RuleViolation(rule=rule, affected_components=affected)
 
@@ -896,148 +948,128 @@ class RuleManager(QObject):
     # ========================================
 
     def validate_order(
-        self, sequences: dict[int, list[ComponentReference]]
-    ) -> dict[int, list[RuleViolation]]:
-        """Validate order for multiple sequences at once."""
-        self._indexes.clear_order_violations()
-        all_violations = {}
+        self,
+        game_id: str,
+        seq_idx: int,
+        install_order: list[ComponentReference],
+        moved_components: set[ComponentReference] | None = None,
+    ) -> list[RuleViolation]:
+        """Validate order with unified ultra-fast algorithm."""
+        if self._current_game_id != game_id:
+            self._clear_game_states(self._current_game_id)
+            self._current_game_id = game_id
 
-        for seq_idx, install_order in sequences.items():
-            violations = []
+        state_key = (game_id, seq_idx)
+        state = self._validation_states.get(state_key)
 
-            if not install_order:
-                all_violations[seq_idx] = violations
+        if not state or not moved_components:
+            state = ValidationState()
+            self._validation_states[state_key] = state
+            state.update_positions(install_order)
+
+            affected_rules = set()
+            for comp in install_order:
+                affected_rules.update(self._rules_by_component.get(comp, set()))
+
+            logger.debug(
+                f"Full validation seq {state_key}: {len(install_order)} components, {len(affected_rules)} rules"
+            )
+
+        else:
+            state.update_positions(install_order)
+
+            affected_rules = set()
+            for comp in moved_components:
+                affected_rules.update(self._rules_by_component.get(comp, set()))
+
+            logger.debug(
+                f"Incremental seq {state_key}: {len(moved_components)} moved, {len(affected_rules)} rules affected"
+            )
+
+        # Remove old violations from affected rules
+        for rule in affected_rules:
+            rule_id = id(rule)
+            old_violations = state.violations_by_rule.pop(rule_id, [])
+
+            for old_violation in old_violations:
+                for comp in old_violation.affected_components:
+                    comp_violations = self._indexes.order_violation_index.get(comp)
+                    if comp_violations and old_violation in comp_violations:
+                        comp_violations.remove(old_violation)
+
+        for rule in affected_rules:
+            rule_id = id(rule)
+
+            resolved = self._resolved_wildcards_cache.get(rule_id)
+            if not resolved:
                 continue
 
-            # Build position map
-            positions = {ref: idx for idx, ref in enumerate(install_order)}
+            all_sources, all_targets = resolved
 
-            # Check DEPENDENCY rules (implicit ordering)
-            for rule in self._dependency_rules:
-                if rule.implicit_order:
-                    violations.extend(
-                        self._validate_dependency_order(rule, install_order, positions)
-                    )
+            active = state.active_components
+            sources = all_sources & active
+            targets = all_targets & active
 
-            # Check explicit ORDER rules
-            for rule in self._order_rules:
-                violations.extend(self._validate_explicit_order(rule, install_order, positions))
+            if not sources or not targets:
+                continue
 
-            all_violations[seq_idx] = violations
+            if isinstance(rule, OrderRule):
+                direction = rule.order_direction
+            elif isinstance(rule, DependencyRule) and rule.implicit_order:
+                direction = OrderDirection.AFTER
+            else:
+                continue
 
-        return all_violations
+            positions = state.positions
+            sources_with_pos = [(src, positions[src]) for src in sources if src in positions]
+            targets_with_pos = [(tgt, positions[tgt]) for tgt in targets if tgt in positions]
 
-    def _validate_dependency_order(
-        self,
-        rule: DependencyRule,
-        install_order: list[ComponentReference],
-        positions: dict[ComponentReference, int],
-    ) -> list[RuleViolation]:
-        """Validate that dependencies come before dependents."""
-        violations: list[RuleViolation] = []
-
-        # find sources (dependents) positions - check all sources
-        source_positions = [
-            (positions[ref], ref)
-            for ref in install_order
-            if self._matches_any_source(ref, rule.sources)
-        ]
-
-        if not source_positions:
-            return violations
-
-        # For each source, ensure all targets come before it
-        for source_idx, source_ref in source_positions:
-            for target_ref in rule.targets:
-                matching_components = [
-                    ref
-                    for ref in positions.keys()
-                    if self._references_match_for_source(ref, target_ref)
-                ]
-
-                for matching_component in matching_components:
-                    target_position = positions[matching_component]
-
-                    if target_position > source_idx:
-                        violation = RuleViolation(
-                            rule=rule,
-                            affected_components=(source_ref, matching_component),
-                        )
-                        violations.append(violation)
-                        self._indexes.add_order_violation(violation)
-
-        return violations
-
-    def _validate_explicit_order(
-        self,
-        rule: OrderRule,
-        install_order: list[ComponentReference],
-        positions: dict[ComponentReference, int],
-    ) -> list[RuleViolation]:
-        """Validate explicit order rules."""
-        violations: list[RuleViolation] = []
-
-        # Find source positions
-        source_positions = [
-            (positions[ref], ref)
-            for ref in install_order
-            if self._matches_any_source(ref, rule.sources)
-        ]
-
-        if not source_positions:
-            return violations
-
-        for source_idx, source_ref in source_positions:
-            for target_ref in rule.targets:
-                matching_components = [
-                    ref
-                    for ref in positions.keys()
-                    if self._references_match_for_source(ref, target_ref)
-                ]
-
-                for matching_component in matching_components:
-                    target_idx = positions[matching_component]
-                    if target_idx == source_idx:
+            for src, src_pos in sources_with_pos:
+                for tgt, tgt_pos in targets_with_pos:
+                    if src == tgt:
                         continue
 
-                    violation_detected = False
-
-                    if rule.order_direction == OrderDirection.BEFORE:
-                        if source_idx > target_idx:
-                            violation_detected = True
-                    else:  # AFTER
-                        if source_idx < target_idx:
-                            violation_detected = True
-
-                    if violation_detected:
+                    if self._check_order_violation(src_pos, tgt_pos, direction):
                         violation = RuleViolation(
                             rule=rule,
-                            affected_components=(source_ref, matching_component),
+                            affected_components=(src, tgt),
                         )
-                        violations.append(violation)
+
+                        state.violations_by_rule[rule_id].append(violation)
                         self._indexes.add_order_violation(violation)
 
-        return violations
+        return [v for violations in state.violations_by_rule.values() for v in violations]
 
-    # -------------------------
-    # Public API
-    # -------------------------
+    @staticmethod
+    def _check_order_violation(
+        source_pos: int,
+        target_pos: int,
+        direction: OrderDirection,
+    ) -> bool:
+        """Check if there is an order violation."""
+        if direction == OrderDirection.BEFORE:
+            return source_pos > target_pos
+        else:  # AFTER
+            return source_pos < target_pos
+
+    def _clear_game_states(self, game_id: str | None) -> None:
+        """Clean up validation states for a specific game."""
+        if game_id is None:
+            return
+
+        keys_to_remove = [key for key in self._validation_states if key[0] == game_id]
+        for key in keys_to_remove:
+            del self._validation_states[key]
+
+        logger.debug(f"Cleared {len(keys_to_remove)} validation states for game {game_id}")
+
+    # ========================================
+    # PUBLIC API
+    # ========================================
 
     def get_rules_for_component(self, reference: ComponentReference) -> list[Rule]:
         """Get all rules where the component is a source."""
-        return self._rules_by_source.get(reference, [])
-
-    def get_dependency_rules(self) -> tuple[DependencyRule, ...]:
-        """Get all dependency rules (read-only)."""
-        return tuple(self._dependency_rules)
-
-    def get_order_rules(self) -> tuple[OrderRule, ...]:
-        """Get all explicit order rules (read-only)."""
-        return tuple(self._order_rules)
-
-    def get_incompatibility_rules(self) -> tuple[IncompatibilityRule, ...]:
-        """Get all incompatibility rules (read-only)."""
-        return tuple(self._incompatibility_rules)
+        return self._rules_by_component.get(reference, [])
 
     def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached selection violations for a specific component."""
@@ -1077,7 +1109,9 @@ class RuleManager(QObject):
 
                     if recursive:
                         if target.is_mod():
-                            known_comps = self._get_known_components(target.mod_id)
+                            known_comps = self._mod_manager.get_mod_by_id(
+                                target.mod_id
+                            ).get_component_refs()
                             for comp in known_comps:
                                 _collect_requirements(target.mod_id, comp)
                         else:

@@ -188,11 +188,11 @@ class ApplicationInitializer:
         self.splash.set_stage(tr("app.checking_data_update"), 10)
         self._check_and_update_data()
 
-        self.splash.set_stage(tr("app.loading_rules"), 30)
-        self._initialize_rule_cache()
-
         self.splash.set_stage(tr("app.loading_mods"), 60)
         self._initialize_mod_cache()
+
+        self.splash.set_stage(tr("app.loading_rules"), 30)
+        self._initialize_rule_cache()
 
         self.splash.set_stage(tr("app.setting_up_interface"), 90)
         self.window = self._create_main_window()

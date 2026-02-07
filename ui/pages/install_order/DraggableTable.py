@@ -76,7 +76,7 @@ class DraggableTableWidget(HoverTableWidget):
     """
 
     # Signals
-    orderChanged = Signal()
+    orderChanged = Signal(list)
 
     def __init__(
         self,
@@ -204,6 +204,7 @@ class DraggableTableWidget(HoverTableWidget):
 
         source = cast(DraggableTableWidget, event.source())
         drop_row = self._drop_indicator_row
+        moved_refs = []
 
         if drop_row < 0:
             drop_row = self.rowCount()
@@ -232,6 +233,7 @@ class DraggableTableWidget(HoverTableWidget):
 
             for i, ref in enumerate(components_data):
                 reference = ComponentReference.from_string(ref)
+                moved_refs.append(reference)
 
                 insert_row = drop_row + i
                 insert_rows.append(insert_row)
@@ -250,7 +252,7 @@ class DraggableTableWidget(HoverTableWidget):
                     for row in sorted(source._dragged_rows, reverse=True):
                         source.removeRow(row)
                     source._dragged_rows = []
-                    source.orderChanged.emit()
+                    source.orderChanged.emit(moved_refs)
             elif source is self:
                 # Same table - remove original rows (adjust for inserted rows)
                 adjusted_rows = []
@@ -268,7 +270,7 @@ class DraggableTableWidget(HoverTableWidget):
 
         self._drop_indicator_row = -1
         self._dragged_rows = []
-        self.orderChanged.emit()
+        self.orderChanged.emit(moved_refs)
         event.acceptProposedAction()
 
     def _select_rows(self, rows: list[int]) -> None:
@@ -449,8 +451,6 @@ class DraggableTableWidget(HoverTableWidget):
         finally:
             self.blockSignals(False)
 
-        self.orderChanged.emit()
-
     def _edit_pause_at_row(self, row: int):
         page = self._get_parent_page()
         if not page:
@@ -477,13 +477,9 @@ class DraggableTableWidget(HoverTableWidget):
         finally:
             self.blockSignals(False)
 
-        self.orderChanged.emit()
-
     def _remove_pause_at_row(self, row: int):
         self.blockSignals(True)
         try:
             self.removeRow(row)
         finally:
             self.blockSignals(False)
-
-        self.orderChanged.emit()

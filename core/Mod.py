@@ -221,6 +221,7 @@ class Mod:
         "_translations",
         "_components_cache",
         "files",
+        "_component_refs_cache",
     )
 
     def __init__(self, data: dict[str, Any]) -> None:
@@ -258,6 +259,7 @@ class Mod:
         # Components (stored raw, instantiated on demand)
         self._components_raw: dict[str, Any] = data.get("components", {})
         self._components_cache: dict[str, Component] = {}
+        self._component_refs_cache: tuple[str, ...] = ()
 
         self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
 
@@ -326,6 +328,32 @@ class Mod:
 
         # Key not found directly - search in all MUC components
         return self._search_in_muc_components(key)
+
+    def get_component_refs(self) -> tuple[str, ...]:
+        """Return all component references."""
+        if len(self._component_refs_cache) == 0:
+            refs = []
+
+            for key, comp_data in self._components_raw.items():
+                comp_type = comp_data.get("type", ComponentType.STD)
+
+                if comp_type == ComponentType.MUC.value:
+                    refs.extend(
+                        f"{self.id}:{sub_key}" for sub_key in comp_data.get("components", [])
+                    )
+                elif comp_type == ComponentType.SUB.value:
+                    refs.append(f"{self.id}:{key}")
+                    for prompt_key, prompt_data in comp_data.get("prompts", {}).items():
+                        refs.extend(
+                            f"{self.id}:{key}.{prompt_key}.{option}"
+                            for option in prompt_data.get("options", [])
+                        )
+                else:  # std
+                    refs.append(f"{self.id}:{key}")
+
+            self._component_refs_cache = tuple(refs)
+
+        return self._component_refs_cache
 
     def _get_sub_component(self, key: str) -> Component | None:
         """

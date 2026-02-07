@@ -506,7 +506,7 @@ class InstallOrderPage(BasePage):
         header.setSectionResizeMode(COL_ORDERED_MOD, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_ORDERED_COMPONENT, QHeaderView.ResizeMode.Stretch)
 
-        table.orderChanged.connect(lambda: self._on_order_changed(seq_idx))
+        table.orderChanged.connect(lambda moved: self._on_order_changed(seq_idx, moved))
         layout.addWidget(table)
 
         # Store references
@@ -552,7 +552,7 @@ class InstallOrderPage(BasePage):
         header.setSectionResizeMode(COL_UNORDERED_MOD, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_UNORDERED_COMPONENT, QHeaderView.ResizeMode.Stretch)
 
-        table.orderChanged.connect(lambda: self._on_order_changed(seq_idx))
+        table.orderChanged.connect(lambda moved: self._on_order_changed(seq_idx, moved))
         table.itemDoubleClicked.connect(
             lambda item: self._on_unordered_double_click(seq_idx, item)
         )
@@ -1010,36 +1010,33 @@ class InstallOrderPage(BasePage):
     # Validation
     # ========================================
 
-    def _validate_sequence(self, seq_idx: int) -> None:
-        """Validate all sequences at once."""
-        sequences = {}
-        for seq_idx, seq_data in self._sequences_data.items():
-            if seq_data.ordered:
-                components_only = [
-                    ref for ref in seq_data.ordered if ref.mod_id != PAUSE_PREFIX
-                ]
-                sequences[seq_idx] = components_only
-            else:
-                sequences[seq_idx] = []
+    def _validate_sequence(
+        self, seq_idx: int, moved_components: list[ComponentReference] | None = None
+    ) -> None:
+        """Validate a sequence."""
+        sequence = self._sequences_data.get(seq_idx)
+        if not sequence:
+            return
 
-        all_violations = self._rule_manager.validate_order(sequences)
+        moved_components = set(moved_components) if moved_components else None
+        components = []
+        if sequence.ordered:
+            components = [ref for ref in sequence.ordered if ref.mod_id != PAUSE_PREFIX]
 
-        for seq_idx, violations in all_violations.items():
-            seq_data = self._sequences_data.get(seq_idx)
-            if not seq_data:
-                continue
+        violations = self._rule_manager.validate_order(
+            self._current_game, seq_idx, components, moved_components
+        )
 
-            seq_data.validation.clear()
+        sequence.validation.clear()
 
-            for violation in violations:
-                for reference in violation.affected_components:
-                    if violation.is_error:
-                        seq_data.validation.add_error(reference)
-                    elif violation.is_warning:
-                        seq_data.validation.add_warning(reference)
+        for violation in violations:
+            for reference in violation.affected_components:
+                if violation.is_error:
+                    sequence.validation.add_error(reference)
+                elif violation.is_warning:
+                    sequence.validation.add_warning(reference)
 
-            self._apply_visual_indicators(seq_idx)
-
+        self._apply_visual_indicators(seq_idx)
         self.notify_navigation_changed()
 
     def _apply_visual_indicators(self, seq_idx: int) -> None:
@@ -1082,7 +1079,9 @@ class InstallOrderPage(BasePage):
     # Event Handlers
     # ========================================
 
-    def _on_order_changed(self, seq_idx: int) -> None:
+    def _on_order_changed(
+        self, seq_idx: int, moved_components: list[ComponentReference] | None = None
+    ) -> None:
         """Handle order change in tables for a sequence.
 
         Args:
@@ -1114,7 +1113,7 @@ class InstallOrderPage(BasePage):
                 seq_data.unordered.append(reference)
 
         self._update_sequence_counters(seq_idx)
-        self._validate_sequence(seq_idx)
+        self._validate_sequence(seq_idx, moved_components)
 
     def _on_unordered_double_click(self, seq_idx: int, item: QTableWidgetItem) -> None:
         """Handle double-click on unordered item to move it to ordered table.
@@ -1261,7 +1260,6 @@ class InstallOrderPage(BasePage):
 
     def get_additional_buttons(self) -> list[QPushButton]:
         """Get additional buttons."""
-        print("get_additional_buttons")
         has_default_order = False
         for sequence in self._game_def.sequences:
             if hasattr(sequence, "order") and len(sequence.order) > 0:
