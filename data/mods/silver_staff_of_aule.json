@@ -1,0 +1,65 @@
+{
+  "name": "Silver Staff of Aule",
+  "version": "9.1",
+  "links": {
+    "homepage": "https://github.com/Erg-os/Silver_Staff_of_Aule",
+    "forums": ["https://forums.beamdog.com/discussion/16558/"]
+  },
+  "files": [
+    {
+      "filename": "Silver_Staff_of_Aule_v9_1.zip",
+      "size": 906752,
+      "download": "https://github.com/Erg-os/Silver_Staff_of_Aule/releases/download/v9.1/Silver_Staff_of_Aule_v9_1.zip"
+    }
+  ],
+  "games": ["bg", "bgee", "bgt", "sod", "tutu"],
+  "categories": ["spell"],
+  "components": {
+    "0": {"type": "std", "games": ["bgee", "bgt", "sod"]},
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "it_IT": 1,
+    "pl_PL": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute les propriétés d'argent et de fer froid, et un bonus aux dégâts au TAC0 contre les lycanthropes, au Bâton d'Aule qui est vendu dans l'auberge de la Barbe d'Ulgoth, fournissant une arme supplémentaire capable de blesser Karoug."
+    },
+    "en_US": {
+      "description": "This mod adds the properties of silver and cold iron, and a bonus to TAC0 damage against lycanthropes, to the Staff of Aule sold in the Inn of Ulgoth's Beard, providing an additional weapon capable of wounding Karoug.",
+      "components": {
+        "0": "Silver Staff of Aule",
+        "choice_0": "Alternate Icons",
+        "1": "Icon N.1 by CrevsDaak (default)",
+        "2": "Icon N.2 by CrevsDaak",
+        "3": "Icon from Staff of Striking"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为在乌葛斯胡渣旅店出售的奥勒之杖添加了银和冷铁的属性，以及对狼人造成THAC0伤害加成的效果，提供了一件能够伤害卡鲁格的额外武器。"
+    },
+    "it_IT": {
+      "components": {
+        "0": "Bastone Argentato di Aule",
+        "choice_0": "Icone Alternative",
+        "1": "Icona N.1 creata da CrevsDaak (scelta predefinita)",
+        "2": "Icona N.2 creata da CrevsDaak",
+        "3": "Icona del Bastone del Colpire"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Srebrny kij Aule'a",
+        "choice_0": "Alternatywne ikony",
+        "1": "Ikona nr 1 autorstwa CrevsDaak'a (domyslna)",
+        "2": "Ikona nr 2 autorstwa CrevsDaak'a",
+        "3": "Ikona Kija uderzania"
+      }
+    }
+  },
+  "tp2": "silver_staff_of_aule",
+  "safe": 1,
+  "authors": ["Erg"]
+}
