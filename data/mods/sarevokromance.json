@@ -1,0 +1,53 @@
+{
+  "name": "Sarevok Romance",
+  "version": "1.4",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Sarevok-Romance/",
+    "forums": ["https://www.shsforums.net/files/file/810-sarevok-romance/"]
+  },
+  "files": [
+    {
+      "filename": "Sarevok-Romance-v1.4.zip",
+      "size": 1970593,
+      "sha256": "b1df09774c24c521d07b130274c7effdda8dd74023279d18806d598af1558f76",
+      "download": "https://github.com/Spellhold-Studios/Sarevok-Romance/releases/download/v1.4/Sarevok-Romance-v1.4.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "pl_PL": 1,
+    "ru_RU": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Sarevok Anchev a été beaucoup de choses. Autrefois meurtrier, trompeur et ennemi méprisé, il est devenu l'allié improbable d'un protagoniste confronté à un avenir incertain. Bien que de nombreux faits concernant son passé et ses anciens projets soient connus de tous, on ne sait pas grand-chose de ses motivations actuelles, maintenant que la vie lui a été rendue. La mort a-t-elle ébranlé ses perceptions ou simplement renforcé sa détermination à s'emparer impitoyablement de tout le pouvoir qu'il peut s'approprier ? Est-il possible que des ennemis mortels deviennent plus que des alliés réticents ?"
+    },
+    "en_US": {
+      "description": "Sarevok Anchev has been many things. Once a murderer, deceiver and despised enemy, he has become the unlikely ally of a protagonist facing an uncertain future. While many of the facts about his past and former plans are common knowledge, little is known about his current motivations, now that life has been restored to him. Has death shaken his perceptions, or simply strengthened his resolve to ruthlessly seize all the power he can get his hands on? Is it possible for mortal enemies to become more than reluctant allies?",
+      "components": {
+        "0": "Aeryn's Sarevok Romance for BGII: Throne of Bhaal"
+      }
+    },
+    "zh_CN": {
+      "description": "沙洛佛克·安契夫曾是许多种身份。他曾是杀手、骗子和被鄙视的敌人，后来却成为了一个面对不确定命运的盟友。尽管许多关于他过去和旧计划的众所周知，但如今生命被归还，他当前的动机却鲜为人知。死亡是否动摇了他的认知，或是仅仅强化了他无情攫取一切可攫取权力的决心？曾经的死敌是否有可能成为不仅仅是勉强的盟友？"
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Aeryn's Sarevok Romance mod do Baldur's Gate II: Tron Bhaala"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Aeryn's Sarevok Romance for BGII: Throne of Bhaal"
+      }
+    }
+  },
+  "tp2": "sarevokromance",
+  "safe": 2,
+  "authors": ["Rebbeca", "Aeryn", "Lava Del'Vortel", "K'aeloree"]
+}
