@@ -1,0 +1,90 @@
+{
+  "name": "Crossmod Banter Pack for Baldur's Gate II",
+  "version": "30",
+  "links": {
+    "homepage": "https://github.com/Gibberlings3/Crossmod_Banter_Pack_for_Baldurs_Gate_II",
+    "forums": ["https://www.gibberlings3.net/mods/npcs/crossmod/"]
+  },
+  "files": [
+    {
+      "filename": "crossmodbg2-v30.exe",
+      "size": 4301247,
+      "sha256": "4104c951e28489aa6b7140a4d116fb0f2bc2cef253a612d7506f4461e44e5931",
+      "download": "https://github.com/Gibberlings3/Crossmod_Banter_Pack_for_Baldurs_Gate_II/releases/download/v30/crossmodbg2-v30.exe",
+      "platforms": ["windows"]
+    },
+    {
+      "filename": "lin-crossmodbg2-v30.zip",
+      "size": 2268189,
+      "sha256": "b7b3b796a0ee79cbfc0bc34147de82196bc082b47441ddb723634cbb1480ef6c",
+      "download": "https://github.com/Gibberlings3/Crossmod_Banter_Pack_for_Baldurs_Gate_II/releases/download/v30/lin-crossmodbg2-v30.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-crossmodbg2-v30.zip",
+      "size": 4032036,
+      "sha256": "2704ff5c1134318e22a8e97ec4b12fe4a1997bc3eb69c93099974f25559020ee",
+      "download": "https://github.com/Gibberlings3/Crossmod_Banter_Pack_for_Baldurs_Gate_II/releases/download/v30/mac-crossmodbg2-v30.zip",
+      "platforms": ["macos"]
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2,
+    "it_IT": 3,
+    "zh_CN": 4
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute des dialogues entre les PNJ ajoutés par des mods (Fade NPC, Goo the Disembodied Floating Eyeball, Tsujatha Melalor, etc). L'occasion d'en apprendre un peu plus sur leur caractère, mais aussi, de voir leur réaction en cas de conflit de romance !"
+    },
+    "en_US": {
+      "description": "This mod adds dialog between NPCs added by mods (Fade NPC, Goo the Disembodied Floating Eyeball, Tsujatha Melalor, etc). An opportunity to learn a little more about their characters, but also to see how they react in the event of a romance conflict!",
+      "components": {
+        "0": "Crossmod Banter Pack for Shadows of Amn Content",
+        "1": "Crossmod Banter Pack for Throne of Bhaal Content",
+        "2": "Crossmod Romance Conflicts"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组添加了由其他模组（Fade NPC、Goo the Disembodied Floating Eyeball、Tsujatha Melalor等）添加的NPC之间的对话。这是更多地了解他们性格的机会，也是看到他们在浪漫关系冲突时的反应！",
+      "components": {
+        "0": "Crossmod Banter Pack for Shadows of Amn Content",
+        "1": "Crossmod Banter Pack for Throne of Bhaal Content",
+        "2": "Crossmod Romance Conflicts"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Crossmod Banter Pack for Shadows of Amn Content",
+        "1": "Crossmod Banter Pack for Throne of Bhaal Content",
+        "2": "Crossmod Romance Conflicts"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Crossmod Banter Pack for Shadows of Amn Content",
+        "1": "Crossmod Banter Pack for Throne of Bhaal Content",
+        "2": "Crossmod Romance Conflicts"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Crossmod Banter Pack for Shadows of Amn Content",
+        "1": "Crossmod Banter Pack for Throne of Bhaal Content",
+        "2": "Crossmod Romance Conflicts"
+      }
+    }
+  },
+  "tp2": "crossmodbg2",
+  "safe": 2,
+  "authors": ["Grim Squeaker", "K'aeloree", "berelinde", "Smiling Imp"]
+}
