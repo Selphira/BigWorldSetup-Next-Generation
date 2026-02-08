@@ -1,0 +1,40 @@
+{
+  "name": "The RPG Solaufein Flirt Pack for BG2 (Rated NC17)",
+  "version": "1.2",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack",
+    "forums": ["https://www.shsforums.net/files/file/1258-solaufein-flirt-pack-for-the-solaufein-romance-mod/"]
+  },
+  "files": [
+    {
+      "filename": "solaufein-flirt-pack-v1.2.zip",
+      "size": 4253053,
+      "download": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack/releases/download/v1.2/solaufein-flirt-pack-v1.2.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "En complément du mod Solaufein NPC permettant de recruter le fameux drow à Ust Natha, voici la suite de la romance disponible pour la mener à son terme, avec de nombreuses idées compilées dans ce mod achevé, notamment la possibilité de l'aider dans ses choix (il quitte tout de même l'Ombreterre pour vous suivre...)."
+    },
+    "en_US": {
+      "description": "In addition to the Solaufein NPC mod for recruiting the famous drow in Ust Natha, here's the continuation of the romance available for completion, with many ideas compiled in this completed mod, including the possibility of helping him with his choices (he leaves Underdark after all to follow you...).",
+      "components": {
+        "0": "The RPG Solaufein Flirt Pack for BG2 (Rated NC17)"
+      }
+    },
+    "zh_CN": {
+      "description": "作为Solaufein NPC模组的补充，该模组允许在乌斯特那萨招募著名的卓尔人，这里是其爱情线的后续，可以让你完成整个爱情线，其中汇集了许多想法，包括帮助他做出选择（他最终还是为了追随你而离开了幽暗地域……）。"
+    }
+  },
+  "tp2": "rpgsolaflirtpack",
+  "safe": 2,
+  "authors": ["Jolyth"]
+}

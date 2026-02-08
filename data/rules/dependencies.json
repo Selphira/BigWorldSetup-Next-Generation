@@ -886,6 +886,11 @@
       "description": "Composants de npcflirt nécessitent le mod solaufein"
     },
     {
+      "rule": "rpgsolaflirtpack(0):solaufein(0)",
+      "severity": "error",
+      "description": "Composants de rpgsolaflirtpack nécessitent le mod solaufein"
+    },
+    {
       "rule": "zgtweaks(1002):mih_eq(109,112,113,115,119,123,124,126,128,130,131,132,133,134,135,138,139,142,148,149,154,155,157)",
       "severity": "error",
       "description": "Composant de zgtweaks nécessite le mod mih_eq"
