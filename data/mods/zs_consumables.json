@@ -1,0 +1,56 @@
+{
+  "name": "Consumables",
+  "version": "1.0.4",
+  "links": {
+    "homepage": "https://github.com/szaumoor/ZS_Consumables/",
+    "forums": ["https://www.gibberlings3.net/forums/topic/40103-royalprotectors-consumables-zs_consumables/"]
+  },
+  "files": [
+    {
+      "filename": "lin-ZS_Consumables-1.0.4.zip",
+      "size": 1030286,
+      "sha256": "5e035d855b52a1c852c7db2ee037ee06b9117cdee80a4f80966d410a5be8e81a",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/lin-ZS_Consumables-1.0.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-ZS_Consumables-1.0.4.zip",
+      "size": 1030286,
+      "sha256": "dec1895c788221ced216388334154e496bd6a49c5f0fb2c9d14f6981c42800fe",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/mac-ZS_Consumables-1.0.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-ZS_Consumables-1.0.4.zip",
+      "size": 2125759,
+      "sha256": "0fc1e13b85880ffce026da1458648f885231b1f38916d920a0eb2c30f4c27197",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/win-ZS_Consumables-1.0.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "categories": ["spell"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod fournit une variété d'objets consommables à utiliser dans le jeu, améliorant ainsi le gameplay et offrant de nouvelles stratégies aux joueurs. Beaucoup sont tirés ou inspirés d'autres jeux et médias tels que BG3, NWN et The Witcher. Le mod distribue les objets dans les magasins classiques, mais aussi manuellement sur certains PNJ et automatiquement dans le butin de certains ennemis de manière aléatoire."
+    },
+    "en_US": {
+      "description": "This mod provides a variety of consumable items for use in the game, enhancing gameplay and offering new strategies for players. Many are taken or inspired by other games and media such as BG3, NWN, and The Witcher. The mod distributes the items among vanilla stores as well as manually placed on some NPCs and automatically in the loot of some enemies randomly.",
+      "components": {
+        "0": "Install consumables and spread them all through the world"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为游戏提供了各种消耗品，从而提升了游戏性并为玩家提供了新的策略。其中许多物品借鉴或灵感来自其他游戏和媒体，如博德之门3、无冬之夜和巫师。该模组将物品分发到常规商店中，同时也手动放置在某些NPC身上，并随机自动放置在某些敌人的战利品中。"
+    }
+  },
+  "tp2": "zs_consumables",
+  "safe": 2,
+  "authors": ["RoyalProtector"]
+}
