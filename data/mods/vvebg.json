@@ -1,0 +1,43 @@
+{
+  "name": "Voices Voices Extravaganza - AI dialog voiceovers",
+  "version": "1.1",
+  "links": {
+    "homepage": "https://github.com/ColossusChang/VoicesVoicesExtravaganza",
+    "forums": [
+      "https://www.gibberlings3.net/forums/topic/38809-bg1-voices-voices-extravaganza-ai-dialog-voiceovers/",
+      "https://forums.beamdog.com/discussion/88822/"
+    ]
+  },
+  "files": [
+    {
+      "filename": "VoicesVoicesExtravaganza.zip",
+      "size": 1025633377,
+      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza/releases/download/v1.1/VoicesVoicesExtravaganza.zip"
+    }
+  ],
+  "games": ["bg", "bgee", "eet", "sod"],
+  "categories": ["portrait"],
+  "components": {
+    "0": {"type": "std", "games": ["bgee", "eet", "sod"]}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Mod Weidu qui ajoute des voix off en anglais générées par l'IA pour tous les personnages de Baldur's Gate 1."
+    },
+    "en_US": {
+      "description": "Weidu mod that adds AI-generated English voice-overs for all Baldur's Gate 1 characters.",
+      "components": {
+        "0": "Add Character Sounds for BG"
+      }
+    },
+    "zh_CN": {
+      "description": "一个WeiDU模组，为博德之门1中的所有角色添加了由AI生成的英文旁白。"
+    }
+  },
+  "tp2": "vvebg",
+  "safe": 2,
+  "authors": ["Colossus"]
+}
