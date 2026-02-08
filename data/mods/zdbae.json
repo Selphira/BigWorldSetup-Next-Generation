@@ -1,0 +1,57 @@
+{
+  "name": "Baeloth for BG2EE",
+  "version": "0.20",
+  "links": {
+    "homepage": "https://github.com/dark0dave/BaeBG2"
+  },
+  "files": [
+    {
+      "filename": "lin-zdbae-v0.2.0.zip",
+      "size": 13408189,
+      "sha256": "2e16719940bd1db1fe59f3911b127c44c63376f061357e97ce136aebbbaaba45",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/lin-zdbae-v0.2.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-zdbae-v0.2.0.zip",
+      "size": 13635703,
+      "sha256": "d96054a634734e3f00c89d0408b65996b98393b80ad9fbe7a1bc4f12a380ab66",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/mac-zdbae-v0.2.0.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-zdbae-v0.2.0.zip",
+      "size": 13580530,
+      "sha256": "c70366c90dd4ef159f8d3168caf0f531eaba6d41f882cf6bb496eb8068090c7c",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/win-zdbae-v0.2.0.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2ee", "eet"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std"},
+    "10": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod fournit une continuation pour notre adorable Baeloth dans BG2EE et EET. Baeloth a été capturé par les sorciers rouges et est prêt à conclure un marché en échange de sa liberté. Trouvez Baeloth à la Couronne de Cuivre !"
+    },
+    "en_US": {
+      "description": "This mod provides a continuation for our lovable Baeloth in BG2EE and EET. Baeloth has been captured by the Red Wizards and is ready to make a deal in exchange for his freedom. Find Baeloth in the Copper Coronet!",
+      "components": {
+        "0": "Baeloth BG2",
+        "10": "altportrait"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为我们在BG2EE和EET中可爱的贝洛斯提供了一个后续剧情。贝洛斯被红袍巫师俘虏，并准备为了自由而达成一笔交易。在铜冠旅店找到贝洛斯！"
+    }
+  },
+  "tp2": "zdbae",
+  "safe": 2,
+  "authors": ["dark0dave"]
+}
