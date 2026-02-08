@@ -1,0 +1,33 @@
+{
+  "name": "Patch de correction des erreurs de la version française de Planescape: Torment",
+  "version": null,
+  "links": {
+    "forums": ["https://mirandir.baldursgateworld.fr/pst-correcfr/"]
+  },
+  "files": [],
+  "games": ["pst", "pstee"],
+  "categories": ["patch"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "fr_FR": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod a pour vocation de corriger les différentes erreurs présentes dans la version française de Planescape: Torment et Planescape: Torment: Enhanced Edition, notamment en traduisant les entrées oubliées par les traducteurs, en corrigeant les erreurs de français, de cohérence, les non-sens, qui apparaissent parfois dans les différents dialogues.",
+      "components": {
+        "0": "Patch automatique : correction des conditions et finalisation - INSTALLEZ CE COMPOSANT, RISQUE DE BUGS SINON !"
+      }
+    },
+    "en_US": {
+      "description": "The purpose of this mod is to correct the various errors present in the French version of Planescape: Torment and Planescape: Torment: Enhanced Edition, notably by translating entries overlooked by the translators, and by correcting errors of French, consistency and nonsense that sometimes appear in the various dialogs."
+    },
+    "zh_CN": {
+      "description": "此模组旨在修正《异度风景：苦难》及其《增强版》法文版中存在的各种错误，特别是翻译了译者遗漏的条目，并修正了对话中出现的法语错误、不一致之处和荒诞内容。"
+    }
+  },
+  "tp2": "correcfr_autopatch2",
+  "safe": 2,
+  "authors": ["mirandir"]
+}

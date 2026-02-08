@@ -171,6 +171,22 @@
       "description": "Dépendance interne chattyimoen"
     },
     {
+      "rule": "correcfr_autopatch(1):correctfr(2)",
+      "severity": "error",
+      "description": "Dépendance interne correcfr_autopatch"
+    },
+    {
+      "rule": "correcfr_autopatch2(0):correcfr_autopatch(1)",
+      "severity": "error",
+      "description": "Dépendance interne correcfr_autopatch2"
+    },
+    {
+      "rule": "correcfr_autopatch(1):correcfr_autopatch2(0)",
+      "severity": "error",
+      "description": "Dépendance interne correcfr_autopatch2",
+      "implicit_order": false
+    },
+    {
       "rule": "correctfrbg1ee(30):correctfrbg1ee(20)",
       "severity": "error",
       "description": "Dépendance interne correctfrbg1ee"
