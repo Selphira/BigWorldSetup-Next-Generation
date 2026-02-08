@@ -1,0 +1,42 @@
+{
+  "name": "Saradas Magic for BG2",
+  "version": "2.0.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Saradas-Magic-BG2",
+    "forums": ["https://www.shsforums.net/files/file/1139-saradas-magic-for-bg2/"]
+  },
+  "files": [
+    {
+      "filename": "saradas-magic-for-bg2-v2.0.0.zip",
+      "size": 5918178,
+      "download": "https://github.com/Spellhold-Studios/Saradas-Magic-BG2/releases/download/v2.0.0/saradas-magic-for-bg2-v2.0.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["smith", "npc"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute un nouveau PNJ, Saradas l'archimage, qui interagit de diverses manières avec le groupe de l'Enfant de Bhaal. Dans Shadows of Amn, c'est un PNJ non recrutable qui offre de nombreux services. Il se trouve dans le temple de Lathandre, dans le quartier des temples d'Athkatla. En plus d'avoir plusieurs dialogues exclusifs qui se déroulent au fur et à mesure que l'intrigue prend forme, sa boutique vaut le détour. De plus, Saradas est un collectionneur d'artefacts. Si vous trouvez un artefact ancien, vous pouvez le lui apporter et il l'enchantera pour vous, conférant des propriétés magiques à l'objet.\nDans ToB, Saradas est enfin un PNJ recrutable ! Vous pouvez l'invoquer via l'Esprit du destin dans votre antichambre. C'est un humain prêtre de Lathandre jumelé mage.\nFOR 10, DEX 13, CON 14, INT 18, SAG 20, CHA 15."
+    },
+    "en_US": {
+      "description": "This mod adds a new NPC, Saradas the Archmage, who interacts in various ways with the Child of Bhaal group. In Shadows of Amn, he's a non-recruitable NPC who offers many services. He can be found in the Temple of Lathander, in the temple district of Athkatla. As well as having several exclusive dialogues that unfold as the plot unfolds, his store is well worth a visit. What's more, Saradas is an artifact collector. If you find an ancient artifact, you can bring it to him and he'll enchant it for you, conferring magical properties on the item.\nIn ToB, Saradas is finally a recruitable NPC! You can summon him via the Spirit of Destiny in your Pocket Plane. He's a human priest of Lathander paired with a mage.\nSTR 10, DEX 13, CON 14, INT 18, WIS 20, CHA 15.",
+      "components": {
+        "choice_0": "Saradas Magic NPC Mod for BGII",
+        "0": "Saradas has a monk sprite (original)",
+        "1": "Saradas has a mage sprite (optional)"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组添加了一个新的NPC，萨拉达斯大法师，他会以多种方式与巴尔之子的小队互动。在安姆阴影中，他是一个不可招募的NPC，提供许多服务。他位于阿斯卡特拉神殿区的洛山达神庙中。除了随着剧情发展而发生的多个独家对话外，他的商店也值得一逛。此外，萨拉达斯是一个神器收藏家。如果你找到一个古代神器，可以带给他，他会为你附魔，为物品赋予魔法属性。\n在巴尔王座中，萨拉达斯终于成为一个可招募的NPC！你可以通过你前厅的命运之灵召唤他。他是一个人类牧师，同时也是法师。\n力量 10, 敏捷 13, 体质 14, 智力 18, 智慧 20, 魅力 15。"
+    }
+  },
+  "tp2": "saradas_magic_2",
+  "safe": 2,
+  "authors": ["Saradas"]
+}
