@@ -1,0 +1,52 @@
+{
+  "name": "Silver Star NPC",
+  "version": "2.0.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Silver-Star-NPC",
+    "forums": ["https://www.shsforums.net/topic/61082-silver-star-npc-updated-to-v200-ee-compatible/"]
+  },
+  "files": [
+    {
+      "filename": "silver-star-npc-v2.0.0.zip",
+      "size": 5927091,
+      "download": "https://github.com/Spellhold-Studios/Silver-Star-NPC/releases/download/v2.0.0/silver-star-npc-v2.0.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "ru_RU": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Silver Star est une assassin elfe neutre mauvaise qui peut se joindre à la fête dans le charmant trou souterrain d'Irenicus. Ce projet a récemment pris un changement de direction dans la mesure où le créateur original Davide Carta a décidé d'ouvrir le mod à la communauté. Saisissant cette opportunité, la nouvelle équipe a décidé de modifier plusieurs éléments d'origine avec une voie qui est considérée comme plus appropriée pour Silver Star.\nElle est partiellement folle et a des complexes d'enfance : par exemple, elle a une véritable obsession pour les petits agneaux doux... Et elle chante et rit. Elle est chroniquement empoisonnée, ce qui explique sa grande tolérance au poison et sa faible constitution.\nC'est une tueuse sans remords, quand elle est d'humeur normale, et fait des choses maléfiques, comme le jeu, le chantage, le meurtre, le vol, etc. Elle a une certaine interaction avec les PNJ dans SoA, mais pas dans ToB.\nFOR 14, DEX 19, CON 7, INT 16, SAG 6, CHA 14."
+    },
+    "en_US": {
+      "description": "Silver Star is an elven assassin Neutral Evil who can join the party in Irenicus' charming underground hole. This project recently underwent a change of direction as original creator Davide Carta decided to open the mod to the community. Seizing this opportunity, the new team decided to modify several original elements in a way that is considered more appropriate for Silver Star.\nShe's partly crazy and has childhood complexes: for example, she has a real obsession with sweet little lambs... And she sings and laughs. She's chronically poisonous, which explains her high tolerance to poison and her weak constitution.\nShe's a remorseless killer, when she's in a normal mood, and does evil things, like gambling, blackmail, murder, theft and so on. She has some interaction with NPCs in SoA, but not in ToB.\nSTR 14, DEX 19, CON 7, INT 16, WIS 6, CHA 14.",
+      "components": {
+        "0": "Silver Star NPC Mod for BGII:SoA"
+      }
+    },
+    "zh_CN": {
+      "description": "银星是一名中立的邪恶精灵族刺客，可以在艾瑞尼卡斯迷人的地牢中加入你的队伍。这个项目最近改变了方向，因为原作者Davide Carta决定将模组开放给社区。新团队抓住这个机会，决定修改一些原始元素，使其被认为更适合银星。\n她有些精神失常，并有童年情结：例如，她对柔软的小羊羔有着真正的痴迷……她还唱歌和发笑。她长期中毒，这解释了她对毒药的高耐受力和低体质。\n她是一个无情的杀手，心情正常时会做些邪恶的事情，比如赌博、勒索、谋杀、盗窃等。她在安姆阴影中与一些NPC有互动，但在巴尔王座中没有。\n力量14，敏捷19，体质7，智力16，智慧6，魅力14。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Silver Star NPC Mod fuer BGII:SoA"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Silver Star NPC Mod for BGII:SoA"
+      }
+    }
+  },
+  "tp2": "star",
+  "safe": 2,
+  "authors": ["Davide Carta", "Seifer"]
+}
