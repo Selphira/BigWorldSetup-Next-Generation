@@ -3146,6 +3146,16 @@
         "en_US": "Rule defined in the zgtweaks's ini file",
         "fr_FR": "Règle définie dans l'ini de zgtweaks"
       }
+    },
+    {
+      "rule": "crossmodbg2(-):adrian(-)|aeon(-)|afuzuuvi(-)|ajantis(-)|ajantis-imp(-)|alassa(-)|allison(-)|alora(-)|alternatives(-)|amber(-)|angelo(-)|aran(-)|arath(-)|auren(-)|azrael(-)|beaurin-legacy-hidden(-)|beaurin-legacy(-)|biddekelorak(-)|branwen(-)|branwen-imp(-)|chloe(-)|coran(-)|coran-imp(-)|corthala-romantique(-)|dace(-)|darian(-)|nalia-ppg(-)|deekin(-)|dvaradime(-)|dynaheir(-)|eddard(-)|edwinromance(-)|eilistraee(-)|eldoth(-)|fade(-)|faldorn(-)|faldorn-imp(-)|faren(-)|fhaugy(-)|foundling(-)|fyalvara(-)|gahesh(-)|garrick(-)|gavin(-)|goo(-)|haerdalisromance(-)|haldamir(-)|hephernaan(-)|homeward(-)|horace(-)|hubelpot(-)|imoen-romance(-)|isra(-)|iylos(-)|juniper(-)|kagain(-)|kari(-)|keldorn-romance(-)|kelsey(-)|keto(-)|khalid(-)|kiara(-)|kido(-)|kindrek(-)|kitanya(-)|kivan-imp(-)|kivan(-)|lhannd(-)|longer-road(-)|montaron(-)|nalia-arnel(-)|nathaniel(-)|nehtaniel(-)|nephele(-)|ninde(-)|paina(-)|petsy(-)|quayle(-)|quayle-imp(-)|saerilith(-)|safana(-)|sarah(-)|sellswords(-)|sharteel(-)|silverstar(-)|sirene(-)|skie(-)|skie-imp(-)|skiecost(-)|solaufein-ww(-)|solaufein(-)|stivan(-)|swylif(-)|totdg(-)|tashia(-)|luxleys(-)|tiax(-)|tiax-imp(-)|ts-sime(-)|tsujatha(-)|tsuki(-)|tyris-flare(-)|valen(-)|varshoon(-)|verrsza(-)|walahnan(-)|wikaede(-)|will(-)|williebruce(-)|wilson(-)|xan(-)|xulaye(-)|xzar(-)|xzarmontaron(-)|xzele(-)|yasraena(-)|yeslick-shs(-)|yoshimoromance(-)|yoshimoremorse(-)|yvette(-)",
+      "direction": "after",
+      "severity": "warning",
+      "translations": {
+        "en_US": "Rule inferred from the mod configuration file",
+        "fr_FR": "Règle déduite du fichier de configuration du mod"
+      },
+      "source_url": "https://github.com/Gibberlings3/Crossmod_Banter_Pack_for_Baldurs_Gate_II/blob/master/crossmodbg2/lib/mod_array.tpa"
     }
   ]
 }
