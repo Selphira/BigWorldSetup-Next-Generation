@@ -1,0 +1,41 @@
+{
+  "name": "Weapon Oils",
+  "version": "1.4.4",
+  "links": {
+    "homepage": "https://github.com/szaumoor/ZS_WeaponOils",
+    "forums": ["https://www.gibberlings3.net/forums/topic/38730-royalprotectors-weapon-oils-zs_weaponoils-11/"]
+  },
+  "files": [
+    {
+      "filename": "ZS_WeaponOils_1.4.4a.zip",
+      "size": 1376801,
+      "sha256": "79a9275fe028c1d1e3dd9150ddf94d3e48bb85f82873cbbeea126dabdf21eac4",
+      "download": "https://github.com/szaumoor/ZS_WeaponOils/releases/download/1.4.4a/ZS_WeaponOils_1.4.4a.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "categories": ["gameplay"],
+  "components": {
+    "100": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce petit mod propose un nouveau type d'objet les « weapon oils ». Il s'agit de potions consommables qui permettent d'appliquer un effet supplémentaire aux armes."
+    },
+    "en_US": {
+      "description": "This little mod introduces a new type of item called \"weapon oils\". These are consumable potions that apply an additional effect to weapons.",
+      "components": {
+        "100": "Install oils and insert them into the world"
+      }
+    },
+    "zh_CN": {
+      "description": "这个小型模组引入了一种新类型的物品——“武器油”。它们是消耗性药水，可以为武器附加额外效果。"
+    }
+  },
+  "tp2": "zs_weaponoils",
+  "safe": null,
+  "authors": ["RoyalProtector"]
+}
