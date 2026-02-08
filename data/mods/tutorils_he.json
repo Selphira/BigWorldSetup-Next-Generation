@@ -1,0 +1,47 @@
+{
+  "name": "Tutoril's Historical Encyclopedias",
+  "version": "1.0.12",
+  "links": {
+    "homepage": "https://github.com/Incrementis/Tutorils-Historical-Encyclopedias-",
+    "forums": ["https://forums.beamdog.com/discussion/89334/"]
+  },
+  "files": [
+    {
+      "filename": "Tutorils-Historical-Encyclopedias-v1.0.12.zip",
+      "size": 354800711,
+      "sha256": "cef25363d5c9f886456706ade5c27d214a69d1ff846e061b5c3e8e82025610f2",
+      "download": "https://github.com/Incrementis/Tutorils-Historical-Encyclopedias-/releases/download/v1.0.12/Tutorils-Historical-Encyclopedias-v1.0.12.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "iwdee", "sod"],
+  "categories": ["spell"],
+  "components": {
+    "1000": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod est une fanfiction ! Il contient des encyclopédies de séries de livres d'histoire du jeu afin d'éviter d'avoir à rechercher les parties du livre d'histoire. De plus, les encyclopédies disposent d'une « séquence de lecture » (comme pour un rêve ou le début d'un chapitre) qui accompagne le texte avec une musique et une voix."
+    },
+    "en_US": {
+      "description": "This mod is fanfiction! It contains encyclopedias of in-game history book series to eliminate searching for the history book parts. In addition, the encyclopedias have a 'Reading-Sequence' (like the Dream- or Chapter-Sequence) which is accompanied by music and voice",
+      "components": {
+        "1000": "\"Tutoril's Historical Encyclopedias\" Mod"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组是一部同人小说！它包含了游戏历史书籍系列的百科全书，从而避免了需要查找历史书籍的章节。此外，这些百科全书还带有“阅读序列”（如同梦境或章节开头），配有音乐和语音来配合文本。"
+    },
+    "de_DE": {
+      "components": {
+        "1000": "\"Tutorils Historische Enzyklopädien\" Mod"
+      }
+    }
+  },
+  "tp2": "tutorils_he",
+  "safe": 2,
+  "authors": ["Incrementis"]
+}
