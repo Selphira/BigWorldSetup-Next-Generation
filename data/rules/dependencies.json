@@ -603,7 +603,8 @@
     {
       "rule": "tipun_gui(10):tipun_gui(20)",
       "severity": "error",
-      "description": "Dépendance interne tipun_gui 1"
+      "description": "Dépendance interne tipun_gui 1",
+      "implicit_order": false
     },
     {
       "rule": "tipun_gui(20):tipun_gui(10)",
