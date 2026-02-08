@@ -1,0 +1,39 @@
+{
+  "name": "Ranger Warden Kit",
+  "version": "1.0.1",
+  "links": {
+    "homepage": "https://github.com/DaerosTrollkiller/Ranger-Warden-Kit"
+  },
+  "files": [
+    {
+      "filename": "Ranger-Warden-Kit.zip",
+      "size": 12037710,
+      "download": "https://github.com/DaerosTrollkiller/Ranger-Warden-Kit/releases/download/v1.0.1/Ranger-Warden-Kit.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
+  "categories": ["kit"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod offre un kit pour Rôdeur : le Garde Forestier. Protecteur de la nature, il est débrouillard et n'a pas ou peu de considération pour les lois du monde « civilisé ». Il a accès à certaines capacités comme la création de projectiles, il peut également poser des pièges ou soigner grâce à des cataplasmes. Le mod ajoute également quelques objets utiles aux rôdeurs."
+    },
+    "en_US": {
+      "description": "This mod offers a Ranger kit: the Forest Ranger. A protector of nature, he is resourceful and has little or no regard for the laws of the \"civilized\" world. He has access to certain abilities such as projectile creation, and can also set traps or heal with poultices. The mod also adds a number of useful items for rangers.",
+      "components": {
+        "0": "Ranger Warden Kit"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为游侠提供了一个宗派：森林守护者。作为自然的守护者，他足智多谋，对“文明”世界的法律漠不关心或很少在意。他可以访问某些能力，如制造投射物，也可以设置陷阱或使用药膏治疗。该模组还为游侠添加了一些有用的物品。"
+    }
+  },
+  "tp2": "rgr_warden",
+  "safe": 2,
+  "authors": ["Daeros Trollkiller"]
+}
