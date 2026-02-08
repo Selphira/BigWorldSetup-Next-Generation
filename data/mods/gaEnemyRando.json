@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "gaenemyrando-v1.1.3.exe",
+      "size": 1470467,
+      "sha256": "cde14c2960119fca7eda5e153fe37c8d99cebf90d4a969c96fdba7193292919e",
+      "download": "https://github.com/GuardianAnubite/bg_enemy_randomizer/releases/download/v1.1.3/gaenemyrando-v1.1.3.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-gaenemyrando-v1.1.3.zip",
       "size": 160966,
       "download": "https://github.com/GuardianAnubite/bg_enemy_randomizer/releases/download/v1.1.3/lin-gaenemyrando-v1.1.3.zip",
@@ -14,16 +21,9 @@
     },
     {
       "filename": "osx-gaenemyrando-v1.1.3.zip",
-      "size": 160966,
+      "size": 1431275,
       "download": "https://github.com/GuardianAnubite/bg_enemy_randomizer/releases/download/v1.1.3/osx-gaenemyrando-v1.1.3.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "gaenemyrando-v1.1.3.exe",
-      "size": 1470467,
-      "sha256": "cde14c2960119fca7eda5e153fe37c8d99cebf90d4a969c96fdba7193292919e",
-      "download": "https://github.com/GuardianAnubite/bg_enemy_randomizer/releases/download/v1.1.3/gaenemyrando-v1.1.3.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],

@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "iwdification-v11.exe",
+      "size": 43292159,
+      "sha256": "d33df198b3bf8ae392ac27fbd9e31b16a33498da191d85a622bf69249e99df9b",
+      "download": "https://github.com/Gibberlings3/iwdification/releases/download/v11/iwdification-v11.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-iwdification-v11.zip",
       "size": 42288986,
       "sha256": "3b6f7111751ec849e97f73669abcc828b2da66057eb7a185b71fe7f0877c7c28",
@@ -19,13 +26,6 @@
       "sha256": "794e65f85c4983ddba8714736d9f25f5e5bd1359f251f4e2a50fb32f4c927975",
       "download": "https://github.com/Gibberlings3/iwdification/releases/download/v11/mac-iwdification-v11.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "iwdification-v11.exe",
-      "size": 43292159,
-      "sha256": "d33df198b3bf8ae392ac27fbd9e31b16a33498da191d85a622bf69249e99df9b",
-      "download": "https://github.com/Gibberlings3/iwdification/releases/download/v11/iwdification-v11.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],

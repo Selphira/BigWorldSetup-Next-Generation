@@ -9,7 +9,8 @@
       "filename": "BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe",
       "size": 974147,
       "sha256": "3c648761ff9aad8b29d24a2ce3b1ffa1b13718c7304026e7db5f401e8d3f65e6",
-      "download": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET/releases/download/v2.1/BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe"
+      "download": "https://github.com/zed-nocear/BG_Travel-MOD-for-BG1-BGEE-BGT-Tutu-EET/releases/download/v2.1/BG_Travel.for.BG1.BGEE.BGT.Tutu.EET.v2.1.exe",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],

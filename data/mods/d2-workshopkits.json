@@ -14,8 +14,8 @@
     },
     {
       "filename": "the-workshop-kitpack-v5.29-macos-x64.zip",
-      "size": 12813212,
-      "sha256": "2b116301f7374b5a0b9a8650743ea42eb27346677b59eb0863773f7a61b4801f",
+      "size": 13040746,
+      "sha256": "7afa171c7011606bbe82922e62cc74cbd9441b0a3e28a64e227587b540960366",
       "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-macos-x64.zip",
       "platforms": ["macos"]
     },

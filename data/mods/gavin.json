@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "gavin-v15.exe",
+      "size": 10043701,
+      "sha256": "77724d854c7b4e40d5090da5f2a21c5adf21cb05f2f4cc0abdea1bc476cacb73",
+      "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/gavin-v15.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-gavin-v15.zip",
       "size": 7023294,
       "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/lin-gavin-v15.zip",
@@ -17,13 +24,6 @@
       "size": 8787099,
       "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/mac-gavin-v15.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "gavin-v15.exe",
-      "size": 10043701,
-      "sha256": "77724d854c7b4e40d5090da5f2a21c5adf21cb05f2f4cc0abdea1bc476cacb73",
-      "download": "https://github.com/Gibberlings3/Gavin_BG/releases/download/v15/gavin-v15.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],

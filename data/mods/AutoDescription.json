@@ -9,7 +9,8 @@
       "filename": "win-AutoDescription-v0.9.37.zip",
       "size": 2999654,
       "sha256": "7e2920e6d93e5f077418ec5c3a6d71124335d496ed64d715063fcc6a3bbbc7d9",
-      "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip"
+      "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],

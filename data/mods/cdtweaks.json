@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "cdtweaks-v18.exe",
+      "size": 22185901,
+      "sha256": "a90620d9c8d65529002da7d17526bf79d3771f5ec7baad747e1babd82604343d",
+      "download": "https://github.com/Gibberlings3/Tweaks-Anthology/releases/download/v18/cdtweaks-v18.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-cdtweaks-v18.zip",
       "size": 20903651,
       "sha256": "20281a31d58b871b995b51643551083ab129f65783173113e885980a284c3ed1",
@@ -19,97 +26,47 @@
       "sha256": "e0e4a49426f3104a64fe67639c427a05e5e1e2d927a7d30fee070b451b8810f3",
       "download": "https://github.com/Gibberlings3/Tweaks-Anthology/releases/download/v18/mac-cdtweaks-v18.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "cdtweaks-v18.exe",
-      "size": 22185901,
-      "sha256": "a90620d9c8d65529002da7d17526bf79d3771f5ec7baad747e1babd82604343d",
-      "download": "https://github.com/Gibberlings3/Tweaks-Anthology/releases/download/v18/cdtweaks-v18.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "pst", "pstee", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
     "0": {"type": "std"},
-    "10": {
-      "type": "std", "category": "portrait",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "10": {"type": "std", "category": "portrait", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "20": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"]},
     "30": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"]},
     "40": {"type": "std", "category": "portrait", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "50": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "50": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "60": {"type": "std", "category": "spell"},
-    "70": {
-      "type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "70": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "72": {"type": "std", "category": "spell", "games": ["bg", "bg2", "iwd", "iwd2", "iwdee"]},
     "80": {"type": "std"},
     "82": {"type": "std"},
     "90": {"type": "std", "category": "spell"},
-    "100": {
-      "type": "std", "category": "portrait", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
-    "110": {
-      "type": "std", "category": "smith",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
+    "100": {"type": "std", "category": "portrait", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "110": {"type": "std", "category": "smith", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
     "130": {"type": "std", "category": "ui"},
-    "140": {
-      "type": "std", "category": "portrait", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "140": {"type": "std", "category": "portrait", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "150": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "160": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
-    "choice_0": {
-      "type": "muc", "components": ["170", "171"], "category": "spell", "default": "170",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "choice_1": {
-      "type": "muc", "components": ["180", "181", "182"], "category": "spell", "default": "181",
-      "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
-    "choice_2": {
-      "type": "muc", "components": ["190", "191", "192", "193", "194", "195"], "category": "spell", "default": "190",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "160": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
+    "choice_0": {"type": "muc", "components": ["170", "171"], "category": "spell", "default": "170", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "choice_1": {"type": "muc", "components": ["180", "181", "182"], "category": "spell", "default": "181", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "choice_2": {"type": "muc", "components": ["190", "191", "192", "193", "194", "195"], "category": "spell", "default": "190", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "choice_3": {"type": "muc", "components": ["200", "3150", "3151"], "category": "spell", "default": "200"},
-    "2010": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "2010": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "220": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
     "230": {"type": "std", "games": ["iwdee"]},
-    "choice_4": {
-      "type": "muc", "components": ["240", "241"], "category": "spell", "default": "240",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
-    "choice_5": {
-      "type": "muc", "components": ["250", "251", "252", "253", "254", "255"], "category": "spell", "default": "250",
-      "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]
-    },
+    "choice_4": {"type": "muc", "components": ["240", "241"], "category": "spell", "default": "240", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "choice_5": {"type": "muc", "components": ["250", "251", "252", "253", "254", "255"], "category": "spell", "default": "250", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "260": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "choice_6": {"type": "muc", "components": ["270", "271"], "category": "spell", "games": ["pst", "pstee"]},
-    "1010": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "1010": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "1020": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1030": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_7": {
-      "type": "muc", "components": ["1035", "1036"], "category": "spell", "default": "1035",
-      "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "choice_7": {"type": "muc", "components": ["1035", "1036"], "category": "spell", "default": "1035", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
     "1040": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1050": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_8": {
-      "type": "muc", "components": ["1060", "1061", "1062"], "category": "spell", "default": "1060",
-      "games": ["bgee", "eet", "sod", "tutu"]
-    },
+    "choice_8": {"type": "muc", "components": ["1060", "1061", "1062"], "category": "spell", "default": "1060", "games": ["bgee", "eet", "sod", "tutu"]},
     "1070": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "1075": {"type": "std", "category": "npcx", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
     "1080": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
@@ -117,20 +74,11 @@
     "1100": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "1101": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1110": {"type": "std", "games": ["tutu"]},
-    "1120": {
-      "type": "std", "category": "smith",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "1120": {"type": "std", "category": "smith", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "1130": {"type": "std", "games": ["bgt"]},
-    "choice_9": {
-      "type": "muc", "components": ["1140", "1141", "1142"], "category": "spell", "default": "1140",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "choice_9": {"type": "muc", "components": ["1140", "1141", "1142"], "category": "spell", "default": "1140", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "1150": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "choice_10": {
-      "type": "muc", "components": ["1160", "1161"], "category": "spell", "default": "1161",
-      "games": ["bg2ee", "bgt", "eet"]
-    },
+    "choice_10": {"type": "muc", "components": ["1160", "1161"], "category": "spell", "default": "1161", "games": ["bg2ee", "bgt", "eet"]},
     "1340": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1341": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1342": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
@@ -143,14 +91,9 @@
     "1180": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"]},
     "1190": {"type": "std", "games": ["bgt"]},
     "1200": {"type": "std", "games": ["bgt"]},
-    "1210": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "1210": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "1220": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_11": {
-      "type": "muc", "components": ["1225", "1226", "1227"], "category": "spell", "default": "1225",
-      "games": ["bg2ee", "bgt", "eet"]
-    },
+    "choice_11": {"type": "muc", "components": ["1225", "1226", "1227"], "category": "spell", "default": "1225", "games": ["bg2ee", "bgt", "eet"]},
     "1230": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "1240": {"type": "std", "games": ["bg1"]},
     "1257": {"type": "std", "category": "npcx", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
@@ -167,296 +110,124 @@
     "1300": {"type": "std", "games": ["iwdee"]},
     "1310": {"type": "std"},
     "1330": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "choice_12": {
-      "type": "muc", "components": ["1350", "1351", "1352", "1353", "1354"], "category": "spell", "default": "1350",
-      "games": ["bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "choice_12": {"type": "muc", "components": ["1350", "1351", "1352", "1353", "1354"], "category": "spell", "default": "1350", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
     "choice_13": {"type": "muc", "components": ["1360", "1361"], "category": "spell", "games": ["iwdee"]},
     "1370": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "2020": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "2030": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
-    "2035": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "2040": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "2060": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "2020": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "2030": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "2035": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "2040": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "2060": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "2080": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_14": {
-      "type": "muc", "components": ["2090", "2091", "2092"], "category": "spell", "default": "2090",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
+    "choice_14": {"type": "muc", "components": ["2090", "2091", "2092"], "category": "spell", "default": "2090", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "2720": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "2100": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "2120": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "2140": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
-    "choice_15": {
-      "type": "muc", "components": ["2150", "2151", "2152"], "category": "spell", "default": "2150",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "choice_16": {
-      "type": "muc", "components": ["2160", "2161", "2162", "2163", "2164"], "category": "spell", "default": "2160",
-      "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "2100": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "2120": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "2140": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "choice_15": {"type": "muc", "components": ["2150", "2151", "2152"], "category": "spell", "default": "2150", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "choice_16": {"type": "muc", "components": ["2160", "2161", "2162", "2163", "2164"], "category": "spell", "default": "2160", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "2170": {"type": "std", "category": "spell"},
-    "choice_17": {
-      "type": "muc", "components": ["2190", "2191", "2192"], "category": "spell", "default": "2192",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "2200": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "choice_18": {
-      "type": "muc", "components": ["2210", "2211"], "category": "spell", "default": "2210",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "2220": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "choice_17": {"type": "muc", "components": ["2190", "2191", "2192"], "category": "spell", "default": "2192", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "2200": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "choice_18": {"type": "muc", "components": ["2210", "2211"], "category": "spell", "default": "2210", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "2220": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"]},
     "2230": {"type": "std", "games": ["bgt"]},
-    "2240": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "2250": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "choice_19": {
-      "type": "muc", "components": ["2260", "2261"], "category": "spell", "default": "2260",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "choice_20": {
-      "type": "muc", "components": ["2270", "2271"], "category": "spell", "default": "2270",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "choice_21": {
-      "type": "muc", "components": ["2280", "2281"], "category": "spell", "default": "2280",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
-    "choice_22": {
-      "type": "muc", "components": [
-        "2288", "2289", "2290", "2291", "2292", "2293", "2294", "2295", "2296", "2730", "2731", "2732", "2733", "2734",
-        "2735", "2736", "2737", "2738", "2739"
-      ], "category": "spell", "default": "2290",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
+    "2240": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "2250": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "choice_19": {"type": "muc", "components": ["2260", "2261"], "category": "spell", "default": "2260", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "choice_20": {"type": "muc", "components": ["2270", "2271"], "category": "spell", "default": "2270", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "choice_21": {"type": "muc", "components": ["2280", "2281"], "category": "spell", "default": "2280", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
+    "choice_22": {"type": "muc", "components": ["2288", "2289", "2290", "2291", "2292", "2293", "2294", "2295", "2296", "2730", "2731", "2732", "2733", "2734", "2735", "2736", "2737", "2738", "2739"], "category": "spell", "default": "2290", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "2297": {"type": "std", "games": ["bg1", "iwd"]},
-    "choice_23": {
-      "type": "muc", "components": ["2580", "2581"], "category": "spell", "default": "2580",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
+    "choice_23": {"type": "muc", "components": ["2580", "2581"], "category": "spell", "default": "2580", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "2300": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "choice_24": {"type": "muc", "components": ["2310", "2311", "2312"], "category": "spell", "default": "2310"},
-    "2320": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
-    "2330": {
-      "type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "2320": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
+    "2330": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "2339": {"type": "std", "category": "spell"},
     "2340": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
     "2360": {"type": "std", "category": "spell"},
     "2380": {"type": "std", "category": "spell"},
     "choice_25": {"type": "muc", "components": ["2371", "2370", "2372"], "category": "spell", "default": "2371"},
-    "choice_26": {
-      "type": "muc", "components": ["2350", "2351", "2353", "2357", "2358"], "category": "spell", "default": "2350"
-    },
+    "choice_26": {"type": "muc", "components": ["2350", "2351", "2353", "2357", "2358"], "category": "spell", "default": "2350"},
     "choice_27": {"type": "muc", "components": ["2550", "2551", "2552"], "category": "spell", "default": "2550"},
-    "choice_28": {
-      "type": "muc", "components": ["2390", "2391"], "category": "spell", "default": "2390",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "pst", "pstee", "sod", "tutu"]
-    },
-    "choice_29": {
-      "type": "muc", "components": ["2400", "2401"], "category": "spell", "default": "2400",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "pst", "pstee", "sod", "tutu"]
-    },
-    "2410": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "2420": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "choice_30": {
-      "type": "muc", "components": ["2430", "2431"], "category": "spell", "default": "2430",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
+    "choice_28": {"type": "muc", "components": ["2390", "2391"], "category": "spell", "default": "2390", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "pst", "pstee", "sod", "tutu"]},
+    "choice_29": {"type": "muc", "components": ["2400", "2401"], "category": "spell", "default": "2400", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "pst", "pstee", "sod", "tutu"]},
+    "2410": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "2420": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "choice_30": {"type": "muc", "components": ["2430", "2431"], "category": "spell", "default": "2430", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
     "2440": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2450": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "2500": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
+    "2500": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "2510": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "2520": {
-      "type": "std", "category": "spell", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
-    "2530": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
+    "2520": {"type": "std", "category": "spell", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
+    "2530": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
     "2540": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_31": {
-      "type": "muc", "components": ["2560", "2561", "2562"], "category": "spell", "default": "2560",
-      "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "choice_31": {"type": "muc", "components": ["2560", "2561", "2562"], "category": "spell", "default": "2560", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "2590": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "2620": {
-      "type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwd2", "iwdee", "sod", "tutu"]
-    },
+    "2620": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "bgt", "eet", "iwd2", "iwdee", "sod", "tutu"]},
     "2630": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2640": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2650": {"type": "std", "category": "spell"},
     "2660": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2670": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2680": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "choice_32": {
-      "type": "muc", "components": ["2690", "2691", "2692", "2693"], "category": "spell", "default": "2690",
-      "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]
-    },
+    "choice_32": {"type": "muc", "components": ["2690", "2691", "2692", "2693"], "category": "spell", "default": "2690", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2700": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2710": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2740": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "2999": {"type": "std", "category": "spell"},
     "choice_33": {"type": "muc", "components": ["3000", "3001", "3002"], "category": "spell", "default": "3000"},
-    "3008": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]
-    },
+    "3008": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "pst", "pstee", "sod", "tutu"]},
     "choice_34": {"type": "muc", "components": ["3010", "3011", "3012"], "category": "spell", "default": "3010"},
     "3020": {"type": "std", "category": "smith"},
     "choice_35": {"type": "muc", "components": ["3030", "3031"], "category": "spell", "default": "3030"},
-    "3040": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "iwdee", "pstee", "sod", "tutu"]
-    },
+    "3040": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd2", "iwdee", "pstee", "sod", "tutu"]},
     "3050": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "3060": {
-      "type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
-    "choice_36": {
-      "type": "muc", "components": ["3070", "3071", "3072", "3073"], "category": "spell", "default": "3070"
-    },
-    "choice_37": {
-      "type": "muc", "components": ["3080", "3081", "3082", "3083"], "category": "spell", "default": "3083"
-    },
-    "choice_38": {
-      "type": "muc", "components": ["3090", "3091", "3092", "3093"], "category": "spell", "default": "3093"
-    },
-    "choice_39": {
-      "type": "muc", "components": ["3100", "3101", "3102", "3103"], "category": "spell", "default": "3103"
-    },
-    "choice_40": {
-      "type": "muc", "components": ["3110", "3111", "3112", "3113"], "category": "spell", "default": "3113"
-    },
-    "choice_41": {
-      "type": "muc", "components": ["3120", "3121", "3122"], "category": "spell", "default": "3121",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "3060": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_36": {"type": "muc", "components": ["3070", "3071", "3072", "3073"], "category": "spell", "default": "3070"},
+    "choice_37": {"type": "muc", "components": ["3080", "3081", "3082", "3083"], "category": "spell", "default": "3083"},
+    "choice_38": {"type": "muc", "components": ["3090", "3091", "3092", "3093"], "category": "spell", "default": "3093"},
+    "choice_39": {"type": "muc", "components": ["3100", "3101", "3102", "3103"], "category": "spell", "default": "3103"},
+    "choice_40": {"type": "muc", "components": ["3110", "3111", "3112", "3113"], "category": "spell", "default": "3113"},
+    "choice_41": {"type": "muc", "components": ["3120", "3121", "3122"], "category": "spell", "default": "3121", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "3123": {"type": "std", "category": "spell", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "3124": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
-    "3125": {
-      "type": "std", "category": "npcx", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "3125": {"type": "std", "category": "npcx", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "choice_42": {"type": "muc", "components": ["3130", "3131", "3132"], "category": "spell", "default": "3130"},
-    "choice_43": {
-      "type": "muc", "components": ["3140", "3141"], "category": "spell", "default": "3140",
-      "games": ["bg2ee", "bgt", "eet"]
-    },
+    "choice_43": {"type": "muc", "components": ["3140", "3141"], "category": "spell", "default": "3140", "games": ["bg2ee", "bgt", "eet"]},
     "3160": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgt", "eet"]},
     "3170": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgt", "eet"]},
     "3175": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
     "3176": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "3183": {
-      "type": "sub", "prompts": {
-        "1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"},
-        "3": {"options": ["1", "2"], "default": "1"}, "4": {"options": ["1", "2"], "default": "1"},
-        "5": {"options": ["1", "2"], "default": "1"}, "6": {"options": ["1"], "default": "1"}
-      }, "category": "npcx", "games": ["bg2ee", "bgt", "eet"]
-    },
+    "3183": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}, "3": {"options": ["1", "2"], "default": "1"}, "4": {"options": ["1", "2"], "default": "1"}, "5": {"options": ["1", "2"], "default": "1"}, "6": {"options": ["1"], "default": "1"}}, "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
     "3190": {"type": "std", "category": "spell"},
     "3191": {"type": "std", "category": "spell"},
-    "choice_44": {
-      "type": "muc", "components": ["3194", "3195", "3196", "3197", "3198"], "category": "spell", "default": "3194"
-    },
+    "choice_44": {"type": "muc", "components": ["3194", "3195", "3196", "3197", "3198"], "category": "spell", "default": "3194"},
     "3200": {"type": "std", "category": "smith"},
     "3205": {"type": "std", "category": "smith"},
-    "3210": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]
-    },
+    "3210": {"type": "std", "category": "spell", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod", "tutu"]},
     "3220": {"type": "std", "games": ["bg1", "bgt", "tutu"]},
     "3230": {"type": "std", "category": "spell", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_45": {
-      "type": "muc", "components": ["3240", "3241", "3242"], "category": "spell", "games": ["iwd", "iwdee"]
-    },
+    "choice_45": {"type": "muc", "components": ["3240", "3241", "3242"], "category": "spell", "games": ["iwd", "iwdee"]},
     "3250": {"type": "std", "games": ["iwd"]},
-    "choice_46": {
-      "type": "muc", "components": ["3260", "3261", "3262", "3263", "3264", "3265", "3266", "3267"],
-      "category": "spell", "default": "3260",
-      "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]
-    },
-    "choice_47": {
-      "type": "muc", "components": ["3270", "3271", "3272", "3273", "3274", "3275", "3276", "3277"],
-      "category": "spell", "default": "3270",
-      "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]
-    },
+    "choice_46": {"type": "muc", "components": ["3260", "3261", "3262", "3263", "3264", "3265", "3266", "3267"], "category": "spell", "default": "3260", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]},
+    "choice_47": {"type": "muc", "components": ["3270", "3271", "3272", "3273", "3274", "3275", "3276", "3277"], "category": "spell", "default": "3270", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]},
     "3280": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "choice_48": {
-      "type": "muc", "components": ["3290", "3291", "3292", "3293", "3294", "3295"], "category": "spell",
-      "default": "3294"
-    },
+    "choice_48": {"type": "muc", "components": ["3290", "3291", "3292", "3293", "3294", "3295"], "category": "spell", "default": "3294"},
     "3300": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "3310": {
-      "type": "std", "category": "tactic",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "pstee", "sod", "tutu"]
-    },
+    "3310": {"type": "std", "category": "tactic", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "pstee", "sod", "tutu"]},
     "3320": {"type": "std", "category": "smith"},
     "3330": {"type": "std", "category": "spell", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_49": {
-      "type": "muc", "components": ["3340", "3341", "3342", "3343", "3344", "3345", "3346", "3347"],
-      "category": "spell", "default": "3340",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "pst", "sod", "tutu"]
-    },
-    "choice_50": {
-      "type": "muc", "components": ["3350", "3351", "3352", "3353", "3354", "3355", "3356", "3357", "3358"],
-      "category": "spell", "default": "3350", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]
-    },
+    "choice_49": {"type": "muc", "components": ["3340", "3341", "3342", "3343", "3344", "3345", "3346", "3347"], "category": "spell", "default": "3340", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "pst", "sod", "tutu"]},
+    "choice_50": {"type": "muc", "components": ["3350", "3351", "3352", "3353", "3354", "3355", "3356", "3357", "3358"], "category": "spell", "default": "3350", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
     "3360": {"type": "std", "games": ["pst", "pstee"]},
     "3370": {"type": "std", "games": ["pstee"]},
-    "3380": {
-      "type": "std", "category": "spell",
-      "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]
-    },
+    "3380": {"type": "std", "category": "spell", "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "pstee", "sod", "tutu"]},
     "3390": {"type": "std", "category": "spell"},
     "3400": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "choice_51": {"type": "muc", "components": ["3410", "3411", "3412"], "category": "spell", "default": "3410"},
-    "choice_52": {
-      "type": "muc", "components": ["3490", "3491", "3492", "3493"], "category": "spell", "default": "3490",
-      "games": ["bg2ee", "bgt", "eet"]
-    },
+    "choice_52": {"type": "muc", "components": ["3490", "3491", "3492", "3493"], "category": "spell", "default": "3490", "games": ["bg2ee", "bgt", "eet"]},
     "3494": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]},
     "3495": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]},
     "3496": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]},
@@ -469,28 +240,13 @@
     "3480": {"type": "std", "category": "spell", "games": ["eet", "sod"]},
     "4000": {"type": "std", "category": "npcx", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4010": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
-    "4020": {
-      "type": "std", "category": "npcx",
-      "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]
-    },
+    "4020": {"type": "std", "category": "npcx", "games": ["bg", "bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
     "4025": {"type": "std", "category": "npcx", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_53": {
-      "type": "muc", "components": ["4030", "4031"], "category": "spell", "default": "4031",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
-    "choice_54": {
-      "type": "muc", "components": ["4040", "4041"], "category": "spell", "default": "4041",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "choice_53": {"type": "muc", "components": ["4030", "4031"], "category": "spell", "default": "4031", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_54": {"type": "muc", "components": ["4040", "4041"], "category": "spell", "default": "4041", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4050": {"type": "std", "category": "npcx", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_55": {
-      "type": "muc", "components": ["4060", "4061"], "category": "spell", "default": "4061",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
-    "choice_56": {
-      "type": "muc", "components": ["4070", "4071"], "category": "spell", "default": "4071",
-      "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "choice_55": {"type": "muc", "components": ["4060", "4061"], "category": "spell", "default": "4061", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_56": {"type": "muc", "components": ["4070", "4071"], "category": "spell", "default": "4071", "games": ["bg1", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4080": {"type": "std", "category": "npcx", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4090": {"type": "std", "category": "npcx", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
     "4100": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
@@ -506,14 +262,8 @@
     "4140": {"type": "std", "category": "tactic", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "4180": {"type": "std", "category": "spell", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4200": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "choice_57": {
-      "type": "muc", "components": ["4210", "4211", "4212", "4213"], "category": "spell", "default": "4210",
-      "games": ["bg2ee", "bgt", "eet"]
-    },
-    "choice_58": {
-      "type": "muc", "components": ["4220", "4221"], "category": "spell", "default": "4220",
-      "games": ["bgee", "eet", "sod"]
-    },
+    "choice_57": {"type": "muc", "components": ["4210", "4211", "4212", "4213"], "category": "spell", "default": "4210", "games": ["bg2ee", "bgt", "eet"]},
+    "choice_58": {"type": "muc", "components": ["4220", "4221"], "category": "spell", "default": "4220", "games": ["bgee", "eet", "sod"]},
     "4230": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgt", "eet"]},
     "6000": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
     "6010": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},

@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "celestials-v10.exe",
+      "size": 3419954,
+      "sha256": "e6e1347055cbbdf68d656b1b0fdf3ed6696890661c2b9e2247bb14dbdf3f0869",
+      "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/celestials-v10.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-celestials-v10.zip",
       "size": 1347958,
       "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/lin-celestials-v10.zip",
@@ -17,13 +24,6 @@
       "size": 2618257,
       "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/mac-celestials-v10.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "celestials-v10.exe",
-      "size": 3419954,
-      "sha256": "e6e1347055cbbdf68d656b1b0fdf3ed6696890661c2b9e2247bb14dbdf3f0869",
-      "download": "https://github.com/Gibberlings3/PnP_Celestials/releases/download/v10/celestials-v10.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

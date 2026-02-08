@@ -13,6 +13,12 @@
       "platforms": ["linux"]
     },
     {
+      "filename": "osx-anishai-v3.zip",
+      "size": 1229455,
+      "download": "https://github.com/Gibberlings3/Anishai/releases/download/v3/osx-anishai-v3.zip",
+      "platforms": ["macos"]
+    },
+    {
       "filename": "win-anishai-v3.zip",
       "size": 2033854,
       "sha256": "eb180ca339ff10b11383026d6cb72b9765bfdbc12e300cb01c49d80334234e9f",

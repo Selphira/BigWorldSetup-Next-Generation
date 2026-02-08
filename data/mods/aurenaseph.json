@@ -14,16 +14,16 @@
       "platforms": ["windows"]
     },
     {
-      "filename": "osx-aurenaseph-v12.zip",
-      "size": 16366695,
-      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/osx-aurenaseph-v12.zip",
-      "platforms": ["macos"]
-    },
-    {
       "filename": "lin-aurenaseph-v12.zip",
       "size": 16366695,
       "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/lin-aurenaseph-v12.zip",
       "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-aurenaseph-v12.zip",
+      "size": 17251971,
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/osx-aurenaseph-v12.zip",
+      "platforms": ["macos"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

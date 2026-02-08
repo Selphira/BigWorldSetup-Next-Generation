@@ -14,8 +14,8 @@
     },
     {
       "filename": "d2-misc-kits-v3.8-macos-x64.zip",
-      "size": 2976962,
-      "sha256": "74cc0dc473b715fe85d0ce9cb1fb2916d5cfbb3aa869b018ecc0742ee6878485",
+      "size": 3204492,
+      "sha256": "f75fd8e4b361ec55b196874b07ae9f3f355d8b89fa44ed398939c620d3cba481",
       "download": "https://github.com/D2-mods/Misc-kits/releases/download/v3.8/d2-misc-kits-v3.8-macos-x64.zip",
       "platforms": ["macos"]
     },

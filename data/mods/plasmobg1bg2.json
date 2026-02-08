@@ -14,7 +14,7 @@
     },
     {
       "filename": "osx-plasmobg1bg2-v5.tar.gz",
-      "size": 9781989,
+      "size": 11052436,
       "download": "https://github.com/Gibberlings3/Plasmocats_BG_NPC_Portraits_in_BG2_Style/releases/download/v5/osx-plasmobg1bg2-v5.tar.gz",
       "platforms": ["macos"]
     },
@@ -31,14 +31,8 @@
   "components": {
     "1000": {"type": "std"},
     "1001": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_0": {
-      "type": "muc", "components": ["1002", "1003"], "default": "1002",
-      "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]
-    },
-    "choice_1": {
-      "type": "muc", "components": ["1004", "1005"], "default": "1004",
-      "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]
-    }
+    "choice_0": {"type": "muc", "components": ["1002", "1003"], "default": "1002", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_1": {"type": "muc", "components": ["1004", "1005"], "default": "1004", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]}
   },
   "languages": {
     "en_US": 0,

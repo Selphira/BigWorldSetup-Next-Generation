@@ -7,6 +7,13 @@
   },
   "files": [
     {
+      "filename": "angelo-v9.exe",
+      "size": 14420522,
+      "sha256": "aae922229614e8b737e595d454cf6d314c3beaf567c18836d4d8898b6eee5f46",
+      "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/angelo-v9.exe",
+      "platforms": ["windows"]
+    },
+    {
       "filename": "lin-angelo-v9.zip",
       "size": 11363711,
       "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/lin-angelo-v9.zip",
@@ -17,13 +24,6 @@
       "size": 13142879,
       "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/osx-angelo-v9.zip",
       "platforms": ["macos"]
-    },
-    {
-      "filename": "angelo-v9.exe",
-      "size": 14420522,
-      "sha256": "aae922229614e8b737e595d454cf6d314c3beaf567c18836d4d8898b6eee5f46",
-      "download": "https://github.com/Gibberlings3/Angelo/releases/download/v9/angelo-v9.exe",
-      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

@@ -16,10 +16,7 @@
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {
-      "type": "muc", "components": ["100", "101", "102", "103", "104", "105"], "default": "103",
-      "games": ["bgee", "bgt", "eet", "sod", "tutu"]
-    },
+    "choice_0": {"type": "muc", "components": ["100", "101", "102", "103", "104", "105"], "default": "103", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
     "1": {"type": "std"},
     "2": {"type": "std"},
     "3": {"type": "std"},
