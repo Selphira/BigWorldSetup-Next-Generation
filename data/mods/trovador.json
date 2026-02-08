@@ -1,0 +1,42 @@
+{
+  "name": "Trovador REO",
+  "version": "2.5.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Trovador-REO",
+    "forums": ["https://www.shsforums.net/files/file/853-trovador-reo/"]
+  },
+  "files": [
+    {
+      "filename": "trovador-reo-v2.5.0.zip",
+      "size": 5508596,
+      "download": "https://github.com/Spellhold-Studios/Trovador-REO/releases/download/v2.5.0/trovador-reo-v2.5.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["smith"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "es_ES": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Volo n'est pas le seul à connaître des histoires qui valent la peine d'être racontées. De nombreux troubadours et bardes parcourent Féérune au péril de leur vie pour égayer les tavernes. Ce mod ajoute un troubadour très spécial, qui, pour quelques pièces d'or, vous racontera des histoires inédites, et même les origines de certains personnages, comme le mystérieux Riojano, ou Artemis Entreri. Vous pouvez le retrouver sur la Promenade de Waukyne. Il ajoute également une boutique avec des objets curieux."
+    },
+    "en_US": {
+      "description": "Volo is not the only one who knows stories worth telling. There are many troubadours and bards who travel all over Faerûn risking their lives in order to brighten up the taverns we visit. This mod adds a very special troubadour, who, for a few gold pieces, will tell you unheard stories and even the origins of certain characters, such as the mysterious Riojano, or Artemis Entreri. You can find him in Waukeen Promenade. It also adds a shop with curious objects."
+    },
+    "zh_CN": {
+      "description": "沃洛不是唯一一个知道值得讲述故事的人。许多吟游诗人和游荡诗人冒着生命危险穿越费伦，只为让酒馆热闹起来。这个模组添加了一位非常特殊的吟游诗人，花上几枚金币，他会为你讲述一些前所未闻的故事，甚至是某些角色的起源，比如神秘的里奥哈诺，或者阿尔忒弥斯·恩特雷里。你可以在渥金商场找到他。它还增加了一家出售奇特物品的商店。"
+    },
+    "es_ES": {
+      "components": {
+        "0": "Trovador REO"
+      }
+    }
+  },
+  "tp2": "trovador",
+  "safe": 2,
+  "authors": ["Riojano2002"]
+}
