@@ -1,0 +1,85 @@
+{
+  "name": "Yoshimo's Remorse",
+  "version": "3.2",
+  "links": {
+    "homepage": "https://github.com/Gibberlings3/Yoshimos_Remorse/",
+    "forums": ["https://www.gibberlings3.net/mods/npcs/yoshimos-remorse", "https://forums.beamdog.com/discussion/75983/"]
+  },
+  "files": [
+    {
+      "filename": "lin-yoshimosremorse-v3.2.zip",
+      "size": 4377632,
+      "sha256": "29e6bf2a9862ec418e1c2011ee8aefbe5eb0bfaf6be86e9b59fc9f3f2af26537",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/lin-yoshimosremorse-v3.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-yoshimosremorse-v3.2.zip",
+      "size": 6141513,
+      "sha256": "0b888be55ca4ae06273100a887b91287381774ceb3a547aa6b83ec5531243f67",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/mac-yoshimosremorse-v3.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-yoshimosremorse-v3.2.zip",
+      "size": 6696919,
+      "sha256": "11bc4e4f4fda8c973eaf9709e13e2ecf6476f42508a2d6baa2696254ac5c87ac",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/win-yoshimosremorse-v3.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "choice_0": {"type": "muc", "components": ["1", "2"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "pl_PL": 2,
+    "zh_CN": 3
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Était-ce vraiment la fin des aventures de Yoshimo avec l'Enfant de Bhaal ? N'a-t-il tout simplement aucun moyen de se racheter ou d'expliquer ses actions au PJ ?\nCe mod fait de Yoshimo un personnage jouable dans Throne of Bhaal. Cependant, il n'est pas ce que vous attendez de lui... Alors préparez-vous pour d'autres aventures et discussions avec le tristement célèbre chasseur de primes, une âme tourmentée qui n'a laissé que des regrets. Écoutez-le, car c'est peut-être sa dernière chance de trouver la paix.\nYoshimo's Remorse est compatible avec Yoshimo Romance, mais si une telle relation a eu lieu dans SoA, il n'apparaîtra pas dans ToB, et le contenu du mod Yoshimo Romance se produira à la place."
+    },
+    "en_US": {
+      "description": "Was this really the end of Yoshimo's adventures with the Child of Bhaal? This mod makes Yoshimo a playable character in Throne of Bhaal. However, he's not what you'd expect... So get ready for more adventures and discussions with the infamous bounty hunter, a tormented soul who's left nothing but regrets. Listen to him, for this may be his last chance to find peace.\nYoshimo's Remorse is compatible with Yoshimo Romance, but if such a relationship took place in SoA, it will not appear in ToB, and the content of the Yoshimo Romance mod will occur instead.",
+      "components": {
+        "0": "Yoshimo's Remorse",
+        "choice_0": "Yoshimo's Remorse: Fighter/Thief Dual-Class (Only if Yoshimo was never recruited before)",
+        "1": "Bounty Hunter 10 / Fighter",
+        "2": "Bounty Hunter 13 / Fighter"
+      }
+    },
+    "zh_CN": {
+      "description": "这真的是善最与巴尔之子的冒险的终点吗？他难道就没有办法赎罪或向玩家角色解释他的行为吗？\n这个模组让善最在《巴尔王座》中成为一个可玩角色。然而，他并不是你所期待的那样……所以请准备好进行更多的冒险和与这位声名狼藉的赏金猎人对话，一个只留下遗憾的受折磨的灵魂。倾听他，因为这可能是他找到平静的最后机会。\nYoshimo's Remorse与Yoshimo Romance兼容，但如果在《安姆阴影》中发生过这样的关系，他不会出现在《巴尔王座》中，而是会发生Yoshimo Romance模组的内容。",
+      "components": {
+        "0": "善最的悔恨",
+        "choice_0": "善最的悔恨：盗贼/战士双职业（仅有未招募过善最时生效）",
+        "1": "10级赏金猎人/战士",
+        "2": "13级赏金猎人/战士"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Yoshimo's Remorse",
+        "choice_0": "Yoshimo's Remorse: Fighter/Thief Dual-Class (Only if Yoshimo was never recruited before)",
+        "1": "Bounty Hunter 10 / Fighter",
+        "2": "Bounty Hunter 13 / Fighter"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Skrucha Yoshimo",
+        "choice_0": "Skrucha Yoshimo: dwuklasowanie na Wojownika/Zlodzieja (tylko jesli Yoshimo nie zostal wczesniej dolaczony do druzyny)",
+        "1": "Lowca nagrod 10 / Wojownik",
+        "2": "Lowca nagrod 13 / Wojownik"
+      }
+    }
+  },
+  "tp2": "yoshimosremorse",
+  "safe": 2,
+  "authors": ["jmaeq", "Lava Del'Vortel"]
+}
