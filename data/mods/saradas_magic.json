@@ -1,0 +1,46 @@
+{
+  "name": "Saradas Magic for BGEE / EET",
+  "version": "1.2",
+  "links": {
+    "homepage": "https://github.com/The-Gate-Project/Saradas_Magic",
+    "forums": ["https://www.shsforums.net/files/file/1120-saradas-magic/", "https://forums.beamdog.com/discussion/23861/"]
+  },
+  "files": [
+    {
+      "filename": "saradas-magic-for-bgee-eet-1.2.zip",
+      "size": 4851362,
+      "download": "https://github.com/The-Gate-Project/Saradas_Magic/releases/download/v1.2/saradas-magic-for-bgee-eet-1.2.zip"
+    }
+  ],
+  "games": ["bgee", "bgt", "eet", "sod"],
+  "categories": ["smith"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "it_IT": 0,
+    "en_US": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute un nouveau PNJ, Saradas l'archimage, qui interagit de diverses manières avec le groupe de l'Enfant de Bhaal. Il se trouve du Bras amical. En plus d'avoir plusieurs dialogues exclusifs qui se déroulent au fur et à mesure que l'intrigue prend forme, sa boutique vaut le détour. De plus, lorsque vous aurez vaincu Davaeorn, il vous apprendra un sort épique correspondant à votre votre école de magie."
+    },
+    "en_US": {
+      "description": "This mod adds a new NPC, Saradas the Archmage, who interacts in various ways with the Child of Bhaal group. He is from the Friendly Arm. As well as having several exclusive dialogues that unfold as the plot takes shape, his store is well worth a visit. What's more, once you've defeated Davaeorn, he'll teach you an epic spell corresponding to your magic school.",
+      "components": {
+        "0": "saradas_magic for BGEE / EET"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组添加了一个新的NPC，萨拉达斯大法师，他会以多种方式与巴尔之子的小队互动。他位于友善之臂。除了随着剧情发展而发生的多个独家对话外，他的商店也值得一逛。此外，当你击败达沃恩后，他会教你一个与你的魔法学派相对应的传奇法术。"
+    },
+    "it_IT": {
+      "components": {
+        "0": "saradas_magic for BGEE / EET"
+      }
+    }
+  },
+  "tp2": "saradas_magic",
+  "safe": 2,
+  "authors": ["Saradas"]
+}
