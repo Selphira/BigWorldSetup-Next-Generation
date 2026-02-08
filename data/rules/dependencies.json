@@ -668,6 +668,21 @@
       "description": "Dépendance interne XPexchange"
     },
     {
+      "rule": "yoshimosremorse(1,2):yoshimosremorse(0)",
+      "severity": "error",
+      "description": "Dépendance interne yoshimosremorse"
+    },
+    {
+      "rule": "zdbae(10):zdbae(0)",
+      "severity": "error",
+      "description": "Dépendance interne zdbae"
+    },
+    {
+      "rule": "zs_shadowdanceroverhaul(5000):zs_shadowdanceroverhaul(100)",
+      "severity": "error",
+      "description": "Dépendance interne zs_shadowdanceroverhaul"
+    },
+    {
       "rule": "A7-ConvenientEENPCs(513,542):A7-ChaosSorcerer(0)",
       "severity": "error",
       "description": "A7-ConvenientEENPCs nécessite A7-ChaosSorcerer"
