@@ -1,16 +1,16 @@
 {
   "name": "Baldur's Gate Mini Quests and Encounters Modification",
-  "version": "30",
+  "version": "31",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/quests/bgqe/",
     "forums": ["https://www.gibberlings3.net/forums/forum/148-baldurs-gate-mini-quests-and-encounters/"]
   },
   "files": [
     {
-      "filename": "baldurs-gate-mini-quests-and-encounters-modification-30.zip",
-      "size": 6215476,
-      "sha256": "989d58275eb8a2c3cf92bdc9d5af701447b8d0778aef6457a4b6a2ce5c77c1c3",
-      "download": "https://github.com/Gibberlings3/BG_Quests_And_Encounters/releases/download/v30/baldurs-gate-mini-quests-and-encounters-modification-30.zip"
+      "filename": "baldurs-gate-mini-quests-and-encounters-modification-31.zip",
+      "size": 6214240,
+      "sha256": "8463fa692b16a878dc0d528297d791ddef0b600532ef410d6100e62f2b8bca6e",
+      "download": "https://github.com/Gibberlings3/BG_Quests_And_Encounters/releases/download/v31/baldurs-gate-mini-quests-and-encounters-modification-31.zip"
     }
   ],
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
