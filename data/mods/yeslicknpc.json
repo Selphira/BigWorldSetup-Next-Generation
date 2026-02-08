@@ -1,0 +1,42 @@
+{
+  "name": "Yeslick NPC",
+  "version": "5.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Yeslick-NPC",
+    "forums": ["https://www.shsforums.net/files/file/992-yeslick/"]
+  },
+  "files": [
+    {
+      "filename": "yeslick-npc-v5.0.zip",
+      "size": 9393233,
+      "download": "https://github.com/Spellhold-Studios/Yeslick-NPC/releases/download/v5.0/yeslick-npc-v5.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["0", "1"]}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute le vieux nain dévot de Vergadain et de Clangeddin à BG2:SoA, avec banters, interjections, un nouveau profil (Alaghor of Clangeddin), ainsi que de nombreux échanges avec le PJ. Yeslick tentera de s'imposer comme la figure paternelle du groupe. Sa main sûre en fera un compagnon chaleureux, indéfectible au PJ jusqu'à la fin.\nFOR 15, DEX 12, CON 17, INT 11, SAG 16, CHA 12."
+    },
+    "en_US": {
+      "description": "This mod adds the devout old dwarf of Vergadain and Clangeddin to BG2:SoA, with banters, interjections, a new profile (Alaghor of Clangeddin), as well as numerous exchanges with the PJ. Yeslick will try to establish himself as the group's father figure. His steady hand will make him a warm, unfailing companion to the YP right to the end.\nSTR 15, DEX 12, CON 17, INT 11, WIS 16, CHA 12.",
+      "components": {
+        "choice_0": "Yeslick NPC for BGII: SoA & ToB",
+        "0": "Yeslick is a regular Fighter-Cleric",
+        "1": "Yeslick is a Fighter-Alaghor of Clangeddin (cleric kit)"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组添加了这位侍奉维尔盖丁和克兰格丁的年迈矮人，他出现在BG2:安姆阴影中，拥有对话、插话、一个新简介（克兰格丁的阿拉戈尔）以及与玩家角色的许多互动。亚斯力克会试图成为队伍中的父亲形象。他稳健的双手会让他成为一个温暖、对玩家角色忠贞不渝的伙伴，直到最后。\n力量 15，敏捷 12，体质 17，智力 11，智慧 16，魅力 12。"
+    }
+  },
+  "tp2": "yeslicknpc",
+  "safe": 2,
+  "authors": ["Pixel Kaiser", "K'aeloree", "AionZ", "Lava Del'Vortel", "Freddy_Gwendo"]
+}
