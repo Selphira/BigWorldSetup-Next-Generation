@@ -1,0 +1,58 @@
+{
+  "name": "ZS_Soundsets",
+  "version": "1.0.2",
+  "links": {
+    "homepage": "https://github.com/szaumoor/ZS_Soundsets/",
+    "forums": ["https://www.gibberlings3.net/forums/topic/40987-kaelyns-soundsets-zs_soundsets/"]
+  },
+  "files": [
+    {
+      "filename": "lin-ZS_Soundsets-1.0.2.zip",
+      "size": 7872734,
+      "sha256": "c6cce449faa48e0086b5231cf52d0a50fad670698c119ce3d64485bad4305b83",
+      "download": "https://github.com/szaumoor/ZS_Soundsets/releases/download/1.0.2/lin-ZS_Soundsets-1.0.2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-ZS_Soundsets-1.0.2.zip",
+      "size": 7872734,
+      "sha256": "a4b6e30b24b00f30154cf87b8ced94ac13775ec9e8d6dfd4a4d0fd5856412daf",
+      "download": "https://github.com/szaumoor/ZS_Soundsets/releases/download/1.0.2/mac-ZS_Soundsets-1.0.2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-ZS_Soundsets-1.0.2.zip",
+      "size": 9140618,
+      "sha256": "9576508dcc44b59547223a53c91f7e438ed3f70c44591810a6de427080e4a889",
+      "download": "https://github.com/szaumoor/ZS_Soundsets/releases/download/1.0.2/win-ZS_Soundsets-1.0.2.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod"],
+  "categories": ["portrait"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute deux soundsets pour des personnages féminins :\n- `Pious Knight` adaptée pour les personnages d'alignement Bon\n- `Deadly Rogue` d'un ton un peu enjoué et cynique"
+    },
+    "en_US": {
+      "description": "This mod adds two sound sets for female characters:\n- `Pious Knight`, suitable for characters of good alignment\n- `Deadly Rogue`, with a slightly playful and cynical tone",
+      "components": {
+        "0": "Install the Pious Knight Sounset (Female)",
+        "1": "Install the Deadly Rogue Sounset (Female)"
+      }
+    },
+    "zh_CN": {
+      "description": "该模组为女性角色新增两套语音包：\n- `虔诚骑士` 适用于善良阵营角色\n- `致命游荡者` 语调略带俏皮与愤世嫉俗"
+    }
+  },
+  "tp2": "zs_soundsets",
+  "safe": 2,
+  "authors": ["RoyalProtector"]
+}
