@@ -1,0 +1,121 @@
+{
+  "name": "RoyalProtector's Item Pack",
+  "version": "1.0.2",
+  "links": {
+    "homepage": "https://github.com/szaumoor/ZS_ItemPack",
+    "forums": ["https://www.gibberlings3.net/forums/topic/40132-royalprotectors-item-pack-zs_itempack/"]
+  },
+  "files": [
+    {
+      "filename": "ZS_ItemPack_1.0.2.zip",
+      "size": 2385427,
+      "sha256": "527358742666981d3fc92774ca4e3003ffbd3f26eaf2b7396d264233adf4034f",
+      "download": "https://github.com/szaumoor/ZS_ItemPack/releases/download/1.0.2/ZS_ItemPack_1.0.2.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "categories": ["spell"],
+  "components": {
+    "101": {"type": "std"},
+    "102": {"type": "std"},
+    "103": {"type": "std", "games": ["bg2ee", "eet"]},
+    "104": {"type": "std"},
+    "105": {"type": "std"},
+    "106": {"type": "std"},
+    "107": {"type": "std"},
+    "108": {"type": "std"},
+    "109": {"type": "std", "games": ["bg2ee", "eet"]},
+    "110": {"type": "std"},
+    "205": {"type": "std"},
+    "211": {"type": "std"},
+    "213": {"type": "std"},
+    "214": {"type": "std", "games": ["bg2ee", "eet"]},
+    "215": {"type": "std"},
+    "216": {"type": "std", "games": ["bg2ee", "eet"]},
+    "217": {"type": "std", "games": ["bg2ee", "eet"]},
+    "220": {"type": "std"},
+    "221": {"type": "std", "games": ["bg2ee", "eet"]},
+    "222": {"type": "std"},
+    "223": {"type": "std"},
+    "224": {"type": "std"},
+    "227": {"type": "std", "games": ["bg2ee", "eet"]},
+    "228": {"type": "std", "games": ["bg2ee", "eet"]},
+    "301": {"type": "std"},
+    "302": {"type": "std"},
+    "303": {"type": "std"},
+    "304": {"type": "std", "games": ["bg2ee", "eet"]},
+    "307": {"type": "std"},
+    "308": {"type": "std"},
+    "309": {"type": "std"},
+    "311": {"type": "std", "games": ["bg2ee", "eet"]},
+    "312": {"type": "std"},
+    "313": {"type": "std", "games": ["bg2ee", "eet"]},
+    "314": {"type": "std"},
+    "315": {"type": "std"},
+    "401": {"type": "std"},
+    "402": {"type": "std"},
+    "403": {"type": "std", "games": ["bg2ee", "eet"]},
+    "501": {"type": "std"},
+    "502": {"type": "std", "games": ["bg2ee", "eet"]}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute des objets dans le monde de BGEE et BG2EE. Chaque élément est totalement optionnel lors de l'installation. Vous n'en aimez qu'un ? N'en installez qu'un seul."
+    },
+    "en_US": {
+      "description": "This mod adds items to the world of BGEE and BG2EE. Each item is completely optional on installation. Like only one? Install just one.",
+      "components": {
+        "101": "Add Everburn Blade (Everburn Blade; two-handed sword)",
+        "102": "Add Bloodthirst (Bloodthirst; dagger)",
+        "103": "Add Crimson Mischief (Crimson Mischief; short sword)",
+        "104": "Add Assassin's Touch (Assassin's Touch; dagger)",
+        "105": "Add Ritual Dagger (Ritual Dagger; dagger)",
+        "106": "Add Cold Snap (Cold Snap; dagger)",
+        "107": "Add Spell Siphon (Arcane Absorption Dagger; cut content dagger)",
+        "108": "Add Cruel Sting (Cruel Sting; long sword)",
+        "109": "Add Judgment (Orphic Hammer; war hammer)",
+        "110": "Add The Deathstalker Mantle (The Deathstalker Mantle; cloak)",
+        "205": "Add Ring of Hardiness (Dark Souls - Ring of Steel Protection; ring)",
+        "211": "Add Sage Ring (Dark Souls 3 - Sage Ring; ring)",
+        "213": "Add Hawk Ring (Dark Souls 3 - Hawk Ring; ring)",
+        "214": "Add Blade of Calling (Elden Ring; dagger)",
+        "215": "Add Moonlit Slumber (Elden Ring - Sword of St. Trina, long sword)",
+        "216": "Add Icicle (Elden Ring - Frozen Needle; rapier)",
+        "217": "Add Stygian Fury (Elden Ring - Rivers of Blood; katana)",
+        "220": "Add Harp Bow (Elden Ring - Harp Bow; shortbow/longbow)",
+        "221": "Add Sseth's Revenge / Sseth's Fangs (Elden Ring - Serpent Bow / Serpent Arrows; shortbow / arrows)",
+        "222": "Add Crimson of Life (Elden Ring - Crimson Amber Amulet; necklace)",
+        "223": "Add Spellguard (Elden Ring - Spelldrake Amulet; necklace)",
+        "224": "Add Periapt of Renewal (Elden Ring - Blessed Dew Amulet; necklace)",
+        "227": "Add Bloody Sting (Elden Ring - Bloody Helice; estoc)",
+        "228": "Add Storm's Monarch (Elden Ring - Dragon King's Cragblade; estoc)",
+        "301": "Add Lawgiver (Lawgiver; bastard sword)",
+        "302": "Add The Left Hand (The Left Hand; dagger)",
+        "303": "Add Master Li's Way (Master Li's Way; katana)",
+        "304": "Add Kukri of the Eclipse (Kukri of the Eclipse; dagger / kukri)",
+        "307": "Add Blade of the Rashemi (Blade of the Rashemi; two-handed sword)",
+        "308": "Add Shining Light of Lathander (Shining Light of Lathander; two-handed sword)",
+        "309": "Add Goblinsplitter (Goblinsplitter; axe)",
+        "311": "Add Mercykiller Blade (Mercykiller Blade; rapier)",
+        "312": "Add Forgefire (Forgefire; warhammer)",
+        "313": "Add Shining Light (Shining Light; dart / shuriken)",
+        "314": "Add Arrows of the Vampire (Arrow of the Vampire; arrow)",
+        "315": "Add Squire's Defense (Squire's Defense; studded leather armor)",
+        "401": "Add Rod of Illusive Protections (rod)",
+        "402": "Add Omniblade (universal sword)",
+        "403": "Add Phantom's Blade (Phantom's Monomolecular Sword; ninja-to)",
+        "501": "Add Needle (Game of Thrones - Needle; rapier)",
+        "502": "Add Craven Edge (The Legend of Vox Machina - Craven Edge; two-handed sword)"
+      }
+    },
+    "zh_CN": {
+      "description": "该模组在博德之门增强版和博德之门Ⅱ增强版的世界中添加了物品。每个元素在安装时都是完全可选的。你只喜欢其中一个？那就只安装一个。"
+    }
+  },
+  "tp2": "zs_itempack",
+  "safe": 2,
+  "authors": ["RoyalProtector"]
+}
