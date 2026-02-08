@@ -1,0 +1,56 @@
+{
+  "name": "The Planar Sphere Mod",
+  "version": "2.9",
+  "links": {
+    "homepage": "https://github.com/11jo/PlanarSphere",
+    "forums": ["https://www.shsforums.net/files/file/131-planarsphere/"]
+  },
+  "files": [
+    {
+      "filename": "PlanarSphere-main.zip",
+      "size": 10746273,
+      "sha256": "bbafd7e2c68aaddc8b29725b7f8b0c1d120113125764ebf5e53782c6e65ab9ec",
+      "download": "https://github.com/11jo/PlanarSphere/archive/refs/heads/main.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["quest", "spell"],
+  "components": {
+    "0": {"type": "std"},
+    "623": {"type": "std"},
+    "624": {"type": "std"},
+    "625": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod augmente la durée de la quête de classe liée à la sphère et, donc l'intérêt de jouer un mage. Une grande quête supplémentaire ainsi que plusieurs petites et une sphère peuplée d'apprentis. À noter aussi la présence de 39 nouveaux sorts.\nN'hésitez pas à aussi installer le mini mod complémentaire Planar Sphere Teleporter (aussi appelé PlanarSphere Return) qui vous permettra de vous téléporter directement dans la Sphère planaire (et de revenir là où vous étiez), comme la capacité \"Antichambre\"."
+    },
+    "en_US": {
+      "description": "This mod increases the duration of the class quest linked to the magic sphere, and therefore the interest in playing as a mage. An additional large quest, as well as several smaller ones and a sphere populated by apprentices. There are also 39 new spells, and don't forget to install the Planar Sphere Teleporter add-on mini-mod (also known as PlanarSphere Return), which lets you teleport directly into the Planar Sphere (and back to where you were), as well as the \"Pocket Plane\" ability.",
+      "components": {
+        "0": "PlanarSphereMod, main component",
+        "623": "Planar Sphere Store",
+        "624": "Waukeen's Promenade Store",
+        "625": "Planar Sphere Return v2"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组延长了与领域相关的职业任务，从而增加了玩法师的乐趣。一个大型额外任务、几个小型任务和一个充满学徒的领域。另外还有39个新法术。\n也请毫不犹豫地安装补充小型模组Planar Sphere Teleporter（也称为PlanarSphere Return），它将允许您直接传送到领域面（并返回您所在的位置），就像“前厅”能力一样。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "PlanarSphereMod, main component",
+        "623": "Planar Sphere Store",
+        "624": "Waukeen's Promenade Store",
+        "625": "Planar Sphere Return v2"
+      }
+    }
+  },
+  "tp2": "planarspheremod",
+  "safe": 2,
+  "authors": ["Inferno"]
+}

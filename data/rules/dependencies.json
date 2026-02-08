@@ -467,6 +467,11 @@
       "description": "Dépendance interne Pirate"
     },
     {
+      "rule": "planarspheremod(623,624):planarspheremod(0)",
+      "severity": "error",
+      "description": "Dépendance interne planarspheremod"
+    },
+    {
       "rule": "PPE(100,150):PPE(0)",
       "severity": "error",
       "description": "Dépendance interne PPE"
