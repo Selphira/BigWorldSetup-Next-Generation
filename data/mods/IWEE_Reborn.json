@@ -27,6 +27,12 @@
       "components": {
         "0": "IWEE_Reborn component name"
       }
+    },
+    "fr_FR": {
+      "description": "Une conversion complète d'Icewind Dale avec de nouveaux objets, sorts, quêtes, PNJ, primes, armes (avec de nouveaux bâtons et lances à distance) et bonus d'armures. Tous les nouveaux textes du jeu sont colorés afin d'aider les joueurs à repérer facilement les nouvelles conversations (bleu), les réponses (jaune) ou les descriptions (vert/rouge). Ce mod est conçu pour un nouveau groupe de niveau 1 dans le mode de difficulté Heart of Fury."
+    },
+    "zh_CN": {
+      "description": ""
     }
   },
   "tp2": "iwee_reborn",
