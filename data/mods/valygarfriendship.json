@@ -1,0 +1,56 @@
+{
+  "name": "Valygar Friendship",
+  "version": "1.5",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Valygar-Friendship",
+    "forums": ["https://www.shsforums.net/files/file/985-valygar-friendship-tob/"]
+  },
+  "files": [
+    {
+      "filename": "valygar-friendship-v1.5.zip",
+      "size": 4907949,
+      "download": "https://github.com/Spellhold-Studios/Valygar-Friendship/releases/download/v1.5/valygar-friendship-v1.5.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1,
+    "zh_CN": 2,
+    "es_ES": 3
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ajoute une série de dialogues à Valygar, le fameux rôdeur, et développe ses expériences et ses difficultés."
+    },
+    "en_US": {
+      "description": "This mod adds a series of dialogues to Valygar, the famous ranger, and expands on his experiences and difficulties.",
+      "components": {
+        "0": "Valygar Corthala Friendship"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为著名的游侠瓦里格添加了一系列对话，并深入探讨了他的经历与困境。",
+      "components": {
+        "0": "ÍßÀï¸ñÓÑÒê²å»°°ü"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Valygar Corthala Friendship. Обновляются российские переводы. Все дополнительные диалоги написаны на английском языке. Рекомендуется подождать обновления."
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Amistad de Valygar Corthala"
+      }
+    }
+  },
+  "tp2": "valygarfriendship",
+  "safe": 2,
+  "authors": ["Lava Del'Vortel", "fluke13"]
+}
