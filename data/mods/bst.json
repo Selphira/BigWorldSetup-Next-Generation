@@ -36,6 +36,6 @@
     }
   },
   "tp2": "bst",
-  "safe": 2,
+  "safe": 1,
   "authors": ["Multiple"]
 }
