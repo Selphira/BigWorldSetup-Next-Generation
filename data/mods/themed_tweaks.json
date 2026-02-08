@@ -1,15 +1,15 @@
 {
   "name": "Themed Tweaks",
-  "version": "0.4",
+  "version": "0.5",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/32346-themed-tweaks-for-bgee-sod-bg2ee-tob-eet/"
   },
   "files": [
     {
-      "filename": "themed-tweaks-v0.4.zip",
-      "size": 3785624,
-      "sha256": "1b9c52ffaf4984c31092e9f618215560358cf2d9709ce83c064fd46be1a3c772",
-      "download": "https://github.com/lzenner/themed_tweaks/releases/download/v0.4/themed-tweaks-v0.4.zip"
+      "filename": "themed-tweaks-v0.5.zip",
+      "size": 3815184,
+      "sha256": "f34aea306166f8def3b8ad57ddfb3ad800ea5d1415fe4712c3094a5aa6ae9d5c",
+      "download": "https://github.com/lzenner/themed_tweaks/releases/download/v0.5/themed-tweaks-v0.5.zip"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],
