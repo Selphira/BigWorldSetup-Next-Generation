@@ -1,0 +1,53 @@
+{
+  "name": "Xulaye",
+  "version": "2.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Xulaye-NPC/",
+    "forums": ["https://www.shsforums.net/files/file/710-xulaye/"]
+  },
+  "files": [
+    {
+      "filename": "Xulaye-v2.0.zip",
+      "size": 10604429,
+      "sha256": "db15ebb05164f8182a3f6c834796ebf81d44ed30deba22b8dfadfede57ac64f7",
+      "download": "https://github.com/Spellhold-Studios/Xulaye-NPC/releases/download/v2.0/Xulaye-v2.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"},
+    "2": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Xulaye Despana est la sœur de l'insupportable Phaere, et la fille de la redoutée Mère Matrone Ardulace. L'aiderez-vous dans sa recherche du pouvoir ? La trahirez-vous ? Tenterez-vous de la détourner de ses noirs desseins ? Xulaye rejoindra votre groupe à l'entrée d'Ust Natha en Ombreterre. Mais prenez garde, c'est une drow loin d'être écervelée. L'arrogance, l'ambition, la cruauté et la rudesse dominent son cœur sombre. Recruter Xulaye vous permettra de modifier quelque peu votre séjour en Ombreterre : une nouvelle quête, de nouvelles interjections, 1 à 3 banters avec les PNJ de Bioware, et une fin inédite en Ombreterre.\nFOR 11, DEX 15, CON 13, INT 16, SAG 13, CHA 14."
+    },
+    "en_US": {
+      "description": "Xulaye Despana - sister to the insidious Phaere and daughter of the fearsome Matron Mother Ardulace. Will you help her in her ascent to power? Betray her? Attempt to turn the woman from her dark ways? Xulaye joins your party at the beginning of the Ust Natha section of the Underdark. But watch your back; she is Drow to the core, and not unintelligent. Arrogance, ambition, cruelty and ruthlessness dominate her dark heart. Recruiting Xulaye will allow you to modify your stay in Underdark: a new quest, new interjections, 1 to 3 banters with Bioware NPCs, and a new ending in Underdark.\nSTR 11, DEX 15, CON 13, INT 16, WIS 13, CHA 14.",
+      "components": {
+        "0": "Xulaye NPC Mod for BG2:SoA",
+        "1": "Xulaye's Player Initiated Dialogues",
+        "2": "Korgan Fights at the Pits"
+      }
+    },
+    "zh_CN": {
+      "description": "苏莱·德斯帕娜是那个令人无法忍受的法瑞尔的妹妹，也是令人畏惧的母家长阿杜莱斯的女儿。您会帮助她追求权力吗？您会背叛她吗？您会试图让她偏离她黑暗的图谋吗？苏莱将在幽暗地域的乌斯特那萨入口处加入您的队伍。但要小心，这是一个绝非愚蠢的卓尔精灵。傲慢、野心、残忍和粗鲁主宰着她黑暗的心灵。招募苏莱将略微改变您在幽暗地域的停留：一个新任务，新的插话，1到3个与Bioware NPC的闲聊，以及在幽暗地域的一个独特结局。\n力量11，敏捷15，体质13，智力16，智慧13，魅力14。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "áã« ©  NPC ¬®¤ ¤«ï BG2:SoA",
+        "1": "£à®ª ¬®¦¥â ¨­¨æ¨¨à®¢ âì ¤¨ «®£¨ á áã« ©¥©",
+        "2": "®à£ ­ áà ¦ ¥âáï ¢ ï¬ å"
+      }
+    }
+  },
+  "tp2": "xulaye",
+  "safe": 1,
+  "authors": ["K'aeloree", "Lava Del'Vortel"]
+}
