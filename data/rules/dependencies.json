@@ -678,6 +678,21 @@
       "description": "Dépendance interne zdbae"
     },
     {
+      "rule": "zgmagic(100,115,120):spellrev(0)",
+      "severity": "error",
+      "description": "Dépendance à spellrev définie dans le tp2 de zgmagic"
+    },
+    {
+      "rule": "zgmagic(125):spellrev(0)",
+      "severity": "error",
+      "description": "Dépendance à spellrev (TODO: et iwdification OU stratagems OU A7-TotLM-BG2EE) définie dans le tp2 de zgmagic"
+    },
+    {
+      "rule": "zgmagic(131):eefixpack(0)",
+      "severity": "error",
+      "description": "Dépendance à eefixpack définie dans le tp2 de zgmagic"
+    },
+    {
       "rule": "zs_shadowdanceroverhaul(5000):zs_shadowdanceroverhaul(100)",
       "severity": "error",
       "description": "Dépendance interne zs_shadowdanceroverhaul"

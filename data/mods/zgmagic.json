@@ -1,0 +1,49 @@
+{
+  "name": "Random Graion Magic",
+  "version": "0.12",
+  "links": {
+    "homepage": "https://github.com/GraionDilach/RandomGraionMagic",
+    "forums": []
+  },
+  "files": [
+    {
+      "filename": "random-graion-magic-0.12.zip",
+      "size": 10711381,
+      "sha256": "bbad1f44b26854c8e49a4c711fd8bedaa29e0369f8163e2e07f437232c96c4e3",
+      "download": "https://github.com/GraionDilach/RandomGraionMagic/releases/download/0.12/random-graion-magic-0.12.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
+  "categories": ["gameplay"],
+  "components": {
+    "100": {"type": "std"},
+    "115": {"type": "std"},
+    "120": {"type": "std"},
+    "125": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "131": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod propose diverses améliorations des sorts par Graion Dilach pour les jeux sur l'Infinity Engine."
+    },
+    "en_US": {
+      "description": "This mod features various spell enhancements by Graion Dilach for games on the Infinity Engine.",
+      "components": {
+        "100": "Add back Spell Immunity against Spell Revisions [ClassSpellTool]",
+        "115": "Add back vanilla True Sight as a level higher spell against Spell Revisions [ClassSpellTool]",
+        "120": "Maximize Cure Wounds' effect in Spell Revisions",
+        "125": "Install Spell Revisions standard Conjure Water Elemental when IWD spells from IWDification/SCS are installed",
+        "131": "Restore older functionality to Slow Poison so that it cures poison instead of slowing it down"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组为无限引擎游戏提供了由 Graion Dilach 制作的多种法术改进。"
+    }
+  },
+  "tp2": "zgmagic",
+  "safe": 1,
+  "authors": ["Graion Dilach"]
+}
