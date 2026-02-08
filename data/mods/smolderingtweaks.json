@@ -1,0 +1,43 @@
+{
+  "name": "Smoldering Tweaks",
+  "version": "1.0",
+  "links": {
+    "homepage": "https://github.com/Llewren/SmolderingTweaks/",
+    "forums": ["https://smolderingmodsbar.com/smoldering-tweaks/"]
+  },
+  "files": [
+    {
+      "filename": "smolderingtweaks.zip",
+      "size": 1132092,
+      "sha256": "7f88640386f97ab1f4ec0e5367d488e8a9afd135daa19c400fa661454fdefe2a",
+      "download": "https://github.com/Llewren/SmolderingTweaks/releases/download/v1.0/smolderingtweaks.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "sod"],
+  "categories": ["gameplay"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Un mod de tweaks qui ajoute un sort d'aura aux kits de paladin comme pour le Chevalier noir et redonne à la compétence de Marteau spirituel de Branwen son aspect originel."
+    },
+    "en_US": {
+      "description": "A tweak mod who introduces a castable spell to each paladin kit like Blackguard and give Branwen's Spiritual Hammer its original aspect.",
+      "components": {
+        "0": "Install Paladin Auras?",
+        "1": "Give Branwen's Spiritual Hammer its original visual and audio effect"
+      }
+    },
+    "zh_CN": {
+      "description": "这是一个调整模组，它为圣武士宗派（如黑暗卫士）添加了光环法术，并恢复了布朗温的神圣锤技能的原始外观。"
+    }
+  },
+  "tp2": "smolderingtweaks",
+  "safe": 2,
+  "authors": ["Llewren"]
+}
