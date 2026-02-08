@@ -13,15 +13,14 @@
     },
     {
       "filename": "WeiDU-Mac-249.zip",
-      "size": 3421681,
+      "size": 1880186,
       "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Mac-249.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "WeiDU-Windows-249-x86.zip",
-      "size": 1906727,
-      "sha256": "5f3893a3b63be4f5f30d3d5891639c949a263e85a0750b073beba53a172d64ad",
-      "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-x86.zip",
+      "filename": "WeiDU-Windows-249-amd64.zip",
+      "size": 2154755,
+      "download": "https://github.com/WeiDUorg/weidu/releases/download/v249.00/WeiDU-Windows-249-amd64.zip",
       "platforms": ["windows"]
     }
   ],
