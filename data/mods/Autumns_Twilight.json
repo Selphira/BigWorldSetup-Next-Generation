@@ -1,15 +1,15 @@
 {
   "name": "Autumn's Twilight for BGII",
-  "version": "1.3",
+  "version": "1.4.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/38791-bg2-autumns-twilight-bg2at/"
   },
   "files": [
     {
-      "filename": "bg2-autumns-twilight-mod-1_3_0.zip",
-      "size": 808647809,
-      "sha256": "c0f645efb614edc6c3509bd2e83f25effcca85f70330f03aaa4828c1d42397cd",
-      "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.3.0/bg2-autumns-twilight-mod-1_3_0.zip"
+      "filename": "bg2-autumns-twilight-mod.zip",
+      "size": 833787103,
+      "sha256": "013f01cceefea22b04c74ea4e7f4b8b76064fdda6bf070a78095c010823bf6e1",
+      "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.4.0/bg2-autumns-twilight-mod.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
