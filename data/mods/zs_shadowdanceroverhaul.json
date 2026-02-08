@@ -1,0 +1,62 @@
+{
+  "name": "RoyalProtector's Shadowdancer Overhaul",
+  "version": "1.2.4",
+  "links": {
+    "homepage": "https://github.com/szaumoor/ZS_ShadowdancerOverhaul",
+    "forums": [
+      "https://www.gibberlings3.net/forums/topic/38417-royalprotectors-shadowdancer-overhaul-zs_shadowdanceroverhaul/"
+    ]
+  },
+  "files": [
+    {
+      "filename": "lin-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "size": 8204378,
+      "sha256": "7d0bbcec42309968d2d9f730e3b42a7fcd5577b8501a76e087e92eb2afb6eb49",
+      "download": "https://github.com/szaumoor/ZS_ShadowdancerOverhaul/releases/download/1.2.4/lin-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "size": 8204378,
+      "sha256": "8a13e2fcaa72200d7fc810913700d5a3ac32de6f917359b8f8b268c02cb2b4fa",
+      "download": "https://github.com/szaumoor/ZS_ShadowdancerOverhaul/releases/download/1.2.4/mac-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "size": 9472284,
+      "sha256": "8f64635f052e0c93cdc06b826bf8e1b6030d6a091eca1e0d58bff522906aa997",
+      "download": "https://github.com/szaumoor/ZS_ShadowdancerOverhaul/releases/download/1.2.4/win-ZS_ShadowdancerOverhaul-1.2.4.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
+  "categories": ["kit"],
+  "components": {
+    "100": {"type": "std"},
+    "5000": {"type": "std"},
+    "5001": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod retravaille le kit de Maître des Ombres. Notamment sa capacité à pouvoir se camoufler à la vue de tous (considéré comme trop puissant et source de bug). Et apporte des alternatives intéressantes afin de lui faire gagner en singularité. Plus d'informations en cliquant sur les liens."
+    },
+    "en_US": {
+      "description": "This mod reworks the Shadow Master kit. In particular, its ability to camouflage in plain sight (considered too powerful and a source of bugs). It also provides some interesting alternatives to make it more unique. For more information, click on the links.",
+      "components": {
+        "100": "Install the overhauled Shadowdancer Kit",
+        "5000": "Make Shaman Spirit Form mirror the benefits of Shadow Form",
+        "5001": "Allow vanilla shadowdancers to take advantage of Rogue Rebalancing's HLA overhaul"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组重做了影舞者宗派。特别是其能在众目睽睽下伪装的能力（被认为过于强大且易导致bug）。并提供了有趣的替代方案，以使其更具独特性。点击链接了解更多信息。"
+    }
+  },
+  "tp2": "zs_shadowdanceroverhaul",
+  "safe": 2,
+  "authors": ["RoyalProtector"]
+}
