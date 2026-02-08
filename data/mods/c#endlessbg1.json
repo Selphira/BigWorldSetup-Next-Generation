@@ -1,16 +1,16 @@
 {
   "name": "Endless BG1 Mod",
-  "version": "20.1",
+  "version": "20.2",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/other/endlessbg1/",
     "forums": ["https://www.gibberlings3.net/forums/forum/217-endless-bg1/"]
   },
   "files": [
     {
-      "filename": "endless-bg1-mod-20.1.zip",
-      "size": 5101217,
-      "sha256": "282f2a7fd0a11108524aad96b4932bd6e55d32ed9d66c743acf121cf0ec09a45",
-      "download": "https://github.com/Gibberlings3/EndlessBG1/releases/download/v20.1/endless-bg1-mod-20.1.zip"
+      "filename": "endless-bg1-mod-20.2.zip",
+      "size": 5102493,
+      "sha256": "bd8461febc18c3224766dc1b7da2c3c57d7970b09d824b6b1eb2ec3530967f3e",
+      "download": "https://github.com/Gibberlings3/EndlessBG1/releases/download/v20.2/endless-bg1-mod-20.2.zip"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod"],
