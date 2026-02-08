@@ -1,16 +1,16 @@
 {
   "name": "Icewind Dale EE Reborn",
-  "version": "1.0",
+  "version": "1.02",
   "links": {
     "homepage": "https://github.com/peteSmith1229/Icewind-Dale-Enhanced-Edition-Reborn",
-    "forums": [
-      "https://www.gibberlings3.net/forums/topic/41010-icewind-dale-ee-reborn-lore-breaking-mod-with-new-content/"
-    ]
+    "forums": ["https://www.gibberlings3.net/forums/topic/41010-icewind-dale-ee-reborn-lore-breaking-mod-with-new-content/"]
   },
   "files": [
     {
-      "filename": "Icewind-Dale-Enhanced-Edition-Reborn-1.0.zip",
-      "download": "https://github.com/peteSmith1229/Icewind-Dale-Enhanced-Edition-Reborn/archive/refs/tags/v1.0.zip"
+      "filename": "IWEE_Reborn_v1.02.zip",
+      "size": 210354043,
+      "sha256": "38ddebecfee7b330806d3949b9203c360b8a664e527dc58b32180c82b5722b65",
+      "download": "https://github.com/peteSmith1229/Icewind-Dale-Enhanced-Edition-Reborn/releases/download/v1.02/IWEE_Reborn_v1.02.zip"
     }
   ],
   "games": ["iwdee"],
