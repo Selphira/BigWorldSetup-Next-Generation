@@ -1,0 +1,124 @@
+{
+  "name": "WeissMod Tweaks",
+  "version": "1.2",
+  "links": {
+    "homepage": "https://github.com/BG-Weiss/WeissMod-Tweaks",
+    "forums": ["https://forums.beamdog.com/discussion/87418/"]
+  },
+  "files": [
+    {
+      "filename": "WeissMod.zip",
+      "size": 1284397,
+      "download": "https://github.com/BG-Weiss/WeissMod-Tweaks/releases/download/1.2/WeissMod.zip"
+    }
+  ],
+  "games": ["bg2ee", "eet"],
+  "categories": ["gameplay"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3", "4", "5"]},
+    "choice_1": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"], "games": ["bg2ee"]},
+    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15", "16", "17"], "games": ["eet"]},
+    "18": {"type": "std", "games": ["eet"]},
+    "19": {"type": "std", "games": ["eet"]},
+    "choice_3": {"type": "muc", "components": ["20", "21", "22"]},
+    "choice_4": {"type": "muc", "components": ["23", "24", "25"], "games": ["bg2ee"]},
+    "choice_5": {"type": "muc", "components": ["26", "27", "28"], "games": ["eet"]},
+    "29": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod propose trois composants : un pour payer pour se reposer, un pour garder son or entre les parties, et un qui redéfini la mécanique d'arrêt du temps."
+    },
+    "en_US": {
+      "description": "This mod features three components: one for paying to rest, one for keeping your gold between games, and one that redefines the time-stopping mechanic.",
+      "components": {
+        "choice_0": "Pay gold to rest based on elapsed time (BG1/BGEE)",
+        "0": "Half cost with no added sleep",
+        "1": "Half cost with 4 hours of beauty sleep",
+        "2": "Normal cost with no added sleep",
+        "3": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "4": "Double cost with no added sleep",
+        "5": "Double cost with with 4 hours of beauty sleep",
+        "choice_1": "Pay gold to rest based on elapsed time (BG2/BG2EE)",
+        "6": "Half cost with no added sleep",
+        "7": "Half cost with 4 hours of beauty sleep",
+        "8": "Normal cost with no added sleep",
+        "9": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "10": "Double cost with no added sleep",
+        "11": "Double cost with with 4 hours of beauty sleep",
+        "choice_2": "Pay gold to rest based on elapsed time (EET)",
+        "12": "Half cost with no added sleep",
+        "13": "Half cost with 4 hours of beauty sleep",
+        "14": "Normal cost with no added sleep",
+        "15": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "16": "Double cost with no added sleep",
+        "17": "Double cost with with 4 hours of beauty sleep",
+        "18": "Keep gold & all equipment at beginning of Siege of Dragonspear (+ remove free rests from most chapter starts)",
+        "19": "Keep gold between Siege of Dragonspear and Baldur's Gate 2",
+        "choice_3": "Pay gold to rest based on number of rests (BG1/BGEE)",
+        "20": "Half cost",
+        "21": "Normal cost",
+        "22": "Double cost",
+        "choice_4": "Pay gold to rest based on number of rests (BG2/BG2EE)",
+        "23": "Half cost",
+        "24": "Normal cost",
+        "25": "Double cost",
+        "choice_5": "Pay gold to rest based on number of rests (EET)",
+        "26": "Half cost",
+        "27": "Normal cost",
+        "28": "Double cost",
+        "29": "Nerf Time Stop"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组提供三个组件：一个用于付费休息，一个用于在游戏之间保留金币，另一个则重新定义了时间停止的机制。"
+    },
+    "ru_RU": {
+      "components": {
+        "choice_0": "Pay gold to rest based on elapsed time (BG1/BGEE)",
+        "0": "Half cost with no added sleep",
+        "1": "Half cost with 4 hours of beauty sleep",
+        "2": "Normal cost with no added sleep",
+        "3": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "4": "Double cost with no added sleep",
+        "5": "Double cost with with 4 hours of beauty sleep",
+        "choice_1": "Pay gold to rest based on elapsed time (BG2/BG2EE)",
+        "6": "Half cost with no added sleep",
+        "7": "Half cost with 4 hours of beauty sleep",
+        "8": "Normal cost with no added sleep",
+        "9": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "10": "Double cost with no added sleep",
+        "11": "Double cost with with 4 hours of beauty sleep",
+        "choice_2": "Pay gold to rest based on elapsed time (EET)",
+        "12": "Half cost with no added sleep",
+        "13": "Half cost with 4 hours of beauty sleep",
+        "14": "Normal cost with no added sleep",
+        "15": "Normal cost with 4 hours of beauty sleep (recommended)",
+        "16": "Double cost with no added sleep",
+        "17": "Double cost with with 4 hours of beauty sleep",
+        "18": "Keep gold & all equipment at beginning of Siege of Dragonspear (+ remove free rests from most chapter starts)",
+        "19": "Keep gold between Siege of Dragonspear and Baldur's Gate 2",
+        "choice_3": "Pay gold to rest based on number of rests (BG1/BGEE)",
+        "20": "Half cost",
+        "21": "Normal cost",
+        "22": "Double cost",
+        "choice_4": "Pay gold to rest based on number of rests (BG2/BG2EE)",
+        "23": "Half cost",
+        "24": "Normal cost",
+        "25": "Double cost",
+        "choice_5": "Pay gold to rest based on number of rests (EET)",
+        "26": "Half cost",
+        "27": "Normal cost",
+        "28": "Double cost",
+        "29": "Nerf Time Stop"
+      }
+    }
+  },
+  "tp2": "weissmod",
+  "safe": 2,
+  "authors": ["Weiss"]
+}
