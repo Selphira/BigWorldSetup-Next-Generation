@@ -1,16 +1,15 @@
 {
   "name": "Unique Artifacts",
-  "version": "7.14",
+  "version": "7.16",
   "links": {
     "homepage": "https://bgforge.net/unique-artifacts/",
     "forums": ["https://forums.bgforge.net/viewforum.php?f=30"]
   },
   "files": [
     {
-      "filename": "unique-artifacts-v7.14.zip",
-      "size": 3075194,
-      "sha256": "dab38168eb22aa4ddf296a5c300558bb43362c273ea4dd7ca01dbdc60154ebd6",
-      "download": "https://github.com/BGforgeNet/bg2-uniqueartifacts/releases/download/v7.14/unique-artifacts-v7.14.zip"
+      "filename": "unique-artifacts-v7.16.zip",
+      "size": 3072191,
+      "download": "https://github.com/BGforgeNet/bg2-uniqueartifacts/releases/download/v7.16/unique-artifacts-v7.16.zip"
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
