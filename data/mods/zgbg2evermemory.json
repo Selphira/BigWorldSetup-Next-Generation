@@ -1,0 +1,39 @@
+{
+  "name": "Evermemory for BG2EE",
+  "version": "1",
+  "links": {
+    "homepage": "https://github.com/GraionDilach/zgbg2evermemory"
+  },
+  "files": [
+    {
+      "filename": "evermemory-for-bg2ee-1.zip",
+      "size": 2540637,
+      "download": "https://github.com/GraionDilach/zgbg2evermemory/releases/download/v1/evermemory-for-bg2ee-1.zip"
+    }
+  ],
+  "games": ["bg2ee", "eet"],
+  "categories": ["spell"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod introduit l'Anneau des arcanes dans BG2EE dans le magasin de Ribald, celui-ci permet de doubler le nombre d'emplacements des sorts de niveau 1 du mage qui le porte."
+    },
+    "en_US": {
+      "description": "This mod introduces the Arcane Ring to BG2EE in Ribald's store, doubling the number of slots for the wearer's level 1 spells.",
+      "components": {
+        "0": "Evermemory for BG2EE"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组在里巴德的商店中引入了“奥术之戒”，佩戴此戒的法师可以将一级法术位数量翻倍。"
+    }
+  },
+  "tp2": "zgbg2evermemory",
+  "safe": 1,
+  "authors": ["Graion Dilach"]
+}
