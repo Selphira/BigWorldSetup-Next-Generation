@@ -1,0 +1,45 @@
+{
+  "name": "Psionics Unleashed",
+  "version": "0.3",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Psionics-Unleashed/",
+    "forums": ["https://www.shsforums.net/files/file/1037-psionics-unleashed/"]
+  },
+  "files": [
+    {
+      "filename": "w_psionics_unleashed-v.0.3.zip",
+      "size": 31829911,
+      "sha256": "0310d2dd274f600bf74df0bf8f402035fc24b216f78acf75f47c47ec218c4043",
+      "download": "https://github.com/Spellhold-Studios/Psionics-Unleashed/releases/download/v0.3/w_psionics_unleashed-v.0.3.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "sod", "tutu"],
+  "categories": ["gameplay"],
+  "components": {
+    "10": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["61", "62"]}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod a pour but d'ajouter un système complet de gestion psionique (classe, IA, effets...) basé sur les règles D&D 3.5. Plus de détails dans le [readme](https://www.shsforums.net/topic/55711-readme/) et sur les [capacités psioniques](https://www.shsforums.net/topic/55713-psionic-power-list/)."
+    },
+    "en_US": {
+      "description": "This mod aims to add a complete psionic management system (class, AI, effects...) based on D&D 3.5 rules. More details in the [readme](https://www.shsforums.net/topic/55711-readme/) and in the [psionic abilities](https://www.shsforums.net/topic/55713-psionic-power-list/).",
+      "components": {
+        "10": "Psion class (selectable under the Warrior creation menu)",
+        "choice_0": "Individual AI management for party members",
+        "61": "Install",
+        "62": "Install and hide AI switch button"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组旨在添加一个完整的超能力管理系统（职业、AI、效果等），基于D&D 3.5规则。更多详情请参阅[readme](https://www.shsforums.net/topic/55711-readme/)和[超能力列表](https://www.shsforums.net/topic/55713-psionic-power-list/)。"
+    }
+  },
+  "tp2": "w_psionics_unleashed",
+  "safe": null,
+  "authors": ["Kwiat_W"]
+}
