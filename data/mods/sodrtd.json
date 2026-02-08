@@ -1,16 +1,16 @@
 {
   "name": "Road to Discovery for SoD",
-  "version": "5.0",
+  "version": "6",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/other/road_to_discovery/",
     "forums": ["https://www.gibberlings3.net/forums/forum/231-road-to-discovery/"]
   },
   "files": [
     {
-      "filename": "road-to-discovery-for-sod-5.0.zip",
-      "size": 2867398,
-      "sha256": "6592437b490f915e6b2e67a8e147153aeb07f5c4235f003da0f767af4949e931",
-      "download": "https://github.com/Gibberlings3/Road_To_Discovery_for_SoD/releases/download/v5.0/road-to-discovery-for-sod-5.0.zip"
+      "filename": "road-to-discovery-for-sod-6.0.zip",
+      "size": 2847376,
+      "sha256": "c97935a1500f8259a0f114b0860955226423dd434439ab06a0c1f4b7c2be6b8e",
+      "download": "https://github.com/Gibberlings3/Road_To_Discovery_for_SoD/releases/download/v6/road-to-discovery-for-sod-6.0.zip"
     }
   ],
   "games": ["bgee", "eet", "sod"],
