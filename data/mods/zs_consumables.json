@@ -28,7 +28,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std"}
