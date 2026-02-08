@@ -1,0 +1,51 @@
+{
+  "name": "Detective Guild of Athkatla",
+  "version": ".1.5.1",
+  "links": {
+    "homepage": "https://github.com/Austin-BG/SearchGuild",
+    "forums": ["https://arcanecoast.ru/forum/viewtopic.php?f=70&t=1653", "https://www.gibberlings3.net/forums/topic/39164-quest-mod-detective-guild-of-athkatla/", "https://forums.beamdog.com/discussion/89121/"]
+  },
+  "files": [
+    {
+      "filename": "detective-guild-of-athkatla-1.5.1.zip",
+      "size": 20976166,
+      "sha256": "f5cc5d5d775a0eb30c41b84ae63875ad7093cc7c6fad94f34cb50178368811b2",
+      "download": "https://github.com/Austin-BG/SearchGuild/releases/download/v.1.5.1/detective-guild-of-athkatla-1.5.1.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "ru_RU": 0,
+    "en_US": 1,
+    "zh_CN": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Le mod ajoute un nouveau bâtiment : la guilde des détectives dans les Bas-Quartier, qui peut devenir un bastion supplémentaire pour un joueur de n'importe quelle classe - s'il parvient à sauver la guilde de la faillite en deux semaines de jeu. Créée par le sorcier excentrique Adelard le Vagabond. La quête commencera après avoir rencontré un nouveau personnage inhabituel dans le bâtiment du Conseil des Six, dans le quartier du gouvernement."
+    },
+    "en_US": {
+      "description": "The mod adds a new Detective Guild building in the Slums area, which can become an additional stronghold for a player of any class - if he manages to save the guild from bankruptcy in two weeks of game time. Created by the eccentric wizard Adelard the Wanderer. The quest will begin after meeting an unusual new character in the Council of Six building in the Government District.",
+      "components": {
+        "0": "Detective Guild of Athkatla (by Scheele, Alisia, Austin & Arcanecoast Team)"
+      }
+    },
+    "zh_CN": {
+      "description": "该模组添加了一座新建筑：贫民区的侦探公会，它可以成为任何职业玩家的一个额外据点——如果玩家能在两周的游戏时间内拯救公会免于破产。该公会由古怪的法师阿德尔德·流浪者所创建。在政府区的六人议会大楼里遇到一个新角色后，任务便会开始。",
+      "components": {
+        "0": "阿斯卡特拉侦探公会（by Scheele, Alisia, Austin & Arcanecoast Team）"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Detective Guild of Athkatla (by Scheele, Alisia, Austin & Arcanecoast Team)"
+      }
+    }
+  },
+  "tp2": "searchguild",
+  "safe": 2,
+  "authors": ["Austin", "Scheele", "Alisia"]
+}
