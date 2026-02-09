@@ -1,0 +1,44 @@
+{
+  "name": "Beyond the Law",
+  "version": "2.0.0",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/Beyond-the-Law",
+    "forums": ["https://www.shsforums.net/forum/325-beyond-the-law"]
+  },
+  "files": [
+    {
+      "filename": "beyond-the-law-v2.0.0.zip",
+      "size": 11866902,
+      "download": "https://github.com/Spellhold-Studios/Beyond-the-Law/releases/download/v2.0.0/beyond-the-law-v2.0.0.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]},
+    "2": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod propose deux PNJ recrutables, Kiyone (rôdeuse demi-elfe loyal bon) et Kova (mage/voleuse demi-elfe chaotique bon), non-séparables (comme Kiara Zaiya) qui ont une romance potentielle (entre eux), des banters avec tout le monde, et une très intéressante quête sur les liens entre les Cagoulés, les Voleurs de l'Ombre et le Conseil des Six, sans parler d'un tas de combats tout au long de SoA (et désormais des interjections dans la Tour de Garde et plusieurs épilogues de romance dans ToB).\nKiyone : FOR 15, DEX 17, CON 13, INT 14, SAG 15, CHA 12.\nKova : FOR 14, DEX 17, CON 13, INT 17, SAG 10, CHA 11."
+    },
+    "en_US": {
+      "description": "This mod features two recruitable NPCs, Kiyone (lawful good half-elf ranger) and Kova (chaotic good half-elf mage/thief), non-separable (like Kiara Zaiya) who have a potential romance (with each other), banters with everyone, and a very interesting quest on the links between the Hooded Ones, the Shadow Thieves and the Council of Six, not to mention a bunch of fights throughout SoA (and now interjections in the Watcher's keep and several romance epilogues in ToB).\nKiyone : STR 15, DEX 17, CON 13, INT 14, WIS 15, CHA 12.\nKova : STR 14, DEX 17, CON 13, INT 17, WIS 10, CHA 11.",
+      "components": {
+        "choice_0": "Beyond the Law - Kova & Kiyone",
+        "0": "Beyond the Law with Kiyone original sound set",
+        "1": "Beyond the Law with alternate sound set for Kiyone (Female4)",
+        "2": "Portraits for minor non-joinable BTL NPCs"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组提供了两个可招募的NPC：凯恩（守序善良的半精灵游侠）和科瓦（混乱善良的半精灵法师/盗贼），他们不可分离（如同Kiara Zaiya），他们之间有潜在的浪漫关系，与所有人都有互动对话，还有一个关于蒙面法师会、影贼和六人议会之间联系的非常有趣的支线任务，更不用说在安姆阴影期间（以及在观察者堡垒和巴尔王座中的多个浪漫结局）贯穿始终的大量战斗。\n凯恩：力量15，敏捷17，体质13，智力14，智慧15，魅力12。\n科瓦：力量14，敏捷17，体质13，智力17，智慧10，魅力11。"
+    }
+  },
+  "tp2": "btl",
+  "safe": 2,
+  "authors": ["Zyraen"]
+}
