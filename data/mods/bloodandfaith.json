@@ -1,0 +1,41 @@
+{
+  "name": "Blood And Faith",
+  "version": "1.2",
+  "links": {
+    "homepage": "https://github.com/Glittergear/BloodAndFaith",
+    "forums": ["https://www.gibberlings3.net/forums/topic/38708-mod-release-blood-and-faith-a-bg1-questline-mod/"]
+  },
+  "files": [
+    {
+      "filename": "Blood.and.Faith.v1.2.zip",
+      "size": 36337911,
+      "sha256": "aa10ab395efa4cbb851af6346f5b2c929f7136cc3582989de9c83cc4e1adf28e",
+      "download": "https://github.com/Glittergear/BloodAndFaith/releases/download/v1.2/Blood.and.Faith.v1.2.zip"
+    }
+  ],
+  "games": ["bgee", "bgt", "eet", "sod"],
+  "categories": ["quest"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Trop souvent, les criminels s'en tirent pour une raison ou une autre. Une certaine lathandrite veut changer cela, mais elle a besoin de votre aide. C'est une histoire de sang et de foi, une histoire de damnation... ou de rédemption. Un mod contenant 14 quêtes."
+    },
+    "en_US": {
+      "description": "Too often, criminals get away with their misdeeds for one reason or another. A certain Lathanderite cleric wants to change that, but she needs your help. This is a tale of blood and faith, a tale of damnation... or of redemption. A mod containing 14 quests.",
+      "components": {
+        "0": "Blood and Faith Installation"
+      }
+    },
+    "zh_CN": {
+      "description": "罪犯们常常因为这样或那样的原因逃脱惩罚。一位洛山达的信徒想要改变这一切，但她需要你的帮助。这是一个关于鲜血与信仰，关于诅咒……或救赎的故事。一个包含14个任务的模组。"
+    }
+  },
+  "tp2": "bloodandfaith",
+  "safe": 2,
+  "authors": ["Glittergear"]
+}
