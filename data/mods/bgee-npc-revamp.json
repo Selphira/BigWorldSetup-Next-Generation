@@ -1,0 +1,45 @@
+{
+  "name": "BG:EE NPC Revamp",
+  "version": "0.1.1",
+  "links": {
+    "homepage": "https://github.com/Llewren/BGEE-NPC-Revamp/",
+    "forums": ["https://smolderingmodsbar.com/revamp/", "https://forums.beamdog.com/discussion/89625/"]
+  },
+  "files": [
+    {
+      "filename": "BGEE-NPC-Revamp.zip",
+      "size": 1303581,
+      "sha256": "3fa15c6b0e45ed7649e113135ec4b93c5603e27b4c5efe15298b5cfe4ea4a7bb",
+      "download": "https://github.com/Llewren/BGEE-NPC-Revamp/releases/download/v0.1.1/BGEE-NPC-Revamp.zip"
+    }
+  ],
+  "games": ["bgee", "sod"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std"},
+    "10": {"type": "std"},
+    "20": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod vise à ajouter de la profondeur aux compagnons du jeu grâce à de toutes nouvelles conversations entre les membres du groupe, des quêtes, des extensions aux quêtes existantes, des interjections et des dialogues entre joueurs.\nActuellement, du contenu pour Ajantis et Coran sont ajoutés."
+    },
+    "en_US": {
+      "description": "This mod aims to add depth to the companions in the game with all new interparty banter, quests, expansions to existing quests, interjections, and player-talks.\nCurrently, content for Ajantis and Coran is being added.",
+      "components": {
+        "0": "Ajantis Revamp",
+        "10": "Coran Revamp",
+        "20": "Party Banter Revamp"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组旨在通过全新的团队成员间对话、任务、现有任务的扩展、插科打诨和玩家间对话，来加深游戏伙伴的深度。\n目前，已为阿詹提斯和科朗添加了内容。"
+    }
+  },
+  "tp2": "bgee-npc-revamp",
+  "safe": 1,
+  "authors": ["Llewren"]
+}
