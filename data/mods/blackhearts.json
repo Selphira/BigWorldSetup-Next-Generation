@@ -1,0 +1,47 @@
+{
+  "name": "Black Hearts",
+  "version": "2.03",
+  "links": {
+    "homepage": "https://github.com/A-Wizard-Did-It/Black-Hearts",
+    "forums": ["https://forums.beamdog.com/discussion/82484/"]
+  },
+  "files": [
+    {
+      "filename": "blackhearts-v2.03.zip",
+      "size": 40337770,
+      "download": "https://github.com/A-Wizard-Did-It/Black-Hearts/releases/download/v2.03/blackhearts-v2.03.zip"
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "categories": ["quest"],
+  "components": {
+    "1": {"type": "std", "games": ["bgee", "eet", "sod"]},
+    "20005": {"type": "std", "games": ["bg2ee"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "zh_CN": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Black Hearts est un mod de quête pour BG:EE et SoD qui suit une intrigue impliquant un personnage de Throne of Bhaal : Illasera, et une intrigue du Sorcier Rouge impliquant un nouvel allié dangereux qui a rejoint la cause de Sarevok. Ce mod reprend les combats du module Black Pits, en les utilisant comme base pour les différents objectifs donnés aux joueurs pour la quête (avec quelques variations dans de nombreux cas).\nUne seconde intrigue se déroule dans SoD, alors que le joueur poursuit la Croisade brillante de Caelar Argent, il découvre la piste de Sarevok, qui cherchait de nouvelles informations sur sa lignée et le pouvoir du Porteur de mort. Accompagnez les anciens alliés de Sarevok pour découvrir l'héritage de Bhaal et les forces obscures qui manipulent ses enfants."
+    },
+    "en_US": {
+      "description": "Black Hearts is a quest mod for BG:EE and SoD that follows a storyline involving a character from Throne of Bhaal: Illasera, and a Red Wizard storyline involving a dangerous new ally who has joined Sarevok's cause. This mod repurposes fights from the Black Pits module, using those as a basis for various objectives given to players for the questline (with some modifications to them in many cases).\nA second plot unfolds in SoD, as the Player pursues Caelar Argent's Shining Crusade, they uncover the trail of Sarevok as he sought new information about his lineage and the power of the Deathbringer. Accompany Sarevok's former allies as you uncover the legacy of Bhaal and the dark forces manipulating his children.",
+      "components": {
+        "1": "Install Blackhearts for \"BGEE\" or \"EET including BGEE and BG2EE\"",
+        "20005": "Install Blackhearts for \"BG2EE only\""
+      }
+    },
+    "zh_CN": {
+      "description": "黑心是博德之门增强版和龙矛围攻的一个任务模组，它遵循了一条涉及《巴尔王座》中的角色伊拉塞拉的剧情线，以及一条涉及红袍巫师的剧情线，后者涉及一个加入沙洛佛克事业的新危险盟友。该模组重新使用了《死斗黑坑》模组的战斗，并将其作为给予玩家的不同任务目标的基础（在许多情况下会有一些变化）。\n第二条剧情线在龙矛围攻中展开，当玩家追随凯拉·白银的辉煌远征时，他发现了沙洛佛克的踪迹，沙洛佛克正在寻找关于他的血统和死亡携带者力量的新信息。陪伴沙洛佛克的老盟友，去发现巴尔的遗产以及那些操纵他子女的黑暗力量。",
+      "components": {
+        "1": "在BGEE或包含BGEE和BG2EE的EET中安装黑心",
+        "20005": "只在BG2EE中安装黑心"
+      }
+    }
+  },
+  "tp2": "blackhearts",
+  "safe": 2,
+  "authors": ["AWizardDidIt"]
+}
