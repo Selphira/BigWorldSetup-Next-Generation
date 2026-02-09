@@ -17,13 +17,17 @@
   "components": {
     "101": {"type": "std"}
   },
-  "languages": {},
+  "languages": {
+    "en_US": 0,
+    "all": 0
+  },
   "translations": {
     "fr_FR": {
       "description": "Basé sur le composant `Créer des ennemis aléatoires en fonction du niveau (style Tutu)` du mod BGT Tweak Pack, ce mod modifie le système par défaut de l'apparition aléatoire des créatures dans les zones de la Côté des Épées en en faisant évoluer la difficulté en fonction du niveau moyen du groupe. Chaque point d'apparition engendrera des groupes de 1 à 6 créatures, selon le niveau du groupe et la force des créatures. L'utilisateur peut sélectionner l'intervalle de temps entre les apparitions (de 4 heures à 1000 jours) ainsi que la probabilité qu'un déclenchement d'un point de rencontre aléatoire entraîne le peuplement de ce point."
     },
     "en_US": {
-      "description": "Based on the `Create random enemies according to level (Tutu style)` component of the BGT Tweak Pack mod, this mod modifies the default system of randomly appearing creatures in areas on the Swordside by changing the difficulty according to the average level of the party. Each point of appearance will generate groups of 1 to 6 creatures, depending on party level and creature strength. The user can select the time interval between appearances (from 4 hours to 1000 days), as well as the probability that triggering a random encounter point will result in that point being populated."
+      "description": "Based on the `Create random enemies according to level (Tutu style)` component of the BGT Tweak Pack mod, this mod modifies the default system of randomly appearing creatures in areas on the Swordside by changing the difficulty according to the average level of the party. Each point of appearance will generate groups of 1 to 6 creatures, depending on party level and creature strength. The user can select the time interval between appearances (from 4 hours to 1000 days), as well as the probability that triggering a random encounter point will result in that point being populated.",
+      "101": "BGEE Leveling Spawns Mod"
     },
     "zh_CN": {
       "description": "基于模组BGT Tweak Pack中的“根据等级生成随机敌人（Tutu风格）”组件，这个模组通过根据队伍的平均等级来提升难度，从而改变了剑湾地区默认的随机生物生成系统。每个生成点将根据队伍等级和生物强度，生成1到6个生物的群体。用户可以选择两次遭遇之间的时间间隔（从4小时到1000天），以及随机遭遇触发点被填充的概率。"
