@@ -1,0 +1,44 @@
+{
+  "name": "BGEE-Graphics-Enhanced",
+  "version": "0.2.0",
+  "links": {
+    "homepage": "https://github.com/TheForgotten69/BGEE-Graphics-Enhanced",
+    "forums": ["https://forums.beamdog.com/discussion/89746/infinityengine-enhancer/", "https://www.gibberlings3.net/forums/topic/40143-infinityengine-enhancer-released/"]
+  },
+  "files": [
+    {
+      "filename": "win-BGEE-Graphics-Enhanced-v0.2.0.zip",
+      "size": 1864005883,
+      "sha256": "4e55afb5a286babb18e3928959b6ce07f753bc4cae9ef7abb1f227a4d9dba0a4",
+      "download": "https://github.com/TheForgotten69/BGEE-Graphics-Enhanced/releases/download/v0.2.0/win-BGEE-Graphics-Enhanced-v0.2.0.zip",
+      "platforms": ["windows"]
+    }
+  ],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
+  "categories": ["cosm"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Multiplie la résolution par x4 de toutes les cartes dans BG:EE. Comme il ne modifie pas directement les fichiers ARE/WED, cela le rend compatible avec la grande majorité des mods."
+    },
+    "en_US": {
+      "description": "Multiplies the resolution by x4 for all maps in BG:EE. As it does not directly modify the ARE/WED files, this makes it compatible with the vast majority of mods.",
+      "components": {
+        "0": "InfinityEngine-Enhancer",
+        "1": "BGEE-Graphics-Enhanced - Tiles"
+      }
+    },
+    "zh_CN": {
+      "description": "将BG:EE中所有地图的分辨率提升4倍。由于它不直接修改ARE/WED文件，因此它与绝大多数模组兼容。"
+    }
+  },
+  "tp2": "bgee-graphics-enhanced",
+  "safe": 2,
+  "authors": ["TheForgotten69"]
+}

@@ -116,6 +116,11 @@
       "description": "Dépendance interne aurenaseph"
     },
     {
+      "rule": "bgee-graphics-enhanced(1):bgee-graphics-enhanced(0)",
+      "severity": "error",
+      "description": "Dépendance interne bgee-graphics-enhanced"
+    },
+    {
       "rule": "bgspawn(2100,2200,2300,2400,3100,3200,3300,3400,3500,3600,3700,3800):bgspawn(1000)",
       "severity": "error",
       "description": "Dépendance interne bgspawn"
