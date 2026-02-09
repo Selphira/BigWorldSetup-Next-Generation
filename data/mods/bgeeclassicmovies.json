@@ -1,0 +1,97 @@
+{
+  "name": "BG:EE Classic Movies",
+  "version": "2.3.2",
+  "links": {
+    "homepage": "https://github.com/Sampsca/BGEE-Classic-Movies"
+  },
+  "files": [
+    {
+      "filename": "bgee-classic-movies-v2.3.2.zip",
+      "size": 587531494,
+      "sha256": "7bf6aa2d22609450863984202eed2350aa2a73a1fb649878aabf11871f321f55",
+      "download": "https://github.com/Sampsca/BGEE-Classic-Movies/releases/download/V2.3.2/bgee-classic-movies-v2.3.2.zip"
+    }
+  ],
+  "games": ["bgee", "eet", "sod"],
+  "categories": ["cosm"],
+  "components": {
+    "choice_0": {"type": "muc", "components": ["0", "1"]},
+    "2": {"type": "std"},
+    "3": {"type": "std"},
+    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "pl_PL": 1,
+    "es_ES": 2,
+    "de_DE": 3
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod permet de remettre les anciens films en 3D de BG à la place de ceux refaits pour BG:EE. Les films ont été agrandis en 1280x720, la dimension des nouveaux films réalisés pour BG:EE. Les voix de certains films seront en anglais."
+    },
+    "en_US": {
+      "description": "This mod allows you to restore BG's old 3D movies in place of those remade for BG:EE. The films have been enlarged to 1280x720, the same size as the new BG:EE films. The voices in some films will be in English.",
+      "components": {
+        "choice_0": "Restore BG1 movies to BG:EE",
+        "0": "Replace all movies",
+        "1": "Add missing movies",
+        "2": "Show all movies in options without need to unlock them in game",
+        "3": "Restore BG1 Chapter and Dream Screens",
+        "choice_1": "Modify startup movies",
+        "4": "Disable startup logo and intro movies",
+        "5": "Disable startup logo movie",
+        "6": "Replace logo movie with classic BG1 logos",
+        "7": "Play classic BG1 logos before Beamdog's logo movie"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组将博德之门的旧3D动画电影替换为博德之门：增强版重制的版本。这些电影被放大到1280x720，即博德之门：增强版新电影的尺寸。部分电影的配音将是英文的。"
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Przywrocone filmy z BG1",
+        "0": "Przywroc wszystkie filmy",
+        "1": "Dodaj tylko filmy nieistniejace w BG:EE",
+        "2": "Wyswietl wszystkie filmy w ekranie opcji bez potrzeby ich odblokowania w grze",
+        "3": "Przywroc sceny Snow oraz rozdzialow BG1",
+        "choice_1": "Modify startup movies",
+        "4": "Disable startup logo and intro movies",
+        "5": "Disable startup logo movie",
+        "6": "Replace logo movie with classic BG1 logos",
+        "7": "Play classic BG1 logos before Beamdog's logo movie"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "Restaurar peliculas de BG1 al BG:EE",
+        "0": "Reemplazar todas las peliculas",
+        "1": "Añadir las peliculas que faltan",
+        "2": "Mostrar todas las peliculas en la opciones sin necesidad de desbloquearlas en el juego",
+        "3": "Restaurar pantallas de capitulos y sueños de BG1",
+        "choice_1": "Modificar peliculas de inicio",
+        "4": "Desactivar logo de inicio y peliculas de introduccion",
+        "5": "Desactivar pelicula de logos de inicio",
+        "6": "Reemplazar pelicula de logos por logos clasicos de BG1",
+        "7": "Reproducir logos clasicos de BG1 antes de pelicula de logos de Beamdog"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Wiederherstellen der BG1 Zwischensequenzen in BG:EE",
+        "0": "Ersetze alle Zwischensequenzen",
+        "1": "Füge fehlende Zwischensequenzen hinzu",
+        "2": "Zeige alle Zwischensequenzen in den Optionen ohne vorherige Freischaltung",
+        "3": "Stelle BG1 Kapitel-und Traumsequenzen wieder her",
+        "choice_1": "Modify startup movies",
+        "4": "Disable startup logo and intro movies",
+        "5": "Disable startup logo movie",
+        "6": "Replace logo movie with classic BG1 logos",
+        "7": "Play classic BG1 logos before Beamdog's logo movie"
+      }
+    }
+  },
+  "tp2": "bgeeclassicmovies",
+  "safe": 2,
+  "authors": ["Sam"]
+}
