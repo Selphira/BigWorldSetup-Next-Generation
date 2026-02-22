@@ -29,6 +29,7 @@ LANG_MAP: dict[str, str] = {
     "english": "en_US",
     "en-us": "en_US",
     "en_us": "en_US",
+    "franais": "fr_FR",
     "francais": "fr_FR",
     "french": "fr_FR",
     "frenchbg2": "fr_FR",
