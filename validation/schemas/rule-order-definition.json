@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://selphira.github.io/BigWorldSetup-Enhanced-Edition/validation/schemas/order.json",
-  "title": "Big World Setup - Enhanced Edition: Order Rules",
+  "title": "Big World Setup - Next Generation: Order Rules",
   "description": "Schema for validating order rules files",
   "type": "object",
   "required": ["rules"],

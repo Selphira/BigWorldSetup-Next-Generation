@@ -188,7 +188,7 @@ class WeiDUInstallerEngine:
         # This creates a valid WeiDU tp2 that does nothing except log the installation
         content = (
             f"BACKUP ~weidu_external/backup/{tp2_name}~\n"
-            f"AUTHOR ~bws-ee~\n"
+            f"AUTHOR ~bws-ng~\n"
             f"\n"
             f"BEGIN ~{component.text}~\n"
             f"// This is a download-only component, files are already extracted\n"

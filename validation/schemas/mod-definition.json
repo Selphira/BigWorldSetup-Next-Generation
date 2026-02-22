@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://selphira.github.io/BigWorldSetup-Enhanced-Edition/validation/schemas/mod-definition.json",
-  "title": "Big World Setup - Enhanced Edition: Mod Definition",
+  "title": "Big World Setup - Next Generation: Mod Definition",
   "description": "Schema for validating BigWorldSetup Enhanced mod description files",
   "type": "object",
   "required": [

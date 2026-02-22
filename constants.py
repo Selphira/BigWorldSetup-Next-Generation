@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt
 # APPLICATION METADATA
 # ============================================================================
 
-APP_NAME = "Big World Setup - Enhanced Edition"
+APP_NAME = "Big World Setup - Next Generation"
 APP_VERSION = "0.9.10-beta"
 APP_ORG = "Selphira"
 
@@ -37,7 +37,7 @@ THEMES_DIR = RESOURCES_DIR / "themes"
 LCC_CACHE_DIR = CACHE_DIR / "lcc"
 
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
-EXTRACT_DIR = "bws-ee-extract"
+EXTRACT_DIR = "bws-ng-extract"
 
 # ============================================================================
 # TIMING & DELAYS (milliseconds)
@@ -178,7 +178,7 @@ MAX_SEARCH_LENGTH = 100
 # LOGGING CONFIGURATION
 # ============================================================================
 
-LOG_FILE_NAME = "bws_ee.log"
+LOG_FILE_NAME = "bws_ng.log"
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 LOG_MAX_BYTES = 10 * 1024 * 1024  # 10 MB
