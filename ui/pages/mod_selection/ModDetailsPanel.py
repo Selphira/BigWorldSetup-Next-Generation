@@ -39,6 +39,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.Mod import Mod
 from core.ModManager import ModManager
 from core.TranslationManager import get_translator, tr
+from core.Url import get_forum_code
 from ui.layouts.FlowLayout import FlowLayout
 
 logger = logging.getLogger(__name__)
@@ -394,33 +395,13 @@ class ModDetailsPanel(QWidget):
             has_links = True
             for forum_url in mod.forums:
                 label = tr("widget.mod_details.link.forum")
-                forum_code = self._extract_forum_code(forum_url)
+                forum_code = get_forum_code(forum_url)
                 if forum_code:
                     label = f"{label} ({forum_code})"
 
                 self._links_layout.addWidget(self._create_link_label("💬", label, forum_url))
 
         self._links_widget.setVisible(has_links)
-
-    @staticmethod
-    def _extract_forum_code(url: str) -> str:
-        """Extract forum code from URL."""
-        url_lower = url.lower()
-        forum_map = {
-            "beamdog.com": "BD",
-            "gibberlings3.net": "G3",
-            "shsforums.net": "SHS",
-            "baldursgateworld.fr": "BGW",
-            "pocketplane.net": "PPG",
-            "blackwyrmlair.net": "BWL",
-            "weaselmods.net": "WM",
-        }
-
-        for domain, code in forum_map.items():
-            if domain in url_lower:
-                return code
-
-        return ""
 
     def _show_placeholder(self) -> None:
         """Show placeholder when no mod is selected."""

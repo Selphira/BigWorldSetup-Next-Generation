@@ -104,6 +104,7 @@
       "violation_title": "Conflits et dépendances",
       "ignore_warnings": "Ignorer les avertissements",
       "ignore_errors": "Ignorer les erreurs",
+      "go_to": "Aller vers",
       "filter": {
         "all_games": "Tous les jeux",
         "all_authors": "Tous les auteurs",

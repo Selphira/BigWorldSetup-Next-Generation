@@ -9,6 +9,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.Mod import Mod
 from core.Rules import RuleType, RuleViolation
 from core.TranslationManager import tr
+from core.Url import get_forum_code
 from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.pages.mod_selection.TreeItem import TreeItem
 
@@ -75,6 +76,10 @@ class ComponentContextMenu:
     def _build_mod_menu(self, menu: QMenu, reference: ComponentReference):
         """Build context menu for mod row."""
         component_refs, all_violations = self._get_all_violations_for_descendants(reference)
+
+        mod = self._indexes.resolve(reference)
+        if isinstance(mod, Mod):
+            self._add_links_submenu(menu, mod)
 
         if not all_violations:
             return
@@ -208,6 +213,34 @@ class ComponentContextMenu:
             "page.selection.violation.unselect_component",
             self._controller.unselect,
         )
+
+    @staticmethod
+    def _add_links_submenu(menu: QMenu, mod: Mod) -> None:
+        """Add 'Go to' submenu with mod links, only if at least one link exists."""
+        links = {
+            mod.homepage: tr("widget.mod_details.link.homepage"),
+            mod.readme: tr("widget.mod_details.link.readme"),
+            mod.get_download_url(): tr("widget.mod_details.link.download"),
+        }
+
+        entries: list[tuple[str, str]] = [(label, url) for url, label in links.items() if url]
+
+        if mod.forums:
+            for forum_url in mod.forums:
+                label = tr("widget.mod_details.link.forum")
+                code = get_forum_code(forum_url)
+
+                if code:
+                    label = f"{label} ({code})"
+                entries.append((label, forum_url))
+
+        if not entries:
+            return
+
+        goto_menu = menu.addMenu(tr("page.selection.go_to"))
+        for label, url in entries:
+            action = goto_menu.addAction(label)
+            action.triggered.connect(lambda _, u=url: QDesktopServices.openUrl(QUrl(u)))
 
     # ========================================
     # Action Collectors
