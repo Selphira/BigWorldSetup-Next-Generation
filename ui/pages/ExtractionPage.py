@@ -58,7 +58,7 @@ COLUMN_COUNT = 4
 class ExtractionWorker(QThread):
     """Worker thread for extracting archives without blocking UI."""
 
-    extraction_started = Signal(str)  # mod_id
+    extraction_started = Signal(str, str)  # extraction_id, mod_name
     extraction_completed = Signal(str)  # mod_id
     extraction_error = Signal(str, str)  # mod_id, error_message
     all_completed = Signal(list)  # extractions
@@ -72,8 +72,6 @@ class ExtractionWorker(QThread):
         super().__init__()
         self._extractions = extractions
         self._is_cancelled = False
-        self._extractor = ArchiveExtractor()
-        self._validator = StructureValidator()
         self._merger = DirectoryMerger(ConflictResolution.MERGE)
 
     def run(self) -> None:
@@ -87,8 +85,10 @@ class ExtractionWorker(QThread):
                 temp_dir = extraction.destination_path / f"_temp_{extraction.tp2_name}"
 
                 try:
-                    self.extraction_started.emit(extraction_id)
-                    success = self._extractor.extract_archive(extraction.archive_path, temp_dir)
+                    self.extraction_started.emit(extraction_id, extraction.archive_path.name)
+                    success = ArchiveExtractor.extract_archive(
+                        extraction.archive_path, temp_dir
+                    )
 
                     if not success:
                         self.extraction_error.emit(
@@ -96,7 +96,9 @@ class ExtractionWorker(QThread):
                         )
                         continue
 
-                    fixed = self._validator.normalize_structure(temp_dir, extraction.tp2_name)
+                    fixed = StructureValidator.normalize_structure(
+                        temp_dir, extraction.tp2_name
+                    )
 
                     if not fixed:
                         self.extraction_error.emit(
@@ -111,9 +113,6 @@ class ExtractionWorker(QThread):
                 except Exception as e:
                     logger.error(f"Error extracting {extraction_id}: {e}")
                     self.extraction_error.emit(extraction_id, str(e))
-                finally:
-                    if temp_dir.exists():
-                        shutil.rmtree(temp_dir, ignore_errors=True)
 
             self.all_completed.emit(self._extractions)
 
@@ -424,15 +423,13 @@ class ExtractionPage(BasePage):
     @staticmethod
     def _is_already_extracted(extraction_info: ExtractionInfo) -> bool:
         """Check if mod is already extracted."""
-        validator = StructureValidator()
-
         if not extraction_info.tp2_name:
             return extraction_info.destination_path.exists()
-        else:
-            valid, _ = validator.validate_structure(
-                extraction_info.destination_path, extraction_info.tp2_name
-            )
-            return valid
+
+        valid, _ = StructureValidator.validate_structure(
+            extraction_info.destination_path, extraction_info.tp2_name
+        )
+        return valid
 
     # ========================================
     # Extraction
@@ -482,6 +479,8 @@ class ExtractionPage(BasePage):
 
         self._progress_bar.setMaximum(len(to_extract))
         self._progress_bar.setValue(0)
+        self._extraction_current = 0
+        self._extraction_total = len(to_extract)
 
         self._extraction_worker = ExtractionWorker(to_extract)
         self._extraction_worker.extraction_started.connect(self._on_extraction_started)
@@ -491,9 +490,13 @@ class ExtractionPage(BasePage):
 
         self._extraction_worker.start()
 
-    def _on_extraction_started(self, extraction_id: str) -> None:
+    def _on_extraction_started(self, extraction_id: str, archive_name: str) -> None:
         """Handle extraction start."""
         self._update_extraction_status(extraction_id, ExtractionStatus.EXTRACTING)
+        self._extraction_current += 1
+        self._progress_bar.setFormat(
+            f"%p% ({self._extraction_current}/{self._extraction_total}) - {archive_name}"
+        )
         logger.debug(f"Started extraction: {extraction_id}")
 
     def _on_extraction_completed(self, extraction_id: str) -> None:
@@ -518,6 +521,7 @@ class ExtractionPage(BasePage):
         """Handle completion of all extractions."""
         self._is_extracting = False
         self._extraction_worker = None
+        self._progress_bar.setFormat("%p%")
         self._progress_bar.reset()
         self._update_navigation_buttons()
 
