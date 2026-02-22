@@ -863,7 +863,8 @@
     {
       "rule": "Xan(0):XanFrenchMini(-)",
       "severity": "error",
-      "description": "Xan nécessite le composant de XanFrenchMini pour avoir les voix françaises"
+      "description": "Xan nécessite le composant de XanFrenchMini pour avoir les voix françaises",
+      "implicit_order": false
     },
     {
       "rule": "BoneHillEET(-)|CtB(-)|TDDz(-)|drizztsaga(1):bp-bgt-worldmap(0)",
