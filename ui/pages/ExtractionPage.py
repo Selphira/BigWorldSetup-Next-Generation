@@ -303,6 +303,10 @@ class ExtractionPage(BasePage):
                     display_name = mod.name
 
                 archive_path = self._resolve_archive_path(mod, mod_id)
+
+                if archive_path is None:
+                    continue
+
                 destination_path = folder_path
                 if not mod.tp2:
                     destination_path = Path(f"{destination_path}/{EXTRACT_DIR}/{mod.id}")
