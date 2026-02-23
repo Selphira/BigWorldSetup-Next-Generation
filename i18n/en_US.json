@@ -151,6 +151,7 @@
         "unselect_mod": "❌ Remove mod: {mod}",
         "type_dependency": "Dependency",
         "type_incompatibility": "Conflict",
+        "type_order": "Order",
         "show_source": "Show the source"
       },
       "violation_type": "Type",
@@ -186,6 +187,7 @@
       "col_component": "Component",
       "ordered_title": "Ordered Components ({count} of {total})",
       "unordered_title": "Unordered Components ({count})",
+      "violation_title": "Rule violations",
       "phase_tab": "{name} Phase",
       "validation_ok": "✓ All components are correctly ordered",
       "validation_warnings": "⚠ {count} warning(s) - check component order",
@@ -216,11 +218,23 @@
       "pause_label": "PAUSE",
       "pause_tooltip": "Add a pause during installation",
       "pause_description": "Installation paused",
-      "remove_pause": "Remove",
-      "edit_pause": "Edit",
-      "insert_pause_after": "Insert pause after this component",
+      "remove_pause": "🗑️ Remove pause",
+      "edit_pause": "✏️ Edit pause",
+      "insert_pause_after": "⏸ Insert a pause after this component",
       "pause_dialog_title": "Pause Description",
-      "pause_dialog_placeholder": "Enter your description..."
+      "pause_dialog_placeholder": "Enter your description...",
+      "search_placeholder": "Search...",
+      "search_prev": "Previous result",
+      "search_next": "Next result",
+      "ignore_violations": "🔕 Ignore violations for this row",
+      "restore_violations": "🔔 Restore violations",
+      "violation": {
+        "col_type": "Type",
+        "col_before": "Before",
+        "col_after": "After",
+        "multiple_selected": "{count} components selected",
+        "broad_rule_tooltip": "This rule applies to the entire mod. Some components may be exceptions."
+      }
     },
     "download": {
       "title": "Download and Verify Archives",

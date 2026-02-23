@@ -151,6 +151,7 @@
         "unselect_mod": "❌ Supprimer le mod : {mod}",
         "type_dependency": "Dépendance",
         "type_incompatibility": "Conflit",
+        "type_order": "Ordre",
         "show_source": "Voir la source"
       },
       "violation_type": "Type",
@@ -186,6 +187,7 @@
       "col_component": "Composant",
       "ordered_title": "Composants ordonnés ({count} sur {total})",
       "unordered_title": "Composants non ordonnés ({count})",
+      "violation_title": "Violations de règles",
       "phase_tab": "Phase {name}",
       "validation_ok": "✓ Tous les composants sont correctement ordonnés",
       "validation_warnings": "⚠ {count} avertissement(s) - vérifiez l'ordre des composants",
@@ -216,11 +218,23 @@
       "pause_label": "PAUSE",
       "pause_tooltip": "Ajouter une pause lors de l'installation",
       "pause_description": "Installation en pause",
-      "remove_pause": "Supprimer",
-      "edit_pause": "Modifier",
-      "insert_pause_after": "Insérer une pause après ce composant",
+      "remove_pause": "🗑️ Supprimer la pause",
+      "edit_pause": "✏️ Modifier la pause",
+      "insert_pause_after": "⏸ Insérer une pause après ce composant",
       "pause_dialog_title": "Description de la pause",
-      "pause_dialog_placeholder": "Entrez votre description..."
+      "pause_dialog_placeholder": "Entrez votre description...",
+      "search_placeholder": "Rechercher...",
+      "search_prev": "Résultat précédent",
+      "search_next": "Résultat suivant",
+      "ignore_violations": "🔕 Ignorer les violations de cette ligne",
+      "restore_violations": "🔔 Restaurer les violations",
+      "violation": {
+        "col_type": "Type",
+        "col_before": "Avant",
+        "col_after": "Après",
+        "multiple_selected": "{count} composants sélectionnés",
+        "broad_rule_tooltip": "Cette règle s'applique au mod entier. Certains composants peuvent être des exceptions."
+      }
     },
     "download": {
       "title": "Téléchargement et vérification des archives",

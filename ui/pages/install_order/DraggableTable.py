@@ -24,7 +24,7 @@ from constants import (
     COLOR_ACCENT,
     ROLE_COMPONENT,
 )
-from core.ComponentReference import ComponentReference
+from core.ComponentReference import ComponentReference, IndexManager
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
 from core.TranslationManager import tr
 from ui.pages.install_order.PauseDescriptionDialog import PauseDescriptionDialog
@@ -77,6 +77,7 @@ class DraggableTableWidget(HoverTableWidget):
 
     # Signals
     orderChanged = Signal(list)
+    violationIgnored = Signal()
 
     def __init__(
         self,
@@ -100,6 +101,7 @@ class DraggableTableWidget(HoverTableWidget):
         self._drop_indicator_row = -1
         self._dragged_rows: list[int] = []
         self._hover_row = -1
+        self._ignored_violations: dict[ComponentReference, set[int]] = {}
 
         super().__init__(parent)
 
@@ -268,6 +270,9 @@ class DraggableTableWidget(HoverTableWidget):
         finally:
             self.blockSignals(False)
 
+        for ref in moved_refs:
+            self.clear_ignore_for(ref)
+
         self._drop_indicator_row = -1
         self._dragged_rows = []
         self.orderChanged.emit(moved_refs)
@@ -414,13 +419,11 @@ class DraggableTableWidget(HoverTableWidget):
         menu = QMenu(self)
         reference = mod_item.data(ROLE_COMPONENT)
 
-        if reference.mod_id == PAUSE_PREFIX:
+        if reference and reference.mod_id == PAUSE_PREFIX:
             edit_action = QAction(tr("page.order.edit_pause"), self)
             edit_action.triggered.connect(lambda: self._edit_pause_at_row(row))
             menu.addAction(edit_action)
-
             menu.addSeparator()
-
             delete_action = QAction(tr("page.order.remove_pause"), self)
             delete_action.triggered.connect(lambda: self._remove_pause_at_row(row))
             menu.addAction(delete_action)
@@ -430,7 +433,28 @@ class DraggableTableWidget(HoverTableWidget):
                 insert_pause_action.triggered.connect(lambda: self._insert_pause_after_row(row))
                 menu.addAction(insert_pause_action)
 
-        menu.exec(event.globalPos())
+                if reference:
+                    violations = IndexManager.get_indexes().get_order_violations(reference)
+                    if violations:
+                        menu.addSeparator()
+                        if self.is_ignored(reference):
+                            action = QAction(tr("page.order.restore_violations"), self)
+                            action.triggered.connect(
+                                lambda: self._restore_violations(reference)
+                            )
+                        else:
+                            action = QAction(tr("page.order.ignore_violations"), self)
+                            action.triggered.connect(
+                                lambda: self.ignore_violations_for(reference)
+                            )
+                        menu.addAction(action)
+
+        if not menu.isEmpty():
+            menu.exec(event.globalPos())
+
+    def _restore_violations(self, reference: ComponentReference) -> None:
+        self.clear_ignore_for(reference)
+        self.violationIgnored.emit()
 
     def _insert_pause_after_row(self, row: int):
         page = self._get_parent_page()
@@ -483,3 +507,31 @@ class DraggableTableWidget(HoverTableWidget):
             self.removeRow(row)
         finally:
             self.blockSignals(False)
+
+    # ── Ignore API ──────────────────────────────────────────────────────────
+
+    def ignore_violations_for(self, reference: ComponentReference) -> None:
+        """Ignore all current violations for this reference."""
+        violations = IndexManager.get_indexes().get_order_violations(reference)
+        if violations:
+            self._ignored_violations[reference] = {id(v.rule) for v in violations}
+            self.violationIgnored.emit()
+
+    def clear_ignore_for(self, reference: ComponentReference) -> None:
+        self._ignored_violations.pop(reference, None)
+
+    def is_ignored(self, reference: ComponentReference) -> bool:
+        return reference in self._ignored_violations
+
+    def refresh_ignores(self) -> None:
+        """Clear ignores for refs that have NEW violations not present when ignored."""
+        indexes = IndexManager.get_indexes()
+        to_clear = []
+        for ref, ignored_rule_ids in self._ignored_violations.items():
+            current_ids = {id(v.rule) for v in indexes.get_order_violations(ref)}
+            if current_ids - ignored_rule_ids:  # new violations appeared
+                to_clear.append(ref)
+        for ref in to_clear:
+            self.clear_ignore_for(ref)
+        if to_clear:
+            self.violationIgnored.emit()

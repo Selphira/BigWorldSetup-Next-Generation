@@ -56,21 +56,22 @@ class OrderTableWidget(DraggableTableWidget):
             QToolTip.hideText()
             return True
 
-        violations = self._rule_manager.get_order_violations(reference)
+        ignored_ids = self._ignored_violations.get(reference, set())
+        violations = [
+            violation
+            for violation in self._rule_manager.get_order_violations(reference)
+            if id(violation.rule) not in ignored_ids
+        ]
 
         if not violations:
             QToolTip.hideText()
             return True
 
         unique_violations = {v.rule: v for v in violations}
-        violations = list(unique_violations.values())
+        tooltip_lines = [
+            v.get_order_message(reference, self._current_order)
+            for v in unique_violations.values()
+        ]
 
-        tooltip_lines = []
-        for v in violations:
-            msg = v.get_order_message(reference, self._current_order)
-            tooltip_lines.append(f"{v.icon} {msg}")
-
-        tooltip_text = "\n".join(tooltip_lines)
-        QToolTip.showText(event.globalPos(), tooltip_text, self)
-
+        QToolTip.showText(event.globalPos(), "<br/>".join(tooltip_lines), self)
         return True

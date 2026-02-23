@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QHeaderView,
+    QLineEdit,
     QMenu,
     QMessageBox,
     QPushButton,
@@ -55,6 +56,7 @@ from core.WeiDULogParser import WeiDULogParser
 from ui.pages.BasePage import BasePage
 from ui.pages.install_order.DraggableTable import DraggableTableWidget
 from ui.pages.install_order.OrderTableWidget import OrderTableWidget
+from ui.pages.install_order.OrderViolationPanel import OrderViolationPanel
 from ui.pages.install_order.PauseDescriptionDialog import PauseDescriptionDialog
 
 logger = logging.getLogger(__name__)
@@ -271,6 +273,7 @@ class InstallOrderPage(BasePage):
         self._phase_tabs: QTabWidget | None = None
         self._ordered_tables: dict[int, dict] = {}
         self._unordered_tables: dict[int, dict] = {}
+        self._violation_panels: dict[int, OrderViolationPanel] = {}
 
         # Action buttons
         self._btn_default: QPushButton | None = None
@@ -399,6 +402,7 @@ class InstallOrderPage(BasePage):
         """Reset all widget reference dictionaries."""
         self._ordered_tables.clear()
         self._unordered_tables.clear()
+        self._violation_panels.clear()
         self._btn_add_pause.clear()
         self._phase_tabs = None
 
@@ -450,8 +454,8 @@ class InstallOrderPage(BasePage):
         splitter.addWidget(left_panel)
         splitter.addWidget(right_panel)
 
-        splitter.setStretchFactor(0, 1)
-        splitter.setStretchFactor(1, 1)
+        splitter.setStretchFactor(0, 3)
+        splitter.setStretchFactor(1, 2)
         splitter.setCollapsible(0, False)
         splitter.setCollapsible(1, False)
 
@@ -497,16 +501,21 @@ class InstallOrderPage(BasePage):
             table_role="ordered",
         )
 
+        table.itemSelectionChanged.connect(lambda: self._on_ordered_selection_changed(seq_idx))
         table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         table.setHorizontalHeaderLabels(
             [tr("page.order.col_mod"), tr("page.order.col_component")]
         )
 
         header = table.horizontalHeader()
+        header.setSectionsClickable(False)
         header.setSectionResizeMode(COL_ORDERED_MOD, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_ORDERED_COMPONENT, QHeaderView.ResizeMode.Stretch)
 
         table.orderChanged.connect(lambda moved: self._on_order_changed(seq_idx, moved))
+        table.violationIgnored.connect(lambda: self._on_violation_ignored(seq_idx))
+        search_widget = self._create_search_bar(seq_idx, table)
+        layout.addWidget(search_widget)
         layout.addWidget(table)
 
         # Store references
@@ -514,12 +523,62 @@ class InstallOrderPage(BasePage):
             "title": title,
             "table": table,
             "btn_pause": btn_add_pause,
+            "search_input": None,
+            "btn_prev": None,
+            "btn_next": None,
+            "search_results": [],
+            "search_idx": -1,
         }
+
+        if hasattr(self, "_pending_search_widgets") and seq_idx in self._pending_search_widgets:
+            si, bp, bn = self._pending_search_widgets.pop(seq_idx)
+            self._ordered_tables[seq_idx]["search_input"] = si
+            self._ordered_tables[seq_idx]["btn_prev"] = bp
+            self._ordered_tables[seq_idx]["btn_next"] = bn
 
         return panel
 
+    def _create_search_bar(self, seq_idx: int, table) -> QWidget:
+        """Create search bar with prev/next navigation."""
+        container = QWidget()
+        layout = QHBoxLayout(container)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(2)
+
+        search_input = QLineEdit()
+        search_input.setPlaceholderText(tr("page.order.search_placeholder"))
+        search_input.setClearButtonEnabled(True)
+        layout.addWidget(search_input, stretch=1)
+
+        btn_prev = QToolButton()
+        btn_prev.setArrowType(Qt.ArrowType.UpArrow)
+        btn_prev.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_prev.setToolTip(tr("page.order.search_prev"))
+        btn_prev.setEnabled(False)
+        layout.addWidget(btn_prev)
+
+        btn_next = QToolButton()
+        btn_next.setArrowType(Qt.ArrowType.DownArrow)
+        btn_next.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_next.setToolTip(tr("page.order.search_next"))
+        btn_next.setEnabled(False)
+        layout.addWidget(btn_next)
+
+        def on_text_changed(text):
+            self._search_in_ordered_table(seq_idx, text)
+
+        search_input.textChanged.connect(on_text_changed)
+        btn_prev.clicked.connect(lambda: self._search_prev(seq_idx))
+        btn_next.clicked.connect(lambda: self._search_next(seq_idx))
+
+        search_input.setProperty("seq_idx", seq_idx)
+        self._pending_search_widgets = getattr(self, "_pending_search_widgets", {})
+        self._pending_search_widgets[seq_idx] = (search_input, btn_prev, btn_next)
+
+        return container
+
     def _create_unordered_panel(self, seq_idx: int) -> QWidget:
-        """Create right panel with unordered components table.
+        """Create right panel with unordered components table and violation panel below.
 
         Args:
             seq_idx: Sequence index
@@ -556,11 +615,14 @@ class InstallOrderPage(BasePage):
         table.itemDoubleClicked.connect(
             lambda item: self._on_unordered_double_click(seq_idx, item)
         )
+        layout.addWidget(table, stretch=1)
 
-        layout.addWidget(table)
+        violation_panel = OrderViolationPanel(self._mod_manager, self._rule_manager)
+        layout.addWidget(violation_panel)
 
         # Store references
         self._unordered_tables[seq_idx] = {"title": title, "table": table}
+        self._violation_panels[seq_idx] = violation_panel
 
         return panel
 
@@ -1037,6 +1099,10 @@ class InstallOrderPage(BasePage):
                     sequence.validation.add_warning(reference)
 
         self._apply_visual_indicators(seq_idx)
+
+        if seq_idx in self._ordered_tables:
+            self._ordered_tables[seq_idx]["table"].refresh_ignores()
+
         self.notify_navigation_changed()
 
     def _apply_visual_indicators(self, seq_idx: int) -> None:
@@ -1060,20 +1126,39 @@ class InstallOrderPage(BasePage):
                 mod_item.text().replace(f"{ICON_ERROR} ", "").replace(f"{ICON_WARNING} ", "")
             )
 
-            if violations:
-                color, icon = seq_data.validation.get_component_indicator(reference)
-                mod_item.setText(f"{icon} {mod_item.text()}")
-
-                for col in range(ordered_table.columnCount()):
-                    item = ordered_table.item(row, col)
-                    if item:
-                        item.setBackground(color)
-
-            else:
+            if not violations:
                 for col in range(ordered_table.columnCount()):
                     item = ordered_table.item(row, col)
                     if item:
                         item.setBackground(Qt.GlobalColor.transparent)
+                continue
+
+            # Check if ignored, skip visual only if no NEW violations appeared
+            if ordered_table.is_ignored(reference):
+                ignored_ids = ordered_table._ignored_violations.get(reference, set())
+                current_ids = {id(v.rule) for v in violations}
+                if not (current_ids - ignored_ids):
+                    for col in range(ordered_table.columnCount()):
+                        item = ordered_table.item(row, col)
+                        if item:
+                            item.setBackground(Qt.GlobalColor.transparent)
+                    continue
+
+            color, icon = seq_data.validation.get_component_indicator(reference)
+
+            # Attenuate if all violations are broad
+            if all(v.is_broad_rule() for v in violations):
+                color = QColor(
+                    (color.red() + 40) // 2,
+                    (color.green() + 40) // 2,
+                    (color.blue() + 40) // 2,
+                )
+
+            mod_item.setText(f"{icon} {mod_item.text()}")
+            for col in range(ordered_table.columnCount()):
+                item = ordered_table.item(row, col)
+                if item:
+                    item.setBackground(color)
 
     # ========================================
     # Event Handlers
@@ -1114,6 +1199,34 @@ class InstallOrderPage(BasePage):
 
         self._update_sequence_counters(seq_idx)
         self._validate_sequence(seq_idx, moved_components)
+
+    def _on_ordered_selection_changed(self, seq_idx: int) -> None:
+        """Update violation panel when ordered table selection changes."""
+        panel = self._violation_panels.get(seq_idx)
+        ordered = self._ordered_tables.get(seq_idx)
+        if not panel or not ordered:
+            return
+
+        table = ordered["table"]
+        selected_rows = set(item.row() for item in table.selectedItems())
+
+        references = []
+        for row in selected_rows:
+            mod_item = table.item(row, COL_ORDERED_MOD)
+            if mod_item:
+                ref = mod_item.data(ROLE_COMPONENT)
+                if ref and ref.mod_id != PAUSE_PREFIX:
+                    references.append(ref)
+
+        current_order = [
+            ref for ref in self._sequences_data[seq_idx].ordered if ref.mod_id != PAUSE_PREFIX
+        ]
+
+        panel.update_for_references(references, current_order, table._ignored_violations)
+
+    def _on_violation_ignored(self, seq_idx: int) -> None:
+        """Refresh visual indicators when an ignore is toggled."""
+        self._apply_visual_indicators(seq_idx)
 
     def _on_unordered_double_click(self, seq_idx: int, item: QTableWidgetItem) -> None:
         """Handle double-click on unordered item to move it to ordered table.
@@ -1237,6 +1350,77 @@ class InstallOrderPage(BasePage):
         self._ignore_errors = state == Qt.CheckState.Checked.value
         self.notify_navigation_changed()
         logger.debug(f"Ignore errors: {self._ignore_errors}")
+
+    # ========================================
+    # Search API
+    # ========================================
+
+    def _search_in_ordered_table(self, seq_idx: int, text: str) -> None:
+        data = self._ordered_tables.get(seq_idx)
+        if not data:
+            return
+        table = data["table"]
+        text_lower = text.strip().lower()
+
+        if not text_lower:
+            data["search_results"] = []
+            data["search_idx"] = -1
+            self._update_search_buttons(seq_idx)
+            return
+
+        results = [
+            row
+            for row in range(table.rowCount())
+            if any(
+                (item := table.item(row, col)) and text_lower in item.text().lower()
+                for col in range(table.columnCount())
+            )
+        ]
+        data["search_results"] = results
+        data["search_idx"] = 0 if results else -1
+        self._jump_to_search_result(seq_idx)
+        self._update_search_buttons(seq_idx)
+
+    def _jump_to_search_result(self, seq_idx: int) -> None:
+        data = self._ordered_tables.get(seq_idx)
+        if not data:
+            return
+        results, idx = data["search_results"], data["search_idx"]
+        if not results or not (0 <= idx < len(results)):
+            return
+        row = results[idx]
+        table = data["table"]
+        table.clearSelection()
+        table.selectRow(row)
+        table.scrollTo(
+            table.model().index(row, 0), QAbstractItemView.ScrollHint.PositionAtCenter
+        )
+
+    def _search_next(self, seq_idx: int) -> None:
+        data = self._ordered_tables.get(seq_idx)
+        if not data or not data["search_results"]:
+            return
+        data["search_idx"] = min(data["search_idx"] + 1, len(data["search_results"]) - 1)
+        self._jump_to_search_result(seq_idx)
+        self._update_search_buttons(seq_idx)
+
+    def _search_prev(self, seq_idx: int) -> None:
+        data = self._ordered_tables.get(seq_idx)
+        if not data or not data["search_results"]:
+            return
+        data["search_idx"] = max(data["search_idx"] - 1, 0)
+        self._jump_to_search_result(seq_idx)
+        self._update_search_buttons(seq_idx)
+
+    def _update_search_buttons(self, seq_idx: int) -> None:
+        data = self._ordered_tables.get(seq_idx)
+        if not data:
+            return
+        results, idx = data["search_results"], data["search_idx"]
+        if data.get("btn_prev"):
+            data["btn_prev"].setEnabled(idx > 0)
+        if data.get("btn_next"):
+            data["btn_next"].setEnabled(0 <= idx < len(results) - 1)
 
     # ========================================
     # BasePage Implementation
@@ -1380,6 +1564,9 @@ class InstallOrderPage(BasePage):
             table.setHorizontalHeaderLabels(
                 [tr("page.order.col_mod"), tr("page.order.col_component")]
             )
+
+        for panel in self._violation_panels.values():
+            panel.retranslate_ui()
 
     def load_state(self) -> None:
         """Load state from state manager."""

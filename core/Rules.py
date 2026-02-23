@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+import re
 from typing import Any, cast
 
 from constants import ICON_ERROR, ICON_INFO, ICON_WARNING
@@ -281,33 +282,82 @@ class RuleViolation:
         else:
             message = ""
 
+        message = RuleViolation._insert_soft_breaks(message)
+
         if self.rule.description:
-            message += f"\n    {self.rule.description}"
+            message += f"\n{self.rule.description}"
 
-        return message
+        if self.is_broad_rule():
+            message += "\n" + tr("page.order.violation.broad_rule_tooltip")
 
-    def _format_order_message(
-        self, for_reference: ComponentReference, current_order: list[ComponentReference]
-    ) -> str:
-        """Format ORDER rule message with only violating components."""
-        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+        escaped = message.replace("\n", "<br>")
+        return f"<div>{self.icon} {escaped}</div>"
 
-        if cast(OrderRule, self.rule).order_direction == OrderDirection.BEFORE:
-            constraint_key = "before" if is_source else "after"
-            other_refs = self.rule.targets if is_source else self.rule.sources
-        else:  # AFTER
-            constraint_key = "after" if is_source else "before"
-            other_refs = self.rule.targets if is_source else self.rule.sources
+    def is_broad_rule(self) -> bool:
+        """True if the rule targets a whole mod rather than specific components."""
+        for ref in (*self.rule.sources, *self.rule.targets):
+            if ref.is_mod():
+                return True
+        return False
 
-        violating_refs = self._get_violating_refs(
-            for_reference, list(other_refs), constraint_key, current_order
+    @staticmethod
+    def _insert_soft_breaks(text: str, max_len: int = 30) -> str:
+        """Insert soft-break hints in long unbreakable words."""
+        return re.sub(
+            r"\S{" + str(max_len) + r",}",
+            lambda m: "&shy;".join(
+                m.group(0)[i : i + max_len] for i in range(0, len(m.group(0)), max_len)
+            ),
+            text,
         )
 
-        if not violating_refs:
+    def _format_order_message(
+        self,
+        for_reference: ComponentReference,
+        current_order: list[ComponentReference],
+    ) -> str:
+        """Format ORDER rule message with only violating components."""
+        ref_pos = self._get_reference_position(for_reference, current_order)
+        if ref_pos is None:
             return ""
 
-        violating_names = ", ".join(str(ref) for ref in violating_refs)
-        return tr(f"rule.message_order_{constraint_key}", components=violating_names)
+        is_source = self._references_match(for_reference, self.affected_components[0])
+        direction = cast(OrderRule, self.rule).order_direction
+        other_side = self.rule.targets if is_source else self.rule.sources
+        positions = {ref: i for i, ref in enumerate(current_order)}
+
+        def is_violation(other_pos: int) -> bool:
+            if direction == OrderDirection.BEFORE:
+                return (ref_pos > other_pos) if is_source else (other_pos > ref_pos)
+            return (ref_pos < other_pos) if is_source else (other_pos < ref_pos)
+
+        violating = [
+            ref
+            for ref in current_order
+            if ref != for_reference
+            and any(self._references_match(ref, rule_ref) for rule_ref in other_side)
+            and is_violation(positions[ref])
+        ]
+
+        if not violating:
+            return ""
+
+        by_mod: dict[str, list[str]] = {}
+        for ref in violating:
+            if not ref.is_mod():
+                by_mod.setdefault(ref.mod_id, []).append(ref.comp_key)
+            else:
+                by_mod.setdefault(ref.mod_id, [])
+
+        grouped = ", ".join(
+            f"{mod}:{','.join(keys)}" if keys else mod for mod, keys in by_mod.items()
+        )
+
+        constraint_key = (
+            "before" if (direction == OrderDirection.BEFORE) == is_source else "after"
+        )
+
+        return tr(f"rule.message_order_{constraint_key}", components=grouped)
 
     def _format_order_dependency_message(
         self, for_reference: ComponentReference, current_order: list[ComponentReference]
