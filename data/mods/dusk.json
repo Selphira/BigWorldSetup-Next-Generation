@@ -1,0 +1,52 @@
+{
+  "name": "Dusk NPC for BGII",
+  "version": "1.0.0",
+  "links": {
+    "homepage": "https://github.com/RamosPabloA/NPC_Dusk_MOD",
+    "forums": ["https://forums.beamdog.com/discussion/87246/"]
+  },
+  "files": [
+    {
+      "filename": "NPC_Dusk_MOD.zip",
+      "size": 101166661,
+      "download": "https://github.com/RamosPabloA/NPC_Dusk_MOD/releases/download/v1.5.0/NPC_Dusk_MOD.zip"
+    }
+  ],
+  "games": ["bg2ee", "eet"],
+  "categories": ["npc"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "es_ES": 0,
+    "en_US": 1,
+    "it_IT": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod propose un nouveau PNJ : Dusk, le tueur de sorciers. Ardusk Aldant, également connu sous le nom de Dusk, est un guerrier du Cormyr, formé dans l'Ordre des Dragons Pourpres. Après un long voyage jusqu'à Athkatla, Dusk est devenu un notable tueur de sorciers qui ne demande qu'à vivre en paix. Mais un sombre personnage attaque la paisible promenade de Waukyne."
+    },
+    "en_US": {
+      "description": "This mod features a new NPC joining to the party: Dusk, the Wizard Slayer. Ardusk Aldant, also know as Dusk, is a warrior from Cormyr, trained in the Order of the Purple Dragons. After a long journey to Athkatla, Dusk now becomes a notable Wizard Slayer who just wants to live in peace. But a dark figure attacks in the peaceful Waukeen's Promenade.",
+      "components": {
+        "0": "Dusk MOD"
+      }
+    },
+    "zh_CN": {
+      "description": "这是一个模组，添加了一个新的NPC：Dusk，法师杀手。Ardusk Aldant，也被称为Dusk，是科米尔的一名战士，在紫龙骑士团接受训练。在长途旅行至阿斯卡特拉后，Dusk成了一名著名的法师杀手，只渴望和平生活。但一个黑暗的人物袭击了渥金商场的和平散步。"
+    },
+    "es_ES": {
+      "components": {
+        "0": "Dusk MOD"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Dusk MOD"
+      }
+    }
+  },
+  "tp2": "dusk",
+  "safe": null,
+  "authors": ["Pol Rupes"]
+}
