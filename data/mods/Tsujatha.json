@@ -1,29 +1,29 @@
 {
   "name": "Tsujatha Melalor",
-  "version": "16",
+  "version": "16_sch",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=20092"
   },
   "files": [
     {
       "filename": "lin-Tsujatha-v16_sch.zip",
-      "size": 18254068,
-      "sha256": "0cb6224cef8994a8f60bfd482e3588762b037006d74f20452079a393b9819f6d",
-      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/lin-Tsujatha-v16_sch.zip",
+      "size": 18232255,
+      "sha256": "2836db0559a47cdc29b279d4820012f026d8d45b09e0952d8dd69b488bf81dc1",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16.sch/lin-Tsujatha-v16_sch.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-Tsujatha-v16_sch.zip",
-      "size": 18481588,
-      "sha256": "61e9ab6c2fcb47bc29a621e620d17054ac3a7fc9ffb9d05d02306c6210ce73a9",
-      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/mac-Tsujatha-v16_sch.zip",
+      "size": 18459775,
+      "sha256": "6976d8c3bd52b00e9bd6ed7fdb14159a51d3364d1018d4fed0981dfe7197c99b",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16.sch/mac-Tsujatha-v16_sch.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-Tsujatha-v16_sch.zip",
-      "size": 18426409,
-      "sha256": "728e0c9f30ac04446e851cdf30d87c1102a050366c931ca0f676561cb9c101f0",
-      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16/win-Tsujatha-v16_sch.zip",
+      "size": 18404596,
+      "sha256": "0bd6c8110aad57155422e309beab32674889db2182a41aa05ed5279b222005bb",
+      "download": "https://github.com/Plutonium-X/NPC_Tsujatha/releases/download/v16.sch/win-Tsujatha-v16_sch.zip",
       "platforms": ["windows"]
     }
   ],
@@ -37,7 +37,8 @@
     "de_DE": 1,
     "es_ES": 2,
     "fr_FR": 3,
-    "ru_RU": 4
+    "ru_RU": 4,
+    "zh_CN": 5
   },
   "translations": {
     "en_US": {
@@ -53,7 +54,10 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组添加了一个可恋爱角色，苏贾塔·梅拉洛，一个来自吉拉利昂王国的中立邪恶精灵死灵法师，该王国位于托瑞尔之外的另一个位面。他的心理描写非常丰富，这尤其得益于他的个人任务（他的野心和父亲的背叛使他成为自己王国中的弃儿）。恋爱线很长，互动也非常多，足以让那些希望永远不要和阿诺门在一起的人感到高兴。注意，即使苏贾塔是一个邪恶阵营的角色（但可以获得救赎），他也只会与善良阵营的女性人类、精灵和半精灵角色恋爱。你可以在位面球找到他。尽快去，因为闲聊对话很多。\n力量17，敏捷12，体质12，智力19，智慧16，魅力14。"
+      "description": "这个模组添加了一个可恋爱角色，苏贾塔·梅拉洛，一个来自吉拉利昂王国的中立邪恶精灵死灵法师，该王国位于托瑞尔之外的另一个位面。他的心理描写非常丰富，这尤其得益于他的个人任务（他的野心和父亲的背叛使他成为自己王国中的弃儿）。恋爱线很长，互动也非常多，足以让那些希望永远不要和阿诺门在一起的人感到高兴。注意，即使苏贾塔是一个邪恶阵营的角色（但可以获得救赎），他也只会与善良阵营的女性人类、精灵和半精灵角色恋爱。你可以在位面球找到他。尽快去，因为闲聊对话很多。\n力量17，敏捷12，体质12，智力19，智慧16，魅力14。",
+      "components": {
+        "0": "兹伽萨 (BG2:SoA NPC) created by Sillara of the Tamari"
+      }
     },
     "de_DE": {
       "components": {
