@@ -1,15 +1,15 @@
 {
   "name": "The Stone of Askavar",
-  "version": "2.7",
+  "version": "2.8",
   "links": {
     "homepage": "http://www.users.totalise.co.uk/~bluerift/#Downloads"
   },
   "files": [
     {
-      "filename": "tsoaV2_7.zip",
-      "size": 42291539,
-      "sha256": "1c6ab7c358ca6769f3df57ce770bab22c0fe6dc04157299a446f7ab25b401d68",
-      "download": "https://github.com/red-carnelian/The-Stone-of-Askavar/releases/download/2.7/tsoaV2_7.zip"
+      "filename": "tsoaV2_8.zip",
+      "size": 42315487,
+      "sha256": "f51ce127490945f2feec3e9a4dcf147cb719ed3d9109ce0d5f3840d202de0d77",
+      "download": "https://github.com/red-carnelian/The-Stone-of-Askavar/releases/download/2.8/tsoaV2_8.zip"
     }
   ],
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
