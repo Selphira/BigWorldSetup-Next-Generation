@@ -1,29 +1,29 @@
 {
   "name": "Revised Battles",
-  "version": "6.6",
+  "version": "6.7",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/655-revised-battles-v63/"
   },
   "files": [
     {
-      "filename": "lin-RevisedBattles-v6.6.zip",
-      "size": 2664699,
-      "sha256": "c4588ee650790eda15c31d34022c0d7cd78277a63ab669fae5a5057a4b84b73d",
-      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/lin-RevisedBattles-v6.6.zip",
+      "filename": "lin-RevisedBattles-v6.7.zip",
+      "size": 2683924,
+      "sha256": "50176ce888505c5bc25b6338aafffed23c79f37cd40c12e0647082414ca3ab0b",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/v6.7/lin-RevisedBattles-v6.7.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-RevisedBattles-v6.6.zip",
-      "size": 2892231,
-      "sha256": "bfc2c1a5f389612fb7a3e30f925d31e75fdcd28398f22b0d0686610355f01d14",
-      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/mac-RevisedBattles-v6.6.zip",
+      "filename": "mac-RevisedBattles-v6.7.zip",
+      "size": 2911456,
+      "sha256": "824248b180f22175c57abea80cc3b3f01f6ff4305bfe35016734f20163535bb8",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/v6.7/mac-RevisedBattles-v6.7.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-RevisedBattles-v6.6.zip",
-      "size": 2837040,
-      "sha256": "4a6e33cfe5a405ecb22a27a4fd637c3e0af360069fdf7974ca7b50bb871eb310",
-      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/6.6/win-RevisedBattles-v6.6.zip",
+      "filename": "win-RevisedBattles-v6.7.zip",
+      "size": 2856265,
+      "sha256": "b4712c606d2ee390a825faaf56315482dcbf402741922f1ce7cf1536ad9ab523",
+      "download": "https://github.com/Plutonium-X/FIGHT_Battles/releases/download/v6.7/win-RevisedBattles-v6.7.zip",
       "platforms": ["windows"]
     }
   ],
@@ -64,7 +64,8 @@
     "fr_FR": 1,
     "de_DE": 2,
     "it_IT": 3,
-    "es_ES": 4
+    "es_ES": 4,
+    "zh_CN": 5
   },
   "translations": {
     "fr_FR": {
@@ -140,7 +141,40 @@
       }
     },
     "zh_CN": {
-      "description": "Improved Battles的混音版，此模组增加了许多战斗的难度（崔斯特、费尔克拉格等），同时也增加了掉落率。此外，它还添加了四个新的战士宗派：\n`私生子`：对偷袭免疫，获得一些能暂时提升他的技能。\n`恶魔骑士`：对恐惧和定身免疫，同时拥有40%的火焰抗性，并且魔法抗性会随等级提升。\n`武器大师`：随着等级提升，他的THAC0、伤害和AC都会得到改善，他可以使用“凯伊”技能，并拥有轻微的移动速度加成。\n`奥术复仇者`：对法师和术士有巨大的THAC0和伤害加成，并且对法术的豁免检定也有加成。他还拥有两个法术，可以驱散隐形效果并在数回合内偏转法术。"
+      "description": "Improved Battles的混音版，此模组增加了许多战斗的难度（崔斯特、费尔克拉格等），同时也增加了掉落率。此外，它还添加了四个新的战士宗派：\n`私生子`：对偷袭免疫，获得一些能暂时提升他的技能。\n`恶魔骑士`：对恐惧和定身免疫，同时拥有40%的火焰抗性，并且魔法抗性会随等级提升。\n`武器大师`：随着等级提升，他的THAC0、伤害和AC都会得到改善，他可以使用“凯伊”技能，并拥有轻微的移动速度加成。\n`奥术复仇者`：对法师和术士有巨大的THAC0和伤害加成，并且对法术的豁免检定也有加成。他还拥有两个法术，可以驱散隐形效果并在数回合内偏转法术。",
+      "components": {
+        "0": "强化战斗 - \"erebusant的修正版\" v6",
+        "1": "增强的崔斯特",
+        "2": "增强的曼卡·碎石者",
+        "3": "增强的疯牧师",
+        "4": "增强的杰拉特家族",
+        "5": "增强的罗诺尔爵士",
+        "6": "增强的主脑",
+        "7": "增强的沙洛佛克怒魂",
+        "8": "增强的科瓦尔，布雷格和阿拉玛斯",
+        "9": "增强的费尔克拉格",
+        "choice_0": "强化红龙费尔克拉格 NEJ2 v691 兼容补丁",
+        "10": "增强的费尔克拉格",
+        "choice_1": "强化红龙费尔克拉格 FR_ROV 兼容补丁",
+        "11": "增强的费尔克拉格",
+        "choice_2": "强化红龙费尔克拉格 Romantic Encounters 兼容补丁",
+        "12": "增强的费尔克拉格",
+        "13": "增强的火巨人",
+        "14": "增强的暗影之主",
+        "15": "增强的商贸集会陵墓",
+        "16": "增强的艾瑞尼卡斯地牢",
+        "17": "增强的神殿下水道战斗小队",
+        "18": "增强的凯瑟·贾力",
+        "19": "增强的法拉赫",
+        "20": "增强的黑暗精灵角斗场",
+        "21": "增强的五彩恶魔",
+        "22": "恶名骑士",
+        "23": "新职业：奥术复仇者",
+        "24": "新职业：刀锋战士",
+        "25": "新职业：恶魔武士",
+        "26": "新职业：私生子",
+        "27": "修改 .CRE 武器特长，能力和效果 (必须安装)"
+      }
     },
     "de_DE": {
       "components": {
