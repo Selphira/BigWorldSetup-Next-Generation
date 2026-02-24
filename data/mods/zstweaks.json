@@ -1,30 +1,30 @@
 {
   "name": "ZSTweaks",
-  "version": "1.6.3b",
+  "version": "1.6.5c",
   "links": {
     "homepage": "https://github.com/szaumoor/ZSTweaks",
     "forums": ["https://www.gibberlings3.net/forums/topic/38335-royalprotectors-tweaks-zstweaks/", "https://www.nexusmods.com/baldursgate2ee/mods/104"]
   },
   "files": [
     {
-      "filename": "lin-ZSTweaks-1.6.3b.zip",
-      "size": 2411326,
-      "sha256": "4033a4daf9a0012527e64f910362793d5396a87711320eff33f7f3ae9c7abc45",
-      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.3b/lin-ZSTweaks-1.6.3b.zip",
+      "filename": "lin-ZSTweaks-1.6.5c.zip",
+      "size": 2413159,
+      "sha256": "adf9117b582d3345b3863639418a51d22ba30b4b4661836ee6acc6bdde834cb5",
+      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.5c/lin-ZSTweaks-1.6.5c.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-ZSTweaks-1.6.3b.zip",
-      "size": 2411326,
-      "sha256": "d2b4decb1220aa476c2c9f3ced7251665b2b717b2ec94798d3558fad3c936d1b",
-      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.3b/mac-ZSTweaks-1.6.3b.zip",
+      "filename": "mac-ZSTweaks-1.6.5c.zip",
+      "size": 2413159,
+      "sha256": "d9e18efdd3e776fbc7a732b286e12c61b4d3ab2f6f625a02c89172e9d7073196",
+      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.5c/mac-ZSTweaks-1.6.5c.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-ZSTweaks-1.6.3b.zip",
-      "size": 3679202,
-      "sha256": "f8d7aec487f9704907fdde39c67a7c0c0fcc35e78e3ac8ebb0e9245f1af809f0",
-      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.3b/win-ZSTweaks-1.6.3b.zip",
+      "filename": "win-ZSTweaks-1.6.5c.zip",
+      "size": 3681035,
+      "sha256": "2f72f639d153f2fa8d8242640d90b4089cb9f9ee62e7b4e89d7ee5a4d3ef11ac",
+      "download": "https://github.com/szaumoor/ZSTweaks/releases/download/1.6.5c/win-ZSTweaks-1.6.5c.zip",
       "platforms": ["windows"]
     }
   ],
@@ -127,6 +127,7 @@
     "1336": {"type": "std", "games": ["bg2ee", "eet"]},
     "1351": {"type": "std", "games": ["bg2ee", "eet"]},
     "1365": {"type": "std", "games": ["bg2ee", "eet"]},
+    "1366": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "999": {"type": "std"},
     "1000": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "1130": {"type": "std", "games": ["bg2ee", "eet"]},
@@ -321,7 +322,7 @@
     "360": {"type": "std"},
     "2120": {"type": "std", "games": ["bg2ee", "eet"]},
     "2130": {"type": "std", "games": ["bg2ee", "eet"]},
-    "2150": {"type": "std", "games": ["bg2ee", "eet"]},
+    "2150": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
     "2160": {"type": "std"},
     "2170": {"type": "std"},
     "2171": {"type": "std"},
@@ -336,6 +337,7 @@
     "2270": {"type": "std", "games": ["bg2ee", "eet"]},
     "2280": {"type": "std"},
     "2290": {"type": "std"},
+    "2300": {"type": "std"},
     "3000": {"type": "std"},
     "3010": {"type": "std", "games": ["bg2ee", "eet"]},
     "3020": {"type": "std"},
@@ -351,6 +353,7 @@
     "3130": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
     "3140": {"type": "std"},
     "3150": {"type": "std"},
+    "3160": {"type": "std"},
     "10012": {"type": "std"},
     "1531": {"type": "std"}
   },
@@ -391,7 +394,7 @@
         "1329": "Make disrupt undead weapons more balanced and closer to PnP rules",
         "1397": "Make rangers, thieves, and monks hit harder with ranged weapons if invisible",
         "1548": "Make Void-weapons slightly more effective and logical",
-        "1532": "Make all bracers, belts and boots grant +1 HP, so unenchanted variants aren't just garbage. WARNING: Install this component DEAD LAST after other components that modify these items, including components from other mods",
+        "1532": "Make all bracers, belts and boots grant +1 HP, so unenchanted variants aren't just garbage",
         "1001": "Install user-selected components in the Gear group",
         "1170": "Make Shadow Dragon Scale behave less like a Black Dragon Scale",
         "1171": "Make Silver Dragon Scale also grant 40% cold resistance",
@@ -460,6 +463,7 @@
         "1336": "Make Cowl of the Stars more useful",
         "1351": "Make Tzu-Zan's bracers a better competitor to Gauntlets of Crushing",
         "1365": "Make Shield of Balduran less of an auto-win item",
+        "1366": "Make Helm of Balduran work as it does in BG3",
         "999": "Install user-selected components in the Dagger group",
         "1000": "Make throwing poisoned daggers less rare and more likely to poison enemies",
         "1130": "Make Bone Blade not just a plain +4 dagger",
@@ -662,13 +666,14 @@
         "2200": "Make Blackguards able to backstab as if they had a 2x multiplier",
         "3500": "Make Shadowstep impossible to use while in the Shadow Plane",
         "2230": "Make RR's Crippling strike no longer able to increase Strength",
-        "2231": "Give Dragon Disciples direct access to all fire wizard spells and increase fire damage by 5%",
+        "2231": "Make Dragon Disciples able to access most arcane fire spells automatically and increase fire damage dealt",
         "2232": "Make Called Shot directly increase ranged weapon damage",
         "2260": "Make Blades, Skalds, and Swashbucklers and Priest of Tempus get more warrior-type benefits",
         "2265": "Make Defensive Spin protect against backstabs for its duration and allow very slow movement",
         "2270": "Make Whirlwind and Evasion grant once 3 uses of the Improved variants",
         "2280": "Make single-classed thieves and bards able to throw sand in the enemy's eyes",
         "2290": "Make single-classed thieves, bards, and monks able to briefly avoid damaging AoE and projectiles once per day",
+        "2300": "Make Defensive Stance slightly more balanced",
         "3000": "Install user-selected components in the Creature group",
         "3010": "Make inappropriately aligned creatures in BG2 more correct",
         "3020": "Make summoned demons grant XP to the party when they kill something",
@@ -684,6 +689,7 @@
         "3130": "Make minotaurs tougher and more dangerous",
         "3140": "Make ogre / oni mages regenerating fiends, as per PnP",
         "3150": "Make drow's magic resistance lower (configurable)",
+        "3160": "Make the effects on-hit of Otyugh attacks nonmagical and subject to saving throws",
         "10012": "Install user-selected components in the End-of-install-order group",
         "1531": "Make a selection of spells ignore magic resistance"
       }
