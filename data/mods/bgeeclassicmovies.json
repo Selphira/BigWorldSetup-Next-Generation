@@ -1,15 +1,15 @@
 {
   "name": "BG:EE Classic Movies",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "links": {
     "homepage": "https://github.com/Sampsca/BGEE-Classic-Movies"
   },
   "files": [
     {
-      "filename": "bgee-classic-movies-v2.3.2.zip",
-      "size": 587531494,
-      "sha256": "7bf6aa2d22609450863984202eed2350aa2a73a1fb649878aabf11871f321f55",
-      "download": "https://github.com/Sampsca/BGEE-Classic-Movies/releases/download/V2.3.2/bgee-classic-movies-v2.3.2.zip"
+      "filename": "bgee-classic-movies-v2.4.0.zip",
+      "size": 587531820,
+      "sha256": "9bdc40c973c48113991df6da4dd2b2ea4ab772b9f0de9796f655f2338a6f3738",
+      "download": "https://github.com/Sampsca/BGEE-Classic-Movies/releases/download/V2.4.0/bgee-classic-movies-v2.4.0.zip"
     }
   ],
   "games": ["bgee", "eet", "sod"],
