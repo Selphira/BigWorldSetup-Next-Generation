@@ -1,30 +1,30 @@
 {
   "name": "Consumables",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "links": {
     "homepage": "https://github.com/szaumoor/ZS_Consumables/",
     "forums": ["https://www.gibberlings3.net/forums/topic/40103-royalprotectors-consumables-zs_consumables/"]
   },
   "files": [
     {
-      "filename": "lin-ZS_Consumables-1.0.4.zip",
-      "size": 1030286,
-      "sha256": "5e035d855b52a1c852c7db2ee037ee06b9117cdee80a4f80966d410a5be8e81a",
-      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/lin-ZS_Consumables-1.0.4.zip",
+      "filename": "lin-ZS_Consumables-1.0.5.zip",
+      "size": 1036196,
+      "sha256": "fa9e09574422c8aaf4dc332d79985aade7b18aeb1ad2a97d808c4bc3ff9aa714",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.5/lin-ZS_Consumables-1.0.5.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-ZS_Consumables-1.0.4.zip",
-      "size": 1030286,
-      "sha256": "dec1895c788221ced216388334154e496bd6a49c5f0fb2c9d14f6981c42800fe",
-      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/mac-ZS_Consumables-1.0.4.zip",
+      "filename": "mac-ZS_Consumables-1.0.5.zip",
+      "size": 1036196,
+      "sha256": "1f508438836e74134038e33a0249449f33fefec2d45bf6d984e2dbcd48bc908f",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.5/mac-ZS_Consumables-1.0.5.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-ZS_Consumables-1.0.4.zip",
-      "size": 2125759,
-      "sha256": "0fc1e13b85880ffce026da1458648f885231b1f38916d920a0eb2c30f4c27197",
-      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.4/win-ZS_Consumables-1.0.4.zip",
+      "filename": "win-ZS_Consumables-1.0.5.zip",
+      "size": 2304084,
+      "sha256": "3fed5783cd6e80be4a7458b6eda8cd19368f72a2aa168ad734aebede39756411",
+      "download": "https://github.com/szaumoor/ZS_Consumables/releases/download/1.0.5/win-ZS_Consumables-1.0.5.zip",
       "platforms": ["windows"]
     }
   ],
@@ -34,7 +34,8 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "en_US": 0
+    "en_US": 0,
+    "zh_CN": 1
   },
   "translations": {
     "fr_FR": {
@@ -47,7 +48,10 @@
       }
     },
     "zh_CN": {
-      "description": "此模组为游戏提供了各种消耗品，从而提升了游戏性并为玩家提供了新的策略。其中许多物品借鉴或灵感来自其他游戏和媒体，如博德之门3、无冬之夜和巫师。该模组将物品分发到常规商店中，同时也手动放置在某些NPC身上，并随机自动放置在某些敌人的战利品中。"
+      "description": "此模组为游戏提供了各种消耗品，从而提升了游戏性并为玩家提供了新的策略。其中许多物品借鉴或灵感来自其他游戏和媒体，如博德之门3、无冬之夜和巫师。该模组将物品分发到常规商店中，同时也手动放置在某些NPC身上，并随机自动放置在某些敌人的战利品中。",
+      "components": {
+        "0": "安装新的消耗品并将其配置到整个游戏中"
+      }
     }
   },
   "tp2": "zs_consumables",
