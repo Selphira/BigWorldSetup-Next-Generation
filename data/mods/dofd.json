@@ -1,15 +1,30 @@
 {
   "name": "Domains of Dread",
-  "version": "3.5",
+  "version": "3.6",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/135-domains-of-dread/"
   },
   "files": [
     {
-      "filename": "domains-of-dread-v3.5.zip",
-      "size": 4198931,
-      "sha256": "eaff4950ff95b1bd08f5395a56b2f80d814e65fadb54a313c618b3cdfb50f6a4",
-      "download": "https://github.com/11jo/Domains-of-Dread/releases/download/v3.5/domains-of-dread-v3.5.zip"
+      "filename": "lin-Domains_of_Dread-v3.7.zip",
+      "size": 2818426,
+      "sha256": "0c22c733821da1389e62cf50ac5bb9a2630b56d12414cb18be6f87da5b4c8b13",
+      "download": "https://github.com/The-Gate-Project/Domains-of-Dread/releases/download/v3.7/lin-Domains_of_Dread-v3.7.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Domains_of_Dread-v3.7.zip",
+      "size": 3045938,
+      "sha256": "f03331e74f8606fa122591034a094e5f18b3c6a4ba8733c9e4e05715cd280812",
+      "download": "https://github.com/The-Gate-Project/Domains-of-Dread/releases/download/v3.7/mac-Domains_of_Dread-v3.7.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Domains_of_Dread-v3.7.zip",
+      "size": 2990767,
+      "sha256": "e3bbd8eee90321abe91c8e2e7582e75eb5b9b5be0370def78a8ca3ee39666b8c",
+      "download": "https://github.com/The-Gate-Project/Domains-of-Dread/releases/download/v3.7/win-Domains_of_Dread-v3.7.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -23,7 +38,8 @@
     "ru_RU": 1,
     "de_DE": 2,
     "it_IT": 3,
-    "fr_FR": 4
+    "fr_FR": 4,
+    "zh_CN": 5
   },
   "translations": {
     "fr_FR": {
@@ -41,7 +57,11 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组添加了一个相当困难的新任务：去冒险者广场找那个完全疯掉的人。他会向你提出一个要求，你的回答将开启一系列相当复杂的战斗。只有幸存者才能获得奖励。"
+      "description": "这个模组添加了一个相当困难的新任务：去冒险者广场找那个完全疯掉的人。他会向你提出一个要求，你的回答将开启一系列相当复杂的战斗。只有幸存者才能获得奖励。",
+      "components": {
+        "0": "可怖之域",
+        "100": "添加访问“可怖之域”的另一种更简单的方式"
+      }
     },
     "ru_RU": {
       "components": {
