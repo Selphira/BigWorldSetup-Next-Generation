@@ -1,29 +1,29 @@
 {
   "name": "Horace",
-  "version": "1.8",
+  "version": "1.8.1",
   "links": {
     "homepage": "https://www.shsforums.net/topic/54902-horace-a-mod-from-seifer/"
   },
   "files": [
     {
-      "filename": "lin-Horace-v1.8.zip",
-      "size": 3017317,
-      "sha256": "1730d1b94f717c48e4424b7bde82127e8e6c88f5f5767c77b16c96bf45a78a3a",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/lin-Horace-v1.8.zip",
+      "filename": "lin-Horace-v1.8.1.zip",
+      "size": 3015599,
+      "sha256": "4e72622849886759e10cadf0f40a50b5efaf9a2bf1a14dd804b154a9f4206c31",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8.1/lin-Horace-v1.8.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Horace-v1.8.zip",
-      "size": 3244833,
-      "sha256": "3bafb894ca194f823a4be286aaf9401897ef86d987c1f2f624bea43d7578acce",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/mac-Horace-v1.8.zip",
+      "filename": "mac-Horace-v1.8.1.zip",
+      "size": 3243115,
+      "sha256": "885750dc35b42a9931f199ae6dd11d6146a76c4fd23a9edfe00976bf34961129",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8.1/mac-Horace-v1.8.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Horace-v1.8.zip",
-      "size": 3189658,
-      "sha256": "4c4abc1b431f97e21ece3e6779923c84aca89f0957f61e823452517cf432b5bb",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8/win-Horace-v1.8.zip",
+      "filename": "win-Horace-v1.8.1.zip",
+      "size": 3187940,
+      "sha256": "2485bb504ff1d10352404b64ce0341a1c79ab655b62296d559cd96baa164d8f0",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Horace/releases/download/v1.8.1/win-Horace-v1.8.1.zip",
       "platforms": ["windows"]
     }
   ],
