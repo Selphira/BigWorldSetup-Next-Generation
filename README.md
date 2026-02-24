@@ -1,5 +1,5 @@
 [![Github Releases](https://img.shields.io/github/v/release/Selphira/BigWorldSetup-Next-Generation)](https://github.com/Selphira/BigWorldSetup-Next-Generation/releases/latest)
-![Langues](https://img.shields.io/static/v1?label=Langues&message=Français%20%7C%20English&color=limegreen)
+![Langues](https://img.shields.io/static/v1?label=Langues&message=Français%20%7C%20English%20%7C%20简体中文&color=limegreen)
 ![Jeux supportés](https://img.shields.io/static/v1?label=Jeux%20supportés&message=EET%20%7C%20BG2EE%20%7C%20BGEE%20%7C%20SOD%20%7C%20IWDEE%20%7C%20PSTEE&color=dodgerblue)
 
 # Big World Setup - Next Generation (BWS-NG)
