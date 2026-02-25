@@ -1,0 +1,136 @@
+{
+  "name": "BG1 NPC in SoA&ToB",
+  "version": "15.4.2",
+  "links": {
+    "homepage": "https://github.com/Spellhold-Studios/BG1-NPCs-for-SoA-ToB",
+    "forums": ["https://forums.beamdog.com/discussion/82463/"]
+  },
+  "files": [
+    {
+      "filename": "bg1-npc-in-soatob-15.5.zip",
+      "size": 59899301,
+      "sha256": "8d5ecdde672f63612382a49d9136e1f3d6a513b355f19814f686b1dab30f5201",
+      "download": "https://github.com/Spellhold-Studios/BG1-NPCs-for-SoA-ToB/releases/download/v.15.5/bg1-npc-in-soatob-15.5.zip"
+    }
+  ],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "categories": ["npcx", "quest"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std"},
+    "2": {"type": "std"},
+    "3": {"type": "std"},
+    "4": {"type": "std"},
+    "6": {"type": "std"},
+    "8": {"type": "std"},
+    "10": {"type": "std"},
+    "11": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "20": {"type": "std"},
+    "25": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["30", "35"]},
+    "40": {"type": "std"},
+    "45": {"type": "std"},
+    "50": {"type": "std"},
+    "choice_1": {"type": "muc", "components": ["55", "56"]},
+    "60": {"type": "std"},
+    "65": {"type": "std"},
+    "70": {"type": "std"},
+    "75": {"type": "std"},
+    "80": {"type": "std", "games": ["bg2ee", "eet"]},
+    "81": {"type": "std"},
+    "82": {"type": "std", "games": ["bg2ee", "eet"]},
+    "83": {"type": "std"},
+    "84": {"type": "std"},
+    "85": {"type": "std"},
+    "86": {"type": "std", "games": ["bg2ee", "eet"]},
+    "87": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "ru_RU": 1
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod ambitieux ajoute une nouvelle zone dans Athkatla (Water Gardens) où se réunissent toutes les personnes riches et célèbres d'Athkatla. Que font-ils là-bas ? Ils papotent, ils se détentent et boivent. Des milliers de lignes de dialogues qui changent à chaque conversation. Des variations selon l'heure du jour (ou de la nuit).\nCe mod permet également aux moddeurs d'ajouter eux-mêmes des composants pour des PNJ issus de BG1, ils ont de nouvelles répliques et parfois même de nouvelles quêtes ou des romances entre eux. Il y a aussi quelques surprises."
+    },
+    "en_US": {
+      "description": "This ambitious mod adds a new area in Athkatla (Water Gardens) where all the rich and famous people of Athkatla gather. What do they do there? Chatting, relaxing and drinking. Thousands of lines of dialog that change with every conversation. Variations depending on the time of day (or night). This mod also allows modders to add components for NPCs from BG1 themselves, with new lines and sometimes even new quests or romances between them. There are also a few surprises.",
+      "components": {
+        "0": "Water Gardens. New Athkatla's district & new quests",
+        "1": "OPTIONAL component, NOT RECOMMENDED! Add unbalanced and non-lore items to merchant shops in Water Gardens?",
+        "2": "Shar-Teel NPC in BG2. \"Nightbringer of Shar\" (SoA)",
+        "3": "New portrait of Shar-Teel (blonde, slightly older)",
+        "4": "Yeslick Orothiar NPC in BG2 (SoA)",
+        "6": "Brave Sir Garrick NPC in BG2 (SoA)",
+        "8": "Skie & Eldoth NPCs in BG2 (SoA)",
+        "10": "Branwen NPC in BG2 (SoA)",
+        "11": "ToB-part for Shar-Teel or/and Yeslick, Garrick, Branwen, Skie, Eldoth",
+        "20": "Coran & Safana Chronicles (SoA & ToB)",
+        "25": "Alora (SoA & ToB)",
+        "choice_0": "Kagain's Corner (SoA & ToB)",
+        "30": "Store with crazy amount of magical items",
+        "35": "Store with Vanilla Items Only",
+        "40": "Faldorn's New Leaf (SoA & ToB)",
+        "45": "Xzar and Monty Murder Mysteries (SoA & ToB) (R, 18+!)",
+        "50": "Gnomes in the City: Quayle & Tiax (SoA & ToB)",
+        "choice_1": "Expanded cirqus quest",
+        "55": "Expanded cirqus quest (Standard difficulty)",
+        "56": "Expanded cirqus quest - VERY difficult battles in circus (EXTREME difficulty)",
+        "60": "Ajantis (SoA & ToB)",
+        "65": "Dynaheir (SoA)",
+        "70": "Kivan (SoA & ToB)",
+        "75": "Xan (SoA & ToB)",
+        "80": "Make Branwen a Priest of Tempus",
+        "81": "Make Eldoth a Jester",
+        "82": "Make Faldorn an Avenger",
+        "83": "Make Garrick a Skald",
+        "84": "Make Montaron an Assasin",
+        "85": "Make Safana a Swashbuckler",
+        "86": "Make Skie a Shadowdancer",
+        "87": "Inter Component Banter Pack"
+      }
+    },
+    "zh_CN": {
+      "description": "这款大型模组在阿斯卡特拉城新增了「水园」区域，汇聚全城名流显贵。他们在此谈天说地、休憩小酌。数千条对话文本会随每次交谈动态更新，并配有昼夜交替的实时演算系统。\n该模组同时允许其他制作者为博德之门Ⅰ的NPC创建扩展组件，这些角色不仅拥有全新台词，更可触发全新任务线乃至同伴间的恋爱剧情，还暗藏诸多意外之喜。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Water Gardens. New Athkatla's district & new quests",
+        "1": "OPTIONAL component, NOT RECOMMENDED! Add unbalanced and non-lore items to merchant shops in Water Gardens?",
+        "2": "Shar-Teel NPC in BG2. \"Nightbringer of Shar\" (R, 18+!)",
+        "3": "New portrait of Shar-Teel (blonde, slightly older)",
+        "4": "Yeslick Orothiar NPC in BG2",
+        "6": "Brave Sir Garrick NPC in BG2",
+        "8": "Skie & Eldoth NPCs in BG2",
+        "10": "Branwen NPC in BG2",
+        "11": "ToB-part for Shar-Teel or/and Yeslick, Garrick, Branwen, Skie, Eldoth",
+        "20": "Coran & Safana Chronicles (SoA & ToB)",
+        "25": "Alora (SoA & ToB)",
+        "choice_0": "Kagain's Corner (SoA & ToB)",
+        "30": "Store with crazy amount of magical items",
+        "35": "Store with Vanilla Items Only",
+        "40": "Faldorn's New Leaf (SoA & ToB)",
+        "45": "Xzar and Monty Murder Mysteries (SoA & ToB) (R, 18+!)",
+        "50": "Gnomes in the City: Quayle & Tiax (SoA & ToB)",
+        "choice_1": "Expanded cirqus quest",
+        "55": "Expanded cirqus quest (Standard difficulty)",
+        "56": "Expanded cirqus quest - VERY difficult battles in circus (EXTREME difficulty)",
+        "60": "Ajantis (SoA & ToB)",
+        "65": "Dynaheir (SoA)",
+        "70": "Kivan (SoA & ToB)",
+        "75": "Xan (SoA & ToB)",
+        "80": "Make Branwen a Priest of Tempus",
+        "81": "Make Eldoth a Jester",
+        "82": "Make Faldorn an Avenger",
+        "83": "Make Garrick a Skald",
+        "84": "Make Montaron an Assasin",
+        "85": "Make Safana a Swashbuckler",
+        "86": "Make Skie a Shadowdancer",
+        "87": "Inter Component Banter Pack"
+      }
+    }
+  },
+  "tp2": "bg1npcsoa",
+  "safe": 2,
+  "authors": ["Smiling Imp", "Arcanecoast Team"]
+}
