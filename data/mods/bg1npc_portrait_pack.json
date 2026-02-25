@@ -1,0 +1,113 @@
+{
+  "name": "BG1 NPC Portrait Pack",
+  "version": "3",
+  "links": {
+    "homepage": "https://github.com/Gibberlings3/BG1NPC_Portrait_Pack",
+    "forums": ["https://www.gibberlings3.net/files/file/691-bg1-npc-portrait-pack/"]
+  },
+  "files": [
+    {
+      "filename": "bg1npc_portrait_pack-v3.exe",
+      "size": 9936887,
+      "download": "https://github.com/Gibberlings3/BG1NPC_Portrait_Pack/releases/download/v3/bg1npc_portrait_pack-v3.exe",
+      "platforms": ["windows"]
+    },
+    {
+      "filename": "lin-bg1npc_portrait_pack-v3.tar.gz",
+      "size": 12437116,
+      "download": "https://github.com/Gibberlings3/BG1NPC_Portrait_Pack/releases/download/v3/lin-bg1npc_portrait_pack-v3.tar.gz",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "osx-bg1npc_portrait_pack-v3.tar.gz",
+      "size": 13322555,
+      "download": "https://github.com/Gibberlings3/BG1NPC_Portrait_Pack/releases/download/v3/osx-bg1npc_portrait_pack-v3.tar.gz",
+      "platforms": ["macos"]
+    }
+  ],
+  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
+  "categories": ["portrait"],
+  "components": {
+    "0": {"type": "std"},
+    "1": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "4": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "choice_0": {"type": "muc", "components": ["5", "6", "7"], "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "choice_1": {"type": "muc", "components": ["8", "9", "10"], "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "13": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "19": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "23": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
+    "27": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "de_DE": 1,
+    "fr_FR": 2
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod offre des portraits alternatifs pour les PNJ de Baldur's Gate.",
+      "components": {
+        "0": "Rendre utilisable les portraits pour le PJ",
+        "1": "Remplacer tous les portraits des PNJs (AMOK)",
+        "4": "Portrait alternatif pour Branwen (edition BioWare par XVIII)",
+        "choice_0": "Portrait alternatif pour Coran",
+        "5": "Alternatif par Amok",
+        "6": "Edition Bioware par Tancred et NiGHTMARE",
+        "7": "Alternatif par Melisah",
+        "choice_1": "Portrait alternatif pour Dynaheir",
+        "8": "Alternatif #1 par Amok",
+        "9": "Alternatif #2 par Amok",
+        "10": "Alternatif #3 par Amok",
+        "13": "Portrait alternatif pour Faldorn (par XVIII)",
+        "19": "Portrait alternatif pour Kivan (edition BioWare par XVIII)",
+        "23": "Portrait alternatif pour Safana (edition BioWare par XVIII)",
+        "27": "Portrait alternatif pour Viconia (edition Bioware par XVIII)"
+      }
+    },
+    "en_US": {
+      "description": "This mod offers alternative portraits for Baldur's Gate NPCs.",
+      "components": {
+        "0": "Copy all portraits for use by player characters",
+        "1": "Replace all NPC portraits (AMOK)",
+        "4": "Alternate Branwen portrait: BioWare edit by XVIII",
+        "choice_0": "Alternate Coran Portrait",
+        "5": "Alternate by Amok",
+        "6": "BioWare edit by Tancred and NiGHTMARE",
+        "7": "Alternate by Melisah",
+        "choice_1": "Alternate Dynaheir Portrait",
+        "8": "Alternate #1 by Amok",
+        "9": "Alternate #2 by Amok",
+        "10": "Alternate #3 by Amok",
+        "13": "Alternate Faldorn Portrait: by XVIII",
+        "19": "Alternate Kivan Portrait: BioWare edit by XVIII",
+        "23": "Alternate Safana Portrait: BioWare edit by XVIII",
+        "27": "Alternate Viconia Portrait: BioWare edit by XVIII"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组为博德之门的 NPC 提供了替代肖像。"
+    },
+    "de_DE": {
+      "components": {
+        "0": "Mache alle Porträts für Spielercharaktere verfügbar",
+        "1": "Ersetze alle NPC Porträts (AMOK)",
+        "4": "Alternatives Porträt für Branwen: überarbeitete BioWare Version von XVIII",
+        "choice_0": "Alternatives Porträt für Coran",
+        "5": "Alternative von Amok",
+        "6": "Überarbeitete BioWare Version von Tancred und NiGHTMARE",
+        "7": "Alternative von Melisah",
+        "choice_1": "Alternatives Porträt für Dynaheir",
+        "8": "Alternative #1 von Amok",
+        "9": "Alternative #2 von Amok",
+        "10": "Alternative #3 von Amok",
+        "13": "Alternatives Porträt für Faldorn: von XVIII",
+        "19": "Alternatives Porträt für Kivan: überarbeitete BioWare Version von XVIII",
+        "23": "Alternatives Porträt für Safana: überarbeitete BioWare Version von XVIII",
+        "27": "Alternatives Porträt für Viconia: überarbeitete BioWare Version von XVIII"
+      }
+    }
+  },
+  "tp2": "bg1npc_portrait_pack",
+  "safe": 2,
+  "authors": ["Domi"]
+}
