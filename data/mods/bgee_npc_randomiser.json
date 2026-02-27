@@ -1,0 +1,41 @@
+{
+  "name": "NPC Kit and Proficiency Randomiser",
+  "version": "0.1",
+  "links": {
+    "homepage": "https://github.com/JayP236/bgee_npc_randomiser",
+    "forums": ["https://forums.beamdog.com/discussion/83290"]
+  },
+  "files": [
+    {
+      "filename": "bgee_npc_randomiser-v0.1.zip",
+      "size": 1315193,
+      "download": "https://github.com/JayP236/bgee_npc_randomiser/releases/download/v0.1/bgee_npc_randomiser-v0.1.zip"
+    }
+  ],
+  "games": ["bgee", "sod"],
+  "categories": ["npcx"],
+  "components": {
+    "0": {"type": "std"}
+  },
+  "languages": {
+    "en_US": 0,
+    "all": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod promettait de donner à tous les compagnons du jeu un kit aléatoire (relatif à leur classe, leur race, leur alignement, etc...) et/ou de leur assigner des compétences d'armes aléatoires (ce qui peut donner des résultats étranges, comme compétences \"lance\" et \"arme à une main\"). En fait, il ne modifie que Imoen."
+    },
+    "en_US": {
+      "description": "This mod promised to give all companions in the game a random kit (relative to their class, race, alignment, etc.) and/or assign them random weapon skills (which can give strange results, such as \"spear\" and \"one-handed weapon\" skills). In fact, it only modifies Imoen.",
+      "components": {
+        "0": "JP's NPC Kit And Proficiency Randomiser, BG:EE"
+      }
+    },
+    "zh_CN": {
+      "description": "此模组承诺给游戏中所有同伴一个随机宗派（相对于他们的职业、种族、阵营等）和/或分配随机的武器技能（这可能会产生奇怪的结果，例如“长矛”和“单手武器”技能）。实际上，它只修改了爱蒙。"
+    }
+  },
+  "tp2": "bgee_npc_randomiser",
+  "safe": 1,
+  "authors": ["jaypee"]
+}
