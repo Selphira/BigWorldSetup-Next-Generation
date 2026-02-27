@@ -1,0 +1,43 @@
+{
+  "name": "BGEE AI Denoised Areas",
+  "version": "220506",
+  "links": {
+    "homepage": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas",
+    "forums": [
+      "https://forums.beamdog.com/discussion/83893/", "https://github.com/haifengkao/EET_BGEE_AI_Denoised_Areas"
+    ]
+  },
+  "files": [
+    {
+      "filename": "BGEE_AI_Denoised_Areas_v220506.zip",
+      "size": 644794905,
+      "download": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas/releases/download/v220506/BGEE_AI_Denoised_Areas_v220506.zip"
+    }
+  ],
+  "games": ["bgee", "eet", "sod"],
+  "categories": ["cosm"],
+  "components": {
+    "0": {"type": "std", "games": ["bgee", "sod"]}
+  },
+  "languages": {
+    "en_US": 0,
+    "all": 0
+  },
+  "translations": {
+    "fr_FR": {
+      "description": "Ce mod améliore grandement la qualité graphique des zones du jeu. L'auteur a soumis toutes les cartes du jeu (les fichiers images) à une IA d'amélioration graphique, pour un résultat plus vibrant et bien plus net, en particulier lors de l'utilisation du zoom (Des images de comparaison sont disponibles sur la page GitHub ou dans le fil de discussion du mod sur les forums Beamdog)."
+    },
+    "en_US": {
+      "description": "This mod greatly improves the graphic quality of the game's areas. The author has subjected all the game's maps (the image files) to a graphics enhancement AI, for a more vibrant and much sharper result, especially when using zoom (Comparison images are available on the GitHub page or in the mod's thread on the Beamdog forums).",
+      "components": {
+        "0": "BGEE_AI_Denoised_Areas"
+      }
+    },
+    "zh_CN": {
+      "description": "这个模组极大地提升了游戏区域的质量。作者将游戏中的所有地图（图像文件）提交给了一个图形增强AI，以获得更生动、更清晰的结果，特别是在使用缩放功能时（比较图像可在GitHub页面或Beamdog论坛的模组讨论串中找到）。"
+    }
+  },
+  "tp2": "bgee_ai_denoised_areas",
+  "safe": 2,
+  "authors": ["WillScarlettOhara"]
+}
