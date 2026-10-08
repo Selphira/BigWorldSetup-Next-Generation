@@ -7,7 +7,14 @@
   "sequences": [
     {
       "game": "bg2ee",
-      "required_files": [{"files": ["chitin.key", "Baldur.exe"]}],
+      "required_files": [
+        {"files": ["chitin.key"]},
+        {
+          "files": ["Baldur.exe", "BaldurII.exe"],
+          "operator": "any",
+          "description": "BaldurII version >= 2.7 distributed by GOG"
+        }
+      ],
       "lua_checks": {"engine_mode": 1},
       "order": [
       ]
