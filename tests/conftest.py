@@ -1,0 +1,92 @@
+"""Isolated, offline fixtures for the L0 regression suite."""
+
+from collections.abc import Iterator
+import os
+from pathlib import Path
+import socket
+import subprocess
+
+os.environ["QT_QPA_PLATFORM"] = "offscreen"
+
+import pytest
+
+from core.ComponentReference import IndexManager
+from core.Mod import Mod
+from core.RuleManager import RuleManager
+
+# Match application import order until the parser/engine cycle is removed.
+from core.WeiDUInstallerEngine import WeiDUInstallerEngine  # noqa: F401
+
+
+class ModCatalogue:
+    """Small in-memory catalogue implementing the manager read interface."""
+
+    def __init__(self, mods: list[Mod]) -> None:
+        self.mods: dict[str, Mod] = {mod.id: mod for mod in mods}
+
+    def get_all_mods(self) -> dict[str, Mod]:
+        return self.mods
+
+    def get_mod_by_id(self, mod_id: str) -> Mod | None:
+        return self.mods.get(mod_id.lower())
+
+
+@pytest.fixture(autouse=True)
+def isolated_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterator[None]:
+    """Prevent network/process IO and confine relative writes to a temporary cwd."""
+
+    def forbidden(*args: object, **kwargs: object) -> None:
+        raise AssertionError("Real network and external processes are forbidden in tests")
+
+    monkeypatch.setattr(socket.socket, "connect", forbidden)
+    monkeypatch.setattr(socket, "create_connection", forbidden)
+    monkeypatch.setattr(subprocess, "Popen", forbidden)
+    monkeypatch.chdir(tmp_path)
+    IndexManager.reset()
+    yield
+    IndexManager.reset()
+
+
+@pytest.fixture
+def catalogue() -> ModCatalogue:
+    mods = [
+        Mod(
+            {
+                "id": name,
+                "name": name,
+                "links": {},
+                "tp2": name,
+                "games": ["eet"],
+                "components": {"0": {"type": "std"}},
+            }
+        )
+        for name in ("a", "b")
+    ]
+    mods.append(
+        Mod(
+            {
+                "id": "demo",
+                "name": "Demo",
+                "links": {},
+                "tp2": "demo",
+                "games": ["eet"],
+                "components": {
+                    "choice_0": {"type": "muc", "components": ["10", "11"]},
+                    "1": {
+                        "type": "sub",
+                        "prompts": {"1": {"options": ["A", "B"], "default": "A"}},
+                    },
+                    "2": {
+                        "type": "sub",
+                        "prompts": {"1": {"options": ["A", "B"], "default": "B"}},
+                    },
+                },
+            }
+        )
+    )
+    return ModCatalogue(mods)
+
+
+@pytest.fixture
+def rules(catalogue: ModCatalogue, tmp_path: Path) -> RuleManager:
+    return RuleManager(catalogue, rules_dir=tmp_path / "rules", cache_dir=tmp_path / "cache")

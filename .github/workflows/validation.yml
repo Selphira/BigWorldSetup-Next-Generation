@@ -1,223 +1,31 @@
-name: Validate JSON files
+name: Validate complete catalogue
 
 on:
   push:
-    branches: [ main, develop ]
-    paths:
-      - 'data/mods/**.json'
-      - 'data/games/**.json'
-      - 'data/rules/**.json'
-      - 'validation/schemas/mod-definition.json'
-      - 'validation/schemas/game-definition.json'
-      - 'validation/validator.py'
-      - '.github/workflows/validation.yml'
-
+    branches: [main, develop]
+    paths: ['data/**', 'validation/**', 'core/**', 'constants.py', 'requirements.txt', '.github/workflows/validation.yml']
   pull_request:
-    branches: [ main, develop ]
-    paths:
-      - 'data/mods/**.json'
-      - 'data/games/**.json'
-      - 'data/rules/**.json'
-      - 'validation/schemas/mod-definition.json'
-      - 'validation/schemas/game-definition.json'
-      - 'validation/validator.py'
+    branches: [main, develop]
+    paths: ['data/**', 'validation/**', 'core/**', 'constants.py', 'requirements.txt', '.github/workflows/validation.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Validate modified JSON files
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install jsonschema
-
-      - name: Get changed mods JSON files
-        id: changedmods
-        uses: tj-actions/changed-files@v47
+          python-version: '3.13'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Validate schemas and references across the entire catalogue
+        run: python -m validation.catalogue --report catalogue-report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          separator: ","
-          files: |
-            data/mods/**.json
-
-      - name: Get changed games JSON files
-        id: changedgames
-        uses: tj-actions/changed-files@v47
-        with:
-          separator: ","
-          files: |
-            data/games/**.json
-
-      - name: Get changed rules JSON files
-        id: changedrules
-        uses: tj-actions/changed-files@v47
-        with:
-          separator: ","
-          files: |
-            data/rules/**.json
-
-      - name: Validate modified mods JSON files
-        id: validatemods
-        if: steps.changedmods.outputs.all_changed_files != ''
-        shell: bash {0}
-        run: |
-          echo "🔍 Validating modified files..."
-          
-          # Lire la sortie multiligne dans un tableau bash
-          IFS=$',' read -a changed_files <<< "${{ steps.changedmods.outputs.modified_files }}"
-          
-          errors=""
-          
-          for file in "${changed_files[@]}"; do
-            echo "-------------------------------------"
-            echo "Validating $file..."
-            output=$(python validation/validator.py "$file" validation/schemas/mod-definition.json 2>&1)
-            status=$?
-          
-            if [ $status -ne 0 ]; then
-              errors="$errors$output\n"
-            fi
-          done
-          
-          if [ -n "$errors" ]; then
-            echo "-------------------------------------"
-            echo -e "❌ Validation errors found."
-            echo -e "$errors"
-            echo "-------------------------------------"
-            {
-              echo "error_report<<EOF"
-              echo -e "$errors"
-              echo "EOF"
-            } >> $GITHUB_OUTPUT
-            exit 1
-          else
-            echo "✅ All modified mods JSON files are valid."
-          fi
-
-      - name: Skip validation (no mods JSON changes)
-        if: steps.changedmods.outputs.all_changed_files == ''
-        run: echo "✅ No modified mods JSON files to validate."
-
-      - name: Validate modified games JSON files
-        id: validategames
-        if: steps.changedgames.outputs.all_changed_files != ''
-        shell: bash {0}
-        run: |
-          echo "🔍 Validating modified files..."
-          
-          # Lire la sortie multiligne dans un tableau bash
-          IFS=$',' read -a changed_files <<< "${{ steps.changedgames.outputs.modified_files }}"
-          
-          errors=""
-          
-          for file in "${changed_files[@]}"; do
-            echo "-------------------------------------"
-            echo "Validating $file..."
-            output=$(python validation/validator.py "$file" validation/schemas/game-definition.json 2>&1)
-            status=$?
-          
-            if [ $status -ne 0 ]; then
-              errors="$errors$output\n"
-            fi
-          done
-          
-          if [ -n "$errors" ]; then
-            echo "-------------------------------------"
-            echo -e "❌ Validation errors found."
-            echo -e "$errors"
-            echo "-------------------------------------"
-            {
-              echo "error_report<<EOF"
-              echo -e "$errors"
-              echo "EOF"
-            } >> $GITHUB_OUTPUT
-            exit 1
-          else
-            echo "✅ All modified games JSON files are valid."
-          fi
-
-      - name: Skip validation (no games JSON changes)
-        if: steps.changedgames.outputs.all_changed_files == ''
-        run: echo "✅ No modified games JSON files to validate."
-
-      - name: Validate modified rules JSON files
-        id: validaterules
-        if: steps.changedrules.outputs.all_changed_files != ''
-        shell: bash {0}
-        run: |
-          echo "🔍 Validating modified rules files..."
-
-          IFS=$',' read -a changed_files <<< "${{ steps.changedrules.outputs.modified_files }}"
-
-          errors=""
-
-          for file in "${changed_files[@]}"; do
-            echo "-------------------------------------"
-            echo "Validating $file..."
-
-            case "$file" in
-              data/rules/dependencies.json)
-                schema="validation/schemas/rule-dependencies-definition.json"
-                ;;
-              data/rules/incompatibilities.json)
-                schema="validation/schemas/rule-incompatibilities-definition.json"
-                ;;
-              data/rules/order.json)
-                schema="validation/schemas/rule-order-definition.json"
-                ;;
-              *)
-                echo "⚠️ No schema defined for $file, skipping."
-                continue
-                ;;
-            esac
-
-            output=$(python validation/validator.py "$file" "$schema" --errors-only 2>&1)
-            status=$?
-
-            if [ $status -ne 0 ]; then
-              errors="$errors$output\n"
-            fi
-          done
-
-          if [ -n "$errors" ]; then
-            echo "-------------------------------------"
-            echo -e "❌ Rule validation errors found."
-            echo -e "$errors"
-            {
-              echo "error_report<<EOF"
-              echo -e "$errors"
-              echo "EOF"
-            } >> $GITHUB_OUTPUT
-            exit 1
-          else
-            echo "✅ All modified rules JSON files are valid."
-          fi
-
-      - name: Skip validation (no rules JSON changes)
-        if: steps.changedrules.outputs.all_changed_files == ''
-        run: echo "✅ No modified rules JSON files to validate."
-
-      - name: Comment validation results on PR
-        if: failure() && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: json-validation
-          message: |
-            ⚠️ **JSON Validation Failed**
-            
-            The following files did not pass validation:
-            
-            ${{ steps.validatemods.outputs.error_report }}
-            ${{ steps.validategames.outputs.error_report }}
-            
-            Please fix the above issues and push again to re-run validation.
+          name: catalogue-report
+          path: catalogue-report.json

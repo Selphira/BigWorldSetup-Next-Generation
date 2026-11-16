@@ -17,7 +17,7 @@ exclude = [".venv/"]
 line-length = 96
 include = ["**/pyproject.toml", "*.py"]
 extend-exclude = ["__pycache__", ".venv"]
-target-version = "py311"
+target-version = "py313"
 
 [tool.ruff.lint]
 # https://docs.astral.sh/ruff/rules
@@ -45,3 +45,9 @@ line-ending = "auto"
 
 [tool.mypy]
 disable_error_code = ["import-untyped", "import-not-found"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+qt_api = "pyside6"
+xfail_strict = true

@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest==9.2.0
+pytest-qt==4.5.0
+ruff==0.14.9
