@@ -427,6 +427,7 @@ class InstallationPage(BasePage):
 
     def _start_next_sequence(self):
         """Start next sequence installation."""
+        self.save_state()
         if self._installation_state.current_sequence >= len(self._sequence_installations):
             # All sequences complete
             self._on_all_sequences_complete()
@@ -938,6 +939,7 @@ class InstallationPage(BasePage):
         self._update_navigation_buttons()
 
         self.clear_installation_state()
+        self.save_state()
         self._show_installation_summary()
 
         self.state_manager.set_ui_current_page("installation_type")
@@ -1411,3 +1413,7 @@ class InstallationPage(BasePage):
         self.state_manager.set_page_option(page_id, "batch_install", self._batch_install)
         self.state_manager.set_page_option(page_id, "pause_on_error", self._pause_on_error)
         self.state_manager.set_page_option(page_id, "pause_on_warning", self._pause_on_warning)
+        if not self.state_manager.save_state():
+            QMessageBox.critical(
+                self, tr("error.critical_title"), tr("error.state_save_failed")
+            )

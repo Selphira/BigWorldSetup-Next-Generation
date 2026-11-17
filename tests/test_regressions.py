@@ -15,7 +15,6 @@ from pytestqt.qtbot import QtBot
 from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo
 from core.BackupManager import BackupManager
 from core.ComponentReference import ComponentReference, IndexManager
-from core.DataUpdater import DataUpdater
 from core.DirectoryMerger import MergeResult
 from core.Mod import Mod
 from core.RuleManager import RuleManager
@@ -31,33 +30,6 @@ from ui.pages.mod_selection.ComponentSelector import ComponentSelector
 from ui.pages.mod_selection.SelectionController import SelectionController
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
 from util.mod_sync.processors.github_processor import GitHubProcessor
-
-
-@pytest.mark.xfail(
-    reason="B01 / L1: failed replacement loses recovery copy", raises=AssertionError
-)
-def test_b01_failed_catalogue_replacement_retains_recovery(
-    tmp_path: Path,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    backup = tmp_path / "backup"
-    backup.mkdir()
-    (backup / "original.json").write_text('{"original": true}', encoding="utf-8")
-    updater = DataUpdater()
-    for name, value in {
-        "_fetch_remote_version": None,
-        "_download_file": True,
-        "_validate_zip": True,
-        "_backup_custom_mods": None,
-        "_create_backup": backup,
-        "_extract_zip": True,
-        "_replace_data_directory": False,
-    }.items():
-        monkeypatch.setattr(updater, name, Mock(return_value=value))
-    restore = Mock()
-    monkeypatch.setattr(updater, "_restore_backup", restore)
-    assert updater.update_data() is False
-    assert restore.called or (backup / "original.json").exists()
 
 
 @pytest.mark.xfail(

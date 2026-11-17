@@ -1,6 +1,5 @@
 import logging
 from logging.handlers import RotatingFileHandler
-from pathlib import Path
 import sys
 
 from PySide6.QtGui import QIcon
@@ -19,6 +18,7 @@ from constants import (
     LOG_FORMAT,
     LOG_MAX_BYTES,
     MODS_DIR,
+    RESOURCE_ROOT,
     THEMES_DIR,
 )
 from core.DataUpdater import DataUpdater
@@ -37,10 +37,7 @@ from ui.SplashScreen import SplashScreen
 logger = logging.getLogger(__name__)
 
 # Add project path to PYTHONPATH
-if getattr(sys, "frozen", False):
-    application_path = Path(sys._MEIPASS)
-else:
-    application_path = Path(__file__).parent
+application_path = RESOURCE_ROOT
 
 sys.path.insert(0, str(application_path))
 
@@ -161,8 +158,8 @@ class ApplicationInitializer:
         self.splash = None
         self.state = None
         self.window = None
-        self.data_updater = None
         self.cache_initializer = None
+        self.data_updater: DataUpdater = DataUpdater()
 
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -183,10 +180,15 @@ class ApplicationInitializer:
         self.cache_initializer = CacheInitializer(self.app, self.splash)
 
         self.splash.set_stage("Initializing...", 5)
+        if not self.data_updater.recover_pending_update():
+            raise RuntimeError("Catalogue recovery failed; backup retained")
         self.state = self._initialize_state()
 
         self.splash.set_stage(tr("app.checking_data_update"), 10)
         self._check_and_update_data()
+        if not self.data_updater.recover_pending_update():
+            raise RuntimeError("Catalogue recovery failed; backup retained")
+        self.state.get_game_manager().load_games()
 
         self.splash.set_stage(tr("app.loading_mods"), 60)
         self._initialize_mod_cache()
@@ -216,15 +218,10 @@ class ApplicationInitializer:
         translator.set_language(ui_language)
         logger.info(f"UI language: {ui_language}")
 
-        # Load game data
-        game_manager = state.get_game_manager()
-        game_manager.load_games()
-
         return state
 
     def _check_and_update_data(self) -> None:
         """Check for and apply data updates if available."""
-        self.data_updater = DataUpdater()
         self.data_updater.status_changed.connect(self.splash.set_status)
         self.data_updater.update_error.connect(self._on_update_data_error)
         self.data_updater.progress.connect(self._on_update_data_progress)

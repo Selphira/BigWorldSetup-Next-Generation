@@ -595,6 +595,7 @@
     "message_order_after": "Must be installed after: {components}"
   },
   "error": {
+    "state_save_failed": "Unable to save progress. Check available disk space and write permissions. Progress since the last successful save may be lost.",
     "unknown_category": "Unknown category: {category}",
     "loading_error": "Loading error",
     "cache_error": "Cache error: {message}",

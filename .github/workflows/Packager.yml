@@ -39,20 +39,24 @@ jobs:
       - name: Copy external files to dist (Linux)
         if: runner.os == 'Linux'
         run: |
+          mkdir -p dist/BigWorldSetup/validation
           cp -r data dist/BigWorldSetup/
           cp -r i18n dist/BigWorldSetup/
           cp -r resources dist/BigWorldSetup/
           cp -r tools dist/BigWorldSetup/
+          cp -r validation/schemas dist/BigWorldSetup/validation/
           cp README.md dist/BigWorldSetup/ 2>/dev/null || true
           cp LICENSE dist/BigWorldSetup/ 2>/dev/null || true
 
       - name: Copy external files to dist (Windows)
         if: runner.os == 'Windows'
         run: |
+          New-Item -ItemType Directory -Path dist/BigWorldSetup/validation -Force
           Copy-Item -Path data -Destination dist/BigWorldSetup/ -Recurse -Force
           Copy-Item -Path i18n -Destination dist/BigWorldSetup/ -Recurse -Force
           Copy-Item -Path resources -Destination dist/BigWorldSetup/ -Recurse -Force
           Copy-Item -Path tools -Destination dist/BigWorldSetup/ -Recurse -Force
+          Copy-Item -Path validation/schemas -Destination dist/BigWorldSetup/validation/ -Recurse -Force
           if (Test-Path README.md) { Copy-Item README.md dist/BigWorldSetup/ }
           if (Test-Path LICENSE) { Copy-Item LICENSE dist/BigWorldSetup/ }
         shell: pwsh

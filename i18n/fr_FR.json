@@ -595,6 +595,7 @@
     "message_order_after": "Doit être installé après : {components}"
   },
   "error": {
+    "state_save_failed": "Impossible de sauvegarder la progression. Vérifiez l’espace disque et les droits d’écriture. La progression depuis la dernière sauvegarde réussie risque d’être perdue.",
     "unknown_category": "Catégorie inconnue : {category}",
     "loading_error": "Erreur de chargement",
     "cache_error": "Erreur de cache: {message}",

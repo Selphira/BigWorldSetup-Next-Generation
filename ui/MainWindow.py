@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QMainWindow,
+    QMessageBox,
     QPushButton,
     QStackedWidget,
     QVBoxLayout,
@@ -613,5 +614,10 @@ class MainWindow(QMainWindow):
             page = self.pages[self.current_page_id]
             page.save_state()
 
-        self.state_manager.save_state()
+        if not self.state_manager.save_state():
+            QMessageBox.critical(
+                self, tr("error.critical_title"), tr("error.state_save_failed")
+            )
+            event.ignore()
+            return
         super().closeEvent(event)

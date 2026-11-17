@@ -10,6 +10,8 @@ from typing import Any
 from PySide6.QtCore import QLibraryInfo, QObject, QTranslator, Signal
 from PySide6.QtWidgets import QApplication
 
+from constants import LOCALES_DIR
+
 logger = logging.getLogger(__name__)
 
 # Constants
@@ -49,7 +51,7 @@ class TranslationManager(QObject):
 
     language_changed = Signal(str)
 
-    LOCALES_DIR = Path("i18n")
+    LOCALES_DIR: Path = LOCALES_DIR
     DEFAULT_LANGUAGE = "fr_FR"
     FALLBACK_CHAIN = ("en_US", "fr_FR")
     CACHE_SIZE = 1024  # Max cached translations

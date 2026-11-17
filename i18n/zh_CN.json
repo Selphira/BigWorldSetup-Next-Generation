@@ -580,6 +580,7 @@
     "message_order_after": "必须在以下之后安装：{components}"
   },
   "error": {
+    "state_save_failed": "无法保存进度。请检查磁盘空间和写入权限。自上次成功保存以来的进度可能丢失。",
     "unknown_category": "未知类别：{category}",
     "loading_error": "加载错误",
     "cache_error": "缓存错误：{message}",

@@ -685,7 +685,9 @@ class LanguageParser:
     def __init__(self):
         self.tokenizer = Tokenizer()
 
-    def extract_languages(self, text: str, mod_name: str) -> list[LanguageDeclaration]:
+    def extract_languages(
+        self, text: str, mod_name: str, base_dir: str
+    ) -> list[LanguageDeclaration]:
         """Extract all LANGUAGE declarations from TP2 content.
 
         Args:
@@ -715,7 +717,7 @@ class LanguageParser:
             block_text = text[lang_start:lang_end]
             block_content = re.sub(r"^\s*LANGUAGE\s+", "", block_text)
 
-            lang_decl = self._parse_block(block_content, mod_name, len(languages))
+            lang_decl = self._parse_block(block_content, base_dir, len(languages))
             if lang_decl:
                 languages.append(lang_decl)
 
@@ -955,13 +957,17 @@ class WeiDUTp2Parser:
 
         try:
             content = file_path.read_text(encoding="utf-8", errors="ignore")
-            return self.parse_string(content, file_path.stem, supported_games)
+            return self.parse_string(content, file_path.stem, supported_games, file_path.parent)
         except Exception as e:
             logger.error(f"Failed to parse TP2 file: {file_path}", exc_info=True)
             raise Tp2ParseError(f"Error parsing {file_path}: {e}") from e
 
     def parse_string(
-        self, tp2_content: str, tp2_name: str, supported_games: set[str] | None = None
+        self,
+        tp2_content: str,
+        tp2_name: str,
+        supported_games: set[str] | None = None,
+        parent: str | None = None,
     ) -> WeiDUTp2:
         """Parse TP2 content from a string.
 
@@ -985,7 +991,7 @@ class WeiDUTp2Parser:
             tp2.name = tp2_name
 
             self._extract_version(clean_content, tp2)
-            self._extract_languages(clean_content, tp2)
+            self._extract_languages(clean_content, tp2, parent)
             self._parse_components(clean_content, tp2, self.supported_games)
             self._build_translations(tp2)
 
@@ -1075,11 +1081,10 @@ class WeiDUTp2Parser:
         else:
             logger.warning("No VERSION declaration found in TP2")
 
-    @staticmethod
-    def _extract_languages(text: str, tp2: WeiDUTp2) -> None:
+    def _extract_languages(self, text: str, tp2: WeiDUTp2, parent: str) -> None:
         """Extract LANGUAGE declarations from TP2 content."""
         parser = LanguageParser()
-        tp2.languages = parser.extract_languages(text, tp2.name)
+        tp2.languages = parser.extract_languages(text, tp2.name, str(parent))
 
         if not tp2.languages:
             logger.warning("No LANGUAGE declarations found in TP2")

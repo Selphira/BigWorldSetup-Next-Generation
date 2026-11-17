@@ -4,12 +4,12 @@ from dataclasses import asdict, dataclass, field
 import json
 import logging
 from pathlib import Path
-import shutil
 from typing import Any, Callable
 
 from PySide6.QtCore import QSettings
 
-from constants import CACHE_DIR, MODS_DIR, RULES_DIR
+from constants import CACHE_DIR, MODS_DIR, RULES_DIR, STATE_FILE
+from core.atomic_io import write_json_atomic
 from core.GameManager import GameDefinition, GameManager
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
@@ -94,7 +94,7 @@ class StateManager:
         installation_state: Application state for installation
     """
 
-    STATE_FILE = Path("state.json")
+    STATE_FILE: Path = STATE_FILE
     BACKUP_SUFFIX = ".backup"
     SUPPORTED_VERSION = "1.0"
 
@@ -359,56 +359,44 @@ class StateManager:
         Returns:
             Loaded or default InstallationState
         """
-        if not self.STATE_FILE.exists():
-            logger.info("No state file found, using defaults")
-            return InstallationState()
+        for path in (self.STATE_FILE, self.STATE_FILE.with_name(self.STATE_FILE.name + self.BACKUP_SUFFIX)):
+            try:
+                state = self._read_state(path)
+                logger.info("Installation state loaded from %s", path)
+                return state
+            except FileNotFoundError:
+                continue
+            except (OSError, ValueError, TypeError) as error:
+                logger.warning("Cannot load state from %s: %s", path, error)
+        return InstallationState()
 
-        try:
-            with self.STATE_FILE.open("r", encoding="utf-8") as f:
-                data = json.load(f)
-
-            # Validate version
-            version = data.get("version", "1.0")
-            if version != self.SUPPORTED_VERSION:
-                logger.warning(
-                    f"Unsupported state version: {version}, expected {self.SUPPORTED_VERSION}"
-                )
-                return InstallationState()
-
-            state = InstallationState.from_dict(data)
-            logger.info("Installation state loaded successfully")
-            return state
-
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON in state file: {e}")
-            return InstallationState()
-        except Exception as e:
-            logger.exception(f"Error loading state: {e}")
-            return InstallationState()
+    @classmethod
+    def _read_state(cls, path: Path) -> InstallationState:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if (
+            not isinstance(data, dict)
+            or data.get("version") != cls.SUPPORTED_VERSION
+            or not isinstance(data.get("configuration"), dict)
+            or not isinstance(data.get("installation"), dict)
+        ):
+            raise ValueError("Invalid or unsupported installation state")
+        return InstallationState.from_dict(data)
 
     def save_state(self) -> bool:
-        """
-        Save installation configuration to JSON file with backup.
-
-        Returns:
-            True if saved successfully, False otherwise
-        """
+        """Atomically persist state, retaining the last readable version."""
         try:
-            # Create backup if file exists
-            if self.STATE_FILE.exists():
-                backup_path = Path(str(self.STATE_FILE) + self.BACKUP_SUFFIX)
-                shutil.copy2(self.STATE_FILE, backup_path)
-                logger.debug(f"Backup created: {backup_path}")
-
-            # Save with indentation for readability
-            with self.STATE_FILE.open("w", encoding="utf-8") as f:
-                json.dump(self.installation_state.to_dict(), f, indent=2, ensure_ascii=False)
-
+            try:
+                previous = self._read_state(self.STATE_FILE)
+            except (OSError, ValueError, TypeError):
+                previous = None
+            if previous is not None:
+                backup = self.STATE_FILE.with_name(self.STATE_FILE.name + self.BACKUP_SUFFIX)
+                write_json_atomic(backup, previous.to_dict())
+            write_json_atomic(self.STATE_FILE, self.installation_state.to_dict())
             logger.info("State saved successfully")
             return True
-
-        except Exception as e:
-            logger.exception(f"Error saving state: {e}")
+        except Exception:
+            logger.exception("Error saving state")
             return False
 
     def export_configuration(self, filepath: Path) -> bool:

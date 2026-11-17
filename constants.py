@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 
 from PySide6.QtCore import Qt
 
@@ -16,19 +17,29 @@ DATA_SCHEMA_VERSION = "1.0"
 # PATHS
 # ============================================================================
 
-# Data directories
-DATA_DIR = Path("data")
+# Portable storage is anchored to the application, never to the launch directory.
+PROJECT_ROOT: Path = (
+    Path(sys.executable).resolve().parent
+    if getattr(sys, "frozen", False)
+    else Path(__file__).resolve().parent
+)
+RESOURCE_ROOT: Path = PROJECT_ROOT
+USER_DATA_ROOT: Path = PROJECT_ROOT
+LOCALES_DIR: Path = RESOURCE_ROOT / "i18n"
+SCHEMAS_DIR: Path = RESOURCE_ROOT / "validation" / "schemas"
+STATE_FILE: Path = USER_DATA_ROOT / "state.json"
+DATA_DIR = USER_DATA_ROOT / "data"
 MODS_DIR = DATA_DIR / "mods"
 GAMES_DIR = DATA_DIR / "games"
 RULES_DIR = DATA_DIR / "rules"
 CUSTOM_DIR = DATA_DIR / "custom"
 CUSTOM_MODS_DIR = CUSTOM_DIR / "mods"
-TOOLS_DIR = Path("tools")
-CACHE_DIR = Path(".cache")
-LOG_DIR = Path("logs")
+TOOLS_DIR = RESOURCE_ROOT / "tools"
+CACHE_DIR = USER_DATA_ROOT / ".cache"
+LOG_DIR = USER_DATA_ROOT / "logs"
 
 # Resource directories
-RESOURCES_DIR = Path("resources")
+RESOURCES_DIR = RESOURCE_ROOT / "resources"
 FLAGS_DIR = RESOURCES_DIR / "flags"
 ICONS_DIR = RESOURCES_DIR / "icons"
 THEMES_DIR = RESOURCES_DIR / "themes"
@@ -220,7 +231,7 @@ GITHUB_API_BASE = "https://api.github.com"
 GITHUB_PAGES_BASE = "https://selphira.github.io/BigWorldSetup-Next-Generation"
 
 # Data Update Configuration
-DATA_VERSION_FILE = CACHE_DIR / "data_version.json"
+DATA_VERSION_FILE = DATA_DIR / "data_version.json"
 DATA_VERSION_URL = f"{GITHUB_PAGES_BASE}/data_version.json"
 DATA_ZIP_URL = f"{GITHUB_PAGES_BASE}/data.zip"
 MAX_RETRIES = 3
