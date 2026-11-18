@@ -50,6 +50,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.enums.CategoryEnum import CategoryEnum
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
+from core.SelectionImport import SelectionImport
 from core.StateManager import StateManager
 from core.TranslationManager import get_supported_languages, get_translator, tr
 from core.ValidationOrchestrator import ValidationOrchestrator
@@ -273,10 +274,14 @@ class ModSelectionPage(BasePage):
         self._validation_timer.timeout.connect(self._trigger_validation)
 
         self._selection_controller = SelectionController(self._rule_manager)
-        self._context_menu = ComponentContextMenu(self._selection_controller)
         self._validation_orchestrator = ValidationOrchestrator(
             self._rule_manager, self._selection_controller
         )
+
+        self._context_menu = ComponentContextMenu(
+            self._selection_controller, self._validation_orchestrator
+        )
+        self._unresolved_selection: set[str] = set()
 
         self._component_selector: ComponentSelector | None = None
         self._violation_panel: ViolationPanel | None = None
@@ -638,6 +643,7 @@ class ModSelectionPage(BasePage):
         if reply != QMessageBox.StandardButton.Yes:
             return
 
+        self._unresolved_selection.clear()
         self._selection_controller.clear_all()
 
     # ========================================
@@ -667,34 +673,44 @@ class ModSelectionPage(BasePage):
     # Import/Export
     # ========================================
 
-    def import_selection(self, references: list[str], replace: bool = False) -> None:
-        """Import selection from list of references.
-
-        Args:
-            references: List of reference strings
-            replace: Whether to clear current selection first
-        """
-        # Disable validation during import
+    def import_selection(self, references: list[str], replace: bool = False) -> SelectionImport:
+        indexes = IndexManager.get_indexes()
+        report = SelectionImport.reconcile(references, indexes)
         self._validation_orchestrator.enable_validation(False)
-
         try:
             if replace:
                 self._selection_controller.clear_all()
-
-            references = ComponentReference.from_string_list(references)
-            self._selection_controller.select_bulk(references)
-
+                self._unresolved_selection.clear()
+            # Ancestors recorded by export must not select their other children.
+            ancestors = set()
+            for ref in report.kept:
+                parent = indexes.get_parent(ref)
+                while parent:
+                    ancestors.add(parent)
+                    parent = indexes.get_parent(parent)
+            existing = self._selection_controller.selection_snapshot()
+            leaves = sorted(report.kept - ancestors, key=str)
+            for ref in leaves:
+                self._selection_controller.select(ref, emit_validation=False)
+            if report.unanswered:
+                selection = set(self._selection_controller.selection_snapshot())
+                for prompt in report.unanswered:
+                    supplied = existing.intersection(indexes.get_children(prompt))
+                    if not supplied:
+                        selection.difference_update(indexes.get_children(prompt))
+                self._selection_controller.apply_selection(selection)
+            rejected = report.kept - indexes.selection_index
+            report.missing.update(map(str, rejected))
+            report.kept.difference_update(rejected)
+            self._unresolved_selection.update(report.missing | report.ambiguous)
         finally:
-            # Re-enable validation
             self._validation_orchestrator.enable_validation(True)
             self._trigger_validation()
-
-        logger.info(f"Imported {len(references)} references")
+        return report
 
     def export_selection(self) -> list[str]:
-        """Export current selection as list of reference strings."""
-        components = self._selection_controller.get_selected_components()
-        return sorted(ComponentReference.to_string_list(components))
+        selected = self._selection_controller.get_selected_components()
+        return sorted(set(map(str, selected)) | self._unresolved_selection)
 
     # ========================================
     # Import / Export
@@ -716,7 +732,11 @@ class ModSelectionPage(BasePage):
             with open(file_path, "r", encoding="utf-8") as f:
                 components_to_select = json.load(f)
 
-            self._apply_imported_selection(components_to_select, replace, file_path)
+            revision = None
+            if isinstance(components_to_select, dict):
+                revision = components_to_select.get("catalogue_revision")
+                components_to_select = components_to_select["components"]
+            self._apply_imported_selection(components_to_select, replace, file_path, revision)
 
         except json.JSONDecodeError as e:
             logger.error("Invalid JSON file: %s", e)
@@ -792,47 +812,60 @@ class ModSelectionPage(BasePage):
             return None, False
 
     def _apply_imported_selection(
-        self, components_to_select: list[str], replace: bool, file_path: str
+        self,
+        components_to_select: list[str],
+        replace: bool,
+        file_path: str,
+        revision: str | None = None,
     ) -> None:
-        """Import avec validation différée."""
-        logger.info(f"Importing selection from {file_path}")
-
-        self.import_selection(components_to_select, replace)
-
-        # Stats
-        reference_to_select = [
-            reference.lower()
-            for reference in components_to_select
-            if (
-                (comp_key := reference.partition(":")[2])
-                and "choice_" not in comp_key
-                and comp_key.count(".") == 0
-            )
-        ]
-        reference_selected = [
-            str(reference) for reference in self._selection_controller.get_selected_components()
-        ]
-        selected_list = list(set(reference_selected) & set(reference_to_select))
-        total_selected = len(selected_list)
-        total_to_select = len(reference_to_select)
-
-        message = tr(
-            "page.selection.import_success_message",
-            to_select=total_to_select,
-            selected=total_selected,
+        report = self.import_selection(components_to_select, replace)
+        changed = bool(
+            revision
+            and revision != SelectionImport.catalogue_revision(IndexManager.get_indexes())
         )
+        self._show_import_report(report, changed)
 
-        QMessageBox.information(self, tr("page.selection.import_success_title"), message)
+    def _show_import_report(self, report: SelectionImport, changed: bool) -> None:
+        dialog = QMessageBox(self)
+        dialog.setWindowTitle(tr("page.selection.import_success_title"))
+        summary = tr(
+            "page.selection.import_summary",
+            kept=len(report.kept),
+            remapped=len(report.remapped),
+            missing=len(report.missing | set(map(str, report.unanswered))),
+            ambiguous=len(report.ambiguous),
+        )
+        if changed:
+            summary += "\n" + tr("page.selection.catalogue_changed")
+        dialog.setText(summary)
+        dialog.setDetailedText(self._import_report_text(report))
+        keep = dialog.addButton(QMessageBox.StandardButton.Ok)
+        discard = None
+        if report.missing or report.ambiguous:
+            discard = dialog.addButton(
+                tr("page.selection.discard_unresolved"), QMessageBox.ButtonRole.DestructiveRole
+            )
+        dialog.setDefaultButton(keep)
+        dialog.exec()
+        if discard is not None and dialog.clickedButton() == discard:
+            self._unresolved_selection.difference_update(report.missing | report.ambiguous)
+            self.notify_navigation_changed()
 
-        logger.info(f"Import complete: {total_selected} components")
+    @staticmethod
+    def _import_report_text(report: SelectionImport) -> str:
+        return tr(
+            "page.selection.import_report",
+            kept=", ".join(sorted(map(str, report.kept))) or "—",
+            remapped=", ".join(f"{key} → {ref}" for key, ref in report.remapped.items()) or "—",
+            missing=", ".join(sorted(report.missing | set(map(str, report.unanswered)))) or "—",
+            ambiguous=", ".join(sorted(report.ambiguous)) or "—",
+        )
 
     def _export_selection(self) -> None:
         """Export current order to JSON file."""
         self.save_state()
 
-        selected_components = [
-            str(reference) for reference in self._selection_controller.get_selected_components()
-        ]
+        selected_components = self.export_selection()
         total = len(selected_components)
 
         # Check if there's any selected components
@@ -863,7 +896,17 @@ class ModSelectionPage(BasePage):
             import json
 
             with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(selected_components, f, indent=2, ensure_ascii=False)
+                json.dump(
+                    {
+                        "catalogue_revision": SelectionImport.catalogue_revision(
+                            IndexManager.get_indexes()
+                        ),
+                        "components": selected_components,
+                    },
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
 
             QMessageBox.information(
                 self,
@@ -974,7 +1017,15 @@ class ModSelectionPage(BasePage):
 
     def can_go_to_next_page(self) -> bool:
         """Check if can proceed to next page."""
-        if self._selection_controller.get_selection_count() == 0:
+        if self._unresolved_selection or self._selection_controller.get_selection_count() == 0:
+            return False
+
+        indexes = IndexManager.get_indexes()
+        if any(
+            ref.is_sub()
+            and not any(indexes.is_selected(child) for child in indexes.get_children(ref))
+            for ref in indexes.selection_index
+        ):
             return False
 
         if self._validation_orchestrator.has_errors():
@@ -1006,6 +1057,9 @@ class ModSelectionPage(BasePage):
         """Load state from state manager."""
         super().load_state()
 
+        # FIXME: Lorsqu'on annule une installation, cela rajoute les items déjà présents
+        # Ajouter uniquement à l'initialisation de la page
+        # Avoir un objet Language ?
         languages = self.state_manager.get_languages_order()
         if not languages:
             languages = [code for code, _ in get_supported_languages()]
@@ -1030,7 +1084,15 @@ class ModSelectionPage(BasePage):
 
         selected_components = self.state_manager.get_selected_components()
         self._component_selector.reload()
-        self.import_selection(selected_components, replace=True)
+        report = self.import_selection(selected_components, replace=True)
+        revision = self.state_manager.get_page_option(self.get_page_id(), "catalogue_revision", None)
+        changed = (
+            selected_components
+            and revision
+            and revision != SelectionImport.catalogue_revision(IndexManager.get_indexes())
+        )
+        if changed or report.missing or report.ambiguous or report.unanswered:
+            self._show_import_report(report, bool(changed))
 
     def save_state(self) -> None:
         """Save state to state manager."""
@@ -1050,6 +1112,11 @@ class ModSelectionPage(BasePage):
         # Save selection
         selection = self.export_selection()
         self.state_manager.set_selected_components(selection)
+        self.state_manager.set_page_option(
+            self.get_page_id(),
+            "catalogue_revision",
+            SelectionImport.catalogue_revision(IndexManager.get_indexes()),
+        )
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""

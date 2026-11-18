@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import Enum
+from graphlib import CycleError, TopologicalSorter
 import json
 import logging
 from pathlib import Path
@@ -21,7 +22,6 @@ from core.Rules import (
     OrderDirection,
     OrderRule,
     Rule,
-    RuleType,
     RuleViolation,
 )
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
@@ -203,6 +203,12 @@ class RuleExpression:
         target_side.inject_into_rule(rule, "target")
 
         return rule
+
+
+@dataclass
+class SuggestedOrder:
+    components: list[ComponentReference]
+    cycle: tuple[ComponentReference, ...] = ()
 
 
 @dataclass
@@ -535,6 +541,9 @@ class RuleManager(QObject):
             int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
         ] = {}
 
+        self._dependents_by_target: dict[ComponentReference, set[DependencyRule]] = defaultdict(set)
+        self._rule_positions: dict[Rule, int] = {}
+        self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = defaultdict(list)
         self._last_selection_hash: int | None = None
 
         # Cache builder thread
@@ -761,16 +770,27 @@ class RuleManager(QObject):
         return result
 
     def _build_indexes(self) -> None:
-        all_components, components_by_mod = self._get_all_known_components()
+        _, components_by_mod = self._get_all_known_components()
 
+        self._dependents_by_target.clear()
+        self._rule_positions = {rule: idx for idx, rule in enumerate(self._all_rules)}
+        self._dependencies_by_source.clear()
+        self._rules_by_component.clear()
+        self._resolved_wildcards_cache.clear()
+        self._last_selection_hash = None
         for rule in self._all_rules:
+            if isinstance(rule, DependencyRule):
+                for target in rule.targets:
+                    self._dependents_by_target[target].add(rule)
+                for source in dict.fromkeys(rule.sources):
+                    self._dependencies_by_source[source].append(rule)
             rule_id = id(rule)
 
             sources = self._resolve_refs_globally(rule.sources, components_by_mod)
             targets = self._resolve_refs_globally(rule.targets, components_by_mod)
 
-            if not sources or not targets:
-                continue
+            for ref in rule.sources + rule.targets:
+                self._rules_by_component[ref].add(rule)
 
             self._resolved_wildcards_cache[rule_id] = (frozenset(sources), frozenset(targets))
 
@@ -793,41 +813,20 @@ class RuleManager(QObject):
         self._indexes.clear_selection_violations()
         self._last_selection_hash = selection_hash
 
-        violations: list[RuleViolation] = []
-        selected_set = set(references)
+        violations = self.selection_violations(set(references))
+        for violation in violations:
+            self._indexes.add_selection_violation(violation)
+        return violations
 
-        for reference in references:
-            rules = list(self._rules_by_component.get(reference, []))
-
-            wildcard_ref = ComponentReference(reference.mod_id, "*")
-            wildcard_rules = self._rules_by_component.get(wildcard_ref, [])
-            rules.extend(wildcard_rules)
-
-            for rule in rules:
-                if rule.rule_type == RuleType.ORDER:
-                    continue  # Order rules validated separately
-
-                violation = self._check_rule(rule, reference, selected_set)
+    def selection_violations(self, selection: set[ComponentReference]) -> list[RuleViolation]:
+        """Evaluate a candidate selection without publishing it to the UI."""
+        selected = {ref for ref in selection if ref.is_component() or ref.is_sub_option()}
+        violations = []
+        for ref in sorted(selected, key=str):
+            for rule in self.get_rules_for_component(ref):
+                violation = self._check_rule(rule, ref, selected)
                 if violation:
                     violations.append(violation)
-                    self._indexes.add_selection_violation(violation)
-
-        for rule in self._all_rules:
-            if rule.rule_type == RuleType.ORDER:
-                continue
-
-            for source in rule.sources:
-                if source.is_mod() and self._matches_reference(source, selected_set):
-                    # Find a matching component to use as source_ref
-                    for reference in selected_set:
-                        if reference.mod_id == source.mod_id:
-                            violation = self._check_rule(rule, reference, selected_set)
-                            if violation:
-                                violations.append(violation)
-                                self._indexes.add_selection_violation(violation)
-                            break
-                    break
-
         return violations
 
     def _get_all_cached_selection_violations(self) -> list[RuleViolation]:
@@ -888,13 +887,12 @@ class RuleManager(QObject):
         self, rule: DependencyRule | IncompatibilityRule, source_ref: ComponentReference
     ) -> ConditionEvaluator:
         """Factory method: create appropriate source evaluator."""
+        if not any(self._references_match_for_source(source_ref, src) for src in rule.sources):
+            return TrivialCondition(False)
         if rule.source_groups:
             return GroupCondition(rule.source_groups)
 
-        for rule_source in rule.sources:
-            if self._references_match_for_source(source_ref, rule_source):
-                return TrivialCondition(True)
-        return TrivialCondition(False)
+        return TrivialCondition(True)
 
     @staticmethod
     def _references_match_for_source(
@@ -953,49 +951,44 @@ class RuleManager(QObject):
         seq_idx: int,
         install_order: list[ComponentReference],
         moved_components: set[ComponentReference] | None = None,
+        earlier: set[ComponentReference] | None = None,
+        later: set[ComponentReference] | None = None,
+        selection: set[ComponentReference] | None = None,
     ) -> list[RuleViolation]:
         """Validate order with unified ultra-fast algorithm."""
         if self._current_game_id != game_id:
             self._clear_game_states(self._current_game_id)
             self._current_game_id = game_id
 
+        earlier = earlier or set()
+        later = later or set()
+        selection = selection if selection is not None else earlier | set(install_order)
+        choices = self._selected_options(selection)
+        earlier = earlier | {option for base in earlier for option in choices.get(base, ())}
         state_key = (game_id, seq_idx)
         state = self._validation_states.get(state_key)
-
-        if not state or not moved_components:
+        full_validation = state is None or not moved_components
+        if state is None:
             state = ValidationState()
             self._validation_states[state_key] = state
-            state.update_positions(install_order)
+        state.update_positions(install_order)
 
-            affected_rules = set()
-            for comp in install_order:
-                affected_rules.update(self._rules_by_component.get(comp, set()))
+        changed = install_order if full_validation else moved_components
+        affected_rules = set()
+        for ref in changed:
+            affected_rules.update(self.get_rules_for_component(ref))
+            for option in choices.get(ref, ()):
+                affected_rules.update(self.get_rules_for_component(option))
 
-            logger.debug(
-                f"Full validation seq {state_key}: {len(install_order)} components, {len(affected_rules)} rules"
-            )
-
-        else:
-            state.update_positions(install_order)
-
-            affected_rules = set()
-            for comp in moved_components:
-                affected_rules.update(self._rules_by_component.get(comp, set()))
-
-            logger.debug(
-                f"Incremental seq {state_key}: {len(moved_components)} moved, {len(affected_rules)} rules affected"
-            )
-
-        # Remove old violations from affected rules
-        for rule in affected_rules:
-            rule_id = id(rule)
-            old_violations = state.violations_by_rule.pop(rule_id, [])
-
-            for old_violation in old_violations:
-                for comp in old_violation.affected_components:
-                    comp_violations = self._indexes.order_violation_index.get(comp)
-                    if comp_violations and old_violation in comp_violations:
-                        comp_violations.remove(old_violation)
+        # Withdraw this sequence's previous findings before publishing replacements.
+        obsolete = (
+            list(state.violations_by_rule) if full_validation else map(id, affected_rules)
+        )
+        for rule_id in obsolete:
+            for violation in state.violations_by_rule.pop(rule_id, []):
+                for ref in violation.affected_components:
+                    entries = self._indexes.order_violation_index.get(ref, [])
+                    entries[:] = [entry for entry in entries if entry is not violation]
 
         for rule in affected_rules:
             rule_id = id(rule)
@@ -1007,18 +1000,43 @@ class RuleManager(QObject):
             all_sources, all_targets = resolved
 
             active = state.active_components
-            sources = all_sources & active
+            sources = active & all_sources
             targets = all_targets & active
 
-            if not sources or not targets:
+            if isinstance(rule, DependencyRule) and rule.implicit_order:
+                sources.update(
+                    option.get_base_component_reference()
+                    for option in all_sources & selection
+                    if option.is_sub_option()
+                    and option.get_base_component_reference() in active
+                )
+                for src in sources:
+                    if rule not in self.active_requirements(
+                        src, selection, choices.get(src, set())
+                    ):
+                        continue
+                    preceding = earlier | set(install_order[: state.positions[src]])
+                    preceding.update(
+                        option for base in tuple(preceding) for option in choices.get(base, ())
+                    )
+                    evaluator = self._create_target_evaluator(rule)
+                    if evaluator.is_satisfied(preceding):
+                        continue
+                    missing = tuple(evaluator.get_missing(preceding))
+                    violation = RuleViolation(rule=rule, affected_components=(src, *missing))
+                    state.violations_by_rule[rule_id].append(violation)
+                    self._indexes.add_order_violation(violation)
                 continue
-
-            if isinstance(rule, OrderRule):
-                direction = rule.order_direction
-            elif isinstance(rule, DependencyRule) and rule.implicit_order:
-                direction = OrderDirection.AFTER
-            else:
+            if not isinstance(rule, OrderRule):
                 continue
+            direction = rule.order_direction
+            outside = earlier if direction == OrderDirection.BEFORE else later
+            for source in sources:
+                for target in all_targets & outside:
+                    if source != target:
+                        violation = RuleViolation(rule, (source, target))
+                        state.violations_by_rule[rule_id].append(violation)
+                        self._indexes.add_order_violation(violation)
 
             positions = state.positions
             sources_with_pos = [(src, positions[src]) for src in sources if src in positions]
@@ -1068,8 +1086,8 @@ class RuleManager(QObject):
     # ========================================
 
     def get_rules_for_component(self, reference: ComponentReference) -> list[Rule]:
-        """Get all rules where the component is a source."""
-        return self._rules_by_component.get(reference, [])
+        """Get presentation rules in catalogue order for either side of a reference."""
+        return sorted(self._rules_by_component.get(reference, ()), key=lambda rule: self._rule_positions[rule])
 
     def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached selection violations for a specific component."""
@@ -1083,39 +1101,162 @@ class RuleManager(QObject):
         """Return total number of rules."""
         return len(self._all_rules)
 
-    def get_requirements(
-        self, mod_id: str, comp_key: str, recursive: bool = False
-    ) -> set[tuple[str, str]]:
-        """Get all components required by a specific component."""
-        requirements: set[tuple[str, str]] = set()
-        visiting: set[tuple[str, str]] = set()
+    def get_requirements(self, reference: ComponentReference) -> tuple[DependencyRule, ...]:
+        """Return outgoing expressions, including rules applying to the entire mod."""
+        wildcard = ComponentReference.for_mod(reference.mod_id)
+        return tuple(
+            dict.fromkeys(
+                self._dependencies_by_source.get(reference, [])
+                + self._dependencies_by_source.get(wildcard, [])
+            )
+        )
 
-        def _collect_requirements(mod_id: str, comp_key: str):
-            current = (mod_id, comp_key)
+    def active_requirements(
+        self,
+        reference: ComponentReference,
+        selection: set[ComponentReference],
+        options: set[ComponentReference],
+    ) -> set[DependencyRule]:
+        """Lift conditions on a selected SUB answer to its installable component."""
+        return {
+            rule
+            for source in {reference} | options
+            for rule in self.get_requirements(source)
+            if self._create_source_evaluator(rule, source).is_satisfied(selection)
+        }
 
-            if current in visiting:
-                return
+    def lost_requirement(
+        self,
+        reference: ComponentReference,
+        selection: set[ComponentReference],
+        expected: set[ComponentReference],
+        available: set[ComponentReference],
+        options: set[ComponentReference],
+    ) -> bool:
+        """Whether an active prerequisite lost its last preceding provider."""
+        relevant = set()
+        for lost in expected - available:
+            relevant.update(self._dependents_by_target.get(lost, ()))
+            relevant.update(
+                self._dependents_by_target.get(ComponentReference.for_mod(lost.mod_id), ())
+            )
+        for rule in self.active_requirements(reference, selection, options) & relevant:
+            target = self._create_target_evaluator(rule)
+            if target.is_satisfied(expected) and not target.is_satisfied(available):
+                return True
+        return False
 
-            visiting.add(current)
-            reference = ComponentReference.from_string(f"{mod_id}:{comp_key}")
-            rules = self.get_rules_for_component(reference)
+    def preferred_order(
+        self,
+        editorial: list[ComponentReference],
+        earlier: set[ComponentReference],
+        selection: set[ComponentReference],
+    ) -> SuggestedOrder:
+        """Schedule the earliest ready editorial entry, retaining unresolved cycles for review."""
+        pending = list(dict.fromkeys(editorial))
+        active = set(pending)
+        before: dict[ComponentReference, set[ComponentReference]] = defaultdict(set)
+        for rule in {
+            rule
+            for ref in active
+            for rule in self.get_rules_for_component(ref)
+            if isinstance(rule, OrderRule)
+        }:
+            sources, targets = self._resolved_wildcards_cache[id(rule)]
+            for source in sources & active:
+                for target in targets & active:
+                    if source != target:
+                        first, second = (
+                            (source, target)
+                            if rule.order_direction == OrderDirection.BEFORE
+                            else (target, source)
+                        )
+                        before[second].add(first)
+        choices = self._selected_options(selection)
+        available = earlier | {option for base in earlier for option in choices.get(base, ())}
+        ordered = []
+        placed = set()
+        while pending:
+            ready = next(
+                (
+                    ref
+                    for ref in pending
+                    if before[ref] <= placed
+                    and all(
+                        self._create_target_evaluator(rule).is_satisfied(available)
+                        for rule in self.active_requirements(
+                            ref, selection, choices.get(ref, set())
+                        )
+                        if rule.implicit_order
+                    )
+                ),
+                None,
+            )
+            if ready is None:
+                break
+            ordered.append(ready)
+            pending.remove(ready)
+            placed.add(ready)
+            available.add(ready)
+            available.update(choices.get(ready, ()))
+        cycle = ()
+        if pending:
+            remaining = set(pending)
+            for ref in pending:
+                for rule in self.active_requirements(ref, selection, choices.get(ref, set())):
+                    if not rule.implicit_order:
+                        continue
+                    evaluator = self._create_target_evaluator(rule)
+                    if evaluator.is_satisfied(available):
+                        continue
+                    for missing in evaluator.get_missing(available):
+                        before[ref].update(
+                            candidate
+                            for candidate in remaining
+                            if self._matches_reference(
+                                missing, {candidate} | choices.get(candidate, set())
+                            )
+                        )
+            try:
+                TopologicalSorter(before).prepare()
+            except CycleError as error:
+                cycle = tuple(error.args[1])
+        return SuggestedOrder(ordered + pending, cycle)
 
-            for rule in rules:
-                if not isinstance(rule, DependencyRule):
+    @staticmethod
+    def _selected_options(
+        selection: set[ComponentReference],
+    ) -> dict[ComponentReference, set[ComponentReference]]:
+        provided: dict[ComponentReference, set[ComponentReference]] = defaultdict(set)
+        for choice in selection:
+            if choice.is_sub_option():
+                provided[choice.get_base_component_reference()].add(choice)
+        return provided
+
+    def blocked_positions(
+        self,
+        sequences: list[list[ComponentReference]],
+        unavailable: set[tuple[int, int]],
+        completed_through: tuple[int, int],
+        selection: set[ComponentReference],
+    ) -> set[tuple[int, int]]:
+        """Project losses in plan order, keeping repeated occurrences independent."""
+        expected: set[ComponentReference] = set()
+        available: set[ComponentReference] = set()
+        provided = self._selected_options(selection)
+        blocked = set()
+        for seq_idx, sequence in enumerate(sequences):
+            for idx, ref in enumerate(sequence):
+                position = (seq_idx, idx)
+                identities = {ref} | provided.get(ref, set())
+                if position in unavailable:
+                    expected.update(identities)
                     continue
-
-                for target in rule.targets:
-                    requirements.add((target.mod_id, target.comp_key))
-
-                    if recursive:
-                        if target.is_mod():
-                            known_comps = self._mod_manager.get_mod_by_id(
-                                target.mod_id
-                            ).get_component_refs()
-                            for comp in known_comps:
-                                _collect_requirements(target.mod_id, comp)
-                        else:
-                            _collect_requirements(target.mod_id, target.comp_key)
-
-        _collect_requirements(mod_id, comp_key)
-        return requirements
+                if position > completed_through and self.lost_requirement(
+                    ref, selection, expected, available, provided.get(ref, set())
+                ):
+                    blocked.add(position)
+                else:
+                    available.update(identities)
+                expected.update(identities)
+        return blocked

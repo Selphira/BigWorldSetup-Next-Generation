@@ -262,6 +262,7 @@ class InstallOrderPage(BasePage):
         # Sequence data
         self._sequences_data: dict[int, SequenceData] = {}
         self._current_sequence_idx = 0
+        self._missing_selection: list[str] = []
 
         # Validation
         self._ignore_warnings = False
@@ -685,6 +686,7 @@ class InstallOrderPage(BasePage):
 
     def _load_components(self) -> None:
         """Load selected components from state manager."""
+        self._missing_selection = []
         selected = self.state_manager.get_selected_components()
         if not selected:
             logger.warning("No components selected")
@@ -703,17 +705,30 @@ class InstallOrderPage(BasePage):
             )
 
         # Distribute components to sequences
+        missing = []
         for ref in selected:
-            reference = ComponentReference.from_string(ref)
+            try:
+                reference = ComponentReference.from_string(ref)
+            except ValueError:
+                missing.append(ref)
+                continue
             if reference.mod_id not in ["weidu64", "weidu"] and reference.is_component():
                 mod = self._mod_manager.get_mod_by_id(reference.mod_id)
-                component = mod.get_component(reference.comp_key)
-                if component:
-                    self._place_component_in_sequences(reference)
+                component = mod.get_component(reference.comp_key) if mod else None
+                if not component or not self._place_component_in_sequences(reference):
+                    missing.append(ref)
+
+        self._missing_selection = missing
+        if missing:
+            QMessageBox.warning(
+                self,
+                tr("page.order.import_error_title"),
+                tr("page.selection.missing_references", references=", ".join(missing)),
+            )
 
         self._refresh_all_tables()
 
-    def _place_component_in_sequences(self, reference: ComponentReference) -> None:
+    def _place_component_in_sequences(self, reference: ComponentReference) -> bool:
         """Place a component in allowed sequences.
 
         Args:
@@ -736,7 +751,8 @@ class InstallOrderPage(BasePage):
             placed = True
 
         if not placed:
-            logger.debug(f"Component not allowed in any sequence: {reference}")
+            logger.warning(f"Component not allowed in any sequence: {reference}")
+        return placed
 
     def _apply_order_from_list(self, seq_idx: int, order: list[ComponentReference]) -> None:
         """Apply order from a list of component IDs.
@@ -775,7 +791,8 @@ class InstallOrderPage(BasePage):
         seq_data.unordered = new_unordered
 
         self._refresh_sequence_tables(seq_idx)
-        self._validate_sequence(seq_idx)
+        for other in self._sequences_data:
+            self._validate_sequence(other)
 
         logger.info(
             f"Sequence {seq_idx}: {len(new_ordered)} ordered "
@@ -790,7 +807,34 @@ class InstallOrderPage(BasePage):
         for seq_idx, sequence in enumerate(self._game_def.sequences):
             if seq_idx in self._sequences_data:
                 base_order = ComponentReference.from_string_list(list(sequence.order))
-                self._apply_order_from_list(seq_idx, base_order)
+                seq_data = self._sequences_data[seq_idx]
+                active = {
+                    ref
+                    for ref in seq_data.ordered + seq_data.unordered
+                    if not PauseEntry.is_pause(str(ref))
+                }
+                editorial = [
+                    ref for ref in base_order if ref in active or PauseEntry.is_pause(str(ref))
+                ]
+                earlier = {
+                    ref
+                    for idx, seq in self._sequences_data.items()
+                    if idx < seq_idx
+                    for ref in seq.ordered
+                }
+                selected = set(
+                    ComponentReference.from_string_list(
+                        self.state_manager.get_selected_components()
+                    )
+                )
+                preferred = self._rule_manager.preferred_order(editorial, earlier, selected)
+                self._apply_order_from_list(seq_idx, preferred.components)
+                if preferred.cycle:
+                    QMessageBox.warning(
+                        self,
+                        tr("page.order.title"),
+                        tr("page.order.cycle", path=" → ".join(map(str, preferred.cycle))),
+                    )
 
         logger.info("Loaded default order for all sequences")
 
@@ -841,6 +885,27 @@ class InstallOrderPage(BasePage):
         self._load_default_order()
         logger.info("Default order loaded")
 
+    def _confirm_importable_order(self, order: dict[int, list[ComponentReference]]) -> bool:
+        """Reject incompatible orders before replacing any sequence."""
+        unavailable = []
+        for idx, refs in order.items():
+            sequence = self._sequences_data.get(idx)
+            pool = set(sequence.ordered + sequence.unordered) if sequence else set()
+            for ref in refs:
+                if sequence and PauseEntry.is_pause(str(ref)):
+                    continue
+                if ref in pool:
+                    pool.remove(ref)
+                else:
+                    unavailable.append(f"{idx + 1} / {ref}")
+        if unavailable:
+            QMessageBox.warning(
+                self,
+                tr("page.order.import_error_title"),
+                tr("page.selection.missing_references", references=", ".join(unavailable)),
+            )
+        return not unavailable
+
     def _import_order_weidu(self) -> None:
         """Load order from WeiDU.log file."""
         file_path, _ = QFileDialog.getOpenFileName(
@@ -855,6 +920,10 @@ class InstallOrderPage(BasePage):
 
         try:
             imported_order_list = self._import_export_manager.import_from_weidu_log(file_path)
+            if not self._confirm_importable_order(
+                {self._current_sequence_idx: imported_order_list}
+            ):
+                return
             self._apply_order_from_list(self._current_sequence_idx, imported_order_list)
 
             seq_data = self._sequences_data[self._current_sequence_idx]
@@ -892,6 +961,9 @@ class InstallOrderPage(BasePage):
 
         try:
             imported_order = self._import_export_manager.import_from_json(file_path)
+
+            if not self._confirm_importable_order(imported_order):
+                return
 
             for seq_idx, order_list in imported_order.items():
                 if seq_idx in self._sequences_data:
@@ -1086,7 +1158,27 @@ class InstallOrderPage(BasePage):
             components = [ref for ref in sequence.ordered if ref.mod_id != PAUSE_PREFIX]
 
         violations = self._rule_manager.validate_order(
-            self._current_game, seq_idx, components, moved_components
+            self._current_game,
+            seq_idx,
+            components,
+            moved_components,
+            earlier={
+                ref
+                for idx, seq in self._sequences_data.items()
+                if idx < seq_idx
+                for ref in seq.ordered
+            },
+            later={
+                ref
+                for idx, seq in self._sequences_data.items()
+                if idx > seq_idx
+                for ref in seq.ordered
+            },
+            selection=set(
+                ComponentReference.from_string_list(
+                    self.state_manager.get_selected_components()
+                )
+            ),
         )
 
         sequence.validation.clear()
@@ -1199,6 +1291,9 @@ class InstallOrderPage(BasePage):
 
         self._update_sequence_counters(seq_idx)
         self._validate_sequence(seq_idx, moved_components)
+        for other in self._sequences_data:
+            if other != seq_idx:
+                self._validate_sequence(other)
 
     def _on_ordered_selection_changed(self, seq_idx: int) -> None:
         """Update violation panel when ordered table selection changes."""
@@ -1467,6 +1562,8 @@ class InstallOrderPage(BasePage):
         Returns:
             True if all conditions met, False otherwise
         """
+        if self._missing_selection:
+            return False
         for seq_data in self._sequences_data.values():
             # Check all components are ordered
             if not seq_data.is_complete:
@@ -1518,10 +1615,31 @@ class InstallOrderPage(BasePage):
 
         logger.info(f"Restoring saved installation order for {len(install_order)} sequence(s)")
 
-        for seq_idx, order_list in install_order.items():
-            if seq_idx in self._sequences_data:
-                order_list = ComponentReference.from_string_list(order_list)
-                self._apply_order_from_list(seq_idx, order_list)
+        try:
+            orders = {
+                idx: [ComponentReference.from_string(entry) for entry in entries]
+                for idx, entries in install_order.items()
+            }
+        except ValueError as error:
+            self.state_manager.set_page_option(
+                self.get_page_id(), "unmatched_order", install_order
+            )
+            QMessageBox.warning(
+                self,
+                tr("page.order.import_error_title"),
+                tr("page.order.import_error_message", error=str(error)),
+            )
+            return False
+        if not self._confirm_importable_order(orders):
+            self.state_manager.set_page_option(
+                self.get_page_id(), "unmatched_order", install_order
+            )
+            for idx, entries in orders.items():
+                if idx in self._sequences_data:
+                    self._apply_order_from_list(idx, entries)
+            return True
+        for idx, refs in orders.items():
+            self._apply_order_from_list(idx, refs)
 
         return True
 

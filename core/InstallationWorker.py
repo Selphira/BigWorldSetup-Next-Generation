@@ -278,6 +278,7 @@ class InstallationWorker(QThread):
     component_finished = Signal(str, object)  # component_id, InstallResult
     output_received = Signal(str, str)  # text, stream_type
     error_occurred = Signal(str, list)  # component_id, errors
+    failures_skipped = Signal(int, list)  # batch index, failed component IDs
     warning_occurred = Signal(str, list)  # component_id, warnings
     installation_complete = Signal(dict)  # All results
     installation_stopped = Signal(int)  # last_index
@@ -298,6 +299,7 @@ class InstallationWorker(QThread):
         super().__init__()
         self.engine = engine
         self.batches = batches
+        self.blocked_positions: set[int] = set()
         self.start_index = start_index
         self.languages_order = languages_order
         self.mod_manager = mod_manager
@@ -343,6 +345,20 @@ class InstallationWorker(QThread):
                     logger.info("Resuming from batch %d", batch_idx)
 
                 batch = self.batches[batch_idx]
+                if batch and all(comp.sequence_idx in self.blocked_positions for comp in batch):
+                    self.batch_started.emit(batch_idx + 1, total_batches, batch[0].mod.id)
+                pending = []
+                for comp in batch:
+                    if comp.sequence_idx in self.blocked_positions:
+                        skipped = InstallResult(ComponentStatus.SKIPPED, 0, "", "", [], [])
+                        self.all_results[comp.comp_id] = skipped
+                        self.component_finished.emit(comp.comp_id, skipped)
+                    else:
+                        pending.append(comp)
+                if not pending:
+                    batch_idx += 1
+                    continue
+                batch = pending
                 first_comp = batch[0]
                 comp_id = first_comp.comp_id
 
@@ -387,6 +403,8 @@ class InstallationWorker(QThread):
                             else (self.warning_occurred, result.warnings)
                         )
 
+                        self.decision_ready = False
+                        self.user_decision = None
                         signal.emit(comp_id, messages)
                         self._wait_for_decision()
 
@@ -405,7 +423,16 @@ class InstallationWorker(QThread):
                             self.installation_stopped.emit(batch_idx + 1)
                             return
 
-                        # SKIP: continue to next
+                failed_ids = [
+                    key
+                    for key, value in results.items()
+                    if value.status in (ComponentStatus.ERROR, ComponentStatus.SKIPPED)
+                ]
+                if failed_ids and not self.is_stopped:
+                    self.decision_ready = False
+                    self.user_decision = None
+                    self.failures_skipped.emit(batch_idx, failed_ids)
+                    self._wait_for_decision()
 
                 batch_idx += 1
 
@@ -526,9 +553,6 @@ class InstallationWorker(QThread):
 
     def _wait_for_decision(self):
         """Wait for user decision on error/warning."""
-        self.decision_ready = False
-        self.user_decision = None
-
         while not self.decision_ready and not self.is_stopped and not self.is_paused:
             self.msleep(100)
 

@@ -3,13 +3,15 @@ from typing import Callable
 
 from PySide6.QtCore import QUrl
 from PySide6.QtGui import QDesktopServices
-from PySide6.QtWidgets import QMenu
+from PySide6.QtWidgets import QApplication, QDialog, QMenu, QMessageBox
 
 from core.ComponentReference import ComponentReference, IndexManager
-from core.Mod import Mod
+from core.Mod import Component, Mod, SubComponent
 from core.Rules import RuleType, RuleViolation
 from core.TranslationManager import tr
 from core.Url import get_forum_code
+from core.ValidationOrchestrator import ValidationOrchestrator
+from ui.pages.mod_selection.ResolutionPreviewDialog import ResolutionPreviewDialog
 from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.pages.mod_selection.TreeItem import TreeItem
 
@@ -19,12 +21,13 @@ logger = logging.getLogger(__name__)
 class ComponentContextMenu:
     """Builder for component context menus."""
 
-    def __init__(self, controller: SelectionController):
+    def __init__(self, controller: SelectionController, orchestrator: ValidationOrchestrator):
         """Initialize menu builder.
 
         Args:
             controller: Selection controller for actions
         """
+        self._orchestrator = orchestrator
         self._controller = controller
         self._indexes = IndexManager.get_indexes()
 
@@ -57,6 +60,9 @@ class ComponentContextMenu:
             return
 
         menu = QMenu()
+        if not reference.is_mod() and self._indexes.is_selected(reference):
+            keep_action = menu.addAction(tr("page.selection.violation.keep_this_component"))
+            keep_action.triggered.connect(lambda: self._resolve_keep_component(reference))
 
         # Build menu based on context
         if specific_violation:
@@ -84,13 +90,6 @@ class ComponentContextMenu:
         if not all_violations:
             return
 
-        """TODO
-        keep_action = menu.addAction(tr("page.selection.violation.keep_this_mod_components"))
-        keep_action.triggered.connect(
-            lambda: self._resolve_keep_mod(reference, component_refs, all_violations)
-        )
-        """
-
         remove_action = menu.addAction(
             tr("page.selection.violation.unselect_this_mod_components")
         )
@@ -108,13 +107,6 @@ class ComponentContextMenu:
             return
 
         if self._indexes.is_selected(reference):
-            """ TODO
-            keep_action = menu.addAction(tr("page.selection.violation.keep_this_component"))
-            keep_action.triggered.connect(
-                lambda: self._resolve_keep_component(reference, violations)
-            )
-            """
-
             remove_action = menu.addAction(
                 tr("page.selection.violation.unselect_this_component")
             )
@@ -298,7 +290,7 @@ class ComponentContextMenu:
             if violation.rule.rule_type != RuleType.DEPENDENCY:
                 continue
 
-            for ref in violation.rule.targets:
+            for ref in violation.affected_components[1:]:
                 if ref in self._indexes.selection_index:
                     continue
 
@@ -452,105 +444,58 @@ class ComponentContextMenu:
     # Resolution Actions
     # ========================================
 
-    def _resolve_keep_component(self, reference: ComponentReference, violations: list):
-        """Resolve violations by keeping this component.
+    def _resolve_keep_component(self, reference: ComponentReference) -> None:
+        proposal = self._orchestrator.auto_resolve(reference)
+        title = tr("page.selection.violation.keep_this_component")
+        if proposal is None:
+            QMessageBox.information(None, title, tr("page.selection.no_resolution"))
+            return
+        changes = []
+        for added, references in (
+            (False, proposal.original - proposal.selection),
+            (True, proposal.selection - proposal.original),
+        ):
+            labels = sorted(
+                (
+                    self._change_names(ref)
+                    for ref in references
+                    if ref.is_component() or ref.is_sub_option()
+                ),
+                key=lambda names: (names[0].casefold(), names[1].casefold()),
+            )
+            changes.extend((mod, component, added) for mod, component in labels)
+        if not changes:
+            return
+        _, component_name = self._change_names(reference)
+        dialog = ResolutionPreviewDialog(changes, component_name, QApplication.activeWindow())
+        if (
+            dialog.exec() == QDialog.DialogCode.Accepted
+            and not self._orchestrator.apply_resolution(proposal)
+        ):
+            QMessageBox.information(
+                dialog.parentWidget(), title, tr("page.selection.no_resolution")
+            )
+        dialog.deleteLater()
 
-        Strategy:
-        1. Select missing dependencies
-        2. Unselect conflicting components
-        """
-        to_select = []
-        to_unselect = []
-
-        for violation in violations:
-            if violation.rule.rule_type == RuleType.DEPENDENCY:
-                # Add missing dependencies
-                for ref in violation.rule.targets:
-                    if ref not in self._indexes.selection_index:
-                        to_select.append(ref)
-
-            elif violation.rule.rule_type == RuleType.INCOMPATIBILITY:
-                # Remove conflicts
-                conflict_refs = (
-                    violation.rule.targets
-                    if reference in violation.rule.sources
-                    else violation.rule.sources
-                )
-                for ref in conflict_refs:
-                    if ref in self._indexes.selection_index:
-                        to_unselect.append(ref)
-
-        # Apply changes
-        if to_select:
-            self._controller.select_bulk(to_select)
-        if to_unselect:
-            self._controller.unselect_bulk(to_unselect)
-
-        logger.info(
-            f"Auto-resolved {reference}: +{len(to_select)} deps, -{len(to_unselect)} conflicts"
+    def _change_names(self, reference: ComponentReference) -> tuple[str, str]:
+        component = self._indexes.resolve(reference.get_base_component_reference())
+        mod = (
+            component.mod
+            if isinstance(component, Component)
+            else self._indexes.resolve(ComponentReference.for_mod(reference.mod_id))
         )
-
-    def _resolve_keep_mod(
-        self,
-        mod_ref: ComponentReference,
-        component_refs: list[ComponentReference],
-        violations: list,
-    ):
-        """Resolve violations by keeping all mod components.
-
-        Strategy:
-        1. Select all missing dependencies
-        2. Unselect external conflicting components
-        3. For internal conflicts, keep first occurrence in component list
-        """
-        mod_ref_set = set(component_refs)
-        to_select = []
-        to_unselect = []
-        internal_conflicts = set()
-
-        for violation in violations:
-            if violation.rule.rule_type == RuleType.DEPENDENCY:
-                # Add missing dependencies
-                for ref in violation.rule.targets:
-                    if ref not in self._indexes.selection_index:
-                        to_select.append(ref)
-
-            elif violation.rule.rule_type == RuleType.INCOMPATIBILITY:
-                # Check if internal or external conflict
-                sources_in_mod = [r for r in violation.rule.sources if r in mod_ref_set]
-                targets_in_mod = [r for r in violation.rule.targets if r in mod_ref_set]
-
-                if sources_in_mod and targets_in_mod:
-                    # Internal conflict: keep first in list
-                    all_involved = sources_in_mod + targets_in_mod
-                    first_idx = min(component_refs.index(r) for r in all_involved)
-                    first_ref = component_refs[first_idx]
-
-                    for ref in all_involved:
-                        if ref != first_ref:
-                            internal_conflicts.add(ref)
-                else:
-                    # External conflict: remove external component
-                    if sources_in_mod:
-                        for ref in violation.rule.targets:
-                            if ref in self._indexes.selection_index:
-                                to_unselect.append(ref)
-                    else:
-                        for ref in violation.rule.sources:
-                            if ref in self._indexes.selection_index:
-                                to_unselect.append(ref)
-
-        # Apply changes
-        if to_select:
-            self._controller.select_bulk(to_select)
-        if to_unselect:
-            self._controller.unselect_bulk(to_unselect)
-        if internal_conflicts:
-            self._controller.unselect_bulk(list(internal_conflicts))
-
-        logger.info(
-            f"Auto-resolved mod {mod_ref}: "
-            f"+{len(to_select)} deps, "
-            f"-{len(to_unselect)} external conflicts, "
-            f"-{len(internal_conflicts)} internal conflicts"
-        )
+        mod_name = mod.name if isinstance(mod, Mod) and mod.name else reference.mod_id
+        name = component.get_name() if isinstance(component, Component) else ""
+        path = [
+            name
+            or tr("page.selection.unnamed_component", key=reference.get_base_component_key()),
+        ]
+        if reference.is_sub_option():
+            _, question, answer = reference.comp_key.split(".")
+            if isinstance(component, SubComponent):
+                prompt = component.get_prompt_text(question)
+                if prompt:
+                    path.append(prompt)
+                answer = component.get_prompt_option_text(question, answer) or answer
+            path.append(answer)
+        return mod_name, " > ".join(path)

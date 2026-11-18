@@ -31,9 +31,10 @@ from constants import (
     SPACING_LARGE,
     SPACING_SMALL,
 )
-from core.ComponentReference import IndexManager
+from core.ComponentReference import ComponentReference, IndexManager
 from core.GameModels import GameDefinition
 from core.InstallationWorker import InstallationState, InstallationWorker, UserDecision
+from core.Mod import SubComponent
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
 from core.StateManager import StateManager
 from core.TranslationManager import tr
@@ -388,6 +389,8 @@ class InstallationPage(BasePage):
             True if preparation successful
         """
         self._sequence_installations = []
+        self._unavailable: set[tuple[int, int]] = set()
+        self._blocked: set[tuple[int, int]] = set()
 
         # Build installation data for each sequence
         for seq_idx in range(game_def.sequence_count):
@@ -412,6 +415,16 @@ class InstallationPage(BasePage):
                 )
                 return False
 
+            try:
+                components = self._convert_order_to_component_info(order_list)
+            except ValueError as error:
+                QMessageBox.critical(
+                    self,
+                    tr("page.order.import_error_title"),
+                    tr("page.installation.invalid_plan", reference=str(error)),
+                )
+                return False
+
             # Store sequence installation data
             self._sequence_installations.append(
                 {
@@ -419,6 +432,7 @@ class InstallationPage(BasePage):
                     "game_folder": Path(game_folder),
                     "sequence": sequence,
                     "order": order_list,
+                    "components": components,
                 }
             )
 
@@ -436,7 +450,6 @@ class InstallationPage(BasePage):
         seq_install = self._sequence_installations[self._installation_state.current_sequence]
         seq_idx = seq_install["seq_idx"]
         game_folder = seq_install["game_folder"]
-        order_list = seq_install["order"]
 
         logger.info(
             "Starting sequence %d/%d in folder: %s",
@@ -473,7 +486,7 @@ class InstallationPage(BasePage):
         self._engine.init_weidu_log()
 
         # Convert order to ComponentInfo
-        self._components = self._convert_order_to_component_info(order_list)
+        self._components = seq_install["components"]
         self._batches = self._prepare_batches(self._components)
 
         # Determine start batch index (for resume within current sequence)
@@ -512,6 +525,12 @@ class InstallationPage(BasePage):
         )
 
         # Connect signals
+        self._worker.blocked_positions = {
+            idx
+            for seq, idx in self._blocked
+            if seq == self._installation_state.current_sequence
+        }
+        self._worker.failures_skipped.connect(self._check_and_handle_dependents)
         self._worker.batch_started.connect(self._on_batch_started)
         self._worker.component_started.connect(self._on_component_started)
         self._worker.component_finished.connect(self._on_component_finished)
@@ -538,12 +557,18 @@ class InstallationPage(BasePage):
             List of ComponentInfo objects
         """
         components = []
+        selected = set(
+            ComponentReference.from_string_list(self.state_manager.get_selected_components())
+        )
+        options_by_base: dict[ComponentReference, set[ComponentReference]] = {}
+        for ref in selected:
+            if ref.is_sub_option():
+                options_by_base.setdefault(ref.get_base_component_reference(), set()).add(ref)
 
         for idx, comp_id in enumerate(order_list):
             parts = comp_id.split(":", 1)
             if len(parts) != 2:
-                logger.warning("Invalid component ID: %s", comp_id)
-                continue
+                raise ValueError(comp_id)
 
             mod_id, comp_key = parts
 
@@ -556,31 +581,26 @@ class InstallationPage(BasePage):
                         mod=None,
                         component=None,
                         sequence_idx=idx,
-                        requirements=set(),
+                        requirements=(),
                         subcomponent_answers=[],
                         extra_args=[],
                     )
 
                     components.append(comp_info)
                     continue
-                logger.warning("Mod not found: %s", mod_id)
-                continue
+                raise ValueError(comp_id)
 
+            reference = ComponentReference(mod_id, comp_key)
             component = mod.get_component(comp_key)
-            if not component:
-                logger.warning("Component not found: %s:%s", mod_id, comp_key)
-                continue
+            if not reference.is_component() or not component:
+                raise ValueError(comp_id)
 
             subcomponent_answers = []
             extra_args = []
 
-            if component.is_sub():
-                selected_components = self.state_manager.get_selected_components()
-                subcomponent_answers = [
-                    component.split(".")[2]
-                    for component in selected_components
-                    if component.startswith(f"{mod_id}:") and component.count(".") == 2
-                ]
+            options = options_by_base.get(reference, set())
+            if isinstance(component, SubComponent):
+                subcomponent_answers = component.ordered_answers({option.comp_key for option in options})
 
             if mod_id.lower() == "eet":
                 extra_args = [
@@ -591,12 +611,14 @@ class InstallationPage(BasePage):
 
             comp_info = ComponentInfo(
                 tp2_name=mod.tp2,
-                comp_id=comp_id,
+                comp_id=str(reference),
                 mod=mod,
                 component=component,
                 sequence_idx=idx,
-                requirements=self.state_manager.get_rule_manager().get_requirements(
-                    mod_id, comp_key, True
+                requirements=tuple(
+                    self.state_manager.get_rule_manager().active_requirements(
+                        reference, selected, options
+                    )
                 ),
                 subcomponent_answers=subcomponent_answers,
                 extra_args=extra_args,
@@ -619,7 +641,7 @@ class InstallationPage(BasePage):
         for comp in components:
             is_sub = bool(comp.subcomponent_answers)
 
-            if is_sub or comp.component is None:
+            if is_sub or comp.component is None or comp.requirements:
                 if current_batch:
                     batches.append(current_batch)
                     current_batch = []
@@ -885,9 +907,6 @@ class InstallationPage(BasePage):
         dialog = ErrorDecisionDialog(component_id, errors, self)
         dialog.exec()
 
-        if dialog.decision == UserDecision.SKIP:
-            self._check_and_handle_dependents(component_id)
-
         self._worker.set_user_decision(dialog.decision)
 
     def _on_warning_occurred(self, component_id: str, warnings: list[str]):
@@ -999,55 +1018,43 @@ class InstallationPage(BasePage):
     # Dependency Management
     # ========================================
 
-    def _check_and_handle_dependents(self, failed_component_id: str):
-        """Check and handle dependent components."""
-        dependents = self._find_dependent_components(failed_component_id)
-
-        if not dependents:
-            return
-
-        reply = QMessageBox.question(
-            self,
-            tr("page.install.dependents.title"),
-            tr(
-                "page.install.dependents.message",
-                count=len(dependents),
-                components=", ".join(dependents),
-            ),
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+    def _check_and_handle_dependents(self, batch_idx: int, failed_ids: list[str]) -> None:
+        """Preview newly blocked occurrences while the worker waits at a batch boundary."""
+        current = self._installation_state.current_sequence
+        batch = self._batches[batch_idx]
+        self._unavailable.update(
+            (current, comp.sequence_idx) for comp in batch if comp.comp_id in failed_ids
         )
-
-        if reply == QMessageBox.StandardButton.Yes:
-            self._remove_components_from_batches(dependents)
-            logger.info("Removed %d dependents", len(dependents))
-
-    def _find_dependent_components(self, failed_id: str) -> list[str]:
-        """Find dependent components."""
-        dependents = []
-        current = self._progress_bar.value()
-        remaining = self._components[current:]
-
-        for comp in remaining:
-            if self._component_depends_on(comp, failed_id):
-                dependents.append(f"{comp.mod.id}:{comp.component.key}")
-
-        return dependents
-
-    def _component_depends_on(self, comp: ComponentInfo, target_id: str) -> bool:
-        """Check if component depends on target."""
-        return target_id in comp.requirements
-
-    def _remove_components_from_batches(self, component_ids: list[str]):
-        """Remove components from batches."""
-        ids_set = set(component_ids)
-        current_batch = self._progress_bar.value() // len(self._batches)
-
-        for i in range(current_batch + 1, len(self._batches)):
-            self._batches[i] = [
-                c for c in self._batches[i] if f"{c.mod.id}:{c.component.key}" not in ids_set
+        orders = [
+            [ComponentReference.from_string(comp.comp_id) for comp in seq["components"]]
+            for seq in self._sequence_installations
+        ]
+        selection = set(
+            ComponentReference.from_string_list(self.state_manager.get_selected_components())
+        )
+        blocked = self.state_manager.get_rule_manager().blocked_positions(
+            orders,
+            self._unavailable | self._blocked,
+            (current, batch[-1].sequence_idx),
+            selection,
+        )
+        if blocked:
+            labels = [
+                f"{self._sequence_installations[seq]['seq_idx'] + 1} / {orders[seq][idx]}"
+                for seq, idx in sorted(blocked)
             ]
-
-        self._batches = [b for b in self._batches if b]
+            reply = QMessageBox.question(
+                self,
+                tr("page.installation.dependents_title"),
+                tr("page.installation.dependents_message", components="\n".join(labels)),
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            )
+            if reply == QMessageBox.StandardButton.Yes:
+                self._blocked.update(blocked)
+                self._worker.blocked_positions.update(
+                    idx for seq, idx in blocked if seq == current
+                )
+        self._worker.set_user_decision(UserDecision.SKIP)
 
     # ========================================
     # UI Helpers

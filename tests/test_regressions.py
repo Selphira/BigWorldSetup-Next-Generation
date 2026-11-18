@@ -20,7 +20,7 @@ from core.Mod import Mod
 from core.RuleManager import RuleManager
 from core.Rules import DependencyRule, OrderRule
 from core.validators.StructureValidator import StructureValidator
-from core.weidu_types import ComponentInfo, ComponentStatus
+from core.weidu_types import ComponentStatus
 from core.WeiDUDebugParser import WeiDUDebugParser
 from tests.conftest import ModCatalogue
 from ui.pages.DownloadPage import DownloadPage
@@ -32,31 +32,18 @@ from util.mod_sync.mergers.definition_merger import DefinitionMerger
 from util.mod_sync.processors.github_processor import GitHubProcessor
 
 
-@pytest.mark.xfail(
-    reason="B05 / L4: tuple requirements compared with string", raises=AssertionError
-)
-def test_b05_failed_prerequisite_is_detected() -> None:
-    component = ComponentInfo("b:0", None, None, "b", 0, {("a", "0")})
-    assert InstallationPage._component_depends_on(None, component, "a:0")
-
-
-@pytest.mark.xfail(
-    reason="B06 / L3: reverse dependency treated as prerequisite", raises=AssertionError
-)
 def test_b06_dependency_target_does_not_require_itself(rules: RuleManager) -> None:
-    rules._all_rules = [DependencyRule.from_dict({"source": ["a:0"], "target": ["b:0"]})]
+    rule = DependencyRule.from_dict({"source": ["a:0"], "target": ["b:0"]})
+    rules._all_rules = [rule]
     rules._build_indexes()
-    assert rules.get_requirements("a", "0") == {("b", "0")}
-    assert rules.get_requirements("b", "0") == set()
+    assert rules.get_requirements(ComponentReference("a", "0")) == (rule,)
+    assert not rules.get_requirements(ComponentReference("b", "0"))
 
 
-@pytest.mark.xfail(
-    reason="B07 / L3: SUB answers leak between components", raises=AssertionError
-)
 def test_b07_sub_answers_belong_to_their_component(catalogue: ModCatalogue) -> None:
     state = Mock()
     state.get_selected_components.return_value = ["demo:1.1.A", "demo:2.1.B"]
-    state.get_rule_manager.return_value.get_requirements.return_value = set()
+    state.get_rule_manager.return_value.active_requirements.return_value = set()
     page = SimpleNamespace(_mod_manager=catalogue, state_manager=state)
     components = InstallationPage._convert_order_to_component_info(page, ["demo:1", "demo:2"])
     assert [item.subcomponent_answers for item in components] == [["A"], ["B"]]
@@ -133,9 +120,6 @@ def test_b19_bulk_selection_matches_visible_checkboxes(
         assert (item.checkState() == Qt.CheckState.Checked) == indexes.is_selected(ref)
 
 
-@pytest.mark.xfail(
-    reason="B20 / L6: corrected order leaves stale violations", raises=AssertionError
-)
 def test_b20_corrected_order_clears_index(rules: RuleManager) -> None:
     rules._all_rules = [
         OrderRule.from_dict(

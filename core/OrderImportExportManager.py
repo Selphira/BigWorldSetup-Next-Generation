@@ -86,7 +86,7 @@ class OrderFileParser:
                 raise InvalidFormatError(f"Sequence {seq_idx} must be a list")
 
             try:
-                references = ComponentReference.from_string_list(value)
+                references = [ComponentReference.from_string(entry) for entry in value]
                 result[seq_idx] = references
             except Exception as e:
                 raise InvalidFormatError(

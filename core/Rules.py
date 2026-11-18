@@ -366,20 +366,25 @@ class RuleViolation:
 
         Dependencies imply: targets (dependencies) must be BEFORE sources (dependents)
         """
-        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+        source = self.affected_components[0]
+        if for_reference == source:
+            return tr("rule.message_order_after", components=self._missing_expression())
+        return tr("rule.message_order_before", components=str(source))
 
-        constraint_key = "after" if is_source else "before"
-        other_refs = self.rule.targets if is_source else self.rule.sources
-
-        violating_refs = self._get_violating_refs(
-            for_reference, list(other_refs), constraint_key, current_order
-        )
-
-        if not violating_refs:
-            return ""
-
-        violating_names = ", ".join(str(ref) for ref in violating_refs)
-        return tr(f"rule.message_order_{constraint_key}", components=violating_names)
+    def _missing_expression(self) -> str:
+        """Format the unsatisfied part of an AND of component groups."""
+        missing = set(self.affected_components[1:])
+        rule = self.rule
+        groups = rule.target_groups or (ComponentGroup(rule.targets, rule.dependency_mode),)
+        expressions = []
+        for group in groups:
+            terms = [str(ref) for ref in group.components if ref in missing]
+            if not terms:
+                continue
+            operator = " ∨ " if group.operator == DependencyMode.ANY else " ∧ "
+            expression = operator.join(terms)
+            expressions.append(f"({expression})" if len(terms) > 1 else expression)
+        return " ∧ ".join(expressions)
 
     def _format_dependency_message(
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
@@ -389,11 +394,9 @@ class RuleViolation:
         missing: list[ComponentReference] = []
 
         if is_source:
-            for target in self.rule.targets:
-                if not self._matches_reference(target, selected_set):
-                    missing.append(target)
+            missing = list(self.affected_components[1:])
             if missing:
-                missing_str = ", ".join(str(t) for t in missing)
+                missing_str = self._missing_expression()
                 return tr("rule.message_dependency_missing", missing=missing_str)
             else:
                 return tr("rule.message_dependency_all_satisfied")

@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from core.Mod import Component, Mod
+from core.Rules import DependencyRule
 
 WEIDU_TRANSLATION_KEYS = {
     "installing": "@-1016",
@@ -65,7 +66,7 @@ class ComponentInfo:
     component: Component | None
     tp2_name: str
     sequence_idx: int
-    requirements: set[tuple[str, str]] = ()
+    requirements: tuple[DependencyRule, ...] = ()
     subcomponent_answers: list[str] = None
     extra_args: list[str] = None
 

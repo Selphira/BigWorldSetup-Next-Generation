@@ -7,6 +7,7 @@ All modifications go through this controller and update indexes.
 
 from __future__ import annotations
 
+from dataclasses import replace
 import logging
 
 from PySide6.QtCore import QObject, Qt, Signal
@@ -35,6 +36,30 @@ class SelectionController(QObject):
         self._cascade_depth = 0
 
         logger.info("SelectionController initialized")
+
+    def forced_selection(self) -> set[ComponentReference]:
+        if not self._game:
+            return set()
+        return set(ComponentReference.from_string_list(self._game.get_forced_components()))
+
+    def selection_snapshot(self) -> frozenset[ComponentReference]:
+        return frozenset(self._indexes.selection_index)
+
+    def preview(self, selection: set[ComponentReference]) -> SelectionController:
+        """Simulate cascades using the same catalogue, forced choices and defaults."""
+        controller = SelectionController(self._rule_manager)
+        controller._indexes = replace(self._indexes, selection_index=set(selection))
+        controller._game = self._game
+        controller._proxy_model = self._proxy_model
+        return controller
+
+    def apply_selection(self, selection: set[ComponentReference]) -> None:
+        """Publish an already validated selection, including all cascade effects."""
+        before = self._indexes.selection_index.copy()
+        self._indexes.selection_index.clear()
+        self._indexes.selection_index.update(selection)
+        self.selections_bulk_changed.emit(list(selection - before), list(before - selection))
+        self.validation_needed.emit()
 
     def set_game(self, game: GameDefinition) -> None:
         """Set current game and enforce forced components."""

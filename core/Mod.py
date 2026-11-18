@@ -144,6 +144,24 @@ class SubComponent(Component):
     prompts: dict[str, Prompt]
     _prompt_texts: dict[str, str]
 
+    def ordered_answers(self, selected_keys: set[str]) -> list[str]:
+        """Require one declared option per prompt in catalogue order."""
+        answers: dict[str, str] = {}
+        for key in selected_keys:
+            parts = key.split(".")
+            if parts[0] != self.key:
+                continue
+            if len(parts) != 3 or parts[1] not in self.prompts:
+                raise ValueError(f"{self.mod.id}:{key}")
+            _, question, answer = parts
+            if question in answers or not self.prompts[question].has_option(answer):
+                raise ValueError(f"{self.mod.id}:{self.key}.{question}")
+            answers[question] = answer
+        for question in self.prompts:
+            if question not in answers:
+                raise ValueError(f"{self.mod.id}:{self.key}.{question}")
+        return [answers[question] for question in self.prompts]
+
     def get_prompt(self, prompt_key: str) -> Prompt | None:
         """Get a prompt by its key."""
         return self.prompts.get(prompt_key)
@@ -356,83 +374,27 @@ class Mod:
         return self._component_refs_cache
 
     def _get_sub_component(self, key: str) -> Component | None:
-        """
-        Handle SUB component with notation "parent.option1.option2...optionN".
-
-        Each number after the parent key represents the selected option index
-        for each prompt in order. There must be at least one prompt.
-
-        Examples:
-            "1.2.4" → Component 1, prompt 1 = option 2, prompt 2 = option 4
-            "5.0.1.3" → Component 5, prompt 1 = option 0, prompt 2 = option 1, prompt 3
-
-        Args:
-            key: Component key with dots (e.g., "comp1.2.1")
-
-        Returns:
-            Component with concatenated text, or None if not found
-        """
+        """Resolve a declared parent.prompt or parent.prompt.option reference."""
         parts = key.split(".")
-
-        if len(parts) < 2:
+        parent = self.get_component(parts[0])
+        if not isinstance(parent, SubComponent) or len(parts) not in (2, 3):
             return None
 
-        parent_key = parts[0]
-        option_values = parts[1:]  # All remaining parts are option VALUES (not indices)
-
-        # Get or create parent component
-        if parent_key in self._components_cache:
-            parent_comp = self._components_cache[parent_key]
-        elif parent_key in self._components_raw:
-            parent_comp = self._create_component(parent_key, self._components_raw[parent_key])
-            self._components_cache[parent_key] = parent_comp
-        else:
+        prompt = parent.get_prompt(parts[1])
+        if prompt is None:
             return None
-
-        # Verify it's a SUB component
-        if not parent_comp.is_sub():
-            return None
-
-        parent_comp = cast(SubComponent, parent_comp)
-
-        # Get all prompts in order
-        prompt_keys = list(parent_comp.prompts.keys())
-
-        # Verify we have the right number of values for the number of prompts
-        if len(option_values) != len(prompt_keys):
-            return None
-
-        # Build the combined text: "Parent -> Prompt1: Option1 -> Prompt2: Option2 -> ..."
-        text_parts = [parent_comp.text]
-
-        for prompt_idx, option_value in enumerate(option_values):
-            # Get the prompt at this index
-            prompt_key = prompt_keys[prompt_idx]
-            prompt = parent_comp.get_prompt(prompt_key)
-
-            if not prompt:
+        combined_text = parent.get_prompt_text(prompt.key)
+        if len(parts) == 3:
+            if not prompt.has_option(parts[2]):
                 return None
-
-            # Verify the option value exists in this prompt's options
-            if not prompt.has_option(option_value):
-                return None
-
-            # Get texts
-            prompt_text = parent_comp.get_prompt_text(prompt_key)
-            option_text = parent_comp.get_prompt_option_text(prompt_key, option_value)
-
-            # Add to combined text
-            text_parts.append(f"{prompt_text}: {option_text}")
-
-        # Combine all parts with " -> "
-        combined_text = " -> ".join(text_parts)
+            combined_text = parent.get_prompt_option_text(prompt.key, parts[2])
 
         return Component(
-            key=key,  # Use full key including all option values
+            key=key,
             text=combined_text,
-            category=parent_comp.category,
-            comp_type=parent_comp.comp_type,
-            games=parent_comp.games,
+            category=parent.category,
+            comp_type=parent.comp_type,
+            games=parent.games,
             mod=self,
         )
 

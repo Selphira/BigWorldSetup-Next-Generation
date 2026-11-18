@@ -73,7 +73,7 @@ class ComponentReference:
         Raises:
             ValueError: If format is invalid
         """
-        if not reference_str:
+        if not isinstance(reference_str, str) or not reference_str:
             raise ValueError(f"Invalid reference format: {reference_str}")
 
         if ":" not in reference_str:
