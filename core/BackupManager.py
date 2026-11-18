@@ -1,12 +1,25 @@
+"""Full verified game snapshots with recoverable restoration transactions."""
+
 from datetime import datetime
 import json
 import logging
 from pathlib import Path
-import re
 import shutil
+import tempfile
 from typing import Callable
+from uuid import uuid4
 
+from constants import (
+    BACKUP_MANIFEST_FILE,
+    BACKUP_SPACE_MARGIN,
+    RESTORE_JOURNAL_FILE,
+)
+from core.atomic_io import write_json_atomic
 from core.BackupInfo import BackupInfo, BackupStatus
+from core.BackupManifest import BackupManifest
+from core.BackupSnapshot import BackupSnapshot
+from core.PathSafety import PathSafety
+from core.RestoreTransaction import RestorePhase, RestoreTransaction
 from core.TranslationManager import tr
 
 logger = logging.getLogger(__name__)
@@ -19,43 +32,17 @@ OperationResult = tuple[bool, str]  # (success, error_message)
 class BackupManager:
     """Manages game backups: creation, restoration, validation."""
 
-    # File exclusion patterns
-    EXCLUDED_PATTERNS = [
-        re.compile(p, re.IGNORECASE)
-        for p in (
-            r"^setup-.*\.exe$",
-            r".*\.debug$",
-            r".*\.tp2$",
-            r".*\.bif$",
-        )
-    ]
+    SPACE_MARGIN: float = BACKUP_SPACE_MARGIN
 
-    # Directory classifications
-    ORIGINAL_GAME_DIRS = {
-        "lang",
-        "Manuals",
-        "movies",
-        "music",
-        "override",
-        "portraits",
-        "scripts",
-        "save",
-        "mpsave",
-    }
-
-    PRESERVED_DIRS = {"portraits", "save", "mpsave", "data", "sod-dlc"}
+    MANIFEST_FILE = BACKUP_MANIFEST_FILE
+    JOURNAL_FILE = RESTORE_JOURNAL_FILE
 
     # Directory and file structure
     METADATA_FILE = "backup_metadata.json"
     GAME_FILES_DIR = "game_files"
     REMOVED_DIR_PREFIX = "removed"
 
-    # Restoration progress phases (percentage)
-    PROGRESS_PHASE_REMOVE = 5
-    PROGRESS_PHASE_PREPARE = 10
-    PROGRESS_PHASE_RESTORE = 80
-
-    def __init__(self):
+    def __init__(self) -> None:
         self._backup_root: Path | None = None
 
     def set_backup_root(self, backup_root: Path | str) -> None:
@@ -91,27 +78,48 @@ class BackupManager:
                     ),
                 )
 
+            self._check_paths(game_path)
+            self._backup_root.mkdir(parents=True, exist_ok=True)
             progress_callback(tr("backup_manager.progress.analyzing_files"), 0, 100)
 
-            files = self._collect_backup_files(game_path)
-            if not files:
+            expected = BackupSnapshot(game_path).inventory()
+            if not expected["files"]:
                 return False, None, tr("backup_manager.error.no_files_to_backup")
 
-            total_size = sum(p.stat().st_size for p in files if p.is_file())
-            self._check_free_space(total_size)
+            self._check_free_space(BackupSnapshot.byte_size(expected))
 
             backup_id = self._generate_backup_id(game_code)
-            backup_dir = self._backup_root / backup_id
-            game_files_dir = backup_dir / self.GAME_FILES_DIR
-            game_files_dir.mkdir(parents=True)
+            backup_dir = self._backup_directory(backup_id)
+            candidate = Path(tempfile.mkdtemp(prefix=".candidate_", dir=self._backup_root))
+            game_files_dir = candidate / self.GAME_FILES_DIR
 
-            file_count = self._copy_files(files, game_path, game_files_dir, progress_callback)
+            game_files_dir.mkdir()
+            file_count = self._copy_files(
+                self._collect_backup_files(game_path),
+                game_path,
+                game_files_dir,
+                progress_callback,
+            )
+
+            BackupSnapshot(game_files_dir).verify(expected)
+            BackupSnapshot(game_path).verify(expected)
+
+            write_json_atomic(
+                candidate / self.MANIFEST_FILE,
+                {
+                    "version": BackupSnapshot.MANIFEST_VERSION,
+                    "contract": BackupSnapshot.SNAPSHOT_CONTRACT,
+                    "game_code": game_code,
+                    "game_path": str(game_path.resolve()),
+                    "tree": expected,
+                },
+            )
 
             backup_info = BackupInfo(
                 backup_id=backup_id,
                 game_code=game_code,
                 game_name=game_name,
-                game_path=game_path,
+                game_path=game_path.resolve(),
                 creation_date=datetime.now(),
                 total_size=sum(
                     f.stat().st_size for f in game_files_dir.rglob("*") if f.is_file()
@@ -121,7 +129,8 @@ class BackupManager:
                 status=BackupStatus.VALID,
             )
 
-            self._save_metadata(backup_info)
+            write_json_atomic(candidate / self.METADATA_FILE, backup_info.to_dict())
+            candidate.rename(backup_dir)
             logger.info("Backup created: %s", backup_id)
             return True, backup_info, ""
 
@@ -144,58 +153,78 @@ class BackupManager:
         Returns:
             (success, removed_files_dir, error_message)
         """
+        transaction: RestoreTransaction | None = None
+
         try:
-            backup_info = self._load_and_validate_backup(backup_id)
-            backup_dir = self._backup_root / backup_id
-            game_files_dir = backup_dir / self.GAME_FILES_DIR
+            transaction = self._prepare_restore(backup_id, game_path)
+            transaction.save_phase(RestorePhase.PREPARING)
 
-            removed_files_dir = self._create_removed_dir(backup_id)
-            can_move = self._same_partition(game_path, self._backup_root)
+            self._copy_backup_for_restore(transaction, progress_callback)
+            self._preserve_current_user_files(transaction)
+            self._verify_prepared_game(transaction)
 
-            progress_callback(tr("backup_manager.progress.removing_files"), 0, 100)
-            self._move_current_files(game_path, removed_files_dir, can_move)
-
-            progress_callback(
-                tr("backup_manager.progress.restoring_backup"),
-                self.PROGRESS_PHASE_REMOVE + self.PROGRESS_PHASE_PREPARE,
-                100,
-            )
-
-            self._restore_files(
-                game_files_dir,
-                game_path,
-                backup_info.file_count,
-                progress_callback,
-            )
-
-            progress_callback(
-                tr("backup_manager.progress.restoring_data"),
-                self.PROGRESS_PHASE_REMOVE
-                + self.PROGRESS_PHASE_PREPARE
-                + self.PROGRESS_PHASE_RESTORE,
-                100,
-            )
-
-            self._restore_preserved_dirs(game_path, removed_files_dir, can_move)
+            self._save_current_game(transaction)
+            self._activate_prepared_game(transaction)
+            self._verify_restored_game(transaction)
 
             progress_callback(tr("backup_manager.progress.restoration_complete"), 100, 100)
-            logger.info("Backup restored: %s", backup_id)
-            return True, removed_files_dir, ""
+            logger.info("Backup restored: %s; recovery: %s", backup_id, transaction.directory)
+            return True, transaction.directory, ""
 
-        except RuntimeError as e:
-            # RuntimeError contains translated messages from _load_and_validate_backup
-            logger.exception("Restore failed")
-            return False, None, str(e)
-        except Exception as e:
-            logger.exception("Restore failed")
-            return False, None, tr("backup_manager.error.restore_failed", error=str(e))
+        except Exception as error:
+            recovery_dir = transaction.directory if transaction else None
+            return self._restore_failure(recovery_dir, error)
+
+    def recover_restore(self, transaction: Path) -> OperationResult:
+        """Restore the pre-operation tree from a journal, retaining all recovery data."""
+        try:
+            PathSafety.reject_links(transaction)
+            journal = json.loads((transaction / self.JOURNAL_FILE).read_text(encoding="utf-8"))
+            game_dir = Path(journal["target"])
+            recovery_dir = transaction / "original"
+            rollback_dir = transaction / f"rollback_{uuid4().hex}"
+            original_manifest = BackupManifest.from_dict(journal["original"])
+
+            if (
+                journal["version"] != BackupSnapshot.MANIFEST_VERSION
+                or not game_dir.is_absolute()
+                or transaction.resolve().parent != game_dir.parent.resolve()
+                or not transaction.name.startswith(".bws_restore_")
+            ):
+                raise RuntimeError(tr("backup_manager.error.unsafe_path"))
+            PathSafety.independent_paths(game_dir, transaction)
+
+            if not recovery_dir.exists():
+                BackupSnapshot(game_dir).verify(original_manifest.to_dict())
+                return True, ""
+
+            BackupSnapshot(recovery_dir).verify(original_manifest.to_dict())
+            self._check_space(game_dir.parent, original_manifest.byte_size)
+
+            shutil.copytree(recovery_dir, rollback_dir)
+            BackupSnapshot(rollback_dir).verify(original_manifest.to_dict())
+
+            if game_dir.exists():
+                BackupSnapshot(game_dir).inventory()
+                game_dir.rename(transaction / f"interrupted_{uuid4().hex}")
+
+            rollback_dir.rename(game_dir)
+            BackupSnapshot(game_dir).verify(original_manifest.to_dict())
+
+            journal["phase"] = "rolled_back"
+            write_json_atomic(transaction / self.JOURNAL_FILE, journal)
+            return True, ""
+
+        except Exception as error:
+            logger.exception("Recovery failed: %s", transaction)
+            return False, tr("backup_manager.error.restore_failed", error=str(error))
 
     def delete_backup(self, backup_id: str) -> OperationResult:
         try:
             if not self._backup_root:
                 return False, tr("backup_manager.error.no_backup_directory")
 
-            backup_dir = self._backup_root / backup_id
+            backup_dir = self._backup_directory(backup_id)
 
             if not backup_dir.exists():
                 return False, tr("backup_manager.error.backup_not_found", id=backup_id)
@@ -217,8 +246,10 @@ class BackupManager:
 
         for directory in self._backup_root.iterdir():
             # Skip non-directories and removed file directories
-            if not directory.is_dir() or directory.name.startswith(
-                f"{self.REMOVED_DIR_PREFIX}_"
+            if (
+                directory.name.startswith(".")
+                or not directory.is_dir()
+                or directory.name.startswith(f"{self.REMOVED_DIR_PREFIX}_")
             ):
                 continue
 
@@ -238,7 +269,7 @@ class BackupManager:
             if not self._backup_root:
                 return None
 
-            backup_dir = self._backup_root / backup_id
+            backup_dir = self._backup_directory(backup_id)
             metadata_path = backup_dir / self.METADATA_FILE
 
             if not metadata_path.exists():
@@ -247,19 +278,24 @@ class BackupManager:
             with open(metadata_path, encoding="utf-8") as fp:
                 data = json.load(fp)
 
-            return BackupInfo.from_dict(data)
+            info = BackupInfo.from_dict(data)
+            if info.backup_id != backup_id:
+                return None
+            if not (backup_dir / self.MANIFEST_FILE).exists():
+                info.status = BackupStatus.INCOMPLETE
+            return info
 
         except Exception as e:
             logger.error("Failed to load backup metadata for %s: %s", backup_id, e)
             return None
 
     def validate_backup(self, backup_id: str) -> OperationResult:
-        """Validate a backup's integrity by checking metadata and file count."""
+        """Verify snapshot identity, file paths, sizes, hashes and empty directories."""
         try:
             if not self._backup_root:
                 return False, tr("backup_manager.error.no_backup_directory")
 
-            backup_dir = self._backup_root / backup_id
+            backup_dir = self._backup_directory(backup_id)
 
             if not backup_dir.exists():
                 return False, tr("backup_manager.error.backup_directory_not_found")
@@ -275,16 +311,19 @@ class BackupManager:
             if not backup_info:
                 return False, tr("backup_manager.error.invalid_metadata")
 
-            actual_count = sum(1 for f in game_files_dir.rglob("*") if f.is_file())
-            if actual_count != backup_info.file_count:
-                return (
-                    False,
-                    tr(
-                        "backup_manager.error.file_count_mismatch",
-                        expected=backup_info.file_count,
-                        found=actual_count,
-                    ),
-                )
+            if backup_info.status != BackupStatus.VALID:
+                raise RuntimeError(tr("backup_manager.error.legacy_backup"))
+            manifest = json.loads((backup_dir / self.MANIFEST_FILE).read_text(encoding="utf-8"))
+            if (
+                manifest["version"] != BackupSnapshot.MANIFEST_VERSION
+                or manifest["contract"] != BackupSnapshot.SNAPSHOT_CONTRACT
+                or manifest["game_code"] != backup_info.game_code
+                or Path(manifest["game_path"]) != backup_info.game_path.resolve()
+                or backup_info.file_count != len(manifest["tree"]["files"])
+                or backup_info.total_size != BackupSnapshot.byte_size(manifest["tree"])
+            ):
+                raise RuntimeError(tr("backup_manager.error.invalid_metadata"))
+            BackupSnapshot(game_files_dir).verify(manifest["tree"])
 
             return True, ""
 
@@ -335,62 +374,158 @@ class BackupManager:
         return shutil.disk_usage(self._backup_root).free if self._backup_root else 0
 
     # ========================================
-    # Private Methods
+    # Restoration steps
     # ========================================
 
-    def _generate_backup_id(self, game_code: str) -> str:
-        """Generate unique backup ID: {game_code}_{timestamp}."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        return f"{game_code}_{timestamp}"
+    def _prepare_restore(self, backup_id: str, game_path: Path) -> RestoreTransaction:
+        self._check_paths(game_path)
 
-    def _collect_backup_files(self, game_path: Path) -> list[Path]:
-        """Collect all files that should be backed up."""
-        files: list[Path] = []
+        game_dir = game_path.resolve()
+        backup_info = self._load_and_validate_backup(backup_id)
+        if game_dir != backup_info.game_path.resolve():
+            raise RuntimeError(tr("backup_manager.error.different_target"))
 
-        for item in game_path.iterdir():
-            if self._should_exclude(item.name):
+        backup_dir = self._backup_directory(backup_id)
+        backup_files_dir = backup_dir / self.GAME_FILES_DIR
+        manifest_path = backup_dir / self.MANIFEST_FILE
+
+        manifest_data = json.loads(manifest_path.read_text(encoding="utf-8"))
+        backup_manifest = BackupManifest.from_dict(manifest_data["tree"])
+        current_manifest = BackupManifest.from_dict(BackupSnapshot(game_dir).inventory())
+        restored_manifest = backup_manifest.with_current_user_files(current_manifest)
+
+        required_space = backup_manifest.byte_size + current_manifest.byte_size
+        self._check_space(game_dir.parent, required_space)
+
+        # Staging beside the game keeps both renames on the same volume.
+        transaction_dir = Path(tempfile.mkdtemp(prefix=".bws_restore_", dir=game_dir.parent))
+        return RestoreTransaction(
+            backup_id=backup_id,
+            game_dir=game_dir,
+            backup_files_dir=backup_files_dir,
+            directory=transaction_dir,
+            current_manifest=current_manifest,
+            backup_manifest=backup_manifest,
+            restored_manifest=restored_manifest,
+        )
+
+    def _copy_backup_for_restore(
+        self, transaction: RestoreTransaction, progress_callback: ProgressCallback
+    ) -> None:
+        source_dir = transaction.backup_files_dir
+        prepared_dir = transaction.prepared_game_dir
+
+        progress_callback(tr("backup_manager.progress.restoring_backup"), 0, 100)
+        prepared_dir.mkdir()
+        self._copy_files(
+            self._collect_backup_files(source_dir), source_dir, prepared_dir, progress_callback
+        )
+        BackupSnapshot(prepared_dir).verify(transaction.backup_manifest.to_dict())
+
+    def _preserve_current_user_files(self, transaction: RestoreTransaction) -> None:
+        prepared_dir = transaction.prepared_game_dir
+
+        # Replace entire user directories so deleted saves do not reappear.
+        for item in list(prepared_dir.iterdir()):
+            if item.name.lower() not in BackupSnapshot.USER_DIRECTORIES:
                 continue
 
             if item.is_dir():
-                if item.name.lower() in self.ORIGINAL_GAME_DIRS:
-                    files.append(item)
-                    files.extend(item.rglob("*"))
+                shutil.rmtree(item)
             else:
-                files.append(item)
+                item.unlink()
 
-        return files
+        for item in transaction.game_dir.iterdir():
+            if item.name.lower() in BackupSnapshot.USER_DIRECTORIES:
+                self._transfer(item, prepared_dir / item.name, move=False)
 
-    def _should_exclude(self, name: str) -> bool:
-        return any(pattern.match(name) for pattern in self.EXCLUDED_PATTERNS)
+    def _verify_prepared_game(self, transaction: RestoreTransaction) -> None:
+        BackupSnapshot(transaction.prepared_game_dir).verify(
+            transaction.restored_manifest.to_dict()
+        )
+        BackupSnapshot(transaction.game_dir).verify(transaction.current_manifest.to_dict())
+        transaction.save_phase(RestorePhase.PREPARED)
+
+    def _save_current_game(self, transaction: RestoreTransaction) -> None:
+        transaction.game_dir.rename(transaction.recovery_dir)
+        transaction.save_phase(RestorePhase.ORIGINAL_SAVED)
+
+    def _activate_prepared_game(self, transaction: RestoreTransaction) -> None:
+        transaction.prepared_game_dir.rename(transaction.game_dir)
+
+    def _verify_restored_game(self, transaction: RestoreTransaction) -> None:
+        BackupSnapshot(transaction.game_dir).verify(transaction.restored_manifest.to_dict())
+        transaction.save_phase(RestorePhase.COMPLETE)
+
+    def _restore_failure(
+        self, recovery_dir: Path | None, error: Exception
+    ) -> tuple[bool, Path | None, str]:
+        logger.exception("Restore failed; recovery directory: %s", recovery_dir)
+        message = tr("backup_manager.error.restore_failed", error=str(error))
+
+        if recovery_dir is not None:
+            message += "\n" + tr(
+                "backup_manager.error.recovery_available", path=str(recovery_dir)
+            )
+
+        return False, recovery_dir, message
+
+    # ========================================
+    # Filesystem and metadata helpers
+    # ========================================
+
+    def _backup_directory(self, backup_id: str) -> Path:
+        if not self._backup_root:
+            raise RuntimeError(tr("backup_manager.error.no_backup_directory"))
+        if (
+            not backup_id
+            or backup_id in {".", ".."}
+            or any(char in backup_id for char in "/\\:")
+            or backup_id.startswith(".")
+            or backup_id.endswith((".", " "))
+        ):
+            raise RuntimeError(tr("backup_manager.error.unsafe_path"))
+        destination = self._backup_root / backup_id
+        PathSafety.reject_links(destination)
+        if destination.resolve().parent != self._backup_root.resolve():
+            raise RuntimeError(tr("backup_manager.error.unsafe_path"))
+        return destination
+
+    def _check_paths(self, game_path: Path) -> None:
+        if not self._backup_root:
+            raise RuntimeError(tr("backup_manager.error.no_backup_directory"))
+        PathSafety.independent_paths(game_path, self._backup_root)
+        if game_path.resolve() == Path(game_path.resolve().anchor):
+            raise RuntimeError(tr("backup_manager.error.unsafe_path"))
+
+    def _generate_backup_id(self, game_code: str) -> str:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        return f"{game_code}_{timestamp}_{uuid4().hex}"
+
+    def _collect_backup_files(self, game_path: Path) -> list[Path]:
+        PathSafety.reject_links(game_path)
+        paths: list[Path] = []
+        for directory, folders, names in game_path.walk(
+            follow_symlinks=False, on_error=PathSafety.raise_walk_error
+        ):
+            for name in sorted(folders + names):
+                path = directory / name
+                PathSafety.reject_links(path)
+                if not path.is_dir() and not path.is_file():
+                    raise RuntimeError(tr("backup_manager.error.unsafe_path"))
+                paths.append(path)
+        return paths
 
     def _transfer(self, source: Path, destination: Path, *, move: bool) -> None:
-        """Transfer a file or directory using move or copy."""
+        """Copy whole trees or files; shutil.move handles cross-volume transfers."""
+        PathSafety.reject_links(source)
+        PathSafety.reject_links(destination)
         if move:
             shutil.move(str(source), str(destination))
+        elif source.is_dir():
+            shutil.copytree(source, destination)
         else:
             shutil.copy2(source, destination)
-
-    def _move_current_files(self, game_path: Path, removed_files_dir: Path, move: bool) -> None:
-        """Move current game files to removed directory, preserving specific dirs."""
-        for item in game_path.iterdir():
-            if item.name.lower() in self.PRESERVED_DIRS:
-                continue
-            self._transfer(item, removed_files_dir / item.name, move=move)
-
-    def _restore_preserved_dirs(
-        self, game_path: Path, removed_files_dir: Path, move: bool
-    ) -> None:
-        """Restore preserved directories from removed files back to game path."""
-        preserved_dir = removed_files_dir / "preserved"
-        if not preserved_dir.exists():
-            return
-
-        for item in preserved_dir.iterdir():
-            target = game_path / item.name
-            if move:
-                shutil.move(str(item), str(target))
-            else:
-                shutil.copytree(item, target, dirs_exist_ok=True)
 
     def _copy_files(
         self,
@@ -421,74 +556,30 @@ class BackupManager:
 
         return copied_count
 
-    def _restore_files(
-        self,
-        source_dir: Path,
-        destination_dir: Path,
-        total_files: int,
-        progress_callback: ProgressCallback,
-    ) -> None:
-        """Restore files from backup to game directory with progress reporting."""
-        restored_count = 0
-
-        for file_path in source_dir.rglob("*"):
-            if not file_path.is_file():
-                continue
-
-            relative_path = file_path.relative_to(source_dir)
-            target_path = destination_dir / relative_path
-            target_path.parent.mkdir(parents=True, exist_ok=True)
-
-            progress_percent = (
-                self.PROGRESS_PHASE_REMOVE
-                + self.PROGRESS_PHASE_PREPARE
-                + int((restored_count / total_files) * self.PROGRESS_PHASE_RESTORE)
-            )
-            progress_callback(
-                tr("backup_manager.progress.restoring_file", file=file_path.name),
-                progress_percent,
-                100,
-            )
-
-            self._transfer(file_path, target_path, move=False)
-            restored_count += 1
-
     def _load_and_validate_backup(self, backup_id: str) -> BackupInfo:
         """Load backup info and validate it's ready for restoration."""
         if not self._backup_root:
             raise RuntimeError(tr("backup_manager.error.no_backup_directory"))
 
         backup_info = self.load_backup_info(backup_id)
-        if not backup_info or backup_info.status != BackupStatus.VALID:
+        if not backup_info:
             raise RuntimeError(tr("backup_manager.error.invalid_backup"))
 
+        valid, error = self.validate_backup(backup_id)
+        if not valid:
+            raise RuntimeError(error)
         return backup_info
 
     def _save_metadata(self, backup_info: BackupInfo) -> None:
-        backup_dir = self._backup_root / backup_info.backup_id
-        metadata_path = backup_dir / self.METADATA_FILE
-
-        with open(metadata_path, "w", encoding="utf-8") as fp:
-            json.dump(backup_info.to_dict(), fp, indent=2)
-
-    def _create_removed_dir(self, backup_id: str) -> Path:
-        """Create timestamped directory for files removed during restoration."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        dir_name = f"{self.REMOVED_DIR_PREFIX}_{backup_id}_{timestamp}"
-
-        removed_dir = self._backup_root / dir_name
-        removed_dir.mkdir(parents=True, exist_ok=True)
-        return removed_dir
-
-    def _same_partition(self, path1: Path, path2: Path) -> bool:
-        """Check if two paths are on the same filesystem for move optimization."""
-        try:
-            return path1.stat().st_dev == path2.stat().st_dev
-        except Exception:
-            return False
+        backup_dir = self._backup_directory(backup_info.backup_id)
+        write_json_atomic(backup_dir / self.METADATA_FILE, backup_info.to_dict())
 
     def _check_free_space(self, required_bytes: int) -> None:
-        """Ensure sufficient disk space with 50% safety margin."""
-        free_bytes = shutil.disk_usage(self._backup_root).free
-        if free_bytes < required_bytes * 1.5:
+        if not self._backup_root:
+            raise RuntimeError(tr("backup_manager.error.no_backup_directory"))
+        self._check_space(self._backup_root, required_bytes)
+
+    @staticmethod
+    def _check_space(path: Path, required_bytes: int) -> None:
+        if shutil.disk_usage(path).free < required_bytes * BackupManager.SPACE_MARGIN:
             raise RuntimeError(tr("backup_manager.error.insufficient_disk_space"))

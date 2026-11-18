@@ -13,6 +13,7 @@ from core.atomic_io import write_json_atomic
 from core.GameManager import GameDefinition, GameManager
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
+from core.validators.FolderRelationshipValidator import FolderRelationshipValidator
 
 logger = logging.getLogger(__name__)
 
@@ -589,5 +590,7 @@ class StateManager:
 
             if is_valid:
                 is_valid = all(path and Path(path).exists() for path in folders)
+            if is_valid:
+                is_valid = FolderRelationshipValidator().validate(folders)[0]
 
         return is_valid

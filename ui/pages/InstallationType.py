@@ -2,7 +2,7 @@
 
 import logging
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSignalBlocker, Qt
 from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
@@ -16,7 +16,11 @@ from core.enums.GameEnum import GameEnum
 from core.GameModels import GameDefinition
 from core.StateManager import StateManager
 from core.TranslationManager import tr
-from core.validators.FolderValidator import GameFolderValidator, WritableFolderValidator
+from core.validators.FolderRelationshipValidator import FolderRelationshipValidator
+from core.validators.FolderValidator import (
+    GameFolderValidator,
+    WritableFolderValidator,
+)
 from ui.pages.BasePage import BasePage, ButtonConfig
 from ui.widgets.FolderSelector import FolderSelector, GameFolderSelector
 from ui.widgets.GameButton import GameButton
@@ -320,6 +324,7 @@ class InstallationTypePage(BasePage):
 
         self.selected_game = game
         self._update_visible_folder_selectors()
+        self._update_folder_relationship_errors()
         self.notify_navigation_changed()
         self.game_changed.emit(game)
 
@@ -357,8 +362,29 @@ class InstallationTypePage(BasePage):
         Args:
             is_valid: Whether validation passed
         """
+        self._update_folder_relationship_errors()
         self.notify_navigation_changed()
         logger.debug(f"Folder validation changed: {is_valid}")
+
+    def _update_folder_relationship_errors(self) -> None:
+        active_selectors: list[FolderSelector] = []
+        if self.selected_game:
+            for key in dict.fromkeys(self.selected_game.get_folder_keys()):
+                selector = self.folder_widgets.get(key)
+                if selector is not None:
+                    active_selectors.append(selector)
+
+        active_selectors.extend([self.download_folder, self.backup_folder])
+        valid_selectors = [selector for selector in active_selectors if selector.is_path_valid()]
+        paths = [selector.get_path() for selector in valid_selectors]
+        errors = FolderRelationshipValidator().find_errors(paths)
+        selector_errors = {valid_selectors[index]: message for index, message in errors.items()}
+
+        all_selectors = [*self.folder_widgets.values(), self.download_folder, self.backup_folder]
+        for selector in all_selectors:
+            # Apply the whole result before notifying navigation, without recursive validation.
+            with QSignalBlocker(selector):
+                selector.set_external_error(selector_errors.get(selector, ""))
 
     # ========================================
     # BasePage Implementation
@@ -405,6 +431,8 @@ class InstallationTypePage(BasePage):
         Returns:
             True if all required validations pass
         """
+        self._update_folder_relationship_errors()
+
         # Must have selected a game
         if not self.selected_game:
             logger.debug("Cannot proceed: no game selected")

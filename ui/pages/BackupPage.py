@@ -119,6 +119,20 @@ class BackupCreationWorker(QThread):
             self.completed.emit(False, str(e))
 
 
+class BackupValidationWorker(QThread):
+    """Verify snapshot hashes off the UI thread and emit the result."""
+
+    completed = Signal(bool, str)
+
+    def __init__(self, manager: BackupManager, backup_id: str) -> None:
+        super().__init__()
+        self._manager: BackupManager = manager
+        self._backup_id: str = backup_id
+
+    def run(self) -> None:
+        self.completed.emit(*self._manager.validate_backup(self._backup_id))
+
+
 class BackupRestorationWorker(QThread):
     """Worker thread for restoring backups."""
 
@@ -149,7 +163,7 @@ class BackupRestorationWorker(QThread):
                     True, removed_dir, tr("page.backup.backup_restored_successfully")
                 )
             else:
-                self.completed.emit(False, None, error)
+                self.completed.emit(False, removed_dir, error)
 
         except Exception as e:
             logger.error(f"Error restoring backup: {e}")
@@ -816,7 +830,20 @@ class BackupPage(BasePage):
         Args:
             backup_id: Backup ID
         """
-        is_valid, error = self._backup_manager.validate_backup(backup_id)
+        if self._is_operating:
+            return
+        self._is_operating = True
+        self._update_navigation_buttons()
+        self._progress_bar.setVisible(True)
+        self._progress_bar.setRange(0, 0)
+        self._worker = BackupValidationWorker(self._backup_manager, backup_id)
+        self._worker.completed.connect(self._on_backup_validated)
+        self._worker.start()
+
+    def _on_backup_validated(self, is_valid: bool, error: str) -> None:
+        self._is_operating = False
+        self._progress_bar.setVisible(False)
+        self._update_navigation_buttons()
 
         if is_valid:
             QMessageBox.information(
@@ -952,6 +979,7 @@ class BackupPage(BasePage):
                     tr("page.backup.cleanup_title"),
                     tr("page.backup.cleanup_message", path=str(removed_dir)),
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                    QMessageBox.StandardButton.No,
                 )
 
                 if response == QMessageBox.StandardButton.Yes:

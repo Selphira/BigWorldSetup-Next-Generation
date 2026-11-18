@@ -238,3 +238,14 @@ MAX_RETRIES = 3
 
 # App Update Configuration
 APP_UPDATE_CHECK_FILE = CACHE_DIR / "last_update_check.json"
+
+# ============================================================================
+# BACKUP AND RESTORATION
+# ============================================================================
+
+BACKUP_MANIFEST_VERSION = 1
+BACKUP_SNAPSHOT_CONTRACT = "full_snapshot_preserve_user_directories"
+BACKUP_USER_DIRECTORIES = frozenset({"save", "mpsave", "portraits"})
+BACKUP_SPACE_MARGIN = 1.5
+BACKUP_MANIFEST_FILE = "manifest.json"
+RESTORE_JOURNAL_FILE = "restore.json"

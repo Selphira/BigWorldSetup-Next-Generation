@@ -12,6 +12,7 @@ from abc import ABC, abstractmethod
 import logging
 from pathlib import Path
 import re
+import tempfile
 
 from constants import MAX_LUA_FILE_SIZE
 from core.GameModels import FileGroup, FileGroupOperator, GameValidationRule
@@ -81,7 +82,7 @@ class ExistingFolderValidator(FolderValidator):
 class WritableFolderValidator(ExistingFolderValidator):
     """Validates that a folder exists and is writable."""
 
-    TEST_FILE_NAME = ".write_test"
+    TEST_FILE_PREFIX = ".write_test_"
 
     def validate(self, path: str) -> ValidationResult:
         """
@@ -100,11 +101,10 @@ class WritableFolderValidator(ExistingFolderValidator):
 
         # Test write permission
         folder = Path(path)
-        test_file = folder / self.TEST_FILE_NAME
 
         try:
-            test_file.touch()
-            test_file.unlink()
+            with tempfile.NamedTemporaryFile(dir=folder, prefix=self.TEST_FILE_PREFIX):
+                pass
             logger.debug(f"Folder is writable: {path}")
             return True, ""
 

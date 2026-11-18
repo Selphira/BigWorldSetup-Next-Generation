@@ -401,7 +401,7 @@
       "select_game_title": "Sélectionner un jeu",
       "select_game_message": "Veuillez sélectionner le jeu à sauvegarder :",
       "confirm_restore_title": "Confirmer la restauration",
-      "confirm_restore_message": "Êtes-vous sûr de vouloir restaurer la sauvegarde '{name}' pour le jeu '{game}' ?\n\nLes fichiers actuels du jeu seront déplacés dans un dossier temporaire.",
+      "confirm_restore_message": "Êtes-vous sûr de vouloir restaurer la sauvegarde '{name}' pour le jeu '{game}' ?\n\nLes fichiers actuels du jeu seront déplacés dans un dossier temporaire.\n\nInstantané complet des fichiers du jeu, mods et sauvegardes WeiDU inclus. La restauration conserve les dossiers actuels save, mpsave et portraits. Fermez le jeu avant de continuer.",
       "confirm_delete_title": "Confirmer la suppression",
       "confirm_delete_message": "Êtes-vous sûr de vouloir supprimer définitivement la sauvegarde '{name}' ?",
       "cleanup_title": "Nettoyer les fichiers déplacés",
@@ -424,7 +424,7 @@
       "btn_edit": "Modifier",
       "warning_modded_games": "Le dossier du jeu contient des mods installés : {games}.\nPour continuer l'installation, vous devez restaurer la sauvegarde d'un jeu non moddé, ou modifier le dossier du jeu concerné.",
       "confirm_create_title": "Confirmer la création du backup",
-      "confirm_create_message": "Créer un backup pour {game} ?\n\nStatut : {status}\nTaille estimée : {size} Go\nEspace libre : {free} Go",
+      "confirm_create_message": "Créer un backup pour {game} ?\n\nStatut : {status}\nTaille estimée : {size} Go\nEspace libre : {free} Go\n\nInstantané complet des fichiers du jeu, mods et sauvegardes WeiDU inclus. La restauration conserve les dossiers actuels save, mpsave et portraits. Fermez le jeu avant de continuer.",
       "edit_title": "Modifier le backup",
       "edit_custom_name": "Nom personnalisé (optionnel) :",
       "edit_notes": "Notes (optionnelles) :",
@@ -527,7 +527,12 @@
       "metadata_update_failed": "La mise à jour des métadonnées a échoué : {error}",
       "restore_failed": "La restauration de la sauvegarde a échoué : {error}",
       "invalid_backup": "Sauvegarde invalide",
-      "insufficient_disk_space": "Espace disque insuffisant"
+      "insufficient_disk_space": "Espace disque insuffisant",
+      "unsafe_path": "Les dossiers doivent être distincts, sans imbrication, lien symbolique ou jonction.",
+      "integrity_mismatch": "Le contenu ne correspond pas au manifeste. La restauration ne peut pas être validée.",
+      "different_target": "Cet instantané appartient à un autre dossier de jeu. Restaurez-le à son emplacement d’origine.",
+      "legacy_backup": "Cette ancienne sauvegarde sélective ne possède pas de manifeste vérifié. Créez un nouvel instantané complet avant de restaurer.",
+      "recovery_available": "Les fichiers de secours et le journal de restauration sont conservés ici : {path}"
     },
     "progress": {
       "analyzing_files": "Analyse des fichiers...",

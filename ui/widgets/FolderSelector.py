@@ -65,6 +65,9 @@ class FolderSelector(QWidget):
         self._label_key = label_key
         self._select_title_key = select_title_key
         self._error_message = ""
+        self._path_is_valid: bool = False
+        self._path_error_message: str = ""
+        self._external_error_message: str = ""
 
         # UI components (initialized in _create_widgets)
         self.label: QLabel | None = None
@@ -174,8 +177,8 @@ class FolderSelector(QWidget):
         Args:
             path: Path to validate
         """
-        self._is_valid, self._error_message = self.validator.validate(path)
-        self._update_visual_state()
+        self._path_is_valid, self._path_error_message = self.validator.validate(path)
+        self._apply_validation_result()
         self.validation_changed.emit(self._is_valid)
 
         if self._is_valid:
@@ -187,8 +190,18 @@ class FolderSelector(QWidget):
     # VISUAL STATE MANAGEMENT
     # ========================================
 
+    def _apply_validation_result(self) -> None:
+        self._is_valid = self._path_is_valid and not self._external_error_message
+        self._error_message = (
+            self._external_error_message if self._path_is_valid else self._path_error_message
+        )
+        self._update_visual_state()
+
     def _update_visual_state(self) -> None:
         """Update visual indicators based on validation state."""
+        self.icon_action.setToolTip(self._error_message)
+        self.path_input.setToolTip(self._error_message)
+
         if not self.path_input.text():
             self._set_neutral_state()
         elif self._is_valid:
@@ -250,6 +263,19 @@ class FolderSelector(QWidget):
             True if path passes validation
         """
         return self._is_valid
+
+    def is_path_valid(self) -> bool:
+        """Return local validity, independently of relationships with other folders."""
+        return self._path_is_valid
+
+    def set_external_error(self, message: str) -> None:
+        """Display a contextual error without replacing the local validation result."""
+        if message == self._external_error_message:
+            return
+
+        self._external_error_message = message
+        self._apply_validation_result()
+        self.validation_changed.emit(self._is_valid)
 
     def get_error_message(self) -> str:
         """Get current validation error message.

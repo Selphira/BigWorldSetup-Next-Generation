@@ -401,7 +401,7 @@
       "select_game_title": "Select Game",
       "select_game_message": "Please select the game to backup:",
       "confirm_restore_title": "Confirm Restore",
-      "confirm_restore_message": "Are you sure you want to restore backup '{name}' for game '{game}'?\n\nCurrent game files will be moved to a temporary folder.",
+      "confirm_restore_message": "Are you sure you want to restore backup '{name}' for game '{game}'?\n\nCurrent game files will be moved to a temporary folder.\n\nFull snapshot of all game files, including mods and WeiDU backups. Restoration keeps current save, mpsave and portraits folders. Close the game before continuing.",
       "confirm_delete_title": "Confirm Delete",
       "confirm_delete_message": "Are you sure you want to permanently delete backup '{name}'?",
       "cleanup_title": "Clean Up Moved Files",
@@ -424,7 +424,7 @@
       "btn_edit": "Edit",
       "warning_modded_games": "Game folder contains installed mods: {games}.\nTo continue installation, you must restore a backup of an unmodded game, or change the concerned game folder.",
       "confirm_create_title": "Confirm Backup Creation",
-      "confirm_create_message": "Create backup for {game}?\n\nStatus: {status}\nEstimated size: {size} GB\nFree space: {free} GB",
+      "confirm_create_message": "Create backup for {game}?\n\nStatus: {status}\nEstimated size: {size} GB\nFree space: {free} GB\n\nFull snapshot of all game files, including mods and WeiDU backups. Restoration keeps current save, mpsave and portraits folders. Close the game before continuing.",
       "edit_title": "Edit Backup",
       "edit_custom_name": "Custom name (optional):",
       "edit_notes": "Notes (optional):",
@@ -527,7 +527,12 @@
       "metadata_update_failed": "Metadata update failed: {error}",
       "restore_failed": "Backup restoration failed: {error}",
       "invalid_backup": "Invalid backup",
-      "insufficient_disk_space": "Insufficient disk space"
+      "insufficient_disk_space": "Insufficient disk space",
+      "unsafe_path": "Folders must be separate, without nested paths, symbolic links or junctions.",
+      "integrity_mismatch": "Snapshot contents differ from the manifest. No restoration can be confirmed.",
+      "different_target": "This snapshot belongs to another game directory. Restore it only to its original location.",
+      "legacy_backup": "This older selective backup has no verified manifest. Create a new full snapshot before restoring.",
+      "recovery_available": "Recovery files and the restoration journal are retained here: {path}"
     },
     "progress": {
       "analyzing_files": "Analyzing files...",

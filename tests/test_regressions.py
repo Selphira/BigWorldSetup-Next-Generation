@@ -91,7 +91,6 @@ def test_b09_failed_merge_does_not_emit_success(
     assert completed == [] and errors
 
 
-@pytest.mark.xfail(reason="B11 / L2: copy2 cannot transfer directory", raises=OSError)
 def test_b11_cross_volume_directory_transfer(tmp_path: Path) -> None:
     source, destination = tmp_path / "source", tmp_path / "destination"
     source.mkdir()
