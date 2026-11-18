@@ -40,6 +40,6 @@
     }
   },
   "tp2": "w_psionics_unleashed",
-  "safe": null,
+  "safe": 0,
   "authors": ["Kwiat_W"]
 }

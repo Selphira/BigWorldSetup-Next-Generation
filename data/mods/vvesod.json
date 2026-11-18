@@ -25,7 +25,6 @@
       "description": "Mod Weidu qui ajoute des voix off en anglais générées par l'IA pour tous les personnages de SoD."
     },
     "en_US": {
-      "description": "",
       "components": {
         "0": "Add Character Sounds for BG: SOD"
       }

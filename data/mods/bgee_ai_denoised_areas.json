@@ -14,10 +14,10 @@
       "download": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas/releases/download/v220506/BGEE_AI_Denoised_Areas_v220506.zip"
     }
   ],
-  "games": ["bgee", "eet", "sod"],
+  "games": ["bgee", "sod"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std", "games": ["bgee", "sod"]}
+    "0": {"type": "std"}
   },
   "languages": {
     "en_US": 0,

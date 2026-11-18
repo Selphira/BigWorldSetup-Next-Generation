@@ -47,6 +47,6 @@
     }
   },
   "tp2": "dusk",
-  "safe": null,
+  "safe": 0,
   "authors": ["Pol Rupes"]
 }

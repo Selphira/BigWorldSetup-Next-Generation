@@ -387,7 +387,7 @@
       "description": "Dépendance interne IHateUndead"
     },
     {
-      "rule": "IndiNPC(2001):IndiNPC(0)",
+      "rule": "IndiNPC(1):IndiNPC(0)",
       "severity": "error",
       "description": "Dépendance interne IndiNPC"
     },

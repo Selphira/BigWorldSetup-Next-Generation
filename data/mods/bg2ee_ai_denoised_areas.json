@@ -15,7 +15,7 @@
   "games": ["bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee"]}
+    "0": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
