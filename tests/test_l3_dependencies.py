@@ -8,6 +8,7 @@ import pytest
 from pytestqt.qtbot import QtBot
 
 from core.ComponentReference import ComponentReference, IndexManager
+from core.InstallationJournal import InstallationJournal, Operation, RunPlan, RunSequence
 from core.InstallationWorker import InstallationWorker, UserDecision
 from core.Mod import Mod, SubComponent
 from core.RuleManager import RuleManager
@@ -305,7 +306,7 @@ def test_b23_load_order_with_removed_mod(
     page._place_component_in_sequences.assert_called_once_with(refs("a:0")[0])
 
 
-def test_skipped_failure_decision_reaches_the_worker_before_next_batch(
+def test_accepted_failure_blocks_dependent_before_next_batch(
     rules: RuleManager,
     catalogue: ModCatalogue,
     monkeypatch: pytest.MonkeyPatch,
@@ -317,21 +318,30 @@ def test_skipped_failure_decision_reaches_the_worker_before_next_batch(
     for idx, ref in enumerate((a, b)):
         mod = catalogue.get_mod_by_id(ref.mod_id)
         batches.append([ComponentInfo(str(ref), mod, mod.get_component("0"), mod.tp2, idx)])
-    worker = InstallationWorker(Mock(), batches, 0, [], catalogue, pause_on_error=False)
+    operations = [
+        Operation(str(ref), ref.mod_id, 0, idx, [], [], [], "std")
+        for idx, ref in enumerate((a, b))
+    ]
+    plan = RunPlan("eet", {}, {}, [str(a), str(b)], "en_US", [], True)
+    journal = InstallationJournal(Path("run.json"), plan, [RunSequence(".", "", operations)])
+    worker = InstallationWorker(
+        Mock(), batches, pause_on_error=False, journal=journal, rules=rules
+    )
     failed = InstallResult(ComponentStatus.ERROR, 1, "", "", [], [])
     install = Mock(return_value={str(a): failed})
     monkeypatch.setattr(worker, "_install_batch", install)
+    previews = []
 
-    def accept(batch_idx: int, failed_ids: list[str]) -> None:
-        assert failed_ids == [str(a)]
-        blocked = rules.blocked_positions([[a, b]], {(0, 0)}, (0, batch_idx), {a, b})
-        worker.blocked_positions.update(idx for _, idx in blocked)
+    def accept(_reference: str, messages: list[str]) -> None:
+        previews.append(messages)
         worker.set_user_decision(UserDecision.SKIP)
 
-    worker.failures_skipped.connect(accept)
+    # Even without pause on error, the blocked dependents are shown before applying.
+    worker.error_occurred.connect(accept)
     worker.run()
     install.assert_called_once_with(batches[0])
-    assert worker.all_results[str(b)].status == ComponentStatus.SKIPPED
+    assert any(str(b) in message for message in previews[0])
+    assert journal.sequences[0].operations[1].status == ComponentStatus.BLOCKED
 
 
 def test_sub_option_can_be_a_source_or_a_provider(rules: RuleManager) -> None:

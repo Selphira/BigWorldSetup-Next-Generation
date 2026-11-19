@@ -51,6 +51,8 @@ SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
 INSTALLATION_JOURNAL_NAME = "installation-run.json"
 INSTALLATION_JOURNAL_FORMAT = 2
+ARCHIVE_REGISTRY_FILE: Path = USER_DATA_ROOT / "archives.json"
+ARCHIVE_REGISTRY_FORMAT = 1
 
 # ============================================================================
 # TIMING & DELAYS (milliseconds)

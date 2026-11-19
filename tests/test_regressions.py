@@ -5,7 +5,6 @@ Remove the marker when the owning delivery lot fixes the behavior.
 """
 
 from pathlib import Path
-from types import SimpleNamespace
 from unittest.mock import Mock
 
 from PySide6.QtCore import Qt
@@ -16,6 +15,7 @@ from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo
 from core.BackupManager import BackupManager
 from core.ComponentReference import ComponentReference, IndexManager
 from core.DirectoryMerger import MergeResult
+from core.InstallationExecutor import InstallationExecutor
 from core.Mod import Mod
 from core.RuleManager import RuleManager
 from core.Rules import DependencyRule, OrderRule
@@ -25,7 +25,6 @@ from core.WeiDUDebugParser import WeiDUDebugParser
 from tests.conftest import ModCatalogue
 from ui.pages.DownloadPage import DownloadPage
 from ui.pages.ExtractionPage import ExtractionWorker
-from ui.pages.InstallationPage import InstallationPage
 from ui.pages.mod_selection.ComponentSelector import ComponentSelector
 from ui.pages.mod_selection.SelectionController import SelectionController
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
@@ -42,16 +41,15 @@ def test_b06_dependency_target_does_not_require_itself(rules: RuleManager) -> No
 
 def test_b07_sub_answers_belong_to_their_component(catalogue: ModCatalogue) -> None:
     state = Mock()
-    state.get_selected_components.return_value = ["demo:1.1.A", "demo:2.1.B"]
+    state.get_mod_manager.return_value = catalogue
     state.get_rule_manager.return_value.active_requirements.return_value = set()
-    page = SimpleNamespace(_mod_manager=catalogue, state_manager=state)
-    components = InstallationPage._convert_order_to_component_info(page, ["demo:1", "demo:2"])
+    executor = InstallationExecutor(state, journal_path=Path("run.json"))
+    components = executor.resolve_components(
+        ["demo:1", "demo:2"], ["demo:1.1.A", "demo:2.1.B"], {}
+    )
     assert [item.subcomponent_answers for item in components] == [["A"], ["B"]]
 
 
-@pytest.mark.xfail(
-    reason="B08 / L4: truncated DEBUG reported successful", raises=AssertionError
-)
 def test_b08_unfinished_debug_is_not_success(tmp_path: Path) -> None:
     debug = tmp_path / "setup-demo.DEBUG"
     debug.write_text("Installing [A]\n", encoding="utf-8")

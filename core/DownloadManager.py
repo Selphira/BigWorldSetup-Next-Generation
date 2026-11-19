@@ -25,9 +25,15 @@ class ArchiveStatus(str, Enum):
         MISSING: Archive not present in download folder
         DOWNLOADING: Archive is currently being downloaded
         ERROR: Download or verification error
+        MANUAL_EXPECTED: No automatic download; the user must associate an archive
+        NO_REFERENCE: Archive present but the catalogue publishes no hash to prove it
+        MISMATCH_ACCEPTED: Hash differs from the catalogue and the user accepted it
     """
 
     VALID = "valid"
+    MANUAL_EXPECTED = "manual_expected"
+    NO_REFERENCE = "no_reference"
+    MISMATCH_ACCEPTED = "mismatch_accepted"
     INVALID_HASH = "invalid_hash"
     INVALID_SIZE = "invalid_size"
     MISSING = "missing"
@@ -44,6 +50,19 @@ class ArchiveStatus(str, Enum):
             True if status is VALID
         """
         return self == ArchiveStatus.VALID
+
+    @property
+    def is_usable(self) -> bool:
+        """Check if the archive may be extracted, with a proof of variable strength.
+
+        Returns:
+            True if the hash matches, cannot be compared, or was explicitly accepted
+        """
+        return self in (
+            ArchiveStatus.VALID,
+            ArchiveStatus.NO_REFERENCE,
+            ArchiveStatus.MISMATCH_ACCEPTED,
+        )
 
     @property
     def needs_download(self) -> bool:

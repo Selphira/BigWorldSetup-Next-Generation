@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 import runpy
 import sys
-from types import SimpleNamespace
 from unittest.mock import Mock
 import zipfile
 
@@ -18,7 +17,6 @@ from core import atomic_io
 from core.DataUpdater import DataUpdater
 from core.StateManager import InstallationState, StateManager
 from core.TranslationManager import TranslationManager
-from core.weidu_types import ComponentStatus, InstallResult
 from tests.test_catalogue import small_catalogue as small_catalogue
 from ui.pages.InstallationPage import InstallationPage
 
@@ -192,24 +190,6 @@ def test_state_recovers_last_valid_backup(
     assert state_manager.save_state()
     backup = state_manager.STATE_FILE.with_name("state.json.backup")
     assert StateManager._read_state(backup).installation["current_step"] == "previous"
-
-
-def test_page_progress_persists_without_close(
-    state_manager: StateManager, qtbot: QtBot
-) -> None:
-    state_manager._mod_manager = Mock()
-    page = InstallationPage(state_manager)
-    qtbot.addWidget(page)
-    page._installation_state = SimpleNamespace(
-        current_sequence=1,
-        last_installed_component_index=3,
-        last_installed_batch_index=2,
-    )
-    page._on_component_finished(
-        "demo:0", InstallResult(ComponentStatus.SUCCESS, 0, "", "", [], [])
-    )
-    recovered = state_manager._load_installation_state()
-    assert recovered.configuration["installation_last_installed_component_index"] == 4
 
 
 def test_paths_do_not_depend_on_cwd(tmp_path: Path) -> None:

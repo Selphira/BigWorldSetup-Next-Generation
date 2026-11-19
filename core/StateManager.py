@@ -8,7 +8,8 @@ from typing import Any, Callable
 
 from PySide6.QtCore import QSettings
 
-from constants import CACHE_DIR, MODS_DIR, RULES_DIR, STATE_FILE
+from constants import ARCHIVE_REGISTRY_FILE, CACHE_DIR, MODS_DIR, RULES_DIR, STATE_FILE
+from core.ArchiveRegistry import ArchiveRecord, ArchiveRegistry, ArchiveSource
 from core.atomic_io import write_json_atomic
 from core.GameManager import GameDefinition, GameManager
 from core.ModManager import ModManager
@@ -96,6 +97,7 @@ class StateManager:
     """
 
     STATE_FILE: Path = STATE_FILE
+    ARCHIVE_REGISTRY_FILE: Path = ARCHIVE_REGISTRY_FILE
     BACKUP_SUFFIX = ".backup"
     SUPPORTED_VERSION = "1.0"
 
@@ -110,6 +112,7 @@ class StateManager:
         self._game_manager: GameManager | None = None
         self._mod_manager: ModManager | None = None
         self._rule_manager: RuleManager | None = None
+        self._archive_registry: ArchiveRegistry | None = None
         self._reset_workflow_callback: Callable[[], None] | None = None
 
     # ========================================
@@ -226,24 +229,46 @@ class StateManager:
 
         return {int(seq_idx): order_list for seq_idx, order_list in install_order.items()}
 
-    def add_custom_archive(self, mod_id: str, archive_path: Path):
-        """Add a custom archive for a mod."""
-        self.installation_state.configuration["custom_archives"][mod_id] = str(archive_path)
+    def get_archive_registry(self) -> ArchiveRegistry:
+        """Return the archive registry, importing legacy `custom_archives` first.
+
+        The legacy mapping is emptied only after the registry has saved it, and
+        an imported or older state file is migrated again on the next access.
+        """
+        if self._archive_registry is None:
+            self._archive_registry = ArchiveRegistry.load(self.ARCHIVE_REGISTRY_FILE)
+
+        legacy = self.installation_state.configuration.get("custom_archives")
+        if legacy:
+            self._archive_registry.migrate_custom_archives(legacy)
+            legacy.clear()
+        return self._archive_registry
+
+    def add_custom_archive(self, mod_id: str, archive_path: Path) -> None:
+        """Associate a user archive with a mod; its hash is checked before use."""
+        self.get_archive_registry().put(
+            ArchiveRecord.unverified(mod_id, archive_path, ArchiveSource.MANUAL)
+        )
 
     def get_custom_archive(self, mod_id: str) -> Path | None:
         """Get custom archive path for a mod."""
-        custom_archive = self.installation_state.configuration["custom_archives"].get(mod_id)
-        if custom_archive:
-            return Path(custom_archive)
-        return None
+        record = self._manual_record(mod_id)
+        return record.archive_path if record else None
 
     def has_custom_archive(self, mod_id: str) -> bool:
         """Check if mod has a custom archive."""
-        return mod_id in self.installation_state.configuration["custom_archives"]
+        return self._manual_record(mod_id) is not None
 
-    def remove_custom_archive(self, mod_id: str):
+    def remove_custom_archive(self, mod_id: str) -> None:
         """Remove custom archive association."""
-        self.installation_state.configuration["custom_archives"].pop(mod_id, None)
+        if self._manual_record(mod_id) is not None:
+            self.get_archive_registry().remove(mod_id)
+
+    def _manual_record(self, mod_id: str) -> ArchiveRecord | None:
+        record = self.get_archive_registry().get(mod_id)
+        if record is None or record.source is not ArchiveSource.MANUAL:
+            return None
+        return record
 
     def set_page_option(self, page: str, option: str, value: Any) -> None:
         """Set page-specific boolean option.
