@@ -12,6 +12,8 @@ from pathlib import Path
 import re
 from typing import Generator
 
+from constants import WEIDU_SETUP_PREFIX
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,7 +29,8 @@ class WeiDULogEntry:
     Represents one installed mod component with all its metadata.
 
     Attributes:
-        mod_name: Mod identifier (lowercase, extracted from TP2 filename)
+        mod_name: Mod identifier (lowercase, extracted from the TP2 folder)
+        tp2_stem: TP2 file name without extension nor setup prefix
         component_number: Component number as string
         language: Language code for the installation
         full_line: Original line from WeiDU.log (for debugging)
@@ -35,6 +38,7 @@ class WeiDULogEntry:
     """
 
     mod_name: str
+    tp2_stem: str
     component_number: str
     language: str
     full_line: str
@@ -48,6 +52,11 @@ class WeiDULogEntry:
             Component identifier string
         """
         return f"{self.mod_name}:{self.component_number}"
+
+    @property
+    def weidu_identity(self) -> tuple[str, str, str]:
+        """Get the (TP2, component, language) triple WeiDU uses for this entry."""
+        return self.tp2_stem, self.component_number, self.language
 
     def __str__(self) -> str:
         """String representation for logging."""
@@ -120,14 +129,14 @@ class WeiDULogParser:
     # Regex pattern to match WeiDU.log entries
     # Format: ~MOD/FILE.TP2~ #lang #comp // Description
     ENTRY_PATTERN = re.compile(
-        r"~(?P<tp2_path>[^~]+)~\s+"  # TP2 path between tildes
+        r"~(?P<tp2_path>[^~]+(?i:\.tp2))~\s+"  # TP2 path between tildes
         r"#(?P<language>\d+)\s+"  # Language number
         r"#(?P<component>\d+)"  # Component number
         r"(?:\s+//\s*(?P<description>.*))?$"  # Optional description
     )
 
     # Default encoding for WeiDU.log files
-    DEFAULT_ENCODING = "utf-8"
+    DEFAULT_ENCODING = "utf-8-sig"
 
     # Fallback encodings to try if UTF-8 fails
     FALLBACK_ENCODINGS = ["latin-1", "cp1252", "iso-8859-1"]
@@ -249,6 +258,7 @@ class WeiDULogParser:
 
         return WeiDULogEntry(
             mod_name=mod_name,
+            tp2_stem=self._extract_tp2_stem(tp2_path),
             component_number=match.group("component"),
             language=match.group("language"),
             full_line=line,
@@ -284,6 +294,32 @@ class WeiDULogParser:
 
         # Normalize to lowercase
         return mod_folder.lower()
+
+    @staticmethod
+    def _extract_tp2_stem(tp2_path: str) -> str:
+        """Extract the TP2 file name used by WeiDU to identify a component.
+
+        Args:
+            tp2_path: Path from WeiDU.log (e.g., "STRATAGEMS/SETUP-STRATAGEMS.TP2")
+
+        Returns:
+            Lowercase file name without extension nor setup prefix
+        """
+        filename = re.split(r"[/\\]", tp2_path.strip())[-1].lower()
+        return filename.removesuffix(".tp2").removeprefix(WEIDU_SETUP_PREFIX)
+
+    def installed_identities(self, file_path: str | Path) -> list[tuple[str, str, str]]:
+        """List the (TP2, component, language) triples recorded in WeiDU.log.
+
+        Args:
+            file_path: Path to WeiDU.log file
+
+        Returns:
+            Identities in installation order, empty when the log does not exist
+        """
+        if not Path(file_path).is_file():
+            return []
+        return [entry.weidu_identity for entry in self.iter_entries(file_path)]
 
     def iter_entries(self, file_path: str | Path) -> Generator[WeiDULogEntry, None, None]:
         """Iterate over entries in WeiDU.log without loading all in memory.

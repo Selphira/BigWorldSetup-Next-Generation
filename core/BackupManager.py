@@ -21,6 +21,7 @@ from core.BackupSnapshot import BackupSnapshot
 from core.PathSafety import PathSafety
 from core.RestoreTransaction import RestorePhase, RestoreTransaction
 from core.TranslationManager import tr
+from core.WeiDULogParser import WeiDULogParser
 
 logger = logging.getLogger(__name__)
 
@@ -334,7 +335,10 @@ class BackupManager:
     def is_game_modded(self, game_path: Path) -> bool:
         """Check if a game has mods installed by examining weidu.log."""
         try:
-            return bool((game_path / "weidu.log").read_text(errors="ignore").strip())
+            log = game_path / "WeiDU.log"
+            if not log.is_file():
+                log = game_path / "weidu.log"
+            return any(WeiDULogParser().iter_entries(log))
         except FileNotFoundError:
             return False
 
@@ -447,7 +451,12 @@ class BackupManager:
         transaction.save_phase(RestorePhase.PREPARED)
 
     def _save_current_game(self, transaction: RestoreTransaction) -> None:
-        transaction.game_dir.rename(transaction.recovery_dir)
+        try:
+            transaction.game_dir.rename(transaction.recovery_dir)
+        except PermissionError as error:
+            raise PermissionError(
+                tr("backup_manager.error.original_move_denied", game=str(transaction.game_dir), error=str(error))
+            ) from error
         transaction.save_phase(RestorePhase.ORIGINAL_SAVED)
 
     def _activate_prepared_game(self, transaction: RestoreTransaction) -> None:

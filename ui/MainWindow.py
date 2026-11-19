@@ -2,7 +2,7 @@
 
 import logging
 
-from PySide6.QtCore import Qt, QThread, Signal
+from PySide6.QtCore import Qt, QThread, QTimer, Signal
 from PySide6.QtGui import QColor, QPixmap
 from PySide6.QtWidgets import (
     QFrame,
@@ -25,6 +25,7 @@ from constants import (
     HEADER_HEIGHT,
     ICON_GAME_DEFAULT,
     ICONS_DIR,
+    SHUTDOWN_POLL_MS,
     WINDOW_MIN_HEIGHT,
     WINDOW_MIN_WIDTH,
 )
@@ -72,6 +73,8 @@ class MainWindow(QMainWindow):
         self.state_manager.set_reset_workflow_callback(self.reset_workflow)
 
         # Page management
+        self._closing = False
+        self._waiting_for_threads = False
         self.pages: dict[str, BasePage] = {}
         self.page_order: list[str] = []
         self.current_page_id: str | None = None
@@ -596,6 +599,7 @@ class MainWindow(QMainWindow):
 
         version_checker = VersionChecker()
         self.version_check_thread = VersionCheckerThread(version_checker)
+        self.version_check_thread.setParent(self)
         self.version_check_thread.version_checked.connect(self._on_version_checked)
         self.version_check_thread.finished.connect(self._on_version_check_finished)
         self.version_check_thread.start()
@@ -603,11 +607,33 @@ class MainWindow(QMainWindow):
         logger.debug("Version check started in background")
 
     def closeEvent(self, event) -> None:
-        """Handle window close event.
+        """Stop the pages' tasks, wait for every thread, then save and close.
+
+        Closing is confirmed only when a page reports critical work. A second
+        request while threads are still running lets the pages offer a forced
+        stop again.
 
         Args:
             event: Close event
         """
+        if not self._closing:
+            if any(page.has_critical_task() for page in self.pages.values()):
+                if not self._confirm_close_during_tasks():
+                    event.ignore()
+                    return
+            self._closing = True
+            for page in self.pages.values():
+                page.request_shutdown()
+        elif self._has_running_threads():
+            for page in self.pages.values():
+                page.request_shutdown()
+
+        if self._has_running_threads():
+            event.ignore()
+            self.centralWidget().setEnabled(False)
+            self._wait_for_threads()
+            return
+
         logger.info("Application closing, saving state")
 
         if self.current_page_id:
@@ -618,6 +644,40 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(
                 self, tr("error.critical_title"), tr("error.state_save_failed")
             )
+            self._cancel_shutdown()
             event.ignore()
             return
         super().closeEvent(event)
+
+    def _confirm_close_during_tasks(self) -> bool:
+        reply = QMessageBox.question(
+            self,
+            tr("app.close_title"),
+            tr("app.close_tasks"),
+            defaultButton=QMessageBox.StandardButton.No,
+        )
+        return reply == QMessageBox.StandardButton.Yes
+
+    def _has_running_threads(self) -> bool:
+        return any(thread.isRunning() for thread in self.findChildren(QThread))
+
+    def _wait_for_threads(self) -> None:
+        """Poll without blocking the event loop until every thread has exited."""
+        if self._waiting_for_threads:
+            return
+        self._waiting_for_threads = True
+
+        def poll() -> None:
+            if self._has_running_threads():
+                QTimer.singleShot(SHUTDOWN_POLL_MS, self, poll)
+            else:
+                self._waiting_for_threads = False
+                QTimer.singleShot(0, self, self.close)
+
+        poll()
+
+    def _cancel_shutdown(self) -> None:
+        self._closing = False
+        self.centralWidget().setEnabled(True)
+        for page in self.pages.values():
+            page.cancel_shutdown()

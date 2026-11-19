@@ -3,9 +3,8 @@ Installation page for mod installation process.
 """
 
 import logging
-from pathlib import Path
 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -27,21 +26,22 @@ from constants import (
     COLOR_INFO,
     COLOR_STATUS_COMPLETE,
     COLOR_WARNING,
+    DECISION_DETAILS_MIN_HEIGHT,
+    DECISION_DIALOG_MIN_WIDTH,
     MARGIN_STANDARD,
+    PROCESS_STOP_GRACE_MS,
+    PROGRESS_IDLE_FORMAT,
     SPACING_LARGE,
     SPACING_SMALL,
 )
-from core.ComponentReference import ComponentReference, IndexManager
-from core.GameModels import GameDefinition
-from core.InstallationWorker import InstallationState, InstallationWorker, UserDecision
-from core.Mod import SubComponent
-from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
+from core.ComponentReference import IndexManager
+from core.InstallationExecutor import InstallationError, InstallationExecutor
+from core.InstallationJournal import InstallationJournal, OperationDecision, RunOutcome
+from core.InstallationReconciler import ReconciliationReport
+from core.InstallationWorker import InstallationWorker, UserDecision
 from core.StateManager import StateManager
 from core.TranslationManager import tr
-from core.weidu_types import ComponentInfo, ComponentStatus, InstallResult
-from core.WeiDUDebugParser import WeiDUDebugParser
-from core.WeiDUInstallerEngine import WeiDUInstallerEngine
-from core.WeiDULogParser import WeiDULogParser
+from core.weidu_types import ComponentStatus, InstallResult
 from ui.pages.BasePage import BasePage, ButtonConfig
 
 logger = logging.getLogger(__name__)
@@ -111,7 +111,7 @@ class ErrorDecisionDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle(tr("page.installation.error_title"))
         if len(errors) > 0:
-            self.setMinimumWidth(500)
+            self.setMinimumWidth(DECISION_DIALOG_MIN_WIDTH)
         self.decision = UserDecision.STOP
 
         self._create_widgets(component_id, errors)
@@ -130,7 +130,7 @@ class ErrorDecisionDialog(QDialog):
             # Error details
             error_text = QTextEdit()
             error_text.setReadOnly(True)
-            error_text.setMaximumHeight(150)
+            error_text.setMinimumHeight(DECISION_DETAILS_MIN_HEIGHT)
             error_text.setPlainText("\n".join(errors))
             layout.addWidget(error_text)
 
@@ -171,7 +171,7 @@ class WarningDecisionDialog(QDialog):
     def __init__(self, component_id: str, warnings: list[str], parent=None):
         super().__init__(parent)
         self.setWindowTitle(tr("page.installation.warning_title"))
-        self.setMinimumWidth(500)
+        self.setMinimumWidth(DECISION_DIALOG_MIN_WIDTH)
         self.decision = UserDecision.SKIP
 
         self._create_widgets(component_id, warnings)
@@ -189,7 +189,7 @@ class WarningDecisionDialog(QDialog):
         # Warning details
         warning_text = QTextEdit()
         warning_text.setReadOnly(True)
-        warning_text.setMaximumHeight(150)
+        warning_text.setMinimumHeight(DECISION_DETAILS_MIN_HEIGHT)
         warning_text.setPlainText("\n".join(warnings))
         layout.addWidget(warning_text)
 
@@ -216,27 +216,74 @@ class WarningDecisionDialog(QDialog):
         self.accept()
 
 
+class OperationDecisionDialog(QDialog):
+    """Ask what an operation without a proven result became before resuming."""
+
+    def __init__(self, component_id: str, details: list[str], parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(tr("page.installation.decision_title"))
+        self.setMinimumWidth(500)
+        self.decision: OperationDecision | None = None
+
+        self._create_widgets(component_id, details)
+
+    def _create_widgets(self, component_id: str, details: list[str]):
+        """Create dialog layout."""
+        layout = QVBoxLayout(self)
+        layout.setSpacing(SPACING_LARGE)
+
+        msg = QLabel(tr("page.installation.decision_message", component=component_id))
+        msg.setWordWrap(True)
+        layout.addWidget(msg)
+
+        details_text = QTextEdit()
+        details_text.setReadOnly(True)
+        details_text.setMaximumHeight(150)
+        details_text.setPlainText("\n".join(details))
+        layout.addWidget(details_text)
+
+        button_layout = QHBoxLayout()
+        for label, decision in (
+            ("page.installation.decision_installed", OperationDecision.CONFIRM_INSTALLED),
+            ("page.installation.decision_retry", OperationDecision.RETRY),
+            ("page.installation.decision_failed", OperationDecision.ACCEPT_FAILURE),
+        ):
+            button = QPushButton(tr(label))
+            button.setCursor(Qt.CursorShape.PointingHandCursor)
+            button.clicked.connect(lambda _=False, choice=decision: self._make_decision(choice))
+            button_layout.addWidget(button)
+
+        btn_cancel = QPushButton(tr("page.installation.btn_cancel"))
+        btn_cancel.setCursor(Qt.CursorShape.PointingHandCursor)
+        btn_cancel.clicked.connect(self.reject)
+        button_layout.addWidget(btn_cancel)
+
+        layout.addLayout(button_layout)
+
+    def _make_decision(self, decision: OperationDecision):
+        """Record decision and close."""
+        self.decision = decision
+        self.accept()
+
+
 # ============================================================================
 # Installation Page
 # ============================================================================
 
 
 class InstallationPage(BasePage):
-    """Page for installing mods with full workflow management."""
+    """Page presenting an installation run; InstallationExecutor makes the decisions."""
 
     def __init__(self, state_manager: StateManager):
         super().__init__(state_manager)
 
         self._mod_manager = self.state_manager.get_mod_manager()
-        self._engine: WeiDUInstallerEngine | None = None
+        self._executor = InstallationExecutor(state_manager)
         self._worker: InstallationWorker | None = None
-        self._log_parser: WeiDULogParser = WeiDULogParser()
-        self._debug_parser: WeiDUDebugParser = WeiDUDebugParser()
+        self._current_sequence = 0
+        self._cancelling = False
 
-        # Installation data
-        self._components: list[ComponentInfo] = []
-        self._batches: list[list[ComponentInfo]] = []
-        self._installation_state: InstallationState | None = None
+        # Preferences
         self._batch_install: bool = True
         self._pause_on_error: bool = True
         self._pause_on_warning: bool = True
@@ -285,7 +332,7 @@ class InstallationPage(BasePage):
         # Progress bar
         self._progress_bar = QProgressBar()
         self._progress_bar.setTextVisible(True)
-        self._progress_bar.setFormat("%v / %m - %p%")
+        self._progress_bar.setFormat(PROGRESS_IDLE_FORMAT)
         layout.addWidget(self._progress_bar)
 
     def _create_left_panel(self) -> QWidget:
@@ -372,294 +419,6 @@ class InstallationPage(BasePage):
         self._btn_cancel.clicked.connect(self._cancel_installation)
 
     # ========================================
-    # Installation Workflow
-    # ========================================
-
-    def _prepare_installation(
-        self, game_def: GameDefinition, install_order_data: dict[int, list[str]]
-    ) -> bool:
-        """
-        Prepare multi-sequence installation data.
-
-        Args:
-            game_def: Game definition with sequences
-            install_order_data: Installation order per sequence
-
-        Returns:
-            True if preparation successful
-        """
-        self._sequence_installations = []
-        self._unavailable: set[tuple[int, int]] = set()
-        self._blocked: set[tuple[int, int]] = set()
-
-        # Build installation data for each sequence
-        for seq_idx in range(game_def.sequence_count):
-            sequence = game_def.get_sequence(seq_idx)
-            if not sequence:
-                continue
-
-            # Get component order for this sequence
-            order_list = install_order_data.get(seq_idx, [])
-            if not order_list:
-                logger.warning("No components for sequence %d", seq_idx)
-                continue
-
-            # Get game folder for this sequence
-            game_folder = self.state_manager.get_game_folders().get(sequence.game)
-
-            if not game_folder:
-                QMessageBox.critical(
-                    self,
-                    tr("page.installation.error_no_folder_title"),
-                    tr("page.installation.error_no_folder_message", sequence=seq_idx),
-                )
-                return False
-
-            try:
-                components = self._convert_order_to_component_info(order_list)
-            except ValueError as error:
-                QMessageBox.critical(
-                    self,
-                    tr("page.order.import_error_title"),
-                    tr("page.installation.invalid_plan", reference=str(error)),
-                )
-                return False
-
-            # Store sequence installation data
-            self._sequence_installations.append(
-                {
-                    "seq_idx": seq_idx,
-                    "game_folder": Path(game_folder),
-                    "sequence": sequence,
-                    "order": order_list,
-                    "components": components,
-                }
-            )
-
-        logger.info("Prepared %d sequences for installation", len(self._sequence_installations))
-        return True
-
-    def _start_next_sequence(self):
-        """Start next sequence installation."""
-        self.save_state()
-        if self._installation_state.current_sequence >= len(self._sequence_installations):
-            # All sequences complete
-            self._on_all_sequences_complete()
-            return
-
-        seq_install = self._sequence_installations[self._installation_state.current_sequence]
-        seq_idx = seq_install["seq_idx"]
-        game_folder = seq_install["game_folder"]
-
-        logger.info(
-            "Starting sequence %d/%d in folder: %s",
-            self._installation_state.current_sequence + 1,
-            len(self._sequence_installations),
-            game_folder,
-        )
-
-        # Log sequence start in output
-        self._append_output(
-            f"\n{'#' * 80}\n"
-            f"# {tr('page.installation.sequence.started', current=self._installation_state.current_sequence + 1, total=len(self._sequence_installations))}\n"
-            f"# {tr('page.installation.sequence.folder', folder=str(game_folder))}\n"
-            f"{'#' * 80}\n",
-            color=COLOR_INFO,
-        )
-
-        self._engine = WeiDUInstallerEngine(game_folder, self._log_parser, self._debug_parser)
-
-        if not self._engine.locate_weidu():
-            QMessageBox.critical(
-                self,
-                tr("page.installation.error_no_weidu_title"),
-                tr(
-                    "page.installation.error_no_weidu_message",
-                    sequence=seq_idx,
-                    folder=str(game_folder),
-                ),
-            )
-            self._on_installation_stopped(0)
-            return
-
-        self._engine.init_weidu_conf(self.state_manager.get_languages_order()[0])
-        self._engine.init_weidu_log()
-
-        # Convert order to ComponentInfo
-        self._components = seq_install["components"]
-        self._batches = self._prepare_batches(self._components)
-
-        # Determine start batch index (for resume within current sequence)
-        self._start_batch_index = 0
-        if (
-            self._installation_state
-            and self._installation_state.last_installed_batch_index >= 0
-        ):
-            self._start_batch_index = self._installation_state.last_installed_batch_index + 1
-            logger.info("Resuming sequence %d from batch %d", seq_idx, self._start_batch_index)
-
-        # Update progress bar for this sequence
-        self._progress_bar.setMaximum(len(self._components))
-
-        # Calculate how many components already done in this sequence
-        components_done_in_sequence = 0
-        if self._start_batch_index > 0:
-            for i in range(self._start_batch_index):
-                components_done_in_sequence += len(self._batches[i])
-
-        self._progress_bar.setValue(components_done_in_sequence)
-
-        languages_order = self.state_manager.get_languages_order()
-        languages = self.state_manager.get_page_option(
-            "mod_selection", "selected_languages", []
-        )
-        # Create worker for this sequence
-        self._worker = InstallationWorker(
-            engine=self._engine,
-            batches=self._batches,
-            start_index=self._start_batch_index,
-            languages_order=[language for language in languages_order if language in languages],
-            mod_manager=self._mod_manager,
-            pause_on_error=self._pause_on_error,
-            pause_on_warning=self._pause_on_warning,
-        )
-
-        # Connect signals
-        self._worker.blocked_positions = {
-            idx
-            for seq, idx in self._blocked
-            if seq == self._installation_state.current_sequence
-        }
-        self._worker.failures_skipped.connect(self._check_and_handle_dependents)
-        self._worker.batch_started.connect(self._on_batch_started)
-        self._worker.component_started.connect(self._on_component_started)
-        self._worker.component_finished.connect(self._on_component_finished)
-        self._worker.output_received.connect(self._on_output_received)
-        self._worker.error_occurred.connect(self._on_error_occurred)
-        self._worker.warning_occurred.connect(self._on_warning_occurred)
-        self._worker.installation_complete.connect(self._on_sequence_complete)
-        self._worker.installation_stopped.connect(self._on_installation_stopped)
-        self._worker.installation_paused.connect(self._on_installation_paused)
-        self._worker.installation_retryed.connect(self._on_installation_retryed)
-        self._worker.command_created.connect(self._on_command_created)
-
-        # Start worker
-        self._worker.start()
-
-    def _convert_order_to_component_info(self, order_list: list[str]) -> list[ComponentInfo]:
-        """
-        Convert order list to ComponentInfo objects.
-
-        Args:
-            order_list: List of component IDs ("mod:comp")
-
-        Returns:
-            List of ComponentInfo objects
-        """
-        components = []
-        selected = set(
-            ComponentReference.from_string_list(self.state_manager.get_selected_components())
-        )
-        options_by_base: dict[ComponentReference, set[ComponentReference]] = {}
-        for ref in selected:
-            if ref.is_sub_option():
-                options_by_base.setdefault(ref.get_base_component_reference(), set()).add(ref)
-
-        for idx, comp_id in enumerate(order_list):
-            parts = comp_id.split(":", 1)
-            if len(parts) != 2:
-                raise ValueError(comp_id)
-
-            mod_id, comp_key = parts
-
-            mod = self._mod_manager.get_mod_by_id(mod_id)
-            if not mod:
-                if PauseEntry.is_pause(comp_id):
-                    comp_info = ComponentInfo(
-                        tp2_name=PAUSE_PREFIX,
-                        comp_id=comp_id,
-                        mod=None,
-                        component=None,
-                        sequence_idx=idx,
-                        requirements=(),
-                        subcomponent_answers=[],
-                        extra_args=[],
-                    )
-
-                    components.append(comp_info)
-                    continue
-                raise ValueError(comp_id)
-
-            reference = ComponentReference(mod_id, comp_key)
-            component = mod.get_component(comp_key)
-            if not reference.is_component() or not component:
-                raise ValueError(comp_id)
-
-            subcomponent_answers = []
-            extra_args = []
-
-            options = options_by_base.get(reference, set())
-            if isinstance(component, SubComponent):
-                subcomponent_answers = component.ordered_answers({option.comp_key for option in options})
-
-            if mod_id.lower() == "eet":
-                extra_args = [
-                    "--args-list",
-                    "p",
-                    f'"{self.state_manager.get_game_folders().get("sod")}"',
-                ]
-
-            comp_info = ComponentInfo(
-                tp2_name=mod.tp2,
-                comp_id=str(reference),
-                mod=mod,
-                component=component,
-                sequence_idx=idx,
-                requirements=tuple(
-                    self.state_manager.get_rule_manager().active_requirements(
-                        reference, selected, options
-                    )
-                ),
-                subcomponent_answers=subcomponent_answers,
-                extra_args=extra_args,
-            )
-
-            components.append(comp_info)
-
-        return components
-
-    def _prepare_batches(self, components: list[ComponentInfo]) -> list[list[ComponentInfo]]:
-        """Prepare batches (SUB components always alone)."""
-        batches = []
-        current_batch = []
-
-        if not self._batch_install:
-            for comp in components:
-                batches.append([comp])
-            return batches
-
-        for comp in components:
-            is_sub = bool(comp.subcomponent_answers)
-
-            if is_sub or comp.component is None or comp.requirements:
-                if current_batch:
-                    batches.append(current_batch)
-                    current_batch = []
-                batches.append([comp])
-
-            elif not current_batch or current_batch[0].mod.id == comp.mod.id:
-                current_batch.append(comp)
-
-            else:
-                batches.append(current_batch)
-                current_batch = [comp]
-
-        if current_batch:
-            batches.append(current_batch)
-
-        return batches
-
-    # ========================================
     # Installation Control
     # ========================================
 
@@ -673,71 +432,100 @@ class InstallationPage(BasePage):
             self._pause_installation()
 
     def _start_installation(self):
-        """Start installation."""
+        """Start a new run, or resume the active one once its state is decided."""
         if self._is_installing:
             return
 
-        selected_game = self.state_manager.get_selected_game()
-        game_manager = self.state_manager.get_game_manager()
-        game_def = game_manager.get(selected_game)
-        install_order_data = self.state_manager.get_install_order()
-
-        if not self._prepare_installation(game_def, install_order_data):
+        self._executor.load()
+        if not self._ensure_readable_journal():
+            return
+        try:
+            locked = self._executor.acquire()
+        except OSError as error:
+            self._report_problem(str(error))
+            return
+        if not locked:
+            self._report_problem(tr("page.installation.active_run"))
             return
 
-        # Initialize installation state if not resuming
-        if not self._installation_state:
-            for seq_install in self._sequence_installations:
-                game_folder = seq_install["game_folder"]
-                weidu_log = game_folder / "WeiDU.log"
-                if weidu_log.exists() and weidu_log.stat().st_size > 0:
-                    QMessageBox.critical(
-                        self,
-                        tr("page.installation.error_already_modded_title"),
-                        tr(
-                            "page.installation.error_already_modded_message",
-                            sequence=seq_install["seq_idx"],
-                            game_folder=game_folder,
-                            folder=str(game_folder),
-                        ),
-                    )
-                    return
+        try:
+            report = self._executor.start(self._batch_install)
+        except InstallationError as error:
+            self._executor.release()
+            self._report_problem(str(error))
+            return
 
-            # Calculate total components across all sequences
-            total_components = sum(
-                len(seq_install["order"]) for seq_install in self._sequence_installations
-            )
+        self._show_catalogue_changes(report.catalogue_changes)
+        self._show_reconciliation(report.reconciliation)
+        if not self._resolve_undetermined(report.reconciliation.undetermined):
+            self._executor.release()
+            return
 
-            self._installation_state = InstallationState(
-                last_installed_component_index=-1,
-                last_installed_batch_index=-1,
-                current_sequence=0,
-            )
-
-            # Save initial state
-            self.save_state()
-
-            logger.info(
-                "Initialized installation state: %d total components across %d sequences",
-                total_components,
-                len(self._sequence_installations),
-            )
-
-        # Update UI
+        self._stats = self._journal.stats()
+        self._stats_widget.update_stats(**self._stats)
         self._is_installing = True
         self._is_paused = False
-        self._btn_start_pause.setText(tr("page.installation.btn_pause"))
-        self._btn_stop.setEnabled(True)
-        self._btn_send_input.setEnabled(True)
-        self._input_text.setEnabled(True)
-        self._update_navigation_buttons()
+        self._refresh_controls()
 
-        # Disable checkboxes during installation
-        self._cb_batch_install.setEnabled(False)
+        logger.info("Installation started (resumed: %s)", report.resumed)
+        self._start_next_sequence(0)
 
-        # Start first sequence
-        logger.info("Installation started")
-        self._start_next_sequence()
+    def _start_next_sequence(self, start: int) -> None:
+        """Start the first sequence from `start` that still has work."""
+        if self._closing or self._cancelling:
+            return
+
+        try:
+            prepared = self._executor.next_sequence(start)
+            if prepared is None:
+                self._on_all_sequences_complete()
+                return
+            engine = self._executor.create_engine(prepared)
+        except InstallationError as error:
+            self._report_problem(str(error))
+            self._on_installation_stopped(0)
+            return
+
+        self._current_sequence = prepared.number
+        total = len(self._journal.sequences)
+        logger.info(
+            "Starting sequence %d/%d in folder: %s",
+            prepared.number + 1,
+            total,
+            prepared.folder,
+        )
+        self._append_output(
+            f"\n{'#' * 80}\n"
+            f"# {tr('page.installation.sequence.started', current=prepared.number + 1, total=total)}\n"
+            f"# {tr('page.installation.sequence.folder', folder=str(prepared.folder))}\n"
+            f"{'#' * 80}\n",
+            color=COLOR_INFO,
+        )
+        self._refresh_progress()
+
+        self._worker = InstallationWorker(
+            engine=engine,
+            batches=prepared.batches,
+            journal=self._journal,
+            rules=self.state_manager.get_rule_manager(),
+            sequence=prepared.number,
+            pause_on_error=self._pause_on_error,
+            pause_on_warning=self._pause_on_warning,
+        )
+        self._worker.setParent(self)
+        self._worker.finished.connect(self._worker_finished)
+        self._worker.diagnostic.connect(self._report_problem)
+        self._worker.dependents_blocked.connect(self._show_blocked)
+        self._worker.batch_started.connect(self._on_batch_started)
+        self._worker.component_started.connect(self._on_component_started)
+        self._worker.component_finished.connect(self._on_component_finished)
+        self._worker.output_received.connect(self._on_output_received)
+        self._worker.error_occurred.connect(self._on_error_occurred)
+        self._worker.warning_occurred.connect(self._on_warning_occurred)
+        self._worker.installation_paused.connect(self._on_installation_paused)
+        self._worker.installation_retryed.connect(self._on_installation_retryed)
+        self._worker.command_created.connect(self._on_command_created)
+        self._worker.start()
 
     def _pause_installation(self):
         """Pause installation."""
@@ -775,7 +563,7 @@ class InstallationPage(BasePage):
         )
 
         if reply == QMessageBox.StandardButton.Yes:
-            self._worker.stop()
+            self._request_worker_stop()
             logger.info("Installation stop requested")
 
     def _cancel_installation(self):
@@ -786,25 +574,33 @@ class InstallationPage(BasePage):
             tr("page.installation.cancel_message"),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
         )
-
-        logger.info("Installation cancellation confirmed")
-
         if reply != QMessageBox.StandardButton.Yes:
             return
 
-        # Reset UI state
+        logger.info("Installation cancellation confirmed")
+        self._cancelling = True
+        if self._worker and self._worker.isRunning():
+            self._request_worker_stop()
+            return
+        self._finish_cancellation()
+
+    def _finish_cancellation(self) -> None:
+        self._cancelling = False
+        if self._executor.is_active:
+            try:
+                if not self._executor.acquire():
+                    self._report_problem(tr("page.installation.active_run"))
+                    return
+                self._executor.cancel()
+            except OSError as error:
+                self._executor.release()
+                self._report_problem(str(error))
+                return
+        self._executor.release()
+
         self._is_installing = False
         self._is_paused = False
-        self._btn_start_pause.setText(tr("page.installation.btn_start"))
-        self._btn_start_pause.setEnabled(True)
-        self._btn_stop.setEnabled(False)
-        self._btn_send_input.setEnabled(False)
-        self._input_text.setEnabled(False)
-        self._cb_batch_install.setEnabled(True)
-
-        if self._worker and self._worker.isRunning():
-            self._worker.stop()
-            self._worker.wait()
+        self._refresh_controls()
 
         indexes = IndexManager.get_indexes()
         indexes.clear_selection()
@@ -822,15 +618,170 @@ class InstallationPage(BasePage):
         self._worker.send_input(text)
 
     # ========================================
+    # Shutdown
+    # ========================================
+
+    def has_critical_task(self) -> bool:
+        """An installation in progress must not be abandoned silently."""
+        return bool(self._worker and self._worker.isRunning())
+
+    def request_shutdown(self) -> None:
+        """Ask WeiDU to finish; a forced stop is offered if it does not exit."""
+        super().request_shutdown()
+        if self._worker and self._worker.isRunning():
+            self._request_worker_stop()
+
+    def _request_worker_stop(self) -> None:
+        worker = self._worker
+        worker.stop()
+
+        def offer_force() -> None:
+            if self._worker is not worker or not worker.isRunning():
+                return
+            if not worker.has_live_process():
+                return
+            reply = QMessageBox.question(
+                self,
+                tr("page.installation.stop_title"),
+                tr("page.installation.force_stop"),
+                defaultButton=QMessageBox.StandardButton.No,
+            )
+            if reply == QMessageBox.StandardButton.Yes:
+                worker.force_stop()
+
+        QTimer.singleShot(PROCESS_STOP_GRACE_MS, self, offer_force)
+
+    # ========================================
+    # Journal and decisions
+    # ========================================
+
+    @property
+    def _journal(self) -> InstallationJournal | None:
+        return self._executor.journal
+
+    def is_resume(self) -> bool:
+        """Whether an interrupted run waits to be resumed."""
+        return self._executor.is_active
+
+    def _ensure_readable_journal(self) -> bool:
+        """Offer to set an unreadable journal aside; False keeps the page blocked."""
+        if not self._executor.load_error:
+            return True
+
+        reply = QMessageBox.question(
+            self,
+            tr("page.installation.journal_unreadable_title"),
+            tr(
+                "page.installation.journal_unreadable",
+                path=str(self._executor.journal_path),
+                error=self._executor.load_error,
+            ),
+            defaultButton=QMessageBox.StandardButton.No,
+        )
+        if reply != QMessageBox.StandardButton.Yes:
+            return False
+        try:
+            target = self._executor.set_aside_unreadable_journal()
+        except OSError as error:
+            self._report_problem(str(error))
+            return False
+        self._append_output(
+            tr("page.installation.journal_set_aside", path=str(target)), COLOR_WARNING
+        )
+        return True
+
+    def _resolve_undetermined(self, positions: list[tuple[int, int]]) -> bool:
+        """Ask the user what each unproven operation became; False when they cancel."""
+        for sequence, position in positions:
+            operation = self._journal.sequences[sequence].operations[position]
+            details = self._describe_operation(sequence, position)
+            dialog = OperationDecisionDialog(operation.reference, details, self)
+            dialog.exec()
+            if dialog.decision is None:
+                return False
+            try:
+                self._executor.decide(sequence, position, dialog.decision)
+            except OSError as error:
+                self._report_problem(str(error))
+                return False
+        return True
+
+    def _describe_operation(self, sequence: int, position: int) -> list[str]:
+        operation = self._journal.sequences[sequence].operations[position]
+        lines = [
+            f"{tr('page.installation.summary.sequence', number=sequence + 1)} — "
+            f"{tr(f'page.installation.status.{operation.status.value}')}"
+        ]
+        evidence = operation.evidence
+        if evidence:
+            lines.append(
+                tr(
+                    "page.installation.evidence",
+                    code="—" if evidence.return_code is None else evidence.return_code,
+                    debug=tr(f"page.installation.status.{evidence.debug_status.value}")
+                    if evidence.debug_status
+                    else tr("page.installation.debug_not_reached"),
+                    log=self._log_presence(evidence.in_log),
+                )
+            )
+        lines.append(
+            tr(
+                "page.installation.log_now",
+                log=self._log_presence(self._executor.is_logged(sequence, position)),
+            )
+        )
+        return lines + operation.messages
+
+    @staticmethod
+    def _log_presence(in_log: bool) -> str:
+        return tr("page.installation.log_present" if in_log else "page.installation.log_absent")
+
+    def _show_catalogue_changes(self, references: list[str]) -> None:
+        if references:
+            self._append_output(
+                tr("page.installation.catalogue_changed", components=", ".join(references)),
+                COLOR_WARNING,
+            )
+
+    def _show_reconciliation(self, report: ReconciliationReport) -> None:
+        if report.reopened:
+            self._append_output(
+                tr("page.installation.log_reopened", components=", ".join(report.reopened)),
+                COLOR_WARNING,
+            )
+        if report.unexpected:
+            self._append_output(
+                tr("page.installation.log_unexpected", entries="\n".join(report.unexpected)),
+                COLOR_WARNING,
+            )
+
+    def _report_problem(self, detail: str) -> None:
+        message = tr("page.installation.recovery", detail=detail)
+        self._append_output(message, COLOR_ERROR)
+        if not self._closing or (self._worker and self._worker.has_live_process()):
+            QMessageBox.critical(self, tr("error.critical_title"), message)
+
+    # ========================================
     # Worker Signal Handlers
     # ========================================
 
+    def _worker_finished(self) -> None:
+        worker = self.sender()
+        worker.deleteLater()
+        if self._worker is not worker:
+            return
+        self._worker = None
+        if self._cancelling:
+            self._finish_cancellation()
+        elif self._closing or worker.is_stopped:
+            self._on_installation_stopped(worker.last_batch)
+        else:
+            self._on_sequence_complete()
+
     def _on_batch_started(self, current: int, total: int, mod_id: str):
         """Handle batch start."""
-        # Update batch index in state
         self._btn_send_input.setEnabled(True)
         self._input_text.setEnabled(True)
-        self._installation_state.last_installed_batch_index = current - 1
         mod = self._mod_manager.get_mod_by_id(mod_id)
 
         logger.info("Batch %d/%d : %s", current, total, mod.name)
@@ -838,145 +789,110 @@ class InstallationPage(BasePage):
             f"\n{'=' * 80}\n{tr('page.installation.batch_started', current=current, total=total, mod=mod.name)}\n{'=' * 80}\n"
         )
 
-    def _on_component_started(self, component_id: str, mod_name: str):
-        """Handle component start."""
+    def _on_component_started(self, component_id: str, mod_name: str, component_name: str):
+        """Show the component WeiDU is installing in the progress bar and the output."""
         logger.info("Installing: %s", component_id)
+        # QProgressBar expands %v, %m and %p in its format.
+        label = f"{mod_name} — {component_name}".replace("%", "%%")
+        self._progress_bar.setFormat(f"{label} - %p%")
         self._append_output(
             f"\n>>> {tr('page.installation.component_started', component=component_id, mod=mod_name)}\n",
             color=COLOR_INFO,
         )
 
     def _on_component_finished(self, component_id: str, result: InstallResult):
-        """Handle component completion."""
-        # Update progress
-        current = self._progress_bar.value() + 1
-
-        # Update stats
-        if result.status == ComponentStatus.SUCCESS:
-            self._stats["success"] += 1
-        elif result.status == ComponentStatus.WARNING:
-            self._stats["warnings"] += 1
-        elif result.status == ComponentStatus.ERROR:
-            self._stats["errors"] += 1
-        elif result.status in (ComponentStatus.SKIPPED, ComponentStatus.ALREADY_INSTALLED):
-            self._stats["skipped"] += 1
-        elif result.status == ComponentStatus.STOPPED:
-            self._installation_state.last_installed_batch_index -= 1
-            self._installation_state.last_installed_component_index -= 1
-            current -= 1
-
-        self._progress_bar.setValue(current)
+        """Display a recorded result and refresh the counters."""
+        self._stats = self._journal.stats()
         self._stats_widget.update_stats(**self._stats)
+        self._refresh_progress()
 
-        # Update installation state with global component index
-        self._installation_state.last_installed_component_index += 1
-
-        # Save state periodically
-        self.save_state()
-
-        # Log result
         status_color = {
             ComponentStatus.SUCCESS: COLOR_STATUS_COMPLETE,
             ComponentStatus.WARNING: COLOR_WARNING,
             ComponentStatus.ERROR: COLOR_ERROR,
             ComponentStatus.STOPPED: COLOR_ERROR,
+            ComponentStatus.UNKNOWN: COLOR_ERROR,
+            ComponentStatus.BLOCKED: COLOR_WARNING,
             ComponentStatus.ALREADY_INSTALLED: COLOR_INFO,
         }.get(result.status)
 
         status_text = tr(f"page.installation.status.{result.status.value}")
         self._append_output(f"\n<<< {status_text}: {component_id}\n", color=status_color)
 
-        if result.warnings:
-            for warning in result.warnings[:5]:
-                self._append_output(f"  ⚠ {warning}", COLOR_WARNING)
-
-        if result.errors:
-            for error in result.errors[:5]:
-                self._append_output(f"  ✖ {error}", COLOR_ERROR)
+        for warning in result.warnings[:5]:
+            self._append_output(f"  ⚠ {warning}", COLOR_WARNING)
+        for error in result.errors[:5]:
+            self._append_output(f"  ✖ {error}", COLOR_ERROR)
 
     def _on_output_received(self, text: str, stream_type: str):
         """Handle real-time output (stdout/stderr)."""
-        # Color stderr differently
-        if stream_type == "stderr":
-            self._append_output(text, COLOR_ERROR)
-        else:
-            self._append_output(text)
+        color = COLOR_ERROR if stream_type == "stderr" else None
+        self._append_output(text, color, newline=False)
 
     def _on_error_occurred(self, component_id: str, errors: list[str]):
         """Handle error - ask user."""
+        if self._closing or self._cancelling:
+            return
         dialog = ErrorDecisionDialog(component_id, errors, self)
         dialog.exec()
 
-        self._worker.set_user_decision(dialog.decision)
+        if self._worker:
+            self._worker.set_user_decision(dialog.decision)
 
     def _on_warning_occurred(self, component_id: str, warnings: list[str]):
         """Handle warning - ask user."""
+        if self._closing or self._cancelling:
+            return
         dialog = WarningDecisionDialog(component_id, warnings, self)
         dialog.exec()
 
-        self._worker.set_user_decision(dialog.decision)
+        if self._worker:
+            self._worker.set_user_decision(dialog.decision)
 
-    def _on_sequence_complete(self, results: dict):
-        """
-        Handle single sequence completion.
-
-        Args:
-            results: Results for this sequence
-        """
-        logger.info("Sequence %d complete", self._installation_state.current_sequence)
-
+    def _on_sequence_complete(self) -> None:
+        """Move on to the next sequence that still has work."""
+        logger.info("Sequence %d complete", self._current_sequence)
         self._append_output(
             f"\n{'#' * 80}\n"
-            f"# {tr('page.installation.sequence.complete', sequence=self._installation_state.current_sequence + 1)}\n"
+            f"# {tr('page.installation.sequence.complete', sequence=self._current_sequence + 1)}\n"
             f"{'#' * 80}\n",
             color=COLOR_STATUS_COMPLETE,
         )
-
-        # Move to next sequence
-        self._installation_state.current_sequence += 1
-        self._installation_state.last_installed_component_index = -1
-        self._installation_state.last_installed_batch_index = -1
-
-        # Start next sequence or finalize
-        if self._installation_state.current_sequence < len(self._sequence_installations):
-            # More sequences to install
-            self._start_next_sequence()
-        else:
-            # All sequences done
-            self._on_all_sequences_complete()
+        self._start_next_sequence(self._current_sequence + 1)
 
     def _on_all_sequences_complete(self):
-        """Handle completion of all sequences."""
+        """Check the games, close the run when nothing is left to decide, show the result."""
+        try:
+            report = self._executor.finish()
+        except InstallationError as error:
+            self._report_problem(str(error))
+            self._on_installation_stopped(0)
+            return
+
+        self._executor.release()
         self._is_installing = False
         self._is_paused = False
-        self._btn_start_pause.setText(tr("page.installation.btn_start"))
-        self._btn_start_pause.setEnabled(True)
-        self._btn_stop.setEnabled(False)
-        self._btn_send_input.setEnabled(False)
-        self._input_text.setEnabled(False)
-        self._cb_batch_install.setEnabled(True)
-        self._update_navigation_buttons()
+        self._refresh_controls()
+        self._show_reconciliation(report)
 
-        self.clear_installation_state()
         self.save_state()
         self._show_installation_summary()
 
-        self.state_manager.set_ui_current_page("installation_type")
+        if not self._executor.is_active:
+            self.state_manager.set_ui_current_page("installation_type")
+            self.state_manager.save_state()
 
         logger.info("All sequences installation complete")
 
     def _on_installation_stopped(self, last_index: int):
         """Handle stop."""
+        self._executor.release()
         self._is_installing = False
         self._is_paused = False
-        self._btn_start_pause.setText(tr("page.installation.btn_start"))
-        self._btn_start_pause.setEnabled(True)
-        self._btn_stop.setEnabled(False)
-        self._btn_send_input.setEnabled(False)
-        self._input_text.setEnabled(False)
-        self._cb_batch_install.setEnabled(True)
-        self._update_navigation_buttons()
+        self._refresh_controls()
 
+        if self._closing or self._cancelling:
+            return
         QMessageBox.information(
             self,
             tr("page.installation.stopped_title"),
@@ -1006,7 +922,7 @@ class InstallationPage(BasePage):
         """Handle retry."""
         self._btn_send_input.setEnabled(True)
         self._input_text.setEnabled(True)
-        self._progress_bar.setValue(self._progress_bar.value() - count_components)
+        self._refresh_progress()
 
     def _on_command_created(self, command: str) -> None:
         self._append_output(
@@ -1014,53 +930,40 @@ class InstallationPage(BasePage):
             color=COLOR_INFO,
         )
 
-    # ========================================
-    # Dependency Management
-    # ========================================
-
-    def _check_and_handle_dependents(self, batch_idx: int, failed_ids: list[str]) -> None:
-        """Preview newly blocked occurrences while the worker waits at a batch boundary."""
-        current = self._installation_state.current_sequence
-        batch = self._batches[batch_idx]
-        self._unavailable.update(
-            (current, comp.sequence_idx) for comp in batch if comp.comp_id in failed_ids
-        )
-        orders = [
-            [ComponentReference.from_string(comp.comp_id) for comp in seq["components"]]
-            for seq in self._sequence_installations
-        ]
-        selection = set(
-            ComponentReference.from_string_list(self.state_manager.get_selected_components())
-        )
-        blocked = self.state_manager.get_rule_manager().blocked_positions(
-            orders,
-            self._unavailable | self._blocked,
-            (current, batch[-1].sequence_idx),
-            selection,
-        )
-        if blocked:
-            labels = [
-                f"{self._sequence_installations[seq]['seq_idx'] + 1} / {orders[seq][idx]}"
-                for seq, idx in sorted(blocked)
-            ]
-            reply = QMessageBox.question(
-                self,
-                tr("page.installation.dependents_title"),
-                tr("page.installation.dependents_message", components="\n".join(labels)),
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+    def _show_blocked(self, components: list[str]) -> None:
+        for reference in components:
+            self._append_output(
+                f"{tr('page.installation.status.blocked')}: {reference}", COLOR_ERROR
             )
-            if reply == QMessageBox.StandardButton.Yes:
-                self._blocked.update(blocked)
-                self._worker.blocked_positions.update(
-                    idx for seq, idx in blocked if seq == current
-                )
-        self._worker.set_user_decision(UserDecision.SKIP)
 
     # ========================================
     # UI Helpers
     # ========================================
 
-    def _append_output(self, text: str, color: str = None):
+    def _refresh_controls(self) -> None:
+        """Enable the controls matching the run state."""
+        running = self._is_installing
+        if not running:
+            self._btn_start_pause.setText(tr("page.installation.btn_start"))
+            self._progress_bar.setFormat(PROGRESS_IDLE_FORMAT)
+        elif self._is_paused:
+            self._btn_start_pause.setText(tr("page.installation.btn_resume"))
+        else:
+            self._btn_start_pause.setText(tr("page.installation.btn_pause"))
+        self._btn_start_pause.setEnabled(True)
+        self._btn_stop.setEnabled(running)
+        self._btn_send_input.setEnabled(running)
+        self._input_text.setEnabled(running)
+        # Batching is part of the frozen plan; pause preferences stay adjustable.
+        self._cb_batch_install.setEnabled(not running and not self.is_resume())
+        self._update_navigation_buttons()
+
+    def _refresh_progress(self) -> None:
+        operations = self._journal.sequences[self._current_sequence].operations
+        self._progress_bar.setMaximum(len(operations))
+        self._progress_bar.setValue(sum(not op.needs_work for op in operations))
+
+    def _append_output(self, text: str, color: str | None = None, newline: bool = True):
         """Append text to output."""
         cursor = self._output_text.textCursor()
         cursor.movePosition(QTextCursor.MoveOperation.End)
@@ -1072,22 +975,31 @@ class InstallationPage(BasePage):
         cursor.setCharFormat(fmt)
         cursor.insertText(text)
 
-        if not text.endswith("\n"):
+        if newline and not text.endswith("\n"):
             cursor.insertText("\n")
 
         self._output_text.setTextCursor(cursor)
         self._output_text.ensureCursorVisible()
 
     def _show_installation_summary(self):
-        """Show summary dialog."""
-        summary_text = tr("page.installation.summary.message")
+        """Show the outcome and the components that prevent a complete installation."""
+        outcome = self._journal.outcome()
 
         msg_box = QMessageBox(self)
         msg_box.setWindowTitle(tr("page.installation.summary.title"))
-        msg_box.setText(summary_text)
+        msg_box.setText(tr(f"page.installation.{outcome.value}"))
+        details = [
+            f"{op.reference} — {tr(f'page.installation.status.{op.status.value}')}"
+            + ("\n" + "\n".join(op.messages) if op.messages else "")
+            for seq in self._journal.sequences
+            for op in seq.operations
+            if not op.is_pause and (not op.installed or op.status == ComponentStatus.WARNING)
+        ]
+        if details:
+            msg_box.setDetailedText("\n".join(details))
         msg_box.setIcon(
             QMessageBox.Icon.Information
-            if self._stats["errors"] == 0
+            if outcome == RunOutcome.COMPLETE
             else QMessageBox.Icon.Warning
         )
         msg_box.exec()
@@ -1096,19 +1008,14 @@ class InstallationPage(BasePage):
         """Update navigation buttons."""
         self.notify_navigation_changed()
 
-    def is_resume(self) -> bool:
-        is_resume = self._installation_state and (
-            self._installation_state.last_installed_component_index >= 0
-            or self._installation_state.current_sequence > 0
-        )
-        return is_resume
-
     def _display_installation_summary(self):
-        """Display installation summary on page load."""
-        selected_game = self.state_manager.get_selected_game()
+        """Display the frozen plan when a run is active."""
+        plan = self._journal.plan if self.is_resume() else None
         game_manager = self.state_manager.get_game_manager()
-        game_def = game_manager.get(selected_game)
-        install_order_data = self.state_manager.get_install_order()
+        game_def = game_manager.get(
+            plan.game if plan else self.state_manager.get_selected_game()
+        )
+        install_order_data = plan.orders if plan else self.state_manager.get_install_order()
 
         if not game_def or not install_order_data:
             self._append_output(tr("page.installation.summary.no_data"), COLOR_WARNING)
@@ -1133,6 +1040,7 @@ class InstallationPage(BasePage):
         total_sequences = game_def.sequence_count
         sequence_details = []
         total_components = 0
+        folders = plan.folders if plan else self.state_manager.get_game_folders()
 
         for seq_idx in range(total_sequences):
             sequence = game_def.get_sequence(seq_idx)
@@ -1143,14 +1051,12 @@ class InstallationPage(BasePage):
             count_components = len(order_list)
             total_components += count_components
 
-            game_folder = self.state_manager.get_game_folders().get(sequence.game)
-
             sequence_details.append(
                 {
                     "idx": seq_idx,
                     "name": sequence.name,
                     "game": sequence.game,
-                    "folder": game_folder,
+                    "folder": folders.get(sequence.game),
                     "count_components": count_components,
                 }
             )
@@ -1186,58 +1092,18 @@ class InstallationPage(BasePage):
             )
             self._append_output("-" * 80 + "\n\n", COLOR_WARNING)
 
-            current_seq = self._installation_state.current_sequence
-            last_comp_idx = self._installation_state.last_installed_component_index
-            installed_components = last_comp_idx + 1
-
-            for seq_idx in range(total_sequences):
-                if seq_idx < current_seq:
-                    sequence = game_def.get_sequence(seq_idx)
-                    if not sequence:
-                        continue
-
-                    order_list = install_order_data.get(seq_idx, [])
-                    installed_components += len(order_list)
-
-            # Calculate remaining components
-            remaining = total_components - last_comp_idx - 1
-            progress_pct = (
-                int(installed_components / total_components * 100)
-                if total_components > 0
-                else 0
-            )
-
-            self._append_output(
-                f"  {tr('page.installation.summary.current_sequence', number=current_seq + 1, total=total_sequences)}\n",
-                COLOR_WARNING,
+            installed = sum(
+                op.installed for seq in self._journal.sequences for op in seq.operations
             )
             self._append_output(
-                f"  {tr('page.installation.summary.installed_components', index=installed_components, total=total_components)}\n",
-                COLOR_WARNING,
+                tr(
+                    "page.installation.summary.installed_components",
+                    index=installed,
+                    total=total_components,
+                )
+                + "\n",
+                COLOR_INFO,
             )
-            self._append_output(
-                f"  {tr('page.installation.summary.remaining', count=remaining)}\n",
-                COLOR_WARNING,
-            )
-            self._append_output(
-                f"  {tr('page.installation.summary.progress', percent=progress_pct)}\n\n",
-                COLOR_WARNING,
-            )
-
-            order_list = install_order_data.get(current_seq, [])
-            next_comp = order_list[last_comp_idx + 1]
-            mod_id, comp_key = next_comp.split(":", 1)
-            mod = self._mod_manager.get_mod_by_id(mod_id)
-            if mod:
-                component = mod.get_component(comp_key)
-                if component:
-                    self._append_output(
-                        f"  {tr('page.installation.summary.next_component', mod=mod.name, component=component.get_name(), comp_key=component.key)}\n\n",
-                        COLOR_WARNING,
-                    )
-
-            self._progress_bar.setMaximum(sequence_details[current_seq].get("count_components"))
-            self._progress_bar.setValue(last_comp_idx + 1)
             self._append_output("=" * 80 + "\n\n", COLOR_INFO)
             self._append_output(
                 tr("page.installation.summary.ready_to_resume") + "\n\n", COLOR_STATUS_COMPLETE
@@ -1267,23 +1133,6 @@ class InstallationPage(BasePage):
             self._worker.update_pause_settings(self._pause_on_error, self._pause_on_warning)
         logger.debug(f"Pause on error: {self._pause_on_error}")
 
-    def clear_installation_state(self):
-        """Clear installation state."""
-        self._installation_state = None
-        # Also clear from state manager
-        self.state_manager.set_page_option(
-            self.get_page_id(), "last_installed_component_index", None
-        )
-        self.state_manager.set_page_option(
-            self.get_page_id(), "last_installed_batch_index", None
-        )
-        self.state_manager.set_page_option(self.get_page_id(), "current_sequence", None)
-        logger.info("Installation state cleared")
-
-    # ========================================
-    # BasePage Implementation
-    # ========================================
-
     def get_page_id(self) -> str:
         return "installation"
 
@@ -1299,8 +1148,12 @@ class InstallationPage(BasePage):
         )
 
     def can_go_to_next_page(self) -> bool:
-        """Can proceed if complete with no errors."""
-        return not self._is_installing and self._stats["errors"] == 0
+        """Can proceed once the run is closed and complete."""
+        return bool(
+            self._journal
+            and not self._journal.active
+            and self._journal.outcome() != RunOutcome.INCOMPLETE
+        )
 
     def can_go_to_previous_page(self) -> bool:
         """Cannot go back during installation."""
@@ -1315,6 +1168,7 @@ class InstallationPage(BasePage):
         self._progress_bar.setValue(0)
         self._stats = {"success": 0, "warnings": 0, "errors": 0, "skipped": 0}
 
+        self._ensure_readable_journal()
         self._display_installation_summary()
 
     def on_page_hidden(self):
@@ -1322,18 +1176,11 @@ class InstallationPage(BasePage):
         super().on_page_hidden()
 
         if self._worker and self._worker.isRunning():
-            self._worker.stop()
-            self._worker.wait()
+            self._request_worker_stop()
 
     def retranslate_ui(self):
         """Update UI text."""
-        if self._is_installing:
-            if self._is_paused:
-                self._btn_start_pause.setText(tr("page.installation.btn_resume"))
-            else:
-                self._btn_start_pause.setText(tr("page.installation.btn_pause"))
-        else:
-            self._btn_start_pause.setText(tr("page.installation.btn_start"))
+        self._refresh_controls()
 
         self._btn_stop.setText(tr("page.installation.btn_stop"))
         self._btn_cancel.setText(tr("page.installation.btn_cancel"))
@@ -1350,13 +1197,19 @@ class InstallationPage(BasePage):
         self._stats_widget.update_stats(**self._stats)
 
     def load_state(self) -> None:
-        """Load state from state manager."""
+        """Load preferences; batching comes from the plan of an active run."""
         super().load_state()
 
         page_id = self.get_page_id()
+        self._executor.load()
+        plan = self._journal.plan if self.is_resume() else None
 
         self._cb_batch_install.setChecked(
-            self.state_manager.get_page_option(page_id, "batch_install", self._batch_install)
+            plan.batch
+            if plan
+            else self.state_manager.get_page_option(
+                page_id, "batch_install", self._batch_install
+            )
         )
         self._cb_pause_on_error.setChecked(
             self.state_manager.get_page_option(page_id, "pause_on_error", self._pause_on_error)
@@ -1366,56 +1219,13 @@ class InstallationPage(BasePage):
                 page_id, "pause_on_warning", self._pause_on_warning
             )
         )
-
-        # Load installation state
-        last_comp_idx = self.state_manager.get_page_option(
-            page_id, "last_installed_component_index", -1
-        )
-        last_batch_idx = self.state_manager.get_page_option(
-            page_id, "last_installed_batch_index", -1
-        )
-        current_seq = self.state_manager.get_page_option(page_id, "current_sequence", 0)
-
-        # Only create installation state if there's a valid saved state
-        if last_comp_idx >= 0 or current_seq > 0:
-            self._installation_state = InstallationState(
-                last_installed_component_index=last_comp_idx,
-                last_installed_batch_index=last_batch_idx,
-                current_sequence=current_seq,
-            )
-            logger.info(
-                "Loaded installation state: sequence=%d, component=%d, batch=%d",
-                current_seq,
-                last_comp_idx,
-                last_batch_idx,
-            )
-        else:
-            self._installation_state = None
+        self._cb_batch_install.setEnabled(plan is None)
 
     def save_state(self) -> None:
         """Save page data to state manager."""
         super().save_state()
 
         page_id = self.get_page_id()
-
-        if self._installation_state:
-            self.state_manager.set_page_option(
-                page_id,
-                "last_installed_component_index",
-                self._installation_state.last_installed_component_index,
-            )
-            self.state_manager.set_page_option(
-                page_id,
-                "last_installed_batch_index",
-                self._installation_state.last_installed_batch_index,
-            )
-            self.state_manager.set_page_option(
-                page_id, "current_sequence", self._installation_state.current_sequence
-            )
-        else:
-            self.state_manager.set_page_option(page_id, "last_installed_component_index", -1)
-            self.state_manager.set_page_option(page_id, "last_installed_batch_index", -1)
-            self.state_manager.set_page_option(page_id, "current_sequence", 0)
 
         self.state_manager.set_page_option(page_id, "batch_install", self._batch_install)
         self.state_manager.set_page_option(page_id, "pause_on_error", self._pause_on_error)

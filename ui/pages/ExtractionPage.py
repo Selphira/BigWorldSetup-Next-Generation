@@ -77,7 +77,7 @@ class ExtractionWorker(QThread):
     def run(self) -> None:
         """Run extraction process."""
         try:
-            for idx, extraction in enumerate(self._extractions):
+            for extraction in self._extractions:
                 if self._is_cancelled:
                     break
 
@@ -492,7 +492,7 @@ class ExtractionPage(BasePage):
         self._extraction_worker.extraction_error.connect(self._on_extraction_error)
         self._extraction_worker.all_completed.connect(self._on_all_extractions_completed)
 
-        self._extraction_worker.start()
+        self.start_task(self._extraction_worker)
 
     def _on_extraction_started(self, extraction_id: str, archive_name: str) -> None:
         """Handle extraction start."""
@@ -528,6 +528,9 @@ class ExtractionPage(BasePage):
         self._progress_bar.setFormat("%p%")
         self._progress_bar.reset()
         self._update_navigation_buttons()
+
+        if self._closing:
+            return
 
         # Count successes and failures
         success_count = sum(
@@ -803,13 +806,18 @@ class ExtractionPage(BasePage):
             self._download_path = Path(download_path)
             self._load_extractions()
 
+    def request_shutdown(self) -> None:
+        """Stop the extraction between two archives."""
+        super().request_shutdown()
+        if self._extraction_worker:
+            self._extraction_worker.cancel()
+
     def on_page_hidden(self) -> None:
         """Called when page becomes hidden."""
         super().on_page_hidden()
 
         if self._extraction_worker and self._extraction_worker.isRunning():
             self._extraction_worker.cancel()
-            self._extraction_worker.wait()
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""

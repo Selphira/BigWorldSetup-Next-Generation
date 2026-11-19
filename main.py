@@ -284,7 +284,7 @@ class ApplicationInitializer:
         for page in pages:
             window.register_page(page)
 
-        initial_page = self._get_initial_page()
+        initial_page = "installation" if window.pages["installation"].is_resume() else self._get_initial_page()
         window.show_page(initial_page)
         window.check_for_updates()
 

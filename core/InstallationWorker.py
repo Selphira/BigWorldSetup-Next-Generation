@@ -1,15 +1,24 @@
-from dataclasses import dataclass
+"""Execution of WeiDU processes and of the batches of one sequence."""
+
+import codecs
+from collections import deque
+from dataclasses import replace
 from enum import Enum
 import logging
+import os
 from pathlib import Path
+import signal
 import subprocess
 import threading
 
 from PySide6.QtCore import QThread, Signal
 
-from core.Mod import ComponentType
+from constants import PROCESS_POLL_MS, PROCESS_READ_CHUNK_SIZE, WORKER_POLL_MS
+from core.InstallationJournal import InstallationJournal, Operation, OperationDecision
 from core.models.PauseEntry import PauseEntry
-from core.weidu_types import ComponentInfo, ComponentStatus, InstallResult
+from core.RuleManager import RuleManager
+from core.TranslationManager import tr
+from core.weidu_types import ComponentInfo, ComponentStatus, InstallResult, ProcessCallbacks
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine
 
 logger = logging.getLogger(__name__)
@@ -27,20 +36,6 @@ class UserDecision(Enum):
     SKIP = "skip"
     PAUSE = "pause"
     STOP = "stop"
-
-
-# ============================================================================
-# Installation State
-# ============================================================================
-
-
-@dataclass
-class InstallationState:
-    """Persistent state of installation progress."""
-
-    last_installed_component_index: int
-    last_installed_batch_index: int
-    current_sequence: int
 
 
 # ============================================================================
@@ -70,12 +65,13 @@ class ProcessRunner(QThread):
         self.input_lines = input_lines or []
         self.process: subprocess.Popen | None = None
         self._stop_flag = False
+        self._force_requested = threading.Event()
         self._stdout_lines = []
         self._stderr_lines = []
         self._lock = threading.Lock()
 
         # Queue for thread-safe signal emission
-        self._output_queue = []
+        self._output_queue = deque()
         self._queue_lock = threading.Lock()
 
     def run(self):
@@ -84,12 +80,16 @@ class ProcessRunner(QThread):
             logger.debug("Starting process: %s", " ".join(str(c) for c in self.cmd))
             logger.debug("Working directory: %s", self.cwd)
 
+            if self._stop_flag:
+                return
             self.process = subprocess.Popen(
                 self.cmd,
                 cwd=str(self.cwd),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE,
+                start_new_session=os.name != "nt",
+                errors="replace",
                 bufsize=1,
                 text=True,
             )
@@ -120,8 +120,13 @@ class ProcessRunner(QThread):
 
             # Process queued outputs periodically from QThread
             while self.process.poll() is None:
+                if self._force_requested.is_set():
+                    self._force_requested.clear()
+                    self._terminate_tree()
+                if self._stop_flag and not self.process.stdin.closed:
+                    self.process.stdin.close()
                 self._emit_queued_outputs()
-                self.msleep(50)
+                self.msleep(PROCESS_POLL_MS)
 
             # Wait for reader threads
             logger.debug("Waiting for reader threads to finish")
@@ -149,12 +154,6 @@ class ProcessRunner(QThread):
             if self.process.stdin:
                 self.process.stdin.close()
 
-            if self.process.stdout:
-                self.process.stdout.close()
-
-            if self.process.stderr:
-                self.process.stderr.close()
-
             self.process_finished.emit(return_code, stdout, stderr)
 
         except Exception as ex:
@@ -162,18 +161,18 @@ class ProcessRunner(QThread):
             self.process_error.emit(str(ex))
 
     def _read_stream(self, stream, stream_name: str, buffer: list[str]):
-        """Read a process stream (stdout/stderr) line by line."""
+        """Forward a process stream as it arrives, prompts without newline included."""
         try:
-            for line in iter(stream.readline, ""):
-                if self._stop_flag:
+            decoder = codecs.getincrementaldecoder(stream.encoding)(errors="replace")
+            while True:
+                chunk = os.read(stream.fileno(), PROCESS_READ_CHUNK_SIZE)
+                output = decoder.decode(chunk, final=not chunk)
+                if output:
+                    with self._lock:
+                        buffer.append(output)
+                    self._queue_output(output, stream_name)
+                if not chunk:
                     break
-
-                line = line.rstrip("\n")
-
-                with self._lock:
-                    buffer.append(line)
-
-                self._queue_output(line, stream_name)
 
         except Exception as e:
             logger.error("Error reading %s: %s", stream_name, e)
@@ -210,7 +209,7 @@ class ProcessRunner(QThread):
         """Emit all queued outputs from QThread context."""
         with self._queue_lock:
             while self._output_queue:
-                text, stream_type = self._output_queue.pop(0)
+                text, stream_type = self._output_queue.popleft()
                 self.output_received.emit(text, stream_type)
 
     def send_input(self, text: str) -> bool:
@@ -223,7 +222,7 @@ class ProcessRunner(QThread):
         Returns:
             True if successful, False otherwise
         """
-        if not self.process or not self.process.stdin:
+        if not self.process or not self.process.stdin or self.process.stdin.closed:
             return False
 
         try:
@@ -236,23 +235,34 @@ class ProcessRunner(QThread):
             return False
 
     def stop(self):
-        """Stop the running process cleanly."""
+        """Close stdin so that WeiDU ends at its next prompt or once its work is done."""
         self._stop_flag = True
 
-        if self.process:
-            try:
-                # Try graceful termination first
-                if self.process.stdin:
-                    self.process.stdin.close()
-                self.process.terminate()
-                self.process.wait(timeout=2)
-                logger.info("Process terminated gracefully")
-            except subprocess.TimeoutExpired:
-                # Force kill if needed
-                self.process.kill()
-                logger.warning("Process killed forcefully")
-            except Exception as e:
-                logger.error("Error stopping process: %s", e)
+    def force_stop(self) -> None:
+        """Terminate the process tree after explicit confirmation."""
+        self._force_requested.set()
+
+    def _terminate_tree(self) -> None:
+        """Kill WeiDU and its children; a partial modification may need a restore."""
+        process = self.process
+        if process is None or process.poll() is not None:
+            return
+        try:
+            if os.name == "nt":
+                command = Path(os.environ["SystemRoot"]) / "System32" / "taskkill.exe"
+                subprocess.run(
+                    [str(command), "/PID", str(process.pid), "/T", "/F"],
+                    creationflags=subprocess.CREATE_NO_WINDOW,
+                    check=True,
+                    timeout=10,
+                    capture_output=True,
+                )
+            else:
+                os.killpg(process.pid, signal.SIGKILL)
+        except (OSError, subprocess.SubprocessError) as error:
+            if process.poll() is None:
+                self._queue_output(str(error), "stderr")
+                self.process_error.emit(str(error))
 
 
 # ============================================================================
@@ -262,325 +272,411 @@ class ProcessRunner(QThread):
 
 class InstallationWorker(QThread):
     """
-    Worker thread for non-blocking installation.
+    Worker thread executing the remaining batches of one sequence.
 
-    Manages the full installation workflow:
-    - Iterates through batches
-    - Uses ProcessRunner for each installation
-    - Handles errors and user decisions
-    - Tracks progress and state
-    - Supports pause/resume
+    Each batch is checkpointed in the journal before WeiDU starts and its
+    result is recorded before Qt is notified or the next batch starts.
+
+    Signals:
+        batch_started: (batch number, batch count, mod id)
+        component_started: (component id, mod name, component name) when WeiDU reaches it
+        component_finished: (component id, InstallResult) once recorded
+        output_received: (text, stream type) of the WeiDU process
+        error_occurred: (component id, messages); waits for set_user_decision
+        warning_occurred: (component id, messages); waits for set_user_decision
+        dependents_blocked: references newly blocked by a failure
+        installation_paused: (batch number, pause description)
+        installation_retryed: number of operations about to be retried
+        diagnostic: message explaining why the run was suspended
+        command_created: WeiDU command line
     """
 
-    # Signals
-    batch_started = Signal(int, int, str)  # current_index, total_batches, mod_id
-    component_started = Signal(str, str)  # component_id, mod_name
-    component_finished = Signal(str, object)  # component_id, InstallResult
-    output_received = Signal(str, str)  # text, stream_type
-    error_occurred = Signal(str, list)  # component_id, errors
-    failures_skipped = Signal(int, list)  # batch index, failed component IDs
-    warning_occurred = Signal(str, list)  # component_id, warnings
-    installation_complete = Signal(dict)  # All results
-    installation_stopped = Signal(int)  # last_index
-    installation_paused = Signal(int, str)  # last_index, pause_description
-    installation_retryed = Signal(int)  # count_components
-    command_created = Signal(str)  # command
+    batch_started = Signal(int, int, str)
+    component_started = Signal(str, str, str)
+    component_finished = Signal(str, object)
+    output_received = Signal(str, str)
+    error_occurred = Signal(str, list)
+    warning_occurred = Signal(str, list)
+    dependents_blocked = Signal(list)
+    installation_paused = Signal(int, str)
+    installation_retryed = Signal(int)
+    diagnostic = Signal(str)
+    command_created = Signal(str)
 
     def __init__(
         self,
         engine: WeiDUInstallerEngine,
         batches: list[list[ComponentInfo]],
-        start_index: int,
-        languages_order: list[str],
-        mod_manager,
+        journal: InstallationJournal,
+        rules: RuleManager,
+        sequence: int = 0,
         pause_on_error: bool = True,
         pause_on_warning: bool = True,
     ):
         super().__init__()
         self.engine = engine
         self.batches = batches
-        self.blocked_positions: set[int] = set()
-        self.start_index = start_index
-        self.languages_order = languages_order
-        self.mod_manager = mod_manager
+        self.journal = journal
+        self.rules = rules
+        self.sequence = sequence
         self.pause_on_error = pause_on_error
         self.pause_on_warning = pause_on_warning
 
-        self.all_results: dict[str, InstallResult] = {}
+        self.blocked_positions: set[int] = set()
+        self.last_batch = 0
         self.is_stopped = False
         self.is_paused = False
-        self.pause_description: str = ""
         self.decision_ready = False
         self.user_decision: UserDecision | None = None
         self._active_runner: ProcessRunner | None = None
         self._runner_lock = threading.Lock()
-        self._was_stopped = False
 
-    def run(self):
-        """Execute installation process."""
+    @property
+    def _operations(self) -> list[Operation]:
+        return self.journal.sequences[self.sequence].operations
+
+    # ========================================
+    # Execution
+    # ========================================
+
+    def run(self) -> None:
+        """Execute the batches; any unexpected failure suspends the run."""
         try:
-            total_batches = len(self.batches)
-            batch_idx = self.start_index
-
-            while batch_idx < total_batches:
+            self._update_blocked()
+            for number, batch in enumerate(self.batches, start=1):
+                self._wait_while_paused(number)
                 if self.is_stopped:
-                    self.installation_stopped.emit(batch_idx + 1)
-                    return
+                    break
 
-                # Check for pause before starting new batch
-                if self.is_paused:
-                    logger.info("Installation paused at batch %d", batch_idx + 1)
-                    self.installation_paused.emit(batch_idx + 1, self.pause_description)
-                    self.pause_description = ""
-                    # Wait for resume instead of returning
-                    while self.is_paused and not self.is_stopped:
-                        self.msleep(100)
+                self.last_batch = number
+                if PauseEntry.is_pause(batch[0].comp_id):
+                    self._pause_at_entry(number, batch[0])
+                else:
+                    self.batch_started.emit(number, len(self.batches), batch[0].mod.id)
+                    self._process_batch(number, batch)
+                if self.is_stopped:
+                    break
+        except Exception as error:
+            self.is_stopped = True
+            logger.exception("Installation suspended at batch %d", self.last_batch)
+            self.diagnostic.emit(str(error))
 
-                    # If stopped during pause, exit
-                    if self.is_stopped:
-                        self.installation_stopped.emit(batch_idx + 1)
-                        return
+    def _process_batch(self, number: int, batch: list[ComponentInfo]) -> None:
+        """Install a batch until its failures are retried away or accepted."""
+        while not self.is_stopped:
+            results = self._collect_results(batch)
+            self._record(batch, results)
+            if self.is_stopped:
+                return
 
-                    # Resumed, continue with current batch
-                    logger.info("Resuming from batch %d", batch_idx)
+            undetermined = [
+                ref for ref, result in results.items() if result.status.is_undetermined
+            ]
+            if undetermined:
+                self.is_stopped = True
+                self.diagnostic.emit(
+                    tr("page.installation.undetermined", components=", ".join(undetermined))
+                )
+                return
 
-                batch = self.batches[batch_idx]
-                if batch and all(comp.sequence_idx in self.blocked_positions for comp in batch):
-                    self.batch_started.emit(batch_idx + 1, total_batches, batch[0].mod.id)
-                pending = []
-                for comp in batch:
-                    if comp.sequence_idx in self.blocked_positions:
-                        skipped = InstallResult(ComponentStatus.SKIPPED, 0, "", "", [], [])
-                        self.all_results[comp.comp_id] = skipped
-                        self.component_finished.emit(comp.comp_id, skipped)
-                    else:
-                        pending.append(comp)
-                if not pending:
-                    batch_idx += 1
-                    continue
-                batch = pending
-                first_comp = batch[0]
-                comp_id = first_comp.comp_id
+            decision = self._batch_decision(results)
+            if decision == UserDecision.STOP:
+                self.is_stopped = True
+                return
+            if decision == UserDecision.PAUSE:
+                # Once resumed, the same failures are presented again.
+                self.is_paused = True
+                self._wait_while_paused(number)
+                continue
+            if decision == UserDecision.RETRY:
+                self._retry(batch, results)
+                continue
 
-                # Check if this batch is a pause component
-                if PauseEntry.is_pause(comp_id):
-                    logger.info("Pause component encountered: %s", comp_id)
+            self._accept_failures(batch)
+            return
 
-                    # Mark pause as "installed" (skipped)
-                    self.all_results[comp_id] = InstallResult(
-                        status=ComponentStatus.SKIPPED,
-                        return_code=0,
-                        stdout="",
-                        stderr="",
-                        warnings=[],
-                        errors=[],
-                    )
+    def _collect_results(self, batch: list[ComponentInfo]) -> dict[str, InstallResult]:
+        """Install the pending operations; blocked and failed ones are reported as is."""
+        results = {}
+        pending = []
+        for comp in batch:
+            operation = self._operations[comp.sequence_idx]
+            if not operation.needs_work:
+                continue
+            if comp.sequence_idx in self.blocked_positions:
+                results[comp.comp_id] = InstallResult(
+                    ComponentStatus.BLOCKED, 0, "", "", [], []
+                )
+            elif operation.status == ComponentStatus.ERROR:
+                results[comp.comp_id] = InstallResult(
+                    ComponentStatus.ERROR, -1, "", "", [], list(operation.messages)
+                )
+            else:
+                pending.append(comp)
+        if pending:
+            results.update(self._install_batch(pending))
+        return results
 
-                    _, description = PauseEntry.parse(comp_id.split(":", 1)[1])
-                    self.pause_description = description
-                    self.is_paused = True
-                    batch_idx += 1
-                    continue
+    def _record(self, batch: list[ComponentInfo], results: dict[str, InstallResult]) -> None:
+        """Checkpoint the results, then notify the interface."""
+        self.journal.record(
+            self.sequence,
+            {
+                comp.sequence_idx: results[comp.comp_id]
+                for comp in batch
+                if comp.comp_id in results
+            },
+        )
+        for reference, result in results.items():
+            self.component_finished.emit(reference, result)
 
-                # Normal component installation
-                self.batch_started.emit(batch_idx + 1, total_batches, first_comp.mod.id)
+    def _pause_at_entry(self, number: int, entry: ComponentInfo) -> None:
+        _, description = PauseEntry.parse(entry.comp_id)
+        self.is_paused = True
+        self._wait_while_paused(number, description)
+        if not self.is_stopped:
+            result = InstallResult(ComponentStatus.SKIPPED, 0, "", "", [], [])
+            self.journal.record(self.sequence, {entry.sequence_idx: result})
 
-                results = self._install_batch(batch)
-                self.all_results.update(results)
+    def _wait_while_paused(self, number: int, description: str = "") -> None:
+        if not self.is_paused:
+            return
+        self.installation_paused.emit(number, description)
+        while self.is_paused and not self.is_stopped:
+            self.msleep(WORKER_POLL_MS)
 
-                # Check for errors and warnings
-                issue = self._find_issue(results)
+    # ========================================
+    # Decisions
+    # ========================================
 
-                if issue:
-                    comp_id, result, status = issue
+    def _batch_decision(self, results: dict[str, InstallResult]) -> UserDecision:
+        """Ask the user when needed; failures always show the components they block."""
+        issue = self._find_issue(results)
+        if not issue:
+            return UserDecision.SKIP
 
-                    if (status == ComponentStatus.ERROR and self.pause_on_error) or (
-                        status == ComponentStatus.WARNING and self.pause_on_warning
-                    ):
-                        signal, messages = (
-                            (self.error_occurred, result.errors)
-                            if status == ComponentStatus.ERROR
-                            else (self.warning_occurred, result.warnings)
-                        )
+        reference, result, status = issue
+        if status == ComponentStatus.WARNING:
+            if not self.pause_on_warning:
+                return UserDecision.SKIP
+            warned = {
+                ref: r.warnings
+                for ref, r in results.items()
+                if r.status == ComponentStatus.WARNING
+            }
+            return self._ask(
+                self.warning_occurred, ", ".join(warned), self._by_component(warned)
+            )
 
-                        self.decision_ready = False
-                        self.user_decision = None
-                        signal.emit(comp_id, messages)
-                        self._wait_for_decision()
-
-                        if self.user_decision == UserDecision.RETRY:
-                            self.installation_retryed.emit(len(batch))
-                            continue
-
-                        elif self.user_decision == UserDecision.PAUSE:
-                            self.is_paused = True
-                            logger.info(
-                                "Installation paused by user after %s", status.name.lower()
-                            )
-                            continue
-                        elif self.user_decision == UserDecision.STOP:
-                            self.is_stopped = True
-                            self.installation_stopped.emit(batch_idx + 1)
-                            return
-
-                failed_ids = [
-                    key
-                    for key, value in results.items()
-                    if value.status in (ComponentStatus.ERROR, ComponentStatus.SKIPPED)
-                ]
-                if failed_ids and not self.is_stopped:
-                    self.decision_ready = False
-                    self.user_decision = None
-                    self.failures_skipped.emit(batch_idx, failed_ids)
-                    self._wait_for_decision()
-
-                batch_idx += 1
-
-            self.installation_complete.emit(self.all_results)
-
-        except Exception as e:
-            logger.error("Critical error in installation worker: %s", e)
-            self.installation_stopped.emit(self.start_index)
+        partial = any(r.status.is_installed for r in results.values())
+        affected = self._preview_blocked()
+        if not (self.pause_on_error or partial or affected):
+            return UserDecision.SKIP
+        messages = list(result.errors)
+        if affected:
+            messages.append(
+                tr("page.installation.blocked_preview", components="\n".join(affected))
+            )
+        return self._ask(self.error_occurred, reference, messages)
 
     @staticmethod
-    def _find_issue(results):
-        """Return (component_id, result, issue_type) or None."""
-        warning = None
+    def _by_component(messages: dict[str, list[str]]) -> list[str]:
+        """Messages of one component as is, of several under the reference of each."""
+        if len(messages) == 1:
+            return next(iter(messages.values()))
+        lines = []
+        for reference, component_messages in messages.items():
+            lines += [f"[{reference}]", *(f"  {line}" for line in component_messages), ""]
+        return lines[:-1]
 
+    def _ask(self, signal: Signal, reference: str, messages: list[str]) -> UserDecision:
+        self.decision_ready = False
+        self.user_decision = None
+        signal.emit(reference, messages)
+        while not self.decision_ready and not self.is_stopped:
+            self.msleep(WORKER_POLL_MS)
+        return self.user_decision or UserDecision.STOP
+
+    def _retry(self, batch: list[ComponentInfo], results: dict[str, InstallResult]) -> None:
+        """Retry the failed operations, or the warned ones when only warnings were raised."""
+
+        def positions(status: ComponentStatus) -> list[int]:
+            return [
+                comp.sequence_idx
+                for comp in batch
+                if comp.comp_id in results and results[comp.comp_id].status == status
+            ]
+
+        retried = positions(ComponentStatus.ERROR) or positions(ComponentStatus.WARNING)
+        for position in retried:
+            self.journal.decide(self.sequence, position, OperationDecision.RETRY, in_log=False)
+        self.installation_retryed.emit(len(retried))
+
+    def _accept_failures(self, batch: list[ComponentInfo]) -> None:
+        """Continue without the failed operations and block what depended on them."""
+        failed = [
+            comp.sequence_idx
+            for comp in batch
+            if self._operations[comp.sequence_idx].status == ComponentStatus.ERROR
+        ]
+        for position in failed:
+            self.journal.decide(
+                self.sequence, position, OperationDecision.ACCEPT_FAILURE, in_log=False
+            )
+        if failed or any(
+            self._operations[comp.sequence_idx].status == ComponentStatus.SKIPPED
+            for comp in batch
+        ):
+            self._update_blocked()
+
+    def _preview_blocked(self) -> list[str]:
+        """Remaining operations that a definitive failure would block."""
+        return [
+            f"{seq + 1} / {self.journal.sequences[seq].operations[pos].reference}"
+            for seq, pos in sorted(self.journal.blocked_positions(self.rules, preview=True))
+            if self.journal.sequences[seq].operations[pos].needs_work
+        ]
+
+    def _update_blocked(self) -> None:
+        positions = {
+            pos
+            for seq, pos in self.journal.blocked_positions(self.rules)
+            if seq == self.sequence
+        }
+        new = positions - self.blocked_positions
+        self.blocked_positions = positions
+        if new:
+            self.dependents_blocked.emit(
+                [self._operations[pos].reference for pos in sorted(new)]
+            )
+
+    @staticmethod
+    def _find_issue(
+        results: dict[str, InstallResult],
+    ) -> tuple[str, InstallResult, ComponentStatus] | None:
+        """Return (component_id, result, issue_type) or None; errors come first."""
+        warning = None
         for comp_id, result in results.items():
             if result.status == ComponentStatus.ERROR:
                 return comp_id, result, ComponentStatus.ERROR
-
             if result.status == ComponentStatus.WARNING and warning is None:
                 warning = (comp_id, result, ComponentStatus.WARNING)
-
         return warning
+
+    # ========================================
+    # WeiDU process
+    # ========================================
 
     def _install_batch(self, batch: list[ComponentInfo]) -> dict[str, InstallResult]:
         """Install a batch of components with real-time output."""
-        mod_id = batch[0].mod.id
-
-        # Get mod name for display
-        mod = self.mod_manager.get_mod_by_id(mod_id)
-        mod_name = mod.name if mod else mod_id
-
-        language = mod.get_language_index(self.languages_order)
-        extra_args = []
-
-        components_to_install = []
-        skipped_results = {}
-
+        already_installed = {}
+        to_install = []
         for comp in batch:
-            comp_id = f"{comp.mod.id}:{comp.component.key}"
-
-            if self.engine.is_component_installed(comp.mod.tp2, comp.component.key):
-                logger.info("Component %s already installed", comp_id)
-                skipped_results[comp_id] = InstallResult(
-                    status=ComponentStatus.ALREADY_INSTALLED,
-                    return_code=0,
-                    stdout="",
-                    stderr="",
-                    warnings=[],
-                    errors=[],
+            operation = self._operations[comp.sequence_idx]
+            reinstall = operation.decision == OperationDecision.RETRY
+            if not reinstall and self.engine.is_component_installed(*operation.weidu_identity):
+                logger.info("Component %s already installed", comp.comp_id)
+                confirmed = self.journal.previously_confirmed(self.sequence, comp.sequence_idx)
+                already_installed[comp.comp_id] = InstallResult(
+                    ComponentStatus.ALREADY_INSTALLED if confirmed else ComponentStatus.UNKNOWN,
+                    0,
+                    "",
+                    "",
+                    [],
+                    [],
                 )
-                self.component_finished.emit(comp_id, skipped_results[comp_id])
             else:
-                components_to_install.append(comp)
+                to_install.append(comp)
+        if not to_install:
+            return already_installed
 
-        if not components_to_install:
-            return skipped_results
+        first = to_install[0]
+        self._announce(first)
 
-        # Emit start signals
-        for comp in components_to_install:
-            comp_id = f"{comp.mod.id}:{comp.component.key}"
-            extra_args = comp.extra_args
-            self.component_started.emit(comp_id, mod_name)
+        def reached(index: int) -> None:
+            # The first component is announced before launch.
+            if 0 < index < len(to_install):
+                self._announce(to_install[index])
 
-        is_single = len(components_to_install) == 1
-
-        # Reset the stop flag before starting
-        self._was_stopped = False
-
-        if batch[0].component.comp_type == ComponentType.DWN:
+        positions = [comp.sequence_idx for comp in to_install]
+        callbacks = ProcessCallbacks(
+            # Persist the intent only once nothing can fail before WeiDU starts.
+            before_launch=lambda: self.journal.begin(self.sequence, positions),
+            output=self.output_received.emit,
+            component_reached=reached,
+            runner_created=self._on_runner_created,
+            runner_finished=self._on_runner_finished,
+            command_created=self._on_command_created,
+        )
+        if first.component.is_dwn():
             results = self.engine.install_no_weidu_components(
-                mod_id=batch[0].mod.id,
-                components=components_to_install,
-                language=language,
-                runner_factory=ProcessRunner,
-                output_callback=self.output_received.emit,
-                runner_created_callback=self._on_runner_created,
-                runner_finished_callback=self._on_runner_finished,
+                first.mod.id, to_install, ProcessRunner, callbacks
             )
-            pass
         else:
             results = self.engine.install_components(
-                tp2=batch[0].mod.tp2,
-                components=components_to_install,
-                language=language,
-                extra_args=extra_args,
-                input_lines=components_to_install[0].subcomponent_answers if is_single else [],
+                tp2=first.tp2_name,
+                components=to_install,
+                language=str(self._operations[first.sequence_idx].language),
+                extra_args=first.extra_args,
+                input_lines=first.subcomponent_answers if len(to_install) == 1 else [],
                 runner_factory=ProcessRunner,
-                output_callback=self.output_received.emit,
-                runner_created_callback=self._on_runner_created,
-                runner_finished_callback=self._on_runner_finished,
-                command_created_callback=self._on_command_created,
+                callbacks=callbacks,
             )
 
-        # If stopped, override all results to STOPPED status
-        if self._was_stopped:
-            logger.info("Installation was stopped, marking components as STOPPED")
-            for comp_id in results:
-                if results[comp_id].status not in [
-                    ComponentStatus.ALREADY_INSTALLED,
-                    ComponentStatus.SKIPPED,
-                ]:
-                    results[comp_id] = InstallResult(
-                        status=ComponentStatus.STOPPED,
-                        return_code=-1,
-                        stdout=results[comp_id].stdout,
-                        stderr=results[comp_id].stderr + "\n[Installation stopped by user]",
-                        warnings=[],
-                        errors=["Installation stopped by user"],
-                        debug_log=results[comp_id].debug_log,
-                    )
+        if self.is_stopped:
+            self._mark_interrupted(results)
+        return results | already_installed
 
+    def _announce(self, comp: ComponentInfo) -> None:
+        """Tell the interface which component WeiDU is installing."""
+        mod_name = comp.mod.name or comp.mod.id
+        self.component_started.emit(comp.comp_id, mod_name, comp.component.get_name())
+
+    @staticmethod
+    def _mark_interrupted(results: dict[str, InstallResult]) -> None:
+        """An unproven result after a stop request is an interruption."""
         for comp_id, result in results.items():
-            self.component_finished.emit(comp_id, result)
+            if result.status == ComponentStatus.UNKNOWN:
+                results[comp_id] = replace(result, status=ComponentStatus.STOPPED)
 
-        # Merge with skipped
-        results.update(skipped_results)
-        return results
+    # ========================================
+    # Control from the interface
+    # ========================================
 
-    def _wait_for_decision(self):
-        """Wait for user decision on error/warning."""
-        while not self.decision_ready and not self.is_stopped and not self.is_paused:
-            self.msleep(100)
-
-    def set_user_decision(self, decision: UserDecision):
+    def set_user_decision(self, decision: UserDecision) -> None:
         """Set user decision and resume."""
         self.user_decision = decision
         self.decision_ready = True
 
-    def pause(self):
+    def pause(self) -> None:
         """Request pause after current component finishes."""
         self.is_paused = True
         logger.info("Pause requested")
 
-    def resume(self):
+    def resume(self) -> None:
         """Resume from paused state."""
         self.is_paused = False
         logger.info("Resuming installation")
 
-    def stop(self):
-        """Stop installation."""
+    def stop(self) -> None:
+        """Stop after the current process; its stdin is closed to end any prompt."""
         self.is_stopped = True
-        self._was_stopped = True
-
-        # Stop current runner if active
         with self._runner_lock:
             if self._active_runner:
                 logger.info("Stopping active runner")
                 self._active_runner.stop()
+
+    def force_stop(self) -> None:
+        """Terminate the WeiDU process tree after an explicit confirmation."""
+        with self._runner_lock:
+            if self._active_runner:
+                self._active_runner.force_stop()
+
+    def has_live_process(self) -> bool:
+        """Whether a WeiDU process is still running."""
+        with self._runner_lock:
+            runner = self._active_runner
+            return bool(runner and runner.process and runner.process.poll() is None)
 
     def send_input(self, text: str) -> bool:
         """
@@ -595,11 +691,10 @@ class InstallationWorker(QThread):
         with self._runner_lock:
             if self._active_runner:
                 return self._active_runner.send_input(text)
-            else:
-                logger.warning("No active runner to send input to")
-                return False
+            logger.warning("No active runner to send input to")
+            return False
 
-    def update_pause_settings(self, pause_on_error: bool, pause_on_warning: bool):
+    def update_pause_settings(self, pause_on_error: bool, pause_on_warning: bool) -> None:
         """Update pause settings during execution."""
         self.pause_on_error = pause_on_error
         self.pause_on_warning = pause_on_warning
@@ -607,15 +702,17 @@ class InstallationWorker(QThread):
             f"Updated pause settings: error={pause_on_error}, warning={pause_on_warning}"
         )
 
-    def _on_command_created(self, command: str) -> None:
+    def _on_command_created(self, command: list[str]) -> None:
         self.command_created.emit(" ".join(command))
 
     def _on_runner_created(self, runner: ProcessRunner) -> None:
-        """Create a callback to capture the runner reference"""
+        """Keep the runner reachable for input and stop requests."""
+        runner.process_error.connect(self.diagnostic)
         with self._runner_lock:
             self._active_runner = runner
+            if self.is_stopped:
+                runner.stop()
 
     def _on_runner_finished(self) -> None:
-        """Create a callback to clear the runner reference"""
         with self._runner_lock:
             self._active_runner = None

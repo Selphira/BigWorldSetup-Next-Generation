@@ -41,7 +41,7 @@ class StructureValidator:
         """
         for pattern in StructureValidator.TP2_SEARCH_PATTERNS:
             tp2_path = Path(pattern.format(game_dir=game_dir, tp2=tp2_name))
-            if tp2_path.exists():
+            if tp2_path.is_file():
                 return True, tp2_path
 
         logger.warning(f"No valid TP2 found for mod '{tp2_name}' in {game_dir}")

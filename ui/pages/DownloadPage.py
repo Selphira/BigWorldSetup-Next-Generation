@@ -372,6 +372,7 @@ class DownloadPage(BasePage):
         # Core components
         self._verifier = ArchiveVerifier()
         self._download_manager = DownloadManager()
+        self._download_manager.setParent(self)
 
         # Archive tracking
         self._archives: dict[str, ArchiveInfo] = {}
@@ -863,7 +864,7 @@ class DownloadPage(BasePage):
         )
         self._verification_worker.error_occurred.connect(self._on_verification_error)
 
-        self._verification_worker.start()
+        self.start_task(self._verification_worker)
 
     def _on_verification_completed_with_progress(
         self, mod_id: str, status: ArchiveStatus
@@ -880,6 +881,8 @@ class DownloadPage(BasePage):
         self._is_verifying = False
         self._verification_worker = None
 
+        if self._closing:
+            return
         logger.info("Verification completed, starting downloads")
         self._start_downloads()
 
@@ -987,6 +990,8 @@ class DownloadPage(BasePage):
 
     def _show_final_summary(self) -> None:
         """Show comprehensive summary of download/verification results."""
+        if self._closing:
+            return
         # Count archives by status
         valid_count = 0
         warning_count = 0  # INVALID_HASH or INVALID_SIZE
@@ -1387,6 +1392,17 @@ class DownloadPage(BasePage):
 
         # Load archives (will preserve cache if path unchanged)
         self._load_archives()
+
+    def has_critical_task(self) -> bool:
+        """Verification and downloads are interrupted by a shutdown."""
+        return super().has_critical_task() or self._is_verifying or self._is_downloading
+
+    def request_shutdown(self) -> None:
+        """Cancel the verification and every queued or active download."""
+        super().request_shutdown()
+        if self._verification_worker:
+            self._verification_worker.cancel()
+        self._download_manager.cancel_all()
 
     def on_page_hidden(self) -> None:
         """Called when page becomes hidden."""

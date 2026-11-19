@@ -49,6 +49,8 @@ LCC_CACHE_DIR = CACHE_DIR / "lcc"
 
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
+INSTALLATION_JOURNAL_NAME = "installation-run.json"
+INSTALLATION_JOURNAL_FORMAT = 2
 
 # ============================================================================
 # TIMING & DELAYS (milliseconds)
@@ -56,6 +58,12 @@ EXTRACT_DIR = "bws-ng-extract"
 
 # Search debounce delay
 SEARCH_DEBOUNCE_DELAY = 300
+
+# Installation and shutdown
+PROCESS_STOP_GRACE_MS = 3000
+PROCESS_POLL_MS = 50
+WORKER_POLL_MS = 100
+SHUTDOWN_POLL_MS = 100
 
 # ============================================================================
 # COLORS
@@ -127,6 +135,12 @@ WINDOW_MIN_HEIGHT = 800
 RESOLUTION_PREVIEW_WIDTH = 720
 RESOLUTION_PREVIEW_MAX_VISIBLE_ROWS = 12
 
+# Installation decision dialogs listing WeiDU messages
+DECISION_DIALOG_MIN_WIDTH = 700
+DECISION_DETAILS_MIN_HEIGHT = 250
+# Progress bar text while no component is being installed
+PROGRESS_IDLE_FORMAT = "%p%"
+
 # Header & Footer heights
 HEADER_HEIGHT = 80
 FOOTER_HEIGHT = 70
@@ -178,6 +192,21 @@ FONT_SIZE_TITLE = 20
 # ============================================================================
 
 MAX_LUA_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+PROCESS_READ_CHUNK_SIZE = 4096
+
+# ============================================================================
+# WEIDU
+# ============================================================================
+
+# Exit code of a WeiDU run whose components installed with warnings
+WEIDU_EXIT_WARNINGS = 3
+# Distinct diagnostic lines kept for one component of a DEBUG file
+DEBUG_MESSAGES_LIMIT = 200
+WEIDU_SETUP_PREFIX = "setup-"
+# Generated installer registering download-only components in WeiDU.log
+DWN_TP2_PREFIX = "bws-dwn-"
+# The generated installer declares no LANGUAGE, so WeiDU uses index 0
+DWN_TP2_LANGUAGE = "0"
 
 # ============================================================================
 # INPUT LIMITS

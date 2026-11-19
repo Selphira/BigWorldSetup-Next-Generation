@@ -4,7 +4,7 @@ import hashlib
 import logging
 from pathlib import Path
 
-from PySide6.QtCore import QObject, Qt, QThread, Signal
+from PySide6.QtCore import QObject, Qt, QThread, Signal, Slot
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 
 logger = logging.getLogger(__name__)
@@ -274,6 +274,7 @@ class DownloadWorker(QObject):
     """
 
     # Signals
+    cancel_requested = Signal()
     progress = Signal(int, int, float)
     finished = Signal(str)
     error = Signal(str)
@@ -286,6 +287,7 @@ class DownloadWorker(QObject):
             download_path: Directory to save the file
         """
         super().__init__()
+        self.cancel_requested.connect(self.cancel, Qt.ConnectionType.QueuedConnection)
         self.archive_info = archive_info
         self.download_path = download_path
         self._network_manager: QNetworkAccessManager | None = None
@@ -333,6 +335,7 @@ class DownloadWorker(QObject):
 
         logger.info(f"Started download: {self.archive_info.filename}")
 
+    @Slot()
     def cancel(self) -> None:
         """Cancel the download and delete partial file."""
         if self._reply:
@@ -467,6 +470,7 @@ class DownloadManager(QObject):
         super().__init__()
         self.download_path: Path | None = None
 
+        self._cancelling: set[str] = set()
         self._active_downloads: dict[str, tuple[DownloadWorker, QThread, DownloadProgress]] = {}
         self._download_queue: list[ArchiveInfo] = []
 
@@ -507,25 +511,25 @@ class DownloadManager(QObject):
 
         self._start_download_worker(archive_info)
 
+    def cancel_all(self) -> None:
+        """Drop queued downloads and cancel the active ones."""
+        self._download_queue.clear()
+        for mod_id in list(self._active_downloads):
+            self.cancel_download(mod_id)
+
     def cancel_download(self, mod_id: str) -> None:
-        """Cancel an active download.
+        """Cancel an active download inside its own thread.
+
+        The worker reports the cancellation through its error signal, which
+        is then emitted as `download_canceled`.
 
         Args:
             mod_id: Mod identifier
         """
-        try:
-            if mod_id in self._active_downloads:
-                worker, thread, _ = self._active_downloads[mod_id]
-                worker.cancel()
-                del self._active_downloads[mod_id]
-                thread.quit()
-                logger.info(f"Cancelled download: {mod_id}")
-
-                self.download_canceled.emit(mod_id)
-                self.queue_changed.emit()
-                self._process_queue()
-        except Exception as e:
-            logger.error(f"Error cancelling download: {e}", exc_info=True)
+        if mod_id in self._active_downloads:
+            self._cancelling.add(mod_id)
+            worker, _, _ = self._active_downloads[mod_id]
+            worker.cancel_requested.emit()
 
     def get_active_downloads(self) -> list[DownloadProgress]:
         """Get list of active downloads.
@@ -558,18 +562,9 @@ class DownloadManager(QObject):
 
             mod_id = archive_info.mod_id
 
-            worker.progress.connect(
-                lambda br, bt, s, mid=mod_id: self._on_worker_progress(mid, br, bt, s),
-                Qt.ConnectionType.QueuedConnection,
-            )
-            worker.finished.connect(
-                lambda fp, mid=mod_id: self._on_worker_finished(mid, fp),
-                Qt.ConnectionType.QueuedConnection,
-            )
-            worker.error.connect(
-                lambda e, mid=mod_id: self._on_worker_error(mid, e),
-                Qt.ConnectionType.QueuedConnection,
-            )
+            worker.progress.connect(self._on_worker_progress, Qt.ConnectionType.QueuedConnection)
+            worker.finished.connect(self._on_worker_finished, Qt.ConnectionType.QueuedConnection)
+            worker.error.connect(self._on_worker_error, Qt.ConnectionType.QueuedConnection)
 
             thread.started.connect(worker.start_download)
             thread.finished.connect(thread.deleteLater)
@@ -587,17 +582,18 @@ class DownloadManager(QObject):
             logger.error(f"Failed to start download worker: {e}", exc_info=True)
             self.download_error.emit(archive_info.mod_id, str(e))
 
+    @Slot(int, int, float)
     def _on_worker_progress(
-        self, mod_id: str, bytes_received: int, bytes_total: int, speed_bps: float
+        self, bytes_received: int, bytes_total: int, speed_bps: float
     ) -> None:
         """Handle worker progress update.
 
         Args:
-            mod_id: Mod identifier
             bytes_received: Bytes downloaded
             bytes_total: Total bytes
             speed_bps: Download speed
         """
+        mod_id = self.sender().archive_info.mod_id
         try:
             if mod_id in self._active_downloads:
                 _, _, progress = self._active_downloads[mod_id]
@@ -608,13 +604,14 @@ class DownloadManager(QObject):
         except Exception as e:
             logger.error(f"Error in progress handler: {e}", exc_info=True)
 
-    def _on_worker_finished(self, mod_id: str, file_path: str) -> None:
+    @Slot(str)
+    def _on_worker_finished(self, file_path: str) -> None:
         """Handle worker completion.
 
         Args:
-            mod_id: Mod identifier
             file_path: Path to downloaded file
         """
+        mod_id = self.sender().archive_info.mod_id
         try:
             logger.debug(f"Worker finished for {mod_id}")
 
@@ -624,6 +621,7 @@ class DownloadManager(QObject):
                 thread.quit()
                 logger.info(f"Download completed: {mod_id}")
 
+            self._cancelling.discard(mod_id)
             self.download_finished.emit(mod_id)
             self.queue_changed.emit()
             self._process_queue()
@@ -632,13 +630,14 @@ class DownloadManager(QObject):
         except Exception as e:
             logger.error(f"Error in finished handler: {e}", exc_info=True)
 
-    def _on_worker_error(self, mod_id: str, error_message: str) -> None:
+    @Slot(str)
+    def _on_worker_error(self, error_message: str) -> None:
         """Handle worker error.
 
         Args:
-            mod_id: Mod identifier
             error_message: Error description
         """
+        mod_id = self.sender().archive_info.mod_id
         try:
             logger.debug(f"Worker error for {mod_id}: {error_message}")
 
@@ -648,7 +647,11 @@ class DownloadManager(QObject):
                 thread.quit()
                 logger.error(f"Download failed: {mod_id}")
 
-            self.download_error.emit(mod_id, error_message)
+            if mod_id in self._cancelling:
+                self._cancelling.remove(mod_id)
+                self.download_canceled.emit(mod_id)
+            else:
+                self.download_error.emit(mod_id, error_message)
             self.queue_changed.emit()
             self._process_queue()
             self._check_completion()

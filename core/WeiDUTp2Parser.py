@@ -233,6 +233,14 @@ class WeiDUTp2:
     translations: dict[str, dict[str, str]] = field(default_factory=dict)
     component_translations: dict[str, dict[str, str]] = field(default_factory=dict)
 
+    def unlogged_components(self) -> set[str]:
+        """Identify installable component numbers explicitly excluded from WeiDU.log."""
+        return {
+            item.designated for component in self.components
+            for item in (component.components if isinstance(component, MucComponent) else [component])
+            if item.metadata.get("no_log_record")
+        }
+
     def get_translation(self, designated: str, language_code: str) -> str | None:
         """Retrieve translation for a component in a specific language."""
         return self.component_translations.get(language_code, {}).get(designated)
@@ -342,6 +350,7 @@ class GamePredicateParser:
 
         if token.type in (
             TokenType.BEGIN,
+            TokenType.NO_LOG_RECORD,
             TokenType.DESIGNATED,
             TokenType.SUBCOMPONENT,
             TokenType.FORCED_SUBCOMPONENT,
@@ -360,6 +369,7 @@ class GamePredicateParser:
                 break
             if t.type in (
                 TokenType.BEGIN,
+                TokenType.NO_LOG_RECORD,
                 TokenType.DESIGNATED,
                 TokenType.SUBCOMPONENT,
                 TokenType.FORCED_SUBCOMPONENT,
@@ -431,6 +441,7 @@ class TokenType(Enum):
     BEGIN = auto()
     COPY_EXISTING = auto()
     DEPRECATED = auto()
+    NO_LOG_RECORD = auto()
     DESIGNATED = auto()
     FORCED_SUBCOMPONENT = auto()
     GAME_INCLUDES = auto()
@@ -475,6 +486,7 @@ class Tokenizer:
         "BEGIN": TokenType.BEGIN,
         "COPY_EXISTING": TokenType.COPY_EXISTING,
         "DEPRECATED": TokenType.DEPRECATED,
+        "NO_LOG_RECORD": TokenType.NO_LOG_RECORD,
         "DESIGNATED": TokenType.DESIGNATED,
         "FORCED_SUBCOMPONENT": TokenType.FORCED_SUBCOMPONENT,
         "GAME_INCLUDES": TokenType.GAME_INCLUDES,
@@ -832,10 +844,15 @@ class ComponentParser:
             "metadata": {},
         }
 
+        in_header = True
         i = 0
         while i < len(tokens):
             token = tokens[i]
 
+            if token.type == TokenType.IDENTIFIER and token.value.upper() not in (
+                "INSTALL_BY_DEFAULT", "DEFAULT", "SUBCOMPONENT", "FORCED_SUBCOMPONENT",
+            ):
+                in_header = False
             if token.type == TokenType.BEGIN:
                 i += 1
                 if i < len(tokens):
@@ -844,6 +861,9 @@ class ComponentParser:
                         component["text_ref"] = next_token.value
                     elif next_token.type == TokenType.STRING_LITERAL:
                         component["text"] = next_token.value
+
+            elif in_header and token.type == TokenType.NO_LOG_RECORD:
+                component["metadata"]["no_log_record"] = True
 
             elif token.type == TokenType.DESIGNATED:
                 i += 1
@@ -1129,6 +1149,7 @@ class WeiDUTp2Parser:
                     text_ref=component_data["text_ref"],
                     text=component_data["text"],
                     games=component_data["games"],
+                    metadata=component_data["metadata"],
                 )
 
                 if component_data["subcomponent_ref"] or component_data["subcomponent_text"]:

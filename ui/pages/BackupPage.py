@@ -547,7 +547,7 @@ class BackupPage(BasePage):
                 size, is_modded, selected_code, game.name, game_path
             )
         )
-        calculator.start()
+        self.start_task(calculator, critical=False)
 
         self._worker = calculator
 
@@ -588,6 +588,8 @@ class BackupPage(BasePage):
         self._is_operating = False
         self._update_navigation_buttons()
 
+        if self._closing:
+            return
         backup_size = int(backup_size)
 
         if backup_size == 0:
@@ -647,7 +649,7 @@ class BackupPage(BasePage):
         self._worker.started.connect(self._on_operation_started)
         self._worker.progress.connect(self._on_backup_progress)
         self._worker.completed.connect(self._on_backup_created)
-        self._worker.start()
+        self.start_task(self._worker)
 
         logger.info(f"Starting backup creation for {game_code}")
 
@@ -725,7 +727,7 @@ class BackupPage(BasePage):
         self._worker.started.connect(self._on_operation_started)
         self._worker.progress.connect(self._on_backup_progress)
         self._worker.completed.connect(self._on_backup_restored)
-        self._worker.start()
+        self.start_task(self._worker)
 
         logger.info(f"Starting backup restoration: {backup_id}")
 
@@ -838,13 +840,16 @@ class BackupPage(BasePage):
         self._progress_bar.setRange(0, 0)
         self._worker = BackupValidationWorker(self._backup_manager, backup_id)
         self._worker.completed.connect(self._on_backup_validated)
-        self._worker.start()
+        self.start_task(self._worker)
 
     def _on_backup_validated(self, is_valid: bool, error: str) -> None:
         self._is_operating = False
         self._progress_bar.setVisible(False)
         self._update_navigation_buttons()
 
+        self._worker = None
+        if self._closing:
+            return
         if is_valid:
             QMessageBox.information(
                 self,
@@ -951,6 +956,8 @@ class BackupPage(BasePage):
         self._progress_bar.setVisible(False)
         self._update_navigation_buttons()
 
+        if self._closing:
+            return
         if success:
             self._load_backups()
             QMessageBox.information(self, tr("page.backup.success_title"), message)
@@ -972,6 +979,8 @@ class BackupPage(BasePage):
         self._progress_bar.setVisible(False)
         self._update_navigation_buttons()
 
+        if self._closing:
+            return
         if success:
             if removed_dir and removed_dir.exists():
                 response = QMessageBox.question(
@@ -1062,9 +1071,6 @@ class BackupPage(BasePage):
     def on_page_hidden(self) -> None:
         """Called when page becomes hidden."""
         super().on_page_hidden()
-
-        if self._worker and self._worker.isRunning():
-            self._worker.wait()
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""

@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 import logging
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QThread, Signal
 from PySide6.QtWidgets import QFrame, QLabel, QPushButton, QWidget
 
 from constants import COLOR_BACKGROUND_ACCENTED
@@ -61,9 +61,41 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         super().__init__()
         self.state_manager = state_manager
+        self._closing = False
+        self._critical_tasks: set[QThread] = set()
         self.widgets_created = False
 
         logger.debug(f"Page initialized: {self.__class__.__name__}")
+
+    # ========================================
+    # TASKS AND SHUTDOWN
+    # ========================================
+
+    def start_task(self, thread: QThread, critical: bool = True) -> None:
+        """Keep a task owned by its page until the thread has actually exited.
+
+        Args:
+            thread: Task to start
+            critical: Whether closing the application must be confirmed while it runs
+        """
+        thread.setParent(self)
+        if critical:
+            self._critical_tasks.add(thread)
+            thread.finished.connect(lambda: self._critical_tasks.discard(thread))
+        thread.finished.connect(thread.deleteLater)
+        thread.start()
+
+    def has_critical_task(self) -> bool:
+        """Whether quitting now would interrupt work the user should know about."""
+        return any(task.isRunning() for task in self._critical_tasks)
+
+    def request_shutdown(self) -> None:
+        """Allow an in-flight filesystem operation to reach a safe boundary."""
+        self._closing = True
+
+    def cancel_shutdown(self) -> None:
+        """Resume normal behavior after an aborted application shutdown."""
+        self._closing = False
 
     @staticmethod
     def _create_section_title() -> QLabel:

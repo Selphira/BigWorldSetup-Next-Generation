@@ -7,6 +7,8 @@
     ]
   },
   "app": {
+    "close_tasks": "Une tâche est en cours. Demander son arrêt et quitter dès que les écritures sont terminées ? Choisissez Non pour continuer la tâche.",
+    "close_title": "Quitter l’application",
     "subtitle": "Gestionnaire d'installation de mods pour les jeux Infinity Engine",
     "step": "Étape {current} sur {total}",
     "error": "Erreur",
@@ -443,6 +445,17 @@
       "context_edit": "Modifier le nom et les notes"
     },
     "installation": {
+      "active_run": "Une autre installation utilise déjà ce journal.",
+      "unverified_files": "Le déploiement des fichiers de ce composant sans WeiDU ne peut pas être vérifié.",
+      "log_present": "présent",
+      "log_absent": "absent",
+      "evidence": "Code retour {code}. DEBUG : {debug}. Composant dans WeiDU.log : {log}.",
+      "blocked_preview": "Si vous continuez, ces composants seront bloqués :\n{components}",
+      "force_stop": "WeiDU est toujours actif. Forcer son arrêt et celui de ses processus enfants ? Une restauration peut être nécessaire.",
+      "recovery": "Exécution suspendue. Vérifiez le journal et le dossier du jeu avant de reprendre. Si leur état est incertain, restaurez une sauvegarde vérifiée. Détail : {detail}",
+      "incomplete": "Installation incomplète",
+      "warnings": "Installation terminée avec avertissements",
+      "complete": "Installation terminée",
       "title": "Installation des mods",
       "stats": {
         "success": "{count} réussites",
@@ -451,21 +464,24 @@
         "skipped": "{count} ignorés"
       },
       "status": {
-        "installing": "Installation en cours",
+        "blocked": "Bloqué par un prérequis",
+        "unknown": "Résultat indéterminé",
         "success": "Installation réussie",
         "warning": "Installation réussie avec avertissements",
         "error": "Installation échouée",
         "skipped": "Ignoré",
         "already_installed": "Déjà installé",
-        "stopped": "Installation arrêtée"
+        "stopped": "Installation arrêtée",
+        "pending": "En attente",
+        "running": "Lancé, fin non confirmée"
       },
       "sequence": {
         "started": "SÉQUENCE {current}/{total}",
         "folder": "Dossier : {folder}",
-        "complete": "Séquence {sequence} terminée avec succès"
+        "complete": "Fin de la séquence {sequence}"
       },
       "summary": {
-        "title": "Installation terminée",
+        "title": "Bilan de l’installation",
         "message": "Installation terminée ! Bon jeu à vous !",
         "no_data": "Aucune donnée d'installation disponible.",
         "new_title": "NOUVELLE INSTALLATION",
@@ -501,9 +517,9 @@
       "cancel_message": "Voulez-vous vraiment annuler l'installation ?\n\nCette action est définitive. L'installation sera abandonnée et vous retournerez à la première étape.",
       "cancel_confirmed": "Installation annulée",
       "stop_title": "Arrêter l'installation",
-      "stop_message": "Voulez-vous arrêter temporairement l'installation ?\n\nVous pourrez la reprendre plus tard, sans perdre votre progression.",
+      "stop_message": "Arrêter l’installation après le traitement en cours ?\n\nWeiDU reçoit une demande d’arrêt et termine son travail. Si un composant est interrompu en pleine installation, vous devrez indiquer son état à la reprise.",
       "stopped_title": "Installation arrêtée",
-      "stopped_message": "L'installation a été arrêtée au lot n° {index}.\n\nVous pourrez reprendre l'installation lors du prochain lancement.",
+      "stopped_message": "Installation suspendue au lot {index}. Le journal sera vérifié à la reprise.",
       "lbl_log": "Logs d'installation",
       "btn_start": "Démarrer l'installation",
       "btn_stop": "Arrêter",
@@ -522,7 +538,31 @@
       "pause_on_error": "Pause lors d'une erreur",
       "pause_on_error_tooltip": "Mettre l'installation en pause lorsqu'une erreur est détectée.",
       "paused": "Installation en pause",
-      "paused_with_description": "Installation en pause : {description}"
+      "paused_with_description": "Installation en pause : {description}",
+      "divergence": {
+        "folder": "Le dossier {folder} n’est plus celui de l’installation en cours : il a été remplacé, restauré ou déplacé. La reprise est impossible. Annulez l’installation, puis relancez-la sur une base vérifiée.",
+        "folder_missing": "Le dossier {folder} est introuvable. Rebranchez le disque ou rétablissez le dossier avant de reprendre."
+      },
+      "debug_locked": "Le fichier {file} est verrouillé : WeiDU ne peut pas être lancé sans isoler son journal DEBUG. Fermez le programme qui l’utilise, puis réessayez. Détail : {error}",
+      "process_not_started": "WeiDU n’a pas pu démarrer.",
+      "invalid_mod_id": "Le mod {mod} ne peut pas être enregistré automatiquement : son identifiant ou ses numéros de composants ne sont pas valides.",
+      "missing_component": "Le composant {reference} du plan enregistré n’existe plus dans le catalogue.",
+      "debug_not_reached": "composant non atteint",
+      "undetermined": "Résultat indéterminé pour : {components}. L’installation est suspendue. Vérifiez ces composants ; à la reprise, vous indiquerez s’ils sont installés, à réessayer ou en échec.",
+      "decision_title": "État d’un composant à confirmer",
+      "decision_message": "L’installation de {component} n’a pas de résultat établi. Vérifiez le jeu, le DEBUG et WeiDU.log, puis indiquez ce qu’il faut en retenir. En cas de doute, restaurez une sauvegarde vérifiée.",
+      "decision_installed": "Considérer comme installé",
+      "decision_retry": "Réinstaller",
+      "decision_failed": "Considérer comme en échec",
+      "log_now": "Composant dans WeiDU.log actuellement : {log}.",
+      "journal_unreadable_title": "Journal d’installation illisible",
+      "journal_unreadable": "Le journal d’installation ({path}) est illisible : {error}\n\nLe mettre de côté pour pouvoir démarrer une nouvelle installation ? Le fichier sera renommé, pas supprimé.",
+      "journal_set_aside": "Journal illisible mis de côté : {path}",
+      "catalogue_changed": "Le catalogue a changé depuis le lancement pour : {components}. Le plan enregistré est conservé.",
+      "catalogue_restructured": "le plan calculé avec le catalogue actuel ne correspond plus au plan enregistré",
+      "log_reopened": "WeiDU.log ne mentionne plus ces composants installés : {components}. Leur état doit être confirmé.",
+      "log_unexpected": "WeiDU.log contient des entrées étrangères à ce plan :\n{entries}",
+      "warning_no_details": "WeiDU signale des avertissements sans les détailler. Consultez {file} dans le dossier du jeu."
     }
   },
   "backup_manager": {
@@ -547,7 +587,8 @@
       "integrity_mismatch": "Le contenu ne correspond pas au manifeste. La restauration ne peut pas être validée.",
       "different_target": "Cet instantané appartient à un autre dossier de jeu. Restaurez-le à son emplacement d’origine.",
       "legacy_backup": "Cette ancienne sauvegarde sélective ne possède pas de manifeste vérifié. Créez un nouvel instantané complet avant de restaurer.",
-      "recovery_available": "Les fichiers de secours et le journal de restauration sont conservés ici : {path}"
+      "original_move_denied": "Le déplacement du dossier de jeu a été refusé. Le jeu est toujours à son emplacement initial ({game}). Fermez le jeu et les logiciels qui utilisent ce dossier, puis réessayez. Si le problème persiste, vérifiez les droits de déplacement. Détail Windows ou système : {error}",
+      "recovery_available": "Dossier de travail conservé : {path}"
     },
     "progress": {
       "analyzing_files": "Analyse des fichiers...",
