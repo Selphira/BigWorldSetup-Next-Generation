@@ -241,22 +241,6 @@ class WeiDUTp2:
             if item.metadata.get("no_log_record")
         }
 
-    def get_translation(self, designated: str, language_code: str) -> str | None:
-        """Retrieve translation for a component in a specific language."""
-        return self.component_translations.get(language_code, {}).get(designated)
-
-    def get_all_translations_for_language(self, language_code: str) -> dict[str, str]:
-        """Retrieve all translations for a given language."""
-        return self.component_translations.get(language_code, {})
-
-    def get_language_by_code(self, language_code: str) -> LanguageDeclaration | None:
-        """Find language declaration by code."""
-        normalized_code = normalize_language_code(language_code)
-        for lang in self.languages:
-            if lang.language_code == normalized_code:
-                return lang
-        return None
-
 
 class GamePredicateParser:
     """Parser for GAME_IS and GAME_INCLUDES."""

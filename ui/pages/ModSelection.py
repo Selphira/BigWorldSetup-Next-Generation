@@ -93,10 +93,6 @@ class HighlightDelegate(QStyledItemDelegate):
         """Set text to highlight."""
         self._search_text = text.lower().strip()
 
-    def get_search_text(self) -> str:
-        """Get current search text."""
-        return self._search_text
-
     # ========================================
     # Tooltip Support
     # ========================================

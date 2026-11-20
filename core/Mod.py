@@ -122,10 +122,6 @@ class MucComponent(Component):
         """Get translated text for an option."""
         return self._option_texts.get(option_key, "")
 
-    def get_options(self) -> list[str]:
-        """Return all option keys (returns reference, do not modify)."""
-        return self.options
-
     def has_option(self, option_key: str) -> bool:
         """Check if an option exists."""
         return option_key in self.options
@@ -174,10 +170,6 @@ class SubComponent(Component):
         """Get translated text for a prompt option."""
         cache_key = f"{prompt_key}.{option}"
         return self._prompt_texts.get(cache_key, "")
-
-    def has_prompt(self, prompt_key: str) -> bool:
-        """Check if a prompt exists."""
-        return prompt_key in self.prompts
 
 
 @dataclass(frozen=True, slots=True)
@@ -301,10 +293,6 @@ class Mod:
             if file.supports_platform(platform):
                 return file
         return None
-
-    def get_all_files_for_platform(self, platform: str) -> list[ModFile]:
-        """Get all compatible files for the given platform."""
-        return [f for f in self.files if f.supports_platform(platform)]
 
     def has_file(self) -> bool:
         """Check if mod has at least one file."""
@@ -604,14 +592,6 @@ class Mod:
         """
         return self._translations.get(key, "")
 
-    def has_component(self, key: str) -> bool:
-        """Check if a component exists."""
-        return key in self._components_raw
-
-    def get_component_keys(self) -> list[str]:
-        """Return all component keys."""
-        return list(self._components_raw.keys())
-
     def get_components(self) -> list[Component]:
         """
         Return all components (instantiates those not yet cached).
@@ -620,10 +600,6 @@ class Mod:
             List of all components
         """
         return [self.get_component(key) for key in self._components_raw.keys()]
-
-    def has_category(self, category: str) -> bool:
-        """Check if mod belongs to a category."""
-        return category in self.categories
 
     def supports_game(self, game: str) -> bool:
         """Check if mod supports a game."""

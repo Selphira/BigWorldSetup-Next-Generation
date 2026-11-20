@@ -567,15 +567,6 @@ class ModManager(QObject):
         """
         return Counter(game for mod in self.mods_data.values() for game in mod.games)
 
-    def get_stats(self) -> dict[str, Any]:
-        """Return statistics about loaded mods."""
-        return {
-            "total_mods": len(self.mods_data),
-            "categories": self.get_count_by_categories(),
-            "games": self.get_count_by_games(),
-            "languages": self.get_count_by_languages(),
-        }
-
     # ========================================
     # ADD CUSTOM MOD
     # ========================================

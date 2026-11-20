@@ -33,11 +33,6 @@ def get_supported_languages() -> list[tuple[str, str]]:
     return list(SUPPORTED_LANGUAGES)
 
 
-def get_supported_language_codes() -> list[str]:
-    """Return list of all supported language codes."""
-    return [code for code, _ in SUPPORTED_LANGUAGES]
-
-
 class TranslationManager(QObject):
     """
     Manages application translations with automatic fallback support.
@@ -279,21 +274,6 @@ class TranslationManager(QObject):
 
         self._app.installTranslator(self._qt_translator)
         self._app.installTranslator(self._app_translator)
-
-    def get_cache_info(self) -> dict[str, Any]:
-        """
-        Get information about translation cache.
-
-        Returns:
-            Dictionary with cache statistics
-        """
-        cache_info = self._get_cached_translation.cache_info()
-        return {
-            "hits": cache_info.hits,
-            "misses": cache_info.misses,
-            "size": cache_info.currsize,
-            "maxsize": cache_info.maxsize,
-        }
 
 
 # Singleton pattern (thread-safe)

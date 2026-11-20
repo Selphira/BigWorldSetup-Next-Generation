@@ -29,11 +29,6 @@ class PauseEntry:
         return component_id, ""
 
     @staticmethod
-    def extract_id(pause_string: str) -> str:
-        pause_id, _ = PauseEntry.parse(pause_string)
-        return pause_id.split(":", 1)[1] if ":" in pause_id else ""
-
-    @staticmethod
     def reset_counter() -> None:
         PauseEntry._counter = 0
 

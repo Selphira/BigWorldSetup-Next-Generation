@@ -68,26 +68,6 @@ class CategoryEnum(Enum):
         return cls.ALL
 
     @classmethod
-    def from_value(cls, value: str) -> "CategoryEnum":
-        """
-        Get category from its value string.
-
-        Args:
-            value: Category value (e.g., 'spell')
-
-        Returns:
-            CategoryEnum instance
-
-        Raises:
-            ValueError: If value not found
-        """
-        for category in cls:
-            if category.value == value:
-                return category
-
-        raise ValueError(tr("error.unknown_category", category=value))
-
-    @classmethod
     def get_display_name(cls, category: "CategoryEnum") -> str:
         """
         Get translated display name for a category.
@@ -99,15 +79,6 @@ class CategoryEnum(Enum):
             Translated category name
         """
         return tr(f"category.{category.value}")
-
-    def get_icon_text(self) -> str:
-        """
-        Get category as icon + text.
-
-        Returns:
-            Formatted string with icon and translated name
-        """
-        return f"{self.icon} {self.get_display_name(self)}"
 
     def __repr__(self) -> str:
         """Developer representation."""

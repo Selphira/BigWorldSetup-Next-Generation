@@ -116,23 +116,6 @@ class ComponentReference:
     # Type Detection
     # ========================================
 
-    @property
-    def reference_type(self) -> ReferenceType:
-        """Detect reference type."""
-        if self.is_mod():
-            return ReferenceType.MOD
-
-        if self.is_muc():
-            return ReferenceType.MUC
-
-        if self.is_sub():
-            return ReferenceType.SUB_PROMPT
-
-        if self.is_sub_option():
-            return ReferenceType.SUB_OPTION
-
-        return ReferenceType.COMPONENT
-
     def is_mod(self) -> bool:
         """Check if this is a mod reference."""
         return self.comp_key == "*"
@@ -287,14 +270,6 @@ class ReferenceIndexes:
 
         return None
 
-    def resolve_by_string(self, reference_str: str) -> Mod | Component | None:
-        """Resolve reference string to object."""
-        try:
-            reference = ComponentReference.from_string(reference_str)
-            return self.resolve(reference)
-        except ValueError:
-            return None
-
     # ========================================
     # Tree Item Index
     # ========================================
@@ -306,10 +281,6 @@ class ReferenceIndexes:
     def get_tree_item(self, reference: ComponentReference) -> Any:
         """Get tree item by reference."""
         return self.tree_item_index.get(reference)
-
-    def remove_tree_item(self, reference: ComponentReference) -> None:
-        """Remove tree item from index."""
-        self.tree_item_index.pop(reference, None)
 
     # ========================================
     # Selection Index
@@ -326,10 +297,6 @@ class ReferenceIndexes:
     def is_selected(self, reference: ComponentReference) -> bool:
         """Check if reference is selected."""
         return reference in self.selection_index
-
-    def get_selected_references(self) -> set[ComponentReference]:
-        """Get all selected references."""
-        return self.selection_index.copy()
 
     def get_selected_components(self) -> list[ComponentReference]:
         """Get only installable components.
@@ -383,10 +350,6 @@ class ReferenceIndexes:
     def get_order_violations(self, reference: ComponentReference) -> list[Any]:
         """Get order violations for a reference."""
         return self.order_violation_index.get(reference, [])
-
-    def has_order_violations(self, reference: ComponentReference) -> bool:
-        """Check if reference has order violations."""
-        return bool(self.order_violation_index.get(reference))
 
     def clear_order_violations(self) -> None:
         """Clear all order violations."""
@@ -451,14 +414,6 @@ class ReferenceIndexes:
         """
         return self.children_index.get(reference, [])
 
-    def has_children(self, reference: ComponentReference) -> bool:
-        """Check if reference has children."""
-        return reference in self.children_index
-
-    def is_child(self, reference: ComponentReference) -> bool:
-        """Check if reference is a child (has a parent)."""
-        return reference in self.parent_index
-
     def get_siblings(self, reference: ComponentReference) -> list[ComponentReference]:
         """Get sibling references (other children of same parent).
 
@@ -478,11 +433,6 @@ class ReferenceIndexes:
     # ========================================
     # Utilities
     # ========================================
-
-    def get_references_by_mod(self, mod_id: str) -> list[ComponentReference]:
-        """Get all references for a specific mod."""
-        mod_id_lower = mod_id.lower()
-        return [ref for ref in self.mod_component_index.keys() if ref.mod_id == mod_id_lower]
 
     def clear_all(self) -> None:
         """Clear all indexes."""

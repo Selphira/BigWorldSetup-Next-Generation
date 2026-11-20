@@ -57,26 +57,6 @@ class VisibilityStats:
     total_visible: int
     checked_count: int
 
-    @property
-    def has_visible_children(self) -> bool:
-        """Check if there are any visible children."""
-        return self.total_visible > 0
-
-    @property
-    def all_checked(self) -> bool:
-        """Check if all visible children are checked."""
-        return 0 < self.total_visible == self.checked_count
-
-    @property
-    def none_checked(self) -> bool:
-        """Check if no visible children are checked."""
-        return self.checked_count == 0
-
-    @property
-    def partially_checked(self) -> bool:
-        """Check if some but not all visible children are checked."""
-        return 0 < self.checked_count < self.total_visible
-
 
 @dataclass(frozen=True)
 class StatusConfig:
@@ -257,10 +237,6 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         self._show_selection_only = show
         self._clear_cache()
         self.invalidateFilter()
-
-    def get_show_violations_only(self) -> bool:
-        """Get violations filter state."""
-        return self._show_violations_only
 
     def set_filter_criteria(self, criteria: FilterCriteria) -> None:
         """Set all filter criteria at once."""
@@ -862,10 +838,6 @@ class ComponentSelector(QTreeView):
     # Statistics
     # ========================================
 
-    def get_filtered_mod_count(self) -> int:
-        """Get number of visible mods after filtering."""
-        return self._proxy_model.rowCount()
-
     def get_filtered_mod_count_by_category(self) -> dict[str, int]:
         """Get mod count per category with current filters applied.
 
@@ -950,10 +922,6 @@ class ComponentSelector(QTreeView):
             languages=languages or set(),
         )
         self._proxy_model.set_filter_criteria(criteria)
-
-    def clear_filters(self) -> None:
-        """Clear all filters."""
-        self._proxy_model.clear_all_filters()
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""

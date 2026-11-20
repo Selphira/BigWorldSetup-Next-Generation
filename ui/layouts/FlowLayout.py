@@ -226,11 +226,3 @@ class FlowLayout(QLayout):
             item = self.takeAt(0)
             if item and item.widget():
                 item.widget().setParent(None)
-
-    def get_items(self) -> list[QLayoutItem]:
-        """Get a copy of all layout items.
-
-        Returns:
-            List of all layout items
-        """
-        return self._item_list.copy()

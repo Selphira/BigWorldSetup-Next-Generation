@@ -456,35 +456,6 @@ class RuleViolation:
 
         return ref1 == ref2
 
-    def _get_violating_refs(
-        self,
-        for_reference: ComponentReference,
-        other_refs: list[ComponentReference],
-        constraint_type: str,  # "before" or "after"
-        current_order: list[ComponentReference],
-    ) -> list[ComponentReference]:
-        """Get list of references that violate the order constraint."""
-        ref_position = self._get_reference_position(for_reference, current_order)
-        if ref_position is None:
-            return []
-
-        violating = []
-
-        for other_ref in other_refs:
-            other_position = self._get_reference_position(other_ref, current_order)
-
-            if other_position is None:
-                continue
-
-            if constraint_type == "before":
-                if ref_position > other_position:
-                    violating.append(other_ref)
-            else:  # "after"
-                if ref_position < other_position:
-                    violating.append(other_ref)
-
-        return violating
-
     @staticmethod
     def _get_reference_position(
         reference: ComponentReference, order_list: list[ComponentReference]
@@ -539,10 +510,6 @@ class ValidationCache:
     def get_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached violations for a component."""
         return self.violations_by_component.get(reference, [])
-
-    def has_violations(self, reference: ComponentReference) -> bool:
-        """Check if component has any violations."""
-        return bool(self.get_violations(reference))
 
     def get_icon(self, reference: ComponentReference) -> str:
         """Get warning icon if component has violations."""

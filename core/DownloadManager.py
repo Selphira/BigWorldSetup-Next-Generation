@@ -72,29 +72,6 @@ class ArchiveStatus(str, Enum):
             ArchiveStatus.MISMATCH_ACCEPTED,
         )
 
-    @property
-    def needs_download(self) -> bool:
-        """Check if archive needs to be downloaded.
-
-        Returns:
-            True if status is MISSING, INVALID_HASH, INVALID_SIZE or ERROR
-        """
-        return self in (
-            ArchiveStatus.MISSING,
-            ArchiveStatus.INVALID_HASH,
-            ArchiveStatus.INVALID_SIZE,
-            ArchiveStatus.ERROR,
-        )
-
-    @property
-    def is_downloading(self) -> bool:
-        """Check if download is in progress.
-
-        Returns:
-            True if status is DOWNLOADING
-        """
-        return self == ArchiveStatus.DOWNLOADING
-
 
 class HashAlgorithm(str, Enum):
     """Supported hash algorithms for verification.
@@ -183,15 +160,6 @@ class DownloadProgress:
         return remaining_bytes / self.speed_bps
 
     @property
-    def speed_mbps(self) -> float:
-        """Get download speed in MB/s.
-
-        Returns:
-            Speed in megabytes per second
-        """
-        return self.speed_bps / (1024 * 1024)
-
-    @property
     def has_error(self) -> bool:
         """Check if download has an error.
 
@@ -222,41 +190,6 @@ class ArchiveVerifier:
             HashAlgorithm.SHA1: hashlib.sha1,
             HashAlgorithm.SHA256: hashlib.sha256,
         }
-
-    def verify_archive(self, file_path: Path, info: ArchiveInfo) -> ArchiveStatus:
-        """Verify archive integrity by comparing hashes.
-
-        Args:
-            file_path: Path to archive file
-            info: ArchiveInfo to use
-
-        Returns:
-            ArchiveStatus
-        """
-        if not file_path.exists():
-            return ArchiveStatus.MISSING
-
-        try:
-            if info.file_size > 0:
-                actual_size = file_path.stat().st_size
-                if actual_size != info.file_size:
-                    logger.warning(
-                        f"Invalid size for {file_path}: {actual_size} (Expected: {info.file_size})"
-                    )
-                    return ArchiveStatus.INVALID_SIZE
-
-            if info.expected_hash:
-                actual_hash = self.calculate_hash(file_path, info.hash_algorithm)
-                if actual_hash.lower() != info.expected_hash.lower():
-                    logger.warning(
-                        f"Invalid hash for {file_path}: {actual_hash.lower()} (Expected: {info.expected_hash.lower()})"
-                    )
-                    return ArchiveStatus.INVALID_HASH
-
-            return ArchiveStatus.VALID
-        except Exception as e:
-            logger.error(f"Error verifying archive {file_path}: {e}", exc_info=True)
-            return ArchiveStatus.ERROR
 
     def calculate_hash(
         self, file_path: Path, algorithm: HashAlgorithm = HashAlgorithm.MD5
@@ -678,14 +611,6 @@ class DownloadManager(QObject):
             List of download progress objects
         """
         return [progress for _, _, progress in self._active_downloads.values()]
-
-    def get_queue_size(self) -> int:
-        """Get number of downloads in queue.
-
-        Returns:
-            Queue size
-        """
-        return len(self._download_queue)
 
     def _start_download_worker(self, archive_info: ArchiveInfo) -> None:
         """Start a download worker in a separate thread.

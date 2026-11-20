@@ -76,10 +76,6 @@ class SelectionController(QObject):
             f"{len(unselected)} incompatible components unselected"
         )
 
-    def set_proxy_model(self, proxy_model) -> None:
-        """Inject proxy model for visibility checks."""
-        self._proxy_model = proxy_model
-
     # ========================================
     # Main API
     # ========================================
@@ -349,24 +345,6 @@ class SelectionController(QObject):
                 return True
 
         return False
-
-    def _is_visible(self, reference: ComponentReference) -> bool:
-        """Check if visible through proxy filter."""
-        if not self._proxy_model:
-            return True
-
-        item = self._indexes.get_tree_item(reference)
-        if not item:
-            return True
-
-        model = item.model()
-        if not model:
-            return True
-
-        source_index = model.indexFromItem(item)
-        proxy_index = self._proxy_model.mapFromSource(source_index)
-
-        return proxy_index.isValid()
 
     def _is_muc_option(self, reference: ComponentReference) -> bool:
         """Check if MUC option."""

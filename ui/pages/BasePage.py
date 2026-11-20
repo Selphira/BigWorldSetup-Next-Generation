@@ -142,15 +142,6 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         """
         raise NotImplementedError(f"{self.__class__.__name__} must implement get_page_id()")
 
-    @staticmethod
-    def get_page_description() -> str:
-        """Get optional page description for tooltips or help text.
-
-        Returns:
-            Translated description or empty string
-        """
-        return ""
-
     # ========================================
     # NAVIGATION BUTTON CONFIGURATION
     # ========================================

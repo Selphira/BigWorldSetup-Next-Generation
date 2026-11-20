@@ -94,20 +94,6 @@ class WeiDULogResult:
         """
         return [entry.component_id.removeprefix("setup-") for entry in self.entries]
 
-    def get_unique_mods(self) -> list[str]:
-        """Get list of unique mod names that were installed.
-
-        Returns:
-            List of unique mod identifiers in order of first appearance
-        """
-        seen = set()
-        mods = []
-        for entry in self.entries:
-            if entry.mod_name not in seen:
-                seen.add(entry.mod_name)
-                mods.append(entry.mod_name)
-        return mods
-
 
 # ============================================================================
 # WeiDU Log Parser
@@ -141,10 +127,6 @@ class WeiDULogParser:
     # Fallback encodings to try if UTF-8 fails
     FALLBACK_ENCODINGS = ["latin-1", "cp1252", "iso-8859-1"]
 
-    def __init__(self):
-        """Initialize WeiDU log parser."""
-        self._current_file: Path | None = None
-
     def parse_file(self, file_path: str | Path) -> WeiDULogResult:
         """Parse a WeiDU.log file.
 
@@ -174,34 +156,6 @@ class WeiDULogParser:
         logger.info("Parsed %d entries", result.entry_count)
 
         return result
-
-    @staticmethod
-    def is_component_installed(
-        file_path: str | Path, mod_id: str, component: str = "*"
-    ) -> bool:
-        """
-        Check if a component is installed by reading WeiDU.log.
-
-        Args:
-            file_path: Path to WeiDU.log file
-            mod_id: Mod identifier (tp2 name)
-            component: Component number or "*" for any component
-
-        Returns:
-            True if component is installed
-        """
-        file_path = Path(file_path)
-
-        if not file_path.exists():
-            return False
-
-        try:
-            content = file_path.read_text(encoding="utf-8", errors="ignore")
-            pattern = rf"~([^/]*/)?(setup-)?{re.escape(mod_id)}\.tp2~\s+#\d+\s+#{component if component != '*' else r'\d+'}\s"
-            return bool(re.search(pattern, content, re.IGNORECASE))
-        except Exception as e:
-            logger.error("Error reading WeiDU.log: %s", e)
-            return False
 
     def _read_file_with_encoding(self, path: Path) -> str:
         """Read file trying multiple encodings.
@@ -336,7 +290,6 @@ class WeiDULogParser:
             FileNotFoundError: If file doesn't exist
         """
         path = Path(file_path)
-        self._current_file = path
 
         if not path.exists():
             raise FileNotFoundError(f"WeiDU.log not found: {path}")

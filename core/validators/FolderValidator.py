@@ -401,15 +401,6 @@ class GameFolderValidator(ExistingFolderValidator):
     # UTILITY METHODS
     # ========================================
 
-    def get_validation_rules(self) -> GameValidationRule:
-        """
-        Get current validation rules.
-
-        Returns:
-            GameValidationRule instance
-        """
-        return self.validation_rules
-
     def __repr__(self) -> str:
         """String representation for debugging."""
         return f"<GameFolderValidator rule={self.validation_rules}>"

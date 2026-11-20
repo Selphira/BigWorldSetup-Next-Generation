@@ -73,12 +73,6 @@ class ValidationOrchestrator:
             for violation in violations
         )
 
-    def get_violations_for_reference(
-        self, reference: ComponentReference
-    ) -> list[RuleViolation]:
-        """Get violations for a component."""
-        return self._indexes.get_selection_violations(reference)
-
     # ========================================
     # Resolution Strategies
     # ========================================

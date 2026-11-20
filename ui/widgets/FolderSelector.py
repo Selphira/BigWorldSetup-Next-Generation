@@ -285,16 +285,6 @@ class FolderSelector(QWidget):
         """
         return self._error_message
 
-    def set_validator(self, validator: FolderValidator) -> None:
-        """Change the validator and revalidate.
-
-        Args:
-            validator: New validator instance
-        """
-        self.validator = validator
-        self._validate_path(self.get_path())
-        logger.debug(f"Validator changed to: {validator.__class__.__name__}")
-
     def clear(self) -> None:
         """Clear the path input."""
         self.path_input.clear()
@@ -390,14 +380,6 @@ class GameFolderSelector(FolderSelector):
 
         # Label with game name
         self.label.setText(tr(self._label_key, game=self.game.name))
-
-    def get_game(self) -> GameDefinition:
-        """Get the game associated with this selector.
-
-        Returns:
-            Game enum
-        """
-        return self.game
 
     def __repr__(self) -> str:
         """String representation for debugging."""

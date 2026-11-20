@@ -213,11 +213,6 @@ class ProgressItemWidget(QWidget):
 
         self._lbl_stats.setText(stats)
 
-    def set_verification_status(self, status: str):
-        """Update widget with verification status."""
-        self._lbl_stats.setText(status)
-        self._progress_bar.setMaximum(0)
-
     def _format_speed(self, speed_bps: float) -> str:
         """Format download speed for display."""
         if speed_bps <= 0:

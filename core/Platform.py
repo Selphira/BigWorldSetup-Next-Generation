@@ -18,18 +18,3 @@ class Platform:
             }.get(system, "windows")
 
         return cls._current_platform
-
-    @classmethod
-    def is_windows(cls) -> bool:
-        """Check if running on Windows."""
-        return cls.get_current() == "windows"
-
-    @classmethod
-    def is_linux(cls) -> bool:
-        """Check if running on Linux."""
-        return cls.get_current() == "linux"
-
-    @classmethod
-    def is_macos(cls) -> bool:
-        """Check if running on macOS."""
-        return cls.get_current() == "macos"

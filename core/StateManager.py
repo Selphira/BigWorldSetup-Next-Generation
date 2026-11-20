@@ -11,7 +11,7 @@ from PySide6.QtCore import QSettings
 from constants import ARCHIVE_REGISTRY_FILE, CACHE_DIR, MODS_DIR, RULES_DIR, STATE_FILE
 from core.ArchiveRegistry import ArchiveRecord, ArchiveRegistry, ArchiveSource
 from core.atomic_io import write_json_atomic
-from core.GameManager import GameDefinition, GameManager
+from core.GameManager import GameManager
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.validators.FolderRelationshipValidator import FolderRelationshipValidator
@@ -425,71 +425,6 @@ class StateManager:
             logger.exception("Error saving state")
             return False
 
-    def export_configuration(self, filepath: Path) -> bool:
-        """
-        Export configuration to a file.
-
-        Args:
-            filepath: Target file path
-
-        Returns:
-            True if exported successfully, False otherwise
-        """
-        try:
-            with filepath.open("w", encoding="utf-8") as f:
-                json.dump(self.installation_state.to_dict(), f, indent=2, ensure_ascii=False)
-            logger.info(f"Configuration exported to: {filepath}")
-            return True
-
-        except Exception as e:
-            logger.exception(f"Error exporting configuration: {e}")
-            return False
-
-    def import_configuration(self, filepath: Path) -> bool:
-        """
-        Import configuration from a file with validation.
-
-        Args:
-            filepath: Source file path
-
-        Returns:
-            True if imported successfully, False otherwise
-        """
-        try:
-            with filepath.open("r", encoding="utf-8") as f:
-                data = json.load(f)
-
-            # Validate version compatibility
-            version = data.get("version", "1.0")
-            if version != self.SUPPORTED_VERSION:
-                logger.error(
-                    f"Unsupported configuration version: {version}, "
-                    f"expected {self.SUPPORTED_VERSION}"
-                )
-                return False
-
-            # Validate required structure
-            if not isinstance(data.get("configuration"), dict):
-                logger.error("Invalid configuration structure")
-                return False
-
-            # Load into current state
-            self.installation_state = InstallationState.from_dict(data)
-
-            # Save immediately
-            if self.save_state():
-                logger.info(f"Configuration imported from: {filepath}")
-                return True
-
-            return False
-
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON in import file: {e}")
-            return False
-        except Exception as e:
-            logger.exception(f"Error importing configuration: {e}")
-            return False
-
     # ========================================
     # UTILITIES
     # ========================================
@@ -521,26 +456,6 @@ class StateManager:
             self._reset_workflow_callback()
         else:
             logger.warning("No reset workflow callback registered")
-
-    def clear_all_settings(self) -> None:
-        """Clear ALL data (UI preferences + installation state)."""
-        # Clear QSettings
-        self.settings.clear()
-        self.settings.sync()
-        logger.info("QSettings cleared")
-
-        # Reset JSON state
-        self.installation_state = InstallationState()
-
-        # Remove state files
-        if self.STATE_FILE.exists():
-            self.STATE_FILE.unlink()
-            logger.info("State file removed")
-
-        backup_path = Path(str(self.STATE_FILE) + self.BACKUP_SUFFIX)
-        if backup_path.exists():
-            backup_path.unlink()
-            logger.info("Backup file removed")
 
     def get_game_manager(self) -> GameManager:
         """
@@ -576,13 +491,6 @@ class StateManager:
             )
             logger.debug("RuleManager initialized")
         return self._rule_manager
-
-    def get_game_definition(self) -> GameDefinition | None:
-        """Get the currently selected game definition."""
-        game_code = self.get_selected_game()
-        if not game_code:
-            return None
-        return self.get_game_manager().get(game_code)
 
     def is_valid_state(self) -> bool:
         game_def = self.get_game_manager().get(self.get_selected_game())
