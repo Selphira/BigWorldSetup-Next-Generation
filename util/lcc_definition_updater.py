@@ -23,8 +23,9 @@ from typing import Any, Optional
 from urllib.error import HTTPError, URLError
 import urllib.request
 
-from constants import ICON_ERROR, ICON_INFO, ICON_SUCCESS, ICON_WARNING, LCC_CACHE_DIR
+from constants import LCC_CACHE_DIR
 from core.CompactJSONEncoder import CompactJSONEncoder
+from util.console_status import print_status
 
 
 class LCCDataFetcher:
@@ -294,13 +295,7 @@ class JSONCompleter:
     def log(self, message: str, level: str = "INFO"):
         """Affiche un message si verbose"""
         if self.verbose:
-            prefix = {
-                "INFO": ICON_INFO,
-                "SUCCESS": ICON_SUCCESS,
-                "ERROR": ICON_ERROR,
-                "WARNING": ICON_WARNING,
-            }.get(level, "•")
-            print(f"{prefix} {message}")
+            print_status(message, level)
 
     def complete_file(self, json_path: Path) -> bool:
         """

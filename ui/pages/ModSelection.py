@@ -5,6 +5,7 @@ This module provides the main selection interface with category navigation,
 search functionality, and hierarchical component selection.
 """
 
+import json
 import logging
 from typing import cast
 
@@ -721,8 +722,6 @@ class ModSelectionPage(BasePage):
         if not file_path:
             return
 
-        import json
-
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 components_to_select = json.load(f)
@@ -887,8 +886,6 @@ class ModSelectionPage(BasePage):
             file_path += ".json"
 
         try:
-            import json
-
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(
                     {

@@ -6,6 +6,7 @@ Implements caching to avoid rate limiting.
 from dataclasses import dataclass
 import json
 import logging
+import re
 import time
 
 import requests
@@ -135,8 +136,6 @@ class VersionChecker:
                 suffix_number = 0
                 if suffix:
                     # Try to extract number from suffix (e.g., 'beta2' -> 'beta', 2)
-                    import re
-
                     match = re.match(r"([a-z]+)(\d+)?", suffix)
                     if match:
                         suffix_type = match.group(1)

@@ -186,7 +186,7 @@ class ExtractionPage(BasePage):
         self._filter_label = filter_label
 
         self._filter_combo = QComboBox()
-        self._filter_combo.currentIndexChanged.connect(self._apply_filter)
+        self._filter_combo.currentIndexChanged.connect(self._refresh_extraction_table)
         header_layout.addWidget(self._filter_combo)
 
         vlayout.addLayout(header_layout)
@@ -764,10 +764,6 @@ class ExtractionPage(BasePage):
                         status_item.setToolTip("")
 
                 break
-
-    def _apply_filter(self) -> None:
-        """Apply status filter to extraction table."""
-        self._refresh_extraction_table()
 
     def _update_navigation_buttons(self) -> None:
         """Update navigation button states."""

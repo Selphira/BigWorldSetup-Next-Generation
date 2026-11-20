@@ -7,8 +7,8 @@ name, description, links, supported languages, authors, and quality indicators.
 
 import logging
 
-from PySide6.QtCore import Qt, QUrl
-from PySide6.QtGui import QDesktopServices, QPixmap
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
@@ -41,6 +41,8 @@ from core.ModManager import ModManager
 from core.TranslationManager import get_translator, tr
 from core.Url import get_forum_code
 from ui.layouts.FlowLayout import FlowLayout
+from ui.layouts.LayoutHelpers import clear_layout
+from ui.widgets.LinkLabels import create_link_label
 
 logger = logging.getLogger(__name__)
 
@@ -243,15 +245,6 @@ class ModDetailsPanel(QWidget):
 
         self._content_layout.addWidget(self._links_widget)
 
-    @staticmethod
-    def _create_link_label(icon: str, text: str, url: str) -> QLabel:
-        """Create a clickable link label."""
-        label = QLabel(f'{icon} <a href="{url}" style="color: {COLOR_TEXT};">{text}</a>')
-        label.setOpenExternalLinks(False)
-        label.linkActivated.connect(lambda u: QDesktopServices.openUrl(QUrl(u)))
-        label.setToolTip(url)
-        return label
-
     def _update_quality_indicator(self, safe_value: int | None) -> None:
         """Update quality indicator badge."""
 
@@ -287,7 +280,7 @@ class ModDetailsPanel(QWidget):
             return
 
         flags_layout = self._languages_widget.layout()
-        self._clear_layout(flags_layout)
+        clear_layout(flags_layout)
 
         # Add flag icons
         for lang_code in sorted(mod.languages.keys()):
@@ -376,7 +369,7 @@ class ModDetailsPanel(QWidget):
 
     def _update_links(self, mod: Mod) -> None:
         """Populate the links section dynamically."""
-        self._clear_layout(self._links_layout)
+        clear_layout(self._links_layout)
 
         links = {
             mod.homepage: ("🏠", tr("widget.mod_details.link.homepage")),
@@ -388,7 +381,7 @@ class ModDetailsPanel(QWidget):
         has_links = False
         for url, (icon, label_text) in links.items():
             if url:
-                self._links_layout.addWidget(self._create_link_label(icon, label_text, url))
+                self._links_layout.addWidget(create_link_label(icon, label_text, url))
                 has_links = True
 
         if mod.forums:
@@ -399,7 +392,7 @@ class ModDetailsPanel(QWidget):
                 if forum_code:
                     label = f"{label} ({forum_code})"
 
-                self._links_layout.addWidget(self._create_link_label("💬", label, forum_url))
+                self._links_layout.addWidget(create_link_label("💬", label, forum_url))
 
         self._links_widget.setVisible(has_links)
 
@@ -407,13 +400,6 @@ class ModDetailsPanel(QWidget):
         """Show placeholder when no mod is selected."""
         self._current_mod = None
         self._content_widget.setVisible(False)
-
-    @staticmethod
-    def _clear_layout(layout):
-        while layout.count():
-            item = layout.takeAt(0)
-            if widget := item.widget():
-                widget.deleteLater()
 
     # ========================================
     # PUBLIC API

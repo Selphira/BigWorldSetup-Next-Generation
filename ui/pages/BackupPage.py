@@ -34,6 +34,7 @@ from constants import (
 )
 from core.BackupInfo import BackupInfo, BackupStatus
 from core.BackupManager import BackupManager
+from core.File import format_size
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
@@ -243,7 +244,7 @@ class BackupPage(BasePage):
         self._filter_label = filter_label
 
         self._filter_combo = QComboBox()
-        self._filter_combo.currentIndexChanged.connect(self._apply_filter)
+        self._filter_combo.currentIndexChanged.connect(self._refresh_backup_table)
         header_layout.addWidget(self._filter_combo)
 
         vlayout.addLayout(header_layout)
@@ -455,11 +456,7 @@ class BackupPage(BasePage):
             self._backup_table.setItem(row, COL_DATE, date_item)
 
             # Column 3: Size
-            if backup_info.size_gb >= 1:
-                size_str = f"{backup_info.size_gb:.2f} GB"
-            else:
-                size_str = f"{backup_info.size_mb:.1f} MB"
-            size_item = QTableWidgetItem(size_str)
+            size_item = QTableWidgetItem(format_size(backup_info.total_size))
             size_item.setData(Qt.ItemDataRole.UserRole, backup_info.total_size)
             self._backup_table.setItem(row, COL_SIZE, size_item)
 
@@ -1013,10 +1010,6 @@ class BackupPage(BasePage):
     # ========================================
     # UI Updates
     # ========================================
-
-    def _apply_filter(self) -> None:
-        """Apply game filter to backup table."""
-        self._refresh_backup_table()
 
     def _update_navigation_buttons(self) -> None:
         """Update navigation button states."""

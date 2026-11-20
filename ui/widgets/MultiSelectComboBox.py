@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from ui.layouts.LayoutHelpers import clear_layout
+
 
 class MultiSelectComboBox(QWidget):
     selection_changed = Signal(list)
@@ -140,10 +142,7 @@ class MultiSelectComboBox(QWidget):
         else:
             self.selected.add(item)
 
-        while self.selection_layout.count():
-            child = self.selection_layout.takeAt(0)
-            if child.widget():
-                child.widget().deleteLater()
+        clear_layout(self.selection_layout)
 
         if not self.selected:
             self.selection_widget.hide()

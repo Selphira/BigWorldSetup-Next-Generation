@@ -53,6 +53,7 @@ from core.OrderImportExportManager import OrderImportError, OrderImportExportMan
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.WeiDULogParser import WeiDULogParser
+from ui.layouts.LayoutHelpers import clear_layout
 from ui.pages.BasePage import BasePage
 from ui.pages.install_order.DraggableTable import DraggableTableWidget
 from ui.pages.install_order.OrderTableWidget import OrderTableWidget
@@ -359,7 +360,7 @@ class InstallOrderPage(BasePage):
 
     def _rebuild_ui_for_game(self) -> None:
         """Rebuild UI based on current game configuration."""
-        self._clear_main_layout()
+        clear_layout(self._main_layout)
         self._reset_widget_references()
 
         selected_game = self.state_manager.get_selected_game()
@@ -391,13 +392,6 @@ class InstallOrderPage(BasePage):
             content.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             layout.addWidget(content)
             self._main_layout.addLayout(layout)
-
-    def _clear_main_layout(self) -> None:
-        """Clear all widgets from main layout."""
-        while self._main_layout.count():
-            item = self._main_layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
 
     def _reset_widget_references(self) -> None:
         """Reset all widget reference dictionaries."""

@@ -29,7 +29,6 @@ from constants import (
     COLOR_ERROR,
     COLOR_STATUS_COMPLETE,
     COLOR_STATUS_NONE,
-    COLOR_TEXT,
     COLOR_WARNING,
     MARGIN_SMALL,
     MARGIN_STANDARD,
@@ -50,9 +49,11 @@ from core.Mod import Mod
 from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
+from ui.layouts.LayoutHelpers import clear_layout
 from ui.pages.BasePage import BasePage
 from ui.widgets.ArchiveDialogs import confirm_archive_mismatch, select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
+from ui.widgets.LinkLabels import create_link_label
 
 logger = logging.getLogger(__name__)
 
@@ -329,7 +330,7 @@ class ArchiveDetailsPanel(QFrame):
 
     def _update_links(self, url_download: str | None, url_homepage: str | None) -> None:
         """Populate the links section dynamically."""
-        self._clear_layout(self._links_layout)
+        clear_layout(self._links_layout)
 
         links = {
             url_homepage: ("🏠", tr("widget.mod_details.link.homepage")),
@@ -338,28 +339,12 @@ class ArchiveDetailsPanel(QFrame):
 
         for url, (icon, label_text) in links.items():
             if url:
-                self._links_layout.addWidget(self._create_link_label(icon, label_text, url))
+                self._links_layout.addWidget(create_link_label(icon, label_text, url))
         self._links_layout.addStretch()
-
-    @staticmethod
-    def _create_link_label(icon: str, text: str, url: str) -> QLabel:
-        """Create a clickable link label."""
-        label = QLabel(f'{icon} <a href="{url}" style="color: {COLOR_TEXT};">{text}</a>')
-        label.setOpenExternalLinks(False)
-        label.linkActivated.connect(lambda u: QDesktopServices.openUrl(QUrl(u)))
-        label.setToolTip(url)
-        return label
 
     def clear(self) -> None:
         """Clear panel content."""
         self._details_text.setHtml(f"<i>{tr('page.download.details.empty_message')}</i>")
-
-    @staticmethod
-    def _clear_layout(layout):
-        while layout.count():
-            item = layout.takeAt(0)
-            if widget := item.widget():
-                widget.deleteLater()
 
 
 # ============================================================================
@@ -489,7 +474,7 @@ class DownloadPage(BasePage):
         header_layout.addWidget(filter_label)
 
         self._filter_combo = QComboBox()
-        self._filter_combo.currentIndexChanged.connect(self._apply_filter)
+        self._filter_combo.currentIndexChanged.connect(self._refresh_archive_table)
         header_layout.addWidget(self._filter_combo)
 
         layout.addLayout(header_layout)
@@ -1402,10 +1387,6 @@ class DownloadPage(BasePage):
 
         if reply == QMessageBox.StandardButton.Yes:
             self._start_single_download(mod_id, force=True)
-
-    def _apply_filter(self) -> None:
-        """Apply status filter to archive table."""
-        self._refresh_archive_table()
 
     def _update_navigation_buttons(self) -> None:
         """Update navigation button states."""

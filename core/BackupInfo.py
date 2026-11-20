@@ -44,16 +44,6 @@ class BackupInfo:
         """
         return backup_root / self.backup_id
 
-    @property
-    def size_mb(self) -> float:
-        """Get size in megabytes."""
-        return self.total_size / (1024 * 1024)
-
-    @property
-    def size_gb(self) -> float:
-        """Get size in gigabytes."""
-        return self.total_size / (1024 * 1024 * 1024)
-
     def to_dict(self) -> dict:
         """Convert to dictionary for JSON serialization."""
         return {
