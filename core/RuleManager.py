@@ -7,7 +7,7 @@ from graphlib import CycleError, TopologicalSorter
 import json
 import logging
 from pathlib import Path
-from typing import Any, Callable, Protocol
+from typing import Any, Protocol
 
 from PySide6.QtCore import QObject, QThread, Signal
 
@@ -422,21 +422,15 @@ class ConditionEvaluator(Protocol):
 class StandardCondition:
     """Evaluates standard source/target."""
 
-    __slots__ = ("components", "mode", "_matcher")
+    __slots__ = ("components", "mode")
 
-    def __init__(
-        self,
-        components: tuple[ComponentReference, ...],
-        mode: DependencyMode,
-        matcher: Callable[[ComponentReference, set[ComponentReference]], bool],
-    ):
+    def __init__(self, components: tuple[ComponentReference, ...], mode: DependencyMode):
         self.components = components
         self.mode = mode
-        self._matcher = matcher
 
     def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
         """Check if condition is met."""
-        matches = [self._matcher(comp, selected_set) for comp in self.components]
+        matches = [comp.is_selected_in(selected_set) for comp in self.components]
 
         if self.mode == DependencyMode.ALL:
             return all(matches)
@@ -444,11 +438,11 @@ class StandardCondition:
 
     def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
         """Get components that don't match."""
-        return [comp for comp in self.components if not self._matcher(comp, selected_set)]
+        return [comp for comp in self.components if not comp.is_selected_in(selected_set)]
 
     def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
         """Get components that match."""
-        return [comp for comp in self.components if self._matcher(comp, selected_set)]
+        return [comp for comp in self.components if comp.is_selected_in(selected_set)]
 
 
 class GroupCondition:
@@ -852,15 +846,6 @@ class RuleManager(QObject):
             return self._check_incompatibility(rule, source_ref, selected_set)
         return None
 
-    @staticmethod
-    def _matches_reference(
-        reference: ComponentReference, selected_set: set[ComponentReference]
-    ) -> bool:
-        """Check if a reference matches any selected component."""
-        if reference.is_mod():
-            return any(selected.mod_id == reference.mod_id for selected in selected_set)
-        return reference in selected_set
-
     def _check_dependency(
         self,
         rule: DependencyRule,
@@ -887,25 +872,12 @@ class RuleManager(QObject):
         self, rule: DependencyRule | IncompatibilityRule, source_ref: ComponentReference
     ) -> ConditionEvaluator:
         """Factory method: create appropriate source evaluator."""
-        if not any(self._references_match_for_source(source_ref, src) for src in rule.sources):
+        if not any(source.covers(source_ref) for source in rule.sources):
             return TrivialCondition(False)
         if rule.source_groups:
             return GroupCondition(rule.source_groups)
 
         return TrivialCondition(True)
-
-    @staticmethod
-    def _references_match_for_source(
-        selected_ref: ComponentReference, rule_source: ComponentReference
-    ) -> bool:
-        """Check if a selected component matches a rule source (handles wildcards)."""
-        if rule_source.mod_id != selected_ref.mod_id:
-            return False
-
-        if rule_source.is_mod():
-            return True
-
-        return rule_source.comp_key == selected_ref.comp_key
 
     def _create_target_evaluator(
         self, rule: DependencyRule | IncompatibilityRule
@@ -919,7 +891,6 @@ class RuleManager(QObject):
             mode=rule.dependency_mode
             if isinstance(rule, DependencyRule)
             else DependencyMode.ANY,
-            matcher=self._matches_reference,
         )
 
     def _check_incompatibility(
@@ -1212,9 +1183,7 @@ class RuleManager(QObject):
                         before[ref].update(
                             candidate
                             for candidate in remaining
-                            if self._matches_reference(
-                                missing, {candidate} | choices.get(candidate, set())
-                            )
+                            if missing.is_selected_in({candidate} | choices.get(candidate, set()))
                         )
             try:
                 TopologicalSorter(before).prepare()

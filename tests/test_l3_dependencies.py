@@ -410,3 +410,16 @@ def test_imported_sub_without_answer_stays_unanswered(
     report = ModSelectionPage.import_selection(page, ["demo:1", "demo:1.1.B"], replace=True)
     assert not report.unanswered
     assert ModSelectionPage.export_selection(page) == ["demo:1", "demo:1.1.B"]
+
+
+def test_mod_wildcard_is_symmetric_for_matching_but_not_for_covering() -> None:
+    mod, component, other = refs("a:*", "a:0", "a:1")
+
+    assert mod.matches(component) and component.matches(mod)
+    assert not component.matches(other)
+
+    assert mod.covers(component)
+    assert not component.covers(mod)
+
+    assert mod.is_selected_in({component})
+    assert not component.is_selected_in({mod})

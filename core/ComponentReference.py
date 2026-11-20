@@ -137,6 +137,38 @@ class ComponentReference:
         return self.comp_key.count(".") == 2
 
     # ========================================
+    # Matching
+    # ========================================
+
+    def matches(self, other: ComponentReference) -> bool:
+        """Check if two references designate the same thing.
+
+        A mod reference on either side matches every reference of that mod.
+        """
+        if self.is_mod() or other.is_mod():
+            return self.mod_id == other.mod_id
+        return self == other
+
+    def covers(self, other: ComponentReference) -> bool:
+        """Check if this reference includes ``other``.
+
+        Unlike ``matches``, only this side acts as a wildcard: a mod reference
+        covers its components, but a component never covers its mod.
+        """
+        if self.is_mod():
+            return self.mod_id == other.mod_id
+        return self == other
+
+    def is_selected_in(self, selection: set[ComponentReference]) -> bool:
+        """Check if this reference is satisfied by the selection.
+
+        A mod reference is satisfied by any selected reference of that mod.
+        """
+        if self.is_mod():
+            return any(selected.mod_id == self.mod_id for selected in selection)
+        return self in selection
+
+    # ========================================
     # Hierarchy Navigation
     # ========================================
 

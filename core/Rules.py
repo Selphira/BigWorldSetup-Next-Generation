@@ -51,32 +51,21 @@ class ComponentGroup:
         """Check if this group is satisfied by the selection."""
         if self.operator == DependencyMode.ANY:
             # At least one component must be selected
-            return any(self._matches_reference(comp, selected_set) for comp in self.components)
+            return any(comp.is_selected_in(selected_set) for comp in self.components)
         # All components must be selected
-        return all(self._matches_reference(comp, selected_set) for comp in self.components)
+        return all(comp.is_selected_in(selected_set) for comp in self.components)
 
     def get_matched_components(
         self, selected_set: set[ComponentReference]
     ) -> list[ComponentReference]:
         """Get components from this group that are selected."""
-        return [comp for comp in self.components if self._matches_reference(comp, selected_set)]
+        return [comp for comp in self.components if comp.is_selected_in(selected_set)]
 
     def get_missing_components(
         self, selected_set: set[ComponentReference]
     ) -> list[ComponentReference]:
         """Get components from this group that are NOT selected."""
-        return [
-            comp for comp in self.components if not self._matches_reference(comp, selected_set)
-        ]
-
-    @staticmethod
-    def _matches_reference(
-        reference: ComponentReference, selected_set: set[ComponentReference]
-    ) -> bool:
-        """Check if a reference matches any selected component."""
-        if reference.is_mod():
-            return any(selected.mod_id == reference.mod_id for selected in selected_set)
-        return reference in selected_set
+        return [comp for comp in self.components if not comp.is_selected_in(selected_set)]
 
 
 @dataclass(frozen=True, slots=True)
@@ -317,7 +306,7 @@ class RuleViolation:
         if ref_pos is None:
             return ""
 
-        is_source = self._references_match(for_reference, self.affected_components[0])
+        is_source = for_reference.matches(self.affected_components[0])
         direction = cast(OrderRule, self.rule).order_direction
         other_side = self.rule.targets if is_source else self.rule.sources
         positions = {ref: i for i, ref in enumerate(current_order)}
@@ -331,7 +320,7 @@ class RuleViolation:
             ref
             for ref in current_order
             if ref != for_reference
-            and any(self._references_match(ref, rule_ref) for rule_ref in other_side)
+            and any(ref.matches(rule_ref) for rule_ref in other_side)
             and is_violation(positions[ref])
         ]
 
@@ -386,7 +375,7 @@ class RuleViolation:
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
     ) -> str:
         """Format dependency violation message with current selection state."""
-        is_source = self._reference_in_list(for_reference, list(self.rule.sources))
+        is_source = any(for_reference.matches(source) for source in self.rule.sources)
         missing: list[ComponentReference] = []
 
         if is_source:
@@ -396,7 +385,7 @@ class RuleViolation:
                 return tr("rule.message_dependency_missing", missing=missing_str)
             return tr("rule.message_dependency_all_satisfied")
         for source in self.rule.sources:
-            if self._matches_reference(source, selected_set):
+            if source.is_selected_in(selected_set):
                 missing.append(source)
         sources_str = ", ".join(str(s) for s in missing)
         return tr("rule.message_dependency_required_by", sources=sources_str)
@@ -405,47 +394,16 @@ class RuleViolation:
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
     ) -> str:
         """Format incompatibility violation message with current selection state."""
-        if self._reference_in_list(for_reference, list(self.rule.sources)):
-            conflicts = [
-                ref for ref in self.rule.targets if self._matches_reference(ref, selected_set)
-            ]
+        if any(for_reference.matches(source) for source in self.rule.sources):
+            conflicts = [ref for ref in self.rule.targets if ref.is_selected_in(selected_set)]
         else:
-            conflicts = [
-                ref for ref in self.rule.sources if self._matches_reference(ref, selected_set)
-            ]
+            conflicts = [ref for ref in self.rule.sources if ref.is_selected_in(selected_set)]
 
         if not conflicts:
             return tr("rule.message_incompatibility_resolved")
 
         conflict_names = ", ".join(str(ref) for ref in conflicts)
         return tr("rule.message_incompatibility", conflict_names=conflict_names)
-
-    @staticmethod
-    def _matches_reference(
-        reference: ComponentReference, selected_set: set[ComponentReference]
-    ) -> bool:
-        """Check if a reference matches any selected component.
-
-        Duplicates RuleManager logic for consistency.
-        """
-        if reference.is_mod():
-            return any(selected.mod_id == reference.mod_id for selected in selected_set)
-
-        return reference in selected_set
-
-    def _reference_in_list(
-        self, reference: ComponentReference, ref_list: list[ComponentReference]
-    ) -> bool:
-        """Check if reference matches any reference in list (handles MOD references)."""
-        return any(self._references_match(reference, ref) for ref in ref_list)
-
-    @staticmethod
-    def _references_match(ref1: ComponentReference, ref2: ComponentReference) -> bool:
-        """Check if two references match (handles MOD references)."""
-        if ref1.is_mod() or ref2.is_mod():
-            return ref1.mod_id == ref2.mod_id
-
-        return ref1 == ref2
 
     @staticmethod
     def _get_reference_position(
