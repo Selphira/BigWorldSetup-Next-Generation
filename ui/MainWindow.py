@@ -617,10 +617,10 @@ class MainWindow(QMainWindow):
             event: Close event
         """
         if not self._closing:
-            if any(page.has_critical_task() for page in self.pages.values()):
-                if not self._confirm_close_during_tasks():
-                    event.ignore()
-                    return
+            has_critical_task = any(page.has_critical_task() for page in self.pages.values())
+            if has_critical_task and not self._confirm_close_during_tasks():
+                event.ignore()
+                return
             self._closing = True
             for page in self.pages.values():
                 page.request_shutdown()

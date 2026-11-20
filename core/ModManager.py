@@ -210,7 +210,7 @@ class CacheBuilderThread(QThread):
 
         # Fallback order: target language first, then others
         fallback_order = [target_lang] + [
-            lang for lang in translations_all.keys() if lang != target_lang
+            lang for lang in translations_all if lang != target_lang
         ]
 
         # Resolve mod description with fallback

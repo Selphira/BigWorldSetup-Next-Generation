@@ -927,7 +927,6 @@ class BackupPage(BasePage):
 
     def _on_operation_started(self) -> None:
         """Handle operation start."""
-        pass
 
     def _on_backup_progress(self, message: str, current: int, total: int) -> None:
         """Handle backup/restore progress update.
@@ -1054,10 +1053,7 @@ class BackupPage(BasePage):
             return False
 
         # Cannot proceed if any game is modded (needs clean backup)
-        if self._modded_games:
-            return False
-
-        return True
+        return not self._modded_games
 
     def can_go_to_previous_page(self) -> bool:
         """Check if can go to previous page."""

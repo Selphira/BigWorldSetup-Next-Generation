@@ -190,9 +190,8 @@ class DirectoryMerger:
             self.progress_callback(source_file, dest_file)
 
         # Handle conflict if destination exists
-        if dest_file.exists():
-            if not self._handle_file_conflict(source_file, dest_file, result):
-                return  # Conflict not resolved, skip this file
+        if dest_file.exists() and not self._handle_file_conflict(source_file, dest_file, result):
+            return  # Conflict not resolved, skip this file
 
         # Move/copy the file
         try:
@@ -240,7 +239,7 @@ class DirectoryMerger:
             result.skipped += 1
             return
 
-        elif self.conflict_resolution == ConflictResolution.OVERWRITE:
+        if self.conflict_resolution == ConflictResolution.OVERWRITE:
             # Remove existing and move new
             self._remove_directory_tree(dest_dir)
             shutil.move(str(source_dir), str(dest_dir))
@@ -250,7 +249,7 @@ class DirectoryMerger:
             logger.debug(f"Overwrote directory: {dest_dir}")
             return
 
-        elif self.conflict_resolution == ConflictResolution.BACKUP:
+        if self.conflict_resolution == ConflictResolution.BACKUP:
             # Backup existing and move new
             backup_path = self._create_backup(dest_dir)
             if backup_path:
@@ -260,13 +259,13 @@ class DirectoryMerger:
             logger.debug(f"Backed up and moved directory: {dest_dir}")
             return
 
-        elif self.conflict_resolution == ConflictResolution.MERGE:
+        if self.conflict_resolution == ConflictResolution.MERGE:
             # Recursively merge contents
             self._merge_recursive(source_dir, dest_dir, result)
             result.moved_dirs += 1
             return
 
-        elif self.conflict_resolution == ConflictResolution.FAIL:
+        if self.conflict_resolution == ConflictResolution.FAIL:
             raise FileExistsError(f"Directory already exists: {dest_dir}")
 
     def _handle_file_conflict(
@@ -289,26 +288,26 @@ class DirectoryMerger:
             result.overwritten_paths.append(dest_file)
             return True
 
-        elif self.conflict_resolution == ConflictResolution.SKIP:
+        if self.conflict_resolution == ConflictResolution.SKIP:
             logger.debug(f"Skipping existing file: {dest_file}")
             result.skipped += 1
             return False
 
-        elif self.conflict_resolution == ConflictResolution.OVERWRITE:
+        if self.conflict_resolution == ConflictResolution.OVERWRITE:
             logger.debug(f"Overwriting file: {dest_file}")
             dest_file.unlink()
             result.overwritten += 1
             result.overwritten_paths.append(dest_file)
             return True
 
-        elif self.conflict_resolution == ConflictResolution.BACKUP:
+        if self.conflict_resolution == ConflictResolution.BACKUP:
             backup_path = self._create_backup(dest_file)
             if backup_path:
                 result.backed_up += 1
                 logger.debug(f"Backed up file: {dest_file} -> {backup_path}")
             return True
 
-        elif self.conflict_resolution == ConflictResolution.FAIL:
+        if self.conflict_resolution == ConflictResolution.FAIL:
             raise FileExistsError(f"File already exists: {dest_file}")
 
         return False

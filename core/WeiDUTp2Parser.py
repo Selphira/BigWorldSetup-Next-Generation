@@ -106,19 +106,13 @@ RE_TRA_TRANSLATION = re.compile(
 class Tp2ParseError(Exception):
     """Base exception for TP2 parsing errors."""
 
-    pass
-
 
 class Tp2FileNotFoundError(Tp2ParseError):
     """Raised when a TP2 or TRA file is not found."""
 
-    pass
-
 
 class Tp2InvalidFormatError(Tp2ParseError):
     """Raised when TP2 format is invalid or corrupted."""
-
-    pass
 
 
 # ============================================================================
@@ -265,7 +259,7 @@ class GamePredicateParser:
         if games == self.supported_games:
             return None, pos
 
-        return sorted(list(games)), pos
+        return sorted(games), pos
 
     def _parse_or_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse OR expression (union of conditions)."""
@@ -551,7 +545,7 @@ class Tokenizer:
                     column += 2
                     i += 2
                     continue
-                elif two_char == "&&":
+                if two_char == "&&":
                     tokens.append(Token(TokenType.AND, "&&", line, column))
                     column += 2
                     i += 2

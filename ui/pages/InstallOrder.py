@@ -640,7 +640,7 @@ class InstallOrderPage(BasePage):
 
         selected = table.selectedItems()
         if selected:
-            selected_rows = sorted(set(item.row() for item in selected))
+            selected_rows = sorted({item.row() for item in selected})
             insert_row = selected_rows[-1] + 1
         else:
             insert_row = table.rowCount()
@@ -1055,7 +1055,7 @@ class InstallOrderPage(BasePage):
 
     def _refresh_all_tables(self) -> None:
         """Refresh tables for all sequences."""
-        for seq_idx in self._sequences_data.keys():
+        for seq_idx in self._sequences_data:
             self._refresh_sequence_tables(seq_idx)
 
     def _refresh_sequence_tables(self, seq_idx: int) -> None:
@@ -1303,7 +1303,7 @@ class InstallOrderPage(BasePage):
             return
 
         table = ordered["table"]
-        selected_rows = set(item.row() for item in table.selectedItems())
+        selected_rows = {item.row() for item in table.selectedItems()}
 
         references = []
         for row in selected_rows:
@@ -1346,7 +1346,7 @@ class InstallOrderPage(BasePage):
         # Determine target position in ordered table
         selected = ordered_table.selectedItems()
         if selected:
-            selected_rows = sorted(set(item.row() for item in selected))
+            selected_rows = sorted({item.row() for item in selected})
             target_row = selected_rows[-1] + 1
         else:
             target_row = ordered_table.rowCount()
@@ -1671,13 +1671,13 @@ class InstallOrderPage(BasePage):
                     self._phase_tabs.setTabText(seq_idx, tab_name)
 
         # Update table headers
-        for seq_idx in self._ordered_tables.keys():
+        for seq_idx in self._ordered_tables:
             table = self._ordered_tables[seq_idx]["table"]
             table.setHorizontalHeaderLabels(
                 [tr("page.order.col_mod"), tr("page.order.col_component")]
             )
 
-        for seq_idx in self._unordered_tables.keys():
+        for seq_idx in self._unordered_tables:
             table = self._unordered_tables[seq_idx]["table"]
             table.setHorizontalHeaderLabels(
                 [tr("page.order.col_mod"), tr("page.order.col_component")]

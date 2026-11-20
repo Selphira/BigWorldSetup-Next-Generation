@@ -318,9 +318,8 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
         if not item:
             return True
 
-        if self._show_selection_only:
-            if item.checkState() == Qt.CheckState.Unchecked:
-                return False
+        if self._show_selection_only and item.checkState() == Qt.CheckState.Unchecked:
+            return False
 
         if self._show_violations_only:
             return self._has_violations_recursive(index, source_model)
@@ -364,8 +363,7 @@ class HierarchicalFilterProxyModel(QSortFilterProxyModel):
                         continue
 
                 return False
-            else:
-                return self._indexes.has_selection_violations(reference)
+            return self._indexes.has_selection_violations(reference)
 
         except (ValueError, AttributeError):
             return False
@@ -625,7 +623,7 @@ class ComponentSelector(QTreeView):
 
     def _add_sub_prompts(self, parent: TreeItem, mod, component) -> None:
         """Add SUB prompts."""
-        for prompt_key in component.prompts.keys():
+        for prompt_key in component.prompts:
             prompt = component.get_prompt(prompt_key)
             prompt_item = TreeItem.create_sub_prompt(mod, component, prompt)
             prompt_status_item = QStandardItem("")

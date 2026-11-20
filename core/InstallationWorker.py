@@ -2,6 +2,7 @@
 
 import codecs
 from collections import deque
+import contextlib
 from dataclasses import replace
 from enum import Enum
 import logging
@@ -178,10 +179,8 @@ class ProcessRunner(QThread):
             logger.error("Error reading %s: %s", stream_name, e)
 
         finally:
-            try:
+            with contextlib.suppress(Exception):
                 stream.close()
-            except Exception:
-                pass
 
     def _send_initial_input(self) -> None:
         """Send pre-configured input lines at startup."""
@@ -249,7 +248,7 @@ class ProcessRunner(QThread):
             return
         try:
             if os.name == "nt":
-                command = Path(os.environ["SystemRoot"]) / "System32" / "taskkill.exe"
+                command = Path(os.environ["SYSTEMROOT"]) / "System32" / "taskkill.exe"
                 subprocess.run(
                     [str(command), "/PID", str(process.pid), "/T", "/F"],
                     creationflags=subprocess.CREATE_NO_WINDOW,

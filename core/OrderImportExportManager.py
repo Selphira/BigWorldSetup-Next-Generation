@@ -20,19 +20,13 @@ logger = logging.getLogger(__name__)
 class OrderImportError(Exception):
     """Base exception for order import errors."""
 
-    pass
-
 
 class InvalidFormatError(OrderImportError):
     """Raised when file format is invalid."""
 
-    pass
-
 
 class FileReadError(OrderImportError):
     """Raised when file cannot be read."""
-
-    pass
 
 
 # ============================================================================

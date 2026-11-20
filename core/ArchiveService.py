@@ -203,9 +203,13 @@ class ArchiveService:
 
     @staticmethod
     def _status_of(record: ArchiveRecord, expected: ModFile | None) -> ArchiveStatus:
-        if expected is not None and expected.size > 0 and record.size != expected.size:
-            if not record.accepted_mismatch:
-                return ArchiveStatus.INVALID_SIZE
+        if (
+            expected is not None
+            and expected.size > 0
+            and record.size != expected.size
+            and not record.accepted_mismatch
+        ):
+            return ArchiveStatus.INVALID_SIZE
         expected_hash = ArchiveService._expected_hash(expected)
         if expected_hash is None:
             return ArchiveStatus.NO_REFERENCE

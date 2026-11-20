@@ -229,10 +229,9 @@ class ProgressItemWidget(QWidget):
 
         if hours > 0:
             return f"{hours}h {minutes}m"
-        elif minutes > 0:
+        if minutes > 0:
             return f"{minutes}m {secs}s"
-        else:
-            return f"{secs}s"
+        return f"{secs}s"
 
     def retranslate_ui(self) -> None:
         """Update UI text for language change."""
@@ -1275,8 +1274,7 @@ class DownloadPage(BasePage):
             self._progress_layout.insertWidget(self._progress_layout.count() - 1, widget)
 
     def _on_download_progress(self, mod_id: str, progress: DownloadProgress) -> None:
-        """Handle download progress update."""
-        pass  # Handled by timer
+        """Ignore per-chunk progress: the refresh timer updates progress widgets."""
 
     def _on_download_canceled(self, mod_id: str) -> None:
         """Handle download cancelation."""
@@ -1443,24 +1441,23 @@ class DownloadPage(BasePage):
             if status == ArchiveStatus.UNKNOWN:
                 return False
 
-            if not ignore_warnings and not ignore_errors:
-                if not status.is_usable:
-                    return False
-
-            elif ignore_warnings:
+            if ignore_warnings:
                 # Allow usable and warning statuses only
-                if not status.is_usable and status not in self.MISMATCH_STATUSES:
-                    return False
+                is_accepted = status.is_usable or status in self.MISMATCH_STATUSES
+            elif ignore_errors:
+                # Ignore errors (implicitly ignores warnings too)
+                is_accepted = True
+            else:
+                is_accepted = status.is_usable
 
-            # Ignore errors (implicitly ignores warnings too)
+            if not is_accepted:
+                return False
 
         return True
 
     def can_go_to_previous_page(self) -> bool:
         """Check if user can return to the previous page."""
-        if self._is_verifying or self._is_downloading:
-            return False
-        return True
+        return not (self._is_verifying or self._is_downloading)
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""

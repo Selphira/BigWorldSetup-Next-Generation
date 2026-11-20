@@ -315,7 +315,8 @@ class DownloadWorker(QObject):
         self._attempt += 1
         self._failure = None
         try:
-            self._output_file = open(self._temp_path, "wb")
+            # Kept open across network callbacks, closed when the attempt concludes.
+            self._output_file = open(self._temp_path, "wb")  # noqa: SIM115
         except OSError as error:
             self._conclude_error(tr("page.download.error.disk", error=str(error)))
             return
@@ -557,12 +558,13 @@ class DownloadManager(QObject):
         Args:
             archive_info: Archive to download
         """
-        if archive_info.mod_id not in self._active_downloads:
-            if archive_info not in self._download_queue:
-                self._download_queue.append(archive_info)
-                logger.info(f"Added to queue: {archive_info.filename}")
-                self.queue_changed.emit()
-                self._process_queue()
+        if archive_info.mod_id in self._active_downloads or archive_info in self._download_queue:
+            return
+
+        self._download_queue.append(archive_info)
+        logger.info(f"Added to queue: {archive_info.filename}")
+        self.queue_changed.emit()
+        self._process_queue()
 
     def start_download(self, archive_info: ArchiveInfo) -> None:
         """Start downloading an archive immediately.

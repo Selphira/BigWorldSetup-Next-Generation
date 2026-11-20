@@ -1,3 +1,4 @@
+import contextlib
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
@@ -421,12 +422,10 @@ def main() -> int:
     except Exception as e:
         logger.critical(f"Fatal error during initialization: {e}", exc_info=True)
 
-        try:
+        with contextlib.suppress(BaseException):
             QMessageBox.critical(
                 None, "Critical Error", f"Fatal error during initialization:\n\n{e}"
             )
-        except:
-            pass
 
         return 1
 

@@ -809,10 +809,7 @@ class ExtractionPage(BasePage):
 
     def can_go_to_previous_page(self) -> bool:
         """Check if can proceed to next page."""
-        if self._is_extracting:
-            return False
-
-        return True
+        return not self._is_extracting
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""

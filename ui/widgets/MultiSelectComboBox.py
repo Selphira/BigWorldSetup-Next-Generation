@@ -180,9 +180,8 @@ class MultiSelectComboBox(QWidget):
 
             self.selection_layout.addWidget(entry)
 
-            if self._separator is not None:
-                if i < len(self.selected) - 1:
-                    self.selection_layout.addWidget(QLabel(self._separator))
+            if self._separator is not None and i < len(self.selected) - 1:
+                self.selection_layout.addWidget(QLabel(self._separator))
 
         self.selection_changed.emit(self.selected_keys())
 

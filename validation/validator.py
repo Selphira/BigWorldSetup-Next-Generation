@@ -158,11 +158,10 @@ class JSONValidator:
         """
         if target.is_file():
             return [self.validate_file(target)]
-        elif target.is_dir():
+        if target.is_dir():
             return self.validate_directory(target)
-        else:
-            logger.error(f"Target not found: {target}")
-            return []
+        logger.error(f"Target not found: {target}")
+        return []
 
 
 def print_results(results: list[ValidationResult], errors_only: bool = False) -> int:

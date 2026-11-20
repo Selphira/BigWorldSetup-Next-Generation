@@ -159,8 +159,7 @@ class SelectionController(QObject):
         """Toggle selection state."""
         if self._indexes.is_selected(reference):
             return self.unselect(reference, cascade=True)
-        else:
-            return self.select(reference, cascade=True)
+        return self.select(reference, cascade=True)
 
     # ========================================
     # Cascade Logic
@@ -217,10 +216,12 @@ class SelectionController(QObject):
             if reference.is_sub() or reference.is_sub_option():
                 continue
 
-            if not self._is_compatible_with_game(reference):
-                if self.unselect(reference, cascade=True, emit_validation=False):
-                    unselected.append(reference)
-                    logger.debug(f"Unselected incompatible component: {reference}")
+            if self._is_compatible_with_game(reference):
+                continue
+
+            if self.unselect(reference, cascade=True, emit_validation=False):
+                unselected.append(reference)
+                logger.debug(f"Unselected incompatible component: {reference}")
 
         return unselected
 
@@ -306,13 +307,15 @@ class SelectionController(QObject):
 
         siblings = self._indexes.get_siblings(reference)
 
-        if not any(self._indexes.is_selected(s) for s in siblings):
-            if self._indexes.is_selected(parent) and not self._has_forced_descendants(parent):
-                self._indexes.unselect(parent)
-                logger.debug(f"  Parent auto-unselected: {parent}")
-                self.selection_changed.emit(parent, False)
+        if any(self._indexes.is_selected(s) for s in siblings):
+            return
 
-                self._update_parent_after_unselect(parent)
+        if self._indexes.is_selected(parent) and not self._has_forced_descendants(parent):
+            self._indexes.unselect(parent)
+            logger.debug(f"  Parent auto-unselected: {parent}")
+            self.selection_changed.emit(parent, False)
+
+            self._update_parent_after_unselect(parent)
 
     # ========================================
     # Helpers
@@ -340,11 +343,7 @@ class SelectionController(QObject):
             return True
 
         children = self._indexes.get_children(reference)
-        for child in children:
-            if self._has_forced_descendants(child):
-                return True
-
-        return False
+        return any(self._has_forced_descendants(child) for child in children)
 
     def _is_muc_option(self, reference: ComponentReference) -> bool:
         """Check if MUC option."""

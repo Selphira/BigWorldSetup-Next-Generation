@@ -251,10 +251,11 @@ class ComponentContextMenu:
         """
         selected = []
 
-        if reference in self._indexes.selection_index:
-            if reference.is_component() or reference.is_sub_option():
-                selected.append(reference)
-                return selected
+        if reference in self._indexes.selection_index and (
+            reference.is_component() or reference.is_sub_option()
+        ):
+            selected.append(reference)
+            return selected
 
         children = self._indexes.get_children(reference)
         for child_ref in children:

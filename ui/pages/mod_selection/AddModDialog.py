@@ -130,7 +130,7 @@ class AddModDialog(QDialog):
         self._categories_combo.selection_changed.connect(self._validate_form)
         form.addRow(tr("page.selection.custom_mod.categories") + " *:", self._categories_combo)
 
-        languages = {code: name for code, name in SUPPORTED_LANGUAGES}
+        languages = dict(SUPPORTED_LANGUAGES)
         self._languages_combo = MultiSelectComboBox(separator=",", min_selection_count=0)
         self._languages_combo.set_items(languages)
         self._languages_combo.setEnabled(False)
@@ -256,7 +256,7 @@ class AddModDialog(QDialog):
         self._version_edit.setText(str(tp2_data.version))
         self._components_edit.setPlainText(self._get_components_list(tp2_data))
         self._languages_combo.set_selected_keys(
-            [language for language in self.parsed_data["languages"]]
+            list(self.parsed_data["languages"])
         )
 
     def _get_components_list(self, tp2_data) -> str:

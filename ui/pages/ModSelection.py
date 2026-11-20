@@ -619,9 +619,8 @@ class ModSelectionPage(BasePage):
             source_index = self._component_selector._proxy_model.mapToSource(current_index)
             item = self._component_selector._model.itemFromIndex(source_index)
 
-            if item:
-                if isinstance(item, TreeItem):
-                    self._violation_panel.update_for_reference(item.reference)
+            if isinstance(item, TreeItem):
+                self._violation_panel.update_for_reference(item.reference)
 
         if self._chk_show_violations.checkState() == Qt.CheckState.Checked:
             self._component_selector._proxy_model.invalidateFilter()
@@ -804,8 +803,7 @@ class ModSelectionPage(BasePage):
 
         if dialog.exec():
             return dialog.selectedFiles()[0], checkbox.isChecked()
-        else:
-            return None, False
+        return None, False
 
     def _apply_imported_selection(
         self,
@@ -1024,15 +1022,12 @@ class ModSelectionPage(BasePage):
         ):
             return False
 
-        if self._validation_orchestrator.has_errors():
-            if not self._chk_ignore_errors.isChecked():
-                return False
-
-        if self._validation_orchestrator.has_warnings():
-            if not self._chk_ignore_warnings.isChecked():
-                return False
-
-        return True
+        orchestrator = self._validation_orchestrator
+        blocked_by_errors = orchestrator.has_errors() and not self._chk_ignore_errors.isChecked()
+        blocked_by_warnings = (
+            orchestrator.has_warnings() and not self._chk_ignore_warnings.isChecked()
+        )
+        return not (blocked_by_errors or blocked_by_warnings)
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible."""

@@ -52,9 +52,8 @@ class ComponentGroup:
         if self.operator == DependencyMode.ANY:
             # At least one component must be selected
             return any(self._matches_reference(comp, selected_set) for comp in self.components)
-        else:  # ALL
-            # All components must be selected
-            return all(self._matches_reference(comp, selected_set) for comp in self.components)
+        # All components must be selected
+        return all(self._matches_reference(comp, selected_set) for comp in self.components)
 
     def get_matched_components(
         self, selected_set: set[ComponentReference]
@@ -295,10 +294,7 @@ class RuleViolation:
 
     def is_broad_rule(self) -> bool:
         """True if the rule targets a whole mod rather than specific components."""
-        for ref in (*self.rule.sources, *self.rule.targets):
-            if ref.is_mod():
-                return True
-        return False
+        return any(ref.is_mod() for ref in (*self.rule.sources, *self.rule.targets))
 
     @staticmethod
     def _insert_soft_breaks(text: str, max_len: int = 30) -> str:
@@ -398,14 +394,12 @@ class RuleViolation:
             if missing:
                 missing_str = self._missing_expression()
                 return tr("rule.message_dependency_missing", missing=missing_str)
-            else:
-                return tr("rule.message_dependency_all_satisfied")
-        else:
-            for source in self.rule.sources:
-                if self._matches_reference(source, selected_set):
-                    missing.append(source)
-            sources_str = ", ".join(str(s) for s in missing)
-            return tr("rule.message_dependency_required_by", sources=sources_str)
+            return tr("rule.message_dependency_all_satisfied")
+        for source in self.rule.sources:
+            if self._matches_reference(source, selected_set):
+                missing.append(source)
+        sources_str = ", ".join(str(s) for s in missing)
+        return tr("rule.message_dependency_required_by", sources=sources_str)
 
     def _format_incompatibility_message(
         self, for_reference: ComponentReference, selected_set: set[ComponentReference]
@@ -443,10 +437,7 @@ class RuleViolation:
         self, reference: ComponentReference, ref_list: list[ComponentReference]
     ) -> bool:
         """Check if reference matches any reference in list (handles MOD references)."""
-        for ref in ref_list:
-            if self._references_match(reference, ref):
-                return True
-        return False
+        return any(self._references_match(reference, ref) for ref in ref_list)
 
     @staticmethod
     def _references_match(ref1: ComponentReference, ref2: ComponentReference) -> bool:

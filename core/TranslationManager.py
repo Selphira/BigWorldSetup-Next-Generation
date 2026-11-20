@@ -93,9 +93,8 @@ class TranslationManager(QObject):
             return False
 
         try:
-            with filepath.open("r", encoding="utf-8") as f:
-                with self._lock:
-                    self._translations[code] = json.load(f)
+            with filepath.open("r", encoding="utf-8") as f, self._lock:
+                self._translations[code] = json.load(f)
 
             logger.info(f"Loaded language: {code}")
             return True

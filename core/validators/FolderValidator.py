@@ -49,7 +49,6 @@ class FolderValidator(ABC):
             Tuple of (is_valid, error_message).
             error_message is empty string if valid.
         """
-        pass
 
 
 class ExistingFolderValidator(FolderValidator):
@@ -192,9 +191,8 @@ class GameFolderValidator(ExistingFolderValidator):
                 return result
 
         # Check Lua conditions
-        if self.validation_rules.lua_checks:
-            if not self._check_lua_conditions(folder):
-                return False, tr("validation.invalid_game_folder")
+        if self.validation_rules.lua_checks and not self._check_lua_conditions(folder):
+            return False, tr("validation.invalid_game_folder")
 
         return True, ""
 
@@ -307,13 +305,12 @@ class GameFolderValidator(ExistingFolderValidator):
 
         # Log and return result
         if is_valid:
-            logger.debug("File group validated: {group.description} (found: {ound_files})")
+            logger.debug(f"File group validated: {group.description} (found: {found_files})")
             return True, ""
-        else:
-            logger.debug(
-                "File group validation failed: {group.description} (found {found_count}/{total_count}: {found_files})"
-            )
-            return False, tr("validation.file_group_failed", description=group.description)
+        logger.debug(
+            "File group validation failed: {group.description} (found {found_count}/{total_count}: {found_files})"
+        )
+        return False, tr("validation.file_group_failed", description=group.description)
 
     def _check_lua_conditions(self, folder: Path) -> bool:
         """

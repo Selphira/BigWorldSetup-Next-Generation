@@ -35,8 +35,6 @@ class ButtonConfig:
 class QWidgetABCMeta(type(QWidget), ABCMeta):
     """Combined metaclass for QWidget and ABC."""
 
-    pass
-
 
 class BasePage(QWidget, metaclass=QWidgetABCMeta):
     """Base class for all application pages with navigation support.
@@ -273,7 +271,6 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         Called when navigating away from the page to persist user choices.
         Should update state_manager with current page data.
         """
-        pass
 
     def load_state(self) -> None:
         """
@@ -282,7 +279,6 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         Called when register the page to restore previous user choices.
         Should retrieve data from state_manager and update UI accordingly.
         """
-        pass
 
     def on_page_shown(self) -> None:
         """Called when page becomes visible.
@@ -310,7 +306,6 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
 
         Override to update translatable UI elements.
         """
-        pass
 
     # ========================================
     # UTILITY METHODS

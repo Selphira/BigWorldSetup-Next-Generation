@@ -392,7 +392,7 @@ class RuleCacheBuilderThread(QThread):
 
         # Fallback order: target language first, then others
         fallback_order = [target_lang] + [
-            lang for lang in translations.keys() if lang != target_lang
+            lang for lang in translations if lang != target_lang
         ]
 
         # Resolve description with fallback
@@ -1067,8 +1067,7 @@ class RuleManager(QObject):
         """Check if there is an order violation."""
         if direction == OrderDirection.BEFORE:
             return source_pos > target_pos
-        else:  # AFTER
-            return source_pos < target_pos
+        return source_pos < target_pos
 
     def _clear_game_states(self, game_id: str | None) -> None:
         """Clean up validation states for a specific game."""

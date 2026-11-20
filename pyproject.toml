@@ -21,7 +21,7 @@ target-version = "py313"
 
 [tool.ruff.lint]
 # https://docs.astral.sh/ruff/rules
-select = ["F", "I", "E", "B"]
+select = ["F", "I", "E", "B", "SIM", "RET", "PIE", "C4"]
 ignore = ["E501"]
 
 [tool.ruff.lint.isort]

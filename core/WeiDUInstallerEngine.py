@@ -454,9 +454,8 @@ class WeiDUInstallerEngine:
             if setup.exists():
                 logger.warning("Failed to update %s: %s", setup.name, e)
                 return True
-            else:
-                logger.error("Failed to create %s: %s", setup.name, e)
-                return False
+            logger.error("Failed to create %s: %s", setup.name, e)
+            return False
 
     def _build_command(self, tp2, components, language, extra_args):
         """

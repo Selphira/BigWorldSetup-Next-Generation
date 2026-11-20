@@ -457,7 +457,7 @@ class Mod:
         if self._components_cache:
             return
 
-        for key in self._components_raw.keys():
+        for key in self._components_raw:
             self.get_component(key)
 
     def _create_component(self, key: str, raw_data: dict[str, Any]) -> Component:
@@ -599,7 +599,7 @@ class Mod:
         Returns:
             List of all components
         """
-        return [self.get_component(key) for key in self._components_raw.keys()]
+        return [self.get_component(key) for key in self._components_raw]
 
     def supports_game(self, game: str) -> bool:
         """Check if mod supports a game."""
