@@ -82,110 +82,50 @@ UNORDERED_COLUMN_COUNT = 2
 # ============================================================================
 
 
-@dataclass
-class ComponentIssue:
-    """Single validation issue for a component.
-
-    Attributes:
-        reference: Component reference
-        is_error: True for errors, False for warnings
-    """
-
-    reference: ComponentReference
-    is_error: bool
-
-
 class ValidationResult:
-    """Result of order validation with warnings and errors.
+    """Order validation issues of one sequence, indexed by component reference.
 
-    Tracks validation issues per component and provides aggregated
-    statistics for UI display.
+    Errors and warnings are kept apart: a component flagged with both still
+    counts as a warning, so ignoring errors alone does not hide it.
     """
 
-    # Color constants for validation
     COLOR_VALID = QColor("transparent")
     COLOR_WARNING = QColor(COLOR_BACKGROUND_WARNING)
     COLOR_ERROR = QColor(COLOR_BACKGROUND_ERROR)
 
-    def __init__(self):
-        self._issues: list[ComponentIssue] = []
+    def __init__(self) -> None:
+        self._errors: set[ComponentReference] = set()
+        self._warnings: set[ComponentReference] = set()
 
     def add_warning(self, reference: ComponentReference) -> None:
-        """Add a warning for a component.
-
-        Args:
-            reference: Component reference
-        """
-        self._issues.append(ComponentIssue(reference, is_error=False))
+        self._warnings.add(reference)
 
     def add_error(self, reference: ComponentReference) -> None:
-        """Add an error for a component.
-
-        Args:
-            reference: Component reference
-        """
-        self._issues.append(ComponentIssue(reference, is_error=True))
+        self._errors.add(reference)
 
     @property
     def is_valid(self) -> bool:
-        """Check if order is valid (no errors).
-
-        Returns:
-            True if no errors exist, False otherwise
-        """
-        return not any(issue.is_error for issue in self._issues)
+        return not self.has_errors
 
     @property
     def has_errors(self) -> bool:
-        """Check if order has errors.
-
-        Returns:
-            True if errors exist, False otherwise
-        """
-        return any(issue.is_error for issue in self._issues)
+        return bool(self._errors)
 
     @property
     def has_warnings(self) -> bool:
-        """Check if order has warnings.
-
-        Returns:
-            True if warnings exist, False otherwise
-        """
-        return any(not issue.is_error for issue in self._issues)
-
-    def get_component_issues(self, reference: ComponentReference) -> list[ComponentIssue]:
-        """Get all issues for a specific component.
-
-        Args:
-            reference: Component reference
-
-        Returns:
-            List of issues for the component
-        """
-        return [issue for issue in self._issues if issue.reference == reference]
+        return bool(self._warnings)
 
     def get_component_indicator(self, reference: ComponentReference) -> tuple[QColor, str]:
-        """Get color for a component based on its issues.
-
-        Args:
-            reference: Component reference
-
-        Returns:
-            Color to use for component display
-        """
-        issues = self.get_component_issues(reference)
-        if not issues:
-            return self.COLOR_VALID, ""
-
-        has_error = any(issue.is_error for issue in issues)
-        return (
-            self.COLOR_ERROR if has_error else self.COLOR_WARNING,
-            ICON_ERROR if has_error else ICON_WARNING,
-        )
+        """Return the row background color and icon for a component."""
+        if reference in self._errors:
+            return self.COLOR_ERROR, ICON_ERROR
+        if reference in self._warnings:
+            return self.COLOR_WARNING, ICON_WARNING
+        return self.COLOR_VALID, ""
 
     def clear(self) -> None:
-        """Clear all validation issues."""
-        self._issues.clear()
+        self._errors.clear()
+        self._warnings.clear()
 
 
 # ============================================================================
