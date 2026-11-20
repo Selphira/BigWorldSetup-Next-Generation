@@ -9,6 +9,9 @@ from PySide6.QtCore import Qt
 
 APP_NAME = "Big World Setup - Next Generation"
 APP_VERSION = "0.9.11-beta"
+# Pre-release suffix ranks in version comparison; unknown suffixes rank 0
+VERSION_SUFFIX_PRIORITY = {"alpha": 1, "beta": 2, "rc": 3}
+VERSION_RELEASE_PRIORITY = 4
 APP_ORG = "Selphira"
 
 DATA_SCHEMA_VERSION = "1.0"

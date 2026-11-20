@@ -18,9 +18,33 @@ from constants import (
     GITHUB_API_BASE,
     GITHUB_REPO_NAME,
     GITHUB_REPO_OWNER,
+    VERSION_RELEASE_PRIORITY,
+    VERSION_SUFFIX_PRIORITY,
 )
 
 logger = logging.getLogger(__name__)
+
+_SUFFIX_PATTERN = re.compile(r"([a-z]+)(\d+)?")
+
+
+def _version_key(version: str) -> tuple[tuple[int, ...], int, int]:
+    """
+    Build a sort key (numbers, suffix priority, suffix number) for "X.Y.Z[-suffixN]".
+
+    Trailing zeros are dropped so that 1.0 and 1.0.0 compare equal.
+    A suffix without a letter prefix ranks as a release, like the original parser.
+    """
+    numbers_part, _, suffix = version.partition("-")
+    numbers = [int(part) for part in numbers_part.split(".")]
+    while numbers and numbers[-1] == 0:
+        numbers.pop()
+
+    match = _SUFFIX_PATTERN.match(suffix.lower())
+    if not match:
+        return tuple(numbers), VERSION_RELEASE_PRIORITY, 0
+
+    priority = VERSION_SUFFIX_PRIORITY.get(match.group(1), 0)
+    return tuple(numbers), priority, int(match.group(2) or 0)
 
 
 @dataclass
@@ -97,72 +121,14 @@ class VersionChecker:
         """
         Compare version strings with support for pre-release suffixes.
 
-        Supports formats:
-        - X.Y.Z (e.g., 1.2.3)
-        - X.Y.Z-suffix (e.g., 1.2.3-beta, 0.9.0-alpha)
-
-        Pre-release versions are considered older than release versions:
+        Pre-release versions are older than their release:
         1.0.0-beta < 1.0.0 < 1.0.1-alpha < 1.0.1
 
-        Args:
-            latest: Latest version string
-            current: Current version string
-
         Returns:
-            True if latest is newer than current
+            True if latest is newer than current, False if either is unreadable
         """
         try:
-            # Parse version with optional pre-release suffix
-            def parse_version(version_str):
-                # Split on '-' to separate version from suffix
-                parts = version_str.split("-", 1)
-                version_part = parts[0]
-                suffix = parts[1].lower() if len(parts) > 1 else None
-
-                # Parse numeric version parts
-                version_numbers = [int(x) for x in version_part.split(".")]
-
-                # Define suffix priority (lower = older)
-                # No suffix (release) = highest priority
-                suffix_priority = {
-                    "alpha": 1,
-                    "beta": 2,
-                    "rc": 3,
-                    None: 4,  # Release version
-                }
-
-                # Get base suffix type (e.g., 'beta' from 'beta2')
-                suffix_type = None
-                suffix_number = 0
-                if suffix:
-                    # Try to extract number from suffix (e.g., 'beta2' -> 'beta', 2)
-                    match = re.match(r"([a-z]+)(\d+)?", suffix)
-                    if match:
-                        suffix_type = match.group(1)
-                        suffix_number = int(match.group(2)) if match.group(2) else 0
-
-                priority = suffix_priority.get(suffix_type, 0)
-
-                return version_numbers, priority, suffix_number
-
-            latest_nums, latest_priority, latest_suffix_num = parse_version(latest)
-            current_nums, current_priority, current_suffix_num = parse_version(current)
-
-            # Pad version numbers with zeros if needed
-            max_len = max(len(latest_nums), len(current_nums))
-            latest_nums.extend([0] * (max_len - len(latest_nums)))
-            current_nums.extend([0] * (max_len - len(current_nums)))
-
-            # Compare: first by version numbers, then by suffix priority, then by suffix number
-            if latest_nums != current_nums:
-                return latest_nums > current_nums
-
-            if latest_priority != current_priority:
-                return latest_priority > current_priority
-
-            # Same version and suffix type, compare suffix numbers
-            return latest_suffix_num > current_suffix_num
-
+            return _version_key(latest) > _version_key(current)
         except (ValueError, AttributeError) as e:
             logger.warning(f"Failed to compare versions: {latest} vs {current} - {e}")
             return False
