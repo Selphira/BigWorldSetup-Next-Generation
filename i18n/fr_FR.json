@@ -540,6 +540,9 @@
       "dependents_title": "Prérequis en échec",
       "dependents_message": "Ignorer ces composants dépendants ?\n{components}",
       "invalid_plan": "Composant invalide ou réponse SUB absente, contradictoire ou inconnue pour {reference}.",
+      "unprepared": "Ces composants n’ont pas de préparation prouvée (archive manquante, extraction absente, échouée ou obsolète) : {references}. Terminez l’étape Extraction avant d’installer.",
+      "tp2_missing": "Le TP2 {tp2} est introuvable dans le dossier du jeu : le mod n’a pas été extrait correctement.",
+      "tp2_missing_provided": "Le TP2 {tp2} est introuvable dans le dossier du jeu. Il est fourni par {provider}, qui doit être extrait, et parfois installé, avant ce composant.",
       "error_no_folder_title": "Dossier de jeu manquant",
       "error_no_folder_message": "Le dossier du jeu pour la séquence {sequence} n'est pas défini.\n\nVeuillez vérifier la configuration des dossiers.",
       "error_no_weidu_title": "WeiDU introuvable",
@@ -576,7 +579,8 @@
       "paused_with_description": "Installation en pause : {description}",
       "divergence": {
         "folder": "Le dossier {folder} n’est plus celui de l’installation en cours : il a été remplacé, restauré ou déplacé. La reprise est impossible. Annulez l’installation, puis relancez-la sur une base vérifiée.",
-        "folder_missing": "Le dossier {folder} est introuvable. Rebranchez le disque ou rétablissez le dossier avant de reprendre."
+        "folder_missing": "Le dossier {folder} est introuvable. Rebranchez le disque ou rétablissez le dossier avant de reprendre.",
+        "archive": "Les fichiers de {mod} ont été préparés depuis une autre archive que celle de l’installation en cours ({reference}). La reprise est suspendue : réextrayez l’archive d’origine ou annulez l’installation."
       },
       "debug_locked": "Le fichier {file} est verrouillé : WeiDU ne peut pas être lancé sans isoler son journal DEBUG. Fermez le programme qui l’utilise, puis réessayez. Détail : {error}",
       "process_not_started": "WeiDU n’a pas pu démarrer.",

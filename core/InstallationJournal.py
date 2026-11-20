@@ -13,9 +13,14 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from constants import DWN_TP2_LANGUAGE, DWN_TP2_PREFIX, INSTALLATION_JOURNAL_FORMAT
+from constants import (
+    DWN_TP2_LANGUAGE,
+    DWN_TP2_PREFIX,
+    INSTALLATION_JOURNAL_FORMAT,
+)
 from core.atomic_io import write_json_atomic
 from core.ComponentReference import ComponentReference
+from core.ExtractionManifest import ExtractionManifest
 from core.models.PauseEntry import PauseEntry
 from core.RuleManager import RuleManager
 from core.TranslationManager import tr
@@ -118,6 +123,10 @@ class Operation:
     decision: OperationDecision | None = None
     evidence: AttemptEvidence | None = None
     messages: list[str] = field(default_factory=list)
+    # Mod whose archive supplied the files (the provider of a provided mod)
+    archive_owner: str | None = None
+    # Archive identity of the extraction manifest when the run was planned
+    archive_sha256: str | None = None
 
     @property
     def recipe(self) -> tuple[Any, ...]:
@@ -225,6 +234,33 @@ class RunSequence:
             raise RunDivergenceError(
                 tr("page.installation.divergence.folder", folder=self.folder)
             )
+
+    def verify_preparation(self, positions: list[int] | None = None) -> None:
+        """Raise RunDivergenceError when files were prepared from another archive.
+
+        Args:
+            positions: Operations about to run; by default every one still to do
+        """
+        folder = Path(self.folder)
+        selected = (
+            [self.operations[position] for position in positions]
+            if positions is not None
+            else [op for op in self.operations if op.needs_work]
+        )
+        for op in selected:
+            if op.archive_sha256 is None or op.archive_owner is None:
+                continue
+            manifest = ExtractionManifest.load(
+                ExtractionManifest.path_for(folder, op.archive_owner)
+            )
+            if manifest is None or manifest.archive_sha256 != op.archive_sha256:
+                raise RunDivergenceError(
+                    tr(
+                        "page.installation.divergence.archive",
+                        reference=op.reference,
+                        mod=op.archive_owner,
+                    )
+                )
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -357,6 +393,7 @@ class InstallationJournal:
         """Persist that WeiDU is about to modify the game for these operations."""
         target = self.sequences[sequence]
         target.verify_base()
+        target.verify_preparation(positions)
         for position in positions:
             target.operations[position].status = ComponentStatus.RUNNING
         self.save()

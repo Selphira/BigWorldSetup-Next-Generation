@@ -161,3 +161,62 @@ def test_cli_exit_code_and_report(
     )
     assert main() == (0 if valid else 1)
     assert json.loads(output.read_text(encoding="utf-8"))["valid"] is valid
+
+
+def mod_document(**fields: object) -> dict[str, object]:
+    return {
+        "name": "Bundled",
+        "version": "1",
+        "tp2": "bundled",
+        "games": ["eet"],
+        "categories": ["npc"],
+        "components": {"0": {"type": "std"}},
+        "translations": {"en_US": {"description": "Fixture", "components": {"0": "B"}}},
+        "links": {},
+        "authors": ["Test"],
+        "safe": 2,
+        **fields,
+    }
+
+
+PACK_FILES = [{"filename": "pack.zip", "size": 1, "download": "https://example.invalid/p.zip"}]
+
+
+@pytest.mark.parametrize(
+    "bundled,pack,code",
+    [
+        ({"provided_by": "absent"}, None, "missing_mod"),
+        ({"provided_by": "pack"}, {}, "provider_without_archive"),
+        ({"provided_by": "pack"}, {"provided_by": "demo"}, "provider_without_archive"),
+        ({"provided_by": "pack", "files": PACK_FILES}, {"files": PACK_FILES}, "schema"),
+    ],
+)
+def test_invalid_archive_provider_blocks_publication(
+    small_catalogue: tuple[Path, Path],
+    bundled: dict[str, object],
+    pack: dict[str, object] | None,
+    code: str,
+) -> None:
+    data, _ = small_catalogue
+    write_json(data / "mods" / "bundled.json", mod_document(**bundled))
+    if pack is not None:
+        write_json(data / "mods" / "pack.json", mod_document(tp2="pack", **pack))
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert any(
+        item.file == "mods/bundled.json" and item.code == code for item in report.diagnostics
+    ), report.diagnostics
+
+
+def test_provided_and_manual_archives_are_valid(small_catalogue: tuple[Path, Path]) -> None:
+    data, _ = small_catalogue
+    write_json(data / "mods" / "pack.json", mod_document(tp2="pack", files=PACK_FILES))
+    write_json(data / "mods" / "bundled.json", mod_document(provided_by="Pack"))
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert report.valid, report.diagnostics
+    assert [(item.file, item.code) for item in report.notices] == [
+        ("mods/demo.json", "manual_archive")
+    ]

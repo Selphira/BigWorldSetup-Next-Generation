@@ -16,6 +16,7 @@ from pytestqt.qtbot import QtBot
 
 from constants import EXTRACT_DIR, PROGRESS_IDLE_FORMAT
 from core import DownloadManager as downloads
+from core.ExtractionManifest import ExtractionManifest
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import (
     InstallationJournal,
@@ -68,6 +69,23 @@ def journal(tmp_path: Path) -> InstallationJournal:
     return run
 
 
+@pytest.fixture(autouse=True)
+def demo_tp2(tmp_path: Path) -> Path:
+    """WeiDU is only launched for a TP2 present in the game folder."""
+    tp2 = tmp_path / "demo" / "demo.tp2"
+    tp2.parent.mkdir()
+    tp2.write_text("BACKUP ~demo/backup~\nAUTHOR ~me~\n", encoding="utf-8")
+    return tp2
+
+
+def prepare_mods(folder: Path, catalogue: ModCatalogue) -> None:
+    """Write the extraction manifests proving every mod was prepared."""
+    for mod in catalogue.mods.values():
+        ExtractionManifest(mod.id, "a" * 64, 0).save(
+            ExtractionManifest.path_for(folder, mod.id)
+        )
+
+
 @pytest.fixture
 def no_rules() -> Mock:
     rules = Mock()
@@ -105,6 +123,7 @@ def state_for(
     state.get_game_manager.return_value.get.return_value = game
     for mod in catalogue.mods.values():
         mod.languages["fr_FR"] = 0
+    prepare_mods(tmp_path, catalogue)
     return state
 
 
@@ -976,7 +995,7 @@ def test_close_cancels_page_work_and_prevents_followup(
         page._verification_worker = task
         start_downloads = Mock()
         monkeypatch.setattr(page, "_start_downloads", start_downloads)
-        task.finished.connect(lambda: page._on_verification_completed_then_download({}))
+        task.finished.connect(lambda: page._on_verifications_completed({}))
     else:
         page._extraction_worker = task
         task.finished.connect(lambda: page._on_all_extractions_completed([]))

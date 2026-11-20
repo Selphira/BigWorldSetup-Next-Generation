@@ -128,6 +128,10 @@ class WeiDUInstallerEngine:
         """
         callbacks = callbacks or ProcessCallbacks()
 
+        missing = self._missing_tp2_message(tp2, components)
+        if missing:
+            return self._failed_results(components, missing)
+
         if not self._create_or_update_setup(tp2):
             return self._failed_results(components, f"Failed to create setup-{tp2}.exe")
 
@@ -380,6 +384,21 @@ class WeiDUInstallerEngine:
             )
             for comp in components
         }
+
+    def _missing_tp2_message(self, tp2: str, components: list[ComponentInfo]) -> str | None:
+        """Explain why WeiDU cannot start when the TP2 is absent from the game.
+
+        The TP2 of a provided mod may only appear once its provider is
+        installed (lolfixer and BWS-FR-Fixpack), so the provider is named.
+        """
+        if StructureValidator.validate_structure(self.game_dir, tp2)[0]:
+            return None
+        mod = components[0].mod if components else None
+        if mod is not None and mod.provided_by:
+            return tr(
+                "page.installation.tp2_missing_provided", tp2=tp2, provider=mod.provided_by
+            )
+        return tr("page.installation.tp2_missing", tp2=tp2)
 
     def _verify_extracted_payload(self, mod: Mod) -> None:
         """Raise ValueError unless the download-only files can be found."""

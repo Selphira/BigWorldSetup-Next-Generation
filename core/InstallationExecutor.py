@@ -16,6 +16,7 @@ from PySide6.QtCore import QLockFile
 
 from constants import INSTALLATION_JOURNAL_NAME
 from core.ComponentReference import ComponentReference
+from core.ExtractionManifest import ExtractionManifest
 from core.InstallationJournal import (
     InstallationJournal,
     JournalError,
@@ -141,15 +142,19 @@ class InstallationExecutor:
 
         try:
             if self.is_active:
+                reconciliation = self._reconciler.reconcile(self.journal)
+                for sequence in self.journal.sequences:
+                    sequence.verify_preparation()
                 return StartReport(
                     resumed=True,
-                    reconciliation=self._reconciler.reconcile(self.journal),
+                    reconciliation=reconciliation,
                     catalogue_changes=self._catalogue_changes(self.journal),
                 )
 
             plan = self._plan_from_state(batch)
             sequences = self._capture(plan)
             self._ensure_unmodded(sequences)
+            self._freeze_preparations(sequences)
             self.journal = InstallationJournal(self.journal_path, plan, sequences)
             self.journal.save()
         except (RunDivergenceError, OSError) as error:
@@ -395,7 +400,33 @@ class InstallationExecutor:
             requirements=requirements,
             kind=str(comp.component.comp_type) if comp.component else "pause",
             version=comp.mod.version if comp.mod else "",
+            archive_owner=(comp.mod.provided_by or comp.mod.id) if comp.mod else None,
         )
+
+    @staticmethod
+    def _freeze_preparations(sequences: list[RunSequence]) -> None:
+        """Require a proven preparation for every operation and record its archive.
+
+        Raises:
+            InstallationError: Components whose files were not prepared from a
+                verified archive (extraction missing, failed or outdated)
+        """
+        unprepared = []
+        for sequence in sequences:
+            for op in sequence.operations:
+                if op.archive_owner is None:
+                    continue
+                manifest = ExtractionManifest.load(
+                    ExtractionManifest.path_for(Path(sequence.folder), op.archive_owner)
+                )
+                if manifest is None:
+                    unprepared.append(op.reference)
+                else:
+                    op.archive_sha256 = manifest.archive_sha256
+        if unprepared:
+            raise InstallationError(
+                tr("page.installation.unprepared", references=", ".join(unprepared))
+            )
 
     def _ensure_unmodded(self, sequences: list[RunSequence]) -> None:
         for sequence in sequences:

@@ -56,7 +56,6 @@ def test_b08_unfinished_debug_is_not_success(tmp_path: Path) -> None:
     assert ComponentStatus.SUCCESS not in WeiDUDebugParser.parse(debug).values()
 
 
-@pytest.mark.xfail(reason="B09 / L5: merge errors ignored", raises=AssertionError)
 def test_b09_failed_merge_does_not_emit_success(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -84,11 +83,10 @@ def test_b11_cross_volume_directory_transfer(tmp_path: Path) -> None:
     assert (destination / "épreuve.txt").read_bytes() == b"original"
 
 
-@pytest.mark.xfail(reason="B13 / L5: manual archive omitted", raises=AssertionError)
 def test_b13_manual_archive_remains_visible() -> None:
     mod = Mod({"id": "manual", "links": {}, "files": [{"filename": "manual.zip"}]})
-    archive = DownloadPage._get_archive_info_from_mod(None, mod)
-    assert archive is not None and archive.filename == "manual.zip"
+    archive = DownloadPage._get_archive_info_from_mod(mod)
+    assert archive.filename == "manual.zip" and archive.url is None
 
 
 @pytest.mark.xfail(

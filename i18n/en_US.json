@@ -540,6 +540,9 @@
       "dependents_title": "Failed prerequisites",
       "dependents_message": "Skip these dependent components?\n{components}",
       "invalid_plan": "Invalid component or missing, conflicting or unknown SUB answer for {reference}.",
+      "unprepared": "These components have no proven preparation (missing archive, or extraction absent, failed or outdated): {references}. Finish the Extraction step before installing.",
+      "tp2_missing": "TP2 {tp2} cannot be found in the game folder: the mod was not extracted correctly.",
+      "tp2_missing_provided": "TP2 {tp2} cannot be found in the game folder. It is provided by {provider}, which must be extracted, and sometimes installed, before this component.",
       "error_no_folder_title": "Missing Game Folder",
       "error_no_folder_message": "Game folder for sequence {sequence} is not defined.\n\nPlease check folder configuration.",
       "error_no_weidu_title": "WeiDU Not Found",
@@ -576,7 +579,8 @@
       "paused_with_description": "Installation paused: {description}",
       "divergence": {
         "folder": "The folder {folder} is no longer the one of the current installation: it was replaced, restored or moved. The run cannot be resumed. Cancel the installation, then start it again on a verified base.",
-        "folder_missing": "The folder {folder} cannot be found. Reconnect the drive or restore the folder before resuming."
+        "folder_missing": "The folder {folder} cannot be found. Reconnect the drive or restore the folder before resuming.",
+        "archive": "The files of {mod} were prepared from another archive than the one of the current installation ({reference}). The resume is suspended: extract the original archive again or cancel the installation."
       },
       "debug_locked": "The file {file} is locked: WeiDU cannot be launched without isolating its DEBUG log. Close the program using it, then try again. Details: {error}",
       "process_not_started": "WeiDU could not be started.",
