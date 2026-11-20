@@ -13,6 +13,7 @@ import re
 from typing import Generator
 
 from constants import WEIDU_SETUP_PREFIX
+from core.File import safe_read
 
 logger = logging.getLogger(__name__)
 
@@ -121,12 +122,6 @@ class WeiDULogParser:
         r"(?:\s+//\s*(?P<description>.*))?$"  # Optional description
     )
 
-    # Default encoding for WeiDU.log files
-    DEFAULT_ENCODING = "utf-8-sig"
-
-    # Fallback encodings to try if UTF-8 fails
-    FALLBACK_ENCODINGS = ["latin-1", "cp1252", "iso-8859-1"]
-
     def parse_file(self, file_path: str | Path) -> WeiDULogResult:
         """Parse a WeiDU.log file.
 
@@ -156,37 +151,6 @@ class WeiDULogParser:
         logger.info("Parsed %d entries", result.entry_count)
 
         return result
-
-    def _read_file_with_encoding(self, path: Path) -> str:
-        """Read file trying multiple encodings.
-
-        Args:
-            path: File path
-
-        Returns:
-            File content as string
-
-        Raises:
-            UnicodeDecodeError: If all encodings fail
-        """
-        # Try UTF-8 first
-        try:
-            return path.read_text(encoding=self.DEFAULT_ENCODING)
-        except UnicodeDecodeError:
-            logger.debug("UTF-8 failed, trying fallback encodings")
-
-        # Try fallback encodings
-        for encoding in self.FALLBACK_ENCODINGS:
-            try:
-                content = path.read_text(encoding=encoding)
-                logger.info(f"Successfully read file with {encoding} encoding")
-                return content
-            except UnicodeDecodeError:
-                continue
-
-        # If all fail, read with errors='ignore'
-        logger.warning("All encodings failed, reading with error replacement")
-        return path.read_text(encoding=self.DEFAULT_ENCODING, errors="ignore")
 
     def _parse_line(self, line: str, line_num: int) -> WeiDULogEntry | None:
         """Parse a single line from WeiDU.log.
@@ -297,7 +261,7 @@ class WeiDULogParser:
         if not path.is_file():
             raise ValueError(f"Path is not a file: {path}")
 
-        content = self._read_file_with_encoding(path)
+        content = safe_read(path)
 
         for line_num, line in enumerate(content.splitlines(), start=1):
             line = line.strip()

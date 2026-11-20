@@ -7,26 +7,18 @@ logger = logging.getLogger(__name__)
 #         CONSTANTS
 # ------------------------------
 
-# Default encoding attempts (ordered by frequency in mod files)
-DEFAULT_ENCODINGS: list[str] = [
-    "utf-8",  # Most common modern encoding
-    "utf-8-sig",  # UTF-8 with BOM (common in Windows files)
-    "cp1252",  # Windows Western European
-    "latin-1",  # ISO-8859-1
-]
+# Encodings tried in order when reading mod text files. "utf-8-sig" also reads
+# plain UTF-8 and drops a leading BOM; "cp1252" rejects a few bytes that
+# "latin-1" accepts. "latin-1" decodes any byte, so it must stay last: it ends
+# the search and no further fallback is needed.
+TEXT_ENCODINGS: tuple[str, ...] = ("utf-8-sig", "cp1252", "latin-1")
 
 
-def safe_read(
-    path: Path | str,
-    encodings: list[str] | None = None,
-) -> str:
-    """Read a text file safely with automatic encoding detection.
-
-    This function attempts to read a file using multiple encodings.
+def safe_read(path: Path | str) -> str:
+    """Read a text file, trying each encoding of TEXT_ENCODINGS in order.
 
     Args:
         path: Path to file to read
-        encodings: List of encodings to try (uses DEFAULT_ENCODINGS if None)
 
     Returns:
         The file content
@@ -35,29 +27,20 @@ def safe_read(
         FileNotFoundError: If file doesn't exist
     """
     path = Path(path)
-    encodings = encodings or DEFAULT_ENCODINGS
 
-    logger.debug(f"Attempting to read file: {path}")
-
-    # Check file existence
     if not path.exists():
         error_msg = f"File not found: {path}"
         logger.error(error_msg)
         raise FileNotFoundError(error_msg)
 
-    # Try each encoding
-    for encoding in encodings:
+    *attempts, last_resort = TEXT_ENCODINGS
+    for encoding in attempts:
         try:
-            logger.debug(f"Trying encoding: {encoding}")
-            with open(path, "r", encoding=encoding) as f:
-                return f.read()
+            return path.read_text(encoding=encoding)
         except UnicodeDecodeError:
-            continue
+            logger.debug(f"Could not decode {path.name} as {encoding}")
 
-    logger.warning(f"Read {path.name} with fallback")
-
-    with open(path, "rb") as f:
-        return f.read().decode("utf-8", errors="replace")
+    return path.read_text(encoding=last_resort)
 
 
 def format_size(bytes_count: int) -> str:
