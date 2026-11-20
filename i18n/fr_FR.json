@@ -260,7 +260,8 @@
         "missing": "Manquants",
         "invalid": "Hash invalide",
         "valid": "Valides",
-        "unknown": "Inconnus"
+        "unknown": "Inconnus",
+        "manual_expected": "Archives manuelles attendues"
       },
       "details": {
         "title": "Détails de l'archive",
@@ -271,7 +272,8 @@
         "size": "Taille",
         "hash": "Hash",
         "status": "État",
-        "url": "URL de téléchargement"
+        "url": "URL de téléchargement",
+        "manual_archive": "Archive associée"
       },
       "col_mod_name": "Mod",
       "col_filename": "Fichier",
@@ -285,7 +287,11 @@
         "verifying": "Vérification...",
         "paused": "En pause",
         "error": "Erreur",
-        "unknown": "Inconnu"
+        "unknown": "Inconnu",
+        "manual_expected": "Archive manuelle attendue",
+        "no_reference": "Présente (sans empreinte de référence)",
+        "mismatch_accepted": "Écart accepté",
+        "provided": "Fourni par {provider}"
       },
       "summary": {
         "title": "Résumé des téléchargements",
@@ -299,7 +305,10 @@
         "download": "Lancer le téléchargement",
         "verify": "Vérifier l'archive",
         "open_homepage": "Aller à la page d'accueil",
-        "open_download_url": "Télécharger manuellement"
+        "open_download_url": "Télécharger manuellement",
+        "associate": "Associer une archive…",
+        "remove_association": "Retirer l'archive associée",
+        "accept_mismatch": "Accepter cette archive malgré l'écart…"
       },
       "btn_verify_all": "Vérifier les archives",
       "btn_download_all": "Vérifier et télécharger les archives",
@@ -332,7 +341,18 @@
       "open_folder_error_title": "Impossible d'ouvrir le dossier",
       "open_folder_error_message": "Échec de l'ouverture du dossier de téléchargement : {error}",
       "verifying_progress": "Vérification: %v/%m archives",
-      "downloading_progress": "Téléchargement: %v/%m archives"
+      "downloading_progress": "Téléchargement: %v/%m archives",
+      "error": {
+        "no_url": "Aucune adresse de téléchargement automatique pour ce mod.",
+        "http_status": "Le serveur a refusé le fichier (HTTP {status}). Le lien est peut-être expiré ou déplacé.",
+        "html": "Le serveur a renvoyé une page web au lieu de l'archive. Téléchargez-la depuis la page du mod puis associez-la.",
+        "disk": "Écriture impossible sur le disque : {error}",
+        "kept_previous": "Le fichier téléchargé ne correspond pas à l'empreinte attendue ; l'archive déjà présente a été conservée."
+      },
+      "manual_expected_tooltip": "Ce mod ne peut pas être téléchargé automatiquement. Récupérez l'archive depuis sa page, puis utilisez « Associer une archive » (double-clic).",
+      "no_reference_tooltip": "Le catalogue ne publie pas d'empreinte pour cette archive : sa version ne peut pas être prouvée.",
+      "mismatch_accepted_tooltip": "L'archive diffère du catalogue et vous l'avez acceptée explicitement.",
+      "provided_tooltip": "Ce mod n'a pas d'archive propre : il est extrait depuis l'archive de {provider}, qui est donc requise même si aucun de ses composants n'est sélectionné."
     },
     "extraction": {
       "title": "Extraction des archives",
@@ -670,5 +690,15 @@
   "warning": {
     "title": "Avertissement",
     "data_update_failed_detail": "Échec de la mise à jour des données: {message}"
+  },
+  "dialog": {
+    "link_archive": {
+      "select_file": "Sélectionner l'archive du mod"
+    },
+    "archive_mismatch": {
+      "title": "Archive différente du catalogue",
+      "text": "L'archive choisie pour {mod_name} ne correspond pas à celle du catalogue.",
+      "details": "Version attendue : {version}\nEmpreinte attendue : {expected_hash}\nEmpreinte constatée : {actual_hash}\nTaille attendue : {expected_size}\nTaille constatée : {actual_size}\nFichier : {path}\n\nUne autre version peut contenir des composants différents ; ils seront comparés au plan après l'extraction. Accepter cette archive ?"
+    }
   }
 }

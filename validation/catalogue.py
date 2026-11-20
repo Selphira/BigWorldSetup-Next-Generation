@@ -33,10 +33,15 @@ class Diagnostic:
 
 @dataclass
 class CatalogueReport:
-    """Complete validation results; historical defects remain blocking."""
+    """Complete validation results; historical defects remain blocking.
+
+    Notices are legitimate situations a maintainer should keep in sight, such
+    as an archive that can only be provided by the user; they never block.
+    """
 
     counts: dict[str, int] = field(default_factory=dict)
     diagnostics: list[Diagnostic] = field(default_factory=list)
+    notices: list[Diagnostic] = field(default_factory=list)
 
     @property
     def valid(self) -> bool:
@@ -61,6 +66,21 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
 
     def add(file: str, location: str, code: str, message: str) -> None:
         report.diagnostics.append(Diagnostic(file, location, code, message))
+
+    def check_archive_source(file: str, mod: Mod) -> None:
+        """A mod declares its archive, names the mod providing it, or awaits the user."""
+        if mod.provided_by is None:
+            if not mod.files:
+                report.notices.append(
+                    Diagnostic(file, "files", "manual_archive", "Archive provided by the user")
+                )
+            return
+
+        provider = mods.get(mod.provided_by)
+        if provider is None:
+            add(file, "provided_by", "missing_mod", mod.provided_by)
+        elif provider.provided_by is not None or not provider.files:
+            add(file, "provided_by", "provider_without_archive", mod.provided_by)
 
     for family in ("mods", "games", "rules"):
         files = sorted((data_dir / family).rglob("*.json"))
@@ -97,6 +117,9 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
                     mods[mod_id] = Mod({**document, "id": mod_id})
             except (OSError, ValueError, TypeError, AttributeError, KeyError) as error:
                 add(relative, "", "load", str(error))
+
+    for mod_id, mod in sorted(mods.items()):
+        check_archive_source(f"mods/{mod_id}.json", mod)
 
     for name in RULE_SCHEMAS:
         if f"rules/{name}.json" not in documents:
@@ -169,9 +192,8 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
             except (ValueError, TypeError, AttributeError) as error:
                 add(file, "", "game", str(error))
 
-    report.diagnostics.sort(
-        key=lambda item: (item.file, item.location, item.code, item.message)
-    )
+    for diagnostics in (report.diagnostics, report.notices):
+        diagnostics.sort(key=lambda item: (item.file, item.location, item.code, item.message))
     return report
 
 
@@ -188,11 +210,21 @@ def main() -> int:
         args.report.write_text(
             json.dumps(report.to_dict(), ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-    print(json.dumps({"counts": report.counts, "errors": len(report.diagnostics)}))
+    print(
+        json.dumps(
+            {
+                "counts": report.counts,
+                "errors": len(report.diagnostics),
+                "notices": len(report.notices),
+            }
+        )
+    )
     for diagnostic in report.diagnostics:
         print(
             f"{diagnostic.file}:{diagnostic.location}: {diagnostic.code}: {diagnostic.message}"
         )
+    for notice in report.notices:
+        print(f"notice: {notice.file}:{notice.location}: {notice.code}: {notice.message}")
     return 0 if report.valid else 1
 
 

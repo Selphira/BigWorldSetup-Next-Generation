@@ -3,9 +3,17 @@ from enum import Enum
 import hashlib
 import logging
 from pathlib import Path
+import time
 
-from PySide6.QtCore import QObject, Qt, QThread, Signal, Slot
+from PySide6.QtCore import QObject, Qt, QThread, QTimer, Signal, Slot
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
+
+from constants import (
+    DOWNLOAD_MAX_ATTEMPTS,
+    DOWNLOAD_RETRY_BASE_DELAY_MS,
+    DOWNLOAD_TRANSFER_TIMEOUT_MS,
+)
+from core.TranslationManager import tr
 
 logger = logging.getLogger(__name__)
 
@@ -286,17 +294,39 @@ class ArchiveVerifier:
 class DownloadWorker(QObject):
     """Worker for downloading a single archive in a separate thread.
 
+    The body is written to a `.part` file. It replaces the final archive only
+    when the hash matches the catalogue, or when there is no previous archive
+    to preserve; the hash is computed here, never on the UI thread.
+
     Signals:
-        progress: Emitted on download progress (bytes_received, bytes_total, speed_bps)
+        progress: Emitted on download progress (bytes_received, bytes_total, speed_bps);
+            byte counts are Python ints so that archives above 2 GiB are reported
         finished: Emitted when download completes successfully (file_path)
         error: Emitted on download error (error_message)
     """
 
     # Signals
     cancel_requested = Signal()
-    progress = Signal(int, int, float)
+    progress = Signal(object, object, float)
     finished = Signal(str)
     error = Signal(str)
+
+    USER_AGENT = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    )
+    RETRYABLE_ERRORS = frozenset(
+        {
+            QNetworkReply.NetworkError.TimeoutError,
+            QNetworkReply.NetworkError.OperationCanceledError,
+            QNetworkReply.NetworkError.RemoteHostClosedError,
+            QNetworkReply.NetworkError.TemporaryNetworkFailureError,
+            QNetworkReply.NetworkError.NetworkSessionFailedError,
+            QNetworkReply.NetworkError.ProxyTimeoutError,
+            QNetworkReply.NetworkError.UnknownNetworkError,
+        }
+    )
 
     def __init__(self, archive_info: ArchiveInfo, download_path: Path):
         """Initialize download worker.
@@ -311,147 +341,238 @@ class DownloadWorker(QObject):
         self.download_path = download_path
         self._network_manager: QNetworkAccessManager | None = None
         self._reply: QNetworkReply | None = None
-        self._bytes_received = 0
         self._start_time = 0.0
         self._output_file = None
-        self._temp_path = None
+        self._temp_path: Path | None = None
+        self._attempt = 0
+        self._failure: str | None = None
+        self._cancelled = False
+        self._done = False
 
+    # ------------------------------------------------------------------
+    # Lifecycle
+    # ------------------------------------------------------------------
+
+    @Slot()
     def start_download(self) -> None:
-        """Start the download."""
-        if not self.archive_info.url:
-            self.error.emit("No download URL provided")
+        """Start the first attempt."""
+        if not self.archive_info.url or not self.archive_info.filename:
+            self._conclude_error(tr("page.download.error.no_url"))
             return
 
-        request = QNetworkRequest(self.archive_info.url)
-        request.setHeader(
-            QNetworkRequest.KnownHeaders.UserAgentHeader,
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36",
-        )
-        request.setAttribute(
-            QNetworkRequest.Attribute.RedirectPolicyAttribute,
-            QNetworkRequest.RedirectPolicy.NoLessSafeRedirectPolicy,
-        )
-
-        self._network_manager = QNetworkAccessManager(self)
-        self._reply = self._network_manager.get(request)
-
-        self._reply.downloadProgress.connect(self._on_download_progress)
-        self._reply.finished.connect(self._on_download_finished)
-        self._reply.errorOccurred.connect(self._on_download_error)
-
-        # Prepare temporary file
         self._temp_path = self.download_path / (self.archive_info.filename + ".part")
-        self._output_file = open(self._temp_path, "wb")
-
-        # Connect data ready signal
-        self._reply.readyRead.connect(self._on_ready_read)
-
-        import time
-
-        self._start_time = time.time()
-
-        logger.info(f"Started download: {self.archive_info.filename}")
+        self._start_attempt()
 
     @Slot()
     def cancel(self) -> None:
         """Cancel the download and delete partial file."""
-        if self._reply:
-            self._reply.abort()
-
         logger.info(f"Cancelled download: {self.archive_info.filename}")
+        self._cancelled = True
+        if self._reply:
+            # The reply then finishes and `_on_reply_finished` concludes.
+            self._reply.abort()
+            return
+        # Waiting between two attempts: nothing else will conclude.
+        self._conclude_error("cancelled")
 
-        # Delete partial file
+    def _start_attempt(self) -> None:
+        if self._cancelled or self._done:
+            return
+
+        self._attempt += 1
+        self._failure = None
         try:
-            if self._output_file:
-                self._output_file.close()
-                self._output_file = None
-            if self._temp_path and self._temp_path.exists():
-                self._temp_path.unlink()
-        except Exception as e:
-            logger.warning(f"Failed to remove partial file: {e}")
+            self._output_file = open(self._temp_path, "wb")
+        except OSError as error:
+            self._conclude_error(tr("page.download.error.disk", error=str(error)))
+            return
+
+        if self._network_manager is None:
+            self._network_manager = QNetworkAccessManager(self)
+        self._reply = self._send_request(self._build_request())
+        self._reply.readyRead.connect(self._on_ready_read)
+        self._reply.downloadProgress.connect(self._on_download_progress)
+        self._reply.finished.connect(self._on_reply_finished)
+        self._start_time = time.monotonic()
+
+        logger.info(
+            "Started download: %s (attempt %d/%d)",
+            self.archive_info.filename,
+            self._attempt,
+            DOWNLOAD_MAX_ATTEMPTS,
+        )
+
+    def _build_request(self) -> QNetworkRequest:
+        request = QNetworkRequest(self.archive_info.url)
+        request.setHeader(QNetworkRequest.KnownHeaders.UserAgentHeader, self.USER_AGENT)
+        request.setAttribute(
+            QNetworkRequest.Attribute.RedirectPolicyAttribute,
+            QNetworkRequest.RedirectPolicy.NoLessSafeRedirectPolicy,
+        )
+        request.setTransferTimeout(DOWNLOAD_TRANSFER_TIMEOUT_MS)
+        return request
+
+    def _send_request(self, request: QNetworkRequest) -> QNetworkReply:
+        """Issue the request; separated so tests can substitute a local reply."""
+        return self._network_manager.get(request)
+
+    # ------------------------------------------------------------------
+    # Reply handling
+    # ------------------------------------------------------------------
 
     def _on_ready_read(self) -> None:
-        """Handle data ready to be read."""
-        if self._reply and self._output_file:
-            data = self._reply.readAll()
-            self._output_file.write(data.data())
+        """Write the received data, refusing a body that cannot be the archive."""
+        if not self._reply or not self._output_file or self._failure:
+            return
+
+        self._failure = self._unexpected_response()
+        if self._failure:
+            self._reply.abort()
+            return
+
+        try:
+            self._output_file.write(self._reply.readAll().data())
+        except OSError as error:
+            self._failure = tr("page.download.error.disk", error=str(error))
+            self._reply.abort()
 
     def _on_download_progress(self, bytes_received: int, bytes_total: int) -> None:
-        """Handle download progress update.
-
-        Args:
-            bytes_received: Bytes downloaded so far
-            bytes_total: Total bytes to download
-        """
-        self._bytes_received = bytes_received
-
-        # Calculate speed
-        import time
-
-        elapsed = time.time() - self._start_time
+        elapsed = time.monotonic() - self._start_time
         speed_bps = bytes_received / elapsed if elapsed > 0 else 0.0
 
         if bytes_total < 0:
             bytes_total = self.archive_info.file_size
 
-        self.progress.emit(bytes_received, bytes_total, speed_bps)
+        self.progress.emit(int(bytes_received), int(bytes_total), speed_bps)
 
-    def _on_download_finished(self) -> None:
-        """Handle download completion."""
-        if self._output_file:
-            self._output_file.close()
-            self._output_file = None
+    def _on_reply_finished(self) -> None:
+        """Conclude the attempt exactly once, whatever ended it."""
+        reply, self._reply = self._reply, None
+        if reply is None:
+            return
+        self._close_output()
 
-        if self._reply and self._reply.error() == QNetworkReply.NetworkError.NoError:
-            final_path = self.download_path / self.archive_info.filename
-            if final_path.exists():
-                final_path.unlink(missing_ok=True)
-            try:
-                if self._temp_path.exists():
-                    self._temp_path.rename(final_path)
-            except Exception as e:
-                logger.error(f"Failed to rename file: {e}")
-                self.error.emit(str(e))
-                return
+        network_error = reply.error()
+        failure = self._failure or self._unexpected_response(reply)
+        error_string = reply.errorString()
+        reply.deleteLater()
 
-            logger.info(f"Download completed: {self.archive_info.filename}")
-            self.finished.emit(str(final_path))
+        if self._cancelled:
+            self._discard_partial()
+            self._conclude_error("cancelled")
+            return
 
-        if self._reply:
-            self._reply.deleteLater()
-            self._reply = None
+        if failure is None and network_error == QNetworkReply.NetworkError.NoError:
+            self._install_downloaded_file()
+            return
 
-        if self._network_manager:
-            self._network_manager.deleteLater()
-            self._network_manager = None
+        self._discard_partial()
+        if failure is None and self._should_retry(network_error):
+            delay = DOWNLOAD_RETRY_BASE_DELAY_MS * 2 ** (self._attempt - 1)
+            logger.warning(
+                "Download of %s failed (%s), retry in %d ms",
+                self.archive_info.filename,
+                error_string,
+                delay,
+            )
+            QTimer.singleShot(delay, self._start_attempt)
+            return
 
-    def _on_download_error(self, error_code) -> None:
-        """Handle download error.
+        self._conclude_error(failure or error_string)
 
-        Args:
-            error_code: Qt network error code
+    def _unexpected_response(self, reply: QNetworkReply | None = None) -> str | None:
+        """Explain why the response cannot be the expected archive, if so."""
+        reply = reply or self._reply
+        status = reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute)
+        if status in (403, 404, 410):
+            return tr("page.download.error.http_status", status=status)
+
+        content_type = reply.header(QNetworkRequest.KnownHeaders.ContentTypeHeader) or ""
+        if str(content_type).lower().startswith("text/html") and not self._expects_html():
+            return tr("page.download.error.html")
+        return None
+
+    def _expects_html(self) -> bool:
+        return self.archive_info.filename.lower().endswith((".htm", ".html"))
+
+    def _should_retry(self, network_error: QNetworkReply.NetworkError) -> bool:
+        if self._attempt >= DOWNLOAD_MAX_ATTEMPTS:
+            return False
+        if network_error in self.RETRYABLE_ERRORS:
+            return True
+        # Server-side 5xx errors are reported as InternalServerError & co.
+        return network_error in (
+            QNetworkReply.NetworkError.InternalServerError,
+            QNetworkReply.NetworkError.ServiceUnavailableError,
+        )
+
+    # ------------------------------------------------------------------
+    # Files
+    # ------------------------------------------------------------------
+
+    def _install_downloaded_file(self) -> None:
+        """Replace the final archive unless that would destroy a better one.
+
+        A previous archive is preserved when the new body does not match the
+        catalogue hash: the catalogue may lag behind the mod, but the user then
+        decides, and an archive they may have accepted is never lost. Without a
+        reference hash nothing distinguishes them, and the requested download wins.
         """
+        final_path = self.download_path / self.archive_info.filename
+        try:
+            if (
+                final_path.exists()
+                and self.archive_info.expected_hash
+                and not self._matches_expected_hash(self._temp_path)
+            ):
+                self._discard_partial()
+                self._conclude_error(tr("page.download.error.kept_previous"))
+                return
+            self._temp_path.replace(final_path)
+        except OSError as error:
+            logger.error(f"Failed to install downloaded file: {error}")
+            self._discard_partial()
+            self._conclude_error(tr("page.download.error.disk", error=str(error)))
+            return
+
+        logger.info(f"Download completed: {self.archive_info.filename}")
+        self._done = True
+        self._release_network()
+        self.finished.emit(str(final_path))
+
+    def _matches_expected_hash(self, path: Path) -> bool:
+        actual = ArchiveVerifier().calculate_hash(path, self.archive_info.hash_algorithm)
+        return actual.lower() == self.archive_info.expected_hash.lower()
+
+    def _close_output(self) -> None:
         if self._output_file:
-            self._output_file.close()
+            try:
+                self._output_file.close()
+            except OSError as error:
+                self._failure = self._failure or tr("page.download.error.disk", error=str(error))
             self._output_file = None
 
-        error_string = self._reply.errorString() if self._reply else "Unknown error"
-        logger.error(f"Download error for {self.archive_info.filename}: {error_string}")
-
-        # Clean up .part file
+    def _discard_partial(self) -> None:
         try:
-            if self._temp_path and self._temp_path.exists():
-                self._temp_path.unlink()
-        except Exception as e:
-            logger.warning(f"Failed to delete partial file: {e}")
+            if self._temp_path:
+                self._temp_path.unlink(missing_ok=True)
+        except OSError as error:
+            logger.warning(f"Failed to delete partial file: {error}")
 
+    def _conclude_error(self, message: str) -> None:
+        if self._done:
+            return
+        self._done = True
+        self._close_output()
+        self._release_network()
+        if message != "cancelled":
+            logger.error(f"Download error for {self.archive_info.filename}: {message}")
+        self.error.emit(message)
+
+    def _release_network(self) -> None:
         if self._network_manager:
             self._network_manager.deleteLater()
             self._network_manager = None
-
-        self.error.emit(error_string)
 
 
 # ============================================================================
@@ -601,7 +722,7 @@ class DownloadManager(QObject):
             logger.error(f"Failed to start download worker: {e}", exc_info=True)
             self.download_error.emit(archive_info.mod_id, str(e))
 
-    @Slot(int, int, float)
+    @Slot(object, object, float)
     def _on_worker_progress(
         self, bytes_received: int, bytes_total: int, speed_bps: float
     ) -> None:

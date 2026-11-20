@@ -67,6 +67,11 @@ PROCESS_POLL_MS = 50
 WORKER_POLL_MS = 100
 SHUTDOWN_POLL_MS = 100
 
+# Downloads: inactivity timeout and bounded retries with exponential delay
+DOWNLOAD_TRANSFER_TIMEOUT_MS = 60_000
+DOWNLOAD_MAX_ATTEMPTS = 3
+DOWNLOAD_RETRY_BASE_DELAY_MS = 2_000
+
 # ============================================================================
 # COLORS
 # ============================================================================

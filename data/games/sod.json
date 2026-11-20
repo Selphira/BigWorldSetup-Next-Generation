@@ -11,7 +11,7 @@
         {
           "files": ["chitin.key"]
         }, {
-          "files": ["SiegeOfDragonspear.exe", "sod-dlc.zip", "dlc/sod-dlc.zip", "workshop/sod-dlc.mod"],
+          "files": ["SiegeOfDragonspear.exe", "sod-dlc.zip", "sod-dlc.disabled", "dlc/sod-dlc.zip", "workshop/sod-dlc.mod"],
           "operator": "any",
           "description": "SoD DLC file"
         }

@@ -4,7 +4,7 @@
   "links": {
     "forums": ["https://mirandir.baldursgateworld.fr/pst-correcfr/"]
   },
-  "files": [],
+  "provided_by": "correcfr",
   "games": ["pst", "pstee"],
   "categories": ["patch"],
   "components": {

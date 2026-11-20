@@ -260,7 +260,8 @@
         "missing": "Missing",
         "invalid": "Invalid hash",
         "valid": "Valid",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "manual_expected": "Manual archives expected"
       },
       "details": {
         "title": "Archive Details",
@@ -271,7 +272,8 @@
         "size": "Size",
         "hash": "Hash",
         "status": "Status",
-        "url": "Download URL"
+        "url": "Download URL",
+        "manual_archive": "Associated archive"
       },
       "col_mod_name": "Mod",
       "col_filename": "File",
@@ -285,7 +287,11 @@
         "verifying": "Verifying...",
         "paused": "Paused",
         "error": "Error",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "manual_expected": "Manual archive expected",
+        "no_reference": "Present (no reference hash)",
+        "mismatch_accepted": "Difference accepted",
+        "provided": "Provided by {provider}"
       },
       "summary": {
         "title": "Download Summary",
@@ -299,7 +305,10 @@
         "download": "Start download",
         "verify": "Verify archive",
         "open_homepage": "Go to homepage",
-        "open_download_url": "Download manually"
+        "open_download_url": "Download manually",
+        "associate": "Associate an archive…",
+        "remove_association": "Remove the associated archive",
+        "accept_mismatch": "Accept this archive despite the difference…"
       },
       "btn_verify_all": "Verify Archives",
       "btn_download_all": "Verify and Download Archives",
@@ -332,7 +341,18 @@
       "open_folder_error_title": "Cannot Open Folder",
       "open_folder_error_message": "Failed to open download folder: {error}",
       "verifying_progress": "Verifying: %v/%m archives",
-      "downloading_progress": "Downloading: %v/%m archives"
+      "downloading_progress": "Downloading: %v/%m archives",
+      "error": {
+        "no_url": "This mod has no automatic download address.",
+        "http_status": "The server refused the file (HTTP {status}). The link may have expired or moved.",
+        "html": "The server returned a web page instead of the archive. Download it from the mod page, then associate it.",
+        "disk": "Cannot write to disk: {error}",
+        "kept_previous": "The downloaded file does not match the expected hash; the archive already present was kept."
+      },
+      "manual_expected_tooltip": "This mod cannot be downloaded automatically. Get the archive from its page, then use \"Associate an archive\" (double-click).",
+      "no_reference_tooltip": "The catalogue publishes no hash for this archive: its version cannot be proven.",
+      "mismatch_accepted_tooltip": "The archive differs from the catalogue and you explicitly accepted it.",
+      "provided_tooltip": "This mod has no archive of its own: it is extracted from the {provider} archive, which is therefore required even if none of its components is selected."
     },
     "extraction": {
       "title": "Archive Extraction",
@@ -670,5 +690,15 @@
   "warning": {
     "title": "Warning",
     "data_update_failed_detail": "Data update failed: {message}"
+  },
+  "dialog": {
+    "link_archive": {
+      "select_file": "Select the mod archive"
+    },
+    "archive_mismatch": {
+      "title": "Archive differs from the catalogue",
+      "text": "The archive chosen for {mod_name} does not match the catalogue one.",
+      "details": "Expected version: {version}\nExpected hash: {expected_hash}\nActual hash: {actual_hash}\nExpected size: {expected_size}\nActual size: {actual_size}\nFile: {path}\n\nAnother version may contain different components; they will be compared with the plan after extraction. Accept this archive?"
+    }
   }
 }

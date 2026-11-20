@@ -239,6 +239,7 @@ class Mod:
         "_translations",
         "_components_cache",
         "files",
+        "provided_by",
         "_component_refs_cache",
     )
 
@@ -282,6 +283,10 @@ class Mod:
         self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
 
         self.files: list[ModFile] = [ModFile.from_dict(f) for f in data.get("files", [])]
+
+        # The TP2 ships inside another mod's archive instead of an archive of its own.
+        provided_by = data.get("provided_by")
+        self.provided_by: str | None = provided_by.lower() if provided_by else None
 
         self._create_components()
 

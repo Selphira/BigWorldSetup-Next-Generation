@@ -5,6 +5,7 @@
     "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
     "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
   },
+  "provided_by": "EET",
   "games": ["eet"],
   "categories": ["conv"],
   "components": {

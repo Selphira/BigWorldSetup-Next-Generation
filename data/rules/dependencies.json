@@ -176,7 +176,7 @@
       "description": "Dépendance interne chattyimoen"
     },
     {
-      "rule": "correcfr_autopatch(1):correctfr(2)",
+      "rule": "correcfr_autopatch(1):correcfr(2)",
       "severity": "error",
       "description": "Dépendance interne correcfr_autopatch"
     },

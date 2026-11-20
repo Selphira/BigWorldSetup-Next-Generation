@@ -8,6 +8,7 @@ from enum import Enum
 import json
 import logging
 from pathlib import Path
+import threading
 from typing import Any
 
 from constants import ARCHIVE_REGISTRY_FORMAT
@@ -110,11 +111,15 @@ class ArchiveRegistry:
     The registry only holds proofs: losing it forces a new verification, never
     an unverified success. An unreadable file is therefore set aside for
     diagnosis and replaced by an empty registry.
+
+    Verification workers record their proofs from their own thread, so every
+    access is serialized.
     """
 
     def __init__(self, path: Path, records: dict[str, ArchiveRecord] | None = None) -> None:
         self.path = path
         self._records: dict[str, ArchiveRecord] = records or {}
+        self._lock = threading.RLock()
 
     # ------------------------------------------------------------------
     # Persistence
@@ -138,13 +143,11 @@ class ArchiveRegistry:
             return cls(path)
 
     def save(self) -> None:
-        write_json_atomic(
-            self.path,
-            {
-                "format": ARCHIVE_REGISTRY_FORMAT,
-                "archives": {mod_id: record.to_dict() for mod_id, record in self._records.items()},
-            },
-        )
+        with self._lock:
+            archives = {mod_id: record.to_dict() for mod_id, record in self._records.items()}
+            write_json_atomic(
+                self.path, {"format": ARCHIVE_REGISTRY_FORMAT, "archives": archives}
+            )
 
     @staticmethod
     def _set_aside_unreadable(path: Path, error: Exception) -> None:
@@ -161,15 +164,18 @@ class ArchiveRegistry:
     # ------------------------------------------------------------------
 
     def get(self, mod_id: str) -> ArchiveRecord | None:
-        return self._records.get(mod_id)
+        with self._lock:
+            return self._records.get(mod_id)
 
     def put(self, record: ArchiveRecord) -> None:
-        self._records[record.mod_id] = record
-        self.save()
+        with self._lock:
+            self._records[record.mod_id] = record
+            self.save()
 
     def remove(self, mod_id: str) -> None:
-        if self._records.pop(mod_id, None) is not None:
-            self.save()
+        with self._lock:
+            if self._records.pop(mod_id, None) is not None:
+                self.save()
 
     def migrate_custom_archives(self, custom_archives: dict[str, str]) -> int:
         """Import the bare paths of the legacy `custom_archives` configuration.
@@ -181,16 +187,17 @@ class ArchiveRegistry:
             Number of associations imported
         """
         imported = 0
-        for mod_id, raw_path in custom_archives.items():
-            current = self._records.get(mod_id)
-            if current is not None and current.path == str(raw_path):
-                continue
-            self._records[mod_id] = ArchiveRecord.unverified(
-                mod_id, Path(raw_path), ArchiveSource.MANUAL
-            )
-            imported += 1
+        with self._lock:
+            for mod_id, raw_path in custom_archives.items():
+                current = self._records.get(mod_id)
+                if current is not None and current.path == str(raw_path):
+                    continue
+                self._records[mod_id] = ArchiveRecord.unverified(
+                    mod_id, Path(raw_path), ArchiveSource.MANUAL
+                )
+                imported += 1
 
-        if imported:
-            self.save()
-            logger.info("Migrated %d custom archive association(s)", imported)
+            if imported:
+                self.save()
+                logger.info("Migrated %d custom archive association(s)", imported)
         return imported

@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+import html
 import logging
 from pathlib import Path
 
@@ -34,19 +36,22 @@ from constants import (
     SPACING_LARGE,
     SPACING_SMALL,
 )
+from core.ArchiveRegistry import ArchiveRecord, ArchiveSource
+from core.ArchiveService import ArchiveResolution, ArchiveService
 from core.DownloadManager import (
     ArchiveInfo,
     ArchiveStatus,
-    ArchiveVerifier,
     DownloadManager,
     DownloadProgress,
     HashAlgorithm,
 )
 from core.File import format_size
+from core.Mod import Mod
 from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
+from ui.widgets.ArchiveDialogs import confirm_archive_mismatch, select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
 logger = logging.getLogger(__name__)
@@ -67,51 +72,63 @@ COLUMN_COUNT = 3
 # ============================================================================
 
 
+@dataclass(frozen=True)
+class VerificationJob:
+    """Archive to hash for a mod; `associate` makes it the user's manual choice."""
+
+    mod: Mod
+    path: Path
+    source: ArchiveSource
+    associate: bool = False
+
+
 class VerificationWorker(QThread):
-    """Worker thread for verifying archives without blocking UI."""
+    """Worker thread hashing archives without blocking UI.
+
+    Cancelling takes effect between two archives: a hash in progress is
+    completed so that no partial proof is ever recorded.
+    """
 
     verification_started = Signal(str)  # mod_id
-    verification_completed = Signal(str, object)  # mod_id, ArchiveStatus
-    all_completed = Signal(dict)  # {mod_id: status}
+    verification_completed = Signal(str, object)  # mod_id, ArchiveResolution
+    all_completed = Signal(dict)  # {mod_id: ArchiveResolution}
     error_occurred = Signal(str, str)  # mod_id, error_message
 
-    def __init__(self, archives: dict, download_path: Path, verifier: ArchiveVerifier):
+    def __init__(
+        self, jobs: dict[str, VerificationJob], service: ArchiveService, platform: str
+    ):
         super().__init__()
-        self.archives = archives
-        self.download_path = download_path
-        self.verifier = verifier
+        self.jobs = jobs
+        self.service = service
+        self.platform = platform
         self._is_cancelled = False
-        self.results = {}
+        self.results: dict[str, ArchiveResolution] = {}
 
     def run(self):
         """Run verification process."""
         try:
-            for mod_id, archive_info in self.archives.items():
+            for mod_id, job in self.jobs.items():
                 if self._is_cancelled:
                     break
 
                 try:
                     self.verification_started.emit(mod_id)
-
-                    status = self._verify_archive_status(archive_info)
-                    self.results[mod_id] = status
-
-                    self.verification_completed.emit(mod_id, status)
+                    resolution = self._run_job(job)
+                    self.results[mod_id] = resolution
+                    self.verification_completed.emit(mod_id, resolution)
                 except Exception as e:
                     logger.error(f"Error verifying {mod_id}: {e}")
                     self.error_occurred.emit(mod_id, str(e))
-                    self.results[mod_id] = ArchiveStatus.ERROR
 
             self.all_completed.emit(self.results)
         except Exception as e:
             logger.error(f"Critical error in verification thread: {e}")
             self.all_completed.emit(self.results)
 
-    def _verify_archive_status(self, archive_info: ArchiveInfo) -> ArchiveStatus:
-        """Verify status of an archive."""
-        file_path = self.download_path / archive_info.filename
-
-        return self.verifier.verify_archive(file_path, archive_info)
+    def _run_job(self, job: VerificationJob) -> ArchiveResolution:
+        if job.associate:
+            return self.service.associate_manual(job.mod, job.path, self.platform)
+        return self.service.verify(job.mod, job.path, job.source, self.platform)
 
     def cancel(self):
         """Cancel verification process."""
@@ -276,6 +293,7 @@ class ArchiveDetailsPanel(QFrame):
         url: str | None,
         homepage: str | None,
         status: ArchiveStatus,
+        manual_path: Path | None = None,
     ) -> None:
         """Update panel with archive information.
 
@@ -287,12 +305,18 @@ class ArchiveDetailsPanel(QFrame):
             url: Download URL
             homepage: Homepage URL
             status: Current archive status
+            manual_path: Archive associated by the user, if any
         """
 
         details = [
             f"<b>{tr('page.download.details.mod')}:</b> {mod_name}",
-            f"<b>{tr('page.download.details.filename')}:</b> {filename}",
+            f"<b>{tr('page.download.details.filename')}:</b> {filename or '—'}",
         ]
+
+        if manual_path:
+            details.append(
+                f"<b>{tr('page.download.details.manual_archive')}:</b> {html.escape(str(manual_path))}"
+            )
 
         if file_size:
             size_formatted = format_size(file_size)
@@ -350,40 +374,55 @@ class ArchiveDetailsPanel(QFrame):
 
 
 class DownloadPage(BasePage):
-    """Page for managing mod archive downloads."""
+    """Page for managing mod archive downloads.
+
+    Statuses come from the archive registry: a proof is reused only while the
+    file keeps the size and modification time it had when it was hashed, and
+    every hash runs in a `VerificationWorker`.
+    """
 
     STATUS_COLORS = {
         ArchiveStatus.VALID: QColor(COLOR_STATUS_COMPLETE),
+        ArchiveStatus.NO_REFERENCE: QColor(COLOR_STATUS_COMPLETE),
+        ArchiveStatus.MISMATCH_ACCEPTED: QColor(COLOR_WARNING),
         ArchiveStatus.INVALID_HASH: QColor(COLOR_WARNING),
         ArchiveStatus.INVALID_SIZE: QColor(COLOR_WARNING),
         ArchiveStatus.MISSING: QColor(COLOR_STATUS_NONE),
+        ArchiveStatus.MANUAL_EXPECTED: QColor(COLOR_ERROR),
         ArchiveStatus.UNKNOWN: QColor(COLOR_STATUS_NONE),
         ArchiveStatus.DOWNLOADING: QColor(COLOR_WARNING),
         ArchiveStatus.VERIFYING: QColor(COLOR_WARNING),
         ArchiveStatus.ERROR: QColor(COLOR_ERROR),
     }
+    MISMATCH_STATUSES = (ArchiveStatus.INVALID_HASH, ArchiveStatus.INVALID_SIZE)
+    ACTIVE_STATUSES = (ArchiveStatus.DOWNLOADING, ArchiveStatus.VERIFYING)
 
     def __init__(self, state_manager: StateManager):
         super().__init__(state_manager)
 
         self._mod_manager = self.state_manager.get_mod_manager()
         self._download_path: Path | None = None
+        self._platform = Platform.get_current()
 
         # Core components
-        self._verifier = ArchiveVerifier()
+        self._archive_service = ArchiveService(self.state_manager.get_archive_registry())
         self._download_manager = DownloadManager()
         self._download_manager.setParent(self)
 
         # Archive tracking
         self._archives: dict[str, ArchiveInfo] = {}
         self._archive_status: dict[str, ArchiveStatus] = {}
-        self._archive_cache_keys: dict[str, str] = {}
-        self._cached_download_path: Path | None = None
+        self._archive_resolutions: dict[str, ArchiveResolution] = {}
+        # Mods whose TP2 ships in another mod's archive: {mod_id: provider_id}
+        self._provided_mods: dict[str, str] = {}
 
         # Operation tracking
         self._is_verifying = False
         self._is_downloading = False
         self._verification_worker: VerificationWorker | None = None
+        self._pending_verifications: dict[str, VerificationJob] = {}
+        self._download_after_verification = False
+        self._summary_pending = False
         self._progress_widgets: dict[str, ProgressItemWidget] = {}
 
         # UI components
@@ -576,78 +615,101 @@ class DownloadPage(BasePage):
     # ========================================
 
     def _load_archives(self) -> None:
-        """Load archive information from selected mods with cache preservation."""
+        """List the archive of every selected mod, including manual ones.
+
+        A mod provided by another one needs that mod's archive, which is then
+        listed even when none of the provider's components is selected.
+        """
         self._archives.clear()
+        self._provided_mods.clear()
 
         selected = self.state_manager.get_selected_components()
         if not selected:
             logger.warning("No components selected")
             return
 
-        unique_mods = {reference.partition(":")[0] for reference in selected if reference}
+        archive_owners = self._archive_owners(
+            {reference.partition(":")[0] for reference in selected if reference}
+        )
+        self._forget_removed_archives({mod.id for mod in archive_owners})
 
-        # Invalidate cache for removed mods
-        self._invalidate_removed_archives(unique_mods)
-
-        for mod_id in unique_mods:
-            mod = self._mod_manager.get_mod_by_id(mod_id)
-            if not mod:
-                continue
-
-            archive_info = self._get_archive_info_from_mod(mod)
-            if archive_info and archive_info.filename:
-                self._archives[mod_id] = archive_info
-
-                # Only set UNKNOWN status if revalidation needed
-                if self._should_revalidate_archive(mod_id, archive_info):
-                    self._archive_status[mod_id] = ArchiveStatus.UNKNOWN
-                    logger.debug("Archive needs revalidation: %s", mod_id)
-                else:
-                    logger.debug(
-                        "Using cached status for %s: %s", mod_id, self._archive_status[mod_id]
-                    )
-
-                # Update cache key
-                self._update_archive_cache(mod_id, archive_info)
+        for mod in archive_owners:
+            self._archives[mod.id] = self._get_archive_info_from_mod(mod)
+            if self._archive_status.get(mod.id) not in self.ACTIVE_STATUSES:
+                self._resolve_archive(mod)
 
         self._refresh_archive_table()
         self._archive_table.sortItems(COL_MOD_NAME, Qt.SortOrder.AscendingOrder)
         self._update_navigation_buttons()
 
-        # Count verified archives
-        verified_count = sum(1 for m in self._archives if self._is_archive_verified(m))
-        unknown_count = len(self._archives) - verified_count
-
+        unknown_count = sum(
+            1 for status in self._archive_status.values() if status is ArchiveStatus.UNKNOWN
+        )
         logger.info(
-            "Archives loaded: %d total, %d cached, %d need verification",
+            "Archives loaded: %d total, %d need verification",
             len(self._archives),
-            verified_count,
             unknown_count,
         )
 
-    def _get_archive_info_from_mod(self, mod) -> ArchiveInfo | None:
-        """Extract archive information from mod object."""
-        if not mod.has_file():
-            return None
+    def _archive_owners(self, mod_ids: set[str]) -> list[Mod]:
+        """Return the mods whose archives the selection needs, providers included."""
+        owners: dict[str, Mod] = {}
+        for mod_id in sorted(mod_ids):
+            mod = self._mod_manager.get_mod_by_id(mod_id)
+            if not mod:
+                continue
+            if mod.provided_by:
+                provider = self._mod_manager.get_mod_by_id(mod.provided_by)
+                if provider is None:
+                    logger.error("Provider %s of %s not in catalogue", mod.provided_by, mod.id)
+                    continue
+                self._provided_mods[mod.id] = provider.id
+                mod = provider
+            owners[mod.id] = mod
+        return list(owners.values())
 
-        platform = Platform.get_current()
-        mod_file = mod.get_file_for_platform(platform)
+    @staticmethod
+    def _get_archive_info_from_mod(mod: Mod) -> ArchiveInfo:
+        """Describe the archive expected for a mod, downloadable or not.
 
-        if not mod_file:
-            logger.warning(f"No file available for platform {platform}: {mod.id}")
-            return None
-
-        if not mod_file.has_download_url():
-            return None
+        A mod without automatic download is still listed: its archive is then
+        expected from the user.
+        """
+        mod_file = mod.get_file_for_platform(Platform.get_current()) if mod.has_file() else None
+        if mod_file is None:
+            return ArchiveInfo(mod_id=mod.id, filename=None, url=None, expected_hash="")
 
         return ArchiveInfo(
             mod_id=mod.id,
             filename=mod_file.filename,
-            url=mod_file.download,
-            expected_hash=mod_file.sha256,
+            url=mod_file.download if mod_file.has_download_url() else None,
+            expected_hash=mod_file.sha256 or "",
             hash_algorithm=HashAlgorithm.SHA256,
             file_size=mod_file.size,
         )
+
+    def _resolve_archive(self, mod: Mod) -> ArchiveResolution:
+        """Read the registry proof of a mod archive without hashing it."""
+        resolution = self._archive_service.resolve(mod, self._download_path, self._platform)
+        self._archive_resolutions[mod.id] = resolution
+        self._archive_status[mod.id] = resolution.status
+        return resolution
+
+    def _manual_path(self, mod_id: str) -> Path | None:
+        resolution = self._archive_resolutions.get(mod_id)
+        if (
+            resolution
+            and resolution.record
+            and resolution.record.source is ArchiveSource.MANUAL
+        ):
+            return resolution.record.archive_path
+        return None
+
+    def _displayed_filename(self, mod_id: str) -> str:
+        manual_path = self._manual_path(mod_id)
+        if manual_path:
+            return manual_path.name
+        return self._archives[mod_id].filename or "—"
 
     def _refresh_archive_table(self) -> None:
         """Refresh the archive table display."""
@@ -661,8 +723,8 @@ class DownloadPage(BasePage):
         filter_status = self._filter_combo.currentData() if self._filter_combo else None
 
         row = 0
-        for mod_id, archive_info in self._archives.items():
-            status = self._archive_status.get(mod_id, ArchiveStatus.MISSING)
+        for mod_id in self._archives:
+            status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
 
             if filter_status and status != filter_status:
                 continue
@@ -678,19 +740,46 @@ class DownloadPage(BasePage):
             self._archive_table.setItem(row, COL_MOD_NAME, name_item)
 
             # Column 1: Filename (sortable)
-            filename_item = QTableWidgetItem(archive_info.filename)
+            filename_item = QTableWidgetItem(self._displayed_filename(mod_id))
             self._archive_table.setItem(row, COL_FILENAME, filename_item)
 
             # Column 2: Status (not sortable, displayed with color)
-            status_text = tr(f"page.download.status.{status.value}")
-            status_item = QTableWidgetItem(status_text)
-            color = self.STATUS_COLORS.get(status, QColor(COLOR_STATUS_NONE))
-            status_item.setForeground(color)
-            self._archive_table.setItem(row, COL_STATUS, status_item)
+            self._archive_table.setItem(row, COL_STATUS, QTableWidgetItem())
 
             row += 1
 
+        if not filter_status:
+            for mod_id, provider_id in self._provided_mods.items():
+                self._insert_provided_row(row, mod_id, provider_id)
+                row += 1
+
         self._archive_table.setSortingEnabled(True)
+
+        for mod_id in self._archives:
+            self._update_archive_status(
+                mod_id, self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
+            )
+
+    def _insert_provided_row(self, row: int, mod_id: str, provider_id: str) -> None:
+        """Show a mod without archive of its own and the mod that delivers it."""
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        provider = self._mod_manager.get_mod_by_id(provider_id)
+        provider_name = provider.name if provider else provider_id
+
+        self._archive_table.insertRow(row)
+        name_item = QTableWidgetItem(mod.name if mod else mod_id)
+        name_item.setData(Qt.ItemDataRole.UserRole, mod_id)
+        self._archive_table.setItem(row, COL_MOD_NAME, name_item)
+        self._archive_table.setItem(
+            row, COL_FILENAME, QTableWidgetItem(self._displayed_filename(provider_id))
+        )
+
+        status_item = QTableWidgetItem(
+            tr("page.download.status.provided", provider=provider_name)
+        )
+        status_item.setForeground(QColor(COLOR_STATUS_NONE))
+        status_item.setToolTip(tr("page.download.provided_tooltip", provider=provider_name))
+        self._archive_table.setItem(row, COL_STATUS, status_item)
 
     def _update_archive_status(
         self, mod_id: str, status: ArchiveStatus, message: str = ""
@@ -700,33 +789,57 @@ class DownloadPage(BasePage):
         Args:
             mod_id: ID of the mod to update
             status: New status
+            message: Error detail shown in the tooltip
         """
-        # Update internal state
         self._archive_status[mod_id] = status
 
-        # Find the row in the table
+        row = self._find_row(mod_id)
+        if row is None:
+            return
+
+        filename_item = self._archive_table.item(row, COL_FILENAME)
+        if filename_item and mod_id in self._archives:
+            filename_item.setText(self._displayed_filename(mod_id))
+
+        status_item = self._archive_table.item(row, COL_STATUS)
+        if not status_item:
+            return
+
+        status_item.setText(tr(f"page.download.status.{status.value}"))
+        status_item.setForeground(self.STATUS_COLORS.get(status, QColor(COLOR_STATUS_NONE)))
+        status_item.setToolTip(self._status_tooltip(status, message))
+
+    @staticmethod
+    def _status_tooltip(status: ArchiveStatus, message: str) -> str:
+        if status == ArchiveStatus.ERROR:
+            return tr("page.download.error_download_failed", message=message)
+        if status in DownloadPage.MISMATCH_STATUSES:
+            return tr("page.download.warning_invalid_meta")
+        if status == ArchiveStatus.MANUAL_EXPECTED:
+            return tr("page.download.manual_expected_tooltip")
+        if status == ArchiveStatus.NO_REFERENCE:
+            return tr("page.download.no_reference_tooltip")
+        if status == ArchiveStatus.MISMATCH_ACCEPTED:
+            return tr("page.download.mismatch_accepted_tooltip")
+        return ""
+
+    def _find_row(self, mod_id: str) -> int | None:
+        if not self._archive_table:
+            return None
         for row in range(self._archive_table.rowCount()):
             item = self._archive_table.item(row, COL_MOD_NAME)
             if item and item.data(Qt.ItemDataRole.UserRole) == mod_id:
-                # Update status cell
-                status_text = tr(f"page.download.status.{status.value}")
-                status_item = self._archive_table.item(row, COL_STATUS)
+                return row
+        return None
 
-                if status_item:
-                    status_item.setText(status_text)
-
-                    color = self.STATUS_COLORS.get(status, QColor(COLOR_STATUS_NONE))
-                    status_item.setForeground(color)
-                    if status == ArchiveStatus.ERROR:
-                        status_item.setToolTip(
-                            tr("page.download.error_download_failed", message=message)
-                        )
-                    elif status in [ArchiveStatus.INVALID_SIZE, ArchiveStatus.INVALID_HASH]:
-                        status_item.setToolTip(tr("page.download.warning_invalid_meta"))
-                    else:
-                        status_item.setToolTip("")
-
-                break
+    def _selected_mod_id(self, item: QTableWidgetItem | None) -> str | None:
+        if item is None:
+            return None
+        mod_id_item = self._archive_table.item(item.row(), COL_MOD_NAME)
+        mod_id = mod_id_item.data(Qt.ItemDataRole.UserRole) if mod_id_item else None
+        # Acting on a provided mod means acting on the archive that delivers it.
+        mod_id = self._provided_mods.get(mod_id, mod_id)
+        return mod_id if mod_id in self._archives else None
 
     # ========================================
     # Selection Management
@@ -735,76 +848,188 @@ class DownloadPage(BasePage):
     def _on_selection_changed(self) -> None:
         """Handle table selection change to update details panel."""
         selected_items = self._archive_table.selectedItems()
+        mod_id = self._selected_mod_id(selected_items[0] if selected_items else None)
+        mod = self._mod_manager.get_mod_by_id(mod_id) if mod_id else None
 
-        if not selected_items:
+        if not mod:
             self._details_panel.clear()
             return
 
-        # Get mod_id from first column
-        row = selected_items[0].row()
-        mod_id_item = self._archive_table.item(row, COL_MOD_NAME)
-
-        if not mod_id_item:
-            self._details_panel.clear()
-            return
-
-        mod_id = mod_id_item.data(Qt.ItemDataRole.UserRole)
-        archive_info = self._archives.get(mod_id)
-
-        if not archive_info:
-            self._details_panel.clear()
-            return
-
-        # Get mod details
-        mod = self._mod_manager.get_mod_by_id(mod_id)
-        mod_name = mod.name if mod else mod_id
-        status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
-
-        # Update details panel
+        archive_info = self._archives[mod_id]
         self._details_panel.set_archive_info(
-            mod_name=mod_name,
+            mod_name=mod.name,
             filename=archive_info.filename,
             file_size=archive_info.file_size,
             expected_hash=archive_info.expected_hash,
             url=archive_info.url,
             homepage=mod.homepage,
-            status=status,
+            status=self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN),
+            manual_path=self._manual_path(mod_id),
         )
 
     # ========================================
     # Verification Management
     # ========================================
 
-    def _verify_archive(self, mod_id: str) -> ArchiveStatus:
-        archive_info = self._archives[mod_id]
-        file_path = self._download_path / archive_info.filename
-        status = self._verifier.verify_archive(file_path, archive_info)
+    def _verify_archives(self, mod_ids: list[str], then_download: bool = False) -> None:
+        """Hash the archives of these mods in the background.
 
-        # Update status AND cache
-        self._archive_status[mod_id] = status
-        self._update_archive_cache(mod_id, archive_info)
-        self._update_archive_status(mod_id, status)
+        Requests made while a worker runs are queued and handled once it ends.
+        """
+        jobs = {}
+        for mod_id in mod_ids:
+            job = self._verification_job(mod_id)
+            if job is not None:
+                jobs[mod_id] = job
+        self._queue_verifications(jobs, then_download)
 
-        return status
+    def _verification_job(self, mod_id: str) -> VerificationJob | None:
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        if mod is None:
+            return None
+        resolution = self._resolve_archive(mod)
+        if resolution.path is None:
+            self._update_archive_status(mod_id, resolution.status)
+            return None
+        source = (
+            resolution.record.source
+            if resolution.record is not None
+            else ArchiveSource.DOWNLOAD
+        )
+        return VerificationJob(mod, resolution.path, source)
+
+    def _queue_verifications(
+        self, jobs: dict[str, VerificationJob], then_download: bool
+    ) -> None:
+        self._download_after_verification |= then_download
+        self._pending_verifications.update(jobs)
+        if self._verification_worker is None:
+            self._start_pending_verifications()
+
+    def _start_pending_verifications(self) -> None:
+        if not self._pending_verifications:
+            return
+
+        jobs, self._pending_verifications = self._pending_verifications, {}
+        self._is_verifying = True
+        self._update_navigation_buttons()
+
+        # While downloading, the bar counts downloads and their hashes follow.
+        if not self._is_downloading:
+            self._global_progress.setVisible(True)
+            self._global_progress.setMaximum(len(jobs))
+            self._global_progress.setValue(0)
+            self._global_progress.setFormat(tr("page.download.verifying_progress"))
+
+        self._verification_worker = VerificationWorker(
+            jobs, self._archive_service, self._platform
+        )
+        self._verification_worker.verification_started.connect(self._on_verification_started)
+        self._verification_worker.verification_completed.connect(
+            self._on_verification_completed
+        )
+        self._verification_worker.all_completed.connect(self._on_verifications_completed)
+        self._verification_worker.error_occurred.connect(self._on_verification_error)
+
+        self.start_task(self._verification_worker)
 
     def _on_verification_started(self, mod_id: str) -> None:
         """Handle verification start for a mod."""
         self._update_archive_status(mod_id, ArchiveStatus.VERIFYING)
         logger.debug(f"Started verification for {mod_id}")
 
-    def _on_verification_completed(self, mod_id: str, status: ArchiveStatus) -> None:
-        """Handle verification completion for a mod with cache update."""
-        self._update_archive_status(mod_id, status)
+    def _on_verification_completed(self, mod_id: str, resolution: ArchiveResolution) -> None:
+        """Show the proof of an archive, asking for review when it differs."""
+        if not self._is_downloading:
+            self._global_progress.setValue(self._global_progress.value() + 1)
 
-        if mod_id in self._archives:
-            self._update_archive_cache(mod_id, self._archives[mod_id])
+        job = self._verification_worker.jobs.get(mod_id) if self._verification_worker else None
+        if job is not None and job.associate and not resolution.status.is_usable:
+            self._review_manual_archive(job.mod, resolution)
+            return
 
-        logger.debug("Completed verification for %s: %s", mod_id, status)
+        self._archive_resolutions[mod_id] = resolution
+        self._update_archive_status(mod_id, resolution.status)
+        logger.debug("Completed verification for %s: %s", mod_id, resolution.status)
 
     def _on_verification_error(self, mod_id: str, error_message: str) -> None:
         """Handle verification error."""
         self._update_archive_status(mod_id, ArchiveStatus.ERROR, error_message)
         logger.error(f"Verification error for {mod_id}: {error_message}")
+
+    def _on_verifications_completed(self, results: dict) -> None:
+        """Start queued verifications, then the downloads they were preparing."""
+        self._is_verifying = False
+        self._verification_worker = None
+        self._global_progress.setVisible(self._is_downloading)
+
+        if self._closing:
+            return
+
+        if self._pending_verifications:
+            self._start_pending_verifications()
+            return
+
+        self._update_navigation_buttons()
+        if self._download_after_verification:
+            self._download_after_verification = False
+            logger.info("Verification completed, starting downloads")
+            self._start_downloads()
+            return
+        self._show_summary_when_idle()
+
+    # ========================================
+    # Manual Archives
+    # ========================================
+
+    def _associate_manual_archive(self, mod_id: str) -> None:
+        """Let the user pick the archive of a mod; it is hashed before use."""
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        if mod is None:
+            return
+
+        archive_path = select_archive_file(self, self._download_path)
+        if archive_path is None:
+            return
+
+        job = VerificationJob(mod, archive_path, ArchiveSource.MANUAL, associate=True)
+        self._queue_verifications({mod_id: job}, then_download=False)
+
+    def _review_manual_archive(self, mod: Mod, resolution: ArchiveResolution) -> None:
+        """Ask whether a differing user archive may replace the catalogue one."""
+        if self._confirm_mismatch(mod, resolution.record):
+            accepted = self._archive_service.accept_mismatch(
+                mod, resolution.record, self._platform
+            )
+            self._archive_resolutions[mod.id] = accepted
+            self._update_archive_status(mod.id, accepted.status)
+            return
+        self._update_archive_status(mod.id, self._resolve_archive(mod).status)
+
+    def _accept_current_mismatch(self, mod_id: str) -> None:
+        """Accept a verified archive whose size or hash differs from the catalogue."""
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        resolution = self._archive_resolutions.get(mod_id)
+        if mod is None or resolution is None or resolution.record is None:
+            return
+        if not self._confirm_mismatch(mod, resolution.record):
+            return
+
+        accepted = self._archive_service.accept_mismatch(mod, resolution.record, self._platform)
+        self._archive_resolutions[mod_id] = accepted
+        self._update_archive_status(mod_id, accepted.status)
+        self._update_navigation_buttons()
+
+    def _confirm_mismatch(self, mod: Mod, record: ArchiveRecord) -> bool:
+        return confirm_archive_mismatch(self, mod, record, self._archives[mod.id].file_size)
+
+    def _remove_manual_archive(self, mod_id: str) -> None:
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        if mod is None:
+            return
+        self._archive_service.remove_manual(mod_id)
+        self._update_archive_status(mod_id, self._resolve_archive(mod).status)
+        self._update_navigation_buttons()
 
     # ========================================
     # Download Management
@@ -815,85 +1040,37 @@ class DownloadPage(BasePage):
         if self._is_verifying or self._is_downloading:
             return
 
-        # Get all UNKNOWN archives
-        to_verify = {
-            mod_id: archive_info
-            for mod_id, archive_info in self._archives.items()
+        to_verify = [
+            mod_id
+            for mod_id in self._archives
             if self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN) == ArchiveStatus.UNKNOWN
-        }
-
-        if not to_verify:
-            to_download_directly = [
-                archive_info
-                for mod_id, archive_info in self._archives.items()
-                if self._archive_status.get(mod_id, ArchiveStatus.MISSING)
-                == ArchiveStatus.MISSING
-            ]
-
-            if not to_download_directly:
-                QMessageBox.information(
-                    self,
-                    tr("page.download.all_valid_title"),
-                    tr("page.download.all_valid_message"),
-                )
-                return
-
-            self._start_downloads_from_list(to_download_directly)
+        ]
+        if to_verify:
+            self._verify_archives(to_verify, then_download=True)
             return
 
-        # Start verification process
-        self._is_verifying = True
-        self._update_navigation_buttons()
-
-        # Show progress bar for verification
-        self._global_progress.setVisible(True)
-        self._global_progress.setMaximum(len(to_verify))
-        self._global_progress.setValue(0)
-        self._global_progress.setFormat(tr("page.download.verifying_progress"))
-
-        self._verification_worker = VerificationWorker(
-            to_verify, self._download_path, self._verifier
-        )
-
-        self._verification_worker.verification_started.connect(self._on_verification_started)
-        self._verification_worker.verification_completed.connect(
-            self._on_verification_completed_with_progress
-        )
-        self._verification_worker.all_completed.connect(
-            self._on_verification_completed_then_download
-        )
-        self._verification_worker.error_occurred.connect(self._on_verification_error)
-
-        self.start_task(self._verification_worker)
-
-    def _on_verification_completed_with_progress(
-        self, mod_id: str, status: ArchiveStatus
-    ) -> None:
-        """Handle verification completion with progress update."""
-        self._on_verification_completed(mod_id, status)
-
-        # Update progress bar
-        current = self._global_progress.value()
-        self._global_progress.setValue(current + 1)
-
-    def _on_verification_completed_then_download(self, results: dict) -> None:
-        """Handle verification completion, then start downloads."""
-        self._is_verifying = False
-        self._verification_worker = None
-
-        if self._closing:
+        to_download = self._downloadable_missing_archives()
+        if not to_download:
+            QMessageBox.information(
+                self,
+                tr("page.download.all_valid_title"),
+                tr("page.download.all_valid_message"),
+            )
             return
-        logger.info("Verification completed, starting downloads")
-        self._start_downloads()
+
+        self._start_downloads_from_list(to_download)
+
+    def _downloadable_missing_archives(self) -> list[ArchiveInfo]:
+        return [
+            archive_info
+            for mod_id, archive_info in self._archives.items()
+            if archive_info.url
+            and self._archive_status.get(mod_id, ArchiveStatus.MISSING) == ArchiveStatus.MISSING
+        ]
 
     def _start_downloads(self) -> None:
         """Start downloading all archives that need downloading."""
-        to_download = [
-            archive_info
-            for mod_id, archive_info in self._archives.items()
-            if self._archive_status.get(mod_id, ArchiveStatus.MISSING) == ArchiveStatus.MISSING
-        ]
-
+        to_download = self._downloadable_missing_archives()
         if not to_download:
             self._show_final_summary()
             self._update_navigation_buttons()
@@ -929,7 +1106,7 @@ class DownloadPage(BasePage):
             )
             return
 
-        if mod_id not in self._archives:
+        if mod_id not in self._archives or not self._archives[mod_id].url:
             return
 
         self._start_downloads_from_list([self._archives[mod_id]])
@@ -940,39 +1117,49 @@ class DownloadPage(BasePage):
 
     def _show_context_menu(self, position):
         """Show context menu for archive table."""
-        item = self._archive_table.itemAt(position)
-        if not item:
-            return
-
-        row = item.row()
-        mod_id_item = self._archive_table.item(row, COL_MOD_NAME)
-        if not mod_id_item:
-            return
-
-        mod_id = mod_id_item.data(Qt.ItemDataRole.UserRole)
-        if not mod_id or mod_id not in self._archives:
+        mod_id = self._selected_mod_id(self._archive_table.itemAt(position))
+        if not mod_id:
             return
 
         archive_info = self._archives[mod_id]
         status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
+        busy = status in self.ACTIVE_STATUSES
 
         menu = QMenu(self)
 
-        action_download = QAction(tr("page.download.context.download"), self)
-        action_download.triggered.connect(
-            lambda: self._start_single_download(mod_id, force=True)
-        )
-        menu.addAction(action_download)
+        if archive_info.url and not self._manual_path(mod_id):
+            action_download = QAction(tr("page.download.context.download"), self)
+            action_download.triggered.connect(
+                lambda: self._start_single_download(mod_id, force=True)
+            )
+            menu.addAction(action_download)
 
-        if status != ArchiveStatus.MISSING:
+        if status not in (ArchiveStatus.MISSING, ArchiveStatus.MANUAL_EXPECTED) and not busy:
             action_verify = QAction(tr("page.download.context.verify"), self)
-            action_verify.triggered.connect(lambda: self._verify_archive(mod_id))
+            action_verify.triggered.connect(lambda: self._verify_archives([mod_id]))
             menu.addAction(action_verify)
+
+        if status in self.MISMATCH_STATUSES:
+            action_accept = QAction(tr("page.download.context.accept_mismatch"), self)
+            action_accept.triggered.connect(lambda: self._accept_current_mismatch(mod_id))
+            menu.addAction(action_accept)
+
+        menu.addSeparator()
+
+        if not busy:
+            action_associate = QAction(tr("page.download.context.associate"), self)
+            action_associate.triggered.connect(lambda: self._associate_manual_archive(mod_id))
+            menu.addAction(action_associate)
+
+        if self._manual_path(mod_id) and not busy:
+            action_remove = QAction(tr("page.download.context.remove_association"), self)
+            action_remove.triggered.connect(lambda: self._remove_manual_archive(mod_id))
+            menu.addAction(action_remove)
 
         menu.addSeparator()
 
         mod = self._mod_manager.get_mod_by_id(mod_id)
-        if mod and hasattr(mod, "homepage") and mod.homepage:
+        if mod and mod.homepage:
             action_homepage = QAction(tr("page.download.context.open_homepage"), self)
             action_homepage.triggered.connect(
                 lambda: QDesktopServices.openUrl(QUrl(mod.homepage))
@@ -988,6 +1175,12 @@ class DownloadPage(BasePage):
 
         menu.exec(QCursor.pos())
 
+    def _show_summary_when_idle(self) -> None:
+        """Show the download summary once downloads and their verification ended."""
+        if self._summary_pending and not (self._is_downloading or self._is_verifying):
+            self._summary_pending = False
+            self._show_final_summary()
+
     def _show_final_summary(self) -> None:
         """Show comprehensive summary of download/verification results."""
         if self._closing:
@@ -1000,21 +1193,24 @@ class DownloadPage(BasePage):
         warning_details = []
         error_details = []
 
-        for mod_id, _ in self._archives.items():
+        for mod_id in self._archives:
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
             mod = self._mod_manager.get_mod_by_id(mod_id)
             mod_name = mod.name if mod else mod_id
+            label = tr(f"page.download.status.{status.value}")
 
-            if status == ArchiveStatus.VALID:
+            if status.is_usable:
                 valid_count += 1
-            elif status in (ArchiveStatus.INVALID_HASH, ArchiveStatus.INVALID_SIZE):
+            elif status in self.MISMATCH_STATUSES:
                 warning_count += 1
-                warning_details.append(
-                    f"• {mod_name} ({tr(f'page.download.status.{status.value}')})"
-                )
-            elif status in (ArchiveStatus.ERROR, ArchiveStatus.MISSING):
+                warning_details.append(f"• {mod_name} ({label})")
+            elif status in (
+                ArchiveStatus.ERROR,
+                ArchiveStatus.MISSING,
+                ArchiveStatus.MANUAL_EXPECTED,
+            ):
                 error_count += 1
-                error_details.append(f"• {mod_name}")
+                error_details.append(f"• {mod_name} ({label})")
 
         # Build summary message
         summary_parts = []
@@ -1098,42 +1294,45 @@ class DownloadPage(BasePage):
         self._update_after_download(mod_id)
 
     def _on_all_downloads_completed(self) -> None:
-        """Handle completion of all downloads."""
+        """Handle completion of all downloads; the summary waits for their hashes."""
         self._update_timer.stop()
         self._is_downloading = False
-        self._global_progress.setVisible(False)
+        self._global_progress.setVisible(self._is_verifying)
         self._update_navigation_buttons()
-        self._show_final_summary()
+        self._summary_pending = True
+        self._show_summary_when_idle()
 
     def _update_after_download(self, mod_id: str):
-        """Handle post-download updates with cache update."""
-        # Remove widget
-        if mod_id in self._progress_widgets:
-            widget = self._progress_widgets[mod_id]
-            self._progress_layout.removeWidget(widget)
-            widget.deleteLater()
-            del self._progress_widgets[mod_id]
+        """Remove the progress widget and verify what is now on disk."""
+        self._remove_progress_widget(mod_id)
 
         if mod_id in self._archives:
-            self._verify_archive(mod_id)
+            self._verify_archives([mod_id])
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)
 
     def _on_download_error(self, mod_id: str, error_message: str) -> None:
-        """Handle download error."""
+        """Handle download error; a previous archive kept on disk is verified again."""
         logger.error(f"Download error for {mod_id}: {error_message}")
-
-        if mod_id in self._progress_widgets:
-            widget = self._progress_widgets[mod_id]
-            self._progress_layout.removeWidget(widget)
-            widget.deleteLater()
-            del self._progress_widgets[mod_id]
-
+        self._remove_progress_widget(mod_id)
         self._update_archive_status(mod_id, ArchiveStatus.ERROR, error_message)
+
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        if (
+            mod is not None
+            and self._archive_service.resolve(mod, self._download_path, self._platform).path
+        ):
+            self._verify_archives([mod_id])
 
         current = self._global_progress.value()
         self._global_progress.setValue(current + 1)
+
+    def _remove_progress_widget(self, mod_id: str) -> None:
+        widget = self._progress_widgets.pop(mod_id, None)
+        if widget is not None:
+            self._progress_layout.removeWidget(widget)
+            widget.deleteLater()
 
     def _update_active_downloads(self) -> None:
         """Update all active download widgets."""
@@ -1143,105 +1342,14 @@ class DownloadPage(BasePage):
                 self._progress_widgets[mod_id].update_progress(progress)
 
     def _cancel_download(self, mod_id: str) -> None:
-        """Cancel an active download."""
+        """Cancel an active download; the status is re-read once it has stopped."""
         self._download_manager.cancel_download(mod_id)
-        self._archive_status[mod_id] = ArchiveStatus.MISSING
 
-    # ========================================
-    # Cache Management
-    # ========================================
-
-    def _cache_key(self, archive_info: ArchiveInfo) -> str:
-        """
-        Generate cache key for an archive.
-
-        Key includes filename, size, and hash to detect changes.
-
-        Args:
-            archive_info: Archive information
-
-        Returns:
-            Cache key string
-        """
-        return f"{archive_info.filename}:{archive_info.file_size}:{archive_info.expected_hash}"
-
-    def _is_archive_verified(self, mod_id: str) -> bool:
-        """
-        Check if archive has been verified (has a known status).
-
-        Args:
-            mod_id: Mod identifier
-
-        Returns:
-            True if archive has been verified
-        """
-        return (
-            mod_id in self._archive_status
-            and self._archive_status[mod_id] != ArchiveStatus.UNKNOWN
-        )
-
-    def _should_revalidate_archive(self, mod_id: str, archive_info: ArchiveInfo) -> bool:
-        """
-        Check if an archive needs revalidation.
-
-        Returns True if:
-        - Archive is new (not in cache)
-        - Archive properties changed (filename, size, hash)
-        - Download folder changed
-
-        Args:
-            mod_id: Mod identifier
-            archive_info: Current archive information
-
-        Returns:
-            True if revalidation needed
-        """
-        # Not verified yet
-        if not self._is_archive_verified(mod_id):
-            return True
-
-        # Check if archive properties match cached version
-        cached_key = self._archive_cache_keys.get(mod_id)
-        if not cached_key:
-            return True
-
-        current_key = self._cache_key(archive_info)
-
-        # Properties changed, need revalidation
-        if cached_key != current_key:
-            logger.debug("Archive properties changed for %s, revalidation needed", mod_id)
-            return True
-
-        if self._cached_download_path != self._download_path:
-            logger.debug("Download path changed, full revalidation needed")
-            return True
-
-        return False
-
-    def _update_archive_cache(self, mod_id: str, archive_info: ArchiveInfo) -> None:
-        """
-        Update cache with archive information.
-
-        Args:
-            mod_id: Mod identifier
-            archive_info: Archive information
-        """
-        self._archive_cache_keys[mod_id] = self._cache_key(archive_info)
-
-    def _invalidate_removed_archives(self, current_mod_ids: set[str]) -> None:
-        """
-        Remove cache entries for archives no longer in selection.
-
-        Args:
-            current_mod_ids: Set of currently selected mod IDs
-        """
-        # Remove statuses for mods no longer selected
-        removed_mods = set(self._archive_status.keys()) - current_mod_ids
-
-        for mod_id in removed_mods:
-            logger.debug("Removing cache for unselected mod: %s", mod_id)
+    def _forget_removed_archives(self, current_mod_ids: set[str]) -> None:
+        """Drop the statuses of mods that are no longer selected."""
+        for mod_id in set(self._archive_status) - current_mod_ids:
             self._archive_status.pop(mod_id, None)
-            self._archive_cache_keys.pop(mod_id, None)
+            self._archive_resolutions.pop(mod_id, None)
 
     # ========================================
     # UI Actions
@@ -1272,19 +1380,20 @@ class DownloadPage(BasePage):
             )
 
     def _on_archive_double_click(self, item: QTableWidgetItem) -> None:
-        """Handle double-click on archive to verify and optionally download."""
-        row = item.row()
-        mod_id_item = self._archive_table.item(row, COL_MOD_NAME)
-
-        if not mod_id_item:
-            return
-
-        mod_id = mod_id_item.data(Qt.ItemDataRole.UserRole)
-        if not mod_id or mod_id not in self._archives:
+        """Download a missing archive, ask for a manual one, or offer a new download."""
+        mod_id = self._selected_mod_id(item)
+        if not mod_id:
             return
 
         archive_info = self._archives[mod_id]
         current_status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
+
+        if current_status in self.ACTIVE_STATUSES:
+            return
+
+        if current_status == ArchiveStatus.MANUAL_EXPECTED or not archive_info.url:
+            self._associate_manual_archive(mod_id)
+            return
 
         if current_status == ArchiveStatus.MISSING:
             self._start_single_download(mod_id)
@@ -1333,23 +1442,19 @@ class DownloadPage(BasePage):
         ignore_warnings = self._chk_ignore_warnings.isChecked()
         ignore_errors = self._chk_ignore_errors.isChecked()
 
-        for mod_id, _ in self._archives.items():
+        for mod_id in self._archives:
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
 
             if status == ArchiveStatus.UNKNOWN:
                 return False
 
             if not ignore_warnings and not ignore_errors:
-                if status != ArchiveStatus.VALID:
+                if not status.is_usable:
                     return False
 
             elif ignore_warnings:
-                # Allow VALID and warning statuses only
-                if status not in (
-                    ArchiveStatus.VALID,
-                    ArchiveStatus.INVALID_HASH,
-                    ArchiveStatus.INVALID_SIZE,
-                ):
+                # Allow usable and warning statuses only
+                if not status.is_usable and status not in self.MISMATCH_STATUSES:
                     return False
 
             # Ignore errors (implicitly ignores warnings too)
@@ -1372,25 +1477,9 @@ class DownloadPage(BasePage):
         if not download_folder:
             return
 
-        new_download_path = Path(download_folder)
-        download_path_changed = self._cached_download_path != new_download_path
-
-        if download_path_changed:
-            logger.info(
-                "Download path changed from %s to %s, invalidating cache",
-                self._cached_download_path,
-                new_download_path,
-            )
-            # Clear cache when download folder changes
-            self._archive_status.clear()
-            self._archive_cache_keys.clear()
-
-        # Update paths
-        self._download_path = new_download_path
-        self._cached_download_path = new_download_path
+        # Statuses are re-read from the registry, which checks the files on disk.
+        self._download_path = Path(download_folder)
         self._download_manager.set_download_path(self._download_path)
-
-        # Load archives (will preserve cache if path unchanged)
         self._load_archives()
 
     def has_critical_task(self) -> bool:
@@ -1400,6 +1489,7 @@ class DownloadPage(BasePage):
     def request_shutdown(self) -> None:
         """Cancel the verification and every queued or active download."""
         super().request_shutdown()
+        self._pending_verifications.clear()
         if self._verification_worker:
             self._verification_worker.cancel()
         self._download_manager.cancel_all()
@@ -1437,6 +1527,9 @@ class DownloadPage(BasePage):
         )
         self._filter_combo.addItem(tr("page.download.filter.valid"), ArchiveStatus.VALID)
         self._filter_combo.addItem(tr("page.download.filter.unknown"), ArchiveStatus.UNKNOWN)
+        self._filter_combo.addItem(
+            tr("page.download.filter.manual_expected"), ArchiveStatus.MANUAL_EXPECTED
+        )
 
         for i in range(self._filter_combo.count()):
             if self._filter_combo.itemData(i) == current:

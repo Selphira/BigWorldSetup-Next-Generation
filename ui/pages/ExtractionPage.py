@@ -6,7 +6,6 @@ from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QComboBox,
-    QFileDialog,
     QHBoxLayout,
     QHeaderView,
     QLabel,
@@ -36,6 +35,7 @@ from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.validators.StructureValidator import StructureValidator
 from ui.pages.BasePage import BasePage
+from ui.widgets.ArchiveDialogs import select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
 logger = logging.getLogger(__name__)
@@ -292,8 +292,19 @@ class ExtractionPage(BasePage):
                     logger.debug(f"Mod {mod_id} not allowed in sequence {seq_idx}")
                     continue
 
+                # A provided mod is prepared by extracting its provider's archive,
+                # even when the provider itself is not selected in this sequence.
+                if mod.provided_by:
+                    provider = self._mod_manager.get_mod_by_id(mod.provided_by)
+                    if provider is None:
+                        logger.error(f"Provider {mod.provided_by} of {mod_id} not found")
+                        continue
+                    mod = provider
+
                 # Create unique extraction ID
-                extraction_id = f"{mod_id}_seq{seq_idx}"
+                extraction_id = f"{mod.id}_seq{seq_idx}"
+                if extraction_id in self._extractions:
+                    continue
 
                 # Determine display name based on number of sequences
                 if game_def.has_multiple_sequences:
@@ -302,7 +313,7 @@ class ExtractionPage(BasePage):
                 else:
                     display_name = mod.name
 
-                archive_path = self._resolve_archive_path(mod, mod_id)
+                archive_path = self._resolve_archive_path(mod, mod.id)
 
                 if archive_path is None:
                     continue
@@ -593,16 +604,8 @@ class ExtractionPage(BasePage):
 
     def _show_change_archive_dialog(self, extraction_info: ExtractionInfo):
         """Show dialog to link an archive to a mod."""
-        archive_path, _ = QFileDialog.getOpenFileName(
-            self,
-            tr("dialog.link_archive.select_file"),
-            str(self._download_path or Path.home()),
-            "Archives (*.zip *.rar *.7z *.tar.gz *.exe);;All files (*)",
-        )
-
+        archive_path = select_archive_file(self, self._download_path)
         if archive_path:
-            archive_path = Path(archive_path)
-
             self.state_manager.add_custom_archive(extraction_info.mod_id, archive_path)
             self._load_extractions()
 

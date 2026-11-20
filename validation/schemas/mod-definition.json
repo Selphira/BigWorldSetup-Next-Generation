@@ -8,6 +8,10 @@
     "name", "version", "tp2", "games", "categories", "components", "translations", "links", "authors", "safe"
   ],
   "additionalProperties": false,
+  "not": {
+    "description": "An archive is either declared by the mod or provided by another one",
+    "required": ["files", "provided_by"]
+  },
   "properties": {
     "name": {
       "type": "string",
@@ -86,6 +90,11 @@
         },
         "additionalProperties": false
       }
+    },
+    "provided_by": {
+      "type": "string",
+      "description": "Identifier of the mod whose archive contains this mod's TP2; replaces files",
+      "minLength": 1
     },
     "games": {
       "type": "array",

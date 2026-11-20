@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import logging
 from pathlib import Path
 
@@ -35,7 +35,9 @@ class ArchiveService:
     `associate_manual` outside the UI thread.
     """
 
-    def __init__(self, registry: ArchiveRegistry, verifier: ArchiveVerifier | None = None) -> None:
+    def __init__(
+        self, registry: ArchiveRegistry, verifier: ArchiveVerifier | None = None
+    ) -> None:
         self._registry = registry
         self._verifier = verifier or ArchiveVerifier()
 
@@ -63,7 +65,9 @@ class ArchiveService:
         path = download_dir / expected.filename
         if not path.is_file():
             status = (
-                ArchiveStatus.MISSING if expected.has_download_url() else ArchiveStatus.MANUAL_EXPECTED
+                ArchiveStatus.MISSING
+                if expected.has_download_url()
+                else ArchiveStatus.MANUAL_EXPECTED
             )
             return ArchiveResolution(None, status)
 
@@ -82,7 +86,9 @@ class ArchiveService:
     # Verification
     # ------------------------------------------------------------------
 
-    def verify(self, mod: Mod, path: Path, source: ArchiveSource, platform: str) -> ArchiveResolution:
+    def verify(
+        self, mod: Mod, path: Path, source: ArchiveSource, platform: str
+    ) -> ArchiveResolution:
         """Hash an archive and record the proof.
 
         An earlier explicit acceptance survives only for the very same content.
@@ -97,28 +103,50 @@ class ArchiveService:
         )
         return self._hash_and_record(mod.id, path, source, expected, accepted)
 
-    def associate_manual(
-        self, mod: Mod, path: Path, platform: str, accept_mismatch: bool = False
-    ) -> ArchiveResolution:
+    def associate_manual(self, mod: Mod, path: Path, platform: str) -> ArchiveResolution:
         """Associate a user archive with a mod after hashing it.
 
-        A size or hash differing from the catalogue is only recorded when the
-        user accepted it; otherwise the previous association is left untouched.
+        A size or hash differing from the catalogue is not recorded: the
+        previous association is left untouched and the returned record can be
+        passed to `accept_mismatch` once the user has reviewed the difference.
         """
         expected = mod.get_file_for_platform(platform)
         sha256, size, mtime_ns = self._hash(path)
         record = ArchiveRecord.unverified(mod.id, path, ArchiveSource.MANUAL).with_hash(
-            sha256, size, mtime_ns, self._expected_hash(expected), accept_mismatch
+            sha256, size, mtime_ns, self._expected_hash(expected), False
         )
         status = self._status_of(record, expected)
 
         if not status.is_usable:
-            logger.warning("Manual archive for %s rejected: %s", mod.id, status.value)
+            logger.warning("Manual archive for %s not associated: %s", mod.id, status.value)
             return ArchiveResolution(path, status, record)
 
         self._registry.put(record)
         logger.info("Manual archive associated with %s: %s (%s)", mod.id, path, status.value)
         return ArchiveResolution(path, status, record)
+
+    def accept_mismatch(
+        self, mod: Mod, record: ArchiveRecord, platform: str
+    ) -> ArchiveResolution:
+        """Record the user's explicit acceptance of a reviewed, differing archive.
+
+        The acceptance only covers the content that was hashed: a file changed
+        since then must be verified and reviewed again.
+        """
+        if not record.is_verified or not record.matches_disk():
+            return ArchiveResolution(record.archive_path, ArchiveStatus.UNKNOWN, record)
+
+        accepted = replace(record, accepted_mismatch=True)
+        self._registry.put(accepted)
+        logger.warning(
+            "Archive accepted for %s despite catalogue difference: %s (sha256 %s, expected %s)",
+            mod.id,
+            accepted.path,
+            accepted.sha256,
+            accepted.expected_sha256,
+        )
+        status = self._status_of(accepted, mod.get_file_for_platform(platform))
+        return ArchiveResolution(accepted.archive_path, status, accepted)
 
     def remove_manual(self, mod_id: str) -> None:
         record = self._registry.get(mod_id)
