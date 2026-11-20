@@ -103,6 +103,20 @@ class ArchiveService:
         )
         return self._hash_and_record(mod.id, path, source, expected, accepted)
 
+    def ensure_verified(self, mod: Mod, path: Path, platform: str) -> ArchiveResolution:
+        """Return the proof of an archive about to be used, hashing it if needed.
+
+        A current proof for this very file is reused; otherwise the file is
+        hashed, keeping the source of an existing association.
+        """
+        record = self._registry.get(mod.id)
+        same_file = record is not None and record.archive_path == path
+        if same_file and record.is_verified and record.matches_disk():
+            status = self._status_of(record, mod.get_file_for_platform(platform))
+            return ArchiveResolution(path, status, record)
+        source = record.source if same_file else ArchiveSource.DOWNLOAD
+        return self.verify(mod, path, source, platform)
+
     def associate_manual(self, mod: Mod, path: Path, platform: str) -> ArchiveResolution:
         """Associate a user archive with a mod after hashing it.
 

@@ -240,6 +240,7 @@ class Mod:
         "_components_cache",
         "files",
         "provided_by",
+        "extract_recipe",
         "_component_refs_cache",
     )
 
@@ -287,6 +288,10 @@ class Mod:
         # The TP2 ships inside another mod's archive instead of an archive of its own.
         provided_by = data.get("provided_by")
         self.provided_by: str | None = provided_by.lower() if provided_by else None
+
+        # Arguments of a self-extracting executable that 7-Zip cannot read
+        recipe = data.get("extract_recipe") or {}
+        self.extract_recipe: tuple[str, ...] | None = tuple(recipe.get("args", ())) or None
 
         self._create_components()
 

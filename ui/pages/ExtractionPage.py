@@ -27,13 +27,15 @@ from constants import (
     SPACING_LARGE,
     SPACING_SMALL,
 )
-from core.ArchiveExtractor import ArchiveExtractor, ExtractionInfo, ExtractionStatus
+from core.ArchiveExtractor import ExtractionInfo, ExtractionStatus
+from core.ArchiveService import ArchiveService
 from core.DirectoryMerger import ConflictResolution, DirectoryMerger
+from core.ExtractionManifest import ExtractionManifest
+from core.ExtractionPipeline import ExtractionPipeline, PreparationError
 from core.Mod import Mod
 from core.Platform import Platform
 from core.StateManager import StateManager
 from core.TranslationManager import tr
-from core.validators.StructureValidator import StructureValidator
 from ui.pages.BasePage import BasePage
 from ui.widgets.ArchiveDialogs import select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
@@ -63,16 +65,24 @@ class ExtractionWorker(QThread):
     extraction_error = Signal(str, str)  # mod_id, error_message
     all_completed = Signal(list)  # extractions
 
-    def __init__(self, extractions: list[ExtractionInfo]):
+    def __init__(
+        self,
+        extractions: list[ExtractionInfo],
+        archive_service: ArchiveService | None = None,
+        platform: str | None = None,
+    ):
         """Initialize worker.
 
         Args:
             extractions: List of extractions to perform
+            archive_service: Proves each archive before use, hashing it if needed
+            platform: Platform selecting the catalogue file of each mod
         """
         super().__init__()
         self._extractions = extractions
         self._is_cancelled = False
         self._merger = DirectoryMerger(ConflictResolution.MERGE)
+        self._pipeline = ExtractionPipeline(self._merger, archive_service, platform)
 
     def run(self) -> None:
         """Run extraction process."""
@@ -82,36 +92,15 @@ class ExtractionWorker(QThread):
                     break
 
                 extraction_id = extraction.extraction_id
-                temp_dir = extraction.destination_path / f"_temp_{extraction.tp2_name}"
-
                 try:
                     self.extraction_started.emit(extraction_id, extraction.archive_path.name)
-                    success = ArchiveExtractor.extract_archive(
-                        extraction.archive_path, temp_dir
-                    )
-
-                    if not success:
-                        self.extraction_error.emit(
-                            extraction_id, tr("page.extraction.error_extraction_failed")
-                        )
-                        continue
-
-                    fixed = StructureValidator.normalize_structure(
-                        temp_dir, extraction.tp2_name
-                    )
-
-                    if not fixed:
-                        self.extraction_error.emit(
-                            extraction_id, tr("page.extraction.error_structure_invalid")
-                        )
-                        continue
-
-                    self._merger.merge_directories(temp_dir, extraction.destination_path)
-
+                    self._pipeline.prepare(extraction)
                     self.extraction_completed.emit(extraction_id)
-
+                except PreparationError as e:
+                    logger.error(f"Preparation of {extraction_id} failed: {e}")
+                    self.extraction_error.emit(extraction_id, str(e))
                 except Exception as e:
-                    logger.error(f"Error extracting {extraction_id}: {e}")
+                    logger.error(f"Error extracting {extraction_id}: {e}", exc_info=True)
                     self.extraction_error.emit(extraction_id, str(e))
 
             self.all_completed.emit(self._extractions)
@@ -151,6 +140,7 @@ class ExtractionPage(BasePage):
         super().__init__(state_manager)
 
         self._mod_manager = self.state_manager.get_mod_manager()
+        self._archive_service = ArchiveService(self.state_manager.get_archive_registry())
         self._download_path: Path | None = None
 
         # Extraction tracking
@@ -281,6 +271,8 @@ class ExtractionPage(BasePage):
                 dict.fromkeys(ref.split(":")[0] for ref in mod_references if ref)
             )
 
+            planned = self._planned_components(mod_references)
+
             for mod_id in unique_mods_in_sequence:
                 mod = self._mod_manager.get_mod_by_id(mod_id)
                 if not mod:
@@ -294,49 +286,72 @@ class ExtractionPage(BasePage):
 
                 # A provided mod is prepared by extracting its provider's archive,
                 # even when the provider itself is not selected in this sequence.
+                owner = mod
                 if mod.provided_by:
-                    provider = self._mod_manager.get_mod_by_id(mod.provided_by)
-                    if provider is None:
+                    owner = self._mod_manager.get_mod_by_id(mod.provided_by)
+                    if owner is None:
                         logger.error(f"Provider {mod.provided_by} of {mod_id} not found")
                         continue
-                    mod = provider
 
-                # Create unique extraction ID
-                extraction_id = f"{mod.id}_seq{seq_idx}"
-                if extraction_id in self._extractions:
-                    continue
+                extraction_id = f"{owner.id}_seq{seq_idx}"
+                extraction_info = self._extractions.get(extraction_id)
+                if extraction_info is None:
+                    display_name = owner.name
+                    if game_def.has_multiple_sequences:
+                        seq_name = sequence.game or f"Sequence {seq_idx + 1}"
+                        display_name = f"{owner.name} ({seq_name})"
+                    extraction_info = self._create_extraction(
+                        owner, extraction_id, display_name, folder_path
+                    )
+                    if extraction_info is None:
+                        continue
+                    self._extractions[extraction_id] = extraction_info
 
-                # Determine display name based on number of sequences
-                if game_def.has_multiple_sequences:
-                    seq_name = sequence.game or f"Sequence {seq_idx + 1}"
-                    display_name = f"{mod.name} ({seq_name})"
-                else:
-                    display_name = mod.name
+                if mod.tp2 and planned.get(mod_id):
+                    extraction_info.planned_components.setdefault(mod.tp2, set()).update(
+                        planned[mod_id]
+                    )
 
-                archive_path = self._resolve_archive_path(mod, mod.id)
-
-                if archive_path is None:
-                    continue
-
-                destination_path = folder_path
-                if not mod.tp2:
-                    destination_path = Path(f"{destination_path}/{EXTRACT_DIR}/{mod.id}")
-
-                extraction_info = ExtractionInfo(
-                    extraction_id=extraction_id,
-                    mod_id=mod.id,
-                    mod_name=display_name,
-                    tp2_name=mod.tp2,
-                    archive_path=archive_path,
-                    destination_path=destination_path,
-                )
-
-                initial_status = self._determine_initial_status(extraction_info)
-                self._extractions[extraction_id] = extraction_info
-                self._extraction_status[extraction_id] = initial_status
+        for extraction_id, extraction_info in self._extractions.items():
+            self._extraction_status[extraction_id] = self._determine_initial_status(
+                extraction_info
+            )
 
         self._refresh_extraction_table()
         logger.info(f"Extractions loaded: {len(self._extractions)}")
+
+    def _create_extraction(
+        self, mod: Mod, extraction_id: str, display_name: str, game_dir: Path
+    ) -> ExtractionInfo | None:
+        archive_path = self._resolve_archive_path(mod, mod.id)
+        if archive_path is None:
+            return None
+
+        destination_path = game_dir
+        if not mod.tp2:
+            destination_path = game_dir / EXTRACT_DIR / mod.id
+
+        return ExtractionInfo(
+            extraction_id=extraction_id,
+            mod_id=mod.id,
+            mod_name=display_name,
+            tp2_name=mod.tp2,
+            archive_path=archive_path,
+            destination_path=destination_path,
+            mod=mod,
+            manifest_path=ExtractionManifest.path_for(game_dir, mod.id),
+        )
+
+    @staticmethod
+    def _planned_components(mod_references: list[str]) -> dict[str, set[str]]:
+        """Group the planned WeiDU component numbers by mod."""
+        planned: dict[str, set[str]] = {}
+        for reference in mod_references:
+            mod_id, _, component = reference.partition(":")
+            number = component.split(".", 1)[0]
+            if number.isdigit():
+                planned.setdefault(mod_id, set()).add(number)
+        return planned
 
     def _resolve_archive_path(self, mod: Mod, mod_id: str) -> Path | None:
         """Resolve the archive path for a mod."""
@@ -435,16 +450,10 @@ class ExtractionPage(BasePage):
     # Verification
     # ========================================
 
-    @staticmethod
-    def _is_already_extracted(extraction_info: ExtractionInfo) -> bool:
-        """Check if mod is already extracted."""
-        if not extraction_info.tp2_name:
-            return extraction_info.destination_path.exists()
-
-        valid, _ = StructureValidator.validate_structure(
-            extraction_info.destination_path, extraction_info.tp2_name
-        )
-        return valid
+    def _is_already_extracted(self, extraction_info: ExtractionInfo) -> bool:
+        """Check that the mod was prepared from its current archive (manifest)."""
+        record = self.state_manager.get_archive_registry().get(extraction_info.mod_id)
+        return ExtractionPipeline.is_prepared(extraction_info, record)
 
     # ========================================
     # Extraction
@@ -497,7 +506,9 @@ class ExtractionPage(BasePage):
         self._extraction_current = 0
         self._extraction_total = len(to_extract)
 
-        self._extraction_worker = ExtractionWorker(to_extract)
+        self._extraction_worker = ExtractionWorker(
+            to_extract, self._archive_service, Platform.get_current()
+        )
         self._extraction_worker.extraction_started.connect(self._on_extraction_started)
         self._extraction_worker.extraction_completed.connect(self._on_extraction_completed)
         self._extraction_worker.extraction_error.connect(self._on_extraction_error)
@@ -642,6 +653,8 @@ class ExtractionPage(BasePage):
         )
 
         if reply == QMessageBox.StandardButton.Yes:
+            if extraction_info.manifest_path is not None:
+                ExtractionManifest.discard(extraction_info.manifest_path)
             if extraction_info.destination_path.exists():
                 if extraction_info.tp2_name:
                     mod_folder = extraction_info.destination_path / extraction_info.tp2_name

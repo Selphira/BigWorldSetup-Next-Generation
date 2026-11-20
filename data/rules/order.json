@@ -2086,6 +2086,15 @@
       }
     },
     {
+      "rule": "lolfixer(-):BWS-FR-Fixpack(0)",
+      "direction": "after",
+      "severity": "error",
+      "translations": {
+        "en_US": "lolfixer's TP2 is created by installing BWS-FR-Fixpack",
+        "fr_FR": "Le TP2 de lolfixer est créé par l'installation de BWS-FR-Fixpack"
+      }
+    },
+    {
       "rule": "luxleysoa(-):tobex(-)|bg2fixpack(-)|EET(-)|nathaniel(-)",
       "direction": "after",
       "severity": "warning",

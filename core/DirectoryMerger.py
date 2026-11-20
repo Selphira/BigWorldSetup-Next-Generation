@@ -19,7 +19,9 @@ class ConflictResolution(Enum):
     OVERWRITE = "overwrite"  # Replace existing items with new ones
     BACKUP = "backup"  # Backup existing before overwriting
     FAIL = "fail"  # Raise error on first conflict
-    MERGE = "merge"  # Merge directories recursively, overwrite files
+    # Merge directories recursively and overwrite files without asking; every
+    # replaced path is listed in MergeResult.overwritten_paths
+    MERGE = "merge"
 
 
 class MergeResult:
@@ -32,6 +34,7 @@ class MergeResult:
         overwritten: Number of items that replaced existing ones
         backed_up: Number of items that were backed up
         errors: List of (path, error_message) tuples
+        overwritten_paths: Destinations replaced, so that every collision is traceable
     """
 
     def __init__(self):
@@ -41,6 +44,7 @@ class MergeResult:
         self.overwritten = 0
         self.backed_up = 0
         self.errors: list[tuple[Path, str]] = []
+        self.overwritten_paths: list[Path] = []
 
     @property
     def success(self) -> bool:
@@ -242,6 +246,7 @@ class DirectoryMerger:
             shutil.move(str(source_dir), str(dest_dir))
             result.moved_dirs += 1
             result.overwritten += 1
+            result.overwritten_paths.append(dest_dir)
             logger.debug(f"Overwrote directory: {dest_dir}")
             return
 
@@ -281,6 +286,7 @@ class DirectoryMerger:
             logger.debug(f"Overwriting file (merge mode): {dest_file}")
             dest_file.unlink()
             result.overwritten += 1
+            result.overwritten_paths.append(dest_file)
             return True
 
         elif self.conflict_resolution == ConflictResolution.SKIP:
@@ -292,6 +298,7 @@ class DirectoryMerger:
             logger.debug(f"Overwriting file: {dest_file}")
             dest_file.unlink()
             result.overwritten += 1
+            result.overwritten_paths.append(dest_file)
             return True
 
         elif self.conflict_resolution == ConflictResolution.BACKUP:

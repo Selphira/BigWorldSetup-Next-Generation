@@ -54,6 +54,17 @@ INSTALLATION_JOURNAL_FORMAT = 2
 ARCHIVE_REGISTRY_FILE: Path = USER_DATA_ROOT / "archives.json"
 ARCHIVE_REGISTRY_FORMAT = 1
 
+# Extraction: proof of preparation, kept under EXTRACT_DIR of each game folder
+EXTRACT_MANIFEST_DIR = ".manifests"
+EXTRACT_MANIFEST_FORMAT = 1
+# Extraction safety limits, checked against the archive listing before writing
+EXTRACT_MAX_UNPACKED_BYTES = 16 * 1024**3
+EXTRACT_MAX_ENTRIES = 250_000
+EXTRACT_DISK_MARGIN_BYTES = 512 * 1024**2
+EXTRACT_TOOL_TIMEOUT_S = 900
+# Placeholder replaced by the staging directory in a mod's extraction recipe
+EXTRACT_RECIPE_DESTINATION = "{destination}"
+
 # ============================================================================
 # TIMING & DELAYS (milliseconds)
 # ============================================================================

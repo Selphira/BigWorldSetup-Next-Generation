@@ -96,6 +96,20 @@
       "description": "Identifier of the mod whose archive contains this mod's TP2; replaces files",
       "minLength": 1
     },
+    "extract_recipe": {
+      "type": "object",
+      "description": "Arguments running a self-extracting executable that 7-Zip cannot read; {destination} is replaced by the staging directory",
+      "required": ["args"],
+      "properties": {
+        "args": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "contains": {"type": "string", "pattern": "\\{destination\\}"}
+        }
+      },
+      "additionalProperties": false
+    },
     "games": {
       "type": "array",
       "description": "List of supported games",

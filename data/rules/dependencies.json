@@ -457,6 +457,11 @@
       "description": "Dépendance interne lolfixer #4"
     },
     {
+      "rule": "lolfixer(-):BWS-FR-Fixpack(0)",
+      "severity": "error",
+      "description": "Le TP2 de lolfixer est créé par l'installation de BWS-FR-Fixpack"
+    },
+    {
       "rule": "Mercenary(1,2):Mercenary(0)",
       "severity": "error",
       "description": "Dépendance interne Mercenary"
