@@ -7,7 +7,6 @@ builds a plan, edits the journal or chooses the next operations itself.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from datetime import datetime
 import json
 import logging
 from pathlib import Path
@@ -15,6 +14,7 @@ from pathlib import Path
 from PySide6.QtCore import QLockFile
 
 from constants import INSTALLATION_JOURNAL_NAME
+from core.atomic_io import set_aside_unreadable
 from core.ComponentReference import ComponentReference
 from core.ExtractionManifest import ExtractionManifest
 from core.InstallationJournal import (
@@ -107,9 +107,7 @@ class InstallationExecutor:
         Returns:
             New path of the journal, kept for diagnosis
         """
-        stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        target = self.journal_path.with_name(f"{self.journal_path.name}.unreadable-{stamp}")
-        self.journal_path.rename(target)
+        target = set_aside_unreadable(self.journal_path)
         logger.warning("Installation journal set aside: %s", target)
         self.load_error = None
         return target

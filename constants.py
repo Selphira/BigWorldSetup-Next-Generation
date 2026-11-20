@@ -53,6 +53,9 @@ INSTALLATION_JOURNAL_NAME = "installation-run.json"
 INSTALLATION_JOURNAL_FORMAT = 3
 ARCHIVE_REGISTRY_FILE: Path = USER_DATA_ROOT / "archives.json"
 ARCHIVE_REGISTRY_FORMAT = 1
+# Unreadable persisted files are renamed "<name><suffix><timestamp>" for diagnosis
+UNREADABLE_FILE_SUFFIX = ".unreadable-"
+UNREADABLE_FILE_STAMP_FORMAT = "%Y%m%d-%H%M%S"
 
 # Extraction: proof of preparation, kept under EXTRACT_DIR of each game folder
 EXTRACT_MANIFEST_DIR = ".manifests"

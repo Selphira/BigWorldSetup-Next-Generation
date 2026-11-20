@@ -12,7 +12,7 @@ import threading
 from typing import Any
 
 from constants import ARCHIVE_REGISTRY_FORMAT
-from core.atomic_io import write_json_atomic
+from core.atomic_io import set_aside_unreadable, write_json_atomic
 
 logger = logging.getLogger(__name__)
 
@@ -151,10 +151,8 @@ class ArchiveRegistry:
 
     @staticmethod
     def _set_aside_unreadable(path: Path, error: Exception) -> None:
-        stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        target = path.with_name(f"{path.name}.unreadable-{stamp}")
         try:
-            path.rename(target)
+            target = set_aside_unreadable(path)
             logger.warning("Archive registry unreadable (%s), set aside: %s", error, target)
         except OSError:
             logger.exception("Archive registry unreadable (%s) and cannot be set aside", error)
