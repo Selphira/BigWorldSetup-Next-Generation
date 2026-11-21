@@ -99,3 +99,13 @@ def test_existing_definition_with_other_casing_is_updated_in_place(
     assert statuses["c#brage"] == SyncStatus.UPDATED
     assert [path.name for path in definitions_dir.glob("*.json")] == ["C#Brage.json"]
     assert json.loads(existing_path.read_text(encoding="utf-8"))["games"] == ["bg2ee", "eet"]
+
+
+def test_unreadable_definition_is_reported_and_left_untouched(definitions_dir: Path) -> None:
+    existing_path = definitions_dir / "c#brage.json"
+    existing_path.write_text('{"name": "Manual work",', encoding="utf-8")
+
+    statuses = synchronize(definitions_dir, ModFilter(tp2_names=frozenset({"c#brage"})))
+
+    assert statuses["c#brage"] == SyncStatus.ERROR
+    assert existing_path.read_text(encoding="utf-8") == '{"name": "Manual work",'

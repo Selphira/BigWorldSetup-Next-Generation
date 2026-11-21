@@ -141,7 +141,6 @@ def test_b29_archive_metadata_applied() -> None:
     assert result["files"] == [{"filename": "new.zip"}]
 
 
-@pytest.mark.xfail(reason="B30 / L8: safe zero is discarded", raises=AssertionError)
 def test_b30_zero_is_a_valid_safety_value() -> None:
     merger = DefinitionMerger("demo")
     merger.add_source("lcc", {"safe": 0})

@@ -126,6 +126,7 @@ class ModSyncOrchestrator:
 
         # Load existing definition
         existing = None
+        read_error = None
         is_new = not definition_path.exists()
 
         if not is_new:
@@ -133,8 +134,11 @@ class ModSyncOrchestrator:
                 with open(definition_path, "r", encoding="utf-8") as f:
                     existing = json.load(f)
             except Exception as e:
-                logger.error(f"Error reading existing definition {tp2_name}: {e}")
-                existing = None
+                read_error = str(e)
+            else:
+                if not isinstance(existing, dict):
+                    read_error = "definition is not a JSON object"
+                    existing = None
 
         # Stored games include those derived by the merger (sod, eet) that LCC omits.
         mod_games = {*(lcc_data.get("games") or []), *((existing or {}).get("games") or [])}
@@ -143,6 +147,15 @@ class ModSyncOrchestrator:
                 tp2_name=tp2_name,
                 status=SyncStatus.SKIPPED,
                 message=skip_reason,
+            )
+
+        # An unreadable definition is never replaced: it may hold manual work.
+        if read_error:
+            logger.error(f"Error reading existing definition {tp2_name}: {read_error}")
+            return ModSyncResult(
+                tp2_name=tp2_name,
+                status=SyncStatus.ERROR,
+                message=f"Unreadable definition: {read_error}",
             )
 
         # Check if we should process this mod
@@ -167,9 +180,8 @@ class ModSyncOrchestrator:
 
         # TP2 data
         if self.config.extract_tp2 and self.tp2_source:
-            supported_games = None
-            if existing:
-                supported_games = set(existing.get("games", None))
+            stored_games = (existing or {}).get("games")
+            supported_games = set(stored_games) if stored_games else None
 
             tp2_data = self.tp2_source.extract(tp2_name, supported_games)
 

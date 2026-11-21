@@ -1,4 +1,9 @@
-"""Merge mod data from multiple sources with priority rules."""
+"""Merge mod data from multiple sources with priority rules.
+
+Field contract: an absent, null or empty value (string, list, dict) from a
+source never replaces stored data, while zero and False are genuine values.
+Source values are copied, so merging never mutates the sources.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +12,15 @@ import logging
 from typing import Any
 
 logger = logging.getLogger(__name__)
+
+
+def has_value(value: Any) -> bool:
+    """Tell whether a source value carries information worth applying."""
+    if value is None:
+        return False
+    if isinstance(value, (str, list, tuple, set, dict)):
+        return len(value) > 0
+    return True
 
 
 class DefinitionMerger:
@@ -50,24 +64,7 @@ class DefinitionMerger:
         Returns:
             Merged definition dictionary
         """
-        result = (
-            copy.deepcopy(existing)
-            if existing
-            else {
-                "name": None,
-                "version": None,
-                "links": {},
-                "files": [],
-                "games": [],
-                "categories": [],
-                "components": {},
-                "languages": {},
-                "translations": {},
-                "tp2": "",
-                "safe": None,
-                "authors": [],
-            }
-        )
+        result = self._base_definition(existing)
 
         # Merge simple fields
         for field, priority in self.SOURCE_PRIORITY.items():
@@ -76,15 +73,7 @@ class DefinitionMerger:
             else:
                 self._merge_simple(result, field, priority)
 
-        if self.tp2_name in ["bg1ub", "drizztsaga", "soa"]:
-            result["games"].append("eet")
-
-        if self.tp2_name in ["eet", "eet_end", "eet_gui"]:
-            result["games"] = {"eet"}
-
-        if "bgee" in result["games"]:
-            result["games"].append("sod")
-        result["games"] = sorted(list(set(result["games"])))
+        self._derive_games(result)
 
         # Special handling for complex fields
         self._merge_languages(result)
@@ -93,6 +82,51 @@ class DefinitionMerger:
         self._merge_links(result)
 
         return result
+
+    @staticmethod
+    def _base_definition(existing: dict[str, Any] | None) -> dict[str, Any]:
+        """Return a copy of the existing definition whose container fields are usable.
+
+        Missing or null containers of an incomplete definition are replaced by
+        empty ones so the merge never fails; stored scalar values are untouched.
+        """
+        definition: dict[str, Any] = {
+            "name": None,
+            "version": None,
+            "links": {},
+            "files": [],
+            "games": [],
+            "categories": [],
+            "components": {},
+            "languages": {},
+            "translations": {},
+            "tp2": "",
+            "safe": None,
+            "authors": [],
+        }
+        if not existing:
+            return definition
+
+        result = copy.deepcopy(existing)
+        for field, default in definition.items():
+            if isinstance(default, (list, dict)) and not isinstance(result.get(field), type(default)):
+                result[field] = default
+        return result
+
+    def _derive_games(self, result: dict) -> None:
+        """Add the games implied by the supported ones and by known EET mods."""
+        games = set(result["games"])
+
+        if self.tp2_name in ["bg1ub", "drizztsaga", "soa"]:
+            games.add("eet")
+
+        if self.tp2_name in ["eet", "eet_end", "eet_gui"]:
+            games = {"eet"}
+
+        if "bgee" in games:
+            games.add("sod")
+
+        result["games"] = sorted(games)
 
     def _merge_simple(self, result: dict, field: str, priority: list[str]) -> None:
         """Merge simple field with priority.
@@ -107,8 +141,8 @@ class DefinitionMerger:
                 continue
 
             value = self.sources[source_name].get(field)
-            if value:
-                result[field] = value
+            if has_value(value):
+                result[field] = copy.deepcopy(value)
                 logger.debug(f"Set '{field}' from source '{source_name}'")
                 return
 
@@ -144,33 +178,23 @@ class DefinitionMerger:
                     break
 
             value = source_parent.get(final_key) if isinstance(source_parent, dict) else None
-            if value:
-                parent[final_key] = value
+            if has_value(value):
+                parent[final_key] = copy.deepcopy(value)
                 logger.debug(f"Set '{field_path}' from source '{source_name}'")
                 return
 
     def _merge_languages(self, result: dict) -> None:
-        if "languages" not in result:
-            result["languages"] = {}
+        """Take languages from the first source providing some, keeping the manual "all"."""
+        all_language = result["languages"].get("all")
 
-        all_language = None
-        if "all" in result["languages"]:
-            all_language = result["languages"]["all"]
+        for source_name in ["lcc", "tp2"]:
+            if source_name not in self.sources:
+                continue
 
-        if "lcc" in self.sources:
-            value = self.sources["lcc"].get("languages")
-            if value:
-                result["languages"] = value
-                logger.debug("Set languages from LCC")
-                if all_language is not None:
-                    result["languages"]["all"] = all_language
-                return
-
-        if "tp2" in self.sources:
-            value = self.sources["tp2"].get("languages")
-            if value:
-                result["languages"] = value
-                logger.debug("Set languages from tp2")
+            value = self.sources[source_name].get("languages")
+            if has_value(value):
+                result["languages"] = copy.deepcopy(value)
+                logger.debug(f"Set languages from {source_name}")
                 if all_language is not None:
                     result["languages"]["all"] = all_language
                 return
@@ -189,18 +213,16 @@ class DefinitionMerger:
             }
         }
         """
-        if "translations" not in result:
-            result["translations"] = {}
+        translations = result["translations"]
 
-        # Description: LCC or INI (priority: LCC > INI)
+        # Description: LCC is the reference, its changes replace the stored text
         if "lcc" in self.sources:
-            lcc_descriptions = self.sources["lcc"].get("descriptions", {})
+            lcc_descriptions = self.sources["lcc"].get("descriptions") or {}
             for lang_code, desc in lcc_descriptions.items():
-                if lang_code not in result["translations"]:
-                    result["translations"][lang_code] = {}
-                if not result["translations"][lang_code].get("description"):
-                    result["translations"][lang_code]["description"] = desc
-                    logger.debug(f"Set description for {lang_code} from LCC")
+                if not has_value(desc):
+                    continue
+                self._translation_entry(translations, lang_code)["description"] = desc
+                logger.debug(f"Set description for {lang_code} from LCC")
 
         # INI description (lower priority)
         """
@@ -215,12 +237,18 @@ class DefinitionMerger:
 
         # Component translations: TP2 only
         if "tp2" in self.sources:
-            tp2_translations = self.sources["tp2"].get("component_translations", {})
+            tp2_translations = self.sources["tp2"].get("component_translations") or {}
             for lang_code, components in tp2_translations.items():
-                if lang_code not in result["translations"]:
-                    result["translations"][lang_code] = {}
-                result["translations"][lang_code]["components"] = components
+                entry = self._translation_entry(translations, lang_code)
+                entry["components"] = copy.deepcopy(components)
                 logger.debug(f"Set {len(components)} component translations for {lang_code}")
+
+    @staticmethod
+    def _translation_entry(translations: dict, lang_code: str) -> dict:
+        """Return the translation entry of a language, replacing an unusable one."""
+        if not isinstance(translations.get(lang_code), dict):
+            translations[lang_code] = {}
+        return translations[lang_code]
 
     def _merge_components(self, result: dict) -> None:
         """Merge component definitions (TP2 only).
@@ -230,16 +258,16 @@ class DefinitionMerger:
         if "tp2" not in self.sources or "components" not in self.sources["tp2"]:
             return
 
-        tp2_components = self.sources["tp2"]["components"]
+        tp2_components = copy.deepcopy(self.sources["tp2"]["components"])
 
-        existing_components = result.get("components", {})
+        existing_components = result["components"]
 
         # Build new components dict preserving TP2 order
         merged_components = {}
 
         # Step 1: Process all TP2 components in order
         for component_key in tp2_components.keys():
-            if component_key in existing_components:
+            if isinstance(existing_components.get(component_key), dict):
                 # Component exists: preserve it with all manual metadata
                 merged_component = existing_components[component_key].copy()
 
@@ -250,7 +278,7 @@ class DefinitionMerger:
                     if "components" in tp2_data:
                         merged_component["components"] = tp2_data["components"]
 
-                if tp2_components[component_key]["games"]:
+                if tp2_components[component_key].get("games"):
                     if {"bgee", "sod", "bg2ee"} & set(
                         tp2_components[component_key]["games"]
                     ) and "eet" in result["games"]:
@@ -268,13 +296,17 @@ class DefinitionMerger:
             else:
                 # New component: add from TP2 (minimal data)
                 merged_components[component_key] = tp2_components[component_key].copy()
-                if merged_components[component_key]["games"] is None:
-                    del merged_components[component_key]["games"]
+                if merged_components[component_key].get("games") is None:
+                    merged_components[component_key].pop("games", None)
                 logger.debug(f"Added new component {component_key} from TP2")
 
         # Step 2: Preserve SUB components (not in TP2, added manually)
         for component_key, component_data in existing_components.items():
-            if component_data.get("type") == "sub" and component_key not in merged_components:
+            if (
+                isinstance(component_data, dict)
+                and component_data.get("type") == "sub"
+                and component_key not in merged_components
+            ):
                 merged_components[component_key] = component_data.copy()
                 logger.debug(f"Preserved SUB component {component_key} (not in TP2)")
 
@@ -291,10 +323,7 @@ class DefinitionMerger:
         )
 
     def _merge_links(self, result: dict) -> None:
-        """Ensure links structure exists even if empty."""
-        if "links" not in result:
-            result["links"] = {}
-
+        """Fill the links of a definition that has none yet."""
         if len(result["links"]) > 0:
             return
 
@@ -303,10 +332,10 @@ class DefinitionMerger:
             if source_name not in self.sources:
                 continue
 
-            source_links = self.sources[source_name].get("links", {})
+            source_links = self.sources[source_name].get("links") or {}
             for key, value in source_links.items():
-                if key not in result["links"] or not result["links"][key]:
-                    result["links"][key] = value
+                if has_value(value) and not has_value(result["links"].get(key)):
+                    result["links"][key] = copy.deepcopy(value)
 
     def has_changes(self, existing: dict, merged: dict) -> bool:
         """Check if merged data differs from existing.

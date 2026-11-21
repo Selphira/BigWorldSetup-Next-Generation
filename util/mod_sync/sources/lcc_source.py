@@ -202,7 +202,7 @@ class LCCSource:
         result = {
             "name": mod_data.get("name", ""),
             "tp2": tp2_key if "non-weidu-" not in tp2_name else "",
-            "safe": mod_data.get("safe", 2),
+            "safe": mod_data.get("safe"),
             "games": games,
             "categories": self._extract_categories(mod_data),
             "authors": mod_data.get("authors", []),
