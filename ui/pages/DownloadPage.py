@@ -374,6 +374,11 @@ class DownloadPage(BasePage):
         ArchiveStatus.ERROR: QColor(COLOR_ERROR),
     }
     MISMATCH_STATUSES = (ArchiveStatus.INVALID_HASH, ArchiveStatus.INVALID_SIZE)
+    SUMMARY_ERROR_STATUSES = (
+        ArchiveStatus.ERROR,
+        ArchiveStatus.MISSING,
+        ArchiveStatus.MANUAL_EXPECTED,
+    )
     ACTIVE_STATUSES = (ArchiveStatus.DOWNLOADING, ArchiveStatus.VERIFYING)
 
     def __init__(self, state_manager: StateManager):
@@ -1164,61 +1169,33 @@ class DownloadPage(BasePage):
         """Show comprehensive summary of download/verification results."""
         if self._closing:
             return
-        # Count archives by status
-        valid_count = 0
-        warning_count = 0  # INVALID_HASH or INVALID_SIZE
-        error_count = 0
 
-        warning_details = []
-        error_details = []
+        valid_count = 0
+        issues: dict[str, list[str]] = {"warnings": [], "errors": []}
 
         for mod_id in self._archives:
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
-            mod = self._mod_manager.get_mod_by_id(mod_id)
-            mod_name = mod.name if mod else mod_id
-            label = tr(f"page.download.status.{status.value}")
 
             if status.is_usable:
                 valid_count += 1
             elif status in self.MISMATCH_STATUSES:
-                warning_count += 1
-                warning_details.append(f"• {mod_name} ({label})")
-            elif status in (
-                ArchiveStatus.ERROR,
-                ArchiveStatus.MISSING,
-                ArchiveStatus.MANUAL_EXPECTED,
-            ):
-                error_count += 1
-                error_details.append(f"• {mod_name} ({label})")
+                issues["warnings"].append(self._summary_issue_line(mod_id, status))
+            elif status in self.SUMMARY_ERROR_STATUSES:
+                issues["errors"].append(self._summary_issue_line(mod_id, status))
 
-        # Build summary message
-        summary_parts = []
-
-        if valid_count > 0:
-            summary_parts.append(tr("page.download.summary.valid", count=valid_count))
-
-        if warning_count > 0:
-            summary_parts.append(tr("page.download.summary.warnings", count=warning_count))
-
-        if error_count > 0:
-            summary_parts.append(tr("page.download.summary.errors", count=error_count))
-
-        summary_text = "\n".join(summary_parts)
-
-        # Create detailed message if there are issues
-        details_text = ""
-        if warning_details or error_details:
-            details_parts = []
-
-            if warning_details:
-                details_parts.append("\n" + tr("page.download.summary.warnings_title") + ":")
-                details_parts.extend(warning_details)
-
-            if error_details:
-                details_parts.append("\n" + tr("page.download.summary.errors_title") + ":")
-                details_parts.extend(error_details)
-
-            details_text = "\n".join(details_parts)
+        counts = {"valid": valid_count} | {
+            category: len(lines) for category, lines in issues.items()
+        }
+        summary_text = "\n".join(
+            tr(f"page.download.summary.{category}", count=count)
+            for category, count in counts.items()
+            if count
+        )
+        details_text = "\n".join(
+            f"\n{tr(f'page.download.summary.{category}_title')}:\n" + "\n".join(lines)
+            for category, lines in issues.items()
+            if lines
+        )
 
         msg = QMessageBox(self)
         msg.setWindowTitle(tr("page.download.summary.title"))
@@ -1227,15 +1204,21 @@ class DownloadPage(BasePage):
         if details_text:
             msg.setDetailedText(details_text)
 
-        # Determine icon based on worst status
-        if error_count > 0:
+        if issues["errors"]:
             msg.setIcon(QMessageBox.Icon.Critical)
-        elif warning_count > 0:
+        elif issues["warnings"]:
             msg.setIcon(QMessageBox.Icon.Warning)
         else:
             msg.setIcon(QMessageBox.Icon.Information)
 
         msg.exec()
+
+    def _summary_issue_line(self, mod_id: str, status: ArchiveStatus) -> str:
+        """Format one archive listed in the details of the final summary."""
+        mod = self._mod_manager.get_mod_by_id(mod_id)
+        mod_name = mod.name if mod else mod_id
+
+        return f"• {mod_name} ({tr(f'page.download.status.{status.value}')})"
 
     def _on_download_started(self, mod_id: str) -> None:
         """Handle download start."""

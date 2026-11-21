@@ -168,6 +168,8 @@ DECISION_DIALOG_MIN_WIDTH = 700
 DECISION_DETAILS_MIN_HEIGHT = 250
 # Progress bar text while no component is being installed
 PROGRESS_IDLE_FORMAT = "%p%"
+# Width, in characters, of the rules framing installation log sections
+INSTALL_OUTPUT_RULE_WIDTH = 80
 
 # Header & Footer heights
 HEADER_HEIGHT = 80

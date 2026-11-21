@@ -29,6 +29,7 @@ from constants import (
     COLOR_WARNING,
     DECISION_DETAILS_MIN_HEIGHT,
     DECISION_DIALOG_MIN_WIDTH,
+    INSTALL_OUTPUT_RULE_WIDTH,
     MARGIN_STANDARD,
     PROCESS_STOP_GRACE_MS,
     PROGRESS_IDLE_FORMAT,
@@ -36,6 +37,7 @@ from constants import (
     SPACING_SMALL,
 )
 from core.ComponentReference import IndexManager
+from core.GameModels import GameDefinition
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import InstallationJournal, OperationDecision, RunOutcome
 from core.InstallationReconciler import ReconciliationReport
@@ -971,11 +973,32 @@ class InstallationPage(BasePage):
             self._append_output(tr("page.installation.summary.no_data"), COLOR_WARNING)
             return
 
-        # Check if resuming
-        is_resume = self.is_resume()
+        is_resume = plan is not None
+        folders = plan.folders if plan else self.state_manager.get_game_folders()
+        total_components = sum(
+            len(install_order_data.get(index, [])) for index in range(game_def.sequence_count)
+        )
 
-        # Build summary
-        self._append_output("=" * 80 + "\n", COLOR_INFO)
+        self._append_summary_header(is_resume)
+        self._append_sequences(game_def, install_order_data, folders, total_components)
+
+        if is_resume:
+            self._append_resume_progress(total_components)
+
+        ready_key = "ready_to_resume" if is_resume else "ready"
+        self._append_rule("=", COLOR_INFO)
+        self._append_output(
+            tr(f"page.installation.summary.{ready_key}") + "\n\n", COLOR_STATUS_COMPLETE
+        )
+
+    def _append_rule(self, char: str, color: str, *, blank_after: bool = True) -> None:
+        """Append a horizontal rule separating sections of the summary."""
+        trailing = "\n\n" if blank_after else "\n"
+        self._append_output(char * INSTALL_OUTPUT_RULE_WIDTH + trailing, color)
+
+    def _append_summary_header(self, is_resume: bool) -> None:
+        """Append the title framing the summary, depending on a resumed or new run."""
+        self._append_rule("=", COLOR_INFO, blank_after=False)
 
         if is_resume:
             self._append_output(
@@ -984,36 +1007,19 @@ class InstallationPage(BasePage):
         else:
             self._append_output(tr("page.installation.summary.new_title") + "\n", COLOR_INFO)
 
-        self._append_output("=" * 80 + "\n\n", COLOR_INFO)
+        self._append_rule("=", COLOR_INFO)
 
-        # Count sequences and components
-        total_sequences = game_def.sequence_count
-        sequence_details = []
-        total_components = 0
-        folders = plan.folders if plan else self.state_manager.get_game_folders()
-
-        for seq_idx in range(total_sequences):
-            sequence = game_def.get_sequence(seq_idx)
-            if not sequence:
-                continue
-
-            order_list = install_order_data.get(seq_idx, [])
-            count_components = len(order_list)
-            total_components += count_components
-
-            sequence_details.append(
-                {
-                    "idx": seq_idx,
-                    "name": sequence.name,
-                    "game": sequence.game,
-                    "folder": folders.get(sequence.game),
-                    "count_components": count_components,
-                }
-            )
-
-        # Display general info
+    def _append_sequences(
+        self,
+        game_def: GameDefinition,
+        install_order_data: dict[int, list[str]],
+        folders: dict[str, str],
+        total_components: int,
+    ) -> None:
+        """Append the totals, then the folder and component count of each sequence."""
         self._append_output(
-            tr("page.installation.summary.total_sequences", count=total_sequences) + "\n",
+            tr("page.installation.summary.total_sequences", count=game_def.sequence_count)
+            + "\n",
             COLOR_INFO,
         )
         self._append_output(
@@ -1021,48 +1027,38 @@ class InstallationPage(BasePage):
             COLOR_INFO,
         )
 
-        # Display sequence details
-        for seq_info in sequence_details:
+        for index, sequence in enumerate(game_def.sequences):
+            component_count = len(install_order_data.get(index, []))
+
             self._append_output(
-                f"  {tr('page.installation.summary.sequence', number=seq_info['idx'] + 1)}: "
-                f"{seq_info['name']} ({seq_info['game'].upper()})\n"
+                f"  {tr('page.installation.summary.sequence', number=index + 1)}: "
+                f"{sequence.name} ({sequence.game.upper()})\n"
             )
             self._append_output(
-                f"    {tr('page.installation.summary.folder')}: {seq_info['folder']}\n"
+                f"    {tr('page.installation.summary.folder')}: {folders.get(sequence.game)}\n"
             )
             self._append_output(
-                f"    {tr('page.installation.summary.components', count=seq_info['count_components'])}\n\n"
+                f"    {tr('page.installation.summary.components', count=component_count)}\n\n"
             )
 
-        # If resuming, show progress
-        if is_resume:
-            self._append_output("-" * 80 + "\n", COLOR_WARNING)
-            self._append_output(
-                tr("page.installation.summary.resume_info") + "\n", COLOR_WARNING
-            )
-            self._append_output("-" * 80 + "\n\n", COLOR_WARNING)
+    def _append_resume_progress(self, total_components: int) -> None:
+        """Append how many components the interrupted run already installed."""
+        self._append_rule("-", COLOR_WARNING, blank_after=False)
+        self._append_output(tr("page.installation.summary.resume_info") + "\n", COLOR_WARNING)
+        self._append_rule("-", COLOR_WARNING)
 
-            installed = sum(
-                op.installed for seq in self._journal.sequences for op in seq.operations
+        installed = sum(
+            op.installed for seq in self._journal.sequences for op in seq.operations
+        )
+        self._append_output(
+            tr(
+                "page.installation.summary.installed_components",
+                index=installed,
+                total=total_components,
             )
-            self._append_output(
-                tr(
-                    "page.installation.summary.installed_components",
-                    index=installed,
-                    total=total_components,
-                )
-                + "\n",
-                COLOR_INFO,
-            )
-            self._append_output("=" * 80 + "\n\n", COLOR_INFO)
-            self._append_output(
-                tr("page.installation.summary.ready_to_resume") + "\n\n", COLOR_STATUS_COMPLETE
-            )
-        else:
-            self._append_output("=" * 80 + "\n\n", COLOR_INFO)
-            self._append_output(
-                tr("page.installation.summary.ready") + "\n\n", COLOR_STATUS_COMPLETE
-            )
+            + "\n",
+            COLOR_INFO,
+        )
 
     def _on_batch_install_changed(self, state: int) -> None:
         """Handle batch install checkbox change."""
