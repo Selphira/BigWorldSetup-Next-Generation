@@ -176,6 +176,7 @@ def synchronizer(
         check_github_versions=True,
         calculate_hashes=True,
         github_checks_file=workspace / "github_checks.json",
+        github_recipes_file=workspace / "github_recipes.json",
         **options,
     )
     orchestrator = ModSyncOrchestrator(config)

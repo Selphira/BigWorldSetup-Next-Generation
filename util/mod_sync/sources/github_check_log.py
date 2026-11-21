@@ -41,6 +41,11 @@ class GitHubCheckLog:
         self._checked_at[tp2_name.lower()] = now or self._now()
         self._save()
 
+    def forget(self, tp2_name: str) -> None:
+        """Make a mod due again, and save the log."""
+        if self._checked_at.pop(tp2_name.lower(), None) is not None:
+            self._save()
+
     # ------------------------------------------------------------------
     # Persistence
     # ------------------------------------------------------------------

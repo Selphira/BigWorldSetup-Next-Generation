@@ -54,6 +54,9 @@ LCC_CACHE_DIR = CACHE_DIR / "lcc"
 # minimal delay between two checks (keeps runs under the API rate limit)
 MOD_SYNC_GITHUB_CHECKS_FILE = CACHE_DIR / "mod_sync" / "github_checks.json"
 MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS = 24.0
+# Mods downloaded from a GitHub commit: maintainer file kept out of data/,
+# which is published as a whole
+MOD_SYNC_GITHUB_RECIPES_FILE = PROJECT_ROOT / "util" / "mod_sync" / "github_recipes.json"
 
 # Localized caches are written "<prefix>_<language>.json" in CACHE_DIR
 MOD_CACHE_PREFIX = "mods"

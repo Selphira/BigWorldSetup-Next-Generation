@@ -7,7 +7,11 @@ from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 
-from constants import MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS, MOD_SYNC_GITHUB_CHECKS_FILE
+from constants import (
+    MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS,
+    MOD_SYNC_GITHUB_CHECKS_FILE,
+    MOD_SYNC_GITHUB_RECIPES_FILE,
+)
 
 
 class SyncStatus(Enum):
@@ -86,6 +90,9 @@ class SyncStats:
         default_factory=list
     )  # (tp2, current, latest)
     github_deferred: int = 0  # mods checked too recently
+    # Pinned mods: (tp2, previous version, new version), (tp2, release, release date, pinned version)
+    github_pins_advanced: list[tuple[str, str, str]] = field(default_factory=list)
+    github_releases_after_pin: list[tuple[str, str, str, str]] = field(default_factory=list)
     github_rate_limited: bool = False
 
     def add_result(self, result: ModSyncResult) -> None:
@@ -133,6 +140,16 @@ Total LCC mods: {self.total_lcc_mods}
             report += "\n=== Outdated GitHub Mods ===\n"
             for tp2, current, latest in self.github_outdated:
                 report += f"  {tp2}: {current} → {latest}\n"
+
+        if self.github_pins_advanced:
+            report += "\n=== Pinned GitHub Mods Moved To A New Commit ===\n"
+            for tp2, previous, current in self.github_pins_advanced:
+                report += f"  {tp2}: {previous} → {current}\n"
+
+        if self.github_releases_after_pin:
+            report += "\n=== Releases Published After The Pinned Commit ===\n"
+            for tp2, tag, published, pinned in self.github_releases_after_pin:
+                report += f"  {tp2}: release {tag} ({published}) newer than {pinned}\n"
 
         if self.github_deferred:
             report += f"\nGitHub checks deferred (checked too recently): {self.github_deferred}\n"
@@ -187,6 +204,7 @@ class SyncConfig:
     check_github_versions: bool = False
     github_check_interval_hours: float = MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
     github_checks_file: Path = MOD_SYNC_GITHUB_CHECKS_FILE
+    github_recipes_file: Path = MOD_SYNC_GITHUB_RECIPES_FILE
 
     mod_filter: ModFilter = field(default_factory=ModFilter)
 
@@ -194,6 +212,7 @@ class SyncConfig:
         """Convert paths to Path objects."""
         self.definitions_dir = Path(self.definitions_dir)
         self.github_checks_file = Path(self.github_checks_file)
+        self.github_recipes_file = Path(self.github_recipes_file)
         if self.archives_dir:
             self.archives_dir = Path(self.archives_dir)
         if self.mods_dir:

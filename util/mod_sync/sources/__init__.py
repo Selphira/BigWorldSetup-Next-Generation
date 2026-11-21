@@ -7,11 +7,18 @@ This package contains extractors for different data sources:
 - ArchiveSource: Archive download and hash calculation
 - GitHubSource: Latest GitHub release as file entries
 - GitHubCheckLog: Spacing of the GitHub checks of each mod
+- GitHubRecipes: Mods pinned to a GitHub commit
 """
 
 from util.mod_sync.sources.archive_source import ArchiveFile, ArchiveSource
 from util.mod_sync.sources.github_check_log import GitHubCheckLog
-from util.mod_sync.sources.github_source import GitHubSource, GitHubUpdate
+from util.mod_sync.sources.github_recipes import GitHubRecipe, GitHubRecipes, RecipeMode
+from util.mod_sync.sources.github_source import (
+    GitHubPinError,
+    GitHubPinnedUpdate,
+    GitHubSource,
+    GitHubUpdate,
+)
 from util.mod_sync.sources.ini_source import IniData, IniParser, IniSource
 from util.mod_sync.sources.lcc_source import LCCSource
 from util.mod_sync.sources.tp2_source import TP2Source
@@ -25,6 +32,11 @@ __all__ = [
     "ArchiveSource",
     "ArchiveFile",
     "GitHubCheckLog",
+    "GitHubPinError",
+    "GitHubPinnedUpdate",
+    "GitHubRecipe",
+    "GitHubRecipes",
     "GitHubSource",
+    "RecipeMode",
     "GitHubUpdate",
 ]

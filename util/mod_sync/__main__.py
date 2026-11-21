@@ -5,13 +5,19 @@ Can be run in two modes:
 2. CLI mode: python -m util.mod_sync --cli [options]
 """
 
+from __future__ import annotations
+
 import argparse
 import logging
 from pathlib import Path
 import sys
+from typing import TYPE_CHECKING
 
 from constants import MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
 from core.enums.GameEnum import GameEnum
+
+if TYPE_CHECKING:
+    from util.mod_sync.orchestrator import ModSyncOrchestrator
 
 
 def setup_logging(verbose: bool = False) -> None:
@@ -65,7 +71,8 @@ def run_cli(args: argparse.Namespace) -> None:
         extract_ini=not args.no_ini,
         extract_archives=args.extract_archives,
         calculate_hashes=args.calculate_hashes,
-        check_github_versions=args.check_github,
+        # A pin is applied by the run it is recorded in
+        check_github_versions=args.check_github or bool(args.pin) or bool(args.unpin),
         github_check_interval_hours=args.github_interval,
         mod_filter=ModFilter(tp2_names=frozenset(args.only), games=frozenset(args.game)),
     )
@@ -75,6 +82,7 @@ def run_cli(args: argparse.Namespace) -> None:
 
     try:
         orchestrator = ModSyncOrchestrator(config)
+        apply_pins(orchestrator, args.pin, args.unpin)
         stats = orchestrator.run(progress_callback)
 
         # Display summary
@@ -101,6 +109,25 @@ def run_cli(args: argparse.Namespace) -> None:
     except Exception as e:
         print(f"Fatal error: {e}", file=sys.stderr)
         sys.exit(1)
+
+
+def parse_pin(value: str) -> tuple[str, str]:
+    """Parse a --pin value "TP2=REF"."""
+    tp2_name, separator, ref = value.partition("=")
+    if not separator or not tp2_name or not ref:
+        raise argparse.ArgumentTypeError(f"expected TP2=REF, got {value!r}")
+    return tp2_name, ref
+
+
+def apply_pins(orchestrator: ModSyncOrchestrator, pins: list[tuple[str, str]], unpins: list[str]) -> None:
+    """Record the requested pins before synchronizing; any failure stops the run."""
+    for tp2_name in unpins:
+        if not orchestrator.unpin(tp2_name):
+            print(f"{tp2_name} was not pinned")
+
+    for tp2_name, ref in pins:
+        recipe = orchestrator.pin(tp2_name, ref)
+        print(f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})")
 
 
 def main() -> None:
@@ -193,6 +220,25 @@ def main() -> None:
             "Minimal delay between two GitHub checks of a mod, 0 to always check "
             f"(default: {MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS:g})"
         ),
+    )
+    parser.add_argument(
+        "--pin",
+        type=parse_pin,
+        action="append",
+        default=[],
+        metavar="TP2=REF",
+        help=(
+            "Download a GitHub mod from a commit instead of its latest release: "
+            "REF is a branch (follows its last commit), a commit hash or branch@hash "
+            "(stays on that commit). Implies --check-github"
+        ),
+    )
+    parser.add_argument(
+        "--unpin",
+        action="append",
+        default=[],
+        metavar="TP2",
+        help="Download a pinned mod from its latest release again. Implies --check-github",
     )
     parser.add_argument(
         "--only",

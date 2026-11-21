@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import timedelta
 import json
 import logging
@@ -21,12 +22,27 @@ from util.mod_sync.models.sync_result import (
 from util.mod_sync.processors.github_processor import GitHubProcessor, GitHubUnavailableError
 from util.mod_sync.sources.archive_source import ArchiveFile, ArchiveSource
 from util.mod_sync.sources.github_check_log import GitHubCheckLog
-from util.mod_sync.sources.github_source import GitHubSource
+from util.mod_sync.sources.github_recipes import GitHubRecipe, GitHubRecipes
+from util.mod_sync.sources.github_source import GitHubPinError, GitHubPinnedUpdate, GitHubSource
 from util.mod_sync.sources.ini_source import IniSource
 from util.mod_sync.sources.lcc_source import LCCSource
 from util.mod_sync.sources.tp2_source import TP2Source
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True, slots=True)
+class GitHubCheck:
+    """Outcome of the GitHub check of one mod.
+
+    Only a check GitHub answered is recorded, and a pinned commit only moves
+    once the definition using it is saved.
+    """
+
+    answered: bool = False
+    source_name: str = "github"  # "pin" when the files come from a pinned commit
+    data: dict[str, Any] | None = None
+    pinned: GitHubPinnedUpdate | None = None
 
 
 class ModSyncOrchestrator:
@@ -54,6 +70,7 @@ class ModSyncOrchestrator:
         self.github_checks = GitHubCheckLog(
             config.github_checks_file, timedelta(hours=config.github_check_interval_hours)
         )
+        self.github_recipes = GitHubRecipes(config.github_recipes_file)
         self.selective_extractor = (
             SelectiveExtractor()
             if config.extract_archives and config.archives_dir and config.mods_dir
@@ -105,6 +122,49 @@ class ModSyncOrchestrator:
         logger.info(self.stats.get_summary())
 
         return self.stats
+
+    def pin(self, tp2_name: str, ref: str) -> GitHubRecipe:
+        """Download a mod from a GitHub commit rather than from its latest release.
+
+        Args:
+            tp2_name: Mod to pin, which must have a definition
+            ref: "branch" (follow its last commit), "sha" or "branch@sha" (stay on a commit)
+
+        Returns:
+            The recorded recipe; the mod is checked again at the next run
+
+        Raises:
+            GitHubPinError: No GitHub repository, or unknown reference
+            GitHubUnavailableError: GitHub did not answer
+        """
+        definition = self._read_definition_to_pin(tp2_name)
+        repository = self.github_source.find_repository(definition)
+        if repository is None:
+            raise GitHubPinError(f"{tp2_name} has no GitHub repository")
+
+        recipe = self.github_source.resolve_pin(repository, ref)
+        self.github_recipes.set(tp2_name, recipe)
+        self.github_checks.forget(tp2_name)
+        logger.info(f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})")
+        return recipe
+
+    def unpin(self, tp2_name: str) -> bool:
+        """Download a mod from its latest release again; tell whether it was pinned."""
+        if not self.github_recipes.remove(tp2_name):
+            return False
+        self.github_checks.forget(tp2_name)
+        logger.info(f"Unpinned {tp2_name}: its latest release is used again")
+        return True
+
+    def _read_definition_to_pin(self, tp2_name: str) -> dict:
+        self._index_definitions()
+        definition_path = self._definition_paths.get(tp2_name.lower())
+        if definition_path is None:
+            raise GitHubPinError(f"No definition for {tp2_name}")
+        try:
+            return json.loads(definition_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as e:
+            raise GitHubPinError(f"Unreadable definition {definition_path.name}: {e}") from e
 
     def _process_mod(self, tp2_name: str, lcc_data: dict) -> ModSyncResult:
         """Process a single mod.
@@ -175,13 +235,13 @@ class ModSyncOrchestrator:
         stored_files = (existing or {}).get("files")
         files = files_before_update = stored_files if isinstance(stored_files, list) else []
 
-        github_checked = False
+        github_check = GitHubCheck()
         if self.config.check_github_versions:
-            github_checked, github_data = self._github_data(tp2_name, existing, lcc_data)
-            if github_data:
-                merger.add_source("github", github_data)
-                sources_used.append("github")
-                files = github_data.get("files") or files
+            github_check = self._check_github(tp2_name, existing, lcc_data)
+            if github_check.data:
+                merger.add_source(github_check.source_name, github_check.data)
+                sources_used.append(github_check.source_name)
+                files = github_check.data.get("files") or files
 
         # Archive of the machine: hashed, and downloaded when missing or divergent
         machine_archive = None
@@ -190,6 +250,12 @@ class ModSyncOrchestrator:
             if self.config.calculate_hashes:
                 merger.add_source("archive", {"files": files})
                 sources_used.append("archive" if files != stored_files else "archive (validated)")
+
+        # A commit archive is only described once downloaded: the stored entry stays otherwise
+        if github_check.pinned and not all(isinstance(entry, dict) and "size" in entry for entry in files):
+            message = f"Archive of pinned commit {github_check.pinned.recipe.version} not downloaded"
+            logger.warning(f"{tp2_name}: {message} (archive hashing required), definition left unchanged")
+            return ModSyncResult(tp2_name=tp2_name, status=SyncStatus.ERROR, message=message)
 
         # Extracted files are read only when they come from the current archive
         if self._refresh_extraction(tp2_name, machine_archive):
@@ -201,8 +267,7 @@ class ModSyncOrchestrator:
 
         # Check if anything changed
         if existing and not merger.has_changes(existing, merged):
-            if github_checked:
-                self.github_checks.record(tp2_name)
+            self._commit_github_check(tp2_name, github_check)
             return ModSyncResult(
                 tp2_name=tp2_name,
                 status=SyncStatus.UNCHANGED,
@@ -224,8 +289,7 @@ class ModSyncOrchestrator:
         # The saved definition no longer refers to the archives it replaced
         if self.config.calculate_hashes and machine_archive:
             self.archive_source.retire_unlisted(files_before_update, merged["files"])
-        if github_checked:
-            self.github_checks.record(tp2_name)
+        self._commit_github_check(tp2_name, github_check)
 
         status = SyncStatus.CREATED if is_new else SyncStatus.UPDATED
         return ModSyncResult(
@@ -258,38 +322,43 @@ class ModSyncOrchestrator:
                 merger.add_source("ini", ini_data)
                 sources_used.append("ini")
 
-    def _github_data(
-        self, tp2_name: str, existing: dict | None, lcc_data: dict
-    ) -> tuple[bool, dict[str, Any] | None]:
-        """Return whether GitHub answered, and the latest release of a mod as merger source data.
+    def _check_github(self, tp2_name: str, existing: dict | None, lcc_data: dict) -> GitHubCheck:
+        """Check the latest release, or the pinned commit, of a mod.
 
         A mod checked less than the configured interval ago is not checked
         again; once the rate limit is reached, no other mod is checked.
         """
         if self.stats.github_rate_limited:
-            return False, None
+            return GitHubCheck()
 
         repository = self.github_source.find_repository(existing, lcc_data)
         if repository is None:
-            return False, None
+            return GitHubCheck()
 
         if not self.github_checks.is_due(tp2_name):
             logger.debug(f"GitHub check of {tp2_name} deferred: checked recently")
             self.stats.github_deferred += 1
-            return False, None
+            return GitHubCheck()
 
+        recipe = self.github_recipes.get(tp2_name)
         try:
-            update = self.github_source.fetch(repository, existing)
+            if recipe:
+                return self._pinned_check(tp2_name, repository, recipe, existing)
+            return self._release_check(tp2_name, repository, existing)
         except GitHubUnavailableError as e:
             if e.rate_limited:
                 self.stats.github_rate_limited = True
                 logger.warning(f"{e}: GitHub is no longer checked during this run")
             else:
                 logger.warning(f"GitHub check of {tp2_name} failed: {e}")
-            return False, None
+        except GitHubPinError as e:
+            logger.warning(f"Pinned GitHub mod {tp2_name}: {e}")
+        return GitHubCheck()
 
+    def _release_check(self, tp2_name: str, repository: tuple[str, str], existing: dict | None) -> GitHubCheck:
+        update = self.github_source.fetch(repository, existing)
         if update is None:
-            return True, None
+            return GitHubCheck(answered=True)
 
         current_version = str((existing or {}).get("version") or "")
         if self.github_processor.compare_versions(current_version, update.tag_name):
@@ -298,7 +367,42 @@ class ModSyncOrchestrator:
 
         if not update.files:
             logger.warning(f"No downloadable asset in {update.repository} {update.tag_name}")
-        return True, {"version": update.version, "files": update.files}
+        return GitHubCheck(answered=True, data={"version": update.version, "files": update.files})
+
+    def _pinned_check(
+        self, tp2_name: str, repository: tuple[str, str], recipe: GitHubRecipe, existing: dict | None
+    ) -> GitHubCheck:
+        update = self.github_source.fetch_pinned(repository, recipe, existing)
+
+        if release := update.newer_release:
+            published = f"{release.published_date:%Y-%m-%d}"
+            self.stats.github_releases_after_pin.append((tp2_name, release.tag_name, published, update.recipe.version))
+            logger.warning(
+                f"Pinned GitHub mod {tp2_name}: release {release.tag_name} published on {published}, "
+                f"after {update.recipe.version} ({update.recipe.date:%Y-%m-%d}); consider unpinning it"
+            )
+
+        return GitHubCheck(
+            answered=True,
+            source_name="pin",
+            data={"version": update.recipe.version, "files": update.files},
+            pinned=update,
+        )
+
+    def _commit_github_check(self, tp2_name: str, github_check: GitHubCheck) -> None:
+        """Record a GitHub check once the definition it produced is saved or unchanged."""
+        if github_check.answered:
+            self.github_checks.record(tp2_name)
+
+        pinned = github_check.pinned
+        if pinned and pinned.advanced:
+            previous_version = pinned.previous.version
+            self.github_recipes.set(tp2_name, pinned.recipe)
+            self.stats.github_pins_advanced.append((tp2_name, previous_version, pinned.recipe.version))
+            logger.warning(
+                f"Pinned GitHub mod {tp2_name} moved to {pinned.recipe.version} "
+                f"({pinned.recipe.date:%Y-%m-%d}), previously {previous_version}: review the update"
+            )
 
     def _process_archives(
         self, tp2_name: str, files: list, previous_files: list

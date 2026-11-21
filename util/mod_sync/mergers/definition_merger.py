@@ -10,7 +10,7 @@ Labels the TP2 does not provide (SUB prompts, manual components) are kept
 while their component remains in the definition.
 
 Files come from the archive source, which lists every entry, or else from the
-GitHub release. Their hashes are trusted: the archive source hashes what is
+pinned GitHub commit or the GitHub release. Their hashes are trusted: the archive source hashes what is
 served at the current link, and the release keeps a stored hash only for the
 very same asset.
 """
@@ -44,7 +44,8 @@ class DefinitionMerger:
     # Priority rules: first source in list has highest priority
     SOURCE_PRIORITY = {
         "name": ["ini", "lcc"],
-        "version": ["tp2", "github", "lcc"],
+        # A pinned commit names its own version ("master@a1b2c3d")
+        "version": ["pin", "tp2", "github", "lcc"],
         "tp2": ["tp2", "lcc"],
         "safe": ["lcc"],
         "games": ["lcc"],
@@ -64,7 +65,7 @@ class DefinitionMerger:
         """Add a data source.
 
         Args:
-            name: Source name (lcc, github, tp2, ini, archive)
+            name: Source name (lcc, pin, github, tp2, ini, archive)
             data: Source data dictionary
         """
         if data:
@@ -429,7 +430,7 @@ class DefinitionMerger:
         source_files = next(
             (
                 files
-                for source_name in ("archive", "github")
+                for source_name in ("archive", "pin", "github")
                 if has_value(files := (self.sources.get(source_name) or {}).get("files"))
             ),
             None,

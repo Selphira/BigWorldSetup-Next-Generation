@@ -3,15 +3,27 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import json
 import logging
 import re
+from typing import Any
+import urllib.error
+import urllib.parse
 import urllib.request
 
 logger = logging.getLogger(__name__)
 
+GITHUB_API_URL = "https://api.github.com"
+API_TIMEOUT_SECONDS = 10
+
 # Statuses GitHub answers with once the API rate limit is exhausted
 RATE_LIMIT_STATUSES = (403, 429)
+
+
+def parse_github_date(value: str) -> datetime:
+    """Parse an API date such as ``2025-06-01T12:00:00Z``."""
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
 class GitHubUnavailableError(Exception):
@@ -40,6 +52,18 @@ class GitHubRelease:
     assets: list[GitHubAsset]
     published_at: str
     is_prerelease: bool
+
+    @property
+    def published_date(self) -> datetime:
+        return parse_github_date(self.published_at)
+
+
+@dataclass(frozen=True, slots=True)
+class GitHubCommit:
+    """GitHub commit, dated by its committer."""
+
+    sha: str
+    date: datetime
 
 
 class GitHubProcessor:
@@ -233,67 +257,77 @@ class GitHubProcessor:
         Raises:
             GitHubUnavailableError: GitHub did not answer (rate limit, network error...)
         """
-        api_url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+        data = self._api_get(f"repos/{owner}/{repo}/releases/latest")
+        if data is None:
+            logger.debug(f"No releases found for {owner}/{repo}")
+            return None
 
+        if not include_prerelease and data.get("prerelease", False):
+            logger.debug(f"Skipping pre-release for {owner}/{repo}")
+            return None
+
+        return GitHubRelease(
+            tag_name=data["tag_name"],
+            assets=self._release_assets(owner, repo, data.get("assets", [])),
+            published_at=data["published_at"],
+            is_prerelease=data.get("prerelease", False),
+        )
+
+    def get_commit(self, owner: str, repo: str, ref: str) -> GitHubCommit | None:
+        """Fetch the commit a branch name or a commit hash designates.
+
+        Returns:
+            The commit, or None when the repository has no such reference
+
+        Raises:
+            GitHubUnavailableError: GitHub did not answer (rate limit, network error...)
+        """
+        data = self._api_get(f"repos/{owner}/{repo}/commits/{urllib.parse.quote(ref, safe='')}")
+        if data is None:
+            return None
+        return GitHubCommit(sha=data["sha"], date=parse_github_date(data["commit"]["committer"]["date"]))
+
+    @staticmethod
+    def commit_archive(owner: str, repo: str, sha: str) -> tuple[str, str]:
+        """Return the filename and download URL of the source archive of a commit."""
+        return f"{repo}-{sha}.zip", f"https://github.com/{owner}/{repo}/archive/{sha}.zip"
+
+    def _release_assets(self, owner: str, repo: str, assets_data: list[dict]) -> list[GitHubAsset]:
+        """Return the downloadable archives of a release, with their API digest."""
+        assets = []
+        for asset_data in assets_data:
+            name = asset_data["name"]
+            if not name.lower().endswith(self.ASSET_EXTENSION_PREFERENCE):
+                continue
+
+            # Digest field available since June 2025
+            sha256 = self._parse_sha256_from_digest(asset_data.get("digest"))
+            if not sha256:
+                logger.warning(
+                    f"No SHA256 digest for {name} in {owner}/{repo} (release may be older than June 2025)"
+                )
+
+            assets.append(
+                GitHubAsset(name=name, url=asset_data["browser_download_url"], size=asset_data["size"], sha256=sha256)
+            )
+        return assets
+
+    def _api_get(self, path: str) -> dict[str, Any] | None:
+        """Return the JSON answer of the GitHub API, or None when the resource does not exist.
+
+        Raises:
+            GitHubUnavailableError: GitHub did not answer (rate limit, network error...)
+        """
         headers = {"Accept": "application/vnd.github.v3+json"}
         if self.github_token:
             headers["Authorization"] = f"token {self.github_token}"
 
+        request = urllib.request.Request(f"{GITHUB_API_URL}/{path}", headers=headers)
         try:
-            req = urllib.request.Request(api_url, headers=headers)
-            with urllib.request.urlopen(req, timeout=10) as response:
-                data = json.loads(response.read().decode())
-
-                # Skip pre-releases if not wanted
-                if not include_prerelease and data.get("prerelease", False):
-                    logger.debug(f"Skipping pre-release for {owner}/{repo}")
-                    return None
-
-                # Extract all .zip and .tar.gz assets with SHA256 from API
-                assets = []
-                assets_with_digest = 0
-                assets_without_digest = 0
-
-                for asset_data in data.get("assets", []):
-                    name = asset_data["name"]
-                    url = asset_data["browser_download_url"]
-                    size = asset_data["size"]
-
-                    # Only process archives
-                    if not name.lower().endswith(self.ASSET_EXTENSION_PREFERENCE):
-                        continue
-
-                    # Extract SHA256 from digest field (available since June 2025)
-                    digest = asset_data.get("digest")
-                    sha256 = self._parse_sha256_from_digest(digest)
-
-                    if sha256:
-                        assets_with_digest += 1
-                    else:
-                        assets_without_digest += 1
-                        logger.warning(
-                            f"No SHA256 digest for {name} in {owner}/{repo} "
-                            "(release may be older than June 2025)"
-                        )
-
-                    assets.append(GitHubAsset(name=name, url=url, size=size, sha256=sha256))
-
-                if assets:
-                    logger.debug(
-                        f"{owner}/{repo}: {assets_with_digest} assets with SHA256, "
-                        f"{assets_without_digest} without"
-                    )
-
-                return GitHubRelease(
-                    tag_name=data["tag_name"],
-                    assets=assets,
-                    published_at=data["published_at"],
-                    is_prerelease=data.get("prerelease", False),
-                )
-
+            with urllib.request.urlopen(request, timeout=API_TIMEOUT_SECONDS) as response:
+                return json.loads(response.read().decode())
         except urllib.error.HTTPError as e:
             if e.code == 404:
-                logger.debug(f"No releases found for {owner}/{repo}")
                 return None
             if e.code in RATE_LIMIT_STATUSES:
                 reset = e.headers.get("X-RateLimit-Reset") if e.headers else None
@@ -301,9 +335,9 @@ class GitHubProcessor:
                     f"GitHub API rate limit exceeded (reset at epoch {reset or 'unknown'})",
                     rate_limited=True,
                 ) from e
-            raise GitHubUnavailableError(f"HTTP error fetching release for {owner}/{repo}: {e}") from e
+            raise GitHubUnavailableError(f"HTTP error on GitHub API {path}: {e}") from e
         except Exception as e:
-            raise GitHubUnavailableError(f"Error fetching GitHub release for {owner}/{repo}: {e}") from e
+            raise GitHubUnavailableError(f"Error on GitHub API {path}: {e}") from e
 
     def group_assets_by_os(
         self, assets: list[GitHubAsset]
