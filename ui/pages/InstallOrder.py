@@ -1027,31 +1027,21 @@ class InstallOrderPage(BasePage):
                         ordered_table, ordered_table.rowCount(), str(reference)
                     )
                 else:
-                    self._add_row_to_ordered_table(ordered_table, reference)
+                    self.insert_row_to_ordered_table(
+                        ordered_table, ordered_table.rowCount(), reference
+                    )
 
             # Populate unordered table (2 columns)
             for reference in seq_data.unordered:
-                self._add_row_to_unordered_table(unordered_table, reference)
+                self.insert_row_to_unordered_table(
+                    unordered_table, unordered_table.rowCount(), reference
+                )
 
         finally:
             ordered_table.blockSignals(False)
             unordered_table.blockSignals(False)
 
         self._update_sequence_counters(seq_idx)
-
-    def _add_row_to_ordered_table(
-        self, table: QTableWidget, reference: ComponentReference
-    ) -> None:
-        """Add a row to the ordered table."""
-        row = table.rowCount()
-        self.insert_row_to_ordered_table(table, row, reference)
-
-    def _add_row_to_unordered_table(
-        self, table: QTableWidget, reference: ComponentReference
-    ) -> None:
-        """Add a row to the unordered table."""
-        row = table.rowCount()
-        self.insert_row_to_unordered_table(table, row, reference)
 
     def _update_sequence_counters(self, seq_idx: int) -> None:
         """Update component counters for a sequence.
@@ -1300,35 +1290,30 @@ class InstallOrderPage(BasePage):
         self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a row at specific position in ordered table."""
-        mod_id = reference.mod_id
-        if mod_id == PAUSE_PREFIX:
+        if reference.mod_id == PAUSE_PREFIX:
             self.insert_pause_to_ordered_table(table, row, str(reference))
             return
 
+        mod_item, comp_item = self._component_items(reference)
+
         table.insertRow(row)
-
-        comp_key = reference.comp_key
-        mod = self._mod_manager.get_mod_by_id(mod_id)
-        mod_name = mod.name if mod else mod_id
-        comp_text = mod.get_component(comp_key).get_name()
-
-        # Column 0: Mod name
-        mod_label = f"[{mod.id}] {mod_name}"
-        mod_item = QTableWidgetItem(mod_label)
-        mod_item.setData(ROLE_COMPONENT, reference)
-        mod_item.setData(ROLE_LABEL, mod_label)
         table.setItem(row, COL_ORDERED_MOD, mod_item)
-
-        # Column 1: Component
-        comp_item = QTableWidgetItem(f"[{comp_key}] {comp_text}")
         table.setItem(row, COL_ORDERED_COMPONENT, comp_item)
 
     def insert_row_to_unordered_table(
         self, table: QTableWidget, row: int, reference: ComponentReference
     ) -> None:
         """Insert a row at specific position in unordered table."""
-        table.insertRow(row)
+        mod_item, comp_item = self._component_items(reference)
 
+        table.insertRow(row)
+        table.setItem(row, COL_UNORDERED_MOD, mod_item)
+        table.setItem(row, COL_UNORDERED_COMPONENT, comp_item)
+
+    def _component_items(
+        self, reference: ComponentReference
+    ) -> tuple[QTableWidgetItem, QTableWidgetItem]:
+        """Build the mod and component cells shared by both order tables."""
         mod_id = reference.mod_id
         comp_key = reference.comp_key
 
@@ -1336,14 +1321,14 @@ class InstallOrderPage(BasePage):
         mod_name = mod.name if mod else mod_id
         comp_text = mod.get_component(comp_key).get_name()
 
-        # Column 0: Mod name
-        mod_item = QTableWidgetItem(f"[{mod.id}] {mod_name}")
+        mod_label = f"[{mod.id}] {mod_name}"
+        mod_item = QTableWidgetItem(mod_label)
         mod_item.setData(ROLE_COMPONENT, reference)
-        table.setItem(row, COL_UNORDERED_MOD, mod_item)
+        mod_item.setData(ROLE_LABEL, mod_label)
 
-        # Column 1: Component text
         comp_item = QTableWidgetItem(f"[{comp_key}] {comp_text}")
-        table.setItem(row, COL_UNORDERED_COMPONENT, comp_item)
+
+        return mod_item, comp_item
 
     def _on_sequence_tab_changed(self, index: int) -> None:
         """Handle sequence tab change.
