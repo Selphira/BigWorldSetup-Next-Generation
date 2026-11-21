@@ -42,6 +42,18 @@ class ArchiveFile:
         """Return a copy of a file entry describing this archive."""
         return {**file_entry, "filename": self.filename, "size": self.size, "sha256": self.sha256}
 
+    def matches(self, file_entry: dict[str, Any]) -> bool:
+        """Tell whether this archive is the one a file entry describes.
+
+        The stored hash decides; without one, a stored size can still reveal
+        a different archive, but never prove it is the same.
+        """
+        if stored_sha256 := file_entry.get("sha256"):
+            return self.sha256 == stored_sha256
+
+        stored_size = file_entry.get("size")
+        return stored_size is None or self.size == stored_size
+
 
 class ArchiveSource:
     """Hash the archives of one platform, downloading them when needed.
@@ -81,9 +93,9 @@ class ArchiveSource:
     ) -> ArchiveFile | None:
         """Return the archive matching a file entry, downloading it when needed.
 
-        A local archive matching the stored hash, or any local archive when no
-        hash is stored, is used as is. A divergent one is downloaded again and
-        the previous archive is retired to the ``_old`` directory.
+        A local archive matching the stored hash is used as is; without stored
+        hash, so is one matching the stored size, if any. A divergent one is
+        downloaded again and the previous archive is retired to ``_old``.
 
         Args:
             file_entry: Stored entry {"filename", "size", "sha256", "download"}
@@ -93,13 +105,12 @@ class ArchiveSource:
             The archive now in the archives directory, or None on failure
         """
         filename = file_entry.get("filename")
-        stored_sha256 = file_entry.get("sha256")
         download_url = file_entry.get("download")
 
         local_path = self.find_archive(filename) if filename else None
         local_archive = self._describe(local_path) if local_path else None
 
-        if local_archive and (not stored_sha256 or local_archive.sha256 == stored_sha256):
+        if local_archive and local_archive.matches(file_entry):
             logger.debug(f"Archive valid: {filename}")
             return local_archive
 
@@ -119,6 +130,16 @@ class ArchiveSource:
             self._retire(local_path, local_archive.sha256)
 
         return downloaded
+
+    def local_archive(self, file_entry: dict[str, Any]) -> ArchiveFile | None:
+        """Return the archive of a file entry present on disk, without downloading it."""
+        filename = file_entry.get("filename")
+        local_path = self.find_archive(filename) if filename else None
+        return self._describe(local_path) if local_path else None
+
+    def archive_path(self, archive: ArchiveFile) -> Path:
+        """Return where an archive of the archives directory is stored."""
+        return self.archives_dir / archive.filename
 
     def find_archive(self, filename: str) -> Path | None:
         """Find archive file in archives directory.

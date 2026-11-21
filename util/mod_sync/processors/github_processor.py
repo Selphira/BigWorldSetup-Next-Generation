@@ -55,6 +55,9 @@ class GitHubProcessor:
         ".exe": "windows",
     }
 
+    # Downloadable asset kinds, in order of preference
+    ASSET_EXTENSION_PREFERENCE = (".zip", ".7z", ".tar.gz", ".tgz", ".exe")
+
     OS_PATTERNS = {
         "linux": ["linux", "lin"],
         "macos": ["macos", "mac", "osx", "darwin"],
@@ -243,12 +246,7 @@ class GitHubProcessor:
                     size = asset_data["size"]
 
                     # Only process archives
-                    if not (
-                        name.endswith(".zip")
-                        or name.endswith(".tar.gz")
-                        or name.endswith(".tgz")
-                        or name.endswith(".exe")
-                    ):
+                    if not name.lower().endswith(self.ASSET_EXTENSION_PREFERENCE):
                         continue
 
                     # Extract SHA256 from digest field (available since June 2025)
@@ -313,10 +311,13 @@ class GitHubProcessor:
         return grouped
 
     def select_best_asset_for_os(self, assets: list[GitHubAsset]) -> GitHubAsset | None:
-        """Select best asset from a list (prefer .zip over .tar.gz).
+        """Select the asset to download among those of one platform.
+
+        Archives are preferred over executables, .zip first; assets of the
+        same kind keep the release order.
 
         Args:
-            assets: List of assets
+            assets: Assets of one platform
 
         Returns:
             Best asset or None
@@ -324,38 +325,15 @@ class GitHubProcessor:
         if not assets:
             return None
 
-        # Prefer .zip files
-        zip_assets = [a for a in assets if self.detect_os_from_filename(a.name) == "windows"]
-        if zip_assets:
-            return zip_assets[0]
+        return min(assets, key=self._asset_preference)
 
-        # Fallback to .tar.gz
-        return assets[0]
-
-    def resolve_download_link(self, homepage: str) -> str | None:
-        """Convert GitHub homepage to download link.
-
-        DEPRECATED: Use get_latest_release() directly for multi-OS support.
-
-        Args:
-            homepage: GitHub repository URL
-
-        Returns:
-            Download URL or None if not found
-        """
-        repo_info = self.extract_repo_info(homepage)
-        if not repo_info:
-            return None
-
-        owner, repo = repo_info
-        release = self.get_latest_release(owner, repo)
-
-        if not release or not release.assets:
-            return None
-
-        # Select best asset (backward compatibility)
-        best_asset = self.select_best_asset_for_os(release.assets)
-        return best_asset.url if best_asset else None
+    def _asset_preference(self, asset: GitHubAsset) -> int:
+        """Rank an asset by extension, lower being preferred."""
+        name = asset.name.lower()
+        for rank, extension in enumerate(self.ASSET_EXTENSION_PREFERENCE):
+            if name.endswith(extension):
+                return rank
+        return len(self.ASSET_EXTENSION_PREFERENCE)
 
     @staticmethod
     def compare_versions(current: str, latest: str) -> bool:

@@ -9,8 +9,9 @@ Component labels follow the TP2, except those of MUC groups: their
 Labels the TP2 does not provide (SUB prompts, manual components) are kept
 while their component remains in the definition.
 
-Files come from the archive source, which lists every stored entry: an entry
-whose download link changed keeps no hash computed for the previous file.
+Files come from the archive source, which lists every entry, or else from the
+GitHub release: an entry whose download link changed keeps no hash computed
+for the previous file.
 """
 
 from __future__ import annotations
@@ -43,7 +44,7 @@ class DefinitionMerger:
     # Priority rules: first source in list has highest priority
     SOURCE_PRIORITY = {
         "name": ["ini", "lcc"],
-        "version": ["tp2", "lcc"],
+        "version": ["tp2", "github", "lcc"],
         "tp2": ["tp2", "lcc"],
         "safe": ["lcc"],
         "games": ["lcc"],
@@ -63,7 +64,7 @@ class DefinitionMerger:
         """Add a data source.
 
         Args:
-            name: Source name (lcc, tp2, ini, archive)
+            name: Source name (lcc, github, tp2, ini, archive)
             data: Source data dictionary
         """
         if data:
@@ -424,9 +425,16 @@ class DefinitionMerger:
                     result["links"][key] = copy.deepcopy(value)
 
     def _merge_files(self, result: dict) -> None:
-        """Replace the stored files by those of the archive source."""
-        source_files = (self.sources.get("archive") or {}).get("files")
-        if not has_value(source_files):
+        """Replace the stored files by those of the archive source, or else of the release."""
+        source_files = next(
+            (
+                files
+                for source_name in ("archive", "github")
+                if has_value(files := (self.sources.get(source_name) or {}).get("files"))
+            ),
+            None,
+        )
+        if source_files is None:
             return
 
         stored_files = {
