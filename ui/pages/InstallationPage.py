@@ -2,6 +2,7 @@
 Installation page for mod installation process.
 """
 
+from enum import Enum
 import logging
 
 from PySide6.QtCore import Qt, QTimer
@@ -104,166 +105,93 @@ class InstallationStatsWidget(QFrame):
 # ============================================================================
 
 
-class ErrorDecisionDialog(QDialog):
-    """Dialog for user decision after installation error."""
+class DecisionDialog(QDialog):
+    """Ask the user to choose how an installation step goes on.
 
-    def __init__(self, component_id: str, errors: list[str], parent=None):
+    ``decision`` keeps ``default`` when the dialog is closed without a choice.
+    """
+
+    def __init__(
+        self,
+        title: str,
+        message: str,
+        details: list[str],
+        choices: tuple[tuple[str, Enum], ...],
+        default: Enum | None,
+        cancellable: bool = False,
+        parent: QWidget | None = None,
+    ) -> None:
         super().__init__(parent)
-        self.setWindowTitle(tr("page.installation.error_title"))
-        if len(errors) > 0:
+        self.setWindowTitle(title)
+        if details:
             self.setMinimumWidth(DECISION_DIALOG_MIN_WIDTH)
-        self.decision = UserDecision.STOP
+        self.decision: Enum | None = default
 
-        self._create_widgets(component_id, errors)
+        self._create_widgets(message, details, choices, cancellable)
 
-    def _create_widgets(self, component_id: str, errors: list[str]):
+    def _create_widgets(
+        self,
+        message: str,
+        details: list[str],
+        choices: tuple[tuple[str, Enum], ...],
+        cancellable: bool,
+    ) -> None:
         """Create dialog layout."""
         layout = QVBoxLayout(self)
         layout.setSpacing(SPACING_LARGE)
 
-        # Error message
-        msg = QLabel(tr("page.installation.error_message", component=component_id))
+        msg = QLabel(message)
         msg.setWordWrap(True)
         layout.addWidget(msg)
 
-        if len(errors) > 0:
-            # Error details
-            error_text = QTextEdit()
-            error_text.setReadOnly(True)
-            error_text.setMinimumHeight(DECISION_DETAILS_MIN_HEIGHT)
-            error_text.setPlainText("\n".join(errors))
-            layout.addWidget(error_text)
-
-        # Buttons
-        button_layout = QHBoxLayout()
-
-        btn_retry = QPushButton(tr("page.installation.btn_retry"))
-        btn_retry.clicked.connect(lambda: self._make_decision(UserDecision.RETRY))
-        btn_retry.setCursor(Qt.CursorShape.PointingHandCursor)
-        button_layout.addWidget(btn_retry)
-
-        btn_continue = QPushButton(tr("page.installation.btn_continue"))
-        btn_continue.clicked.connect(lambda: self._make_decision(UserDecision.SKIP))
-        btn_continue.setCursor(Qt.CursorShape.PointingHandCursor)
-        button_layout.addWidget(btn_continue)
-
-        btn_pause = QPushButton(tr("page.installation.btn_pause"))
-        btn_pause.clicked.connect(lambda: self._make_decision(UserDecision.PAUSE))
-        btn_pause.setCursor(Qt.CursorShape.PointingHandCursor)
-        button_layout.addWidget(btn_pause)
-
-        btn_stop = QPushButton(tr("page.installation.btn_stop"))
-        btn_stop.clicked.connect(lambda: self._make_decision(UserDecision.STOP))
-        btn_stop.setCursor(Qt.CursorShape.PointingHandCursor)
-        button_layout.addWidget(btn_stop)
-
-        layout.addLayout(button_layout)
-
-    def _make_decision(self, decision: UserDecision):
-        """Record decision and close."""
-        self.decision = decision
-        self.accept()
-
-
-class WarningDecisionDialog(QDialog):
-    """Dialog for user decision after installation warning."""
-
-    def __init__(self, component_id: str, warnings: list[str], parent=None):
-        super().__init__(parent)
-        self.setWindowTitle(tr("page.installation.warning_title"))
-        self.setMinimumWidth(DECISION_DIALOG_MIN_WIDTH)
-        self.decision = UserDecision.SKIP
-
-        self._create_widgets(component_id, warnings)
-
-    def _create_widgets(self, component_id: str, warnings: list[str]):
-        """Create dialog layout."""
-        layout = QVBoxLayout(self)
-        layout.setSpacing(SPACING_LARGE)
-
-        # Warning message
-        msg = QLabel(tr("page.installation.warning_message", component=component_id))
-        msg.setWordWrap(True)
-        layout.addWidget(msg)
-
-        # Warning details
-        warning_text = QTextEdit()
-        warning_text.setReadOnly(True)
-        warning_text.setMinimumHeight(DECISION_DETAILS_MIN_HEIGHT)
-        warning_text.setPlainText("\n".join(warnings))
-        layout.addWidget(warning_text)
-
-        # Buttons
-        button_layout = QHBoxLayout()
-
-        btn_continue = QPushButton(tr("page.installation.btn_continue"))
-        btn_continue.clicked.connect(lambda: self._make_decision(UserDecision.SKIP))
-        button_layout.addWidget(btn_continue)
-
-        btn_pause = QPushButton(tr("page.installation.btn_pause"))
-        btn_pause.clicked.connect(lambda: self._make_decision(UserDecision.PAUSE))
-        button_layout.addWidget(btn_pause)
-
-        btn_stop = QPushButton(tr("page.installation.btn_stop"))
-        btn_stop.clicked.connect(lambda: self._make_decision(UserDecision.STOP))
-        button_layout.addWidget(btn_stop)
-
-        layout.addLayout(button_layout)
-
-    def _make_decision(self, decision: UserDecision):
-        """Record decision and close."""
-        self.decision = decision
-        self.accept()
-
-
-class OperationDecisionDialog(QDialog):
-    """Ask what an operation without a proven result became before resuming."""
-
-    def __init__(self, component_id: str, details: list[str], parent=None):
-        super().__init__(parent)
-        self.setWindowTitle(tr("page.installation.decision_title"))
-        self.setMinimumWidth(500)
-        self.decision: OperationDecision | None = None
-
-        self._create_widgets(component_id, details)
-
-    def _create_widgets(self, component_id: str, details: list[str]):
-        """Create dialog layout."""
-        layout = QVBoxLayout(self)
-        layout.setSpacing(SPACING_LARGE)
-
-        msg = QLabel(tr("page.installation.decision_message", component=component_id))
-        msg.setWordWrap(True)
-        layout.addWidget(msg)
-
-        details_text = QTextEdit()
-        details_text.setReadOnly(True)
-        details_text.setMaximumHeight(150)
-        details_text.setPlainText("\n".join(details))
-        layout.addWidget(details_text)
+        if details:
+            details_text = QTextEdit()
+            details_text.setReadOnly(True)
+            details_text.setMinimumHeight(DECISION_DETAILS_MIN_HEIGHT)
+            details_text.setPlainText("\n".join(details))
+            layout.addWidget(details_text)
 
         button_layout = QHBoxLayout()
-        for label, decision in (
-            ("page.installation.decision_installed", OperationDecision.CONFIRM_INSTALLED),
-            ("page.installation.decision_retry", OperationDecision.RETRY),
-            ("page.installation.decision_failed", OperationDecision.ACCEPT_FAILURE),
-        ):
-            button = QPushButton(tr(label))
-            button.setCursor(Qt.CursorShape.PointingHandCursor)
+        for label, decision in choices:
+            button = self._create_button(label)
             button.clicked.connect(lambda _=False, choice=decision: self._make_decision(choice))
             button_layout.addWidget(button)
 
-        btn_cancel = QPushButton(tr("page.installation.btn_cancel"))
-        btn_cancel.setCursor(Qt.CursorShape.PointingHandCursor)
-        btn_cancel.clicked.connect(self.reject)
-        button_layout.addWidget(btn_cancel)
+        if cancellable:
+            btn_cancel = self._create_button("page.installation.btn_cancel")
+            btn_cancel.clicked.connect(self.reject)
+            button_layout.addWidget(btn_cancel)
 
         layout.addLayout(button_layout)
 
-    def _make_decision(self, decision: OperationDecision):
+    @staticmethod
+    def _create_button(label: str) -> QPushButton:
+        button = QPushButton(tr(label))
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
+        return button
+
+    def _make_decision(self, decision: Enum) -> None:
         """Record decision and close."""
         self.decision = decision
         self.accept()
+
+
+ERROR_CHOICES: tuple[tuple[str, UserDecision], ...] = (
+    ("page.installation.btn_retry", UserDecision.RETRY),
+    ("page.installation.btn_continue", UserDecision.SKIP),
+    ("page.installation.btn_pause", UserDecision.PAUSE),
+    ("page.installation.btn_stop", UserDecision.STOP),
+)
+WARNING_CHOICES: tuple[tuple[str, UserDecision], ...] = (
+    ("page.installation.btn_continue", UserDecision.SKIP),
+    ("page.installation.btn_pause", UserDecision.PAUSE),
+    ("page.installation.btn_stop", UserDecision.STOP),
+)
+OPERATION_CHOICES: tuple[tuple[str, OperationDecision], ...] = (
+    ("page.installation.decision_installed", OperationDecision.CONFIRM_INSTALLED),
+    ("page.installation.decision_retry", OperationDecision.RETRY),
+    ("page.installation.decision_failed", OperationDecision.ACCEPT_FAILURE),
+)
 
 
 # ============================================================================
@@ -695,7 +623,15 @@ class InstallationPage(BasePage):
         for sequence, position in positions:
             operation = self._journal.sequences[sequence].operations[position]
             details = self._describe_operation(sequence, position)
-            dialog = OperationDecisionDialog(operation.reference, details, self)
+            dialog = DecisionDialog(
+                tr("page.installation.decision_title"),
+                tr("page.installation.decision_message", component=operation.reference),
+                details,
+                OPERATION_CHOICES,
+                default=None,
+                cancellable=True,
+                parent=self,
+            )
             dialog.exec()
             if dialog.decision is None:
                 return False
@@ -833,7 +769,14 @@ class InstallationPage(BasePage):
         """Handle error - ask user."""
         if self._closing or self._cancelling:
             return
-        dialog = ErrorDecisionDialog(component_id, errors, self)
+        dialog = DecisionDialog(
+            tr("page.installation.error_title"),
+            tr("page.installation.error_message", component=component_id),
+            errors,
+            ERROR_CHOICES,
+            default=UserDecision.STOP,
+            parent=self,
+        )
         dialog.exec()
 
         if self._worker:
@@ -843,7 +786,14 @@ class InstallationPage(BasePage):
         """Handle warning - ask user."""
         if self._closing or self._cancelling:
             return
-        dialog = WarningDecisionDialog(component_id, warnings, self)
+        dialog = DecisionDialog(
+            tr("page.installation.warning_title"),
+            tr("page.installation.warning_message", component=component_id),
+            warnings,
+            WARNING_CHOICES,
+            default=UserDecision.SKIP,
+            parent=self,
+        )
         dialog.exec()
 
         if self._worker:
