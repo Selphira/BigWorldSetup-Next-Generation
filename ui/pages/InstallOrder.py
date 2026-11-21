@@ -269,14 +269,10 @@ class InstallOrderPage(BasePage):
             Widget containing action buttons
         """
         # Reset order
-        self._btn_reset = QPushButton()
-        self._btn_reset.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_reset.clicked.connect(self._reset_order)
+        self._btn_reset = self._create_action_button(self._reset_order)
 
         # Load default order
-        self._btn_default = QPushButton()
-        self._btn_default.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_default.clicked.connect(self._import_order_default)
+        self._btn_default = self._create_action_button(self._import_order_default)
 
         # Import order
         self._btn_import = QToolButton()
@@ -297,9 +293,7 @@ class InstallOrderPage(BasePage):
         self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
         # Export order
-        self._btn_export = QPushButton()
-        self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_export.clicked.connect(self._export_order)
+        self._btn_export = self._create_action_button(self._export_order)
 
     def _rebuild_ui_for_game(self) -> None:
         """Rebuild UI based on current game configuration."""

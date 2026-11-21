@@ -283,9 +283,7 @@ class BackupPage(BasePage):
 
     def _create_additional_buttons(self) -> None:
         """Create additional action buttons."""
-        self._btn_create_backup = QPushButton()
-        self._btn_create_backup.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_create_backup.clicked.connect(self._create_backup)
+        self._btn_create_backup = self._create_action_button(self._create_backup)
 
         self._btn_restore = QPushButton()
         self._btn_restore.setEnabled(False)

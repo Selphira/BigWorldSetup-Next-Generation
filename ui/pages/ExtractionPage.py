@@ -213,9 +213,7 @@ class ExtractionPage(BasePage):
         layout.addWidget(self._progress_bar)
 
     def _create_additional_buttons(self) -> None:
-        self._btn_extract_all = QPushButton()
-        self._btn_extract_all.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_extract_all.clicked.connect(self._extract_all)
+        self._btn_extract_all = self._create_action_button(self._extract_all)
 
     # ========================================
     # Extraction Loading

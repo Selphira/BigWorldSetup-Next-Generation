@@ -1,10 +1,11 @@
 """Base page class for navigation system with configurable buttons."""
 
 from abc import ABCMeta, abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass
 import logging
 
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtWidgets import QFrame, QLabel, QPushButton, QWidget
 
 from constants import COLOR_BACKGROUND_ACCENTED
@@ -94,6 +95,23 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
     def cancel_shutdown(self) -> None:
         """Resume normal behavior after an aborted application shutdown."""
         self._closing = False
+
+    @staticmethod
+    def _create_action_button(slot: Callable[[], None], enabled: bool = True) -> QPushButton:
+        """Create a clickable action button connected to its slot.
+
+        Args:
+            slot: Callback invoked when the button is clicked
+            enabled: Initial enabled state
+
+        Returns:
+            Configured push button (text is set on retranslation)
+        """
+        button = QPushButton()
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
+        button.setEnabled(enabled)
+        button.clicked.connect(slot)
+        return button
 
     @staticmethod
     def _create_section_title() -> QLabel:

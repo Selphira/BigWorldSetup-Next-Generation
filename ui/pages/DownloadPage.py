@@ -577,13 +577,9 @@ class DownloadPage(BasePage):
 
     def _create_additional_buttons(self):
         """Create action buttons bar."""
-        self._btn_download_all = QPushButton()
-        self._btn_download_all.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_download_all.clicked.connect(self._download_all_missing)
+        self._btn_download_all = self._create_action_button(self._download_all_missing)
 
-        self._btn_open_folder = QPushButton()
-        self._btn_open_folder.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_open_folder.clicked.connect(self._open_download_folder)
+        self._btn_open_folder = self._create_action_button(self._open_download_folder)
 
     def _connect_signals(self) -> None:
         """Connect download manager signals."""

@@ -2,18 +2,14 @@ from pathlib import Path
 
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import (
-    QFrame,
-    QLabel,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 from constants import GAME_BUTTON_HEIGHT, GAME_BUTTON_ICON_SIZE, ICON_GAME_DEFAULT
 from core.GameModels import GameDefinition
+from ui.widgets.SelectableCard import SelectableCard
 
 
-class GameButton(QWidget):
+class GameButton(SelectableCard):
     """Clickable button representing a game type with icon and name.
 
     Signals:
@@ -32,20 +28,16 @@ class GameButton(QWidget):
             icon_path: Path to icon image (uses emoji fallback if not found)
             parent: Parent widget
         """
-        super().__init__(parent)
+        super().__init__("gameButtonFrame", parent)
 
         self.game = game
-        self._is_selected = False
 
         # UI components
-        self.container: QFrame | None = None
         self.icon_label: QLabel | None = None
         self.name_label: QLabel | None = None
 
         self._create_widgets(icon_path)
-        self.container.setProperty("selected", False)
         self.setFixedHeight(GAME_BUTTON_HEIGHT)
-        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
     def _create_widgets(self, icon_path: Path | None) -> None:
         """Create UI widgets.
@@ -53,16 +45,6 @@ class GameButton(QWidget):
         Args:
             icon_path: Optional path to icon image
         """
-        # Main layout (no margins)
-        main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(0, 0, 0, 0)
-        main_layout.setSpacing(0)
-
-        # Container frame with border and background
-        self.container = QFrame()
-        self.container.setObjectName("gameButtonFrame")
-        main_layout.addWidget(self.container)
-
         # Layout inside container
         layout = QVBoxLayout(self.container)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -76,8 +58,6 @@ class GameButton(QWidget):
         # Name
         self.name_label = self._create_name_label()
         layout.addWidget(self.name_label)
-
-        self._update_style()
 
     @staticmethod
     def _create_icon_label(icon_path: Path | None) -> QLabel:
@@ -128,36 +108,5 @@ class GameButton(QWidget):
 
         return label
 
-    def _update_style(self) -> None:
-        self.container.style().unpolish(self.container)
-        self.container.style().polish(self.container)
-        self.container.update()
-
-    def set_selected(self, selected: bool) -> None:
-        """Set selection state.
-
-        Args:
-            selected: True to select, False to deselect
-        """
-        if self._is_selected != selected:
-            self._is_selected = selected
-            self.container.setProperty("selected", selected)
-            self._update_style()
-
-    def is_selected(self) -> bool:
-        """Check if button is selected.
-
-        Returns:
-            True if selected
-        """
-        return self._is_selected
-
-    def mousePressEvent(self, event) -> None:
-        """Handle mouse press event.
-
-        Args:
-            event: Mouse event
-        """
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.clicked.emit(self.game)
-        super().mousePressEvent(event)
+    def _clicked_value(self) -> GameDefinition:
+        return self.game

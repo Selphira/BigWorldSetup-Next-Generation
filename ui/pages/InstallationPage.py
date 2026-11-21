@@ -324,10 +324,7 @@ class InstallationPage(BasePage):
         self._input_text.setMaximumWidth(150)
         hlayout.addWidget(self._input_text)
 
-        self._btn_send_input = QPushButton()
-        self._btn_send_input.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_send_input.setEnabled(False)
-        self._btn_send_input.clicked.connect(self._send_input_text)
+        self._btn_send_input = self._create_action_button(self._send_input_text, enabled=False)
         hlayout.addWidget(self._btn_send_input)
 
         layout.addLayout(hlayout)
@@ -336,17 +333,11 @@ class InstallationPage(BasePage):
 
     def _create_additional_buttons(self):
         """Create action buttons."""
-        self._btn_start_pause = QPushButton()
-        self._btn_start_pause.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_start_pause.clicked.connect(self._toggle_start_pause)
+        self._btn_start_pause = self._create_action_button(self._toggle_start_pause)
 
-        self._btn_stop = QPushButton()
-        self._btn_stop.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_stop.setEnabled(False)
-        self._btn_stop.clicked.connect(self._stop_installation)
-        self._btn_cancel = QPushButton()
-        self._btn_cancel.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_cancel.clicked.connect(self._cancel_installation)
+        self._btn_stop = self._create_action_button(self._stop_installation, enabled=False)
+
+        self._btn_cancel = self._create_action_button(self._cancel_installation)
 
     # ========================================
     # Installation Control

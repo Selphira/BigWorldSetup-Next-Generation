@@ -498,18 +498,12 @@ class ModSelectionPage(BasePage):
         self._btn_import.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
 
         # Export selection
-        self._btn_export = QPushButton()
-        self._btn_export.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_export.clicked.connect(self._export_selection)
+        self._btn_export = self._create_action_button(self._export_selection)
 
-        self._btn_add_custom = QPushButton()
-        self._btn_add_custom.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_add_custom.clicked.connect(self._add_custom_mod)
+        self._btn_add_custom = self._create_action_button(self._add_custom_mod)
 
         # Export selection
-        self._btn_deselect_all = QPushButton()
-        self._btn_deselect_all.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._btn_deselect_all.clicked.connect(self._deselect_all)
+        self._btn_deselect_all = self._create_action_button(self._deselect_all)
 
     def _create_filters_section(self) -> QWidget:
         """Create filters section avec recherche, langues ET violations."""
