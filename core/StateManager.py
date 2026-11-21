@@ -317,6 +317,28 @@ class StateManager:
         """
         return self.installation_state.configuration.get("game_folders", {}).copy()
 
+    def get_game_path(self, game_code: str) -> Path | None:
+        """Return the configured folder of a game.
+
+        The first configured folder matching one of the game's folder keys wins.
+
+        Args:
+            game_code: Game code to resolve
+
+        Returns:
+            Game folder, or None when the game is unknown or has no configured folder
+        """
+        game = self.get_game_manager().get(game_code)
+        if not game:
+            return None
+
+        folder_keys = game.get_folder_keys()
+        for folder_key, path in self.get_game_folders().items():
+            if folder_key in folder_keys:
+                return Path(path)
+
+        return None
+
     def set_backup_folder(self, folder: str) -> None:
         """
         Set backup folder path.
@@ -506,9 +528,7 @@ class StateManager:
 
             game_folders = self.get_game_folders()
             game_manager = self.get_game_manager()
-            game_codes = {seq.game for seq in game_def.sequences if seq.game}
-
-            for game_code in game_codes:
+            for game_code in game_def.sequence_games():
                 game = game_manager.get(game_code)
                 if not game:
                     is_valid = False

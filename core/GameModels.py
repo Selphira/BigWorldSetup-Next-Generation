@@ -365,13 +365,11 @@ class GameDefinition:
         Returns:
             Tuple of folder keys for widget creation
         """
-        folder_keys = []
-        for sequence in self.sequences:
-            # Use referenced game if specified, otherwise use own id
-            key = sequence.game if sequence.game else self.id
-            folder_keys.append(key)
+        return tuple(sequence.game or self.id for sequence in self.sequences)
 
-        return tuple(folder_keys)
+    def sequence_games(self) -> list[str]:
+        """Return the game codes referenced by the sequences, in order and without duplicates."""
+        return list(dict.fromkeys(sequence.game for sequence in self.sequences if sequence.game))
 
     def get_forced_components(self) -> list[str]:
         """Get the forced components required for this game sequence."""

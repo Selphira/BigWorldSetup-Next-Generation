@@ -243,14 +243,11 @@ class ExtractionPage(BasePage):
             logger.error(f"Game definition not found: {selected_game}")
             return
 
-        # Get game folder paths from state manager
-        saved_folders = self.state_manager.get_game_folders()
         game_folders = {}
         for seq_idx, sequence in enumerate(game_def.sequences):
-            game = game_manager.get(sequence.game)
-            for folder_key, path in saved_folders.items():
-                if folder_key in game.get_folder_keys():
-                    game_folders[seq_idx] = (sequence, Path(path))
+            game_path = self.state_manager.get_game_path(sequence.game)
+            if game_path:
+                game_folders[seq_idx] = (sequence, game_path)
 
         if not game_folders:
             logger.warning("No game folders configured")

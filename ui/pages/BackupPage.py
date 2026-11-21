@@ -342,31 +342,19 @@ class BackupPage(BasePage):
 
         selected_game = self.state_manager.get_selected_game()
         game_def = self._game_manager.get(selected_game)
-        game_codes = set()
-        for sequence in game_def.sequences:
-            if sequence.game:
-                game_codes.add(sequence.game)
+        game_codes = game_def.sequence_games()
 
-        # Check which games are modded
-        game_folders = self.state_manager.get_game_folders()
         for game_code in game_codes:
-            game = self._game_manager.get(game_code)
-            if not game:
-                continue
-            folder_keys = set(game.get_folder_keys())
-            for key in folder_keys & game_folders.keys():
-                game_path = Path(game_folders[key])
-                if game_path.exists() and self._backup_manager.is_game_modded(game_path):
-                    self._modded_games.add(game_code)
-                break
+            game_path = self.state_manager.get_game_path(game_code)
+            if game_path and game_path.exists() and self._backup_manager.is_game_modded(game_path):
+                self._modded_games.add(game_code)
 
-        # Load backups
-        backups = self._backup_manager.list_backups(list(game_codes))
+        backups = self._backup_manager.list_backups(game_codes)
         for backup in backups:
             self._backups[backup.backup_id] = backup
 
         self._refresh_backup_table()
-        self._update_filter_combo(game_codes)
+        self._update_filter_combo(set(game_codes))
         self._update_modded_warning()
 
         logger.info(f"Loaded {len(self._backups)} backups")
@@ -487,10 +475,7 @@ class BackupPage(BasePage):
 
         selected_game = self.state_manager.get_selected_game()
         game_def = self._game_manager.get(selected_game)
-        game_codes = []
-        for sequence in game_def.sequences:
-            if sequence.game:
-                game_codes.append(sequence.game)
+        game_codes = game_def.sequence_games()
 
         # Select game to backup
         selected_code = None
@@ -514,14 +499,8 @@ class BackupPage(BasePage):
         if not selected_code:
             return
 
-        game_folders = self.state_manager.get_game_folders()
         game = self._game_manager.get(selected_code)
-        game_path = None
-
-        for folder_key, path in game_folders.items():
-            if folder_key in game.get_folder_keys():
-                game_path = Path(path)
-                break
+        game_path = self.state_manager.get_game_path(selected_code)
 
         calculator = BackupSizeCalculatorWorker(self._backup_manager, game_path)
         self._progress_bar.setFormat(tr("page.backup.calculating_size"))
@@ -685,7 +664,6 @@ class BackupPage(BasePage):
         if not backup_info:
             return
 
-        game_folders = self.state_manager.get_game_folders()
         game = self._game_manager.get(backup_info.game_code)
 
         response = QMessageBox.question(
@@ -702,13 +680,7 @@ class BackupPage(BasePage):
         if response != QMessageBox.StandardButton.Yes:
             return
 
-        game_path = None
-
-        for folder_key, path in game_folders.items():
-            if folder_key in game.get_folder_keys():
-                game_path = Path(path)
-                break
-
+        game_path = self.state_manager.get_game_path(backup_info.game_code)
         worker = BackupRestorationWorker(self._backup_manager, backup_id, game_path)
         worker.started.connect(self._on_operation_started)
         worker.progress.connect(self._on_backup_progress)
