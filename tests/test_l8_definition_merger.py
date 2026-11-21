@@ -243,22 +243,5 @@ def test_archive_files_replace_stored_files() -> None:
     assert merge({"files": STORED_FILES}, archive={"files": archive_files})["files"] == archive_files
 
 
-def test_changed_link_of_other_platform_drops_its_previous_hash() -> None:
-    linux_v2 = {**STORED_FILES[0], "download": "https://x/v2/lin.zip"}
-
-    files = merge({"files": STORED_FILES}, archive={"files": [linux_v2, STORED_FILES[1]]})["files"]
-
-    assert "sha256" not in files[0]
-    assert files[1] == STORED_FILES[1]
-
-
-def test_changed_link_keeps_a_hash_computed_for_the_new_file() -> None:
-    windows_v2 = {**STORED_FILES[1], "download": "https://x/v2/win.zip", "sha256": "v2-hash"}
-
-    files = merge({"files": STORED_FILES}, archive={"files": [STORED_FILES[0], windows_v2]})["files"]
-
-    assert files[1]["sha256"] == "v2-hash"
-
-
 def test_stored_files_are_kept_without_archive_source() -> None:
     assert merge({"files": STORED_FILES}, lcc={"name": "Demo"})["files"] == STORED_FILES

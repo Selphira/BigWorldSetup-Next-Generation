@@ -186,7 +186,7 @@ class ModSyncOrchestrator:
         # Archive of the machine: hashed, and downloaded when missing or divergent
         machine_archive = None
         if self.archive_source and files and (self.config.calculate_hashes or self.selective_extractor):
-            files, machine_archive = self._process_archives(tp2_name, files)
+            files, machine_archive = self._process_archives(tp2_name, files, files_before_update)
             if self.config.calculate_hashes:
                 merger.add_source("archive", {"files": files})
                 sources_used.append("archive" if files != stored_files else "archive (validated)")
@@ -300,13 +300,16 @@ class ModSyncOrchestrator:
             logger.warning(f"No downloadable asset in {update.repository} {update.tag_name}")
         return True, {"version": update.version, "files": update.files}
 
-    def _process_archives(self, tp2_name: str, files: list) -> tuple[list, ArchiveFile | None]:
+    def _process_archives(
+        self, tp2_name: str, files: list, previous_files: list
+    ) -> tuple[list, ArchiveFile | None]:
         """Return the files and the archive of the machine platform.
 
-        With hashing enabled, the archive is obtained (downloaded when missing
-        or divergent) and its entry describes it; otherwise only a local
-        archive is looked up. Entries of other platforms, and entries whose
-        archive cannot be obtained, are returned unchanged.
+        With hashing enabled, the archive is obtained (downloaded when missing,
+        divergent or served from a new link) and its entry describes it;
+        otherwise only a local archive is looked up. Entries of other
+        platforms, and entries whose archive cannot be obtained, are returned
+        unchanged.
         """
         processed_files = []
         machine_archive = None
@@ -320,7 +323,8 @@ class ModSyncOrchestrator:
                 processed_files.append(file_entry)
                 continue
 
-            archive = self.archive_source.process(file_entry)
+            refresh = self._download_link_changed(file_entry, previous_files)
+            archive = self.archive_source.process(file_entry, refresh=refresh)
             if archive is None:
                 logger.warning(f"Failed to process archive for {tp2_name}: {file_entry.get('filename')}")
                 processed_files.append(file_entry)
@@ -333,6 +337,21 @@ class ModSyncOrchestrator:
             machine_archive = machine_archive or archive
 
         return processed_files, machine_archive
+
+    @staticmethod
+    def _download_link_changed(file_entry: dict, previous_files: list) -> bool:
+        """Tell whether an archive of the same name was previously served from another link.
+
+        Name and size do not identify a content: the archive behind a new link
+        is downloaded again so its hash is computed from what is now served.
+        """
+        filename = file_entry.get("filename")
+        return any(
+            isinstance(previous, dict)
+            and previous.get("filename") == filename
+            and previous.get("download") != file_entry.get("download")
+            for previous in previous_files
+        )
 
     def _refresh_extraction(self, tp2_name: str, machine_archive: ArchiveFile | None) -> bool:
         """Extract the machine archive again if needed; tell whether extracted files may be read.

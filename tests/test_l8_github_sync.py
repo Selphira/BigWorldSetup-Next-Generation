@@ -238,6 +238,45 @@ def test_archive_of_the_previous_release_is_retired(workspace: Path) -> None:
     assert retired.read_bytes() == previous_content
 
 
+def test_archive_served_from_a_new_link_is_downloaded_and_hashed_again(workspace: Path) -> None:
+    local_content = b"same name, same size"
+    served_content = b"other content, size"
+    (workspace / "archives" / "demo-v1.6.zip").write_bytes(local_content)
+    forum_entry = {
+        "filename": "demo-v1.6.zip",
+        "size": len(local_content),
+        "sha256": sha256(local_content),
+        "download": "https://forum.example.org/download/913",
+    }
+    definition_path = write_definition(
+        workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": [forum_entry]}
+    )
+    release = GitHubRelease("v1.6", [publish(workspace, "demo-v1.6.zip", served_content)], "", False)
+
+    synchronizer(workspace, release, extract_tp2=False).run()
+
+    [entry] = json.loads(definition_path.read_text(encoding="utf-8"))["files"]
+    assert entry["sha256"] == sha256(served_content)
+    assert (workspace / "archives" / "demo-v1.6.zip").read_bytes() == served_content
+    assert (workspace / "archives" / "_old" / f"demo-v1.6.{sha256(local_content)[:8]}.zip").exists()
+
+
+def test_identical_archive_served_from_a_new_link_keeps_its_hash(workspace: Path) -> None:
+    content = b"archive moved to GitHub"
+    (workspace / "archives" / "demo-v1.6.zip").write_bytes(content)
+    forum_entry = {"filename": "demo-v1.6.zip", "size": len(content), "sha256": sha256(content), "download": "https://forum.example.org/913"}
+    definition_path = write_definition(
+        workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": [forum_entry]}
+    )
+    release = GitHubRelease("v1.6", [publish(workspace, "demo-v1.6.zip", content)], "", False)
+
+    synchronizer(workspace, release, extract_tp2=False).run()
+
+    [entry] = json.loads(definition_path.read_text(encoding="utf-8"))["files"]
+    assert entry["sha256"] == sha256(content)
+    assert sorted(path.name for path in (workspace / "archives").iterdir()) == ["demo-v1.6.zip"]
+
+
 def test_previous_archive_is_kept_when_the_new_one_cannot_be_downloaded(workspace: Path) -> None:
     (workspace / "archives" / "win-demo-v1.zip").write_bytes(b"v1")
     write_definition(workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": V1_FILES})

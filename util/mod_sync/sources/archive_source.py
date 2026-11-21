@@ -90,6 +90,7 @@ class ArchiveSource:
         self,
         file_entry: dict[str, Any],
         progress_callback: Callable[[int, int], None] | None = None,
+        refresh: bool = False,
     ) -> ArchiveFile | None:
         """Return the archive matching a file entry, downloading it when needed.
 
@@ -100,6 +101,8 @@ class ArchiveSource:
         Args:
             file_entry: Stored entry {"filename", "size", "sha256", "download"}
             progress_callback: Optional callback(bytes_downloaded, total_bytes)
+            refresh: Download even a matching local archive, whose identity
+                cannot be trusted (its download link changed)
 
         Returns:
             The archive now in the archives directory, or None on failure
@@ -110,11 +113,13 @@ class ArchiveSource:
         local_path = self.find_archive(filename) if filename else None
         local_archive = self._describe(local_path) if local_path else None
 
-        if local_archive and local_archive.matches(file_entry):
+        if local_archive and not refresh and local_archive.matches(file_entry):
             logger.debug(f"Archive valid: {filename}")
             return local_archive
 
-        if local_archive:
+        if refresh:
+            logger.info(f"Download link of {filename} changed, downloading it again")
+        elif local_archive:
             logger.warning(f"Archive hash mismatch for {filename}, downloading it again")
 
         if not download_url:
