@@ -90,7 +90,7 @@ class LocalizedCacheBuilder(QThread):
 
     progress = Signal(int)  # Progress 0-100
     status_changed = Signal(str)  # Status message
-    finished = Signal(bool)  # True if success, False if error
+    completed = Signal(bool)  # True if success, False if error
     error = Signal(str)  # Error message
 
     cache_prefix: str
@@ -118,7 +118,7 @@ class LocalizedCacheBuilder(QThread):
         try:
             groups = self._load_sources()
             if groups is None:
-                self.finished.emit(False)
+                self.completed.emit(False)
                 return
 
             self.progress.emit(self.localization_progress_start)
@@ -127,17 +127,17 @@ class LocalizedCacheBuilder(QThread):
 
             for language in self.languages:
                 if not self._write_language_cache(groups, language):
-                    self.finished.emit(False)
+                    self.completed.emit(False)
                     return
 
             self.status_changed.emit(tr("app.cache_generated_successfully"))
             self.progress.emit(100)
-            self.finished.emit(True)
+            self.completed.emit(True)
 
         except Exception as e:
             logger.exception(f"Error during {self.cache_label} generation: {e}")
             self.error.emit(f"Error during {self.cache_label} generation: {e}")
-            self.finished.emit(False)
+            self.completed.emit(False)
 
     def stop(self) -> None:
         """Request thread to stop gracefully."""
@@ -238,7 +238,7 @@ class LocalizedCacheManager(QObject):
         self.builder_thread = self._create_cache_builder(
             [code for code, _ in SUPPORTED_LANGUAGES]
         )
-        self.builder_thread.finished.connect(self._on_cache_build_finished)
+        self.builder_thread.completed.connect(self._on_cache_build_finished)
         self.builder_thread.error.connect(self._on_cache_build_error)
         self.builder_thread.start()
 

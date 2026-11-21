@@ -85,7 +85,6 @@ class BackupSizeCalculatorWorker(QThread):
 class BackupCreationWorker(QThread):
     """Worker thread for creating backups."""
 
-    started = Signal()
     progress = Signal(str, int, int)  # message, current, total
     completed = Signal(bool, str)  # success, message
 
@@ -99,8 +98,6 @@ class BackupCreationWorker(QThread):
     def run(self) -> None:
         """Run backup creation."""
         try:
-            self.started.emit()
-
             success, backup_info, error = self._manager.create_backup(
                 self._game_code,
                 self._game_name,
@@ -135,7 +132,6 @@ class BackupValidationWorker(QThread):
 class BackupRestorationWorker(QThread):
     """Worker thread for restoring backups."""
 
-    started = Signal()
     progress = Signal(str, int, int)  # message, current, total
     completed = Signal(bool, Path, str)  # success, removed_dir, message
 
@@ -148,8 +144,6 @@ class BackupRestorationWorker(QThread):
     def run(self) -> None:
         """Run backup restoration."""
         try:
-            self.started.emit()
-
             success, removed_dir, error = self._manager.restore_backup(
                 self._backup_id, self._game_path, self.progress.emit
             )
