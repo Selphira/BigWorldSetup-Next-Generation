@@ -21,8 +21,8 @@ from constants import (
 )
 from core.ComponentReference import ComponentReference
 from core.ModManager import ModManager
+from core.OrderConflict import OrderConflict, group_order_conflicts
 from core.RuleManager import RuleManager
-from core.Rules import OrderDirection, OrderRule
 from core.TranslationManager import tr
 from ui.ColorHelpers import blend
 from ui.widgets.HoverTableWidget import HoverTableWidget
@@ -104,41 +104,10 @@ class OrderViolationPanel(QWidget):
             self._hide_panel()
             return
 
-        # Group violations by (rule_id, ref) to aggregate all before/after refs per pair
-        rule_ref_data: dict[tuple, tuple] = {}
-
-        for ref in references:
-            ignored_ids = ignored_violations.get(ref, set())
-            for violation in self._rule_manager.get_order_violations(ref):
-                if id(violation.rule) in ignored_ids:
-                    continue
-                rule_id = id(violation.rule)
-                key = (rule_id, id(ref))
-
-                src_ref = violation.affected_components[0]
-                tgt_ref = violation.affected_components[1]
-                is_source = ref == src_ref
-                other_ref = tgt_ref if is_source else src_ref
-
-                direction = (
-                    violation.rule.order_direction
-                    if isinstance(violation.rule, OrderRule)
-                    else OrderDirection.AFTER
-                )
-
-                if key not in rule_ref_data:
-                    rule_ref_data[key] = (violation, ref, [], [])
-                _, _, befores, afters = rule_ref_data[key]
-
-                if direction == OrderDirection.BEFORE:
-                    target_list = afters if is_source else befores
-                else:
-                    target_list = befores if is_source else afters
-
-                if other_ref not in target_list:
-                    target_list.append(other_ref)
-
-        if not rule_ref_data:
+        conflicts = group_order_conflicts(
+            references, self._rule_manager.get_order_violations, ignored_violations
+        )
+        if not conflicts:
             self._hide_panel()
             return
 
@@ -151,38 +120,9 @@ class OrderViolationPanel(QWidget):
                 tr("page.order.violation_panel.multiple_selected", count=len(references))
             )
 
-        rows = list(rule_ref_data.values())
-        self._table.setRowCount(len(rows))
-
-        for row, (violation, ref, befores, afters) in enumerate(rows):
-            is_broad = violation.is_broad_rule()
-            base_color = QColor(COLOR_ERROR if violation.is_error else COLOR_WARNING)
-            color = blend(base_color, COLOR_BLEND_BROAD_RULE_TEXT) if is_broad else base_color
-
-            def make_item(text: str = "") -> QTableWidgetItem:
-                item = QTableWidgetItem(text)
-                item.setForeground(color)
-                if is_broad:
-                    font = item.font()
-                    font.setItalic(True)
-                    item.setFont(font)
-                return item
-
-            severity_icon = ICON_ERROR if violation.is_error else ICON_WARNING
-            icon_item = make_item(severity_icon)
-            icon_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-            icon_item.setData(Qt.ItemDataRole.UserRole, violation)
-            icon_item.setToolTip(violation.get_order_message(ref, self._current_order))
-
-            type_item = make_item(
-                tr(f"page.selection.violation.type_{violation.rule.rule_type.value}")
-            )
-            type_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-
-            self._table.setItem(row, COL_ICON, icon_item)
-            self._table.setItem(row, COL_TYPE, type_item)
-            self._table.setItem(row, COL_BEFORE, make_item(self._format_refs_grouped(befores)))
-            self._table.setItem(row, COL_AFTER, make_item(self._format_refs_grouped(afters)))
+        self._table.setRowCount(len(conflicts))
+        for row, conflict in enumerate(conflicts):
+            self._populate_row(row, conflict)
 
     def retranslate_ui(self) -> None:
         """Update column headers after language change."""
@@ -201,6 +141,44 @@ class OrderViolationPanel(QWidget):
     # ========================================
     # Helpers
     # ========================================
+
+    def _populate_row(self, row: int, conflict: OrderConflict) -> None:
+        """Fill one table row with the severity, type and required order of a conflict."""
+        violation = conflict.violation
+        is_broad = violation.is_broad_rule()
+        base_color = QColor(COLOR_ERROR if violation.is_error else COLOR_WARNING)
+        color = blend(base_color, COLOR_BLEND_BROAD_RULE_TEXT) if is_broad else base_color
+
+        severity_icon = ICON_ERROR if violation.is_error else ICON_WARNING
+        icon_item = self._make_item(severity_icon, color, is_broad)
+        icon_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        icon_item.setData(Qt.ItemDataRole.UserRole, violation)
+        icon_item.setToolTip(
+            violation.get_order_message(conflict.reference, self._current_order)
+        )
+
+        type_text = tr(f"page.selection.violation.type_{violation.rule.rule_type.value}")
+        type_item = self._make_item(type_text, color, is_broad)
+        type_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        earlier_text = self._format_refs_grouped(conflict.earlier)
+        later_text = self._format_refs_grouped(conflict.later)
+
+        self._table.setItem(row, COL_ICON, icon_item)
+        self._table.setItem(row, COL_TYPE, type_item)
+        self._table.setItem(row, COL_BEFORE, self._make_item(earlier_text, color, is_broad))
+        self._table.setItem(row, COL_AFTER, self._make_item(later_text, color, is_broad))
+
+    @staticmethod
+    def _make_item(text: str, color: QColor, is_broad: bool) -> QTableWidgetItem:
+        """Create a cell colored by severity, italic when the rule targets a whole mod."""
+        item = QTableWidgetItem(text)
+        item.setForeground(color)
+        if is_broad:
+            font = item.font()
+            font.setItalic(True)
+            item.setFont(font)
+        return item
 
     @staticmethod
     def _format_refs_grouped(refs: list[ComponentReference]) -> str:

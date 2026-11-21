@@ -8,7 +8,7 @@ import logging
 from core.ComponentReference import ComponentReference, IndexManager
 from core.RuleManager import RuleManager
 from core.Rules import Rule, RuleType, RuleViolation
-from ui.pages.mod_selection.SelectionController import SelectionController
+from core.SelectionSource import SelectionSource
 
 logger = logging.getLogger(__name__)
 
@@ -23,9 +23,9 @@ class ResolutionProposal:
 class ValidationOrchestrator:
     """Orchestrates validation and resolution."""
 
-    def __init__(self, rule_manager: RuleManager, selection_controller: SelectionController):
+    def __init__(self, rule_manager: RuleManager, selection_source: SelectionSource):
         self._rule_manager = rule_manager
-        self._controller = selection_controller
+        self._selection_source = selection_source
         self._indexes = IndexManager.get_indexes()
 
         self._validation_enabled = True
@@ -47,7 +47,7 @@ class ValidationOrchestrator:
             logger.debug("Validation disabled, skipping")
             return []
 
-        selected_refs = self._controller.get_selected_components()
+        selected_refs = self._selection_source.get_selected_components()
 
         logger.debug(f"Validating {len(selected_refs)} components")
 
@@ -89,15 +89,15 @@ class ValidationOrchestrator:
         }
 
     def auto_resolve(self, reference: ComponentReference) -> ResolutionProposal | None:
-        """Search actual controller transitions, preferring existing choices."""
-        original = self._controller.selection_snapshot()
+        """Search actual selection transitions, preferring existing choices."""
+        original = self._selection_source.selection_snapshot()
         if reference not in original:
             return None
         baseline = self._unrelated_violations(original, reference)
         serial = count()
         pending = [(0, 0, next(serial), original)]
         seen = {original}
-        protected = (self._controller.forced_selection() & original) | {reference}
+        protected = (self._selection_source.forced_selection() & original) | {reference}
         pool = self._indexes.mod_component_index.keys() | self._indexes.parent_index.keys()
         while pending:
             _, _, _, candidate = heappop(pending)
@@ -126,7 +126,7 @@ class ValidationOrchestrator:
                     options.add(pattern)
             options = options - candidate if adding else options & candidate
             for ref in sorted(options, key=str):
-                simulation = self._controller.preview(set(candidate))
+                simulation = self._selection_source.preview(set(candidate))
                 if adding:
                     simulation.select(ref)
                 else:
@@ -142,7 +142,7 @@ class ValidationOrchestrator:
 
     def apply_resolution(self, proposal: ResolutionProposal) -> bool:
         """Reject stale proposals and revalidate the published selection."""
-        if self._controller.selection_snapshot() != proposal.original:
+        if self._selection_source.selection_snapshot() != proposal.original:
             return False
         baseline = self._unrelated_violations(proposal.original, proposal.reference)
         if any(
@@ -150,6 +150,6 @@ class ValidationOrchestrator:
             for v in self._rule_manager.selection_violations(set(proposal.selection))
         ):
             return False
-        self._controller.apply_selection(set(proposal.selection))
+        self._selection_source.apply_selection(set(proposal.selection))
         self.validate_current_selection()
         return True

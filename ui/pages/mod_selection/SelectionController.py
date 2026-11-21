@@ -32,7 +32,6 @@ class SelectionController(QObject):
         self._rule_manager = rule_manager
         self._indexes = IndexManager.get_indexes()
         self._game: GameDefinition | None = None
-        self._proxy_model = None
         self._cascade_depth = 0
 
         logger.info("SelectionController initialized")
@@ -50,7 +49,6 @@ class SelectionController(QObject):
         controller = SelectionController(self._rule_manager)
         controller._indexes = replace(self._indexes, selection_index=set(selection))
         controller._game = self._game
-        controller._proxy_model = self._proxy_model
         return controller
 
     def apply_selection(self, selection: set[ComponentReference]) -> None:
