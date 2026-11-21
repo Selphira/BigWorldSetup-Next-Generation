@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 )
 
 from constants import (
+    COLOR_BLEND_BROAD_RULE_TEXT,
     COLOR_ERROR,
     COLOR_WARNING,
     ICON_ERROR,
@@ -23,6 +24,7 @@ from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.Rules import OrderDirection, OrderRule
 from core.TranslationManager import tr
+from ui.ColorHelpers import blend
 from ui.widgets.HoverTableWidget import HoverTableWidget
 
 logger = logging.getLogger(__name__)
@@ -155,15 +157,7 @@ class OrderViolationPanel(QWidget):
         for row, (violation, ref, befores, afters) in enumerate(rows):
             is_broad = violation.is_broad_rule()
             base_color = QColor(COLOR_ERROR if violation.is_error else COLOR_WARNING)
-            color = (
-                QColor(
-                    (base_color.red() + 180) // 2,
-                    (base_color.green() + 180) // 2,
-                    (base_color.blue() + 180) // 2,
-                )
-                if is_broad
-                else base_color
-            )
+            color = blend(base_color, COLOR_BLEND_BROAD_RULE_TEXT) if is_broad else base_color
 
             def make_item(text: str = "") -> QTableWidgetItem:
                 item = QTableWidgetItem(text)

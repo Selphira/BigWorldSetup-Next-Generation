@@ -120,6 +120,10 @@ COLOR_ERROR = "#ff6666"
 COLOR_WARNING = "#ffaa00"
 COLOR_INFO = "#4aa3ff"
 
+# Gray levels that broad-rule violation colors are blended toward
+COLOR_BLEND_BROAD_RULE_ROW = 40
+COLOR_BLEND_BROAD_RULE_TEXT = 180
+
 # ============================================================================
 # ICONS & EMOJIS
 # ============================================================================
@@ -260,6 +264,7 @@ ROLE_COMPONENT = Qt.ItemDataRole.UserRole + 2
 ROLE_OPTION_KEY = Qt.ItemDataRole.UserRole + 3
 ROLE_PROMPT_KEY = Qt.ItemDataRole.UserRole + 4
 ROLE_IS_DEFAULT = Qt.ItemDataRole.UserRole + 5
+ROLE_LABEL = Qt.ItemDataRole.UserRole + 6  # Display text without status icon
 
 # Filtering roles
 ROLE_GAMES = Qt.ItemDataRole.UserRole + 10

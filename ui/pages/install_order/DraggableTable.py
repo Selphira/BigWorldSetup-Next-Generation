@@ -26,6 +26,7 @@ from constants import (
 )
 from core.ComponentReference import ComponentReference, IndexManager
 from core.models.PauseEntry import PAUSE_PREFIX, PauseEntry
+from core.Rules import RuleViolation
 from core.TranslationManager import tr
 from ui.pages.install_order.PauseDescriptionDialog import PauseDescriptionDialog
 from ui.widgets.HoverTableWidget import HoverTableWidget
@@ -523,13 +524,24 @@ class DraggableTableWidget(HoverTableWidget):
     def is_ignored(self, reference: ComponentReference) -> bool:
         return reference in self._ignored_violations
 
+    @property
+    def ignored_violations(self) -> dict[ComponentReference, set[int]]:
+        """Rule ids ignored per reference, keyed by ``id(violation.rule)``."""
+        return self._ignored_violations
+
+    def has_new_violations(
+        self, reference: ComponentReference, violations: list[RuleViolation]
+    ) -> bool:
+        """Return True if some violations were not present when the reference was ignored."""
+        ignored_rule_ids = self._ignored_violations.get(reference, set())
+        return bool({id(v.rule) for v in violations} - ignored_rule_ids)
+
     def refresh_ignores(self) -> None:
         """Clear ignores for refs that have NEW violations not present when ignored."""
         indexes = IndexManager.get_indexes()
         to_clear = []
-        for ref, ignored_rule_ids in self._ignored_violations.items():
-            current_ids = {id(v.rule) for v in indexes.get_order_violations(ref)}
-            if current_ids - ignored_rule_ids:  # new violations appeared
+        for ref in self._ignored_violations:
+            if self.has_new_violations(ref, indexes.get_order_violations(ref)):
                 to_clear.append(ref)
         for ref in to_clear:
             self.clear_ignore_for(ref)

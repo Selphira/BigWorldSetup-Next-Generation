@@ -38,11 +38,13 @@ from PySide6.QtWidgets import (
 from constants import (
     COLOR_BACKGROUND_ERROR,
     COLOR_BACKGROUND_WARNING,
+    COLOR_BLEND_BROAD_RULE_ROW,
     ICON_ERROR,
     ICON_WARNING,
     MARGIN_SMALL,
     MARGIN_STANDARD,
     ROLE_COMPONENT,
+    ROLE_LABEL,
     SPACING_MEDIUM,
     SPACING_SMALL,
 )
@@ -53,6 +55,7 @@ from core.OrderImportExportManager import OrderImportError, OrderImportExportMan
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.WeiDULogParser import WeiDULogParser
+from ui.ColorHelpers import blend
 from ui.layouts.LayoutHelpers import clear_layout
 from ui.pages.BasePage import BasePage
 from ui.pages.install_order.DraggableTable import DraggableTableWidget
@@ -1148,43 +1151,33 @@ class InstallOrderPage(BasePage):
             reference = mod_item.data(ROLE_COMPONENT)
             violations = self._rule_manager.get_order_violations(reference)
 
-            mod_item.setText(
-                mod_item.text().replace(f"{ICON_ERROR} ", "").replace(f"{ICON_WARNING} ", "")
-            )
-
-            if not violations:
-                for col in range(ordered_table.columnCount()):
-                    item = ordered_table.item(row, col)
-                    if item:
-                        item.setBackground(Qt.GlobalColor.transparent)
+            if not ordered_table.has_new_violations(reference, violations):
+                self._set_status_icon(mod_item, "")
+                self._paint_row(ordered_table, row, Qt.GlobalColor.transparent)
                 continue
 
-            # Check if ignored, skip visual only if no NEW violations appeared
-            if ordered_table.is_ignored(reference):
-                ignored_ids = ordered_table._ignored_violations.get(reference, set())
-                current_ids = {id(v.rule) for v in violations}
-                if not (current_ids - ignored_ids):
-                    for col in range(ordered_table.columnCount()):
-                        item = ordered_table.item(row, col)
-                        if item:
-                            item.setBackground(Qt.GlobalColor.transparent)
-                    continue
-
             color, icon = seq_data.validation.get_component_indicator(reference)
-
-            # Attenuate if all violations are broad
             if all(v.is_broad_rule() for v in violations):
-                color = QColor(
-                    (color.red() + 40) // 2,
-                    (color.green() + 40) // 2,
-                    (color.blue() + 40) // 2,
-                )
+                color = blend(color, COLOR_BLEND_BROAD_RULE_ROW)
 
-            mod_item.setText(f"{icon} {mod_item.text()}")
-            for col in range(ordered_table.columnCount()):
-                item = ordered_table.item(row, col)
-                if item:
-                    item.setBackground(color)
+            self._set_status_icon(mod_item, icon)
+            self._paint_row(ordered_table, row, color)
+
+    @staticmethod
+    def _set_status_icon(mod_item: QTableWidgetItem, icon: str) -> None:
+        """Prefix the item label with a status icon, or restore the bare label."""
+        label = mod_item.data(ROLE_LABEL)
+        if label is None:
+            return
+        mod_item.setText(f"{icon} {label}" if icon else label)
+
+    @staticmethod
+    def _paint_row(table: QTableWidget, row: int, color: QColor | Qt.GlobalColor) -> None:
+        """Set the background color of every cell in a row."""
+        for col in range(table.columnCount()):
+            item = table.item(row, col)
+            if item:
+                item.setBackground(color)
 
     # ========================================
     # Event Handlers
@@ -1251,7 +1244,7 @@ class InstallOrderPage(BasePage):
             ref for ref in self._sequences_data[seq_idx].ordered if ref.mod_id != PAUSE_PREFIX
         ]
 
-        panel.update_for_references(references, current_order, table._ignored_violations)
+        panel.update_for_references(references, current_order, table.ignored_violations)
 
     def _on_violation_ignored(self, seq_idx: int) -> None:
         """Refresh visual indicators when an ignore is toggled."""
@@ -1320,8 +1313,10 @@ class InstallOrderPage(BasePage):
         comp_text = mod.get_component(comp_key).get_name()
 
         # Column 0: Mod name
-        mod_item = QTableWidgetItem(f"[{mod.id}] {mod_name}")
+        mod_label = f"[{mod.id}] {mod_name}"
+        mod_item = QTableWidgetItem(mod_label)
         mod_item.setData(ROLE_COMPONENT, reference)
+        mod_item.setData(ROLE_LABEL, mod_label)
         table.setItem(row, COL_ORDERED_MOD, mod_item)
 
         # Column 1: Component
