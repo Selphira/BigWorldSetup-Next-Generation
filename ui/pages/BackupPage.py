@@ -1,3 +1,4 @@
+from collections.abc import Callable
 import logging
 from pathlib import Path
 import shutil
@@ -100,14 +101,11 @@ class BackupCreationWorker(QThread):
         try:
             self.started.emit()
 
-            def progress_callback(message: str, current: int, total: int):
-                self.progress.emit(message, current, total)
-
             success, backup_info, error = self._manager.create_backup(
                 self._game_code,
                 self._game_name,
                 self._game_path,
-                progress_callback,
+                self.progress.emit,
             )
 
             if success:
@@ -152,11 +150,8 @@ class BackupRestorationWorker(QThread):
         try:
             self.started.emit()
 
-            def progress_callback(message: str, current: int, total: int):
-                self.progress.emit(message, current, total)
-
             success, removed_dir, error = self._manager.restore_backup(
-                self._backup_id, self._game_path, progress_callback
+                self._backup_id, self._game_path, self.progress.emit
             )
 
             if success:
@@ -530,23 +525,15 @@ class BackupPage(BasePage):
                 game_path = Path(path)
                 break
 
-        self._is_operating = True
-        self._update_navigation_buttons()
-
-        self._progress_bar.setVisible(True)
-        self._progress_bar.setRange(0, 100)
-        self._progress_bar.setValue(0)
-        self._progress_bar.setFormat(tr("page.backup.calculating_size"))
-
         calculator = BackupSizeCalculatorWorker(self._backup_manager, game_path)
-        calculator.completed.connect(
+        self._progress_bar.setFormat(tr("page.backup.calculating_size"))
+        self._begin_operation(
+            calculator,
             lambda size, is_modded: self._on_size_calculated(
                 size, is_modded, selected_code, game.name, game_path
-            )
+            ),
+            critical=False,
         )
-        self.start_task(calculator, critical=False)
-
-        self._worker = calculator
 
     def _restore_selected_backup(self) -> None:
         """Restore the selected backup."""
@@ -580,10 +567,7 @@ class BackupPage(BasePage):
             game_name: Game name
             game_path: Game path
         """
-        self._worker = None
-        self._progress_bar.setVisible(False)
-        self._is_operating = False
-        self._update_navigation_buttons()
+        self._end_operation()
 
         if self._closing:
             return
@@ -598,29 +582,66 @@ class BackupPage(BasePage):
             return
 
         free_space = self._backup_manager.get_free_space()
+        if not self._has_enough_space(backup_size, free_space):
+            return
+        if not self._confirm_backup(game_name, is_modded, backup_size, free_space):
+            return
+
+        worker = BackupCreationWorker(self._backup_manager, game_code, game_name, game_path)
+        worker.started.connect(self._on_operation_started)
+        worker.progress.connect(self._on_backup_progress)
+        self._begin_operation(worker, self._on_backup_created)
+
+        logger.info(f"Starting backup creation for {game_code}")
+
+    def _has_enough_space(self, backup_size: int, free_space: int) -> bool:
+        """Warn the user and return False when the backup would not fit on disk.
+
+        Args:
+            backup_size: Backup size in bytes
+            free_space: Free space on the backup drive in bytes
+
+        Returns:
+            True if the backup fits
+        """
         free_gb = free_space / (1024**3)
         size_gb = backup_size / (1024**3)
 
-        if free_gb <= size_gb:
-            QMessageBox.warning(
-                self,
-                tr("page.backup.warning_title"),
-                tr(
-                    "page.backup.warning_low_disk_space",
-                    space=f"{free_gb:.1f}",
-                    size=f"{size_gb:.1f}",
-                ),
-            )
-            return
+        if free_gb > size_gb:
+            return True
 
-        # Show confirmation with info
+        QMessageBox.warning(
+            self,
+            tr("page.backup.warning_title"),
+            tr(
+                "page.backup.warning_low_disk_space",
+                space=f"{free_gb:.1f}",
+                size=f"{size_gb:.1f}",
+            ),
+        )
+        return False
+
+    def _confirm_backup(
+        self, game_name: str, is_modded: bool, backup_size: int, free_space: int
+    ) -> bool:
+        """Ask the user to confirm the backup creation.
+
+        Args:
+            game_name: Game name
+            is_modded: Whether game is modded
+            backup_size: Backup size in bytes
+            free_space: Free space on the backup drive in bytes
+
+        Returns:
+            True if the user confirmed
+        """
         modded_status = tr("page.backup.modded") if is_modded else tr("page.backup.vanilla")
         message = tr(
             "page.backup.confirm_create_message",
             game=game_name,
             status=modded_status,
-            size=f"{size_gb:.2f}",
-            free=f"{free_gb:.1f}",
+            size=f"{backup_size / (1024**3):.2f}",
+            free=f"{free_space / (1024**3):.1f}",
         )
 
         response = QMessageBox.question(
@@ -629,26 +650,7 @@ class BackupPage(BasePage):
             message,
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
         )
-
-        if response != QMessageBox.StandardButton.Yes:
-            return
-
-        self._is_operating = True
-        self._update_navigation_buttons()
-
-        self._progress_bar.setVisible(True)
-        self._progress_bar.setRange(0, 100)
-        self._progress_bar.setValue(0)
-
-        self._worker = BackupCreationWorker(
-            self._backup_manager, game_code, game_name, game_path
-        )
-        self._worker.started.connect(self._on_operation_started)
-        self._worker.progress.connect(self._on_backup_progress)
-        self._worker.completed.connect(self._on_backup_created)
-        self.start_task(self._worker)
-
-        logger.info(f"Starting backup creation for {game_code}")
+        return response == QMessageBox.StandardButton.Yes
 
     def _on_selection_changed(self) -> None:
         """Handle backup selection change."""
@@ -681,10 +683,7 @@ class BackupPage(BasePage):
         Args:
             backup_id: Backup ID
         """
-        if self._is_operating:
-            return
-
-        backup_info = self._backups.get(backup_id)
+        backup_info = self._operable_backup(backup_id)
         if not backup_info:
             return
 
@@ -712,19 +711,10 @@ class BackupPage(BasePage):
                 game_path = Path(path)
                 break
 
-        # Start restoration
-        self._is_operating = True
-        self._update_navigation_buttons()
-
-        self._progress_bar.setVisible(True)
-        self._progress_bar.setRange(0, 100)
-        self._progress_bar.setValue(0)
-
-        self._worker = BackupRestorationWorker(self._backup_manager, backup_id, game_path)
-        self._worker.started.connect(self._on_operation_started)
-        self._worker.progress.connect(self._on_backup_progress)
-        self._worker.completed.connect(self._on_backup_restored)
-        self.start_task(self._worker)
+        worker = BackupRestorationWorker(self._backup_manager, backup_id, game_path)
+        worker.started.connect(self._on_operation_started)
+        worker.progress.connect(self._on_backup_progress)
+        self._begin_operation(worker, self._on_backup_restored)
 
         logger.info(f"Starting backup restoration: {backup_id}")
 
@@ -734,10 +724,7 @@ class BackupPage(BasePage):
         Args:
             backup_id: Backup ID
         """
-        if self._is_operating:
-            return
-
-        backup_info = self._backups.get(backup_id)
+        backup_info = self._operable_backup(backup_id)
         if not backup_info:
             return
 
@@ -772,10 +759,7 @@ class BackupPage(BasePage):
         Args:
             backup_id: Backup ID
         """
-        if self._is_operating:
-            return
-
-        backup_info = self._backups.get(backup_id)
+        backup_info = self._operable_backup(backup_id)
         if not backup_info:
             return
 
@@ -831,20 +815,13 @@ class BackupPage(BasePage):
         """
         if self._is_operating:
             return
-        self._is_operating = True
-        self._update_navigation_buttons()
-        self._progress_bar.setVisible(True)
-        self._progress_bar.setRange(0, 0)
-        self._worker = BackupValidationWorker(self._backup_manager, backup_id)
-        self._worker.completed.connect(self._on_backup_validated)
-        self.start_task(self._worker)
+
+        worker = BackupValidationWorker(self._backup_manager, backup_id)
+        self._begin_operation(worker, self._on_backup_validated, indeterminate=True)
 
     def _on_backup_validated(self, is_valid: bool, error: str) -> None:
-        self._is_operating = False
-        self._progress_bar.setVisible(False)
-        self._update_navigation_buttons()
+        self._end_operation()
 
-        self._worker = None
         if self._closing:
             return
         if is_valid:
@@ -919,6 +896,60 @@ class BackupPage(BasePage):
         menu.exec(self._backup_table.viewport().mapToGlobal(position))
 
     # ========================================
+    # Operation Lifecycle
+    # ========================================
+
+    def _operable_backup(self, backup_id: str) -> BackupInfo | None:
+        """Return the backup an action may act on, or None while busy or if unknown.
+
+        Args:
+            backup_id: Backup ID
+
+        Returns:
+            Backup info, or None if no action is possible
+        """
+        if self._is_operating:
+            return None
+        return self._backups.get(backup_id)
+
+    def _begin_operation(
+        self,
+        worker: QThread,
+        on_completed: Callable[..., None],
+        *,
+        indeterminate: bool = False,
+        critical: bool = True,
+    ) -> None:
+        """Lock the page, show the progress bar and start a long-running worker.
+
+        Args:
+            worker: Worker exposing a ``completed`` signal
+            on_completed: Slot receiving the worker's result
+            indeterminate: Whether the progress bar shows a busy indicator
+            critical: Whether closing the application must be confirmed while it runs
+        """
+        self._is_operating = True
+        self._update_navigation_buttons()
+
+        self._progress_bar.setVisible(True)
+        if indeterminate:
+            self._progress_bar.setRange(0, 0)
+        else:
+            self._progress_bar.setRange(0, 100)
+            self._progress_bar.setValue(0)
+
+        self._worker = worker
+        worker.completed.connect(on_completed)
+        self.start_task(worker, critical=critical)
+
+    def _end_operation(self) -> None:
+        """Unlock the page once the running worker has reported its result."""
+        self._is_operating = False
+        self._worker = None
+        self._progress_bar.setVisible(False)
+        self._update_navigation_buttons()
+
+    # ========================================
     # Worker Callbacks
     # ========================================
 
@@ -947,10 +978,7 @@ class BackupPage(BasePage):
             success: Whether operation succeeded
             message: Result message
         """
-        self._is_operating = False
-        self._worker = None
-        self._progress_bar.setVisible(False)
-        self._update_navigation_buttons()
+        self._end_operation()
 
         if self._closing:
             return
@@ -970,10 +998,7 @@ class BackupPage(BasePage):
             removed_dir: Path to directory with removed files
             message: Result message
         """
-        self._is_operating = False
-        self._worker = None
-        self._progress_bar.setVisible(False)
-        self._update_navigation_buttons()
+        self._end_operation()
 
         if self._closing:
             return
