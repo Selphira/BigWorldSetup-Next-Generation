@@ -133,7 +133,6 @@ def test_b20_corrected_order_clears_index(rules: RuleManager) -> None:
     assert not rules.get_order_violations(a)
 
 
-@pytest.mark.xfail(reason="B29 / L8: archive source is not merged", raises=AssertionError)
 def test_b29_archive_metadata_applied() -> None:
     merger = DefinitionMerger("demo")
     merger.add_source("archive", {"files": [{"filename": "new.zip"}]})

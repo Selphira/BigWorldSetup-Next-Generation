@@ -8,6 +8,9 @@ Component labels follow the TP2, except those of MUC groups: their
 ``choice_N`` key depends on the group rank, so the stored label is kept.
 Labels the TP2 does not provide (SUB prompts, manual components) are kept
 while their component remains in the definition.
+
+Files come from the archive source, which lists every stored entry: an entry
+whose download link changed keeps no hash computed for the previous file.
 """
 
 from __future__ import annotations
@@ -17,6 +20,7 @@ import logging
 from typing import Any
 
 from util.mod_sync.models.sync_result import ComponentChanges
+from util.mod_sync.sources.archive_source import ALL_PLATFORMS
 
 logger = logging.getLogger(__name__)
 
@@ -91,6 +95,7 @@ class DefinitionMerger:
         self._merge_components(result)
         self._merge_translations(result)
         self._merge_links(result)
+        self._merge_files(result)
 
         return result
 
@@ -417,6 +422,34 @@ class DefinitionMerger:
             for key, value in source_links.items():
                 if has_value(value) and not has_value(result["links"].get(key)):
                     result["links"][key] = copy.deepcopy(value)
+
+    def _merge_files(self, result: dict) -> None:
+        """Replace the stored files by those of the archive source."""
+        source_files = (self.sources.get("archive") or {}).get("files")
+        if not has_value(source_files):
+            return
+
+        stored_files = {
+            self._platforms_key(entry): entry for entry in result["files"] if isinstance(entry, dict)
+        }
+        result["files"] = [
+            self._without_stale_hash(copy.deepcopy(entry), stored_files.get(self._platforms_key(entry)))
+            for entry in source_files
+        ]
+
+    @staticmethod
+    def _platforms_key(file_entry: dict[str, Any]) -> tuple[str, ...]:
+        """Identify a file entry by the platforms it applies to."""
+        return tuple(sorted(file_entry.get("platforms") or ALL_PLATFORMS))
+
+    @staticmethod
+    def _without_stale_hash(file_entry: dict[str, Any], stored_entry: dict[str, Any] | None) -> dict:
+        """Drop the hash a new download link inherited from the previous file."""
+        link_changed = stored_entry is not None and file_entry.get("download") != stored_entry.get("download")
+        if link_changed and file_entry.get("sha256") == stored_entry.get("sha256"):
+            file_entry.pop("sha256", None)
+            logger.debug(f"Dropped stale hash of {file_entry.get('filename')}")
+        return file_entry
 
     def has_changes(self, existing: dict, merged: dict) -> bool:
         """Check if merged data differs from existing.

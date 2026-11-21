@@ -197,6 +197,13 @@ class ModSyncOrchestrator:
                 merger.add_source("ini", ini_data)
                 sources_used.append("ini")
 
+        # Archive data: hashes of the stored files of the machine platform
+        stored_files = (existing or {}).get("files")
+        if self.config.calculate_hashes and self.archive_source and isinstance(stored_files, list):
+            archive_files = self._process_archives(tp2_name, stored_files)
+            merger.add_source("archive", {"files": archive_files})
+            sources_used.append("archive" if archive_files != stored_files else "archive (validated)")
+
         # Merge; a new definition has no stored components to compare with
         merged = merger.merge(existing)
         component_changes = merger.component_changes if existing else ComponentChanges()
@@ -205,75 +212,6 @@ class ModSyncOrchestrator:
         if self._should_resolve_github(merged):
             logger.debug(f"Resolving GitHub link for {tp2_name}")
             self._resolve_github_link(merged)
-
-        # Calculate file hash if needed
-        if self.config.calculate_hashes and self.archive_source:
-            files = merged.get("files", [])
-
-            if files:
-                updated_files = []
-                any_file_updated = False
-
-                for file_entry in files:
-                    download_url = file_entry.get("download")
-
-                    if not download_url:
-                        # Keep file without download URL as-is
-                        updated_files.append(file_entry)
-                        continue
-
-                    if (
-                        file_entry.get("platforms")
-                        and len(file_entry.get("platforms")) > 0
-                        and "windows" not in file_entry.get("platforms")
-                    ):
-                        continue
-
-                    logger.debug(
-                        f"Processing archive for {tp2_name}: {file_entry.get('filename')}"
-                    )
-
-                    # Process the archive
-                    file_info = self.archive_source.process(
-                        download_url, expected_file=file_entry
-                    )
-
-                    if file_info:
-                        # Check if file info changed (new download or updated hash)
-                        # Compare relevant fields: filename, size, sha256
-                        file_changed = (
-                            file_entry.get("filename") != file_info.get("filename")
-                            or file_entry.get("size") != file_info.get("size")
-                            or file_entry.get("sha256") != file_info.get("sha256")
-                        )
-
-                        if file_changed:
-                            logger.info(
-                                f"File info updated for {tp2_name}: {file_info.get('filename')}"
-                            )
-                            updated_files.append(file_info)
-                            any_file_updated = True
-                        else:
-                            logger.debug(
-                                f"File info unchanged for {tp2_name}: "
-                                f"{file_entry.get('filename')}"
-                            )
-                            updated_files.append(file_entry)
-                    else:
-                        # Archive processing failed, keep original
-                        logger.warning(
-                            f"Failed to process archive for {tp2_name}: "
-                            f"{file_entry.get('filename')}"
-                        )
-                        updated_files.append(file_entry)
-
-                # Update merged data if any file changed
-                if any_file_updated:
-                    merger.add_source("archive", {"files": updated_files})
-                    merged = merger.merge(merged)
-                    sources_used.append("archive")
-                else:
-                    sources_used.append("archive (validated)")
 
         # Check if anything changed
         if existing and not merger.has_changes(existing, merged):
@@ -301,6 +239,31 @@ class ModSyncOrchestrator:
                 status=SyncStatus.ERROR,
                 message=f"Save failed: {e}",
             )
+
+    def _process_archives(self, tp2_name: str, stored_files: list) -> list:
+        """Return the stored files, those of the machine platform describing its archive.
+
+        Entries of other platforms, and entries whose archive cannot be
+        obtained, are returned unchanged.
+        """
+        files = []
+        for file_entry in stored_files:
+            if not isinstance(file_entry, dict) or not self.archive_source.applies_to_platform(file_entry):
+                files.append(file_entry)
+                continue
+
+            archive = self.archive_source.process(file_entry)
+            if archive is None:
+                logger.warning(f"Failed to process archive for {tp2_name}: {file_entry.get('filename')}")
+                files.append(file_entry)
+                continue
+
+            updated_entry = archive.apply_to(file_entry)
+            if updated_entry != file_entry:
+                logger.info(f"File info updated for {tp2_name}: {archive.filename}")
+            files.append(updated_entry)
+
+        return files
 
     def _index_definitions(self) -> None:
         """Index existing definition files by lowercase stem.

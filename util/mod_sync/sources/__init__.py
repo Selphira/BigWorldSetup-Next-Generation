@@ -7,7 +7,7 @@ This package contains extractors for different data sources:
 - ArchiveSource: Archive download and hash calculation
 """
 
-from util.mod_sync.sources.archive_source import ArchiveSource
+from util.mod_sync.sources.archive_source import ArchiveFile, ArchiveSource
 from util.mod_sync.sources.ini_source import IniData, IniParser, IniSource
 from util.mod_sync.sources.lcc_source import LCCSource
 from util.mod_sync.sources.tp2_source import TP2Source
@@ -19,4 +19,5 @@ __all__ = [
     "IniData",
     "IniParser",
     "ArchiveSource",
+    "ArchiveFile",
 ]

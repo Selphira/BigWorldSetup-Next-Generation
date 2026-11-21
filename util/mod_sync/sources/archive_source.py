@@ -2,29 +2,123 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import hashlib
 import logging
 from pathlib import Path
-from typing import Callable
+import re
+import shutil
+from typing import Any, Callable
+import urllib.error
+from urllib.parse import unquote
 import urllib.request
+
+from core.Platform import Platform
 
 logger = logging.getLogger(__name__)
 
+# Every platform a file entry without "platforms" applies to.
+ALL_PLATFORMS = ("windows", "linux", "macos")
+
+# Retired archives go to <archives_dir>/_old/<stem>.<sha8><ext>.
+RETIRED_ARCHIVES_DIR = "_old"
+RETIRED_HASH_LENGTH = 8
+
+# Suffix of an archive being downloaded, before it replaces the one in place.
+PARTIAL_DOWNLOAD_SUFFIX = ".part"
+
+DOWNLOAD_TIMEOUT_SECONDS = 30
+
+
+@dataclass(frozen=True, slots=True)
+class ArchiveFile:
+    """Identity of an archive on disk, as stored in a definition file entry."""
+
+    filename: str
+    size: int
+    sha256: str
+
+    def apply_to(self, file_entry: dict[str, Any]) -> dict[str, Any]:
+        """Return a copy of a file entry describing this archive."""
+        return {**file_entry, "filename": self.filename, "size": self.size, "sha256": self.sha256}
+
 
 class ArchiveSource:
-    """Handle archive download and hash calculation."""
+    """Hash the archives of one platform, downloading them when needed.
+
+    Only entries applying to that platform (the machine one by default) are
+    processed: the archive of another platform cannot be checked here, so
+    its entry is left intact.
+    """
 
     CHUNK_SIZE = 8192  # 8KB chunks for reading files
 
-    def __init__(self, archives_dir: Path | None):
+    def __init__(self, archives_dir: Path | None, platform: str | None = None):
         """Initialize archive source.
 
         Args:
             archives_dir: Directory where archives are stored
+            platform: Platform whose archives are processed (machine one by default)
         """
         self.archives_dir = Path(archives_dir) if archives_dir else None
+        self.platform = platform or Platform.get_current()
         if self.archives_dir:
             self.archives_dir.mkdir(exist_ok=True, parents=True)
+
+    # ------------------------------------------------------------------
+    # Public operations
+    # ------------------------------------------------------------------
+
+    def applies_to_platform(self, file_entry: dict[str, Any]) -> bool:
+        """Tell whether a file entry is the archive of the processed platform."""
+        platforms = file_entry.get("platforms") or ALL_PLATFORMS
+        return self.platform in platforms
+
+    def process(
+        self,
+        file_entry: dict[str, Any],
+        progress_callback: Callable[[int, int], None] | None = None,
+    ) -> ArchiveFile | None:
+        """Return the archive matching a file entry, downloading it when needed.
+
+        A local archive matching the stored hash, or any local archive when no
+        hash is stored, is used as is. A divergent one is downloaded again and
+        the previous archive is retired to the ``_old`` directory.
+
+        Args:
+            file_entry: Stored entry {"filename", "size", "sha256", "download"}
+            progress_callback: Optional callback(bytes_downloaded, total_bytes)
+
+        Returns:
+            The archive now in the archives directory, or None on failure
+        """
+        filename = file_entry.get("filename")
+        stored_sha256 = file_entry.get("sha256")
+        download_url = file_entry.get("download")
+
+        local_path = self.find_archive(filename) if filename else None
+        local_archive = self._describe(local_path) if local_path else None
+
+        if local_archive and (not stored_sha256 or local_archive.sha256 == stored_sha256):
+            logger.debug(f"Archive valid: {filename}")
+            return local_archive
+
+        if local_archive:
+            logger.warning(f"Archive hash mismatch for {filename}, downloading it again")
+
+        if not download_url:
+            logger.warning(f"No download URL for {filename}")
+            return None
+
+        downloaded = self._download(download_url, filename, progress_callback)
+        if downloaded is None:
+            return None
+
+        # The divergent archive was replaced in place unless the server renamed it
+        if local_archive and local_path.exists() and local_path.name != downloaded.filename:
+            self._retire(local_path, local_archive.sha256)
+
+        return downloaded
 
     def find_archive(self, filename: str) -> Path | None:
         """Find archive file in archives directory.
@@ -39,7 +133,7 @@ class ArchiveSource:
             return None
 
         archive_path = self.archives_dir / filename
-        if archive_path.exists():
+        if archive_path.is_file():
             logger.debug(f"Found archive: {archive_path}")
             return archive_path
 
@@ -73,23 +167,6 @@ class ArchiveSource:
             logger.error(f"Error calculating SHA256 for {file_path}: {e}")
             return ""
 
-    def get_file_size(self, file_path: Path) -> int:
-        """Get file size in bytes.
-
-        Args:
-            file_path: Path to file
-
-        Returns:
-            File size in bytes or 0 if error
-        """
-        try:
-            size = file_path.stat().st_size
-            logger.debug(f"File size for {file_path.name}: {size} bytes")
-            return size
-        except Exception as e:
-            logger.error(f"Error getting file size for {file_path}: {e}")
-            return 0
-
     @staticmethod
     def extract_filename_from_headers(response) -> str | None:
         """Extract filename from HTTP response headers.
@@ -104,29 +181,18 @@ class ArchiveSource:
         Returns:
             Extracted filename or None
         """
-        # Try Content-Disposition header
         content_disposition = response.headers.get("Content-Disposition")
         if content_disposition:
-            # Parse: attachment; filename="file.zip" or filename=file.zip
-            import re
-
-            # Try RFC 5987 format: filename*=UTF-8''file.zip
+            # RFC 5987 format: filename*=UTF-8''file.zip
             match = re.search(r"filename\*=(?:UTF-8'')?([^;\s]+)", content_disposition)
             if match:
-                filename = match.group(1)
-                # URL decode if needed
-                try:
-                    from urllib.parse import unquote
-
-                    filename = unquote(filename)
-                except Exception:
-                    pass
+                filename = unquote(match.group(1))
                 logger.debug(
                     f"Extracted filename from Content-Disposition (RFC 5987): {filename}"
                 )
                 return filename.strip('"')
 
-            # Try standard format: filename="file.zip" or filename=file.zip
+            # Standard format: filename="file.zip" or filename=file.zip
             match = re.search(r'filename="?([^";\s]+)"?', content_disposition)
             if match:
                 filename = match.group(1)
@@ -142,212 +208,104 @@ class ArchiveSource:
 
         return None
 
-    def download_archive(
+    # ------------------------------------------------------------------
+    # Download and replacement
+    # ------------------------------------------------------------------
+
+    def _download(
         self,
         url: str,
-        target_filename: str | None = None,
-        progress_callback: Callable[[int, int], None] | None = None,
-    ) -> tuple[Path, str] | tuple[None, None]:
-        """Download archive from URL with filename detection.
+        expected_filename: str | None,
+        progress_callback: Callable[[int, int], None] | None,
+    ) -> ArchiveFile | None:
+        """Download an archive and put it in place under its served name.
 
-        Args:
-            url: Download URL
-            target_filename: Optional target filename (if None, auto-detect from headers)
-            progress_callback: Optional callback(bytes_downloaded, total_bytes)
-
-        Returns:
-            Tuple of (downloaded_path, detected_filename) or (None, None) if error
+        The download goes to a partial file first, so a failure never touches
+        the archive in place; a different archive already holding the final
+        name is retired before being replaced.
         """
         if not self.archives_dir:
             logger.error("Archives directory not configured")
-            return None, None
+            return None
 
+        partial_path = self.archives_dir / f"{expected_filename or 'download'}{PARTIAL_DOWNLOAD_SUFFIX}"
         try:
-            with urllib.request.urlopen(url, timeout=30) as response:
-                # Detect filename from headers
-                detected_filename = self.extract_filename_from_headers(response)
-
-                # Use target_filename if provided, otherwise use detected
-                filename = target_filename or detected_filename
-
-                if not filename:
-                    logger.error(f"Could not determine filename from URL: {url}")
-                    return None, None
-
-                target_path = self.archives_dir / filename
-                total_size = int(response.headers.get("Content-Length", 0))
-                downloaded = 0
-
-                logger.info(f"Downloading {filename} from {url}")
-
-                with open(target_path, "wb") as f:
-                    while chunk := response.read(self.CHUNK_SIZE):
-                        f.write(chunk)
-                        downloaded += len(chunk)
-
-                        if progress_callback and total_size > 0:
-                            progress_callback(downloaded, total_size)
-
-                logger.info(f"Downloaded {filename} ({downloaded} bytes)")
-                return target_path, detected_filename or filename
-
+            served_filename = self._fetch(url, partial_path, progress_callback)
         except urllib.error.HTTPError as e:
             logger.error(f"HTTP error downloading {url}: {e.code} {e.reason}")
-            return None, None
         except urllib.error.URLError as e:
             logger.error(f"URL error downloading {url}: {e.reason}")
-            return None, None
         except Exception as e:
             logger.error(f"Error downloading {url}: {e}", exc_info=True)
-            return None, None
+        else:
+            return self._install_download(partial_path, served_filename or expected_filename)
 
-    def process(
+        partial_path.unlink(missing_ok=True)
+        return None
+
+    def _install_download(self, partial_path: Path, filename: str | None) -> ArchiveFile | None:
+        """Give a downloaded archive its final name, retiring a different one in place."""
+        downloaded_sha256 = self.calculate_sha256(partial_path)
+        if not filename or not downloaded_sha256:
+            logger.error(f"Could not identify the downloaded archive {partial_path.name}")
+            partial_path.unlink(missing_ok=True)
+            return None
+
+        target_path = self.archives_dir / filename
+        if target_path.is_file():
+            target_sha256 = self.calculate_sha256(target_path)
+            if target_sha256 == downloaded_sha256:
+                logger.info(f"Downloaded file is identical to existing {filename}")
+                partial_path.unlink()
+                return ArchiveFile(filename, target_path.stat().st_size, target_sha256)
+            self._retire(target_path, target_sha256)
+
+        partial_path.replace(target_path)
+        size = target_path.stat().st_size
+        logger.info(f"Downloaded {filename} ({size} bytes)")
+        return ArchiveFile(filename, size, downloaded_sha256)
+
+    def _fetch(
         self,
-        download_url: str | None,
-        expected_file: dict | None = None,
-        progress_callback: Callable[[int, int], None] | None = None,
-    ) -> dict | None:
-        """Process archive: validate, download if needed, and calculate hash.
-
-        Implements smart validation:
-        1. File exists with same hash → Skip (optimal)
-        2. File exists with different hash → Re-download + Update
-        3. File doesn't exist → Download + Detect name
-
-        Args:
-            download_url: URL to download from
-            expected_file: Expected file info from definition
-                          {"filename": "...", "size": ..., "sha256": "..."}
-            progress_callback: Optional progress callback for download
+        url: str,
+        target_path: Path,
+        progress_callback: Callable[[int, int], None] | None,
+    ) -> str | None:
+        """Write the content served at a URL to a file.
 
         Returns:
-            Dictionary with file info (filename, size, sha256)
-            Returns updated info if file was re-downloaded
+            The filename announced by the server, if any
         """
-        if not download_url:
-            logger.debug("No download URL provided")
-            return None
+        with urllib.request.urlopen(url, timeout=DOWNLOAD_TIMEOUT_SECONDS) as response:
+            served_filename = self.extract_filename_from_headers(response)
+            total_size = int(response.headers.get("Content-Length", 0))
+            downloaded = 0
 
-        expected_filename = expected_file.get("filename") if expected_file else None
-        expected_sha256 = expected_file.get("sha256") if expected_file else None
-        expected_size = expected_file.get("size") if expected_file else None
+            logger.info(f"Downloading {url}")
+            with open(target_path, "wb") as f:
+                while chunk := response.read(self.CHUNK_SIZE):
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    if progress_callback and total_size > 0:
+                        progress_callback(downloaded, total_size)
 
-        # Case 1: Check if file already exists and is valid
-        if expected_filename:
-            archive_path = self.find_archive(expected_filename)
+        return served_filename
 
-            if archive_path:
-                # File exists, validate hash if we have it
-                if expected_sha256:
-                    actual_sha256 = self.calculate_sha256(archive_path)
-                    actual_size = self.get_file_size(archive_path)
+    def _retire(self, archive_path: Path, sha256: str) -> Path:
+        """Move a replaced archive to ``_old/<stem>.<sha8><ext>``."""
+        retired_dir = archive_path.parent / RETIRED_ARCHIVES_DIR
+        retired_dir.mkdir(exist_ok=True)
 
-                    if actual_sha256 == expected_sha256 and actual_size == expected_size:
-                        logger.info(f"Archive valid (same hash): {expected_filename}")
-                    else:
-                        logger.warning(
-                            f"Archive hash/size mismatch for {expected_filename}, update"
-                        )
-                        # Delete corrupted file
-                        # archive_path.unlink()
-                    return {
-                        "filename": expected_filename,
-                        "size": actual_size,
-                        "sha256": actual_sha256,
-                    }
-                else:
-                    # No hash to validate, assume valid
-                    actual_sha256 = self.calculate_sha256(archive_path)
-                    actual_size = self.get_file_size(archive_path)
-                    logger.info(f"Archive exists: {expected_filename}")
-                    return {
-                        "filename": expected_filename,
-                        "size": actual_size,
-                        "sha256": actual_sha256,
-                    }
+        retired_name = f"{archive_path.stem}.{sha256[:RETIRED_HASH_LENGTH]}{archive_path.suffix}"
+        retired_path = retired_dir / retired_name
+        shutil.move(archive_path, retired_path)
 
-        # Case 2 & 3: Download file (doesn't exist or hash mismatch)
-        logger.info(f"Downloading archive from {download_url}")
-        downloaded_path, detected_filename = self.download_archive(
-            download_url, expected_filename, progress_callback
-        )
+        logger.info(f"Retired previous archive {archive_path.name} → {retired_path}")
+        return retired_path
 
-        if not downloaded_path:
-            return None
-
-        # Calculate hash and size of downloaded file
-        actual_sha256 = self.calculate_sha256(downloaded_path)
-        actual_size = self.get_file_size(downloaded_path)
-
-        if not actual_sha256:
-            logger.error(f"Failed to calculate hash for {downloaded_path.name}")
-            return None
-
-        # Use detected filename if different from expected
-        final_filename = detected_filename or downloaded_path.name
-
-        # Rename if detected filename differs from what we downloaded as
-        if detected_filename and detected_filename != downloaded_path.name:
-            new_path = self.archives_dir / detected_filename
-            if new_path != downloaded_path:
-                if new_path.exists():
-                    logger.warning(
-                        f"Target file already exists: {detected_filename}, "
-                        "comparing with downloaded file"
-                    )
-
-                    # Compare the two files
-                    new_sha256 = self.calculate_sha256(new_path)
-                    downloaded_sha256 = actual_sha256  # Already calculated above
-
-                    if new_sha256 == downloaded_sha256:
-                        # Files are identical, remove downloaded duplicate
-                        logger.info(
-                            f"Downloaded file is identical to existing {detected_filename}, "
-                            "removing duplicate"
-                        )
-                        downloaded_path.unlink()
-                    else:
-                        # Files differ, replace old with new
-                        logger.info(
-                            f"Replacing existing {detected_filename} with newer version"
-                        )
-                        new_path.unlink()
-                        downloaded_path.rename(new_path)
-
-                        # Recalculate hash for the final file
-                        actual_sha256 = self.calculate_sha256(new_path)
-                        actual_size = self.get_file_size(new_path)
-                else:
-                    logger.info(f"Renaming {downloaded_path.name} → {detected_filename}")
-                    downloaded_path.rename(new_path)
-
-        logger.info(f"Processed archive: {final_filename} ({actual_size} bytes)")
-
-        return {
-            "filename": final_filename,
-            "size": actual_size,
-            "sha256": actual_sha256,
-        }
-
-    def process_existing(self, filename: str) -> dict | None:
-        """Process existing archive file (no download).
-
-        Args:
-            filename: Archive filename
-
-        Returns:
-            Dictionary with file info or None if not found
-        """
-        archive_path = self.find_archive(filename)
-        if not archive_path:
-            logger.warning(f"Archive not found: {filename}")
-            return None
-
+    def _describe(self, archive_path: Path) -> ArchiveFile | None:
+        """Return the identity of an archive on disk, or None if it cannot be read."""
         sha256 = self.calculate_sha256(archive_path)
-        size = self.get_file_size(archive_path)
-
         if not sha256:
             return None
-
-        return {"filename": filename, "size": size, "sha256": sha256}
+        return ArchiveFile(archive_path.name, archive_path.stat().st_size, sha256)
