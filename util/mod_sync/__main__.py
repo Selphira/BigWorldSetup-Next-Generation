@@ -78,6 +78,10 @@ def run_cli(args: argparse.Namespace) -> None:
         # Display summary
         print(stats.get_summary())
 
+        # Display component changes to review
+        if component_report := stats.get_component_report():
+            print(component_report)
+
         # Display GitHub report
         if github_report := stats.get_github_report():
             print(github_report)

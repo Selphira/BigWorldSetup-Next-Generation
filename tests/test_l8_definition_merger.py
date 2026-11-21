@@ -119,3 +119,113 @@ def test_incomplete_definition_is_completed_without_losing_stored_values() -> No
     assert merged["translations"] == {"en_US": {"components": {"0": "Main", "5": "Extra"}}}
     assert merged["links"] == {}
     assert merged["files"] == []
+
+
+def component_merge(existing: dict, tp2: dict) -> tuple[dict, DefinitionMerger]:
+    merger = DefinitionMerger("demo")
+    merger.add_source("tp2", tp2)
+    return merger.merge(existing), merger
+
+
+MUC_DEFINITION = {
+    "components": {
+        "0": {"type": "std"},
+        "choice_0": {"type": "muc", "components": ["1", "2"]},
+    },
+    "translations": {
+        "en_US": {
+            "components": {"0": "Old main", "choice_0": "Pick a portrait style", "1": "Old A", "2": "B"}
+        }
+    },
+}
+
+
+def test_muc_group_label_is_kept_while_other_labels_follow_tp2() -> None:
+    tp2 = {
+        "components": {"0": {"type": "std"}, "choice_0": {"type": "muc", "components": ["1", "2"]}},
+        "component_translations": {
+            "en_US": {"0": "New main", "choice_0": "Portraits", "1": "New A", "2": "B"}
+        },
+    }
+
+    merged, merger = component_merge(MUC_DEFINITION, tp2)
+
+    assert merged["translations"]["en_US"]["components"] == {
+        "0": "New main",
+        "choice_0": "Pick a portrait style",
+        "1": "New A",
+        "2": "B",
+    }
+    assert not merger.component_changes
+
+
+def test_new_muc_group_takes_its_tp2_label() -> None:
+    tp2 = {
+        "components": {"choice_0": {"type": "muc", "components": ["1"]}},
+        "component_translations": {"en_US": {"choice_0": "Portraits", "1": "A"}},
+    }
+
+    merged, _ = component_merge({"components": {}}, tp2)
+
+    assert merged["translations"]["en_US"]["components"] == {"choice_0": "Portraits", "1": "A"}
+
+
+def test_sub_prompt_labels_survive_tp2_labels() -> None:
+    existing = {
+        "components": {"0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}}}, "5": {"type": "std"}},
+        "translations": {
+            "fr_FR": {
+                "components": {"0": "Ancien", "0.1": "Question", "0.1.0": "Non", "0.1.1": "Oui", "5": "Autre"}
+            }
+        },
+    }
+    tp2 = {
+        "components": {"0": {"type": "std"}, "5": {"type": "std"}},
+        "component_translations": {"fr_FR": {"0": "Nouveau", "5": "Autre"}},
+    }
+
+    merged, merger = component_merge(existing, tp2)
+
+    assert merged["components"]["0"]["type"] == "sub"
+    assert list(merged["translations"]["fr_FR"]["components"].items()) == [
+        ("0", "Nouveau"),
+        ("0.1", "Question"),
+        ("0.1.0", "Non"),
+        ("0.1.1", "Oui"),
+        ("5", "Autre"),
+    ]
+    assert not merger.component_changes
+
+
+def test_added_removed_components_and_kept_subs_are_reported() -> None:
+    existing = {
+        "components": {
+            "0": {"type": "std"},
+            "3": {"type": "std"},
+            "9": {"type": "sub", "prompts": {}},
+            "choice_0": {"type": "muc", "components": ["10", "11"]},
+        },
+        "translations": {"en_US": {"components": {"3": "Removed", "9": "Manual SUB", "9.1": "Prompt"}}},
+    }
+    tp2 = {
+        "components": {
+            "choice_0": {"type": "muc", "components": ["4"]},
+            "0": {"type": "std"},
+            "choice_1": {"type": "muc", "components": ["10", "11"]},
+        },
+        "component_translations": {"en_US": {"choice_0": "New group", "4": "New", "0": "Main"}},
+    }
+
+    merged, merger = component_merge(existing, tp2)
+
+    assert merger.component_changes.added == ("4",)
+    assert merger.component_changes.removed == ("3",)
+    assert merger.component_changes.kept_subs == ("9",)
+    assert "9" in merged["components"]
+    assert merged["translations"]["en_US"]["components"] == {
+        "choice_0": "New group",
+        "4": "New",
+        "0": "Main",
+        "9": "Manual SUB",
+        "9.1": "Prompt",
+    }

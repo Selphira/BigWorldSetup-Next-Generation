@@ -3,6 +3,11 @@
 Field contract: an absent, null or empty value (string, list, dict) from a
 source never replaces stored data, while zero and False are genuine values.
 Source values are copied, so merging never mutates the sources.
+
+Component labels follow the TP2, except those of MUC groups: their
+``choice_N`` key depends on the group rank, so the stored label is kept.
+Labels the TP2 does not provide (SUB prompts, manual components) are kept
+while their component remains in the definition.
 """
 
 from __future__ import annotations
@@ -11,7 +16,12 @@ import copy
 import logging
 from typing import Any
 
+from util.mod_sync.models.sync_result import ComponentChanges
+
 logger = logging.getLogger(__name__)
+
+# Separates a SUB component key from its prompt and option ("0.1.2").
+SUB_LABEL_SEPARATOR = "."
 
 
 def has_value(value: Any) -> bool:
@@ -43,6 +53,7 @@ class DefinitionMerger:
         """Initialize merger."""
         self.sources: dict[str, dict[str, Any]] = {}
         self.tp2_name = tp2_name
+        self.component_changes = ComponentChanges()
 
     def add_source(self, name: str, data: dict[str, Any]) -> None:
         """Add a data source.
@@ -75,10 +86,10 @@ class DefinitionMerger:
 
         self._derive_games(result)
 
-        # Special handling for complex fields
+        # Special handling for complex fields; labels depend on merged components
         self._merge_languages(result)
-        self._merge_translations(result)
         self._merge_components(result)
+        self._merge_translations(result)
         self._merge_links(result)
 
         return result
@@ -238,10 +249,15 @@ class DefinitionMerger:
         # Component translations: TP2 only
         if "tp2" in self.sources:
             tp2_translations = self.sources["tp2"].get("component_translations") or {}
-            for lang_code, components in tp2_translations.items():
+            for lang_code, tp2_labels in tp2_translations.items():
                 entry = self._translation_entry(translations, lang_code)
-                entry["components"] = copy.deepcopy(components)
-                logger.debug(f"Set {len(components)} component translations for {lang_code}")
+                stored_labels = entry.get("components")
+                entry["components"] = self._merge_component_labels(
+                    stored_labels if isinstance(stored_labels, dict) else {},
+                    tp2_labels,
+                    result["components"],
+                )
+                logger.debug(f"Set {len(tp2_labels)} component translations for {lang_code}")
 
     @staticmethod
     def _translation_entry(translations: dict, lang_code: str) -> dict:
@@ -250,11 +266,63 @@ class DefinitionMerger:
             translations[lang_code] = {}
         return translations[lang_code]
 
+    @classmethod
+    def _merge_component_labels(
+        cls,
+        stored_labels: dict[str, str],
+        tp2_labels: dict[str, str],
+        components: dict[str, Any],
+    ) -> dict[str, str]:
+        """Merge the component labels of one language, in TP2 order.
+
+        Stored labels the TP2 does not provide stay right after their owning
+        component; labels of components removed from the definition are dropped.
+        """
+        owners = {*components, *cls._installable_keys(components)}
+        kept_labels = {
+            key: label
+            for key, label in stored_labels.items()
+            if key not in tp2_labels and has_value(label) and cls._label_owner(key) in owners
+        }
+
+        labels: dict[str, str] = {}
+        for key, tp2_label in tp2_labels.items():
+            stored_label = stored_labels.get(key)
+            keep_stored = cls._is_muc_group(components.get(key)) or not has_value(tp2_label)
+            labels[key] = stored_label if keep_stored and has_value(stored_label) else tp2_label
+            labels.update(
+                {extra: label for extra, label in kept_labels.items() if cls._label_owner(extra) == key}
+            )
+
+        labels.update(kept_labels)
+        return labels
+
+    @staticmethod
+    def _label_owner(label_key: str) -> str:
+        """Return the component key a label belongs to (a SUB prompt belongs to its SUB)."""
+        return label_key.split(SUB_LABEL_SEPARATOR, 1)[0]
+
+    @staticmethod
+    def _is_muc_group(component: Any) -> bool:
+        return isinstance(component, dict) and component.get("type") == "muc"
+
+    @classmethod
+    def _installable_keys(cls, components: dict[str, Any]) -> list[str]:
+        """Return the installable component keys: MUC groups stand for their choices."""
+        keys: dict[str, None] = {}
+        for key, component in components.items():
+            if cls._is_muc_group(component):
+                keys.update(dict.fromkeys(str(choice) for choice in component.get("components") or []))
+            else:
+                keys[key] = None
+        return list(keys)
+
     def _merge_components(self, result: dict) -> None:
         """Merge component definitions (TP2 only).
 
         Components are ONLY extracted from TP2, never from LCC.
         """
+        self.component_changes = ComponentChanges()
         if "tp2" not in self.sources or "components" not in self.sources["tp2"]:
             return
 
@@ -301,6 +369,7 @@ class DefinitionMerger:
                 logger.debug(f"Added new component {component_key} from TP2")
 
         # Step 2: Preserve SUB components (not in TP2, added manually)
+        kept_subs: list[str] = []
         for component_key, component_data in existing_components.items():
             if (
                 isinstance(component_data, dict)
@@ -308,18 +377,30 @@ class DefinitionMerger:
                 and component_key not in merged_components
             ):
                 merged_components[component_key] = component_data.copy()
+                kept_subs.append(component_key)
                 logger.debug(f"Preserved SUB component {component_key} (not in TP2)")
 
         result["components"] = merged_components
-
-        # Log summary
-        added = len(merged_components) - len(existing_components)
-        removed = len(existing_components) - len(
-            [k for k in existing_components if k in merged_components]
+        self.component_changes = self._component_changes(
+            existing_components, merged_components, kept_subs
         )
-        logger.debug(
-            f"Component merge: {len(merged_components)} total "
-            f"(+{added} new, -{removed} removed, {len(existing_components)} preserved)"
+        if self.component_changes:
+            logger.info(f"{self.tp2_name}: {self.component_changes.describe()}")
+
+    @classmethod
+    def _component_changes(
+        cls,
+        existing_components: dict[str, Any],
+        merged_components: dict[str, Any],
+        kept_subs: list[str],
+    ) -> ComponentChanges:
+        """Compare installable components before and after the TP2 merge."""
+        existing_keys = cls._installable_keys(existing_components)
+        merged_keys = cls._installable_keys(merged_components)
+        return ComponentChanges(
+            added=tuple(key for key in merged_keys if key not in existing_keys),
+            removed=tuple(key for key in existing_keys if key not in merged_keys),
+            kept_subs=tuple(kept_subs),
         )
 
     def _merge_links(self, result: dict) -> None:

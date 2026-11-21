@@ -18,6 +18,33 @@ class SyncStatus(Enum):
     SKIPPED = "skipped"
 
 
+@dataclass(frozen=True)
+class ComponentChanges:
+    """Component differences a TP2 merge brings to a stored definition.
+
+    Keys are installable components: a MUC group stands for its choices,
+    since its ``choice_N`` key only reflects its rank in the TP2.
+    """
+
+    added: tuple[str, ...] = ()
+    removed: tuple[str, ...] = ()
+    kept_subs: tuple[str, ...] = ()
+
+    def __bool__(self) -> bool:
+        return bool(self.added or self.removed or self.kept_subs)
+
+    def describe(self) -> str:
+        """Return a one-line report of the changes to review."""
+        sections = [
+            ("added", self.added),
+            ("removed", self.removed),
+            ("SUB kept outside TP2", self.kept_subs),
+        ]
+        return "; ".join(
+            f"components {label}: {', '.join(keys)}" for label, keys in sections if keys
+        )
+
+
 @dataclass
 class ModSyncResult:
     """Result of synchronizing a single mod."""
@@ -26,6 +53,7 @@ class ModSyncResult:
     status: SyncStatus
     message: str = ""
     sources_used: list[str] = field(default_factory=list)
+    component_changes: ComponentChanges = field(default_factory=ComponentChanges)
 
     def __str__(self) -> str:
         icon = {
@@ -35,7 +63,10 @@ class ModSyncResult:
             SyncStatus.ERROR: "✗",
             SyncStatus.SKIPPED: "⚠",
         }[self.status]
-        return f"{icon} {self.tp2_name}: {self.status.value} {self.message}"
+        text = f"{icon} {self.tp2_name}: {self.status.value} {self.message}"
+        if self.component_changes:
+            text += f" [{self.component_changes.describe()}]"
+        return text
 
 
 @dataclass
@@ -79,6 +110,17 @@ Total LCC mods: {self.total_lcc_mods}
 ⚠ Skipped: {self.skipped}
 ✗ Errors: {self.errors}
 """
+
+    def get_component_report(self) -> str:
+        """Get the component changes to review, one line per mod."""
+        changed = [result for result in self.results if result.component_changes]
+        if not changed:
+            return ""
+
+        report = "\n=== Component Changes ===\n"
+        for result in changed:
+            report += f"  {result.tp2_name}: {result.component_changes.describe()}\n"
+        return report
 
     def get_github_report(self) -> str:
         """Get GitHub outdated mods report."""

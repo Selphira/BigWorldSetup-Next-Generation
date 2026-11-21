@@ -11,6 +11,7 @@ from core.CompactJSONEncoder import CompactJSONEncoder
 from util.mod_sync.extractors.selective_extractor import SelectiveExtractor
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
 from util.mod_sync.models.sync_result import (
+    ComponentChanges,
     ModSyncResult,
     SyncConfig,
     SyncStats,
@@ -195,8 +196,10 @@ class ModSyncOrchestrator:
             if ini_data:
                 merger.add_source("ini", ini_data)
                 sources_used.append("ini")
-        # Merge
+
+        # Merge; a new definition has no stored components to compare with
         merged = merger.merge(existing)
+        component_changes = merger.component_changes if existing else ComponentChanges()
 
         # Resolve GitHub link if needed
         if self._should_resolve_github(merged):
@@ -278,6 +281,7 @@ class ModSyncOrchestrator:
                 tp2_name=tp2_name,
                 status=SyncStatus.UNCHANGED,
                 sources_used=sources_used,
+                component_changes=component_changes,
             )
 
         # Save definition
@@ -288,6 +292,7 @@ class ModSyncOrchestrator:
                 tp2_name=tp2_name,
                 status=status,
                 sources_used=sources_used,
+                component_changes=component_changes,
             )
         except Exception as e:
             logger.error(f"Error saving definition {tp2_name}: {e}")

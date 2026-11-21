@@ -109,3 +109,28 @@ def test_unreadable_definition_is_reported_and_left_untouched(definitions_dir: P
 
     assert statuses["c#brage"] == SyncStatus.ERROR
     assert existing_path.read_text(encoding="utf-8") == '{"name": "Manual work",'
+
+
+class FixedTP2Source:
+    """TP2 source returning the same parsed data for every mod."""
+
+    def __init__(self, data: dict) -> None:
+        self.data = data
+
+    def extract(self, tp2_name: str, supported_games: set[str] | None = None) -> dict:
+        return self.data
+
+
+def test_component_changes_are_reported_for_existing_definitions(definitions_dir: Path) -> None:
+    stored = {"games": ["bg2ee", "eet"], "components": {"0": {"type": "std"}, "1": {"type": "std"}}}
+    (definitions_dir / "c#brage.json").write_text(json.dumps(stored), encoding="utf-8")
+    config = SyncConfig(definitions_dir=definitions_dir, mod_filter=ModFilter(frozenset({"c#brage", "ascension"})))
+    orchestrator = ModSyncOrchestrator(config)
+    orchestrator.tp2_source = FixedTP2Source({"components": {"0": {"type": "std"}, "2": {"type": "std"}}})
+
+    stats = orchestrator.run()
+
+    changes = {result.tp2_name: result.component_changes for result in stats.results}
+    assert (changes["c#brage"].added, changes["c#brage"].removed) == (("2",), ("1",))
+    assert not changes["ascension"]
+    assert "c#brage: components added: 2; components removed: 1" in stats.get_component_report()

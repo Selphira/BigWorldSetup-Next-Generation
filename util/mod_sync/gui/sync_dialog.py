@@ -396,6 +396,10 @@ class ModSyncDialog(QDialog):
         summary = stats.get_summary()
         self.log_text.append(f"<pre>{summary}</pre>")
 
+        # Display component changes to review
+        if component_report := stats.get_component_report():
+            self.log_text.append(f"<pre>{component_report}</pre>")
+
         # Display GitHub report if any
         if github_report := stats.get_github_report():
             self.log_text.append(f"<pre>{github_report}</pre>")

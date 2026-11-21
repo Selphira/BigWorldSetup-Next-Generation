@@ -1,6 +1,7 @@
 """Data models for synchronization.
 
 This package contains:
+- ComponentChanges: Component differences brought by a TP2 merge
 - SyncConfig: Configuration for synchronization
 - ModFilter: Explicit selection of the mods to synchronize
 - SyncStats: Statistics from synchronization
@@ -9,6 +10,7 @@ This package contains:
 """
 
 from util.mod_sync.models.sync_result import (
+    ComponentChanges,
     ModFilter,
     ModSyncResult,
     SyncConfig,
@@ -17,6 +19,7 @@ from util.mod_sync.models.sync_result import (
 )
 
 __all__ = [
+    "ComponentChanges",
     "ModFilter",
     "ModSyncResult",
     "SyncConfig",
