@@ -38,6 +38,7 @@ from constants import (
     COLOR_BACKGROUND_HIGHLIGHT,
     COLOR_TEXT_HIGHLIGHT,
     FLAGS_DIR,
+    JSON_FILE_FILTER,
     MARGIN_SMALL,
     MARGIN_STANDARD,
     MAX_SEARCH_LENGTH,
@@ -710,7 +711,7 @@ class ModSelectionPage(BasePage):
         """Import selection from JSON file."""
         file_path, replace = self._show_import_dialog(
             title=tr("page.selection.import_select_file"),
-            name_filter="JSON Files (*.json);;All Files (*.*)",
+            name_filter=JSON_FILE_FILTER,
         )
 
         if not file_path:
@@ -849,13 +850,12 @@ class ModSelectionPage(BasePage):
         )
 
     def _export_selection(self) -> None:
-        """Export current order to JSON file."""
+        """Export current selection to JSON file."""
         self.save_state()
 
         selected_components = self.export_selection()
         total = len(selected_components)
 
-        # Check if there's any selected components
         if total == 0:
             QMessageBox.warning(
                 self,
@@ -864,50 +864,30 @@ class ModSelectionPage(BasePage):
             )
             return
 
-        # Ask for save location
         selected_game = self.state_manager.get_selected_game()
-        file_path, _ = QFileDialog.getSaveFileName(
-            self,
-            tr("page.selection.export_select_file"),
-            f"{selected_game}_selection.json",
-            "JSON Files (*.json);;All Files (*.*)",
+        file_path = self._ask_json_save_path(
+            tr("page.selection.export_select_file"), f"{selected_game}_selection.json"
         )
-
-        if not file_path:
+        if file_path is None:
             return
 
-        if not file_path.endswith(".json"):
-            file_path += ".json"
-
         try:
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(
-                    {
-                        "catalogue_revision": SelectionImport.catalogue_revision(
-                            IndexManager.get_indexes()
-                        ),
-                        "components": selected_components,
-                    },
-                    f,
-                    indent=2,
-                    ensure_ascii=False,
-                )
-
-            QMessageBox.information(
-                self,
-                tr("page.selection.export_success_title"),
-                tr("page.selection.export_success_message", count=total, path=file_path),
-            )
-
-            logger.info(f"Exported selection to {file_path}: {total} components")
-
-        except Exception as e:
-            logger.error(f"Error exporting order: {e}", exc_info=True)
+            SelectionImport.export(file_path, selected_components, IndexManager.get_indexes())
+        except OSError as e:
+            logger.error("Error exporting selection: %s", e, exc_info=True)
             QMessageBox.critical(
                 self,
                 tr("page.selection.export_error_title"),
                 tr("page.selection.export_error_message", error=str(e)),
             )
+            return
+
+        logger.info("Exported selection to %s: %d components", file_path, total)
+        QMessageBox.information(
+            self,
+            tr("page.selection.export_success_title"),
+            tr("page.selection.export_success_message", count=total, path=str(file_path)),
+        )
 
     # ========================================
     # Filtering

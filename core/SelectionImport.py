@@ -3,8 +3,9 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 from hashlib import sha256
-from pathlib import PureWindowsPath
+from pathlib import Path, PureWindowsPath
 
+from core.atomic_io import write_json_atomic
 from core.ComponentReference import ComponentReference, ReferenceIndexes
 from core.Mod import Mod
 
@@ -34,6 +35,23 @@ class SelectionImport:
             )
         )
         return sha256("\n".join(identities).encode()).hexdigest()
+
+    @classmethod
+    def export(cls, path: Path, references: list[str], indexes: ReferenceIndexes) -> None:
+        """Write a selection with the catalogue revision it was made against.
+
+        Args:
+            path: Destination JSON file
+            references: Selected component references, unresolved ones included
+            indexes: Active catalogue indexes
+        """
+        write_json_atomic(
+            path,
+            {
+                "catalogue_revision": cls.catalogue_revision(indexes),
+                "components": references,
+            },
+        )
 
     @classmethod
     def reconcile(cls, entries: list[str], indexes: ReferenceIndexes) -> "SelectionImport":

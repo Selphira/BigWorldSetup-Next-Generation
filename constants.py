@@ -66,6 +66,9 @@ ARCHIVE_REGISTRY_FORMAT = 1
 # Unreadable persisted files are renamed "<name><suffix><timestamp>" for diagnosis
 UNREADABLE_FILE_SUFFIX = ".unreadable-"
 UNREADABLE_FILE_STAMP_FORMAT = "%Y%m%d-%H%M%S"
+# Selections and install orders exported by the user
+JSON_FILE_SUFFIX = ".json"
+JSON_FILE_FILTER = "JSON Files (*.json);;All Files (*.*)"
 
 # Extraction: proof of preparation, kept under EXTRACT_DIR of each game folder
 EXTRACT_MANIFEST_DIR = ".manifests"

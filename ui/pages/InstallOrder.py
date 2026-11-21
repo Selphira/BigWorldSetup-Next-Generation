@@ -41,6 +41,7 @@ from constants import (
     COLOR_BLEND_BROAD_RULE_ROW,
     ICON_ERROR,
     ICON_WARNING,
+    JSON_FILE_FILTER,
     MARGIN_SMALL,
     MARGIN_STANDARD,
     ROLE_COMPONENT,
@@ -884,7 +885,7 @@ class InstallOrderPage(BasePage):
             self,
             tr("page.order.import_select_file"),
             "",
-            "JSON Files (*.json);;All Files (*.*)",
+            JSON_FILE_FILTER,
         )
 
         if not file_path:
@@ -945,20 +946,12 @@ class InstallOrderPage(BasePage):
             )
             return
 
-        # Ask for save location
         selected_game = self.state_manager.get_selected_game()
-        file_path, _ = QFileDialog.getSaveFileName(
-            self,
-            tr("page.order.export_select_file"),
-            f"{selected_game}_order.json",
-            "JSON Files (*.json);;All Files (*.*)",
+        file_path = self._ask_json_save_path(
+            tr("page.order.export_select_file"), f"{selected_game}_order.json"
         )
-
-        if not file_path:
+        if file_path is None:
             return
-
-        if not file_path.endswith(".json"):
-            file_path += ".json"
 
         try:
             self._import_export_manager.export_to_json(install_order, file_path)
@@ -969,7 +962,7 @@ class InstallOrderPage(BasePage):
                 tr(
                     "page.order.export_success_message",
                     count=stats["total_components"],
-                    path=file_path,
+                    path=str(file_path),
                 ),
             )
         except OrderImportError as e:

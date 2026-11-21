@@ -1,5 +1,6 @@
 """Selection, installation and import contracts across catalogue revisions."""
 
+import json
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
@@ -286,6 +287,23 @@ def test_b23_import_reports_missing_and_exclusive_choices(catalogue: ModCatalogu
     assert report.ambiguous == {"demo:10", "demo:11"}
     assert report.kept == set(refs("demo:1"))
     assert report.remapped == {"DEMO:1": refs("demo:1")[0]}
+
+
+def test_exported_selection_keeps_unresolved_references_and_revision(
+    tmp_path: Path, catalogue: ModCatalogue
+) -> None:
+    indexes = IndexManager.get_indexes()
+    indexes.register_component(catalogue.get_mod_by_id("demo").get_component("1"))
+    destination = tmp_path / "bgee_selection.json"
+
+    SelectionImport.export(destination, ["demo:1", "gone:1"], indexes)
+
+    exported = json.loads(destination.read_text(encoding="utf-8"))
+    assert exported == {
+        "catalogue_revision": SelectionImport.catalogue_revision(indexes),
+        "components": ["demo:1", "gone:1"],
+    }
+    assert SelectionImport.reconcile(exported["components"], indexes).missing == {"gone:1"}
 
 
 def test_b23_load_order_with_removed_mod(

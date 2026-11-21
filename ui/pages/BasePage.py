@@ -4,11 +4,12 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from dataclasses import dataclass
 import logging
+from pathlib import Path
 
 from PySide6.QtCore import Qt, QThread, Signal
-from PySide6.QtWidgets import QFrame, QLabel, QPushButton, QWidget
+from PySide6.QtWidgets import QFileDialog, QFrame, QLabel, QPushButton, QWidget
 
-from constants import COLOR_BACKGROUND_ACCENTED
+from constants import COLOR_BACKGROUND_ACCENTED, JSON_FILE_FILTER, JSON_FILE_SUFFIX
 from core.GameModels import GameDefinition
 from core.StateManager import StateManager
 from core.TranslationManager import tr
@@ -135,6 +136,24 @@ class BasePage(QWidget, metaclass=QWidgetABCMeta):
         separator.setFrameShape(QFrame.Shape.HLine)
         separator.setStyleSheet(f"background-color: {COLOR_BACKGROUND_ACCENTED};")
         return separator
+
+    def _ask_json_save_path(self, title: str, default_name: str) -> Path | None:
+        """Ask where to export a JSON file, enforcing its extension.
+
+        Args:
+            title: Dialog window title
+            default_name: Suggested file name, extension included
+
+        Returns:
+            Chosen destination, or None if cancelled
+        """
+        file_path, _ = QFileDialog.getSaveFileName(self, title, default_name, JSON_FILE_FILTER)
+        if not file_path:
+            return None
+
+        if not file_path.endswith(JSON_FILE_SUFFIX):
+            file_path += JSON_FILE_SUFFIX
+        return Path(file_path)
 
     # ========================================
     # PAGE METADATA (REQUIRED)
