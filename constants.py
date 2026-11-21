@@ -50,6 +50,13 @@ THEMES_DIR = RESOURCES_DIR / "themes"
 # Cache subdirectories
 LCC_CACHE_DIR = CACHE_DIR / "lcc"
 
+# Localized caches are written "<prefix>_<language>.json" in CACHE_DIR
+MOD_CACHE_PREFIX = "mods"
+RULE_CACHE_PREFIX = "rules"
+# Build progress (%) reached once sources are loaded, before localization
+MOD_CACHE_LOCALIZATION_PROGRESS = 20
+RULE_CACHE_LOCALIZATION_PROGRESS = 10
+
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
 INSTALLATION_JOURNAL_NAME = "installation-run.json"

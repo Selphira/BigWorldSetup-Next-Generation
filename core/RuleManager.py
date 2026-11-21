@@ -9,10 +9,20 @@ import logging
 from pathlib import Path
 from typing import Any, Protocol
 
-from PySide6.QtCore import QObject, QThread, Signal
-
-from constants import CACHE_DIR, RULES_DIR
+from constants import (
+    CACHE_DIR,
+    RULE_CACHE_LOCALIZATION_PROGRESS,
+    RULE_CACHE_PREFIX,
+    RULES_DIR,
+)
 from core.ComponentReference import ComponentReference, IndexManager
+from core.LocalizedCache import (
+    CacheGroups,
+    LocalizedCacheBuilder,
+    LocalizedCacheManager,
+    first_translation,
+    is_cache_stale,
+)
 from core.ModManager import ModManager
 from core.Rules import (
     ComponentGroup,
@@ -27,6 +37,14 @@ from core.Rules import (
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
+
+# Rule types, each read from "<rule type>.json" in the rules directory
+RULE_TYPES = ("dependencies", "incompatibilities", "order")
+
+
+def rule_source_file(rules_dir: Path, rule_type: str) -> Path:
+    """Return the source file of a rule type."""
+    return rules_dir / f"{rule_type}.json"
 
 
 class GroupOperator(Enum):
@@ -229,13 +247,12 @@ class ValidationState:
         self.active_components = set(order)
 
 
-class RuleCacheBuilderThread(QThread):
+class RuleCacheBuilderThread(LocalizedCacheBuilder):
     """Thread for building rule cache without blocking UI."""
 
-    progress = Signal(int)  # Progress 0-100
-    status_changed = Signal(str)  # Status message
-    finished = Signal(bool)  # True if success, False if error
-    error = Signal(str)  # Error message
+    cache_prefix = RULE_CACHE_PREFIX
+    cache_label = "rule cache"
+    localization_progress_start = RULE_CACHE_LOCALIZATION_PROGRESS
 
     def __init__(self, rules_dir: Path, cache_dir: Path, languages: list[str]) -> None:
         """
@@ -246,122 +263,59 @@ class RuleCacheBuilderThread(QThread):
             cache_dir: Directory for cache output
             languages: Languages to build cache for
         """
-        super().__init__()
+        super().__init__(cache_dir, languages)
         self.rules_dir = rules_dir
-        self.cache_dir = cache_dir
-        self.languages = languages
-        self._should_stop = False
 
-    def run(self) -> None:
-        """Build cache for all languages."""
+    def _load_sources(self) -> CacheGroups | None:
+        """Load and expand the rules of each type; a missing or invalid file gives no rules."""
+        self.status_changed.emit(tr("app.loading_rules"))
+        self.status_changed.emit(tr("app.parsing_rules"))
+
+        source_data = {
+            rule_type: self._load_rule_file(rule_type, rule_source_file(self.rules_dir, rule_type))
+            for rule_type in RULE_TYPES
+        }
+
+        if not any(source_data.values()):
+            logger.warning("No rules found in source files")
+
+        return source_data
+
+    def _localize_entry(self, entry: dict[str, Any], language: str) -> dict[str, Any]:
+        return self._localize_rule(entry, language)
+
+    @staticmethod
+    def _load_rule_file(rule_type: str, file_path: Path) -> list[dict[str, Any]]:
+        """Read a rule file and expand each expression into cacheable rules."""
+        if not file_path.exists():
+            logger.warning(f"Rule file not found: {file_path}")
+            return []
+
         try:
-            self.status_changed.emit(tr("app.loading_rules"))
-
-            source_files = {
-                "dependencies": self.rules_dir / "dependencies.json",
-                "incompatibilities": self.rules_dir / "incompatibilities.json",
-                "order": self.rules_dir / "order.json",
-            }
-
-            self.status_changed.emit(tr("app.parsing_rules"))
-            source_data = {}
-
-            for rule_type, file_path in source_files.items():
-                if file_path.exists():
-                    try:
-                        with open(file_path, "r", encoding="utf-8") as f:
-                            data = json.load(f)
-                            raw_rules = data.get("rules", [])
-
-                            expanded_rules = []
-                            for rule in raw_rules:
-                                try:
-                                    expression = RuleExpression.parse(rule["rule"])
-
-                                    if rule_type == "incompatibilities":
-                                        expanded = expression.to_incompatibility_rules(rule)
-                                        expanded_rules.extend(expanded)
-
-                                    elif rule_type == "dependencies":
-                                        expanded_rule = expression.to_dependency_rule(rule)
-                                        expanded_rules.append(expanded_rule)
-
-                                    elif rule_type == "order":
-                                        expanded_rule = expression.to_order_rule(rule)
-                                        expanded_rules.append(expanded_rule)
-
-                                except Exception as e:
-                                    logger.error(
-                                        f"Error expanding rule '{rule.get('rule')}': {e}"
-                                    )
-
-                            source_data[rule_type] = expanded_rules
-
-                    except Exception as e:
-                        logger.error(f"Error loading {file_path.name}: {e}")
-                        source_data[rule_type] = []
-                else:
-                    logger.warning(f"Rule file not found: {file_path}")
-                    source_data[rule_type] = []
-
-            # Count total rules for progress tracking
-            total_rules = sum(len(rules) for rules in source_data.values())
-
-            if total_rules == 0:
-                logger.warning("No rules found in source files")
-
-            self.progress.emit(10)  # Initial progress
-
-            total_languages = len(self.languages)
-            current_step = 0
-            total_steps = total_languages * total_rules if total_rules > 0 else total_languages
-
-            for lang in self.languages:
-                if self._should_stop:
-                    self.finished.emit(False)
-                    return
-
-                self.status_changed.emit(tr("app.generating_cache_for_lang", lang=lang))
-
-                # Localize all rule types
-                localized_data = {}
-
-                for rule_type, rules_list in source_data.items():
-                    localized_rules = []
-
-                    for rule in rules_list:
-                        if self._should_stop:
-                            self.finished.emit(False)
-                            return
-
-                        localized_rules.append(self._localize_rule(rule, lang))
-
-                        current_step += 1
-                        # Progress 10-100%
-                        progress_value = 10 + int((current_step / total_steps) * 90)
-                        self.progress.emit(progress_value)
-
-                    localized_data[rule_type] = localized_rules
-
-                # Save cache
-                cache_path = self.cache_dir / f"rules_{lang}.json"
-                with open(cache_path, "w", encoding="utf-8") as f:
-                    json.dump(localized_data, f, indent=2, ensure_ascii=False)
-
-                logger.info(f"Rule cache generated for {lang}: {cache_path}")
-
-            self.status_changed.emit(tr("app.cache_generated_successfully"))
-            self.progress.emit(100)
-            self.finished.emit(True)
-
+            with open(file_path, "r", encoding="utf-8") as f:
+                raw_rules = json.load(f).get("rules", [])
         except Exception as e:
-            logger.exception(f"Error during rule cache generation: {e}")
-            self.error.emit(f"Error during rule cache generation: {e}")
-            self.finished.emit(False)
+            logger.error(f"Error loading {file_path.name}: {e}")
+            return []
 
-    def stop(self) -> None:
-        """Request thread to stop gracefully."""
-        self._should_stop = True
+        expanded_rules = []
+        for rule in raw_rules:
+            try:
+                expression = RuleExpression.parse(rule["rule"])
+
+                if rule_type == "incompatibilities":
+                    expanded_rules.extend(expression.to_incompatibility_rules(rule))
+
+                elif rule_type == "dependencies":
+                    expanded_rules.append(expression.to_dependency_rule(rule))
+
+                elif rule_type == "order":
+                    expanded_rules.append(expression.to_order_rule(rule))
+
+            except Exception as e:
+                logger.error(f"Error expanding rule '{rule.get('rule')}': {e}")
+
+        return expanded_rules
 
     @staticmethod
     def _localize_rule(rule: dict[str, Any], target_lang: str) -> dict[str, Any]:
@@ -390,20 +344,7 @@ class RuleCacheBuilderThread(QThread):
                 result["description"] = ""
             return result
 
-        # Fallback order: target language first, then others
-        fallback_order = [target_lang] + [
-            lang for lang in translations if lang != target_lang
-        ]
-
-        # Resolve description with fallback
-        description = ""
-        for lang in fallback_order:
-            desc = translations.get(lang, "")
-            if desc:
-                description = desc
-                break
-
-        result["description"] = description
+        result["description"] = first_translation(translations, target_lang, lambda text: text)
         return result
 
 
@@ -499,22 +440,19 @@ class TrivialCondition:
 # ===================================================================
 
 
-class RuleManager(QObject):
+class RuleManager(LocalizedCacheManager):
     """Manages rules."""
 
-    cache_ready = Signal(bool)  # Emitted when cache is ready
-    cache_building = Signal()  # Emitted when cache building starts
-    cache_error = Signal(str)  # Emitted on error
+    cache_prefix = RULE_CACHE_PREFIX
+    cache_label = "rule cache"
 
     def __init__(
         self, mod_manager: ModManager, rules_dir: Path = RULES_DIR, cache_dir: Path = CACHE_DIR
     ) -> None:
         """Initialize rule manager."""
-        super().__init__()
+        super().__init__(cache_dir)
 
         self.rules_dir = rules_dir
-        self.cache_dir = cache_dir
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         self._mod_manager = mod_manager
         self._current_game_id: str | None = None
@@ -540,101 +478,32 @@ class RuleManager(QObject):
         self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = defaultdict(list)
         self._last_selection_hash: int | None = None
 
-        # Cache builder thread
-        self.builder_thread: RuleCacheBuilderThread | None = None
-
     # ========================================
     # CACHE MANAGEMENT
     # ========================================
 
     def needs_cache_rebuild(self) -> bool:
-        """Check if cache needs to be rebuilt."""
-        return self._should_rebuild_cache()
-
-    def build_cache_async(self) -> bool:
-        """Start asynchronous cache building."""
-        if self.builder_thread is not None and self.builder_thread.isRunning():
-            logger.warning("Rule cache build already in progress")
-            return False
-
-        self.cache_building.emit()
-
-        self.builder_thread = RuleCacheBuilderThread(
-            self.rules_dir, self.cache_dir, [lang for lang, _ in SUPPORTED_LANGUAGES]
-        )
-
-        self.builder_thread.finished.connect(self._on_cache_build_finished)
-        self.builder_thread.error.connect(self._on_cache_build_error)
-        self.builder_thread.start()
-
-        logger.info("Rule cache build thread started")
-        return True
-
-    def _on_cache_build_finished(self, success: bool) -> None:
-        """Called when cache building finishes."""
-        if success:
-            if self.load_cache():
-                logger.info("Rule cache loaded successfully after build")
-                self.cache_ready.emit(True)
-            else:
-                error_msg = "Error loading rule cache after build"
-                logger.error(error_msg)
-                self.cache_error.emit(error_msg)
-        else:
-            error_msg = "Rule cache build failed"
-            logger.error(error_msg)
-            self.cache_error.emit(error_msg)
-
-        self.builder_thread = None
-
-    def _on_cache_build_error(self, error_message: str) -> None:
-        """Called on cache build error."""
-        logger.error(f"Rule cache build error: {error_message}")
-        self.cache_error.emit(error_message)
-        self.builder_thread = None
-
-    def _should_rebuild_cache(self) -> bool:
-        """Check if cache should be rebuilt."""
-        for lang, _ in SUPPORTED_LANGUAGES:
-            cache_file = self.cache_dir / f"rules_{lang}.json"
-            if not cache_file.exists():
-                logger.info(f"Rule cache missing for {lang}")
-                return True
-
-        source_files = [
-            self.rules_dir / "dependencies.json",
-            self.rules_dir / "incompatibilities.json",
-            self.rules_dir / "order.json",
+        """Check if cache needs to be rebuilt; without any rule file the cache is kept."""
+        existing_sources = [
+            source_file
+            for rule_type in RULE_TYPES
+            if (source_file := rule_source_file(self.rules_dir, rule_type)).exists()
         ]
 
-        existing_sources = [f for f in source_files if f.exists()]
+        if is_cache_stale(self._cache_files(), existing_sources):
+            return True
 
         if not existing_sources:
             logger.warning("No source rule files found")
-            return False
-
-        try:
-            last_source_mod = max(f.stat().st_mtime for f in existing_sources)
-
-            # Compare with oldest cache
-            oldest_cache = min(
-                (self.cache_dir / f"rules_{lang}.json").stat().st_mtime
-                for lang, _ in SUPPORTED_LANGUAGES
-            )
-
-            if last_source_mod > oldest_cache:
-                logger.info("Source rule files newer than cache")
-                return True
-
-        except OSError as e:
-            logger.error(f"Error checking rule file timestamps: {e}")
-            return True
 
         return False
 
+    def _create_cache_builder(self, languages: list[str]) -> RuleCacheBuilderThread:
+        return RuleCacheBuilderThread(self.rules_dir, self.cache_dir, languages)
+
     def load_cache(self) -> bool:
         """Load cached rules for current language."""
-        cache_file = self.cache_dir / f"rules_{self.current_language}.json"
+        cache_file = self._cache_file(self.current_language)
 
         if not cache_file.exists():
             logger.error(f"Rule cache file not found: {cache_file}")

@@ -11,23 +11,41 @@ import logging
 from pathlib import Path
 from typing import Any, cast
 
-from PySide6.QtCore import QObject, QThread, Signal
-
-from constants import CACHE_DIR, CUSTOM_MODS_DIR, MODS_DIR
+from constants import (
+    CACHE_DIR,
+    CUSTOM_MODS_DIR,
+    MOD_CACHE_LOCALIZATION_PROGRESS,
+    MOD_CACHE_PREFIX,
+    MODS_DIR,
+)
 from core.ComponentReference import ComponentReference, IndexManager
+from core.LocalizedCache import (
+    CacheGroups,
+    LocalizedCacheBuilder,
+    LocalizedCacheManager,
+    first_translation,
+    is_cache_stale,
+)
 from core.Mod import Mod, MucComponent, SubComponent
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
 
+# Single cache group: the mod cache file is a plain list of mods
+MOD_CACHE_GROUP = "mods"
 
-class CacheBuilderThread(QThread):
-    """Thread for building cache without blocking UI."""
 
-    progress = Signal(int)  # Progress 0-100
-    status_changed = Signal(str)  # Status message
-    finished = Signal(bool)  # True if success, False if error
-    error = Signal(str)  # Error message
+def list_json_files(directory: Path) -> list[Path]:
+    """Return the JSON files of a directory, or nothing if it does not exist."""
+    return list(directory.glob("*.json")) if directory.exists() else []
+
+
+class CacheBuilderThread(LocalizedCacheBuilder):
+    """Thread building the mod cache without blocking UI."""
+
+    cache_prefix = MOD_CACHE_PREFIX
+    cache_label = "mod cache"
+    localization_progress_start = MOD_CACHE_LOCALIZATION_PROGRESS
 
     def __init__(
         self, mods_dir: Path, custom_mods_dir: Path, cache_dir: Path, languages: list[str]
@@ -41,104 +59,52 @@ class CacheBuilderThread(QThread):
             cache_dir: Directory for cache output
             languages: Languages to build cache for
         """
-        super().__init__()
+        super().__init__(cache_dir, languages)
         self.mods_dir = mods_dir
         self.custom_mods_dir = custom_mods_dir
-        self.cache_dir = cache_dir
-        self.languages = languages
-        self._should_stop = False
 
-    def run(self) -> None:
-        """Build cache for all languages."""
-        try:
-            self.status_changed.emit(tr("app.searching_mod_files"))
+    def _load_sources(self) -> CacheGroups | None:
+        """Load official and custom mods, reporting loading progress."""
+        self.status_changed.emit(tr("app.searching_mod_files"))
 
-            # Find all JSON files
-            official_files = (
-                list(self.mods_dir.glob("*.json")) if self.mods_dir.exists() else []
+        source_files = self._merge_mod_files(
+            list_json_files(self.mods_dir), list_json_files(self.custom_mods_dir)
+        )
+
+        if not source_files:
+            self.error.emit(f"No JSON files found in {self.mods_dir} or {self.custom_mods_dir}")
+            return None
+
+        self.status_changed.emit(tr("app.loading_count_mods", count=len(source_files)))
+
+        mods_data = []
+        for i, (file_path, is_custom) in enumerate(source_files):
+            if self._should_stop:
+                return None
+
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    mods_data.append({"id": file_path.stem, "custom": is_custom, **json.load(f)})
+            except Exception as e:
+                logger.error(f"Error loading {file_path.name}: {e}")
+                self.error.emit(f"Error loading {file_path.name}: {e}")
+                continue
+
+            self.progress.emit(
+                int((i + 1) / len(source_files) * self.localization_progress_start)
             )
-            custom_files = (
-                list(self.custom_mods_dir.glob("*.json"))
-                if self.custom_mods_dir.exists()
-                else []
-            )
 
-            source_files = self._merge_mod_files(official_files, custom_files)
+        if not mods_data:
+            self.error.emit("No valid mods found")
+            return None
 
-            if not source_files:
-                self.error.emit(
-                    f"No JSON files found in {self.mods_dir} or {self.custom_mods_dir}"
-                )
-                self.finished.emit(False)
-                return
+        return {MOD_CACHE_GROUP: mods_data}
 
-            self.status_changed.emit(tr("app.loading_count_mods", count=len(source_files)))
+    def _localize_entry(self, entry: dict[str, Any], language: str) -> dict[str, Any]:
+        return self._localize_mod(entry, language)
 
-            # Load all mods
-            mods_data = []
-            for i, (file_path, is_custom) in enumerate(source_files):
-                if self._should_stop:
-                    self.finished.emit(False)
-                    return
-
-                try:
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        mods_data.append(
-                            {"id": file_path.stem, "custom": is_custom, **json.load(f)}
-                        )
-                except Exception as e:
-                    logger.error(f"Error loading {file_path.name}: {e}")
-                    self.error.emit(f"Error loading {file_path.name}: {e}")
-                    continue
-
-                # Loading progress (0-20%)
-                self.progress.emit(int((i + 1) / len(source_files) * 20))
-
-            if not mods_data:
-                self.error.emit("No valid mods found")
-                self.finished.emit(False)
-                return
-
-            # Generate cache for each language
-            total_steps = len(self.languages) * len(mods_data)
-            current_step = 0
-
-            for lang in self.languages:
-                if self._should_stop:
-                    self.finished.emit(False)
-                    return
-
-                self.status_changed.emit(tr("app.generating_cache_for_lang", lang=lang))
-
-                localized_data = []
-                for mod in mods_data:
-                    if self._should_stop:
-                        self.finished.emit(False)
-                        return
-
-                    localized_mod = self._localize_mod(mod, lang)
-                    localized_data.append(localized_mod)
-
-                    current_step += 1
-                    # Progress 20-100%
-                    progress_value = 20 + int((current_step / total_steps) * 80)
-                    self.progress.emit(progress_value)
-
-                # Save cache
-                cache_path = self.cache_dir / f"mods_{lang}.json"
-                with open(cache_path, "w", encoding="utf-8") as f:
-                    json.dump(localized_data, f, indent=2, ensure_ascii=False)
-
-                logger.info(f"Cache generated for {lang}: {cache_path}")
-
-            self.status_changed.emit(tr("app.cache_generated_successfully"))
-            self.progress.emit(100)
-            self.finished.emit(True)
-
-        except Exception as e:
-            logger.exception(f"Error during cache generation: {e}")
-            self.error.emit(f"Error during cache generation: {e}")
-            self.finished.emit(False)
+    def _cache_content(self, localized_groups: CacheGroups) -> object:
+        return localized_groups[MOD_CACHE_GROUP]
 
     def _merge_mod_files(
         self, official_files: list[Path], custom_files: list[Path]
@@ -185,10 +151,6 @@ class CacheBuilderThread(QThread):
 
         return result
 
-    def stop(self) -> None:
-        """Request thread to stop gracefully."""
-        self._should_stop = True
-
     @staticmethod
     def _localize_mod(mod: dict[str, Any], target_lang: str) -> dict[str, Any]:
         """
@@ -208,32 +170,20 @@ class CacheBuilderThread(QThread):
         translations_all = mod.get("translations", {})
         result.pop("translations", None)
 
-        # Fallback order: target language first, then others
-        fallback_order = [target_lang] + [
-            lang for lang in translations_all if lang != target_lang
-        ]
-
-        # Resolve mod description with fallback
-        description = ""
-        for lang in fallback_order:
-            if lang in translations_all:
-                desc = translations_all[lang].get("description", "")
-                if desc:
-                    description = desc
-                    break
-
-        # Localized components
-        localized_components = {}
+        description = first_translation(
+            translations_all, target_lang, lambda texts: texts.get("description", "")
+        )
 
         def resolve_component_text(key: str) -> str:
             """Find best translation for a component key."""
-            for lang in fallback_order:
-                trans = translations_all.get(lang, {}).get("components", {})
-                if key in trans and trans[key]:
-                    return trans[key]
-            return ""
+            return first_translation(
+                translations_all,
+                target_lang,
+                lambda texts: texts.get("components", {}).get(key, ""),
+            )
 
-        # Process all components
+        localized_components = {}
+
         for comp_key, comp_data in mod.get("components", {}).items():
             comp_type = comp_data.get("type", "std")
 
@@ -257,7 +207,6 @@ class CacheBuilderThread(QThread):
                         full_key = f"{comp_key}.{prompt_key}.{option}"
                         localized_components[full_key] = resolve_component_text(full_key)
 
-        # Final structure
         result["translations"] = {
             "description": description,
             "components": localized_components,
@@ -266,7 +215,7 @@ class CacheBuilderThread(QThread):
         return result
 
 
-class ModManager(QObject):
+class ModManager(LocalizedCacheManager):
     """
     Centralized mod manager.
 
@@ -277,10 +226,8 @@ class ModManager(QObject):
     - Filtering and searching mods
     """
 
-    # Signals
-    cache_ready = Signal(bool)  # Emitted when cache is ready
-    cache_building = Signal()  # Emitted when cache building starts
-    cache_error = Signal(str)  # Emitted on error
+    cache_prefix = MOD_CACHE_PREFIX
+    cache_label = "mod cache"
 
     def __init__(
         self,
@@ -296,115 +243,32 @@ class ModManager(QObject):
             custom_mods_dir: Directory containing custom mods
             cache_dir: Directory for cache storage
         """
-        super().__init__()
+        super().__init__(cache_dir)
         self.mods_dir = mods_dir
         self.custom_mods_dir = custom_mods_dir
-        self.cache_dir = cache_dir
 
         self.current_language = get_translator().current_language
         self.mods_data: dict[str, Mod] = {}
         self._category_count_cache: Counter | None = None
 
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.custom_mods_dir.mkdir(parents=True, exist_ok=True)
-
-        self.builder_thread: CacheBuilderThread | None = None
 
     # ========================================
     # CACHE MANAGEMENT
     # ========================================
 
     def needs_cache_rebuild(self) -> bool:
-        """Check if cache needs to be rebuilt."""
-        return self._should_rebuild_cache()
-
-    def build_cache_async(self) -> bool:
-        """Start asynchronous cache build."""
-        if self.builder_thread and self.builder_thread.isRunning():
-            logger.warning("Cache build already in progress")
-            return False
-
-        self.cache_building.emit()
-
-        languages = [code for code, _ in SUPPORTED_LANGUAGES]
-
-        self.builder_thread = CacheBuilderThread(
-            self.mods_dir, self.custom_mods_dir, self.cache_dir, languages
-        )
-
-        self.builder_thread.finished.connect(self._on_cache_build_finished)
-        self.builder_thread.error.connect(self._on_cache_build_error)
-        self.builder_thread.start()
-        logger.info("Cache build thread started")
-        return True
-
-    def _on_cache_build_finished(self, success: bool) -> None:
-        """Called when cache building finishes."""
-        if success:
-            # Load freshly created cache
-            if self.load_cache():
-                logger.info("Cache loaded successfully after build")
-                self.cache_ready.emit(True)
-            else:
-                error_msg = "Error loading cache after build"
-                logger.error(error_msg)
-                self.cache_error.emit(error_msg)
-        else:
-            error_msg = "Cache build failed"
-            logger.error(error_msg)
-            self.cache_error.emit(error_msg)
-
-        self.builder_thread = None
-
-    def _on_cache_build_error(self, error_message: str) -> None:
-        """Called on cache build error."""
-        logger.error(f"Cache build error: {error_message}")
-        self.cache_error.emit(error_message)
-        self.builder_thread = None
-
-    def _should_rebuild_cache(self) -> bool:
-        """
-        Check if cache should be rebuilt.
-
-        Returns:
-            True if rebuild needed
-        """
-        # Check if all cache files exist
-        for lang, _ in SUPPORTED_LANGUAGES:
-            cache_file = self.cache_dir / f"mods_{lang}.json"
-            if not cache_file.exists():
-                logger.info(f"Cache missing for {lang}")
-                return True
-
-        # Check if sources are newer than cache
-        official_files = list(self.mods_dir.glob("*.json")) if self.mods_dir.exists() else []
-        custom_files = (
-            list(self.custom_mods_dir.glob("*.json")) if self.custom_mods_dir.exists() else []
-        )
-        source_files = official_files + custom_files
+        """Check if cache needs to be rebuilt; no mod source at all always requires it."""
+        source_files = list_json_files(self.mods_dir) + list_json_files(self.custom_mods_dir)
 
         if not source_files:
             logger.warning("No source files found")
             return True
 
-        try:
-            last_source_mod = max(f.stat().st_mtime for f in source_files)
+        return is_cache_stale(self._cache_files(), source_files)
 
-            # Compare with oldest cache
-            oldest_cache = min(
-                (self.cache_dir / f"mods_{lang}.json").stat().st_mtime
-                for lang, _ in SUPPORTED_LANGUAGES
-            )
-
-            if last_source_mod > oldest_cache:
-                logger.info("Source files newer than cache")
-                return True
-
-        except OSError as e:
-            logger.error(f"Error checking file timestamps: {e}")
-            return True
-
-        return False
+    def _create_cache_builder(self, languages: list[str]) -> CacheBuilderThread:
+        return CacheBuilderThread(self.mods_dir, self.custom_mods_dir, self.cache_dir, languages)
 
     def _register_components(self, mod_data: dict[str, Any]) -> None:
         mod = Mod(mod_data)
@@ -455,7 +319,7 @@ class ModManager(QObject):
         Returns:
             True if successful, False otherwise
         """
-        cache_file = self.cache_dir / f"mods_{self.current_language}.json"
+        cache_file = self._cache_file(self.current_language)
 
         if not cache_file.exists():
             logger.error(f"Cache file not found: {cache_file}")
