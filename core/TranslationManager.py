@@ -5,12 +5,15 @@ import json
 import logging
 from pathlib import Path
 import threading
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from PySide6.QtCore import QLibraryInfo, QObject, QTranslator, Signal
-from PySide6.QtWidgets import QApplication
 
 from constants import LOCALES_DIR
+
+if TYPE_CHECKING:
+    # QtWidgets charge libEGL : import limité au typage pour garder le cœur utilisable sans GUI.
+    from PySide6.QtWidgets import QApplication
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +54,7 @@ class TranslationManager(QObject):
     FALLBACK_CHAIN = ("en_US", "fr_FR")
     CACHE_SIZE = 1024  # Max cached translations
 
-    def __init__(self, app: QApplication | None) -> None:
+    def __init__(self, app: "QApplication | None") -> None:
         """Initialize translation manager."""
         super().__init__()
         self._app = app
@@ -280,7 +283,7 @@ _translator_instance: TranslationManager | None = None
 _translator_lock = threading.Lock()
 
 
-def get_translator(app: QApplication | None = None) -> TranslationManager:
+def get_translator(app: "QApplication | None" = None) -> TranslationManager:
     """Get or create singleton TranslationManager instance (thread-safe)."""
     global _translator_instance
 
