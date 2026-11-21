@@ -10,6 +10,17 @@ import urllib.request
 
 logger = logging.getLogger(__name__)
 
+# Statuses GitHub answers with once the API rate limit is exhausted
+RATE_LIMIT_STATUSES = (403, 429)
+
+
+class GitHubUnavailableError(Exception):
+    """GitHub could not tell whether a repository has a release."""
+
+    def __init__(self, message: str, rate_limited: bool = False):
+        super().__init__(message)
+        self.rate_limited = rate_limited
+
 
 @dataclass
 class GitHubAsset:
@@ -217,7 +228,10 @@ class GitHubProcessor:
             include_prerelease: Whether to include pre-releases
 
         Returns:
-            GitHubRelease with SHA256 from API or None if not found/error
+            GitHubRelease with SHA256 from API, or None when the repository has no release
+
+        Raises:
+            GitHubUnavailableError: GitHub did not answer (rate limit, network error...)
         """
         api_url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
 
@@ -280,14 +294,16 @@ class GitHubProcessor:
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 logger.debug(f"No releases found for {owner}/{repo}")
-            elif e.code == 403:
-                logger.warning(f"GitHub API rate limit exceeded for {owner}/{repo}")
-            else:
-                logger.error(f"HTTP error fetching release for {owner}/{repo}: {e}")
-            return None
+                return None
+            if e.code in RATE_LIMIT_STATUSES:
+                reset = e.headers.get("X-RateLimit-Reset") if e.headers else None
+                raise GitHubUnavailableError(
+                    f"GitHub API rate limit exceeded (reset at epoch {reset or 'unknown'})",
+                    rate_limited=True,
+                ) from e
+            raise GitHubUnavailableError(f"HTTP error fetching release for {owner}/{repo}: {e}") from e
         except Exception as e:
-            logger.error(f"Error fetching GitHub release for {owner}/{repo}: {e}")
-            return None
+            raise GitHubUnavailableError(f"Error fetching GitHub release for {owner}/{repo}: {e}") from e
 
     def group_assets_by_os(
         self, assets: list[GitHubAsset]

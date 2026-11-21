@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
 import json
 import logging
 from pathlib import Path
@@ -17,8 +18,9 @@ from util.mod_sync.models.sync_result import (
     SyncStats,
     SyncStatus,
 )
-from util.mod_sync.processors.github_processor import GitHubProcessor
+from util.mod_sync.processors.github_processor import GitHubProcessor, GitHubUnavailableError
 from util.mod_sync.sources.archive_source import ArchiveFile, ArchiveSource
+from util.mod_sync.sources.github_check_log import GitHubCheckLog
 from util.mod_sync.sources.github_source import GitHubSource
 from util.mod_sync.sources.ini_source import IniSource
 from util.mod_sync.sources.lcc_source import LCCSource
@@ -49,6 +51,9 @@ class ModSyncOrchestrator:
         )
         self.github_processor = GitHubProcessor(config.github_token)
         self.github_source = GitHubSource(self.github_processor)
+        self.github_checks = GitHubCheckLog(
+            config.github_checks_file, timedelta(hours=config.github_check_interval_hours)
+        )
         self.selective_extractor = (
             SelectiveExtractor()
             if config.extract_archives and config.archives_dir and config.mods_dir
@@ -168,10 +173,11 @@ class ModSyncOrchestrator:
         merger.add_source("lcc", lcc_data)
 
         stored_files = (existing or {}).get("files")
-        files = stored_files if isinstance(stored_files, list) else []
+        files = files_before_update = stored_files if isinstance(stored_files, list) else []
 
+        github_checked = False
         if self.config.check_github_versions:
-            github_data = self._github_data(tp2_name, existing, lcc_data)
+            github_checked, github_data = self._github_data(tp2_name, existing, lcc_data)
             if github_data:
                 merger.add_source("github", github_data)
                 sources_used.append("github")
@@ -195,6 +201,8 @@ class ModSyncOrchestrator:
 
         # Check if anything changed
         if existing and not merger.has_changes(existing, merged):
+            if github_checked:
+                self.github_checks.record(tp2_name)
             return ModSyncResult(
                 tp2_name=tp2_name,
                 status=SyncStatus.UNCHANGED,
@@ -205,13 +213,6 @@ class ModSyncOrchestrator:
         # Save definition
         try:
             self._save_definition(definition_path, merged)
-            status = SyncStatus.CREATED if is_new else SyncStatus.UPDATED
-            return ModSyncResult(
-                tp2_name=tp2_name,
-                status=status,
-                sources_used=sources_used,
-                component_changes=component_changes,
-            )
         except Exception as e:
             logger.error(f"Error saving definition {tp2_name}: {e}")
             return ModSyncResult(
@@ -219,6 +220,20 @@ class ModSyncOrchestrator:
                 status=SyncStatus.ERROR,
                 message=f"Save failed: {e}",
             )
+
+        # The saved definition no longer refers to the archives it replaced
+        if self.config.calculate_hashes and machine_archive:
+            self.archive_source.retire_unlisted(files_before_update, merged["files"])
+        if github_checked:
+            self.github_checks.record(tp2_name)
+
+        status = SyncStatus.CREATED if is_new else SyncStatus.UPDATED
+        return ModSyncResult(
+            tp2_name=tp2_name,
+            status=status,
+            sources_used=sources_used,
+            component_changes=component_changes,
+        )
 
     def _add_parsed_sources(
         self,
@@ -243,11 +258,38 @@ class ModSyncOrchestrator:
                 merger.add_source("ini", ini_data)
                 sources_used.append("ini")
 
-    def _github_data(self, tp2_name: str, existing: dict | None, lcc_data: dict) -> dict[str, Any] | None:
-        """Return the latest GitHub release of a mod as merger source data."""
-        update = self.github_source.fetch(existing, lcc_data)
+    def _github_data(
+        self, tp2_name: str, existing: dict | None, lcc_data: dict
+    ) -> tuple[bool, dict[str, Any] | None]:
+        """Return whether GitHub answered, and the latest release of a mod as merger source data.
+
+        A mod checked less than the configured interval ago is not checked
+        again; once the rate limit is reached, no other mod is checked.
+        """
+        if self.stats.github_rate_limited:
+            return False, None
+
+        repository = self.github_source.find_repository(existing, lcc_data)
+        if repository is None:
+            return False, None
+
+        if not self.github_checks.is_due(tp2_name):
+            logger.debug(f"GitHub check of {tp2_name} deferred: checked recently")
+            self.stats.github_deferred += 1
+            return False, None
+
+        try:
+            update = self.github_source.fetch(repository, existing)
+        except GitHubUnavailableError as e:
+            if e.rate_limited:
+                self.stats.github_rate_limited = True
+                logger.warning(f"{e}: GitHub is no longer checked during this run")
+            else:
+                logger.warning(f"GitHub check of {tp2_name} failed: {e}")
+            return False, None
+
         if update is None:
-            return None
+            return True, None
 
         current_version = str((existing or {}).get("version") or "")
         if self.github_processor.compare_versions(current_version, update.tag_name):
@@ -256,7 +298,7 @@ class ModSyncOrchestrator:
 
         if not update.files:
             logger.warning(f"No downloadable asset in {update.repository} {update.tag_name}")
-        return {"version": update.version, "files": update.files}
+        return True, {"version": update.version, "files": update.files}
 
     def _process_archives(self, tp2_name: str, files: list) -> tuple[list, ArchiveFile | None]:
         """Return the files and the archive of the machine platform.

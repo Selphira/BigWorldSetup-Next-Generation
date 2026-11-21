@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 
+from constants import MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS, MOD_SYNC_GITHUB_CHECKS_FILE
+
 
 class SyncStatus(Enum):
     """Status of a mod synchronization."""
@@ -83,6 +85,8 @@ class SyncStats:
     github_outdated: list[tuple[str, str, str]] = field(
         default_factory=list
     )  # (tp2, current, latest)
+    github_deferred: int = 0  # mods checked too recently
+    github_rate_limited: bool = False
 
     def add_result(self, result: ModSyncResult) -> None:
         """Add a mod result and update counters."""
@@ -123,13 +127,17 @@ Total LCC mods: {self.total_lcc_mods}
         return report
 
     def get_github_report(self) -> str:
-        """Get GitHub outdated mods report."""
-        if not self.github_outdated:
-            return ""
+        """Get the GitHub report: outdated mods and checks left for a later run."""
+        report = ""
+        if self.github_outdated:
+            report += "\n=== Outdated GitHub Mods ===\n"
+            for tp2, current, latest in self.github_outdated:
+                report += f"  {tp2}: {current} → {latest}\n"
 
-        report = "\n=== Outdated GitHub Mods ===\n"
-        for tp2, current, latest in self.github_outdated:
-            report += f"  {tp2}: {current} → {latest}\n"
+        if self.github_deferred:
+            report += f"\nGitHub checks deferred (checked too recently): {self.github_deferred}\n"
+        if self.github_rate_limited:
+            report += "\nGitHub API rate limit reached: remaining mods were not checked\n"
         return report
 
 
@@ -177,12 +185,15 @@ class SyncConfig:
     extract_archives: bool = False
     calculate_hashes: bool = False
     check_github_versions: bool = False
+    github_check_interval_hours: float = MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
+    github_checks_file: Path = MOD_SYNC_GITHUB_CHECKS_FILE
 
     mod_filter: ModFilter = field(default_factory=ModFilter)
 
     def __post_init__(self) -> None:
         """Convert paths to Path objects."""
         self.definitions_dir = Path(self.definitions_dir)
+        self.github_checks_file = Path(self.github_checks_file)
         if self.archives_dir:
             self.archives_dir = Path(self.archives_dir)
         if self.mods_dir:

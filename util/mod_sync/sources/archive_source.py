@@ -131,6 +131,34 @@ class ArchiveSource:
 
         return downloaded
 
+    def retire_unlisted(self, previous_files: list, current_files: list) -> list[Path]:
+        """Retire the local archives of the processed platform that are no longer listed.
+
+        A new release usually comes under a new name, so the archive it
+        replaces is not overwritten in place and has to be retired here.
+
+        Args:
+            previous_files: File entries before the update
+            current_files: File entries after the update
+
+        Returns:
+            Paths the retired archives were moved to
+        """
+        current_filenames = {entry.get("filename") for entry in current_files if isinstance(entry, dict)}
+        retired_paths = []
+        for previous_entry in previous_files:
+            if not isinstance(previous_entry, dict) or not self.applies_to_platform(previous_entry):
+                continue
+
+            filename = previous_entry.get("filename")
+            if not filename or filename in current_filenames:
+                continue
+
+            local_archive = self.local_archive(previous_entry)
+            if local_archive:
+                retired_paths.append(self._retire(self.archive_path(local_archive), local_archive.sha256))
+        return retired_paths
+
     def local_archive(self, file_entry: dict[str, Any]) -> ArchiveFile | None:
         """Return the archive of a file entry present on disk, without downloading it."""
         filename = file_entry.get("filename")

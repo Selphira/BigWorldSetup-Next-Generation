@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+from typing import Any
 import zipfile
 
 import pytest
@@ -16,6 +17,7 @@ from util.mod_sync.processors.github_processor import (
     GitHubAsset,
     GitHubProcessor,
     GitHubRelease,
+    GitHubUnavailableError,
 )
 from util.mod_sync.sources.archive_source import ArchiveSource
 from util.mod_sync.sources.github_source import GitHubSource
@@ -41,13 +43,16 @@ def mod_archive(tp2_text: str, tra_files: dict[str, str] | None = None) -> bytes
 class FixedReleaseProcessor(GitHubProcessor):
     """GitHub client serving a fixed latest release without network."""
 
-    def __init__(self, release: GitHubRelease | None) -> None:
+    def __init__(self, release: GitHubRelease | None, rate_limited: bool = False) -> None:
         super().__init__()
         self.release = release
+        self.rate_limited = rate_limited
         self.requests: list[tuple[str, str]] = []
 
     def get_latest_release(self, owner: str, repo: str, include_prerelease: bool = False) -> GitHubRelease | None:
         self.requests.append((owner, repo))
+        if self.rate_limited:
+            raise GitHubUnavailableError("rate limit", rate_limited=True)
         return self.release
 
 
@@ -58,7 +63,7 @@ def asset(name: str, size: int = 10, digest: str | None = None, url: str | None 
 def release_files(assets: list[GitHubAsset], stored_files: list[dict] | None = None) -> list[dict]:
     source = GitHubSource(FixedReleaseProcessor(GitHubRelease("v2", assets, "", False)))
     definition = {"links": {"homepage": REPOSITORY}, "files": stored_files or []}
-    return source.fetch(definition).files
+    return source.fetch(source.find_repository(definition), definition).files
 
 
 # ----------------------------------------------------------------------
@@ -129,6 +134,8 @@ def test_local_archive_of_another_size_is_downloaded_again(tmp_path: Path) -> No
 
 
 class OfflineLCCSource:
+    MODS = {"demo": {"tp2": "demo", "games": ["bg2ee"]}}
+
     def __init__(self, force_refresh: bool = False) -> None:
         pass
 
@@ -136,7 +143,7 @@ class OfflineLCCSource:
         return True
 
     def get_all_mods(self) -> dict[str, dict]:
-        return {"demo": {"tp2": "demo", "games": ["bg2ee"]}}
+        return self.MODS
 
 
 @pytest.fixture
@@ -153,24 +160,27 @@ def publish(workspace: Path, filename: str, content: bytes, digest: str | None =
     return GitHubAsset(name=filename, url=path.as_uri(), size=len(content), sha256=digest)
 
 
-def write_definition(workspace: Path, definition: dict) -> Path:
-    path = workspace / "mods" / "demo.json"
+def write_definition(workspace: Path, definition: dict, tp2_name: str = "demo") -> Path:
+    path = workspace / "mods" / f"{tp2_name}.json"
     path.write_text(json.dumps(definition), encoding="utf-8")
     return path
 
 
-def synchronizer(workspace: Path, release: GitHubRelease | None, **options: bool) -> ModSyncOrchestrator:
+def synchronizer(
+    workspace: Path, release: GitHubRelease | None, rate_limited: bool = False, **options: Any
+) -> ModSyncOrchestrator:
     config = SyncConfig(
         definitions_dir=workspace / "mods",
         archives_dir=workspace / "archives",
         mods_dir=workspace / "extracted",
         check_github_versions=True,
         calculate_hashes=True,
+        github_checks_file=workspace / "github_checks.json",
         **options,
     )
     orchestrator = ModSyncOrchestrator(config)
     orchestrator.archive_source = ArchiveSource(workspace / "archives", PLATFORM)
-    orchestrator.github_processor = FixedReleaseProcessor(release)
+    orchestrator.github_processor = FixedReleaseProcessor(release, rate_limited)
     orchestrator.github_source = GitHubSource(orchestrator.github_processor)
     return orchestrator
 
@@ -206,12 +216,66 @@ def test_second_synchronization_of_the_same_release_is_unchanged(workspace: Path
     content = mod_archive("BACKUP ~weidu_external/backup/demo~\n")
     release = GitHubRelease("v2", [publish(workspace, "win-demo-v2.zip", content, digest=sha256(content))], "", False)
     write_definition(workspace, {"tp2": "demo", "version": "1", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": V1_FILES})
-    synchronizer(workspace, release, extract_tp2=False).run()
+    synchronizer(workspace, release, extract_tp2=False, github_check_interval_hours=0).run()
 
-    stats = synchronizer(workspace, release, extract_tp2=False).run()
+    stats = synchronizer(workspace, release, extract_tp2=False, github_check_interval_hours=0).run()
 
     assert [result.status for result in stats.results] == [SyncStatus.UNCHANGED]
     assert stats.github_outdated == []
+
+
+def test_archive_of_the_previous_release_is_retired(workspace: Path) -> None:
+    previous_content = b"manually downloaded v1"
+    (workspace / "archives" / "win-demo-v1.zip").write_bytes(previous_content)
+    previous_files = [{**V1_FILES[0], "size": len(previous_content), "sha256": sha256(previous_content)}]
+    write_definition(workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": previous_files})
+    windows = publish(workspace, "win-demo-v2.zip", b"v2")
+
+    synchronizer(workspace, GitHubRelease("v2", [windows], "", False), extract_tp2=False).run()
+
+    assert sorted(path.name for path in (workspace / "archives").iterdir()) == ["_old", "win-demo-v2.zip"]
+    retired = workspace / "archives" / "_old" / f"win-demo-v1.{sha256(previous_content)[:8]}.zip"
+    assert retired.read_bytes() == previous_content
+
+
+def test_previous_archive_is_kept_when_the_new_one_cannot_be_downloaded(workspace: Path) -> None:
+    (workspace / "archives" / "win-demo-v1.zip").write_bytes(b"v1")
+    write_definition(workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, "files": V1_FILES})
+    missing = GitHubAsset("win-demo-v2.zip", (workspace / "server" / "missing.zip").as_uri(), 2, None)
+
+    synchronizer(workspace, GitHubRelease("v2", [missing], "", False), extract_tp2=False).run()
+
+    assert (workspace / "archives" / "win-demo-v1.zip").read_bytes() == b"v1"
+
+
+def test_recently_checked_mod_is_not_checked_again(workspace: Path) -> None:
+    write_definition(workspace, {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}})
+    synchronizer(workspace, None).run()
+
+    deferred = synchronizer(workspace, None, github_check_interval_hours=1)
+    stats = deferred.run()
+    always = synchronizer(workspace, None, github_check_interval_hours=0)
+    always.run()
+
+    assert deferred.github_processor.requests == []
+    assert stats.github_deferred == 1
+    assert always.github_processor.requests == [("author", "demo")]
+
+
+def test_rate_limit_stops_checks_and_leaves_mods_due(workspace: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(OfflineLCCSource, "MODS", {name: {"tp2": name, "games": ["bg2ee"]} for name in ("demo", "other")})
+    for name in ("demo", "other"):
+        write_definition(workspace, {"tp2": name, "games": ["bg2ee"], "links": {"homepage": REPOSITORY}}, name)
+
+    limited = synchronizer(workspace, None, rate_limited=True)
+    stats = limited.run()
+    retried = synchronizer(workspace, None)
+    retried.run()
+
+    assert limited.github_processor.requests == [("author", "demo")]
+    assert stats.github_rate_limited
+    assert "rate limit" in stats.get_github_report()
+    assert len(retried.github_processor.requests) == 2
 
 
 def test_changed_archive_is_extracted_again_before_parsing(workspace: Path) -> None:

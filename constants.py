@@ -50,6 +50,11 @@ THEMES_DIR = RESOURCES_DIR / "themes"
 # Cache subdirectories
 LCC_CACHE_DIR = CACHE_DIR / "lcc"
 
+# mod_sync: date of the last GitHub release check of each mod, and the
+# minimal delay between two checks (keeps runs under the API rate limit)
+MOD_SYNC_GITHUB_CHECKS_FILE = CACHE_DIR / "mod_sync" / "github_checks.json"
+MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS = 24.0
+
 # Localized caches are written "<prefix>_<language>.json" in CACHE_DIR
 MOD_CACHE_PREFIX = "mods"
 RULE_CACHE_PREFIX = "rules"

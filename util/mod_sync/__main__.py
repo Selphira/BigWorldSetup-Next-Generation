@@ -10,6 +10,7 @@ import logging
 from pathlib import Path
 import sys
 
+from constants import MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
 from core.enums.GameEnum import GameEnum
 
 
@@ -65,6 +66,7 @@ def run_cli(args: argparse.Namespace) -> None:
         extract_archives=args.extract_archives,
         calculate_hashes=args.calculate_hashes,
         check_github_versions=args.check_github,
+        github_check_interval_hours=args.github_interval,
         mod_filter=ModFilter(tp2_names=frozenset(args.only), games=frozenset(args.game)),
     )
 
@@ -181,6 +183,16 @@ def main() -> None:
         "--check-github",
         action="store_true",
         help="Check GitHub versions",
+    )
+    parser.add_argument(
+        "--github-interval",
+        type=float,
+        default=MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS,
+        metavar="HOURS",
+        help=(
+            "Minimal delay between two GitHub checks of a mod, 0 to always check "
+            f"(default: {MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS:g})"
+        ),
     )
     parser.add_argument(
         "--only",

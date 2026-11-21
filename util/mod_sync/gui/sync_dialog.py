@@ -17,10 +17,12 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QProgressBar,
     QPushButton,
+    QSpinBox,
     QTextEdit,
     QVBoxLayout,
 )
 
+from constants import MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
 from core.enums.GameEnum import GameEnum
 from util.mod_sync.models.sync_result import ModFilter, SyncConfig, SyncStats
 from util.mod_sync.orchestrator import ModSyncOrchestrator
@@ -194,8 +196,17 @@ class ModSyncDialog(QDialog):
         self.calc_hash_checkbox = QCheckBox("Calculate archive hashes")
         actions_layout.addWidget(self.calc_hash_checkbox)
 
+        github_layout = QHBoxLayout()
         self.check_github_checkbox = QCheckBox("Check GitHub versions")
-        actions_layout.addWidget(self.check_github_checkbox)
+        github_layout.addWidget(self.check_github_checkbox)
+        github_layout.addWidget(QLabel("at most every"))
+        self.github_interval_spinbox = QSpinBox()
+        self.github_interval_spinbox.setRange(0, 24 * 365)
+        self.github_interval_spinbox.setSuffix(" h")
+        self.github_interval_spinbox.setToolTip("0: check every mod at each run")
+        github_layout.addWidget(self.github_interval_spinbox)
+        github_layout.addStretch()
+        actions_layout.addLayout(github_layout)
 
         actions_group.setLayout(actions_layout)
         layout.addWidget(actions_group)
@@ -262,6 +273,9 @@ class ModSyncDialog(QDialog):
         self.check_github_checkbox.setChecked(
             self.settings.value("check_github", False, type=bool)
         )
+        self.github_interval_spinbox.setValue(
+            self.settings.value("github_interval_hours", int(MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS), type=int)
+        )
 
     def _save_settings(self) -> None:
         """Save settings to QSettings."""
@@ -278,6 +292,7 @@ class ModSyncDialog(QDialog):
         self.settings.setValue("extract_archives", self.extract_archives_checkbox.isChecked())
         self.settings.setValue("calc_hash", self.calc_hash_checkbox.isChecked())
         self.settings.setValue("check_github", self.check_github_checkbox.isChecked())
+        self.settings.setValue("github_interval_hours", self.github_interval_spinbox.value())
 
     def _start_sync(self) -> None:
         """Start synchronization process."""
@@ -298,6 +313,7 @@ class ModSyncDialog(QDialog):
             extract_archives=self.extract_archives_checkbox.isChecked(),
             calculate_hashes=self.calc_hash_checkbox.isChecked(),
             check_github_versions=self.check_github_checkbox.isChecked(),
+            github_check_interval_hours=self.github_interval_spinbox.value(),
             mod_filter=self._build_mod_filter(),
         )
 
@@ -342,6 +358,7 @@ class ModSyncDialog(QDialog):
         self.extract_ini_checkbox.setEnabled(enabled)
         self.calc_hash_checkbox.setEnabled(enabled)
         self.check_github_checkbox.setEnabled(enabled)
+        self.github_interval_spinbox.setEnabled(enabled)
         self.only_mods_edit.setEnabled(enabled)
         for checkbox in self.game_checkboxes.values():
             checkbox.setEnabled(enabled)

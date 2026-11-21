@@ -42,26 +42,41 @@ class GitHubSource:
     def __init__(self, processor: GitHubProcessor):
         self.processor = processor
 
-    def fetch(self, *definitions: dict[str, Any] | None) -> GitHubUpdate | None:
-        """Return the latest release of the first GitHub repository of the definitions.
+    def find_repository(self, *definitions: dict[str, Any] | None) -> tuple[str, str] | None:
+        """Return the repository of the homepage, or else of a download link.
 
         Args:
             definitions: Mod data in priority order (stored definition, LCC data)
 
         Returns:
-            The release, or None when the mod is not on GitHub or has no release
+            (owner, repo), or None when the mod is not on GitHub
         """
-        repository = self._find_repository(definitions)
-        if repository is None:
-            return None
+        for definition in filter(None, definitions):
+            for url in self._candidate_urls(definition):
+                if self.processor.is_github_link(url) and (repository := self.processor.extract_repo_info(url)):
+                    return repository
+        return None
 
+    def fetch(self, repository: tuple[str, str], stored_definition: dict[str, Any] | None) -> GitHubUpdate | None:
+        """Return the latest release of a repository.
+
+        Args:
+            repository: (owner, repo), as found by ``find_repository``
+            stored_definition: Stored definition, whose hashes may still apply
+
+        Returns:
+            The release, or None when the repository has no release
+
+        Raises:
+            GitHubUnavailableError: GitHub did not answer
+        """
         owner, repo = repository
         release = self.processor.get_latest_release(owner, repo)
         if release is None:
             logger.debug(f"No GitHub release found for {owner}/{repo}")
             return None
 
-        stored_files = self._stored_files(definitions[0])
+        stored_files = self._stored_files(stored_definition)
         return GitHubUpdate(
             repository=f"{owner}/{repo}",
             tag_name=release.tag_name,
@@ -71,14 +86,6 @@ class GitHubSource:
     # ------------------------------------------------------------------
     # Repository lookup
     # ------------------------------------------------------------------
-
-    def _find_repository(self, definitions: tuple[dict[str, Any] | None, ...]) -> tuple[str, str] | None:
-        """Return the repository of the homepage, or else of a download link."""
-        for definition in filter(None, definitions):
-            for url in self._candidate_urls(definition):
-                if self.processor.is_github_link(url) and (repository := self.processor.extract_repo_info(url)):
-                    return repository
-        return None
 
     @staticmethod
     def _candidate_urls(definition: dict[str, Any]) -> list[str]:
