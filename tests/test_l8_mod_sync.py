@@ -117,7 +117,7 @@ class FixedTP2Source:
     def __init__(self, data: dict) -> None:
         self.data = data
 
-    def extract(self, tp2_name: str, supported_games: set[str] | None = None) -> dict:
+    def extract(self, tp2_name: str, supported_games: set[str] | None = None, labels_language: str = "en_US") -> dict:
         return self.data
 
 

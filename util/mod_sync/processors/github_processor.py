@@ -93,10 +93,15 @@ class GitHubProcessor:
     # Downloadable asset kinds, in order of preference
     ASSET_EXTENSION_PREFERENCE = (".zip", ".7z", ".tar.gz", ".tgz", ".exe")
 
+    # CPU architecture markers: a 64-bit asset is preferred over an unmarked
+    # one, and both over a 32-bit one
+    ARCH_64_PATTERN = re.compile(r"(?<![0-9a-z])(?:64-?bits?|x64|x86[_-]64|amd64|win64)(?![0-9a-z])")
+    ARCH_32_PATTERN = re.compile(r"(?<![0-9a-z])(?:32-?bits?|x86|i[3-6]86|win32)(?![0-9a-z])")
+
     OS_PATTERNS = {
         "linux": ["linux", "lin"],
         "macos": ["macos", "mac", "osx", "darwin"],
-        "windows": ["windows", "win", "w32", "w64"],
+        "windows": ["windows", "win64", "win32", "win", "w32", "w64"],
     }
 
     def __init__(self, github_token: str | None = None):
@@ -363,8 +368,9 @@ class GitHubProcessor:
     def select_best_asset_for_os(self, assets: list[GitHubAsset]) -> GitHubAsset | None:
         """Select the asset to download among those of one platform.
 
-        Archives are preferred over executables, .zip first; assets of the
-        same kind keep the release order.
+        64-bit assets are preferred, 32-bit ones come last; then archives are
+        preferred over executables, .zip first. Equal assets keep the release
+        order.
 
         Args:
             assets: Assets of one platform
@@ -377,9 +383,19 @@ class GitHubProcessor:
 
         return min(assets, key=self._asset_preference)
 
-    def _asset_preference(self, asset: GitHubAsset) -> int:
-        """Rank an asset by extension, lower being preferred."""
+    def _asset_preference(self, asset: GitHubAsset) -> tuple[int, int]:
+        """Rank an asset by architecture then extension, lower being preferred."""
         name = asset.name.lower()
+        return self._architecture_rank(name), self._extension_rank(name)
+
+    def _architecture_rank(self, name: str) -> int:
+        if self.ARCH_64_PATTERN.search(name):
+            return 0
+        if self.ARCH_32_PATTERN.search(name):
+            return 2
+        return 1
+
+    def _extension_rank(self, name: str) -> int:
         for rank, extension in enumerate(self.ASSET_EXTENSION_PREFERENCE):
             if name.endswith(extension):
                 return rank

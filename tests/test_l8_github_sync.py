@@ -101,6 +101,21 @@ def test_archive_is_preferred_over_executable_of_the_same_platform() -> None:
     assert [entry["filename"] for entry in files] == ["win-demo.zip"]
 
 
+@pytest.mark.parametrize(
+    ("assets", "chosen"),
+    [
+        (["win-32bit-demo-v2.zip", "win-64bit-demo-v2.zip"], "win-64bit-demo-v2.zip"),
+        (["win-32bit-demo-v2.zip", "win-demo-v2.zip"], "win-demo-v2.zip"),
+        (["demo-win32.zip", "setup-demo-win64.exe"], "setup-demo-win64.exe"),
+        (["demo-windows-x86.zip", "demo-windows-x86_64.zip"], "demo-windows-x86_64.zip"),
+    ],
+)
+def test_64_bit_asset_is_chosen_for_windows(assets: list[str], chosen: str) -> None:
+    files = release_files([asset(name) for name in assets])
+
+    assert [(entry["filename"], entry.get("platforms")) for entry in files] == [(chosen, ["windows"])]
+
+
 def test_hash_without_digest_is_kept_only_for_the_very_same_asset() -> None:
     unchanged = asset("lin-demo.zip", size=10)
     replaced = asset("win-demo.zip", size=10)
@@ -354,7 +369,7 @@ class RecordingTP2Source:
     def __init__(self) -> None:
         self.parsed: list[str] = []
 
-    def extract(self, tp2_name: str, supported_games: set[str] | None = None) -> None:
+    def extract(self, tp2_name: str, supported_games: set[str] | None = None, labels_language: str = "en_US") -> None:
         self.parsed.append(tp2_name)
 
 

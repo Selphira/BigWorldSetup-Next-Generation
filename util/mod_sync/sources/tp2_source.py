@@ -9,6 +9,21 @@ from core.WeiDUTp2Parser import MucComponent, Tp2ParseError, WeiDUTp2Parser
 
 logger = logging.getLogger(__name__)
 
+# Language of literal labels when the mod declares none, or several without it
+DEFAULT_LABELS_LANGUAGE = "en_US"
+
+
+def labels_language(definition_languages: dict | None) -> str:
+    """Return the language literal TP2 labels belong to.
+
+    English when the mod declares it, otherwise its first language: a TP2
+    without LANGUAGE is shown in a single language.
+    """
+    declared = [code for code in (definition_languages or {}) if code != "all"]
+    if not declared or DEFAULT_LABELS_LANGUAGE in declared:
+        return DEFAULT_LABELS_LANGUAGE
+    return declared[0]
+
 
 class TP2Source:
     """Wrapper for TP2 data extraction using WeiDUTp2Parser."""
@@ -54,11 +69,18 @@ class TP2Source:
         logger.debug(f"No tp2 file found for {tp2_name}")
         return None
 
-    def extract(self, tp2_name: str, supported_games: set[str] | None = None) -> dict | None:
+    def extract(
+        self,
+        tp2_name: str,
+        supported_games: set[str] | None = None,
+        labels_language: str = DEFAULT_LABELS_LANGUAGE,
+    ) -> dict | None:
         """Extract TP2 data as dictionary for merging.
 
         Args:
             tp2_name: Name of the tp2 file
+            supported_games: Games the mod supports
+            labels_language: Language of the literal labels of a TP2 declaring no LANGUAGE
 
         Returns:
             Dictionary with extracted data or None if not found/error
@@ -110,7 +132,11 @@ class TP2Source:
                 result["components"] = components
                 logger.debug(f"Extracted {len(components)} components")
 
-            # Component translations
+            # Component translations; literal labels have the language of the mod
+            if tp2_data.untranslated_component_labels:
+                tp2_data.component_translations[labels_language] = tp2_data.untranslated_component_labels
+                logger.debug(f"Literal component labels of {tp2_name} taken as {labels_language}")
+
             if tp2_data.component_translations:
                 result["component_translations"] = tp2_data.component_translations
                 total_translations = sum(

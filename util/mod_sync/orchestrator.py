@@ -26,7 +26,7 @@ from util.mod_sync.sources.github_recipes import GitHubRecipe, GitHubRecipes
 from util.mod_sync.sources.github_source import GitHubPinError, GitHubPinnedUpdate, GitHubSource
 from util.mod_sync.sources.ini_source import IniSource
 from util.mod_sync.sources.lcc_source import LCCSource
-from util.mod_sync.sources.tp2_source import TP2Source
+from util.mod_sync.sources.tp2_source import TP2Source, labels_language
 
 logger = logging.getLogger(__name__)
 
@@ -311,7 +311,12 @@ class ModSyncOrchestrator:
             stored_games = (existing or {}).get("games")
             supported_games = set(stored_games) if stored_games else None
 
-            tp2_data = self.tp2_source.extract(tp2_name, supported_games)
+            stored_languages = (existing or {}).get("languages")
+            tp2_data = self.tp2_source.extract(
+                tp2_name,
+                supported_games,
+                labels_language(stored_languages if isinstance(stored_languages, dict) else None),
+            )
             if tp2_data:
                 merger.add_source("tp2", tp2_data)
                 sources_used.append("tp2")
