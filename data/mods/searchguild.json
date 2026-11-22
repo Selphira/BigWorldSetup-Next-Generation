@@ -57,7 +57,7 @@
         "origin": "ini"
       },
       {
-        "rule": "searchguild(-):bg2fixpack(-)|EET(-)|BG1_NPC_in_SoA&ToB(-)|Coran in BG2(-)",
+        "rule": "searchguild(-):bg2fixpack(-)|EET(-)",
         "direction": "after",
         "severity": "warning",
         "origin": "ini"

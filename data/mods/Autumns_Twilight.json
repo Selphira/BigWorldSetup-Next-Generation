@@ -28,7 +28,7 @@
     "fr_FR": 5,
     "ru_RU": 6,
     "zh_CN": 7,
-    "pt_PT": 8
+    "pt_BR": 8
   },
   "translations": {
     "fr_FR": {
@@ -90,14 +90,7 @@
         "2": "Enemy Difficulty: Hard"
       }
     },
-    "bportuguese": {
-      "components": {
-        "0": "Mod Autumn's Twilight",
-        "1": "Install Optional Kits for Autumn's Twilight",
-        "2": "Enemy Difficulty: Hard"
-      }
-    },
-    "pt_PT": {
+    "pt_BR": {
       "components": {
         "0": "Mod Autumn's Twilight",
         "1": "Install Optional Kits for Autumn's Twilight",

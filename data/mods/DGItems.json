@@ -47,7 +47,7 @@
   "rules": {
     "order": [
       {
-        "rule": "dgitems(-):EET(-)|The Improved Volcano! Pack(-)",
+        "rule": "dgitems(-):EET(-)",
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
