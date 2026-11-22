@@ -27,18 +27,46 @@ def test_added_invalid_file_blocks_publication(small_catalogue: tuple[Path, Path
 
 
 @pytest.mark.parametrize(
-    "reference,code", [("absent(0)", "missing_mod"), ("demo(99)", "missing_component")]
+    "rule,code",
+    [
+        ("demo(0):demo(99)", "missing_component"),
+        ("demo(0):demo(0)&absent(0)|demo(-)", "rule"),
+    ],
+    ids=["component missing from a known mod", "malformed rule"],
 )
 def test_broken_rule_blocks_publication(
     small_catalogue: tuple[Path, Path],
-    reference: str,
+    rule: str,
     code: str,
 ) -> None:
     data, _ = small_catalogue
-    write_json(
-        data / "rules" / "dependencies.json", {"rules": [{"rule": f"demo(0):{reference}"}]}
-    )
+    write_json(data / "rules" / "dependencies.json", {"rules": [{"rule": rule}]})
     assert any(item.code == code for item in validate_catalogue(*small_catalogue).diagnostics)
+
+
+def test_rule_waiting_for_an_uncatalogued_mod_is_a_dormant_notice(
+    small_catalogue: tuple[Path, Path],
+) -> None:
+    data, _ = small_catalogue
+    write_json(data / "rules" / "dependencies.json", {"rules": [{"rule": "demo(0):absent(0)"}]})
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert report.valid, report.diagnostics
+    assert ("rules/dependencies.json", "rules/0", "dormant_rule", "absent:0") in [
+        (item.file, item.location, item.code, item.message) for item in report.notices
+    ]
+
+
+def test_dormant_rule_still_checks_components_of_known_mods(
+    small_catalogue: tuple[Path, Path],
+) -> None:
+    data, _ = small_catalogue
+    write_json(data / "rules" / "dependencies.json", {"rules": [{"rule": "absent(0):demo(99)"}]})
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert [item.code for item in report.diagnostics] == ["missing_component"]
 
 
 def test_deleted_mod_invalidates_existing_order(small_catalogue: tuple[Path, Path]) -> None:

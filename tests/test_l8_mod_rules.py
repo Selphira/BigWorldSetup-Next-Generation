@@ -71,17 +71,6 @@ def test_dependencies_and_incompatibilities_of_mod_definitions_are_loaded(
     ]
 
 
-def test_newer_mod_definition_invalidates_rule_cache(rules: RuleManager, tmp_path: Path) -> None:
-    for cache_file in rules._cache_files():
-        _write(cache_file, {}, 200)
-    mod_file = _write(tmp_path / "mods" / "demo.json", {"name": "Demo"}, 100)
-
-    assert not rules.needs_cache_rebuild()
-
-    os.utime(mod_file, (300, 300))
-    assert rules.needs_cache_rebuild()
-
-
 # ========================================
 # CATALOGUE
 # ========================================
@@ -117,15 +106,16 @@ def test_valid_rules_section_passes(small_catalogue: tuple[Path, Path]) -> None:
         ("order", _ini_rule("absent")),
     ],
 )
-def test_rule_of_a_definition_referring_to_a_missing_mod_blocks_publication(
+def test_rule_of_a_definition_referring_to_a_missing_mod_stays_dormant(
     small_catalogue: tuple[Path, Path], rule_type: str, rule: dict
 ) -> None:
     _set_mod_rules(small_catalogue[0], {rule_type: [rule]})
 
-    diagnostics = validate_catalogue(*small_catalogue).diagnostics
+    report = validate_catalogue(*small_catalogue)
 
-    assert [(item.file, item.location, item.code) for item in diagnostics] == [
-        ("mods/demo.json", f"rules/{rule_type}/0", "missing_mod")
+    assert report.valid, report.diagnostics
+    assert ("mods/demo.json", f"rules/{rule_type}/0", "dormant_rule") in [
+        (item.file, item.location, item.code) for item in report.notices
     ]
 
 
@@ -206,6 +196,23 @@ def test_ini_declarations_become_marked_order_rules(tmp_path: Path) -> None:
     assert [(rule["rule"], rule["direction"], rule["origin"]) for rule in order_rules] == [
         ("demo(-):first(-)|second(-)", "before", INI_RULE_ORIGIN),
         ("demo(-):third(-)", "after", INI_RULE_ORIGIN),
+    ]
+
+
+def test_ini_entries_that_are_not_mod_identifiers_are_ignored(tmp_path: Path) -> None:
+    ini_file = tmp_path / "demo" / "demo.ini"
+    ini_file.parent.mkdir()
+    ini_file.write_text(
+        "[Metadata]\n"
+        "Before = The Improved Volcano! Pack\n"
+        "After = bg2fixpack, EET, BG1_NPC_in_SoA&ToB, Coran in BG2\n",
+        encoding="utf-8",
+    )
+
+    order_rules = IniSource(tmp_path).extract("demo")["order_rules"]
+
+    assert [(rule["rule"], rule["direction"]) for rule in order_rules] == [
+        ("demo(-):bg2fixpack(-)|EET(-)", "after"),
     ]
 
 

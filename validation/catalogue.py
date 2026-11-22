@@ -36,7 +36,8 @@ class CatalogueReport:
     """Complete validation results; historical defects remain blocking.
 
     Notices are legitimate situations a maintainer should keep in sight, such
-    as an archive that can only be provided by the user; they never block.
+    as an archive that can only be provided by the user or a dormant rule
+    waiting for a mod not catalogued yet; they never block.
     """
 
     counts: dict[str, int] = field(default_factory=dict)
@@ -125,10 +126,20 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
         if f"rules/{name}.json" not in documents:
             add(f"rules/{name}.json", "", "missing", "Required rule file missing or unreadable")
 
-    def check_reference(file: str, location: str, reference: str) -> None:
+    def check_reference(
+        file: str, location: str, reference: str, *, dormant_allowed: bool = False
+    ) -> None:
+        """Check that a reference resolves to a catalogued mod and component.
+
+        A rule may wait for a mod that is not catalogued yet: it stays dormant
+        and is reported as a notice. A component missing from a known mod is
+        always a defect, as is an absent mod outside rules.
+        """
         mod_id, _, key = reference.partition(":")
         mod = mods.get(mod_id.lower())
-        if mod is None:
+        if mod is None and dormant_allowed:
+            report.notices.append(Diagnostic(file, location, "dormant_rule", reference))
+        elif mod is None:
             add(file, location, "missing_mod", reference)
         elif key not in ("", "*", "-") and mod.get_component(key) is None:
             # UI selections encode SUB answers as component.prompt.option.
@@ -164,7 +175,7 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
                     rule = rule_class.from_dict(entry)
                     references.update(str(ref) for ref in (*rule.sources, *rule.targets))
                 for ref in sorted(references):
-                    check_reference(file, location, ref)
+                    check_reference(file, location, ref, dormant_allowed=True)
             except (ValueError, TypeError, AttributeError, KeyError) as error:
                 add(file, location, "rule", str(error))
 
