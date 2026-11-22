@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
+import re
 
 from core.WeiDUTp2Parser import MucComponent, Tp2ParseError, WeiDUTp2Parser
 
@@ -11,6 +12,10 @@ logger = logging.getLogger(__name__)
 
 # Language of literal labels when the mod declares none, or several without it
 DEFAULT_LABELS_LANGUAGE = "en_US"
+
+# Language codes accepted by the mod definition schema; a TP2 language missing
+# from LANG_MAP keeps its raw name and must not reach the definition
+LANGUAGE_CODE_PATTERN = re.compile(r"^[a-z]{2}_[A-Z]{2}$")
 
 
 def labels_language(definition_languages: dict | None) -> str:
@@ -105,11 +110,23 @@ class TP2Source:
             if tp2_data.version:
                 result["version"] = tp2_data.version
 
+            unknown_languages = {
+                lang.language_code
+                for lang in tp2_data.languages
+                if not LANGUAGE_CODE_PATTERN.match(lang.language_code)
+            }
+            if unknown_languages:
+                logger.warning(
+                    f"{tp2_name}: TP2 languages missing from LANG_MAP ignored: "
+                    f"{sorted(unknown_languages)}"
+                )
+
             # Languages - build dict mapping language code to index, one translation per language
             if tp2_data.languages:
                 languages = {}
                 for lang in tp2_data.preferred_languages():
-                    languages[lang.language_code] = lang.index
+                    if lang.language_code not in unknown_languages:
+                        languages[lang.language_code] = lang.index
                 result["languages"] = languages
                 logger.debug(f"Extracted {len(languages)} languages")
 
@@ -137,11 +154,14 @@ class TP2Source:
                 tp2_data.component_translations[labels_language] = tp2_data.untranslated_component_labels
                 logger.debug(f"Literal component labels of {tp2_name} taken as {labels_language}")
 
-            if tp2_data.component_translations:
-                result["component_translations"] = tp2_data.component_translations
-                total_translations = sum(
-                    len(comps) for comps in tp2_data.component_translations.values()
-                )
+            component_translations = {
+                code: labels
+                for code, labels in tp2_data.component_translations.items()
+                if code not in unknown_languages
+            }
+            if component_translations:
+                result["component_translations"] = component_translations
+                total_translations = sum(len(comps) for comps in component_translations.values())
                 logger.debug(f"Extracted {total_translations} component translations")
 
             return result

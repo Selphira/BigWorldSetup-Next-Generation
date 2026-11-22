@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 import json
 import logging
 from pathlib import Path
+import re
 
 from core.File import safe_read
 
@@ -23,6 +24,10 @@ logger = logging.getLogger(__name__)
 # Origin marker of the rules generated from the INI file: mod_sync replaces
 # these rules only, the other rules of a definition are manual.
 INI_RULE_ORIGIN = "ini"
+
+# Mod identifiers accepted in a rule by the rule schemas; Before and After
+# sometimes name mods by their title or list several ones in one entry
+MOD_ID_PATTERN = re.compile(r"^[a-zA-Z0-9_#'+-]+$")
 
 
 @dataclass
@@ -97,7 +102,13 @@ class IniData:
             description from their origin
         """
         rules = []
-        for direction, mods in (("before", self.before), ("after", self.after)):
+        for direction, declared_mods in (("before", self.before), ("after", self.after)):
+            mods = [mod for mod in declared_mods if MOD_ID_PATTERN.match(mod)]
+            if ignored := [mod for mod in declared_mods if mod not in mods]:
+                logger.warning(
+                    f"{tp2_name}: {direction.capitalize()} entries that are not mod "
+                    f"identifiers ignored: {ignored}"
+                )
             if not mods:
                 continue
 

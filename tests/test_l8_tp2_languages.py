@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from core.WeiDUTp2Parser import WeiDUTp2Parser
+from util.mod_sync.sources.tp2_source import TP2Source
 
 LANGUAGES_TP2 = """BACKUP ~demo/backup~
 AUTHOR ~author~
@@ -93,3 +94,18 @@ def test_translations_of_other_languages_keep_declaration_order(tmp_path: Path) 
         ("en_US", 2),
         ("fr_FR", 3),
     ]
+
+
+def test_language_missing_from_the_language_map_does_not_reach_the_definition(
+    tmp_path: Path,
+) -> None:
+    declarations = [("Klingon", "klingon"), ("English", "english")]
+    for _, code in declarations:
+        _write_tra(tmp_path, code, code, "utf-8")
+    (tmp_path / "demo" / "demo.tp2").write_text(_languages_tp2(*declarations), encoding="utf-8")
+
+    extracted = TP2Source(tmp_path).extract("demo")
+
+    assert extracted is not None
+    assert extracted["languages"] == {"en_US": 1}
+    assert extracted["component_translations"] == {"en_US": {"0": "english"}}
