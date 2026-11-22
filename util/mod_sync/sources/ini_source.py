@@ -16,15 +16,11 @@ import json
 import logging
 from pathlib import Path
 
-from core.TranslationManager import get_translator
-
 logger = logging.getLogger(__name__)
 
 # Origin marker of the rules generated from the INI file: mod_sync replaces
 # these rules only, the other rules of a definition are manual.
 INI_RULE_ORIGIN = "ini"
-# Translation key of the description of these rules, stored in every language
-INI_RULE_DESCRIPTION_KEY = "rule.ini_order_description"
 
 
 @dataclass
@@ -94,7 +90,9 @@ class IniData:
             tp2_name: Mod the rules apply to
 
         Returns:
-            Rules in the format of the "order" list of a definition's "rules" section
+            Rules in the format of the "order" list of a definition's "rules"
+            section; they carry no text, the application generates their
+            description from their origin
         """
         rules = []
         for direction, mods in (("before", self.before), ("after", self.after)):
@@ -107,9 +105,6 @@ class IniData:
                     "rule": f"{tp2_name}(-):{targets}",
                     "direction": direction,
                     "severity": "warning",
-                    "translations": get_translator().get_all_languages(
-                        INI_RULE_DESCRIPTION_KEY, mod=tp2_name
-                    ),
                     "origin": INI_RULE_ORIGIN,
                 }
             )

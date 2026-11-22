@@ -134,10 +134,19 @@ def test_rule_of_a_definition_referring_to_a_missing_mod_blocks_publication(
     [
         {"order": [{**MANUAL_RULE, "origin": "lcc"}]},
         {"dependencies": [{"rule": "demo(0):other(-)", "origin": INI_RULE_ORIGIN}]},
+        {"order": [{**_ini_rule("demo"), "translations": {"en_US": "Stored text"}}]},
+        {"order": [{**_ini_rule("demo"), "description": "Stored text"}]},
         {"dependencies": [{"rule": "demo(0):other(-):third(-)"}]},
         {"unknown": []},
     ],
-    ids=["unknown rule origin", "generated dependency", "dependency with three sides", "unknown rule type"],
+    ids=[
+        "unknown rule origin",
+        "generated dependency",
+        "generated rule with translations",
+        "generated rule with description",
+        "dependency with three sides",
+        "unknown rule type",
+    ],
 )
 def test_malformed_rules_section_fails_schema(
     small_catalogue: tuple[Path, Path], section: dict
@@ -208,12 +217,32 @@ def test_undecodable_ini_file_is_no_source(tmp_path: Path) -> None:
     assert IniSource(tmp_path).extract("demo") is None
 
 
-def test_ini_rule_description_is_stored_in_every_supported_language() -> None:
-    translations = _ini_rule("other")["translations"]
+def test_ini_rules_carry_no_text() -> None:
+    rule = _ini_rule("other")
 
-    assert list(translations) == [code for code, _ in SUPPORTED_LANGUAGES]
-    assert all("demo" in text and "{mod}" not in text for text in translations.values())
-    assert translations["fr_FR"] == "Règle définie dans l'ini de demo"
+    assert "translations" not in rule and "description" not in rule
+
+
+@pytest.mark.parametrize(
+    ("definition", "mod_name"),
+    [({"name": "Demo Mod"}, "Demo Mod"), ({}, "demo")],
+    ids=["definition name", "file name without definition name"],
+)
+def test_ini_rule_description_is_generated_at_loading_in_every_language(
+    rules: RuleManager, tmp_path: Path, definition: dict, mod_name: str
+) -> None:
+    rules_section = {"order": [_ini_rule("other"), MANUAL_RULE]}
+    _write(tmp_path / "mods" / "demo.json", {**definition, "rules": rules_section})
+    builder = rules._create_cache_builder(["fr_FR"])
+
+    ini_rule, manual_rule = builder._load_sources()["order"]
+
+    assert list(ini_rule["translations"]) == [code for code, _ in SUPPORTED_LANGUAGES]
+    assert all(mod_name in text for text in ini_rule["translations"].values())
+    assert builder._localize_entry(ini_rule, "fr_FR")["description"] == (
+        f"Règle définie dans l'ini de {mod_name}"
+    )
+    assert "translations" not in manual_rule
 
 
 def test_ini_origin_survives_rule_loading(rules: RuleManager, tmp_path: Path) -> None:

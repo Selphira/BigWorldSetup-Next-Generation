@@ -263,6 +263,11 @@
       "description": "Order rule; same format as data/rules/order.json",
       "required": ["rule"],
       "additionalProperties": false,
+      "if": {"required": ["origin"]},
+      "then": {
+        "description": "A generated rule has no text: the application generates it from its origin",
+        "not": {"anyOf": [{"required": ["translations"]}, {"required": ["description"]}]}
+      },
       "properties": {
         "rule": {"$ref": "#/definitions/sourceTargetRule"},
         "severity": {"$ref": "#/definitions/ruleSeverity"},
@@ -273,7 +278,7 @@
         "origin": {
           "type": "string",
           "enum": ["ini"],
-          "description": "Generator of the rule, whose rules mod_sync replaces; absent for a manual rule"
+          "description": "Generator of the rule, whose rules mod_sync replaces and whose description the application generates; absent for a manual rule"
         }
       }
     },
