@@ -5,8 +5,40 @@ on:
     types: [ published ]
 
 jobs:
+  verify:
+    name: Verify sources before packaging
+    runs-on: windows-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.3'
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Offline acceptance contracts
+        run: python -m pytest -q -rx
+
+      - name: Validate complete catalogue
+        run: python -m validation.catalogue --report catalogue-report.json
+
+      - name: Preserve validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaging-catalogue-report
+          path: catalogue-report.json
+
   build:
     name: Build for ${{ matrix.os }}
+    needs: verify
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -60,6 +92,58 @@ jobs:
           if (Test-Path README.md) { Copy-Item README.md dist/BigWorldSetup/ }
           if (Test-Path LICENSE) { Copy-Item LICENSE dist/BigWorldSetup/ }
         shell: pwsh
+
+      # The package is started from a copy, so that the caches, logs and state
+      # it writes are not shipped, and from another working directory, so that
+      # a path resolved against the working directory fails the test.
+      - name: Smoke test the package from another directory (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          $smokeRoot = Join-Path $env:RUNNER_TEMP 'smoke'
+          $package = Join-Path $smokeRoot 'BigWorldSetup'
+          $workDir = Join-Path $smokeRoot 'cwd'
+          New-Item -ItemType Directory -Path $workDir -Force | Out-Null
+          Copy-Item -Path dist/BigWorldSetup -Destination $smokeRoot -Recurse
+
+          # Both localized caches are complete once their fingerprints are written
+          $readyFiles = @('mods.fingerprint.json', 'rules.fingerprint.json') |
+            ForEach-Object { Join-Path $package ".cache/$_" }
+          $logFile = Join-Path $package 'logs/bws_ng.log'
+
+          $process = Start-Process -FilePath (Join-Path $package 'BigWorldSetup.exe') `
+            -WorkingDirectory $workDir -PassThru
+          $deadline = (Get-Date).AddMinutes(5)
+          while (-not $process.HasExited -and (Get-Date) -lt $deadline -and
+                 ($readyFiles | Where-Object { -not (Test-Path $_) })) {
+            Start-Sleep -Seconds 2
+          }
+          # Leave time for the main window to be created after the caches
+          if (-not $process.HasExited) { Start-Sleep -Seconds 15 }
+
+          $exited = $process.HasExited
+          if (-not $exited) { Stop-Process -Id $process.Id -Force }
+          if (Test-Path $logFile) { Get-Content $logFile -Tail 60 }
+
+          $failures = @()
+          if ($exited) { $failures += "Application exited during startup (code $($process.ExitCode))" }
+          if ($readyFiles | Where-Object { -not (Test-Path $_) }) {
+            $failures += 'Mod and rule caches were not built in the package directory'
+          }
+          if (-not (Test-Path $logFile)) { $failures += 'No log written in the package directory' }
+          elseif (Select-String -Path $logFile -Pattern ' - CRITICAL - ' -Quiet) {
+            # Fatal initialization errors and uncaught exceptions; network
+            # checks may log errors on a shared runner without breaking startup
+            $failures += 'Critical error logged during startup'
+          }
+          if (Get-ChildItem -Path $workDir -Force) { $failures += 'Files written in the working directory' }
+
+          if ($failures) {
+            $failures | ForEach-Object { Write-Host "::error::$_" }
+            exit 1
+          }
 
       - name: Verify build output
         run: |
