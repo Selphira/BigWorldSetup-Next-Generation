@@ -1,27 +1,29 @@
 {
-  "name": "The Tortured Soul Quest",
-  "version": "8",
+  "name": "Tortured Soul Quest",
+  "version": "8.1",
   "links": {
     "homepage": "https://github.com/Plutonium-X/1D_NPC_Tortured"
   },
   "files": [
     {
-      "filename": "lin-TTSQ-v7.zip",
-      "size": 1907632,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v8/lin-TTSQ-v7.zip",
+      "filename": "lin-TTSQ-v8.1.zip",
+      "size": 2471642,
+      "sha256": "52a1c505d6c31f052d525c33623618253717ccb1e98ead1857ccb5d0d5424f44",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v.8.1/lin-TTSQ-v8.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-TTSQ-v7.zip",
-      "size": 2135144,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v8/mac-TTSQ-v7.zip",
+      "filename": "mac-TTSQ-v8.1.zip",
+      "size": 2588811,
+      "sha256": "8053e38b4a39324feafd8151613050648d03c1106411eb93c0ac5272371b6666",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v.8.1/mac-TTSQ-v8.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "1D_NPC_Tortured-main.zip",
-      "size": 2070486,
-      "sha256": "d8c934bcf017a4fa4632d3ab142f06ca45bf3a4434a0333423c3bdf514020ba5",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/archive/refs/heads/main.zip",
+      "filename": "win-TTSQ-v8.1.zip",
+      "size": 2121387,
+      "sha256": "2a9cadc4d2ec06da3f6fb12786aa26c7466d12a4f5d49f76c8d62af99dda8b3c",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Tortured/releases/download/v.8.1/win-TTSQ-v8.1.zip",
       "platforms": ["windows"]
     }
   ],
@@ -36,7 +38,8 @@
     "de_DE": 2,
     "es_ES": 3,
     "fr_FR": 4,
-    "it_IT": 5
+    "it_IT": 5,
+    "zh_CN": 6
   },
   "translations": {
     "fr_FR": {
@@ -52,7 +55,10 @@
       }
     },
     "zh_CN": {
-      "description": "不要与巨型模组Tortured Souls-BP混淆，此模组添加了一个小任务，在任务结束时，你会获得一个全新的物品，可以让你随意召唤法师杀手巴恩伍尔德。他可以从奴役中被解放，加入你的队伍。要开启任务，使用一个新敌人在阿斯卡特拉墓园某个墓穴中“掉落”的魔杖。\n力量19，敏捷17，体质19，智力12，智慧15，魅力17。"
+      "description": "不要与巨型模组Tortured Souls-BP混淆，此模组添加了一个小任务，在任务结束时，你会获得一个全新的物品，可以让你随意召唤法师杀手巴恩伍尔德。他可以从奴役中被解放，加入你的队伍。要开启任务，使用一个新敌人在阿斯卡特拉墓园某个墓穴中“掉落”的魔杖。\n力量19，敏捷17，体质19，智力12，智慧15，魅力17。",
+      "components": {
+        "0": "ÊÜÕÛÄ¥µÄÁé»êÈÎÎñ - WeiDU"
+      }
     },
     "ru_RU": {
       "components": {

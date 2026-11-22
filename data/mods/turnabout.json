@@ -26,7 +26,7 @@
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
-  "categories": ["gameplay"],
+  "categories": ["quest"],
   "components": {
     "0": {"type": "std", "category": "quest", "games": ["bg2ee", "bgt", "eet"]},
     "1": {"type": "std", "category": "portrait"}

@@ -1,6 +1,6 @@
 {
   "name": "Refinements",
-  "version": "4.36",
+  "version": "4.36.1",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/refinements",
     "forums": ["https://www.shsforums.net/forum/116-refinements/"]
@@ -16,9 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {
-      "type": "muc", "components": ["10", "11"], "category": "spell", "default": "10", "games": ["bg2ee", "bgt", "eet"]
-    },
+    "choice_0": {"type": "muc", "components": ["10", "11"], "category": "spell", "default": "10", "games": ["bg2ee", "bgt", "eet"]},
     "101": {"type": "std", "category": "spell"},
     "102": {"type": "std", "category": "spell"},
     "103": {"type": "std", "category": "spell"},
@@ -115,7 +113,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组旨在为博德之门2的规则带来各种改进。其中包括：一个专长（剑天使）；对变形者更合理的再平衡，比Ease-of-Use Mod Collection更合理；完善盔甲系统，考虑重量、对世俗法术的失败率和盗贼技能；以及完全重塑的HLA，使每个职业和专长更具独特性。"
+      "description": "这个模组旨在为博德之门Ⅱ的规则带来各种改进。其中包括：一个专长（剑天使）；对变形者更合理的再平衡，比Ease-of-Use Mod Collection更合理；完善盔甲系统，考虑重量、对世俗法术的失败率和盗贼技能；以及完全重塑的HLA，使每个职业和专长更具独特性。"
     },
     "ja_JP": {
       "components": {

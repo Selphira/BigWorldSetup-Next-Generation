@@ -12,7 +12,7 @@
       "download": "https://github.com/Endarire/W_Packmule/releases/download/1.4b/w_packmule-v1.4b.zip"
     }
   ],
-  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "category": "smith", "default": "2", "games": ["bg2", "tutu", "bgt"]},
@@ -56,7 +56,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组添加了一匹驮马，它会一直跟随你，永不疲倦地运输你的物品。"
+      "description": "此模组添加了一匹驮骡，它会一直跟随你，永不疲倦地运输你的物品。"
     },
     "pl_PL": {
       "components": {

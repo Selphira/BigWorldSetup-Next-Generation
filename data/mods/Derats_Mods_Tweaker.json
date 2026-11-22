@@ -1,29 +1,29 @@
 {
   "name": "Mods_Tweaker",
-  "version": "3.2",
+  "version": "3.1",
   "links": {
     "homepage": "https://github.com/Deratiseur/Mods_Tweaker"
   },
   "files": [
     {
-      "filename": "lin-Derats_Mods_Tweaker-v3.2.zip",
-      "size": 2971169,
-      "sha256": "d51a5052394c50b7506f4cbb9d9db267049c48104ebdd6c4215e5375a77367ee",
-      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/lin-Derats_Mods_Tweaker-v3.2.zip",
+      "filename": "lin-Derats_Mods_Tweaker-v3.1.zip",
+      "size": 3338644,
+      "sha256": "9cf128cb06130ceb0b5a909c90ac8e7d5f6d8988019a1480bed458317f25e8c5",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v4/lin-Derats_Mods_Tweaker-v3.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Mods_Tweaker-v3.2.zip",
-      "size": 3198711,
-      "sha256": "8b865207a595086d1bd2173b9adefe549a43628a4fa77467b7f43aea016fd902",
-      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/mac-Derats_Mods_Tweaker-v3.2.zip",
+      "filename": "mac-Derats_Mods_Tweaker-v3.1.zip",
+      "size": 3455843,
+      "sha256": "bc1841dcf3007bb46b21296be4b4d4bff2a6aa153e3179d730eefce218348082",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v4/mac-Derats_Mods_Tweaker-v3.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Mods_Tweaker-v3.2.zip",
-      "size": 3143510,
-      "sha256": "245c3fbf59382bccc7c57c7cbdbe3d9abab344573d8c82c43a8e5f00ad5a380f",
-      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v3.2/win-Derats_Mods_Tweaker-v3.2.zip",
+      "filename": "win-Derats_Mods_Tweaker-v3.1.zip",
+      "size": 2988389,
+      "sha256": "e787cc1d4c4feef4b09df3cd68383ce1b8be0985d8799eda4460e1650f742fbc",
+      "download": "https://github.com/Deratiseur/Mods_Tweaker/releases/download/v4/win-Derats_Mods_Tweaker-v3.1.zip",
       "platforms": ["windows"]
     }
   ],
@@ -46,7 +46,6 @@
     "20": {"type": "std", "category": "npcx"},
     "9": {"type": "std", "category": "npcx"},
     "18": {"type": "std", "category": "npcx"},
-    "10": {"type": "std", "category": "tactic"},
     "13": {"type": "std", "category": "tactic"},
     "11": {"type": "std"},
     "15": {"type": "std", "category": "npcx"},
@@ -62,7 +61,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod permet revisite légèrement de vieux mods en leur donnant plus de cohérence. Tous les composants sont optionnels et les mods doivent être installés avant celui-ci. On retrouve notamment : Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, The Tortured Soul Quest.",
+      "description": "Ce mod permet revisite légèrement de vieux mods en leur donnant plus de cohérence. Tous les composants sont optionnels et les mods doivent être installés avant celui-ci. On retrouve notamment : Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, Tortured Soul Quest.",
       "components": {
         "1": "Donner au pnj Horace les immunites d'un squelette",
         "2": "Deplacer le pnj Horace dans le cimetiere d'Athktla",
@@ -80,7 +79,6 @@
         "20": "Donner au pnj Banana des caracteristiques decentes",
         "9": "Donner au pnj Yikari un peu de charisme supplementaire quand il retrouve la parole",
         "18": "Retarder l'arrivée du pnj Mawgul",
-        "10": "Retarder l'arrivee de l'anneau de Umbra of T.R.O.W",
         "13": "Les demons majeurs convocables dans Umbra of T.R.O.W droppent leur cœur",
         "11": "Permettre a un autre marchand de ventre les objets de Jamella's Diablo2 Item Store (de facon illimitee)",
         "15": "Permettre a un marchand dans TOB de vendre tous les objets trouvables par le Coffre chercheur de l'Interplan",
@@ -92,7 +90,7 @@
       }
     },
     "en_US": {
-      "description": "This mod slightly revisits old mods, giving them more coherence. All components are optional and mods must be installed before this one. Mods include: Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, The Tortured Soul Quest.",
+      "description": "This mod slightly revisits old mods, giving them more coherence. All components are optional and mods must be installed before this one. Mods include: Horace, Chiara NPC, Moddie the vixen, Ninafer, Thael NPC, Tomoyo and the Underground City, Sub-zero, Banana! NPC Mod, Yikari, Mawgul NPC, Umbra of Torto, Jamella's Diablo2 Item Store, Lion Warrior kit, Tortured Soul Quest.",
       "components": {
         "1": "Give to the Horace npc the immunities of a skeleton",
         "2": "Move the Horace npc to the Athktla cemetery",
@@ -110,7 +108,6 @@
         "20": "Give to the Banana npc decent characteristics",
         "9": "Give to the Yikari npc some extra charisma when he regains his speech",
         "18": "Delay the arrival of the pnj Mawgul.",
-        "10": "Delay the arrival of the Umbra of T.R.O.W. Ring",
         "13": "Major demons summonable in Umbra of T.R.O.W drop their hearts",
         "11": "Allow another merchant to sell items from Jamella's Diablo2 Item Store (unlimited)",
         "15": "Allow a merchant in TOB to sell all items found by the Interplan Seeker Chest",
@@ -122,7 +119,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组通过赋予它们更多的一致性，略微重新审视了一些旧模组。所有组件都是可选的，并且这些模组必须在此模组之前安装。主要包括：Horace，Chiara NPC，Moddie the vixen，Ninafer，Thael NPC，Tomoyo and the Underground City，Sub-zero，Banana! NPC Mod，Yikari，Mawgul NPC，Umbra of Torto，Jamella's Diablo2 Item Store，Lion Warrior kit，The Tortured Soul Quest。"
+      "description": "此模组通过赋予它们更多的一致性，略微重新审视了一些旧模组。所有组件都是可选的，并且这些模组必须在此模组之前安装。主要包括：Horace，Chiara NPC，Moddie the vixen，Ninafer，Thael NPC，Tomoyo and the Underground City，Sub-zero，Banana! NPC Mod，Yikari，Mawgul NPC，Umbra of Torto，Jamella's Diablo2 Item Store，Lion Warrior kit，Tortured Soul Quest。"
     }
   },
   "tp2": "derats_mods_tweaker",

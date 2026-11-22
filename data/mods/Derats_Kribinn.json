@@ -1,56 +1,66 @@
 {
   "name": "Kri'binn l'araignée semi-mécanique",
-  "version": "4",
+  "version": "8",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/89435/mod-kribinn-the-half-mechanical-spider/p1"
   },
   "files": [
     {
-      "filename": "lin-Derats_Kribinn-v4.zip",
-      "size": 2010504,
-      "sha256": "1847fac3a65a0a0e9a5eebcfc00eee0990d636fdc6217c284f5a1e6defb6155d",
-      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v4/lin-Derats_Kribinn-v4.zip",
+      "filename": "lin-Derats_Kribinn-v8.zip",
+      "size": 2594618,
+      "sha256": "76a21339c5babb739ea84a47ba72f4a447112da8c6635f76d06cfab23ee02ccc",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v8/lin-Derats_Kribinn-v8.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Kribinn-v4.zip",
-      "size": 2238036,
-      "sha256": "6ea82388ed589ea62e2b7e6ed324a30cb4d4bb48e5cb7483982ebad917c3f364",
-      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v4/mac-Derats_Kribinn-v4.zip",
+      "filename": "mac-Derats_Kribinn-v8.zip",
+      "size": 2711807,
+      "sha256": "2d709d6d7b09960c4d7d7408c89b81201a652b509d869ed16ea5b13efb611471",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v8/mac-Derats_Kribinn-v8.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Kribinn-v4.zip",
-      "size": 2182845,
-      "sha256": "66a2e0cf3a074bc79cfce3b72d1ace06865820f9ee1d541c34e4f79407359459",
-      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v4/win-Derats_Kribinn-v4.zip",
+      "filename": "win-Derats_Kribinn-v8.zip",
+      "size": 2244363,
+      "sha256": "d14943a8a0ef26f309e2015249561c13f51b1a114e50bd1f926191fbbb2c81a3",
+      "download": "https://github.com/Deratiseur/Gilbertus/releases/download/v8/win-Derats_Kribinn-v8.zip",
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2ee", "eet", "iwdee"],
+  "games": ["bg2ee", "eet", "iwdee", "pstee"],
   "categories": ["npc1d"],
   "components": {
     "0": {"type": "std"}
   },
   "languages": {
     "fr_FR": 0,
-    "en_US": 1
+    "en_US": 1,
+    "zh_CN": 2,
+    "ru_RU": 3
   },
   "translations": {
     "fr_FR": {
-      "description": "Gilbertus vend une araignée semi-mécanique qui vous suivra comme un 7ème compagnon. Prévoyez beaucoup de pièce d'or. Si vous prévoyez vraiment beaucoup de pièce d'or et si vous êtes persuasif, vous pourrez peut être acheter 'plus'.\nKri'binn : FOR 15, DEX 9, CON 9, INT 9, SAG 9, CHA 9.\nKro'tan : FOR 18/50, DEX 9, CON 9, INT 9, SAG 9, CHA 9.",
+      "description": "Gilbertus vend une araignée semi-mécanique qui vous suivra comme un 7ème compagnon. Prévoyez beaucoup de pièces d'or.\nL'araignée est quasi-invulnérable et peut être améliorée avec des potions.\nSi, quand vous parlez au vendeur, vous avez vraiment énormément de pièces d'or, vous pourrez peut-être acheter 'plus'.\nKri'binn : FOR 15, DEX 9, CON 9, INT 9, SAG 9, CHA 9.\nKro'tan : FOR 18/50, DEX 9, CON 9, INT 9, SAG 9, CHA 9.",
       "components": {
         "0": "Gilbertus et ses Araignees"
       }
     },
     "en_US": {
-      "description": "Gilbertus sells a semi-mechanical spider that will follow you around like a 7th companion. Expect lots of gold coins. If you really plan to spend a lot of gold and are persuasive, you may be able to buy 'more'.\nKri'binn : STR 15, DEX 9, CON 9, INT 9, WIS 9, CHA 9.\nKro'tan : STR 18/50, DEX 9, CON 9, INT 9, WIS 9, CHA 9.",
+      "description": "Gilbertus sells a semi-mechanical spider that will follow you as a 7th companion. Expect to spend a lot of gold.\nThe spider is almost invulnerable and can be upgraded with potions.\nIf you have a truly huge amount of gold when you talk to the vendor, you may be able to buy 'more'.\nKri'binn : STR 15, DEX 9, CON 9, INT 9, WIS 9, CHA 9.\nKro'tan : STR 18/50, DEX 9, CON 9, INT 9, WIS 9, CHA 9.",
       "components": {
         "0": "Gilbertus and his Spiders"
       }
     },
     "zh_CN": {
-      "description": "Gilbertus 出售一个半机械的蜘蛛，它会像第七个同伴一样跟着你。准备很多金币。如果你真的准备了很多金币，并且很有说服力，你也许能买到“更多”。\nKri'binn ：力量 15，敏捷 9，体质 9，智力 9，智慧 9，魅力 9。\nKro'tan ：力量 18/50，敏捷 9，体质 9，智力 9，智慧 9，魅力 9。"
+      "description": "吉尔伯特斯（Gilbertus）出售一只半机械蜘蛛，它会像第七名同伴一样跟随你。请准备大量金币。\n这只蜘蛛几乎无敌，并且可以用药水进行升级。\n如果你在与商人交谈时拥有真正海量的金币，或许还能买到“更多”。\n克里宾（Kri'binn）：力量15，敏捷9，体质9，智力9，智慧9，魅力9。\n克洛坦（Kro'tan）：力量18/50，敏捷9，体质9，智力9，智慧9，魅力9。",
+      "components": {
+        "0": "吉尔伯特斯与他的蜘蛛"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Гилбертус и его пауки"
+      }
     }
   },
   "tp2": "derats_kribinn",

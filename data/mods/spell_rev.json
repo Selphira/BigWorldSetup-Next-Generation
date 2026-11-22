@@ -1,29 +1,29 @@
 {
   "name": "Spell Revisions",
-  "version": "4.20",
+  "version": "4.21",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/26517-sr-v4-open-beta-last-update-25-october-2018/page/60/#comment-240486"
   },
   "files": [
     {
-      "filename": "lin-spell_rev-v4-20.tar.gz",
-      "size": 5146233,
-      "sha256": "da5eb330513c19e6870cc665d86398943c7be37b852abdf4380b982fbbca9724",
-      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/lin-spell_rev-v4-20.tar.gz",
+      "filename": "lin-spell_rev-v4-21.tar.gz",
+      "size": 5146445,
+      "sha256": "8636fc9fe6dec92395178d58c2af5c85d6b7b448fb627441c97441b49d487e95",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.21/lin-spell_rev-v4-21.tar.gz",
       "platforms": ["linux"]
     },
     {
-      "filename": "osx-spell_rev-v4-20.tar.gz",
-      "size": 5146233,
-      "sha256": "da5eb330513c19e6870cc665d86398943c7be37b852abdf4380b982fbbca9724",
-      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/osx-spell_rev-v4-20.tar.gz",
+      "filename": "osx-spell_rev-v4-21.tar.gz",
+      "size": 6448663,
+      "sha256": "52b59783d8d5dc9babf0fd0f9d50021949b9f99685205ff233d58c8519627bc8",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.21/osx-spell_rev-v4-21.tar.gz",
       "platforms": ["macos"]
     },
     {
-      "filename": "spell_rev-v4-20.zip",
-      "size": 7620514,
-      "sha256": "77a54f44826ec27cccd9e8c5292f474b52df7e92b8d0b6ec61755fdc20b37bb9",
-      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.20/spell_rev-v4-20.zip",
+      "filename": "spell_rev-v4-21.zip",
+      "size": 7621022,
+      "sha256": "f72c73ec0fa6a57f7b595fb8ba79f41909f53e13b12a768a386795c36dba30fb",
+      "download": "https://github.com/Gibberlings3/SpellRevisions/releases/download/v4.21/spell_rev-v4-21.zip",
       "platforms": ["windows"]
     }
   ],
@@ -45,7 +45,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod brings corrections or modifications to Spell Revisions. You'll find a list [here](https://www.gibberlings3.net/forums/topic/29618-sr-revised-v13700-2021-october-26th/).",
+      "description": "This mod brings corrections or modifications to Spell Revisions.",
       "components": {
         "0": "Spell Revisions",
         "10": "Deva and Planetar Animations",
@@ -58,7 +58,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod apporte des corrections ou des modifications à Spell Revisions. Vous en trouverez la liste [ici](https://www.gibberlings3.net/forums/topic/29618-sr-revised-v13700-2021-october-26th/).",
+      "description": "Ce mod apporte des corrections ou des modifications à Spell Revisions.",
       "components": {
         "0": "Spell Revisions",
         "10": "Animations des Devas et Planetaires",
@@ -71,7 +71,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组为Spell Revisions提供了修正或修改。您可以在[这里](https://www.gibberlings3.net/forums/topic/29618-sr-revised-v13700-2021-october-26th/)找到其列表。"
+      "description": "这个模组为 Spell Revisions 带来了修正。"
     }
   },
   "tp2": "spell_rev",

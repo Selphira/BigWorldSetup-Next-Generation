@@ -9,7 +9,8 @@
     {
       "filename": "beyond-the-law-v2.0.0.zip",
       "size": 11866902,
-      "download": "https://github.com/Spellhold-Studios/Beyond-the-Law/releases/download/v2.0.0/beyond-the-law-v2.0.0.zip"
+      "download": "https://github.com/Spellhold-Studios/Beyond-the-Law/releases/download/v2.0.0/beyond-the-law-v2.0.0.zip",
+      "sha256": "58e7eb0ef7ef72822b23fe38409fe2d7524065230145f454ba99fe4d95ebfeb5"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -26,7 +27,7 @@
       "description": "Ce mod propose deux PNJ recrutables, Kiyone (rôdeuse demi-elfe loyal bon) et Kova (mage/voleuse demi-elfe chaotique bon), non-séparables (comme Kiara Zaiya) qui ont une romance potentielle (entre eux), des banters avec tout le monde, et une très intéressante quête sur les liens entre les Cagoulés, les Voleurs de l'Ombre et le Conseil des Six, sans parler d'un tas de combats tout au long de SoA (et désormais des interjections dans la Tour de Garde et plusieurs épilogues de romance dans ToB).\nKiyone : FOR 15, DEX 17, CON 13, INT 14, SAG 15, CHA 12.\nKova : FOR 14, DEX 17, CON 13, INT 17, SAG 10, CHA 11."
     },
     "en_US": {
-      "description": "This mod features two recruitable NPCs, Kiyone (lawful good half-elf ranger) and Kova (chaotic good half-elf mage/thief), non-separable (like Kiara Zaiya) who have a potential romance (with each other), banters with everyone, and a very interesting quest on the links between the Hooded Ones, the Shadow Thieves and the Council of Six, not to mention a bunch of fights throughout SoA (and now interjections in the Watcher's keep and several romance epilogues in ToB).\nKiyone : STR 15, DEX 17, CON 13, INT 14, WIS 15, CHA 12.\nKova : STR 14, DEX 17, CON 13, INT 17, WIS 10, CHA 11.",
+      "description": "This mod features two recruitable NPCs, Kiyone (lawful good half-elf ranger) and Kova (chaotic good half-elf mage/thief), non-separable (like Kiara Zaiya) who have a potential romance (with each other), banters with everyone, and a very interesting quest on the links between the Cowled Wizards, the Shadow Thieves and the Council of Six, not to mention a bunch of fights throughout SoA (and now interjections in the Watcher's keep and several romance epilogues in ToB).\nKiyone : STR 15, DEX 17, CON 13, INT 14, WIS 15, CHA 12.\nKova : STR 14, DEX 17, CON 13, INT 17, WIS 10, CHA 11.",
       "components": {
         "choice_0": "Beyond the Law - Kova & Kiyone",
         "0": "Beyond the Law with Kiyone original sound set",

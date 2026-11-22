@@ -10,7 +10,8 @@
       "filename": "bg1npc_portrait_pack-v3.exe",
       "size": 9936887,
       "download": "https://github.com/Gibberlings3/BG1NPC_Portrait_Pack/releases/download/v3/bg1npc_portrait_pack-v3.exe",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "34d8e686a54a04f6e508677c0296892e1c288d0876c7d81fc51e54f03c5a0842"
     },
     {
       "filename": "lin-bg1npc_portrait_pack-v3.tar.gz",
@@ -29,14 +30,14 @@
   "categories": ["portrait"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "4": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "choice_0": {"type": "muc", "components": ["5", "6", "7"], "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "choice_1": {"type": "muc", "components": ["8", "9", "10"], "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "13": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "19": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "23": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]},
-    "27": {"type": "std", "games": ["bg1", "bgee", "bgt", "sod", "tutu"]}
+    "1": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "4": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_0": {"type": "muc", "components": ["5", "6", "7"], "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "choice_1": {"type": "muc", "components": ["8", "9", "10"], "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "13": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "19": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "23": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "27": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]}
   },
   "languages": {
     "en_US": 0,

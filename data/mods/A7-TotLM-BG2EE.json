@@ -58,10 +58,10 @@
         "33": "Grant no experience",
         "40": "Allow to trade with Hobart before starting the adventure"
       },
-      "description": "This mod makes the Icewind Dale expansion « Trial of the Luremaster » available to BG2:EE (2.0 or higher), Siege of Dragonspear and EET (Enhanced Edition Trilogy). The quest starts by talking to the halfling Hobart Stubbletoes, who can be found either in the Umar Hills Inn (SoA), Amkethran Inn (ToB) or in the southeastern area of the Coalition Camp (SoD). In the course of the adventure you have the opportunity to explore a haunted castle, test your mettle in challenging combat and lift an ancient curse."
+      "description": "This mod makes the Icewind Dale expansion « Trial of the Luremaster » available to BG2:EE, Siege of Dragonspear and Enhanced Edition Trilogy. The quest starts by talking to the halfling Hobart Stubbletoes, who can be found either in the Umar Hills Inn (SoA), Amkethran Inn (ToB) or in the southeastern area of the Coalition Camp (SoD). In the course of the adventure you have the opportunity to explore a haunted castle, test your mettle in challenging combat and lift an ancient curse."
     },
     "fr_FR": {
-      "description": "Ce mod permet de jouer l'extension de Icewind Dale « Les Épreuves du Maître des Leurres » dans BG2:EE (version 2.0 ou supérieure), Siege of Dragonspear et EET (Enhanced Edition Trilogy). Pour initier la quête, parlez au petit-homme Hobart Piévelu, que vous trouverez soit dans l'auberge des Collines d'Umar (SoA), d'Amkethran (ToB) ou au sud est du Camp de la Coalition (SoD). Au cours de l'aventure, vous aurez l'opportunité d'explorer un château hanté, de tester votre courage et de faire vos preuves dans des combats difficiles et de lever une ancienne malédiction.",
+      "description": "Ce mod permet de jouer l'extension de Icewind Dale « Les Épreuves du Maître des Leurres » dans BG2:EE, Siege of Dragonspear et Enhanced Edition Trilogy. Pour initier la quête, parlez au petit-homme Hobart Piévelu, que vous trouverez soit dans l'auberge des Collines d'Umar (SoA), d'Amkethran (ToB) ou au sud est du Camp de la Coalition (SoD). Au cours de l'aventure, vous aurez l'opportunité d'explorer un château hanté, de tester votre courage et de faire vos preuves dans des combats difficiles et de lever une ancienne malédiction.",
       "components": {
         "0": "Les Epreuves du Maitre des Leurres pour BG2:EE",
         "20": "Reequilibrer les armes et l'equipement",
@@ -74,7 +74,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组允许你在博德之门2：增强版（2.0或更高版本）、龙矛围攻和EET (Enhanced Edition Trilogy)中游玩冰风谷的扩展包“大师的试炼”。要开始任务，与霍巴特·皮耶维尔交谈，你可以在乌马尔山丘旅店（安姆阴影）、阿姆肯瑟兰（巴尔王座）或联盟营地的东南部找到他。在冒险过程中，你将有机会探索一座鬼魂出没的城堡，测试你的勇气，在艰难的战斗中证明自己，并解除一个古老的诅咒。",
+      "description": "这个模组允许在《博德之门II：增强版》、《龙矛围攻》和Enhanced Edition Trilogy中游玩《冰风谷》的扩展内容《迷诱大师的试炼》。要开启任务，请与半身人霍巴特·皮埃维尔交谈，你可以在乌玛丘陵（《安姆阴影》）、安姆克萨兰（《巴尔王座》）或联军营地东南方（《龙矛围攻》）的酒馆中找到他。在冒险过程中，你将有机会探索一座闹鬼的城堡，考验你的勇气，在艰难的战斗中证明自己，并解除一个古老的诅咒。",
       "components": {
         "0": "用于《博德之门》的《谜语大师的试炼》",
         "20": "再平衡武器和装备",

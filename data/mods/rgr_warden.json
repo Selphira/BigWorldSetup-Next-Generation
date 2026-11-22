@@ -8,7 +8,8 @@
     {
       "filename": "Ranger-Warden-Kit.zip",
       "size": 12037710,
-      "download": "https://github.com/DaerosTrollkiller/Ranger-Warden-Kit/releases/download/v1.0.1/Ranger-Warden-Kit.zip"
+      "download": "https://github.com/DaerosTrollkiller/Ranger-Warden-Kit/releases/download/v1.0.1/Ranger-Warden-Kit.zip",
+      "sha256": "bcad312feb3b7ce0b52b60da7ba7b696554ce47dfe21427eb4770ba366be9d49"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
@@ -24,7 +25,7 @@
       "description": "Ce mod offre un kit pour Rôdeur : le Garde Forestier. Protecteur de la nature, il est débrouillard et n'a pas ou peu de considération pour les lois du monde « civilisé ». Il a accès à certaines capacités comme la création de projectiles, il peut également poser des pièges ou soigner grâce à des cataplasmes. Le mod ajoute également quelques objets utiles aux rôdeurs."
     },
     "en_US": {
-      "description": "This mod offers a Ranger kit: the Forest Ranger. A protector of nature, he is resourceful and has little or no regard for the laws of the \"civilized\" world. He has access to certain abilities such as projectile creation, and can also set traps or heal with poultices. The mod also adds a number of useful items for rangers.",
+      "description": "This mod adds a Ranger kit: the Warden.\nHe serves to protect nature, he is resourceful and has little or no consideration given to the laws of the \"civilized\" world. He has access to certain abilities such as projectile creation, and can also set traps or heal with poultices. The mod also adds a number of useful items for rangers.",
       "components": {
         "0": "Ranger Warden Kit"
       }

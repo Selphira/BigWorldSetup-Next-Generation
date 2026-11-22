@@ -8,7 +8,8 @@
     {
       "filename": "ascalons-breagar-12.2.1.zip",
       "size": 46147933,
-      "download": "https://github.com/Gitjas/Ascalons_Breagar/releases/download/v12.2.1/ascalons-breagar-12.2.1.zip"
+      "download": "https://github.com/Gitjas/Ascalons_Breagar/releases/download/v12.2.1/ascalons-breagar-12.2.1.zip",
+      "sha256": "cbe462ffa462f82379bfa86b8fa52871c704aadb294bb40a97226a15a9a60fec"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
@@ -25,10 +26,10 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod ajoute Breagar du clan Bardormar en tant que PNJ recrutable dans Baldur's Gate I et II. D'alignement loyal bon, il dispose de son propre profil de forgeron nain. Le mod contient des dialogues, des créatures, des objets et des quêtes.\nPour BGT et EET, Breagar fonctionne comme un personnage continu tout au long de la trilogie. Il existe trois épilogues différents dans ToB selon les choix du joueur.\nPour BG:EE, Tutu, BGII et BG2:EE, seul le contenu correspondant au jeu sera installé."
+      "description": "Ce mod ajoute Breagar du clan Bardormar en tant que PNJ recrutable. D'alignement loyal bon, il dispose de son propre kit de forgeron nain. Le mod contient des dialogues, des créatures, des objets et des quêtes.\nPour BGT et EET, Breagar fonctionne comme un personnage continu tout au long de la trilogie. Il existe trois épilogues différents dans ToB selon les choix du joueur.\nFOR 17, DEX 14, CON 19, INT 10, SAG 12, CHA 11."
     },
     "en_US": {
-      "description": "This mod adds Breagar of the Bardormar clan as a recruitable NPC in Baldur's Gate I and II. Aligned as a lawful good, he has his own dwarven blacksmith profile. For BGT and EET, Breagar functions as a continuous character throughout the trilogy. For BG:EE, Tutu, BGII and BG2:EE, only content corresponding to the game will be installed.",
+      "description": "This mod adds Breagar of the Bardormar clan as a recruitable NPC. Aligned as a lawful good, he has his own dwarven blacksmith kit. The mod includes dialogue, creatures, items and quests.\nIn BGT and EET, Breagar appears as a recurring character throughout the trilogy. There are three different epilogues in ToB, depending on the player’s choices.\nSTR 17, DEX 14, CON 19, INT 10, WIS 12, CHA 11.",
       "components": {
         "0": "Breagar: Contents",
         "2": "Breagar: Crossmods and PID",
@@ -40,7 +41,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组在博德之门I和II中添加了来自巴多尔玛尔氏族的Breagar作为可招募的NPC。他拥有守序善良的阵营，并有自己独特的矮人锻造师档案。该模组包含对话、生物、物品和任务。\n对于博德之门三部曲和增强版三部曲，Breagar在整个三部曲中作为一个持续的角色存在。在巴尔王座中，根据玩家的选择，有三个不同的结局。\n对于博德之门：增强版、Tutu、博德之门II和博德之门II：增强版，只会安装与游戏相对应的内容。"
+      "description": "这个模组将巴多玛（Bardormar）氏族的布雷加尔（Breagar）添加为可招募NPC。他阵营为守序善良，拥有自己的矮人铁匠宗派。该模组包含对话、生物、物品和任务。\n对于BGT和EET，布雷加尔作为贯穿三部曲的连续角色运作。根据玩家的选择，在《巴尔王座》（ToB）中会有三个不同的结局。\n力量17，敏捷14，体质19，智力10，智慧12，魅力11。"
     },
     "de_DE": {
       "components": {

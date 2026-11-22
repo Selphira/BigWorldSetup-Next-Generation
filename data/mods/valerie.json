@@ -9,7 +9,8 @@
     {
       "filename": "valerie-npc-for-bg-v1.2.zip",
       "size": 4641586,
-      "download": "https://github.com/Spellhold-Studios/Valerie-NPC/releases/download/v1.2/valerie-npc-for-bg-v1.2.zip"
+      "download": "https://github.com/Spellhold-Studios/Valerie-NPC/releases/download/v1.2/valerie-npc-for-bg-v1.2.zip",
+      "sha256": "7087c99f1e71b5cd2146c46a02d920c779d6d0d22eebd1e6fc0017684796fe60"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
@@ -26,7 +27,7 @@
       "description": "Si vous avez toujours rêvé d'en savoir plus sur la mystérieuse organisation des Mages cagoulés, ce mod est fait pour vous. Décidée à enquêter sur les rumeurs de présence de démons à proximité de Nashkel, la sorcière Valérie attend de valeureux compagnons dans la ville pour dénouer le vrai du faux dans les mines et peut-être même au-delà. Banters, interjections, voie de l'amitié avec flirts sont au programme.\nFOR 10, DEX 14, CON 8, INT 16, SAG 14, CHA 13."
     },
     "en_US": {
-      "description": "If you've ever wanted to find out more about the mysterious Hooded Mage organization, this mod is for you. Determined to investigate rumors of the presence of demons in the vicinity of Nashkel, Witch Valerie awaits brave companions in the town to unravel the truth from falsehood in the mines and perhaps beyond. Banters, interjections, friendship and flirtation are all on the agenda.\nSTR 10, DEX 14, CON 8, INT 16, WIS 14, CHA 13.",
+      "description": "If you've ever wanted to find out more about the mysterious Cowled Wizards organization, this mod is for you. Determined to investigate rumors of the presence of demons in the vicinity of Nashkel, Witch Valerie awaits brave companions in the town to unravel the truth from falsehood in the mines and perhaps beyond. Banters, interjections, friendship and flirtation are all on the agenda.\nSTR 10, DEX 14, CON 8, INT 16, WIS 14, CHA 13.",
       "components": {
         "0": "Valerie NPC Mod for BG1 Tutu, BGT BG:EE and EET"
       }
@@ -42,5 +43,5 @@
   },
   "tp2": "valerie",
   "safe": 2,
-  "authors": ["Tempest", "K'aeloree"]
+  "authors": ["Tempest"]
 }

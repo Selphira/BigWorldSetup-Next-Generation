@@ -7,8 +7,8 @@
   "files": [
     {
       "filename": "Drizzt-Saga-master.zip",
-      "size": 75883991,
-      "sha256": "a8825cca678c9de0f10e313fd119e58df0aef0a3b42b089fd3a8016f66264feb",
+      "size": 75883711,
+      "sha256": "8440e4e1ae0eed66e322175d3cefa31d4a10cbb6aa02200727356c80c7ee9172",
       "download": "https://github.com/Black-Wyrm-Lair/Drizzt-Saga/archive/refs/heads/master.zip"
     }
   ],
@@ -46,7 +46,7 @@
       }
     },
     "en_US": {
-      "description": "Drizzt is on his way back from the Sword Coast to the Vale of Bise. What he doesn't know is that dark times lie ahead in the Valley, and his companions will lead him, and you, on an adventure of epic proportions.\nThis mod features a major quest, alongside the famous character of R.A. Salvatore, which begins the moment you meet him in the game. This adventure takes place in new areas inspired by Icewind Dale, and includes numerous side quests, new monsters, new spells and equipment...\nThere are two versions: one for ToSC, the other for BG1tutu, BGT and BG:EE.",
+      "description": "Drizzt is on his way back to Icewind Dale from an errand in the Sword Coast. What he doesn't know is that dark times are upon Dale and his companions will lead him and the protagonist to an adventure of epic proportions.\nThis mod features a major quest, alongside the famous character of R.A. Salvatore, which begins the moment you meet him in the game. This adventure takes place in new areas inspired by Icewind Dale, and includes numerous side quests, new creatures, new spells and items...\nThere are two versions: one for ToSC, the other for BG1tutu, BGT and BG:EE.",
       "components": {
         "choice_0": "The Drizzt Saga for BGEE/Tutu/BGT",
         "0": "Default version: areas connected by travel triggers",

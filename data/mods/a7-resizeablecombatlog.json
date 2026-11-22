@@ -21,7 +21,8 @@
       "filename": "win-A7-ResizeableCombatLog-v1.4.zip",
       "size": 1285315,
       "download": "https://github.com/Argent77/A7-ResizeableCombatLog/releases/download/v1.4/win-A7-ResizeableCombatLog-v1.4.zip",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "ed6ba77941b99e355d60194051254c11a00bbbe5162750295d75a1b8707beb60"
     }
   ],
   "games": ["pstee"],
@@ -50,7 +51,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组允许在所有方向上调整异度风景：苦难的战斗日志，而原版只能在垂直轴上调整。"
+      "description": "此模组允许在所有方向上调整异域风景：苦难的战斗日志，而原版只能在垂直轴上调整。"
     },
     "it_IT": {
       "components": {

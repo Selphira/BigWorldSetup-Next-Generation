@@ -1,16 +1,16 @@
 {
   "name": "Throne of the Mad God",
-  "version": "1.8",
+  "version": "2.6",
   "links": {
     "homepage": "https://github.com/AciferBG/Throne-of-the-Mad-God",
     "forums": ["https://www.gibberlings3.net/forums/topic/39354-mod-throne-of-the-mad-god-a-quest-mod-for-bg2ee/", "https://forums.beamdog.com/discussion/89267/"]
   },
   "files": [
     {
-      "filename": "Throne_of_the_Mad_God_v1.8.zip",
-      "size": 210259182,
-      "sha256": "8d993d14b22b23fb8d3bfee7bac85bd2f8cf7272ea359e53b2ebdc57007c3592",
-      "download": "https://github.com/AciferBG/Throne-of-the-Mad-God/releases/download/v1.8/Throne_of_the_Mad_God_v1.8.zip"
+      "filename": "Throne_of_the_Mad_God_v2.6.zip",
+      "size": 211950482,
+      "sha256": "ea51e25ecc3dfd0bf0065802e95bf5301ac6e0f55f2c094f58ae24cf58fcf4bc",
+      "download": "https://github.com/AciferBG/Throne-of-the-Mad-God/releases/download/v2.6/Throne_of_the_Mad_God_v2.6.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
@@ -24,42 +24,58 @@
     "zh_CN": 2,
     "es_ES": 3,
     "ru_RU": 4,
-    "pt_PT": 5
+    "pt_PT": 5,
+    "pl_PL": 6,
+    "it_IT": 7,
+    "fr_FR": 8
   },
   "translations": {
     "fr_FR": {
-      "description": "La litanie d'un barde vous met sur la piste d'un groupe d'aventuriers disparus. Saurez vous retrouver ce qu'il en reste dans cette vaste forteresse abandonnée ?"
+      "description": "La litanie d'un barde vous met sur la piste d'un groupe d'aventuriers disparus. Saurez vous retrouver ce qu'il en reste dans cette vaste forteresse abandonnée ?",
+      "components": {
+        "0": "Trône du Dieu Fou"
+      }
     },
     "en_US": {
       "description": "A bard's litany puts you on the trail of a party of missing adventurers. Can you find what's left of them in this vast abandoned fortress?",
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "Throne of the Mad God"
       }
     },
     "zh_CN": {
       "description": "一位吟游诗人的吟唱指引你找到一队失踪的冒险者。你能在那座废弃的庞大要塞中找到他们剩下的东西吗？",
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "疯神王座"
       }
     },
     "de_DE": {
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "Throne of the Mad God"
       }
     },
     "es_ES": {
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "Throne of the Mad God"
       }
     },
     "ru_RU": {
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "Throne of the Mad God"
       }
     },
     "pt_PT": {
       "components": {
-        "0": "Throne of the Mad God V 1.8"
+        "0": "Throne of the Mad God"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Throne of the Mad God mod do BG II EE"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "Il Trono del Dio Folle"
       }
     }
   },

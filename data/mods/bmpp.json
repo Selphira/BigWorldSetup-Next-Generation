@@ -1,33 +1,33 @@
 {
   "name": "Constient Portraits",
-  "version": "0.14.0",
+  "version": "0.14.2",
   "links": {
     "homepage": "https://github.com/dark0dave/bmp_portraits"
   },
   "files": [
     {
-      "filename": "lin-bmpp-v0.14.0.zip",
-      "size": 227291013,
-      "sha256": "1ca23048f4e8a31cca18ffe9b118c56a364062c92c42416fc478eeaf4e37c304",
-      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.0/lin-bmpp-v0.14.0.zip",
+      "filename": "lin-bmpp-v0.14.2.zip",
+      "size": 165482399,
+      "sha256": "e8d5f1b522a5e3efd5c410313208c580dbe2de8986751620141b61a5d22b0501",
+      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.2/lin-bmpp-v0.14.2.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-bmpp-v0.14.0.zip",
-      "size": 227518525,
-      "sha256": "7ee6c1af6904299eafbb9abed2722e9cdcd78a39321c5992c1e6230c5e5a12e1",
-      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.0/mac-bmpp-v0.14.0.zip",
+      "filename": "mac-bmpp-v0.14.2.zip",
+      "size": 165599568,
+      "sha256": "0cf2b11fef0d587b8bb9cf2876b32e7fa9db6681d227c62c99363f3cc599b436",
+      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.2/mac-bmpp-v0.14.2.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-bmpp-v0.14.0.zip",
-      "size": 227463354,
-      "sha256": "280015df463d8450e8f6e2c9cebf1651a8a0e00027a6e0a9d312b08ff97c3ad5",
-      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.0/win-bmpp-v0.14.0.zip",
+      "filename": "win-bmpp-v0.14.2.zip",
+      "size": 165132144,
+      "sha256": "e423dc9ce2020b4ff1f1db6ea4dc21f262ac288c2722137e65e56087e29efc08",
+      "download": "https://github.com/dark0dave/bmp_portraits/releases/download/0.14.2/win-bmpp-v0.14.2.zip",
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2ee", "bgee", "eet", "sod"],
+  "games": ["bg2", "bg2ee", "bgee", "eet", "sod"],
   "categories": ["portrait"],
   "components": {
     "3": {"type": "std", "games": ["bg2ee", "eet"]},
@@ -72,6 +72,10 @@
     "138": {"type": "std"},
     "139": {"type": "std"},
     "140": {"type": "std"},
+    "174": {"type": "std"},
+    "175": {"type": "std"},
+    "185": {"type": "std"},
+    "195": {"type": "std"},
     "201": {"type": "std"},
     "202": {"type": "std"},
     "203": {"type": "std"},
@@ -102,7 +106,12 @@
     "351": {"type": "std"},
     "352": {"type": "std"},
     "375": {"type": "std"},
-    "385": {"type": "std"}
+    "385": {"type": "std"},
+    "386": {"type": "std"},
+    "387": {"type": "std"},
+    "388": {"type": "std"},
+    "400": {"type": "std"},
+    "401": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -157,6 +166,10 @@
         "138": "ruvan_xzar",
         "139": "ruvan_yeslick",
         "140": "ruvan_yoshimo",
+        "174": "ruvan_all_npcs",
+        "175": "ruvan_charname",
+        "185": "ruvan_crossmod",
+        "195": "ruvan_crossmod",
         "201": "trouver_alora",
         "202": "trouver_jaheira",
         "203": "trouver_branwen",
@@ -166,9 +179,9 @@
         "290": "trouver_bg1sod",
         "300": "zenblack_aerie",
         "301": "zenblack_anomen",
-        "302": "zenblack_caelar",
-        "303": "zenblack_dorn",
-        "304": "zenblack_dynaheir",
+        "302": "zenblack_branwen",
+        "303": "zenblack_caelar",
+        "304": "zenblack_dorn",
         "305": "zenblack_hexaat",
         "306": "zenblack_jaheira",
         "307": "zenblack_keldorn",
@@ -187,7 +200,12 @@
         "351": "zenblacks_yagashrs",
         "352": "zenblacks_amelissan",
         "375": "zenblacks_llewren_charname",
-        "385": "zenblacks_ruven_viconia"
+        "385": "zenblacks_ruven_viconia",
+        "386": "zenblack_ruven_branwen",
+        "387": "zenblack_ruven_corwin",
+        "388": "zenblack_ruven_dynaheir",
+        "400": "kaelyn_charname",
+        "401": "kaelyn_npcs"
       }
     },
     "zh_CN": {

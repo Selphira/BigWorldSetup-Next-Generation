@@ -1,29 +1,29 @@
 {
   "name": "Illo le tatoueur",
-  "version": "5.4",
+  "version": "6.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=511191#p511191"
   },
   "files": [
     {
-      "filename": "lin-Derats_Illo-v5.3.zip",
-      "size": 2217491,
-      "sha256": "f361de3fd89a040916f2e76957071cdab551c6cce9d526d39c36959d80cf19fc",
-      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/lin-Derats_Illo-v5.3.zip",
+      "filename": "lin-Derats_Illo-v6.1.zip",
+      "size": 2785050,
+      "sha256": "747f40387852eaaff5155022a83978ebf616f83dd9b4953ac1380033b7cf064e",
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v6.1/lin-Derats_Illo-v6.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Illo-v5.3.zip",
-      "size": 2445017,
-      "sha256": "5b29f42f44c4e67c3414861f02f9be125c70894f98a1911174cf0f147658997c",
-      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/mac-Derats_Illo-v5.3.zip",
+      "filename": "mac-Derats_Illo-v6.1.zip",
+      "size": 2902233,
+      "sha256": "84974c41c662612403e62db97f78ec2c77a99016f1293496db061a168eb90967",
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v6.1/mac-Derats_Illo-v6.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Illo-v5.3.zip",
-      "size": 2389832,
-      "sha256": "6f6b820b9edc56febc9300182e9ffa0f89e8bc6c08747027159422faea40a3ac",
-      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v5.4/win-Derats_Illo-v5.3.zip",
+      "filename": "win-Derats_Illo-v6.1.zip",
+      "size": 2434795,
+      "sha256": "f0224843374fafc3a2c62618f53ea570f1eda77fdb1b0af73857b154c47b994e",
+      "download": "https://github.com/Deratiseur/Tatoos/releases/download/v6.1/win-Derats_Illo-v6.1.zip",
       "platforms": ["windows"]
     }
   ],
@@ -36,7 +36,8 @@
   },
   "languages": {
     "fr_FR": 0,
-    "en_US": 1
+    "en_US": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -56,7 +57,12 @@
       }
     },
     "zh_CN": {
-      "description": "一个商人，出售近百种一次性使用的纹身，这些纹身作用如同卷轴，但为“++”版本。\n你还记得《异度风景：苦难》中的纹身吗？这里有同样的，还有很多其他的。你可以在以下地点找到商人：\n- 博德之门2：在盗贼公会外面，南边的遮阳庭院\n- 黑暗之渊2：在商人圈旁边\n- 冰风谷增强版：在库达哈的库伦锻造厂旁边"
+      "description": "一个商人，出售近百种一次性使用的纹身，这些纹身作用如同卷轴，但为“++”版本。\n你还记得《异域风景：苦难》中的纹身吗？这里有同样的，还有很多其他的。你可以在以下地点找到商人：\n- 博德之门Ⅱ：在盗贼公会外面，南边的遮阳庭院\n- 黑暗之渊2：在商人圈旁边\n- 冰风谷增强版：在库达哈的库伦锻造厂旁边",
+      "components": {
+        "0": "纹身艺术家伊洛",
+        "1": "将纹身的价格减半（作弊）",
+        "2": "再次降低价格"
+      }
     }
   },
   "tp2": "derats_illo",

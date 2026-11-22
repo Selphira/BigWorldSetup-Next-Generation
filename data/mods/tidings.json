@@ -1,15 +1,15 @@
 {
   "name": "Dark Tidings",
-  "version": "2.9",
+  "version": "3.2",
   "links": {
     "homepage": "https://baldurs-gate.de/index.php?resources/dark-tidings.65/"
   },
   "files": [
     {
-      "filename": "Dark_Tidings_v2.9.zip",
-      "size": 104170551,
-      "sha256": "8288dcde9fda06d757dc50a29aad14d929ea9f31c8e8cb66ee585a23ecae11e7",
-      "download": "https://github.com/AciferBG/Dark-Tidings/releases/download/v2.9/Dark_Tidings_v2.9.zip"
+      "filename": "Dark_Tidings_v3.2.zip",
+      "size": 104262030,
+      "sha256": "04851c39a1449a838a7342cd8d9325672dfd4d686143cedd522a45548ef71cc8",
+      "download": "https://github.com/AciferBG/Dark-Tidings/releases/download/v3.2/Dark_Tidings_v3.2.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -23,7 +23,9 @@
     "fr_FR": 2,
     "pl_PL": 3,
     "zh_CN": 4,
-    "ru_RU": 6
+    "ru_RU": 6,
+    "es_ES": 7,
+    "it_IT": 8
   },
   "translations": {
     "en_US": {
@@ -55,6 +57,16 @@
       }
     },
     "ru_RU": {
+      "components": {
+        "0": "Dark Tidings"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Presagios Oscuros"
+      }
+    },
+    "it_IT": {
       "components": {
         "0": "Dark Tidings"
       }

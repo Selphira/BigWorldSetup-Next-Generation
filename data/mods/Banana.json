@@ -1,29 +1,29 @@
 {
   "name": "Banana! NPC Mod",
-  "version": "2",
+  "version": "2.1",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/12947-banana-npc-mod-released/"
   },
   "files": [
     {
       "filename": "lin-Banana.zip",
-      "size": 6818951,
-      "sha256": "0fe61f293f551ed57f9fd2a6a8cde8bd0a9227327e7d9bafd5ba94e3dba5e0a8",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/lin-Banana.zip",
+      "size": 7382972,
+      "sha256": "23438e80b32f7f55bb3c530787767f494d819c79d96d666284384f591d3dad5e",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2.1/lin-Banana.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-Banana.zip",
-      "size": 7046467,
-      "sha256": "7722990dca86b130c1aaa2588d385a7c3ea1542cb7c6d6b3b5c7e1ce6408c943",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/mac-Banana.zip",
+      "size": 7500145,
+      "sha256": "89d8997c138e8bdb2aba2dc16ad643dc9e174bb20feac0ca359fa16f0b578050",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2.1/mac-Banana.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-Banana.zip",
-      "size": 6991292,
-      "sha256": "1577b33c6b52bacb7e1104e304d45dac122f80b5cc715d8cfefdf4d2653bb6c2",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2/win-Banana.zip",
+      "size": 7032717,
+      "sha256": "cb5085a914a5b117570f82adb156eb7869e9fe52f2d0dd91d8ba6333d2d39897",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Banana/releases/download/v2.1/win-Banana.zip",
       "platforms": ["windows"]
     }
   ],
@@ -34,7 +34,8 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -50,7 +51,10 @@
       }
     },
     "zh_CN": {
-      "description": "此模组在铜冠旅店入口处添加了一个战士/法师/盗贼香蕉。\n力量 18/00，敏捷 18，体质 18，智力 18，智慧 18，魅力 18。获得双倍钝器伤害。"
+      "description": "此模组在铜冠旅店入口处添加了一个战士/法师/盗贼香蕉。\n力量 18/00，敏捷 18，体质 18，智力 18，智慧 18，魅力 18。获得双倍钝器伤害。",
+      "components": {
+        "0": "香蕉！为电脑而生！\n（脑残内容分级：这是给严肃人士的严肃模组）"
+      }
     }
   },
   "tp2": "banana",

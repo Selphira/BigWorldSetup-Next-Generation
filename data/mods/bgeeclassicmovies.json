@@ -1,15 +1,15 @@
 {
   "name": "BG:EE Classic Movies",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "links": {
     "homepage": "https://github.com/Sampsca/BGEE-Classic-Movies"
   },
   "files": [
     {
-      "filename": "bgee-classic-movies-v2.4.0.zip",
-      "size": 587531820,
-      "sha256": "9bdc40c973c48113991df6da4dd2b2ea4ab772b9f0de9796f655f2338a6f3738",
-      "download": "https://github.com/Sampsca/BGEE-Classic-Movies/releases/download/V2.4.0/bgee-classic-movies-v2.4.0.zip"
+      "filename": "bgee-classic-movies-v2.4.1.zip",
+      "size": 587784225,
+      "sha256": "04b3d0638f3996a8b11dbc3dc652f4224f6d032da5ba2d871871a211aca9638a",
+      "download": "https://github.com/Sampsca/BGEE-Classic-Movies/releases/download/V2.4.1/bgee-classic-movies-v2.4.1.zip"
     }
   ],
   "games": ["bgee", "eet", "sod"],
@@ -31,7 +31,7 @@
       "description": "Ce mod permet de remettre les anciens films en 3D de BG à la place de ceux refaits pour BG:EE. Les films ont été agrandis en 1280x720, la dimension des nouveaux films réalisés pour BG:EE. Les voix de certains films seront en anglais."
     },
     "en_US": {
-      "description": "This mod allows you to restore BG's old 3D movies in place of those remade for BG:EE. The films have been enlarged to 1280x720, the same size as the new BG:EE films. The voices in some films will be in English.",
+      "description": "This mod restores the 'classic' movies from the original BG in place of those remade for BG:EE. The classic movies have been resized to 1280x720, the same size as the new BG:EE movies. The voices in some movies will be in English.",
       "components": {
         "choice_0": "Restore BG1 movies to BG:EE",
         "0": "Replace all movies",
@@ -84,10 +84,10 @@
         "2": "Zeige alle Zwischensequenzen in den Optionen ohne vorherige Freischaltung",
         "3": "Stelle BG1 Kapitel-und Traumsequenzen wieder her",
         "choice_1": "Modify startup movies",
-        "4": "Disable startup logo and intro movies",
-        "5": "Disable startup logo movie",
-        "6": "Replace logo movie with classic BG1 logos",
-        "7": "Play classic BG1 logos before Beamdog's logo movie"
+        "4": "Deaktiviere Startlogo und Intro-Videos",
+        "5": "Deaktiviere Startlogo",
+        "6": "Ersetze Startlogo mit klassischen BG1 Logos",
+        "7": "Spiele klassische BG1 Logos vor Beamdog's Logo ab"
       }
     }
   },

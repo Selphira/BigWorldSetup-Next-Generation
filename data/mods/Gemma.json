@@ -1,15 +1,30 @@
 {
   "name": "Gemma",
-  "version": "2",
+  "version": "2.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=518624"
   },
   "files": [
     {
-      "filename": "1D_NPC_Gemma-2.zip",
-      "size": 2183244,
-      "sha256": "40eb01472df3e9d70ffdf08135a61d1b481127e081d7310e444da03cfbe17780",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/archive/refs/tags/v2.zip"
+      "filename": "lin-Gemma.zip",
+      "size": 2586632,
+      "sha256": "dab3df28a311b54d5f6dd3333cc8ff245d9bfbe65fa6fa1a5285e48294a9f837",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/releases/download/v2.1/lin-Gemma.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Gemma.zip",
+      "size": 2703803,
+      "sha256": "b5bf5895debdbfb626d9b4f59873189c1a804efe6e2fc4212ed756fb872f75f0",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/releases/download/v2.1/mac-Gemma.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Gemma.zip",
+      "size": 2236377,
+      "sha256": "98c3cf7a59398a462178cc5ee25cd34b686e909f769c658da64c3ad96c6af4c3",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Gemma/releases/download/v2.1/win-Gemma.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -18,7 +33,8 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "zh_CN": 1
   },
   "translations": {
     "fr_FR": {
@@ -31,7 +47,10 @@
       "description": "A follower of Umberlie, Gemma isn't really the kind of dwarf who spends her time singing happy songs, mug of ale in hand. No, she's all about using rhetoric to hit the unexpected heretic head-on. When rhetoric is hammered home, people are more receptive (and dead). Gemma sits quietly (no) on the Athkatla Docks.\nSTR 18/05, DEX 13, CON 19, INT 7, WIS 14, CHA 8."
     },
     "zh_CN": {
-      "description": "作为安博里的信徒，杰玛可不是那种整天拿着啤酒杯唱快乐歌曲的矮人。不，她的专长是用修辞学出其不意地打击异教徒。当修辞学通过铁锤来传达时，可以肯定，人们会更愿意接受（并且死去）。杰玛正（不）平静地待在阿斯卡特拉的码头区。\n力量18/05，敏捷13，体质19，智力7，智慧14，魅力8。"
+      "description": "作为安博里的信徒，杰玛可不是那种整天拿着啤酒杯唱快乐歌曲的矮人。不，她的专长是用修辞学出其不意地打击异教徒。当修辞学通过铁锤来传达时，可以肯定，人们会更愿意接受（并且死去）。杰玛正（不）平静地待在阿斯卡特拉的码头区。\n力量18/05，敏捷13，体质19，智力7，智慧14，魅力8。",
+      "components": {
+        "0": "Gemma"
+      }
     }
   },
   "tp2": "gemma",

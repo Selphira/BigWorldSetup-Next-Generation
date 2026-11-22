@@ -9,7 +9,8 @@
     {
       "filename": "valygar-friendship-v1.5.zip",
       "size": 4907949,
-      "download": "https://github.com/Spellhold-Studios/Valygar-Friendship/releases/download/v1.5/valygar-friendship-v1.5.zip"
+      "download": "https://github.com/Spellhold-Studios/Valygar-Friendship/releases/download/v1.5/valygar-friendship-v1.5.zip",
+      "sha256": "757a4014d784eb5c42a3911edc242d6fb8846cf7f9eb53f85fe4ed59d337534f"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

@@ -40,7 +40,7 @@
       }
     },
     "en_US": {
-      "description": "This mod strives to add a psionic system inspired by AD&D2 rules and four profiles that can use it: a psionic thief (Psionicist), a psionic warrior (Soublade), a psionic fighter (Psypher) and a psionic mage (Cerebremancer).\nHowever, as the game engine wasn't designed for it, this mod is still experimental, even though it's being actively maintained. But it should enable you to play a character with new types of abilities. So don't hesitate to give it a try!",
+      "description": "This mod strives to add a psionic system inspired by AD&D2 rules and four kits that can use it: a psionic thief (Psionicist), a psionic warrior (Soublade), a psionic fighter (Psypher) and a psionic mage (Cerebremancer).\nHowever, as the game engine wasn't designed for it, this mod is still experimental, even though it's being actively maintained. But it should enable you to play a character with new types of abilities. So don't hesitate to give it a try!",
       "components": {
         "200": "Add the Psionicist, rogue/psion",
         "300": "Add the Soulblade, fighter/psion",

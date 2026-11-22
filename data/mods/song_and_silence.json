@@ -26,7 +26,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bg2ee", "bgt", "eet"],
+  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std", "category": "spell"},
@@ -52,7 +52,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "Do you like bards and rogues? If so, you'll be delighted with this little mod, which adds several new profiles to your now classic Blademaster and Assassin: Acrobat, Dirgesinger, Chorister and Gypsy (bards); Adventurer, Burglar, Shadow Dancer, Lamesprit and Sharpshooter (thieves); and an inquisitive and ever-welcoming old gypsy, Raoul, who will suggest new items for your favorite characters. The designer's creation of the items is strongly geared to their use by bards and thieves, but there's nothing to stop you equipping other characters with them, unless they're unusable by the class you're playing, of course.",
+      "description": "Do you like bards and rogues? If so, you'll be delighted with this little mod, which adds several new kits to your now classic Blademaster and Assassin: Acrobat, Dirgesinger, Chorister and Gypsy (bards); Adventurer, Burglar, Shadow Dancer, Lamesprit and Sharpshooter (thieves); and an inquisitive and ever-welcoming old gypsy, Raoul, who will suggest new items for your favorite characters. The designer's creation of the items is strongly geared to their use by bards and thieves, but there's nothing to stop you equipping other characters with them, unless they're unusable by the class you're playing, of course.",
       "components": {
         "0": "Changes to trueclass bards and thieves, and unmodded game kits (required for other components)",
         "1": "Add new bardic store and thief items",

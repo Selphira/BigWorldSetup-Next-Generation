@@ -40,7 +40,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod allows you to modify the profiles of your NPCs, so that they are closer to their thoughts. For example, Anomen becomes a Priest of Helm when he successfully completes the Order of the Radiant Heart, and a Berserker if he fails, Imoen and Nalia become adventurers (thief profile) or mages, Edwin a Red Wizard, Korgan an Enraged (fighter kit), Sarevok a Sower of Death, Mazzy a Paladin of Arvoreen, Minsc has his kit name changed to Rashmenian Ranger, and so on.",
+      "description": "This mod allows you to modify the kits of your NPCs, so that they are closer to their thoughts. For example, Anomen becomes a Priest of Helm when he successfully completes the Order of the Radiant Heart, and a Berserker if he fails, Imoen and Nalia become adventurers (thief profile) or mages, Edwin a Red Wizard, Korgan an Enraged (fighter kit), Sarevok a Sower of Death, Mazzy a Paladin of Arvoreen, Minsc has his kit name changed to Rashmenian Ranger, and so on.",
       "components": {
         "30": "Improved Specialist Mage Descriptions",
         "31": "Replace Berserker Kit with Battlerager for Dwarves",

@@ -22,7 +22,8 @@
       "filename": "win-A7-LevelUpTweaks-v2.7.zip",
       "size": 1280793,
       "download": "https://github.com/Argent77/A7-LevelUpTweaks/releases/download/v2.7/win-A7-LevelUpTweaks-v2.7.zip",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "6990e0d4d9778b7706974fd979131314d1a80d58791770f45c7b9173ca45c2e4"
     }
   ],
   "games": ["pstee"],
@@ -54,7 +55,7 @@
       }
     },
     "zh_CN": {
-      "description": "此迷你模组为《异度风景：苦难》增强版的界面带来了一项舒适性的外观修改。您可以配置是否显示升级图标，并选择将其移动到角色肖像上。"
+      "description": "此迷你模组为《异域风景：苦难》增强版的界面带来了一项舒适性的外观修改。您可以配置是否显示升级图标，并选择将其移动到角色肖像上。"
     },
     "it_IT": {
       "components": {

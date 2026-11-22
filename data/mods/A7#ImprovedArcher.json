@@ -47,7 +47,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "The original Archer profile doesn't match the level progression very well. While it appears very powerful at the very start of the game, it becomes much less useful later on, compared with other ranger profiles. This mod strives to rebalance it so that low-level archers do not outperform other classes, while allowing high-level archers to stand comparison with other ranger profiles. Additional components add archer-inspired profiles for fighters, paladins and thieves, or add a set of powerful bows and ammunition to the game.",
+      "description": "The original Archer profile doesn't match the level progression very well. While it appears very powerful at the very start of the game, it becomes much less useful later on, compared with other ranger kits. This mod strives to rebalance it so that low-level archers do not outperform other classes, while allowing high-level archers to stand comparison with other ranger kits. Additional components add archer-inspired kits for fighters, paladins and thieves, or add a set of powerful bows and ammunition to the game.",
       "components": {
         "0": "Improved Archer Kit",
         "10": "Add fighter kit: Marksman",

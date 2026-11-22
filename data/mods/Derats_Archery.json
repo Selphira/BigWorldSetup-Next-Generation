@@ -1,5 +1,5 @@
 {
-  "name": "Au bonheur du tireur",
+  "name": "The shooter's delight",
   "version": "7",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=506162#p506162"
@@ -53,7 +53,7 @@
       }
     },
     "zh_CN": {
-      "description": "这是渥金商场上的一个商人，他出售所有用于远程杀戮的物品（弓、弩、投石索、飞镖、投掷匕首、投掷斧，以及大量来自博德之门2和冰风谷的各式弹药）。"
+      "description": "这是渥金商场里的一个商人，他出售所有用于远程杀戮的物品（弓、弩、投石索、飞镖、投掷匕首、投掷斧，以及大量来自博德之门Ⅱ和冰风谷的各式弹药）。"
     }
   },
   "tp2": "derats_archery",

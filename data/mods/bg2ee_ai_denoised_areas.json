@@ -9,13 +9,14 @@
     {
       "filename": "BG2EE_AI_Denoised_Areas_v220506.zip",
       "size": 455461386,
-      "download": "https://github.com/WillScarlettOhara/BG2EE_AI_Denoised_Areas/releases/download/v220506/BG2EE_AI_Denoised_Areas_v220506.zip"
+      "download": "https://github.com/WillScarlettOhara/BG2EE_AI_Denoised_Areas/releases/download/v220506/BG2EE_AI_Denoised_Areas_v220506.zip",
+      "sha256": "136c97d3e1d7297e68611a79fd1fb6db81b37bc0122ea3f1e70c76978a80f195"
     }
   ],
   "games": ["bg2ee", "eet"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "eet"]}
   },
   "languages": {
     "en_US": 0,

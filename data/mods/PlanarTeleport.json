@@ -1,6 +1,6 @@
 {
   "name": "Planar Sphere Teleporter",
-  "version": "1.2",
+  "version": "1.2_EE",
   "links": {
     "homepage": "http://mods.jo-ge.net/bg/index.htm"
   },
@@ -23,22 +23,22 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Publié à l'origine sur [ce site](http://mods.jo-ge.net/bg/index.htm), ce mini mod ajoute un objet, donné par Lavok, permettant de se téléporter directement dans la Sphère planaire (et de revenir là où vous étiez), comme la capacité \"Antichambre\".",
+      "description": "Ce mini mod ajoute un objet, donné par Lavok, permettant de se téléporter directement dans la Sphère planaire (et de revenir là où vous étiez), comme la capacité \"Antichambre\".",
       "components": {
         "0": "Teleporteur de la Sphere Planaire"
       }
     },
     "en_US": {
-      "description": "Originally published on [this site](http://mods.jo-ge.net/bg/index.htm), this mini mod adds an item, donated by Lavok, allowing you to teleport directly into the Planar Sphere (and back to where you were), like the \"Pocket Plane\" ability.",
+      "description": "This mini mod adds an item, donated by Lavok, allowing you to teleport directly into the Planar Sphere (and back to where you were), like the \"Pocket Plane\" ability.",
       "components": {
         "0": "Planar Sphere Teleporter"
       }
     },
     "zh_CN": {
-      "description": "最初发布于[此网站](http://mods.jo-ge.net/bg/index.htm)，此小型模组添加了一个物品，由Lavok给予，允许您直接传送到领域面（并返回您所在的位置），就像“前厅”能力一样。"
+      "description": "这个小模组添加了一件由拉沃克（Lavok）给予的物品，能让你直接传送到位面球体（Sphère planaire）内部（并可从那里返回你原来的位置），功能类似于“前厅”（Antichambre）能力。"
     }
   },
   "tp2": "planarteleport",
   "safe": 2,
-  "authors": ["Jochen Gehring"]
+  "authors": ["Jog"]
 }

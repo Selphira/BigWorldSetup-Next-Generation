@@ -1,28 +1,30 @@
 {
   "name": "The Sorcerer's Place Collection",
-  "version": "14",
+  "version": "17",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/kits/spc/",
     "forums": ["https://www.gibberlings3.net/forums/forum/28-miscellaneous-released-mods/"]
   },
   "files": [
     {
-      "filename": "lin-spstuff-v14.tar.gz",
-      "size": 446992,
-      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/lin-spstuff-v14.tar.gz",
+      "filename": "lin-spstuff-v17.zip",
+      "size": 512270,
+      "sha256": "91fcc2b77486b38bd4822e37358f7a2df014a2377229e55240c623ca5b63f0b6",
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v17/lin-spstuff-v17.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "osx-spstuff-v14.tar.gz",
-      "size": 1717446,
-      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/osx-spstuff-v14.tar.gz",
+      "filename": "mac-spstuff-v17.zip",
+      "size": 1782554,
+      "sha256": "6cfb0e98d6cbc0c287674da29714e2bcf4ba728a5451582f5acdf0226904d4ed",
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v17/mac-spstuff-v17.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "spstuff-v14.exe",
-      "size": 2566287,
-      "sha256": "8101a620f0ceb1cda7ef85d756a703ccaccbc70fd2aff88505ecbb89a4fd06e0",
-      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v14/spstuff-v14.exe",
+      "filename": "spstuff-v17.exe",
+      "size": 2589836,
+      "sha256": "646a038be04db5b4edf29de221e683da36c07c62d789b6bc08085e42c44efd1e",
+      "download": "https://github.com/Gibberlings3/SP_Collection/releases/download/v17/spstuff-v17.exe",
       "platforms": ["windows"]
     }
   ],
@@ -44,11 +46,12 @@
     "cs_CZ": 3,
     "fr_FR": 4,
     "it_IT": 5,
-    "ru_RU": 6
+    "ru_RU": 6,
+    "pl_PL": 7
   },
   "translations": {
     "en_US": {
-      "description": "This mod adds six new kits created by Drizzt1180 (Sylvan Mystic Kit, `Blade Master`, Death Knight, `Wushi Ninja`, `Archer of Sylvanus`, Arcane Fist), as well as new items (Creslyn's BG2 Custom Items) from existing stores. All these items come from item packs and profiles published on the Sorcerer's Place site, converted to WeiDU format for easy installation.",
+      "description": "This mod adds six new kits created by Drizzt1180 (Sylvan Mystic Kit, `Blade Master`, Death Knight, `Wushi Ninja`, `Archer of Sylvanus`, Arcane Fist), as well as new items (Creslyn's BG2 Custom Items) from existing stores. All these items come from item packs and kits published on the Sorcerer's Place site, converted to WeiDU format for easy installation.",
       "components": {
         "0": "Sylvan Mystic Kit, by Polar Bear",
         "1": "Blade Master Kit, by Drizzt1180",
@@ -128,9 +131,20 @@
         "6": "Arcane Fist, by Drizzt1180",
         "4": "Creslyn's BG2 Item Pack"
       }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Podklasa Sylvanski Mistyk, by Polar Bear",
+        "1": "Podklasa Mistrz Ostrzy, by Drizzt1180",
+        "2": "Podklasa Rycerz Smierci, by Drizzt1180",
+        "3": "Podklasa Wushi Ninja, by Drizzt1180",
+        "5": "Podklasa Lucznik Silvanusa, by Drizzt1180",
+        "6": "Podklasa Tajemna Piesc, by Drizzt1180",
+        "4": "Dodatkowe przedmioty w BG2, by Creslyn"
+      }
     }
   },
   "tp2": "spstuff",
-  "safe": 1,
+  "safe": 2,
   "authors": ["CamDawg", "PolarBear", "Drizzt1180", "Creslyn"]
 }

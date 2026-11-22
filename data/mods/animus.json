@@ -9,7 +9,8 @@
     {
       "filename": "Animus.1.1.zip",
       "size": 895245,
-      "download": "https://github.com/BartVanBeurden/bgee-animus/releases/download/1.1/Animus.1.1.zip"
+      "download": "https://github.com/BartVanBeurden/bgee-animus/releases/download/1.1/Animus.1.1.zip",
+      "sha256": "7a263bc70c4cea5be87fcca4f161154abba8d7b791cef912b1e0b681e0dfa82d"
     }
   ],
   "games": ["bgee", "eet", "sod"],

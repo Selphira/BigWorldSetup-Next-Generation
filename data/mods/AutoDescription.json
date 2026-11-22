@@ -1,15 +1,15 @@
 {
   "name": "AutoDescription",
-  "version": "0.9.37",
+  "version": "0.9.38",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33168"
   },
   "files": [
     {
-      "filename": "win-AutoDescription-v0.9.37.zip",
-      "size": 2999654,
-      "sha256": "7e2920e6d93e5f077418ec5c3a6d71124335d496ed64d715063fcc6a3bbbc7d9",
-      "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.37/win-AutoDescription-v0.9.37.zip",
+      "filename": "win-AutoDescription-v0.9.38.zip",
+      "size": 3090979,
+      "sha256": "c712611b04881578f9684264c1f28bf6198d3a6447b660a441c2f55cf88ea833",
+      "download": "https://github.com/Selphira/AutoDescription/releases/download/0.9.38/win-AutoDescription-v0.9.38.zip",
       "platforms": ["windows"]
     }
   ],

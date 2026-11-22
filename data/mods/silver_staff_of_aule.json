@@ -9,7 +9,8 @@
     {
       "filename": "Silver_Staff_of_Aule_v9_1.zip",
       "size": 906752,
-      "download": "https://github.com/Erg-os/Silver_Staff_of_Aule/releases/download/v9.1/Silver_Staff_of_Aule_v9_1.zip"
+      "download": "https://github.com/Erg-os/Silver_Staff_of_Aule/releases/download/v9.1/Silver_Staff_of_Aule_v9_1.zip",
+      "sha256": "0034225c5a72c086a663d69d6a19acbf3ea060b3247c7d5786201e1a15bfa1ae"
     }
   ],
   "games": ["bg", "bgee", "bgt", "sod", "tutu"],

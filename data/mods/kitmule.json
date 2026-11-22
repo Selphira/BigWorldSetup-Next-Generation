@@ -6,10 +6,10 @@
   },
   "files": [
     {
-      "filename": "Kit-Mule-kit-for-IE-games--1.2.zip",
-      "size": 808866,
-      "sha256": "dd65bfc48da1b90e44adc4048187e10ef45fdc4f1f161c6f76c0a080924c5b37",
-      "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/archive/refs/tags/1.2.zip"
+      "filename": "kit-mule-kit-1.2.7z",
+      "size": 2786002,
+      "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/releases/download/1.2/kit-mule-kit-1.2.7z",
+      "sha256": "8385cac71b2f8f79ebdf4710d628aa6a3b522df14c79a0d049774106977d599f"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "eet", "iwdee", "sod", "tutu"],

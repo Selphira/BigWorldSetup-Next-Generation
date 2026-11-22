@@ -1,6 +1,6 @@
 {
-  "name": "EET Alternative GUI (SoD)",
-  "version": "14.1",
+  "name": "Baldur's Gate: Enhanced Edition Trilogy (EET) - Gui",
+  "version": "15.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
     "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
@@ -19,7 +19,8 @@
     "cs_CZ": 4,
     "ru_RU": 5,
     "de_DE": 6,
-    "zh_CN": 7
+    "zh_CN": 7,
+    "it_IT": 8
   },
   "translations": {
     "en_US": {
@@ -80,9 +81,17 @@
         "0": "Siege of Dragonspear",
         "1": "Icewind Dale: Enhanced Edition"
       }
+    },
+    "it_IT": {
+      "components": {
+        "choice_0": "GUI alternativa di EET",
+        "0": "Siege of Dragonspear",
+        "1": "Icewind Dale: Enhanced Edition"
+      }
     }
   },
   "tp2": "eet_gui",
   "safe": 2,
-  "authors": ["K4thos"]
+  "authors": ["K4thos"],
+  "files": []
 }

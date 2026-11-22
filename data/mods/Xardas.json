@@ -1,27 +1,29 @@
 {
   "name": "Xardas",
-  "version": "2",
+  "version": "2.1",
   "links": {
     "homepage": "https://github.com/Plutonium-X/1D_NPC_Xardas"
   },
   "files": [
     {
       "filename": "lin-Xardas.zip",
-      "size": 1351467,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/lin-Xardas.zip",
+      "size": 1914201,
+      "sha256": "61cb79e368cbbd51fc6633d13d4d67e3d36c8455eeccc30615841fc13eb29804",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2.1/lin-Xardas.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-Xardas.zip",
-      "size": 1578983,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/mac-Xardas.zip",
+      "size": 2031374,
+      "sha256": "29ac9bc781b062b3b5b773f05e9fc6ed17a2b2199a7f86ecc0d2308e36e4ed0e",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2.1/mac-Xardas.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-Xardas.zip",
-      "size": 1523808,
-      "sha256": "42ef02a1787f871586c1e27da0db3866aecaeaca92c2962386dfd641273884d3",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2/win-Xardas.zip",
+      "size": 1563946,
+      "sha256": "46114dd17d23fccdf86242239128570d0829124b3dfb1679b17a21007287c538",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Xardas/releases/download/v2.1/win-Xardas.zip",
       "platforms": ["windows"]
     }
   ],
@@ -32,7 +34,8 @@
   },
   "languages": {
     "pl_PL": 0,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -45,7 +48,10 @@
       "description": "This mod adds Mag Xardas the necromancer at the entrance to the Arnise dungeon. He is equipped with an archmage's ring.\nSTR 12, DEX 18, CON 14, INT 20, WIS 19, CHA 17."
     },
     "zh_CN": {
-      "description": "此模组在德阿尼斯堡入口处添加了死灵法师玛格·萨达斯。他装备着一个大法师戒指。\n力量 12，敏捷 18，体质 14，智力 20，智慧 19，魅力 17。"
+      "description": "此模组在德阿尼斯堡入口处添加了死灵法师玛格·萨达斯。他装备着一个大法师戒指。\n力量 12，敏捷 18，体质 14，智力 20，智慧 19，魅力 17。",
+      "components": {
+        "0": "NPC 哈达斯"
+      }
     },
     "pl_PL": {
       "components": {

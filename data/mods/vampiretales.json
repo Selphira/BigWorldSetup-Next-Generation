@@ -30,7 +30,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "The mods Miriam (vampire NPC with less gruff stats than Valen NPC, but seemingly just as moody and violent) and Dark Ritual (adding a merchant with quite a few new items from Icewind Dale 1 and 2, originally translated by Panaka) are now combined in this mod, which also improves the Eyeless quest, the encounter with the Harpers, and adds a new encounter in the Firkraag dungeon. ToB required.\nMiriam : STR 18/75, DEX 17, CON 11, INT 16, WIS 9, CHA 15.",
+      "description": "The mods Miriam (vampire NPC with less gruff stats than Valen NPC, but seemingly just as moody and violent) and Dark Ritual (adding a merchant with quite a few new items from Icewind Dale 1 and 2, originally translated by Panaka) are now combined in this mod, which also improves the Eyeless quest, the encounter with the Harpers, and adds a new encounter in the Firkraag dungeon.\nMiriam : STR 18/75, DEX 17, CON 11, INT 16, WIS 9, CHA 15.",
       "components": {
         "0": "Vampire Tales (Requires Throne of Bhaal)",
         "1": "Improved Cult of the Unseeing Eye",
@@ -47,7 +47,7 @@
       }
     },
     "fr_FR": {
-      "description": "Les mods Miriam (PNJ vampire aux stats moins bourrines que celles de Valen NPC, mais semblant disposer d'un caractère tout aussi lunatique et violent) et Dark Ritual (ajoutant un marchand avec pas mal de nouveaux objets en provenance d'Icewind Dale 1 et 2, initialement traduit par Panaka) sont désormais réunis dans ce mod qui améliore en outre la quête de l'Œil Aveugle, la rencontre avec les Ménestrels, et ajoute une nouvelle rencontre dans le donjon de Firkraag. ToB est requis.\nMiriam : FOR 18/75, DEX 17, CON 11, INT 16, SAG 9, CHA 15.",
+      "description": "Les mods Miriam (PNJ vampire aux stats moins bourrines que celles de Valen NPC, mais semblant disposer d'un caractère tout aussi lunatique et violent) et Dark Ritual (ajoutant un marchand avec pas mal de nouveaux objets en provenance d'Icewind Dale 1 et 2, initialement traduit par Panaka) sont désormais réunis dans ce mod qui améliore en outre la quête de l'Œil Aveugle, la rencontre avec les Ménestrels, et ajoute une nouvelle rencontre dans le donjon de Firkraag.\nMiriam : FOR 18/75, DEX 17, CON 11, INT 16, SAG 9, CHA 15.",
       "components": {
         "0": "Vampire Tales (Necessite Throne of Bhaal)",
         "1": "Culte de l'Oeil Aveugle ameliore",
@@ -56,7 +56,7 @@
       }
     },
     "zh_CN": {
-      "description": "Miriam（一个吸血鬼NPC，属性不如Valen NPC那么强力，但性格似乎同样反复无常和暴力）和Dark Ritual（添加了一个商人，出售许多来自冰风谷1和2的新物品，最初由Panaka翻译）这两个模组现在被整合到了这个模组中，此外还改进了“盲眼”任务、与游吟诗人的遭遇，并在费克雷格的地下城中添加了一次新的遭遇。需要巴尔王座。\nMiriam：力量18/75，敏捷17，体质11，智力16，智慧9，魅力15。"
+      "description": "MOD“米丽亚姆”（一个吸血鬼NPC，属性设置比Valen NPC更均衡，但性格似乎同样反复无常且暴躁）和MOD“Dark Ritual”（新增一名商人，提供大量来自《冰风谷1》和《冰风谷2》的新物品，最初由Panaka翻译）现已整合于此MOD中。此外，本MOD还增强了“盲眼之眼”任务、与“吟游诗人”的遭遇，并在菲克拉格的地牢中增加了一次新的遭遇。\n米丽亚姆：力量18/75，敏捷17，体质11，智力16，智慧9，魅力15。"
     },
     "es_ES": {
       "components": {

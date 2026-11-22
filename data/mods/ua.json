@@ -1,15 +1,16 @@
 {
   "name": "Unique Artifacts",
-  "version": "7.16",
+  "version": "7.21",
   "links": {
     "homepage": "https://bgforge.net/unique-artifacts/",
     "forums": ["https://forums.bgforge.net/viewforum.php?f=30"]
   },
   "files": [
     {
-      "filename": "unique-artifacts-v7.16.zip",
-      "size": 3072191,
-      "download": "https://github.com/BGforgeNet/bg2-uniqueartifacts/releases/download/v7.16/unique-artifacts-v7.16.zip"
+      "filename": "unique-artifacts-v7.21.zip",
+      "size": 3472802,
+      "sha256": "d21f63c9dabd26c886df634755c8051fed3b250e27c7173edc46cfc74445b89c",
+      "download": "https://github.com/BGforgeNet/bg2-uniqueartifacts/releases/download/v7.21/unique-artifacts-v7.21.zip"
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
@@ -26,7 +27,8 @@
     "en_US": 0,
     "pt_PT": 1,
     "ru_RU": 2,
-    "sv_SE": 3
+    "sv_SE": 3,
+    "fr_FR": 4
   },
   "translations": {
     "en_US": {
@@ -45,7 +47,7 @@
     "fr_FR": {
       "description": "Vous avez toujours trouvé que la saga BG était surchargée d'objets magiques ? Les descriptions de nombreux objets magiques indiquent qu'ils sont uniques. Et pourtant, vous en trouvez souvent plusieurs exemplaires (comme les bottes de vitesse, l'anneau de protection +2, etc.). Bien que ce problème se manifeste modérément dans le jeu original, il est gravement aggravé par de nombreux mods qui ajoutent de plus en plus de copies de divers objets, sans se soucier de savoir si cela a du sens. Cela brise l'immersion et est quelque peu ennuyeux.\nAlors ce mod est pour vous ! Son unique vocation est de réduire la quantité d'équipement magique disponible dans le jeu.",
       "components": {
-        "0": "L'amulette de protection +1 n'est pas unique",
+        "0": "L'amulette de protection +1 n'est pas uniqueL'amulette de protection +1 n'est pas unique",
         "1": "L'anneau de protection +2 et la cape de protection +2 ne sont pas uniques",
         "2": "Les Bottes de rapidité ne sont pas uniques",
         "choice_0": "Artefacts uniques : composant principal",
@@ -72,12 +74,12 @@
     },
     "ru_RU": {
       "components": {
-        "0": " §à¥è¨âì ­¥ã­¨ª «ì­ë© ¬ã«¥â  é¨âë +1",
-        "1": " §à¥è¨âì ­¥ã­¨ª «ì­ë¥ ®«ìæ®  é¨âë +2 ¨ « é  é¨âë +2",
-        "2": " §à¥è¨âì ­¥ã­¨ª «ì­ë¥  ¯®£¨ ª®à®áâ¨",
+        "0": "Разрешить неуникальный Амулет Защиты +1",
+        "1": "Разрешить неуникальные Кольцо Защиты +2 и Плащ Защиты +2",
+        "2": "Разрешить неуникальные Сапоги Скорости",
         "choice_0": "­¨ª «ì­ë¥ àâ¥ä ªâë - £« ¢­ë© ª®¬¯®­¥­â",
-        "3": " áè¨à¥­­ë©",
-        "4": "âà®£¨©",
+        "3": "Расширенный",
+        "4": "Строгий",
         "5": "Remove bonus merchants",
         "6": "Less magical items"
       }
@@ -90,12 +92,12 @@
         "choice_0": "Unika artefakter - kärna",
         "3": "Utökad",
         "4": "strikt",
-        "5": "Remove bonus merchants",
-        "6": "Less magical items"
+        "5": "Ta bort bonushandlare",
+        "6": "Färre magiska föremål"
       }
     }
   },
   "tp2": "ua",
   "safe": 2,
-  "authors": ["Magus"]
+  "authors": ["Gort", "Magus"]
 }

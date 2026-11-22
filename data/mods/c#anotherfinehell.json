@@ -35,7 +35,7 @@
       }
     },
     "en_US": {
-      "description": "This mod introduces a new reason why the PJ falls into disgrace at the end of SoD and has to leave town.",
+      "description": "This mod introduces a new reason why the PC falls at the end of SoD and has to leave town.",
       "components": {
         "0": "Another Fine Hell - Optional Ending for SoD and BGII Closure",
         "1": "Get the Hells Out - Quest Option with Extended BGII Content",
@@ -43,7 +43,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组为 PJ 在 SoD 结尾时失宠并必须离开城市提供了一个新的原因。"
+      "description": "这个模组为主角在SoD结尾时失宠并必须离开城市提供了一个新的原因。"
     },
     "es_ES": {
       "components": {
@@ -54,6 +54,6 @@
     }
   },
   "tp2": "c#anotherfinehell",
-  "safe": 2,
+  "safe": 1,
   "authors": ["jastey"]
 }

@@ -9,13 +9,14 @@
     {
       "filename": "VoicesVoicesExtravaganzaSOD-v1.0.zip",
       "size": 334714404,
-      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza-SOD/releases/download/v1.0/VoicesVoicesExtravaganzaSOD-v1.0.zip"
+      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza-SOD/releases/download/v1.0/VoicesVoicesExtravaganzaSOD-v1.0.zip",
+      "sha256": "370de4e310ac35e70a8658f6807650ac3f80383666e43c94f66e0515ee94541b"
     }
   ],
   "games": ["eet", "sod"],
   "categories": ["portrait"],
   "components": {
-    "0": {"type": "std", "games": ["sod"]}
+    "0": {"type": "std", "games": ["eet", "sod"]}
   },
   "languages": {
     "en_US": 0

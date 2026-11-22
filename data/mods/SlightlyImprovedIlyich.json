@@ -1,27 +1,29 @@
 {
   "name": "Slightly Improved Ilyich",
-  "version": "1.7",
+  "version": "1.8",
   "links": {
     "homepage": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich"
   },
   "files": [
     {
       "filename": "lin-SlightlyImprovedIlyich.zip",
-      "size": 1192617,
-      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/lin-SlightlyImprovedIlyich.zip",
+      "size": 1753381,
+      "sha256": "98c4926762cdf366c53d8ea82c2eb265b889769d14b95adca54a88713fd19b6f",
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.8/lin-SlightlyImprovedIlyich.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-SlightlyImprovedIlyich.zip",
-      "size": 1420165,
-      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/mac-SlightlyImprovedIlyich.zip",
+      "size": 1870586,
+      "sha256": "dd5e1a7d54a949653fe405ad467c187044d6798a5c3335f81b6c88bca81d77ec",
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.8/mac-SlightlyImprovedIlyich.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-SlightlyImprovedIlyich.zip",
-      "size": 1364958,
-      "sha256": "6afc5132f83f5acdfc81f039c298eba64457798c5291137c1328624e40cb5987",
-      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.7/win-SlightlyImprovedIlyich.zip",
+      "size": 1403126,
+      "sha256": "26bb4476f7e73c2adf7d052c674605448a254b08b6c0c0915bba2303873a73a9",
+      "download": "https://github.com/Plutonium-X/FIGHT_Light_Ilyich/releases/download/v1.8/win-SlightlyImprovedIlyich.zip",
       "platforms": ["windows"]
     }
   ],
@@ -53,7 +55,7 @@
       }
     },
     "zh_CN": {
-      "description": "厌倦了与这群矮人战斗——对于你强壮的手臂或毁灭性的法术来说，他们实在太容易了——尽管在游戏开始时你几乎没有这样的法术？但是，Weimer的`Ilyich改良`组件Tactics已经让你拔掉了所有剩下的头发——在试图正确安装你那没完没了的模组列表时已经拔掉了第一半？那么，这个模组可能会让你喜欢！它改良了艾瑞尼卡斯监狱里的矮人，但并没有让他们变得无敌。请注意，它还添加了一些其他的小东西；它们像往常一样在readme中列出。"
+      "description": "厌倦了与这群矮人战斗——对于你强壮的手臂或毁灭性的法术来说，他们实在太容易了——尽管在游戏开始时你几乎没有这样的法术？但是，Weimer的`伊里奇改良`组件Tactics已经让你拔掉了所有剩下的头发——在试图正确安装你那没完没了的模组列表时已经拔掉了第一半？那么，这个模组可能会让你喜欢！它改良了艾瑞尼卡斯监狱里的矮人，但并没有让他们变得无敌。请注意，它还添加了一些其他的小东西；它们像往常一样在readme中列出。"
     },
     "cs_CZ": {
       "components": {

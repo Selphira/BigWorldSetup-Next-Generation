@@ -9,7 +9,8 @@
     {
       "filename": "silver-star-npc-v2.0.0.zip",
       "size": 5927091,
-      "download": "https://github.com/Spellhold-Studios/Silver-Star-NPC/releases/download/v2.0.0/silver-star-npc-v2.0.0.zip"
+      "download": "https://github.com/Spellhold-Studios/Silver-Star-NPC/releases/download/v2.0.0/silver-star-npc-v2.0.0.zip",
+      "sha256": "c84a690c4df72110f880fcec7dcb2f4eab40bf9b876e54612ae75636f2185ec0"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

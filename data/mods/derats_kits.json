@@ -1,29 +1,29 @@
 {
   "name": "Deratiseur's Unused Kits Pack",
-  "version": "18.6",
+  "version": "19",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=24001"
   },
   "files": [
     {
-      "filename": "lin-Derats_kits-v18.6.zip",
-      "size": 32302089,
-      "sha256": "3a5b865031e58bebfcc168d5c46e971df8f648549d34fa62c278103d70d51526",
-      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/lin-Derats_kits-v18.6.zip",
+      "filename": "lin-Derats_kits-v19.zip",
+      "size": 30136321,
+      "sha256": "53815affe688881c605ad512f1ba649a4e3a877bf403128b770f63e79bf16a48",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v19.0/lin-Derats_kits-v19.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_kits-v18.6.zip",
-      "size": 32529615,
-      "sha256": "f47947578ae1df6953c4c109266a2bd681098ce092b997e9429c861821abc370",
-      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/mac-Derats_kits-v18.6.zip",
+      "filename": "mac-Derats_kits-v19.zip",
+      "size": 30253504,
+      "sha256": "01ffc0e00dce2a6dab41f19553d5b09e42b2ca77591847f21208cf1dfcd616df",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v19.0/mac-Derats_kits-v19.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_kits-v18.6.zip",
-      "size": 32474430,
-      "sha256": "ad369252f32b280e193fcd3b4fec30a32aaff551312212c2ee7bda0c62093fd6",
-      "download": "https://github.com/Deratiseur/DUKP/releases/download/v18.6/win-Derats_kits-v18.6.zip",
+      "filename": "win-Derats_kits-v19.zip",
+      "size": 29786066,
+      "sha256": "0e060699e5782b972ecea56a6eddbcf5c40827fabe59dd062d735efa8dc50e21",
+      "download": "https://github.com/Deratiseur/DUKP/releases/download/v19.0/win-Derats_kits-v19.zip",
       "platforms": ["windows"]
     }
   ],
@@ -52,34 +52,34 @@
       "description": "Dans ce kitpack, vous y retrouverez le Chasseur de vermine (rôdeur), le Porteur de haine (guerrier demi-orque), le Prêcheur des flammes (clerc offensif), le Seigneur de guerre (guerrier jumelé mage), le Croisé de Garagos (clerc), l'Anatomiste (multiclassé voleur/nécromancien) et bien d'autres.",
       "components": {
         "30": "Profil de guerrier (demi-orque) : Porteur de haine",
-        "10": "Profil de rodeur : Chasseur de vermine",
-        "110": "Modification de profil de rodeur : amelioration du Belluaire",
-        "20": "Profil de clerc : Precheur des flammes",
-        "140": "Profil de clerc : Croise de Garagos",
+        "10": "Profil de rôdeur : Chasseur de vermine",
+        "110": "Modification de profil de rôdeur : amélioration du Belluaire",
+        "20": "Profil de clerc : Prêcheur des flammes",
+        "140": "Profil de clerc : Croisé de Garagos",
         "120": "Profil de voleur : Arpenteur d'ombres",
         "40": "Profil de voleur (gnome) : Ombremage",
         "90": "Profil de mage (oBG2 : remplace l'invocateur) : Savant Artilleur",
         "70": "Profil de jumelage Guerrier -> Mage : Seigneur de guerre",
-        "80": "Profil de multi-classes Guerrier/Mage (elfe) : Chantelameur",
-        "60": "Profil de multi-classes Clerc/Entropiste (humain) : Explorateur theurgique",
-        "150": "Profil de multi-classes Voleur/Necromancien : Anatomiste"
+        "80": "Profil de multiclassé Guerrier/Mage (elfe) : Chantelameur",
+        "60": "Profil de multiclassé Clerc/Entropiste (humain) : Explorateur théurgique",
+        "150": "Profil de multiclassé Voleur/Nécromancien : Anatomiste"
       }
     },
     "en_US": {
       "description": "In this kitpack, you'll find the Hunter of Vermin (ranger), the Bearer of Hate (fighter half-orc), the Preacher of Flames (offensive cleric), the Warlord (fighter dualclass to mage), the Garagos crusader (cleric), the Anatomist (multi-classed thief/necromancer) and many more.",
       "components": {
-        "30": "Fighter (half-orc) Kit : Hatred Carrier",
-        "10": "Ranger Kit : Hunter of Vermin",
-        "110": "Wizard Kit : Sorcerer",
-        "20": "Cleric Kit : Preacher of Flames",
-        "140": "Cleric Kit : Goragos Crusaders",
-        "120": "Thief Kit : Shadow Walker",
-        "40": "Profil de voleur (gnome) : Ombremage (not translated)",
-        "90": "Mage Kit (it replaces the summoner) : Savant Artilleryman",
-        "70": "Dual-Class Fighter -> Mage Kit : Warlord",
-        "80": "Multi-Class Fighter/Mage (elf) Kit : Bladesinger",
-        "60": "Multi-Class Cleric/Mage (human) Kit : Theurgical Explorer",
-        "150": "Multi-Class Thief/Necromancer : Anatomist"
+        "30": "Fighter (half-orc) Kit: Hatred Carrier",
+        "10": "Ranger Kit: Vermin Hunter",
+        "110": "Ranger Kit Modification: Improved Beast Master",
+        "20": "Cleric Kit: Preacher of Flames",
+        "140": "Cleric Kit: Crusader of Garagos",
+        "120": "Thief Kit: Shadow Walker",
+        "40": "Thief Kit (gnome): Shadowmage",
+        "90": "Mage Kit (original BG2: replaces the invoker): Savant Artilleryman",
+        "70": "Dual-Class Fighter -> Mage Kit: Warlord",
+        "80": "Multiclass Fighter/Mage Kit (elf): Bladesinger",
+        "60": "Multiclass Cleric/Wild Mage Kit (human): Theurgical Explorer",
+        "150": "Multiclass Thief/Necromancer Kit: Anatomist"
       }
     },
     "zh_CN": {

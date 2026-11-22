@@ -23,19 +23,19 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod ajoute une archère unique avec une habilité exceptionnelle de contrôle de la glace et de l'hiver.",
+      "description": "Ce mod est une version plus puissante et antérieure à Auror Kit for the Ranger Class.",
       "components": {
         "0": "Auror"
       }
     },
     "en_US": {
-      "description": "This mod adds a unique archer with exceptional ice and winter control skills.",
+      "description": "This mod is a more powerful version that predates Auror Kit for the Ranger Class.",
       "components": {
         "0": "Auror"
       }
     },
     "zh_CN": {
-      "description": "此模组添加了一位独特的女弓箭手，她对冰和冬的控制能力异常出色。"
+      "description": "这个模组是比Auror Kit for the Ranger Class更强大且更早的版本。"
     }
   },
   "tp2": "aurorkit",

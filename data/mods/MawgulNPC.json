@@ -1,27 +1,29 @@
 {
   "name": "Mawgul NPC",
-  "version": "2.4",
+  "version": "2.5",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/767-mawgul-npc-v22/"
   },
   "files": [
     {
-      "filename": "lin-MawgulNPC-v2.3.zip",
-      "size": 2103084,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/lin-MawgulNPC-v2.3.zip",
+      "filename": "lin-MawgulNPC-v2.5.zip",
+      "size": 2671323,
+      "sha256": "37043ecfc025d54bf8e51fb776b65e7c5487f9743a914c6005d95b0f04fc303f",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.5/lin-MawgulNPC-v2.5.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-MawgulNPC-v2.3.zip",
-      "size": 2330606,
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/mac-MawgulNPC-v2.3.zip",
+      "filename": "mac-MawgulNPC-v2.5.zip",
+      "size": 2788502,
+      "sha256": "c1bf4908659c1d3ce442c51fd62b4b0ef9f7b1354c24c23ded0393b7f3437588",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.5/mac-MawgulNPC-v2.5.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-MawgulNPC-v2.3.zip",
-      "size": 2275425,
-      "sha256": "a1a6cfd78bfa589b51ceeee9b95d89ccf665a65b13ca596c6efb5ce913ee65a0",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.4/win-MawgulNPC-v2.3.zip",
+      "filename": "win-MawgulNPC-v2.5.zip",
+      "size": 2321068,
+      "sha256": "cab58d7f902285f467c0099fa40863cdb2aac123b49c926ea5e8da06370116ba",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mawgul/releases/download/v2.5/win-MawgulNPC-v2.5.zip",
       "platforms": ["windows"]
     }
   ],
@@ -34,7 +36,8 @@
     "es_ES": 0,
     "en_US": 1,
     "it_IT": 2,
-    "fr_FR": 3
+    "fr_FR": 3,
+    "zh_CN": 4
   },
   "translations": {
     "fr_FR": {
@@ -50,7 +53,10 @@
       }
     },
     "zh_CN": {
-      "description": "Mawgul是一个绝对中立善良的精灵法师/战士，侍奉海姆，拥有非常强大的装备，以及类似于海姆牧师的特殊能力。此模组内容很少。\n力量10，敏捷19，体质10，智力18，智慧16，魅力17。"
+      "description": "Mawgul是一个绝对中立善良的精灵法师/战士，侍奉海姆，拥有非常强大的装备，以及类似于海姆牧师的特殊能力。此模组内容很少。\n力量10，敏捷19，体质10，智力18，智慧16，魅力17。",
+      "components": {
+        "0": "Äª¹Å¶û NPC"
+      }
     },
     "es_ES": {
       "components": {

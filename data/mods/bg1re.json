@@ -1,16 +1,16 @@
 {
-  "name": "Baldur's Gate Romantic Encounters Modification",
-  "version": "15",
+  "name": "Baldur's Gate Romantic Encounters Modification (BG1RE)",
+  "version": "16",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/npcs/bg-romantic-encounters/",
     "forums": ["https://www.gibberlings3.net/forums/forum/191-romantic-encounters-bg/"]
   },
   "files": [
     {
-      "filename": "baldurs-gate-romantic-encounters-modification-bg1re-15pre.zip",
-      "size": 9159580,
-      "sha256": "8c72b80ee55b9889fed24ba5c11a6fd098b3dbd529e568b3b3ad274b08def6be",
-      "download": "https://github.com/Gibberlings3/BG1_Romantic_Encounters/releases/download/v15/baldurs-gate-romantic-encounters-modification-bg1re-15pre.zip"
+      "filename": "baldurs-gate-romantic-encounters-modification-bg1re-16.zip",
+      "size": 9737712,
+      "sha256": "54b1188e8f5cc10169380898c508ff56aa4b5a2c298591cc5882fc94a50f7135",
+      "download": "https://github.com/Gibberlings3/BG1_Romantic_Encounters/releases/download/v16/baldurs-gate-romantic-encounters-modification-bg1re-16.zip"
     }
   ],
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
@@ -67,7 +67,8 @@
     "de_DE": 1,
     "fr_FR": 2,
     "ru_RU": 3,
-    "it_IT": 4
+    "it_IT": 4,
+    "zh_CN": 5
   },
   "translations": {
     "en_US": {
@@ -183,7 +184,60 @@
       }
     },
     "zh_CN": {
-      "description": "如果你对博德之门1中的互动选项不满意，这个模组应该能满足你。它是其同名模组 Romantic Encounters MOD for Baldur's Gate II 的对应作品。\n\n它为游戏中不可招募的角色增加了许多短暂或更深入的恋爱可能性，无论男女，有时还附带了小型任务。注意：该模组的一部分内容为“成人”内容。"
+      "description": "如果你对博德之门Ⅰ中的互动选项不满意，这个模组应该能满足你。它是其同名模组 Romantic Encounters MOD for Baldur's Gate II 的对应作品。\n\n它为游戏中不可招募的角色增加了许多短暂或更深入的恋爱可能性，无论男女，有时还附带了小型任务。注意：该模组的一部分内容为“成人”内容。",
+      "components": {
+        "choice_0": "主要组件：嗯-细节的数量与博德之门风格对比描述文本！（必需）",
+        "100": "青少年版本并跳过带有警告的组件。",
+        "101": "青少年版本并显示/安装所有带有警告的组件。",
+        "102": "博德之门风格版本[成人内容]并跳过带有警告的组件。",
+        "103": "博德之门风格版本[成人内容]并显示/安装所有带有警告的组件。",
+        "104": "描述性版本[成人内容]并跳过带有警告的组件。",
+        "105": "描述性版本[成人内容]并显示/安装所有带有警告的组件。",
+        "1": "巴多兰的简报，作者：berelinde",
+        "2": "史卡的闲暇时光，作者：jastey",
+        "3": "金姆的执念，作者：jastey（警告 - 请参阅自述文件！）",
+        "4": "比约宁遭遇事件扩展（个人伤口处理），作者：jastey",
+        "5": "五月柱中无淀粉",
+        "6": "伊尔坦公爵的片刻闲暇，作者：jastey",
+        "7": "霍山的个人准备，作者：jastey",
+        "8": "劳雷尔的狩猎之后，作者：jastey",
+        "9": "巴图斯的诱惑，作者：jastey",
+        "10": "莉娜的按摩，作者：jastey",
+        "11": "与昆汀的第一夜，作者：Kulyok",
+        "12": "与尼克洛斯聊天，作者：Kulyok（成人内容。警告 - 请参阅自述文件！）",
+        "13": "斯莱斯和克丽丝汀，作者：Kulyok（成人内容。警告 - 请参阅自述文件！）",
+        "14": "无悔",
+        "15": "购买的爱情，作者：Thimblerig",
+        "16": "霍尔：重担，作者：Lava",
+        "17": "与贾希拉的深夜，作者：Kulyok",
+        "18": "希尔的祝福，作者：Lava",
+        "19": "梅立坎：家禽男孩，作者：Lava",
+        "20": "与琳妮共读，作者：Western Paladin",
+        "21": "丈夫争夺者莫莉，作者：Kulyok",
+        "22": "蜘蛛女士珊蒂儿的哀悼，作者：Lava",
+        "23": "必要的终结，作者：Lava（警告 - 请参阅自述文件！）",
+        "24": "收割者巢穴，作者：Lava（成人内容）",
+        "25": "伟大的祖迪尼，作者：Kulyok（成人内容）",
+        "26": "信使，作者：Thimblerig",
+        "27": "安得尔·赛，英雄的奖赏，作者：Thimblerig（警告 - 请参阅自述文件！）",
+        "28": "小说家们，作者：Thimblerig",
+        "29": "两岸的诚实谎言，作者：Lava",
+        "30": "死灵法师的麻烦，作者：jastey",
+        "31": "与泰蓝提尔共进晚餐，作者：jastey",
+        "32": "性别转换束腰的同伴反应，作者：Thimblerig，Kulyok，Domi，Lava，Lastknightleft，Twani，Jastey，Daisy Ninja Girl",
+        "33": "外科医生的梦，作者：Kulyok",
+        "34": "所遗一切，作者：Lava 和 Thimblerig",
+        "35": "童年好友，作者：Kulyok",
+        "36": "工作女孩阿尔琳，作者：Kulyok",
+        "37": "来自塞尔的黛拉·梅，作者：Kulyok",
+        "38": "烛堡的肮脏守卫，作者：Kulyok（成人内容。警告 - 请参阅自述文件！）",
+        "39": "凤凰之火，作者：Kulyok（成人内容）",
+        "40": "武僧米卡拉，作者：Twani",
+        "41": "信使 2：无论晴雨或黑夜，作者：Thimblerig 和 tibicina",
+        "42": "卡姆琳和塔玛，作者：tibicina",
+        "43": "次要的披露，作者：jastey",
+        "44": "斗篷森林恋人，作者：tibicina"
+      }
     },
     "de_DE": {
       "components": {
@@ -200,7 +254,7 @@
         "4": "Erweiterung der Bjornin-Begegnung (Private Wundbehandlung), von jastey",
         "5": "No Starch in the Maypole",
         "6": "Duke Eltan's Spare Minute, by jastey",
-        "7": "Husam's Personal Preparation, by jastey",
+        "7": "Husams Persoenliche Vorbereitung, by jastey",
         "8": "Laurels Jagdpause, von jastey",
         "9": "Bartus' Verführung, von jastey",
         "10": "Linas Massage, von jastey",

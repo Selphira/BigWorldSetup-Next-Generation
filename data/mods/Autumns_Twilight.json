@@ -1,22 +1,23 @@
 {
   "name": "Autumn's Twilight for BGII",
-  "version": "1.4.0",
+  "version": "1.5.3",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/38791-bg2-autumns-twilight-bg2at/"
   },
   "files": [
     {
       "filename": "bg2-autumns-twilight-mod.zip",
-      "size": 833787103,
-      "sha256": "013f01cceefea22b04c74ea4e7f4b8b76064fdda6bf070a78095c010823bf6e1",
-      "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.4.0/bg2-autumns-twilight-mod.zip"
+      "size": 853127216,
+      "sha256": "71c8c1c3af30cc9a8f95ac2dbeb82e1468be69ae30a05c637c140ea91304a425",
+      "download": "https://github.com/evancauteren/bg2-autumns-twilight-mod/releases/download/v1.5.3/bg2-autumns-twilight-mod.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
   "categories": ["quest", "npc"],
   "components": {
     "0": {"type": "std", "category": "conv"},
-    "1": {"type": "std", "category": "conv"}
+    "1": {"type": "std", "category": "conv"},
+    "2": {"type": "std"}
   },
   "languages": {
     "es_ES": 0,
@@ -26,58 +27,74 @@
     "pl_PL": 4,
     "fr_FR": 5,
     "ru_RU": 6,
-    "zh_CN": 7
+    "zh_CN": 7,
+    "bportuguese": 8
   },
   "translations": {
     "fr_FR": {
       "description": "Ce mod très complet ajoute de nouveaux personnages recrutables (dont Dusk NPC for BGII), des quêtes, des nouveaux objets, des marchands, des donjons etc",
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "en_US": {
       "description": "This comprehensive mod adds new recruitable characters (including Dusk NPC for BGII), quests, new items, merchants, dungeons and more.",
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "zh_CN": {
       "description": "这个非常全面的模组添加了新的可招募角色（包括Dusk NPC for BGII）、任务、新物品、商人、地牢等。",
       "components": {
-        "0": "秋暮之光 MOD",
-        "1": "Enemy Difficulty: Hard"
+        "0": "秋暮MOD",
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "es_ES": {
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "it_IT": {
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "de_DE": {
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "pl_PL": {
       "components": {
         "0": "Autumn's Twilight MOD",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     },
     "ru_RU": {
       "components": {
         "0": "Осень в закатном моде",
-        "1": "Enemy Difficulty: Hard"
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
+      }
+    },
+    "bportuguese": {
+      "components": {
+        "0": "Mod Autumn's Twilight",
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
       }
     }
   },

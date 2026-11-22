@@ -9,7 +9,8 @@
     {
       "filename": "solaufein-flirt-pack-v1.2.zip",
       "size": 4253053,
-      "download": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack/releases/download/v1.2/solaufein-flirt-pack-v1.2.zip"
+      "download": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack/releases/download/v1.2/solaufein-flirt-pack-v1.2.zip",
+      "sha256": "7befe32df09c681f01149ba39cb51c376d18e7caa1c9fcd519746b52250bb966"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

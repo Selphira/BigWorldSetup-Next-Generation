@@ -28,7 +28,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "Adrian Sianodel is a lawful evil 33-year-old half-Elf mage, whom you meet at the end of the Irenicus dungeon. He has a personal quest and will romanticize human or half-Elf female PJs without restriction of alignment or class. However, your PJ must have a minimum of 12 charisma. Leaf-eaters are not particularly her cup of tea.",
+      "description": "Adrian Sianodel is a lawful evil 33-year-old half-Elf mage, whom you meet at the end of the Irenicus dungeon. He has a personal quest and will romanticize human or half-Elf female PJs without restriction of alignment or class. However, your PJ must have a minimum of 12 charisma. Leaf-eaters are not particularly her cup of tea.\nSTR 12, DEX 16, CON 10, INT 17, WIS 16, CHA 14.",
       "components": {
         "choice_0": "Adrian for BGII",
         "0": "Adrian is a Sorcerer",
@@ -44,7 +44,7 @@
       }
     },
     "fr_FR": {
-      "description": "Adrian Sianodel est un mage demi-elfe loyal mauvais vieux de 33 ans, que vous rencontrerez à la fin du donjon d'Irenicus. Il dispose d'une quête personnelle et romancera les PJs féminins humaines ou demi-elfes sans restriction d'alignement ni de classe. Votre PJ devra toutefois disposer d'un minimum de 12 en charisme. Les mangeurs de feuilles ne sont pas spécialement sa tasse de thé.",
+      "description": "Adrian Sianodel est un mage demi-elfe loyal mauvais vieux de 33 ans, que vous rencontrerez à la fin du donjon d'Irenicus. Il dispose d'une quête personnelle et romancera les PJs féminins humaines ou demi-elfes sans restriction d'alignement ni de classe. Votre PJ devra toutefois disposer d'un minimum de 12 en charisme. Les mangeurs de feuilles ne sont pas spécialement sa tasse de thé.\nFOR 12, DEX 16, CON 10, INT 17, SAG 16, CHA 14.",
       "components": {
         "choice_0": "Adrian pour BGII",
         "0": "Adrian est un Sorcier",
@@ -60,7 +60,7 @@
       }
     },
     "zh_CN": {
-      "description": "艾德里安·西亚诺德尔是一位33岁的守序邪恶半精灵法师，你将在艾瑞尼卡斯地牢的尽头遇到他。他有一个个人任务，并且会与女性人类或半精灵玩家角色（不限阵营和职业）发展恋情。然而，你的玩家角色魅力值必须至少为12。德鲁伊并非他的菜。"
+      "description": "阿德里安·夏诺德尔（Adrian Sianodel）是一位33岁的半精灵法师，阵营为守序邪恶。你将在艾瑞尼卡斯的地牢尽头遇到他。他拥有个人任务，并且可以攻略人类或半精灵女性主角，不受阵营和职业限制，但主角的魅力值至少需要达到12。他尤其不喜欢那些只吃绿叶菜的人。 \n力量12，敏捷16，体质10，智力17，智慧16，魅力14。"
     },
     "de_DE": {
       "components": {

@@ -1,30 +1,30 @@
 {
   "name": "Wares of the Planes",
-  "version": "2.1",
+  "version": "2.7",
   "links": {
     "homepage": "https://github.com/Argent77/A7-WaresOfThePlanes",
     "forums": ["https://www.gibberlings3.net/forums/topic/38054-wares-of-the-planes-planescape-items-for-baldurs-gate"]
   },
   "files": [
     {
-      "filename": "lin-A7-WaresOfThePlanes-v2.1.zip",
-      "size": 22870122,
-      "sha256": "630d4bacdd4faf85c953a20e58e178b1c690037e6d88a4a7efb897ac96757d48",
-      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.1/lin-A7-WaresOfThePlanes-v2.1.zip",
+      "filename": "lin-A7-WaresOfThePlanes-v2.7.zip",
+      "size": 46121145,
+      "sha256": "716b9bce386de7236a051f3ac6e875dd8f53c51831673ea50200770dd70da4cc",
+      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.7/lin-A7-WaresOfThePlanes-v2.7.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-A7-WaresOfThePlanes-v2.1.zip",
-      "size": 23097664,
-      "sha256": "0badc7c17c48917e8c21b3830796652cd45918a5e1e04752e411d515e8ee02c6",
-      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.1/mac-A7-WaresOfThePlanes-v2.1.zip",
+      "filename": "mac-A7-WaresOfThePlanes-v2.7.zip",
+      "size": 46238344,
+      "sha256": "fbacfcdf4048af0f2622e3e2d8711c3c6cedc3026d1898f3de8e0e38f85a7a85",
+      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.7/mac-A7-WaresOfThePlanes-v2.7.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-A7-WaresOfThePlanes-v2.1.zip",
-      "size": 23042463,
-      "sha256": "2d779b85312926a02593e8cadb2137247b817dbbc7825693951e50a6ea5f4de6",
-      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.1/win-A7-WaresOfThePlanes-v2.1.zip",
+      "filename": "win-A7-WaresOfThePlanes-v2.7.zip",
+      "size": 45770890,
+      "sha256": "872eabc049d33f4199e6694aea8f36607f9b018a350478121126dd89b705d69b",
+      "download": "https://github.com/Argent77/A7-WaresOfThePlanes/releases/download/v2.7/win-A7-WaresOfThePlanes-v2.7.zip",
       "platforms": ["windows"]
     }
   ],
@@ -59,7 +59,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组将大量来自异度风景宇宙的武器和配件引入到博德之门系列中。物品可以从一个在游戏过程中一直可用的流动商人那里购买。\n为了更好地融入博德之门系列，《异度风景：苦难》中的几个物品被略微修改，因为异度风景宇宙的物品通常比被遗忘的国度中的同类物品更强大和独特。",
+      "description": "这个模组将大量来自异域风景宇宙的武器和配件引入到博德之门系列中。物品可以从一个在游戏过程中一直可用的流动商人那里购买。\n为了更好地融入博德之门系列，《异域风景：苦难》中的几个物品被略微修改，因为异域风景宇宙的物品通常比被遗忘的国度中的同类物品更强大和独特。",
       "components": {
         "0": "异域商品",
         "100": "鉴定所有商品（不推荐）",

@@ -44,7 +44,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod propose une collection de petites modifications destinées à BG:EE et BG2:EE qui devraient être compatibles avec BG2 original, BGT et EET. Il vous permet d'appliquer des dommages alternatifs aux grandes créatures (plus grands ou plus petits selon les armes), de limiter le nombre de charges des baguettes (6) et des sceptres (12), appliquer aux aux jets de sauvegarde des sorts des malus selon le niveau, modifier les tables dépendant de la Force, de la Dextérité et de la Constitution pour que les bonus accordés commencent à partir de 12. Ce mod fait partie de la série \"Made in Heaven\" (avec les objets, les sorts et les quêtes).",
+      "description": "Ce mod propose une collection de petites modifications. Il vous permet d'appliquer des dommages alternatifs aux grandes créatures (plus grands ou plus petits selon les armes), de limiter le nombre de charges des baguettes (6) et des sceptres (12), appliquer aux aux jets de sauvegarde des sorts des malus selon le niveau, modifier les tables dépendant de la Force, de la Dextérité et de la Constitution pour que les bonus accordés commencent à partir de 12. Ce mod fait partie de la série \"Made in Heaven\" (avec les objets, les sorts et les quêtes).",
       "components": {
         "0": "Dégâts alternatifs sur les grosses créatures",
         "1": "Capacité de charge des Baguettes et des Bâtons",
@@ -58,7 +58,7 @@
       }
     },
     "en_US": {
-      "description": "This mod offers a collection of small modifications for BG:EE and BG2:EE that should be compatible with the original BG2, BGT and EET. It allows you to apply alternative damage to large creatures (larger or smaller, depending on the weapon), limit the number of charges for wands (6) and scepters (12), apply level-dependent malus to spell saving throws, and modify tables depending on Strength, Dexterity and Constitution so that bonuses start at 12. This mod is part of the \"Made in Heaven\" series (with items, spells and quests).",
+      "description": "This mod offers a collection of small modifications. It allows you to apply alternative damage to large creatures (larger or smaller, depending on the weapon), limit the number of charges for wands (6) and scepters (12), apply level-dependent malus to spell saving throws, and modify tables depending on Strength, Dexterity and Constitution so that bonuses start at 12. This mod is part of the \"Made in Heaven\" series (with items, spells and quests).",
       "components": {
         "0": "Alternative Damage on Large Creatures",
         "1": "Cap charges of Wands and Staves",
@@ -72,7 +72,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组提供了一个为博德之门：增强版和博德之门2：增强版准备的小型修改集合，应该与原版博德之门2、博德之门三部曲和增强版三部曲兼容。它允许你对大型生物（根据武器大小，比目标更大或更小）造成替代伤害，限制魔杖（6发）和权杖（12发）的充能次数，并根据等级对法术豁免检定施加惩罚，修改基于力量、敏捷和体质的表格，使其加成从12点开始生效。此模组是“Made in Heaven”系列（包含物品、法术和任务）的一部分。"
+      "description": "这个模组提供了一系列小修改。它允许你对大型生物应用替代伤害（根据武器不同而更大或更小），限制法杖（6次）和权杖（12次）的使用次数，根据等级对法术的豁免检定施加减值，修改基于力量、敏捷和体质的表格，使得提供的加值从12点开始。这个模组属于“天堂制造”系列（与物品、法术和任务模组并列）。"
     }
   },
   "tp2": "mih_tweaks",

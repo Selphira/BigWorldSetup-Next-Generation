@@ -23,19 +23,19 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce petit mod propose un nouveau type d'objet les « weapon oils ». Il s'agit de potions consommables qui permettent d'appliquer un effet supplémentaire aux armes."
+      "description": "Ce petit mod propose un nouveau type d'objet les « weapon oils ». En résumé, ce sont des potions consommables qui confèrent un effet modeste à vos attaques au corps à corps et à distance pendant 1 tour."
     },
     "en_US": {
-      "description": "This little mod introduces a new type of item called \"weapon oils\". These are consumable potions that apply an additional effect to weapons.",
+      "description": "This small mod simply adds a new class of items called \"weapon oils\". Essentially, they are consumable potions that apply a somewhat mild melee/ranged effect to your melee and ranged attacks for 1 turn.",
       "components": {
         "100": "Install oils and insert them into the world"
       }
     },
     "zh_CN": {
-      "description": "这个小型模组引入了一种新类型的物品——“武器油”。它们是消耗性药水，可以为武器附加额外效果。"
+      "description": "这个小模组提供了一种新类型的物品——“武器油”。简而言之，它们是消耗性药水，能在1回合内为你的近战和远程攻击赋予适度效果。"
     }
   },
   "tp2": "zs_weaponoils",
   "safe": 0,
-  "authors": ["RoyalProtector"]
+  "authors": ["Kaelyn"]
 }

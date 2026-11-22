@@ -1,6 +1,6 @@
 {
   "name": "BG:EE NPC Revamp",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "links": {
     "homepage": "https://github.com/Llewren/BGEE-NPC-Revamp/",
     "forums": ["https://smolderingmodsbar.com/revamp/", "https://forums.beamdog.com/discussion/89625/"]
@@ -8,9 +8,9 @@
   "files": [
     {
       "filename": "BGEE-NPC-Revamp.zip",
-      "size": 1303581,
-      "sha256": "3fa15c6b0e45ed7649e113135ec4b93c5603e27b4c5efe15298b5cfe4ea4a7bb",
-      "download": "https://github.com/Llewren/BGEE-NPC-Revamp/releases/download/v0.1.1/BGEE-NPC-Revamp.zip"
+      "size": 1300697,
+      "sha256": "6652aa47ac56ac110b5c4e3fa66bb88b6c2dac20293c69f6616d37bbf2024284",
+      "download": "https://github.com/Llewren/BGEE-NPC-Revamp/releases/download/v0.1.5/BGEE-NPC-Revamp.zip"
     }
   ],
   "games": ["bgee", "sod"],

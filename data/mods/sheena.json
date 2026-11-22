@@ -28,7 +28,7 @@
     "en_US": {
       "description": "This mod adds a special new NPC: Sheena is a young woman... half-dragon. Yes, you read that right. She's full of passion and stories. Would you like to share your adventure with her?\nShe also has 5% magic resistance, 50% fire resistance and is immune to mental spells. She also has a much more powerful dragon form. Fortunately, she has a few drawbacks to compensate for this power (notably 10% less XP received). She's a multi-classed fighter/mage, neutral, good-looking and very pretty (in her human form). You can recruit her in the Firkraag dungeon after slicing up her daddy. She can have a romance with a male PJ of good or neutral alignment, who doesn't already have another romance underway, and only if Mazzy is also in the party (incidentally, the banters between the huge half-dragoness and the miniature knight, who quickly become buddies, are pretty funny).\nHumam form : STR 16, DEX 12, CON 16, INT 15, WIS 10, CHA 15.\nDragon form : STR 20, DEX 12, CON 18, INT 15, WIS 10, CHA 15.",
       "components": {
-        "0": "Install A Half Dragon Tale"
+        "0": "Installez une Histoire de Demi Dragon"
       }
     },
     "fr_FR": {
@@ -58,5 +58,5 @@
   },
   "tp2": "sheena",
   "safe": 1,
-  "authors": ["Edvin", "Red Knight"]
+  "authors": ["Red Knight", "Edvin"]
 }

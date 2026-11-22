@@ -1,16 +1,31 @@
 {
-  "name": "Enhanced Edition Trilogy",
-  "version": "14.1",
+  "name": "Baldur's Gate: Enhanced Edition Trilogy (EET)",
+  "version": "15.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
     "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
   },
   "files": [
     {
-      "filename": "EET-master.zip",
-      "size": 215019885,
-      "sha256": "3ba76d99fb2515cf6c5d620a41ca8cb9df7e5c41f968357b69e396efa8fc058e",
-      "download": "https://github.com/Gibberlings3/EET/archive/refs/heads/master.zip"
+      "filename": "EET-v15.0.exe",
+      "size": 207758683,
+      "sha256": "f723a6acd4b91cf66c8cd4516a1ee9b5d8880143eec98e23d081dc73bc86caee",
+      "download": "https://github.com/Gibberlings3/EET/releases/download/v15.0/EET-v15.0.exe",
+      "platforms": ["windows"]
+    },
+    {
+      "filename": "lin-EET-v15.0.zip",
+      "size": 205225375,
+      "sha256": "70f61ac55a908c2e349e4cac5bcec4fe7af5b82e926b4a4ee6fd58335a68a8ab",
+      "download": "https://github.com/Gibberlings3/EET/releases/download/v15.0/lin-EET-v15.0.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-EET-v15.0.zip",
+      "size": 206493602,
+      "sha256": "ad3ce46541bc5f86840fb70bf5ab5c9d59595fd6717f2585cafe930b36318460",
+      "download": "https://github.com/Gibberlings3/EET/releases/download/v15.0/mac-EET-v15.0.zip",
+      "platforms": ["macos"]
     }
   ],
   "games": ["eet"],
@@ -27,7 +42,8 @@
     "cs_CZ": 4,
     "ru_RU": 5,
     "de_DE": 6,
-    "zh_CN": 7
+    "zh_CN": 7,
+    "it_IT": 8
   },
   "translations": {
     "en_US": {
@@ -79,6 +95,12 @@
       "components": {
         "0": "EET core (Ressourcen werden importiert)",
         "100": "Desktop-Verknuepfung erstellen"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "EET core (importazione delle risorse)",
+        "100": "Crea collegamento sul desktop"
       }
     }
   },

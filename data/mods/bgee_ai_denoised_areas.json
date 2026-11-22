@@ -3,15 +3,14 @@
   "version": "220506",
   "links": {
     "homepage": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas",
-    "forums": [
-      "https://forums.beamdog.com/discussion/83893/", "https://github.com/haifengkao/EET_BGEE_AI_Denoised_Areas"
-    ]
+    "forums": ["https://forums.beamdog.com/discussion/83893/", "https://github.com/haifengkao/EET_BGEE_AI_Denoised_Areas"]
   },
   "files": [
     {
       "filename": "BGEE_AI_Denoised_Areas_v220506.zip",
       "size": 644794905,
-      "download": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas/releases/download/v220506/BGEE_AI_Denoised_Areas_v220506.zip"
+      "download": "https://github.com/WillScarlettOhara/BGEE_AI_Denoised_Areas/releases/download/v220506/BGEE_AI_Denoised_Areas_v220506.zip",
+      "sha256": "879f61a52d99ba6f7b1c9b49fb4b28c1c7070a5f057bd1d010bd2fbd634b0a79"
     }
   ],
   "games": ["bgee", "sod"],

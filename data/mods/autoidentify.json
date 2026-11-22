@@ -6,9 +6,18 @@
   },
   "files": [
     {
-      "filename": "AutoIdentify_EE.zip",
-      "size": 1263859,
-      "download": "https://github.com/LCA-EET/AutoIdentify/releases/download/v1.0/AutoIdentify_EE.zip"
+      "filename": "AutoIdentify_linux.zip",
+      "size": 1646368,
+      "sha256": "9d1df9f821d525b7f871d112243cad327672b43ba32a2467e650bd3d89a8ca8a",
+      "download": "https://github.com/LCA-EET/AutoIdentify/releases/download/v1.0/AutoIdentify_linux.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "AutoIdentify_win.zip",
+      "size": 1265448,
+      "sha256": "2510c00d7818672885b2d63474a303c94a937979f716bdc55ca1fb3b7c8cad01",
+      "download": "https://github.com/LCA-EET/AutoIdentify/releases/download/v1.0/AutoIdentify_win.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],

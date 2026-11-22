@@ -21,7 +21,8 @@
       "filename": "win-A7-BagsOfTorment-v1.3.zip",
       "size": 1343332,
       "download": "https://github.com/Argent77/A7-BagsOfTorment/releases/download/v1.3/win-A7-BagsOfTorment-v1.3.zip",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "866ff7e274be71a9b8c43de31755bbb9f54791097c4157a5cecfe76e024b15a5"
     }
   ],
   "games": ["pstee"],
@@ -48,7 +49,7 @@
       }
     },
     "en_US": {
-      "description": "This mini mod adds a few containers to the game, which can be purchased in different stores: the Imp leather bag, the modrone storage crystal and the pocket singularity. An optional component enables the game's containers to store over 32,000 items.",
+      "description": "This mini mod adds a number of containers to the game which can be purchased from various shops: the Imp leather bag, the Modron storage crystal and the Pocket singularity. One of the containers may also trigger a small quest.\nAn optional component enables the game's containers to store over 32,000 items.",
       "components": {
         "0": "Containers for PST:EE",
         "10": "Increase storage capacity of containers"

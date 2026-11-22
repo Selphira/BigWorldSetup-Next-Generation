@@ -84,6 +84,7 @@
     }
   },
   "tp2": "lolfixer",
-  "safe": 2,
-  "authors": ["Lollorian"]
+  "safe": 1,
+  "authors": ["Lollorian"],
+  "files": []
 }

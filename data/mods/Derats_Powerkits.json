@@ -1,30 +1,30 @@
 {
   "name": "CrossClass Powerkits",
-  "version": "5.1",
+  "version": "5.2",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34909",
     "forums": ["https://forums.beamdog.com/discussion/89445/mod-crossclass-powerkits"]
   },
   "files": [
     {
-      "filename": "lin-Derats_Powerkits-v5.1.zip",
-      "size": 1320455,
-      "sha256": "8b6220a731160cb45fe65f326f7017ff5f9b9807684dbf819102d31da768c5f9",
-      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.1.0/lin-Derats_Powerkits-v5.1.zip",
+      "filename": "lin-Derats_Powerkits-v5.2.zip",
+      "size": 1719366,
+      "sha256": "37c0ea8d9374f7ed8af307662fca9557de367bdc396bc5a2a604751f12ce342e",
+      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.2/lin-Derats_Powerkits-v5.2.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Powerkits-v5.1.zip",
-      "size": 1547991,
-      "sha256": "9f3d0daa3f5bf1cfbf3fff85e81f70214bb62030f5cdef90443f4a4a2de6b641",
-      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.1.0/mac-Derats_Powerkits-v5.1.zip",
+      "filename": "mac-Derats_Powerkits-v5.2.zip",
+      "size": 1836559,
+      "sha256": "797635b2942690dd9c1bff657f2bdbcefb0c1817b50ff077abfacb0ba7c205e4",
+      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.2/mac-Derats_Powerkits-v5.2.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Powerkits-v5.1.zip",
-      "size": 1492796,
-      "sha256": "b4532c347707a1ea4b7ef9156aa76e5b1b10cc0b18501b6883cea6808ee4585e",
-      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.1.0/win-Derats_Powerkits-v5.1.zip",
+      "filename": "win-Derats_Powerkits-v5.2.zip",
+      "size": 1369111,
+      "sha256": "53ca3e3643eda263eb83adaa9ac7f6685b0d89613c6c0c61a9dec1b5c5d382de",
+      "download": "https://github.com/Deratiseur/CrossClass/releases/download/v5.2/win-Derats_Powerkits-v5.2.zip",
       "platforms": ["windows"]
     }
   ],
@@ -104,31 +104,31 @@
         "99": "Dragon Disciple Kensai",
         "109": "Barbarian Defender",
         "179": "Bounty hunter Stalker",
-        "199": "Assassin stalker",
+        "199": "Assassin Stalker",
         "129": "Inquisitor Archer",
         "139": "Undead hunter Cavalier",
         "119": "Swashbuckler Cleric",
-        "269": "Berserker shapeshifter",
+        "269": "Berserker Shapeshifter",
         "59": "Assassin Monk",
         "69": "Wizard slayer Monk",
         "39": "Master-Shi Monk",
         "209": "Inquisitor Monk",
-        "239": "Stalker Dark Moon monk",
+        "239": "Stalker Dark Moon Monk",
         "19": "Shapeshifter Thief",
         "29": "Tyrran Thief",
         "149": "Tempuran Thief",
-        "189": "Kensai thief",
-        "219": "Blades thief",
-        "289": "Totemic shaman",
+        "189": "Kensai Thief",
+        "219": "Blade Thief",
+        "289": "Totemic Shaman",
         "49": "Totemic Skald",
-        "229": "Lathanderian blades",
-        "249": "Talassan invoker",
+        "229": "Lathanderian Blade",
+        "249": "Talassan Invoker",
         "159": "Wild Sorcerer",
         "169": "Monk Sorcerer",
         "79": "Beast master Shaman",
         "89": "Avenger Shaman",
-        "259": "Archer shaman",
-        "279": "Skald shaman"
+        "259": "Archer Shaman",
+        "279": "Skald Shaman"
       }
     },
     "zh_CN": {

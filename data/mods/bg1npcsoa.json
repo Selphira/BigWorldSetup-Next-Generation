@@ -1,6 +1,6 @@
 {
   "name": "BG1 NPC in SoA&ToB",
-  "version": "15.4.2",
+  "version": "15.5",
   "links": {
     "homepage": "https://github.com/Spellhold-Studios/BG1-NPCs-for-SoA-ToB",
     "forums": ["https://forums.beamdog.com/discussion/82463/"]
@@ -47,7 +47,8 @@
   },
   "languages": {
     "en_US": 0,
-    "ru_RU": 1
+    "ru_RU": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -91,7 +92,41 @@
       }
     },
     "zh_CN": {
-      "description": "这款大型模组在阿斯卡特拉城新增了「水园」区域，汇聚全城名流显贵。他们在此谈天说地、休憩小酌。数千条对话文本会随每次交谈动态更新，并配有昼夜交替的实时演算系统。\n该模组同时允许其他制作者为博德之门Ⅰ的NPC创建扩展组件，这些角色不仅拥有全新台词，更可触发全新任务线乃至同伴间的恋爱剧情，还暗藏诸多意外之喜。"
+      "description": "这款大型模组在阿斯卡特拉城新增了「水园」区域，汇聚全城名流显贵。他们在此谈天说地、休憩小酌。数千条对话文本会随每次交谈动态更新，并配有昼夜交替的实时演算系统。\n该模组同时允许其他制作者为博德之门Ⅰ的NPC创建扩展组件，这些角色不仅拥有全新台词，更可触发全新任务线乃至同伴间的恋爱剧情，还暗藏诸多意外之喜。",
+      "components": {
+        "0": "Water Gardens. New Athkatla's district & new quests",
+        "1": "OPTIONAL component, NOT RECOMMENDED! Add unbalanced and non-lore items to merchant shops in Water Gardens?",
+        "2": "Shar-Teel NPC in BG2. \"Nightbringer of Shar\" (R, 18+!)",
+        "3": "New portrait of Shar-Teel (blonde, slightly older)",
+        "4": "Yeslick Orothiar NPC in BG2",
+        "6": "Brave Sir Garrick NPC in BG2",
+        "8": "Skie & Eldoth NPCs in BG2",
+        "10": "Branwen NPC in BG2",
+        "11": "ToB-part for Shar-Teel or/and Yeslick, Garrick, Branwen, Skie, Eldoth",
+        "20": "Coran & Safana Chronicles (SoA & ToB)",
+        "25": "Alora (SoA & ToB)",
+        "choice_0": "Kagain's Corner (SoA & ToB)",
+        "30": "Store with crazy amount of magical items",
+        "35": "Store with Vanilla Items Only",
+        "40": "Faldorn's New Leaf (SoA & ToB)",
+        "45": "Xzar and Monty Murder Mysteries (SoA & ToB) (R, 18+!)",
+        "50": "Gnomes in the City: Quayle & Tiax (SoA & ToB)",
+        "choice_1": "Expanded cirqus quest",
+        "55": "Expanded cirqus quest (Standard difficulty)",
+        "56": "Expanded cirqus quest - VERY difficult battles in circus (EXTREME difficulty)",
+        "60": "Ajantis (SoA & ToB)",
+        "65": "Dynaheir (SoA)",
+        "70": "Kivan (SoA & ToB)",
+        "75": "Xan (SoA & ToB)",
+        "80": "Make Branwen a Priest of Tempus",
+        "81": "Make Eldoth a Jester",
+        "82": "Make Faldorn an Avenger",
+        "83": "Make Garrick a Skald",
+        "84": "Make Montaron an Assasin",
+        "85": "Make Safana a Swashbuckler",
+        "86": "Make Skie a Shadowdancer",
+        "87": "Inter Component Banter Pack"
+      }
     },
     "ru_RU": {
       "components": {

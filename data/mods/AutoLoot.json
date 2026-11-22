@@ -1,15 +1,23 @@
 {
   "name": "Bubb's Auto Loot",
-  "version": "1.2.6",
+  "version": "1.3",
   "links": {
     "homepage": "https://github.com/LCA-EET/AutoLoot"
   },
   "files": [
     {
-      "filename": "AutoLoot.zip",
-      "size": 1274573,
-      "sha256": "a5f11dbf5eb485e355095007780db773286a911cf01c8231d3d2fcaf2fd329e5",
-      "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.2.6/AutoLoot.zip"
+      "filename": "AutoLoot_linux.zip",
+      "size": 1656906,
+      "sha256": "09f7de71f29dfbf2824f9fae8668e901b486bd6733bcbd1eeca529aa0eaf2e7c",
+      "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.3/AutoLoot_linux.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "AutoLoot_win.zip",
+      "size": 1275986,
+      "sha256": "20f258e9babdf239e7e19fe25ba4f10c2afda6acfaeb6618f37f678b2896410f",
+      "download": "https://github.com/LCA-EET/AutoLoot/releases/download/v1.3/AutoLoot_win.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],

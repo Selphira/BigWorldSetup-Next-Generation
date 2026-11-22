@@ -45,7 +45,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This SimDing0 mod not only adds a multitude of small quests, but also modifies the AI of certain monsters, adding certain abilities (for example, mummies can now cast a kind of stun blast on you... gnark). You'll also be able to make other choices in existing quests, such as betraying Edwin, or even Renal Bloodscalp himself... at your peril.",
+      "description": "This mod not only adds a multitude of small quests, but also modifies the AI of certain monsters, adding certain abilities (for example, mummies can now cast a kind of stun blast on you... gnark). You'll also be able to make other choices in existing quests, such as betraying Edwin, or even Renal Bloodscalp himself... at your peril.",
       "components": {
         "0": "General AI Improvements",
         "choice_0": "Creature & Area Improvements",
@@ -106,7 +106,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod de SimDing0 ajoute une multitude de petites quêtes, mais modifie également l'IA de certains monstres, leur rajoutant également certaines capacités (par exemple, les momies peuvent désormais lancer une sorte de souffle étourdissant sur vous... gnark). Vous aurez également la possibilité d'effectuer d'autres choix lors de quêtes déjà existantes, comme trahir Edwin, voire Renal Bloodscalp lui-même... à vos risques et périls.",
+      "description": "Ce mod ajoute une multitude de petites quêtes, mais modifie également l'IA de certains monstres, leur rajoutant également certaines capacités (par exemple, les momies peuvent désormais lancer une sorte de souffle étourdissant sur vous... gnark). Vous aurez également la possibilité d'effectuer d'autres choix lors de quêtes déjà existantes, comme trahir Edwin, voire Renal Bloodscalp lui-même... à vos risques et périls.",
       "components": {
         "0": "Ameliorations generales de l'IA",
         "choice_0": "Ameliorations des creatures et des zones",
@@ -137,7 +137,7 @@
       }
     },
     "zh_CN": {
-      "description": "SimDing0的这个模组添加了大量的支线任务，同时也修改了某些怪物的AI，并为他们增加了一些能力（例如，木乃伊现在可以对你们施放一种令人眩晕的气息……呃）。在现有的任务中，你也将有其他选择的机会，比如背叛艾德温，甚至背叛瑞纳·血鳞……一切风险自负。"
+      "description": "这个模组增加了大量的小任务，但也修改了某些怪物的AI，为它们增加了一些能力（例如，木乃伊现在可以对你施展某种眩晕吐息……嘎啊）。你还可能在现有任务中做出其他选择，比如背叛艾德温，甚至背叛雷纳尔·血头本人……风险自负。"
     },
     "es_ES": {
       "components": {

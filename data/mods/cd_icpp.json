@@ -10,7 +10,8 @@
       "filename": "cd_icpp-v2.exe",
       "size": 27700533,
       "download": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack/releases/download/v2/cd_icpp-v2.exe",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "d32227e3257cf1ea947157e3b929b9e8435e1e0bba9fa5dd7ecca442ff79f507"
     },
     {
       "filename": "lin-cd_icpp-v2.tar.gz",
@@ -58,7 +59,7 @@
       }
     },
     "zh_CN": {
-      "description": "该模组汇集了150多个官方肖像，可用于你的角色（异度风景：苦难的除外）：来自博德之门、龙矛围攻、博德之门II和巴尔王座、冰风谷或冰风谷2的肖像。"
+      "description": "该模组汇集了150多个官方肖像，可用于你的角色（异域风景：苦难的除外）：来自博德之门、龙矛围攻、博德之门II和巴尔王座、冰风谷或冰风谷2的肖像。"
     }
   },
   "tp2": "cd_icpp",

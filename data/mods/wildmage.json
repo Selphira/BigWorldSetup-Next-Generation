@@ -1,16 +1,16 @@
 {
   "name": "Wild Mage Additions",
-  "version": "2.4",
+  "version": "2.5",
   "links": {
     "homepage": "https://bgforge.net/wild-mage-additions/",
     "forums": ["https://forums.bgforge.net/viewtopic.php?f=4&t=17"]
   },
   "files": [
     {
-      "filename": "wild-mage-additions-v2.4.zip",
-      "size": 3987095,
-      "sha256": "3d0c1f4e9a4870dfc6a9a142d5791200e3e9f558f16f6296de4213d7133fbbbb",
-      "download": "https://github.com/BGforgeNet/bg2-wildmage/releases/download/v2.4/wild-mage-additions-v2.4.zip"
+      "filename": "wild-mage-additions-v2.5.zip",
+      "size": 1613431,
+      "sha256": "9d1e6b30b2def0f629bb1345606a26ad62c30be27e51a7f06414662a61016465",
+      "download": "https://github.com/BGforgeNet/bg2-wildmage/releases/download/v2.5/wild-mage-additions-v2.5.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
@@ -87,7 +87,7 @@
       "components": {
         "choice_0": "Nowe czary Dzikiej Magii",
         "0": "Ironman",
-        "1": "Haugthy pansy",
+        "1": "Wyniosły bratek",
         "2": "Zachowaj przedmioty Rhialto",
         "choice_1": "Podklasa Czarotworcy",
         "3": "Oryginalny awatar",
@@ -134,5 +134,5 @@
   },
   "tp2": "wildmage",
   "safe": 2,
-  "authors": ["Magus"]
+  "authors": ["Jog", "Magus"]
 }

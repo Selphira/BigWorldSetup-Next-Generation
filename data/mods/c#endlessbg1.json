@@ -92,7 +92,7 @@
       }
     },
     "zh_CN": {
-      "description": "对于EE游戏，此模组的主要目的是让玩家在击败沙洛佛克后，能够继续留在博德之门1的世界中。要恢复（或结束）游戏的原始进程，必须在宫殿内与贝尔特公爵交谈。\n在EET中，它还提供了跳过龙矛围攻并直接开始博德之门2的可能性（请注意，一些博德之门2的模组期望龙矛围攻的事件已经发生）。\n在BGT中，模组的主要组件在与贝尔特公爵的对话中为玩家角色增加了一些赞誉，并在沙洛佛克死后移除了一些与沙洛佛克相关的元素。\n可选组件为玩家角色带来更多名誉，并在所有安装中为龙矛围攻的事件做准备。",
+      "description": "对于EE游戏，此模组的主要目的是让玩家在击败沙洛佛克后，能够继续留在博德之门Ⅰ的世界中。要恢复（或结束）游戏的原始进程，必须在宫殿内与贝尔特公爵交谈。\n在EET中，它还提供了跳过龙矛围攻并直接开始博德之门Ⅱ的可能性（请注意，一些博德之门Ⅱ的模组期望龙矛围攻的事件已经发生）。\n在BGT中，模组的主要组件在与贝尔特公爵的对话中为玩家角色增加了一些赞誉，并在沙洛佛克死后移除了一些与沙洛佛克相关的元素。\n可选组件为玩家角色带来更多名誉，并在所有安装中为龙矛围攻的事件做准备。",
       "components": {
         "0": "无尽的BG1：主要组件（必需）",
         "1": "给博德之门的英雄增添更多风味（包括PC在宫殿内的住所）",
@@ -205,23 +205,23 @@
     "es_ES": {
       "components": {
         "0": "Endless BG1: Componente principal (Requerido)",
-        "1": "Más sabor a Héroe de Puerta de Baldur (Incluye residencia del PC dentro del palacio)",
-        "2": "Breve homenaje público al Héroe",
-        "3": "Objetos únicos de Sarevok",
+        "1": "Mas sabor a Heroe de Puerta de Baldur (Incluye residencia del PC dentro del palacio)",
+        "2": "Breve homenaje publico al heroe",
+        "3": "Objetos unicos de Sarevok",
         "4": "La Espada de Sarevok",
         "5": "Imoen y la Duquesa Jannath (Imoen obtiene residencia dentro del palacio)",
-        "6": "El Duque Eltan está en el palacio",
-        "7": "El Puño Llameante después del combate final",
+        "6": "El Duque Eltan esta en el palacio",
+        "7": "El Puño Llameante despues del combate final",
         "choice_0": "Elminster hace una aparición",
-        "8": "La versión de Jastey",
+        "8": "La version de Jastey",
         "9": "Texto BG1 restaurado",
         "10": "Los primeros refugiados llegan a Puerta de Baldur",
-        "11": "Ophyllis el tesorero está dentro de la mazmorra del palacio",
+        "11": "Ophyllis el tesorero esta dentro de la mazmorra del palacio",
         "12": "Denkod del Gremio de Ladrones comenta la muerte de Sarevok",
         "13": "Saltar laberinto de ladrones una vez muerto Sarevok",
-        "14": "La mazmorra de Korlasz está en BG1",
-        "15": "Fenster el sacerdote de palacio está en el palacio",
-        "16": "La capitana Corwin está en el palacio"
+        "14": "La mazmorra de Korlasz esta en BG1",
+        "15": "Fenster el sacerdote de palacio esta en el palacio",
+        "16": "La capitana Corwin esta en el palacio"
       }
     },
     "pt_BR": {

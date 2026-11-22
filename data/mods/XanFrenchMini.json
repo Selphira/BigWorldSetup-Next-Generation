@@ -24,21 +24,21 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Profitez du jeu de Xan BG2 NPC avec un soundset français original.",
+      "description": "Profitez du jeu de Xan NPC MOD for Baldur's Gate II avec un soundset français original.",
       "components": {
         "0": "Supprimer tous les autres fichiers audio de Xan qui sont en anglais, y compris les fichiers audio pour les banters et pour les romances",
         "1": "Soundset en francais de BG1 pour Xan, PNJ pour BG2"
       }
     },
     "en_US": {
-      "description": "Enjoy Xan BG2 NPC gameplay with an original French soundset.",
+      "description": "Enjoy Xan NPC MOD for Baldur's Gate II with an original French soundset.",
       "components": {
         "0": "Delete all other English Xan audio lines, inlcuding banter and romance lines",
         "1": "French soundset for Xan BG2 NPC"
       }
     },
     "zh_CN": {
-      "description": "享受带有原创法语音效包的撒恩 BG2 NPC 游戏体验。"
+      "description": "使用原创法语语音包，畅玩Xan NPC MOD for Baldur's Gate II模组的游戏内容。"
     }
   },
   "tp2": "xanfrenchmini",

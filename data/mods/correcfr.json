@@ -8,7 +8,8 @@
     {
       "filename": "correctfr_pstee_v9.7z",
       "size": 3496225,
-      "download": "https://mirandir.baldursgateworld.fr/pst-correcfr/files/correctfr_pstee_v9.7z"
+      "download": "https://mirandir.baldursgateworld.fr/pst-correcfr/files/correctfr_pstee_v9.7z",
+      "sha256": "568c6cf9cef2b477258a9faac34ad8e3a06d912088668aeb6f3a785a4e569cba"
     }
   ],
   "games": ["pst", "pstee"],
@@ -34,7 +35,7 @@
       "description": "The purpose of this mod is to correct the various errors present in the French version of Planescape: Torment and Planescape: Torment: Enhanced Edition, notably by translating entries overlooked by the translators, and by correcting errors of French, consistency and nonsense that sometimes appear in the various dialogs."
     },
     "zh_CN": {
-      "description": "此模组旨在修正《异度风景：苦难》及其《增强版》法文版中存在的各种错误，特别是翻译了译者遗漏的条目，并修正了对话中出现的法语错误、不一致之处和荒诞内容。"
+      "description": "此模组旨在修正《异域风景：苦难》及其《增强版》法文版中存在的各种错误，特别是翻译了译者遗漏的条目，并修正了对话中出现的法语错误、不一致之处和荒诞内容。"
     }
   },
   "tp2": "correcfr",

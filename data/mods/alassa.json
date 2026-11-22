@@ -1,15 +1,30 @@
 {
   "name": "Alassa",
-  "version": "4",
+  "version": "4.1",
   "links": {
     "homepage": "https://www.pocketplane.net/one-day-npcs/"
   },
   "files": [
     {
-      "filename": "1D_NPC_Alassa-4.zip",
-      "size": 3568939,
-      "sha256": "db271d19bc73d6109843cc62c21c757f69b60e19784438af2374906330e654a0",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/archive/refs/tags/v4.zip"
+      "filename": "lin-alassa-v4.1.zip",
+      "size": 3980951,
+      "sha256": "9f2d54e32b9dbe9ae18ef9f957ea772e3000d7a475b2816ee76e7a1f5b1ab3b5",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/releases/download/v4.1/lin-alassa-v4.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-alassa-v4.1.zip",
+      "size": 4098124,
+      "sha256": "3c21acb0e5792985b8f3dad4c2c9088ece96b1338acf3cbababe7f7b62c60369",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/releases/download/v4.1/mac-alassa-v4.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-alassa-v4.1.zip",
+      "size": 3630696,
+      "sha256": "0278cd31d2020a020ce08fffe7e1c725948b90edb5a46200b349ba8ca97a1d26",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Alassa/releases/download/v4.1/win-alassa-v4.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -20,7 +35,8 @@
   "languages": {
     "en_US": 0,
     "de_DE": 1,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -36,7 +52,10 @@
       }
     },
     "zh_CN": {
-      "description": "一个中立邪恶的女盗贼，有配音、一些轻松的闲聊和一张原创肖像。你可以在贫民区找到她。\n力量10，敏捷15，体质9，智力14，智慧12，魅力16。"
+      "description": "一个中立邪恶的女盗贼，有配音、一些轻松的闲聊和一张原创肖像。你可以在贫民区找到她。\n力量10，敏捷15，体质9，智力14，智慧12，魅力16。",
+      "components": {
+        "0": "°¢À­É¯ NPC"
+      }
     },
     "de_DE": {
       "components": {

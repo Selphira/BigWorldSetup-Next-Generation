@@ -1,6 +1,6 @@
 {
   "name": "ItemDispatcher",
-  "version": "0.8.1-beta",
+  "version": "0.8-Beta",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34631"
   },
@@ -13,7 +13,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "eet"],
+  "games": ["bg2ee", "eet"],
   "categories": ["util"],
   "components": {
     "0": {"type": "std"}
@@ -23,13 +23,19 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "ItemDispatcher est un mod pour Baldur's Gate 2 conçu pour permettre la distribution d'objets de manière flexible et personnalisée. Grâce à ce mod, vous pouvez spécifier des cibles, des types d'objets et des conditions précises pour la distribution, assurant un gameplay dynamique et adapté à vos besoins.",
+      "description": "ItemDispatcher est un mod conçu pour permettre la distribution d'objets de manière flexible et personnalisée. Grâce à ce mod, vous pouvez spécifier des cibles, des types d'objets et des conditions précises pour la distribution, assurant un gameplay dynamique et adapté à vos besoins.",
       "components": {
         "0": "Distribution des objets"
       }
+    },
+    "en_US": {
+      "description": "ItemDispatcher is a mod designed to enable flexible and customised item distribution. With this mod, you can specify targets, item types, and precise conditions for distribution, ensuring dynamic gameplay tailored to your needs."
+    },
+    "zh_CN": {
+      "description": "ItemDispatcher 是一个旨在实现灵活、可自定义物品分配的模组。借助此模组，您可以指定精确的分配目标、物品类型及触发条件，从而确保游戏体验动态且符合您的需求。"
     }
   },
-  "tp2": "ItemDispatcher",
-  "safe": 2,
+  "tp2": "itemdispatcher",
+  "safe": 1,
   "authors": ["Selphira"]
 }

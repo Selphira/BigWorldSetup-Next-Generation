@@ -9,7 +9,8 @@
     {
       "filename": "yeslick-npc-v5.0.zip",
       "size": 9393233,
-      "download": "https://github.com/Spellhold-Studios/Yeslick-NPC/releases/download/v5.0/yeslick-npc-v5.0.zip"
+      "download": "https://github.com/Spellhold-Studios/Yeslick-NPC/releases/download/v5.0/yeslick-npc-v5.0.zip",
+      "sha256": "d9b403a6feb8638cc70ac778ccaed73f4eadd3b780d1e10605265763fe6414fe"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -38,5 +39,5 @@
   },
   "tp2": "yeslicknpc",
   "safe": 2,
-  "authors": ["Pixel Kaiser", "K'aeloree", "AionZ", "Lava Del'Vortel", "Freddy_Gwendo"]
+  "authors": ["Pixel Kaiser", "K'aeloree", "Lava Del'Vortel"]
 }

@@ -29,14 +29,26 @@
       "components": {
         "0": "Nalia at Last: Un Mod de Romance de ToB.",
         "choice_0": "Nalia At Last : Thême de la musique de la romance",
-        "1": "Thême de la musique de la romance"
+        "1": "Thème de la musique de la romance"
       }
     },
     "en_US": {
-      "description": "Finally, the continuation of Nalia's romance for ToB. This mod is compatible with de'Arnise Romance even though the latter is not mandatory. It adds several dialogues, flirtations and additional banters with other Bioware characters."
+      "description": "Finally, the continuation of Nalia's romance for ToB. This mod is compatible with de'Arnise Romance even though the latter is not mandatory. It adds several dialogues, flirtations and additional banters with other Bioware characters.",
+      "components": {
+        "0": "Nalia at Last: A ToB Romance MoD.",
+        "choice_0": "Nalia At Last: Romance Theme Soundtrack",
+        "1": "Romance Theme Music"
+      }
     },
     "zh_CN": {
       "description": "终于，娜利亚在ToB中的爱情故事续作。此模组与de'Arnise Romance兼容，尽管后者并非必需。它增加了多个对话、与其他BioWare角色的额外调情和拌嘴。"
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Nalia at Last: A ToB Romance MoD.",
+        "choice_0": "Nalia At Last: Romance Theme Soundtrack",
+        "1": "Romance Theme Music"
+      }
     }
   },
   "tp2": "nalia_at_last",

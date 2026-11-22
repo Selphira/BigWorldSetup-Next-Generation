@@ -1,36 +1,37 @@
 {
-  "name": "Oops le magicien",
-  "version": "4.4.1",
+  "name": "Oops",
+  "version": "6",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/89314/mod-oops-the-magician/p1"
   },
   "files": [
     {
-      "filename": "lin-Derats_Oops-v4.4.1.zip",
-      "size": 1921118,
-      "sha256": "6390227e209fffc9fa6d57a20811c8696ddb5d701aea4990909a901c145a0bd8",
-      "download": "https://github.com/Deratiseur/Oops/releases/download/v4.4.1/lin-Derats_Oops-v4.4.1.zip",
+      "filename": "lin-Derats_Oops-v6.zip",
+      "size": 2670700,
+      "sha256": "28c14dec63e40bca5596edf806b5da422ddbdf5a614464d133f86527e5dbba2c",
+      "download": "https://github.com/Deratiseur/Oops/releases/download/v6/lin-Derats_Oops-v6.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Oops-v4.4.1.zip",
-      "size": 2148644,
-      "sha256": "dec01059efcf4ee5f4a950df7a921f67d412fae28fb726ff9b88bcc69991c8e1",
-      "download": "https://github.com/Deratiseur/Oops/releases/download/v4.4.1/mac-Derats_Oops-v4.4.1.zip",
+      "filename": "mac-Derats_Oops-v6.zip",
+      "size": 2787883,
+      "sha256": "094eec0937fa429c5deb0dbce34b45fa8005872e29f89ed585fd460d43082465",
+      "download": "https://github.com/Deratiseur/Oops/releases/download/v6/mac-Derats_Oops-v6.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Oops-v4.4.1.zip",
-      "size": 2093459,
-      "sha256": "0b49fb62d5135486ee2357a8a58798ae8dff81c2eddab8ac99211f464932076d",
-      "download": "https://github.com/Deratiseur/Oops/releases/download/v4.4.1/win-Derats_Oops-v4.4.1.zip",
+      "filename": "win-Derats_Oops-v6.zip",
+      "size": 2320445,
+      "sha256": "58ef35e04952017a398f99793be2c51443c98260bacdec42f1d0a220baeaf0d0",
+      "download": "https://github.com/Deratiseur/Oops/releases/download/v6/win-Derats_Oops-v6.zip",
       "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith", "gameplay"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "2": {"type": "std"}
   },
   "languages": {
     "fr_FR": 0,
@@ -39,21 +40,24 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Oops est un personnage très particulier : il possède la capacité de changer un parchemin de sort en capacité spéciale.  Concrètement, amenez à Oops le parchemin du sort que vous voudriez avoir en capacité spécial 1x/jour, payez le 10000 po par niveau du sort désiré, vous perdez le parchemin mais vous gagnez une nouvelle capacité.\nVous trouverez Oops à coté de la Tour de Garde, au sud ouest. Il est là pour être accessible aussi bien dans SOA que dans TOB.\nLe mod gère aussi des grimoires tirés d'autres mods comme L'interplan, Semi Multi Clerics, Wild Mage Additions.",
+      "description": "Oops est un personnage très particulier : il possède la capacité de changer un parchemin de sort en capacité spéciale. Concrètement, amenez à Oops le parchemin du sort que vous voudriez avoir en capacité spécial 1x/jour, payez le 5 000 po et 1 000 XP par niveau du sort désiré, vous perdez le parchemin mais vous gagnez une nouvelle capacité. Renouvelable à volonté tant que vous avez de quoi payer et des parchemins à fournir.\nVous trouverez Oops le magicien à coté de la Tour de Garde, près du dolmen.\nLe mod gère aussi des grimoires tirés d'autres mods comme L'interplan, Semi Multi Clerics, Wild Mage Additions.",
       "components": {
-        "0": "Oops le magicien"
+        "1": "Oops le magicien",
+        "2": "Installer Blips, le familier de Oops (attention : ultra cheaté)."
       }
     },
     "en_US": {
-      "description": "Oops is a very special character: he has the ability to change a spell scroll into a special ability.  In concrete terms, bring Oops the scroll of the spell you'd like to have as a special ability 1x/day, pay him 10,000 po per level of the desired spell, you lose the scroll but you gain a new ability. You'll find Oops next to the Watcher's keep, to the south-west. It is designed to be accessible in both SOA and TOB.\nThe mod also handles grimoires drawn from other mods like L'interplan, Semi Multi Clerics, Wild Mage Additions.",
+      "description": "Oops is a very special character: he has the ability to change a spell scroll into a special ability. In concrete terms, bring Oops the scroll of the spell you'd like to have as a special ability 1x/day, pay him 5,000 gp and 1,000 XP per level of the desired spell, you lose the scroll but you gain a new ability. You can repeat this as often as you like, as long as you have enough to pay and scrolls to provide.\nYou'll find Oops the magician next to the Watcher's Keep, near the dolmen.\nThe mod also handles grimoires drawn from other mods like The Interplan, Semi Multi Clerics, Wild Mage Additions.",
       "components": {
-        "0": "Oops the magician"
+        "1": "Oops the magician",
+        "2": "Install Blips, Oops's familiar (warning: extremely overpowered)."
       }
     },
     "zh_CN": {
-      "description": "欧普是一个非常特别的角色：他拥有将法术卷轴转化为特殊能力的能力。具体来说，把你想要作为每日一次特殊能力的法术卷轴带给欧普，为法术的每个等级支付10000金币，你会失去卷轴，但获得一个新的能力。\n你可以在观察者堡垒的西南侧找到欧普。他的位置是为了在安姆阴影和巴尔王座中都能访问到。\n此模组也管理着来自其他模组（如 L'interplan, Semi Multi Clerics, Wild Mage Additions）的法术书。",
+      "description": "“Oops”（欧普）是一个很特殊的角色：他拥有把法术卷轴转化为特殊能力的能力。具体来说，把你想要变成每天一次特殊能力的法术卷轴交给 Oops，支付 5000 金币以及每个法术等级 1000 点经验值，你会失去该卷轴，但会获得一项新能力。只要你有足够的钱和卷轴可供支付，就可以任意重复。\n你会在观察者堡垒（Tour de Garde）旁边、巨石阵（dolmen）附近找到法师 Oops。\n该模组还支持来自其他模组（如 L'interplan、Semi Multi Clerics、Wild Mage Additions）的法术书。",
       "components": {
-        "0": "大法师欧普"
+        "1": "大法师欧普",
+        "2": "Install Blips, Oops's familiar (warning: extremely overpowered)."
       }
     }
   },

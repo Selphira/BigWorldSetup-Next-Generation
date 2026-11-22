@@ -1,16 +1,31 @@
 {
-  "name": "Blood And Faith",
-  "version": "1.2",
+  "name": "Blood and Faith",
+  "version": "1.4",
   "links": {
     "homepage": "https://github.com/Glittergear/BloodAndFaith",
     "forums": ["https://www.gibberlings3.net/forums/topic/38708-mod-release-blood-and-faith-a-bg1-questline-mod/"]
   },
   "files": [
     {
-      "filename": "Blood.and.Faith.v1.2.zip",
-      "size": 36337911,
-      "sha256": "aa10ab395efa4cbb851af6346f5b2c929f7136cc3582989de9c83cc4e1adf28e",
-      "download": "https://github.com/Glittergear/BloodAndFaith/releases/download/v1.2/Blood.and.Faith.v1.2.zip"
+      "filename": "lin-Blood-And-Faith-v1.4.zip",
+      "size": 40360972,
+      "sha256": "8201b816943635d15bf33a18516c6f33d44735b16746367f7020b69462e9b1dd",
+      "download": "https://github.com/Glittergear/BloodAndFaith/releases/download/v1.4/lin-Blood-And-Faith-v1.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Blood-And-Faith-v1.4.zip",
+      "size": 40478159,
+      "sha256": "c54e65a3f9c630453f39b5f400317cffdea72836378604d579a0732204cde97b",
+      "download": "https://github.com/Glittergear/BloodAndFaith/releases/download/v1.4/mac-Blood-And-Faith-v1.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Blood-And-Faith-v1.4.zip",
+      "size": 40010717,
+      "sha256": "dc895af3aa3185f555bd3e3fd917b2613e4f4186da24a69020d7b724a56d65a0",
+      "download": "https://github.com/Glittergear/BloodAndFaith/releases/download/v1.4/win-Blood-And-Faith-v1.4.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod"],
@@ -19,7 +34,10 @@
     "0": {"type": "std"}
   },
   "languages": {
-    "en_US": 0
+    "en_US": 0,
+    "zh_CN": 1,
+    "ru_RU": 2,
+    "pl_PL": 3
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +46,24 @@
     "en_US": {
       "description": "Too often, criminals get away with their misdeeds for one reason or another. A certain Lathanderite cleric wants to change that, but she needs your help. This is a tale of blood and faith, a tale of damnation... or of redemption. A mod containing 14 quests.",
       "components": {
-        "0": "Blood and Faith Installation"
+        "0": "Blood and Faith"
       }
     },
     "zh_CN": {
-      "description": "罪犯们常常因为这样或那样的原因逃脱惩罚。一位洛山达的信徒想要改变这一切，但她需要你的帮助。这是一个关于鲜血与信仰，关于诅咒……或救赎的故事。一个包含14个任务的模组。"
+      "description": "罪犯们常常因为这样或那样的原因逃脱惩罚。一位洛山达的信徒想要改变这一切，但她需要你的帮助。这是一个关于鲜血与信仰，关于诅咒……或救赎的故事。一个包含14个任务的模组。",
+      "components": {
+        "0": "鲜血与信仰"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Blood and Faith Installation"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Blood and Faith mod do BGT, BG I EE i EET"
+      }
     }
   },
   "tp2": "bloodandfaith",

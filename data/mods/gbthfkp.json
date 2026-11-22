@@ -28,19 +28,19 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod extends the Thief's Fortress quest to make it more interesting. It also includes Baldur's Gate characters such as Lis Noir, Narlen Marchombre...",
+      "description": "This mod expands the thief stronghold to make it more interesting by adding new quests. It also includes Narlen Darkwalk and Black Lilly from the Shadow Thieves guild.",
       "components": {
         "0": "Expanded Thief Stronghold"
       }
     },
     "fr_FR": {
-      "description": "Ce mod étend la quête de la forteresse du voleur pour la rendre plus intéressante. Vous y retrouverez au passage des personnages de Baldur's Gate comme Lis Noir, Narlen Marchombre...",
+      "description": "Ce mod étend la quête de la forteresse du voleur pour la rendre plus intéressante en y ajoutant des quêtes. Vous y retrouverez au passage des personnages comme Narlen Marchombre et Lis Noir de la guilde des Voleurs de l'Ombre.",
       "components": {
         "0": "Expanded Thief Stronghold (Expansion de la Forteresse des voleurs)"
       }
     },
     "zh_CN": {
-      "description": "这个模组扩展了盗贼要塞的任务，使其更有趣。你会在途中遇到博德之门中的人物，如黑发莉丝、纳伦·影木……"
+      "description": "这个模组扩展了盗贼要塞的任务，通过增加一些任务使其更加有趣。你还会在其中遇到影贼公会的纳伦·影木（Narlen Marchombre）和黑发莉丝（Lis Noir）等人物。"
     },
     "de_DE": {
       "components": {

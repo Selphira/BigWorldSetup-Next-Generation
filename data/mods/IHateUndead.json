@@ -36,7 +36,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod lets you select 11 new profiles, all specialized in fighting the undead: Undead Predator (ranger), Holy Redeemer (priest), Slayer of the Dead (mage), Revised Undead Hunter (paladin - Warning: overwrites game profile), Deceiver of Death (thief), Grave Protector (fighter), Mourning Bearer (bard), Keeper of the Circle (druid), Pallid Mask (monk), Fateful Witch (shaman) and Imprisoned Soul (sorcerer).",
+      "description": "This mod lets you select 11 new kits, all specialized in fighting the undead: Undead Predator (ranger), Holy Redeemer (priest), Slayer of the Dead (mage), Revised Undead Hunter (paladin - Warning: overwrites game profile), Deceiver of Death (thief), Grave Protector (fighter), Mourning Bearer (bard), Keeper of the Circle (druid), Pallid Mask (monk), Fateful Witch (shaman) and Imprisoned Soul (sorcerer).",
       "components": {
         "0": "Undead Predator (Ranger Kit)",
         "1": "Holy Redeemer (Cleric Kit)",

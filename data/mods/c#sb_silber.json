@@ -1,16 +1,16 @@
 {
   "name": "Adalon's Blood",
-  "version": "17.2",
+  "version": "17.3",
   "links": {
     "homepage": "https://baldurs-gate.de/index.php?resources/adalons-blood-silberdrachenblutmod.5/",
     "forums": ["https://www.gibberlings3.net/forums/topic/36018-adalons-blood-mod-finish-the-skinner-murders-without-killing-adalon/"]
   },
   "files": [
     {
-      "filename": "adalons-blood-17.2.zip",
-      "size": 4981047,
-      "sha256": "c7f16a2ead1e080111a13a9cdbb642650cc8c242f9355f2d436d56e629e08238",
-      "download": "https://github.com/Gitjas/Adalons_Blood/releases/download/v17.2/adalons-blood-17.2.zip"
+      "filename": "adalons-blood-17.3.zip",
+      "size": 5233497,
+      "sha256": "036f86b4296520486d9d09034944192caca17544c450b9de5b09be81a8297fc5",
+      "download": "https://github.com/Gitjas/Adalons_Blood/releases/download/v17.3/adalons-blood-17.3.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

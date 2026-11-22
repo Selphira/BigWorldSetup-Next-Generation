@@ -1,29 +1,29 @@
 {
-  "name": "Kurosaï le combineur",
-  "version": "7.1",
+  "name": "Kurosaï the Combiner",
+  "version": "8",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34425"
   },
   "files": [
     {
-      "filename": "lin-Derats_Combino-v7.1.zip",
-      "size": 1416440,
-      "sha256": "d484a2dfcad850e5af878e818fde7e818a80bd7811afc3050e9fef7730a3548e",
-      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/lin-Derats_Combino-v7.1.zip",
+      "filename": "lin-Derats_Combino-v8.zip",
+      "size": 1985800,
+      "sha256": "6ad4de057c84e49369e7c2f1baa50af680bccaa2306a64d03a6a91f81a30ec26",
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v8/lin-Derats_Combino-v8.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Combino-v7.1.zip",
-      "size": 1643972,
-      "sha256": "10343137bb70b81cd075d676949fcf1bf0d13a4baf5bef54d3ce9643b1c76669",
-      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/mac-Derats_Combino-v7.1.zip",
+      "filename": "mac-Derats_Combino-v8.zip",
+      "size": 2102989,
+      "sha256": "413146b2bcbef92a400e021f3925c22563fcad2eb09374c29d7a7f383223334c",
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v8/mac-Derats_Combino-v8.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Combino-v7.1.zip",
-      "size": 1588781,
-      "sha256": "2c7a717d842a64a8dd83c44f92a9adf7beb9d20868c7c9f7407ea22e82a8c60e",
-      "download": "https://github.com/Deratiseur/Combino/releases/download/v7.1/win-Derats_Combino-v7.1.zip",
+      "filename": "win-Derats_Combino-v8.zip",
+      "size": 1635545,
+      "sha256": "9077573d638af37c0558691aa374e4568cf96bfc4c3437efcf2b6bf8f929a35a",
+      "download": "https://github.com/Deratiseur/Combino/releases/download/v8/win-Derats_Combino-v8.zip",
       "platforms": ["windows"]
     }
   ],
@@ -52,13 +52,13 @@
       }
     },
     "en_US": {
-      "description": "Kurosai is a pnj who, for a lot of gold, can combine three +x items into one +x+1 item. This works for almost all '+x' items, from weapons to armour to jewellery. He can thus combine items up to +6. He appears in Trademeet after the Daos have left. Later in the game he will move to Saradush, and disappear with the destruction of the town.",
+      "description": "Kurosai is a npc who, for a lot of gold, can combine three +x items into one +x+1 item. This works for almost all '+x' items, from weapons to armour to jewellery. He can thus combine items up to +6. He appears in Trademeet after the Daos have left. Later in the game he will move to Saradush, and disappear with the destruction of the town.",
       "components": {
-        "0": "Kurosai the combiner",
+        "0": "Kurosaï the Combiner",
         "1": "Recipes cost less but require rare gems",
-        "2": "Kuroisai also appears in Amkethran (cheat)",
-        "3": "Kuroisai also appears at the Nashkel Carnival",
-        "4": "A +1 copy of each object in SOA"
+        "2": "Kurosaï also appears in Amkethran (cheat)",
+        "3": "Kurosaï also appears at the Nashkel Carnival",
+        "4": "An extra +1 item of each type in Shadows of Amn"
       }
     },
     "zh_CN": {

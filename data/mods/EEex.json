@@ -1,16 +1,24 @@
 {
   "name": "EEex",
-  "version": "0.11.0-alpha",
+  "version": "1.3.1",
   "links": {
     "homepage": "https://github.com/Bubb13/EEex",
     "forums": ["https://forums.beamdog.com/discussion/71798/mod-eeex-v0-6-0-alpha/p1"]
   },
   "files": [
     {
-      "filename": "EEex-v0.11.0-alpha.exe",
-      "size": 3547519,
-      "sha256": "958047ad674bfd1ab171729e3f10dbd00ad4b0dde47cd7ecfded36ddc41e04dd",
-      "download": "https://github.com/Bubb13/EEex/releases/download/v0.11.0-alpha/EEex-v0.11.0-alpha.exe"
+      "filename": "EEex-v1.3.1.exe",
+      "size": 8209345,
+      "sha256": "d06c2f5822a84193379d59061b5c2ecc0cd543803ae8204e798c24c87562492b",
+      "download": "https://github.com/Bubb13/EEex/releases/download/v1.3.1/EEex-v1.3.1.exe",
+      "platforms": ["windows"]
+    },
+    {
+      "filename": "eeex-v1.3.1.zip",
+      "size": 10390181,
+      "sha256": "9c8104bd63fe7e7dfff889d89ab2d98e158b6e552846370a924ed7eacea4ecf3",
+      "download": "https://github.com/Bubb13/EEex/releases/download/v1.3.1/eeex-v1.3.1.zip",
+      "platforms": ["linux", "macos"]
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
@@ -18,28 +26,34 @@
   "components": {
     "0": {"type": "std", "category": "patch"},
     "1": {"type": "std", "category": "patch"},
+    "9": {"type": "std"},
     "2": {"type": "std", "category": "patch"},
     "3": {"type": "std", "category": "patch"},
     "4": {"type": "std", "category": "patch"},
     "5": {"type": "std", "category": "patch"},
     "6": {"type": "std", "category": "patch"},
-    "7": {"type": "std", "category": "patch"}
+    "7": {"type": "std", "category": "patch"},
+    "8": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
+    "zh_CN": 1,
+    "es_ES": 2,
     "all": 0
   },
   "translations": {
     "en_US": {
       "components": {
-        "0": "EEex",
-        "1": "Experimental - Use LuaJIT (can help stuttering)",
-        "2": "Enable effect menu module - LShift-on-hover to view spells affecting creature",
-        "3": "Enable empty container module - Highlight empty containers in gray instead of cyan",
-        "4": "Enable hotkey module - Edit override/B3Hotkey.lua to create advanced spell hotkeys",
-        "5": "Enable scale module - Customizable UI scaling factor",
-        "6": "Enable time step module - Advance 1 game tick on keypress",
-        "7": "Enable timer module - Visual indicators for modal actions, contingencies, and spell/item cooldowns"
+        "0": "Quick Menu Core",
+        "1": "EEex",
+        "9": "Enable attack info module: Show to-hit chances when hovering attack cursor over target",
+        "2": "Enable effect menu module: LShift-on-hover to view spells affecting creature",
+        "3": "Enable empty container module: Highlight empty containers in gray instead of cyan",
+        "4": "Enable hotkey module: Edit override/B3Hotkey.lua to create advanced spell hotkeys",
+        "5": "Enable scale module: Customizable UI scaling factor",
+        "6": "Enable time step module: Advance 1 game tick on keypress",
+        "7": "Enable timer module: Visual indicators for modal actions, contingencies, and spell/item cooldowns",
+        "8": "Experimental - Use LuaJIT: Can help stuttering | WARNING: May cause crashes when combined with certain mods"
       },
       "description": "EEex is an executable extender for the enhanced edition of Beamdog's Infinity engine. Its aim is to externalize certain parts of the engine to give modders a greater degree of control over otherwise hard-coded mechanisms. EEex does not modify the gameplay itself, it simply enables other mods to do so."
     },
@@ -47,7 +61,33 @@
       "description": "EEex est un extenseur d'exécutable pour l'édition améliorée du moteur Infinity de Beamdog. Son but est d'externaliser certaines parties du moteur afin d'accorder aux moddeurs un plus grand degré de contrôle sur des mécanismes autrement codés en dur. EEex ne modifie pas le gameplay lui-même, il permet simplement à d'autres mods de le faire."
     },
     "zh_CN": {
-      "description": "EEex是Beamdog的无限引擎增强版的一个可执行文件扩展器。其目的是将引擎的某些部分外部化，以便赋予模组作者对其他方面硬编码的机制更大的控制权。EEex本身不改变游戏玩法，它只是允许其他模组来改变它。"
+      "description": "EEex是Beamdog的无限引擎增强版的一个可执行文件扩展器。其目的是将引擎的某些部分外部化，以便赋予模组作者对其他方面硬编码的机制更大的控制权。EEex本身不改变游戏玩法，它只是允许其他模组来改变它。",
+      "components": {
+        "0": "快速菜单核心",
+        "1": "EEex",
+        "9": "启用攻击信息模块：将攻击光标悬停在目标上时显示命中几率",
+        "2": "启用效果菜单模块：按住左键悬停可查看影响生物的法术",
+        "3": "启用空容器模块：将空容器的高亮颜色由青色改为灰色",
+        "4": "启用快捷键模块：编辑override/B3Hotkey.lua以创建高级法术快捷键",
+        "5": "启用缩放模块：可自定义UI缩放系数",
+        "6": "启用时间步进模块：按下按键时前进1游戏刻",
+        "7": "启用计时器模块：为姿态动作、触发术以及法术/物品冷却提供可视化指示器",
+        "8": "实验性-使用LuaJIT：有助于缓解卡顿 | 警告：与某些模组组合使用可能导致崩溃"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "Núcleo del menú rápido",
+        "1": "EEex",
+        "9": "Enable attack info module: Show to-hit chances when hovering attack cursor over target",
+        "2": "Habilitar módulo de menú de efectos: Mayús izquierda al pasar el cursor para ver los conjuros que afectan a la criatura",
+        "3": "Habilitar módulo de contenedores vacíos: Resaltar los contenedores vacíos en gris en lugar de cian",
+        "4": "Habilitar módulo de teclas rápidas: Editar override/B3Hotkey.lua para crear teclas rápidas avanzadas para conjuros",
+        "5": "Habilitar módulo de escala: Factor de escala de la interfaz de usuario personalizable",
+        "6": "Habilitar módulo de avance de tiempo: Avanzar 1 tick del juego al pulsar la tecla",
+        "7": "Habilitar módulo de temporizadores: Indicadores visuales para acciones modales, contingencias y tiempos de recarga de conjuros/objetos",
+        "8": "Experimental - Usar LuaJIT: Puede ayudar con los tirones | ADVERTENCIA: puede provocar fallos al combinarse con ciertos mods"
+      }
     }
   },
   "tp2": "eeex",

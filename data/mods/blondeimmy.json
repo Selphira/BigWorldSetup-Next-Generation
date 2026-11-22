@@ -10,7 +10,8 @@
       "filename": "blondeimmy-v6.exe",
       "size": 1700762,
       "download": "https://github.com/Gibberlings3/BlondeImoen/releases/download/v6/blondeimmy-v6.exe",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "3eb35ffcb088b415810d880e7b5b6543f8d252cab6a7905a6a0562203697104d"
     },
     {
       "filename": "lin-blondeimmy-v6.tar.gz",
@@ -37,10 +38,10 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod remplace les portraits d'Imoen par une version blonde. Un composant permet de les installer comme portraits de joueur dans n'importe quel jeu Infinity Engine (sauf PsT et PsT:EE)."
+      "description": "Ce mod remplace les portraits d'Imoen par une version blonde. Un composant permet de les installer comme portraits de joueur."
     },
     "en_US": {
-      "description": "This mod replaces Imoen's portraits with a blond version. A component allows them to be installed as player portraits in any Infinity Engine game (except PsT and PsT:EE).",
+      "description": "This mod replaces Imoen's portraits with a blond version. A component allows them to be installed as player portraits.",
       "components": {
         "choice_0": "Blonde Imoen",
         "0": "Short Hair",
@@ -49,7 +50,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组将爱蒙的肖像替换为金发版本。一个组件允许您在任何无限引擎游戏中（PsT和PsT:EE除外）将其安装为玩家肖像。"
+      "description": "这个模组将爱蒙的肖像替换为金发版本。其中一个组件允许将这些肖像安装为玩家肖像。"
     }
   },
   "tp2": "blondeimmy",

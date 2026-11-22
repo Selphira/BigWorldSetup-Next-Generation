@@ -1,28 +1,30 @@
 {
   "name": "Auren Aseph NPC Mod for BG2",
-  "version": "12",
+  "version": "13",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/npcs/auren/",
     "forums": ["https://www.gibberlings3.net/forums/forum/113-auren-aseph/"]
   },
   "files": [
     {
-      "filename": "aurenaseph-v12.exe",
-      "size": 19306201,
-      "sha256": "7973ca250aecbb4e1a4031699c2d9bf933f3d20df22dd5466cf440bddef306cc",
-      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/aurenaseph-v12.exe",
+      "filename": "aurenaseph-v13.exe",
+      "size": 19732617,
+      "sha256": "fd24ff80ab52a537aaa8275fede310f79d964eb816676acb97c3cfddeea3a2d9",
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v13/aurenaseph-v13.exe",
       "platforms": ["windows"]
     },
     {
-      "filename": "lin-aurenaseph-v12.zip",
-      "size": 16366695,
-      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/lin-aurenaseph-v12.zip",
+      "filename": "lin-aurenaseph-v13.zip",
+      "size": 16427765,
+      "sha256": "bd7f74caaab25c2b2f63665880f84119a35ce6fbf0d8d44ad4d5a97407be3056",
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v13/lin-aurenaseph-v13.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "osx-aurenaseph-v12.zip",
-      "size": 17251971,
-      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v12/osx-aurenaseph-v12.zip",
+      "filename": "mac-aurenaseph-v13.zip",
+      "size": 17698064,
+      "sha256": "cc2ae0a6ab133e99a8e9539d5bcc65b24cc95dffe1594d2c4a8315ed12aefad8",
+      "download": "https://github.com/Gibberlings3/AurenAseph/releases/download/v13/mac-aurenaseph-v13.zip",
       "platforms": ["macos"]
     }
   ],
@@ -37,7 +39,8 @@
     "de_DE": 1,
     "ru_RU": 2,
     "fr_FR": 3,
-    "es_ES": 4
+    "es_ES": 4,
+    "zh_CN": 5
   },
   "translations": {
     "en_US": {
@@ -67,7 +70,13 @@
       }
     },
     "zh_CN": {
-      "description": "奥伦是一位年轻的女性人类战士，中立善良阵营，来自贝尔苟斯特。她在铜冠旅店内部，但如果玩家的阵营是邪恶的，她就不会出现，如果被逐出队伍，她就会永远消失。Auren 与娜里亚有一段同性恋情，如果你在队伍中带着她，并且她有一个个人任务。她开始游戏时拥有双武器、长剑和短剑的技能。带有自定义语音和音乐的模组。\n力量 16，敏捷 15，体质 16，智力 13，智慧 12，魅力 15。"
+      "description": "奥伦是一位年轻的女性人类战士，中立善良阵营，来自贝尔苟斯特。她在铜冠旅店内部，但如果玩家的阵营是邪恶的，她就不会出现，如果被逐出队伍，她就会永远消失。Auren 与娜里亚有一段同性恋情，如果你在队伍中带着她，并且她有一个个人任务。她开始游戏时拥有双武器、长剑和短剑的技能。带有自定义语音和音乐的模组。\n力量 16，敏捷 15，体质 16，智力 13，智慧 12，魅力 15。",
+      "components": {
+        "0": "奥伦·艾瑟 for BG2:ToB",
+        "choice_0": "奥伦替代肖像",
+        "1": "肖像1(来自 Neverwinter Nights Vault)",
+        "2": "肖像2 (来自 Neverwinter Nights)"
+      }
     },
     "de_DE": {
       "components": {

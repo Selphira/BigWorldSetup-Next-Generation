@@ -57,7 +57,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod adds a host of profiles (17 in all!) for all the classes in the game (which have them, of course):\n- 3 fighter profiles: Legendary Dreadnought, Black Knight and Ssaulabi.\n- 2 paladin profiles: Divine Champion and Mystic Fire.\n- 2 ranger profiles: Duelist and Tempest 2 druid profiles: Elementalist and Shadow Druid 2 thief profiles: Swindler and Shadow Master 4 bard profiles: Disciple of the Red, Blue, Green and White Dragons",
+      "description": "This mod adds a host of kits (17 in total!) for all the classes in the game (which have them, of course):\n- 3 fighter kits: Legendary Dreadnought, Black Knight and Ssaulabi.\n- 2 paladin kits: Divine Champion and Mystic Fire.\n- 2 ranger kits: Duelist and Tempest 2 druid kits: Elementalist and Shadow Druid 2 thief kits: Swindler and Shadow Master 4 bard kits: Disciple of the Red, Blue, Green and White Dragons",
       "components": {
         "0": "Prestige Kit Pack Basic",
         "1": "Dreadnought",

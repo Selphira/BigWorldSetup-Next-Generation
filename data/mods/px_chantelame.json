@@ -38,7 +38,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Le Chantelame est un elfe guerrier/mage qui possède des techniques de combat particulières.",
+      "description": "Ce mod ajoute un nouveau profil de guerrier destiné aux elfes, une sorte de guerrier/mage/clerc spécial... La caste des Chantelames est constituée de guerriers surentraînés, mêlant une maîtrise parfaite de leur arme avec la capacité d'user de puissants sorts. Le chantelame sait manipuler les flux de magie qui l'entourent pour se protéger et se rendre plus fort. Il connaît également la gestuelle et le verbe capable de plier la magie à sa volonté pour en tirer des sorts.",
       "components": {
         "0": "Chantelame version 7.2, par Misdrha'al Hymmet, Deratiseur et Isaya"
       }

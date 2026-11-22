@@ -7,10 +7,23 @@
   },
   "files": [
     {
-      "filename": "A7-GolemConstruction-devel.zip",
-      "size": 25046272,
-      "sha256": "6b806aa9ba23d4d2a01de107edb108e93fbf0c4b4af85b92f3bafe9141cbd949",
-      "download": "https://github.com/Argent77/A7-GolemConstruction/archive/refs/heads/devel.zip"
+      "filename": "lin-A7-GolemConstruction-v6.4.zip",
+      "size": 26106723,
+      "download": "https://github.com/Argent77/A7-GolemConstruction/releases/download/v6.4/lin-A7-GolemConstruction-v6.4.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-A7-GolemConstruction-v6.4.zip",
+      "size": 26313052,
+      "download": "https://github.com/Argent77/A7-GolemConstruction/releases/download/v6.4/mac-A7-GolemConstruction-v6.4.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-A7-GolemConstruction-v6.4.zip",
+      "size": 26279061,
+      "download": "https://github.com/Argent77/A7-GolemConstruction/releases/download/v6.4/win-A7-GolemConstruction-v6.4.zip",
+      "platforms": ["windows"],
+      "sha256": "0394ad48c52c615406869844359094107bb0803975ed68dbb326233d0369df9f"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
@@ -68,7 +81,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组允许施法者制造他们自己的构装体。构装体有有限的生命周期，但在游戏中会跟随其创造者到处走动。该模组的一小部分内容仅在《博德之门2：增强版》中可用。",
+      "description": "此模组允许施法者制造他们自己的构装体。构装体有有限的生命周期，但在游戏中会跟随其创造者到处走动。该模组的一小部分内容仅在《博德之门Ⅱ：增强版》中可用。",
       "components": {
         "0": "施法者建造魔像能力",
         "10": "替换原始魔像手册",

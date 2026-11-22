@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/TDDz/releases/download/v1.3.3/tddz-v1.3.3.zip"
     }
   ],
-  "games": ["bg2ee", "eet"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest", "spell", "kit"],
   "components": {
     "0": {"type": "std"},
@@ -35,7 +35,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce gigantesque add-on ajoute 10 nouveaux PNJ (certains provenant de BG1), 180 nouveaux objets, 170 nouveaux sorts, une 40aine de créatures supplémentaires, 78 nouveaux kits, 5 grandes quêtes et une quête gigantesque. Vous devez disposer d'une installation avec Throne of Bhaal.",
+      "description": "Ce gigantesque add-on ajoute 10 nouveaux PNJ (certains provenant de BG1), 180 nouveaux objets, 170 nouveaux sorts, une 40aine de créatures supplémentaires, 78 nouveaux kits, 5 grandes quêtes et une quête gigantesque.",
       "components": {
         "0": "TDD - Core",
         "1": "TDD - Gué du troll",
@@ -48,7 +48,7 @@
       }
     },
     "en_US": {
-      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest. You need to have Throne of Bhaal installed.",
+      "description": "This gigantic add-on adds 10 new NPCs (some from BG1), 180 new items, 170 new spells, some 40 additional creatures, 78 new kits, 5 major quests and a gigantic quest.",
       "components": {
         "0": "TDD - Core",
         "1": "TDD - Trollford",
@@ -61,7 +61,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个大型扩展包新增了10个新角色（部分来自博德之门1）、180件新物品、170个新法术、40多种新生物、78个新宗派、5个大型任务和一个巨型任务。你必须安装有巴尔王座。"
+      "description": "这个巨大的扩展包增加了10个新的非玩家角色（其中一些来自《博德之门1》）、180个新物品、170个新法术、约40个额外生物、78个新宗派、5个大型任务和1个巨型任务。"
     },
     "ru_RU": {
       "components": {
@@ -125,6 +125,6 @@
     }
   },
   "tp2": "tddz",
-  "safe": 2,
+  "safe": 1,
   "authors": ["shadowlich", "Max Schnur", "Horred the Plague", "Hoppy", "Minto", "King Diamond"]
 }

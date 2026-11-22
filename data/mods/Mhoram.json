@@ -1,29 +1,29 @@
 {
   "name": "Mhoram",
-  "version": "2.5",
+  "version": "2.6",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/769-mhoram-npc-v23/"
   },
   "files": [
     {
-      "filename": "lin-Mhoram-v2.5.zip",
-      "size": 2080054,
-      "sha256": "95577c94e1ce9e23b618c6553b18a09ba4098c72fc90dacbeb0c5412f0634e44",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/lin-Mhoram-v2.5.zip",
+      "filename": "lin-Mhoram-v2.6.zip",
+      "size": 2644942,
+      "sha256": "9aa7129bacdf9fc8c88df14989b19ecaea52bc38e65e76e719c1e80e18884154",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.6/lin-Mhoram-v2.6.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Mhoram-v2.5.zip",
-      "size": 2307570,
-      "sha256": "c0dd01ae034521e4c7e7a2635e2d32af1a9a4082c2ca4938f367d3469ef0193c",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/mac-Mhoram-v2.5.zip",
+      "filename": "mac-Mhoram-v2.6.zip",
+      "size": 2762115,
+      "sha256": "5959d721ce76cf1c66e7b9fa1364d7bda9b36f23d986c510425be9193798871d",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.6/mac-Mhoram-v2.6.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Mhoram-v2.5.zip",
-      "size": 2252395,
-      "sha256": "4b18d4e2e3d456634f659a9b9f9559c88e62c8d3bd6c6c4347eec318036a029a",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.5/win-Mhoram-v2.5.zip",
+      "filename": "win-Mhoram-v2.6.zip",
+      "size": 2294687,
+      "sha256": "fad237d7acce5f757cefa4f14432ef12f5c486dfa22c8fac21130762cfabdf55",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Mhoram/releases/download/v2.6/win-Mhoram-v2.6.zip",
       "platforms": ["windows"]
     }
   ],
@@ -36,7 +36,8 @@
     "es_ES": 0,
     "en_US": 1,
     "fr_FR": 2,
-    "it_IT": 3
+    "it_IT": 3,
+    "zh_CN": 4
   },
   "translations": {
     "fr_FR": {
@@ -52,7 +53,10 @@
       }
     },
     "zh_CN": {
-      "description": "这个迷你模组添加了一个北地诗人，一个来自大北地的精灵诗人，在桥区有一个可选的任务。\n力量 16，敏捷 18，体质 15，智力 10，智慧 14，魅力 16。"
+      "description": "这个迷你模组添加了一个北地诗人，一个来自大北地的精灵诗人，在桥区有一个可选的任务。\n力量 16，敏捷 18，体质 15，智力 10，智慧 14，魅力 16。",
+      "components": {
+        "0": "ÄªÀ­Ä· NPC"
+      }
     },
     "es_ES": {
       "components": {

@@ -1,16 +1,16 @@
 {
   "name": "Detective Guild of Athkatla",
-  "version": ".1.5.1",
+  "version": "1.5.3",
   "links": {
     "homepage": "https://github.com/Austin-BG/SearchGuild",
     "forums": ["https://arcanecoast.ru/forum/viewtopic.php?f=70&t=1653", "https://www.gibberlings3.net/forums/topic/39164-quest-mod-detective-guild-of-athkatla/", "https://forums.beamdog.com/discussion/89121/"]
   },
   "files": [
     {
-      "filename": "detective-guild-of-athkatla-1.5.1.zip",
-      "size": 20976166,
-      "sha256": "f5cc5d5d775a0eb30c41b84ae63875ad7093cc7c6fad94f34cb50178368811b2",
-      "download": "https://github.com/Austin-BG/SearchGuild/releases/download/v.1.5.1/detective-guild-of-athkatla-1.5.1.zip"
+      "filename": "detective-guild-of-athkatla-1.5.3.zip",
+      "size": 21718602,
+      "sha256": "094d7994abd3cb82a481feb845feb47a6aa9028705e062f9cc9121ed455c3f3f",
+      "download": "https://github.com/Austin-BG/SearchGuild/releases/download/v.1.5.3/detective-guild-of-athkatla-1.5.3.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

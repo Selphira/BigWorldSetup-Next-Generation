@@ -15,9 +15,7 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
-    "0": {
-      "type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}
-    }
+    "0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}, "2": {"options": ["buddy"]}, "3": {"options": ["1"]}}}
   },
   "languages": {
     "en_US": 0,

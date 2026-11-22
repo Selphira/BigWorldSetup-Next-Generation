@@ -4,7 +4,7 @@
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=25036"
   },
-  "games": ["bg2", "bgt"],
+  "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"}
@@ -27,6 +27,7 @@
     }
   },
   "tp2": "lysre",
-  "safe": 1,
-  "authors": ["Klare"]
+  "safe": 2,
+  "authors": ["Klare"],
+  "files": []
 }

@@ -1,27 +1,29 @@
 {
   "name": "Item Upgrade",
-  "version": "55",
+  "version": "57",
   "links": {
     "homepage": "http://weidu.org/item.html"
   },
   "files": [
     {
-      "filename": "itemupgrade-v55.exe",
-      "size": 6213662,
-      "sha256": "e8163bf2f4d3ded63052239fc8e459cbfdcd396f0bf74762f02b74ee54399518",
-      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/itemupgrade-v55.exe",
+      "filename": "itemupgrade-v57.exe",
+      "size": 6205467,
+      "sha256": "1f18cb3cfc16351bab9653f816e56bed1efc023edb71efa7f7930c4adc237def",
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v57/itemupgrade-v57.exe",
       "platforms": ["windows"]
     },
     {
-      "filename": "lin-itemupgrade-v55.zip",
-      "size": 4049209,
-      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/lin-itemupgrade-v55.zip",
+      "filename": "lin-itemupgrade-v57.zip",
+      "size": 4041424,
+      "sha256": "82f8ef43ae8806c723b43242f3487200a8ceb604f8c3bb19b1c71b991e2ecf97",
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v57/lin-itemupgrade-v57.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-itemupgrade-v55.zip",
-      "size": 6213435,
-      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v55/mac-itemupgrade-v55.zip",
+      "filename": "mac-itemupgrade-v57.zip",
+      "size": 6205650,
+      "sha256": "edaca731d9ff4acb72facc32272c291746d3a425c3722a84736e9f3b2c8696f0",
+      "download": "https://github.com/Pocket-Plane-Group/Item_Upgrade/releases/download/v57/mac-itemupgrade-v57.zip",
       "platforms": ["macos"]
     }
   ],
@@ -115,12 +117,12 @@
     "es_ES": {
       "components": {
         "choice_0": "Item Upgrade para Shadows of Amn",
-        "0": "Original Version (new upgrades in a list)",
-        "10": "Revised Version (new upgrades presented in the same style as existing upgrades)",
+        "0": "Versión original (nuevas actualizaciones en una lista)",
+        "10": "Versión revisada (las nuevas actualizaciones se presentan con el mismo formato que las ya existentes)",
         "choice_1": "Item Upgrade para Throne of Bhaal",
-        "1": "Original Version (new upgrades in a list)",
-        "11": "Revised Version (new upgrades presented in the same style as existing upgrades)",
-        "12": "Install supplemental Cespenar audio for Item Upgrade"
+        "1": "Versión original (nuevas actualizaciones en una lista)",
+        "11": "Versión revisada (las nuevas actualizaciones se presentan con el mismo formato que las ya existentes)",
+        "12": "Instala el audio adicional de Cespenar para la mejora del objeto"
       }
     },
     "pl_PL": {
@@ -131,7 +133,7 @@
         "choice_1": "Ulepszenia przedmiotów dla Tronu Bhaala",
         "1": "Wersja oryginalna (nowe ulepszenia na liscie)",
         "11": "Wersja poprawiona (nowe ulepszenia przedstawione w podobnym stylu, co dotychczasowe)",
-        "12": "Install supplemental Cespenar audio for Item Upgrade"
+        "12": "Dodatkowe udzwiekowienie Cespenara"
       }
     }
   },

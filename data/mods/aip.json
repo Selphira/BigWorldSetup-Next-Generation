@@ -9,7 +9,8 @@
     {
       "filename": "adventures-in-papperland-v6.0.zip",
       "size": 5263000,
-      "download": "https://github.com/Spellhold-Studios/Adventures-in-Papperland/releases/download/v6.0/adventures-in-papperland-v6.0.zip"
+      "download": "https://github.com/Spellhold-Studios/Adventures-in-Papperland/releases/download/v6.0/adventures-in-papperland-v6.0.zip",
+      "sha256": "8653606a5039308f9e95a9806af271f429c14170c2b2fc0f1ee232e7f838ff14"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

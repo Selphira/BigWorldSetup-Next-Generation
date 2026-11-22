@@ -1,15 +1,30 @@
 {
   "name": "Portrait Gender Separator",
-  "version": "1.7",
+  "version": "1.8",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/83575/mod-portrait-gender-separator/"
   },
   "files": [
     {
-      "filename": "portrait-gender-separator-1.7.7z",
-      "size": 2206791,
-      "sha256": "1428063df2634872224dabc6b136102eb768a7d6271035cd8d59122decbe3542",
-      "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.7/portrait-gender-separator-1.7.7z"
+      "filename": "portrait-gender-separator-v1.8-linux-x64.zip",
+      "size": 1662558,
+      "sha256": "9de4077e713c9b1a241bfafe5d128e212f842179bbaa405dee16877509f5ddd3",
+      "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.8/portrait-gender-separator-v1.8-linux-x64.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "portrait-gender-separator-v1.8-macos-x64.zip",
+      "size": 1779761,
+      "sha256": "fef876cce6f0fb8a0a667ac57e99f3bbe228ec7063092581646b5c23aec760f2",
+      "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.8/portrait-gender-separator-v1.8-macos-x64.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "portrait-gender-separator-v1.8-windows-x64.zip",
+      "size": 1312303,
+      "sha256": "dda94a4d3ea2b1c9db08ff8142e13c9af8d9c2e3a81afe7ed563ef7d97732838",
+      "download": "https://github.com/D2-mods/Portrait-Gender-Separator-for-IE-games/releases/download/v1.8/portrait-gender-separator-v1.8-windows-x64.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],

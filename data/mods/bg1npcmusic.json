@@ -1,6 +1,6 @@
 {
   "name": "BG1 NPC Project Music Pack",
-  "version": "6-rc1",
+  "version": "6",
   "links": {
     "homepage": "https://www.gibberlings3.net/subpages/bg1npc/bg1music/"
   },
@@ -45,16 +45,16 @@
         "4": "Install Regular Audio Only - Short versions",
         "5": "Install Romance Audio Only - Short versions"
       },
-      "description": "This mod adds music associated with exchanges and romances with Ajantis BG1 Expansion Modification characters. Version 6 is now officially compatible with BG:EE and still works with BGT and BG1Tutu. It offers a choice between long (original) and short (new in v6) versions of the music."
+      "description": "This mod adds music associated with exchanges and romances with The BG1NPC Project characters. It offers two versions for each musics: long (original) or short."
     },
     "fr_FR": {
-      "description": "Ce mod ajoute des musiques associées aux échanges et aux romances avec les personnages du Ajantis BG1 Expansion Modification. La version 6 est désormais officiellement compatible avec BG:EE et fonctionne toujours avec BGT et BG1Tutu. Elle propose un choix entre des versions longues (originales) ou courtes (nouvelles en v6) des musiques."
+      "description": "Ce mod ajoute des musiques associées aux échanges et aux romances avec les personnages du The BG1NPC Project. Il propose deux versions pour les musiques : une version longue (originale) ou courte."
     },
     "zh_CN": {
-      "description": "此模组为与Ajantis BG1 Expansion Modification中角色的对话和恋情添加了相关音乐。第6版现已正式兼容博德之门：增强版，并继续支持博德之门三部曲和博德之门1TuTu。它提供了在长版（原版）和短版（第6版新增）音乐之间进行选择。"
+      "description": "这个模组为与The BG1NPC Project模组中角色的对话和恋爱内容添加了背景音乐。音乐提供两个版本：长版（原版）或短版。"
     }
   },
   "tp2": "bg1npcmusic",
-  "safe": 2,
+  "safe": 1,
   "authors": ["AstroBryGuy"]
 }

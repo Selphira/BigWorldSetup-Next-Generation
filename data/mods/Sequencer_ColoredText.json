@@ -6,10 +6,10 @@
   },
   "files": [
     {
-      "filename": "Sequencer_ColoredText_v1.0.rar",
-      "size": 1046725,
-      "sha256": "d114b95dbd19fc34de302b42ad44232984d2c289c9bcaa668bbd8646226b209d",
-      "download": "http://america.iegmc.com/gamemacik/Sequencer_ColoredText_v1.0.rar"
+      "filename": "S9Soundsets.7z",
+      "size": 123074089,
+      "sha256": "677e7da8f0a749b1e152881290a365d389c0254f922d8bf7e7f54bdd813af26d",
+      "download": "https://github.com/Spellhold-Studios/Miscellaneous/releases/download/large/S9Soundsets.7z"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],
@@ -32,7 +32,7 @@
       "description": "Ce petit mod rétablit la couleur violette (celle de BG2 original) du journal de combat des séquenceurs/déclencheurs en violette et affiche en jaune le \"coup vorpal\" des épées des planaires."
     },
     "zh_CN": {
-      "description": "这个小模组恢复了序列者/触发者战斗日志的紫色（博德之门2原版的颜色），并以黄色显示位面剑的“斩首一击”。"
+      "description": "这个小模组恢复了序列者/触发者战斗日志的紫色（博德之门Ⅱ原版的颜色），并以黄色显示位面剑的“斩首一击”。"
     }
   },
   "tp2": "sequencer_coloredtext",

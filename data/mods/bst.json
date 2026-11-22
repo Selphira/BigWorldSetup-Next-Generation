@@ -1,25 +1,30 @@
 {
   "name": "BS Balduran's Seatower",
-  "version": "EAOB.9",
+  "version": "1.0_beta260923",
   "links": {
     "homepage": "https://www.gibberlings3.net/mods/quests/baldurans-seatower/",
     "forums": ["https://forums.beamdog.com/discussion/77570/"]
   },
   "files": [
     {
-      "filename": "bs-baldurans-seatower-veaob.9.zip",
-      "size": 97496802,
-      "sha256": "b1f8c6c6d7eef08580f17de2fbca8571740d0e0bdacd0e4999731a347be28648",
-      "download": "https://github.com/Gibberlings3/BS_Baldurans_Seatower/releases/download/vEAOB.9/bs-baldurans-seatower-veaob.9.zip"
+      "filename": "bs-baldurans-seatower-v1.0_beta260923.zip",
+      "size": 186294424,
+      "sha256": "e32200274dcb16c29c7e880819d52304d485dd971dcdc44e4ba6a3a5b7a6d17f",
+      "download": "https://github.com/Gibberlings3/BS_Baldurans_Seatower/releases/download/v1_Beta260923/bs-baldurans-seatower-v1.0_beta260923.zip"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std"},
+    "10": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["20", "21", "22"]},
+    "30": {"type": "std", "games": ["bgt"]}
   },
   "languages": {
-    "en_US": 0
+    "en_US": 0,
+    "de_DE": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -28,11 +33,37 @@
     "en_US": {
       "description": "This mod is the fruit of collaboration between many modders. It adds a new district to Baldur's Gate, with numerous quests that will require you to roam the Sword Coast.",
       "components": {
-        "0": "The BS Company presents Balduran's Seatower"
+        "0": "The BS Company presents Balduran's Seatower",
+        "10": "Reveal Seatower Map When Entering Area",
+        "choice_0": "Adapt Palace Fight with Regard to Doppelganger Invasion",
+        "20": "Place More Flaming Fist soldiers into the Palace if Revealed",
+        "21": "Reduce Number of Doppelgangers in Palace if Revealed",
+        "22": "Place More Doppelgangers into Palace if Invasion was not Revealed",
+        "30": "Correct music entries for BGT"
       }
     },
     "zh_CN": {
-      "description": "这个模组是众多模组作者合作的成果。它为博德之门添加了一个新区域，并包含许多任务，这些任务将迫使你游历剑湾海岸。"
+      "description": "这个模组是众多模组作者合作的成果。它为博德之门添加了一个新区域，并包含许多任务，这些任务将迫使你游历剑湾海岸。",
+      "components": {
+        "0": "BS小组出品 博德安海塔",
+        "10": "进入区域时显示海塔地图",
+        "choice_0": "根据变形怪入侵调整公爵官邸战斗",
+        "20": "如果被揭露，则在公爵官邸中放置更多的焰拳士兵",
+        "21": "如果被揭露，减少公爵官邸中的变形怪数量",
+        "22": "如果入侵未被揭露，则在公爵官邸中放置更多的变形怪",
+        "30": "为BGT提供正确的音乐条目"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "Die \"BS Company\" praesentiert: \"Baldurans Seeturm\"",
+        "10": "Karte des Seeturms beim Betreten des Gebiets aufdecken",
+        "choice_0": "Anpassung des Palastkampfes im Hinblick auf die Doppelgaenger-Invasion",
+        "20": "Mehr Soldaten der Flammenden Faust in den Palast stellen, wenn sie ans Licht kommt",
+        "21": "Anzahl der Doppelgaenger im Palast verringern, wenn sie ans Licht kommt",
+        "22": "Mehr Doppelgaenger in den Palast stellen, wenn die Invasion nicht ans Licht kommt",
+        "30": "Korrigiere Musikeintraege für BGT"
+      }
     }
   },
   "tp2": "bst",

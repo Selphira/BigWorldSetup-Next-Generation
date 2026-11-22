@@ -40,7 +40,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod, originally intended for BG2:EE, but also compatible with BG:EE, aims to make toggle buttons (such as the AI button) more prominent when selected.",
+      "description": "This mod aims to make toggle buttons (such as the AI button) more prominent when selected.",
       "components": {
         "choice_0": "Recolored character's toolbar buttons (BG:EE)",
         "0": "Bluish color scheme",
@@ -49,10 +49,10 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod, initialement destiné à BG2:EE, mais aussi compatible avec BG:EE, vise à mettre davantage en évidence les boutons à bascule (tels que celui de l'IA) lorsqu'ils sont sélectionnés."
+      "description": "Ce mod vise à mettre davantage en évidence les boutons à bascule (tels que celui de l'IA) lorsqu'ils sont sélectionnés."
     },
     "zh_CN": {
-      "description": "这个模组最初是为博德之门2：增强版设计的，但也兼容博德之门：增强版，旨在突出显示切换按钮（如IA按钮）在选中时的状态。"
+      "description": "这个模组旨在更明显地突出那些被选中的开关按钮（例如人工智能开关）。"
     },
     "pl_PL": {
       "components": {

@@ -1,14 +1,15 @@
 {
   "name": "A7-TextureConvert",
-  "version": "3.4",
+  "version": "3.5",
   "links": {
     "homepage": "https://github.com/Argent77/A7-TextureConvert"
   },
   "files": [
     {
-      "filename": "A7-TextureConvert-v3.4.zip",
-      "size": 11546982,
-      "download": "https://github.com/Argent77/A7-TextureConvert/releases/download/v3.4/A7-TextureConvert-v3.4.zip"
+      "filename": "A7-TextureConvert-v3.5.zip",
+      "size": 12596260,
+      "sha256": "d51bc605183a585b20edc984e07dfb589478d5126e3851ac7b0b27b1d844da63",
+      "download": "https://github.com/Argent77/A7-TextureConvert/releases/download/v3.5/A7-TextureConvert-v3.5.zip"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],

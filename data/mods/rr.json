@@ -41,7 +41,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod modifies the gameplay for Baldur's Gate 2: Throne of Bhaal and strives to bring the roublard classes (bards and thieves) and their respective profiles closer to their AD&D P&P counterparts. It comprises several components, all of which can be installed separately and are completely independent of each other.\nRR updates the two-weapon combat skills of thieves and bards, revises/improves their profiles, revises their high-level abilities, restores the appropriate racial adjustments for thief abilities, as well as the PnP spell progression table specific to bards.\nIt also makes the confrontation with the Shadow Thieves guild in chapter 3 much more difficult, and adds additional items for thieves and bards (in the Thieves guild), as well as an encounter with Cyric worshippers in chapter 6.",
+      "description": "This mod modifies the gameplay for Baldur's Gate 2: Throne of Bhaal and strives to bring the roublard classes (bards and thieves) and their respective kits closer to their AD&D P&P counterparts. It comprises several components, all of which can be installed separately and are completely independent of each other.\nRR updates the two-weapon combat skills of thieves and bards, revises/improves their kits, revises their high-level abilities, restores the appropriate racial adjustments for thief abilities, as well as the PnP spell progression table specific to bards.\nIt also makes the confrontation with the Shadow Thieves guild in chapter 3 much more difficult, and adds additional items for thieves and bards (in the Thieves guild), as well as an encounter with Cyric worshippers in chapter 6.",
       "components": {
         "0": "Proper dual-wielding implementation for Thieves and Bards",
         "1": "Thief kit revisions",
@@ -119,7 +119,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组修改了《博德之门2：巴尔王座》的游戏玩法，力求使盗贼类职业（吟游诗人和盗贼）及其各自的职业设定更贴近其AD&D（龙与地下城）桌面游戏的原型。它包含多个组件，所有组件均可单独安装且彼此完全独立。\nRR更新了盗贼和吟游诗人的双武器战斗技能，修正/改进了他们的职业设定，修订了他们的高级能力，恢复了盗贼能力的适当种族调整，以及吟游诗人独有的桌面游戏法术等级表。\n它防止盗贼药水效果叠加，并可以用桌面游戏版本的药水替代。\n它还使第三章与影贼公会的战斗变得更加困难。\n最后，它为盗贼和吟游诗人（在盗贼公会中）添加了额外的物品，以及在第六章增加了一场与 Cyric（塔洛斯）信徒的遭遇战。"
+      "description": "此模组修改了《博德之门Ⅱ：巴尔王座》的游戏玩法，力求使盗贼类职业（吟游诗人和盗贼）及其各自的职业设定更贴近其AD&D（龙与地下城）桌面游戏的原型。它包含多个组件，所有组件均可单独安装且彼此完全独立。\nRR更新了盗贼和吟游诗人的双武器战斗技能，修正/改进了他们的职业设定，修订了他们的高级能力，恢复了盗贼能力的适当种族调整，以及吟游诗人独有的桌面游戏法术等级表。\n它防止盗贼药水效果叠加，并可以用桌面游戏版本的药水替代。\n它还使第三章与影贼公会的战斗变得更加困难。\n最后，它为盗贼和吟游诗人（在盗贼公会中）添加了额外的物品，以及在第六章增加了一场与希瑞克信徒的遭遇战。"
     },
     "es_ES": {
       "components": {

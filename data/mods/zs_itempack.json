@@ -1,5 +1,5 @@
 {
-  "name": "RoyalProtector's Item Pack",
+  "name": "Kaelyn's Item Pack",
   "version": "1.0.2",
   "links": {
     "homepage": "https://github.com/szaumoor/ZS_ItemPack",
@@ -117,5 +117,5 @@
   },
   "tp2": "zs_itempack",
   "safe": 2,
-  "authors": ["RoyalProtector"]
+  "authors": ["Kaelyn"]
 }

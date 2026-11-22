@@ -9,7 +9,8 @@
     {
       "filename": "edwin-romance-v4.0.zip",
       "size": 15514980,
-      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip"
+      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip",
+      "sha256": "8fb0c80f0578976cec41c36516d7295fedcead86d2680407fc87bff48a75bc56"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

@@ -1,16 +1,31 @@
 {
   "name": "The Planar Sphere Mod",
-  "version": "2.9",
+  "version": "2.9.1",
   "links": {
     "homepage": "https://github.com/11jo/PlanarSphere",
     "forums": ["https://www.shsforums.net/files/file/131-planarsphere/"]
   },
   "files": [
     {
-      "filename": "PlanarSphere-main.zip",
-      "size": 10746273,
-      "sha256": "bbafd7e2c68aaddc8b29725b7f8b0c1d120113125764ebf5e53782c6e65ab9ec",
-      "download": "https://github.com/11jo/PlanarSphere/archive/refs/heads/main.zip"
+      "filename": "lin-planarspheremod-v2.9.1.zip",
+      "size": 11238029,
+      "sha256": "bf394ec3fc982874c83b5004a103b13a20eac46d5132d4021a3778842957b308",
+      "download": "https://github.com/11jo/PlanarSphere/releases/download/v2.9.1/lin-planarspheremod-v2.9.1.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-planarspheremod-v2.9.1.zip",
+      "size": 11355220,
+      "sha256": "da2988af0020cb1e6a021e427ffc721779cbc6fda227c75b070df56d8b700f67",
+      "download": "https://github.com/11jo/PlanarSphere/releases/download/v2.9.1/mac-planarspheremod-v2.9.1.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-planarspheremod-v2.9.1.zip",
+      "size": 10887774,
+      "sha256": "1985c559d9af353394b58148788858488c777c58c64057d2b6534050e1dcee6f",
+      "download": "https://github.com/11jo/PlanarSphere/releases/download/v2.9.1/win-planarspheremod-v2.9.1.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -23,7 +38,8 @@
   },
   "languages": {
     "en_US": 0,
-    "ru_RU": 1
+    "ru_RU": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -39,7 +55,13 @@
       }
     },
     "zh_CN": {
-      "description": "此模组延长了与领域相关的职业任务，从而增加了玩法师的乐趣。一个大型额外任务、几个小型任务和一个充满学徒的领域。另外还有39个新法术。\n也请毫不犹豫地安装补充小型模组Planar Sphere Teleporter（也称为PlanarSphere Return），它将允许您直接传送到领域面（并返回您所在的位置），就像“前厅”能力一样。"
+      "description": "此模组延长了与领域相关的职业任务，从而增加了玩法师的乐趣。一个大型额外任务、几个小型任务和一个充满学徒的领域。另外还有39个新法术。\n也请毫不犹豫地安装补充小型模组Planar Sphere Teleporter（也称为PlanarSphere Return），它将允许您直接传送到领域面（并返回您所在的位置），就像“前厅”能力一样。",
+      "components": {
+        "0": "次元球mod - 主组件",
+        "623": "次元球商店",
+        "624": "渥金商场商店",
+        "625": "次元球回归V2"
+      }
     },
     "ru_RU": {
       "components": {

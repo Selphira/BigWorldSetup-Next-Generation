@@ -1,16 +1,16 @@
 {
   "name": "Ascalon's Questpack",
-  "version": "6.4",
+  "version": "7.0",
   "links": {
     "homepage": "https://www.baldurs-gate.de/index.php?resources/ascalons-questpack.4/",
     "forums": ["https://www.gibberlings3.net/forums/topic/33156-ascalons-questpack-discussion-and-bug-report-thread/"]
   },
   "files": [
     {
-      "filename": "ascalons-questpack-6.4.zip",
-      "size": 23223750,
-      "sha256": "194dda63f68f1418bbe3827649407ad7f474c8a085e012ca39f9515b99c57c14",
-      "download": "https://github.com/Gitjas/Ascalons_Questpack/releases/download/v6.4/ascalons-questpack-6.4.zip"
+      "filename": "ascalons-questpack-7.0.zip",
+      "size": 23724904,
+      "sha256": "eabf3f446bd79128548c672803cfd682dd948cac511dd7b6b32b539268d5ea95",
+      "download": "https://github.com/Gitjas/Ascalons_Questpack/releases/download/v7.0/ascalons-questpack-7.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
@@ -34,7 +34,8 @@
     "it_IT": 3,
     "fr_FR": 4,
     "es_ES": 5,
-    "zh_CN": 6
+    "zh_CN": 6,
+    "pl_PL": 7
   },
   "translations": {
     "en_US": {
@@ -56,7 +57,7 @@
         "11": "Tweaked version: quest can be finished in BG1.",
         "12": "A Halfling among the Eyeless"
       },
-      "description": "Also called \"Abbathor's Serpents Part 1 and Other Stories\", this mod brings together several of Ascalon's ideas for adding quests or side stories that run parallel to the story of Bhaal's child in BG and BGII: 10 quests of different sizes. Some are humorous, others a little more tragic. Some are riddles, others are combat-related. Some require diplomatic skills, others can only be solved by certain races or classes."
+      "description": "Also called \"Abbathor's Serpents Part 1 and Other Stories\", this mod brings together several quests or side stories that run parallel to the story of Bhaal's child. Some are humorous, others a little more tragic. Some are riddles, others are combat-related. Some require diplomatic skills, others can only be solved by certain races or classes."
     },
     "ru_RU": {
       "components": {
@@ -79,7 +80,7 @@
       }
     },
     "fr_FR": {
-      "description": "Aussi appelé \"Les Serpents d'Abbathor 1ere partie et d'autres histoires\", ce mod regroupe plusieurs idées d'Ascalon pour ajouter des quêtes ou histoires secondaires qui se déroulent parallèlement à l'histoire de l'enfant de Bhaal dans BG et BGII : 10 quêtes de tailles différentes. Certaines sont humoristiques, d'autres sont un peu plus tragiques. Certaines sont des énigmes, d'autres sont liées au combat. Certaines exigent des compétences diplomatiques, d'autres ne peuvent être résolues que par certaines races ou classes.",
+      "description": "Aussi appelé \"Les Serpents d'Abbathor 1ere partie et d'autres histoires\", ce mod regroupe plusieurs quêtes ou histoires secondaires qui se déroulent parallèlement à l'histoire de l'enfant de Bhaal. Certaines sont humoristiques, d'autres sont un peu plus tragiques. Certaines sont des énigmes, d'autres sont liées au combat. Certaines exigent des compétences diplomatiques, d'autres ne peuvent être résolues que par certaines races ou classes.",
       "components": {
         "0": "Un travail bien paye",
         "1": "Un festin pour les gnolls",
@@ -100,7 +101,7 @@
       }
     },
     "zh_CN": {
-      "description": "也被称为“阿巴索尔的蛇 第一部分和其他故事”，这个模组汇集了Ascalon的几个想法，用于添加在博德之门和博德之门II中与巴尔之子故事并行进行的支线任务或故事：10个不同大小的任务。有些是幽默的，有些则有点悲剧性。有些是谜题，有些与战斗有关。有些需要外交技巧，有些只能通过特定的种族或职业来解决。",
+      "description": "这个模组也被称为“阿巴索的蛇群 第一部分与其他故事”，它汇集了几个与巴尔之子故事并行的任务或支线情节。有些是幽默风格的，有些则稍显悲剧。有些是谜题，有些与战斗相关。有些需要外交技能，有些则只能由特定种族或职业解决。",
       "components": {
         "0": "一份报酬丰厚的工作",
         "1": "地精的盛宴",
@@ -178,6 +179,26 @@
         "10": "Versión original",
         "11": "Versión mejorada: La gesta se puede terminar en BG1.",
         "12": "Un mediano entre el culto de los sin ojos"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "Ascalon's Questpack: Dobrze platna robota",
+        "1": "Ascalon's Questpack: Uczta dla gnolli",
+        "choice_0": "Ascalon's Questpack: Skoczus",
+        "2": "Wersja oryginalna: Ugh i Skoczus sa wewnatrz jaskini",
+        "3": "Wersja alternatywna dla zgodnosci: Ugh i Skoczus sa na zewnatrz",
+        "4": "Ascalon's Questpack: Zaginiony syn",
+        "choice_1": "Ascalon's Questpack: Wilki i ludzie",
+        "5": "Zadanie korzysta z chaty w poblizu Thalantyra w Wysokim Zywoplocie",
+        "6": "Zadanie korzysta z domu w Beregoscie",
+        "7": "Ascalon's Questpack: Niezrownany Karlini",
+        "8": "Ascalon's Questpack: Dom dla gibberlingow",
+        "9": "Ascalon's Questpack: Fanki",
+        "choice_2": "Ascalon's Questpack: Zmije Abbathora",
+        "10": "Wersja oryginalna",
+        "11": "Wersja zmodyfikowana: zadanie mozna ukonczyc w BG I",
+        "12": "Ascalon's Questpack: Niziolek posrod Bezokich"
       }
     }
   },

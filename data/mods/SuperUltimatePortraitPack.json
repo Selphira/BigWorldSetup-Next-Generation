@@ -26,13 +26,13 @@
       "components": {
         "0": "Super Ultimate Portrait Pack"
       },
-      "description": "Successor to the Ultimate portrait pack, this is a pack of 541 portraits for BG:EE and BG2:EE."
+      "description": "Successor to the Ultimate portrait pack, this is a pack of 541 portraits."
     },
     "fr_FR": {
-      "description": "Successeur du Ultimate portrait pack, il s'agit d'un pack de 541 portraits pour BG:EE et BG2:EE."
+      "description": "Successeur du Ultimate portrait pack, il s'agit d'un pack de 541 portraits."
     },
     "zh_CN": {
-      "description": "这是Ultimate portrait pack的继承者，是一个包含541个肖像的包，适用于博德之门：增强版和博德之门2：增强版。"
+      "description": "作为Ultimate portrait pack的后继者，这是一个包含541张肖像的肖像包。"
     }
   },
   "tp2": "superultimateportraitpack",

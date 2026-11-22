@@ -1,30 +1,30 @@
 {
   "name": "Yoshimo's Remorse",
-  "version": "3.2",
+  "version": "3.3",
   "links": {
     "homepage": "https://github.com/Gibberlings3/Yoshimos_Remorse/",
     "forums": ["https://www.gibberlings3.net/mods/npcs/yoshimos-remorse", "https://forums.beamdog.com/discussion/75983/"]
   },
   "files": [
     {
-      "filename": "lin-yoshimosremorse-v3.2.zip",
-      "size": 4377632,
-      "sha256": "29e6bf2a9862ec418e1c2011ee8aefbe5eb0bfaf6be86e9b59fc9f3f2af26537",
-      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/lin-yoshimosremorse-v3.2.zip",
+      "filename": "lin-yoshimosremorse-v3.3.zip",
+      "size": 4374680,
+      "sha256": "ee97e99165c6628d9c7e159668f90a3661c05b35c6ba16398078f9b2b97d2df7",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.3/lin-yoshimosremorse-v3.3.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-yoshimosremorse-v3.2.zip",
-      "size": 6141513,
-      "sha256": "0b888be55ca4ae06273100a887b91287381774ceb3a547aa6b83ec5531243f67",
-      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/mac-yoshimosremorse-v3.2.zip",
+      "filename": "mac-yoshimosremorse-v3.3.zip",
+      "size": 6138561,
+      "sha256": "40a0dbac0a716a2ba51acfa268745dd478ecc60bb789d8aca0ff664efdacd044",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.3/mac-yoshimosremorse-v3.3.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-yoshimosremorse-v3.2.zip",
-      "size": 6696919,
-      "sha256": "11bc4e4f4fda8c973eaf9709e13e2ecf6476f42508a2d6baa2696254ac5c87ac",
-      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.2/win-yoshimosremorse-v3.2.zip",
+      "filename": "win-yoshimosremorse-v3.3.zip",
+      "size": 6693860,
+      "sha256": "eb9414bf27701955fac37fcc0d41773f40138cbd6a4212f4892a1d2eb5c0ba3f",
+      "download": "https://github.com/Gibberlings3/Yoshimos_Remorse/releases/download/v3.3/win-yoshimosremorse-v3.3.zip",
       "platforms": ["windows"]
     }
   ],

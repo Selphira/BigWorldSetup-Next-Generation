@@ -23,13 +23,16 @@
   },
   "translations": {
     "en_US": {
-      "description": "Lore-breaking reimagination of Icewind Dale with new items, item abilities, quests, NPCs, bounties, weapons (with new ranged staves and spears), and armor-set bonuses. All new in-game texts are coloured to help players easily see new conversations (blue), responses (yellow) or descriptions (green/red).\nThis mod is designed for a new Level 1 Party for the Heart of Fury difficulty mode (the party will gain experience early).",
+      "description": "Lore-breaking reimagination of Icewind Dale with new items, item abilities, quests, NPCs, bounties, weapons (with new ranged staves and spears), and armor-set bonuses. All new in-game texts are coloured to help players easily see new conversations (blue), responses (yellow) or descriptions (green/red). This mod is designed for a new Level 1 Party for the Heart of Fury difficulty mode.",
       "components": {
         "0": "IWEE_Reborn component name"
       }
     },
     "fr_FR": {
       "description": "Une conversion complète d'Icewind Dale avec de nouveaux objets, sorts, quêtes, PNJ, primes, armes (avec de nouveaux bâtons et lances à distance) et bonus d'armures. Tous les nouveaux textes du jeu sont colorés afin d'aider les joueurs à repérer facilement les nouvelles conversations (bleu), les réponses (jaune) ou les descriptions (vert/rouge). Ce mod est conçu pour un nouveau groupe de niveau 1 dans le mode de difficulté Heart of Fury."
+    },
+    "zh_CN": {
+      "description": "冰风谷的完整转换模组，新增了物品、法术、任务、NPC、赏金、武器（包括新的远程法杖和长矛）以及护甲加值。游戏中所有新增文本均已着色，以帮助玩家轻松识别新的对话（蓝色）、选项（黄色）或描述（绿色/红色）。本模组专为在“寒冬之怒”难度模式下使用1级新队伍而设计。"
     }
   },
   "tp2": "iwee_reborn",

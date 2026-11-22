@@ -1,54 +1,68 @@
 {
   "name": "L'interplan",
-  "version": "9.1",
+  "version": "10.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31563"
   },
   "files": [
     {
-      "filename": "lin-Derats_magasin_2-v9.1.zip",
-      "size": 48021423,
-      "sha256": "10b8d6d62f883a11d47986ec95fe84c44d13ac7819885e893801901e0fac9dcb",
-      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/lin-Derats_magasin_2-v9.1.zip",
+      "filename": "lin-Derats_Magasin_2-v10.1.zip",
+      "size": 45930494,
+      "sha256": "b868f8103992eac83cbe30f014bfcb2efb3d813c50484bd1a48954eb16d62afd",
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/v10.1/lin-Derats_Magasin_2-v10.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_magasin_2-v9.1.zip",
-      "size": 48248959,
-      "sha256": "de322e68e9ef061c9d416c57ee630be00bfcd26c25c7ef00184ee135ddaaba97",
-      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/mac-Derats_magasin_2-v9.1.zip",
+      "filename": "mac-Derats_Magasin_2-v10.1.zip",
+      "size": 46047687,
+      "sha256": "e176709454bdb43fecd28567117116ce399ffc0d132837a0fd3ff52e8c0afe01",
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/v10.1/mac-Derats_Magasin_2-v10.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_magasin_2-v9.1.zip",
-      "size": 48193764,
-      "sha256": "caff8d349f7282c8be46867c3fd56d0a6c336ee821a9bbc0937bd2b275d0d1f2",
-      "download": "https://github.com/Deratiseur/Interplan/releases/download/9.1.0/win-Derats_magasin_2-v9.1.zip",
+      "filename": "win-Derats_Magasin_2-v10.1.zip",
+      "size": 45580239,
+      "sha256": "445500702f0f9dcdcf58318ba470c827587049e1076824511ecc8e4f2a8ecf9d",
+      "download": "https://github.com/Deratiseur/Interplan/releases/download/v10.1/win-Derats_Magasin_2-v10.1.zip",
       "platforms": ["windows"]
     }
   ],
-  "games": ["bg2", "bg2ee", "bgt", "eet", "iwdee"],
+  "games": ["bg2", "bg2ee", "bgt", "eet", "iwdee", "pstee"],
   "categories": ["smith", "spell"],
   "components": {
     "33": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]},
-    "38": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]}
+    "38": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]},
+    "50": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
+    "69": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
+    "66": {"type": "std", "games": ["eet"]}
   },
   "languages": {
-    "fr_FR": 0
+    "fr_FR": 0,
+    "en_US": 1
   },
   "translations": {
     "fr_FR": {
-      "description": "L'interplan est un magasin qui vend près de 100 objets originaux et plus d'une centaine de nouveaux sorts. Il peut aussi combiner plusieurs dizaines de potions. Il se trouve sur la Promenade de Waukyne dans BG2, et est accessible via un objet à récupérer dans la caverne des yetis dans IWD:EE.",
+      "description": "L'interplan est un magasin qui vend plus de 100 objets originaux et plus de 150 nouveaux sorts. Il peut aussi combiner plusieurs dizaines de potions. Il se trouve sur la Promenade de Waukyne dans BG2, est accessible via un objet à récupérer dans la caverne des yetis dans IWD:EE et dans l'enclave des marchands dans les Fosses Noires II.",
       "components": {
         "33": "L'interplan, Articles magiques",
-        "38": "Dupliquer certains sorts de l'Interaplan en version clericales/druidiques"
+        "38": "Dupliquer certains sorts de l'Interplan en versions cléricales/druidiques",
+        "50": "Rendre illimité le stock de potions du magasin",
+        "69": "Rendre illimité le stock de parchemins du magasin",
+        "66": "Un contrebandier vend certains objets de l'Interplan à Beregost"
       }
     },
     "en_US": {
-      "description": "L'interplan is a store selling a wide range of original items and over a hundred new spells. It can also combine several dozens of potions. It can be found on the Waukeen's Promenade in BG2, and is accessible via an item in the Yetis Cave in IWD:EE."
+      "description": "The Interplan is a store selling a wide range of original items and more than 150 new spells. It can also combine several dozens of potions. It can be found on the Waukeen's Promenade in BG2, is accessible via an item in the Yeti Cave in IWD:EE and in the merchants' enclave in The Black Pits II.",
+      "components": {
+        "33": "The Interplanar, Magical Items",
+        "38": "Duplicate some Interplan spells as clerical/druidic versions",
+        "50": "Make the store's potion stock unlimited",
+        "69": "Make the store's scroll stock unlimited",
+        "66": "A smuggler sells certain Interplan items in Beregost"
+      }
     },
     "zh_CN": {
-      "description": "异界商店是一个出售近100件原创物品和一百多种新法术的商店。它还可以组合数十种药水。它位于BG2的渥金商场，并且可以通过在冰风谷：增强版中 Yetis 洞穴里找到一个物品来访问。"
+      "description": "“异界商店”（L'interplan）是一家商店，出售100多件原创物品和150多个新法术。它还能组合数十种药水。在《博德之门2》中位于渥金商场（Promenade de Waukyne）；在《冰风谷：增强版》中可通过雪人洞穴里拾取的一件物品进入；在《死斗黑坑II》中则位于商人营地内。"
     }
   },
   "tp2": "derats_magasin_2",

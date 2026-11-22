@@ -3,9 +3,7 @@
   "version": "1.4",
   "links": {
     "homepage": "https://github.com/subtledoctor/TomeAndBlood",
-    "forums": [
-      "https://www.gibberlings3.net/forums/topic/30797-unearthed-arcana-present-tome-blood-more-options-for-arcane-casters/#comments"
-    ]
+    "forums": ["https://www.gibberlings3.net/forums/topic/30797-unearthed-arcana-present-tome-blood-more-options-for-arcane-casters/#comments"]
   },
   "files": [
     {
@@ -76,7 +74,7 @@
       }
     },
     "en_US": {
-      "description": "This mod introduces a set of changes for mages/sorcerers/bards, as well as rules, spells and kits for them. It offers a host of components that can be grouped into three categories: spell modifications, profile additions or modifications, and gameplay modifications.\n- Sorcerer profiles: Amorphous Disciple, Favored Soul, Magus, Revenant Disciple, Sylvan Disciple.\n- Multi-classed sorcerer profiles: Arcanist, Mana Sorcerer.",
+      "description": "This mod introduces a set of changes for mages/sorcerers/bards, as well as rules, spells and kits for them. It offers a host of components that can be grouped into three categories: spell modifications, profile additions or modifications, and gameplay modifications.\n- Sorcerer kits: Amorphous Disciple, Favored Soul, Magus, Revenant Disciple, Sylvan Disciple.\n- Multi-classed sorcerer kits: Arcanist, Mana Sorcerer.",
       "components": {
         "choice_0": "Revised Mage Spell Table",
         "11": "Tome & Blood Table",

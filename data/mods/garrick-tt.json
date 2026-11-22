@@ -28,7 +28,7 @@
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bgt", "eet", "sod"],
+  "games": ["bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
     "0": {"type": "std"}

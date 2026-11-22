@@ -1,15 +1,30 @@
 {
   "name": "Cassius",
-  "version": "1.6",
+  "version": "1.07",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?p=231482"
   },
   "files": [
     {
-      "filename": "1D_NPC_Cassius-1.6.zip",
-      "size": 2955246,
-      "sha256": "8a70eff409daa561408dcf33938b4be60a35ebe5f09658f873b2d7b239ce8816",
-      "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/archive/refs/tags/v1.6.zip"
+      "filename": "lin-cassius-v1.07.zip",
+      "size": 3363526,
+      "sha256": "852586a5d0ce08e6225985f3666ec07628149af2466dc6b86d73ade68555cc30",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/releases/download/v1.07/lin-cassius-v1.07.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-cassius-v1.07.zip",
+      "size": 3480701,
+      "sha256": "c815d26508dc1096870ac899c3e8c6812eb6c7ead7ff494b1efca8bc2831d0fc",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/releases/download/v1.07/mac-cassius-v1.07.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-cassius-v1.07.zip",
+      "size": 3013271,
+      "sha256": "4c373f7fb095404c79a97d3730bc5283f78619b23c934a727327c5b57c12ec25",
+      "download": "https://github.com/Plutonium-X/1D_NPC_Cassius/releases/download/v1.07/win-cassius-v1.07.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -22,7 +37,8 @@
     "de_DE": 1,
     "cs_CZ": 2,
     "it_IT": 3,
-    "fr_FR": 4
+    "fr_FR": 4,
+    "zh_CN": 5
   },
   "translations": {
     "fr_FR": {
@@ -38,7 +54,10 @@
       }
     },
     "zh_CN": {
-      "description": "Cassius是一个神秘而寡言的人类北地诗人。他很少谈论自己的过去。我们所知道的是，他从博德之门、深水城、卡林珊等地旅行了很远，但从未在任何地方停留太久。他总是在寻找冒险，以便讲述他遇到的大故事。他最近在安姆停留，收集关于在那里冒险的冒险者的故事。传闻他是一名吟游诗人的特工。力量16，敏捷17，体质13，智力16，智慧9，魅力15。"
+      "description": "Cassius是一个神秘而寡言的人类北地诗人。他很少谈论自己的过去。我们所知道的是，他从博德之门、深水城、卡林珊等地旅行了很远，但从未在任何地方停留太久。他总是在寻找冒险，以便讲述他遇到的大故事。他最近在安姆停留，收集关于在那里冒险的冒险者的故事。传闻他是一名吟游诗人的特工。力量16，敏捷17，体质13，智力16，智慧9，魅力15。",
+      "components": {
+        "0": "¿¨ÐÞË¹ NPC Ä£×é£¨Ðè°²×°¡¶°Í¶ûÍõ×ù¡·£©"
+      }
     },
     "de_DE": {
       "components": {

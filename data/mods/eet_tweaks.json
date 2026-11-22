@@ -50,7 +50,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod offers a collection of adjustments for IE games. Although originally designed for EET, some of these components are universal and can work with BG1, BG2, IWD, IWD2, Tutu, BGT, CA, IWD-in-BG2, BG:EE, BG2:EE and IWD:EE.\nIt allows, among other things, to harmonize the appearance of recruitable NPCs during the trilogy or to modify the XP limitation. Read the [readme](http://htmlpreview.github.io/?https://github.com/K4thos/EET_Tweaks/blob/master/EET_Tweaks/readme-EET_Tweaks.html) for more details.",
+      "description": "This mod offers a collection of adjustments for IE games. Although originally designed for EET, some of these components are universal and can work with other games.\nIt allows, among other things, to harmonize the appearance of recruitable NPCs during the trilogy or to modify the XP limitation. Read the [readme](https://htmlpreview.github.io/?https://github.com/K4thos/EET_Tweaks/blob/master/EET_Tweaks/readme-EET_Tweaks.html) for more details.",
       "components": {
         "choice_0": "Edwin appearance",
         "1000": "BG1",
@@ -133,7 +133,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod propose une collection d'ajustements pour les jeux IE. Bien que conçus à l'origine pour EET, certains de ces composants sont universels et peuvent fonctionner avec BG1, BG2, IWD, IWD2, Tutu, BGT, CA, IWD-in-BG2, BG:EE, BG2:EE et IWD:EE.\nIl permet entre autres d'harmoniser l'apparence des PNJ recrutables pendant la trilogie ou de modifier la limitation d'XP. Lisez bien le [readme](http://htmlpreview.github.io/?https://github.com/K4thos/EET_Tweaks/blob/master/EET_Tweaks/readme-EET_Tweaks.html) pour plus de détails.",
+      "description": "Ce mod propose une collection d'ajustements pour les jeux IE. Bien que conçus à l'origine pour EET, certains de ces composants sont universels et peuvent fonctionner avec les autres jeux.\nIl permet entre autres d'harmoniser l'apparence des PNJ recrutables pendant la trilogie ou de modifier la limitation d'XP. Lisez bien le [readme](https://htmlpreview.github.io/?https://github.com/K4thos/EET_Tweaks/blob/master/EET_Tweaks/readme-EET_Tweaks.html) pour plus de détails.",
       "components": {
         "choice_0": "Apparence d'Edwin",
         "1000": "BG1",
@@ -216,7 +216,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组为IE游戏提供了一系列调整。虽然最初是为EET设计的，但其中一些组件是通用的，可以与BG1、BG2、IWD、IWD2、Tutu、BGT、CA、IWD-in-BG2、BG:EE、BG2:EE和IWD:EE一起使用。它还可以统一三部曲中可招募NPC的外观，或修改经验值限制。阅读[readme]以获取更多详细信息。"
+      "description": "这个模组为无限引擎游戏提供了一系列调整选项。虽然它最初是为《增强版三部曲》设计的，但其中一些组件具有通用性，也能兼容其他游戏。\n除其他功能外，它还能统一三部曲中可招募NPC的外观，或修改经验值限制。详情请阅读[自述文件](https://htmlpreview.github.io/?https://github.com/K4thos/EET_Tweaks/blob/master/EET_Tweaks/readme-EET_Tweaks.html)。"
     },
     "pl_PL": {
       "components": {

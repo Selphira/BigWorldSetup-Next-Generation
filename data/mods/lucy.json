@@ -50,7 +50,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个小型扩展模组为在冒险者市场遇到的雌性翼蛇露西的对话增加了一个小惊喜。要触发它，只需与玩家角色开启对话即可。"
+      "description": "这个小型扩展模组为在冒险者市场遇到的雌性双足飞龙露西的对话增加了一个小惊喜。要触发它，只需与玩家角色开启对话即可。"
     },
     "de_DE": {
       "components": {
@@ -70,5 +70,5 @@
   },
   "tp2": "lucy",
   "safe": 2,
-  "authors": ["berelinde", "Freddy_Gwendo"]
+  "authors": ["berelinde"]
 }

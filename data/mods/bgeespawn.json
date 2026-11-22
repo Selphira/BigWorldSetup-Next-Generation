@@ -9,7 +9,8 @@
     {
       "filename": "bgee-leveled-spawns-v0.7.zip",
       "size": 3141303,
-      "download": "https://github.com/GraionDilach/BGEESpawn/releases/download/0.7/bgee-leveled-spawns-v0.7.zip"
+      "download": "https://github.com/GraionDilach/BGEESpawn/releases/download/0.7/bgee-leveled-spawns-v0.7.zip",
+      "sha256": "7bf6b5a37066552f162004035569161a8f1f75bc7ee5229adad29ce733b33662"
     }
   ],
   "games": ["bgee", "eet", "sod"],

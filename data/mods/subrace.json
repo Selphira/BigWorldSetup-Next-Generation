@@ -1,38 +1,41 @@
 {
-  "name": "Subrace MOD for Enhanced Edition Games",
-  "version": "0.3.3",
+  "name": "Subrace",
+  "version": "0.3.4",
   "links": {
     "homepage": "https://github.com/dark0dave/Subrace-mod",
     "forums": ["https://www.gibberlings3.net/forums/topic/32267-subrace-mod/#comment-290572"]
   },
   "files": [
     {
-      "filename": "lin-subrace-v0.3.3.zip",
-      "size": 1346466,
-      "sha256": "78e715b188e8f553120a3facb13e6f714a95e8995eff5670145756727f6f0df3",
-      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/lin-subrace-v0.3.3.zip",
+      "filename": "lin-subrace-v0.3.4.zip",
+      "size": 1922759,
+      "sha256": "76499dbee4267b0bbff016200da47bca32f9135308d1deaffdcbb47182de565d",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.4/lin-subrace-v0.3.4.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-subrace-v0.3.3.zip",
-      "size": 1573984,
-      "sha256": "7ea0b87dbf9bb5da54d874696bcd63191b7265bf1e5b3472b7a93621254171e4",
-      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/mac-subrace-v0.3.3.zip",
+      "filename": "mac-subrace-v0.3.4.zip",
+      "size": 2039934,
+      "sha256": "743343e21ab12c5e3e86af3105eb14115b692cc1cf83b6dbbffc267ccc501ef5",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.4/mac-subrace-v0.3.4.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-subrace-v0.3.3.zip",
-      "size": 1518807,
-      "sha256": "6857b82fd5c609546ec6a6588c04edafdb81a8e75215e99ffca53f923b2d906b",
-      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.3/win-subrace-v0.3.3.zip",
+      "filename": "win-subrace-v0.3.4.zip",
+      "size": 1572504,
+      "sha256": "3b23a0585b700b4acd10a3291ef2568f95eb9feeb705aa0b199a571a64590c74",
+      "download": "https://github.com/dark0dave/Subrace-mod/releases/download/0.3.4/win-subrace-v0.3.4.zip",
       "platforms": ["windows"]
     }
   ],
-  "games": ["bgee", "bg2ee", "eet", "iwdee"],
+  "games": ["bgee", "sod"],
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"},
-    "300": {"type": "std"}
+    "400": {"type": "std"},
+    "399": {"type": "std"},
+    "300": {"type": "std"},
+    "301": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -47,7 +50,10 @@
         "choice_0": "Sous-races pour Enhanced Edition",
         "100": "Change les couleurs de la sous-race (Cheveux et Peau)",
         "200": "Ne pas changer les couleurs de la sous-race (Cheveux et Peau)",
-        "300": "Kitsune"
+        "400": "Modify ingame NPCs to use subrace settings",
+        "399": "ALPHA: Install all new races",
+        "300": "Kitsune",
+        "301": "Kenku"
       }
     },
     "en_US": {
@@ -56,7 +62,10 @@
         "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
         "100": "Change subrace colors (Hair and Skin)",
         "200": "No change subrace colors (Hair and Skin)",
-        "300": "Kitsune"
+        "400": "Modify ingame NPCs to use subrace settings",
+        "399": "ALPHA: Install all new races",
+        "300": "Kitsune",
+        "301": "Kenku"
       }
     },
     "zh_CN": {
@@ -67,7 +76,10 @@
         "choice_0": "Subrace mod for Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
         "100": "Change subrace colors (Hair and Skin)",
         "200": "No change subrace colors (Hair and Skin)",
-        "300": "Kitsune"
+        "400": "Modify ingame NPCs to use subrace settings",
+        "399": "ALPHA: Install all new races",
+        "300": "Kitsune",
+        "301": "Kenku"
       }
     },
     "pt_BR": {
@@ -75,11 +87,14 @@
         "choice_0": "Mod de Sub-raças para Baldur's Gate Enhanced Edition (BG1, BG:SoD, BG2, EET)",
         "100": "Alterar cores das sub-raças (Cabelo e Pele)",
         "200": "Não alterar cores das sub-raças (Cabelo e Pele)",
-        "300": "Kitsune"
+        "400": "Modify ingame NPCs to use subrace settings",
+        "399": "ALPHA: Install all new races",
+        "300": "Kitsune",
+        "301": "Kenku"
       }
     }
   },
   "tp2": "subrace",
-  "safe": 2,
-  "authors": ["tipun"]
+  "safe": 1,
+  "authors": ["Corsymyr"]
 }

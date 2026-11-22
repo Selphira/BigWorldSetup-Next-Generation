@@ -22,7 +22,8 @@
       "filename": "roorenart_bg2-v3.exe",
       "size": 15561886,
       "download": "https://github.com/Gibberlings3/roorenart_bg2/releases/download/v3/roorenart_bg2-v3.exe",
-      "platforms": ["windows"]
+      "platforms": ["windows"],
+      "sha256": "e36b28dbf6c0ad72dd80785ed5952c4cf49538a7a99c9ae0a0574907465279ae"
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],

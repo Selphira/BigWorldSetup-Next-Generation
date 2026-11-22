@@ -1,6 +1,6 @@
 {
   "name": "Voices Voices Extravaganza - AI dialog voiceovers",
-  "version": "1.1",
+  "version": "1.0",
   "links": {
     "homepage": "https://github.com/ColossusChang/VoicesVoicesExtravaganza",
     "forums": ["https://www.gibberlings3.net/forums/topic/38809-bg1-voices-voices-extravaganza-ai-dialog-voiceovers/", "https://forums.beamdog.com/discussion/88822/"]
@@ -9,7 +9,8 @@
     {
       "filename": "VoicesVoicesExtravaganza.zip",
       "size": 1025633377,
-      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza/releases/download/v1.1/VoicesVoicesExtravaganza.zip"
+      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza/releases/download/v1.1/VoicesVoicesExtravaganza.zip",
+      "sha256": "c4bb968a7a81b1b93064afbde2580252d61ebfff05452c112e3d5c5f42d983d6"
     }
   ],
   "games": ["bg", "bgee", "eet", "sod"],
@@ -31,7 +32,7 @@
       }
     },
     "zh_CN": {
-      "description": "一个WeiDU模组，为博德之门1中的所有角色添加了由AI生成的英文旁白。"
+      "description": "一个WeiDU模组，为博德之门Ⅰ中的所有角色添加了由AI生成的英文旁白。"
     }
   },
   "tp2": "vvebg",

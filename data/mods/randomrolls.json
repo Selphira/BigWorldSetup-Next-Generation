@@ -1,21 +1,22 @@
 {
   "name": "Random rolls using RDRAND",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "links": {
     "homepage": "https://github.com/drake127/randomrolls/releases"
   },
   "files": [
     {
       "filename": "randomrolls-linux.zip",
-      "size": 19756,
-      "download": "https://github.com/drake127/randomrolls/releases/download/v1.1.0/randomrolls-linux.zip",
+      "size": 19916,
+      "sha256": "70b91b074cffa1809fe14e73dc116365cc688ed34f6a01b606c65c1741b4abea",
+      "download": "https://github.com/drake127/randomrolls/releases/download/v1.2.1/randomrolls-linux.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "randomrolls-win.zip",
-      "size": 1274804,
-      "sha256": "bd0d6483cee72c62d82f95a034dc15ed8983a2cf8bac87f6b64bf532ec774e82",
-      "download": "https://github.com/drake127/randomrolls/releases/download/v1.1.0/randomrolls-win.zip",
+      "size": 1313466,
+      "sha256": "d3b05a7c7ba0a05f1dbd6ebef5cc0e7076e9fe942398de3b8b990d78a7101176",
+      "download": "https://github.com/drake127/randomrolls/releases/download/v1.2.1/randomrolls-win.zip",
       "platforms": ["windows"]
     }
   ],

@@ -1,29 +1,29 @@
 {
   "name": "The Workshop Kitpack",
-  "version": "5.29",
+  "version": "5.36",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/36122-the-workshop-kitpack-v516-soulsborne-inspired-kit-and-item-pack/"
   },
   "files": [
     {
-      "filename": "the-workshop-kitpack-v5.29-linux-x64.zip",
-      "size": 12813212,
-      "sha256": "2b116301f7374b5a0b9a8650743ea42eb27346677b59eb0863773f7a61b4801f",
-      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-linux-x64.zip",
+      "filename": "the-workshop-kitpack-v5.36-linux-x64.zip",
+      "size": 14864848,
+      "sha256": "ff3ac7553ef4a85761b21b470962463a30f8f7034da4673d46bd57a17b478d3a",
+      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.36/the-workshop-kitpack-v5.36-linux-x64.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "the-workshop-kitpack-v5.29-macos-x64.zip",
-      "size": 13040746,
-      "sha256": "7afa171c7011606bbe82922e62cc74cbd9441b0a3e28a64e227587b540960366",
-      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-macos-x64.zip",
+      "filename": "the-workshop-kitpack-v5.36-macos-x64.zip",
+      "size": 14982039,
+      "sha256": "c0c9b5786257381d5236b11c80560976c5af910caebde14857690e34e5256b6d",
+      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.36/the-workshop-kitpack-v5.36-macos-x64.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "the-workshop-kitpack-v5.29-windows-x64.zip",
-      "size": 12985553,
-      "sha256": "4209a7806d024766eb0832132f0198bd6938a80f27e01a8096344b9593b305a3",
-      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.29/the-workshop-kitpack-v5.29-windows-x64.zip",
+      "filename": "the-workshop-kitpack-v5.36-windows-x64.zip",
+      "size": 14514593,
+      "sha256": "fd409bfcf5f110a372f0f476b6252983090309b83a5e61da9c09f86d2e392c68",
+      "download": "https://github.com/D2-mods/The-Workshop-Kitpack/releases/download/v5.36/the-workshop-kitpack-v5.36-windows-x64.zip",
       "platforms": ["windows"]
     }
   ],

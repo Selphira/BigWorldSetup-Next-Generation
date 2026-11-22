@@ -1,16 +1,16 @@
 {
   "name": "Tutoril's Historical Encyclopedias",
-  "version": "1.0.12",
+  "version": "1.0.16",
   "links": {
     "homepage": "https://github.com/Incrementis/Tutorils-Historical-Encyclopedias-",
     "forums": ["https://forums.beamdog.com/discussion/89334/"]
   },
   "files": [
     {
-      "filename": "Tutorils-Historical-Encyclopedias-v1.0.12.zip",
-      "size": 354800711,
-      "sha256": "cef25363d5c9f886456706ade5c27d214a69d1ff846e061b5c3e8e82025610f2",
-      "download": "https://github.com/Incrementis/Tutorils-Historical-Encyclopedias-/releases/download/v1.0.12/Tutorils-Historical-Encyclopedias-v1.0.12.zip"
+      "filename": "Tutorils-Historical-Encyclopedias-v1.0.16.zip",
+      "size": 354816048,
+      "sha256": "402e4b9aafcae1f27c0bd8d9c1f9d104c7172de51fb46e2dd376242eb32803cf",
+      "download": "https://github.com/Incrementis/Tutorils-Historical-Encyclopedias-/releases/download/v1.0.16/Tutorils-Historical-Encyclopedias-v1.0.16.zip"
     }
   ],
   "games": ["bg2ee", "bgee", "iwdee", "sod"],

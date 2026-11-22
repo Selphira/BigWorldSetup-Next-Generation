@@ -1,15 +1,30 @@
 {
   "name": "Tactics kits",
-  "version": "1",
+  "version": "2",
   "links": {
     "homepage": "https://weidu.org/tactics.html"
   },
   "files": [
     {
-      "filename": "KIT_Tactics_kits-1_EE.zip",
-      "size": 1274307,
-      "sha256": "c3020671f6e01f4eb2ba1a8bf8137c56e6f70aefecb04284001e7f3e402d8005",
-      "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/archive/refs/tags/V1_EE.zip"
+      "filename": "lin-Tactics-Kits-v2.zip",
+      "size": 1677767,
+      "sha256": "f16668ad5facf2a37ac16404041a2316c6f010a265ddeed425f7449c43d03663",
+      "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/releases/download/V2.1_EE/lin-Tactics-Kits-v2.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Tactics-Kits-v2.zip",
+      "size": 1794952,
+      "sha256": "02fe4e03610278643484f85c7e3fb4d8445bfb7502daeddafc8144f5ca5b5939",
+      "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/releases/download/V2.1_EE/mac-Tactics-Kits-v2.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Tactics-Kits-v2.zip",
+      "size": 1327512,
+      "sha256": "b446c1ce038659b6d8b1ac2061a3ceb811cc1a0b77c975798dff30e8066cc2b4",
+      "download": "https://github.com/Plutonium-X/KIT_Tactics_kits/releases/download/V2.1_EE/win-Tactics-Kits-v2.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "eet", "iwdee"],
@@ -19,7 +34,14 @@
     "1": {"type": "std"}
   },
   "languages": {
-    "fr_FR": 0
+    "en_US": 0,
+    "fr_FR": 1,
+    "zh_CN": 2,
+    "de_DE": 3,
+    "it_IT": 4,
+    "pl_PL": 5,
+    "ru_RU": 6,
+    "es_ES": 7
   },
   "translations": {
     "fr_FR": {
@@ -30,13 +52,51 @@
       }
     },
     "en_US": {
-      "description": "Some Tactics kits are obsolete with the latest versions of EE, so this mod offers them again in French. These are the Archer (from the Fighter class) and the Anti-Paladin."
+      "description": "Some Tactics kits are obsolete with the latest versions of EE, so this mod offers them again in French. These are the Archer (from the Fighter class) and the Anti-Paladin.",
+      "components": {
+        "0": "generic archer",
+        "1": "anti-paladin"
+      }
     },
     "zh_CN": {
-      "description": "在最新的EE版本中，Tactics模组的一些宗派已经过时，此模组重新提供了这些宗派的法语版本。它们分别是（战士职业的）弓箭手和反圣武士。"
+      "description": "在最新的EE版本中，Tactics模组的一些宗派已经过时，此模组重新提供了这些宗派的法语版本。它们分别是（战士职业的）弓箭手和反圣武士。",
+      "components": {
+        "0": "类弓箭手",
+        "1": "反圣骑"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "0": "normaler schütze",
+        "1": "anti-paladin"
+      }
+    },
+    "it_IT": {
+      "components": {
+        "0": "arciere generico",
+        "1": "anti-paladino"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "0": "strzelec",
+        "1": "antypaladyn"
+      }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "стрелок",
+        "1": "Анти-Паладин"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "0": "generic archer",
+        "1": "anti-paladín"
+      }
     }
   },
   "tp2": "tactics-kits",
   "safe": 2,
-  "authors": ["Wes Weimer"]
+  "authors": ["Wes Weimer", "Deratiseur"]
 }

@@ -1,65 +1,65 @@
 {
   "name": "Jazon le revenant",
-  "version": "4.4",
+  "version": "6.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=34466"
   },
   "files": [
     {
-      "filename": "lin-Derats_Jazon-v4.4.zip",
-      "size": 1106479,
-      "sha256": "239b9fd7618e929ee3b61654e3cfb18e12cac2ec5ad05717ebbecf1468de4686",
-      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/lin-Derats_Jazon-v4.4.zip",
+      "filename": "lin-Derats_Jazon-v6.1.zip",
+      "size": 1667342,
+      "sha256": "bc52ff4d5a5b56d3f56e6c57a96ee0d35cc01acea51201b654261e21ca4cda50",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v6.1/lin-Derats_Jazon-v6.1.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Derats_Jazon-v4.4.zip",
-      "size": 1334007,
-      "sha256": "23222adca4af38e230c1bdac225bfe24b3cab2f44807ec591567f9218c66c5a7",
-      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/mac-Derats_Jazon-v4.4.zip",
+      "filename": "mac-Derats_Jazon-v6.1.zip",
+      "size": 1784527,
+      "sha256": "54358bcca49c2db78d83df14b7cdbe2df64c09f6062e43ef48d50516e7242c5a",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v6.1/mac-Derats_Jazon-v6.1.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Derats_Jazon-v4.4.zip",
-      "size": 1278820,
-      "sha256": "799a07e639b0f57798f540f48de213d28cc4ecf5b9f42d5aae2a81a0da212b8e",
-      "download": "https://github.com/Deratiseur/Jazon/releases/download/v4.4.0/win-Derats_Jazon-v4.4.zip",
+      "filename": "win-Derats_Jazon-v6.1.zip",
+      "size": 1317087,
+      "sha256": "f86f72881719f12c75917992c12725c56f5e1097fffd0f31706278ffac2e216c",
+      "download": "https://github.com/Deratiseur/Jazon/releases/download/v6.1/win-Derats_Jazon-v6.1.zip",
       "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "eet", "iwdee"],
   "categories": ["npc1d"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std"}
   },
   "languages": {
     "fr_FR": 0,
     "en_US": 1,
-    "ru_RU": 2
+    "ru_RU": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
-      "description": "Jazon le revenant est un guerrier mort-vivant muet qui peut vous suivre comme 7ème membre du groupe. Il est de niveau 8 et ne progressera jamais, par contre il tape dur et résiste à tout (force et constitution 19, immunités de mort vivant, 75% de résistance à tout et régénération rapide). Son arme n'est pas magique au début mais évolue en fonction de la progression du protagoniste. S'il est tué, il droppe son cœur, que vous pouvez utiliser après une nuit de sommeil pour le ré-invoquer. Vous trouverez son coeur dans une tombe : dans le cimetière d'Athkatla dans BG2, dans la vallée des ombres de IWDEE.\nFOR 19, DEX 10, CON 19, INT 8, SAG 8, CHA 6.",
+      "description": "Jazon le revenant est un guerrier mort-vivant muet qui peut vous suivre comme 7ème membre du groupe. Il est de niveau 8 et ne progressera jamais, par contre il tape dur et résiste à tout (force et constitution 19, immunités de mort vivant, 75% de résistance à tout et régénération rapide). Son arme n'est pas magique au début mais évolue en fonction de la progression du protagoniste. S'il est tué, charname regagne son cœur, que vous pouvez utiliser après une nuit de sommeil pour le ré-invoquer. Vous trouverez son coeur dans une tombe : dans le cimetière d'Athkatla dans BG2, dans la vallée des ombres de IWDEE.\nFOR 19, DEX 10, CON 19, INT 8, SAG 8, CHA 6.",
       "components": {
-        "0": "Jazon le revenant",
-        "1": "Jazon est un tueur psychopathe"
+        "0": "Jazon le revenant"
       }
     },
     "en_US": {
-      "description": "Jazon the revenant is a mute undead warrior who can follow you as a 7th member of the party. He is level 8 and will never progress, but he types hard and resists everything (strength and constitution 19, undead immunities, 75% resistance to everything and fast regeneration). His weapon is not magical at first, but evolves as the protagonist progresses. If he's killed, he drops his heart, which you can use after a night's sleep to re-invoke him. You'll find his heart in a tomb: in the Athkatla Graveyard District in BG2, in the Valley of Shadows in IWDEE.\nSTR 19, DEX 10, CON 19, INT 8, WIS 8, CHA 6.",
+      "description": "Jazon the revenant is a mute undead warrior who can follow you as a 7th member of the party. He is level 8 and will never progress, but he types hard and resists everything (strength and constitution 19, undead immunities, 75% resistance to everything and fast regeneration). His weapon is not magical at first, but evolves as the protagonist progresses. If he's killed, Charname regains his heart which you can use after a night's sleep to re-invoke him. You'll find his heart in a tomb: in the Athkatla Graveyard District in BG2, in the Valley of Shadows in IWDEE.\nSTR 19, DEX 10, CON 19, INT 8, WIS 8, CHA 6.",
       "components": {
-        "0": "Jazon the revenant",
-        "1": "Jazon is a psychopathic killer"
+        "0": "Jazon the revenant"
       }
     },
     "zh_CN": {
-      "description": "Jazon the revenant（杰森，亡者归来者）是一个沉默的亡者战士，可以作为队伍的第7名成员跟随您。他8级，不会升级，但攻击力强且能抵抗一切（力量和体质19，亡者生物免疫，75%全抗性，快速再生）。他的武器一开始不是魔法武器，但会随着主角的进度而进化。如果他死亡，会掉落他的心脏，您在睡一觉后可以使用它来重新召唤他。您可以在一座坟墓中找到他的心脏：在博德之门2的阿斯卡特拉墓园，在冰风谷：增强版的阴影谷中。\n力量19，敏捷10，体质19，智力8，智慧8，魅力6。"
+      "description": "贾森·归来者是一个沉默的不死生物战士，可以作为第七名成员跟随你。他等级为8级，永远不会升级，不过他的打击力很强且对所有攻击都有抵抗力（力量与体质为19，拥有不死生物的免疫能力，对所有伤害类型有75%的抗性，并且快速恢复生命值）。他的武器初始时并非魔法武器，但随着主角的成长而进化。如果他被杀死，主角会取回他的心脏，你可以在睡一晚后使用它来重新召唤他。你会在一个坟墓里找到他的心脏：在《博德之门2》的阿斯卡特拉墓园区，或者在《冰风谷：增强版》的幽影谷。\n力量19，敏捷10，体质19，智力8，智慧8，魅力6。",
+      "components": {
+        "0": "亡魂贾松"
+      }
     },
     "ru_RU": {
       "components": {
-        "0": "Язон-ревенант",
-        "1": "Язон - убийца-психопат"
+        "0": "Язон-ревенант"
       }
     }
   },

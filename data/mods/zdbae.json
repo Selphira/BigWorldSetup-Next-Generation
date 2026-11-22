@@ -1,29 +1,29 @@
 {
   "name": "Baeloth for BG2EE",
-  "version": "0.20",
+  "version": "0.3.0",
   "links": {
     "homepage": "https://github.com/dark0dave/BaeBG2"
   },
   "files": [
     {
-      "filename": "lin-zdbae-v0.2.0.zip",
-      "size": 13408189,
-      "sha256": "2e16719940bd1db1fe59f3911b127c44c63376f061357e97ce136aebbbaaba45",
-      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/lin-zdbae-v0.2.0.zip",
+      "filename": "lin-zdbae-v0.3.0.zip",
+      "size": 13729336,
+      "sha256": "6029269c0d78d3c06f046b664bdb9c7c2a059c1222809778a1743b33a0bbc8f0",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.3.0/lin-zdbae-v0.3.0.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-zdbae-v0.2.0.zip",
-      "size": 13635703,
-      "sha256": "d96054a634734e3f00c89d0408b65996b98393b80ad9fbe7a1bc4f12a380ab66",
-      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/mac-zdbae-v0.2.0.zip",
+      "filename": "mac-zdbae-v0.3.0.zip",
+      "size": 13846507,
+      "sha256": "ab693f9745209f2c0a7855ee2346b5e5024346dbd26d7f7939877f40bb146965",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.3.0/mac-zdbae-v0.3.0.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-zdbae-v0.2.0.zip",
-      "size": 13580530,
-      "sha256": "c70366c90dd4ef159f8d3168caf0f531eaba6d41f882cf6bb496eb8068090c7c",
-      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.2.0/win-zdbae-v0.2.0.zip",
+      "filename": "win-zdbae-v0.3.0.zip",
+      "size": 13379081,
+      "sha256": "5d33a5aa2e42f78eb414f8804f7fc217217f0f4692a98a5a1f8efb3db78ee1ee",
+      "download": "https://github.com/dark0dave/BaeBG2/releases/download/v0.3.0/win-zdbae-v0.3.0.zip",
       "platforms": ["windows"]
     }
   ],

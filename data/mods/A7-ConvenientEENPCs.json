@@ -196,7 +196,7 @@
       }
     },
     "en_US": {
-      "description": "The new recruitable characters introduced in BG:EE and BG2:EE are not to everyone's taste. This mod offers several options for adapting them to your liking. You can make their first appearance in the game less intrusive, allowing you to control whether and when you accept to make first contact. Alternatively, you can permanently disable all NPCs in the game, or just some of them. In this case, you can also decide to make their personal items or those obtained in their quest usable by anyone. These can be found either in stores or on corpses. Additional components allow you to enhance their portraits and customize their classes and/or profiles, as you see fit.",
+      "description": "The new recruitable characters introduced in BG:EE and BG2:EE are not to everyone's taste. This mod offers several options for adapting them to your liking. You can make their first appearance in the game less intrusive, allowing you to control whether and when you accept to make first contact. Alternatively, you can permanently disable all NPCs in the game, or just some of them. In this case, you can also decide to make their personal items or those obtained in their quest usable by anyone. These can be found either in stores or on corpses. Additional components allow you to enhance their portraits and customize their classes and/or kits, as you see fit.",
       "components": {
         "choice_0": "Modify Enhanced Edition NPCs",
         "1": "Disable all NPCs",
@@ -324,7 +324,7 @@
       }
     },
     "zh_CN": {
-      "description": "在博德之门：增强版和博德之门2：增强版中出现的新可招募角色并非人人都喜欢。此模组提供了多种选项，以便您根据自己的喜好进行调整。您可以让他们在游戏中的首次出现不那么突兀，让您可以控制是否以及何时与他们建立第一次联系。否则，您也可以永久禁用游戏中的所有 NPC，或者只禁用其中一部分。在这种情况下，您还可以决定让任何人都能使用他们的个人物品或他们在任务中获得的东西。您可以在商店里或尸体上找到这些物品。额外的组件允许您改进他们的肖像，并根据您的喜好自定义他们的职业和/或职业专长。",
+      "description": "在博德之门：增强版和博德之门Ⅱ：增强版中出现的新可招募角色并非人人都喜欢。此模组提供了多种选项，以便您根据自己的喜好进行调整。您可以让他们在游戏中的首次出现不那么突兀，让您可以控制是否以及何时与他们建立第一次联系。否则，您也可以永久禁用游戏中的所有 NPC，或者只禁用其中一部分。在这种情况下，您还可以决定让任何人都能使用他们的个人物品或他们在任务中获得的东西。您可以在商店里或尸体上找到这些物品。额外的组件允许您改进他们的肖像，并根据您的喜好自定义他们的职业和/或职业专长。",
       "components": {
         "choice_0": "修改增强版队友",
         "1": "禁用所有队友",

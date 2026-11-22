@@ -9,7 +9,8 @@
     {
       "filename": "bgee_npc_randomiser-v0.1.zip",
       "size": 1315193,
-      "download": "https://github.com/JayP236/bgee_npc_randomiser/releases/download/v0.1/bgee_npc_randomiser-v0.1.zip"
+      "download": "https://github.com/JayP236/bgee_npc_randomiser/releases/download/v0.1/bgee_npc_randomiser-v0.1.zip",
+      "sha256": "685625a6aa7a6431e9e7c53a0fd9b15bff91d587d33ae4c2024739e0ee364968"
     }
   ],
   "games": ["bgee", "sod"],

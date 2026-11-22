@@ -1,6 +1,6 @@
 {
-  "name": "RTT Kitpack",
-  "version": "1.14",
+  "name": "Return to Trademeet Kitpack",
+  "version": "1.3",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/51-return-to-trademeet-kit-pack/"
   },
@@ -12,7 +12,7 @@
       "download": "https://github.com/Plutonium-X/KIT_RTT/archive/refs/tags/1.14_EE.zip"
     }
   ],
-  "games": ["bg2", "bgt"],
+  "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
     "0": {"type": "std"},
@@ -54,7 +54,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod rend disponibles 30 profils du module de conversion Return to Trademeet. Quelques exemples ? Allez, c'est parti : Amazone, Gladiateur, Samourai (guerriers), Anti-paladin, Messie et Paladin noir (paladins) ; Gardien du temps et Élémentaliste (rôdeurs) ; Ninja et Chasseur de trésors (voleurs) ; Conteur, Jongleur et Maître des golems (bardes), Druide de l'ombre, et bien d'autres.",
+      "description": "Version non officielle de Return to Trademeet Kitpack.",
       "components": {
         "0": "Amazone",
         "1": "Gladiateur",
@@ -90,7 +90,7 @@
       }
     },
     "en_US": {
-      "description": "This mod makes 30 kits of the Return to Trademeet conversion module available. A few examples? Here we go: Amazon, Gladiator, Samurai (fighters), Anti-paladin, Messiah and Black Knight (paladins); Time Keeper and Elementalist (rangers); Ninja and Treasure Hunter (thieves); Minstrel, Juggler and Golem Trainer (bards), Dark Druid, and many more.",
+      "description": "Unofficial version of Return to Trademeet Kitpack.",
       "components": {
         "0": "Amazon",
         "1": "Gladiator",
@@ -126,7 +126,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组提供了Return to Trademeet转换模组中的30种职业。一些例子？来吧，开始了：亚马逊、角斗士、武士（战士）、反圣武士、救世主和黑暗卫士（圣武士）；时间守护者和元素使（游侠）；忍者 and 宝藏猎人（盗贼）；说书人、杂耍师和傀儡大师（吟游诗人）、阴影德鲁伊，等等。"
+      "description": "模组Return to Trademeet Kitpack的非官方版本。"
     },
     "it_IT": {
       "components": {
