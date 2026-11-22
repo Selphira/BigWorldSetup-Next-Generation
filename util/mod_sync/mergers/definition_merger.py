@@ -432,6 +432,11 @@ class DefinitionMerger:
 
     def _merge_files(self, result: dict) -> None:
         """Replace the stored files by those of the archive source, or else of the release."""
+        # A provided mod comes with the archive of its provider and lists none of its own
+        if result.get("provided_by"):
+            result.pop("files", None)
+            return
+
         source_files = next(
             (
                 files

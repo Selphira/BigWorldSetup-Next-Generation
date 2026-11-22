@@ -245,3 +245,7 @@ def test_archive_files_replace_stored_files() -> None:
 
 def test_stored_files_are_kept_without_archive_source() -> None:
     assert merge({"files": STORED_FILES}, lcc={"name": "Demo"})["files"] == STORED_FILES
+
+
+def test_provided_mod_gets_no_files() -> None:
+    assert "files" not in merge({"provided_by": "pack"}, lcc={"name": "Demo"})
