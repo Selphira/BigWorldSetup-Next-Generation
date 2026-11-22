@@ -14,11 +14,13 @@ logger = logging.getLogger(__name__)
 TEXT_ENCODINGS: tuple[str, ...] = ("utf-8-sig", "cp1252", "latin-1")
 
 
-def safe_read(path: Path | str) -> str:
-    """Read a text file, trying each encoding of TEXT_ENCODINGS in order.
+def safe_read(path: Path | str, encodings: tuple[str, ...] = TEXT_ENCODINGS) -> str:
+    """Read a text file, trying each encoding in order.
 
     Args:
         path: Path to file to read
+        encodings: Encodings to try; the last one is used without error
+            handling, so it should decode any byte (see TEXT_ENCODINGS)
 
     Returns:
         The file content
@@ -33,7 +35,7 @@ def safe_read(path: Path | str) -> str:
         logger.error(error_msg)
         raise FileNotFoundError(error_msg)
 
-    *attempts, last_resort = TEXT_ENCODINGS
+    *attempts, last_resort = encodings
     for encoding in attempts:
         try:
             return path.read_text(encoding=encoding)

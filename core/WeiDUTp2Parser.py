@@ -15,7 +15,7 @@ import platform
 import re
 from typing import Any, Iterator
 
-from core.File import safe_read
+from core.File import TEXT_ENCODINGS, safe_read
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +99,15 @@ RE_TRA_TRANSLATION = re.compile(
     """,
     re.DOTALL | re.VERBOSE,
 )
+
+
+# Legacy Chinese TRA files are in GBK or Big5, which cp1252 and latin-1 would
+# turn into mojibake without error: these codecs are tried before latin-1.
+# gb18030 is a superset of GBK.
+LANGUAGE_TEXT_ENCODINGS: dict[str, tuple[str, ...]] = {
+    "zh_CN": ("utf-8-sig", "gb18030", "latin-1"),
+    "zh_TW": ("utf-8-sig", "big5", "latin-1"),
+}
 
 
 # ============================================================================
@@ -711,7 +720,7 @@ class LanguageParser:
 
             # Extract block content (skip "LANGUAGE" keyword itself)
             block_text = text[lang_start:lang_end]
-            block_content = re.sub(r"^\s*LANGUAGE\s+", "", block_text)
+            block_content = re.sub(r"^\s*LANGUAGE\s*", "", block_text)
 
             lang_decl = self._parse_block(block_content, base_dir, len(languages))
             if lang_decl:
@@ -1166,22 +1175,24 @@ class WeiDUTp2Parser:
         if deprecated_count > 0:
             logger.info(f"Skipped {deprecated_count} deprecated component(s)")
 
-    def _extract_tra_translations(self, tra_files: list[str]) -> dict[str, str]:
+    def _extract_tra_translations(self, tra_files: list[str], language_code: str) -> dict[str, str]:
         """Extract translations from TRA files.
 
         Args:
             tra_files: List of TRA file paths
+            language_code: Language of the files, which selects their encodings
 
         Returns:
             Dictionary mapping reference ID to translated text
         """
         translations: dict[str, str] = {}
+        encodings = LANGUAGE_TEXT_ENCODINGS.get(language_code, TEXT_ENCODINGS)
 
         for tra_file in tra_files:
             tra_path = (self.base_dir / tra_file).resolve()
 
             try:
-                content = safe_read(tra_path)
+                content = safe_read(tra_path, encodings)
                 for match in RE_TRA_TRANSLATION.finditer(content):
                     ref_id = match.group("id")
                     text = (
@@ -1203,7 +1214,7 @@ class WeiDUTp2Parser:
     def _build_translations(self, tp2: WeiDUTp2) -> None:
         """Build translation dictionary for all languages."""
         translations: dict[str, dict[str, str]] = {
-            lang.language_code: self._extract_tra_translations(lang.tra_files)
+            lang.language_code: self._extract_tra_translations(lang.tra_files, lang.language_code)
             for lang in tp2.languages
         }
 
