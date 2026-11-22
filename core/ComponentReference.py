@@ -466,6 +466,20 @@ class ReferenceIndexes:
     # Utilities
     # ========================================
 
+    def replace_catalogue(self, catalogue: ReferenceIndexes) -> None:
+        """Replace the mods, components and their links by those of another index.
+
+        Tree items, selection and violations are kept: they belong to the
+        interface and to the user, not to the loaded catalogue.
+        """
+        for current, replacement in (
+            (self.mod_component_index, catalogue.mod_component_index),
+            (self.parent_index, catalogue.parent_index),
+            (self.children_index, catalogue.children_index),
+        ):
+            current.clear()
+            current.update(replacement)
+
     def clear_all(self) -> None:
         """Clear all indexes."""
         self.mod_component_index.clear()

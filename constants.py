@@ -61,6 +61,11 @@ MOD_SYNC_GITHUB_RECIPES_FILE = PROJECT_ROOT / "util" / "mod_sync" / "github_reci
 # Localized caches are written "<prefix>_<language>.json" in CACHE_DIR
 MOD_CACHE_PREFIX = "mods"
 RULE_CACHE_PREFIX = "rules"
+# Fingerprint of the sources a localized cache was built from, written
+# "<prefix><suffix>" in CACHE_DIR once every language cache is written.
+# Raise the format version when the content of a cache changes.
+LOCALIZED_CACHE_FINGERPRINT_SUFFIX = ".fingerprint.json"
+LOCALIZED_CACHE_FORMAT_VERSION = 1
 # Build progress (%) reached once sources are loaded, before localization
 MOD_CACHE_LOCALIZATION_PROGRESS = 20
 RULE_CACHE_LOCALIZATION_PROGRESS = 10

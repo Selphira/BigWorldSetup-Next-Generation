@@ -18,13 +18,12 @@ from constants import (
     MOD_CACHE_PREFIX,
     MODS_DIR,
 )
-from core.ComponentReference import ComponentReference, IndexManager
+from core.ComponentReference import ComponentReference, IndexManager, ReferenceIndexes
 from core.LocalizedCache import (
     CacheGroups,
     LocalizedCacheBuilder,
     LocalizedCacheManager,
     first_translation,
-    is_cache_stale,
 )
 from core.Mod import Mod, MucComponent, SubComponent
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
@@ -249,22 +248,26 @@ class ModManager(LocalizedCacheManager):
 
     def needs_cache_rebuild(self) -> bool:
         """Check if cache needs to be rebuilt; no mod source at all always requires it."""
-        source_files = list_json_files(self.mods_dir) + list_json_files(self.custom_mods_dir)
-
-        if not source_files:
+        if not self._source_files():
             logger.warning("No source files found")
             return True
 
-        return is_cache_stale(self._cache_files(), source_files)
+        return self._is_cache_stale()
 
     def _create_cache_builder(self, languages: list[str]) -> CacheBuilderThread:
         return CacheBuilderThread(self.mods_dir, self.custom_mods_dir, self.cache_dir, languages)
 
-    def _register_components(self, mod_data: dict[str, Any]) -> None:
-        mod = Mod(mod_data)
-        self.mods_data[mod.id.lower()] = mod
+    def _source_files(self) -> list[Path]:
+        return [path for path, _ in select_mod_files(self.mods_dir, self.custom_mods_dir)]
 
-        indexes = IndexManager.get_indexes()
+    @staticmethod
+    def _register_components(
+        mod_data: dict[str, Any], mods: dict[str, Mod], indexes: ReferenceIndexes
+    ) -> None:
+        """Register a mod, its components and their parent-child links."""
+        mod = Mod(mod_data)
+        mods[mod.id.lower()] = mod
+
         mod_ref = indexes.register_mod(mod)
 
         comp_refs = []
@@ -316,15 +319,20 @@ class ModManager(LocalizedCacheManager):
             return False
 
         try:
-            indexes = IndexManager.get_indexes()
-
             with open(cache_file, "r", encoding="utf-8") as f:
                 mods_json = json.load(f)
 
-            self.mods_data.clear()
-
+            # The catalogue is rebuilt aside and substituted once complete: a
+            # failed load keeps the previous one, a removed mod leaves no reference
+            mods: dict[str, Mod] = {}
+            catalogue_indexes = ReferenceIndexes()
             for data in mods_json:
-                self._register_components(data)
+                self._register_components(data, mods, catalogue_indexes)
+
+            indexes = IndexManager.get_indexes()
+            indexes.replace_catalogue(catalogue_indexes)
+            self.mods_data.clear()
+            self.mods_data.update(mods)
 
             # Invalidate category cache
             self._category_count_cache = None
@@ -443,7 +451,9 @@ class ModManager(LocalizedCacheManager):
                 mod_data, self.current_language
             )
 
-            self._register_components(localized_mod_data)
+            self._register_components(
+                localized_mod_data, self.mods_data, IndexManager.get_indexes()
+            )
 
             # Invalidate category cache
             self._category_count_cache = None

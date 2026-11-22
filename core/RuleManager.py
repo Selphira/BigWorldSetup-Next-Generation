@@ -24,7 +24,6 @@ from core.LocalizedCache import (
     LocalizedCacheBuilder,
     LocalizedCacheManager,
     first_translation,
-    is_cache_stale,
 )
 from core.ModManager import ModManager, select_mod_files
 from core.Rules import (
@@ -556,18 +555,19 @@ class RuleManager(LocalizedCacheManager):
 
         Mod definitions are sources too: their "rules" section feeds the cache.
         """
-        rule_files = self.sources.rule_files()
-
-        if is_cache_stale(self._cache_files(), rule_files + self.sources.mod_files()):
+        if self._is_cache_stale():
             return True
 
-        if not rule_files:
+        if not self.sources.rule_files():
             logger.warning("No source rule files found")
 
         return False
 
     def _create_cache_builder(self, languages: list[str]) -> RuleCacheBuilderThread:
         return RuleCacheBuilderThread(self.sources, self.cache_dir, languages)
+
+    def _source_files(self) -> list[Path]:
+        return self.sources.rule_files() + self.sources.mod_files()
 
     def load_cache(self) -> bool:
         """Load cached rules for current language."""

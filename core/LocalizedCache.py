@@ -1,17 +1,24 @@
 """
 Localized caches: one JSON file per supported language, built in a background thread.
 
-Shared by the mod and rule managers: they only describe how sources are loaded
-and how one entry is localized.
+Shared by the mod and rule managers: they only describe their source files, how
+sources are loaded and how one entry is localized.
+
+A cache is fresh when its fingerprint, the SHA-256 of the cache format and of
+the paths and contents of its sources, matches the current sources: an added,
+removed or replaced file is detected whatever its modification date.
 """
 
 from collections.abc import Callable
+import hashlib
+import json
 import logging
 from pathlib import Path
 from typing import Any
 
 from PySide6.QtCore import QObject, QThread, Signal
 
+from constants import LOCALIZED_CACHE_FINGERPRINT_SUFFIX, LOCALIZED_CACHE_FORMAT_VERSION
 from core.atomic_io import write_json_atomic
 from core.TranslationManager import SUPPORTED_LANGUAGES, tr
 
@@ -26,33 +33,24 @@ def localized_cache_path(cache_dir: Path, prefix: str, language: str) -> Path:
     return cache_dir / f"{prefix}_{language}.json"
 
 
-def is_cache_stale(cache_files: list[Path], source_files: list[Path]) -> bool:
+def localized_cache_fingerprint_path(cache_dir: Path, prefix: str) -> Path:
+    """Return the file holding the fingerprint of the sources of a cache."""
+    return cache_dir / f"{prefix}{LOCALIZED_CACHE_FINGERPRINT_SUFFIX}"
+
+
+def source_fingerprint(source_files: list[Path]) -> str:
+    """Return the SHA-256 of the cache format and of the paths and contents of the sources.
+
+    Raises:
+        OSError: If a source file cannot be read
     """
-    Tell whether a cache file is missing or older than the newest source file.
+    digest = hashlib.sha256(f"format:{LOCALIZED_CACHE_FORMAT_VERSION}\0".encode())
 
-    Without source files, only a missing cache makes it stale: each caller
-    decides what an empty source means.
-    """
-    for cache_file in cache_files:
-        if not cache_file.exists():
-            logger.info(f"Cache missing: {cache_file}")
-            return True
+    for source_file in sorted(source_files):
+        digest.update(source_file.as_posix().encode("utf-8") + b"\0")
+        digest.update(hashlib.sha256(source_file.read_bytes()).digest())
 
-    if not source_files:
-        return False
-
-    try:
-        newest_source = max(source_file.stat().st_mtime for source_file in source_files)
-        oldest_cache = min(cache_file.stat().st_mtime for cache_file in cache_files)
-    except OSError as e:
-        logger.error(f"Error checking cache timestamps: {e}")
-        return True
-
-    if newest_source > oldest_cache:
-        logger.info(f"Source files newer than cache: {cache_files[0].parent}")
-        return True
-
-    return False
+    return digest.hexdigest()
 
 
 def first_translation(
@@ -222,6 +220,9 @@ class LocalizedCacheManager(QObject):
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         self.builder_thread: LocalizedCacheBuilder | None = None
+        # Fingerprint of the sources taken before the running build reads them:
+        # a source changed during the build makes the cache stale afterwards
+        self._building_fingerprint: str | None = None
 
     # ========================================
     # CACHE MANAGEMENT
@@ -233,6 +234,14 @@ class LocalizedCacheManager(QObject):
             logger.warning(f"{self.cache_label.capitalize()} build already in progress")
             return False
 
+        try:
+            self._building_fingerprint = source_fingerprint(self._source_files())
+        except OSError as e:
+            logger.error(f"Error reading {self.cache_label} sources: {e}")
+            self._building_fingerprint = None
+
+        # Caches being rewritten match no sources until the build completes
+        self._fingerprint_file().unlink(missing_ok=True)
         self.cache_building.emit()
 
         self.builder_thread = self._create_cache_builder(
@@ -247,7 +256,7 @@ class LocalizedCacheManager(QObject):
 
     def needs_cache_rebuild(self) -> bool:
         """Check if cache needs to be rebuilt."""
-        raise NotImplementedError
+        return self._is_cache_stale()
 
     def load_cache(self) -> bool:
         """Load cache for current language."""
@@ -256,6 +265,51 @@ class LocalizedCacheManager(QObject):
     def _create_cache_builder(self, languages: list[str]) -> LocalizedCacheBuilder:
         """Create the thread building the cache for the given languages."""
         raise NotImplementedError
+
+    def _source_files(self) -> list[Path]:
+        """Return the files the cache builder reads."""
+        raise NotImplementedError
+
+    # ========================================
+    # FRESHNESS
+    # ========================================
+
+    def _is_cache_stale(self) -> bool:
+        """Tell whether a language cache is missing or was built from other sources."""
+        for cache_file in self._cache_files():
+            if not cache_file.exists():
+                logger.info(f"Cache missing: {cache_file}")
+                return True
+
+        stored_fingerprint = self._read_stored_fingerprint()
+        if stored_fingerprint is None:
+            logger.info(f"{self.cache_label.capitalize()} has no source fingerprint")
+            return True
+
+        try:
+            current_fingerprint = source_fingerprint(self._source_files())
+        except OSError as e:
+            logger.error(f"Error reading {self.cache_label} sources: {e}")
+            return True
+
+        if current_fingerprint != stored_fingerprint:
+            logger.info(f"{self.cache_label.capitalize()} sources changed")
+            return True
+
+        return False
+
+    def _fingerprint_file(self) -> Path:
+        return localized_cache_fingerprint_path(self.cache_dir, self.cache_prefix)
+
+    def _read_stored_fingerprint(self) -> str | None:
+        """Return the fingerprint of the last complete build, None if unknown."""
+        try:
+            stored = json.loads(self._fingerprint_file().read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None
+
+        fingerprint = stored.get("sources") if isinstance(stored, dict) else None
+        return fingerprint if isinstance(fingerprint, str) else None
 
     def _cache_file(self, language: str) -> Path:
         """Return the cache file of a language."""
@@ -267,6 +321,9 @@ class LocalizedCacheManager(QObject):
 
     def _on_cache_build_finished(self, success: bool) -> None:
         """Called when cache building finishes."""
+        if success and self._building_fingerprint is not None:
+            write_json_atomic(self._fingerprint_file(), {"sources": self._building_fingerprint})
+
         if not success:
             error_msg = f"{self.cache_label.capitalize()} build failed"
             logger.error(error_msg)
