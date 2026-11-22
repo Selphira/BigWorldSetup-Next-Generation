@@ -12,7 +12,7 @@
       "download": "https://github.com/subtledoctor/ItemRevisions/archive/refs/tags/v4b10sd19.zip"
     }
   ],
-  "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
     "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
@@ -39,7 +39,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod apporte des corrections ou des modifications à Item Revisions. Vous en trouverez la liste [ici](https://www.gibberlings3.net/forums/topic/28894-ir-revised-v13800-2022-january-11th/).",
+      "description": "Ce mod apporte des corrections ou des modifications à Item Revisions.",
       "components": {
         "0": "Item Revisions par Demivrgvs",
         "1030": "Revision des boutiques",
@@ -75,7 +75,7 @@
       }
     },
     "en_US": {
-      "description": "This mod brings fixes or modifications to Item Revisions. You'll find the list [here](https://www.gibberlings3.net/forums/topic/28894-ir-revised-v13800-2022-january-11th/).",
+      "description": "This mod brings fixes or modifications to Item Revisions.",
       "components": {
         "0": "Item Revisions by Demivrgvs",
         "1030": "Store Revisions",
@@ -111,7 +111,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组为Item Revisions提供了修复或修改。你可以在[这里](https://www.gibberlings3.net/forums/topic/28894-ir-revised-v13800-2022-january-11th/)找到列表。"
+      "description": "这个模组为Item Revisions提供了修复或修改。"
     },
     "ru_RU": {
       "components": {

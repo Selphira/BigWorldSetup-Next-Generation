@@ -43,5 +43,15 @@
   },
   "tp2": "dgitems",
   "safe": 2,
-  "authors": ["Daniel Goodrich"]
+  "authors": ["Daniel Goodrich"],
+  "rules": {
+    "order": [
+      {
+        "rule": "dgitems(-):EET(-)|The Improved Volcano! Pack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

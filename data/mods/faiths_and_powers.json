@@ -40,9 +40,9 @@
       "description": "Héritier du projet abandonné Faiths of Faerûn, ce mod ajoute plusieurs dizaines de profils de prêtres, druides, rôdeurs et paladins, de nouvelles combinaisons de classes, de nouveaux sorts, un système de sphères divines en option pour différencier l'accès aux sorts des différents profils et divinités, et des restrictions optionnelles d'armures et d'armes spécifiques aux profils.",
       "components": {
         "choice_0": "Table revisee des sorts de Clerc",
-        "12": "Table des sorts de Faiths & powers",
-        "13": "Table debridee",
-        "15": "Les Druides utilisent la table des sorts et la progression d'XP des Clercs",
+        "12": "Faiths & Powers Table",
+        "13": "'Un-nerfed' Table",
+        "15": "Druids Use Cleric Spell Table and XP Table",
         "choice_1": "Choisir un systeme de spheres",
         "21": "oFnP : le systeme de spheres original de Faiths & Powers",
         "22": "AD&D/DR : inspire par le PnP et Divine Remix",

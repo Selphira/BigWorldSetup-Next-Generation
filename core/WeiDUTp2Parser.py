@@ -27,6 +27,8 @@ logger = logging.getLogger(__name__)
 LANG_MAP: dict[str, str] = {
     "american": "en_US",
     "english": "en_US",
+    "english_original": "en_US",
+    "english_revision": "en_US",
     "en-us": "en_US",
     "en_us": "en_US",
     "franais": "fr_FR",
@@ -35,7 +37,7 @@ LANG_MAP: dict[str, str] = {
     "frenchbg2": "fr_FR",
     "frenchee": "fr_FR",
     "deutsch": "de_DE",
-    "dutch": "de_DE",
+    "dutch": "nl_NL",
     "german": "de_DE",
     "german-sh": "de_DE",
     "italian": "it_IT",
@@ -85,6 +87,11 @@ _WEIDU_OS_VAR: str = "%WEIDU_OS%"
 _MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
 
 SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
+
+# Label of a translation made for the Enhanced Editions, when the mod also
+# declares one for the classic games ("Francais pour BG2EE", "pour les EE",
+# "BG2EE/EET", "l'edition Enhanced"); "EE" is matched in capitals only.
+RE_ENHANCED_EDITION_LABEL = re.compile(r"EE\b|\bEET\b|(?i:\benhanced\b)")
 
 RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z.\-_]*)[~"]?')
 RE_TRA_TRANSLATION = re.compile(
@@ -183,6 +190,11 @@ class LanguageDeclaration:
     def __post_init__(self) -> None:
         self.language_code = normalize_language_code(self.language_code)
 
+    @property
+    def is_enhanced_edition(self) -> bool:
+        """Whether the label marks a translation made for the Enhanced Editions."""
+        return RE_ENHANCED_EDITION_LABEL.search(self.display_name) is not None
+
 
 @dataclass
 class Component:
@@ -251,6 +263,21 @@ class WeiDUTp2:
             for item in (component.components if isinstance(component, MucComponent) else [component])
             if item.metadata.get("no_log_record")
         }
+
+    def preferred_languages(self) -> list[LanguageDeclaration]:
+        """Keep one declaration per language code, in declaration order.
+
+        Among several translations of a language, the one made for the
+        Enhanced Editions wins; otherwise the first declared one, which
+        is the order of preference of the author.
+        """
+        preferred: dict[str, LanguageDeclaration] = {}
+        for language in self.languages:
+            kept = preferred.get(language.language_code)
+            if kept is None or (language.is_enhanced_edition and not kept.is_enhanced_edition):
+                preferred[language.language_code] = language
+
+        return sorted(preferred.values(), key=lambda language: language.index)
 
 
 class GamePredicateParser:
@@ -1215,14 +1242,15 @@ class WeiDUTp2Parser:
 
     def _build_translations(self, tp2: WeiDUTp2) -> None:
         """Build translation dictionary for all languages."""
+        languages = tp2.preferred_languages()
         translations: dict[str, dict[str, str]] = {
             lang.language_code: self._extract_tra_translations(lang.tra_files, lang.language_code)
-            for lang in tp2.languages
+            for lang in languages
         }
 
         fallback_langs = [code for code in ["en_US", "fr_FR", "de_DE"] if code in translations]
 
-        for lang in tp2.languages:
+        for lang in languages:
             lang_code = lang.language_code
             lang_codes = [lang_code] + fallback_langs
             components: dict[str, str] = {}

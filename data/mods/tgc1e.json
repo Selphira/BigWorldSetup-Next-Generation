@@ -15,15 +15,17 @@
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bgee", "bgt", "eet", "sod"]}
   },
   "languages": {
     "en_US": 0,
     "de_DE": 2,
     "es_ES": 3,
     "it_IT": 4,
+    "pl_PL": 5,
     "fr_FR": 6,
-    "ru_RU": 7
+    "ru_RU": 7,
+    "zh_CN": 8
   },
   "translations": {
     "en_US": {
@@ -52,12 +54,38 @@
     "ru_RU": {
       "components": {
         "choice_0": "The Grey Clan Episode One: In Candlelight",
-        "0": "Normal edition (translation provided by Big World Textpack)",
-        "1": "Lite edition (translation provided by Big World Textpack)"
+        "0": "Normal edition",
+        "1": "Lite edition"
       }
     },
     "zh_CN": {
-      "description": "你抵达了博德之门，为消除了剑湾的盗贼威胁而自豪。但威胁真的解除了吗？也许还有另一个威胁，更黑暗，更危险。你将在这个模组中发现它，该模组更适合中立或善良阵营的角色，它添加了一个中等长度的任务、一些敌人的增强AI、新物品，以及与燃烧之拳并肩作战进行史诗级战斗的可能性。如果战斗对你来说太难，你可以选择安装某些战斗的简化版本（安装时选择“精简”版本）。\nGitHub链接是一个针对EE和BGT游戏的重新编码版本。"
+      "description": "你抵达了博德之门，为消除了剑湾的盗贼威胁而自豪。但威胁真的解除了吗？也许还有另一个威胁，更黑暗，更危险。你将在这个模组中发现它，该模组更适合中立或善良阵营的角色，它添加了一个中等长度的任务、一些敌人的增强AI、新物品，以及与燃烧之拳并肩作战进行史诗级战斗的可能性。如果战斗对你来说太难，你可以选择安装某些战斗的简化版本（安装时选择“精简”版本）。\nGitHub链接是一个针对EE和BGT游戏的重新编码版本。",
+      "components": {
+        "choice_0": "暗灰帮三部曲第一部：烛光 BGT-WeiDU/EET/BG:EE 版本 v1.9",
+        "0": "普通版本",
+        "1": "精简版本（难度降低）"
+      }
+    },
+    "de_DE": {
+      "components": {
+        "choice_0": "Der Graue Clan Episode Eins: Im Kerzenlicht, BGT-WeiDU/EET/BG:EE Ausgabe v1.9",
+        "0": "Normale Ausgabe",
+        "1": "Leichte Ausgabe"
+      }
+    },
+    "es_ES": {
+      "components": {
+        "choice_0": "El Clan Gris Episodio Uno: En Candelero, edición BGT-WeiDU/EET/BG:EE v1.9",
+        "0": "Edición Normal",
+        "1": "Edición Reducida"
+      }
+    },
+    "pl_PL": {
+      "components": {
+        "choice_0": "Szary Klan Epizod 1: In Candlelight, edycja BGT-WeiDU/EET/BG:EE v1.9",
+        "0": "Edycja normalna",
+        "1": "Edycja latwiejsza"
+      }
     }
   },
   "tp2": "tgc1e",

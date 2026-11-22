@@ -25,10 +25,10 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod propose un nouveau PNJ : Dusk, le tueur de sorciers. Ardusk Aldant, également connu sous le nom de Dusk, est un guerrier du Cormyr, formé dans l'Ordre des Dragons Pourpres. Après un long voyage jusqu'à Athkatla, Dusk est devenu un notable tueur de sorciers qui ne demande qu'à vivre en paix. Mais un sombre personnage attaque la paisible promenade de Waukyne."
+      "description": "Ce mod propose un nouveau PNJ : Dusk, le tueur de sorciers. Ardusk Aldant, également connu sous le nom de Dusk, est un guerrier du Cormyr, formé dans l'Ordre des Dragons Pourpres. Après un long voyage jusqu'à Athkatla, Dusk est devenu un notable tueur de sorciers qui ne demande qu'à vivre en paix. Mais un sombre personnage attaque la paisible promenade de Waukyne.\nFOR 17, DEX 10, CON 18, INT 12, SAG 15, CHA 15."
     },
     "en_US": {
-      "description": "This mod features a new NPC joining to the party: Dusk, the Wizard Slayer. Ardusk Aldant, also know as Dusk, is a fighter from Cormyr, trained in the Order of the Purple Dragons. After a long journey to Athkatla, Dusk now becomes a notable Wizard Slayer who just wants to live in peace. But a dark figure attacks in the peaceful Waukeen's Promenade.",
+      "description": "This mod features a new NPC joining to the party: Dusk, the Wizard Slayer. Ardusk Aldant, also know as Dusk, is a fighter from Cormyr, trained in the Order of the Purple Dragons. After a long journey to Athkatla, Dusk now becomes a notable Wizard Slayer who just wants to live in peace. But a dark figure attacks in the peaceful Waukeen's Promenade.\nSTR 17, DEX 10, CON 18, INT 12, WIS 15, CHA 15.",
       "components": {
         "0": "Dusk MOD"
       }

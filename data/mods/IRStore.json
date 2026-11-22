@@ -53,5 +53,15 @@
   },
   "tp2": "irstore",
   "safe": 2,
-  "authors": ["Theo de Moree"]
+  "authors": ["Theo de Moree"],
+  "rules": {
+    "order": [
+      {
+        "rule": "irstore(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

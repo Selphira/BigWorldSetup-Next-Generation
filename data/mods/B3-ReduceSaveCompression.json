@@ -39,7 +39,7 @@
   "translations": {
     "en_US": {
       "components": {
-        "0": "Diminuer la compression des fichiers de sauvegarde"
+        "0": "Reduce Save Compression"
       },
       "description": "Reduce Save Compression lowers the compression level used by Beamdog's Enhanced Edition of the Infinity Engine when saving. This speeds up the saving process for late-game playthroughs at the cost of marginally increased storage size."
     },

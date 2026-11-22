@@ -38,7 +38,7 @@
     "fr_FR": {
       "description": "Ce petit mod permet aux rôdeurs (et aux druides si vous le souhaitez) d'obtenir un animal compagnon qui les suivra pendant tout le jeu (un peu comme un familier). À partir du niveau 3, ils peuvent partir à sa recherche.\nType d'animaux possibles : ours, loup, panthère, léopard, chien, araignée, wiverne, marmotte, lapin.",
       "components": {
-        "0": "Compagnons animal pour tous les rodeurs (Optionnel : Druides)",
+        "0": "Animal Companions For All Rangers (Optional: Druids)",
         "0.1": "Permettre aux druides d'avoir aussi des compagnons animaux",
         "0.1.0": "NON, ne pas autoriser les druides à obtenir des compagnons animaux",
         "0.1.1": "OUI, permettre aux druides d'avoir aussi des compagnons animaux",

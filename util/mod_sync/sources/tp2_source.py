@@ -105,10 +105,10 @@ class TP2Source:
             if tp2_data.version:
                 result["version"] = tp2_data.version
 
-            # Languages - build dict mapping language code to index
+            # Languages - build dict mapping language code to index, one translation per language
             if tp2_data.languages:
                 languages = {}
-                for lang in tp2_data.languages:
+                for lang in tp2_data.preferred_languages():
                     languages[lang.language_code] = lang.index
                 result["languages"] = languages
                 logger.debug(f"Extracted {len(languages)} languages")
