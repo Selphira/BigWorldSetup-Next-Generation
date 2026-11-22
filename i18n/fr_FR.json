@@ -692,7 +692,8 @@
     "message_dependency_missing": "Nécessite : {missing}",
     "message_dependency_required_by": "Requis par : {sources}",
     "message_order_before": "Doit être installé avant : {components}",
-    "message_order_after": "Doit être installé après : {components}"
+    "message_order_after": "Doit être installé après : {components}",
+    "ini_order_description": "Règle définie dans l'ini de {mod}"
   },
   "error": {
     "state_save_failed": "Impossible de sauvegarder la progression. Vérifiez l’espace disque et les droits d’écriture. La progression depuis la dernière sauvegarde réussie risque d’être perdue.",

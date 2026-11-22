@@ -140,34 +140,43 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
                     return
             add(file, location, "missing_component", reference)
 
+    def check_rules(file: str, family: str, raw_rules: list, location_prefix: str) -> None:
+        """Check that each rule expands and refers to existing mods and components."""
+        for index, raw in enumerate(raw_rules):
+            location = f"{location_prefix}/{index}"
+            try:
+                expanded = [raw]
+                if "rule" in raw:
+                    expression = RuleExpression.parse(raw["rule"])
+                    if family == "dependencies":
+                        expanded = [expression.to_dependency_rule(raw.copy())]
+                    elif family == "order":
+                        expanded = [expression.to_order_rule(raw.copy())]
+                    else:
+                        expanded = expression.to_incompatibility_rules(raw)
+                rule_class = {
+                    "dependencies": DependencyRule,
+                    "order": OrderRule,
+                    "incompatibilities": IncompatibilityRule,
+                }[family]
+                references = set()
+                for entry in expanded:
+                    rule = rule_class.from_dict(entry)
+                    references.update(str(ref) for ref in (*rule.sources, *rule.targets))
+                for ref in sorted(references):
+                    check_reference(file, location, ref)
+            except (ValueError, TypeError, AttributeError, KeyError) as error:
+                add(file, location, "rule", str(error))
+
     for file, document in documents.items():
         if file.startswith("rules/"):
-            family = Path(file).stem
-            for index, raw in enumerate(document.get("rules", [])):
-                location = f"rules/{index}"
-                try:
-                    expanded = [raw]
-                    if "rule" in raw:
-                        expression = RuleExpression.parse(raw["rule"])
-                        if family == "dependencies":
-                            expanded = [expression.to_dependency_rule(raw.copy())]
-                        elif family == "order":
-                            expanded = [expression.to_order_rule(raw.copy())]
-                        else:
-                            expanded = expression.to_incompatibility_rules(raw)
-                    rule_class = {
-                        "dependencies": DependencyRule,
-                        "order": OrderRule,
-                        "incompatibilities": IncompatibilityRule,
-                    }[family]
-                    references = set()
-                    for entry in expanded:
-                        rule = rule_class.from_dict(entry)
-                        references.update(str(ref) for ref in (*rule.sources, *rule.targets))
-                    for ref in sorted(references):
-                        check_reference(file, location, ref)
-                except (ValueError, TypeError, AttributeError, KeyError) as error:
-                    add(file, location, "rule", str(error))
+            check_rules(file, Path(file).stem, document.get("rules", []), "rules")
+        elif file.startswith("mods/"):
+            mod_rules = document.get("rules")
+            if isinstance(mod_rules, dict):
+                for family in RULE_SCHEMAS:
+                    if isinstance(family_rules := mod_rules.get(family), list):
+                        check_rules(file, family, family_rules, f"rules/{family}")
         elif file.startswith("games/"):
             try:
                 for mod_id, keys in document.get("forced_components", {}).items():

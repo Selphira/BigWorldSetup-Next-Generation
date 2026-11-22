@@ -17,7 +17,6 @@ from core import atomic_io
 from core.DataUpdater import DataUpdater
 from core.StateManager import InstallationState, StateManager
 from core.TranslationManager import TranslationManager
-from tests.test_catalogue import small_catalogue as small_catalogue
 from ui.pages.InstallationPage import InstallationPage
 
 updater_module = importlib.import_module("core.DataUpdater")

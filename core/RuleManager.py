@@ -11,6 +11,8 @@ from typing import Any, Protocol
 
 from constants import (
     CACHE_DIR,
+    CUSTOM_MODS_DIR,
+    MODS_DIR,
     RULE_CACHE_LOCALIZATION_PROGRESS,
     RULE_CACHE_PREFIX,
     RULES_DIR,
@@ -23,7 +25,7 @@ from core.LocalizedCache import (
     first_translation,
     is_cache_stale,
 )
-from core.ModManager import ModManager
+from core.ModManager import ModManager, select_mod_files
 from core.Rules import (
     ComponentGroup,
     DependencyMode,
@@ -38,13 +40,35 @@ from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
 
-# Rule types, each read from "<rule type>.json" in the rules directory
+# Rule types, each read from "<rule type>.json" in the rules directory and
+# from the matching list of the "rules" section of mod definitions
 RULE_TYPES = ("dependencies", "incompatibilities", "order")
 
 
 def rule_source_file(rules_dir: Path, rule_type: str) -> Path:
     """Return the source file of a rule type."""
     return rules_dir / f"{rule_type}.json"
+
+
+@dataclass(frozen=True, slots=True)
+class RuleSources:
+    """Locations of the rules: rule files and mod definitions."""
+
+    rules_dir: Path
+    mods_dir: Path
+    custom_mods_dir: Path
+
+    def rule_files(self) -> list[Path]:
+        """Return the existing rule files."""
+        return [
+            source_file
+            for rule_type in RULE_TYPES
+            if (source_file := rule_source_file(self.rules_dir, rule_type)).exists()
+        ]
+
+    def mod_files(self) -> list[Path]:
+        """Return the mod definition files read by the application."""
+        return [path for path, _ in select_mod_files(self.mods_dir, self.custom_mods_dir)]
 
 
 class GroupOperator(Enum):
@@ -254,26 +278,32 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
     cache_label = "rule cache"
     localization_progress_start = RULE_CACHE_LOCALIZATION_PROGRESS
 
-    def __init__(self, rules_dir: Path, cache_dir: Path, languages: list[str]) -> None:
+    def __init__(self, sources: RuleSources, cache_dir: Path, languages: list[str]) -> None:
         """
         Initialize rule cache builder thread.
 
         Args:
-            rules_dir: Directory containing rule JSON files (dependencies.json, etc.)
+            sources: Rule files and mod definitions to read rules from
             cache_dir: Directory for cache output
             languages: Languages to build cache for
         """
         super().__init__(cache_dir, languages)
-        self.rules_dir = rules_dir
+        self.sources = sources
 
     def _load_sources(self) -> CacheGroups | None:
         """Load and expand the rules of each type; a missing or invalid file gives no rules."""
         self.status_changed.emit(tr("app.loading_rules"))
-        self.status_changed.emit(tr("app.parsing_rules"))
-
-        source_data = {
-            rule_type: self._load_rule_file(rule_type, rule_source_file(self.rules_dir, rule_type))
+        raw_rules = {
+            rule_type: self._read_rule_file(rule_source_file(self.sources.rules_dir, rule_type))
             for rule_type in RULE_TYPES
+        }
+        for mod_file in self.sources.mod_files():
+            for rule_type, mod_rules in self._read_mod_rules(mod_file).items():
+                raw_rules[rule_type].extend(mod_rules)
+
+        self.status_changed.emit(tr("app.parsing_rules"))
+        source_data = {
+            rule_type: self._expand_rules(rule_type, rules) for rule_type, rules in raw_rules.items()
         }
 
         if not any(source_data.values()):
@@ -285,19 +315,33 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
         return self._localize_rule(entry, language)
 
     @staticmethod
-    def _load_rule_file(rule_type: str, file_path: Path) -> list[dict[str, Any]]:
-        """Read a rule file and expand each expression into cacheable rules."""
+    def _read_rule_file(file_path: Path) -> list[dict[str, Any]]:
+        """Read the rules of a rule file."""
         if not file_path.exists():
             logger.warning(f"Rule file not found: {file_path}")
             return []
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                raw_rules = json.load(f).get("rules", [])
+                return list(json.load(f).get("rules", []))
         except Exception as e:
             logger.error(f"Error loading {file_path.name}: {e}")
             return []
 
+    @staticmethod
+    def _read_mod_rules(mod_file: Path) -> dict[str, list[dict[str, Any]]]:
+        """Read the "rules" section of a mod definition, by rule type."""
+        try:
+            with open(mod_file, "r", encoding="utf-8") as f:
+                section = json.load(f).get("rules") or {}
+            return {rule_type: list(section.get(rule_type) or []) for rule_type in RULE_TYPES}
+        except Exception as e:
+            logger.error(f"Error loading rules of {mod_file.name}: {e}")
+            return {}
+
+    @staticmethod
+    def _expand_rules(rule_type: str, raw_rules: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Expand each rule expression into cacheable rules."""
         expanded_rules = []
         for rule in raw_rules:
             try:
@@ -447,12 +491,17 @@ class RuleManager(LocalizedCacheManager):
     cache_label = "rule cache"
 
     def __init__(
-        self, mod_manager: ModManager, rules_dir: Path = RULES_DIR, cache_dir: Path = CACHE_DIR
+        self,
+        mod_manager: ModManager,
+        rules_dir: Path = RULES_DIR,
+        cache_dir: Path = CACHE_DIR,
+        mods_dir: Path = MODS_DIR,
+        custom_mods_dir: Path = CUSTOM_MODS_DIR,
     ) -> None:
         """Initialize rule manager."""
         super().__init__(cache_dir)
 
-        self.rules_dir = rules_dir
+        self.sources = RuleSources(rules_dir, mods_dir, custom_mods_dir)
 
         self._mod_manager = mod_manager
         self._current_game_id: str | None = None
@@ -483,23 +532,22 @@ class RuleManager(LocalizedCacheManager):
     # ========================================
 
     def needs_cache_rebuild(self) -> bool:
-        """Check if cache needs to be rebuilt; without any rule file the cache is kept."""
-        existing_sources = [
-            source_file
-            for rule_type in RULE_TYPES
-            if (source_file := rule_source_file(self.rules_dir, rule_type)).exists()
-        ]
+        """Check if cache needs to be rebuilt; without any source file the cache is kept.
 
-        if is_cache_stale(self._cache_files(), existing_sources):
+        Mod definitions are sources too: their "rules" section feeds the cache.
+        """
+        rule_files = self.sources.rule_files()
+
+        if is_cache_stale(self._cache_files(), rule_files + self.sources.mod_files()):
             return True
 
-        if not existing_sources:
+        if not rule_files:
             logger.warning("No source rule files found")
 
         return False
 
     def _create_cache_builder(self, languages: list[str]) -> RuleCacheBuilderThread:
-        return RuleCacheBuilderThread(self.rules_dir, self.cache_dir, languages)
+        return RuleCacheBuilderThread(self.sources, self.cache_dir, languages)
 
     def load_cache(self) -> bool:
         """Load cached rules for current language."""

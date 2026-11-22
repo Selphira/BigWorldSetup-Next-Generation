@@ -3,5 +3,8 @@
     "name": "Русский",
     "flag": "🇷🇺",
     "contributors": []
+  },
+  "rule": {
+    "ini_order_description": "Правило, заданное в ini-файле {mod}"
   }
 }

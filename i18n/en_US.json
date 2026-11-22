@@ -692,7 +692,8 @@
     "message_dependency_missing": "Requires: {missing}",
     "message_dependency_required_by": "Required by: {sources}",
     "message_order_before": "Must be installed before: {components}",
-    "message_order_after": "Must be installed after: {components}"
+    "message_order_after": "Must be installed after: {components}",
+    "ini_order_description": "Rule defined in the {mod}'s ini file"
   },
   "error": {
     "state_save_failed": "Unable to save progress. Check available disk space and write permissions. Progress since the last successful save may be lost.",

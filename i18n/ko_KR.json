@@ -3,5 +3,8 @@
     "name": "한국어",
     "flag": "🇰🇷",
     "contributors": []
+  },
+  "rule": {
+    "ini_order_description": "{mod}의 ini 파일에 정의된 규칙"
   }
 }

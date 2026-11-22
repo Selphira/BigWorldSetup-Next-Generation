@@ -13,6 +13,9 @@ Files come from the archive source, which lists every entry, or else from the
 pinned GitHub commit or the GitHub release. Their hashes are trusted: the archive source hashes what is
 served at the current link, and the release keeps a stored hash only for the
 very same asset.
+
+Order rules marked with the INI origin are replaced by those the parsed INI
+file declares; the other rules of the definition are manual and kept.
 """
 
 from __future__ import annotations
@@ -22,6 +25,7 @@ import logging
 from typing import Any
 
 from util.mod_sync.models.sync_result import ComponentChanges
+from util.mod_sync.sources.ini_source import INI_RULE_ORIGIN
 
 logger = logging.getLogger(__name__)
 
@@ -98,6 +102,7 @@ class DefinitionMerger:
         self._merge_translations(result)
         self._merge_links(result)
         self._merge_files(result)
+        self._merge_rules(result)
 
         return result
 
@@ -439,6 +444,35 @@ class DefinitionMerger:
             return
 
         result["files"] = copy.deepcopy(source_files)
+
+    def _merge_rules(self, result: dict) -> None:
+        """Replace the order rules generated from the INI file by those it declares now.
+
+        Manual rules are kept in place. Without a parsed INI file, the stored
+        INI rules are kept; an empty section is not written.
+        """
+        ini_rules = (self.sources.get("ini") or {}).get("order_rules")
+        if ini_rules is None:
+            return
+
+        rules = result.get("rules") if isinstance(result.get("rules"), dict) else {}
+        stored_order = rules.get("order") if isinstance(rules.get("order"), list) else []
+        order = [
+            rule
+            for rule in stored_order
+            if not (isinstance(rule, dict) and rule.get("origin") == INI_RULE_ORIGIN)
+        ]
+        order.extend(copy.deepcopy(ini_rules))
+
+        if order:
+            rules["order"] = order
+        else:
+            rules.pop("order", None)
+
+        if rules:
+            result["rules"] = rules
+        else:
+            result.pop("rules", None)
 
     def has_changes(self, existing: dict, merged: dict) -> bool:
         """Check if merged data differs from existing.

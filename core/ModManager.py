@@ -40,6 +40,43 @@ def list_json_files(directory: Path) -> list[Path]:
     return list(directory.glob("*.json")) if directory.exists() else []
 
 
+def select_mod_files(mods_dir: Path, custom_mods_dir: Path) -> list[tuple[Path, bool]]:
+    """Return the file of each mod and whether it is custom.
+
+    A mod defined in both directories is read from its most recently modified file.
+    """
+    official_files = {path.stem: path for path in list_json_files(mods_dir)}
+    custom_files = {path.stem: path for path in list_json_files(custom_mods_dir)}
+    conflicting_ids = official_files.keys() & custom_files.keys()
+
+    if conflicting_ids:
+        logger.info(f"Found {len(conflicting_ids)} mod conflicts, resolving by modification time")
+
+    result = []
+    for mod_id, custom_path in custom_files.items():
+        if mod_id in conflicting_ids:
+            official_path = official_files[mod_id]
+            if custom_path.stat().st_mtime >= official_path.stat().st_mtime:
+                result.append((custom_path, True))
+                logger.info(f"Conflict resolved: using custom version of '{mod_id}' (newer)")
+            else:
+                result.append((official_path, False))
+                logger.info(f"Conflict resolved: using official version of '{mod_id}' (newer)")
+        else:
+            result.append((custom_path, True))
+
+    for mod_id, official_path in official_files.items():
+        if mod_id not in conflicting_ids:
+            result.append((official_path, False))
+
+    logger.info(
+        f"Merged {len(result)} mods ({len(custom_files)} custom, {len(official_files)} official, "
+        f"{len(conflicting_ids)} conflicts)"
+    )
+
+    return result
+
+
 class CacheBuilderThread(LocalizedCacheBuilder):
     """Thread building the mod cache without blocking UI."""
 
@@ -67,9 +104,7 @@ class CacheBuilderThread(LocalizedCacheBuilder):
         """Load official and custom mods, reporting loading progress."""
         self.status_changed.emit(tr("app.searching_mod_files"))
 
-        source_files = self._merge_mod_files(
-            list_json_files(self.mods_dir), list_json_files(self.custom_mods_dir)
-        )
+        source_files = select_mod_files(self.mods_dir, self.custom_mods_dir)
 
         if not source_files:
             self.error.emit(f"No JSON files found in {self.mods_dir} or {self.custom_mods_dir}")
@@ -105,51 +140,6 @@ class CacheBuilderThread(LocalizedCacheBuilder):
 
     def _cache_content(self, localized_groups: CacheGroups) -> object:
         return localized_groups[MOD_CACHE_GROUP]
-
-    def _merge_mod_files(
-        self, official_files: list[Path], custom_files: list[Path]
-    ) -> list[tuple[Path, bool]]:
-        """Merge official and custom mod files, resolving conflicts by modification time."""
-
-        official_dict = {f.stem: f for f in official_files}
-        custom_dict = {f.stem: f for f in custom_files}
-        conflicting_ids = set(official_dict.keys()) & set(custom_dict.keys())
-
-        if conflicting_ids:
-            logger.info(
-                f"Found {len(conflicting_ids)} mod conflicts, resolving by modification time"
-            )
-
-        result = []
-
-        for mod_id, custom_path in custom_dict.items():
-            if mod_id in conflicting_ids:
-                official_path = official_dict[mod_id]
-                custom_mtime = custom_path.stat().st_mtime
-                official_mtime = official_path.stat().st_mtime
-
-                if custom_mtime >= official_mtime:
-                    result.append((custom_path, True))
-                    logger.info(
-                        f"Conflict resolved: using custom version of '{mod_id}' (newer)"
-                    )
-                else:
-                    result.append((official_path, False))
-                    logger.info(
-                        f"Conflict resolved: using official version of '{mod_id}' (newer)"
-                    )
-            else:
-                result.append((custom_path, True))
-
-        for mod_id, official_path in official_dict.items():
-            if mod_id not in conflicting_ids:
-                result.append((official_path, False))
-
-        logger.info(
-            f"Merged {len(result)} mods ({len(custom_dict)} custom, {len(official_dict)} official, {len(conflicting_ids)} conflicts)"
-        )
-
-        return result
 
     @staticmethod
     def _localize_mod(mod: dict[str, Any], target_lang: str) -> dict[str, Any]:

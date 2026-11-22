@@ -190,9 +190,93 @@
         }
       },
       "additionalProperties": false
+    },
+    "rules": {
+      "type": "object",
+      "description": "Rules declared by the mod, read alongside the catalogue rule files of the same type",
+      "additionalProperties": false,
+      "properties": {
+        "dependencies": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/modDependencyRule"}
+        },
+        "incompatibilities": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/modIncompatibilityRule"}
+        },
+        "order": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/modOrderRule"}
+        }
+      }
     }
   },
   "definitions": {
+    "ruleSeverity": {"type": "string", "enum": ["error", "warning", "info"]},
+    "ruleTranslations": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z]{2}_[A-Z]{2}$": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "sourceTargetRule": {
+      "type": "string",
+      "description": "Rule notation with a source side and a target side",
+      "pattern": "^[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\)(?:\\s*[&|]\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\))*\\s*:\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\)(?:\\s*[&|]\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\))*$"
+    },
+    "modDependencyRule": {
+      "type": "object",
+      "description": "Dependency rule; same format as data/rules/dependencies.json",
+      "required": ["rule"],
+      "additionalProperties": false,
+      "properties": {
+        "rule": {"$ref": "#/definitions/sourceTargetRule"},
+        "mode": {"type": "string", "enum": ["any", "all"]},
+        "severity": {"$ref": "#/definitions/ruleSeverity"},
+        "description": {"type": "string"},
+        "translations": {"$ref": "#/definitions/ruleTranslations"},
+        "source_url": {"type": "string", "format": "uri"},
+        "implicit_order": {"type": "boolean"}
+      }
+    },
+    "modIncompatibilityRule": {
+      "type": "object",
+      "description": "Incompatibility rule; same format as data/rules/incompatibilities.json",
+      "required": ["rule"],
+      "additionalProperties": false,
+      "properties": {
+        "rule": {
+          "type": "string",
+          "description": "Rule notation with two sides or more, all mutually incompatible",
+          "pattern": "^[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\)(?:\\s*[&|]\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\))*(?:\\s*:\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\)(?:\\s*[&|]\\s*[a-zA-Z0-9_#'+-]+\\((?:-|\\d+(?:\\.\\d+)*(?:,\\d+(?:\\.\\d+)*)*)\\))*)+$"
+        },
+        "severity": {"$ref": "#/definitions/ruleSeverity"},
+        "description": {"type": "string"},
+        "translations": {"$ref": "#/definitions/ruleTranslations"},
+        "source_url": {"type": "string", "format": "uri"}
+      }
+    },
+    "modOrderRule": {
+      "type": "object",
+      "description": "Order rule; same format as data/rules/order.json",
+      "required": ["rule"],
+      "additionalProperties": false,
+      "properties": {
+        "rule": {"$ref": "#/definitions/sourceTargetRule"},
+        "severity": {"$ref": "#/definitions/ruleSeverity"},
+        "direction": {"type": "string", "enum": ["before", "after"]},
+        "description": {"type": "string"},
+        "translations": {"$ref": "#/definitions/ruleTranslations"},
+        "source_url": {"type": "string", "format": "uri"},
+        "origin": {
+          "type": "string",
+          "enum": ["ini"],
+          "description": "Generator of the rule, whose rules mod_sync replaces; absent for a manual rule"
+        }
+      }
+    },
     "categoryEnum": {
       "type": "string",
       "enum": [

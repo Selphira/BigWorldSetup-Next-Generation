@@ -182,6 +182,30 @@ class TranslationManager(QObject):
 
         return self._format_translation(text, key, kwargs)
 
+    def get_all_languages(self, key: str, **kwargs) -> dict[str, str]:
+        """
+        Get the formatted text of a key in each supported language translating it.
+
+        Used for data storing its own translations: a language without the key
+        is left out rather than filled with a fallback text.
+
+        Args:
+            key: Translation key (supports dot notation for nested keys)
+            **kwargs: Variables for string formatting
+
+        Returns:
+            Texts indexed by language code, in supported language order
+        """
+        texts = {}
+        for code, _ in SUPPORTED_LANGUAGES:
+            text = self._get_from_language(code, key)
+            if text is not None:
+                texts[code] = self._format_translation(text, key, kwargs)
+
+        if not texts:
+            logger.warning(f"Missing translation: {key}")
+        return texts
+
     @lru_cache(maxsize=CACHE_SIZE)
     def _get_cached_translation(self, language: str, key: str) -> str | None:
         """

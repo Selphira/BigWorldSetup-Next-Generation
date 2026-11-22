@@ -577,7 +577,8 @@
     "message_dependency_missing": "需要：{missing}",
     "message_dependency_required_by": "被以下要求：{sources}",
     "message_order_before": "必须在以下之前安装：{components}",
-    "message_order_after": "必须在以下之后安装：{components}"
+    "message_order_after": "必须在以下之后安装：{components}",
+    "ini_order_description": "{mod} 的 ini 文件中定义的规则"
   },
   "error": {
     "state_save_failed": "无法保存进度。请检查磁盘空间和写入权限。自上次成功保存以来的进度可能丢失。",

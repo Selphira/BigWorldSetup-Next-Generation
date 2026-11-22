@@ -16,7 +16,15 @@ import json
 import logging
 from pathlib import Path
 
+from core.TranslationManager import get_translator
+
 logger = logging.getLogger(__name__)
+
+# Origin marker of the rules generated from the INI file: mod_sync replaces
+# these rules only, the other rules of a definition are manual.
+INI_RULE_ORIGIN = "ini"
+# Translation key of the description of these rules, stored in every language
+INI_RULE_DESCRIPTION_KEY = "rule.ini_order_description"
 
 
 @dataclass
@@ -78,6 +86,34 @@ class IniData:
             result["ini_description"] = self.description
 
         return result
+
+    def order_rules(self, tp2_name: str) -> list[dict]:
+        """Return the order rules declared by the Before and After fields.
+
+        Args:
+            tp2_name: Mod the rules apply to
+
+        Returns:
+            Rules in the format of the "order" list of a definition's "rules" section
+        """
+        rules = []
+        for direction, mods in (("before", self.before), ("after", self.after)):
+            if not mods:
+                continue
+
+            targets = "|".join(f"{mod}(-)" for mod in mods)
+            rules.append(
+                {
+                    "rule": f"{tp2_name}(-):{targets}",
+                    "direction": direction,
+                    "severity": "warning",
+                    "translations": get_translator().get_all_languages(
+                        INI_RULE_DESCRIPTION_KEY, mod=tp2_name
+                    ),
+                    "origin": INI_RULE_ORIGIN,
+                }
+            )
+        return rules
 
 
 class IniParser:
@@ -304,56 +340,52 @@ class IniParser:
 
         Returns:
             Extracted IniData
+
+        Raises:
+            Exception: If the file cannot be read or decoded; an unreadable
+                file must not pass for one declaring nothing
         """
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                content = f.read()
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
 
-            # Simple comment stripping for JSONC/JSON5
-            # This is basic - a full JSON5 parser would be better
-            lines = []
-            for line in content.split("\n"):
-                # Remove // comments (simple version)
-                if "//" in line:
-                    # Don't strip // inside strings (basic check)
-                    if line.count('"') % 2 == 0:
-                        line = line[: line.index("//")]
-                lines.append(line)
-            clean_content = "\n".join(lines)
+        # Simple comment stripping for JSONC/JSON5
+        # This is basic - a full JSON5 parser would be better
+        lines = []
+        for line in content.split("\n"):
+            # Remove // comments (simple version)
+            if "//" in line:
+                # Don't strip // inside strings (basic check)
+                if line.count('"') % 2 == 0:
+                    line = line[: line.index("//")]
+            lines.append(line)
+        clean_content = "\n".join(lines)
 
-            # Try to parse as JSON
-            data = json.loads(clean_content)
+        # Try to parse as JSON
+        data = json.loads(clean_content)
 
-            # Extract metadata section
-            meta = data.get("Metadata", data)
+        # Extract metadata section
+        meta = data.get("Metadata", data)
 
-            # Parse authors
-            authors = []
-            if author := meta.get("Author"):
-                if isinstance(author, list):
-                    authors = author
-                else:
-                    authors = [a.strip() for a in str(author).split(",") if a.strip()]
+        # Parse authors
+        authors = []
+        if author := meta.get("Author"):
+            if isinstance(author, list):
+                authors = author
+            else:
+                authors = [a.strip() for a in str(author).split(",") if a.strip()]
 
-            return IniData(
-                name=meta.get("Name"),
-                authors=authors,
-                description=meta.get("Description"),
-                homepage=meta.get("Homepage"),
-                forum=meta.get("Forum"),
-                download=meta.get("Download"),
-                label_type=meta.get("LabelType"),
-                mod_type=meta.get("Type"),
-                before=self._parse_list(meta.get("Before", "")),
-                after=self._parse_list(meta.get("After", "")),
-            )
-
-        except json.JSONDecodeError as e:
-            logger.error(f"JSON decode error in {path}: {e}")
-            return IniData()
-        except Exception as e:
-            logger.error(f"Error parsing JSON-like file {path}: {e}")
-            return IniData()
+        return IniData(
+            name=meta.get("Name"),
+            authors=authors,
+            description=meta.get("Description"),
+            homepage=meta.get("Homepage"),
+            forum=meta.get("Forum"),
+            download=meta.get("Download"),
+            label_type=meta.get("LabelType"),
+            mod_type=meta.get("Type"),
+            before=self._parse_list(meta.get("Before", "")),
+            after=self._parse_list(meta.get("After", "")),
+        )
 
     def _parse_list(self, value: str | list) -> list[str]:
         """Parse comma-separated list or list object.
@@ -391,13 +423,15 @@ class IniSource:
             tp2_name: Name of the tp2 file
 
         Returns:
-            Dictionary with extracted data or None if not found
+            Dictionary with extracted data or None if not found; a parsed file
+            always provides its order rules, possibly none
         """
         ini_data = self.parser.extract(tp2_name)
         if not ini_data:
             return None
 
         result = ini_data.to_dict()
+        result["order_rules"] = ini_data.order_rules(tp2_name)
         logger.info(f"Extracted INI data for {tp2_name}")
 
         return result

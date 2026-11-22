@@ -1,8 +1,10 @@
 """Isolated, offline fixtures for the L0 regression suite."""
 
 from collections.abc import Iterator
+import json
 import os
 from pathlib import Path
+import shutil
 import socket
 import subprocess
 
@@ -16,6 +18,7 @@ from core.RuleManager import RuleManager
 
 # Match application import order until the parser/engine cycle is removed.
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine  # noqa: F401
+from validation.catalogue import ROOT
 
 
 class ModCatalogue:
@@ -89,4 +92,49 @@ def catalogue() -> ModCatalogue:
 
 @pytest.fixture
 def rules(catalogue: ModCatalogue, tmp_path: Path) -> RuleManager:
-    return RuleManager(catalogue, rules_dir=tmp_path / "rules", cache_dir=tmp_path / "cache")
+    return RuleManager(
+        catalogue,
+        rules_dir=tmp_path / "rules",
+        cache_dir=tmp_path / "cache",
+        mods_dir=tmp_path / "mods",
+        custom_mods_dir=tmp_path / "custom",
+    )
+
+
+def write_json(path: Path, value: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value), encoding="utf-8")
+
+
+@pytest.fixture
+def small_catalogue(tmp_path: Path) -> tuple[Path, Path]:
+    data, schemas = tmp_path / "data", tmp_path / "schemas"
+    shutil.copytree(ROOT / "validation" / "schemas", schemas)
+    write_json(
+        data / "mods" / "demo.json",
+        {
+            "name": "Demo",
+            "version": "1",
+            "tp2": "demo",
+            "games": ["eet"],
+            "categories": ["npc"],
+            "components": {"0": {"type": "std"}},
+            "translations": {
+                "en_US": {"description": "Synthetic fixture", "components": {"0": "Demo"}}
+            },
+            "links": {},
+            "authors": ["Test"],
+            "safe": 2,
+        },
+    )
+    write_json(
+        data / "games" / "eet.json",
+        {
+            "id": "eet",
+            "name": "EET",
+            "sequences": [{"game": "bg2ee", "order": ["demo:0"]}],
+        },
+    )
+    for name in ("dependencies", "incompatibilities", "order"):
+        write_json(data / "rules" / f"{name}.json", {"rules": []})
+    return data, schemas

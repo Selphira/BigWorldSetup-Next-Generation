@@ -2,51 +2,12 @@
 
 import json
 from pathlib import Path
-import shutil
 import sys
 
 import pytest
 
+from tests.conftest import write_json
 from validation.catalogue import ROOT, main, validate_catalogue
-
-
-def write_json(path: Path, value: object) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value), encoding="utf-8")
-
-
-@pytest.fixture
-def small_catalogue(tmp_path: Path) -> tuple[Path, Path]:
-    data, schemas = tmp_path / "data", tmp_path / "schemas"
-    shutil.copytree(ROOT / "validation" / "schemas", schemas)
-    write_json(
-        data / "mods" / "demo.json",
-        {
-            "name": "Demo",
-            "version": "1",
-            "tp2": "demo",
-            "games": ["eet"],
-            "categories": ["npc"],
-            "components": {"0": {"type": "std"}},
-            "translations": {
-                "en_US": {"description": "Synthetic fixture", "components": {"0": "Demo"}}
-            },
-            "links": {},
-            "authors": ["Test"],
-            "safe": 2,
-        },
-    )
-    write_json(
-        data / "games" / "eet.json",
-        {
-            "id": "eet",
-            "name": "EET",
-            "sequences": [{"game": "bg2ee", "order": ["demo:0"]}],
-        },
-    )
-    for name in ("dependencies", "incompatibilities", "order"):
-        write_json(data / "rules" / f"{name}.json", {"rules": []})
-    return data, schemas
 
 
 def test_valid_catalogue(small_catalogue: tuple[Path, Path]) -> None:

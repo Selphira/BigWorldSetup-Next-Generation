@@ -3,5 +3,8 @@
     "name": "Español",
     "flag": "🇪🇸",
     "contributors": []
+  },
+  "rule": {
+    "ini_order_description": "Regla definida en el archivo ini de {mod}"
   }
 }
