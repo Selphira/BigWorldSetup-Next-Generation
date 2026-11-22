@@ -209,6 +209,17 @@ def test_ini_declarations_become_marked_order_rules(tmp_path: Path) -> None:
     ]
 
 
+def test_ini_file_in_windows_encoding_is_read(tmp_path: Path) -> None:
+    ini_file = tmp_path / "demo" / "demo.ini"
+    ini_file.parent.mkdir()
+    ini_file.write_text("[Metadata]\nName = Demo’s mod\nAfter = third\n", encoding="cp1252")
+
+    ini_data = IniSource(tmp_path).extract("demo")
+
+    assert ini_data is not None
+    assert [rule["rule"] for rule in ini_data["order_rules"]] == ["demo(-):third(-)"]
+
+
 def test_undecodable_ini_file_is_no_source(tmp_path: Path) -> None:
     ini_file = tmp_path / "demo" / "demo.json"
     ini_file.parent.mkdir()

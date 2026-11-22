@@ -16,6 +16,8 @@ import json
 import logging
 from pathlib import Path
 
+from core.File import safe_read
+
 logger = logging.getLogger(__name__)
 
 # Origin marker of the rules generated from the INI file: mod_sync replaces
@@ -210,8 +212,7 @@ class IniParser:
         )
 
         # Lire et prétraiter le contenu pour gérer les lignes multiples
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read()
+        content = safe_read(path)
 
         # Remplacer les retours à la ligne dans les valeurs par des espaces
         # On garde seulement les lignes qui commencent par un commentaire, une section ou une clé
@@ -336,8 +337,7 @@ class IniParser:
             Exception: If the file cannot be read or decoded; an unreadable
                 file must not pass for one declaring nothing
         """
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read()
+        content = safe_read(path)
 
         # Simple comment stripping for JSONC/JSON5
         # This is basic - a full JSON5 parser would be better
