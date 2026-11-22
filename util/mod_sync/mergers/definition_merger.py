@@ -346,7 +346,7 @@ class DefinitionMerger:
         merged_components = {}
 
         # Step 1: Process all TP2 components in order
-        for component_key in tp2_components.keys():
+        for component_key in tp2_components:
             if isinstance(existing_components.get(component_key), dict):
                 # Component exists: preserve it with all manual metadata
                 merged_component = existing_components[component_key].copy()
@@ -368,7 +368,7 @@ class DefinitionMerger:
                         tp2_components[component_key]["games"].append("sod")
 
                     merged_component["games"] = sorted(
-                        list(set(tp2_components[component_key]["games"]))
+                        set(tp2_components[component_key]["games"])
                     )
 
                 merged_components[component_key] = merged_component

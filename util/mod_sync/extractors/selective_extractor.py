@@ -150,10 +150,7 @@ class SelectiveExtractor:
         """
         ext = file_path.suffix.lower()
 
-        if ext in self.ALLOWED_EXTENSIONS:
-            return True
-
-        return False
+        return ext in self.ALLOWED_EXTENSIONS
 
     # ------------------------------------------------------------------
     # Previous extraction

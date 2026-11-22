@@ -231,7 +231,7 @@ class MultiSelectComboBox(QWidget):
         self._batch_update = False
 
         if self.count_selected_items() < self._min_selection_count:
-            for key, (_, cb) in self.checkboxes.items():
+            for _key, (_, cb) in self.checkboxes.items():
                 if cb.checkState() != Qt.CheckState.Checked:
                     cb.setCheckState(Qt.CheckState.Checked)
                     break

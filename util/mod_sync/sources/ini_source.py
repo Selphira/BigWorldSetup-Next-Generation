@@ -197,8 +197,8 @@ class IniParser:
         """
         if ini_path.suffix == ".ini":
             return self._parse_ini(ini_path)
-        else:
-            return self._parse_json_like(ini_path)
+
+        return self._parse_json_like(ini_path)
 
     def _parse_ini(self, path: Path) -> IniData:
         """Parse standard INI format.
@@ -237,11 +237,7 @@ class IniParser:
                 continue
 
             # Commentaire
-            if (
-                stripped.startswith("#")
-                or stripped.startswith(";")
-                or stripped.startswith("//")
-            ):
+            if stripped.startswith(("#", ";", "//")):
                 if current_line:
                     lines.append(current_line)
                     current_line = ""
@@ -352,11 +348,9 @@ class IniParser:
         # This is basic - a full JSON5 parser would be better
         lines = []
         for line in content.split("\n"):
-            # Remove // comments (simple version)
-            if "//" in line:
-                # Don't strip // inside strings (basic check)
-                if line.count('"') % 2 == 0:
-                    line = line[: line.index("//")]
+            # Remove // comments (simple version), but not inside strings (basic check)
+            if "//" in line and line.count('"') % 2 == 0:
+                line = line[: line.index("//")]
             lines.append(line)
         clean_content = "\n".join(lines)
 

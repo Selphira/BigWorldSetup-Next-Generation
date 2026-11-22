@@ -206,7 +206,9 @@ class TranslationManager(QObject):
             logger.warning(f"Missing translation: {key}")
         return texts
 
-    @lru_cache(maxsize=CACHE_SIZE)
+    # TranslationManager is an application-wide singleton, so caching on the
+    # method cannot retain short-lived instances.
+    @lru_cache(maxsize=CACHE_SIZE)  # noqa: B019
     def _get_cached_translation(self, language: str, key: str) -> str | None:
         """
         Internal cached translation resolver.

@@ -168,7 +168,7 @@ class LCCSource:
             Dictionary mapping tp2_name to compiled mod data
         """
         result = {}
-        for tp2_name in self.tp2_index.keys():
+        for tp2_name in self.tp2_index:
             mod_data = self.find_by_tp2(tp2_name)
             if mod_data:
                 result[tp2_name] = mod_data
@@ -302,8 +302,8 @@ class LCCSource:
             lang_mod = self._find_mod_by_id(mod_id, lang)
             if lang_mod and "name" in lang_mod:
                 return lang_mod["name"]
-            else:
-                return mod_data.get("name", f"Mod {mod_id}")
+
+            return mod_data.get("name", f"Mod {mod_id}")
 
         return re.sub(pattern, replace_reference, description)
 
