@@ -1,5 +1,5 @@
 {
-  "name": "Black Hearts",
+  "name": "Blackhearts",
   "version": "2.05",
   "links": {
     "homepage": "https://github.com/A-Wizard-Did-It/Black-Hearts",
@@ -37,7 +37,7 @@
   "languages": {
     "en_US": 0,
     "zh_CN": 1,
-    "portugues": 2,
+    "pt_PT": 2,
     "fr_FR": 3
   },
   "translations": {
@@ -62,7 +62,7 @@
         "20005": "只在BG2EE中安装黑心"
       }
     },
-    "portugues": {
+    "pt_PT": {
       "components": {
         "1": "Instalar Blackhearts para \"BGEE\" ou \"EET incluindo BGEE e BG2EE\"",
         "20005": "Instalar Blackhearts apenas para \"BG2EE\""
@@ -71,5 +71,21 @@
   },
   "tp2": "blackhearts",
   "safe": 2,
-  "authors": ["AWizardDidIt"]
+  "authors": ["AWizardDidIt"],
+  "rules": {
+    "order": [
+      {
+        "rule": "blackhearts(-):finchnpc(-)|c#brandock(-)|bp-bgt-worldmap(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "blackhearts(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }
