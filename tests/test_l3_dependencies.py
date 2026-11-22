@@ -180,6 +180,36 @@ def test_load_selection_without_catalogue_revision(
     report.assert_not_called()
 
 
+@pytest.mark.parametrize(
+    "saved_state",
+    [None, {"configuration": {"selected_components": {}}}],
+    ids=["first launch", "state saved before any selection by an earlier version"],
+)
+def test_selection_page_loads_without_any_saved_selection(
+    qtbot: QtBot,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    catalogue: ModCatalogue,
+    rules: RuleManager,
+    saved_state: dict | None,
+) -> None:
+    from ui.pages.ModSelection import ModSelectionPage
+
+    state_file = tmp_path / "state.json"
+    if saved_state is not None:
+        state_file.write_text(json.dumps(saved_state), encoding="utf-8")
+    monkeypatch.setattr(StateManager, "STATE_FILE", state_file)
+    state = StateManager()
+    monkeypatch.setattr(state, "get_mod_manager", lambda: catalogue)
+    monkeypatch.setattr(state, "get_rule_manager", lambda: rules)
+    page = ModSelectionPage(state)
+    qtbot.addWidget(page)
+
+    page.load_state()
+
+    assert page.export_selection() == []
+
+
 def test_b05_failure_propagates_only_until_an_available_alternative(rules: RuleManager) -> None:
     a, b, c, d = refs("a:0", "b:0", "demo:1", "demo:2")
     rules._all_rules = [

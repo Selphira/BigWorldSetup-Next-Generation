@@ -34,7 +34,7 @@ class InstallationState:
     configuration: dict[str, Any] = field(
         default_factory=lambda: {
             "selected_game": None,
-            "selected_components": {},
+            "selected_components": [],
             "game_folders": {},
             "download_folder": None,
             "backup_folder": None,
@@ -185,7 +185,7 @@ class StateManager:
         Set selected components.
 
         Args:
-            components: Dictionary of component lists
+            components: Selected component references
         """
         self.installation_state.configuration["selected_components"] = components
         logger.debug(f"Selected components: {components}")
@@ -195,9 +195,16 @@ class StateManager:
         Get selected components configuration.
 
         Returns:
-            Dictionary of component lists
+            Selected component references; states saved before any selection
+            by earlier versions hold an empty dictionary and select nothing
         """
-        return self.installation_state.configuration.get("selected_components", {}).copy()
+        selected = self.installation_state.configuration.get("selected_components")
+        if isinstance(selected, list):
+            return selected.copy()
+
+        if selected:
+            logger.warning(f"Selection in an unknown format ignored: {type(selected).__name__}")
+        return []
 
     def set_install_order(self, install_order: dict[int, list[str]]) -> None:
         """
