@@ -1,7 +1,7 @@
 {
   "rules": [
     {
-      "rule": "A7-ConvenientEENPCs(101,102,103,104,105,201,202,203,204):A7-ConvenientEENPCs(3)",
+      "rule": "A7-ConvenientEENPCs(101,102,103,104,105,201,203,204):A7-ConvenientEENPCs(3)",
       "severity": "error",
       "description": "Dépendance interne A7-ConvenientEENPCs 1"
     },
@@ -46,7 +46,7 @@
       "description": "Dépendance interne ajantisbg1"
     },
     {
-      "rule": "atweaks(154,156):atweaks(150,151,152)",
+      "rule": "atweaks(154,156):atweaks(150,152)",
       "severity": "error",
       "description": "Dépendance interne atweaks 1"
     },
@@ -247,11 +247,6 @@
       "description": "Dépendance interne Derats_Illo"
     },
     {
-      "rule": "Derats_Jazon(1):Derats_Jazon(0)",
-      "severity": "error",
-      "description": "Dépendance interne Derats_Jazon"
-    },
-    {
       "rule": "derats_magasin_2(38):derats_magasin_2(33)",
       "severity": "error",
       "description": "Dépendance interne derats_magasin_2"
@@ -282,7 +277,7 @@
       "description": "Dépendance interne DjinniCompanion"
     },
     {
-      "rule": "DjinniCompanion(1000,101,102,103,104,105,200):DjinniCompanion(0)",
+      "rule": "DjinniCompanion(101,102,103,104,105,200):DjinniCompanion(0)",
       "severity": "error",
       "description": "Dépendance interne DjinniCompanion"
     },
@@ -357,7 +352,7 @@
       "description": "Dépendance interne gavin"
     },
     {
-      "rule": "gavin(2,3):gavin(1,11,12,13,14)",
+      "rule": "gavin(2):gavin(1,11,12,13,14)",
       "severity": "error",
       "description": "Dépendance interne à la romance de gavin"
     },
@@ -887,11 +882,6 @@
       "description": "TDD version originale est nécessaire pour la version EE"
     },
     {
-      "rule": "TDDz(7):bggo(-)",
-      "severity": "error",
-      "description": "Composant de TDDz nécessite le mod BGGO"
-    },
-    {
       "rule": "npcflirt(1,11,13,15,3,5,7,9):solaufein(0)",
       "severity": "error",
       "description": "Composants de npcflirt nécessitent le mod solaufein"
@@ -937,7 +927,7 @@
       "description": "Composant de tnt nécessite certains mods de pnj"
     },
     {
-      "rule": "cdtweaks(260,2650,2660,2670,2680,2690,2691,2692,2693,2700,2710,3420,3430,3440,3450,3460,3470,3480,4200,6000,6010,6020,6030,6040,6050,6060,6070,6080,6090,6100,6110,6120,6130,6140,6150,6160,6170,6180,6190,6200,6210,6220,6230,6240,6250,6260,6270,6280,6290,6300,6310,6320,6330,6340,6350):EEex(0)",
+      "rule": "cdtweaks(260,2650,2660,2670,2680,2690,2691,2692,2693,2700,2710,3420,3430,3450,3460,3470,3480,4200,6000,6010,6020,6030,6040,6050,6060,6070,6080,6090,6100,6110,6120,6130,6140,6150,6160,6170,6180,6190,6200,6210,6220,6230,6240,6250,6260,6270,6280,6290,6300,6310,6320,6330,6340,6350):EEex(0)",
       "severity": "error",
       "description": "Composant de cdtweaks nécessite EEex"
     },
@@ -987,7 +977,7 @@
       "description": "Composant de Derats_Mods_Tweaker nécessite le mod Yikari"
     },
     {
-      "rule": "Derats_Mods_Tweaker(10,13):UoT(-)",
+      "rule": "Derats_Mods_Tweaker(13):UoT(-)",
       "severity": "error",
       "description": "Composant de Derats_Mods_Tweaker nécessite le mod UoT"
     },
@@ -1057,7 +1047,7 @@
       "description": "Recommandation de dépendance #6"
     },
     {
-      "rule": "UoT(0):Derats_Mods_Tweaker(10,13)",
+      "rule": "UoT(0):Derats_Mods_Tweaker(13)",
       "severity": "warning",
       "description": "Recommandation de dépendance #7"
     },

@@ -59,12 +59,7 @@
       "description": "Conflits internes de \"EEUITweaks\" 4"
     },
     {
-      "rule": "EEUITweaks(4000):EEUITweaks(4025)",
-      "severity": "error",
-      "description": "Conflits internes de \"EEUITweaks\" 5"
-    },
-    {
-      "rule": "EEUITweaks(4005,4006):EEUITweaks(3040,3041,3042,3043,3044,3045,4000,4010,4020,4025)",
+      "rule": "EEUITweaks(4005,4006):EEUITweaks(3040,3041,3042,3043,3044,3045,4010,4020,4025)",
       "severity": "error",
       "description": "Conflits internes de \"EEUITweaks\" 6"
     },
@@ -144,7 +139,7 @@
       "description": "Conflits entre le mod \"lefreut's enhanced UI (BG1EE skin)\" et des composants de \"EEUITweaks\""
     },
     {
-      "rule": "leui(0)|leui-bg1ee(0)|leui-sod(0):EEUITweaks(1080,1090,2020,2040,2042,2044,2060,2110,2900,3020,3023,3024,3028,3030,3040,3041,3042,3043,3044,3045,3050,3051,3070,4000,4005,4006,4010,4020,4025,4030,4040,5000,5030,5040,5041)",
+      "rule": "leui(0)|leui-bg1ee(0)|leui-sod(0):EEUITweaks(1080,1090,2020,2040,2042,2044,2060,2110,2900,3020,3023,3024,3028,3030,3040,3041,3042,3043,3044,3045,3050,3051,3070,4005,4006,4010,4020,4025,4030,4040,5000,5030,5040,5041)",
       "severity": "error",
       "description": "Conflits entre le mod \"lefreut's enhanced UI\" et des composants de \"EEUITweaks\""
     },
@@ -209,11 +204,6 @@
       "description": "Conflits entre le mod enhanced-powergaming-scripts et MESpells"
     },
     {
-      "rule": "gaEnemyRando(-):mih_eq(35)",
-      "severity": "error",
-      "description": "Conflits entre le mod gaEnemyRando et le composant \"Enhanced Battles Spellhold\" de mih_eq"
-    },
-    {
       "rule": "TomeAndBlood(40):5E_spellcasting(100)",
       "severity": "error",
       "description": "Conflits entre le mod TomeAndBlood et 5E_spellcasting"
@@ -249,7 +239,7 @@
       "description": "Conflits entre le mod dw_talents et cdtweaks #1"
     },
     {
-      "rule": "dw_talents(40000):cdtweaks(2350,2351,2352,2353,2357,2358,2360,2370,2371,2372,2380,2550,2551,2552)",
+      "rule": "dw_talents(40000):cdtweaks(2350,2351,2353,2357,2358,2360,2370,2371,2372,2380,2550,2551,2552)",
       "severity": "error",
       "description": "Conflits entre le mod dw_talents et cdtweaks #2"
     },
@@ -354,7 +344,7 @@
       "description": "Incompatibilité avec les modifications du donjon de Firkraag"
     },
     {
-      "rule": "stratagems(8060,8061):Hanna(1)",
+      "rule": "stratagems(8060):Hanna(1)",
       "severity": "error",
       "description": "Choisir un version du château de'Arnise amélioré"
     },
@@ -362,11 +352,6 @@
       "rule": "tactics-remix(10):Hanna(2):Kiara-Zaiya(7)",
       "severity": "error",
       "description": "Choisir une version d'Irenicus amélioré à Suldanessellar"
-    },
-    {
-      "rule": "mih_eq(36):Hanna(4)",
-      "severity": "error",
-      "description": "Choisir une version du dragon d'Irenicus amélioré"
     },
     {
       "rule": "Ascension(60,61):Severian(2)",
@@ -489,7 +474,7 @@
       "description": "Conflits entre le mod \"Spell Revisions\" et \"Divine Remix\""
     },
     {
-      "rule": "spell_rev(0):stratagems(2520,3550,4130,4240)",
+      "rule": "spell_rev(0):stratagems(2520,4130,4240)",
       "severity": "error",
       "description": "Conflits entre le mod \"Spell Revisions\" et \"Stratagems\""
     },
@@ -617,11 +602,6 @@
       "rule": "SubtleD_Stat_Overhauls(110):cdtweaks(2580)",
       "severity": "error",
       "description": "Choisir une modification du nombre de sorts bonus donnés par la sagesse"
-    },
-    {
-      "rule": "sodrtd(80):themed_tweaks(80)",
-      "severity": "error",
-      "description": "Contenu identique #63"
     },
     {
       "rule": "celestials(1):spell_rev(10)",
@@ -1005,7 +985,7 @@
       "description": "La pause automatique de \"HiddenGameplayOptions\" est désactivable"
     },
     {
-      "rule": "iepbanters(10,11,6,7,8,9):banterpack(1,3):bg1npc(100):kelsey(2):keto(3)",
+      "rule": "iepbanters(10,11,6,7,8,9):banterpack(1,3):bg1npc(100):kelsey(2)",
       "severity": "error",
       "description": "Choisir un accélérateur de dialogue"
     },
