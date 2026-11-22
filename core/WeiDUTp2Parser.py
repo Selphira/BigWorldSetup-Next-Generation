@@ -64,6 +64,7 @@ LANG_MAP: dict[str, str] = {
     "brazilian_portuguese": "pt_BR",
     "ptbr": "pt_BR",
     "portuguese": "pt_PT",
+    "bportuguese": "pt_PT",
     "faroese": "fo_FO",
     "latin": "la_LA",
     "swedish": "sv_SE",
