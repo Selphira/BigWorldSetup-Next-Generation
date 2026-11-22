@@ -66,5 +66,15 @@
   },
   "tp2": "rttitempack",
   "safe": 2,
-  "authors": ["al47"]
+  "authors": ["al47"],
+  "rules": {
+    "order": [
+      {
+        "rule": "rttitempack(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

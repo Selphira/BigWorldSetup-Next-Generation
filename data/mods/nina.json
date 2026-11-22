@@ -7,8 +7,8 @@
   "files": [
     {
       "filename": "1D_NPC_Ninafer-main.zip",
-      "size": 3298363,
-      "sha256": "930088af2b59e4afbd3e7c26c4052b5d7696c13e2e67b76e4d5f01bc121e3fad",
+      "size": 3309831,
+      "sha256": "8ca94aae83c5ce1db0a87c81a2aead2ea8572e39ecd075b67c89e6c17d7cd68b",
       "download": "https://github.com/Plutonium-X/1D_NPC_Ninafer/archive/refs/heads/main.zip"
     }
   ],
@@ -19,7 +19,8 @@
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "zh_CN": 2
   },
   "translations": {
     "fr_FR": {
@@ -35,7 +36,10 @@
       }
     },
     "zh_CN": {
-      "description": "尼娜菲尔是一名守序中立的双职业精灵战士/法师，可在铜冠旅店招募，并在chosenofmystra的锻造厂中创建。\n她拥有一枚非常强大且无法取下的魔法戒指以及一把性能卓越的剑。\n她几乎没有闲聊，并且拥有完整的英文语音。\n此模组还添加了两个商人，一个在神殿区，另一个在商贸集会。\n力量15，敏捷19，体质12，智力18，智慧9，魅力11。"
+      "description": "尼娜菲尔是一名守序中立的双职业精灵战士/法师，可在铜冠旅店招募，并在chosenofmystra的锻造厂中创建。\n她拥有一枚非常强大且无法取下的魔法戒指以及一把性能卓越的剑。\n她几乎没有闲聊，并且拥有完整的英文语音。\n此模组还添加了两个商人，一个在神殿区，另一个在商贸集会。\n力量15，敏捷19，体质12，智力18，智慧9，魅力11。",
+      "components": {
+        "0": "ÄÝÄÈ·Æ NPC Ä£×é£¨Ðè°²×°°Í¶ûÍõ×ù£©"
+      }
     }
   },
   "tp2": "nina",

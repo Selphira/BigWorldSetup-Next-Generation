@@ -16,7 +16,7 @@
   "categories": ["gameplay"],
   "components": {
     "choice_0": {"type": "muc", "components": ["0", "1"], "category": "smith", "default": "2", "games": ["bg2", "tutu", "bgt"]},
-    "choice_1": {"type": "muc", "components": ["2", "3"], "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "choice_1": {"type": "muc", "components": ["2", "3"], "games": ["bg2ee", "bgee", "sod"]},
     "choice_2": {"type": "muc", "components": ["4", "5"]}
   },
   "languages": {

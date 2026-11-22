@@ -44,5 +44,15 @@
   },
   "tp2": "zgmagic",
   "safe": 1,
-  "authors": ["Graion Dilach"]
+  "authors": ["Graion Dilach"],
+  "rules": {
+    "order": [
+      {
+        "rule": "zgmagic(-):EET(-)|spell_rev(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

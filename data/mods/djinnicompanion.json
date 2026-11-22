@@ -122,5 +122,21 @@
   },
   "tp2": "djinnicompanion",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "djinnicompanion(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "djinnicompanion(-):bg2fixpack(-)|EET(-)|ascension(-)|d0questpack(-)|infinityanimations(-)|ub(-)|wheels(-)|A7-GolemConstruction(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

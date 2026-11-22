@@ -53,5 +53,21 @@
   },
   "tp2": "a7-customkits",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-customkits(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "a7-customkits(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

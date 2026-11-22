@@ -61,5 +61,21 @@
   },
   "tp2": "eefixpack",
   "safe": 1,
-  "authors": ["CamDawg", "Luke", "Argent77", "DavidW"]
+  "authors": ["CamDawg", "Luke", "Argent77", "DavidW"],
+  "rules": {
+    "order": [
+      {
+        "rule": "eefixpack(-):1pp(-)|ab(-)|arestorationp(-)|bg1npc(-)|bg2fixpack(-)|cdtweaks(-)|item_rev(-)|itemupgrade(-)|iu_iwd(-)|iwdfixpack(-)|iwdification(-)|mts_crappackv2(-)|oversight(-)|thecalling(-)|tobex(-)|tomeandblood(-)|ub_iwd(-)|underrep(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "eefixpack(-):dlcmerger(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

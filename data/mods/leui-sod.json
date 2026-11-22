@@ -41,5 +41,15 @@
   },
   "tp2": "leui-sod",
   "safe": 2,
-  "authors": ["lefreut"]
+  "authors": ["lefreut"],
+  "rules": {
+    "order": [
+      {
+        "rule": "leui-sod(-):EEUITweaks(-)|TomeAndBlood(-)|DeitiesOfFaerun(-)|faiths_and_powers(-)|might_and_guile(-)|shadowadept(-)|stratagems(-)|dw_talents(-)|HiddenGameplayOptions(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

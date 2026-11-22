@@ -255,5 +255,21 @@
   },
   "tp2": "arestorationp",
   "safe": 2,
-  "authors": ["Almateria"]
+  "authors": ["Almateria"],
+  "rules": {
+    "order": [
+      {
+        "rule": "arestorationp(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "arestorationp(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

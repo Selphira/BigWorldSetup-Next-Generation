@@ -56,5 +56,15 @@
   },
   "tp2": "morituri",
   "safe": 2,
-  "authors": ["Aroc"]
+  "authors": ["Aroc"],
+  "rules": {
+    "order": [
+      {
+        "rule": "morituri(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

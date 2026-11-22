@@ -47,5 +47,21 @@
   },
   "tp2": "shurininja",
   "safe": 2,
-  "authors": ["Twinblades2"]
+  "authors": ["Twinblades2"],
+  "rules": {
+    "order": [
+      {
+        "rule": "shurininja(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "shurininja(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

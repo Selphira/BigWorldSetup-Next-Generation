@@ -65,5 +65,21 @@
   },
   "tp2": "gbthfkp",
   "safe": 2,
-  "authors": ["Gebhard Blucher"]
+  "authors": ["Gebhard Blucher"],
+  "rules": {
+    "order": [
+      {
+        "rule": "gbthfkp(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "gbthfkp(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

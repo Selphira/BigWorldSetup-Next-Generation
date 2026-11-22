@@ -99,5 +99,15 @@
   },
   "tp2": "ua",
   "safe": 2,
-  "authors": ["Gort", "Magus"]
+  "authors": ["Gort", "Magus"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ua(-):randomiser(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

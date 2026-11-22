@@ -56,5 +56,21 @@
   },
   "tp2": "will_to_power",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "will_to_power(-):faiths_and_powers(-)|scales_of_balance(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "will_to_power(-):tomeandblood(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

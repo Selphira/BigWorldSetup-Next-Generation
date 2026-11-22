@@ -249,5 +249,21 @@
   },
   "tp2": "c#endlessbg1",
   "safe": 2,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "c#endlessbg1(-):EET_End(-)|transitions(-)|JA#BGT_AdvPack(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "c#endlessbg1(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

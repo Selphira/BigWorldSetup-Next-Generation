@@ -149,5 +149,15 @@
   },
   "tp2": "subtled_stat_overhauls",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "subtled_stat_overhauls(-):rr(-)|cdtweaks(-)|stratagems(-)|atweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -57,5 +57,21 @@
   },
   "tp2": "roorenart_bg2",
   "safe": 2,
-  "authors": ["RoorenArt"]
+  "authors": ["RoorenArt"],
+  "rules": {
+    "order": [
+      {
+        "rule": "roorenart_bg2(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "roorenart_bg2(-):bg2fixpack(-)|kivan(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

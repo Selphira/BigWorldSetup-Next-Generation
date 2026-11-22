@@ -78,5 +78,15 @@
   },
   "tp2": "a7-leveluptweaks",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-leveluptweaks(-):HiddenGameplayOptions(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -83,5 +83,21 @@
   },
   "tp2": "d2-workshopkits",
   "safe": 2,
-  "authors": ["Dan_P"]
+  "authors": ["Dan_P"],
+  "rules": {
+    "order": [
+      {
+        "rule": "d2-workshopkits(-):d2-script(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "d2-workshopkits(-):EET(-)|DeitiesOfFaerun(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

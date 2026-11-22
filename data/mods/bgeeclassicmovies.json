@@ -93,5 +93,15 @@
   },
   "tp2": "bgeeclassicmovies",
   "safe": 2,
-  "authors": ["Sam"]
+  "authors": ["Sam"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bgeeclassicmovies(-):LeUI-BG1EE(-)|LeUI-SoD(-)|LeUI(-)|EET(-)|EET_gui(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

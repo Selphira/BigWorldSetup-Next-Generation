@@ -66,5 +66,21 @@
   },
   "tp2": "garrick-tt",
   "safe": 2,
-  "authors": ["mirandir", "Zyl", "Erg"]
+  "authors": ["mirandir", "Zyl", "Erg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "garrick-tt(-):BP-BGT-Worldmap(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "garrick-tt(-):EET(-)|bg1npc(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

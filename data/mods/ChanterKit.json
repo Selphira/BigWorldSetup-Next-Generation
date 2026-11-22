@@ -44,5 +44,15 @@
   },
   "tp2": "chanterkit",
   "safe": 2,
-  "authors": ["Adul"]
+  "authors": ["Adul"],
+  "rules": {
+    "order": [
+      {
+        "rule": "chanterkit(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -59,5 +59,21 @@
   },
   "tp2": "selphiratweaks",
   "safe": 2,
-  "authors": ["Selphira"]
+  "authors": ["Selphira"],
+  "rules": {
+    "order": [
+      {
+        "rule": "selphiratweaks(-):stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "selphiratweaks(-):bg2fixpack(-)|d0tweak(-)|cdtweaks(-)|xpmod(-)|bp-balancer(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

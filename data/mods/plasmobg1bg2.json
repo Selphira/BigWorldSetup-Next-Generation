@@ -111,5 +111,15 @@
   },
   "tp2": "plasmobg1bg2",
   "safe": 2,
-  "authors": ["Plasmocat", "cmorgan"]
+  "authors": ["Plasmocat", "cmorgan"],
+  "rules": {
+    "order": [
+      {
+        "rule": "plasmobg1bg2(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

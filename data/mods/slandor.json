@@ -71,5 +71,21 @@
   },
   "tp2": "slandor",
   "safe": 2,
-  "authors": ["Yovaneth"]
+  "authors": ["Yovaneth"],
+  "rules": {
+    "order": [
+      {
+        "rule": "slandor(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "slandor(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

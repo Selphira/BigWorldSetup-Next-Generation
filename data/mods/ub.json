@@ -7,8 +7,8 @@
   "files": [
     {
       "filename": "UnfinishedBusiness-master.zip",
-      "size": 5666386,
-      "sha256": "655ba2d76472ed070fac27e104d59633a6e0660747de00b73824aff84248eaa6",
+      "size": 5674091,
+      "sha256": "f9ca98518633c32e70d78ff842945e2605aec0ace0fdd0496050eda19a08e0bf",
       "download": "https://github.com/Pocket-Plane-Group/UnfinishedBusiness/archive/refs/heads/master.zip"
     }
   ],
@@ -53,7 +53,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "The purpose of this mod is to compensate for the absence of certain quests planned by Bioware but never carried out, such as the kidnapping of Bouh. It also adds two profiles (Justice and Blood) kits and a few portraits.",
+      "description": "The purpose of this mod is to compensate for the absence of certain quests planned by Bioware but never carried out, such as the kidnapping of Bouh. It also adds two kits (Justice and Blood) kits and a few portraits.",
       "components": {
         "0": "The Kidnapping of Boo by Cliffette",
         "1": "The Suna Seni/Valygar Relationship",
@@ -140,7 +140,7 @@
     },
     "it_IT": {
       "components": {
-        "0": "Il furto di Boo di Cliffette",
+        "0": "Il rapimento di Boo di Cliffette",
         "1": "La relazione tra Suna Seni/Valygar",
         "2": "Kalah e cio' che gli era stato promesso",
         "3": "\"Gatto e Topo\" (Bodhi ti da' la caccia a Spellhold) di Ghreyfain",
@@ -181,7 +181,7 @@
         "9": "修正“萨尔的造物”",
         "10": "恢复地狱中艾瑞尼卡斯之战的喽罗",
         "12": "物品恢复",
-        "13": "原始的攸旭摩头像",
+        "13": "原始的善最头像",
         "14": "原始的阿诺门头像",
         "15": "NPC头像恢复",
         "17": "正确的人物名称和特性",
@@ -197,30 +197,30 @@
     },
     "pl_PL": {
       "components": {
-        "0": "Porwanie Boo zrobione przez Cliffette",
+        "0": "Porwanie Boo, autorstwa Cliffette",
         "1": "Relacje Suna Seni i Valygara",
-        "2": "Kalah i To Co Bylo Mu Obiecane",
-        "3": "\"Kot i mysz\" (Bodhi poluje na ciebie w Czarowiezach) zrobione przez Ghreyfain",
-        "4": "Gorje Ciemne Wzgórze i rozszerzone poszukiwania Ilitu",
-        "5": "Pai'Na/Zbuga paj¹ka - rozszerzona przygoda",
+        "2": "Kalah i to, co bylo mu obiecane",
+        "3": "\"Kot i mysz\" (Bodhi poluje na ciebie w Czarowiezach), autorstwa Ghreyfain",
+        "4": "Gorje Ciemne Wzgorze i rozszerzone poszukiwania ilitu",
+        "5": "Pai'Na/Zguba paj¹ka - rozszerzona przygoda",
         "6": "Ulepszona tawerna Pod Krzywym Zurawiem",
-        "7": "Przywrócone losowe spotkania w mieœcie",
-        "8": "Artemis Entreri w Siedzibie Bodhi",
+        "7": "Przywrocone losowe spotkania w miescie",
+        "8": "Artemis Entreri w siedzibie Bodhi",
         "9": "Poprawione \"Stworzenia Xzara\"",
         "10": "Przywroceni Piekielni Sludzy, autorstwa SimDing0",
-        "12": "Przywrócone przedmioty",
+        "12": "Przywrocone przedmioty",
         "13": "Oryginalny portret Yoshimo",
         "14": "Oryginalny portret Anomena",
         "15": "Przywrocone portrety NPC",
         "17": "Poprawione imiona bohaterow",
         "18": "Przywrocone pomniejsze dialogi",
-        "19": "Przywrocone Moce Bhaala, autorstwa David Gaider",
+        "19": "Przywrocone moce Bhaala, autorstwa David Gaider",
         "20": "Rozszerzone opisy przedmiotow z ToB",
         "21": "Pomniejsze przywrocenia do Tronu Bhaala",
         "22": "Podklasa Smialka",
         "23": "Podklasa Dzikusa",
         "24": "Wyrzuty Sumienia Sarevoka",
-        "25": "The Murder of Acton Balthis, by Kulyok"
+        "25": "Morderstwo Actona Balthisa, autorstwa Kulyok"
       }
     },
     "de_DE": {
@@ -248,7 +248,7 @@
         "22": "Kit: Rechtfertiger",
         "23": "Kit: Wilder",
         "24": "Sarevoks Reue",
-        "25": "The Murder of Acton Balthis, by Kulyok"
+        "25": "Der Mörder von Acton Balthis, von Kulyok"
       }
     },
     "es_ES": {

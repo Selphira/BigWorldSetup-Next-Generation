@@ -81,5 +81,21 @@
   },
   "tp2": "yoshimosremorse",
   "safe": 2,
-  "authors": ["jmaeq", "Lava Del'Vortel"]
+  "authors": ["jmaeq", "Lava Del'Vortel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "yoshimosremorse(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "yoshimosremorse(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

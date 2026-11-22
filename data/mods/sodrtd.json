@@ -125,5 +125,21 @@
   },
   "tp2": "sodrtd",
   "safe": 2,
-  "authors": ["jastey", "Lauriel"]
+  "authors": ["jastey", "Lauriel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "sodrtd(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "sodrtd(-):ACBre(-)|ajantisbg1(-)|bg2fixpack(-)|biffsodtutorial(-)|c#anotherfinehell(-)|c#brage(-)|c#brandock(-)|c#husam(-)|c#sodboabri(-)|c#sodtweaks(-)|EET(-)|imoen_forever(-)|themed_tweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

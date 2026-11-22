@@ -25,8 +25,8 @@
     "fr_FR": {
       "description": "À l'instar des mods Gerri's NPC Portraits Pack et Ajantis BG1 Expansion Modification, ce mod donne un portrait à chaque NPC concerné par un dialogue dans BG:EE et SoD.",
       "components": {
-        "0": "Portraits de PNJ mineurs pour BGEE",
-        "100": "Les PNJ sans portrait reçoivent des portraits aléatoires"
+        "0": "Minor NPC Portraits for BGEE",
+        "100": "NPCs without Portraits Get Random Portraits"
       }
     },
     "en_US": {
@@ -37,6 +37,6 @@
     }
   },
   "tp2": "minornpcportraitsforbgee",
-  "safe": 2,
+  "safe": 0,
   "authors": ["Smeagolheart", "bob_veng"]
 }

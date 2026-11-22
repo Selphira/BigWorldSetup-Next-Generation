@@ -41,5 +41,15 @@
   },
   "tp2": "severian",
   "safe": 2,
-  "authors": ["Coyote"]
+  "authors": ["Coyote"],
+  "rules": {
+    "order": [
+      {
+        "rule": "severian(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -344,5 +344,21 @@
   },
   "tp2": "ascension",
   "safe": 2,
-  "authors": ["David Gaider", "Shawne", "JediMindTrix", "Turambar", "ALIENQuake", "DawidW", "Wes Weimer", "Cuv", "White Agnus", "Miloch", "agb1"]
+  "authors": ["David Gaider", "Shawne", "JediMindTrix", "Turambar", "ALIENQuake", "DawidW", "Wes Weimer", "Cuv", "White Agnus", "Miloch", "agb1"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ascension(-):EET_end(-)|spell_rev(-)|stratagems(-)|wheels(-)|iylos(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ascension(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

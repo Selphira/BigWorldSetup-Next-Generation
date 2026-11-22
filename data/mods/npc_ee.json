@@ -53,5 +53,21 @@
   },
   "tp2": "npc_ee",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "npc_ee(-):DUAL_TO_KIT(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "npc_ee(-):stratagems(-)|cdtweaks(-)|scales_of_balance(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

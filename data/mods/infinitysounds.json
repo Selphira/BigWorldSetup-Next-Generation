@@ -173,5 +173,21 @@
   },
   "tp2": "infinitysounds",
   "safe": 2,
-  "authors": ["skellytz", "Tash"]
+  "authors": ["skellytz", "Tash"],
+  "rules": {
+    "order": [
+      {
+        "rule": "infinitysounds(-):generalized_biffing(-)|eet_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "infinitysounds(-):tobex(-)|tobex_afterlife(-)|bg2fixpack(-)|bg2gtueestyle(-)|bgt(-)|eet(-)|lolfixer(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

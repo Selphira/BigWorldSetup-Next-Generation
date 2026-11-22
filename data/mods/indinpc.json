@@ -78,5 +78,21 @@
   },
   "tp2": "indinpc",
   "safe": 2,
-  "authors": ["Ghreyfain"]
+  "authors": ["Ghreyfain"],
+  "rules": {
+    "order": [
+      {
+        "rule": "indinpc(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "indinpc(-):bgqe(-)|c#brage(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -62,5 +62,15 @@
   },
   "tp2": "cluareas",
   "safe": 2,
-  "authors": ["JohnBob"]
+  "authors": ["JohnBob"],
+  "rules": {
+    "order": [
+      {
+        "rule": "cluareas(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

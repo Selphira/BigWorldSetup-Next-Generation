@@ -93,5 +93,15 @@
   },
   "tp2": "com_encounters",
   "safe": 2,
-  "authors": ["Magnus Thorenson", "CoM_Solaufein", "Dark Raven"]
+  "authors": ["Magnus Thorenson", "CoM_Solaufein", "Dark Raven"],
+  "rules": {
+    "order": [
+      {
+        "rule": "com_encounters(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

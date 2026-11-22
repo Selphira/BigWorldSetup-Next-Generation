@@ -34,7 +34,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod adds countless quests (24, some of them quite long) plus new class quests. New maps (15 + 160 modified), new items, new recipes for Cromwell, a new city to explore (Hlondeth), a new character to recruit (Rynn, human fighter).... In short, it's mouth-watering. Throne of Bhaal is required. The adventure begins in Candlekeep, and after a few chores, you'll become more powerful and continue the normal course of BG2, while having many quests and encounters to do.\nThe new version includes the add-on modules `Candlekeep Chores (tutorial)` and `Candlekeep Chores Fast Forward`.",
+      "description": "This mod adds countless quests (24, some of them quite long) plus new class quests. New maps (15 + 160 modified), new items, new recipes for Cromwell, a new city to explore (Hlondeth), a new character to recruit (Rynn, human fighter).... In short, it's mouth-watering. The adventure begins in Candlekeep, and after a few chores, you'll become more powerful and continue the normal course of BG2, while having many quests and encounters to do.\nThe new version includes the add-on modules `Candlekeep Chores (tutorial)` and `Candlekeep Chores Fast Forward`.",
       "components": {
         "0": "Check The Bodies",
         "1": "Candlekeep Chores",
@@ -55,7 +55,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod ajoute un nombre incalculable de quêtes (24 dont certaines assez longues) plus des quêtes de classe inédites. De nouvelles maps (15 + 160 modifiées), de nouveaux objets, de nouvelles recettes pour Cromwell, une nouvelle ville à explorer (Hlondeth), un nouveau personnage à recruter (Rynn, guerrière humaine).... Bref, c'est alléchant. Throne of Bhaal est requis. L'aventure débute à Château-Suif, et après quelques corvées, vous deviendrez plus puissant et poursuivrez le cours normal de BG2 tout en ayant de nombreuses quêtes et nombreuses rencontres à faire.\nLa nouvelle version englobe les modules complémentaires `Candlekeep Chores (tutoriel)` et `Candlekeep Chores Fast Forward`.",
+      "description": "Ce mod ajoute un nombre incalculable de quêtes (24 dont certaines assez longues) plus des quêtes de classe inédites. De nouvelles maps (15 + 160 modifiées), de nouveaux objets, de nouvelles recettes pour Cromwell, une nouvelle ville à explorer (Hlondeth), un nouveau personnage à recruter (Rynn, guerrière humaine).... Bref, c'est alléchant. L'aventure débute à Château-Suif, et après quelques corvées, vous deviendrez plus puissant et poursuivrez le cours normal de BG2 tout en ayant de nombreuses quêtes et nombreuses rencontres à faire.\nLa nouvelle version englobe les modules complémentaires `Candlekeep Chores (tutoriel)` et `Candlekeep Chores Fast Forward`.",
       "components": {
         "0": "Check The Bodies",
         "1": "Candlekeep Chores",
@@ -76,7 +76,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组增加了无数的任务（其中一些相当长）以及全新的职业任务。新的地图（15张 + 160张被修改的）、新物品、为克伦威尔提供的新配方、一个可以探索的新城市（赫隆德）、一个可以招募的新角色（瑞恩，人类女战士）……总之，很吸引人。需要巴尔王座。冒险始于烛堡，在完成一些杂务后，你会变得更强大，并继续正常的博德之门2进程，同时还要完成许多任务和遭遇。\n新版本包含了补充模块《烛堡杂务（教程）》和《烛堡杂务快进》。",
+      "description": "此模组添加了海量任务（24个，其中一些流程颇长）以及前所未有的职业任务。新增地图（15张全新地图+160张修改地图）、新物品、给克伦威尔的锻造新配方、一座可供探索的新城镇（赫隆德斯）、一名可招募的新队友（莱恩，人类女战士）……总而言之，听起来很诱人。冒险始于烛堡，在完成一些杂务后，你会变得更强大，并继续《博德之门2》的主线进程，同时还能体验大量新增任务与遭遇。\n新版本已包含附属模块《烛堡杂务（教学关）》及其《快进模式》。",
       "components": {
         "0": "检查身体",
         "1": "烛堡琐事",
@@ -109,5 +109,21 @@
   },
   "tp2": "ctb",
   "safe": 2,
-  "authors": ["CBisson", "Hoppy", "Weigo", "King Diamond", "Ikki"]
+  "authors": ["CBisson", "Hoppy", "Weigo", "King Diamond", "Ikki"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ctb(-):EET_End(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ctb(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

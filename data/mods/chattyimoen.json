@@ -71,5 +71,21 @@
   },
   "tp2": "chattyimoen",
   "safe": 2,
-  "authors": ["AstroBryGuy"]
+  "authors": ["AstroBryGuy"],
+  "rules": {
+    "order": [
+      {
+        "rule": "chattyimoen(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "chattyimoen(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

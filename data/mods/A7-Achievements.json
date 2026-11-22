@@ -95,5 +95,15 @@
   },
   "tp2": "a7-achievements",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-achievements(-):EET(-)|JackOfAllPlanes(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

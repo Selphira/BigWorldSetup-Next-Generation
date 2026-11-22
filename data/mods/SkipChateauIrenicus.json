@@ -114,5 +114,21 @@
   },
   "tp2": "skipchateauirenicus",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "skipchateauirenicus(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "skipchateauirenicus(-):bg2fixpack(-)|cdtweaks(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

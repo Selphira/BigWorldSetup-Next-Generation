@@ -70,5 +70,21 @@
   },
   "tp2": "a7-protagonist-be-gone",
   "safe": 1,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-protagonist-be-gone(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "a7-protagonist-be-gone(-):EET(-)|cdtweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

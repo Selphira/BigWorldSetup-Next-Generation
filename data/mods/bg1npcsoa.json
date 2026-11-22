@@ -167,5 +167,21 @@
   },
   "tp2": "bg1npcsoa",
   "safe": 2,
-  "authors": ["Smiling Imp", "Arcanecoast Team"]
+  "authors": ["Smiling Imp", "Arcanecoast Team"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bg1npcsoa(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bg1npcsoa(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -40,5 +40,15 @@
   },
   "tp2": "volcanicarmoury",
   "safe": 2,
-  "authors": ["St.Aion"]
+  "authors": ["St.Aion"],
+  "rules": {
+    "order": [
+      {
+        "rule": "volcanicarmoury(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -154,5 +154,21 @@
   },
   "tp2": "a7-golemconstruction",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-golemconstruction(-):EET_end(-)|DjinniCompanion(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "a7-golemconstruction(-):EET(-)|arestorationp(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

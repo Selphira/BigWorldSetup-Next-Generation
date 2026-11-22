@@ -55,5 +55,21 @@
   },
   "tp2": "c#anotherfinehell",
   "safe": 1,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "c#anotherfinehell(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "c#anotherfinehell(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

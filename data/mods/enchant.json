@@ -30,10 +30,10 @@
       "description": "This mod uses the projectile caster's enchantment value, not the projectile's, to determine which type of target to hit, unless the projectile is more powerful than the caster. An optional component allows the use of arrow quivers, with limited capacity, which recharge after each rest.",
       "components": {
         "0": "Enchant the Missile Launchers",
-        "1": "Ammunition Recovery",
+        "1": " Ammunition Recovery",
         "2": "Custom Ammunition: Eldoth (BG:EE)",
         "3": "Custom Ammunition: Jan (BGII:EE)",
-        "5": "Fix Fuller's Quest Bolts (BG:EE)"
+        "4": "Fix Fuller's Quest Bolts (BG:EE)"
       }
     },
     "fr_FR": {

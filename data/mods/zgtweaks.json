@@ -262,5 +262,15 @@
   },
   "tp2": "zgtweaks",
   "safe": 2,
-  "authors": ["Graion Dilach"]
+  "authors": ["Graion Dilach"],
+  "rules": {
+    "order": [
+      {
+        "rule": "zgtweaks(-):EET(-)|abel_nonrandom_treasures(-)|stratagems(-)|BetterHOF(-)|HighPower(-)|celestials(-)|spell_rev(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

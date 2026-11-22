@@ -72,7 +72,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod permet de rendre un peu plus épicées les rencontres dans BG:EE et BG2:EE, et devrait être compatible avec BG2 original, BGT et EET. Il modifie diverses rencontres et quêtes, et en ajoute même de nouvelles, accorde de nouvelles capacités P&P à certains monstres (dragons, golems, liches, lycanthropes, vampires, morts-vivants incorporels...). Il en profite pour modifier certaines quêtes, voire les étendre. Il fait partie de la série \"Made in Heaven\" (avec les objets, les sorts et les tweaks).",
+      "description": "Ce mod permet de rendre les rencontres un peu plus épicées. Il modifie diverses rencontres et quêtes, et en ajoute même de nouvelles, accorde de nouvelles capacités P&P à certains monstres (dragons, golems, liches, lycanthropes, vampires, morts-vivants incorporels...). Il en profite pour modifier certaines quêtes, voire les étendre. Il fait partie de la série \"Made in Heaven\" (avec les objets, les sorts et les tweaks).",
       "components": {
         "105": "Mort-vivants corporises revises",
         "156": "Dragons revises",
@@ -125,7 +125,7 @@
       }
     },
     "en_US": {
-      "description": "This mod makes encounters in BG:EE and BG2:EE a little spicier, and should be compatible with the original BG2, BGT and EET. It modifies various encounters and quests, even adding new ones, and grants new P&P abilities to certain monsters (dragons, golems, liches, lycanthropes, vampires, incorporeal undead...). He also takes the opportunity to modify or extend certain quests. Part of the \"Made in Heaven\" series (with items, spells and tweaks).",
+      "description": "This mod adds a bit of spice to encounters. It modifies various encounters and quests, even adding new ones, and grants new P&P abilities to certain monsters (dragons, golems, liches, lycanthropes, vampires, incorporeal undead...). He also takes the opportunity to modify or extend certain quests. Part of the \"Made in Heaven\" series (with items, spells and tweaks).",
       "components": {
         "105": "Revised Corporal Undead",
         "156": "Revised Dragons",
@@ -178,7 +178,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组让博德之门：增强版和博德之门2：增强版中的战斗场面变得更加史诗，并且应该与原版博德之门2、博德之门三部曲和增强版三部曲兼容。它修改了各种遭遇战和任务，甚至增加了新的，还为某些怪物（龙、构装体、巫妖、狼人、吸血鬼、无实体不死生物等）提供了新的桌面角色扮演能力。它还借此机会修改了一些任务，甚至扩展了它们。它是“Made in Heaven”系列（包含物品、法术和调整）的一部分。"
+      "description": "这个模组旨在让随机遭遇变得更具挑战性。它修改了多种遭遇战和任务，甚至增添了一些新的遭遇战，为某些怪物（龙、魔像、巫妖、兽化人、吸血鬼、虚体亡灵……）赋予了新的《桌游规则》能力。它还借机修改甚至扩展了一些任务。该模组属于“天堂制造”系列（与物品、法术和调整模组并列）。"
     },
     "ru_RU": {
       "components": {

@@ -146,5 +146,21 @@
   },
   "tp2": "spstuff",
   "safe": 2,
-  "authors": ["CamDawg", "PolarBear", "Drizzt1180", "Creslyn"]
+  "authors": ["CamDawg", "PolarBear", "Drizzt1180", "Creslyn"],
+  "rules": {
+    "order": [
+      {
+        "rule": "spstuff(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "spstuff(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

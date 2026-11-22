@@ -47,5 +47,15 @@
   },
   "tp2": "kitmule",
   "safe": 2,
-  "authors": ["Dan_P"]
+  "authors": ["Dan_P"],
+  "rules": {
+    "order": [
+      {
+        "rule": "kitmule(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

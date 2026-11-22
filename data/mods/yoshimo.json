@@ -57,5 +57,21 @@
   },
   "tp2": "yoshimo",
   "safe": 2,
-  "authors": ["Shadowhawke", "Lava Del'Vortel"]
+  "authors": ["Shadowhawke", "Lava Del'Vortel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "yoshimo(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "yoshimo(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

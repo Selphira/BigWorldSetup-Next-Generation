@@ -57,5 +57,15 @@
   },
   "tp2": "bg1aerie",
   "safe": 2,
-  "authors": ["Insomniator"]
+  "authors": ["Insomniator"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bg1aerie(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

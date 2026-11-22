@@ -64,5 +64,15 @@
   },
   "tp2": "cd_icpp",
   "safe": 2,
-  "authors": ["CamDawg"]
+  "authors": ["CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "cd_icpp(-):bg2fixpack(-)|iwdfixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

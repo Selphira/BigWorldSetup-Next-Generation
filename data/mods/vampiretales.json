@@ -77,5 +77,15 @@
   },
   "tp2": "vampiretales",
   "safe": 2,
-  "authors": ["Dark Raven"]
+  "authors": ["Dark Raven"],
+  "rules": {
+    "order": [
+      {
+        "rule": "vampiretales(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

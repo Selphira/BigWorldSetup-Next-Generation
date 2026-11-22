@@ -67,5 +67,15 @@
   },
   "tp2": "themed_tweaks",
   "safe": 2,
-  "authors": ["Lauriel"]
+  "authors": ["Lauriel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "themed_tweaks(-):c#endlessbg1(-)|transitions(-)|bg1npc(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

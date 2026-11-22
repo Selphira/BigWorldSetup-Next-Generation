@@ -380,5 +380,15 @@
   },
   "tp2": "bg1ub",
   "safe": 2,
-  "authors": ["Icelus", "SimDing0", "Ascension64", "SixOfSpades", "devSin", "Idobek", "CamDawg", "Dudley"]
+  "authors": ["Icelus", "SimDing0", "Ascension64", "SixOfSpades", "devSin", "Idobek", "CamDawg", "Dudley"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bg1ub(-):BGT(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

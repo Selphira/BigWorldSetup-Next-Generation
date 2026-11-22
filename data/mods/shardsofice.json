@@ -90,5 +90,21 @@
   },
   "tp2": "shardsofice",
   "safe": 2,
-  "authors": ["Icelus", "CamDawg"]
+  "authors": ["Icelus", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "shardsofice(-):cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "shardsofice(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -74,5 +74,21 @@
   },
   "tp2": "alora",
   "safe": 2,
-  "authors": ["Dark Raven"]
+  "authors": ["Dark Raven"],
+  "rules": {
+    "order": [
+      {
+        "rule": "alora(-):iwd_eet-party-banter(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "alora(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -43,5 +43,15 @@
   },
   "tp2": "saradas_magic",
   "safe": 2,
-  "authors": ["Saradas"]
+  "authors": ["Saradas"],
+  "rules": {
+    "order": [
+      {
+        "rule": "saradas_magic(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

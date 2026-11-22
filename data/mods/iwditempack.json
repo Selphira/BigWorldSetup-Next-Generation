@@ -130,5 +130,15 @@
   },
   "tp2": "iwditempack",
   "safe": 2,
-  "authors": ["Malek Deneith"]
+  "authors": ["Malek Deneith"],
+  "rules": {
+    "order": [
+      {
+        "rule": "iwditempack(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -488,5 +488,21 @@
   },
   "tp2": "bg1npc",
   "safe": 2,
-  "authors": ["Blucher", "Andyr", "cmorgan", "Kish", "Domi", "AstroBryGuy"]
+  "authors": ["Blucher", "Andyr", "cmorgan", "Kish", "Domi", "AstroBryGuy"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bg1npc(-):atweaks(-)|cdtweaks(-)|c#brandock(-)|c#greythedog(-)|EET_end(-)|Framed(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bg1npc(-):bg2fixpack(-)|bgqe(-)|Tweak_early(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

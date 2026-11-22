@@ -65,5 +65,21 @@
   },
   "tp2": "longerroad",
   "safe": 2,
-  "authors": ["ladydorotea"]
+  "authors": ["ladydorotea"],
+  "rules": {
+    "order": [
+      {
+        "rule": "longerroad(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "longerroad(-):EET(-)|Ascension(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

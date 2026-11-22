@@ -139,5 +139,21 @@
   },
   "tp2": "itemupgrade",
   "safe": 2,
-  "authors": ["Wes Weimer", "Lollorian", "CamDawg"]
+  "authors": ["Wes Weimer", "Lollorian", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "itemupgrade(-):stratagems(-)|cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "itemupgrade(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

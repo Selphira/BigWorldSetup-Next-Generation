@@ -241,5 +241,21 @@
   },
   "tp2": "thecalling",
   "safe": 2,
-  "authors": ["CamDawg"]
+  "authors": ["CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "thecalling(-):cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "thecalling(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

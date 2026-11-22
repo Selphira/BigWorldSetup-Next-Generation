@@ -41,5 +41,15 @@
   },
   "tp2": "magic_battles_revised",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "magic_battles_revised(-):spell_rev(-)|IWDification(-)|stratagems(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

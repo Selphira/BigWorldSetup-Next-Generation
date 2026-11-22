@@ -101,5 +101,21 @@
   },
   "tp2": "edwinromance",
   "safe": 2,
-  "authors": ["K'aeloree", "jastey", "Laufey"]
+  "authors": ["K'aeloree", "jastey", "Laufey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "edwinromance(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "edwinromance(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

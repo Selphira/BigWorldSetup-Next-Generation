@@ -130,5 +130,21 @@
   },
   "tp2": "gavin",
   "safe": 2,
-  "authors": ["berelinde"]
+  "authors": ["berelinde"],
+  "rules": {
+    "order": [
+      {
+        "rule": "gavin(-):cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "gavin(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

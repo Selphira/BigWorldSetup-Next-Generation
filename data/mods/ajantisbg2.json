@@ -79,5 +79,21 @@
   },
   "tp2": "ajantisbg2",
   "safe": 2,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ajantisbg2(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ajantisbg2(-):transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

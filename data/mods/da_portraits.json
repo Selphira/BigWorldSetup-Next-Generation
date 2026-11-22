@@ -366,5 +366,15 @@
   },
   "tp2": "da_portraits",
   "safe": 2,
-  "authors": ["berelinde"]
+  "authors": ["berelinde"],
+  "rules": {
+    "order": [
+      {
+        "rule": "da_portraits(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

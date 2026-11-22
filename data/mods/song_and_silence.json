@@ -30,7 +30,7 @@
   "categories": ["kit"],
   "components": {
     "0": {"type": "std", "category": "spell"},
-    "1": {"type": "std", "category": "smith"},
+    "1": {"type": "std", "category": "smith", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "2": {"type": "std"},
     "3": {"type": "std"},
     "4": {"type": "std"},
@@ -39,7 +39,7 @@
     "7": {"type": "std"},
     "8": {"type": "std"},
     "9": {"type": "std"},
-    "10": {"type": "std", "games": ["bg2", "bgt"]}
+    "10": {"type": "std", "games": ["bg2", "bgt", "tutu"]}
   },
   "languages": {
     "en_US": 0,
@@ -162,5 +162,21 @@
   },
   "tp2": "song_and_silence",
   "safe": 2,
-  "authors": ["Andyr", "NiGHTMARE", "Grim Squeaker", "CamDawg", "Mike1072"]
+  "authors": ["Andyr", "NiGHTMARE", "Grim Squeaker", "CamDawg", "Mike1072"],
+  "rules": {
+    "order": [
+      {
+        "rule": "song_and_silence(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "song_and_silence(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

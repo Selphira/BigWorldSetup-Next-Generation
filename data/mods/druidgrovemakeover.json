@@ -25,7 +25,7 @@
     "en_US": {
       "description": "The aim of this mod is to improve the visual appeal of the area outside the Druids' Grove, making it more attractive and thematically appropriate.",
       "components": {
-        "0": "Main component"
+        "0": "Druid Grove Area Visual Makeover"
       }
     },
     "fr_FR": {

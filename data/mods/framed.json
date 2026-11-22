@@ -45,5 +45,21 @@
   },
   "tp2": "framed",
   "safe": 2,
-  "authors": ["Lauriel"]
+  "authors": ["Lauriel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "framed(-):c#brandock(-)|c#greythedog(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "framed(-):EET(-)|bg1re(-)|bg1npc(-)|bgqe(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

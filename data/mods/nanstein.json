@@ -57,5 +57,15 @@
   },
   "tp2": "nanstein",
   "safe": 2,
-  "authors": ["Mhoram"]
+  "authors": ["Mhoram"],
+  "rules": {
+    "order": [
+      {
+        "rule": "nanstein(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

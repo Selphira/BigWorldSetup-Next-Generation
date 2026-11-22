@@ -251,5 +251,21 @@
   },
   "tp2": "bgqe",
   "safe": 2,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bgqe(-):bg1npc(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bgqe(-):eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

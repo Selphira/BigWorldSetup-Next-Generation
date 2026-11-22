@@ -12,7 +12,7 @@
       "download": "https://github.com/Spellhold-Studios/DSotSC/archive/refs/heads/master.zip"
     }
   ],
-  "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
+  "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["quest"],
   "components": {
     "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"]}}, "games": ["bgt", "eet"]},
@@ -39,10 +39,10 @@
         "3": "More common encounters in vanilla areas",
         "4": "Distribute DSotSC items also in vanilla content"
       },
-      "description": "Dark Side of the Sword Coast is a mod for Baldur's Gate + Tales of the Sword Coast. It adds 5 quests (more or less important) featuring new areas, new monsters (undead in particular) and 9 new recruitable characters. It also adds new spells and items scattered throughout the game, either on existing opponents, on new characters, or in stores or locations.\nThe BG1 (v106) version is translated into French, the BG:EE (v102) version of Red Carnelian is not."
+      "description": "Dark Side of the Sword Coast adds 5 quests (more or less important) featuring new areas, new monsters (undead in particular) and 9 new recruitable characters. It also adds new spells and items scattered throughout the game, either on existing opponents, on new characters, or in stores or locations."
     },
     "fr_FR": {
-      "description": "Dark Side of the Sword Coast est un mod pour Baldur's Gate + Tales of the Sword Coast. Il ajoute 5 quêtes (plus ou moins importantes) comportant de nouvelles zones, de nouveaux monstres (des morts-vivants en particulier) et 9 nouveaux personnages recrutables. Il ajoute aussi de nouveaux sorts et objets répartis un peu partout dans le jeu, soit sur des adversaires existants, soit sur de nouveaux personnages, soit encore dans des magasins ou des lieux.\nLa version BG1 (v106) est traduite en français, la version BG:EE (v102) de Red Carnelian ne l'est pas.",
+      "description": "Dark Side of the Sword Coast est un mod qui ajoute 5 quêtes (plus ou moins importantes) comportant de nouvelles zones, de nouveaux monstres (des morts-vivants en particulier) et 9 nouveaux personnages recrutables. Il ajoute aussi de nouveaux sorts et objets répartis un peu partout dans le jeu, soit sur des adversaires existants, soit sur de nouveaux personnages, soit encore dans des magasins ou des lieux.",
       "components": {
         "0": "Dark Side of the Sword Coast (DSotSC)",
         "1": "DSotSC Wizard spells",
@@ -52,7 +52,7 @@
       }
     },
     "zh_CN": {
-      "description": "《黑暗剑湾》是《博德之门》+《剑湾传奇》的模组。它增加了5个（或多或少重要的）任务，包含新区域、新怪物（尤其是不死生物）和9个可招募的新角色。它还增加了新法术和物品，散布在游戏各处，要么在现有敌人身上，要么在新角色身上，要么在商店或地点中。\nBG1版本（v106）已翻译成法语，Red Carnelian的BG:EE版本（v102）未翻译。",
+      "description": "《黑暗剑湾》（Dark Side of the Sword Coast）模组，添加了5个（规模不等的）任务，包含新区域、新怪物（尤其是不死生物）以及9个新的可招募角色。它还在游戏各处——无论是现有敌人身上、新角色身上，还是商店或地点中——添加了新的法术和物品。",
       "components": {
         "0": "Dark Side of the Sword Coast (DSotSC)",
         "1": "DSotSC Wizard spells",

@@ -219,5 +219,21 @@
   },
   "tp2": "butchery",
   "safe": 2,
-  "authors": ["DrAzTiK"]
+  "authors": ["DrAzTiK"],
+  "rules": {
+    "order": [
+      {
+        "rule": "butchery(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "butchery(-):tobex(-)|bg2fixpack(-)|ascension(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

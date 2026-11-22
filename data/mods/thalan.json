@@ -52,7 +52,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组允许泰蓝提尔将博德之门1中的许多物品组合成其他更强大的物品，就像博德之门2中的克伦威尔一样。它还在商店中增加了博德之门2中的所有容器（这些容器不会安装在原始的博德之门1游戏中）。它需要剑湾传奇。",
+      "description": "此模组允许泰蓝提尔将博德之门Ⅰ中的许多物品组合成其他更强大的物品，就像博德之门Ⅱ中的克伦威尔一样。它还在商店中增加了博德之门Ⅱ中的所有容器（这些容器不会安装在原始的博德之门Ⅰ游戏中）。它需要剑湾传奇。",
       "components": {
         "0": "泰蓝提尔物品升级"
       }
@@ -75,5 +75,21 @@
   },
   "tp2": "thalan",
   "safe": 2,
-  "authors": ["Serdrick", "Crevs Daak"]
+  "authors": ["Serdrick", "Crevs Daak"],
+  "rules": {
+    "order": [
+      {
+        "rule": "thalan(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "thalan(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -94,5 +94,15 @@
   },
   "tp2": "plasmoportraits",
   "safe": 2,
-  "authors": ["Plasmocat", "Domi"]
+  "authors": ["Plasmocat", "Domi"],
+  "rules": {
+    "order": [
+      {
+        "rule": "plasmoportraits(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

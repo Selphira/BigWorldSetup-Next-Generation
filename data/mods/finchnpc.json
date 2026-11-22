@@ -58,5 +58,21 @@
   },
   "tp2": "finchnpc",
   "safe": 2,
-  "authors": ["Bons", "Erg"]
+  "authors": ["Bons", "Erg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "finchnpc(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "finchnpc(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

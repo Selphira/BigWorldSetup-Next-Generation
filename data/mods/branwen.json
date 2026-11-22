@@ -46,5 +46,21 @@
   },
   "tp2": "branwen",
   "safe": 2,
-  "authors": ["Kulyok", "jastey"]
+  "authors": ["Kulyok", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "branwen(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "branwen(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

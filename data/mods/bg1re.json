@@ -407,5 +407,21 @@
   },
   "tp2": "bg1re",
   "safe": 2,
-  "authors": ["jastey", "berelinde", "Kulyok", "Lava Del'Vortel", "Thimblerig", "Twani"]
+  "authors": ["jastey", "berelinde", "Kulyok", "Lava Del'Vortel", "Thimblerig", "Twani"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bg1re(-):cdtweaks(-)|EET_End(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bg1re(-):bg2fixpack(-)|c#endlessbg1(-)|EET(-)|JA#BGT_AdvPack(-)|transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

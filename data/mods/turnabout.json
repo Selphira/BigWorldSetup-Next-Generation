@@ -56,5 +56,21 @@
   },
   "tp2": "turnabout",
   "safe": 2,
-  "authors": ["Multiple"]
+  "authors": ["Multiple"],
+  "rules": {
+    "order": [
+      {
+        "rule": "turnabout(-):EET_End(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "turnabout(-):ascension(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -152,5 +152,15 @@
   },
   "tp2": "semi_multi_clerics",
   "safe": 2,
-  "authors": ["Bob Tokyo", "the bigg"]
+  "authors": ["Bob Tokyo", "the bigg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "semi_multi_clerics(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

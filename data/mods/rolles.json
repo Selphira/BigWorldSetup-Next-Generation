@@ -64,5 +64,21 @@
   },
   "tp2": "rolles",
   "safe": 2,
-  "authors": ["Serdrick"]
+  "authors": ["Serdrick"],
+  "rules": {
+    "order": [
+      {
+        "rule": "rolles(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "rolles(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

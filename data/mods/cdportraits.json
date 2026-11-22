@@ -99,5 +99,15 @@
   },
   "tp2": "cdportraits",
   "safe": 2,
-  "authors": ["CamDawg"]
+  "authors": ["CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "cdportraits(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

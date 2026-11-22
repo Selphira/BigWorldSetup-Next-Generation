@@ -220,5 +220,21 @@
   },
   "tp2": "refinements",
   "safe": 1,
-  "authors": ["T.G.Maestro", "Subtledoctor", "the bigg"]
+  "authors": ["T.G.Maestro", "Subtledoctor", "the bigg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "refinements(-):cdtweaks(-)|stratagems(-)|atweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "refinements(-):rr(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

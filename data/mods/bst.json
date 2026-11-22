@@ -68,5 +68,21 @@
   },
   "tp2": "bst",
   "safe": 1,
-  "authors": ["Multiple"]
+  "authors": ["Multiple"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bst(-):ACBre(-)|c#brage(-)|c#brandock(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bst(-):bg1re(-)|c#endlessbg1(-)|EET(-)|JA#BGT_AdvPack(-)|transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

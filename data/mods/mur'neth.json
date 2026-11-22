@@ -92,5 +92,21 @@
   },
   "tp2": "mur'neth",
   "safe": 2,
-  "authors": ["Andyr"]
+  "authors": ["Andyr"],
+  "rules": {
+    "order": [
+      {
+        "rule": "mur'neth(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "mur'neth(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

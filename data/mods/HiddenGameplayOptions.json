@@ -583,5 +583,15 @@
   },
   "tp2": "hiddengameplayoptions",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "hiddengameplayoptions(-):cdtweaks(-)|dragonspear_ui++(-)|infinity_ui(-)|leui(-)|leui-bg1ee(-)|leui-sod(-)|leui-iwdee(-)|tipun_gui(-)|iwdee-ui-bgee(-)|EET_gui(-)|A7-LevelUpTweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

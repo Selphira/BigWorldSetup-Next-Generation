@@ -81,5 +81,21 @@
   },
   "tp2": "c#sb_silber",
   "safe": 2,
-  "authors": ["Gandalf the white", "jastey"]
+  "authors": ["Gandalf the white", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "c#sb_silber(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "c#sb_silber(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -206,5 +206,15 @@
   },
   "tp2": "bgspawn",
   "safe": 2,
-  "authors": ["Melkor Morgoth75"]
+  "authors": ["Melkor Morgoth75"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bgspawn(-):BGT(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

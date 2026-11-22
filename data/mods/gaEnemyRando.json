@@ -95,5 +95,21 @@
   },
   "tp2": "gaenemyrando",
   "safe": 2,
-  "authors": ["GuardianAnubite"]
+  "authors": ["GuardianAnubite"],
+  "rules": {
+    "order": [
+      {
+        "rule": "gaenemyrando(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "gaenemyrando(-):bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

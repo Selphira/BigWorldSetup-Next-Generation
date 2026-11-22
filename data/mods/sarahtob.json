@@ -66,5 +66,21 @@
   },
   "tp2": "sarahtob",
   "safe": 2,
-  "authors": ["theacefes"]
+  "authors": ["theacefes"],
+  "rules": {
+    "order": [
+      {
+        "rule": "sarahtob(-):cdtweaks(-)|crossmodbg2(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "sarahtob(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

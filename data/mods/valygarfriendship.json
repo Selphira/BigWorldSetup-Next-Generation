@@ -53,5 +53,21 @@
   },
   "tp2": "valygarfriendship",
   "safe": 2,
-  "authors": ["Lava Del'Vortel", "fluke13"]
+  "authors": ["Lava Del'Vortel", "fluke13"],
+  "rules": {
+    "order": [
+      {
+        "rule": "valygarfriendship(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "valygarfriendship(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

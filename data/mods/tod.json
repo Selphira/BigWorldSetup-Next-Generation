@@ -119,5 +119,15 @@
   },
   "tp2": "tod",
   "safe": 2,
-  "authors": ["Valiant", "Lava Del'Vortel"]
+  "authors": ["Valiant", "Lava Del'Vortel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "tod(-):Divine_Remix(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

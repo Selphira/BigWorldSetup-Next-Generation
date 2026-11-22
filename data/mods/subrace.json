@@ -96,5 +96,15 @@
   },
   "tp2": "subrace",
   "safe": 1,
-  "authors": ["Corsymyr"]
+  "authors": ["Corsymyr"],
+  "rules": {
+    "order": [
+      {
+        "rule": "subrace(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

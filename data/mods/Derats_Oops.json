@@ -63,5 +63,21 @@
   },
   "tp2": "derats_oops",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "order": [
+      {
+        "rule": "derats_oops(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "derats_oops(-):EET(-)|iwdification(-)|stratagems(-)|Derats_magasin_2(-)|MESpells(-)|mih_sp(-)|dragonsummon(-)|A7-TestYourMettle(-)|semi_multi_clerics(-)|wildmage(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

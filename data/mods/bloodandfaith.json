@@ -68,5 +68,15 @@
   },
   "tp2": "bloodandfaith",
   "safe": 2,
-  "authors": ["Glittergear"]
+  "authors": ["Glittergear"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bloodandfaith(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

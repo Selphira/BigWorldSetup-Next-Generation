@@ -32,7 +32,7 @@
   "categories": ["util"],
   "components": {
     "choice_0": {"type": "muc", "components": ["1", "2", "3"], "games": ["bgee", "eet", "sod"]},
-    "10": {"type": "std", "games": ["sod"]}
+    "10": {"type": "std", "games": ["eet", "sod"]}
   },
   "languages": {
     "en_US": 0,

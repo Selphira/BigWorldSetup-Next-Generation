@@ -21,8 +21,8 @@
     },
     {
       "filename": "KIT_Mystra-main.zip",
-      "size": 1282155,
-      "sha256": "756a93605f51f67bf8b476ee75a601cd6991924b235048a1ec5a6c0e3020cfc3",
+      "size": 1282304,
+      "sha256": "280a9e7df8b49f8d072492d8e2636816ef5509bba369fd3ed28c079a94920241",
       "download": "https://github.com/Plutonium-X/KIT_Mystra/archive/refs/heads/main.zip",
       "platforms": ["windows"]
     }

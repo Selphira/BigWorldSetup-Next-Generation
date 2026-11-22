@@ -92,5 +92,15 @@
   },
   "tp2": "eet_end",
   "safe": 2,
-  "authors": ["K4thos"]
+  "authors": ["K4thos"],
+  "rules": {
+    "order": [
+      {
+        "rule": "eet_end(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

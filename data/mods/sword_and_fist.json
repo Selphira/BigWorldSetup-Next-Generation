@@ -133,5 +133,21 @@
   },
   "tp2": "sword_and_fist",
   "safe": 2,
-  "authors": ["Andyr", "CamDawg", "NiGHTMARE"]
+  "authors": ["Andyr", "CamDawg", "NiGHTMARE"],
+  "rules": {
+    "order": [
+      {
+        "rule": "sword_and_fist(-):cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "sword_and_fist(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

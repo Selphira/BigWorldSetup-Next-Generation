@@ -13,7 +13,7 @@
       "download": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/?do=download"
     }
   ],
-  "games": ["bg", "bg2", "bg2ee", "eet"],
+  "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
     "choice_0": {"type": "muc", "components": ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"], "default": "10"}

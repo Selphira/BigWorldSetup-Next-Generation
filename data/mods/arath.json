@@ -42,5 +42,21 @@
   },
   "tp2": "arath",
   "safe": 2,
-  "authors": ["K'aeloree"]
+  "authors": ["K'aeloree"],
+  "rules": {
+    "order": [
+      {
+        "rule": "arath(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "arath(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

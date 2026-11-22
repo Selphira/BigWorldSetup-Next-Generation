@@ -86,5 +86,21 @@
   },
   "tp2": "crossmodbg2",
   "safe": 2,
-  "authors": ["Grim Squeaker", "K'aeloree", "berelinde", "Smiling Imp"]
+  "authors": ["Grim Squeaker", "K'aeloree", "berelinde", "Smiling Imp"],
+  "rules": {
+    "order": [
+      {
+        "rule": "crossmodbg2(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "crossmodbg2(-):bg2fixpack(-)|eefixpack(-)|amber(-)|aurenaseph(-)|angelo(-)|sarahtob(-)|kivan(-)|gavin_bg2(-)|haldamir(-)|xan(-)|tiax(-)|keto(-)|kelsey(-)|coran(-)|branwen(-)|isra(-)|luxleysoa(-)|nephele(-)|iylos(-)|fade(-)|dace(-)|arath(-)|hubelpot(-)|adrian(-)|ninde(-)|solaufein(-)|gahesh(-)|hephernaanbg2(-)|khalidbg2(-)|nathaniel(-)|petsy(-)|quayle(-)|varshoon(-)|ajantisbg2(-)|yasraena(-)|foundling(-)|skiecost(-)|c#solaufein(-)|verrbg2(-)|yvette(-)|thebeaurinlegacy(-)|aranw(-)|yoshimosremorse(-)|keldorn_rom(-)|kitanya(-)|darian(-)|faren(-)|kido(-)|kindrek(-)|neh'taniel(-)|saerileth(-)|tsujatha(-)|willyb(-)|willowisp(-)|xulaye(-)|yoshimoromance(-)|paina(-)|sirene(-)|longerroad(-)|alassa(-)|edwin(-)|goo(-)|haerdalis_friendship(-)|tashia(-)|alternatives(-)|homewardbound(-)|totdg(-)|dynaheirbg2ee(-)|xzarandmontaron(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

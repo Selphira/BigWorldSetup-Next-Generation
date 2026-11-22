@@ -59,5 +59,21 @@
   },
   "tp2": "volcano",
   "safe": 2,
-  "authors": ["Baronius"]
+  "authors": ["Baronius"],
+  "rules": {
+    "order": [
+      {
+        "rule": "volcano(-):DGItems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "volcano(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

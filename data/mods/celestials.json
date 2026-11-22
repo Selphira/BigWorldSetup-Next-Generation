@@ -85,5 +85,21 @@
   },
   "tp2": "celestials",
   "safe": 2,
-  "authors": ["Caedwyr"]
+  "authors": ["Caedwyr"],
+  "rules": {
+    "order": [
+      {
+        "rule": "celestials(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "celestials(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

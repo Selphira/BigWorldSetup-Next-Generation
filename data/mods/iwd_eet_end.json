@@ -63,5 +63,21 @@
   },
   "tp2": "iwd_eet_end",
   "safe": 2,
-  "authors": ["tipun"]
+  "authors": ["tipun"],
+  "rules": {
+    "order": [
+      {
+        "rule": "iwd_eet_end(-):EET_end(-)|IWD_EET_Integration(-)|BP-BGT-Worldmap(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "iwd_eet_end(-):EET(-)|IWD1_EET(-)|IWD2_EET(-)|iwd_eet-party-banter(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -49,6 +49,6 @@
     }
   },
   "tp2": "wheels",
-  "safe": 2,
+  "safe": 1,
   "authors": ["DavidW"]
 }

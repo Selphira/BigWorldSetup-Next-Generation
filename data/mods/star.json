@@ -49,5 +49,21 @@
   },
   "tp2": "star",
   "safe": 2,
-  "authors": ["Davide Carta", "Seifer"]
+  "authors": ["Davide Carta", "Seifer"],
+  "rules": {
+    "order": [
+      {
+        "rule": "star(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "star(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

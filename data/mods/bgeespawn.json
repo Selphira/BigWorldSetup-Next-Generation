@@ -38,5 +38,15 @@
   },
   "tp2": "bgeespawn",
   "safe": 1,
-  "authors": ["AstroBryGuy", "Graion Dilach"]
+  "authors": ["AstroBryGuy", "Graion Dilach"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bgeespawn(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

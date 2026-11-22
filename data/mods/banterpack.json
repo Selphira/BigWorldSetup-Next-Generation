@@ -110,5 +110,21 @@
   },
   "tp2": "banterpack",
   "safe": 2,
-  "authors": ["Jason Compton", "Kish Moore", "Blue", "Ghreyfain", "Kirwond", "Bons", "jastey"]
+  "authors": ["Jason Compton", "Kish Moore", "Blue", "Ghreyfain", "Kirwond", "Bons", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "banterpack(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "banterpack(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

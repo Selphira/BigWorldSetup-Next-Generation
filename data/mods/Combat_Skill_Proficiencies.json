@@ -62,5 +62,21 @@
   },
   "tp2": "combat_skill_proficiencies",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "combat_skill_proficiencies(-):NPC_EE(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "combat_skill_proficiencies(-):rr(-)|cdtweaks(-)|sd_item_tweaks(-)|stratagems(-)|atweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -29,7 +29,10 @@
       }
     },
     "en_US": {
-      "description": "Usually, the game ends when the protagonist dies. This mini-mod prevents this from happening, so the game won't end as long as a member of the party is still alive. Otherwise, the protagonist can be resurrected by the party."
+      "description": "Usually, the game ends when the protagonist dies. This mini-mod prevents this from happening, so the game won't end as long as a member of the party is still alive. Otherwise, the protagonist can be resurrected by the party.",
+      "components": {
+        "0": "Protagonist can die"
+      }
     },
     "zh_CN": {
       "description": "通常，当主角死亡时游戏就会结束。这个小模组会阻止这种行为，只要队伍中还有一名成员存活，游戏就不会结束。否则，主角可以被队伍复活。"

@@ -91,5 +91,21 @@
   },
   "tp2": "ihateundead",
   "safe": 2,
-  "authors": ["Raduziel"]
+  "authors": ["Raduziel"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ihateundead(-):A7-ImprovedShamanicDance(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ihateundead(-):DeitiesOfFaerun(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

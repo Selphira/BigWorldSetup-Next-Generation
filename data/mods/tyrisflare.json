@@ -97,5 +97,21 @@
   },
   "tp2": "tyrisflare",
   "safe": 2,
-  "authors": ["Grim Squeaker", "Argent77", "CamDawg"]
+  "authors": ["Grim Squeaker", "Argent77", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "tyrisflare(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "tyrisflare(-):bg2fixpack(-)|BGT(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

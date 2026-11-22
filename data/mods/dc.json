@@ -68,5 +68,21 @@
   },
   "tp2": "dc",
   "safe": 2,
-  "authors": ["Kulyok", "WoRm", "Kayless", "jastey"]
+  "authors": ["Kulyok", "WoRm", "Kayless", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "dc(-):atweaks(-)|cdtweaks(-)|EET_end(-)|NPC(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "dc(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

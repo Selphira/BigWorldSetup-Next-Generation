@@ -84,5 +84,15 @@
   },
   "tp2": "dofd",
   "safe": 2,
-  "authors": ["Badgert"]
+  "authors": ["Badgert"],
+  "rules": {
+    "order": [
+      {
+        "rule": "dofd(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

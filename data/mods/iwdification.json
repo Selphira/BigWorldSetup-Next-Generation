@@ -247,5 +247,21 @@
   },
   "tp2": "iwdification",
   "safe": 2,
-  "authors": ["CamDawg", "DavidW"]
+  "authors": ["CamDawg", "DavidW"],
+  "rules": {
+    "order": [
+      {
+        "rule": "iwdification(-):cdtweaks(-)|a7-totlm-bg2ee(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "iwdification(-):bg2fixpack(-)|garrick-tt(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

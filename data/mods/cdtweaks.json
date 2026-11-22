@@ -5252,5 +5252,21 @@
   },
   "tp2": "cdtweaks",
   "safe": 2,
-  "authors": ["CamDawg", "Idobek"]
+  "authors": ["CamDawg", "Idobek"],
+  "rules": {
+    "order": [
+      {
+        "rule": "cdtweaks(-):hiddengameplayoptions(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "cdtweaks(-):1pp(-)|ab(-)|arestorationp(-)|bg1npc(-)|bg2fixpack(-)|eefixpack(-)|item_rev(-)|itemupgrade(-)|iu_iwd(-)|iwdfixpack(-)|iwdification(-)|mts_crappackv2(-)|oversight(-)|thecalling(-)|tobex(-)|tomeandblood(-)|ub_iwd(-)|underrep(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

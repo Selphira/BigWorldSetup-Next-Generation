@@ -51,5 +51,21 @@
   },
   "tp2": "5e_spellcasting",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "5e_spellcasting(-):scales_of_balance(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "5e_spellcasting(-):spell_rev(-)|iwdification(-)|tome_and_blood(-)|might_and_guile(-)|faiths_and_powers(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

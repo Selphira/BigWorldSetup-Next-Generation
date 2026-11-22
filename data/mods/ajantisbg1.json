@@ -61,5 +61,21 @@
   },
   "tp2": "ajantisbg1",
   "safe": 2,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ajantisbg1(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ajantisbg1(-):bg1npc(-)|c#anotherfinehell(-)|c#endlessbg1(-)|c#sodboabri(-)|EET(-)|imoen_forever(-)|transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

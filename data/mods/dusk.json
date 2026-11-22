@@ -49,5 +49,21 @@
   },
   "tp2": "dusk",
   "safe": 0,
-  "authors": ["Pol Rupes"]
+  "authors": ["Pol Rupes"],
+  "rules": {
+    "order": [
+      {
+        "rule": "dusk(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "dusk(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

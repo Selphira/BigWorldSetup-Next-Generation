@@ -68,5 +68,21 @@
   },
   "tp2": "acbre",
   "safe": 2,
-  "authors": ["Ascalon", "White Agnus", "jastey"]
+  "authors": ["Ascalon", "White Agnus", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "acbre(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "acbre(-):AC_QUEST(-)|alternatives(-)|amber(-)|aurenaseph(-)|bgqe(-)|bst(-)|c#anotherfinehell(-)|c#endlessbg1(-)|DSotSC(-)|EET(-)|imoen_forever(-)|Transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

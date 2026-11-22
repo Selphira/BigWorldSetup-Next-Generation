@@ -52,5 +52,15 @@
   },
   "tp2": "d2-portrait-separator",
   "safe": 2,
-  "authors": ["Dan_P"]
+  "authors": ["Dan_P"],
+  "rules": {
+    "order": [
+      {
+        "rule": "d2-portrait-separator(-):EET(-)|infinity_ui(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

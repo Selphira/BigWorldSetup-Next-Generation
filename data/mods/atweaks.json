@@ -75,7 +75,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod, compatible with BGT and Tutu, offers some twenty modifications to the game, ranging from cosmetic alterations to a new script for the bard, as well as the addition of sounds for the creeping mound (you read that right), the ability to define the size of projectile containers and the application of rules from the paper edition of Dungeons & Dragons in the video-game universe.",
+      "description": "This mod offers some twenty modifications to the game, ranging from cosmetic alterations to a new script for the bard, as well as the addition of sounds for the creeping mound (you read that right), the ability to define the size of projectile containers and the application of rules from the paper edition of Dungeons & Dragons in the video-game universe.",
       "components": {
         "100": "Restore innate infravision to Half-Orc characters",
         "101": "Prevent skeletal and incorporeal undead from being affected by Illithids' Devour Brain attack",
@@ -144,7 +144,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod, compatible avec BGT et Tutu, propose une vingtaine de modifications du jeu, allant d'altérations cosmétiques à un nouveau script pour le barde, en passant par l'ajout de sons pour le tertre rampant (vous avez bien lu), la possibilité de définir soi-même la taille des contenants à projectiles ou l'application de règles issues de l'édition papier de Donjons et Dragons dans l'univers vidéo-ludique.",
+      "description": "Ce mod propose une vingtaine de modifications du jeu, allant d'altérations cosmétiques à un nouveau script pour le barde, en passant par l'ajout de sons pour le tertre rampant (vous avez bien lu), la possibilité de définir soi-même la taille des contenants à projectiles ou l'application de règles issues de l'édition papier de Donjons et Dragons dans l'univers vidéo-ludique.",
       "components": {
         "100": "Restaurer l'infravision innee des personnages\ndemi-orques",
         "101": "Empecher les morts-vivants squelettiques et\ndesincarnes d'etre affectes par les attaques illithids devorant le cerveau",
@@ -213,7 +213,7 @@
       }
     },
     "zh_CN": {
-      "description": "这个模组兼容博德之门三部曲和Tutu，提供了约二十项游戏修改，从外观改动到吟游诗人的新脚本，再到为爬行土堆添加声音（你没看错），允许玩家自定义投射物容器的尺寸，或将桌面版龙与地下城的规则应用到电子游戏中。",
+      "description": "这个模组提供了二十来项游戏修改，从外观调整到为吟游诗人添加新脚本，还包括为蔓生怪（你没看错）增加音效、允许自定义弹药容器的大小，以及将纸质版《龙与地下城》的规则应用于电子游戏世界。",
       "components": {
         "100": "恢复半兽人角色天生的夜视能力",
         "101": "使骷髅和非实体形态的亡灵生物不受灵吸怪的噬脑术攻击的影响",
@@ -624,5 +624,5 @@
   },
   "tp2": "atweaks",
   "safe": 2,
-  "authors": ["aVENGER", "Wisp", "TotoR115"]
+  "authors": ["aVENGER", "Wisp", "TotoR"]
 }

@@ -17,10 +17,7 @@
   "categories": ["gameplay"],
   "components": {
     "100": {"type": "std", "category": "spell"},
-    "choice_0": {
-      "type": "muc", "components": ["111", "112"], "category": "spell", "default": "111",
-      "games": ["bg2ee", "bgee", "eet", "sod"]
-    },
+    "choice_0": {"type": "muc", "components": ["111", "112"], "category": "spell", "default": "111", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "120": {"type": "std", "category": "spell"},
     "140": {"type": "std", "category": "spell"},
     "160": {"type": "std", "category": "spell"},
@@ -40,9 +37,7 @@
     "choice_2": {"type": "muc", "components": ["1091", "1092", "1093"], "category": "spell", "default": "1051"},
     "1100": {"type": "std", "category": "spell"},
     "1109": {"type": "std", "category": "spell"},
-    "choice_3": {
-      "type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1091", "games": ["eet"]
-    }
+    "choice_3": {"type": "muc", "components": ["1113", "1114"], "category": "spell", "default": "1091", "games": ["eet"]}
   },
   "languages": {
     "en_US": 0,
@@ -127,5 +122,21 @@
   },
   "tp2": "subtled_item_tweaks",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "subtled_item_tweaks(-):NPC_EE(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "subtled_item_tweaks(-):spell_rev(-)|cdtweaks(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

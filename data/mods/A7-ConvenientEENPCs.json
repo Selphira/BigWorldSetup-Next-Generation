@@ -835,5 +835,21 @@
   },
   "tp2": "a7-convenienteenpcs",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "order": [
+      {
+        "rule": "a7-convenienteenpcs(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "a7-convenienteenpcs(-):EET(-)|A7-ChaosSorcerer(-)|divine_remix(-)|iwdification(-)|shadowadept(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

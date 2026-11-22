@@ -47,5 +47,21 @@
   },
   "tp2": "searchguild",
   "safe": 2,
-  "authors": ["Austin", "Scheele", "Alisia"]
+  "authors": ["Austin", "Scheele", "Alisia"],
+  "rules": {
+    "order": [
+      {
+        "rule": "searchguild(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "searchguild(-):bg2fixpack(-)|EET(-)|BG1_NPC_in_SoA&ToB(-)|Coran in BG2(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

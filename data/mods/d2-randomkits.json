@@ -65,5 +65,21 @@
   },
   "tp2": "d2-randomkits",
   "safe": 1,
-  "authors": ["Dan_P"]
+  "authors": ["Dan_P"],
+  "rules": {
+    "order": [
+      {
+        "rule": "d2-randomkits(-):d2-script(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "d2-randomkits(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

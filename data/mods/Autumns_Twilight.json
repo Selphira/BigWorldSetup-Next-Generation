@@ -28,7 +28,7 @@
     "fr_FR": 5,
     "ru_RU": 6,
     "zh_CN": 7,
-    "bportuguese": 8
+    "pt_PT": 8
   },
   "translations": {
     "fr_FR": {
@@ -96,9 +96,32 @@
         "1": "Install Optional Kits for Autumn's Twilight",
         "2": "Enemy Difficulty: Hard"
       }
+    },
+    "pt_PT": {
+      "components": {
+        "0": "Mod Autumn's Twilight",
+        "1": "Install Optional Kits for Autumn's Twilight",
+        "2": "Enemy Difficulty: Hard"
+      }
     }
   },
   "tp2": "autumns_twilight",
   "safe": 2,
-  "authors": ["Pol Rupes"]
+  "authors": ["Pol Rupes"],
+  "rules": {
+    "order": [
+      {
+        "rule": "autumns_twilight(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "autumns_twilight(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

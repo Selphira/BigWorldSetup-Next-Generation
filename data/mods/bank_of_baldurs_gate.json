@@ -47,5 +47,21 @@
   },
   "tp2": "bank_of_baldurs_gate",
   "safe": 2,
-  "authors": ["Lassal"]
+  "authors": ["Lassal"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bank_of_baldurs_gate(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bank_of_baldurs_gate(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -51,5 +51,15 @@
   },
   "tp2": "kimnpc",
   "safe": 2,
-  "authors": ["Grenouillebleue"]
+  "authors": ["Grenouillebleue"],
+  "rules": {
+    "order": [
+      {
+        "rule": "kimnpc(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

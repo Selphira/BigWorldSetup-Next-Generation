@@ -1,5 +1,5 @@
 {
-  "name": "Summon Bhaalspawn (Sandra NPC)",
+  "name": "Summon _Bhaalspawn",
   "version": "4",
   "links": {
     "homepage": "https://github.com/11jo/Summon_Bhaalspawn",
@@ -66,5 +66,15 @@
   },
   "tp2": "sbs",
   "safe": 2,
-  "authors": ["MajorTomSawyer"]
+  "authors": ["MajorTomSawyer"],
+  "rules": {
+    "order": [
+      {
+        "rule": "sbs(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

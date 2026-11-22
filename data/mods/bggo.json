@@ -16,6 +16,7 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["cosm"],
   "components": {
+    "choice_0": {"type": "muc", "components": ["1", "2"], "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
     "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]}
   },
   "languages": {
@@ -25,7 +26,10 @@
   "translations": {
     "en_US": {
       "components": {
-        "0": "BGGO for EET, BGT, BGEE, BG2EE, ToB and Tutu"
+        "choice_0": "BGGO for EET, BGT, BGEE, BG2EE, ToB and Tutu",
+        "1": "Baldurs Gate Graphical Overhaul for Windows",
+        "2": "Baldurs Gate Graphical Overhaul for Android",
+        "0": "Baldurs Gate Graphical Overhaul Core"
       },
       "description": "This huge mod adds missing night areas in all main areas except Baldur's Gate and adds missing night minimaps in all main areas. It also corrects graphical flaws in the game's various maps (windows that display at night and not during the day - or vice versa, badly adjusted doors, flaws in night images, etc.). It gives all wall braziers their missing flames. Finally, almost all the ugly blue and purple spots have been removed from the streets. It was created in collaboration with Overhaul Studios."
     },
@@ -38,5 +42,21 @@
   },
   "tp2": "bggo",
   "safe": 2,
-  "authors": ["Yovaneth", "White Agnus", "Weigo"]
+  "authors": ["Yovaneth", "White Agnus", "Weigo"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bggo(-):EET_end(-)|Widescreen(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "bggo(-):EET(-)|BGT(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

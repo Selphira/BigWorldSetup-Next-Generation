@@ -93,5 +93,14 @@
   "tp2": "eet_gui",
   "safe": 2,
   "authors": ["K4thos"],
-  "files": []
+  "rules": {
+    "order": [
+      {
+        "rule": "eet_gui(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -102,5 +102,21 @@
   },
   "tp2": "hammers",
   "safe": 2,
-  "authors": ["Sam", "Miloch", "K4thos"]
+  "authors": ["Sam", "Miloch", "K4thos"],
+  "rules": {
+    "order": [
+      {
+        "rule": "hammers(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "hammers(-):aTweaks(-)|spell_rev(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

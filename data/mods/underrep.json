@@ -77,5 +77,21 @@
   },
   "tp2": "underrep",
   "safe": 2,
-  "authors": ["Wes Weimer", "CamDawg"]
+  "authors": ["Wes Weimer", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "underrep(-):cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "underrep(-):bg2fixpack(-)|eefixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

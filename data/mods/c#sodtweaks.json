@@ -211,5 +211,21 @@
   },
   "tp2": "c#sodtweaks",
   "safe": 2,
-  "authors": ["jastey"]
+  "authors": ["jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "c#sodtweaks(-):atweaks(-)|cdtweaks(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "c#sodtweaks(-):bg2fixpack(-)|c#anotherfinehell(-)|c#endlessbg1(-)|EET(-)|transitions(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

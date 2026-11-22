@@ -141,5 +141,21 @@
   },
   "tp2": "iepbanters",
   "safe": 2,
-  "authors": ["K'aeloree"]
+  "authors": ["K'aeloree"],
+  "rules": {
+    "order": [
+      {
+        "rule": "iepbanters(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "iepbanters(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

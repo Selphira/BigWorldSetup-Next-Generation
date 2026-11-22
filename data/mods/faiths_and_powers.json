@@ -98,5 +98,21 @@
   },
   "tp2": "faiths_and_powers",
   "safe": 2,
-  "authors": ["Subtledoctor", "Grammarsalad"]
+  "authors": ["Subtledoctor", "Grammarsalad"],
+  "rules": {
+    "order": [
+      {
+        "rule": "faiths_and_powers(-):5E_spellcasting(-)|cdtweaks(-)|scales_of_balance(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "faiths_and_powers(-):tomeandblood(-)|item_rev(-)|a7#improvedshamanicdance(-)|setup-divine_remix(-)|spell_rev(-)|will_to_power(-)|might_and_guile(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -72,5 +72,21 @@
   },
   "tp2": "ruad",
   "safe": 2,
-  "authors": ["Moonfruit"]
+  "authors": ["Moonfruit"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ruad(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ruad(-):bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

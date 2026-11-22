@@ -80,5 +80,21 @@
   },
   "tp2": "adrian",
   "safe": 2,
-  "authors": ["Rhaella"]
+  "authors": ["Rhaella"],
+  "rules": {
+    "order": [
+      {
+        "rule": "adrian(-):crossmodbg2(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "adrian(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -65,5 +65,21 @@
   },
   "tp2": "angelo",
   "safe": 2,
-  "authors": ["Sister Vigilante", "Kulyok", "CamDawg"]
+  "authors": ["Sister Vigilante", "Kulyok", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "angelo(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "angelo(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

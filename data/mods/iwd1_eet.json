@@ -99,5 +99,21 @@
   },
   "tp2": "iwd1_eet",
   "safe": 2,
-  "authors": ["tipun"]
+  "authors": ["tipun"],
+  "rules": {
+    "order": [
+      {
+        "rule": "iwd1_eet(-):tipun_gui(-)|IWD2_EET(-)|iwd_eet-party-banter(-)|IWD_EET_End(-)|IWD_EET_Integration(-)|EET_end(-)|BP-BGT-Worldmap(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "iwd1_eet(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -204,5 +204,21 @@
   },
   "tp2": "ac_quest",
   "safe": 2,
-  "authors": ["Ascalon", "White Agnus", "jastey"]
+  "authors": ["Ascalon", "White Agnus", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ac_quest(-):ACBre(-)|c#brandock(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ac_quest(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

@@ -252,5 +252,21 @@
   },
   "tp2": "subtled_spell_tweaks",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "subtled_spell_tweaks(-):TomeandBlood(-)|faiths_and_powers(-)|will_to_power(-)|might_and_guile(-)|cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "subtled_spell_tweaks(-):spell_rev(-)|iwdification(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

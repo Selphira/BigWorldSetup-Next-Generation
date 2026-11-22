@@ -326,5 +326,21 @@
   },
   "tp2": "druidsor",
   "safe": 2,
-  "authors": ["Caedwyr", "CamDawg"]
+  "authors": ["Caedwyr", "CamDawg"],
+  "rules": {
+    "order": [
+      {
+        "rule": "druidsor(-):cdtweaks(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "druidsor(-):eefixpack(-)|bg2fixpack(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

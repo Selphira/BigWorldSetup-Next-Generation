@@ -1,6 +1,6 @@
 {
   "name": "BGEE-Graphics-Enhanced",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "links": {
     "homepage": "https://github.com/TheForgotten69/BGEE-Graphics-Enhanced",
     "forums": ["https://forums.beamdog.com/discussion/89746/infinityengine-enhancer/", "https://www.gibberlings3.net/forums/topic/40143-infinityengine-enhancer-released/"]
@@ -40,5 +40,15 @@
   },
   "tp2": "bgee-graphics-enhanced",
   "safe": 2,
-  "authors": ["TheForgotten69"]
+  "authors": ["TheForgotten69"],
+  "rules": {
+    "order": [
+      {
+        "rule": "bgee-graphics-enhanced(-):EEex(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

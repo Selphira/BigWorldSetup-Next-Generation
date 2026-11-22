@@ -58,5 +58,15 @@
   },
   "tp2": "alcool",
   "safe": 2,
-  "authors": ["Mathrim Cauthon"]
+  "authors": ["Mathrim Cauthon"],
+  "rules": {
+    "order": [
+      {
+        "rule": "alcool(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

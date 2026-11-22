@@ -113,5 +113,21 @@
   },
   "tp2": "tomeandblood",
   "safe": 2,
-  "authors": ["aquadrizzt", "Grammarsalad", "Subtledoctor"]
+  "authors": ["aquadrizzt", "Grammarsalad", "Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "tomeandblood(-):faiths_and_powers(-)|will_to_power(-)|might_and_guile(-)|cdtweaks(-)|scales_of_balance(-)|stratagems(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "tomeandblood(-):spell_rev(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

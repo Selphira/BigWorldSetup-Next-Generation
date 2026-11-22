@@ -143,5 +143,21 @@
   },
   "tp2": "might_and_guile",
   "safe": 2,
-  "authors": ["Subtledoctor"]
+  "authors": ["Subtledoctor"],
+  "rules": {
+    "order": [
+      {
+        "rule": "might_and_guile(-):faiths_and_powers(-)|scales_of_balance(-)|cdtweaks(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "might_and_guile(-):tomeandblood(-)|rr(-)|song_and_silence(-)|spell_rev(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

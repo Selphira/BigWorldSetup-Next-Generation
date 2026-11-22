@@ -104,5 +104,21 @@
   },
   "tp2": "kiara-zaiya",
   "safe": 2,
-  "authors": ["Alan M.C.", "Seifer", "Jesara"]
+  "authors": ["Alan M.C.", "Seifer", "Jesara"],
+  "rules": {
+    "order": [
+      {
+        "rule": "kiara-zaiya(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "kiara-zaiya(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

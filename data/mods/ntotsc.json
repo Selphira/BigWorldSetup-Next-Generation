@@ -3,9 +3,7 @@
   "version": "5.0.0",
   "links": {
     "homepage": "https://www.shsforums.net/files/file/71-northern-tales-of-the-sword-coast/",
-    "forums": [
-      "https://forums.beamdog.com/discussion/66572/"
-    ]
+    "forums": ["https://forums.beamdog.com/discussion/66572/"]
   },
   "files": [
     {
@@ -235,5 +233,21 @@
   },
   "tp2": "ntotsc",
   "safe": 2,
-  "authors": ["Aurelinus", "Erebusant", "Sir BillyBob"]
+  "authors": ["Aurelinus", "Erebusant", "Sir BillyBob"],
+  "rules": {
+    "order": [
+      {
+        "rule": "ntotsc(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "ntotsc(-):bg2fixpack(-)|eefixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

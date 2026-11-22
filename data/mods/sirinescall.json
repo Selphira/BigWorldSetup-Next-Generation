@@ -83,5 +83,21 @@
   },
   "tp2": "sirinescall",
   "safe": 2,
-  "authors": ["Ghreyfain", "jastey"]
+  "authors": ["Ghreyfain", "jastey"],
+  "rules": {
+    "order": [
+      {
+        "rule": "sirinescall(-):c#brandock(-)|EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "sirinescall(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

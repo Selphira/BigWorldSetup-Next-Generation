@@ -39,5 +39,21 @@
   },
   "tp2": "trovador",
   "safe": 2,
-  "authors": ["Riojano2002"]
+  "authors": ["Riojano2002"],
+  "rules": {
+    "order": [
+      {
+        "rule": "trovador(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "trovador(-):tobex(-)|bg2fixpack(-)|EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

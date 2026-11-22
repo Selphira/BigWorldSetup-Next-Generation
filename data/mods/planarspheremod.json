@@ -74,5 +74,15 @@
   },
   "tp2": "planarspheremod",
   "safe": 2,
-  "authors": ["Inferno"]
+  "authors": ["Inferno"],
+  "rules": {
+    "order": [
+      {
+        "rule": "planarspheremod(-):EET(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }
