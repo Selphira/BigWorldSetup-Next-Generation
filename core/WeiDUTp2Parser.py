@@ -52,6 +52,8 @@ LANG_MAP: dict[str, str] = {
     "chinese(simplified)": "zh_CN",
     "chs": "zh_CN",
     "schinese": "zh_CN",
+    "schineseee": "zh_CN",
+    "simchinese": "zh_CN",
     "chineset": "zh_TW",
     "cht": "zh_TW",
     "tchinese": "zh_TW",
@@ -218,6 +220,8 @@ class WeiDUTp2:
         components: List of mod components
         translations: Raw TRA translations {language_code: {ref_id: text}}
         component_translations: Resolved translations {language_code: {designated: text}}
+        untranslated_component_labels: Literal labels of a TP2 declaring no
+            LANGUAGE, whose language is unknown {designated: text}
     """
 
     name: str | None = None
@@ -226,6 +230,7 @@ class WeiDUTp2:
     components: list[Component] = field(default_factory=list)
     translations: dict[str, dict[str, str]] = field(default_factory=dict)
     component_translations: dict[str, dict[str, str]] = field(default_factory=dict)
+    untranslated_component_labels: dict[str, str] = field(default_factory=dict)
 
     def unlogged_components(self) -> set[str]:
         """Identify installable component numbers explicitly excluded from WeiDU.log."""
@@ -1213,6 +1218,11 @@ class WeiDUTp2Parser:
 
             if components:
                 tp2.component_translations[lang_code] = components
+
+        # Without LANGUAGE, WeiDU shows the literal labels as they are
+        if not tp2.languages:
+            for component in tp2.components:
+                self._process_component(component, tp2.untranslated_component_labels, [], {})
 
         tp2.translations = translations
 
