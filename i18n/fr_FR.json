@@ -13,6 +13,8 @@
     "step": "Étape {current} sur {total}",
     "error": "Erreur",
     "checking_data_update": "Vérification des mises à jour des données...",
+    "initializing": "Initialisation...",
+    "skip_data_update": "Passer la mise à jour des données",
     "loading_mods": "Chargement des mods...",
     "loading_rules": "Chargement des règles...",
     "parsing_rules": "Analyse des règles...",

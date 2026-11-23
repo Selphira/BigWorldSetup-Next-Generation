@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 import shutil
 import tempfile
+import threading
 import zipfile
 
 from PySide6.QtCore import QObject, Signal
@@ -27,17 +28,56 @@ from validation.catalogue import validate_catalogue
 logger = logging.getLogger(__name__)
 
 
-class DataUpdater(QObject):
-    """Handles data folder updates from remote source."""
+class UpdateCancelledError(Exception):
+    """The update was cancelled before the catalogue was touched."""
 
-    progress = Signal(int)  # progress_percentage
-    status_changed = Signal(str)  # status_message
-    update_error = Signal(str)  # error_message
+
+class DataUpdater(QObject):
+    """
+    Handles data folder updates from remote source.
+
+    May run in a worker thread. A cancellation is accepted until the activation
+    of the downloaded catalogue starts; past that point the update always ends
+    with the new catalogue or the restored one.
+
+    Signals:
+        progress: Progress percentage
+        status_changed: Status message
+        update_error: Error message
+    """
+
+    progress = Signal(int)
+    status_changed = Signal(str)
+    update_error = Signal(str)
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._cancel_lock = threading.Lock()
+        self._cancelled = False
+        self._activation_started = False
+
+    def request_cancel(self) -> bool:
+        """
+        Ask the update to stop without touching the catalogue.
+
+        Returns:
+            True if the catalogue is guaranteed to stay unchanged, False if its
+            activation has already started and must be awaited
+        """
+        with self._cancel_lock:
+            if self._activation_started:
+                return False
+
+            self._cancelled = True
+            return True
 
     def check_for_updates(self) -> bool:
         """Check if data updates are available and compatible."""
         try:
             remote_version = self._fetch_remote_version()
+            if self._cancelled:
+                logger.info("Data update check cancelled")
+                return False
 
             if not remote_version:
                 logger.info("No remote version info available")
@@ -71,6 +111,7 @@ class DataUpdater(QObject):
             if not self.recover_pending_update():
                 raise OSError("Catalogue recovery failed; backup retained")
             remote_version = self._fetch_remote_version()
+            self._raise_if_cancelled()
             if not remote_version or not remote_version.get("sha256"):
                 raise ValueError("Missing published SHA-256")
             if remote_version and not self._is_data_compatible(remote_version):
@@ -97,6 +138,7 @@ class DataUpdater(QObject):
             if not self._extract_zip(zip_path, extract_dir):
                 return False
 
+            self._raise_if_cancelled()
             report = validate_catalogue(extract_dir, SCHEMAS_DIR)
             if not report.valid:
                 raise ValueError(f"Invalid catalogue: {report.diagnostics}")
@@ -116,6 +158,7 @@ class DataUpdater(QObject):
                         shutil.copy2(item, destination)
             write_json_atomic(extract_dir / DATA_VERSION_FILE.name, remote_version)
 
+            self._start_activation()
             self.status_changed.emit(tr("app.backing_up_existing_data"))
             backup_dir = self._create_backup()
 
@@ -131,6 +174,10 @@ class DataUpdater(QObject):
             logger.info("Data update completed successfully")
             return True
 
+        except UpdateCancelledError:
+            logger.info("Data update cancelled before activation")
+            return False
+
         except Exception as e:
             logger.error("Data update failed", exc_info=True)
             self.update_error.emit(tr("app.update_failed", error=str(e)))
@@ -141,6 +188,16 @@ class DataUpdater(QObject):
                 self._restore_backup(backup_dir)
             if temp_dir and temp_dir.exists():
                 shutil.rmtree(temp_dir, ignore_errors=True)
+
+    def _raise_if_cancelled(self) -> None:
+        if self._cancelled:
+            raise UpdateCancelledError
+
+    def _start_activation(self) -> None:
+        """Enter the activation, from which a cancellation is refused."""
+        with self._cancel_lock:
+            self._raise_if_cancelled()
+            self._activation_started = True
 
     @staticmethod
     def _is_data_compatible(remote_version: dict) -> bool:
@@ -212,6 +269,7 @@ class DataUpdater(QObject):
         """Download file with progress reporting and retry logic."""
         for attempt in range(MAX_RETRIES):
             try:
+                self._raise_if_cancelled()
                 self.status_changed.emit(
                     tr("app.downloading_data", attempt=attempt, max_retries=MAX_RETRIES)
                 )
@@ -224,6 +282,7 @@ class DataUpdater(QObject):
 
                 with open(dest, "wb") as f:
                     for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
+                        self._raise_if_cancelled()
                         if chunk:
                             f.write(chunk)
                             downloaded += len(chunk)
@@ -235,6 +294,9 @@ class DataUpdater(QObject):
 
                 logger.info(f"Downloaded {downloaded} bytes")
                 return True
+
+            except UpdateCancelledError:
+                raise
 
             except Exception as e:
                 logger.warning(f"Download attempt {attempt + 1} failed: {e}")

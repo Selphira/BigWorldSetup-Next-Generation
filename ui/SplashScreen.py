@@ -1,20 +1,30 @@
 import logging
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, Signal
 from PySide6.QtGui import QFont, QPixmap
 from PySide6.QtWidgets import (
     QLabel,
     QProgressBar,
+    QPushButton,
     QVBoxLayout,
     QWidget,
 )
+
+from core.TranslationManager import tr
 
 logger = logging.getLogger(__name__)
 
 
 class SplashScreen(QWidget):
-    """Splash screen with integrated progress bar and status text."""
+    """
+    Splash screen with integrated progress bar and status text.
+
+    Signals:
+        skip_update_requested: The user chose to skip the data update
+    """
+
+    skip_update_requested = Signal()
 
     def __init__(self, pixmap_path: Path, parent=None):
         """
@@ -78,6 +88,11 @@ class SplashScreen(QWidget):
 
         container_layout.addWidget(self.progress_bar)
 
+        self.skip_update_button = QPushButton(tr("app.skip_data_update"))
+        self.skip_update_button.clicked.connect(self.skip_update_requested)
+        self.skip_update_button.hide()
+        container_layout.addWidget(self.skip_update_button, alignment=Qt.AlignmentFlag.AlignCenter)
+
         layout.addWidget(container)
 
     def _center_on_screen(self) -> None:
@@ -118,6 +133,11 @@ class SplashScreen(QWidget):
         """
         self.set_status(stage)
         self.set_progress(progress)
+
+    def set_skip_update_available(self, available: bool) -> None:
+        """Show or hide the action skipping the data update."""
+        self.skip_update_button.setVisible(available)
+        self.skip_update_button.setEnabled(available)
 
     def finish_with_delay(self, widget, delay_ms: int = 500) -> None:
         """

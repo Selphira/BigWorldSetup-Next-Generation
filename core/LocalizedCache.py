@@ -204,11 +204,20 @@ class LocalizedCacheManager(QObject):
 
     Subclasses create their builder thread, tell whether the cache is stale and
     load the cache of the current language.
+
+    Signals:
+        cache_ready: The cache is loaded
+        cache_building: A cache build starts
+        cache_error: Error message; the cache could not be built or loaded
+        build_progress: Progress 0-100 of the running build
+        build_status: Status message of the running build
     """
 
-    cache_ready = Signal(bool)  # Emitted when cache is ready
-    cache_building = Signal()  # Emitted when cache building starts
-    cache_error = Signal(str)  # Emitted on error
+    cache_ready = Signal(bool)
+    cache_building = Signal()
+    cache_error = Signal(str)
+    build_progress = Signal(int)
+    build_status = Signal(str)
 
     cache_prefix: str
     cache_label: str
@@ -227,6 +236,30 @@ class LocalizedCacheManager(QObject):
     # ========================================
     # CACHE MANAGEMENT
     # ========================================
+
+    def prepare_cache(self) -> None:
+        """
+        Load the cache, building it first when stale or unreadable.
+
+        Always ends with `cache_ready` or `cache_error`, possibly before returning.
+        """
+        if not self.needs_cache_rebuild():
+            if self.load_cache():
+                logger.info(f"{self.cache_label.capitalize()} loaded from existing cache")
+                self.cache_ready.emit(True)
+                return
+
+            logger.warning(f"{self.cache_label.capitalize()} unreadable, rebuilding it")
+
+        try:
+            started = self.build_cache_async()
+        except Exception as e:
+            logger.exception(f"Unable to start {self.cache_label} build")
+            self.cache_error.emit(str(e))
+            return
+
+        if not started:
+            self.cache_error.emit(f"{self.cache_label.capitalize()} build not started")
 
     def build_cache_async(self) -> bool:
         """Start asynchronous cache build."""
@@ -249,6 +282,8 @@ class LocalizedCacheManager(QObject):
         )
         self.builder_thread.completed.connect(self._on_cache_build_finished)
         self.builder_thread.error.connect(self._on_cache_build_error)
+        self.builder_thread.progress.connect(self.build_progress)
+        self.builder_thread.status_changed.connect(self.build_status)
         self.builder_thread.start()
 
         logger.info(f"{self.cache_label.capitalize()} build thread started")

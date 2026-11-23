@@ -13,6 +13,8 @@
     "step": "Step {current} of {total}",
     "error": "Error",
     "checking_data_update": "Checking for data updates...",
+    "initializing": "Initializing...",
+    "skip_data_update": "Skip data update",
     "loading_mods": "Loading mods...",
     "loading_rules": "Loading rules...",
     "parsing_rules": "Parsing rules...",

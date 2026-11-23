@@ -323,6 +323,8 @@ DATA_VERSION_FILE = DATA_DIR / "data_version.json"
 DATA_VERSION_URL = f"{GITHUB_PAGES_BASE}/data_version.json"
 DATA_ZIP_URL = f"{GITHUB_PAGES_BASE}/data.zip"
 MAX_RETRIES = 3
+# Startup waits this long for the catalogue availability check, then skips the update
+STARTUP_CATALOGUE_CHECK_TIMEOUT_MS = 15_000
 
 # App Update Configuration
 APP_UPDATE_CHECK_FILE = CACHE_DIR / "last_update_check.json"

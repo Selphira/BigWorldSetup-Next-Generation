@@ -1,9 +1,11 @@
+from collections.abc import Callable
 import contextlib
+from dataclasses import dataclass
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
 
-from PySide6.QtCore import QLocale
+from PySide6.QtCore import QLocale, QObject, QTimer, Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
@@ -23,7 +25,10 @@ from constants import (
     RESOURCE_ROOT,
     THEMES_DIR,
 )
+from core.CatalogueUpdateTask import CatalogueUpdateOutcome, CatalogueUpdateTask
 from core.DataUpdater import DataUpdater
+from core.InstallationExecutor import InstallationExecutor
+from core.LocalizedCache import LocalizedCacheManager
 from core.StateManager import StateManager
 from core.TranslationManager import get_supported_languages, get_translator, tr
 from ui.LanguageChoiceDialog import LanguageChoiceDialog
@@ -45,110 +50,29 @@ application_path = RESOURCE_ROOT
 sys.path.insert(0, str(application_path))
 
 
-class CacheInitializer:
-    """Helper class for initializing caches with feedback."""
+@dataclass(frozen=True)
+class CacheStage:
+    """Cache being prepared at startup and the step following it."""
 
-    def __init__(self, app: QApplication, splash: SplashScreen):
-        """Initialize cache initializer."""
-        self.app = app
-        self.splash = splash
-
-    def initialize_cache(
-        self,
-        manager,
-        manager_name: str,
-        progress_range: tuple[int, int],
-    ) -> None:
-        """Initialize or rebuild a manager's cache with splash feedback."""
-        if manager.needs_cache_rebuild():
-            logger.info(f"{manager_name} cache rebuild required")
-
-            if not self._build_cache_with_feedback(manager, manager_name, progress_range):
-                raise RuntimeError(f"{manager_name} cache build failed")
-
-        else:
-            logger.info(f"Loading existing {manager_name} cache")
-
-            if not manager.load_cache():
-                logger.error(f"{manager_name} cache load failed")
-                raise RuntimeError(f"Failed to load {manager_name} cache")
-
-            logger.info(f"{manager_name} cache loaded: {manager.get_count()} items")
-
-    def _build_cache_with_feedback(
-        self,
-        manager,
-        manager_name: str,
-        progress_range: tuple[int, int],
-    ) -> bool:
-        """Build cache with splash screen feedback."""
-        start_pct, end_pct = progress_range
-        progress_span = end_pct - start_pct
-
-        success = False
-        error_msg = None
-
-        def on_cache_ready():
-            nonlocal success
-            success = True
-
-        def on_cache_error(msg):
-            nonlocal error_msg
-            error_msg = msg
-
-        manager.cache_ready.connect(on_cache_ready)
-        manager.cache_error.connect(on_cache_error)
-
-        if not manager.build_cache_async():
-            QMessageBox.critical(
-                None, tr("error.critical_title"), tr("error.unable_to_start_cache_building")
-            )
-
-        if manager.builder_thread:
-            manager.builder_thread.progress.connect(
-                lambda p: self.splash.set_progress(start_pct + int(p * progress_span / 100))
-            )
-            manager.builder_thread.status_changed.connect(self.splash.set_status)
-
-        # Wait for completion while processing events
-        while not success and error_msg is None:
-            self.app.processEvents()
-
-        self._disconnect_signals(manager)
-
-        if error_msg:
-            logger.error(f"{manager_name} cache build failed: {error_msg}")
-
-            QMessageBox.critical(
-                None,
-                tr("error.critical_title"),
-                tr("error.cache_build_failed", mods_dir=str(MODS_DIR)),
-            )
-
-            return False
-
-        logger.info(f"{manager_name} cache built successfully")
-        return True
-
-    @staticmethod
-    def _disconnect_signals(manager) -> None:
-        """Safely disconnect all signals from manager."""
-        try:
-            manager.cache_ready.disconnect()
-            manager.cache_error.disconnect()
-
-            if manager.builder_thread:
-                try:
-                    manager.builder_thread.progress.disconnect()
-                    manager.builder_thread.status_changed.disconnect()
-                except (RuntimeError, TypeError):
-                    pass
-        except RuntimeError:
-            pass
+    manager: LocalizedCacheManager
+    progress_range: tuple[int, int]
+    on_ready: Callable[[], None]
 
 
-class ApplicationInitializer:
-    """Handles application initialization in stages."""
+class ApplicationInitializer(QObject):
+    """
+    Initialize the application in stages chained by signals.
+
+    The network and the cache builds run in worker threads: the event loop keeps
+    running and the splash stays responsive, with a way to skip the data update.
+
+    Signals:
+        ready: MainWindow, created once every stage succeeded
+        failed: An error stopped the initialization, already reported to the user
+    """
+
+    ready = Signal(object)
+    failed = Signal()
 
     def __init__(self, app: QApplication):
         """
@@ -157,56 +81,106 @@ class ApplicationInitializer:
         Args:
             app: QApplication instance
         """
+        super().__init__()
         self.app = app
-        self.splash = None
-        self.state = None
-        self.window = None
-        self.cache_initializer = None
+        self.splash: SplashScreen | None = None
+        self.state: StateManager | None = None
+        self.window: MainWindow | None = None
         self.data_updater: DataUpdater = DataUpdater()
+        self._catalogue_update: CatalogueUpdateTask | None = None
+        self._cache_stage: CacheStage | None = None
 
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-    def run(self) -> tuple[MainWindow, StateManager]:
-        """
-        Run full initialization process.
+    def start(self) -> None:
+        """Start the initialization; it ends with `ready` or `failed`."""
+        self._run_stage(self._start_stages)
 
-        Returns:
-            Tuple of (MainWindow, StateManager)
+    def shutdown(self) -> None:
+        """Wait for a catalogue update thread still running at exit."""
+        if self._catalogue_update:
+            self._catalogue_update.wait_for_thread()
 
-        Raises:
-            Exception: If initialization fails
-        """
+    def finish_splash(self) -> None:
+        """Close splash screen and show main window."""
+        if self.splash and self.window:
+            self.splash.finish_with_delay(self.window, delay_ms=500)
+
+    # ========================================
+    # STAGES
+    # ========================================
+
+    def _start_stages(self) -> None:
         # The first launch language dialog must not sit behind the splash screen.
         self.state = self._initialize_state()
 
         self.splash = SplashScreen(ICONS_DIR / "bws.png")
+        self.splash.skip_update_requested.connect(self._skip_catalogue_update)
         self.splash.show()
-        self.app.processEvents()
 
-        self.cache_initializer = CacheInitializer(self.app, self.splash)
+        self.splash.set_stage(tr("app.initializing"), 5)
+        self._recover_catalogue()
 
-        self.splash.set_stage("Initializing...", 5)
-        if not self.data_updater.recover_pending_update():
-            raise RuntimeError("Catalogue recovery failed; backup retained")
+        if self._is_installation_in_progress():
+            # The run was planned against the current catalogue: never replace it meanwhile.
+            logger.info("Installation in progress: catalogue update skipped")
+            self._load_catalogue()
+            return
 
         self.splash.set_stage(tr("app.checking_data_update"), 10)
-        self._check_and_update_data()
-        if not self.data_updater.recover_pending_update():
-            raise RuntimeError("Catalogue recovery failed; backup retained")
+        self._start_catalogue_update()
+
+    def _start_catalogue_update(self) -> None:
+        self._catalogue_update = CatalogueUpdateTask(self.data_updater)
+        self._catalogue_update.status_changed.connect(self.splash.set_status)
+        self._catalogue_update.progress.connect(self._on_update_data_progress)
+        self._catalogue_update.finished.connect(self._on_catalogue_update_finished)
+
+        self.splash.set_skip_update_available(True)
+        self._catalogue_update.start()
+
+    def _on_catalogue_update_finished(self, outcome: CatalogueUpdateOutcome) -> None:
+        self.splash.set_skip_update_available(False)
+
+        if outcome is CatalogueUpdateOutcome.FAILED:
+            self._warn_update_failed(self._catalogue_update.errors)
+
+        self._run_stage(self._load_catalogue)
+
+    def _load_catalogue(self) -> None:
+        self._recover_catalogue()
         self.state.get_game_manager().load_games()
 
-        self.splash.set_stage(tr("app.loading_mods"), 60)
-        self._initialize_mod_cache()
+        self.splash.set_stage(tr("app.loading_mods"), 30)
+        self._prepare_cache(self.state.get_mod_manager(), (30, 60), self._load_rules)
 
-        self.splash.set_stage(tr("app.loading_rules"), 30)
-        self._initialize_rule_cache()
+    def _load_rules(self) -> None:
+        self.splash.set_stage(tr("app.loading_rules"), 60)
+        self._prepare_cache(self.state.get_rule_manager(), (60, 90), self._create_interface)
 
+    def _create_interface(self) -> None:
         self.splash.set_stage(tr("app.setting_up_interface"), 90)
         self.window = self._create_main_window()
 
         self.splash.set_stage(tr("app.ready"), 100)
+        self.ready.emit(self.window)
 
-        return self.window, self.state
+    def _run_stage(self, stage: Callable[[], None]) -> None:
+        """Run a stage, turning any error into the terminal failure."""
+        try:
+            stage()
+        except Exception as error:
+            logger.critical(f"Fatal error during initialization: {error}", exc_info=True)
+            self._fail(f"Fatal error during initialization:\n\n{error}")
+
+    def _fail(self, message: str) -> None:
+        if self.splash:
+            self.splash.close()
+
+        with contextlib.suppress(BaseException):
+            QMessageBox.critical(None, tr("error.critical_title"), message)
+
+        self.failed.emit()
 
     def _initialize_state(self) -> StateManager:
         """
@@ -244,52 +218,87 @@ class ApplicationInitializer:
 
         return dialog.selected_language()
 
-    def _check_and_update_data(self) -> None:
-        """Check for and apply data updates if available."""
-        self.data_updater.status_changed.connect(self.splash.set_status)
-        self.data_updater.update_error.connect(self._on_update_data_error)
-        self.data_updater.progress.connect(self._on_update_data_progress)
+    def _recover_catalogue(self) -> None:
+        if not self.data_updater.recover_pending_update():
+            raise RuntimeError("Catalogue recovery failed; backup retained")
 
-        try:
-            if self.data_updater.check_for_updates():
-                logger.info("Data updates available, downloading...")
-                self.data_updater.update_data()
-            else:
-                logger.info("Data is up to date")
+    def _is_installation_in_progress(self) -> bool:
+        """Tell whether a run waits to be resumed; an unreadable journal may hide one."""
+        executor = InstallationExecutor(self.state)
+        executor.load()
+        return executor.is_active or executor.load_error is not None
 
-        except Exception as e:
-            logger.error(f"Error during data update check: {e}", exc_info=True)
+    # ========================================
+    # CATALOGUE UPDATE FEEDBACK
+    # ========================================
+
+    def _skip_catalogue_update(self) -> None:
+        if self._catalogue_update and not self._catalogue_update.cancel():
+            # The new catalogue is being activated: its outcome is awaited.
+            self.splash.set_skip_update_available(False)
 
     def _on_update_data_progress(self, progress: int) -> None:
         # Map update progress to 10-30% range
         self.splash.set_progress(10 + int(progress * 0.20))
 
     @staticmethod
-    def _on_update_data_error(message: str) -> None:
+    def _warn_update_failed(errors: list[str]) -> None:
         QMessageBox.warning(
-            None, tr("warning.title"), tr("warning.data_update_failed_detail", message=message)
+            None,
+            tr("warning.title"),
+            tr("warning.data_update_failed_detail", message="\n".join(errors)),
         )
         logger.warning("Continuing with existing data")
 
-    def _initialize_rule_cache(self) -> None:
-        """Initialize or rebuild rule cache."""
-        rule_manager = self.state.get_rule_manager()
+    # ========================================
+    # CACHES
+    # ========================================
 
-        self.cache_initializer.initialize_cache(
-            manager=rule_manager,
-            manager_name="Rule",
-            progress_range=(30, 60),
-        )
+    def _prepare_cache(
+        self,
+        manager: LocalizedCacheManager,
+        progress_range: tuple[int, int],
+        on_ready: Callable[[], None],
+    ) -> None:
+        """Load or build a cache, then continue with `on_ready` once it is ready."""
+        self._cache_stage = CacheStage(manager, progress_range, on_ready)
 
-    def _initialize_mod_cache(self) -> None:
-        """Initialize or rebuild mod cache."""
-        mod_manager = self.state.get_mod_manager()
+        manager.cache_ready.connect(self._on_cache_ready)
+        manager.cache_error.connect(self._on_cache_error)
+        manager.build_progress.connect(self._on_cache_progress)
+        manager.build_status.connect(self.splash.set_status)
 
-        self.cache_initializer.initialize_cache(
-            manager=mod_manager,
-            manager_name="Mod",
-            progress_range=(60, 90),
-        )
+        manager.prepare_cache()
+
+    def _on_cache_progress(self, progress: int) -> None:
+        start_pct, end_pct = self._cache_stage.progress_range
+        self.splash.set_progress(start_pct + int(progress * (end_pct - start_pct) / 100))
+
+    def _on_cache_ready(self, _loaded: bool) -> None:
+        stage = self._end_cache_stage()
+        logger.info(f"{stage.manager.cache_label.capitalize()} ready")
+        self._run_stage(stage.on_ready)
+
+    def _on_cache_error(self, message: str) -> None:
+        stage = self._end_cache_stage()
+        logger.error(f"{stage.manager.cache_label.capitalize()} preparation failed: {message}")
+        self._fail(tr("error.cache_build_failed", mods_dir=str(MODS_DIR)))
+
+    def _end_cache_stage(self) -> CacheStage:
+        """Detach the current cache: its first terminal signal ends the stage."""
+        stage = self._cache_stage
+        self._cache_stage = None
+
+        stage.manager.cache_ready.disconnect(self._on_cache_ready)
+        stage.manager.cache_error.disconnect(self._on_cache_error)
+        stage.manager.build_progress.disconnect(self._on_cache_progress)
+        stage.manager.build_status.disconnect(self.splash.set_status)
+
+        return stage
+
+    # ========================================
+    # INTERFACE
+    # ========================================
 
     def _create_main_window(self) -> MainWindow:
         """Create and configure main window."""
@@ -326,10 +335,6 @@ class ApplicationInitializer:
 
         return "installation_type"
 
-    def finish_splash(self) -> None:
-        """Close splash screen and show main window."""
-        if self.splash and self.window:
-            self.splash.finish_with_delay(self.window, delay_ms=500)
 
 
 def setup_logging() -> None:
@@ -408,6 +413,15 @@ def create_window_icon() -> QIcon:
     return QIcon()
 
 
+def show_main_window(
+    app: QApplication, initializer: ApplicationInitializer, window: MainWindow
+) -> None:
+    """Show the main window once initialized; closing it now quits the application."""
+    window.show()
+    initializer.finish_splash()
+    app.setQuitOnLastWindowClosed(True)
+
+
 def main() -> int:
     """
     Main application entry point.
@@ -431,11 +445,14 @@ def main() -> int:
         stylesheet = load_stylesheet()
         app.setStyleSheet(stylesheet)
 
-        initializer = ApplicationInitializer(app)
-        window, state = initializer.run()
+        # No window is open during the first stages: closing a dialog must not quit.
+        app.setQuitOnLastWindowClosed(False)
 
-        window.show()
-        initializer.finish_splash()
+        initializer = ApplicationInitializer(app)
+        initializer.ready.connect(lambda window: show_main_window(app, initializer, window))
+        initializer.failed.connect(lambda: app.exit(1))
+        app.aboutToQuit.connect(initializer.shutdown)
+        QTimer.singleShot(0, initializer.start)
 
         exit_code = app.exec()
         logger.info(f"Application exiting with code {exit_code}")
