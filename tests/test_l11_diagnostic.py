@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import Mock
 import zipfile
 
-from PySide6.QtWidgets import QFileDialog, QMessageBox
+from PySide6.QtWidgets import QFileDialog, QMessageBox, QPushButton
 import pytest
 from pytestqt.qtbot import QtBot
 
@@ -24,9 +24,10 @@ from core.InstallationJournal import (
     RunPlan,
     RunSequence,
 )
+from core.InstallationWorker import UserDecision
 from core.TranslationManager import tr
 from core.weidu_types import AttemptEvidence, ComponentStatus
-from ui.pages.InstallationPage import InstallationPage
+from ui.pages.InstallationPage import ERROR_CHOICES, DecisionDialog, InstallationPage
 
 WEIDU_LOG = "// Log of Currently Installed WeiDU Mods\n~DEMO/DEMO.TP2~ #0 #0 // Demo\n"
 FAILED_DEBUG = "Installing [Broken]\nERROR: cannot find FOO.ITM\nNOT INSTALLED DUE TO ERRORS\n"
@@ -277,3 +278,70 @@ def test_final_report_offers_the_export(
     page._show_installation_summary()
 
     export.assert_called_once()
+
+
+def click_on(label: str):
+    """Make QMessageBox.exec answer with the button carrying the given label."""
+
+    def clicked(box: QMessageBox):
+        return next((button for button in box.buttons() if button.text() == label), None)
+
+    return clicked
+
+
+def test_suspension_explains_and_offers_the_export(
+    tmp_path: Path,
+    qtbot: QtBot,
+    incomplete_run: InstallationJournal,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    page = page_for(tmp_path, qtbot)
+    shown: list[str] = []
+    monkeypatch.setattr(QMessageBox, "exec", lambda box: shown.append(box.text()))
+    monkeypatch.setattr(
+        QMessageBox, "clickedButton", click_on(tr("page.installation.btn_diagnostic"))
+    )
+    export = Mock()
+    monkeypatch.setattr(page, "_export_diagnostic", export)
+
+    page._report_problem("disk full")
+
+    assert shown == [tr("page.installation.recovery", detail="disk full")]
+    export.assert_called_once()
+
+
+def test_suspension_without_journal_offers_no_export(
+    tmp_path: Path, qtbot: QtBot, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    page = page_for(tmp_path, qtbot)
+    labels: list[list[str]] = []
+    monkeypatch.setattr(
+        QMessageBox, "exec", lambda box: labels.append([b.text() for b in box.buttons()])
+    )
+
+    page._report_problem("disk full")
+
+    assert labels and tr("page.installation.btn_diagnostic") not in labels[0]
+
+
+def test_failure_dialog_exports_without_taking_a_decision(qtbot: QtBot) -> None:
+    export = Mock()
+    dialog = DecisionDialog(
+        tr("page.installation.error_title"),
+        tr("page.installation.error_message", component="broken:1"),
+        ["ERROR: cannot find FOO.ITM"],
+        ERROR_CHOICES,
+        default=UserDecision.STOP,
+        on_diagnostic=export,
+    )
+    qtbot.addWidget(dialog)
+    button = next(
+        button
+        for button in dialog.findChildren(QPushButton)
+        if button.text() == tr("page.installation.btn_diagnostic")
+    )
+
+    button.click()
+
+    export.assert_called_once()
+    assert dialog.decision is UserDecision.STOP and dialog.result() == 0

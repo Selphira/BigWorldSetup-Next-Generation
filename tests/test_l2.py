@@ -329,3 +329,45 @@ def test_backup_detects_only_installed_weidu_components(
     if content is not None:
         (tmp_path / "weidu.log").write_text(content, encoding="utf-8")
     assert BackupManager().is_game_modded(tmp_path) is modded
+
+
+@pytest.mark.parametrize(
+    ("boundary", "game_moved"),
+    [("prepared", False), ("original_saved", True), ("publish", True)],
+)
+def test_restore_failure_says_whether_the_game_folder_was_touched(
+    backup: tuple[BackupManager, Path, str],
+    monkeypatch: pytest.MonkeyPatch,
+    boundary: str,
+    game_moved: bool,
+) -> None:
+    import importlib
+
+    from core.TranslationManager import tr
+
+    module = importlib.import_module("core.RestoreTransaction")
+    manager, game, identifier = backup
+    write = module.write_json_atomic
+    rename = Path.rename
+
+    def write_fault(path: Path, value: dict) -> None:
+        if value.get("phase") == boundary:
+            raise OSError("injected journal failure")
+        write(path, value)
+
+    def rename_fault(path: Path, target: Path) -> Path:
+        if boundary == "publish" and path.name == "staged":
+            raise OSError("injected publication failure")
+        return rename(path, target)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(module, "write_json_atomic", write_fault)
+        patch.setattr(Path, "rename", rename_fault)
+        success, recovery, error = manager.restore_backup(identifier, game, Mock())
+
+    assert not success and recovery is not None
+    untouched = tr("backup_manager.error.restore_game_untouched")
+    if game_moved:
+        assert str(recovery / "original") in error and untouched not in error
+    else:
+        assert untouched in error and str(recovery / "original") not in error

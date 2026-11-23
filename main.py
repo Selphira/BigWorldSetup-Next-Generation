@@ -251,7 +251,7 @@ class ApplicationInitializer(QObject):
     def _warn_update_failed(self, errors: list[str]) -> None:
         QMessageBox.warning(
             self._dialog_parent(),
-            tr("warning.title"),
+            tr("warning.data_update_failed_title"),
             tr("warning.data_update_failed_detail", message="\n".join(errors)),
         )
         logger.warning("Continuing with existing data")

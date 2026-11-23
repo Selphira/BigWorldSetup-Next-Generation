@@ -412,7 +412,7 @@
       "complete_title": "Extraction Complete",
       "complete_message": "{count} archive(s) successfully extracted",
       "complete_with_errors_title": "Extraction Complete with Errors",
-      "complete_with_errors_message": "{success} archive(s) successfully extracted, {errors} error(s)",
+      "complete_with_errors_message": "{success} archive(s) successfully extracted, {errors} failed.\n\nThe installation cannot start until these archives are extracted.\n\nHover over the status of a failed archive to see its cause. Fix it, then extract it again from the context menu or change the archive.",
       "no_archive": "No archive",
       "custom_archive_tooltip": "Custom archive configured",
       "archive_not_found_title": "Archive Not Found",
@@ -486,7 +486,8 @@
       "edit_title": "Edit Backup",
       "edit_custom_name": "Custom name (optional):",
       "edit_notes": "Notes (optional):",
-      "context_edit": "Edit name and notes"
+      "context_edit": "Edit name and notes",
+      "restore_failed_title": "Restore Failed"
     },
     "installation": {
       "active_run": "Another installation is using this journal.",
@@ -496,7 +497,7 @@
       "evidence": "Exit code {code}. DEBUG: {debug}. Component in WeiDU.log: {log}.",
       "blocked_preview": "Continuing will block these components:\n{components}",
       "force_stop": "WeiDU is still running. Force it and its child processes to stop? Restoration may be required.",
-      "recovery": "Run suspended. Check the journal and game folder before resuming. If their state is uncertain, restore a verified backup. Details: {detail}",
+      "recovery": "The installation is suspended: {detail}\n\nThe game folder may be in an intermediate state; nothing else will be installed until the situation is checked.\n\nCheck the game folder and WeiDU.log, then resume the installation. If their state is uncertain, restore a verified backup. To ask for help, export the diagnostic.",
       "incomplete": "Installation incomplete",
       "warnings": "Installation completed with warnings",
       "complete": "Installation complete",
@@ -544,8 +545,8 @@
         "ready": "Ready to start installation. Click 'Start Installation'.",
         "ready_to_resume": "Ready to resume installation. Click 'Start Installation'."
       },
-      "error_title": "Installation Error",
-      "error_message": "Component {component} could not be installed.\n\nWhat do you want to do?",
+      "error_title": "Installation Failure",
+      "error_message": "WeiDU could not install: {component}. The errors found are shown below.\n\nThis component is not installed. If you continue without it, the components that depend on it will be blocked.\n\nRetry once the cause is fixed, continue without this component, pause the installation to examine the game, or stop it. To ask for help, export the diagnostic.",
       "dependents_title": "Failed prerequisites",
       "dependents_message": "Skip these dependent components?\n{components}",
       "invalid_plan": "Invalid component or missing, conflicting or unknown SUB answer for {reference}.",
@@ -596,9 +597,9 @@
       "invalid_mod_id": "The mod {mod} cannot be registered automatically: its identifier or component numbers are invalid.",
       "missing_component": "The component {reference} of the saved plan no longer exists in the catalogue.",
       "debug_not_reached": "component not reached",
-      "undetermined": "Undetermined result for: {components}. The installation is suspended. Check these components; when resuming, you will state whether they are installed, to retry or failed.",
+      "undetermined": "the result of {components} could not be established. When resuming, you will state for each one whether it is installed, to reinstall or failed.",
       "decision_title": "Component result to confirm",
-      "decision_message": "The installation of {component} has no established result. Check the game, the DEBUG and WeiDU.log, then state what to retain. If in doubt, restore a verified backup.",
+      "decision_message": "The installation of {component} has no established result.\n\nThe installation cannot resume until you state what to make of it.\n\nCheck the game, the DEBUG file and WeiDU.log, then choose. If in doubt, restore a verified backup. To ask for help, export the diagnostic.",
       "decision_installed": "Consider installed",
       "decision_retry": "Reinstall",
       "decision_failed": "Consider failed",
@@ -617,7 +618,8 @@
         "dialog_title": "Export installation diagnostic",
         "exported": "Diagnostic saved to {path}.\n\nAttach this file to your help request.",
         "failed": "The diagnostic could not be saved to {path}: {error}\n\nNo file was changed. Choose another folder that is writable and has free space."
-      }
+      },
+      "recovery_title": "Installation Suspended"
     }
   },
   "backup_manager": {
@@ -642,8 +644,10 @@
       "integrity_mismatch": "Snapshot contents differ from the manifest. No restoration can be confirmed.",
       "different_target": "This snapshot belongs to another game directory. Restore it only to its original location.",
       "legacy_backup": "This older selective backup has no verified manifest. Create a new full snapshot before restoring.",
-      "original_move_denied": "The game folder could not be moved. The game is still at its original location ({game}). Close the game and applications using this folder, then try again. If the problem persists, check permissions to move the folder. System error: {error}",
-      "recovery_available": "Retained working directory: {path}"
+      "original_move_denied": "the game folder {game} could not be moved. Close the game and any software using this folder, then try again; if the problem persists, check the permissions to move it. Windows or system detail: {error}",
+      "recovery_available": "Restore working folder: {path}. Only delete it once the game has been checked.",
+      "restore_game_untouched": "The game folder was not modified: it is as it was before the restore. Fix the cause shown, then restore again.",
+      "restore_game_moved": "The game folder {game} may be missing or incomplete: do not start the game or an installation. The game files from before the restore are kept in {original}. Put this folder back at {game}, moving away the folder there first if it exists, then restore again if needed."
     },
     "progress": {
       "analyzing_files": "Analyzing files...",
@@ -728,7 +732,8 @@
   },
   "warning": {
     "title": "Warning",
-    "data_update_failed_detail": "Data update failed: {message}"
+    "data_update_failed_detail": "The mod catalogue could not be updated: {message}\n\nThe application continues with the catalogue already present: mods, versions and rules published since are not available.\n\nCheck your Internet connection, then restart the application to try again.",
+    "data_update_failed_title": "Catalogue Not Updated"
   },
   "dialog": {
     "ui_language": {
@@ -740,8 +745,8 @@
     },
     "archive_mismatch": {
       "title": "Archive differs from the catalogue",
-      "text": "The archive chosen for {mod_name} does not match the catalogue one.",
-      "details": "Expected version: {version}\nExpected hash: {expected_hash}\nActual hash: {actual_hash}\nExpected size: {expected_size}\nActual size: {actual_size}\nFile: {path}\n\nAnother version may contain different components; they will be compared with the plan after extraction. Accept this archive?"
+      "text": "The archive chosen for {mod_name} does not match the catalogue one: its hash or size differs.",
+      "details": "Expected version: {version}\nExpected hash: {expected_hash}\nActual hash: {actual_hash}\nExpected size: {expected_size}\nActual size: {actual_size}\nFile: {path}\n\nAnother version may contain different components: they will be compared with the plan after extraction, and extraction will be refused if planned components are missing. If you refuse, the archive stays unusable and the mod cannot be extracted.\n\nOnly accept an archive you chose on purpose; otherwise, download the archive again or choose the expected one. Accept this archive?"
     }
   },
   "diagnostic": {

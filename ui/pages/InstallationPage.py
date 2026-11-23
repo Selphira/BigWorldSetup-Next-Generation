@@ -2,6 +2,7 @@
 Installation page for mod installation process.
 """
 
+from collections.abc import Callable
 from enum import Enum
 import logging
 from pathlib import Path
@@ -120,6 +121,7 @@ class DecisionDialog(QDialog):
     """Ask the user to choose how an installation step goes on.
 
     ``decision`` keeps ``default`` when the dialog is closed without a choice.
+    ``on_diagnostic`` adds a button exporting the diagnostic without closing the dialog.
     """
 
     def __init__(
@@ -130,6 +132,7 @@ class DecisionDialog(QDialog):
         choices: tuple[tuple[str, Enum], ...],
         default: Enum | None,
         cancellable: bool = False,
+        on_diagnostic: Callable[[], None] | None = None,
         parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
@@ -138,7 +141,7 @@ class DecisionDialog(QDialog):
             self.setMinimumWidth(DECISION_DIALOG_MIN_WIDTH)
         self.decision: Enum | None = default
 
-        self._create_widgets(message, details, choices, cancellable)
+        self._create_widgets(message, details, choices, cancellable, on_diagnostic)
 
     def _create_widgets(
         self,
@@ -146,6 +149,7 @@ class DecisionDialog(QDialog):
         details: list[str],
         choices: tuple[tuple[str, Enum], ...],
         cancellable: bool,
+        on_diagnostic: Callable[[], None] | None,
     ) -> None:
         """Create dialog layout."""
         layout = QVBoxLayout(self)
@@ -172,6 +176,12 @@ class DecisionDialog(QDialog):
             btn_cancel = self._create_button("page.installation.btn_cancel")
             btn_cancel.clicked.connect(self.reject)
             button_layout.addWidget(btn_cancel)
+
+        if on_diagnostic:
+            button_layout.addStretch()
+            btn_diagnostic = self._create_button("page.installation.btn_diagnostic")
+            btn_diagnostic.clicked.connect(on_diagnostic)
+            button_layout.addWidget(btn_diagnostic)
 
         layout.addLayout(button_layout)
 
@@ -635,6 +645,7 @@ class InstallationPage(BasePage):
                 OPERATION_CHOICES,
                 default=None,
                 cancellable=True,
+                on_diagnostic=self._export_diagnostic,
                 parent=self,
             )
             dialog.exec()
@@ -716,8 +727,26 @@ class InstallationPage(BasePage):
     def _report_problem(self, detail: str) -> None:
         message = tr("page.installation.recovery", detail=detail)
         self._append_output(message, COLOR_ERROR)
-        if not self._closing or (self._worker and self._worker.has_live_process()):
-            QMessageBox.critical(self, tr("error.critical_title"), message)
+        if self._closing and not (self._worker and self._worker.has_live_process()):
+            return
+
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Critical)
+        msg_box.setWindowTitle(tr("page.installation.recovery_title"))
+        msg_box.setText(message)
+        self._exec_offering_diagnostic(msg_box)
+
+    def _exec_offering_diagnostic(self, msg_box: QMessageBox) -> None:
+        """Show a message box with an export button while a journal exists to export."""
+        msg_box.addButton(QMessageBox.StandardButton.Ok)
+        export_button = None
+        if self._executor.journal_path.exists():
+            export_button = msg_box.addButton(
+                tr("page.installation.btn_diagnostic"), QMessageBox.ButtonRole.ActionRole
+            )
+        msg_box.exec()
+        if export_button is not None and msg_box.clickedButton() is export_button:
+            self._export_diagnostic()
 
     # ========================================
     # Worker Signal Handlers
@@ -797,6 +826,7 @@ class InstallationPage(BasePage):
             errors,
             ERROR_CHOICES,
             default=UserDecision.STOP,
+            on_diagnostic=self._export_diagnostic,
             parent=self,
         )
         dialog.exec()
@@ -975,13 +1005,7 @@ class InstallationPage(BasePage):
             if outcome == RunOutcome.COMPLETE
             else QMessageBox.Icon.Warning
         )
-        msg_box.addButton(QMessageBox.StandardButton.Ok)
-        export_button = msg_box.addButton(
-            tr("page.installation.btn_diagnostic"), QMessageBox.ButtonRole.ActionRole
-        )
-        msg_box.exec()
-        if msg_box.clickedButton() is export_button:
-            self._export_diagnostic()
+        self._exec_offering_diagnostic(msg_box)
 
     def _update_navigation_buttons(self):
         """Update navigation buttons."""

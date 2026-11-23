@@ -173,8 +173,7 @@ class BackupManager:
             return True, transaction.directory, ""
 
         except Exception as error:
-            recovery_dir = transaction.directory if transaction else None
-            return self._restore_failure(recovery_dir, error)
+            return self._restore_failure(transaction, error)
 
     def recover_restore(self, transaction: Path) -> OperationResult:
         """Restore the pre-operation tree from a journal, retaining all recovery data."""
@@ -471,13 +470,25 @@ class BackupManager:
         transaction.save_phase(RestorePhase.COMPLETE)
 
     def _restore_failure(
-        self, recovery_dir: Path | None, error: Exception
+        self, transaction: RestoreTransaction | None, error: Exception
     ) -> tuple[bool, Path | None, str]:
+        """Describe the failure, what became of the game folder and what to do next."""
+        recovery_dir = transaction.directory if transaction else None
         logger.exception("Restore failed; recovery directory: %s", recovery_dir)
         message = tr("backup_manager.error.restore_failed", error=str(error))
 
+        # The game folder is only altered once it has been moved aside as a whole.
+        if transaction is not None and transaction.recovery_dir.exists():
+            message += "\n\n" + tr(
+                "backup_manager.error.restore_game_moved",
+                game=str(transaction.game_dir),
+                original=str(transaction.recovery_dir),
+            )
+        else:
+            message += "\n\n" + tr("backup_manager.error.restore_game_untouched")
+
         if recovery_dir is not None:
-            message += "\n" + tr(
+            message += "\n\n" + tr(
                 "backup_manager.error.recovery_available", path=str(recovery_dir)
             )
 
