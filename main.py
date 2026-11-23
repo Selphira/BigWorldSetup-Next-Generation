@@ -14,6 +14,8 @@ from constants import (
     APP_ORG,
     APP_VERSION,
     CACHE_DIR,
+    CATALOGUE_UPDATE_ENABLED,
+    CATALOGUE_UPDATE_ENVIRONMENT_VARIABLE,
     ICONS_DIR,
     LOG_BACKUP_COUNT,
     LOG_DATE_FORMAT,
@@ -123,6 +125,14 @@ class ApplicationInitializer(QObject):
 
     def _prepare_catalogue(self) -> None:
         self._recover_catalogue()
+
+        if not CATALOGUE_UPDATE_ENABLED:
+            logger.info(
+                "Run from the sources: shipped catalogue read, update skipped "
+                f"(set {CATALOGUE_UPDATE_ENVIRONMENT_VARIABLE}=1 to enable it)"
+            )
+            self._load_catalogue()
+            return
 
         if self._is_installation_in_progress():
             # The run was planned against the current catalogue: never replace it meanwhile.

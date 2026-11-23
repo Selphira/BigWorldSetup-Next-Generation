@@ -52,6 +52,9 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+        with:
+          # The shipped catalogue version is the last commit of data/
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -92,6 +95,31 @@ jobs:
           if (Test-Path README.md) { Copy-Item README.md dist/BigWorldSetup/ }
           if (Test-Path LICENSE) { Copy-Item LICENSE dist/BigWorldSetup/ }
         shell: pwsh
+
+      # Same format as the version published by data-update.yml, without the
+      # checksums of data.zip. The commit date of data/ precedes the publication
+      # of the same catalogue: a later download of it, or of a newer one, is read
+      # instead, while an older download is not.
+      - name: Write shipped catalogue version
+        shell: bash
+        run: |
+          HASH=$(git log -1 --format=%H -- data)
+          SHORT_HASH=$(git rev-parse --short "${HASH}")
+          TIMESTAMP=$(git log -1 --format=%ct -- data)
+          DATE=$(TZ=UTC git log -1 --date=format-local:'%Y-%m-%d %H:%M:%S UTC' --format=%cd -- data)
+          SCHEMA_VERSION=$(python -c "from constants import DATA_SCHEMA_VERSION; print(DATA_SCHEMA_VERSION)")
+
+          cat > dist/BigWorldSetup/data/data_version.json << EOF
+          {
+            "data_schema_version": "${SCHEMA_VERSION}",
+            "commit_hash": "${HASH}",
+            "short_hash": "${SHORT_HASH}",
+            "timestamp": ${TIMESTAMP},
+            "date": "${DATE}",
+            "version": "data-${SHORT_HASH}"
+          }
+          EOF
+          cat dist/BigWorldSetup/data/data_version.json
 
       # The package is started from a copy, so that the files it generates are
       # not shipped, and from another working directory, so that a path resolved

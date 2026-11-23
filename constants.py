@@ -39,6 +39,13 @@ CATALOGUE_MODS_DIR_NAME = "mods"
 CATALOGUE_GAMES_DIR_NAME = "games"
 CATALOGUE_RULES_DIR_NAME = "rules"
 CATALOGUE_VERSION_FILE_NAME = "data_version.json"
+# Run from the sources, the application reads data/ only and never downloads
+# the catalogue, unless this environment variable is set to "1"
+CATALOGUE_UPDATE_ENVIRONMENT_VARIABLE = "BWS_NG_CATALOGUE_UPDATE"
+CATALOGUE_UPDATE_ENABLED: bool = (
+    getattr(sys, "frozen", False)
+    or os.environ.get(CATALOGUE_UPDATE_ENVIRONMENT_VARIABLE) == "1"
+)
 
 # Every file generated outside the game folders and the folders chosen by the
 # user lives under VAR_DIR, one subdirectory per lifecycle (docs/fichiers-generes.md).

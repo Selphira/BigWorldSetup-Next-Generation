@@ -1,5 +1,4 @@
 import hashlib
-import json
 import logging
 from pathlib import Path
 import shutil
@@ -11,6 +10,7 @@ from PySide6.QtCore import QObject, Signal
 import requests
 
 from constants import (
+    BASE_CATALOGUE_DIR,
     CATALOGUE_VERSION_FILE_NAME,
     DATA_SCHEMA_VERSION,
     DATA_VERSION_URL,
@@ -22,7 +22,7 @@ from constants import (
     SCHEMAS_DIR,
 )
 from core.atomic_io import write_json_atomic
-from core.CatalogueLocation import CatalogueLocation
+from core.CatalogueLocation import CatalogueLocation, is_schema_compatible
 from core.TranslationManager import tr
 from validation.catalogue import validate_catalogue
 
@@ -195,28 +195,13 @@ class DataUpdater(QObject):
     @staticmethod
     def _is_data_compatible(remote_version: dict) -> bool:
         """Check if remote data schema is compatible with this app version."""
-        remote_schema = remote_version.get("data_schema_version")
-
-        if not remote_schema:
-            logger.warning("Remote data has no schema version - assuming compatible")
-            return True
-
-        try:
-            app_major = DATA_SCHEMA_VERSION.split(".")[0]
-            remote_major = remote_schema.split(".")[0]
-            is_compatible = app_major == remote_major
-
-            logger.info(
-                f"Schema compatibility check: "
-                f"App={DATA_SCHEMA_VERSION} vs Remote={remote_schema} → "
-                f"{'Compatible' if is_compatible else 'Incompatible'}"
-            )
-
-            return is_compatible
-
-        except (IndexError, AttributeError) as e:
-            logger.error(f"Invalid schema version format: {e}")
-            return False
+        is_compatible = is_schema_compatible(remote_version)
+        logger.info(
+            f"Schema compatibility check: App={DATA_SCHEMA_VERSION} vs "
+            f"Remote={remote_version.get('data_schema_version', 'unknown')} → "
+            f"{'Compatible' if is_compatible else 'Incompatible'}"
+        )
+        return is_compatible
 
     @staticmethod
     def _fetch_remote_version() -> dict | None:
@@ -231,33 +216,27 @@ class DataUpdater(QObject):
 
     @staticmethod
     def _get_local_version() -> dict | None:
-        """Get the version of the catalogue read by the application."""
-        version_file = CatalogueLocation.active(DOWNLOADED_CATALOGUE_DIR).version_file
-        if not version_file.exists():
-            return None
-        try:
-            with open(version_file, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            logger.warning(f"Failed to read local version: {e}")
-            return None
+        """Get the version of the catalogue read once updates are enabled."""
+        return CatalogueLocation.active(
+            DOWNLOADED_CATALOGUE_DIR, BASE_CATALOGUE_DIR, downloaded_enabled=True
+        ).read_version()
 
     @staticmethod
     def _is_update_needed(local: dict | None, remote: dict) -> bool:
-        """Compare versions to determine if update is needed."""
+        """Tell whether the published version is newer than the local one.
+
+        Commit hashes only tell two versions apart; their publication
+        timestamps order them, so that an application shipped with a newer
+        catalogue does not download an older one.
+        """
         if not local:
             return True
 
         local_hash = local.get("commit_hash", "")
-        remote_hash = remote.get("commit_hash", "")
+        if local_hash and local_hash == remote.get("commit_hash", ""):
+            return False
 
-        if local_hash and remote_hash:
-            return local_hash != remote_hash
-
-        local_time = local.get("timestamp", 0)
-        remote_time = remote.get("timestamp", 0)
-
-        return remote_time > local_time
+        return remote.get("timestamp", 0) > local.get("timestamp", 0)
 
     def _download_file(self, url: str, dest: Path) -> bool:
         """Download file with progress reporting and retry logic."""

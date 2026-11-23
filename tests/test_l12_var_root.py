@@ -9,7 +9,6 @@ import zipfile
 import pytest
 
 import constants
-from core.CatalogueLocation import CatalogueLocation
 
 # The suite forbids external processes; this test needs exactly one interpreter.
 ORIGINAL_POPEN = subprocess.Popen
@@ -61,6 +60,7 @@ def test_application_writes_only_under_its_var_root(
     environment = {
         **os.environ,
         constants.VAR_DIR_ENVIRONMENT_VARIABLE: str(var_root),
+        constants.CATALOGUE_UPDATE_ENVIRONMENT_VARIABLE: "1",
         "PYTHONPATH": str(constants.PROJECT_ROOT),
         "PYTHONDONTWRITEBYTECODE": "1",
     }
@@ -90,13 +90,3 @@ def test_application_writes_only_under_its_var_root(
     assert any(name.startswith("cache/") for name in written)
     assert (var_root / "user" / "mods").is_dir()
     assert (var_root / "runs" / "current").is_dir()
-
-
-def test_downloaded_catalogue_is_read_once_activated(tmp_path: Path) -> None:
-    downloaded, base = tmp_path / "catalogue", tmp_path / "data"
-    downloaded.mkdir()
-
-    assert CatalogueLocation.active(downloaded, base).root == base
-
-    CatalogueLocation(downloaded).version_file.write_text("{}", encoding="utf-8")
-    assert CatalogueLocation.active(downloaded, base).root == downloaded
