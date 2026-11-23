@@ -411,9 +411,6 @@ class InstallationTypePage(BasePage):
         for selector in self.folder_widgets.values():
             selector.retranslate_ui()
 
-        language_order = [self.state_manager.get_ui_language()]
-        self.languages_order.set_order(language_order)
-
     def get_previous_button_config(self) -> ButtonConfig:
         """Configure previous button (hidden on first page)."""
         return ButtonConfig(visible=False)
@@ -507,12 +504,8 @@ class InstallationTypePage(BasePage):
         if backup_path:
             self.backup_folder.set_path(backup_path)
 
-        # Load languages order
-        languages_order = self.state_manager.get_languages_order()
-        if not languages_order:
-            languages_order = [self.state_manager.get_ui_language()]
-
-        self.languages_order.set_order(languages_order)
+        # Initialized once at startup from the UI language, then only changed by the user
+        self.languages_order.set_order(self.state_manager.get_languages_order())
 
         logger.info("Saved state loaded")
 

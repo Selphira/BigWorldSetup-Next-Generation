@@ -722,6 +722,10 @@
     "data_update_failed_detail": "Data update failed: {message}"
   },
   "dialog": {
+    "ui_language": {
+      "title": "Interface language",
+      "message": "Choose the language of the interface. It also comes first in the mod languages order, which you can rearrange afterwards."
+    },
     "link_archive": {
       "select_file": "Select the mod archive"
     },

@@ -722,6 +722,10 @@
     "data_update_failed_detail": "Échec de la mise à jour des données: {message}"
   },
   "dialog": {
+    "ui_language": {
+      "title": "Langue de l'interface",
+      "message": "Choisissez la langue de l'interface. Elle sera aussi placée en tête de l'ordre des langues des mods, que vous pourrez réorganiser ensuite."
+    },
     "link_archive": {
       "select_file": "Sélectionner l'archive du mod"
     },

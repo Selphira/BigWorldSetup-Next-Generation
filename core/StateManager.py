@@ -104,6 +104,7 @@ class StateManager:
     # QSettings configuration
     SETTINGS_ORG = "Selphira"
     SETTINGS_APP = "BigWorldSetupEnhanced"
+    UI_LANGUAGE_SETTING = "ui/language"
 
     def __init__(self) -> None:
         """Initialize state manager with QSettings and JSON state."""
@@ -126,7 +127,7 @@ class StateManager:
         Returns:
             Language code (e.g., "fr_FR")
         """
-        return str(self.settings.value("ui/language", "fr_FR", str))
+        return str(self.settings.value(self.UI_LANGUAGE_SETTING, "fr_FR", str))
 
     def set_ui_language(self, code: str) -> None:
         """
@@ -135,8 +136,17 @@ class StateManager:
         Args:
             code: Language code (e.g., "fr_FR")
         """
-        self.settings.setValue("ui/language", code)
+        self.settings.setValue(self.UI_LANGUAGE_SETTING, code)
         logger.info(f"UI language set to: {code}")
+
+    def has_ui_language(self) -> bool:
+        """
+        Tell whether the user already chose the UI language.
+
+        Returns:
+            False on first launch
+        """
+        return self.settings.contains(self.UI_LANGUAGE_SETTING)
 
     def get_ui_current_page(self) -> str:
         """
@@ -402,6 +412,26 @@ class StateManager:
             Ordered list of language codes
         """
         return self.installation_state.configuration.get("languages_order", []).copy()
+
+    def initialize_languages_order(self, languages: list[str]) -> None:
+        """
+        Initialize the mod languages order once, from the UI language.
+
+        The order then belongs to the user: a later change of the UI language
+        never alters it. It is saved at once so that the next launch keeps it.
+
+        Args:
+            languages: Supported language codes, in display order
+        """
+        if self.get_languages_order():
+            return
+
+        ui_language = self.get_ui_language()
+        self.set_languages_order(
+            [ui_language, *(code for code in languages if code != ui_language)]
+        )
+        self.save_state()
+        logger.info(f"Languages order initialized from UI language {ui_language}")
 
     # ========================================
     # STATE PERSISTENCE

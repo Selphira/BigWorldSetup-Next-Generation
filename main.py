@@ -3,6 +3,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import sys
 
+from PySide6.QtCore import QLocale
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
@@ -24,7 +25,8 @@ from constants import (
 )
 from core.DataUpdater import DataUpdater
 from core.StateManager import StateManager
-from core.TranslationManager import get_translator, tr
+from core.TranslationManager import get_supported_languages, get_translator, tr
+from ui.LanguageChoiceDialog import LanguageChoiceDialog
 from ui.MainWindow import MainWindow
 from ui.pages.BackupPage import BackupPage
 from ui.pages.DownloadPage import DownloadPage
@@ -174,6 +176,9 @@ class ApplicationInitializer:
         Raises:
             Exception: If initialization fails
         """
+        # The first launch language dialog must not sit behind the splash screen.
+        self.state = self._initialize_state()
+
         self.splash = SplashScreen(ICONS_DIR / "bws.png")
         self.splash.show()
         self.app.processEvents()
@@ -183,7 +188,6 @@ class ApplicationInitializer:
         self.splash.set_stage("Initializing...", 5)
         if not self.data_updater.recover_pending_update():
             raise RuntimeError("Catalogue recovery failed; backup retained")
-        self.state = self._initialize_state()
 
         self.splash.set_stage(tr("app.checking_data_update"), 10)
         self._check_and_update_data()
@@ -212,14 +216,33 @@ class ApplicationInitializer:
             Initialized StateManager instance
         """
         state = StateManager()
-
-        # Initialize translation
         translator = get_translator(self.app)
+        languages = [code for code, _ in get_supported_languages()]
+
+        # The UI language comes first: it seeds the mod languages order.
+        if not state.has_ui_language():
+            state.set_ui_language(self._choose_ui_language(state, languages))
+
         ui_language = state.get_ui_language()
         translator.set_language(ui_language)
         logger.info(f"UI language: {ui_language}")
 
+        state.initialize_languages_order(languages)
+
         return state
+
+    @staticmethod
+    def _choose_ui_language(state: StateManager, languages: list[str]) -> str:
+        """Ask for the UI language, suggesting the system one when supported."""
+        system_language = QLocale.system().name()
+        initial_language = (
+            system_language if system_language in languages else state.get_ui_language()
+        )
+
+        dialog = LanguageChoiceDialog(languages, initial_language)
+        dialog.exec()
+
+        return dialog.selected_language()
 
     def _check_and_update_data(self) -> None:
         """Check for and apply data updates if available."""

@@ -950,13 +950,9 @@ class ComponentSelector(QTreeView):
             if not isinstance(item, TreeItem):
                 continue
 
-            # Refresh mod data
+            self._refresh_catalogue_objects(item)
             mod = item.data(ROLE_MOD)
             component = item.data(ROLE_COMPONENT)
-
-            if mod:
-                mod = self._mod_manager.get_mod_by_id(mod.id)
-                item.setData(mod, ROLE_MOD)
 
             if reference.is_mod():
                 self._update_mod_status(item)
@@ -987,3 +983,28 @@ class ComponentSelector(QTreeView):
                 else:
                     text = f"[{component.key}] {mod.get_component_text(component.key)}"
                     item.setText(text)
+
+    def _refresh_catalogue_objects(self, item: TreeItem) -> None:
+        """
+        Replace the mod, component and prompt of an item with the reloaded ones.
+
+        A language reload rebuilds every Mod object and their translated texts:
+        keeping the previous objects would display SUB texts in the former language.
+        """
+        mod = item.data(ROLE_MOD)
+        if mod is None:
+            return
+
+        mod = self._mod_manager.get_mod_by_id(mod.id)
+        item.setData(mod, ROLE_MOD)
+
+        component = item.data(ROLE_COMPONENT)
+        if mod is None or component is None:
+            return
+
+        component = mod.get_component(component.key)
+        item.setData(component, ROLE_COMPONENT)
+
+        prompt = item.data(ROLE_PROMPT_KEY)
+        if component is not None and prompt is not None:
+            item.setData(component.get_prompt(prompt.key), ROLE_PROMPT_KEY)
