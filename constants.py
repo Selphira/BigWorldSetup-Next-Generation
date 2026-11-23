@@ -219,6 +219,17 @@ ICON_GAME_DEFAULT = "🎮"
 ICON_LANGUAGE_DEFAULT = "🌐"
 ICON_MOD_DEFAULT = "📦"
 
+# Font Awesome 6 icons (qtawesome names) of the action and navigation buttons
+BUTTON_ICON_START = "fa6s.play"
+BUTTON_ICON_PAUSE = "fa6s.pause"
+BUTTON_ICON_PAUSE_PENDING = "fa6s.hourglass-half"
+BUTTON_ICON_STOP = "fa6s.stop"
+BUTTON_ICON_FINISH = "fa6s.check"
+BUTTON_ICON_CANCEL = "fa6s.xmark"
+BUTTON_ICON_DIAGNOSTIC = "fa6s.file-zipper"
+BUTTON_ICON_PREVIOUS = "fa6s.arrow-left"
+BUTTON_ICON_NEXT = "fa6s.arrow-right"
+
 # ============================================================================
 # SIZES & SPACING
 # ============================================================================

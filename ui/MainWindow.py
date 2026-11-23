@@ -18,6 +18,8 @@ from PySide6.QtWidgets import (
 
 from constants import (
     APP_NAME,
+    BUTTON_ICON_NEXT,
+    BUTTON_ICON_PREVIOUS,
     BUTTON_WIDTH_STANDARD,
     COLOR_BACKGROUND_SECONDARY,
     FOOTER_HEIGHT,
@@ -33,6 +35,7 @@ from core.GameModels import GameDefinition
 from core.StateManager import StateManager
 from core.TranslationManager import get_translator, tr
 from core.VersionChecker import VersionChecker, VersionInfo
+from ui.ButtonIcons import button_icon
 from ui.pages.BasePage import BasePage
 from ui.widgets.LanguageSelector import LanguageSelector
 
@@ -204,12 +207,16 @@ class MainWindow(QMainWindow):
 
         # Create buttons
         self.btn_previous = self._create_navigation_button(
-            text=f"← {tr('button.previous')}", callback=self._on_previous_clicked
+            text=tr("button.previous"),
+            icon=BUTTON_ICON_PREVIOUS,
+            callback=self._on_previous_clicked,
         )
 
         self.btn_next = self._create_navigation_button(
-            text=f"{tr('button.next')} →", callback=self._on_next_clicked
+            text=tr("button.next"), icon=BUTTON_ICON_NEXT, callback=self._on_next_clicked
         )
+        # The arrow follows the label, pointing to the next step
+        self.btn_next.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
 
         # Layout
         self._additional_buttons_layout = QHBoxLayout()
@@ -225,17 +232,18 @@ class MainWindow(QMainWindow):
         return frame
 
     @staticmethod
-    def _create_navigation_button(text: str, callback) -> QPushButton:
+    def _create_navigation_button(text: str, icon: str, callback) -> QPushButton:
         """Create a navigation button.
 
         Args:
             text: Button text
+            icon: Font icon name shown next to the text
             callback: Click callback function
 
         Returns:
             Configured button
         """
-        button = QPushButton(text)
+        button = QPushButton(button_icon(icon), text)
         button.setFixedWidth(BUTTON_WIDTH_STANDARD)
         button.setCursor(Qt.CursorShape.PointingHandCursor)
         button.clicked.connect(callback)
@@ -416,13 +424,13 @@ class MainWindow(QMainWindow):
         prev_config = page.get_previous_button_config()
         self.btn_previous.setVisible(prev_config.visible)
         self.btn_previous.setEnabled(prev_config.enabled)
-        self.btn_previous.setText(f"← {prev_config.text}")
+        self.btn_previous.setText(prev_config.text)
 
         # Next button
         next_config = page.get_next_button_config()
         self.btn_next.setVisible(next_config.visible)
         self.btn_next.setEnabled(next_config.enabled)
-        self.btn_next.setText(f"{next_config.text} →")
+        self.btn_next.setText(next_config.text)
 
     def _update_additional_buttons(self, page_id: str, buttons: list[QPushButton]) -> None:
         """Show buttons for a specific page."""
@@ -457,8 +465,8 @@ class MainWindow(QMainWindow):
         """
         # Update navigation buttons
         self._update_page_title()
-        self.btn_previous.setText(f"← {tr('button.previous')}")
-        self.btn_next.setText(f"{tr('button.next')} →")
+        self.btn_previous.setText(tr("button.previous"))
+        self.btn_next.setText(tr("button.next"))
 
         self.lang_button.retranslate_ui()
 

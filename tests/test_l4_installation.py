@@ -827,7 +827,7 @@ def test_restart_between_sequences_runs_only_remaining_operations(
     qtbot.waitUntil(lambda: not resumed._is_installing and resumed._worker is None)
     assert launched == ["a", "b"]
     final = InstallationJournal.load(page._executor.journal_path)
-    assert not final.active
+    assert final.played
     assert final.outcome() == RunOutcome.COMPLETE
 
 

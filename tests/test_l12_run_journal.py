@@ -91,19 +91,39 @@ def test_two_runs_have_distinct_identities(journal: InstallationJournal) -> None
     assert other.lifecycle.run_id != journal.lifecycle.run_id
 
 
-def test_completed_run_is_closed_as_finished_and_dated(
+def test_played_run_stays_open_until_finished(
     journal: InstallationJournal, tmp_path: Path
 ) -> None:
     install_component(journal, tmp_path)
     executor = executor_for(journal)
 
-    assert executor.finish().undetermined == []
+    assert executor.verify_played().undetermined == []
+
+    assert InstallationJournal.load(journal.path).active and executor.is_played
+
+
+def test_finished_run_is_closed_as_finished_and_dated(
+    journal: InstallationJournal, tmp_path: Path
+) -> None:
+    install_component(journal, tmp_path)
+    executor = executor_for(journal)
+
+    executor.finish()
 
     closed = InstallationJournal.load(journal.path)
     assert not closed.active and not executor.is_active
     assert closed.lifecycle.closure == RunClosure.FINISHED
     assert closed.lifecycle.closed_at >= closed.lifecycle.started_at
     assert closed.lifecycle.run_id == journal.lifecycle.run_id
+
+
+def test_run_with_work_left_cannot_be_finished(journal: InstallationJournal) -> None:
+    executor = executor_for(journal)
+
+    executor.finish()
+
+    assert not executor.is_played
+    assert InstallationJournal.load(journal.path).active
 
 
 def test_cancelled_run_is_closed_as_cancelled_and_keeps_its_operations(

@@ -364,6 +364,18 @@ class InstallationJournal:
         """Whether the run is still open, possibly waiting to be resumed."""
         return self.lifecycle.is_open
 
+    @property
+    def played(self) -> bool:
+        """Whether the open run has nothing left to install or to decide.
+
+        Such a run waits for the user to finish it: it stays open until then.
+        """
+        return (
+            self.active
+            and not any(op.needs_work for seq in self.sequences for op in seq.operations)
+            and not self.undetermined_positions()
+        )
+
     # ------------------------------------------------------------------
     # Persistence
     # ------------------------------------------------------------------

@@ -413,7 +413,6 @@
       "cancel_message": "您真的想要取消安装吗？\n\n此操作是最终的。安装将被放弃，您将返回第一步。",
       "stop_title": "停止安装",
       "stop_message": "您想要暂时停止安装吗？\n\n您可以稍后恢复安装而不丢失进度。",
-      "stopped_title": "安装已停止",
       "stopped_message": "安装在批次 #{index} 处停止。\n\n您可以在下次启动时恢复安装。",
       "lbl_log": "安装日志",
       "btn_start": "开始安装",

@@ -49,8 +49,8 @@ DYNAMIC_FAMILIES: dict[str, Iterable[str]] = {
     "page.installation.{}": [outcome.value for outcome in RunOutcome],
     # InstallationDiagnostic: counters of InstallationJournal.stats()
     "page.installation.stats.{}": ["success", "warnings", "errors", "skipped"],
-    # InstallationPage: last line of the plan summary, new run or resume
-    "page.installation.summary.{}": ["ready", "ready_to_resume"],
+    # InstallationPage: last line of the plan summary, new, resumed or played run
+    "page.installation.summary.{}": ["ready", "ready_to_resume", "ready_to_finish"],
     # Rules: order constraint direction
     "rule.message_order_{}": ["before", "after"],
     # ViolationPanel and OrderViolationPanel: rule type column

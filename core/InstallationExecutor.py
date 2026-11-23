@@ -87,7 +87,7 @@ class InstallationExecutor:
 
     @property
     def is_active(self) -> bool:
-        """Whether an interrupted run waits to be resumed."""
+        """Whether a run is open: running, interrupted, suspended or played."""
         return bool(self.journal and self.journal.active)
 
     def load(self) -> None:
@@ -205,19 +205,29 @@ class InstallationExecutor:
             raise InstallationError(str(error)) from error
         return engine
 
-    def finish(self) -> ReconciliationReport:
-        """Check the games once every sequence ran; close the run when nothing is pending.
+    def verify_played(self) -> ReconciliationReport:
+        """Check the games once every sequence ran; the run stays open until finished.
 
         Raises:
             InstallationError: A game folder was replaced during the run
         """
         try:
-            report = self._reconciler.reconcile(self.journal)
+            return self._reconciler.reconcile(self.journal)
         except RunDivergenceError as error:
             raise InstallationError(str(error)) from error
-        if not report.undetermined:
-            self.journal.close(RunClosure.FINISHED)
-        return report
+
+    @property
+    def is_played(self) -> bool:
+        """Whether the open run has nothing left to install or to decide."""
+        return bool(self.journal and self.journal.played)
+
+    def finish(self) -> None:
+        """Close a played run, complete or not, at the explicit request of the user."""
+        if not self.is_played:
+            logger.warning("Finish ignored: the run is not played")
+            return
+        self.journal.close(RunClosure.FINISHED)
+        logger.info("Installation run finished")
 
     def cancel(self) -> None:
         """Abandon the run; its journal stays readable until the next run starts."""

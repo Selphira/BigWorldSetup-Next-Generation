@@ -3,7 +3,7 @@ Installation page for mod installation process.
 """
 
 from collections.abc import Callable
-from enum import Enum
+from enum import Enum, auto
 import logging
 from pathlib import Path
 
@@ -26,6 +26,13 @@ from PySide6.QtWidgets import (
 )
 
 from constants import (
+    BUTTON_ICON_CANCEL,
+    BUTTON_ICON_DIAGNOSTIC,
+    BUTTON_ICON_FINISH,
+    BUTTON_ICON_PAUSE,
+    BUTTON_ICON_PAUSE_PENDING,
+    BUTTON_ICON_START,
+    BUTTON_ICON_STOP,
     COLOR_ERROR,
     COLOR_INFO,
     COLOR_STATUS_COMPLETE,
@@ -55,6 +62,7 @@ from core.InstallationWorker import InstallationWorker, UserDecision
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from core.weidu_types import ComponentStatus, InstallResult
+from ui.ButtonIcons import button_icon
 from ui.pages.BasePage import BasePage, ButtonConfig
 
 logger = logging.getLogger(__name__)
@@ -215,6 +223,46 @@ OPERATION_CHOICES: tuple[tuple[str, OperationDecision], ...] = (
 )
 
 
+class RunAction(Enum):
+    """Action of the main button, which depends on the state of the run."""
+
+    START = auto()
+    RESUME = auto()
+    PAUSE = auto()
+    PAUSE_PENDING = auto()
+    FINISH = auto()
+
+
+# Label, tooltip and icon of the main button for each action
+RUN_ACTION_BUTTONS: dict[RunAction, tuple[str, str, str]] = {
+    RunAction.START: (
+        "page.installation.btn_start",
+        "page.installation.btn_start_tooltip",
+        BUTTON_ICON_START,
+    ),
+    RunAction.RESUME: (
+        "page.installation.btn_resume",
+        "page.installation.btn_resume_tooltip",
+        BUTTON_ICON_START,
+    ),
+    RunAction.PAUSE: (
+        "page.installation.btn_pause",
+        "page.installation.btn_pause_tooltip",
+        BUTTON_ICON_PAUSE,
+    ),
+    RunAction.PAUSE_PENDING: (
+        "page.installation.btn_pause_pending",
+        "page.installation.btn_pause_pending_tooltip",
+        BUTTON_ICON_PAUSE_PENDING,
+    ),
+    RunAction.FINISH: (
+        "page.installation.btn_finish",
+        "page.installation.btn_finish_tooltip",
+        BUTTON_ICON_FINISH,
+    ),
+}
+
+
 # ============================================================================
 # Installation Page
 # ============================================================================
@@ -240,6 +288,8 @@ class InstallationPage(BasePage):
         # State tracking
         self._is_installing = False
         self._is_paused = False
+        # Pause requested; the worker honours it once the current batch ends
+        self._pause_pending = False
         self._stats = {"success": 0, "warnings": 0, "errors": 0, "skipped": 0}
 
         # UI components
@@ -248,7 +298,7 @@ class InstallationPage(BasePage):
         self._input_text: QLineEdit | None = None
         self._progress_bar: QProgressBar | None = None
         self._stats_widget: InstallationStatsWidget | None = None
-        self._btn_start_pause: QPushButton | None = None
+        self._btn_run_action: QPushButton | None = None
         self._btn_stop: QPushButton | None = None
         self._btn_cancel: QPushButton | None = None
         self._btn_diagnostic: QPushButton | None = None
@@ -353,26 +403,42 @@ class InstallationPage(BasePage):
 
     def _create_additional_buttons(self):
         """Create action buttons."""
-        self._btn_start_pause = self._create_action_button(self._toggle_start_pause)
+        self._btn_run_action = self._create_action_button(self._on_run_action)
 
         self._btn_stop = self._create_action_button(self._stop_installation, enabled=False)
+        self._btn_stop.setIcon(button_icon(BUTTON_ICON_STOP))
 
-        self._btn_cancel = self._create_action_button(self._cancel_installation)
+        self._btn_cancel = self._create_action_button(self._cancel_installation, enabled=False)
+        self._btn_cancel.setIcon(button_icon(BUTTON_ICON_CANCEL))
 
         self._btn_diagnostic = self._create_action_button(self._export_diagnostic)
+        self._btn_diagnostic.setIcon(button_icon(BUTTON_ICON_DIAGNOSTIC))
 
     # ========================================
     # Installation Control
     # ========================================
 
-    def _toggle_start_pause(self):
-        """Toggle between start/pause."""
-        if not self._is_installing:
+    def _run_action(self) -> RunAction:
+        """Action offered by the main button in the current state of the run."""
+        if self._is_installing:
+            if self._is_paused:
+                return RunAction.RESUME
+            return RunAction.PAUSE_PENDING if self._pause_pending else RunAction.PAUSE
+        if self._executor.is_played:
+            return RunAction.FINISH
+        return RunAction.RESUME if self.is_resume() else RunAction.START
+
+    def _on_run_action(self) -> None:
+        """Start, pause, resume or finish the run, depending on its state."""
+        action = self._run_action()
+        if not self._is_installing and action in (RunAction.START, RunAction.RESUME):
             self._start_installation()
-        elif self._is_paused:
+        elif action == RunAction.RESUME:
             self._resume_installation()
-        else:
+        elif action == RunAction.PAUSE:
             self._pause_installation()
+        elif action == RunAction.FINISH:
+            self._finish_run()
 
     def _start_installation(self):
         """Start a new run, or resume the active one once its state is decided."""
@@ -408,6 +474,7 @@ class InstallationPage(BasePage):
         self._stats_widget.update_stats(**self._stats)
         self._is_installing = True
         self._is_paused = False
+        self._pause_pending = False
         self._refresh_controls()
 
         logger.info("Installation started (resumed: %s)", report.resumed)
@@ -468,16 +535,19 @@ class InstallationPage(BasePage):
         self._worker.installation_paused.connect(self._on_installation_paused)
         self._worker.installation_retryed.connect(self._on_installation_retryed)
         self._worker.command_created.connect(self._on_command_created)
+        if self._pause_pending:
+            # A pause requested at the end of the previous sequence applies to this one.
+            self._worker.pause()
         self._worker.start()
 
     def _pause_installation(self):
-        """Pause installation."""
+        """Ask the worker to pause once the current batch is over; WeiDU is not interrupted."""
         if not self._is_installing or self._is_paused or not self._worker:
             return
 
         self._worker.pause()
-        self._is_paused = True
-        self._btn_start_pause.setText(tr("page.installation.btn_resume"))
+        self._pause_pending = True
+        self._refresh_controls()
         logger.info("Installation pause requested")
 
     def _resume_installation(self):
@@ -486,15 +556,14 @@ class InstallationPage(BasePage):
             return
 
         self._is_paused = False
-        self._btn_start_pause.setText(tr("page.installation.btn_pause"))
-
         # Simply resume the worker (works for both manual pause and popup pause)
         self._worker.resume()
+        self._refresh_controls()
 
         logger.info("Installation resumed")
 
     def _stop_installation(self):
-        """Stop installation."""
+        """Interrupt WeiDU at once, after a single confirmation; the run stays resumable."""
         if not self._is_installing or not self._worker:
             return
 
@@ -506,11 +575,14 @@ class InstallationPage(BasePage):
         )
 
         if reply == QMessageBox.StandardButton.Yes:
-            self._request_worker_stop()
-            logger.info("Installation stop requested")
+            self._interrupt_worker()
+            logger.info("Installation stop requested, WeiDU terminated")
 
     def _cancel_installation(self):
-        """Cancel installation."""
+        """Abandon the run after a single confirmation; a running WeiDU is interrupted at once."""
+        if not self._can_cancel():
+            return
+
         reply = QMessageBox.question(
             self,
             tr("page.installation.cancel_title"),
@@ -523,9 +595,14 @@ class InstallationPage(BasePage):
         logger.info("Installation cancellation confirmed")
         self._cancelling = True
         if self._worker and self._worker.isRunning():
-            self._request_worker_stop()
+            self._interrupt_worker()
             return
         self._finish_cancellation()
+
+    def _interrupt_worker(self) -> None:
+        """Stop the worker and terminate WeiDU now: the user already confirmed."""
+        self._worker.stop()
+        self._worker.force_stop()
 
     def _finish_cancellation(self) -> None:
         self._cancelling = False
@@ -541,17 +618,59 @@ class InstallationPage(BasePage):
                 return
         self._executor.release()
 
-        self._is_installing = False
-        self._is_paused = False
-        self._refresh_controls()
+        self._set_idle()
+        self._reset_workflow()
 
+        logger.info("Installation cancelled, navigating to installation_type page")
+
+    def _can_cancel(self) -> bool:
+        """A run can be cancelled while it is running, interrupted or suspended."""
+        return self.is_resume() and not self._executor.is_played
+
+    def _finish_run(self) -> None:
+        """Close the played run, reset the workflow, then quit the application."""
+        if not self._executor.is_played or not self._confirm_finish():
+            return
+
+        try:
+            if not self._executor.acquire():
+                self._report_problem(tr("page.installation.active_run"))
+                return
+            self._executor.finish()
+        except OSError as error:
+            self._executor.release()
+            self._report_problem(str(error))
+            return
+        self._executor.release()
+
+        self._reset_workflow()
+        logger.info("Installation run finished, closing the application")
+        self.window().close()
+
+    def _confirm_finish(self) -> bool:
+        """Ask to finish the run, recalling how many components it leaves out."""
+        stats = self._journal.stats()
+        missing = stats["errors"] + stats["skipped"]
+        message = (
+            tr("page.installation.finish_incomplete_message", count=missing)
+            if self._journal.outcome() == RunOutcome.INCOMPLETE
+            else tr("page.installation.finish_message")
+        )
+        reply = QMessageBox.question(
+            self,
+            tr("page.installation.finish_title"),
+            message,
+            defaultButton=QMessageBox.StandardButton.No,
+        )
+        return reply == QMessageBox.StandardButton.Yes
+
+    def _reset_workflow(self) -> None:
+        """Forget the selection and the order, then go back to the first step."""
         indexes = IndexManager.get_indexes()
         indexes.clear_selection()
         indexes.clear_selection_violations()
         indexes.clear_order_violations()
         self.state_manager.reset_workflow()
-
-        logger.info("Installation cancelled, navigating to installation_type page")
 
     def _send_input_text(self):
         """Send input text."""
@@ -603,7 +722,7 @@ class InstallationPage(BasePage):
         return self._executor.journal
 
     def is_resume(self) -> bool:
-        """Whether an interrupted run waits to be resumed."""
+        """Whether a run is open: running, interrupted, suspended or played."""
         return self._executor.is_active
 
     def _ensure_readable_journal(self) -> bool:
@@ -863,42 +982,37 @@ class InstallationPage(BasePage):
         self._start_next_sequence(self._current_sequence + 1)
 
     def _on_all_sequences_complete(self):
-        """Check the games, close the run when nothing is left to decide, show the result."""
+        """Check the games and show the result; the run stays open until Finish."""
         try:
-            report = self._executor.finish()
+            report = self._executor.verify_played()
         except InstallationError as error:
             self._report_problem(str(error))
             self._on_installation_stopped(0)
             return
 
         self._executor.release()
-        self._is_installing = False
-        self._is_paused = False
-        self._refresh_controls()
+        self._set_idle()
         self._show_reconciliation(report)
+        if self._executor.is_played:
+            self._append_output(
+                tr("page.installation.summary.ready_to_finish"), COLOR_STATUS_COMPLETE
+            )
 
         self.save_state()
         self._show_installation_summary()
-
-        if not self._executor.is_active:
-            self.state_manager.set_ui_current_page("installation_type")
-            self.state_manager.save_state()
 
         logger.info("All sequences installation complete")
 
     def _on_installation_stopped(self, last_index: int):
         """Handle stop."""
         self._executor.release()
-        self._is_installing = False
-        self._is_paused = False
-        self._refresh_controls()
+        self._set_idle()
 
         if self._closing or self._cancelling:
             return
-        QMessageBox.information(
-            self,
-            tr("page.installation.stopped_title"),
-            tr("page.installation.stopped_message", index=last_index),
+        self._append_output(
+            f"\n{tr('page.installation.stopped_message', index=last_index)}\n",
+            color=COLOR_WARNING,
         )
 
         logger.info("Installation stopped at %d", last_index)
@@ -906,9 +1020,8 @@ class InstallationPage(BasePage):
     def _on_installation_paused(self, last_index: int, description: str):
         """Handle pause."""
         self._is_paused = True
-        self._btn_start_pause.setText(tr("page.installation.btn_resume"))
-        self._btn_send_input.setEnabled(False)
-        self._input_text.setEnabled(False)
+        self._pause_pending = False
+        self._refresh_controls()
 
         logger.info("Installation paused at batch %d", last_index)
 
@@ -942,24 +1055,36 @@ class InstallationPage(BasePage):
     # UI Helpers
     # ========================================
 
+    def _set_idle(self) -> None:
+        """No worker runs any more: forget the pause states, then refresh the controls."""
+        self._is_installing = False
+        self._is_paused = False
+        self._pause_pending = False
+        self._refresh_controls()
+
     def _refresh_controls(self) -> None:
         """Enable the controls matching the run state."""
         running = self._is_installing
         if not running:
-            self._btn_start_pause.setText(tr("page.installation.btn_start"))
             self._progress_bar.setFormat(PROGRESS_IDLE_FORMAT)
-        elif self._is_paused:
-            self._btn_start_pause.setText(tr("page.installation.btn_resume"))
-        else:
-            self._btn_start_pause.setText(tr("page.installation.btn_pause"))
-        self._btn_start_pause.setEnabled(True)
+        self._refresh_run_action()
         self._btn_stop.setEnabled(running)
-        self._btn_send_input.setEnabled(running)
-        self._input_text.setEnabled(running)
+        self._btn_cancel.setEnabled(self._can_cancel())
+        self._btn_send_input.setEnabled(running and not self._is_paused)
+        self._input_text.setEnabled(running and not self._is_paused)
         # Batching is part of the frozen plan; pause preferences stay adjustable.
         self._cb_batch_install.setEnabled(not running and not self.is_resume())
         self._btn_diagnostic.setEnabled(self._executor.journal_path.exists())
         self._update_navigation_buttons()
+
+    def _refresh_run_action(self) -> None:
+        """Label, icon and state of the main button."""
+        action = self._run_action()
+        label, tooltip, icon = RUN_ACTION_BUTTONS[action]
+        self._btn_run_action.setText(tr(label))
+        self._btn_run_action.setToolTip(tr(tooltip))
+        self._btn_run_action.setIcon(button_icon(icon))
+        self._btn_run_action.setEnabled(action != RunAction.PAUSE_PENDING)
 
     def _refresh_progress(self) -> None:
         operations = self._journal.sequences[self._current_sequence].operations
@@ -1036,7 +1161,10 @@ class InstallationPage(BasePage):
         if is_resume:
             self._append_resume_progress(total_components)
 
-        ready_key = "ready_to_resume" if is_resume else "ready"
+        if self._executor.is_played:
+            ready_key = "ready_to_finish"
+        else:
+            ready_key = "ready_to_resume" if is_resume else "ready"
         self._append_rule("=", COLOR_INFO)
         self._append_output(
             tr(f"page.installation.summary.{ready_key}") + "\n\n", COLOR_STATUS_COMPLETE
@@ -1051,7 +1179,11 @@ class InstallationPage(BasePage):
         """Append the title framing the summary, depending on a resumed or new run."""
         self._append_rule("=", COLOR_INFO, blank_after=False)
 
-        if is_resume:
+        if self._executor.is_played:
+            self._append_output(
+                tr("page.installation.summary.played_title") + "\n", COLOR_STATUS_COMPLETE
+            )
+        elif is_resume:
             self._append_output(
                 tr("page.installation.summary.resume_title") + "\n", COLOR_WARNING
             )
@@ -1137,7 +1269,7 @@ class InstallationPage(BasePage):
         return tr("page.installation.title")
 
     def get_additional_buttons(self) -> list[QPushButton]:
-        return [self._btn_start_pause, self._btn_stop, self._btn_cancel, self._btn_diagnostic]
+        return [self._btn_run_action, self._btn_stop, self._btn_cancel, self._btn_diagnostic]
 
     def get_next_button_config(self) -> ButtonConfig:
         return ButtonConfig(
@@ -1153,7 +1285,7 @@ class InstallationPage(BasePage):
         )
 
     def can_go_to_previous_page(self) -> bool:
-        """Cannot go back during installation."""
+        """Cannot go back once a run started, until it is finished or cancelled."""
         return not self._is_installing and not self.is_resume()
 
     def on_page_shown(self):
@@ -1181,7 +1313,9 @@ class InstallationPage(BasePage):
         self._refresh_controls()
 
         self._btn_stop.setText(tr("page.installation.btn_stop"))
+        self._btn_stop.setToolTip(tr("page.installation.btn_stop_tooltip"))
         self._btn_cancel.setText(tr("page.installation.btn_cancel"))
+        self._btn_cancel.setToolTip(tr("page.installation.btn_cancel_tooltip"))
         self._btn_diagnostic.setText(tr("page.installation.btn_diagnostic"))
         self._btn_diagnostic.setToolTip(tr("page.installation.btn_diagnostic_tooltip"))
         self._btn_send_input.setText(tr("page.installation.btn_send_input"))

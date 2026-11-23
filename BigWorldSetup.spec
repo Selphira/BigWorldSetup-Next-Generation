@@ -23,7 +23,9 @@ for root, dirs, files in os.walk(base_path):
             hidden_imports.append(module_name)
 
 # Collecter les fichiers de données
-datas = []
+# qtawesome charge ses polices d'icônes depuis son propre dossier
+from PyInstaller.utils.hooks import collect_data_files
+datas = collect_data_files('qtawesome')
 
 print(">>>>>DEBUG<<<<<")
 print("SYS.PATH:", sys.path)
