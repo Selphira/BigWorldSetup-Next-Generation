@@ -1128,8 +1128,8 @@ class ModSelectionPage(BasePage):
         if not mod_manager.add_mod(mod_id):
             QMessageBox.critical(
                 self,
-                tr("error.title"),
-                tr("page.selection.failed_to_add_custom_mod", mod_id=mod_id),
+                tr("page.selection.custom_mod.error_title"),
+                tr("page.selection.custom_mod.failed_to_add_custom_mod", mod_id=mod_id),
             )
             return
 

@@ -136,7 +136,7 @@
         "success_title": "成功",
         "success_message": "模组 '{name}' 已成功添加！",
         "confirm_overwrite_title": "确认覆盖",
-        "confirm_overwrite_message": "ID为 '{name}' 的模组已存在。是否要覆盖它？",
+        "confirm_overwrite_message": "ID为 '{mod_id}' 的模组已存在。是否要覆盖它？",
         "failed_to_add_custom_mod": "将自定义模组 '{mod_id}' 添加到数据库失败。"
       },
       "violation": {

@@ -117,7 +117,7 @@ class OrderViolationPanel(QWidget):
             self._lbl_ref.setText(str(references[0]))
         else:
             self._lbl_ref.setText(
-                tr("page.order.violation_panel.multiple_selected", count=len(references))
+                tr("page.order.violation.multiple_selected", count=len(references))
             )
 
         self._table.setRowCount(len(conflicts))

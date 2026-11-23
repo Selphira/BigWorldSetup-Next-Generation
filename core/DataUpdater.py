@@ -239,7 +239,7 @@ class DataUpdater(QObject):
             except Exception as e:
                 logger.warning(f"Download attempt {attempt + 1} failed: {e}")
                 if attempt == MAX_RETRIES - 1:
-                    self.update_error.emit(f"Download failed: {str(e)}")
+                    self.update_error.emit(tr("app.download_failed", error=str(e)))
 
         return False
 
@@ -282,7 +282,7 @@ class DataUpdater(QObject):
 
         except Exception as e:
             logger.error(f"Extraction failed: {e}")
-            self.update_error.emit(f"Extraction failed: {str(e)}")
+            self.update_error.emit(tr("app.extraction_failed", error=str(e)))
             return False
 
     @staticmethod

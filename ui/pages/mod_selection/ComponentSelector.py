@@ -672,7 +672,7 @@ class ComponentSelector(QTreeView):
     @staticmethod
     def _create_selection_item() -> QStandardItem:
         """Create status column item."""
-        item = QStandardItem(tr("widget.component_selector.selection.none"))
+        item = QStandardItem(tr("widget.component_selector.selection.none", total=0))
         item.setForeground(QColor(COLOR_STATUS_NONE))
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
@@ -821,11 +821,7 @@ class ComponentSelector(QTreeView):
         if not status_item:
             return
 
-        if total_components == 0:
-            text = tr("widget.component_selector.selection.none")
-            color = COLOR_STATUS_NONE
-            mod_item.setCheckState(Qt.CheckState.Unchecked)
-        elif total_checked == 0:
+        if total_checked == 0:
             text = tr("widget.component_selector.selection.none", total=total_components)
             color = COLOR_STATUS_NONE
             mod_item.setCheckState(Qt.CheckState.Unchecked)

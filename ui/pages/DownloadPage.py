@@ -1081,7 +1081,7 @@ class DownloadPage(BasePage):
         if self._is_downloading and not force:
             QMessageBox.warning(
                 self,
-                tr("page.download.operation_in_progress_title"),
+                tr("page.download.download_in_progress_title"),
                 tr("page.download.download_in_progress_message"),
             )
             return

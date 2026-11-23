@@ -30,6 +30,9 @@
     "generating_cache_for_lang": "Generating cache for {lang}...",
     "cache_generated_successfully": "Cache generated successfully!",
     "downloaded_file_corrupted": "Downloaded file is corrupted",
+    "download_failed": "Download failed: {error}",
+    "extraction_failed": "Extraction failed: {error}",
+    "update_failed": "Update failed: {error}",
     "ready": "Ready!",
     "cache_ready_signal_received": "Cache ready signal received",
     "update_available": "🔔 New version: {version}",
@@ -139,7 +142,7 @@
         "success_title": "Success",
         "success_message": "Mod '{name}' has been successfully added!",
         "confirm_overwrite_title": "Confirm Overwrite",
-        "confirm_overwrite_message": "A mod with ID '{name}' already exists. Do you want to overwrite it?",
+        "confirm_overwrite_message": "A mod with ID '{mod_id}' already exists. Do you want to overwrite it?",
         "failed_to_add_custom_mod": "Failed to add custom mod '{mod_id}' to the database."
       },
       "violation": {
@@ -178,6 +181,8 @@
       "import_success_message": "Successfully imported selection of {selected} component(s) out of {to_select}",
       "import_error_title": "Import Error",
       "import_error_message": "Failed to import selection: {error}",
+      "import_error_invalid_json": "The selected file is not valid JSON: {error}",
+      "import_error_weidu": "Failed to import WeiDU.log: {error}",
       "export_empty_title": "Nothing to Export",
       "export_empty_message": "No components have been selected yet.\nSelect components before exporting.",
       "export_select_file": "Select export file",
@@ -442,6 +447,7 @@
         "incomplete": "Incomplete"
       },
       "restoring_backup": "Restoring backup...",
+      "calculating_size": "Calculating backup size...",
       "backup_created_successfully": "Backup created successfully.",
       "backup_restored_successfully": "Backup restored successfully.",
       "backup_deleted_successfully": "Backup deleted successfully.",
@@ -458,6 +464,7 @@
       "cleanup_success": "Moved files folder has been successfully deleted.",
       "cleanup_failed": "Cannot delete moved files folder: {error}",
       "error_title": "Error",
+      "error_calculating_size": "Unable to calculate the backup size. Check that the game folder exists and is readable.",
       "warning_title": "Warning",
       "success_title": "Success",
       "warning_game_modded": "The selected game already contains installed mods.\n\nIt is strongly recommended to backup only clean game installations.\n\nDo you want to continue anyway?",
@@ -689,8 +696,10 @@
   },
   "rule": {
     "message_incompatibility": "Incompatible with {conflict_names}",
+    "message_incompatibility_resolved": "No incompatible component selected",
     "message_dependency_missing": "Requires: {missing}",
     "message_dependency_required_by": "Required by: {sources}",
+    "message_dependency_all_satisfied": "All dependencies are satisfied",
     "message_order_before": "Must be installed before: {components}",
     "message_order_after": "Must be installed after: {components}",
     "ini_order_description": "Rule defined in the {mod}'s ini file"
