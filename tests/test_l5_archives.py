@@ -1,7 +1,6 @@
 """L5: archive identity, manual associations and their proof on disk."""
 
 import hashlib
-import json
 import os
 from pathlib import Path
 
@@ -10,9 +9,9 @@ from PySide6.QtNetwork import QNetworkReply, QNetworkRequest
 import pytest
 from pytestqt.qtbot import QtBot
 
-from constants import ARCHIVE_REGISTRY_FORMAT, DOWNLOAD_MAX_ATTEMPTS
+from constants import DOWNLOAD_MAX_ATTEMPTS
 from core import DownloadManager as download_module
-from core.ArchiveRegistry import ArchiveRecord, ArchiveRegistry, ArchiveSource
+from core.ArchiveRegistry import ArchiveRegistry, ArchiveSource
 from core.ArchiveService import ArchiveService
 from core.DownloadManager import ArchiveInfo, ArchiveStatus, DownloadWorker
 from core.Mod import Mod
@@ -241,36 +240,6 @@ def state_manager(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> StateManag
     monkeypatch.setattr(StateManager, "STATE_FILE", tmp_path / "state.json")
     monkeypatch.setattr(StateManager, "ARCHIVE_REGISTRY_FILE", tmp_path / "archives.json")
     return StateManager()
-
-
-def test_legacy_custom_archives_are_migrated_unverified(
-    state_manager: StateManager, tmp_path: Path
-) -> None:
-    legacy = tmp_path / "legacy.zip"
-    state_manager.installation_state.configuration["custom_archives"] = {"demo": str(legacy)}
-
-    assert state_manager.get_custom_archive("demo") == legacy
-    record = state_manager.get_archive_registry().get("demo")
-    assert record.source is ArchiveSource.MANUAL
-    assert not record.is_verified
-    assert state_manager.installation_state.configuration["custom_archives"] == {}
-
-    saved = json.loads((tmp_path / "archives.json").read_text(encoding="utf-8"))
-    assert saved["format"] == ARCHIVE_REGISTRY_FORMAT
-    assert saved["archives"]["demo"]["path"] == str(legacy)
-
-
-def test_replayed_migration_keeps_existing_proof(
-    registry: ArchiveRegistry, tmp_path: Path
-) -> None:
-    path = tmp_path / "manual.zip"
-    proven = ArchiveRecord.unverified("demo", path, ArchiveSource.MANUAL).with_hash(
-        sha256(CONTENT_V1), len(CONTENT_V1), 1, None, False
-    )
-    registry.put(proven)
-
-    assert registry.migrate_custom_archives({"demo": str(path)}) == 0
-    assert registry.get("demo") == proven
 
 
 def test_removing_custom_archive_keeps_download_proofs(

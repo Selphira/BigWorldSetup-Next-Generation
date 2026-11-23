@@ -600,7 +600,6 @@
       "unsafe_path": "Les dossiers doivent être distincts, sans imbrication, lien symbolique ou jonction.",
       "integrity_mismatch": "Le contenu ne correspond pas au manifeste. La restauration ne peut pas être validée.",
       "different_target": "Cet instantané appartient à un autre dossier de jeu. Restaurez-le à son emplacement d'origine.",
-      "legacy_backup": "Cette ancienne sauvegarde sélective ne possède pas de manifeste vérifié. Créez un nouvel instantané complet avant de restaurer.",
       "original_move_denied": "le dossier du jeu {game} n'a pas pu être déplacé. Fermez le jeu et les logiciels qui utilisent ce dossier, puis réessayez et si le problème persiste, vérifiez les droits de déplacement. Détail Windows ou système : {error}",
       "recovery_available": "Dossier de travail de la restauration : {path}. Ne le supprimez qu'après avoir vérifié le jeu.",
       "restore_game_untouched": "Le dossier du jeu n'a pas été modifié : il est dans l'état d'avant la restauration. Corrigez la cause indiquée, puis relancez la restauration.",

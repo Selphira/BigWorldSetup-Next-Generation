@@ -47,7 +47,6 @@ class InstallationState:
             "backup_folder": None,
             "languages_order": [],
             "install_order": {},
-            "custom_archives": {},
         }
     )
     installation: dict[str, Any] = field(
@@ -211,16 +210,10 @@ class StateManager:
         Get selected components configuration.
 
         Returns:
-            Selected component references; states saved before any selection
-            by earlier versions hold an empty dictionary and select nothing
+            Selected component references
         """
         selected = self.installation_state.configuration.get("selected_components")
-        if isinstance(selected, list):
-            return selected.copy()
-
-        if selected:
-            logger.warning(f"Selection in an unknown format ignored: {type(selected).__name__}")
-        return []
+        return selected.copy() if isinstance(selected, list) else []
 
     def set_install_order(self, install_order: dict[int, list[str]]) -> None:
         """
@@ -277,18 +270,9 @@ class StateManager:
         )
 
     def get_archive_registry(self) -> ArchiveRegistry:
-        """Return the archive registry, importing legacy `custom_archives` first.
-
-        The legacy mapping is emptied only after the registry has saved it, and
-        an imported or older state file is migrated again on the next access.
-        """
+        """Return the archive registry, loaded on first access."""
         if self._archive_registry is None:
             self._archive_registry = ArchiveRegistry.load(self.ARCHIVE_REGISTRY_FILE)
-
-        legacy = self.installation_state.configuration.get("custom_archives")
-        if legacy:
-            self._archive_registry.migrate_custom_archives(legacy)
-            legacy.clear()
         return self._archive_registry
 
     def add_custom_archive(self, mod_id: str, archive_path: Path) -> None:

@@ -312,7 +312,7 @@ class BackupManager:
                 return False, tr("backup_manager.error.invalid_metadata")
 
             if backup_info.status != BackupStatus.VALID:
-                raise RuntimeError(tr("backup_manager.error.legacy_backup"))
+                raise RuntimeError(tr("backup_manager.error.invalid_backup"))
             manifest = json.loads((backup_dir / self.MANIFEST_FILE).read_text(encoding="utf-8"))
             if (
                 manifest["version"] != BackupSnapshot.MANIFEST_VERSION

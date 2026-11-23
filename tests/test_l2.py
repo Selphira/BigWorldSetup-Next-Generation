@@ -62,7 +62,7 @@ def test_full_snapshot_and_current_user_data(backup: tuple[BackupManager, Path, 
 
 
 @pytest.mark.parametrize(
-    "damage", ["content", "missing", "extra", "directory", "metadata", "legacy"]
+    "damage", ["content", "missing", "extra", "directory", "metadata", "manifest"]
 )
 def test_corrupt_backup_never_moves_game(
     backup: tuple[BackupManager, Path, str],
@@ -80,7 +80,7 @@ def test_corrupt_backup_never_moves_game(
         (stored / "extra").write_bytes(b"extra")
     elif damage == "directory":
         (stored / "empty").rmdir()
-    elif damage == "legacy":
+    elif damage == "manifest":
         (directory / manager.MANIFEST_FILE).unlink()
     else:
         path = directory / manager.METADATA_FILE

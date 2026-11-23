@@ -174,28 +174,3 @@ class ArchiveRegistry:
         with self._lock:
             if self._records.pop(mod_id, None) is not None:
                 self.save()
-
-    def migrate_custom_archives(self, custom_archives: dict[str, str]) -> int:
-        """Import the bare paths of the legacy `custom_archives` configuration.
-
-        An existing record for the same path is kept, so the migration can be
-        replayed when an older state file is read again.
-
-        Returns:
-            Number of associations imported
-        """
-        imported = 0
-        with self._lock:
-            for mod_id, raw_path in custom_archives.items():
-                current = self._records.get(mod_id)
-                if current is not None and current.path == str(raw_path):
-                    continue
-                self._records[mod_id] = ArchiveRecord.unverified(
-                    mod_id, Path(raw_path), ArchiveSource.MANUAL
-                )
-                imported += 1
-
-            if imported:
-                self.save()
-                logger.info("Migrated %d custom archive association(s)", imported)
-        return imported

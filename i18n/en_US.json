@@ -600,7 +600,6 @@
       "unsafe_path": "Folders must be separate, without nested paths, symbolic links or junctions.",
       "integrity_mismatch": "Snapshot contents differ from the manifest. No restoration can be confirmed.",
       "different_target": "This snapshot belongs to another game directory. Restore it only to its original location.",
-      "legacy_backup": "This older selective backup has no verified manifest. Create a new full snapshot before restoring.",
       "original_move_denied": "the game folder {game} could not be moved. Close the game and any software using this folder, then try again; if the problem persists, check the permissions to move it. Windows or system detail: {error}",
       "recovery_available": "Restore working folder: {path}. Only delete it once the game has been checked.",
       "restore_game_untouched": "The game folder was not modified: it is as it was before the restore. Fix the cause shown, then restore again.",
