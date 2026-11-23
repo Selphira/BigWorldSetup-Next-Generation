@@ -21,10 +21,10 @@
       "platforms": ["macos"]
     },
     {
-      "filename": "win-32bit-DlcMerger-v2.1.zip",
-      "size": 1200444,
-      "sha256": "16b57b32662c1ac1e6d345afaf8669e01cf26eeafc5461000757edf33447e2eb",
-      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v2.1/win-32bit-DlcMerger-v2.1.zip",
+      "filename": "win-64bit-DlcMerger-v2.1.zip",
+      "size": 1431697,
+      "sha256": "5ab87e6e5df28af8e593fcb314e4bc6fd0bb485d56f07d23815ef19d8242b365",
+      "download": "https://github.com/Argent77/A7-DlcMerger/releases/download/v2.1/win-64bit-DlcMerger-v2.1.zip",
       "platforms": ["windows"]
     }
   ],

@@ -1,15 +1,30 @@
 {
   "name": "Mortis Mini mod",
-  "version": "2.35",
+  "version": "2.40",
   "links": {
     "homepage": "https://github.com/Plutonium-X/MISC_Mortis"
   },
   "files": [
     {
-      "filename": "MISC_Mortis-2.35.zip",
-      "size": 2901343,
-      "sha256": "6e516c4fb77642ba548e329530e3f0d0c44f52643a48f013c03412785893d01f",
-      "download": "https://github.com/Plutonium-X/MISC_Mortis/archive/refs/tags/v2.35.zip"
+      "filename": "lin-Mortis-v2.40.zip",
+      "size": 3301503,
+      "sha256": "85001091d435ca1b852ce0fcf63c9909d7337722a3769b7122e8af494e3ce0dc",
+      "download": "https://github.com/Plutonium-X/MISC_Mortis/releases/download/v2.40/lin-Mortis-v2.40.zip",
+      "platforms": ["linux"]
+    },
+    {
+      "filename": "mac-Mortis-v2.40.zip",
+      "size": 3418676,
+      "sha256": "9d26312cc29eee18f4035c37143aa3f69b529a88f3e92271377390850f174c7e",
+      "download": "https://github.com/Plutonium-X/MISC_Mortis/releases/download/v2.40/mac-Mortis-v2.40.zip",
+      "platforms": ["macos"]
+    },
+    {
+      "filename": "win-Mortis-v2.40.zip",
+      "size": 2951248,
+      "sha256": "ab93ca46f6d8a74fa68e2af5adeb16cd5858f571cfbc40cf3f0939e48a24019a",
+      "download": "https://github.com/Plutonium-X/MISC_Mortis/releases/download/v2.40/win-Mortis-v2.40.zip",
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

@@ -9,8 +9,8 @@
     {
       "filename": "NPC_Dusk_MOD.zip",
       "size": 101166661,
-      "download": "https://github.com/RamosPabloA/NPC_Dusk_MOD/releases/download/v1.5.0/NPC_Dusk_MOD.zip",
-      "sha256": "041d4b7dc298690b05585ec4156f6b44942f0c32d156038069d67a9620c181ee"
+      "sha256": "041d4b7dc298690b05585ec4156f6b44942f0c32d156038069d67a9620c181ee",
+      "download": "https://github.com/RamosPabloA/NPC_Dusk_MOD/releases/download/v1.5.0/NPC_Dusk_MOD.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
@@ -34,7 +34,7 @@
       }
     },
     "zh_CN": {
-      "description": "这是一个模组，添加了一个新的NPC：Dusk，法师杀手。Ardusk Aldant，也被称为Dusk，是科米尔的一名战士，在紫龙骑士团接受训练。在长途旅行至阿斯卡特拉后，Dusk成了一名著名的法师杀手，只渴望和平生活。但一个黑暗的人物袭击了渥金商场的和平散步。"
+      "description": "这个模组提供了一位新NPC：杜斯克（Dusk），法师杀手。阿尔杜斯克·阿尔丹特（Ardusk Aldant），又名杜斯克，是一位来自科米尔（Cormyr）的战士，曾在紫龙骑士团（Ordre des Dragons Pourpres）接受训练。在长途跋涉抵达阿斯卡特拉（Athkatla）后，杜斯克成为了一位颇有名望的法师杀手，只求平静度日。然而，一个阴险的人物正在袭击宁静的渥金商场（Promenade de Waukyne）。\n力量17，敏捷10，体质18，智力12，智慧15，魅力15。"
     },
     "es_ES": {
       "components": {

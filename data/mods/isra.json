@@ -7,10 +7,10 @@
   },
   "files": [
     {
-      "filename": "Isra.rar",
-      "size": 6583280,
-      "sha256": "f15c01b2e033250a4c9dcfafe8f657abf5d0e4f10f5d4aa9e96811be96d868b3",
-      "download": "https://www.baldursgateworld.fr/download/file.php?id=15642"
+      "filename": "isra-npc-for-bg-v3.5.zip",
+      "size": 8204587,
+      "download": "https://github.com/Spellhold-Studios/Isra-NPC/releases/download/v3.5/isra-npc-for-bg-v3.5.zip",
+      "sha256": "97a4fc4f0f747fc4de658efd2c9d8159a1d4dcd20b693b8b28d12d53ad4e1624"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
@@ -23,8 +23,7 @@
   "languages": {
     "en_US": 0,
     "ru_RU": 1,
-    "it_IT": 2,
-    "fr_FR": 3
+    "it_IT": 2
   },
   "translations": {
     "fr_FR": {
@@ -63,5 +62,21 @@
   },
   "tp2": "isra",
   "safe": 2,
-  "authors": ["Rhaella"]
+  "authors": ["Rhaella"],
+  "rules": {
+    "order": [
+      {
+        "rule": "isra(-):EET_end(-)",
+        "direction": "before",
+        "severity": "warning",
+        "origin": "ini"
+      },
+      {
+        "rule": "isra(-):tobex(-)|bg2fixpack(-)|EET(-)|valerie(-)|gavin(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

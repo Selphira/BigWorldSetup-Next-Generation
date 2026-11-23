@@ -1,27 +1,29 @@
 {
   "name": "Tomoyo and the Underground City",
-  "version": "1",
+  "version": "1.1",
   "links": {
     "homepage": "https://trow.cc/board/showtopic=13751&st=0"
   },
   "files": [
     {
       "filename": "lin-DNT.zip",
-      "size": 32362436,
-      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/lin-DNT.zip",
+      "size": 32923215,
+      "sha256": "5ee9fdfe26ae70561579cc0853d7c6eabacc3070fb8936e123b4541e678e5db3",
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/V1.1/lin-DNT.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-DNT.zip",
-      "size": 32589946,
-      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/mac-DNT.zip",
+      "size": 33040382,
+      "sha256": "13b0bb1850bc23fce9a416521a2c0b13a749f8f932a8e0046ec4e4cc2754c938",
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/V1.1/mac-DNT.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-DNT.zip",
-      "size": 32534777,
-      "sha256": "7fef205dbcfb82bbf4176ffdc4c67ad133a75f702c4816ac8b89434953c065b1",
-      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/v1/win-DNT.zip",
+      "size": 32572960,
+      "sha256": "47e4a4729f4b8a81d777ac50a86dbbce1cdcbf9dee21d4ffeb0e472dbfbfab01",
+      "download": "https://github.com/Plutonium-X/FIGHT_Tomoyo/releases/download/V1.1/win-DNT.zip",
       "platforms": ["windows"]
     }
   ],

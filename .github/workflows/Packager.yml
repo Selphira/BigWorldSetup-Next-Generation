@@ -27,14 +27,14 @@ jobs:
         run: python -m pytest -q -rx
 
       - name: Validate complete catalogue
-        run: python -m validation.catalogue --report catalogue-report.json
+        run: python -m validation.catalogue --report var/dev/catalogue-report.json
 
       - name: Preserve validation diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: packaging-catalogue-report
-          path: catalogue-report.json
+          path: var/dev/catalogue-report.json
 
   build:
     name: Build for ${{ matrix.os }}

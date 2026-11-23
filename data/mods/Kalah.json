@@ -7,23 +7,23 @@
   "files": [
     {
       "filename": "lin-Kalah-v4.1.zip",
-      "size": 2990162,
-      "sha256": "3ff254e35098a4f7f51feaea6720b9e5546063529a8a0cb3563e4e0f91c18032",
-      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/lin-Kalah-v4.1.zip",
+      "size": 3573003,
+      "sha256": "d3b971fd5d04a8247022775acd2281fac47eab54b8f250f68c122b1319d01e8a",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v5/lin-Kalah-v4.1.zip",
       "platforms": ["linux"]
     },
     {
       "filename": "mac-Kalah-v4.1.zip",
-      "size": 3217676,
-      "sha256": "bacb53dd77b888e0521c4ccac256af8981adbd840373fabcd171f0283917940e",
-      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/mac-Kalah-v4.1.zip",
+      "size": 3690174,
+      "sha256": "2b13c28ba9e6e4751b9b74ebc701ea0a3dbda8fb0b01a97439b2d1cb593f2e9a",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v5/mac-Kalah-v4.1.zip",
       "platforms": ["macos"]
     },
     {
       "filename": "win-Kalah-v4.1.zip",
-      "size": 3162503,
-      "sha256": "04ee05d06415b43d6c651fbdc9bd6dfaa0c7cf6d9bf34db0c1027d4809c1a0a1",
-      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v4.1/win-Kalah-v4.1.zip",
+      "size": 3222748,
+      "sha256": "ccbf7dde8acc7f7e595854fd53acb517bb36388866e6d78d7b0dad0bd76ed1c5",
+      "download": "https://github.com/Plutonium-X/QUETE_KALAH/releases/download/v5/win-Kalah-v4.1.zip",
       "platforms": ["windows"]
     }
   ],
@@ -35,7 +35,8 @@
   },
   "languages": {
     "pl_PL": 0,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -49,7 +50,11 @@
       "description": "This mod modifies the circus quest by adding small tests. The results of these tests influence the difficulty of the final battle. Another component returns metamorphosed Aerie to the appearance originally intended by the developers (spoiler: she's not an ogre)."
     },
     "zh_CN": {
-      "description": "此模组修改了马戏团的任务，在其中加入了一些小考验。这些考验的结果会影响最终战斗的难度。另一个组件将恢复艾黎变形后的原始外观（剧透：她不是食人魔）。"
+      "description": "此模组修改了马戏团的任务，在其中加入了一些小考验。这些考验的结果会影响最终战斗的难度。另一个组件将恢复艾黎变形后的原始外观（剧透：她不是食人魔）。",
+      "components": {
+        "0": "恢复艾瑞原本的外貌。",
+        "1": "卡拉赫大帐篷 2.0"
+      }
     },
     "pl_PL": {
       "components": {

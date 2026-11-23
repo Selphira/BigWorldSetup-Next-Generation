@@ -23,9 +23,9 @@ jobs:
           cache: pip
       - run: python -m pip install -r requirements.txt
       - name: Validate schemas and references across the entire catalogue
-        run: python -m validation.catalogue --report catalogue-report.json
+        run: python -m validation.catalogue --report var/dev/catalogue-report.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: catalogue-report
-          path: catalogue-report.json
+          path: var/dev/catalogue-report.json

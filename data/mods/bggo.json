@@ -1,23 +1,24 @@
 {
   "name": "Baldur's Gate Graphical Overhaul",
-  "version": "3.5",
+  "version": "3.6",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/27768-baldurs-gate-graphics-overhaul-for-eet/",
     "forums": ["https://www.shsforums.net/forum/641-bg-graphics-overhaul/"]
   },
   "files": [
     {
-      "filename": "baldurs-gate-graphical-overhaul-v3.5.zip",
-      "size": 1386261605,
-      "sha256": "e35f3d79aa327f9150aa9a0ed010a21d4b515e966d5f6689778656bd3aad38e6",
-      "download": "https://github.com/Spellhold-Studios/Baldurs-Gate-Graphical-Overhaul/releases/download/v3.5/baldurs-gate-graphical-overhaul-v3.5.zip"
+      "filename": "baldurs-gate-graphical-overhaul-v3.6.zip",
+      "size": 1459899654,
+      "sha256": "59e01a3dcf48b141fe2e24dc5df1906c5031cedf22662b697d13756609d3d635",
+      "download": "https://github.com/Spellhold-Studios/Baldurs-Gate-Graphical-Overhaul/releases/download/v3.6/baldurs-gate-graphical-overhaul-v3.6.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["cosm"],
   "components": {
     "choice_0": {"type": "muc", "components": ["1", "2"], "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
+    "4": {"type": "std"}
   },
   "languages": {
     "en_US": 0,
@@ -29,7 +30,8 @@
         "choice_0": "BGGO for EET, BGT, BGEE, BG2EE, ToB and Tutu",
         "1": "Baldurs Gate Graphical Overhaul for Windows",
         "2": "Baldurs Gate Graphical Overhaul for Android",
-        "0": "Baldurs Gate Graphical Overhaul Core"
+        "0": "Baldurs Gate Graphical Overhaul Core",
+        "4": "Baldurs Gate Graphical Overhaul Alternate Graphics"
       },
       "description": "This huge mod adds missing night areas in all main areas except Baldur's Gate and adds missing night minimaps in all main areas. It also corrects graphical flaws in the game's various maps (windows that display at night and not during the day - or vice versa, badly adjusted doors, flaws in night images, etc.). It gives all wall braziers their missing flames. Finally, almost all the ugly blue and purple spots have been removed from the streets. It was created in collaboration with Overhaul Studios."
     },

@@ -71,6 +71,9 @@ RUN_HISTORY_DIR: Path = VAR_DIR / "runs" / "history"
 # Rebuilt when missing
 CACHE_DIR: Path = VAR_DIR / "cache"
 LOG_DIR: Path = VAR_DIR / "logs"
+# Outputs of the development tools (validation reports, mod_sync caches),
+# never read by the application
+DEV_DIR: Path = VAR_DIR / "dev"
 
 # Resource directories
 RESOURCES_DIR = RESOURCE_ROOT / "resources"
@@ -78,12 +81,12 @@ FLAGS_DIR = RESOURCES_DIR / "flags"
 ICONS_DIR = RESOURCES_DIR / "icons"
 THEMES_DIR = RESOURCES_DIR / "themes"
 
-# Cache subdirectories
-LCC_CACHE_DIR = CACHE_DIR / "lcc"
-
-# mod_sync: date of the last GitHub release check of each mod, and the
-# minimal delay between two checks (keeps runs under the API rate limit)
-MOD_SYNC_GITHUB_CHECKS_FILE = CACHE_DIR / "mod_sync" / "github_checks.json"
+# mod_sync: cache of the LCC pages, date of the last GitHub release check of
+# each mod, and the minimal delay between two checks (keeps runs under the
+# API rate limit)
+MOD_SYNC_DEV_DIR: Path = DEV_DIR / "mod_sync"
+MOD_SYNC_LCC_CACHE_DIR: Path = MOD_SYNC_DEV_DIR / "lcc"
+MOD_SYNC_GITHUB_CHECKS_FILE: Path = MOD_SYNC_DEV_DIR / "github_checks.json"
 MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS = 24.0
 # Mods downloaded from a GitHub commit: maintainer file kept out of data/,
 # which is published as a whole

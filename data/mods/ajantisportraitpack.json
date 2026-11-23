@@ -9,8 +9,8 @@
     {
       "filename": "ajantis-portrait-pack-5.zip",
       "size": 5001915,
-      "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443",
-      "download": "https://www.gibberlings3.net/files/file/994-ajantis-portrait-pack/?do=download"
+      "download": "https://github.com/Gibberlings3/Ajantis_Portrait_Pack/releases/download/v5/ajantis-portrait-pack-5.zip",
+      "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443"
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],

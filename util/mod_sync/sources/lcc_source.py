@@ -10,7 +10,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 import urllib.request
 
-from constants import LCC_CACHE_DIR
+from constants import MOD_SYNC_LCC_CACHE_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ class LCCSource:
         "Personnalisation du groupe": "party",
     }
 
-    def __init__(self, cache_dir: Path = LCC_CACHE_DIR, force_refresh: bool = False):
+    def __init__(self, cache_dir: Path = MOD_SYNC_LCC_CACHE_DIR, force_refresh: bool = False):
         """Initialize LCC source.
 
         Args:

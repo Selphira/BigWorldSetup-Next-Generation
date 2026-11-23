@@ -7,9 +7,9 @@
   },
   "files": [
     {
-      "filename": "lin-i686-drunkshaders-0.3.5.tar.gz",
-      "size": 2553545,
-      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/lin-i686-drunkshaders-0.3.5.tar.gz",
+      "filename": "lin-x86_64-drunkshaders-0.3.5.tar.gz",
+      "size": 2725476,
+      "download": "https://github.com/dtiefling/dshaders/releases/download/v0.3.5/lin-x86_64-drunkshaders-0.3.5.tar.gz",
       "platforms": ["linux"]
     },
     {
