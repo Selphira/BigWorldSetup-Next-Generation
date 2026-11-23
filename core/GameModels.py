@@ -369,7 +369,9 @@ class GameDefinition:
 
     def sequence_games(self) -> list[str]:
         """Return the game codes referenced by the sequences, in order and without duplicates."""
-        return list(dict.fromkeys(sequence.game for sequence in self.sequences if sequence.game))
+        return list(
+            dict.fromkeys(sequence.game for sequence in self.sequences if sequence.game)
+        )
 
     def get_forced_components(self) -> list[str]:
         """Get the forced components required for this game sequence."""

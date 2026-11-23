@@ -40,7 +40,12 @@ class ArchiveFile:
 
     def apply_to(self, file_entry: dict[str, Any]) -> dict[str, Any]:
         """Return a copy of a file entry describing this archive."""
-        return {**file_entry, "filename": self.filename, "size": self.size, "sha256": self.sha256}
+        return {
+            **file_entry,
+            "filename": self.filename,
+            "size": self.size,
+            "sha256": self.sha256,
+        }
 
     def matches(self, file_entry: dict[str, Any]) -> bool:
         """Tell whether this archive is the one a file entry describes.
@@ -149,10 +154,14 @@ class ArchiveSource:
         Returns:
             Paths the retired archives were moved to
         """
-        current_filenames = {entry.get("filename") for entry in current_files if isinstance(entry, dict)}
+        current_filenames = {
+            entry.get("filename") for entry in current_files if isinstance(entry, dict)
+        }
         retired_paths = []
         for previous_entry in previous_files:
-            if not isinstance(previous_entry, dict) or not self.applies_to_platform(previous_entry):
+            if not isinstance(previous_entry, dict) or not self.applies_to_platform(
+                previous_entry
+            ):
                 continue
 
             filename = previous_entry.get("filename")
@@ -161,7 +170,9 @@ class ArchiveSource:
 
             local_archive = self.local_archive(previous_entry)
             if local_archive:
-                retired_paths.append(self._retire(self.archive_path(local_archive), local_archive.sha256))
+                retired_paths.append(
+                    self._retire(self.archive_path(local_archive), local_archive.sha256)
+                )
         return retired_paths
 
     def local_archive(self, file_entry: dict[str, Any]) -> ArchiveFile | None:
@@ -282,7 +293,9 @@ class ArchiveSource:
             logger.error("Archives directory not configured")
             return None
 
-        partial_path = self.archives_dir / f"{expected_filename or 'download'}{PARTIAL_DOWNLOAD_SUFFIX}"
+        partial_path = (
+            self.archives_dir / f"{expected_filename or 'download'}{PARTIAL_DOWNLOAD_SUFFIX}"
+        )
         try:
             served_filename = self._fetch(url, partial_path, progress_callback)
         except urllib.error.HTTPError as e:
@@ -350,7 +363,9 @@ class ArchiveSource:
         retired_dir = archive_path.parent / RETIRED_ARCHIVES_DIR
         retired_dir.mkdir(exist_ok=True)
 
-        retired_name = f"{archive_path.stem}.{sha256[:RETIRED_HASH_LENGTH]}{archive_path.suffix}"
+        retired_name = (
+            f"{archive_path.stem}.{sha256[:RETIRED_HASH_LENGTH]}{archive_path.suffix}"
+        )
         retired_path = retired_dir / retired_name
         shutil.move(archive_path, retired_path)
 

@@ -255,9 +255,7 @@ class AddModDialog(QDialog):
         self._name_edit.setText(str(tp2_data.name or self.tp2_path.stem))
         self._version_edit.setText(str(tp2_data.version))
         self._components_edit.setPlainText(self._get_components_list(tp2_data))
-        self._languages_combo.set_selected_keys(
-            list(self.parsed_data["languages"])
-        )
+        self._languages_combo.set_selected_keys(list(self.parsed_data["languages"]))
 
     def _get_components_list(self, tp2_data) -> str:
         components_count = len(tp2_data.components)

@@ -71,7 +71,9 @@ class SelectiveExtractor:
     def read_stamp(self, destination: Path, tp2_name: str) -> ExtractionStamp | None:
         """Return the archive the extraction of a mod comes from, if recorded."""
         try:
-            data = json.loads(self._stamp_path(destination, tp2_name).read_text(encoding="utf-8"))
+            data = json.loads(
+                self._stamp_path(destination, tp2_name).read_text(encoding="utf-8")
+            )
             return ExtractionStamp(str(data["sha256"]), tuple(data["files"]))
         except FileNotFoundError:
             return None
@@ -108,7 +110,9 @@ class SelectiveExtractor:
             logger.warning(f"No .tp2 or .tra files found in {archive_path.name}")
         return files
 
-    def _move_selective_files(self, source_dir: Path, target_dir: Path, tp2_name: str) -> tuple[str, ...]:
+    def _move_selective_files(
+        self, source_dir: Path, target_dir: Path, tp2_name: str
+    ) -> tuple[str, ...]:
         """Move only the parsing files from source to target, preserving structure.
 
         Args:
@@ -156,7 +160,9 @@ class SelectiveExtractor:
     # Previous extraction
     # ------------------------------------------------------------------
 
-    def _remove_extraction(self, destination: Path, tp2_name: str, stamp: ExtractionStamp | None) -> None:
+    def _remove_extraction(
+        self, destination: Path, tp2_name: str, stamp: ExtractionStamp | None
+    ) -> None:
         """Remove the files of a previous extraction of a mod.
 
         Without stamp, the extraction predates them: the usual TP2 locations

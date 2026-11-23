@@ -340,7 +340,11 @@ class BackupPage(BasePage):
 
         for game_code in game_codes:
             game_path = self.state_manager.get_game_path(game_code)
-            if game_path and game_path.exists() and self._backup_manager.is_game_modded(game_path):
+            if (
+                game_path
+                and game_path.exists()
+                and self._backup_manager.is_game_modded(game_path)
+            ):
                 self._modded_games.add(game_code)
 
         backups = self._backup_manager.list_backups(game_codes)

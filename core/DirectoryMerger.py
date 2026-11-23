@@ -190,7 +190,9 @@ class DirectoryMerger:
             self.progress_callback(source_file, dest_file)
 
         # Handle conflict if destination exists
-        if dest_file.exists() and not self._handle_file_conflict(source_file, dest_file, result):
+        if dest_file.exists() and not self._handle_file_conflict(
+            source_file, dest_file, result
+        ):
             return  # Conflict not resolved, skip this file
 
         # Move/copy the file

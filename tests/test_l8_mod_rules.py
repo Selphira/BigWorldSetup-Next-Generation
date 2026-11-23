@@ -35,7 +35,10 @@ def _ini_rule(target: str, direction: str = "before") -> dict:
 def test_rules_of_mod_definitions_join_those_of_rule_files(
     rules: RuleManager, tmp_path: Path
 ) -> None:
-    _write(tmp_path / "rules" / "order.json", {"rules": [{"rule": "file(-):other(-)", "direction": "before"}]})
+    _write(
+        tmp_path / "rules" / "order.json",
+        {"rules": [{"rule": "file(-):other(-)", "direction": "before"}]},
+    )
     _write(tmp_path / "mods" / "demo.json", {"rules": {"order": [MANUAL_RULE]}})
     _write(tmp_path / "mods" / "plain.json", {"name": "No rules"})
 
@@ -264,7 +267,14 @@ def test_ini_rule_description_is_generated_at_loading_in_every_language(
 
 
 def test_ini_origin_survives_rule_loading(rules: RuleManager, tmp_path: Path) -> None:
-    _write(tmp_path / "mods" / "demo.json", {"rules": {"order": [{"rule": "demo(0)&other(1):third(-)", "origin": INI_RULE_ORIGIN}]}})
+    _write(
+        tmp_path / "mods" / "demo.json",
+        {
+            "rules": {
+                "order": [{"rule": "demo(0)&other(1):third(-)", "origin": INI_RULE_ORIGIN}]
+            }
+        },
+    )
 
     (loaded_rule,) = rules._create_cache_builder(["en_US"])._load_sources()["order"]
 

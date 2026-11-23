@@ -91,7 +91,9 @@ class SplashScreen(QWidget):
         self.skip_update_button = QPushButton(tr("app.skip_data_update"))
         self.skip_update_button.clicked.connect(self.skip_update_requested)
         self.skip_update_button.hide()
-        container_layout.addWidget(self.skip_update_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        container_layout.addWidget(
+            self.skip_update_button, alignment=Qt.AlignmentFlag.AlignCenter
+        )
 
         layout.addWidget(container)
 

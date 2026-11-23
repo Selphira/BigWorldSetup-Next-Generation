@@ -31,7 +31,9 @@ def test_language_keyword_without_space_is_parsed(tmp_path: Path) -> None:
 
     tp2 = WeiDUTp2Parser(tmp_path).parse_string(LANGUAGES_TP2, "demo", None, tmp_path)
 
-    assert [(lang.display_name, lang.language_code, lang.tra_files) for lang in tp2.languages] == [
+    assert [
+        (lang.display_name, lang.language_code, lang.tra_files) for lang in tp2.languages
+    ] == [
         ("Chinese", "zh_CN", ["demo/schinese/setup.tra"]),
         ("English", "en_US", ["demo/english/setup.tra"]),
     ]
@@ -55,7 +57,9 @@ def _languages_tp2(*declarations: tuple[str, str]) -> str:
     language_lines = "\n".join(
         f"LANGUAGE ~{label}~ ~{code}~ ~demo/{code}/setup.tra~" for label, code in declarations
     )
-    return f"BACKUP ~demo/backup~\nAUTHOR ~author~\n{language_lines}\n\nBEGIN @1\nDESIGNATED 0\n"
+    return (
+        f"BACKUP ~demo/backup~\nAUTHOR ~author~\n{language_lines}\n\nBEGIN @1\nDESIGNATED 0\n"
+    )
 
 
 @pytest.mark.parametrize(
@@ -64,9 +68,20 @@ def _languages_tp2(*declarations: tuple[str, str]) -> str:
         ([("Francais pour oBG2", "french"), ("Francais pour BG2EE", "frenchEE")], 1),
         ([("Francais pour les editions EE", "frenchEE"), ("Francais", "french")], 0),
         ([("Francais", "frenchbg2"), ("Francais pour l'edition Enhanced", "french")], 1),
-        ([("English (olimikrig's revision)", "English_revision"), ("English (original text)", "English_original")], 0),
+        (
+            [
+                ("English (olimikrig's revision)", "English_revision"),
+                ("English (original text)", "English_original"),
+            ],
+            0,
+        ),
     ],
-    ids=["EE declared last", "EE declared first", "Enhanced label", "first declared without EE"],
+    ids=[
+        "EE declared last",
+        "EE declared first",
+        "Enhanced label",
+        "first declared without EE",
+    ],
 )
 def test_one_translation_is_kept_per_language(
     tmp_path: Path, declarations: list[tuple[str, str]], expected: int
@@ -74,7 +89,9 @@ def test_one_translation_is_kept_per_language(
     for index, (_, code) in enumerate(declarations):
         _write_tra(tmp_path, code, f"Label {index}", "utf-8")
 
-    tp2 = WeiDUTp2Parser(tmp_path).parse_string(_languages_tp2(*declarations), "demo", None, tmp_path)
+    tp2 = WeiDUTp2Parser(tmp_path).parse_string(
+        _languages_tp2(*declarations), "demo", None, tmp_path
+    )
     language_code = tp2.languages[0].language_code
 
     assert [lang.index for lang in tp2.preferred_languages()] == [expected]
@@ -83,11 +100,18 @@ def test_one_translation_is_kept_per_language(
 
 
 def test_translations_of_other_languages_keep_declaration_order(tmp_path: Path) -> None:
-    declarations = [("Polski", "polski"), ("Francais", "french"), ("English", "english"), ("Francais EE", "frenchEE")]
+    declarations = [
+        ("Polski", "polski"),
+        ("Francais", "french"),
+        ("English", "english"),
+        ("Francais EE", "frenchEE"),
+    ]
     for _, code in declarations:
         _write_tra(tmp_path, code, code, "utf-8")
 
-    tp2 = WeiDUTp2Parser(tmp_path).parse_string(_languages_tp2(*declarations), "demo", None, tmp_path)
+    tp2 = WeiDUTp2Parser(tmp_path).parse_string(
+        _languages_tp2(*declarations), "demo", None, tmp_path
+    )
 
     assert [(lang.language_code, lang.index) for lang in tp2.preferred_languages()] == [
         ("pl_PL", 0),

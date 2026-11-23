@@ -994,7 +994,9 @@ class ModSelectionPage(BasePage):
             return False
 
         orchestrator = self._validation_orchestrator
-        blocked_by_errors = orchestrator.has_errors() and not self._chk_ignore_errors.isChecked()
+        blocked_by_errors = (
+            orchestrator.has_errors() and not self._chk_ignore_errors.isChecked()
+        )
         blocked_by_warnings = (
             orchestrator.has_warnings() and not self._chk_ignore_warnings.isChecked()
         )
@@ -1047,7 +1049,9 @@ class ModSelectionPage(BasePage):
         selected_components = self.state_manager.get_selected_components()
         self._component_selector.reload()
         report = self.import_selection(selected_components, replace=True)
-        revision = self.state_manager.get_page_option(self.get_page_id(), "catalogue_revision", None)
+        revision = self.state_manager.get_page_option(
+            self.get_page_id(), "catalogue_revision", None
+        )
         changed = (
             selected_components
             and revision

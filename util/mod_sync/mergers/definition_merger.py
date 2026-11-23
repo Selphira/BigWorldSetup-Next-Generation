@@ -132,7 +132,9 @@ class DefinitionMerger:
 
         result = copy.deepcopy(existing)
         for field, default in definition.items():
-            if isinstance(default, (list, dict)) and not isinstance(result.get(field), type(default)):
+            if isinstance(default, (list, dict)) and not isinstance(
+                result.get(field), type(default)
+            ):
                 result[field] = default
         return result
 
@@ -303,7 +305,11 @@ class DefinitionMerger:
             keep_stored = cls._is_muc_group(components.get(key)) or not has_value(tp2_label)
             labels[key] = stored_label if keep_stored and has_value(stored_label) else tp2_label
             labels.update(
-                {extra: label for extra, label in kept_labels.items() if cls._label_owner(extra) == key}
+                {
+                    extra: label
+                    for extra, label in kept_labels.items()
+                    if cls._label_owner(extra) == key
+                }
             )
 
         labels.update(kept_labels)
@@ -324,7 +330,9 @@ class DefinitionMerger:
         keys: dict[str, None] = {}
         for key, component in components.items():
             if cls._is_muc_group(component):
-                keys.update(dict.fromkeys(str(choice) for choice in component.get("components") or []))
+                keys.update(
+                    dict.fromkeys(str(choice) for choice in component.get("components") or [])
+                )
             else:
                 keys[key] = None
         return list(keys)

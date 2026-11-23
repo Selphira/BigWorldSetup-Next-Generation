@@ -117,16 +117,29 @@ class FixedTP2Source:
     def __init__(self, data: dict) -> None:
         self.data = data
 
-    def extract(self, tp2_name: str, supported_games: set[str] | None = None, labels_language: str = "en_US") -> dict:
+    def extract(
+        self,
+        tp2_name: str,
+        supported_games: set[str] | None = None,
+        labels_language: str = "en_US",
+    ) -> dict:
         return self.data
 
 
 def test_component_changes_are_reported_for_existing_definitions(definitions_dir: Path) -> None:
-    stored = {"games": ["bg2ee", "eet"], "components": {"0": {"type": "std"}, "1": {"type": "std"}}}
+    stored = {
+        "games": ["bg2ee", "eet"],
+        "components": {"0": {"type": "std"}, "1": {"type": "std"}},
+    }
     (definitions_dir / "c#brage.json").write_text(json.dumps(stored), encoding="utf-8")
-    config = SyncConfig(definitions_dir=definitions_dir, mod_filter=ModFilter(frozenset({"c#brage", "ascension"})))
+    config = SyncConfig(
+        definitions_dir=definitions_dir,
+        mod_filter=ModFilter(frozenset({"c#brage", "ascension"})),
+    )
     orchestrator = ModSyncOrchestrator(config)
-    orchestrator.tp2_source = FixedTP2Source({"components": {"0": {"type": "std"}, "2": {"type": "std"}}})
+    orchestrator.tp2_source = FixedTP2Source(
+        {"components": {"0": {"type": "std"}, "2": {"type": "std"}}}
+    )
 
     stats = orchestrator.run()
 

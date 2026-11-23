@@ -53,15 +53,21 @@ class GitHubCheckLog:
     def _load(self) -> dict[str, datetime]:
         try:
             stored = json.loads(self.log_path.read_text(encoding="utf-8"))
-            return {tp2: datetime.fromisoformat(checked_at) for tp2, checked_at in stored.items()}
+            return {
+                tp2: datetime.fromisoformat(checked_at) for tp2, checked_at in stored.items()
+            }
         except FileNotFoundError:
             return {}
         except (OSError, ValueError, TypeError, AttributeError) as e:
-            logger.warning(f"Unreadable GitHub check log {self.log_path}, every mod is due: {e}")
+            logger.warning(
+                f"Unreadable GitHub check log {self.log_path}, every mod is due: {e}"
+            )
             return {}
 
     def _save(self) -> None:
-        stored = {tp2: checked_at.isoformat() for tp2, checked_at in sorted(self._checked_at.items())}
+        stored = {
+            tp2: checked_at.isoformat() for tp2, checked_at in sorted(self._checked_at.items())
+        }
         try:
             self.log_path.parent.mkdir(parents=True, exist_ok=True)
             partial_path = self.log_path.with_suffix(".part")

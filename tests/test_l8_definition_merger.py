@@ -55,7 +55,9 @@ def test_lcc_changes_replace_stored_metadata() -> None:
 
     merged = merge(STORED, lcc=lcc)
 
-    assert {field: merged[field] for field in ("name", "safe", "games", "categories", "authors")} == {
+    assert {
+        field: merged[field] for field in ("name", "safe", "games", "categories", "authors")
+    } == {
         "name": "New name",
         "safe": 1,
         "games": ["bg2ee", "eet"],
@@ -134,7 +136,12 @@ MUC_DEFINITION = {
     },
     "translations": {
         "en_US": {
-            "components": {"0": "Old main", "choice_0": "Pick a portrait style", "1": "Old A", "2": "B"}
+            "components": {
+                "0": "Old main",
+                "choice_0": "Pick a portrait style",
+                "1": "Old A",
+                "2": "B",
+            }
         }
     },
 }
@@ -142,7 +149,10 @@ MUC_DEFINITION = {
 
 def test_muc_group_label_is_kept_while_other_labels_follow_tp2() -> None:
     tp2 = {
-        "components": {"0": {"type": "std"}, "choice_0": {"type": "muc", "components": ["1", "2"]}},
+        "components": {
+            "0": {"type": "std"},
+            "choice_0": {"type": "muc", "components": ["1", "2"]},
+        },
         "component_translations": {
             "en_US": {"0": "New main", "choice_0": "Portraits", "1": "New A", "2": "B"}
         },
@@ -172,10 +182,19 @@ def test_new_muc_group_takes_its_tp2_label() -> None:
 
 def test_sub_prompt_labels_survive_tp2_labels() -> None:
     existing = {
-        "components": {"0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}}}, "5": {"type": "std"}},
+        "components": {
+            "0": {"type": "sub", "prompts": {"1": {"options": ["0", "1"]}}},
+            "5": {"type": "std"},
+        },
         "translations": {
             "fr_FR": {
-                "components": {"0": "Ancien", "0.1": "Question", "0.1.0": "Non", "0.1.1": "Oui", "5": "Autre"}
+                "components": {
+                    "0": "Ancien",
+                    "0.1": "Question",
+                    "0.1.0": "Non",
+                    "0.1.1": "Oui",
+                    "5": "Autre",
+                }
             }
         },
     }
@@ -205,7 +224,9 @@ def test_added_removed_components_and_kept_subs_are_reported() -> None:
             "9": {"type": "sub", "prompts": {}},
             "choice_0": {"type": "muc", "components": ["10", "11"]},
         },
-        "translations": {"en_US": {"components": {"3": "Removed", "9": "Manual SUB", "9.1": "Prompt"}}},
+        "translations": {
+            "en_US": {"components": {"3": "Removed", "9": "Manual SUB", "9.1": "Prompt"}}
+        },
     }
     tp2 = {
         "components": {
@@ -232,15 +253,30 @@ def test_added_removed_components_and_kept_subs_are_reported() -> None:
 
 
 STORED_FILES = [
-    {"filename": "lin-demo-v1.zip", "size": 1, "sha256": "lin-hash", "download": "https://x/v1/lin.zip", "platforms": ["linux"]},
-    {"filename": "win-demo-v1.zip", "size": 1, "sha256": "win-hash", "download": "https://x/v1/win.zip", "platforms": ["windows"]},
+    {
+        "filename": "lin-demo-v1.zip",
+        "size": 1,
+        "sha256": "lin-hash",
+        "download": "https://x/v1/lin.zip",
+        "platforms": ["linux"],
+    },
+    {
+        "filename": "win-demo-v1.zip",
+        "size": 1,
+        "sha256": "win-hash",
+        "download": "https://x/v1/win.zip",
+        "platforms": ["windows"],
+    },
 ]
 
 
 def test_archive_files_replace_stored_files() -> None:
     archive_files = [STORED_FILES[0], {**STORED_FILES[1], "size": 2, "sha256": "new-win-hash"}]
 
-    assert merge({"files": STORED_FILES}, archive={"files": archive_files})["files"] == archive_files
+    assert (
+        merge({"files": STORED_FILES}, archive={"files": archive_files})["files"]
+        == archive_files
+    )
 
 
 def test_stored_files_are_kept_without_archive_source() -> None:

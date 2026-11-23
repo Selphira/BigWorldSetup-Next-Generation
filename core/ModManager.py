@@ -49,7 +49,9 @@ def select_mod_files(mods_dir: Path, custom_mods_dir: Path) -> list[tuple[Path, 
     conflicting_ids = official_files.keys() & custom_files.keys()
 
     if conflicting_ids:
-        logger.info(f"Found {len(conflicting_ids)} mod conflicts, resolving by modification time")
+        logger.info(
+            f"Found {len(conflicting_ids)} mod conflicts, resolving by modification time"
+        )
 
     result = []
     for mod_id, custom_path in custom_files.items():
@@ -118,7 +120,9 @@ class CacheBuilderThread(LocalizedCacheBuilder):
 
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
-                    mods_data.append({"id": file_path.stem, "custom": is_custom, **json.load(f)})
+                    mods_data.append(
+                        {"id": file_path.stem, "custom": is_custom, **json.load(f)}
+                    )
             except Exception as e:
                 logger.error(f"Error loading {file_path.name}: {e}")
                 self.error.emit(f"Error loading {file_path.name}: {e}")
@@ -255,7 +259,9 @@ class ModManager(LocalizedCacheManager):
         return self._is_cache_stale()
 
     def _create_cache_builder(self, languages: list[str]) -> CacheBuilderThread:
-        return CacheBuilderThread(self.mods_dir, self.custom_mods_dir, self.cache_dir, languages)
+        return CacheBuilderThread(
+            self.mods_dir, self.custom_mods_dir, self.cache_dir, languages
+        )
 
     def _source_files(self) -> list[Path]:
         return [path for path, _ in select_mod_files(self.mods_dir, self.custom_mods_dir)]

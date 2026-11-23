@@ -483,7 +483,9 @@ class DownloadWorker(QObject):
             try:
                 self._output_file.close()
             except OSError as error:
-                self._failure = self._failure or tr("page.download.error.disk", error=str(error))
+                self._failure = self._failure or tr(
+                    "page.download.error.disk", error=str(error)
+                )
             self._output_file = None
 
     def _discard_partial(self) -> None:
@@ -558,7 +560,10 @@ class DownloadManager(QObject):
         Args:
             archive_info: Archive to download
         """
-        if archive_info.mod_id in self._active_downloads or archive_info in self._download_queue:
+        if (
+            archive_info.mod_id in self._active_downloads
+            or archive_info in self._download_queue
+        ):
             return
 
         self._download_queue.append(archive_info)
@@ -629,8 +634,12 @@ class DownloadManager(QObject):
 
             mod_id = archive_info.mod_id
 
-            worker.progress.connect(self._on_worker_progress, Qt.ConnectionType.QueuedConnection)
-            worker.finished.connect(self._on_worker_finished, Qt.ConnectionType.QueuedConnection)
+            worker.progress.connect(
+                self._on_worker_progress, Qt.ConnectionType.QueuedConnection
+            )
+            worker.finished.connect(
+                self._on_worker_finished, Qt.ConnectionType.QueuedConnection
+            )
             worker.error.connect(self._on_worker_error, Qt.ConnectionType.QueuedConnection)
 
             thread.started.connect(worker.start_download)

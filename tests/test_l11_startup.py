@@ -25,7 +25,9 @@ SIGNAL_TIMEOUT_MS = 10_000
 
 def _snapshot(path: Path) -> dict[str, bytes]:
     return {
-        str(item.relative_to(path)): item.read_bytes() for item in path.rglob("*") if item.is_file()
+        str(item.relative_to(path)): item.read_bytes()
+        for item in path.rglob("*")
+        if item.is_file()
     }
 
 
@@ -224,7 +226,9 @@ def test_corrupted_cache_is_rebuilt(mods: ModManager, qtbot: QtBot) -> None:
 def test_builder_that_cannot_start_reports_a_terminal_error(
     mods: ModManager, monkeypatch: pytest.MonkeyPatch, qtbot: QtBot
 ) -> None:
-    monkeypatch.setattr(mods, "_create_cache_builder", Mock(side_effect=RuntimeError("no thread")))
+    monkeypatch.setattr(
+        mods, "_create_cache_builder", Mock(side_effect=RuntimeError("no thread"))
+    )
 
     with qtbot.waitSignal(mods.cache_error, timeout=SIGNAL_TIMEOUT_MS):
         mods.prepare_cache()

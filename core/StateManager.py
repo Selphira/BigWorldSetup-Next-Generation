@@ -444,7 +444,10 @@ class StateManager:
         Returns:
             Loaded or default InstallationState
         """
-        for path in (self.STATE_FILE, self.STATE_FILE.with_name(self.STATE_FILE.name + self.BACKUP_SUFFIX)):
+        for path in (
+            self.STATE_FILE,
+            self.STATE_FILE.with_name(self.STATE_FILE.name + self.BACKUP_SUFFIX),
+        ):
             try:
                 state = self._read_state(path)
                 logger.info("Installation state loaded from %s", path)

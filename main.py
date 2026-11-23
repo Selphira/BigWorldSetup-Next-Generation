@@ -323,7 +323,11 @@ class ApplicationInitializer(QObject):
         for page in pages:
             window.register_page(page)
 
-        initial_page = "installation" if window.pages["installation"].is_resume() else self._get_initial_page()
+        initial_page = (
+            "installation"
+            if window.pages["installation"].is_resume()
+            else self._get_initial_page()
+        )
         window.show_page(initial_page)
         window.check_for_updates()
 
@@ -340,7 +344,6 @@ class ApplicationInitializer(QObject):
             return last_page
 
         return "installation_type"
-
 
 
 def setup_logging() -> None:

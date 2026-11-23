@@ -303,7 +303,8 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
 
         self.status_changed.emit(tr("app.parsing_rules"))
         source_data = {
-            rule_type: self._expand_rules(rule_type, rules) for rule_type, rules in raw_rules.items()
+            rule_type: self._expand_rules(rule_type, rules)
+            for rule_type, rules in raw_rules.items()
         }
 
         if not any(source_data.values()):
@@ -541,9 +542,13 @@ class RuleManager(LocalizedCacheManager):
             int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
         ] = {}
 
-        self._dependents_by_target: dict[ComponentReference, set[DependencyRule]] = defaultdict(set)
+        self._dependents_by_target: dict[ComponentReference, set[DependencyRule]] = defaultdict(
+            set
+        )
         self._rule_positions: dict[Rule, int] = {}
-        self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = defaultdict(list)
+        self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = (
+            defaultdict(list)
+        )
         self._last_selection_hash: int | None = None
 
     # ========================================
@@ -994,7 +999,10 @@ class RuleManager(LocalizedCacheManager):
 
     def get_rules_for_component(self, reference: ComponentReference) -> list[Rule]:
         """Get presentation rules in catalogue order for either side of a reference."""
-        return sorted(self._rules_by_component.get(reference, ()), key=lambda rule: self._rule_positions[rule])
+        return sorted(
+            self._rules_by_component.get(reference, ()),
+            key=lambda rule: self._rule_positions[rule],
+        )
 
     def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached selection violations for a specific component."""
@@ -1120,7 +1128,9 @@ class RuleManager(LocalizedCacheManager):
                         before[ref].update(
                             candidate
                             for candidate in remaining
-                            if missing.is_selected_in({candidate} | choices.get(candidate, set()))
+                            if missing.is_selected_in(
+                                {candidate} | choices.get(candidate, set())
+                            )
                         )
             try:
                 TopologicalSorter(before).prepare()

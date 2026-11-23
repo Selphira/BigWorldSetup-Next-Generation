@@ -33,13 +33,18 @@ DESIGNATED 0
 def test_tp2_without_language_exposes_its_literal_labels(tmp_path: Path) -> None:
     tp2 = WeiDUTp2Parser(tmp_path).parse_string(LITERAL_TP2, "demo", None, tmp_path)
 
-    assert tp2.untranslated_component_labels == {"0": "Demo Core", "4": "Demo Alternate Graphics"}
+    assert tp2.untranslated_component_labels == {
+        "0": "Demo Core",
+        "4": "Demo Alternate Graphics",
+    }
     assert tp2.component_translations == {}
 
 
 def test_tp2_with_language_has_no_untranslated_labels(tmp_path: Path) -> None:
     (tmp_path / "demo" / "english").mkdir(parents=True)
-    (tmp_path / "demo" / "english" / "setup.tra").write_text("@1 = ~Demo Core~", encoding="utf-8")
+    (tmp_path / "demo" / "english" / "setup.tra").write_text(
+        "@1 = ~Demo Core~", encoding="utf-8"
+    )
 
     tp2 = WeiDUTp2Parser(tmp_path).parse_string(TRANSLATED_TP2, "demo", None, tmp_path)
 
@@ -57,7 +62,9 @@ def test_tp2_with_language_has_no_untranslated_labels(tmp_path: Path) -> None:
         ({"pl_PL": 0, "fr_FR": 1}, "pl_PL"),
     ],
 )
-def test_literal_labels_take_english_or_else_the_first_mod_language(languages: dict | None, expected: str) -> None:
+def test_literal_labels_take_english_or_else_the_first_mod_language(
+    languages: dict | None, expected: str
+) -> None:
     assert labels_language(languages) == expected
 
 
@@ -101,7 +108,9 @@ def test_literal_labels_replace_and_complete_english_labels(workspace: Path) -> 
             "games": ["bg2ee"],
             "languages": {"en_US": 0, "all": 0},
             "components": {"0": {"type": "std"}},
-            "translations": {"en_US": {"description": "Kept", "components": {"0": "Old label"}}},
+            "translations": {
+                "en_US": {"description": "Kept", "components": {"0": "Old label"}}
+            },
         },
     )
 
@@ -122,5 +131,8 @@ def test_literal_labels_of_a_single_language_mod_go_to_that_language(workspace: 
         },
     )
 
-    assert definition["translations"]["fr_FR"]["components"] == {"0": "Demo Core", "4": "Demo Alternate Graphics"}
+    assert definition["translations"]["fr_FR"]["components"] == {
+        "0": "Demo Core",
+        "4": "Demo Alternate Graphics",
+    }
     assert "en_US" not in definition["translations"]

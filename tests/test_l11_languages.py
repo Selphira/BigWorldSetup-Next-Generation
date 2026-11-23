@@ -75,7 +75,9 @@ def test_languages_order_survives_a_ui_language_change(state_manager: StateManag
 
 @pytest.fixture
 def french_ui_page(qtbot: QtBot) -> InstallationTypePage:
-    game = GameDefinition.from_dict({"id": "bg2ee", "name": "BG2EE", "sequences": [{"game": "bg2ee"}]})
+    game = GameDefinition.from_dict(
+        {"id": "bg2ee", "name": "BG2EE", "sequences": [{"game": "bg2ee"}]}
+    )
     state = Mock()
     state.get_game_manager.return_value.get.side_effect = {"bg2ee": game}.get
     state.get_game_manager.return_value.get_all.return_value = [game]

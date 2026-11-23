@@ -455,7 +455,11 @@ class BackupManager:
             transaction.game_dir.rename(transaction.recovery_dir)
         except PermissionError as error:
             raise PermissionError(
-                tr("backup_manager.error.original_move_denied", game=str(transaction.game_dir), error=str(error))
+                tr(
+                    "backup_manager.error.original_move_denied",
+                    game=str(transaction.game_dir),
+                    error=str(error),
+                )
             ) from error
         transaction.save_phase(RestorePhase.ORIGINAL_SAVED)
 

@@ -151,8 +151,12 @@ class TP2Source:
 
             # Component translations; literal labels have the language of the mod
             if tp2_data.untranslated_component_labels:
-                tp2_data.component_translations[labels_language] = tp2_data.untranslated_component_labels
-                logger.debug(f"Literal component labels of {tp2_name} taken as {labels_language}")
+                tp2_data.component_translations[labels_language] = (
+                    tp2_data.untranslated_component_labels
+                )
+                logger.debug(
+                    f"Literal component labels of {tp2_name} taken as {labels_language}"
+                )
 
             component_translations = {
                 code: labels
@@ -161,7 +165,9 @@ class TP2Source:
             }
             if component_translations:
                 result["component_translations"] = component_translations
-                total_translations = sum(len(comps) for comps in component_translations.values())
+                total_translations = sum(
+                    len(comps) for comps in component_translations.values()
+                )
                 logger.debug(f"Extracted {total_translations} component translations")
 
             return result

@@ -274,7 +274,9 @@ class ModSyncDialog(QDialog):
             self.settings.value("check_github", False, type=bool)
         )
         self.github_interval_spinbox.setValue(
-            self.settings.value("github_interval_hours", int(MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS), type=int)
+            self.settings.value(
+                "github_interval_hours", int(MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS), type=int
+            )
         )
 
     def _save_settings(self) -> None:
@@ -340,7 +342,9 @@ class ModSyncDialog(QDialog):
     def _build_mod_filter(self) -> ModFilter:
         """Build the mod filter from the filter widgets."""
         tp2_names = re.split(r"[\s,;]+", self.only_mods_edit.text().strip())
-        games = [game for game, checkbox in self.game_checkboxes.items() if checkbox.isChecked()]
+        games = [
+            game for game, checkbox in self.game_checkboxes.items() if checkbox.isChecked()
+        ]
 
         return ModFilter(tp2_names=frozenset(filter(None, tp2_names)), games=frozenset(games))
 

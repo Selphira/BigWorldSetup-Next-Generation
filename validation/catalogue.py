@@ -103,7 +103,9 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
 
         for category in document.get("categories", []):
             if category not in component_categories:
-                report.notices.append(Diagnostic(file, "categories", "empty_category", category))
+                report.notices.append(
+                    Diagnostic(file, "categories", "empty_category", category)
+                )
 
     for family in ("mods", "games", "rules"):
         files = sorted((data_dir / family).rglob("*.json"))

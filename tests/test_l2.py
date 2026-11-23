@@ -291,8 +291,10 @@ def test_restore_worker_keeps_recovery_path(tmp_path: Path) -> None:
     worker.run()
     assert results == [(False, tmp_path, "interrupted")]
 
+
 def test_denied_game_rename_preserves_prepared_copy_and_original_location(
-    backup: tuple[BackupManager, Path, str], monkeypatch: pytest.MonkeyPatch,
+    backup: tuple[BackupManager, Path, str],
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     manager, game, identifier = backup
     before = BackupSnapshot(game).inventory()
@@ -302,18 +304,27 @@ def test_denied_game_rename_preserves_prepared_copy_and_original_location(
     assert not success and str(game) in error and "denied" in error
     assert directory and (directory / "staged").is_dir()
     assert not (directory / "original").exists()
-    assert json.loads((directory / manager.JOURNAL_FILE).read_text(encoding="utf-8"))["phase"] == "prepared"
+    assert (
+        json.loads((directory / manager.JOURNAL_FILE).read_text(encoding="utf-8"))["phase"]
+        == "prepared"
+    )
     assert BackupSnapshot(game).inventory() == before
 
-@pytest.mark.parametrize(("content", "modded"), [
-    (None, False),
-    ("", False),
-    ("// Log of Currently Installed WeiDU Mods\n// ~OLD.TP2~ #0 #1\n", False),
-    ("~unfinished.tp2~ #0\n~notes.txt~ #0 #1", False),
-    ("\ufeff~MOD/SETUP-MOD.TP2~ #0 #0 // Composant installé", True),
-])
+
+@pytest.mark.parametrize(
+    ("content", "modded"),
+    [
+        (None, False),
+        ("", False),
+        ("// Log of Currently Installed WeiDU Mods\n// ~OLD.TP2~ #0 #1\n", False),
+        ("~unfinished.tp2~ #0\n~notes.txt~ #0 #1", False),
+        ("\ufeff~MOD/SETUP-MOD.TP2~ #0 #0 // Composant installé", True),
+    ],
+)
 def test_backup_detects_only_installed_weidu_components(
-    tmp_path: Path, content: str | None, modded: bool,
+    tmp_path: Path,
+    content: str | None,
+    modded: bool,
 ) -> None:
     if content is not None:
         (tmp_path / "weidu.log").write_text(content, encoding="utf-8")

@@ -375,12 +375,18 @@ class InstallationTypePage(BasePage):
                     active_selectors.append(selector)
 
         active_selectors.extend([self.download_folder, self.backup_folder])
-        valid_selectors = [selector for selector in active_selectors if selector.is_path_valid()]
+        valid_selectors = [
+            selector for selector in active_selectors if selector.is_path_valid()
+        ]
         paths = [selector.get_path() for selector in valid_selectors]
         errors = FolderRelationshipValidator().find_errors(paths)
         selector_errors = {valid_selectors[index]: message for index, message in errors.items()}
 
-        all_selectors = [*self.folder_widgets.values(), self.download_folder, self.backup_folder]
+        all_selectors = [
+            *self.folder_widgets.values(),
+            self.download_folder,
+            self.backup_folder,
+        ]
         for selector in all_selectors:
             # Apply the whole result before notifying navigation, without recursive validation.
             with QSignalBlocker(selector):

@@ -26,7 +26,7 @@ def setup_logging(verbose: bool = False) -> None:
     Args:
         verbose: Enable debug logging
     """
-    level = logging.DEBUG if verbose else logging.INFO
+    level = logging.DEBUG if verbose else logging.WARNING
     logging.basicConfig(
         level=level,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -119,7 +119,9 @@ def parse_pin(value: str) -> tuple[str, str]:
     return tp2_name, ref
 
 
-def apply_pins(orchestrator: ModSyncOrchestrator, pins: list[tuple[str, str]], unpins: list[str]) -> None:
+def apply_pins(
+    orchestrator: ModSyncOrchestrator, pins: list[tuple[str, str]], unpins: list[str]
+) -> None:
     """Record the requested pins before synchronizing; any failure stops the run."""
     for tp2_name in unpins:
         if not orchestrator.unpin(tp2_name):
@@ -127,7 +129,9 @@ def apply_pins(orchestrator: ModSyncOrchestrator, pins: list[tuple[str, str]], u
 
     for tp2_name, ref in pins:
         recipe = orchestrator.pin(tp2_name, ref)
-        print(f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})")
+        print(
+            f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})"
+        )
 
 
 def main() -> None:

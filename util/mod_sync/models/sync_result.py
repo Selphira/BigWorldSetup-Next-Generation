@@ -152,7 +152,9 @@ Total LCC mods: {self.total_lcc_mods}
                 report += f"  {tp2}: release {tag} ({published}) newer than {pinned}\n"
 
         if self.github_deferred:
-            report += f"\nGitHub checks deferred (checked too recently): {self.github_deferred}\n"
+            report += (
+                f"\nGitHub checks deferred (checked too recently): {self.github_deferred}\n"
+            )
         if self.github_rate_limited:
             report += "\nGitHub API rate limit reached: remaining mods were not checked\n"
         return report
@@ -170,7 +172,9 @@ class ModFilter:
     games: frozenset[str] = frozenset()
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "tp2_names", frozenset(name.lower() for name in self.tp2_names))
+        object.__setattr__(
+            self, "tp2_names", frozenset(name.lower() for name in self.tp2_names)
+        )
         object.__setattr__(self, "games", frozenset(game.lower() for game in self.games))
 
     def skip_reason(self, tp2_name: str, supported_games: Iterable[str]) -> str | None:

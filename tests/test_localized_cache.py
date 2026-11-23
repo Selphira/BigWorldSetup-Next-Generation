@@ -118,7 +118,10 @@ def test_rules_of_a_mod_definition_are_rule_cache_sources(
 
     _write(
         tmp_path / "mods" / "alpha.json",
-        {**_mod("alpha"), "rules": {"order": [{"rule": "alpha(-):beta(-)", "direction": "after"}]}},
+        {
+            **_mod("alpha"),
+            "rules": {"order": [{"rule": "alpha(-):beta(-)", "direction": "after"}]},
+        },
     )
 
     assert rules.needs_cache_rebuild()

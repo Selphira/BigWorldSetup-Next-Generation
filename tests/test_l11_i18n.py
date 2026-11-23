@@ -264,7 +264,9 @@ def partial_locales(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Translat
     return TranslationManager(None)
 
 
-def test_coverage_counts_the_english_texts_translated(partial_locales: TranslationManager) -> None:
+def test_coverage_counts_the_english_texts_translated(
+    partial_locales: TranslationManager,
+) -> None:
     assert partial_locales.get_coverage("en_US") == 100
     assert partial_locales.get_coverage("fr_FR") == 100
     assert partial_locales.get_coverage("de_DE") == 25

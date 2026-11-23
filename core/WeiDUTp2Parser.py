@@ -258,8 +258,11 @@ class WeiDUTp2:
     def unlogged_components(self) -> set[str]:
         """Identify installable component numbers explicitly excluded from WeiDU.log."""
         return {
-            item.designated for component in self.components
-            for item in (component.components if isinstance(component, MucComponent) else [component])
+            item.designated
+            for component in self.components
+            for item in (
+                component.components if isinstance(component, MucComponent) else [component]
+            )
             if item.metadata.get("no_log_record")
         }
 
@@ -871,7 +874,10 @@ class ComponentParser:
             token = tokens[i]
 
             if token.type == TokenType.IDENTIFIER and token.value.upper() not in (
-                "INSTALL_BY_DEFAULT", "DEFAULT", "SUBCOMPONENT", "FORCED_SUBCOMPONENT",
+                "INSTALL_BY_DEFAULT",
+                "DEFAULT",
+                "SUBCOMPONENT",
+                "FORCED_SUBCOMPONENT",
             ):
                 in_header = False
             if token.type == TokenType.BEGIN:
@@ -1203,7 +1209,9 @@ class WeiDUTp2Parser:
         if deprecated_count > 0:
             logger.info(f"Skipped {deprecated_count} deprecated component(s)")
 
-    def _extract_tra_translations(self, tra_files: list[str], language_code: str) -> dict[str, str]:
+    def _extract_tra_translations(
+        self, tra_files: list[str], language_code: str
+    ) -> dict[str, str]:
         """Extract translations from TRA files.
 
         Args:
@@ -1243,7 +1251,9 @@ class WeiDUTp2Parser:
         """Build translation dictionary for all languages."""
         languages = tp2.preferred_languages()
         translations: dict[str, dict[str, str]] = {
-            lang.language_code: self._extract_tra_translations(lang.tra_files, lang.language_code)
+            lang.language_code: self._extract_tra_translations(
+                lang.tra_files, lang.language_code
+            )
             for lang in languages
         }
 

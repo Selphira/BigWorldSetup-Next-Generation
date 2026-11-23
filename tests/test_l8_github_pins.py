@@ -38,7 +38,12 @@ def sha256(content: bytes) -> str:
 class FakeGitHub(GitHubProcessor):
     """GitHub serving fixed commits and release, with commit archives in a local directory."""
 
-    def __init__(self, server_dir: Path, commits: dict[str, GitHubCommit], release: GitHubRelease | None = None):
+    def __init__(
+        self,
+        server_dir: Path,
+        commits: dict[str, GitHubCommit],
+        release: GitHubRelease | None = None,
+    ):
         super().__init__()
         self.server_dir = server_dir
         self.commits = commits
@@ -51,7 +56,9 @@ class FakeGitHub(GitHubProcessor):
             (commit for commit in self.commits.values() if commit.sha.startswith(ref)), None
         )
 
-    def get_latest_release(self, owner: str, repo: str, include_prerelease: bool = False) -> GitHubRelease | None:
+    def get_latest_release(
+        self, owner: str, repo: str, include_prerelease: bool = False
+    ) -> GitHubRelease | None:
         return self.release
 
     def commit_archive(self, owner: str, repo: str, sha: str) -> tuple[str, str]:
@@ -84,7 +91,13 @@ def serve_commit(workspace: Path, sha: str, content: bytes) -> None:
 
 def write_definition(workspace: Path, **fields: Any) -> Path:
     path = workspace / "mods" / "demo.json"
-    definition = {"tp2": "demo", "version": "1", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}, **fields}
+    definition = {
+        "tp2": "demo",
+        "version": "1",
+        "games": ["bg2ee"],
+        "links": {"homepage": REPOSITORY},
+        **fields,
+    }
     path.write_text(json.dumps(definition), encoding="utf-8")
     return path
 
@@ -122,7 +135,11 @@ def master_recipe(sha: str = OLD_SHA, date: datetime = OLD_DATE) -> GitHubRecipe
 
 @pytest.mark.parametrize(
     ("ref", "expected"),
-    [("master", ("master", None)), ("a1b2c3d", (None, "a1b2c3d")), ("dev@a1b2c3d", ("dev", "a1b2c3d"))],
+    [
+        ("master", ("master", None)),
+        ("a1b2c3d", (None, "a1b2c3d")),
+        ("dev@a1b2c3d", ("dev", "a1b2c3d")),
+    ],
 )
 def test_pin_reference_names_a_branch_a_commit_or_both(ref: str, expected: tuple) -> None:
     assert GitHubRecipe.parse_ref(ref) == expected
@@ -145,7 +162,11 @@ def test_pinning_a_commit_of_a_branch_stays_on_it(workspace: Path) -> None:
 
     recipe = synchronizer(workspace, github).pin("demo", "master@aaaaaaa")
 
-    assert (recipe.mode, recipe.commit, recipe.version) == (RecipeMode.COMMIT, OLD_SHA, "master@aaaaaaa")
+    assert (recipe.mode, recipe.commit, recipe.version) == (
+        RecipeMode.COMMIT,
+        OLD_SHA,
+        "master@aaaaaaa",
+    )
 
 
 def test_unknown_reference_is_refused_and_nothing_recorded(workspace: Path) -> None:
@@ -162,10 +183,14 @@ def test_unknown_reference_is_refused_and_nothing_recorded(workspace: Path) -> N
 # ----------------------------------------------------------------------
 
 
-def test_branch_recipe_moves_to_the_last_commit_and_warns(workspace: Path, caplog: pytest.LogCaptureFixture) -> None:
+def test_branch_recipe_moves_to_the_last_commit_and_warns(
+    workspace: Path, caplog: pytest.LogCaptureFixture
+) -> None:
     content = b"archive of the new commit"
     serve_commit(workspace, NEW_SHA, content)
-    definition_path = write_definition(workspace, files=[{"filename": f"demo-{OLD_SHA}.zip", "size": 1}])
+    definition_path = write_definition(
+        workspace, files=[{"filename": f"demo-{OLD_SHA}.zip", "size": 1}]
+    )
     recipes(workspace).set("demo", master_recipe())
     github = FakeGitHub(workspace / "server", {"master": GitHubCommit(NEW_SHA, NEW_DATE)})
 
@@ -175,9 +200,9 @@ def test_branch_recipe_moves_to_the_last_commit_and_warns(workspace: Path, caplo
     assert [result.status for result in stats.results] == [SyncStatus.UPDATED]
     definition = json.loads(definition_path.read_text(encoding="utf-8"))
     assert definition["version"] == "master@bbbbbbb"
-    assert [(entry["filename"], entry["size"], entry["sha256"]) for entry in definition["files"]] == [
-        (f"demo-{NEW_SHA}.zip", len(content), sha256(content))
-    ]
+    assert [
+        (entry["filename"], entry["size"], entry["sha256"]) for entry in definition["files"]
+    ] == [(f"demo-{NEW_SHA}.zip", len(content), sha256(content))]
     assert recipes(workspace).get("demo") == master_recipe(NEW_SHA, NEW_DATE)
     assert stats.github_pins_advanced == [("demo", "master@aaaaaaa", "master@bbbbbbb")]
     assert "moved to master@bbbbbbb" in caplog.text
@@ -189,7 +214,12 @@ def test_release_published_after_the_pinned_commit_is_reported(
     serve_commit(workspace, OLD_SHA, b"pinned")
     write_definition(workspace)
     recipes(workspace).set("demo", GitHubRecipe(RecipeMode.COMMIT, OLD_SHA, OLD_DATE, "master"))
-    release = GitHubRelease("v5", [GitHubAsset("demo-v5.zip", f"{REPOSITORY}/v5.zip", 3)], "2026-02-01T00:00:00Z", False)
+    release = GitHubRelease(
+        "v5",
+        [GitHubAsset("demo-v5.zip", f"{REPOSITORY}/v5.zip", 3)],
+        "2026-02-01T00:00:00Z",
+        False,
+    )
     github = FakeGitHub(workspace / "server", {}, release)
 
     with caplog.at_level(logging.WARNING):
@@ -212,8 +242,12 @@ def test_release_older_than_the_pinned_commit_is_not_reported(workspace: Path) -
     assert stats.github_releases_after_pin == []
 
 
-def test_commit_archive_that_cannot_be_downloaded_leaves_everything_unchanged(workspace: Path) -> None:
-    definition_path = write_definition(workspace, files=[{"filename": f"demo-{OLD_SHA}.zip", "size": 1}])
+def test_commit_archive_that_cannot_be_downloaded_leaves_everything_unchanged(
+    workspace: Path,
+) -> None:
+    definition_path = write_definition(
+        workspace, files=[{"filename": f"demo-{OLD_SHA}.zip", "size": 1}]
+    )
     stored = definition_path.read_text(encoding="utf-8")
     recipes(workspace).set("demo", master_recipe())
     github = FakeGitHub(workspace / "server", {"master": GitHubCommit(NEW_SHA, NEW_DATE)})
@@ -231,7 +265,9 @@ def test_unpinned_mod_uses_its_latest_release_again(workspace: Path) -> None:
     recipes(workspace).set("demo", master_recipe())
     (workspace / "server" / "demo-v5.zip").write_bytes(b"v5")
     asset = GitHubAsset("demo-v5.zip", (workspace / "server" / "demo-v5.zip").as_uri(), 2)
-    github = FakeGitHub(workspace / "server", {}, GitHubRelease("v5", [asset], "2026-02-01T00:00:00Z", False))
+    github = FakeGitHub(
+        workspace / "server", {}, GitHubRelease("v5", [asset], "2026-02-01T00:00:00Z", False)
+    )
     orchestrator = synchronizer(workspace, github)
 
     assert orchestrator.unpin("demo")

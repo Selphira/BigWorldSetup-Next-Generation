@@ -73,11 +73,15 @@ class GitHubSource:
         """
         for definition in filter(None, definitions):
             for url in self._candidate_urls(definition):
-                if self.processor.is_github_link(url) and (repository := self.processor.extract_repo_info(url)):
+                if self.processor.is_github_link(url) and (
+                    repository := self.processor.extract_repo_info(url)
+                ):
                     return repository
         return None
 
-    def fetch(self, repository: tuple[str, str], stored_definition: dict[str, Any] | None) -> GitHubUpdate | None:
+    def fetch(
+        self, repository: tuple[str, str], stored_definition: dict[str, Any] | None
+    ) -> GitHubUpdate | None:
         """Return the latest release of a repository.
 
         Args:
@@ -104,7 +108,10 @@ class GitHubSource:
         )
 
     def fetch_pinned(
-        self, repository: tuple[str, str], recipe: GitHubRecipe, stored_definition: dict[str, Any] | None
+        self,
+        repository: tuple[str, str],
+        recipe: GitHubRecipe,
+        stored_definition: dict[str, Any] | None,
     ) -> GitHubPinnedUpdate:
         """Return the commit a pinned mod is downloaded from.
 
@@ -132,7 +139,11 @@ class GitHubSource:
             recipe=current,
             previous=recipe,
             newer_release=newer_release,
-            files=[self._commit_entry(owner, repo, current.commit, self._stored_files(stored_definition))],
+            files=[
+                self._commit_entry(
+                    owner, repo, current.commit, self._stored_files(stored_definition)
+                )
+            ],
         )
 
     def resolve_pin(self, repository: tuple[str, str], ref: str) -> GitHubRecipe:
@@ -159,7 +170,9 @@ class GitHubSource:
         Its size is unknown until the archive is downloaded.
         """
         filename, url = self.processor.commit_archive(owner, repo, sha)
-        stored_entry = next((entry for entry in stored_files if entry.get("download") == url), {})
+        stored_entry = next(
+            (entry for entry in stored_files if entry.get("download") == url), {}
+        )
 
         entry: dict[str, Any] = {"filename": filename}
         for field in ("size", "sha256"):
@@ -182,28 +195,46 @@ class GitHubSource:
     @staticmethod
     def _stored_files(definition: dict[str, Any] | None) -> list[dict[str, Any]]:
         files = (definition or {}).get("files")
-        return [entry for entry in files if isinstance(entry, dict)] if isinstance(files, list) else []
+        return (
+            [entry for entry in files if isinstance(entry, dict)]
+            if isinstance(files, list)
+            else []
+        )
 
     # ------------------------------------------------------------------
     # File entries
     # ------------------------------------------------------------------
 
-    def _file_entries(self, release: GitHubRelease, stored_files: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _file_entries(
+        self, release: GitHubRelease, stored_files: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
         """Return one entry per platform having an asset, sorted by filename."""
         grouped_assets = self.processor.group_assets_by_os(release.assets)
         generic_assets = grouped_assets.pop(None, [])
 
         entries = [
-            self._file_entry(self.processor.select_best_asset_for_os(grouped_assets[platform]), [platform], stored_files)
+            self._file_entry(
+                self.processor.select_best_asset_for_os(grouped_assets[platform]),
+                [platform],
+                stored_files,
+            )
             for platform in ALL_PLATFORMS
             if platform in grouped_assets
         ]
 
-        uncovered_platforms = [platform for platform in ALL_PLATFORMS if platform not in grouped_assets]
+        uncovered_platforms = [
+            platform for platform in ALL_PLATFORMS if platform not in grouped_assets
+        ]
         if generic_assets and uncovered_platforms:
-            platforms = uncovered_platforms if len(uncovered_platforms) < len(ALL_PLATFORMS) else None
+            platforms = (
+                uncovered_platforms if len(uncovered_platforms) < len(ALL_PLATFORMS) else None
+            )
             entries.append(
-                self._file_entry(self.processor.select_best_asset_for_os(generic_assets), platforms, stored_files)
+                self._file_entry(
+                    self.processor.select_best_asset_for_os(generic_assets),
+                    platforms,
+                    stored_files,
+                )
             )
 
         return sorted(entries, key=lambda entry: entry["filename"])
@@ -227,6 +258,9 @@ class GitHubSource:
     def _stored_hash(asset: GitHubAsset, stored_files: list[dict[str, Any]]) -> str | None:
         """Return the stored hash of the same asset, identified by download URL and size."""
         for stored_entry in stored_files:
-            if stored_entry.get("download") == asset.url and stored_entry.get("size") == asset.size:
+            if (
+                stored_entry.get("download") == asset.url
+                and stored_entry.get("size") == asset.size
+            ):
                 return stored_entry.get("sha256") or None
         return None

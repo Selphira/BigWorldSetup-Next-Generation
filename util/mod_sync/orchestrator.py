@@ -145,7 +145,9 @@ class ModSyncOrchestrator:
         recipe = self.github_source.resolve_pin(repository, ref)
         self.github_recipes.set(tp2_name, recipe)
         self.github_checks.forget(tp2_name)
-        logger.info(f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})")
+        logger.info(
+            f"Pinned {tp2_name} to {recipe.version} ({recipe.mode.value}, {recipe.date:%Y-%m-%d})"
+        )
         return recipe
 
     def unpin(self, tp2_name: str) -> bool:
@@ -245,16 +247,30 @@ class ModSyncOrchestrator:
 
         # Archive of the machine: hashed, and downloaded when missing or divergent
         machine_archive = None
-        if self.archive_source and files and (self.config.calculate_hashes or self.selective_extractor):
-            files, machine_archive = self._process_archives(tp2_name, files, files_before_update)
+        if (
+            self.archive_source
+            and files
+            and (self.config.calculate_hashes or self.selective_extractor)
+        ):
+            files, machine_archive = self._process_archives(
+                tp2_name, files, files_before_update
+            )
             if self.config.calculate_hashes:
                 merger.add_source("archive", {"files": files})
-                sources_used.append("archive" if files != stored_files else "archive (validated)")
+                sources_used.append(
+                    "archive" if files != stored_files else "archive (validated)"
+                )
 
         # A commit archive is only described once downloaded: the stored entry stays otherwise
-        if github_check.pinned and not all(isinstance(entry, dict) and "size" in entry for entry in files):
-            message = f"Archive of pinned commit {github_check.pinned.recipe.version} not downloaded"
-            logger.warning(f"{tp2_name}: {message} (archive hashing required), definition left unchanged")
+        if github_check.pinned and not all(
+            isinstance(entry, dict) and "size" in entry for entry in files
+        ):
+            message = (
+                f"Archive of pinned commit {github_check.pinned.recipe.version} not downloaded"
+            )
+            logger.warning(
+                f"{tp2_name}: {message} (archive hashing required), definition left unchanged"
+            )
             return ModSyncResult(tp2_name=tp2_name, status=SyncStatus.ERROR, message=message)
 
         # Extracted files are read only when they come from the current archive
@@ -315,7 +331,9 @@ class ModSyncOrchestrator:
             tp2_data = self.tp2_source.extract(
                 tp2_name,
                 supported_games,
-                labels_language(stored_languages if isinstance(stored_languages, dict) else None),
+                labels_language(
+                    stored_languages if isinstance(stored_languages, dict) else None
+                ),
             )
             if tp2_data:
                 merger.add_source("tp2", tp2_data)
@@ -327,7 +345,9 @@ class ModSyncOrchestrator:
                 merger.add_source("ini", ini_data)
                 sources_used.append("ini")
 
-    def _check_github(self, tp2_name: str, existing: dict | None, lcc_data: dict) -> GitHubCheck:
+    def _check_github(
+        self, tp2_name: str, existing: dict | None, lcc_data: dict
+    ) -> GitHubCheck:
         """Check the latest release, or the pinned commit, of a mod.
 
         A mod checked less than the configured interval ago is not checked
@@ -360,7 +380,9 @@ class ModSyncOrchestrator:
             logger.warning(f"Pinned GitHub mod {tp2_name}: {e}")
         return GitHubCheck()
 
-    def _release_check(self, tp2_name: str, repository: tuple[str, str], existing: dict | None) -> GitHubCheck:
+    def _release_check(
+        self, tp2_name: str, repository: tuple[str, str], existing: dict | None
+    ) -> GitHubCheck:
         update = self.github_source.fetch(repository, existing)
         if update is None:
             return GitHubCheck(answered=True)
@@ -372,16 +394,24 @@ class ModSyncOrchestrator:
 
         if not update.files:
             logger.warning(f"No downloadable asset in {update.repository} {update.tag_name}")
-        return GitHubCheck(answered=True, data={"version": update.version, "files": update.files})
+        return GitHubCheck(
+            answered=True, data={"version": update.version, "files": update.files}
+        )
 
     def _pinned_check(
-        self, tp2_name: str, repository: tuple[str, str], recipe: GitHubRecipe, existing: dict | None
+        self,
+        tp2_name: str,
+        repository: tuple[str, str],
+        recipe: GitHubRecipe,
+        existing: dict | None,
     ) -> GitHubCheck:
         update = self.github_source.fetch_pinned(repository, recipe, existing)
 
         if release := update.newer_release:
             published = f"{release.published_date:%Y-%m-%d}"
-            self.stats.github_releases_after_pin.append((tp2_name, release.tag_name, published, update.recipe.version))
+            self.stats.github_releases_after_pin.append(
+                (tp2_name, release.tag_name, published, update.recipe.version)
+            )
             logger.warning(
                 f"Pinned GitHub mod {tp2_name}: release {release.tag_name} published on {published}, "
                 f"after {update.recipe.version} ({update.recipe.date:%Y-%m-%d}); consider unpinning it"
@@ -403,7 +433,9 @@ class ModSyncOrchestrator:
         if pinned and pinned.advanced:
             previous_version = pinned.previous.version
             self.github_recipes.set(tp2_name, pinned.recipe)
-            self.stats.github_pins_advanced.append((tp2_name, previous_version, pinned.recipe.version))
+            self.stats.github_pins_advanced.append(
+                (tp2_name, previous_version, pinned.recipe.version)
+            )
             logger.warning(
                 f"Pinned GitHub mod {tp2_name} moved to {pinned.recipe.version} "
                 f"({pinned.recipe.date:%Y-%m-%d}), previously {previous_version}: review the update"
@@ -423,19 +455,25 @@ class ModSyncOrchestrator:
         processed_files = []
         machine_archive = None
         for file_entry in files:
-            if not isinstance(file_entry, dict) or not self.archive_source.applies_to_platform(file_entry):
+            if not isinstance(file_entry, dict) or not self.archive_source.applies_to_platform(
+                file_entry
+            ):
                 processed_files.append(file_entry)
                 continue
 
             if not self.config.calculate_hashes:
-                machine_archive = machine_archive or self.archive_source.local_archive(file_entry)
+                machine_archive = machine_archive or self.archive_source.local_archive(
+                    file_entry
+                )
                 processed_files.append(file_entry)
                 continue
 
             refresh = self._download_link_changed(file_entry, previous_files)
             archive = self.archive_source.process(file_entry, refresh=refresh)
             if archive is None:
-                logger.warning(f"Failed to process archive for {tp2_name}: {file_entry.get('filename')}")
+                logger.warning(
+                    f"Failed to process archive for {tp2_name}: {file_entry.get('filename')}"
+                )
                 processed_files.append(file_entry)
                 continue
 
@@ -474,7 +512,9 @@ class ModSyncOrchestrator:
 
         if machine_archive is None:
             if self.selective_extractor.read_stamp(self.config.mods_dir, tp2_name):
-                logger.warning(f"No current archive for {tp2_name}: its previous extraction is not read")
+                logger.warning(
+                    f"No current archive for {tp2_name}: its previous extraction is not read"
+                )
                 return False
             return True
 

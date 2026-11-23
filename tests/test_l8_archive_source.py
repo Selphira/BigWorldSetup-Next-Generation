@@ -41,8 +41,15 @@ def published(server_dir: Path, filename: str, content: bytes) -> str:
     return path.as_uri()
 
 
-def entry(filename: str, download: str, content: bytes, platforms: list[str] | None = None) -> dict:
-    file_entry = {"filename": filename, "size": len(content), "sha256": sha256(content), "download": download}
+def entry(
+    filename: str, download: str, content: bytes, platforms: list[str] | None = None
+) -> dict:
+    file_entry = {
+        "filename": filename,
+        "size": len(content),
+        "sha256": sha256(content),
+        "download": download,
+    }
     if platforms:
         file_entry["platforms"] = platforms
     return file_entry
@@ -65,9 +72,15 @@ def test_matching_local_archive_is_used_without_download(archives_dir: Path) -> 
 def test_missing_archive_is_downloaded_and_hashed(archives_dir: Path, server_dir: Path) -> None:
     url = published(server_dir, "demo.zip", NEW_CONTENT)
 
-    archive = ArchiveSource(archives_dir, PLATFORM).process({"filename": "demo.zip", "download": url})
+    archive = ArchiveSource(archives_dir, PLATFORM).process(
+        {"filename": "demo.zip", "download": url}
+    )
 
-    assert (archive.filename, archive.size, archive.sha256) == ("demo.zip", len(NEW_CONTENT), sha256(NEW_CONTENT))
+    assert (archive.filename, archive.size, archive.sha256) == (
+        "demo.zip",
+        len(NEW_CONTENT),
+        sha256(NEW_CONTENT),
+    )
     assert (archives_dir / "demo.zip").read_bytes() == NEW_CONTENT
 
 
@@ -86,7 +99,9 @@ def test_divergent_archive_is_downloaded_again_and_previous_one_retired(
     assert retired.read_bytes() == OLD_CONTENT
 
 
-def test_failed_download_leaves_divergent_archive_in_place(archives_dir: Path, server_dir: Path) -> None:
+def test_failed_download_leaves_divergent_archive_in_place(
+    archives_dir: Path, server_dir: Path
+) -> None:
     (archives_dir / "demo.zip").write_bytes(OLD_CONTENT)
     file_entry = entry("demo.zip", (server_dir / "missing.zip").as_uri(), NEW_CONTENT)
 
@@ -97,7 +112,13 @@ def test_failed_download_leaves_divergent_archive_in_place(archives_dir: Path, s
 
 @pytest.mark.parametrize(
     ("platforms", "applies"),
-    [(None, True), ([], True), (["windows"], True), (["linux", "windows"], True), (["macos"], False)],
+    [
+        (None, True),
+        ([], True),
+        (["windows"], True),
+        (["linux", "windows"], True),
+        (["macos"], False),
+    ],
 )
 def test_only_entries_of_the_machine_platform_are_processed(
     archives_dir: Path, platforms: list[str] | None, applies: bool
@@ -136,10 +157,18 @@ def test_sync_updates_machine_archive_and_keeps_other_platforms(
 ) -> None:
     (archives_dir / "win-demo.zip").write_bytes(OLD_CONTENT)
     linux = entry("lin-demo.zip", "https://example.org/lin-demo.zip", b"linux", ["linux"])
-    windows = entry("win-demo.zip", published(server_dir, "win-demo.zip", NEW_CONTENT), OLD_CONTENT, ["windows"])
+    windows = entry(
+        "win-demo.zip",
+        published(server_dir, "win-demo.zip", NEW_CONTENT),
+        OLD_CONTENT,
+        ["windows"],
+    )
     windows["sha256"] = "stale-hash"
     definition_path = definitions_dir / "demo.json"
-    definition_path.write_text(json.dumps({"tp2": "demo", "games": ["bg2ee"], "files": [linux, windows]}), encoding="utf-8")
+    definition_path.write_text(
+        json.dumps({"tp2": "demo", "games": ["bg2ee"], "files": [linux, windows]}),
+        encoding="utf-8",
+    )
     config = SyncConfig(
         definitions_dir=definitions_dir,
         archives_dir=archives_dir,
@@ -154,5 +183,8 @@ def test_sync_updates_machine_archive_and_keeps_other_platforms(
 
     assert [result.status for result in stats.results] == [SyncStatus.UPDATED]
     files = json.loads(definition_path.read_text(encoding="utf-8"))["files"]
-    assert files == [linux, {**windows, "size": len(NEW_CONTENT), "sha256": sha256(NEW_CONTENT)}]
+    assert files == [
+        linux,
+        {**windows, "size": len(NEW_CONTENT), "sha256": sha256(NEW_CONTENT)},
+    ]
     assert (archives_dir / "_old" / f"win-demo.{sha256(OLD_CONTENT)[:8]}.zip").exists()

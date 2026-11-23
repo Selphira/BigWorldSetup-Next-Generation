@@ -95,7 +95,9 @@ class GitHubProcessor:
 
     # CPU architecture markers: a 64-bit asset is preferred over an unmarked
     # one, and both over a 32-bit one
-    ARCH_64_PATTERN = re.compile(r"(?<![0-9a-z])(?:64-?bits?|x64|x86[_-]64|amd64|win64)(?![0-9a-z])")
+    ARCH_64_PATTERN = re.compile(
+        r"(?<![0-9a-z])(?:64-?bits?|x64|x86[_-]64|amd64|win64)(?![0-9a-z])"
+    )
     ARCH_32_PATTERN = re.compile(r"(?<![0-9a-z])(?:32-?bits?|x86|i[3-6]86|win32)(?![0-9a-z])")
 
     OS_PATTERNS = {
@@ -290,14 +292,18 @@ class GitHubProcessor:
         data = self._api_get(f"repos/{owner}/{repo}/commits/{urllib.parse.quote(ref, safe='')}")
         if data is None:
             return None
-        return GitHubCommit(sha=data["sha"], date=parse_github_date(data["commit"]["committer"]["date"]))
+        return GitHubCommit(
+            sha=data["sha"], date=parse_github_date(data["commit"]["committer"]["date"])
+        )
 
     @staticmethod
     def commit_archive(owner: str, repo: str, sha: str) -> tuple[str, str]:
         """Return the filename and download URL of the source archive of a commit."""
         return f"{repo}-{sha}.zip", f"https://github.com/{owner}/{repo}/archive/{sha}.zip"
 
-    def _release_assets(self, owner: str, repo: str, assets_data: list[dict]) -> list[GitHubAsset]:
+    def _release_assets(
+        self, owner: str, repo: str, assets_data: list[dict]
+    ) -> list[GitHubAsset]:
         """Return the downloadable archives of a release, with their API digest."""
         assets = []
         for asset_data in assets_data:
@@ -313,7 +319,12 @@ class GitHubProcessor:
                 )
 
             assets.append(
-                GitHubAsset(name=name, url=asset_data["browser_download_url"], size=asset_data["size"], sha256=sha256)
+                GitHubAsset(
+                    name=name,
+                    url=asset_data["browser_download_url"],
+                    size=asset_data["size"],
+                    sha256=sha256,
+                )
             )
         return assets
 

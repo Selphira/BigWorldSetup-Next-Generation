@@ -62,7 +62,9 @@ def test_dormant_rule_still_checks_components_of_known_mods(
     small_catalogue: tuple[Path, Path],
 ) -> None:
     data, _ = small_catalogue
-    write_json(data / "rules" / "dependencies.json", {"rules": [{"rule": "absent(0):demo(99)"}]})
+    write_json(
+        data / "rules" / "dependencies.json", {"rules": [{"rule": "absent(0):demo(99)"}]}
+    )
 
     report = validate_catalogue(*small_catalogue)
 
@@ -203,7 +205,10 @@ def test_invalid_archive_provider_blocks_publication(
     [
         ({"0": {"type": "std", "category": "portrait"}}, ["npc", "quest"]),
         (
-            {"0": {"type": "std", "category": "portrait"}, "1": {"type": "std", "category": "npc"}},
+            {
+                "0": {"type": "std", "category": "portrait"},
+                "1": {"type": "std", "category": "npc"},
+            },
             ["quest"],
         ),
         ({"0": {"type": "std", "category": "portrait"}, "1": {"type": "std"}}, []),
@@ -220,7 +225,9 @@ def test_declared_category_without_component_is_a_notice(
     empty_categories: list[str],
 ) -> None:
     data, _ = small_catalogue
-    translations = {"en_US": {"description": "Fixture", "components": dict.fromkeys(components, "B")}}
+    translations = {
+        "en_US": {"description": "Fixture", "components": dict.fromkeys(components, "B")}
+    }
     write_json(
         data / "mods" / "bundled.json",
         mod_document(
