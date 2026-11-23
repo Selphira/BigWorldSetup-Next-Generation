@@ -198,6 +198,49 @@ def test_invalid_archive_provider_blocks_publication(
     ), report.diagnostics
 
 
+@pytest.mark.parametrize(
+    "components,empty_categories",
+    [
+        ({"0": {"type": "std", "category": "portrait"}}, ["npc", "quest"]),
+        (
+            {"0": {"type": "std", "category": "portrait"}, "1": {"type": "std", "category": "npc"}},
+            ["quest"],
+        ),
+        ({"0": {"type": "std", "category": "portrait"}, "1": {"type": "std"}}, []),
+    ],
+    ids=[
+        "every component moved elsewhere",
+        "one declared category left empty",
+        "component inheriting the mod categories",
+    ],
+)
+def test_declared_category_without_component_is_a_notice(
+    small_catalogue: tuple[Path, Path],
+    components: dict[str, object],
+    empty_categories: list[str],
+) -> None:
+    data, _ = small_catalogue
+    translations = {"en_US": {"description": "Fixture", "components": dict.fromkeys(components, "B")}}
+    write_json(
+        data / "mods" / "bundled.json",
+        mod_document(
+            categories=["npc", "quest"],
+            components=components,
+            translations=translations,
+            files=PACK_FILES,
+        ),
+    )
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert report.valid, report.diagnostics
+    assert [
+        item.message
+        for item in report.notices
+        if item.file == "mods/bundled.json" and item.code == "empty_category"
+    ] == empty_categories
+
+
 def test_provided_and_manual_archives_are_valid(small_catalogue: tuple[Path, Path]) -> None:
     data, _ = small_catalogue
     write_json(data / "mods" / "pack.json", mod_document(tp2="pack", files=PACK_FILES))

@@ -83,6 +83,28 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
         elif provider.provided_by is not None or not provider.files:
             add(file, "provided_by", "provider_without_archive", mod.provided_by)
 
+    def check_category_components(file: str, document: dict[str, Any]) -> None:
+        """Each declared mod category should hold at least one of its components.
+
+        Declared categories only list the components without a category of
+        their own. When every component overrides it, a declared category is
+        unused and the mod is not listed there: a notice, since moving
+        components elsewhere is legitimate.
+        """
+        components = document.get("components")
+        if not isinstance(components, dict):
+            return
+
+        component_categories = {
+            raw.get("category") or None for raw in components.values() if isinstance(raw, dict)
+        }
+        if not component_categories or None in component_categories:
+            return
+
+        for category in document.get("categories", []):
+            if category not in component_categories:
+                report.notices.append(Diagnostic(file, "categories", "empty_category", category))
+
     for family in ("mods", "games", "rules"):
         files = sorted((data_dir / family).rglob("*.json"))
         report.counts[family] = len(files)
@@ -183,6 +205,7 @@ def validate_catalogue(data_dir: Path, schemas_dir: Path) -> CatalogueReport:
         if file.startswith("rules/"):
             check_rules(file, Path(file).stem, document.get("rules", []), "rules")
         elif file.startswith("mods/"):
+            check_category_components(file, document)
             mod_rules = document.get("rules")
             if isinstance(mod_rules, dict):
                 for family in RULE_SCHEMAS:

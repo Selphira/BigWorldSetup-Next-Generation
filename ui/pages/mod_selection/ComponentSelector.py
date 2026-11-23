@@ -7,7 +7,7 @@ supporting different component types (STD, MUC, SUB) with their specific behavio
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import logging
 from typing import cast
 
@@ -160,13 +160,8 @@ class FilterEngine:
             return False
 
         # Categories filter
-        if self._category:
-            mod = index.data(ROLE_MOD)
-            component = index.data(ROLE_COMPONENT)
-            if not mod or self._category not in mod.categories:
-                return False
-            if component and component.category and self._category not in component.category:
-                return False
+        if self._category and not self._matches_category(index):
+            return False
 
         # Authors filter
         if self._authors:
@@ -181,6 +176,36 @@ class FilterEngine:
                 return False
 
         return True
+
+    def _matches_category(self, index: QModelIndex) -> bool:
+        """Check if item is listed under the category filter.
+
+        A mod row only matches through one of its components listed under the
+        category and available for the filtered game, so the category never
+        shows a mod with nothing to select.
+        """
+        component = index.data(ROLE_COMPONENT)
+        if component:
+            return self._category in component.get_categories()
+
+        mod = index.data(ROLE_MOD)
+        if not mod or self._category not in mod.categories:
+            return False
+
+        model = index.model()
+        if not model.hasChildren(index):
+            return True
+
+        for row in range(model.rowCount(index)):
+            child = model.index(row, 0, index).data(ROLE_COMPONENT)
+            if (
+                child
+                and self._category in child.get_categories()
+                and (not self._game or child.supports_game(self._game))
+            ):
+                return True
+
+        return False
 
     def _matches_game(self, index: QModelIndex) -> bool:
         """Check if item matches game filter."""
@@ -839,42 +864,30 @@ class ComponentSelector(QTreeView):
     def get_filtered_mod_count_by_category(self) -> dict[str, int]:
         """Get mod count per category with current filters applied.
 
-        A mod is counted in each of its categories if it or any of its
-        children match the active filters (excluding category filter).
-        A mod is also counted in a category if any of its components has that category.
+        A mod is counted in each category where it would be displayed with the
+        other active filters, so a count always matches the visible mods.
         """
         counts: dict[str, int] = {}
         criteria = self._proxy_model.get_filter_criteria()
-
-        # Create criteria without category filter
-        filter_no_category = FilterCriteria(
-            text=criteria.text,
-            game=criteria.game,
-            category="",  # Exclude category
-            authors=criteria.authors.copy(),
-            languages=criteria.languages.copy(),
-        )
-
-        mods = set()
         engine = FilterEngine()
-        engine.set_criteria(filter_no_category)
+        mods = set()
 
-        # Iterate through all mods
         root = self._model.invisibleRootItem()
         for row in range(root.rowCount()):
             mod_item = root.child(row, 0)
-            if not mod_item:
+            mod = mod_item.data(ROLE_MOD) if mod_item else None
+            if not mod:
                 continue
 
-            # Check if mod or any child matches
-            if self._item_or_children_match(mod_item, engine):
-                mod = mod_item.data(ROLE_MOD)
-                if mod:
-                    # Increment the counters for all categories found
-                    for category in mod.categories:
-                        counts[category] = counts.get(category, 0) + 1
+            engine.set_criteria(replace(criteria, category=""))
+            if not self._item_or_children_match(mod_item, engine):
+                continue
 
-                    mods.add(mod)
+            mods.add(mod)
+            for category in mod.categories:
+                engine.set_criteria(replace(criteria, category=category))
+                if self._item_or_children_match(mod_item, engine):
+                    counts[category] = counts.get(category, 0) + 1
 
         counts[CategoryEnum.ALL.value] = len(mods)
 

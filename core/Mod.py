@@ -90,6 +90,13 @@ class Component:
 
         return game in self.mod.games
 
+    def get_categories(self) -> tuple[str, ...]:
+        """Categories listing the component: its own, otherwise its mod's declared ones."""
+        if self.category:
+            return (self.category,)
+
+        return self.mod.declared_categories
+
     def __hash__(self) -> int:
         """Make component hashable for use in sets/dicts."""
         return hash(self.key)
@@ -218,6 +225,7 @@ class Mod:
         "name",
         "tp2",
         "categories",
+        "declared_categories",
         "games",
         "languages",
         "version",
@@ -273,7 +281,8 @@ class Mod:
         self._components_cache: dict[str, Component] = {}
         self._component_refs_cache: tuple[str, ...] = ()
 
-        self.categories: tuple[str, ...] = self._get_all_categories(data.get("categories", []))
+        self.declared_categories: tuple[str, ...] = tuple(data.get("categories", []))
+        self.categories: tuple[str, ...] = self._get_listed_categories()
 
         self.files: list[ModFile] = [ModFile.from_dict(f) for f in data.get("files", [])]
 
@@ -556,29 +565,24 @@ class Mod:
             mod=self,
         )
 
-    def _get_all_categories(self, categories: list[str]) -> tuple[str, ...]:
+    def _get_listed_categories(self) -> tuple[str, ...]:
         """
-        Get all unique categories from mod and its components.
+        Get the categories listing at least one component of the mod.
 
-        Combines categories defined at mod level with categories from individual
-        components, returning a sorted tuple of unique category names.
+        Declared categories only hold the components without a category of
+        their own, so a mod whose components all override it is not listed
+        under them. A mod without components keeps its declared categories.
 
         Returns:
             Sorted tuple of unique category names
         """
-        # Start with mod-level categories
-        all_categories = categories
+        components_raw = self._components_raw.values()
+        categories = {raw["category"] for raw in components_raw if raw.get("category")}
 
-        # Add component-level categories
-        for component_data in self._components_raw.values():
-            category = component_data.get("category")
-            if category:
-                all_categories.append(category)
+        if not components_raw or any(not raw.get("category") for raw in components_raw):
+            categories.update(self.declared_categories)
 
-        # Remove duplicates while preserving order, then sort
-        unique_categories = dict.fromkeys(all_categories)
-
-        return tuple(sorted(unique_categories.keys()))
+        return tuple(sorted(categories))
 
     def get_component_text(self, key: str) -> str:
         """
