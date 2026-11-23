@@ -7,11 +7,13 @@ reported, so that an interrupted run can be resumed from what was proven.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from enum import Enum
 import json
 import logging
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from constants import (
     DWN_TP2_LANGUAGE,
@@ -30,19 +32,6 @@ logger = logging.getLogger(__name__)
 
 # Rule fields that describe a requirement without changing what it requires
 DESCRIPTIVE_RULE_FIELDS = frozenset({"description", "source_url"})
-
-# Layout of the unversioned journal written by the development builds of L4
-DRAFT_PLAN_PREFERENCES = ("pause_on_error", "pause_on_warning")
-DRAFT_RECIPE_FIELDS = (
-    "reference",
-    "tp2",
-    "language",
-    "batch",
-    "answers",
-    "arguments",
-    "kind",
-    "version",
-)
 
 
 class JournalError(Exception):
@@ -67,6 +56,73 @@ class RunOutcome(Enum):
     COMPLETE = "complete"
     WARNINGS = "warnings"
     INCOMPLETE = "incomplete"
+
+
+class RunClosure(Enum):
+    """How a run was closed; its outcome is computed from the operations."""
+
+    FINISHED = "finished"
+    CANCELLED = "cancelled"
+
+
+# ============================================================================
+# Lifecycle
+# ============================================================================
+
+
+@dataclass
+class RunLifecycle:
+    """Identity of a run, when it started and how it was closed."""
+
+    run_id: str
+    started_at: datetime
+    closed_at: datetime | None = None
+    closure: RunClosure | None = None
+
+    @classmethod
+    def start(cls) -> RunLifecycle:
+        """Lifecycle of a run starting now."""
+        return cls(uuid4().hex, cls._now())
+
+    @property
+    def is_open(self) -> bool:
+        return self.closure is None
+
+    def close(self, closure: RunClosure) -> None:
+        self.closed_at = self._now()
+        self.closure = closure
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "run_id": self.run_id,
+            "started_at": self.started_at.isoformat(),
+            "closed_at": self.closed_at.isoformat() if self.closed_at else None,
+            "closure": self.closure.value if self.closure else None,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> RunLifecycle:
+        """Rebuild the lifecycle saved in the journal.
+
+        Raises:
+            ValueError: A field is invalid, or the closure lacks its date or its mode
+        """
+        closed_at, closure = data["closed_at"], data["closure"]
+        if (closed_at is None) != (closure is None):
+            raise ValueError("closure without its date or its mode")
+        if not isinstance(data["run_id"], str) or not data["run_id"]:
+            raise ValueError("missing run identifier")
+        return cls(
+            data["run_id"],
+            datetime.fromisoformat(data["started_at"]),
+            datetime.fromisoformat(closed_at) if closed_at else None,
+            RunClosure(closure) if closure else None,
+        )
+
+    @staticmethod
+    def _now() -> datetime:
+        # Local time with its offset: readable in the diagnostic, unambiguous across moves
+        return datetime.now().astimezone().replace(microsecond=0)
 
 
 # ============================================================================
@@ -285,12 +341,28 @@ class InstallationJournal:
     """Plan, operations and their transitions, saved atomically after each change."""
 
     def __init__(
-        self, path: Path, plan: RunPlan, sequences: list[RunSequence], active: bool = True
+        self,
+        path: Path,
+        plan: RunPlan,
+        sequences: list[RunSequence],
+        lifecycle: RunLifecycle | None = None,
     ):
+        """
+        Args:
+            path: Journal file
+            plan: Choices frozen when the run started
+            sequences: Operations by sequence
+            lifecycle: Saved lifecycle; by default a run starting now
+        """
         self.path = path
         self.plan = plan
         self.sequences = sequences
-        self.active = active
+        self.lifecycle = lifecycle or RunLifecycle.start()
+
+    @property
+    def active(self) -> bool:
+        """Whether the run is still open, possibly waiting to be resumed."""
+        return self.lifecycle.is_open
 
     # ------------------------------------------------------------------
     # Persistence
@@ -307,18 +379,13 @@ class InstallationJournal:
             return None
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
-            if "format" not in data:
-                data = cls._upgrade_draft(data)
-            if (
-                data["format"] != INSTALLATION_JOURNAL_FORMAT
-                or type(data["active"]) is not bool
-            ):
+            if data["format"] != INSTALLATION_JOURNAL_FORMAT:
                 raise ValueError(f"format {data['format']}")
             return cls(
                 path,
                 RunPlan.from_dict(data["plan"]),
                 [RunSequence.from_dict(seq) for seq in data["sequences"]],
-                data["active"],
+                RunLifecycle.from_dict(data["run"]),
             )
         except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
             raise JournalError(f"{type(error).__name__}: {error}") from error
@@ -329,61 +396,11 @@ class InstallationJournal:
             self.path,
             {
                 "format": INSTALLATION_JOURNAL_FORMAT,
+                "run": self.lifecycle.to_dict(),
                 "plan": asdict(self.plan),
                 "sequences": [seq.to_dict() for seq in self.sequences],
-                "active": self.active,
             },
         )
-
-    @staticmethod
-    def _upgrade_draft(data: dict[str, Any]) -> dict[str, Any]:
-        """Read the unversioned layout written by the development builds of L4."""
-        logger.info("Upgrading unversioned installation journal")
-        plan = {
-            key: value
-            for key, value in data["plan"].items()
-            if key not in DRAFT_PLAN_PREFERENCES
-        }
-        sequences = [
-            {
-                "folder": seq["folder"],
-                # The draft identity also hashed chitin.key, which mods legitimately change.
-                "base": ":".join(seq["base"].split(":")[:2]),
-                "operations": [
-                    InstallationJournal._upgrade_draft_operation(op) for op in seq["operations"]
-                ],
-            }
-            for seq in data["sequences"]
-        ]
-        return {
-            "format": INSTALLATION_JOURNAL_FORMAT,
-            "plan": plan,
-            "sequences": sequences,
-            "active": data["active"],
-        }
-
-    @staticmethod
-    def _upgrade_draft_operation(op: dict[str, Any]) -> dict[str, Any]:
-        evidence = None
-        if op.get("confirmed_without_log"):
-            evidence = {
-                "return_code": op.get("return_code"),
-                "debug_status": op["status"],
-                "in_log": False,
-            }
-        requirements = [
-            Operation.requirement_key(rule) if isinstance(rule, dict) else rule
-            for rule in op["requirements"]
-        ]
-        return {key: op[key] for key in DRAFT_RECIPE_FIELDS} | {
-            "requirements": requirements,
-            "status": op["status"],
-            "decision": OperationDecision.ACCEPT_FAILURE.value
-            if op.get("acknowledged")
-            else None,
-            "evidence": evidence,
-            "messages": op.get("messages", []),
-        }
 
     # ------------------------------------------------------------------
     # Transitions
@@ -449,10 +466,11 @@ class InstallationJournal:
             in_log=False,
         )
 
-    def deactivate(self) -> None:
-        """Close the run; its journal stays readable until the next run starts."""
-        self.active = False
+    def close(self, closure: RunClosure) -> None:
+        """Date and persist the end of the run; its journal stays readable."""
+        self.lifecycle.close(closure)
         self.save()
+        logger.info("Installation run %s closed: %s", self.lifecycle.run_id, closure.value)
 
     # ------------------------------------------------------------------
     # Queries

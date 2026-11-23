@@ -105,7 +105,7 @@ RULE_ORIGIN_DESCRIPTION_KEYS = {"ini": "rule.ini_order_description"}
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
 INSTALLATION_JOURNAL_FILE: Path = CURRENT_RUN_DIR / "installation-run.json"
-INSTALLATION_JOURNAL_FORMAT = 3
+INSTALLATION_JOURNAL_FORMAT = 4
 ARCHIVE_REGISTRY_FILE: Path = USER_DIR / "archives.json"
 ARCHIVE_REGISTRY_FORMAT = 1
 # Unreadable persisted files are renamed "<name><suffix><timestamp>" for diagnosis

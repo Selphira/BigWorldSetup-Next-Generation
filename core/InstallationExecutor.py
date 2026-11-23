@@ -22,6 +22,7 @@ from core.InstallationJournal import (
     JournalError,
     Operation,
     OperationDecision,
+    RunClosure,
     RunDivergenceError,
     RunPlan,
     RunSequence,
@@ -215,13 +216,13 @@ class InstallationExecutor:
         except RunDivergenceError as error:
             raise InstallationError(str(error)) from error
         if not report.undetermined:
-            self.journal.deactivate()
+            self.journal.close(RunClosure.FINISHED)
         return report
 
     def cancel(self) -> None:
         """Abandon the run; its journal stays readable until the next run starts."""
         if self.journal and self.journal.active:
-            self.journal.deactivate()
+            self.journal.close(RunClosure.CANCELLED)
         logger.info("Installation run cancelled")
 
     # ------------------------------------------------------------------
