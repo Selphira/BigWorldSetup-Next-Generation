@@ -8,7 +8,7 @@
   },
   "app": {
     "close_tasks": "Une tâche est en cours. Demander son arrêt et quitter dès que les écritures sont terminées ? Choisissez Non pour continuer la tâche.",
-    "close_title": "Quitter l’application",
+    "close_title": "Quitter l'application",
     "step": "Étape {current} sur {total}",
     "checking_data_update": "Vérification des mises à jour des données...",
     "initializing": "Initialisation...",
@@ -152,7 +152,7 @@
       "import_select_file": "Sélectionner le fichier à importer",
       "import_replace_current_selection": "Remplacer la sélection actuelle",
       "import_report": "Conservés : {kept}\nRemappés : {remapped}\nManquants ou indisponibles : {missing}\nAmbigus : {ambiguous}",
-      "catalogue_changed": "Les identités du catalogue ont changé depuis l’export.",
+      "catalogue_changed": "Les identités du catalogue ont changé depuis l'export.",
       "missing_references": "Références indisponibles : {references}",
       "import_summary": "Conservés : {kept}. Remappés : {remapped}. Manquants : {missing}. Ambigus : {ambiguous}.",
       "discard_unresolved": "Écarter les références non résolues",
@@ -367,7 +367,7 @@
       "complete_title": "Extraction terminée",
       "complete_message": "{count} archive(s) extraite(s) avec succès",
       "complete_with_errors_title": "Extraction terminée avec des erreurs",
-      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} en échec.\n\nL’installation ne pourra pas commencer tant que ces archives ne sont pas extraites.\n\nSurvolez le statut d’une archive en échec pour en voir la cause. Corrigez-la, puis relancez son extraction depuis le menu contextuel ou changez d’archive.",
+      "complete_with_errors_message": "{success} archive(s) extraite(s) avec succès, {errors} en échec.\n\nL'installation ne pourra pas commencer tant que ces archives ne sont pas extraites.\n\nSurvolez le statut d'une archive en échec pour en voir la cause. Corrigez-la, puis relancez son extraction depuis le menu contextuel ou changez d'archive.",
       "no_archive": "Aucune archive",
       "custom_archive_tooltip": "Archive personnalisée configurée",
       "archive_not_found_title": "Archive introuvable",
@@ -448,7 +448,7 @@
       "evidence": "Code retour {code}. DEBUG : {debug}. Composant dans WeiDU.log : {log}.",
       "blocked_preview": "Si vous continuez, ces composants seront bloqués :\n{components}",
       "force_stop": "WeiDU est toujours actif. Forcer son arrêt et celui de ses processus enfants ? Une restauration peut être nécessaire.",
-      "recovery": "L’installation est suspendue : {detail}\n\nLe dossier du jeu peut être dans un état intermédiaire et rien d’autre ne sera installé tant que la situation n’est pas vérifiée.\n\nVérifiez le dossier du jeu et le WeiDU.log, puis reprenez l’installation. Si leur état est incertain, restaurez une sauvegarde vérifiée. Pour demander de l’aide, exportez le diagnostic.",
+      "recovery": "L'installation est suspendue : {detail}\n\nLe dossier du jeu peut être dans un état intermédiaire et rien d'autre ne sera installé tant que la situation n'est pas vérifiée.\n\nVérifiez le dossier du jeu et le WeiDU.log, puis reprenez l'installation. Si leur état est incertain, restaurez une sauvegarde vérifiée. Pour demander de l'aide, exportez le diagnostic.",
       "incomplete": "Installation incomplète",
       "warnings": "Installation terminée avec avertissements",
       "complete": "Installation terminée",
@@ -477,7 +477,7 @@
         "complete": "Fin de la séquence {sequence}"
       },
       "summary": {
-        "title": "Bilan de l’installation",
+        "title": "Bilan de l'installation",
         "no_data": "Aucune donnée d'installation disponible.",
         "new_title": "NOUVELLE INSTALLATION",
         "resume_title": "REPRISE D'INSTALLATION",
@@ -493,11 +493,11 @@
         "ready_to_resume": "Prêt à reprendre l'installation. Cliquez sur 'Reprendre'.",
         "ready_to_finish": "Toutes les séquences ont été traitées. Cliquez sur 'Terminer' pour clore l'installation et fermer l'application."
       },
-      "error_title": "Échec d’installation",
-      "error_message": "WeiDU n’a pas pu installer : {component}. Les erreurs relevées sont affichées ci-dessous.\n\nCe composant n’est pas installé. Si vous continuez sans lui, les composants qui en dépendent seront bloqués.\n\nRéessayez après avoir corrigé la cause, continuez sans ce composant, mettez l’installation en pause pour examiner le jeu, ou arrêtez-la. Pour demander de l’aide, exportez le diagnostic.",
+      "error_title": "Échec d'installation",
+      "error_message": "WeiDU n'a pas pu installer : {component}. Les erreurs relevées sont affichées ci-dessous.\n\nCe composant n'est pas installé. Si vous continuez sans lui, les composants qui en dépendent seront bloqués.\n\nRéessayez après avoir corrigé la cause, continuez sans ce composant, mettez l'installation en pause pour examiner le jeu, ou arrêtez-la. Pour demander de l'aide, exportez le diagnostic.",
       "invalid_plan": "Composant invalide ou réponse SUB absente, contradictoire ou inconnue pour {reference}.",
-      "unprepared": "Ces composants n’ont pas de préparation prouvée (archive manquante, extraction absente, échouée ou obsolète) : {references}. Terminez l’étape Extraction avant d’installer.",
-      "tp2_missing": "Le TP2 {tp2} est introuvable dans le dossier du jeu : le mod n’a pas été extrait correctement.",
+      "unprepared": "Ces composants n'ont pas de préparation prouvée (archive manquante, extraction absente, échouée ou obsolète) : {references}. Terminez l'étape Extraction avant d'installer.",
+      "tp2_missing": "Le TP2 {tp2} est introuvable dans le dossier du jeu : le mod n'a pas été extrait correctement.",
       "tp2_missing_provided": "Le TP2 {tp2} est introuvable dans le dossier du jeu. Il est fourni par {provider}, qui doit être extrait, et parfois installé, avant ce composant.",
       "error_no_folder_message": "Le dossier du jeu pour la séquence {sequence} n'est pas défini.\n\nVeuillez vérifier la configuration des dossiers.",
       "error_no_weidu_message": "Le fichier WeiDU.exe est introuvable dans le dossier du jeu.\n\nVeuillez vérifier votre installation.",
@@ -507,26 +507,26 @@
       "cancel_title": "Annuler l'installation",
       "cancel_message": "Voulez-vous vraiment annuler l'installation ?\n\nCette action est définitive. Si WeiDU est en cours, il est interrompu immédiatement. L'installation sera abandonnée et vous retournerez à la première étape.",
       "stop_title": "Arrêter l'installation",
-      "stop_message": "Arrêter l’installation maintenant ?\n\nWeiDU est interrompu immédiatement. Les composants du lot en cours qui n’ont pas abouti seront relancés à la reprise. Si un composant est interrompu en pleine installation, vous devrez indiquer son état à la reprise.\n\nL’installation reste reprenable, même après la fermeture de l’application. Pour suspendre l’installation sans interrompre WeiDU, utilisez plutôt Pause.",
+      "stop_message": "Arrêter l'installation maintenant ?\n\nWeiDU est interrompu immédiatement. Les composants du lot en cours qui n'ont pas abouti seront relancés à la reprise. Si un composant est interrompu en pleine installation, vous devrez indiquer son état à la reprise.\n\nL'installation reste reprenable, même après la fermeture de l'application. Pour suspendre l'installation sans interrompre WeiDU, utilisez plutôt Pause.",
       "stopped_message": "Installation arrêtée au lot {index}. Cliquez sur 'Reprendre' pour la poursuivre : le journal sera vérifié à la reprise.",
       "finish_title": "Terminer l'installation",
-      "finish_message": "Clore l’installation et fermer l’application ?\n\nL’installation ne pourra plus être reprise. Au prochain lancement, une nouvelle installation commencera.",
-      "finish_incomplete_message": "Clore cette installation incomplète et fermer l’application ?\n\n{count} composant(s) ne sont pas installés. Une fois l’installation close, ils ne pourront plus être réessayés dans celle-ci.\n\nPour demander de l’aide, exportez le diagnostic avant de terminer. Au prochain lancement, une nouvelle installation commencera.",
+      "finish_message": "Clore l'installation et fermer l'application ?\n\nL'installation ne pourra plus être reprise. Au prochain lancement, une nouvelle installation commencera.",
+      "finish_incomplete_message": "Clore cette installation incomplète et fermer l'application ?\n\n{count} composant(s) ne sont pas installés. Une fois l'installation close, ils ne pourront plus être réessayés dans celle-ci.\n\nPour demander de l'aide, exportez le diagnostic avant de terminer. Au prochain lancement, une nouvelle installation commencera.",
       "lbl_log": "Logs d'installation",
       "btn_start": "Démarrer",
-      "btn_start_tooltip": "Figer la sélection et l’ordre d’installation, puis lancer l’installation.",
+      "btn_start_tooltip": "Figer la sélection et l'ordre d'installation, puis lancer l'installation.",
       "btn_stop": "Arrêter",
-      "btn_stop_tooltip": "Interrompre WeiDU immédiatement. Les composants du lot en cours qui n’ont pas abouti seront relancés à la reprise, possible même après la fermeture de l’application.",
+      "btn_stop_tooltip": "Interrompre WeiDU immédiatement. Les composants du lot en cours qui n'ont pas abouti seront relancés à la reprise, possible même après la fermeture de l'application.",
       "btn_cancel": "Annuler",
-      "btn_cancel_tooltip": "Abandonner définitivement l’installation, en interrompant WeiDU immédiatement s’il est en cours, et revenir à la première étape.",
+      "btn_cancel_tooltip": "Abandonner définitivement l'installation, en interrompant WeiDU immédiatement s'il est en cours, et revenir à la première étape.",
       "btn_pause": "Pause",
-      "btn_pause_tooltip": "Suspendre l’installation à la fin du lot en cours (un composant, ou les composants consécutifs d’un mod en installation par lots), sans interrompre WeiDU.",
+      "btn_pause_tooltip": "Suspendre l'installation à la fin du lot en cours (un composant, ou les composants consécutifs d'un mod en installation par lots), sans interrompre WeiDU.",
       "btn_pause_pending": "Pause demandée…",
       "btn_pause_pending_tooltip": "La pause prendra effet à la fin du lot en cours. Pour ne pas attendre, utilisez Arrêter.",
       "btn_resume": "Reprendre",
-      "btn_resume_tooltip": "Reprendre l’installation là où elle s’est arrêtée.",
+      "btn_resume_tooltip": "Reprendre l'installation là où elle s'est arrêtée.",
       "btn_finish": "Terminer",
-      "btn_finish_tooltip": "Clore l’installation, complète ou non, réinitialiser le parcours et fermer l’application.",
+      "btn_finish_tooltip": "Clore l'installation, complète ou non, réinitialiser le parcours et fermer l'application.",
       "btn_retry": "Réessayer",
       "btn_continue": "Continuer",
       "btn_send_input": "Envoyer",
@@ -541,24 +541,24 @@
       "paused": "Installation en pause",
       "paused_with_description": "Installation en pause : {description}",
       "divergence": {
-        "folder": "Le dossier {folder} n’est plus celui de l’installation en cours : il a été remplacé, restauré ou déplacé. La reprise est impossible. Annulez l’installation, puis relancez-la sur une base vérifiée.",
+        "folder": "Le dossier {folder} n'est plus celui de l'installation en cours : il a été remplacé, restauré ou déplacé. La reprise est impossible. Annulez l'installation, puis relancez-la sur une base vérifiée.",
         "folder_missing": "Le dossier {folder} est introuvable. Rebranchez le disque ou rétablissez le dossier avant de reprendre.",
-        "archive": "Les fichiers de {mod} ont été préparés depuis une autre archive que celle de l’installation en cours ({reference}). La reprise est suspendue : réextrayez l’archive d’origine ou annulez l’installation."
+        "archive": "Les fichiers de {mod} ont été préparés depuis une autre archive que celle de l'installation en cours ({reference}). La reprise est suspendue : réextrayez l'archive d'origine ou annulez l'installation."
       },
-      "debug_locked": "Le fichier {file} est verrouillé : WeiDU ne peut pas être lancé sans isoler son journal DEBUG. Fermez le programme qui l’utilise, puis réessayez. Détail : {error}",
-      "process_not_started": "WeiDU n’a pas pu démarrer.",
+      "debug_locked": "Le fichier {file} est verrouillé : WeiDU ne peut pas être lancé sans isoler son journal DEBUG. Fermez le programme qui l'utilise, puis réessayez. Détail : {error}",
+      "process_not_started": "WeiDU n'a pas pu démarrer.",
       "invalid_mod_id": "Le mod {mod} ne peut pas être enregistré automatiquement : son identifiant ou ses numéros de composants ne sont pas valides.",
-      "missing_component": "Le composant {reference} du plan enregistré n’existe plus dans le catalogue.",
+      "missing_component": "Le composant {reference} du plan enregistré n'existe plus dans le catalogue.",
       "debug_not_reached": "composant non atteint",
-      "undetermined": "le résultat de {components} n’a pas pu être établi. À la reprise, vous indiquerez pour chacun s’il est installé, à réinstaller ou en échec.",
-      "decision_title": "État d’un composant à confirmer",
-      "decision_message": "L’installation de {component} n’a pas de résultat établi.\n\nTant que vous n’avez pas indiqué ce qu’il faut en retenir, l’installation ne peut pas reprendre.\n\nVérifiez le jeu, le DEBUG et WeiDU.log, puis choisissez. En cas de doute, restaurez une sauvegarde vérifiée. Pour demander de l’aide, exportez le diagnostic.",
+      "undetermined": "le résultat de {components} n'a pas pu être établi. À la reprise, vous indiquerez pour chacun s'il est installé, à réinstaller ou en échec.",
+      "decision_title": "État d'un composant à confirmer",
+      "decision_message": "L'installation de {component} n'a pas de résultat établi.\n\nTant que vous n'avez pas indiqué ce qu'il faut en retenir, l'installation ne peut pas reprendre.\n\nVérifiez le jeu, le DEBUG et WeiDU.log, puis choisissez. En cas de doute, restaurez une sauvegarde vérifiée. Pour demander de l'aide, exportez le diagnostic.",
       "decision_installed": "Considérer comme installé",
       "decision_retry": "Réinstaller",
       "decision_failed": "Considérer comme en échec",
       "log_now": "Composant dans WeiDU.log actuellement : {log}.",
-      "journal_unreadable_title": "Journal d’installation illisible",
-      "journal_unreadable": "Le journal d’installation ({path}) est illisible : {error}\n\nLe mettre de côté pour pouvoir démarrer une nouvelle installation ? Le fichier sera renommé, pas supprimé.",
+      "journal_unreadable_title": "Journal d'installation illisible",
+      "journal_unreadable": "Le journal d'installation ({path}) est illisible : {error}\n\nLe mettre de côté pour pouvoir démarrer une nouvelle installation ? Le fichier sera renommé, pas supprimé.",
       "journal_set_aside": "Journal illisible mis de côté : {path}",
       "catalogue_changed": "Le catalogue a changé depuis le lancement pour : {components}. Le plan enregistré est conservé.",
       "catalogue_restructured": "le plan calculé avec le catalogue actuel ne correspond plus au plan enregistré",
@@ -566,11 +566,11 @@
       "log_unexpected": "WeiDU.log contient des entrées étrangères à ce plan :\n{entries}",
       "warning_no_details": "WeiDU signale des avertissements sans les détailler. Consultez {file} dans le dossier du jeu.",
       "btn_diagnostic": "Exporter le diagnostic",
-      "btn_diagnostic_tooltip": "Créer une archive zip avec le bilan de l’installation, son journal, WeiDU.log et les fichiers DEBUG des composants en échec, à joindre à une demande d’aide.",
+      "btn_diagnostic_tooltip": "Créer une archive zip avec le bilan de l'installation, son journal, WeiDU.log et les fichiers DEBUG des composants en échec, à joindre à une demande d'aide.",
       "diagnostic": {
-        "dialog_title": "Exporter le diagnostic d’installation",
-        "exported": "Diagnostic enregistré dans {path}.\n\nJoignez ce fichier à votre demande d’aide.",
-        "failed": "Le diagnostic n’a pas pu être enregistré dans {path} : {error}\n\nAucun fichier n’a été modifié. Choisissez un autre dossier, accessible en écriture et disposant d’espace libre."
+        "dialog_title": "Exporter le diagnostic d'installation",
+        "exported": "Diagnostic enregistré dans {path}.\n\nJoignez ce fichier à votre demande d'aide.",
+        "failed": "Le diagnostic n'a pas pu être enregistré dans {path} : {error}\n\nAucun fichier n'a été modifié. Choisissez un autre dossier, accessible en écriture et disposant d'espace libre."
       },
       "recovery_title": "Installation suspendue"
     }
@@ -594,12 +594,12 @@
       "insufficient_disk_space": "Espace disque insuffisant",
       "unsafe_path": "Les dossiers doivent être distincts, sans imbrication, lien symbolique ou jonction.",
       "integrity_mismatch": "Le contenu ne correspond pas au manifeste. La restauration ne peut pas être validée.",
-      "different_target": "Cet instantané appartient à un autre dossier de jeu. Restaurez-le à son emplacement d’origine.",
+      "different_target": "Cet instantané appartient à un autre dossier de jeu. Restaurez-le à son emplacement d'origine.",
       "legacy_backup": "Cette ancienne sauvegarde sélective ne possède pas de manifeste vérifié. Créez un nouvel instantané complet avant de restaurer.",
-      "original_move_denied": "le dossier du jeu {game} n’a pas pu être déplacé. Fermez le jeu et les logiciels qui utilisent ce dossier, puis réessayez et si le problème persiste, vérifiez les droits de déplacement. Détail Windows ou système : {error}",
-      "recovery_available": "Dossier de travail de la restauration : {path}. Ne le supprimez qu’après avoir vérifié le jeu.",
-      "restore_game_untouched": "Le dossier du jeu n’a pas été modifié : il est dans l’état d’avant la restauration. Corrigez la cause indiquée, puis relancez la restauration.",
-      "restore_game_moved": "Le dossier du jeu {game} est peut-être absent ou incomplet : ne lancez ni le jeu ni une installation. Les fichiers du jeu d’avant la restauration sont conservés dans {original}. Remettez ce dossier à l’emplacement {game}, en écartant d’abord le dossier présent s’il existe, puis relancez la restauration si besoin."
+      "original_move_denied": "le dossier du jeu {game} n'a pas pu être déplacé. Fermez le jeu et les logiciels qui utilisent ce dossier, puis réessayez et si le problème persiste, vérifiez les droits de déplacement. Détail Windows ou système : {error}",
+      "recovery_available": "Dossier de travail de la restauration : {path}. Ne le supprimez qu'après avoir vérifié le jeu.",
+      "restore_game_untouched": "Le dossier du jeu n'a pas été modifié : il est dans l'état d'avant la restauration. Corrigez la cause indiquée, puis relancez la restauration.",
+      "restore_game_moved": "Le dossier du jeu {game} est peut-être absent ou incomplet : ne lancez ni le jeu ni une installation. Les fichiers du jeu d'avant la restauration sont conservés dans {original}. Remettez ce dossier à l'emplacement {game}, en écartant d'abord le dossier présent s'il existe, puis relancez la restauration si besoin."
     },
     "progress": {
       "analyzing_files": "Analyse des fichiers...",
@@ -665,13 +665,13 @@
     "ini_order_description": "Règle définie dans l'ini de {mod}"
   },
   "error": {
-    "state_save_failed": "Impossible de sauvegarder la progression. Vérifiez l’espace disque et les droits d’écriture. La progression depuis la dernière sauvegarde réussie risque d’être perdue.",
+    "state_save_failed": "Impossible de sauvegarder la progression. Vérifiez l'espace disque et les droits d'écriture. La progression depuis la dernière sauvegarde réussie risque d'être perdue.",
     "critical_title": "Erreur critique",
     "cache_build_failed": "Impossible de construire le cache des mods.\n\nVérifiez que les fichiers sont présents dans le dossier :\n{mods_dir}",
     "uncaught_exception": "Une erreur inattendue s'est produite :\n\n{error}\n\nConsultez le fichier de log pour plus de détails."
   },
   "warning": {
-    "data_update_failed_detail": "Le catalogue des mods n’a pas pu être mis à jour : {message}\n\nL’application continue avec le catalogue déjà présent : les mods, versions et règles publiés depuis ne sont pas disponibles.\n\nVérifiez votre connexion à Internet, puis relancez l’application pour réessayer.",
+    "data_update_failed_detail": "Le catalogue des mods n'a pas pu être mis à jour : {message}\n\nL'application continue avec le catalogue déjà présent : les mods, versions et règles publiés depuis ne sont pas disponibles.\n\nVérifiez votre connexion à Internet, puis relancez l'application pour réessayer.",
     "data_update_failed_title": "Catalogue non mis à jour"
   },
   "dialog": {
@@ -684,18 +684,18 @@
     },
     "archive_mismatch": {
       "title": "Archive différente du catalogue",
-      "text": "L’archive choisie pour {mod_name} ne correspond pas à celle du catalogue : son empreinte ou sa taille diffère.",
-      "details": "Version attendue : {version}\nEmpreinte attendue : {expected_hash}\nEmpreinte constatée : {actual_hash}\nTaille attendue : {expected_size}\nTaille constatée : {actual_size}\nFichier : {path}\n\nUne autre version peut contenir des composants différents : ils seront comparés au plan après l’extraction, et l’extraction sera refusée si des composants prévus manquent. Si vous refusez, l’archive reste inutilisable et le mod ne peut pas être extrait.\n\nAcceptez seulement une archive choisie volontairement ; sinon, téléchargez à nouveau l’archive ou choisissez celle attendue. Accepter cette archive ?"
+      "text": "L'archive choisie pour {mod_name} ne correspond pas à celle du catalogue : son empreinte ou sa taille diffère.",
+      "details": "Version attendue : {version}\nEmpreinte attendue : {expected_hash}\nEmpreinte constatée : {actual_hash}\nTaille attendue : {expected_size}\nTaille constatée : {actual_size}\nFichier : {path}\n\nUne autre version peut contenir des composants différents : ils seront comparés au plan après l'extraction, et l'extraction sera refusée si des composants prévus manquent. Si vous refusez, l'archive reste inutilisable et le mod ne peut pas être extrait.\n\nAcceptez seulement une archive choisie volontairement ; sinon, téléchargez à nouveau l'archive ou choisissez celle attendue. Accepter cette archive ?"
     }
   },
   "diagnostic": {
-    "title": "{app} — diagnostic d’installation",
+    "title": "{app} — diagnostic d'installation",
     "created": "Créé le : {date}",
-    "app_version": "Version de l’application : {version}",
+    "app_version": "Version de l'application : {version}",
     "catalogue_version": "Version du catalogue : {version} (publié le {date})",
     "unknown": "inconnue",
-    "journal_missing": "Aucun journal d’installation : aucune installation n’a été lancée depuis ce dossier, ou son journal a été mis de côté.",
-    "journal_unreadable": "Le journal d’installation est illisible : {error}. Il est joint tel quel à l’archive.",
+    "journal_missing": "Aucun journal d'installation : aucune installation n'a été lancée depuis ce dossier, ou son journal a été mis de côté.",
+    "journal_unreadable": "Le journal d'installation est illisible : {error}. Il est joint tel quel à l'archive.",
     "game": "Jeu : {game}",
     "run_active": "État : installation en cours ou interrompue, reprise possible",
     "run_closed": "État : installation terminée ou annulée",
@@ -703,6 +703,6 @@
     "sequence": "{sequence} — {folder} (fichiers joints : {directory})",
     "identity": "TP2 {tp2}, composant {component}, langue {language}, lot {batch}",
     "decision": "Décision enregistrée : {decision}",
-    "missing_files": "Fichiers introuvables au moment de l’export :"
+    "missing_files": "Fichiers introuvables au moment de l'export :"
   }
 }
