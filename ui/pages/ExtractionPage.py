@@ -26,6 +26,7 @@ from constants import (
     MARGIN_STANDARD,
     SPACING_LARGE,
     SPACING_SMALL,
+    WEIDU_MOD_ID,
 )
 from core.ArchiveExtractor import ExtractionInfo, ExtractionStatus
 from core.ArchiveService import ArchiveService
@@ -39,6 +40,7 @@ from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
 from ui.widgets.ArchiveDialogs import select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
+from ui.widgets.RankTableItem import RankTableItem
 
 logger = logging.getLogger(__name__)
 
@@ -46,11 +48,12 @@ logger = logging.getLogger(__name__)
 # Constants
 # ============================================================================
 
-COL_MOD_NAME = 0
-COL_ARCHIVE = 1
-COL_DESTINATION = 2
-COL_STATUS = 3
-COLUMN_COUNT = 4
+COL_ORDER = 0
+COL_MOD_NAME = 1
+COL_ARCHIVE = 2
+COL_DESTINATION = 3
+COL_STATUS = 4
+COLUMN_COUNT = 5
 
 # ============================================================================
 # Extraction Worker Thread
@@ -199,6 +202,7 @@ class ExtractionPage(BasePage):
         self._extraction_table.itemDoubleClicked.connect(self._on_extraction_double_click)
 
         header = self._extraction_table.horizontalHeader()
+        header.setSectionResizeMode(COL_ORDER, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(COL_MOD_NAME, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_ARCHIVE, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_DESTINATION, QHeaderView.ResizeMode.Stretch)
@@ -260,7 +264,7 @@ class ExtractionPage(BasePage):
                 logger.warning(f"No game folder for sequence {seq_idx}")
                 continue
 
-            mod_references = ["weidu64:0"] + mod_references
+            mod_references = [f"{WEIDU_MOD_ID}:0"] + mod_references
             sequence, folder_path = game_folders[seq_idx]
             unique_mods_in_sequence = list(
                 dict.fromkeys(ref.split(":")[0] for ref in mod_references if ref)
@@ -387,7 +391,7 @@ class ExtractionPage(BasePage):
         filter_status = self._filter_combo.currentData() if self._filter_combo else None
 
         row = 0
-        for extraction_id, extraction_info in self._extractions.items():
+        for rank, (extraction_id, extraction_info) in enumerate(self._extractions.items(), 1):
             status = self._extraction_status.get(extraction_id, ExtractionStatus.TO_EXTRACT)
 
             if filter_status and status != filter_status:
@@ -395,7 +399,10 @@ class ExtractionPage(BasePage):
 
             self._extraction_table.insertRow(row)
 
-            # Column 0: Mod name (sortable)
+            # Column 0: Extraction rank (default sort)
+            self._extraction_table.setItem(row, COL_ORDER, RankTableItem(rank))
+
+            # Column 1: Mod name (sortable)
             display_name = extraction_info.mod_name
             has_custom = self.state_manager.has_custom_archive(extraction_info.mod_id)
 
@@ -403,7 +410,7 @@ class ExtractionPage(BasePage):
             name_item.setData(Qt.ItemDataRole.UserRole, extraction_id)
             self._extraction_table.setItem(row, COL_MOD_NAME, name_item)
 
-            # Column 1: Archive (sortable)
+            # Column 2: Archive (sortable)
             if extraction_info.archive_path:
                 archive_text = extraction_info.archive_path.name
                 if has_custom:
@@ -418,11 +425,11 @@ class ExtractionPage(BasePage):
                 archive_item.setToolTip(tr("page.extraction.custom_archive_tooltip"))
             self._extraction_table.setItem(row, COL_ARCHIVE, archive_item)
 
-            # Column 2: Destination (sortable)
+            # Column 3: Destination (sortable)
             dest_item = QTableWidgetItem(str(extraction_info.destination_path))
             self._extraction_table.setItem(row, COL_DESTINATION, dest_item)
 
-            # Column 3: Status (sortable by status enum order)
+            # Column 4: Status (sortable by status enum order)
             status_text = tr(f"page.extraction.status.{status.value}")
             status_item = QTableWidgetItem(status_text)
             # Store status value for sorting
@@ -439,7 +446,7 @@ class ExtractionPage(BasePage):
             row += 1
 
         self._extraction_table.setSortingEnabled(True)
-        self._extraction_table.sortItems(COL_MOD_NAME, Qt.SortOrder.AscendingOrder)
+        self._extraction_table.sortItems(COL_ORDER, Qt.SortOrder.AscendingOrder)
 
     # ========================================
     # Verification
@@ -514,6 +521,7 @@ class ExtractionPage(BasePage):
     def _on_extraction_started(self, extraction_id: str, archive_name: str) -> None:
         """Handle extraction start."""
         self._update_extraction_status(extraction_id, ExtractionStatus.EXTRACTING)
+        self._scroll_to_extraction(extraction_id)
         self._extraction_current += 1
         self._progress_bar.setFormat(
             f"%p% ({self._extraction_current}/{self._extraction_total}) - {archive_name}"
@@ -737,28 +745,31 @@ class ExtractionPage(BasePage):
         if error_message and extraction_id in self._extractions:
             self._extractions[extraction_id].error_message = error_message
 
-        # Find the row in the table
+        row = self._find_row(extraction_id)
+        if row is None:
+            return
+
+        status_item = self._extraction_table.item(row, COL_STATUS)
+        if not status_item:
+            return
+
+        status_item.setText(tr(f"page.extraction.status.{status.value}"))
+        status_item.setData(Qt.ItemDataRole.UserRole, status.value)
+        status_item.setForeground(self.STATUS_COLORS.get(status, QColor("#000000")))
+        status_item.setToolTip(error_message or "")
+
+    def _scroll_to_extraction(self, extraction_id: str) -> None:
+        """Keep the row being extracted visible so the user can follow the run."""
+        row = self._find_row(extraction_id)
+        if row is not None:
+            self._extraction_table.scrollToItem(self._extraction_table.item(row, COL_MOD_NAME))
+
+    def _find_row(self, extraction_id: str) -> int | None:
         for row in range(self._extraction_table.rowCount()):
             item = self._extraction_table.item(row, COL_MOD_NAME)
             if item and item.data(Qt.ItemDataRole.UserRole) == extraction_id:
-                # Update status cell
-                status_text = tr(f"page.extraction.status.{status.value}")
-                status_item = self._extraction_table.item(row, COL_STATUS)
-
-                if status_item:
-                    status_item.setText(status_text)
-                    status_item.setData(Qt.ItemDataRole.UserRole, status.value)
-
-                    color = self.STATUS_COLORS.get(status, QColor("#000000"))
-                    status_item.setForeground(color)
-
-                    # Update tooltip if error
-                    if error_message:
-                        status_item.setToolTip(error_message)
-                    else:
-                        status_item.setToolTip("")
-
-                break
+                return row
+        return None
 
     def _update_navigation_buttons(self) -> None:
         """Update navigation button states."""
@@ -857,6 +868,7 @@ class ExtractionPage(BasePage):
         # Update table headers
         self._extraction_table.setHorizontalHeaderLabels(
             [
+                tr("page.extraction.col_order"),
                 tr("page.extraction.col_mod_name"),
                 tr("page.extraction.col_archive"),
                 tr("page.extraction.col_destination"),

@@ -31,7 +31,7 @@ from core.ExtractionPipeline import ExtractionPipeline, PreparationError
 from core.Mod import Mod
 from core.StateManager import StateManager
 from tests.conftest import ModCatalogue
-from ui.pages.ExtractionPage import ExtractionPage
+from ui.pages.ExtractionPage import COL_MOD_NAME, COL_ORDER, ExtractionPage
 
 PLATFORM = "windows"
 TP2_V1 = "BACKUP ~demo/backup~\nAUTHOR ~me~\nBEGIN ~Main~ DESIGNATED 0\n"
@@ -540,3 +540,22 @@ def test_provided_mods_extend_their_provider_extraction(
     assert info.planned_components == {"demo_end": {"2"}}
     assert info.manifest_path == ExtractionManifest.path_for(game, "demo")
     assert page._extraction_status["demo_seq0"] is ExtractionStatus.TO_EXTRACT
+
+
+def test_extractions_are_listed_in_extraction_order(
+    tmp_path: Path, extraction_page: Callable[..., ExtractionPage]
+) -> None:
+    first = make_mod(make_zip(tmp_path / "downloads" / "zeta.zip", {}), id="zeta", name="Zeta")
+    second = make_mod(
+        make_zip(tmp_path / "downloads" / "alpha.zip", {}), id="alpha", name="Alpha"
+    )
+    page = extraction_page([first, second], ["zeta:0", "alpha:0"])
+
+    page.on_page_shown()
+
+    table = page._extraction_table
+    rows = [
+        (table.item(row, COL_ORDER).text(), table.item(row, COL_MOD_NAME).text())
+        for row in range(table.rowCount())
+    ]
+    assert rows == [("1", "Zeta"), ("2", "Alpha")]

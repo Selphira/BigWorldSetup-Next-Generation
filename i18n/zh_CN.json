@@ -216,6 +216,7 @@
         "hash": "哈希",
         "status": "状态"
       },
+      "col_order": "#",
       "col_mod_name": "模组",
       "col_filename": "文件",
       "col_status": "状态",
@@ -270,6 +271,7 @@
       "filter_label": "筛选：",
       "btn_extract_all": "提取归档",
       "btn_change_archive": "选择其他归档",
+      "col_order": "#",
       "col_mod_name": "模组",
       "col_archive": "归档",
       "col_destination": "目标",

@@ -317,6 +317,8 @@ PROCESS_READ_CHUNK_SIZE = 4096
 # WEIDU
 # ============================================================================
 
+# Mod delivering the WeiDU binary, prepared before every sequence
+WEIDU_MOD_ID = "weidu64"
 # Exit code of a WeiDU run whose components installed with warnings
 WEIDU_EXIT_WARNINGS = 3
 # Distinct diagnostic lines kept for one component of a DEBUG file

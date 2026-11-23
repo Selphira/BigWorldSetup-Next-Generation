@@ -19,7 +19,13 @@ from core.Mod import Mod
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from tests.conftest import ModCatalogue
-from ui.pages.DownloadPage import DownloadPage, VerificationJob
+from ui.pages.DownloadPage import (
+    COL_MOD_NAME,
+    COL_ORDER,
+    COL_STATUS,
+    DownloadPage,
+    VerificationJob,
+)
 
 PLATFORM = "windows"
 CONTENT_V1 = b"archive version 1"
@@ -553,9 +559,9 @@ def test_provided_mod_requires_its_unselected_provider_archive(
     assert set(page._archives) == {"demo"}
     assert page._archive_status["demo"] is ArchiveStatus.MISSING
     provided_row = page._find_row("bundled")
-    status_text = page._archive_table.item(provided_row, 2).text()
+    status_text = page._archive_table.item(provided_row, COL_STATUS).text()
     assert status_text == tr("page.download.status.provided", provider="Demo")
-    assert page._selected_mod_id(page._archive_table.item(provided_row, 0)) == "demo"
+    assert page._selected_mod_id(page._archive_table.item(provided_row, COL_MOD_NAME)) == "demo"
     assert not page.can_go_to_next_page()
 
     write_archive(downloads / "demo.zip", CONTENT_V1)
@@ -563,6 +569,45 @@ def test_provided_mod_requires_its_unselected_provider_archive(
     qtbot.waitUntil(lambda: not page._is_verifying)
 
     assert page.can_go_to_next_page()
+
+
+def test_archives_are_listed_in_install_order_with_provided_mods_below_provider(
+    qtbot: QtBot,
+    state_manager: StateManager,
+    downloads: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    other = Mod({"id": "aaa", "name": "Zulu", "links": {}})
+    bundled = Mod({"id": "bundled", "name": "Bundled", "links": {}, "provided_by": "Demo"})
+    page = make_download_page(
+        qtbot,
+        state_manager,
+        downloads,
+        monkeypatch,
+        [archive_mod(), other, bundled],
+        ["aaa:0", "bundled:0", "demo:0"],
+    )
+    state_manager.set_install_order({0: ["demo:0", "bundled:0", "aaa:0"]})
+
+    page.on_page_shown()
+
+    table = page._archive_table
+    rows = [
+        (table.item(row, COL_ORDER).text(), table.item(row, COL_MOD_NAME).text())
+        for row in range(table.rowCount())
+    ]
+    assert rows == [("1", "Demo"), ("", "Bundled"), ("2", "Zulu")]
+    assert list(page._archives) == ["demo", "aaa"]
+
+
+def test_install_order_sort_puts_weidu_first_and_unordered_mods_last(
+    state_manager: StateManager,
+) -> None:
+    state_manager.set_install_order({1: ["late:0"], 0: ["Early:0", "late:1", "early:1"]})
+
+    ordered = state_manager.sort_by_install_order({"zeta", "early", "late", "weidu64", "alpha"})
+
+    assert ordered == ["weidu64", "early", "late", "alpha", "zeta"]
 
 
 def test_mod_without_url_is_listed_and_blocks_navigation(download_page: DownloadPage) -> None:

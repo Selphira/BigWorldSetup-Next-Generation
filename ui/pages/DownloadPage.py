@@ -54,6 +54,7 @@ from ui.pages.BasePage import BasePage
 from ui.widgets.ArchiveDialogs import confirm_archive_mismatch, select_archive_file
 from ui.widgets.HoverTableWidget import HoverTableWidget
 from ui.widgets.LinkLabels import create_link_label
+from ui.widgets.RankTableItem import RankTableItem
 
 logger = logging.getLogger(__name__)
 
@@ -62,10 +63,11 @@ logger = logging.getLogger(__name__)
 # ============================================================================
 
 # Table columns
-COL_MOD_NAME = 0
-COL_FILENAME = 1
-COL_STATUS = 2
-COLUMN_COUNT = 3
+COL_ORDER = 0
+COL_MOD_NAME = 1
+COL_FILENAME = 2
+COL_STATUS = 3
+COLUMN_COUNT = 4
 
 
 # ============================================================================
@@ -489,6 +491,7 @@ class DownloadPage(BasePage):
         self._archive_table.setColumnCount(COLUMN_COUNT)
         self._archive_table.setHorizontalHeaderLabels(
             [
+                tr("page.download.col_order"),
                 tr("page.download.col_mod_name"),
                 tr("page.download.col_filename"),
                 tr("page.download.col_status"),
@@ -497,6 +500,7 @@ class DownloadPage(BasePage):
 
         # Column resize modes
         header = self._archive_table.horizontalHeader()
+        header.setSectionResizeMode(COL_ORDER, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(COL_MOD_NAME, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_FILENAME, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(COL_STATUS, QHeaderView.ResizeMode.ResizeToContents)
@@ -608,8 +612,9 @@ class DownloadPage(BasePage):
             logger.warning("No components selected")
             return
 
+        selected_mod_ids = {reference.partition(":")[0] for reference in selected if reference}
         archive_owners = self._archive_owners(
-            {reference.partition(":")[0] for reference in selected if reference}
+            self.state_manager.sort_by_install_order(selected_mod_ids)
         )
         self._forget_removed_archives({mod.id for mod in archive_owners})
 
@@ -619,7 +624,7 @@ class DownloadPage(BasePage):
                 self._resolve_archive(mod)
 
         self._refresh_archive_table()
-        self._archive_table.sortItems(COL_MOD_NAME, Qt.SortOrder.AscendingOrder)
+        self._archive_table.sortItems(COL_ORDER, Qt.SortOrder.AscendingOrder)
         self._update_navigation_buttons()
 
         unknown_count = sum(
@@ -631,10 +636,13 @@ class DownloadPage(BasePage):
             unknown_count,
         )
 
-    def _archive_owners(self, mod_ids: set[str]) -> list[Mod]:
-        """Return the mods whose archives the selection needs, providers included."""
+    def _archive_owners(self, mod_ids: list[str]) -> list[Mod]:
+        """Return the mods whose archives the selection needs, providers included.
+
+        A provider takes the place of the first mod that needs its archive.
+        """
         owners: dict[str, Mod] = {}
-        for mod_id in sorted(mod_ids):
+        for mod_id in mod_ids:
             mod = self._mod_manager.get_mod_by_id(mod_id)
             if not mod:
                 continue
@@ -703,7 +711,7 @@ class DownloadPage(BasePage):
         filter_status = self._filter_combo.currentData() if self._filter_combo else None
 
         row = 0
-        for mod_id in self._archives:
+        for rank, mod_id in enumerate(self._archives, 1):
             status = self._archive_status.get(mod_id, ArchiveStatus.UNKNOWN)
 
             if filter_status and status != filter_status:
@@ -714,16 +722,19 @@ class DownloadPage(BasePage):
             mod = self._mod_manager.get_mod_by_id(mod_id)
             mod_name = mod.name if mod else mod_id
 
-            # Column 0: Mod name (sortable)
+            # Column 0: Download rank (default sort)
+            self._archive_table.setItem(row, COL_ORDER, RankTableItem(rank))
+
+            # Column 1: Mod name (sortable)
             name_item = QTableWidgetItem(mod_name)
             name_item.setData(Qt.ItemDataRole.UserRole, mod_id)
             self._archive_table.setItem(row, COL_MOD_NAME, name_item)
 
-            # Column 1: Filename (sortable)
+            # Column 2: Filename (sortable)
             filename_item = QTableWidgetItem(self._displayed_filename(mod_id))
             self._archive_table.setItem(row, COL_FILENAME, filename_item)
 
-            # Column 2: Status (not sortable, displayed with color)
+            # Column 3: Status (not sortable, displayed with color)
             self._archive_table.setItem(row, COL_STATUS, QTableWidgetItem())
 
             row += 1
@@ -747,6 +758,10 @@ class DownloadPage(BasePage):
         provider_name = provider.name if provider else provider_id
 
         self._archive_table.insertRow(row)
+        provider_rank = list(self._archives).index(provider_id) + 1
+        self._archive_table.setItem(
+            row, COL_ORDER, RankTableItem(provider_rank, displayed=False)
+        )
         name_item = QTableWidgetItem(mod.name if mod else mod_id)
         name_item.setData(Qt.ItemDataRole.UserRole, mod_id)
         self._archive_table.setItem(row, COL_MOD_NAME, name_item)
@@ -802,6 +817,12 @@ class DownloadPage(BasePage):
         if status == ArchiveStatus.MISMATCH_ACCEPTED:
             return tr("page.download.mismatch_accepted_tooltip")
         return ""
+
+    def _scroll_to_archive(self, mod_id: str) -> None:
+        """Keep the row being downloaded visible so the user can follow the run."""
+        row = self._find_row(mod_id)
+        if row is not None:
+            self._archive_table.scrollToItem(self._archive_table.item(row, COL_MOD_NAME))
 
     def _find_row(self, mod_id: str) -> int | None:
         if not self._archive_table:
@@ -1219,6 +1240,7 @@ class DownloadPage(BasePage):
     def _on_download_started(self, mod_id: str) -> None:
         """Handle download start."""
         self._update_archive_status(mod_id, ArchiveStatus.DOWNLOADING)
+        self._scroll_to_archive(mod_id)
 
         # Create download widget
         progress = next(
@@ -1492,6 +1514,7 @@ class DownloadPage(BasePage):
         # Update table headers
         self._archive_table.setHorizontalHeaderLabels(
             [
+                tr("page.download.col_order"),
                 tr("page.download.col_mod_name"),
                 tr("page.download.col_filename"),
                 tr("page.download.col_status"),

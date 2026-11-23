@@ -8,7 +8,13 @@ from typing import Any, Callable
 
 from PySide6.QtCore import QSettings
 
-from constants import ARCHIVE_REGISTRY_FILE, CACHE_DIR, STATE_FILE, UI_SETTINGS_FILE
+from constants import (
+    ARCHIVE_REGISTRY_FILE,
+    CACHE_DIR,
+    STATE_FILE,
+    UI_SETTINGS_FILE,
+    WEIDU_MOD_ID,
+)
 from core.ArchiveRegistry import ArchiveRecord, ArchiveRegistry, ArchiveSource
 from core.atomic_io import write_json_atomic
 from core.CatalogueLocation import CatalogueLocation
@@ -245,6 +251,30 @@ class StateManager:
         install_order = self.installation_state.configuration.get("install_order", {}).copy()
 
         return {int(seq_idx): order_list for seq_idx, order_list in install_order.items()}
+
+    def sort_by_install_order(self, mod_ids: set[str]) -> list[str]:
+        """Sort mods in the order they are prepared for the installation.
+
+        WeiDU comes first, then each mod at its first planned component across
+        the sequences. Mods absent from the installation order come last, by id.
+        """
+        install_order = self.get_install_order()
+        ordered_mod_ids = [WEIDU_MOD_ID] + [
+            reference.partition(":")[0]
+            for seq_idx in sorted(install_order)
+            for reference in install_order[seq_idx]
+            if reference
+        ]
+
+        # Mod ids are matched without case, as the catalogue looks them up.
+        ranks: dict[str, int] = {}
+        for mod_id in ordered_mod_ids:
+            ranks.setdefault(mod_id.lower(), len(ranks))
+
+        unordered_rank = len(ranks)
+        return sorted(
+            mod_ids, key=lambda mod_id: (ranks.get(mod_id.lower(), unordered_rank), mod_id)
+        )
 
     def get_archive_registry(self) -> ArchiveRegistry:
         """Return the archive registry, importing legacy `custom_archives` first.

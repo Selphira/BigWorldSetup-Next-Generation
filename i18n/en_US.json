@@ -254,6 +254,7 @@
         "status": "Status",
         "manual_archive": "Associated archive"
       },
+      "col_order": "#",
       "col_mod_name": "Mod",
       "col_filename": "File",
       "col_status": "Status",
@@ -326,6 +327,7 @@
       "filter_label": "Filter:",
       "btn_extract_all": "Extract Archives",
       "btn_change_archive": "Choose Another Archive",
+      "col_order": "#",
       "col_mod_name": "Mod",
       "col_archive": "Archive",
       "col_destination": "Destination",
