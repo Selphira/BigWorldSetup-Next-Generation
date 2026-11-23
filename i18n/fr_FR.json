@@ -669,7 +669,8 @@
       }
     },
     "language_selector": {
-      "tooltip": "Sélectionnez la langue de l'interface"
+      "tooltip": "Sélectionnez la langue de l'interface",
+      "partial": "{language} ({coverage} %)"
     },
     "mod_details": {
       "description": "Description",

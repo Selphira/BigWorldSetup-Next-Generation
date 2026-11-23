@@ -1,5 +1,6 @@
 """Translation management system with fallback support and caching."""
 
+from collections.abc import Iterator
 from functools import lru_cache
 import json
 import logging
@@ -44,14 +45,17 @@ class TranslationManager(QObject):
     - Lazy loading of translation files
     - LRU cache for resolved translations
     - Thread-safe operations
-    - Automatic fallback chain
+    - Automatic fallback to English for texts absent from a partial language
+    - Coverage of each language relative to English
     """
 
     language_changed = Signal(str)
 
     LOCALES_DIR: Path = LOCALES_DIR
     DEFAULT_LANGUAGE = "fr_FR"
-    FALLBACK_CHAIN = ("en_US", "fr_FR")
+    REFERENCE_LANGUAGE = "en_US"
+    METADATA_SECTION = "_metadata"
+    FULL_COVERAGE = 100
     CACHE_SIZE = 1024  # Max cached translations
 
     def __init__(self, app: "QApplication | None") -> None:
@@ -62,6 +66,7 @@ class TranslationManager(QObject):
         self._app_translator = QTranslator()
         self._current_language = self.DEFAULT_LANGUAGE
         self._translations: dict[str, dict[str, Any]] = {}
+        self._coverages: dict[str, int] = {}
         self._language_names = dict(SUPPORTED_LANGUAGES)
         self._lock = threading.RLock()
 
@@ -76,6 +81,8 @@ class TranslationManager(QObject):
         for filepath in self.LOCALES_DIR.glob("*.json"):
             code = filepath.stem
             self._load_language(code, filepath)
+
+        self._compute_coverages()
 
     def _load_language(self, code: str, filepath: Path | None = None) -> bool:
         """
@@ -119,6 +126,19 @@ class TranslationManager(QObject):
         """Return list of loaded language codes."""
         with self._lock:
             return list(self._translations.keys())
+
+    def get_coverage(self, code: str) -> int:
+        """
+        Get the share of the English texts a language translates.
+
+        Args:
+            code: Language code (e.g., 'de_DE')
+
+        Returns:
+            Percentage rounded down, so that only a complete language reaches 100
+        """
+        with self._lock:
+            return self._coverages.get(code, 0)
 
     def get_language_name(self, code: str) -> str:
         """
@@ -225,17 +245,13 @@ class TranslationManager(QObject):
         if text is not None:
             return text
 
-        # Try fallback languages
-        for fallback_lang in self.FALLBACK_CHAIN:
-            if fallback_lang == language:
-                continue
+        if language == self.REFERENCE_LANGUAGE:
+            return None
 
-            text = self._get_from_language(fallback_lang, key)
-            if text is not None:
-                logger.debug(f"Using fallback {fallback_lang} for key: {key}")
-                return text
-
-        return None
+        text = self._get_from_language(self.REFERENCE_LANGUAGE, key)
+        if text is not None:
+            logger.debug(f"Using fallback {self.REFERENCE_LANGUAGE} for key: {key}")
+        return text
 
     def _get_from_language(self, code: str, key: str) -> str | None:
         """
@@ -260,6 +276,34 @@ class TranslationManager(QObject):
                 value = value[key_part]
 
             return value if isinstance(value, str) else None
+
+    def _compute_coverages(self) -> None:
+        """Compute the coverage of every loaded language relative to English."""
+        with self._lock:
+            reference = self._translations.get(self.REFERENCE_LANGUAGE)
+            if reference is None:
+                logger.warning(f"Reference language not loaded: {self.REFERENCE_LANGUAGE}")
+                return
+
+            reference_keys = set(self._text_keys(reference))
+            for code, translations in self._translations.items():
+                translated_keys = reference_keys.intersection(self._text_keys(translations))
+                self._coverages[code] = (
+                    self.FULL_COVERAGE * len(translated_keys) // len(reference_keys)
+                    if reference_keys
+                    else self.FULL_COVERAGE
+                )
+
+    @classmethod
+    def _text_keys(cls, node: dict[str, Any], prefix: str = "") -> Iterator[str]:
+        """Yield the dotted keys of the non-empty texts, metadata excluded."""
+        for name, value in node.items():
+            if not prefix and name == cls.METADATA_SECTION:
+                continue
+            if isinstance(value, dict):
+                yield from cls._text_keys(value, f"{prefix}{name}.")
+            elif isinstance(value, str) and value:
+                yield f"{prefix}{name}"
 
     @staticmethod
     def _format_translation(text: str, key: str, kwargs: dict[str, Any]) -> str:

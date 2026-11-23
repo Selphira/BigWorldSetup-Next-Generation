@@ -71,8 +71,7 @@ class LanguageSelector(QToolButton):
         Args:
             code: Language code (e.g., 'en_US', 'fr_FR')
         """
-        translator = get_translator()
-        label = translator.get_language_name(code)
+        label = self._language_label(code)
         icon_path = FLAGS_DIR / f"{code}.png"
 
         action = QAction(label, self)
@@ -90,6 +89,25 @@ class LanguageSelector(QToolButton):
         self._actions[code] = action
 
         logger.debug(f"Added language action: {code} ({label})")
+
+    @staticmethod
+    def _language_label(code: str) -> str:
+        """
+        Build the menu label of a language, with its coverage when partial.
+
+        Args:
+            code: Language code (e.g., 'de_DE')
+
+        Returns:
+            Native language name, followed by its coverage if incomplete
+        """
+        translator = get_translator()
+        name = translator.get_language_name(code)
+        coverage = translator.get_coverage(code)
+
+        if coverage >= translator.FULL_COVERAGE:
+            return name
+        return tr("widget.language_selector.partial", language=name, coverage=coverage)
 
     def select_language(self, code: str) -> bool:
         """
@@ -178,3 +196,6 @@ class LanguageSelector(QToolButton):
 
     def retranslate_ui(self) -> None:
         self.setToolTip(tr("widget.language_selector.tooltip"))
+
+        for code, action in self._actions.items():
+            action.setText(self._language_label(code))

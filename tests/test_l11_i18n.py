@@ -15,6 +15,7 @@ from core.DownloadManager import ArchiveStatus
 from core.enums.CategoryEnum import CategoryEnum
 from core.InstallationJournal import RunOutcome
 from core.Rules import RuleType
+from core.TranslationManager import TranslationManager
 from core.weidu_types import ComponentStatus
 from validation.catalogue import ROOT
 
@@ -231,3 +232,50 @@ def test_translations_use_the_english_placeholders(language: str) -> None:
     ]
 
     assert different == []
+
+
+# ========================================
+# PARTIAL LANGUAGES
+# ========================================
+
+
+@pytest.fixture
+def partial_locales(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> TranslationManager:
+    """English and French complete, German translating one text out of four."""
+    locales = {
+        "en_US": {
+            "page": {"title": "Title", "next": "Next"},
+            "button": {"ok": "OK", "cancel": "Cancel"},
+        },
+        "fr_FR": {
+            "page": {"title": "Titre", "next": "Suivant"},
+            "button": {"ok": "OK", "cancel": "Annuler"},
+        },
+        "de_DE": {
+            "_metadata": {"name": "Deutsch", "flag": "de"},
+            "page": {"title": "Titel", "next": ""},
+        },
+    }
+    for language, texts in locales.items():
+        (tmp_path / f"{language}.json").write_text(json.dumps(texts), encoding="utf-8")
+    monkeypatch.setattr(TranslationManager, "LOCALES_DIR", tmp_path)
+    return TranslationManager(None)
+
+
+def test_coverage_counts_the_english_texts_translated(partial_locales: TranslationManager) -> None:
+    assert partial_locales.get_coverage("en_US") == 100
+    assert partial_locales.get_coverage("fr_FR") == 100
+    assert partial_locales.get_coverage("de_DE") == 25
+
+
+def test_partial_language_falls_back_to_english(partial_locales: TranslationManager) -> None:
+    partial_locales._current_language = "de_DE"
+
+    assert partial_locales.get("page.title") == "Titel"
+    assert partial_locales.get("button.cancel") == "Cancel"
+
+
+def test_shipped_complete_languages_are_not_labelled_partial() -> None:
+    translator = TranslationManager(None)
+
+    assert [translator.get_coverage(language) for language in COMPLETE_LANGUAGES] == [100, 100]
