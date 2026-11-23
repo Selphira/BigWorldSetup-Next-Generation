@@ -85,6 +85,17 @@ UNREADABLE_FILE_STAMP_FORMAT = "%Y%m%d-%H%M%S"
 # Selections and install orders exported by the user
 JSON_FILE_SUFFIX = ".json"
 JSON_FILE_FILTER = "JSON Files (*.json);;All Files (*.*)"
+# Installation diagnostic exported by the user, and the entries of its zip archive
+DIAGNOSTIC_FILE_PREFIX = "bws-diagnostic-"
+DIAGNOSTIC_FILE_SUFFIX = ".zip"
+DIAGNOSTIC_FILE_STAMP_FORMAT = "%Y%m%d-%H%M%S"
+DIAGNOSTIC_FILE_FILTER = "Zip Archives (*.zip);;All Files (*.*)"
+DIAGNOSTIC_SUMMARY_ENTRY = "summary.txt"
+DIAGNOSTIC_VERSIONS_ENTRY = "versions.json"
+DIAGNOSTIC_PLAN_ENTRY = "plan.json"
+# One directory per game folder of the run, numbered from 1 in order of appearance
+DIAGNOSTIC_GAME_DIRECTORY = "game-{number}"
+DIAGNOSTIC_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 # Extraction: proof of preparation, kept under EXTRACT_DIR of each game folder
 EXTRACT_MANIFEST_DIR = ".manifests"

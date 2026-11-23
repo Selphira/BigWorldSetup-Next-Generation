@@ -610,7 +610,14 @@
       "catalogue_restructured": "le plan calculé avec le catalogue actuel ne correspond plus au plan enregistré",
       "log_reopened": "WeiDU.log ne mentionne plus ces composants installés : {components}. Leur état doit être confirmé.",
       "log_unexpected": "WeiDU.log contient des entrées étrangères à ce plan :\n{entries}",
-      "warning_no_details": "WeiDU signale des avertissements sans les détailler. Consultez {file} dans le dossier du jeu."
+      "warning_no_details": "WeiDU signale des avertissements sans les détailler. Consultez {file} dans le dossier du jeu.",
+      "btn_diagnostic": "Exporter le diagnostic",
+      "btn_diagnostic_tooltip": "Créer une archive zip avec le bilan de l’installation, son journal, WeiDU.log et les fichiers DEBUG des composants en échec, à joindre à une demande d’aide.",
+      "diagnostic": {
+        "dialog_title": "Exporter le diagnostic d’installation",
+        "exported": "Diagnostic enregistré dans {path}.\n\nJoignez ce fichier à votre demande d’aide.",
+        "failed": "Le diagnostic n’a pas pu être enregistré dans {path} : {error}\n\nAucun fichier n’a été modifié. Choisissez un autre dossier, accessible en écriture et disposant d’espace libre."
+      }
     }
   },
   "backup_manager": {
@@ -736,5 +743,22 @@
       "text": "L'archive choisie pour {mod_name} ne correspond pas à celle du catalogue.",
       "details": "Version attendue : {version}\nEmpreinte attendue : {expected_hash}\nEmpreinte constatée : {actual_hash}\nTaille attendue : {expected_size}\nTaille constatée : {actual_size}\nFichier : {path}\n\nUne autre version peut contenir des composants différents ; ils seront comparés au plan après l'extraction. Accepter cette archive ?"
     }
+  },
+  "diagnostic": {
+    "title": "{app} — diagnostic d’installation",
+    "created": "Créé le : {date}",
+    "app_version": "Version de l’application : {version}",
+    "catalogue_version": "Version du catalogue : {version} (publié le {date})",
+    "unknown": "inconnue",
+    "journal_missing": "Aucun journal d’installation : aucune installation n’a été lancée depuis ce dossier, ou son journal a été mis de côté.",
+    "journal_unreadable": "Le journal d’installation est illisible : {error}. Il est joint tel quel à l’archive.",
+    "game": "Jeu : {game}",
+    "run_active": "État : installation en cours ou interrompue, reprise possible",
+    "run_closed": "État : installation terminée ou annulée",
+    "outcome": "Bilan : {outcome}",
+    "sequence": "{sequence} — {folder} (fichiers joints : {directory})",
+    "identity": "TP2 {tp2}, composant {component}, langue {language}, lot {batch}",
+    "decision": "Décision enregistrée : {decision}",
+    "missing_files": "Fichiers introuvables au moment de l’export :"
   }
 }

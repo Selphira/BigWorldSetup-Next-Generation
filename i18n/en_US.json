@@ -610,7 +610,14 @@
       "catalogue_restructured": "the plan computed from the current catalogue no longer matches the saved plan",
       "log_reopened": "WeiDU.log no longer mentions these installed components: {components}. Their result must be confirmed.",
       "log_unexpected": "WeiDU.log contains entries outside this plan:\n{entries}",
-      "warning_no_details": "WeiDU reports warnings without detailing them. See {file} in the game folder."
+      "warning_no_details": "WeiDU reports warnings without detailing them. See {file} in the game folder.",
+      "btn_diagnostic": "Export diagnostic",
+      "btn_diagnostic_tooltip": "Create a zip archive with the installation report, its journal, WeiDU.log and the DEBUG files of failed components, to attach to a help request.",
+      "diagnostic": {
+        "dialog_title": "Export installation diagnostic",
+        "exported": "Diagnostic saved to {path}.\n\nAttach this file to your help request.",
+        "failed": "The diagnostic could not be saved to {path}: {error}\n\nNo file was changed. Choose another folder that is writable and has free space."
+      }
     }
   },
   "backup_manager": {
@@ -736,5 +743,22 @@
       "text": "The archive chosen for {mod_name} does not match the catalogue one.",
       "details": "Expected version: {version}\nExpected hash: {expected_hash}\nActual hash: {actual_hash}\nExpected size: {expected_size}\nActual size: {actual_size}\nFile: {path}\n\nAnother version may contain different components; they will be compared with the plan after extraction. Accept this archive?"
     }
+  },
+  "diagnostic": {
+    "title": "{app} — installation diagnostic",
+    "created": "Created: {date}",
+    "app_version": "Application version: {version}",
+    "catalogue_version": "Catalogue version: {version} (published {date})",
+    "unknown": "unknown",
+    "journal_missing": "No installation journal: no installation was started from this folder, or its journal was set aside.",
+    "journal_unreadable": "The installation journal is unreadable: {error}. It is included in the archive as is.",
+    "game": "Game: {game}",
+    "run_active": "State: installation in progress or interrupted, can be resumed",
+    "run_closed": "State: installation finished or cancelled",
+    "outcome": "Outcome: {outcome}",
+    "sequence": "{sequence} — {folder} (attached files: {directory})",
+    "identity": "TP2 {tp2}, component {component}, language {language}, batch {batch}",
+    "decision": "Recorded decision: {decision}",
+    "missing_files": "Files not found at export time:"
   }
 }

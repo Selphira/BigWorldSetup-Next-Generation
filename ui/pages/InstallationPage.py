@@ -4,12 +4,14 @@ Installation page for mod installation process.
 
 from enum import Enum
 import logging
+from pathlib import Path
 
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
     QCheckBox,
     QDialog,
+    QFileDialog,
     QFrame,
     QHBoxLayout,
     QLabel,
@@ -29,6 +31,8 @@ from constants import (
     COLOR_WARNING,
     DECISION_DETAILS_MIN_HEIGHT,
     DECISION_DIALOG_MIN_WIDTH,
+    DIAGNOSTIC_FILE_FILTER,
+    DIAGNOSTIC_FILE_SUFFIX,
     INSTALL_OUTPUT_RULE_WIDTH,
     MARGIN_STANDARD,
     PROCESS_STOP_GRACE_MS,
@@ -38,6 +42,11 @@ from constants import (
 )
 from core.ComponentReference import IndexManager
 from core.GameModels import GameDefinition
+from core.InstallationDiagnostic import (
+    InstallationDiagnostic,
+    describe_evidence,
+    describe_log_presence,
+)
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import InstallationJournal, OperationDecision, RunOutcome
 from core.InstallationReconciler import ReconciliationReport
@@ -232,6 +241,7 @@ class InstallationPage(BasePage):
         self._btn_start_pause: QPushButton | None = None
         self._btn_stop: QPushButton | None = None
         self._btn_cancel: QPushButton | None = None
+        self._btn_diagnostic: QPushButton | None = None
 
         self._create_widgets()
         self._create_additional_buttons()
@@ -338,6 +348,8 @@ class InstallationPage(BasePage):
         self._btn_stop = self._create_action_button(self._stop_installation, enabled=False)
 
         self._btn_cancel = self._create_action_button(self._cancel_installation)
+
+        self._btn_diagnostic = self._create_action_button(self._export_diagnostic)
 
     # ========================================
     # Installation Control
@@ -641,29 +653,15 @@ class InstallationPage(BasePage):
             f"{tr('page.installation.summary.sequence', number=sequence + 1)} — "
             f"{tr(f'page.installation.status.{operation.status.value}')}"
         ]
-        evidence = operation.evidence
-        if evidence:
-            lines.append(
-                tr(
-                    "page.installation.evidence",
-                    code="—" if evidence.return_code is None else evidence.return_code,
-                    debug=tr(f"page.installation.status.{evidence.debug_status.value}")
-                    if evidence.debug_status
-                    else tr("page.installation.debug_not_reached"),
-                    log=self._log_presence(evidence.in_log),
-                )
-            )
+        if operation.evidence:
+            lines.append(describe_evidence(operation.evidence))
         lines.append(
             tr(
                 "page.installation.log_now",
-                log=self._log_presence(self._executor.is_logged(sequence, position)),
+                log=describe_log_presence(self._executor.is_logged(sequence, position)),
             )
         )
         return lines + operation.messages
-
-    @staticmethod
-    def _log_presence(in_log: bool) -> str:
-        return tr("page.installation.log_present" if in_log else "page.installation.log_absent")
 
     def _show_catalogue_changes(self, references: list[str]) -> None:
         if references:
@@ -683,6 +681,37 @@ class InstallationPage(BasePage):
                 tr("page.installation.log_unexpected", entries="\n".join(report.unexpected)),
                 COLOR_WARNING,
             )
+
+    def _export_diagnostic(self) -> None:
+        """Ask where to save the diagnostic archive of the run, then write it."""
+        default_path = Path.home() / InstallationDiagnostic.default_file_name()
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            tr("page.installation.diagnostic.dialog_title"),
+            str(default_path),
+            DIAGNOSTIC_FILE_FILTER,
+        )
+        if not file_path:
+            return
+        target = Path(file_path)
+        if target.suffix.lower() != DIAGNOSTIC_FILE_SUFFIX:
+            target = target.with_name(target.name + DIAGNOSTIC_FILE_SUFFIX)
+
+        try:
+            InstallationDiagnostic(self._executor.journal_path).export(target)
+        except OSError as error:
+            logger.error("Diagnostic export failed: %s", error)
+            QMessageBox.critical(
+                self,
+                tr("page.installation.diagnostic.dialog_title"),
+                tr("page.installation.diagnostic.failed", path=str(target), error=str(error)),
+            )
+            return
+        QMessageBox.information(
+            self,
+            tr("page.installation.diagnostic.dialog_title"),
+            tr("page.installation.diagnostic.exported", path=str(target)),
+        )
 
     def _report_problem(self, detail: str) -> None:
         message = tr("page.installation.recovery", detail=detail)
@@ -899,6 +928,7 @@ class InstallationPage(BasePage):
         self._input_text.setEnabled(running)
         # Batching is part of the frozen plan; pause preferences stay adjustable.
         self._cb_batch_install.setEnabled(not running and not self.is_resume())
+        self._btn_diagnostic.setEnabled(self._executor.journal_path.exists())
         self._update_navigation_buttons()
 
     def _refresh_progress(self) -> None:
@@ -945,7 +975,13 @@ class InstallationPage(BasePage):
             if outcome == RunOutcome.COMPLETE
             else QMessageBox.Icon.Warning
         )
+        msg_box.addButton(QMessageBox.StandardButton.Ok)
+        export_button = msg_box.addButton(
+            tr("page.installation.btn_diagnostic"), QMessageBox.ButtonRole.ActionRole
+        )
         msg_box.exec()
+        if msg_box.clickedButton() is export_button:
+            self._export_diagnostic()
 
     def _update_navigation_buttons(self):
         """Update navigation buttons."""
@@ -1077,7 +1113,7 @@ class InstallationPage(BasePage):
         return tr("page.installation.title")
 
     def get_additional_buttons(self) -> list[QPushButton]:
-        return [self._btn_start_pause, self._btn_stop, self._btn_cancel]
+        return [self._btn_start_pause, self._btn_stop, self._btn_cancel, self._btn_diagnostic]
 
     def get_next_button_config(self) -> ButtonConfig:
         return ButtonConfig(
@@ -1107,6 +1143,7 @@ class InstallationPage(BasePage):
 
         self._ensure_readable_journal()
         self._display_installation_summary()
+        self._refresh_controls()
 
     def on_page_hidden(self):
         """Called when page hidden."""
@@ -1121,6 +1158,8 @@ class InstallationPage(BasePage):
 
         self._btn_stop.setText(tr("page.installation.btn_stop"))
         self._btn_cancel.setText(tr("page.installation.btn_cancel"))
+        self._btn_diagnostic.setText(tr("page.installation.btn_diagnostic"))
+        self._btn_diagnostic.setToolTip(tr("page.installation.btn_diagnostic_tooltip"))
         self._btn_send_input.setText(tr("page.installation.btn_send_input"))
         self._lbl_log.setText(tr("page.installation.lbl_log"))
 

@@ -81,7 +81,12 @@ class WeiDUInstallerEngine:
 
     def debug_file(self, tp2: str) -> Path:
         """Get the path to the debug file."""
-        return self.game_dir / f"setup-{tp2}.debug".upper()
+        return self.debug_file_in(self.game_dir, tp2)
+
+    @staticmethod
+    def debug_file_in(game_dir: Path, tp2: str) -> Path:
+        """Path of the DEBUG file that WeiDU writes for a TP2 in a game folder."""
+        return game_dir / f"setup-{tp2}.debug".upper()
 
     def debug_backup_file(self, tp2: str) -> Path:
         """Get the path to the debug backup file."""

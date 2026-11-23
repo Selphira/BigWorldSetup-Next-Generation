@@ -43,6 +43,8 @@ DYNAMIC_FAMILIES: dict[str, Iterable[str]] = {
     "page.installation.status.{}": [status.value for status in ComponentStatus],
     # InstallationPage: outcome of the whole run
     "page.installation.{}": [outcome.value for outcome in RunOutcome],
+    # InstallationDiagnostic: counters of InstallationJournal.stats()
+    "page.installation.stats.{}": ["success", "warnings", "errors", "skipped"],
     # InstallationPage: last line of the plan summary, new run or resume
     "page.installation.summary.{}": ["ready", "ready_to_resume"],
     # Rules: order constraint direction
