@@ -22,11 +22,15 @@ from validation.catalogue import ROOT
 LOCALES_DIR = ROOT / "i18n"
 REFERENCE_LANGUAGE = "en_US"
 COMPLETE_LANGUAGES = ("en_US", "fr_FR")
-SOURCE_PATHS = (ROOT / "core", ROOT / "ui", ROOT / "main.py")
+# constants.py holds keys of generated rule descriptions (RULE_ORIGIN_DESCRIPTION_KEYS).
+# No key is referenced from data files, .ui files or util/: they need no scan.
+SOURCE_PATHS = (ROOT / "core", ROOT / "ui", ROOT / "main.py", ROOT / "constants.py")
 
 # Every key built at runtime, written as the f-string template with each
 # interpolated value replaced by "{}", mapped to the values it can receive.
-# A new dynamic tr() call must be declared here so its keys get checked.
+# A new dynamic tr() call must be declared here so its keys get checked, and
+# so its keys are not reported as unused: a key of a language file is kept
+# only when a literal of the code or one of these families can produce it.
 DYNAMIC_FAMILIES: dict[str, Iterable[str]] = {
     # ExtractionPipeline: refusal reason of the archive extractor
     "page.extraction.failure.{}": [failure.value for failure in ExtractionFailure],
@@ -109,6 +113,12 @@ def _template(key: ast.JoinedStr) -> str:
     return "".join(
         part.value if isinstance(part, ast.Constant) else "{}" for part in key.values
     )
+
+
+def _dynamic_keys() -> Iterator[str]:
+    for template, values in DYNAMIC_FAMILIES.items():
+        for value in values:
+            yield template.format(value)
 
 
 def _missing_languages(key: str) -> list[str]:
@@ -213,6 +223,19 @@ def test_literal_calls_provide_every_placeholder() -> None:
 # ========================================
 # LANGUAGE FILES
 # ========================================
+
+
+def test_every_english_key_is_used_by_the_code() -> None:
+    used = {key for _, _, key in _literal_keys()} | set(_dynamic_keys())
+
+    assert sorted(set(TEXTS[REFERENCE_LANGUAGE]) - used) == []
+
+
+@pytest.mark.parametrize("language", sorted(path.stem for path in LOCALES_DIR.glob("*.json")))
+def test_translations_define_only_english_keys(language: str) -> None:
+    unknown = set(_load_texts(language)) - set(TEXTS[REFERENCE_LANGUAGE])
+
+    assert sorted(unknown) == []
 
 
 def test_french_and_english_define_the_same_keys() -> None:
