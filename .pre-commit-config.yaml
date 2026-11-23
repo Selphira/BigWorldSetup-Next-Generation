@@ -1,0 +1,31 @@
+# Hooks exécutés avant chaque commit. Installation : `pre-commit install`.
+# Tous les hooks sont locaux : ils utilisent les outils de requirements-dev.txt.
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: Vérifier le formatage (ruff format)
+        language: system
+        entry: python -m ruff format --check
+        types: [python]
+
+      - id: rules-dependencies
+        name: Valider data/rules/dependencies.json
+        language: system
+        entry: python -X utf8 validation/validator.py data/rules/dependencies.json validation/schemas/rule-dependencies-definition.json --errors-only
+        files: ^(data/rules/dependencies\.json|validation/schemas/rule-dependencies-definition\.json|validation/validator\.py)$
+        pass_filenames: false
+
+      - id: rules-incompatibilities
+        name: Valider data/rules/incompatibilities.json
+        language: system
+        entry: python -X utf8 validation/validator.py data/rules/incompatibilities.json validation/schemas/rule-incompatibilities-definition.json --errors-only
+        files: ^(data/rules/incompatibilities\.json|validation/schemas/rule-incompatibilities-definition\.json|validation/validator\.py)$
+        pass_filenames: false
+
+      - id: rules-order
+        name: Valider data/rules/order.json
+        language: system
+        entry: python -X utf8 validation/validator.py data/rules/order.json validation/schemas/rule-order-definition.json --errors-only
+        files: ^(data/rules/order\.json|validation/schemas/rule-order-definition\.json|validation/validator\.py)$
+        pass_filenames: false
