@@ -174,13 +174,20 @@ class ApplicationInitializer(QObject):
             self._fail(f"Fatal error during initialization:\n\n{error}")
 
     def _fail(self, message: str) -> None:
+        with contextlib.suppress(BaseException):
+            QMessageBox.critical(self._dialog_parent(), tr("error.critical_title"), message)
+
         if self.splash:
             self.splash.close()
 
-        with contextlib.suppress(BaseException):
-            QMessageBox.critical(None, tr("error.critical_title"), message)
-
         self.failed.emit()
+
+    def _dialog_parent(self) -> SplashScreen | None:
+        """Return the parent of startup dialogs, which would otherwise open below the splash."""
+        if self.splash and self.splash.isVisible():
+            return self.splash
+
+        return None
 
     def _initialize_state(self) -> StateManager:
         """
@@ -241,10 +248,9 @@ class ApplicationInitializer(QObject):
         # Map update progress to 10-30% range
         self.splash.set_progress(10 + int(progress * 0.20))
 
-    @staticmethod
-    def _warn_update_failed(errors: list[str]) -> None:
+    def _warn_update_failed(self, errors: list[str]) -> None:
         QMessageBox.warning(
-            None,
+            self._dialog_parent(),
             tr("warning.title"),
             tr("warning.data_update_failed_detail", message="\n".join(errors)),
         )
