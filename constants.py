@@ -66,6 +66,8 @@ CUSTOM_MODS_DIR: Path = USER_DIR / "mods"
 DOWNLOADED_CATALOGUE_DIR: Path = VAR_DIR / "catalogue"
 # Kept until the run is closed
 CURRENT_RUN_DIR: Path = VAR_DIR / "runs" / "current"
+# Diagnostic archive of each closed run, kept without limit
+RUN_HISTORY_DIR: Path = VAR_DIR / "runs" / "history"
 # Rebuilt when missing
 CACHE_DIR: Path = VAR_DIR / "cache"
 LOG_DIR: Path = VAR_DIR / "logs"
@@ -125,6 +127,13 @@ DIAGNOSTIC_PLAN_ENTRY = "plan.json"
 # One directory per game folder of the run, numbered from 1 in order of appearance
 DIAGNOSTIC_GAME_DIRECTORY = "game-{number}"
 DIAGNOSTIC_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+# Archive of a closed run in RUN_HISTORY_DIR: "<date>-<game>-<outcome>.zip", where the
+# outcome is the RunOutcome of a finished run or HISTORY_CANCELLED_OUTCOME; a name
+# already taken gets a counter before the suffix
+HISTORY_FILE_NAME = "{date}-{game}-{outcome}"
+HISTORY_FILE_STAMP_FORMAT = "%Y%m%d-%H%M%S"
+HISTORY_CANCELLED_OUTCOME = "cancelled"
+HISTORY_FILE_COUNTER = "-{number}"
 
 # Extraction: proof of preparation, kept under EXTRACT_DIR of each game folder
 EXTRACT_MANIFEST_DIR = ".manifests"

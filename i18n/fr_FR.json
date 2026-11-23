@@ -572,6 +572,9 @@
         "exported": "Diagnostic enregistré dans {path}.\n\nJoignez ce fichier à votre demande d'aide.",
         "failed": "Le diagnostic n'a pas pu être enregistré dans {path} : {error}\n\nAucun fichier n'a été modifié. Choisissez un autre dossier, accessible en écriture et disposant d'espace libre."
       },
+      "history_failed": "L'installation n'a pas pu être close : son diagnostic n'a pas pu être enregistré dans {path} : {error}\n\nL'installation reste ouverte et inchangée ; elle peut toujours être reprise. Libérez de l'espace ou vérifiez les droits d'écriture de ce dossier, puis réessayez.",
+      "current_run_not_cleared": "L'installation est close et son diagnostic est enregistré dans {archive}, mais le dossier de l'installation courante ({path}) n'a pas pu être vidé : {error}\n\nL'installation peut réapparaître comme ouverte. Fermez les programmes qui utilisent ce dossier, puis réessayez : un second diagnostic sera enregistré.",
+      "close_failed_title": "Installation non close",
       "recovery_title": "Installation suspendue"
     }
   },

@@ -1,24 +1,33 @@
-"""L12: format 4 of the installation journal, with the identity and closure of the run."""
+"""L12: format 4 of the installation journal, the closure of the run and its history archive."""
 
+from datetime import UTC, datetime
 import json
 from pathlib import Path
+import re
 from unittest.mock import Mock
+import zipfile
 
 import pytest
 
-from constants import INSTALLATION_JOURNAL_FORMAT
-from core.InstallationExecutor import InstallationExecutor
+from constants import (
+    DIAGNOSTIC_PLAN_ENTRY,
+    DIAGNOSTIC_SUMMARY_ENTRY,
+    INSTALLATION_JOURNAL_FORMAT,
+)
+from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import (
     InstallationJournal,
     JournalError,
     Operation,
     RunClosure,
+    RunLifecycle,
     RunPlan,
     RunSequence,
 )
 from core.weidu_types import AttemptEvidence, ComponentStatus, InstallResult
 
 COMPONENT = "demo:0"
+HISTORY_NAME = re.compile(r"\d{8}-\d{6}-eet-(?P<outcome>[a-z]+)\.zip")
 
 
 @pytest.fixture
@@ -66,6 +75,19 @@ def install_component(journal: InstallationJournal, folder: Path) -> None:
     (folder / "WeiDU.log").write_text("~DEMO/DEMO.TP2~ #0 #0 // Demo\n", encoding="utf-8")
 
 
+def archived_journal(executor: InstallationExecutor) -> InstallationJournal:
+    """Journal of the only run archived in the history, rebuilt from its archive."""
+    (archive,) = executor.history_dir.glob("*.zip")
+    with zipfile.ZipFile(archive) as content:
+        document = content.read(executor.journal_path.name)
+    copy = executor.history_dir / executor.journal_path.name
+    copy.write_bytes(document)
+    try:
+        return InstallationJournal.load(copy)
+    finally:
+        copy.unlink()
+
+
 def executor_for(journal: InstallationJournal) -> InstallationExecutor:
     executor = InstallationExecutor(Mock(), journal_path=journal.path)
     executor.load()
@@ -110,8 +132,9 @@ def test_finished_run_is_closed_as_finished_and_dated(
 
     executor.finish()
 
-    closed = InstallationJournal.load(journal.path)
+    closed = archived_journal(executor)
     assert not closed.active and not executor.is_active
+    assert not journal.path.exists()
     assert closed.lifecycle.closure == RunClosure.FINISHED
     assert closed.lifecycle.closed_at >= closed.lifecycle.started_at
     assert closed.lifecycle.run_id == journal.lifecycle.run_id
@@ -133,7 +156,7 @@ def test_cancelled_run_is_closed_as_cancelled_and_keeps_its_operations(
 
     executor.cancel()
 
-    closed = InstallationJournal.load(journal.path)
+    closed = archived_journal(executor)
     assert closed.lifecycle.closure == RunClosure.CANCELLED
     assert closed.lifecycle.closed_at is not None
     assert closed.sequences[0].operations[0].reference == COMPONENT
@@ -142,11 +165,11 @@ def test_cancelled_run_is_closed_as_cancelled_and_keeps_its_operations(
 def test_closed_run_is_not_closed_again(journal: InstallationJournal) -> None:
     executor = executor_for(journal)
     executor.cancel()
-    first = InstallationJournal.load(journal.path).lifecycle
+    first = archived_journal(executor).lifecycle
 
-    executor.cancel()
+    assert executor.cancel() is None and executor.finish() is None
 
-    assert InstallationJournal.load(journal.path).lifecycle == first
+    assert archived_journal(executor).lifecycle == first
 
 
 def as_format_3(document: dict) -> dict:
@@ -197,3 +220,111 @@ def test_inconsistent_run_lifecycle_is_unreadable(
 
     with pytest.raises(JournalError):
         InstallationJournal.load(journal.path)
+
+
+# ============================================================================
+# History archive of a closed run
+# ============================================================================
+
+
+def history(executor: InstallationExecutor) -> list[Path]:
+    return sorted(executor.history_dir.glob("*.zip"))
+
+
+def archive_entries(archive: Path) -> list[str]:
+    with zipfile.ZipFile(archive) as content:
+        return content.namelist()
+
+
+def disk_full(monkeypatch: pytest.MonkeyPatch) -> None:
+    def write(*args: object, **kwargs: object) -> None:
+        raise OSError("No space left on device")
+
+    monkeypatch.setattr(zipfile.ZipFile, "writestr", write)
+
+
+def test_finished_run_is_archived_by_date_game_and_outcome(
+    journal: InstallationJournal, tmp_path: Path
+) -> None:
+    install_component(journal, tmp_path)
+    executor = executor_for(journal)
+
+    archive = executor.finish()
+
+    assert history(executor) == [archive]
+    assert HISTORY_NAME.fullmatch(archive.name)["outcome"] == "complete"
+    entries = archive_entries(archive)
+    assert {journal.path.name, DIAGNOSTIC_SUMMARY_ENTRY, DIAGNOSTIC_PLAN_ENTRY} <= set(entries)
+    assert archived_journal(executor).lifecycle.closure == RunClosure.FINISHED
+
+
+def test_cancelled_run_is_archived_as_cancelled(journal: InstallationJournal) -> None:
+    executor = executor_for(journal)
+
+    archive = executor.cancel()
+
+    assert HISTORY_NAME.fullmatch(archive.name)["outcome"] == "cancelled"
+
+
+def test_closing_empties_the_current_run_and_archives_the_set_aside_journals(
+    journal: InstallationJournal,
+) -> None:
+    set_aside = journal.path.with_name(f"{journal.path.name}.unreadable-20261101-120000")
+    set_aside.write_text("{unreadable", encoding="utf-8")
+    executor = executor_for(journal)
+
+    archive = executor.cancel()
+
+    assert set_aside.name in archive_entries(archive)
+    assert list(journal.path.parent.iterdir()) == []
+    assert not executor.is_active and not executor.has_current_run
+
+
+def test_archive_of_a_same_second_closure_does_not_replace_the_previous_one(
+    journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    closed_at = datetime(2026, 11, 23, 22, 0, tzinfo=UTC)
+    monkeypatch.setattr(RunLifecycle, "_now", staticmethod(lambda: closed_at))
+    executor = executor_for(journal)
+    first = executor.cancel()
+    journal.save()
+    executor.load()
+
+    second = executor.cancel()
+
+    assert second != first and second.name.endswith("-2.zip")
+    assert set(history(executor)) == {first, second}
+
+
+# ============================================================================
+# Failed archive
+# ============================================================================
+
+
+def test_failed_archive_leaves_the_current_run_intact(
+    journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    saved = journal.path.read_bytes()
+    executor = executor_for(journal)
+    disk_full(monkeypatch)
+
+    with pytest.raises(InstallationError, match="No space left on device"):
+        executor.cancel()
+
+    assert journal.path.read_bytes() == saved
+    assert executor.is_active and InstallationJournal.load(journal.path).active
+    assert list(executor.history_dir.iterdir()) == []
+
+
+def test_failed_archive_can_be_retried(
+    journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    executor = executor_for(journal)
+    disk_full(monkeypatch)
+    with pytest.raises(InstallationError):
+        executor.cancel()
+
+    monkeypatch.undo()
+    archive = executor.cancel()
+
+    assert history(executor) == [archive] and not journal.path.exists()

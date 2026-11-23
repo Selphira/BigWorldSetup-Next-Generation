@@ -225,10 +225,12 @@ def page_for(tmp_path: Path, qtbot: QtBot) -> InstallationPage:
     page = InstallationPage(state)
     qtbot.addWidget(page)
     page.retranslate_ui()
+    page._executor.load()
+    page._refresh_controls()
     return page
 
 
-def test_export_button_needs_a_journal(tmp_path: Path, qtbot: QtBot) -> None:
+def test_export_button_needs_a_current_run(tmp_path: Path, qtbot: QtBot) -> None:
     page = page_for(tmp_path, qtbot)
 
     assert not page._btn_diagnostic.isEnabled()

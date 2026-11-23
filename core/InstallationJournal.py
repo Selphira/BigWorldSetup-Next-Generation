@@ -6,7 +6,7 @@ reported, so that an interrupted run can be resumed from what was proven.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime
 from enum import Enum
 import json
@@ -404,15 +404,16 @@ class InstallationJournal:
 
     def save(self) -> None:
         """Replace the journal atomically."""
-        write_json_atomic(
-            self.path,
-            {
-                "format": INSTALLATION_JOURNAL_FORMAT,
-                "run": self.lifecycle.to_dict(),
-                "plan": asdict(self.plan),
-                "sequences": [seq.to_dict() for seq in self.sequences],
-            },
-        )
+        write_json_atomic(self.path, self.to_document())
+
+    def to_document(self) -> dict[str, Any]:
+        """Content of the journal file."""
+        return {
+            "format": INSTALLATION_JOURNAL_FORMAT,
+            "run": self.lifecycle.to_dict(),
+            "plan": asdict(self.plan),
+            "sequences": [seq.to_dict() for seq in self.sequences],
+        }
 
     # ------------------------------------------------------------------
     # Transitions
@@ -478,11 +479,15 @@ class InstallationJournal:
             in_log=False,
         )
 
-    def close(self, closure: RunClosure) -> None:
-        """Date and persist the end of the run; its journal stays readable."""
-        self.lifecycle.close(closure)
-        self.save()
-        logger.info("Installation run %s closed: %s", self.lifecycle.run_id, closure.value)
+    def closed_copy(self, closure: RunClosure) -> InstallationJournal:
+        """Copy of the run closed now, left unsaved.
+
+        The saved journal stays open until the closed copy is archived: a failure
+        in between leaves the run resumable.
+        """
+        lifecycle = replace(self.lifecycle)
+        lifecycle.close(closure)
+        return InstallationJournal(self.path, self.plan, self.sequences, lifecycle)
 
     # ------------------------------------------------------------------
     # Queries

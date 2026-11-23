@@ -4,7 +4,7 @@ from pathlib import Path
 from threading import Event
 from unittest.mock import Mock
 
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QFileDialog, QMessageBox
 import pytest
 from pytestqt.qtbot import QtBot
 
@@ -16,6 +16,7 @@ from core.weidu_types import ComponentStatus, InstallResult
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine
 from tests.conftest import ModCatalogue
 from tests.test_l4_installation import result, state_for
+from tests.test_l12_run_journal import archived_journal, disk_full, history
 from ui.pages.InstallationPage import DecisionDialog, InstallationPage, RunAction
 
 COMPONENT = "a:0"
@@ -87,7 +88,11 @@ def played_run(state: Mock, status: ComponentStatus) -> InstallationJournal:
 
 
 def closure(page: InstallationPage) -> RunClosure | None:
-    return InstallationJournal.load(page._executor.journal_path).lifecycle.closure
+    """None while the run is current, then its closure as kept in the history."""
+    executor = page._executor
+    if executor.journal_path.exists():
+        return InstallationJournal.load(executor.journal_path).lifecycle.closure
+    return archived_journal(executor).lifecycle.closure
 
 
 # ============================================================================
@@ -296,3 +301,53 @@ def test_declined_finish_keeps_the_run_open(
     state.reset_workflow.assert_not_called()
     window.close.assert_not_called()
     assert page._run_action() == RunAction.FINISH
+
+
+# ============================================================================
+# History and export of the current run
+# ============================================================================
+
+
+def test_failed_archive_keeps_the_run_open_on_the_page(
+    qtbot: QtBot,
+    state: Mock,
+    monkeypatch: pytest.MonkeyPatch,
+    questions: list[str],
+) -> None:
+    played_run(state, ComponentStatus.SUCCESS)
+    page = open_page(qtbot, state, monkeypatch)
+    window = Mock()
+    monkeypatch.setattr(page, "window", lambda: window)
+    shown: list[str] = []
+    monkeypatch.setattr(QMessageBox, "exec", lambda box: shown.append(box.windowTitle()))
+    disk_full(monkeypatch)
+
+    page._on_run_action()
+
+    assert shown == [tr("page.installation.close_failed_title")]
+    window.close.assert_not_called()
+    state.reset_workflow.assert_not_called()
+    assert page._run_action() == RunAction.FINISH
+    assert page._btn_diagnostic.isEnabled()
+
+
+def test_export_is_limited_to_the_current_run(
+    qtbot: QtBot,
+    state: Mock,
+    monkeypatch: pytest.MonkeyPatch,
+    questions: list[str],
+) -> None:
+    played_run(state, ComponentStatus.SUCCESS)
+    page = open_page(qtbot, state, monkeypatch)
+    monkeypatch.setattr(page, "window", Mock())
+    assert page._btn_diagnostic.isEnabled()
+    page._on_run_action()
+    choose = Mock(return_value=("", ""))
+    monkeypatch.setattr(QFileDialog, "getSaveFileName", choose)
+
+    page._refresh_controls()
+    page._export_diagnostic()
+
+    assert len(history(page._executor)) == 1
+    assert not page._btn_diagnostic.isEnabled()
+    choose.assert_not_called()

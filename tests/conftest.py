@@ -59,6 +59,7 @@ def isolated_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterato
         "INSTALLATION_JOURNAL_FILE",
         tmp_path / installation_executor_module.INSTALLATION_JOURNAL_FILE.name,
     )
+    monkeypatch.setattr(installation_executor_module, "RUN_HISTORY_DIR", tmp_path / "history")
     IndexManager.reset()
     yield
     IndexManager.reset()

@@ -1,9 +1,10 @@
-"""Exportable diagnostic of the last installation run.
+"""Diagnostic archive of the current installation run, exported or kept in the history.
 
 The archive lets someone understand an incomplete installation without the
 whole WeiDU output: a readable summary, the journal and its frozen plan, the
-WeiDU.log of each game folder, the DEBUG files of the operations that failed or
-stayed unproven, and the versions of the application and of the catalogue.
+journals set aside as unreadable, the WeiDU.log of each game folder, the DEBUG
+files of the operations that failed or stayed unproven, and the versions of the
+application and of the catalogue.
 """
 
 from __future__ import annotations
@@ -29,13 +30,19 @@ from constants import (
     DIAGNOSTIC_PLAN_ENTRY,
     DIAGNOSTIC_SUMMARY_ENTRY,
     DIAGNOSTIC_VERSIONS_ENTRY,
+    HISTORY_CANCELLED_OUTCOME,
+    HISTORY_FILE_COUNTER,
+    HISTORY_FILE_NAME,
+    HISTORY_FILE_STAMP_FORMAT,
 )
+from core.atomic_io import set_aside_files
 from core.CatalogueLocation import CatalogueLocation
 from core.InstallationJournal import (
     InstallationJournal,
     JournalError,
     Operation,
     OperationDecision,
+    RunClosure,
 )
 from core.TranslationManager import tr
 from core.weidu_types import AttemptEvidence, ComponentStatus
@@ -89,6 +96,7 @@ class DiagnosticContent:
         journal_error: Why the journal could not be read
         versions: Application and catalogue versions
         game_directories: Archive directory of each game folder of the run
+        documents: Archive entry name of each JSON document written from memory
         files: Archive entry name of each file copied from disk
     """
 
@@ -97,6 +105,7 @@ class DiagnosticContent:
     journal_error: str | None
     versions: dict[str, Any]
     game_directories: dict[str, str] = field(default_factory=dict)
+    documents: dict[str, Any] = field(default_factory=dict)
     files: dict[str, Path] = field(default_factory=dict)
 
     @property
@@ -118,16 +127,41 @@ class InstallationDiagnostic:
         stamp = datetime.now().strftime(DIAGNOSTIC_FILE_STAMP_FORMAT)
         return f"{DIAGNOSTIC_FILE_PREFIX}{stamp}{DIAGNOSTIC_FILE_SUFFIX}"
 
-    def export(self, target: Path) -> None:
+    @staticmethod
+    def history_path(directory: Path, journal: InstallationJournal) -> Path:
+        """Free path, in the history `directory`, of the archive of a closed run."""
+        lifecycle = journal.lifecycle
+        outcome = (
+            HISTORY_CANCELLED_OUTCOME
+            if lifecycle.closure == RunClosure.CANCELLED
+            else journal.outcome().value
+        )
+        stem = HISTORY_FILE_NAME.format(
+            date=lifecycle.closed_at.strftime(HISTORY_FILE_STAMP_FORMAT),
+            game=journal.plan.game,
+            outcome=outcome,
+        )
+
+        target = directory / f"{stem}{DIAGNOSTIC_FILE_SUFFIX}"
+        number = 1
+        while target.exists():
+            number += 1
+            counter = HISTORY_FILE_COUNTER.format(number=number)
+            target = directory / f"{stem}{counter}{DIAGNOSTIC_FILE_SUFFIX}"
+        return target
+
+    def export(self, target: Path, journal: InstallationJournal | None = None) -> None:
         """Write the diagnostic archive, replacing `target` only once it is complete.
 
         Args:
             target: Destination of the zip archive
+            journal: Run to describe instead of the saved journal, written from
+                memory: the closed copy of a run whose journal is still open
 
         Raises:
             OSError: The archive cannot be written
         """
-        content = self._gather()
+        content = self._gather(journal)
         self._write_archive(target, content)
         logger.info(
             "Installation diagnostic exported to %s (%d files, %d missing)",
@@ -140,15 +174,25 @@ class InstallationDiagnostic:
     # Gathering
     # ------------------------------------------------------------------
 
-    def _gather(self) -> DiagnosticContent:
+    def _gather(self, journal: InstallationJournal | None) -> DiagnosticContent:
         created = datetime.now().astimezone()
-        journal, journal_error = self._read_journal()
-        content = DiagnosticContent(created, journal, journal_error, self._versions(created))
+        if journal is None:
+            journal, journal_error = self._read_journal()
+            content = DiagnosticContent(
+                created, journal, journal_error, self._versions(created)
+            )
+            content.files[self._journal_path.name] = self._journal_path
+        else:
+            content = DiagnosticContent(created, journal, None, self._versions(created))
+            content.documents[self._journal_path.name] = journal.to_document()
 
-        content.files[self._journal_path.name] = self._journal_path
+        content.documents[DIAGNOSTIC_VERSIONS_ENTRY] = content.versions
+        for set_aside in set_aside_files(self._journal_path):
+            content.files[set_aside.name] = set_aside
         if journal is None:
             return content
 
+        content.documents[DIAGNOSTIC_PLAN_ENTRY] = asdict(journal.plan)
         for sequence in journal.sequences:
             if sequence.folder in content.game_directories:
                 continue
@@ -203,11 +247,8 @@ class InstallationDiagnostic:
         try:
             with zipfile.ZipFile(temporary, "w", zipfile.ZIP_DEFLATED) as archive:
                 archive.writestr(DIAGNOSTIC_SUMMARY_ENTRY, self._summary(content))
-                archive.writestr(DIAGNOSTIC_VERSIONS_ENTRY, self._json(content.versions))
-                if content.journal is not None:
-                    archive.writestr(
-                        DIAGNOSTIC_PLAN_ENTRY, self._json(asdict(content.journal.plan))
-                    )
+                for entry, document in content.documents.items():
+                    archive.writestr(entry, self._json(document))
                 for entry, path in content.files.items():
                     if path.is_file():
                         archive.write(path, entry)

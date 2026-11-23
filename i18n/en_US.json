@@ -572,6 +572,9 @@
         "exported": "Diagnostic saved to {path}.\n\nAttach this file to your help request.",
         "failed": "The diagnostic could not be saved to {path}: {error}\n\nNo file was changed. Choose another folder that is writable and has free space."
       },
+      "history_failed": "The installation could not be closed: its diagnostic could not be saved to {path}: {error}\n\nThe installation stays open and unchanged; it can still be resumed. Free some space or check the write permissions of this folder, then try again.",
+      "current_run_not_cleared": "The installation is closed and its diagnostic is saved to {archive}, but the current installation folder ({path}) could not be emptied: {error}\n\nThe installation may show up as open again. Close the programs using this folder, then try again: a second diagnostic will be saved.",
+      "close_failed_title": "Installation Not Closed",
       "recovery_title": "Installation Suspended"
     }
   },

@@ -1,6 +1,7 @@
 """Durable persistence of JSON files: atomic replacement and setting aside unreadable ones."""
 
 from datetime import datetime
+import glob
 import json
 import os
 from pathlib import Path
@@ -44,3 +45,8 @@ def set_aside_unreadable(path: Path) -> Path:
     target = path.with_name(f"{path.name}{UNREADABLE_FILE_SUFFIX}{stamp}")
     path.rename(target)
     return target
+
+
+def set_aside_files(path: Path) -> list[Path]:
+    """Files set aside for `path` by `set_aside_unreadable`, oldest first."""
+    return sorted(path.parent.glob(f"{glob.escape(path.name)}{UNREADABLE_FILE_SUFFIX}*"))

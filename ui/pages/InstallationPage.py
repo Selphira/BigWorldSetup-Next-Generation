@@ -606,17 +606,9 @@ class InstallationPage(BasePage):
 
     def _finish_cancellation(self) -> None:
         self._cancelling = False
-        if self._executor.is_active:
-            try:
-                if not self._executor.acquire():
-                    self._report_problem(tr("page.installation.active_run"))
-                    return
-                self._executor.cancel()
-            except OSError as error:
-                self._executor.release()
-                self._report_problem(str(error))
-                return
-        self._executor.release()
+        if self._executor.is_active and not self._close_run(self._executor.cancel):
+            self._set_idle()
+            return
 
         self._set_idle()
         self._reset_workflow()
@@ -631,17 +623,9 @@ class InstallationPage(BasePage):
         """Close the played run, reset the workflow, then quit the application."""
         if not self._executor.is_played or not self._confirm_finish():
             return
-
-        try:
-            if not self._executor.acquire():
-                self._report_problem(tr("page.installation.active_run"))
-                return
-            self._executor.finish()
-        except OSError as error:
-            self._executor.release()
-            self._report_problem(str(error))
+        if not self._close_run(self._executor.finish):
+            self._refresh_controls()
             return
-        self._executor.release()
 
         self._reset_workflow()
         logger.info("Installation run finished, closing the application")
@@ -663,6 +647,31 @@ class InstallationPage(BasePage):
             defaultButton=QMessageBox.StandardButton.No,
         )
         return reply == QMessageBox.StandardButton.Yes
+
+    def _close_run(self, close: Callable[[], Path | None]) -> bool:
+        """Finish or cancel the run under its lock; False when it stays current."""
+        try:
+            if not self._executor.acquire():
+                self._report_problem(tr("page.installation.active_run"))
+                return False
+            close()
+        except InstallationError as error:
+            self._report_closure_failure(str(error))
+            return False
+        except OSError as error:
+            self._report_problem(str(error))
+            return False
+        finally:
+            self._executor.release()
+        return True
+
+    def _report_closure_failure(self, message: str) -> None:
+        self._append_output(message, COLOR_ERROR)
+        msg_box = QMessageBox(self)
+        msg_box.setIcon(QMessageBox.Icon.Critical)
+        msg_box.setWindowTitle(tr("page.installation.close_failed_title"))
+        msg_box.setText(message)
+        self._exec_offering_diagnostic(msg_box)
 
     def _reset_workflow(self) -> None:
         """Forget the selection and the order, then go back to the first step."""
@@ -813,7 +822,13 @@ class InstallationPage(BasePage):
             )
 
     def _export_diagnostic(self) -> None:
-        """Ask where to save the diagnostic archive of the run, then write it."""
+        """Ask where to save the diagnostic archive of the current run, then write it.
+
+        Closed runs are not exported: their archive is already in the history.
+        """
+        if not self._executor.has_current_run:
+            return
+
         default_path = Path.home() / InstallationDiagnostic.default_file_name()
         file_path, _ = QFileDialog.getSaveFileName(
             self,
@@ -856,10 +871,10 @@ class InstallationPage(BasePage):
         self._exec_offering_diagnostic(msg_box)
 
     def _exec_offering_diagnostic(self, msg_box: QMessageBox) -> None:
-        """Show a message box with an export button while a journal exists to export."""
+        """Show a message box with an export button while a current run exists to export."""
         msg_box.addButton(QMessageBox.StandardButton.Ok)
         export_button = None
-        if self._executor.journal_path.exists():
+        if self._executor.has_current_run:
             export_button = msg_box.addButton(
                 tr("page.installation.btn_diagnostic"), QMessageBox.ButtonRole.ActionRole
             )
@@ -1074,7 +1089,7 @@ class InstallationPage(BasePage):
         self._input_text.setEnabled(running and not self._is_paused)
         # Batching is part of the frozen plan; pause preferences stay adjustable.
         self._cb_batch_install.setEnabled(not running and not self.is_resume())
-        self._btn_diagnostic.setEnabled(self._executor.journal_path.exists())
+        self._btn_diagnostic.setEnabled(self._executor.has_current_run)
         self._update_navigation_buttons()
 
     def _refresh_run_action(self) -> None:

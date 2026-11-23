@@ -13,10 +13,11 @@ from pathlib import Path
 
 from PySide6.QtCore import QLockFile
 
-from constants import INSTALLATION_JOURNAL_FILE
-from core.atomic_io import set_aside_unreadable
+from constants import INSTALLATION_JOURNAL_FILE, RUN_HISTORY_DIR
+from core.atomic_io import set_aside_files, set_aside_unreadable
 from core.ComponentReference import ComponentReference
 from core.ExtractionManifest import ExtractionManifest
+from core.InstallationDiagnostic import InstallationDiagnostic
 from core.InstallationJournal import (
     InstallationJournal,
     JournalError,
@@ -71,12 +72,18 @@ class StartReport:
 class InstallationExecutor:
     """Own the run plan, its journal, its lock and the order of sequences."""
 
-    def __init__(self, state_manager: StateManager, journal_path: Path | None = None):
+    def __init__(
+        self,
+        state_manager: StateManager,
+        journal_path: Path | None = None,
+        history_dir: Path | None = None,
+    ):
         self._state = state_manager
         self._log_parser = WeiDULogParser()
         self._reconciler = InstallationReconciler(self._log_parser)
 
         self.journal_path = journal_path or INSTALLATION_JOURNAL_FILE
+        self.history_dir = history_dir or RUN_HISTORY_DIR
         self._lock = QLockFile(str(self.journal_path) + ".lock")
         self.journal: InstallationJournal | None = None
         self.load_error: str | None = None
@@ -89,6 +96,11 @@ class InstallationExecutor:
     def is_active(self) -> bool:
         """Whether a run is open: running, interrupted, suspended or played."""
         return bool(self.journal and self.journal.active)
+
+    @property
+    def has_current_run(self) -> bool:
+        """Whether the current run directory holds a run: open, or with an unreadable journal."""
+        return self.is_active or self.load_error is not None
 
     def load(self) -> None:
         """Read the journal; an unreadable journal is reported through `load_error`."""
@@ -221,19 +233,76 @@ class InstallationExecutor:
         """Whether the open run has nothing left to install or to decide."""
         return bool(self.journal and self.journal.played)
 
-    def finish(self) -> None:
-        """Close a played run, complete or not, at the explicit request of the user."""
+    def finish(self) -> Path | None:
+        """Close a played run, complete or not, at the explicit request of the user.
+
+        Returns:
+            History archive of the run, or None when the run is not played
+
+        Raises:
+            InstallationError: The archive or the emptying of the current run failed
+        """
         if not self.is_played:
             logger.warning("Finish ignored: the run is not played")
-            return
-        self.journal.close(RunClosure.FINISHED)
-        logger.info("Installation run finished")
+            return None
+        return self._close(RunClosure.FINISHED)
 
-    def cancel(self) -> None:
-        """Abandon the run; its journal stays readable until the next run starts."""
-        if self.journal and self.journal.active:
-            self.journal.close(RunClosure.CANCELLED)
-        logger.info("Installation run cancelled")
+    def cancel(self) -> Path | None:
+        """Abandon the open run.
+
+        Returns:
+            History archive of the run, or None when no run is open
+
+        Raises:
+            InstallationError: The archive or the emptying of the current run failed
+        """
+        if not self.is_active:
+            logger.warning("Cancel ignored: no run is open")
+            return None
+        return self._close(RunClosure.CANCELLED)
+
+    def _close(self, closure: RunClosure) -> Path:
+        """Archive the closed run in the history, then empty the current run directory.
+
+        The saved journal is never written closed: until the archive exists, the
+        run stays open and resumable; once it exists, the archive holds the closure.
+        """
+        closed = self.journal.closed_copy(closure)
+        archive = InstallationDiagnostic.history_path(self.history_dir, closed)
+        try:
+            InstallationDiagnostic(self.journal_path).export(archive, closed)
+        except OSError as error:
+            logger.error("Run history archive %s not written: %s", archive, error)
+            raise InstallationError(
+                tr("page.installation.history_failed", path=str(archive), error=str(error))
+            ) from error
+        logger.info(
+            "Installation run %s closed (%s), archived to %s",
+            closed.lifecycle.run_id,
+            closure.value,
+            archive,
+        )
+
+        try:
+            self._clear_current_run()
+        except OSError as error:
+            logger.error("Current run directory not emptied: %s", error)
+            raise InstallationError(
+                tr(
+                    "page.installation.current_run_not_cleared",
+                    archive=str(archive),
+                    path=str(self.journal_path.parent),
+                    error=str(error),
+                )
+            ) from error
+        self.journal = None
+        return archive
+
+    def _clear_current_run(self) -> None:
+        """Remove the journal last: an interruption before leaves the run open."""
+        for set_aside in set_aside_files(self.journal_path):
+            set_aside.unlink()
+        self.journal_path.unlink(missing_ok=True)
 
     # ------------------------------------------------------------------
     # Plan resolution
