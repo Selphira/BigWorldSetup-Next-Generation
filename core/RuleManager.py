@@ -12,11 +12,9 @@ from typing import Any, Protocol
 from constants import (
     CACHE_DIR,
     CUSTOM_MODS_DIR,
-    MODS_DIR,
     RULE_CACHE_LOCALIZATION_PROGRESS,
     RULE_CACHE_PREFIX,
     RULE_ORIGIN_DESCRIPTION_KEYS,
-    RULES_DIR,
 )
 from core.ComponentReference import ComponentReference, IndexManager
 from core.LocalizedCache import (
@@ -513,9 +511,10 @@ class RuleManager(LocalizedCacheManager):
     def __init__(
         self,
         mod_manager: ModManager,
-        rules_dir: Path = RULES_DIR,
+        rules_dir: Path,
+        *,
+        mods_dir: Path,
         cache_dir: Path = CACHE_DIR,
-        mods_dir: Path = MODS_DIR,
         custom_mods_dir: Path = CUSTOM_MODS_DIR,
     ) -> None:
         """Initialize rule manager."""

@@ -1,5 +1,6 @@
 """Isolated, offline fixtures for the L0 regression suite."""
 
+import atexit
 from collections.abc import Iterator
 import json
 import os
@@ -7,11 +8,16 @@ from pathlib import Path
 import shutil
 import socket
 import subprocess
+import tempfile
 
 os.environ["QT_QPA_PLATFORM"] = "offscreen"
+# Read once by `constants` (VAR_DIR_ENVIRONMENT_VARIABLE), hence set before any
+# project import: the suite never writes in var/ of the checkout.
+os.environ["BWS_NG_VAR_DIR"] = tempfile.mkdtemp(prefix="bws-ng-tests-var-")
 
 import pytest
 
+from core import InstallationExecutor as installation_executor_module
 from core.ComponentReference import IndexManager
 from core.Mod import Mod
 from core.RuleManager import RuleManager
@@ -19,6 +25,8 @@ from core.RuleManager import RuleManager
 # Match application import order until the parser/engine cycle is removed.
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine  # noqa: F401
 from validation.catalogue import ROOT
+
+atexit.register(shutil.rmtree, os.environ["BWS_NG_VAR_DIR"], ignore_errors=True)
 
 
 class ModCatalogue:
@@ -36,7 +44,7 @@ class ModCatalogue:
 
 @pytest.fixture(autouse=True)
 def isolated_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterator[None]:
-    """Prevent network/process IO and confine relative writes to a temporary cwd."""
+    """Prevent network/process IO and confine relative writes and the run journal to tmp."""
 
     def forbidden(*args: object, **kwargs: object) -> None:
         raise AssertionError("Real network and external processes are forbidden in tests")
@@ -45,6 +53,12 @@ def isolated_runtime(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterato
     monkeypatch.setattr(socket, "create_connection", forbidden)
     monkeypatch.setattr(subprocess, "Popen", forbidden)
     monkeypatch.chdir(tmp_path)
+    # One run journal and lock per test, never shared through the suite var/ root
+    monkeypatch.setattr(
+        installation_executor_module,
+        "INSTALLATION_JOURNAL_FILE",
+        tmp_path / installation_executor_module.INSTALLATION_JOURNAL_FILE.name,
+    )
     IndexManager.reset()
     yield
     IndexManager.reset()

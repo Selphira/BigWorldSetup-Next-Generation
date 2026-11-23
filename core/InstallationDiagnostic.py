@@ -21,7 +21,6 @@ import zipfile
 from constants import (
     APP_NAME,
     APP_VERSION,
-    DATA_VERSION_FILE,
     DIAGNOSTIC_DATE_FORMAT,
     DIAGNOSTIC_FILE_PREFIX,
     DIAGNOSTIC_FILE_STAMP_FORMAT,
@@ -31,6 +30,7 @@ from constants import (
     DIAGNOSTIC_SUMMARY_ENTRY,
     DIAGNOSTIC_VERSIONS_ENTRY,
 )
+from core.CatalogueLocation import CatalogueLocation
 from core.InstallationJournal import (
     InstallationJournal,
     JournalError,
@@ -108,9 +108,9 @@ class DiagnosticContent:
 class InstallationDiagnostic:
     """Build the diagnostic zip archive of the installation journal."""
 
-    def __init__(self, journal_path: Path, data_version_file: Path = DATA_VERSION_FILE):
+    def __init__(self, journal_path: Path, data_version_file: Path | None = None):
         self._journal_path = journal_path
-        self._data_version_file = data_version_file
+        self._data_version_file = data_version_file or CatalogueLocation.active().version_file
 
     @staticmethod
     def default_file_name() -> str:

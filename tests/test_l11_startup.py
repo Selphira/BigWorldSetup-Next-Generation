@@ -16,6 +16,7 @@ import requests
 from core.CatalogueUpdateTask import CatalogueUpdateOutcome, CatalogueUpdateTask
 from core.DataUpdater import DataUpdater
 from core.ModManager import ModManager
+from ui.SplashScreen import SplashScreen
 
 updater_module = importlib.import_module("core.DataUpdater")
 
@@ -60,8 +61,7 @@ def published_update(
         for path in data.rglob("*.json"):
             package.write(path, path.relative_to(data))
 
-    monkeypatch.setattr(updater_module, "DATA_DIR", data)
-    monkeypatch.setattr(updater_module, "DATA_VERSION_FILE", data / "data_version.json")
+    monkeypatch.setattr(updater_module, "DOWNLOADED_CATALOGUE_DIR", data)
     monkeypatch.setattr(updater_module, "SCHEMAS_DIR", schemas)
 
     updater = DataUpdater()
@@ -232,3 +232,23 @@ def test_builder_that_cannot_start_reports_a_terminal_error(
 
     with qtbot.waitSignal(mods.cache_error, timeout=SIGNAL_TIMEOUT_MS):
         mods.prepare_cache()
+
+
+# ========================================
+# SPLASH SCREEN
+# ========================================
+
+
+def test_splash_reports_once_that_it_reached_the_screen(tmp_path: Path, qtbot: QtBot) -> None:
+    splash = SplashScreen(tmp_path / "missing.png")
+    qtbot.addWidget(splash)
+    painted = Mock()
+    splash.painted.connect(painted)
+
+    with qtbot.waitSignal(splash.painted, timeout=SIGNAL_TIMEOUT_MS):
+        splash.show()
+    splash.set_stage("next stage", 50)
+    splash.repaint()
+    qtbot.wait(50)
+
+    painted.assert_called_once()

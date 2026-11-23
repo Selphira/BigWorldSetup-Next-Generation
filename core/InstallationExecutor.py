@@ -13,7 +13,7 @@ from pathlib import Path
 
 from PySide6.QtCore import QLockFile
 
-from constants import INSTALLATION_JOURNAL_NAME
+from constants import INSTALLATION_JOURNAL_FILE
 from core.atomic_io import set_aside_unreadable
 from core.ComponentReference import ComponentReference
 from core.ExtractionManifest import ExtractionManifest
@@ -75,9 +75,7 @@ class InstallationExecutor:
         self._log_parser = WeiDULogParser()
         self._reconciler = InstallationReconciler(self._log_parser)
 
-        self.journal_path = journal_path or state_manager.STATE_FILE.with_name(
-            INSTALLATION_JOURNAL_NAME
-        )
+        self.journal_path = journal_path or INSTALLATION_JOURNAL_FILE
         self._lock = QLockFile(str(self.journal_path) + ".lock")
         self.journal: InstallationJournal | None = None
         self.load_error: str | None = None

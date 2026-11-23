@@ -93,9 +93,10 @@ jobs:
           if (Test-Path LICENSE) { Copy-Item LICENSE dist/BigWorldSetup/ }
         shell: pwsh
 
-      # The package is started from a copy, so that the caches, logs and state
-      # it writes are not shipped, and from another working directory, so that
-      # a path resolved against the working directory fails the test.
+      # The package is started from a copy, so that the files it generates are
+      # not shipped, and from another working directory, so that a path resolved
+      # against the working directory fails the test. Every generated file must
+      # land in var/ of the package.
       - name: Smoke test the package from another directory (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
@@ -110,8 +111,11 @@ jobs:
 
           # Both localized caches are complete once their fingerprints are written
           $readyFiles = @('mods.fingerprint.json', 'rules.fingerprint.json') |
-            ForEach-Object { Join-Path $package ".cache/$_" }
-          $logFile = Join-Path $package 'logs/bws_ng.log'
+            ForEach-Object { Join-Path $package "var/cache/$_" }
+          $logFile = Join-Path $package 'var/logs/bws_ng.log'
+          $varDir = Join-Path $package 'var'
+          $shipped = Get-ChildItem -Path $package -Recurse -Force -File |
+            ForEach-Object { $_.FullName }
 
           $process = Start-Process -FilePath (Join-Path $package 'BigWorldSetup.exe') `
             -WorkingDirectory $workDir -PassThru
@@ -139,6 +143,12 @@ jobs:
             $failures += 'Critical error logged during startup'
           }
           if (Get-ChildItem -Path $workDir -Force) { $failures += 'Files written in the working directory' }
+          $outsideVar = Get-ChildItem -Path $package -Recurse -Force -File |
+            Where-Object { -not $_.FullName.StartsWith("$varDir$([IO.Path]::DirectorySeparatorChar)") -and $shipped -notcontains $_.FullName }
+          if ($outsideVar) {
+            $outsideVar | ForEach-Object { Write-Host "Generated outside var/: $($_.FullName)" }
+            $failures += 'Files generated in the package outside var/'
+          }
 
           if ($failures) {
             $failures | ForEach-Object { Write-Host "::error::$_" }

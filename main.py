@@ -21,7 +21,6 @@ from constants import (
     LOG_FILE_NAME,
     LOG_FORMAT,
     LOG_MAX_BYTES,
-    MODS_DIR,
     RESOURCE_ROOT,
     THEMES_DIR,
 )
@@ -116,9 +115,13 @@ class ApplicationInitializer(QObject):
 
         self.splash = SplashScreen(ICONS_DIR / "bws.png")
         self.splash.skip_update_requested.connect(self._skip_catalogue_update)
+        self.splash.set_stage(tr("app.initializing"), 5)
+        # The next stages may run without returning to the event loop: they only
+        # start once the splash is on screen.
+        self.splash.painted.connect(lambda: self._run_stage(self._prepare_catalogue))
         self.splash.show()
 
-        self.splash.set_stage(tr("app.initializing"), 5)
+    def _prepare_catalogue(self) -> None:
         self._recover_catalogue()
 
         if self._is_installation_in_progress():
@@ -288,7 +291,8 @@ class ApplicationInitializer(QObject):
     def _on_cache_error(self, message: str) -> None:
         stage = self._end_cache_stage()
         logger.error(f"{stage.manager.cache_label.capitalize()} preparation failed: {message}")
-        self._fail(tr("error.cache_build_failed", mods_dir=str(MODS_DIR)))
+        mods_dir = self.state.get_mod_manager().mods_dir
+        self._fail(tr("error.cache_build_failed", mods_dir=str(mods_dir)))
 
     def _end_cache_stage(self) -> CacheStage:
         """Detach the current cache: its first terminal signal ends the stage."""

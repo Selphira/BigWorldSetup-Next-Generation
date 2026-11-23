@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import sys
 
@@ -27,19 +28,40 @@ PROJECT_ROOT: Path = (
     else Path(__file__).resolve().parent
 )
 RESOURCE_ROOT: Path = PROJECT_ROOT
-USER_DATA_ROOT: Path = PROJECT_ROOT
 LOCALES_DIR: Path = RESOURCE_ROOT / "i18n"
 SCHEMAS_DIR: Path = RESOURCE_ROOT / "validation" / "schemas"
-STATE_FILE: Path = USER_DATA_ROOT / "state.json"
-DATA_DIR = USER_DATA_ROOT / "data"
-MODS_DIR = DATA_DIR / "mods"
-GAMES_DIR = DATA_DIR / "games"
-RULES_DIR = DATA_DIR / "rules"
-CUSTOM_DIR = DATA_DIR / "custom"
-CUSTOM_MODS_DIR = CUSTOM_DIR / "mods"
 TOOLS_DIR = RESOURCE_ROOT / "tools"
-CACHE_DIR = USER_DATA_ROOT / ".cache"
-LOG_DIR = USER_DATA_ROOT / "logs"
+
+# Catalogue shipped with the application, read only; a downloaded catalogue
+# has the same parts (see core.CatalogueLocation)
+BASE_CATALOGUE_DIR: Path = RESOURCE_ROOT / "data"
+CATALOGUE_MODS_DIR_NAME = "mods"
+CATALOGUE_GAMES_DIR_NAME = "games"
+CATALOGUE_RULES_DIR_NAME = "rules"
+CATALOGUE_VERSION_FILE_NAME = "data_version.json"
+
+# Every file generated outside the game folders and the folders chosen by the
+# user lives under VAR_DIR, one subdirectory per lifecycle (docs/fichiers-generes.md).
+# The environment variable relocates it as a whole, e.g. for tests.
+VAR_DIR_ENVIRONMENT_VARIABLE = "BWS_NG_VAR_DIR"
+VAR_DIR: Path = (
+    Path(os.environ[VAR_DIR_ENVIRONMENT_VARIABLE]).resolve()
+    if os.environ.get(VAR_DIR_ENVIRONMENT_VARIABLE)
+    else PROJECT_ROOT / "var"
+)
+# Kept: never deleted by the application
+USER_DIR: Path = VAR_DIR / "user"
+STATE_FILE: Path = USER_DIR / "state.json"
+UI_SETTINGS_FILE: Path = USER_DIR / "settings.ini"
+CUSTOM_MODS_DIR: Path = USER_DIR / "mods"
+# Replaceable by the next update; its transaction directories are created in
+# VAR_DIR, on the same volume
+DOWNLOADED_CATALOGUE_DIR: Path = VAR_DIR / "catalogue"
+# Kept until the run is closed
+CURRENT_RUN_DIR: Path = VAR_DIR / "runs" / "current"
+# Rebuilt when missing
+CACHE_DIR: Path = VAR_DIR / "cache"
+LOG_DIR: Path = VAR_DIR / "logs"
 
 # Resource directories
 RESOURCES_DIR = RESOURCE_ROOT / "resources"
@@ -75,9 +97,9 @@ RULE_ORIGIN_DESCRIPTION_KEYS = {"ini": "rule.ini_order_description"}
 
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
-INSTALLATION_JOURNAL_NAME = "installation-run.json"
+INSTALLATION_JOURNAL_FILE: Path = CURRENT_RUN_DIR / "installation-run.json"
 INSTALLATION_JOURNAL_FORMAT = 3
-ARCHIVE_REGISTRY_FILE: Path = USER_DATA_ROOT / "archives.json"
+ARCHIVE_REGISTRY_FILE: Path = USER_DIR / "archives.json"
 ARCHIVE_REGISTRY_FORMAT = 1
 # Unreadable persisted files are renamed "<name><suffix><timestamp>" for diagnosis
 UNREADABLE_FILE_SUFFIX = ".unreadable-"
@@ -330,7 +352,6 @@ GITHUB_API_BASE = "https://api.github.com"
 GITHUB_PAGES_BASE = "https://selphira.github.io/BigWorldSetup-Next-Generation"
 
 # Data Update Configuration
-DATA_VERSION_FILE = DATA_DIR / "data_version.json"
 DATA_VERSION_URL = f"{GITHUB_PAGES_BASE}/data_version.json"
 DATA_ZIP_URL = f"{GITHUB_PAGES_BASE}/data.zip"
 MAX_RETRIES = 3

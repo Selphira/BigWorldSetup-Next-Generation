@@ -33,11 +33,8 @@ def update_package(
     with zipfile.ZipFile(archive, "w") as package:
         for path in data.rglob("*.json"):
             package.write(path, path.relative_to(data))
-    (data / "custom" / "mods").mkdir(parents=True)
-    (data / "custom" / "mods" / "personal.json").write_bytes(b"personal")
     version = {"sha256": hashlib.sha256(archive.read_bytes()).hexdigest()}
-    monkeypatch.setattr(updater_module, "DATA_DIR", data)
-    monkeypatch.setattr(updater_module, "DATA_VERSION_FILE", data / "data_version.json")
+    monkeypatch.setattr(updater_module, "DOWNLOADED_CATALOGUE_DIR", data)
     monkeypatch.setattr(updater_module, "SCHEMAS_DIR", schemas)
     updater = DataUpdater()
     monkeypatch.setattr(updater, "_fetch_remote_version", Mock(return_value=version))
@@ -58,12 +55,14 @@ def snapshot(path: Path) -> dict[str, bytes]:
     }
 
 
-def test_update_preserves_personal_data(update_package: tuple[DataUpdater, Path]) -> None:
+def test_update_leaves_only_the_downloaded_catalogue(
+    update_package: tuple[DataUpdater, Path],
+) -> None:
     updater, data = update_package
+    siblings = {path.name for path in data.parent.iterdir()}
     assert updater.update_data()
-    assert (data / "custom/mods/personal.json").read_bytes() == b"personal"
     assert json.loads((data / "data_version.json").read_text())["sha256"]
-    assert not data.with_name("data_backup").exists()
+    assert {path.name for path in data.parent.iterdir()} == siblings
 
 
 @pytest.mark.parametrize(
@@ -193,7 +192,8 @@ def test_state_recovers_last_valid_backup(
 
 def test_paths_do_not_depend_on_cwd(tmp_path: Path) -> None:
     for path in (
-        constants.DATA_DIR,
+        constants.BASE_CATALOGUE_DIR,
+        constants.VAR_DIR,
         constants.TOOLS_DIR,
         constants.CACHE_DIR,
         constants.LOG_DIR,
@@ -213,9 +213,11 @@ def test_frozen_paths_use_executable_directory(
     monkeypatch.setattr(sys, "frozen", True, raising=False)
     monkeypatch.setattr(sys, "executable", str(executable))
     monkeypatch.setattr(sys, "_MEIPASS", str(tmp_path / "bundle"), raising=False)
+    monkeypatch.delenv(constants.VAR_DIR_ENVIRONMENT_VARIABLE, raising=False)
     paths = runpy.run_path(constants.__file__)
     assert paths["RESOURCE_ROOT"] == executable.parent
-    assert paths["STATE_FILE"] == executable.parent / "state.json"
+    assert paths["VAR_DIR"] == executable.parent / "var"
+    assert paths["STATE_FILE"].is_relative_to(paths["VAR_DIR"])
 
 
 def test_interrupted_activation_recovers_old_catalogue(
@@ -230,7 +232,7 @@ def test_interrupted_activation_recovers_old_catalogue(
     assert snapshot(data) == before
 
 
-@pytest.mark.parametrize("failure", ["preserve", "version", "commit"])
+@pytest.mark.parametrize("failure", ["version", "commit"])
 def test_preparation_and_commit_failures_preserve_catalogue(
     update_package: tuple[DataUpdater, Path],
     monkeypatch: pytest.MonkeyPatch,
@@ -238,11 +240,7 @@ def test_preparation_and_commit_failures_preserve_catalogue(
 ) -> None:
     updater, data = update_package
     before = snapshot(data)
-    if failure == "preserve":
-        monkeypatch.setattr(
-            updater_module.shutil, "copytree", Mock(side_effect=OSError("disk full"))
-        )
-    elif failure == "version":
+    if failure == "version":
         monkeypatch.setattr(
             updater_module, "write_json_atomic", Mock(side_effect=OSError("disk full"))
         )

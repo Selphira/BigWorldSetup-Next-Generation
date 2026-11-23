@@ -16,7 +16,6 @@ from constants import (
     CUSTOM_MODS_DIR,
     MOD_CACHE_LOCALIZATION_PROGRESS,
     MOD_CACHE_PREFIX,
-    MODS_DIR,
 )
 from core.ComponentReference import ComponentReference, IndexManager, ReferenceIndexes
 from core.LocalizedCache import (
@@ -224,7 +223,7 @@ class ModManager(LocalizedCacheManager):
 
     def __init__(
         self,
-        mods_dir: Path = MODS_DIR,
+        mods_dir: Path,
         custom_mods_dir: Path = CUSTOM_MODS_DIR,
         cache_dir: Path = CACHE_DIR,
     ) -> None:

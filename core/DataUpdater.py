@@ -11,17 +11,18 @@ from PySide6.QtCore import QObject, Signal
 import requests
 
 from constants import (
-    DATA_DIR,
+    CATALOGUE_VERSION_FILE_NAME,
     DATA_SCHEMA_VERSION,
-    DATA_VERSION_FILE,
     DATA_VERSION_URL,
     DATA_ZIP_URL,
     DOWNLOAD_CHUNK_SIZE,
     DOWNLOAD_TIMEOUT,
+    DOWNLOADED_CATALOGUE_DIR,
     MAX_RETRIES,
     SCHEMAS_DIR,
 )
 from core.atomic_io import write_json_atomic
+from core.CatalogueLocation import CatalogueLocation
 from core.TranslationManager import tr
 from validation.catalogue import validate_catalogue
 
@@ -34,7 +35,10 @@ class UpdateCancelledError(Exception):
 
 class DataUpdater(QObject):
     """
-    Handles data folder updates from remote source.
+    Download the published catalogue into DOWNLOADED_CATALOGUE_DIR.
+
+    The shipped catalogue is never written. Transaction directories are
+    created next to the downloaded catalogue, on the same volume.
 
     May run in a worker thread. A cancellation is accepted until the activation
     of the downloaded catalogue starts; past that point the update always ends
@@ -102,7 +106,7 @@ class DataUpdater(QObject):
             return False
 
     def update_data(self) -> bool:
-        """Download and install data update while preserving custom mods."""
+        """Download, validate and activate the published catalogue."""
         backup_dir: Path | None = None
         temp_dir: Path | None = None
         committed = False
@@ -119,7 +123,10 @@ class DataUpdater(QObject):
                 self.update_error.emit(tr("app.incompatible_data_schema"))
                 return False
 
-            temp_dir = Path(tempfile.mkdtemp(prefix="bws_data_", dir=DATA_DIR.parent))
+            DOWNLOADED_CATALOGUE_DIR.parent.mkdir(parents=True, exist_ok=True)
+            temp_dir = Path(
+                tempfile.mkdtemp(prefix="bws_data_", dir=DOWNLOADED_CATALOGUE_DIR.parent)
+            )
             zip_path = temp_dir / "data.zip"
 
             if not self._download_file(DATA_ZIP_URL, zip_path):
@@ -142,21 +149,7 @@ class DataUpdater(QObject):
             report = validate_catalogue(extract_dir, SCHEMAS_DIR)
             if not report.valid:
                 raise ValueError(f"Invalid catalogue: {report.diagnostics}")
-            # Preserve all local data outside the official catalogue directories.
-            if DATA_DIR.exists():
-                for item in DATA_DIR.iterdir():
-                    if item.name in {"mods", "games", "rules", DATA_VERSION_FILE.name}:
-                        continue
-                    destination = extract_dir / item.name
-                    if destination.is_dir():
-                        shutil.rmtree(destination)
-                    elif destination.exists():
-                        destination.unlink()
-                    if item.is_dir():
-                        shutil.copytree(item, destination)
-                    else:
-                        shutil.copy2(item, destination)
-            write_json_atomic(extract_dir / DATA_VERSION_FILE.name, remote_version)
+            write_json_atomic(extract_dir / CATALOGUE_VERSION_FILE_NAME, remote_version)
 
             self._start_activation()
             self.status_changed.emit(tr("app.backing_up_existing_data"))
@@ -238,11 +231,12 @@ class DataUpdater(QObject):
 
     @staticmethod
     def _get_local_version() -> dict | None:
-        """Get local data version."""
-        if not DATA_VERSION_FILE.exists():
+        """Get the version of the catalogue read by the application."""
+        version_file = CatalogueLocation.active(DOWNLOADED_CATALOGUE_DIR).version_file
+        if not version_file.exists():
             return None
         try:
-            with open(DATA_VERSION_FILE, "r", encoding="utf-8") as f:
+            with open(version_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
             logger.warning(f"Failed to read local version: {e}")
@@ -350,17 +344,17 @@ class DataUpdater(QObject):
     @staticmethod
     def _create_backup() -> Path | None:
         """Move the current catalogue to a recoverable sibling before activation."""
-        if not DATA_DIR.exists():
+        if not DOWNLOADED_CATALOGUE_DIR.exists():
             return None
-        backup = DATA_DIR.with_name(f"{DATA_DIR.name}_backup")
+        backup = DOWNLOADED_CATALOGUE_DIR.with_name(f"{DOWNLOADED_CATALOGUE_DIR.name}_backup")
         if backup.exists():
             raise FileExistsError(f"Pending catalogue recovery: {backup}")
-        DATA_DIR.rename(backup)
+        DOWNLOADED_CATALOGUE_DIR.rename(backup)
         return backup
 
     def recover_pending_update(self) -> bool:
         """Roll back an interrupted activation before any catalogue is loaded."""
-        backup = DATA_DIR.with_name(f"{DATA_DIR.name}_backup")
+        backup = DOWNLOADED_CATALOGUE_DIR.with_name(f"{DOWNLOADED_CATALOGUE_DIR.name}_backup")
         return not backup.exists() or self._restore_backup(backup)
 
     def _restore_backup(self, backup_dir: Path) -> bool:
@@ -368,10 +362,14 @@ class DataUpdater(QObject):
         discarded: Path | None = None
         try:
             self.status_changed.emit(tr("app.restoring_backup"))
-            if DATA_DIR.exists():
-                discarded = Path(tempfile.mkdtemp(prefix="bws_discarded_", dir=DATA_DIR.parent))
-                DATA_DIR.rename(discarded / "data")
-            backup_dir.rename(DATA_DIR)
+            if DOWNLOADED_CATALOGUE_DIR.exists():
+                discarded = Path(
+                    tempfile.mkdtemp(
+                        prefix="bws_discarded_", dir=DOWNLOADED_CATALOGUE_DIR.parent
+                    )
+                )
+                DOWNLOADED_CATALOGUE_DIR.rename(discarded / DOWNLOADED_CATALOGUE_DIR.name)
+            backup_dir.rename(DOWNLOADED_CATALOGUE_DIR)
             logger.info("Backup restored successfully")
             return True
         except OSError as error:
@@ -379,13 +377,13 @@ class DataUpdater(QObject):
             self.update_error.emit(tr("app.update_failed", error=str(error)))
             return False
         finally:
-            if discarded and DATA_DIR.exists():
+            if discarded and DOWNLOADED_CATALOGUE_DIR.exists():
                 shutil.rmtree(discarded, ignore_errors=True)
 
     def _replace_data_directory(self, new_data_dir: Path) -> bool:
         """Activate the fully prepared catalogue on the same filesystem."""
         try:
-            new_data_dir.rename(DATA_DIR)
+            new_data_dir.rename(DOWNLOADED_CATALOGUE_DIR)
             self.progress.emit(100)
             return True
         except OSError as error:

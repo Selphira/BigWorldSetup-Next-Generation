@@ -2,14 +2,13 @@ import json
 import logging
 from pathlib import Path
 
-from constants import GAMES_DIR
 from core.GameModels import GameDefinition
 
 logger = logging.getLogger(__name__)
 
 
 class GameManager:
-    """Loads all game definitions from data/games/*.json
+    """Loads all game definitions from the games/*.json of the catalogue
 
     Provides access to:
     - Game list
@@ -17,16 +16,16 @@ class GameManager:
     - Basic validation helpers
     """
 
-    def __init__(self) -> None:
+    def __init__(self, games_dir: Path) -> None:
         self.games: dict[str, GameDefinition] = {}
-        self.games_dir = GAMES_DIR
+        self.games_dir = games_dir
 
     # ----------------------------------------------------------------------
     # PUBLIC API
     # ----------------------------------------------------------------------
 
     def load_games(self) -> None:
-        """Load all JSON definitions from data/games/"""
+        """Load all JSON definitions from the games directory"""
         if not self.games_dir.exists():
             raise RuntimeError(f"Game directory not found: {self.games_dir}")
 

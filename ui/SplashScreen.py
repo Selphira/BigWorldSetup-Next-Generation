@@ -22,9 +22,11 @@ class SplashScreen(QWidget):
 
     Signals:
         skip_update_requested: The user chose to skip the data update
+        painted: The splash reached the screen, emitted once after its first paint
     """
 
     skip_update_requested = Signal()
+    painted = Signal()
 
     def __init__(self, pixmap_path: Path, parent=None):
         """
@@ -35,6 +37,7 @@ class SplashScreen(QWidget):
             parent: Parent widget
         """
         super().__init__(parent)
+        self._painted_once = False
 
         self.setWindowFlags(
             Qt.WindowType.SplashScreen
@@ -161,3 +164,12 @@ class SplashScreen(QWidget):
         """Handle show event to ensure centering."""
         super().showEvent(event)
         self._center_on_screen()
+
+    def paintEvent(self, event) -> None:
+        super().paintEvent(event)
+        if self._painted_once:
+            return
+
+        # Queued, so that the frame is flushed before the next work starts
+        self._painted_once = True
+        QTimer.singleShot(0, self.painted.emit)

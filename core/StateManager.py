@@ -8,9 +8,10 @@ from typing import Any, Callable
 
 from PySide6.QtCore import QSettings
 
-from constants import ARCHIVE_REGISTRY_FILE, CACHE_DIR, MODS_DIR, RULES_DIR, STATE_FILE
+from constants import ARCHIVE_REGISTRY_FILE, CACHE_DIR, STATE_FILE, UI_SETTINGS_FILE
 from core.ArchiveRegistry import ArchiveRecord, ArchiveRegistry, ArchiveSource
 from core.atomic_io import write_json_atomic
+from core.CatalogueLocation import CatalogueLocation
 from core.GameManager import GameManager
 from core.ModManager import ModManager
 from core.RuleManager import RuleManager
@@ -98,17 +99,16 @@ class StateManager:
 
     STATE_FILE: Path = STATE_FILE
     ARCHIVE_REGISTRY_FILE: Path = ARCHIVE_REGISTRY_FILE
+    UI_SETTINGS_FILE: Path = UI_SETTINGS_FILE
     BACKUP_SUFFIX = ".backup"
     SUPPORTED_VERSION = "1.0"
 
-    # QSettings configuration
-    SETTINGS_ORG = "Selphira"
-    SETTINGS_APP = "BigWorldSetupEnhanced"
+    # QSettings configuration: an INI file kept with the portable user data
     UI_LANGUAGE_SETTING = "ui/language"
 
     def __init__(self) -> None:
         """Initialize state manager with QSettings and JSON state."""
-        self.settings = QSettings(self.SETTINGS_ORG, self.SETTINGS_APP)
+        self.settings = QSettings(str(self.UI_SETTINGS_FILE), QSettings.Format.IniFormat)
         self.installation_state = self._load_installation_state()
         self._game_manager: GameManager | None = None
         self._mod_manager: ModManager | None = None
@@ -527,7 +527,7 @@ class StateManager:
             GameManager instance
         """
         if self._game_manager is None:
-            self._game_manager = GameManager()
+            self._game_manager = GameManager(CatalogueLocation.active().games_dir)
             logger.debug("GameManager initialized")
 
         return self._game_manager
@@ -540,7 +540,9 @@ class StateManager:
             ModManager instance
         """
         if self._mod_manager is None:
-            self._mod_manager = ModManager(mods_dir=MODS_DIR, cache_dir=CACHE_DIR)
+            self._mod_manager = ModManager(
+                mods_dir=CatalogueLocation.active().mods_dir, cache_dir=CACHE_DIR
+            )
             logger.debug("ModManager initialized")
 
         return self._mod_manager
@@ -548,8 +550,12 @@ class StateManager:
     def get_rule_manager(self) -> RuleManager:
         """Get rule manager instance."""
         if self._rule_manager is None:
+            mod_manager = self.get_mod_manager()
             self._rule_manager = RuleManager(
-                self.get_mod_manager(), rules_dir=RULES_DIR, cache_dir=CACHE_DIR
+                mod_manager,
+                rules_dir=CatalogueLocation.active().rules_dir,
+                mods_dir=mod_manager.mods_dir,
+                cache_dir=CACHE_DIR,
             )
             logger.debug("RuleManager initialized")
         return self._rule_manager
