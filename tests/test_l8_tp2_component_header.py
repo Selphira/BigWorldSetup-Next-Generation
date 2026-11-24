@@ -114,3 +114,30 @@ def test_second_string_after_the_label_is_skipped(tmp_path: Path) -> None:
     )
 
     assert tp2.untranslated_component_labels == {"2": "Demo Movies"}
+
+
+def test_body_begin_followed_by_an_assignment_is_not_a_component(tmp_path: Path) -> None:
+    tp2 = parse_components(
+        tmp_path,
+        "BEGIN @0 DESIGNATED 0\n"
+        "COPY_EXISTING ~ar0602.are~ ~override~\n"
+        '  PATCH_IF ("%actors_offset%" > 0)\n'
+        "  BEGIN\n"
+        '    "actors_offset" = "%actors_offset%" + 4\n'
+        "  END\n"
+        "  PATCH_IF (1)\n"
+        "  BEGIN\n"
+        "    ~spawns_offset~ = 0\n"
+        "  END\n",
+    )
+
+    assert [component.designated for component in tp2.components] == ["0"]
+
+
+def test_component_label_may_be_on_the_line_after_begin(tmp_path: Path) -> None:
+    tp2 = parse_components(
+        tmp_path, "BEGIN\n@800\nDESIGNATED 0\nBEGIN\n~Demo Rescue~\nDESIGNATED 1\n"
+    )
+
+    assert [component.designated for component in tp2.components] == ["0", "1"]
+    assert tp2.untranslated_component_labels == {"1": "Demo Rescue"}

@@ -90,5 +90,15 @@
   },
   "tp2": "darkhorizons",
   "safe": 2,
-  "authors": ["CoM_Solaufein"]
+  "authors": ["CoM_Solaufein"],
+  "rules": {
+    "order": [
+      {
+        "rule": "darkhorizons(-):EET(-)|BGT(-)",
+        "direction": "after",
+        "severity": "warning",
+        "origin": "ini"
+      }
+    ]
+  }
 }

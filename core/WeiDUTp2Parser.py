@@ -861,7 +861,7 @@ class ComponentParser:
     """
 
     BEGIN_PATTERN = re.compile(
-        r"^\s*BEGIN\s+(?:@\s*-?\d+|[~\"]|/\*.*?\*/\s*(?:@|[~\"]))",
+        r"^\s*BEGIN\s+(?:@\s*-?\d+|~[^~]*~(?!\s*=)|\"[^\"]*\"(?!\s*=)|/\*.*?\*/\s*(?:@|[~\"]))",
         re.MULTILINE | re.IGNORECASE,
     )
 
