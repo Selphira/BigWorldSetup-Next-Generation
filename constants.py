@@ -332,6 +332,8 @@ TP2_EXTENSION = ".tp2"
 TP2_PREDICATE_MAX_CLAUSES = 16
 # Nested INCLUDE files followed before the deeper ones are skipped
 TP2_INCLUDE_MAX_DEPTH = 8
+# Folder listings kept to find TP2 files regardless of case, across parses
+TP2_FOLDER_LISTINGS_CACHE_SIZE = 4096
 # Generated installer registering download-only components in WeiDU.log
 DWN_TP2_PREFIX = "bws-dwn-"
 # The generated installer declares no LANGUAGE, so WeiDU uses index 0

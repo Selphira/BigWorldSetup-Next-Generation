@@ -13,9 +13,13 @@ import logging
 from pathlib import Path, PurePosixPath, PureWindowsPath
 import platform
 import re
-from typing import Iterator
+import unicodedata
 
-from constants import TP2_INCLUDE_MAX_DEPTH, TP2_PREDICATE_MAX_CLAUSES
+from constants import (
+    TP2_FOLDER_LISTINGS_CACHE_SIZE,
+    TP2_INCLUDE_MAX_DEPTH,
+    TP2_PREDICATE_MAX_CLAUSES,
+)
 from core.ComponentRequirement import (
     ComponentRequirement,
     ComponentTarget,
@@ -90,12 +94,36 @@ OS_CODE_MAP: dict[str, str] = {
 }
 DEFAULT_OS_CODE: str = "unix"
 
-_WEIDU_OS_VAR: str = "%WEIDU_OS%"
-_MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
 _WEIDU_OS_NAME: str = "WEIDU_OS"
 _MOD_FOLDER_NAME: str = "MOD_FOLDER"
 
 SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
+
+# BWS names the classic BG1 "bg", WeiDU GAME_IS names it "bg1".
+_BWS_BG1_GAME: str = "bg"
+_WEIDU_BG1_GAME: str = "bg1"
+
+# Games holding the content a GAME_INCLUDES value names, among the Enhanced
+# Editions and the classic games BWS knows. EE names, which WeiDU does not
+# document there, stand for the content of their base game.
+_BG1_CONTENT_GAMES = frozenset({"bgee", "sod", "eet", "bg1", "bgt", "tutu"})
+_BG2_CONTENT_GAMES = frozenset({"bg2ee", "eet", "bg2", "bgt"})
+_IWD_CONTENT_GAMES = frozenset({"iwdee", "iwd"})
+GAME_INCLUDES_GAMES: dict[str, frozenset[str]] = {
+    "bg1": _BG1_CONTENT_GAMES,
+    "totsc": _BG1_CONTENT_GAMES,
+    "bgee": _BG1_CONTENT_GAMES,
+    "sod": frozenset({"sod", "eet"}),
+    "bg2": _BG2_CONTENT_GAMES,
+    "soa": _BG2_CONTENT_GAMES,
+    "tob": _BG2_CONTENT_GAMES,
+    "bg2ee": _BG2_CONTENT_GAMES,
+    "iwd": _IWD_CONTENT_GAMES,
+    "iwd1": _IWD_CONTENT_GAMES,
+    "how": _IWD_CONTENT_GAMES,
+    "totlm": _IWD_CONTENT_GAMES,
+    "pst": frozenset({"pstee", "pst"}),
+}
 
 # Label of a translation made for the Enhanced Editions, when the mod also
 # declares one for the classic games ("Francais pour BG2EE", "pour les EE",
@@ -103,6 +131,7 @@ SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
 RE_ENHANCED_EDITION_LABEL = re.compile(r"EE\b|\bEET\b|(?i:\benhanced\b)")
 
 RE_VARIABLE_REFERENCE = re.compile(r'%([^%\s~"]+)%')
+RE_VERSION_KEYWORD = re.compile(r"\bVERSION\b")
 RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z.\-_]*)[~"]?')
 RE_TRA_TRANSLATION = re.compile(
     r"""
@@ -163,7 +192,9 @@ def normalize_language_code(code: str) -> str:
     if "/" in code:
         code = code.split("/")[-1]
     code_lower = code.lower().strip()
-    return LANG_MAP.get(code_lower, code)
+    # LANG_MAP spells names without accents: "français" is "francais".
+    unaccented = unicodedata.normalize("NFKD", code_lower).encode("ascii", "ignore").decode()
+    return LANG_MAP.get(code_lower) or LANG_MAP.get(unaccented, code)
 
 
 def get_os_code() -> str:
@@ -214,7 +245,8 @@ class Component:
         designated: Unique component identifier
         text_ref: Reference to translation string ID
         text: Direct text (if not using translation reference)
-        games: List of supported game codes (lowercase)
+        games: Game codes (lowercase) the component installs on, None when
+            unrestricted, empty when on no known game
         requirements: Requirements on other components, in declaration order
         metadata: Extensible metadata for future features (e.g., predicates)
     """
@@ -312,199 +344,6 @@ class GameRestriction:
     fails: frozenset[str]
 
 
-class GamePredicateParser:
-    """Parser for GAME_IS and GAME_INCLUDES."""
-
-    def __init__(self, supported_games: set[str] | None = None):
-        """Initialize parser with supported games."""
-        self.supported_games = (
-            supported_games if supported_games is not None else SUPPORTED_GAMES.copy()
-        )
-        if "bg" in self.supported_games:
-            self.supported_games.add("bg1")
-        self.tokenizer = Tokenizer()
-
-    def parse_from_tokens(self, tokens: list[Token], pos: int) -> tuple[list[str] | None, int]:
-        """Parse game predicate from a token stream."""
-        restriction, pos = self._parse_or_expression(tokens, pos)
-        games = restriction.holds
-
-        if len(games) == 0:
-            return None, pos
-
-        # If all games are supported, return None
-        if games == self.supported_games:
-            return None, pos
-
-        return sorted(games), pos
-
-    def _parse_or_expression(
-        self, tokens: list[Token], pos: int
-    ) -> tuple[GameRestriction, int]:
-        """Parse OR expression (union of conditions)."""
-        games, pos = self._parse_and_expression(tokens, pos)
-
-        while pos < len(tokens):
-            token = tokens[pos]
-
-            if token.type == TokenType.OR or (
-                token.type == TokenType.IDENTIFIER and token.value.upper() == "OR"
-            ):
-                pos += 1
-                right_games, pos = self._parse_and_expression(tokens, pos)
-                games = GameRestriction(
-                    holds=games.holds | right_games.holds, fails=games.fails & right_games.fails
-                )
-            else:
-                break
-
-        return games, pos
-
-    def _parse_and_expression(
-        self, tokens: list[Token], pos: int
-    ) -> tuple[GameRestriction, int]:
-        """Parse AND expression (intersection of conditions)."""
-        games, pos = self._parse_primary_expression(tokens, pos)
-
-        while pos < len(tokens):
-            token = tokens[pos]
-
-            if token.type == TokenType.AND or (
-                token.type == TokenType.IDENTIFIER and token.value.upper() == "AND"
-            ):
-                pos += 1
-                right_games, pos = self._parse_primary_expression(tokens, pos)
-                games = GameRestriction(
-                    holds=games.holds & right_games.holds, fails=games.fails | right_games.fails
-                )
-            else:
-                break
-
-        return games, pos
-
-    def _parse_primary_expression(
-        self, tokens: list[Token], pos: int
-    ) -> tuple[GameRestriction, int]:
-        """Parse primary expression (NOT, parentheses, or condition)."""
-        if pos >= len(tokens):
-            return self._unrestricted(), pos
-
-        token = tokens[pos]
-
-        if token.type == TokenType.NOT or (
-            token.type == TokenType.IDENTIFIER and token.value.upper() == "NOT"
-        ):
-            pos += 1
-            games, pos = self._parse_primary_expression(tokens, pos)
-            return GameRestriction(holds=games.fails, fails=games.holds), pos
-
-        if token.type == TokenType.LPAREN:
-            pos += 1
-            games, pos = self._parse_or_expression(tokens, pos)
-            # Skip closing parenthesis if present
-            if pos < len(tokens) and tokens[pos].type == TokenType.RPAREN:
-                pos += 1
-            return games, pos
-
-        if token.type == TokenType.GAME_IS:
-            games, pos = self.parse_game_is(tokens, pos)
-            return self._game_condition(games), pos
-
-        if token.type == TokenType.GAME_INCLUDES:
-            games, pos = self.parse_game_includes(tokens, pos)
-            return self._game_condition(games), pos
-
-        if token.type in (
-            TokenType.BEGIN,
-            TokenType.NO_LOG_RECORD,
-            TokenType.DESIGNATED,
-            TokenType.SUBCOMPONENT,
-            TokenType.FORCED_SUBCOMPONENT,
-            TokenType.LABEL,
-            TokenType.GROUP,
-            TokenType.DEPRECATED,
-            TokenType.REQUIRE_PREDICATE,
-            TokenType.REQUIRE_COMPONENT,
-            TokenType.EOF,
-        ):
-            return self._unrestricted(), pos
-
-        while pos < len(tokens):
-            t = tokens[pos]
-            if t.type in (TokenType.AND, TokenType.OR, TokenType.RPAREN):
-                break
-            if t.type in (
-                TokenType.BEGIN,
-                TokenType.NO_LOG_RECORD,
-                TokenType.DESIGNATED,
-                TokenType.SUBCOMPONENT,
-                TokenType.FORCED_SUBCOMPONENT,
-                TokenType.LABEL,
-                TokenType.GROUP,
-                TokenType.DEPRECATED,
-                TokenType.REQUIRE_PREDICATE,
-                TokenType.REQUIRE_COMPONENT,
-                TokenType.EOF,
-            ):
-                break
-            pos += 1
-
-        return self._unrestricted(), pos
-
-    def _game_condition(self, games: set[str]) -> GameRestriction:
-        """Return the bounds of a condition true on exactly these games."""
-        return GameRestriction(
-            holds=frozenset(games), fails=frozenset(self.supported_games - games)
-        )
-
-    def _unrestricted(self) -> GameRestriction:
-        """Return the bounds of a condition that does not depend on the game."""
-        every_game = frozenset(self.supported_games)
-        return GameRestriction(holds=every_game, fails=every_game)
-
-    def parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
-        """Parse GAME_IS ~games~."""
-        pos += 1
-
-        if pos >= len(tokens):
-            return set(), pos
-
-        if tokens[pos].type == TokenType.STRING_LITERAL:
-            game_list = tokens[pos].value.strip()
-            games = set()
-            for game in game_list.split():
-                game = game.lower()
-                if game == "bgee" and "sod" in self.supported_games:
-                    games.add("sod")
-                if game in self.supported_games:
-                    games.add(game)
-            return games, pos + 1
-
-        return set(), pos
-
-    def parse_game_includes(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
-        """Parse GAME_INCLUDES ~game~."""
-        pos += 1
-
-        if pos >= len(tokens):
-            return set(), pos
-
-        if tokens[pos].type == TokenType.STRING_LITERAL:
-            game = tokens[pos].value.strip().lower()
-            if game == "bg1":
-                game = "bgee"
-            if game == "bg2":
-                game = "bg2ee"
-            if game in self.supported_games:
-                if game == "bgee":
-                    return {"bgee", "eet", "sod"}, pos + 1
-                if game == "bg2ee":
-                    return {"bg2ee", "eet"}, pos + 1
-                return {game}, pos + 1
-
-        return set(), pos
-
-
 # ============================================================================
 # Tokenizer
 # ============================================================================
@@ -551,7 +390,7 @@ class TokenType(Enum):
     EOF = auto()
 
 
-@dataclass
+@dataclass(slots=True)
 class Token:
     """Represents a parsed token from TP2 content."""
 
@@ -559,7 +398,7 @@ class Token:
     value: str
     line: int
     column: int
-    delimiter: str = ""  # Delimiter of a string literal: ~, " or %
+    delimiter: str = ""  # Delimiter of a string literal: ~, ", % or ~~~~~
 
     def __repr__(self) -> str:
         return f"Token({self.type.name}, {self.value!r}, L{self.line}:C{self.column})"
@@ -572,7 +411,11 @@ class Token:
 
 
 class Tokenizer:
-    """Tokenizes TP2 component blocks into a stream of tokens."""
+    """Tokenizes TP2 component blocks into a stream of tokens.
+
+    Symbols the parsers do not use ("=", "<", "+", ...) are skipped, as is
+    an unclosed string delimiter.
+    """
 
     KEYWORDS = {
         "ACTION_IF": TokenType.ACTION_IF,
@@ -609,194 +452,249 @@ class Tokenizer:
         "THEN": TokenType.THEN,
     }
 
-    PATTERNS = [
-        (re.compile(r"@\s*(-?\d+)"), TokenType.STRING_REF),
-        (re.compile(r"\b(\d+)\b"), TokenType.NUMBER),
-        (re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\b"), TokenType.IDENTIFIER),
-    ]
+    # A bare word may hold "#", "." and "-" (c#label, setup-mod.tp2); one
+    # starting with digits is a word as soon as it holds a letter, "_" or "#"
+    # (1pp.tp2), a number of its leading digits otherwise.
+    TOKEN_PATTERN = re.compile(
+        r"""
+        ~~~~~(?P<long>.*?)~~~~~
+      | ~(?P<tilde>[^~]*)~
+      | "(?P<quote>[^"]*)"
+      | %(?P<percent>[^%]*)%
+      | @\s*(?P<reference>-?\d+)
+      | (?P<or>\|\|?)
+      | (?P<and>&&?)
+      | (?P<digit_word>\d[\d.\-]*(?:[^\W\d]|\#)[\w.\-\#]*)
+      | (?P<number>\d+)
+      | (?P<word>[^\W\d][\w.\-\#]*)
+      | (?P<lparen>\()
+      | (?P<rparen>\))
+      | (?P<not>!)
+        """,
+        re.DOTALL | re.VERBOSE,
+    )
+    STRING_DELIMITERS = {"long": "~~~~~", "tilde": "~", "quote": '"', "percent": "%"}
+    SYMBOL_TYPES = {
+        "or": TokenType.OR,
+        "and": TokenType.AND,
+        "digit_word": TokenType.IDENTIFIER,
+        "number": TokenType.NUMBER,
+        "lparen": TokenType.LPAREN,
+        "rparen": TokenType.RPAREN,
+        "not": TokenType.NOT,
+    }
 
     def tokenize(self, text: str) -> list[Token]:
-        """Tokenize TP2 text into a list of tokens."""
+        """Tokenize TP2 text into a list of tokens, ended by an EOF token."""
         tokens: list[Token] = []
-        i = 0
-        length = len(text)
-        line = 1
-        column = 0
+        line, line_start, scanned = 1, 0, 0
 
-        while i < length:
-            char = text[i]
+        for match in self.TOKEN_PATTERN.finditer(text):
+            start = match.start()
+            line, line_start = self._advance_lines(text, scanned, start, line, line_start)
+            tokens.append(self._token(match, line, start - line_start))
+            scanned = start
 
-            # Track line/column
-            if char == "\n":
-                line += 1
-                column = 0
-                i += 1
-                continue
-
-            # Skip whitespace (except newlines)
-            if char in " \t\r":
-                column += 1
-                i += 1
-                continue
-
-            # String literals
-            if char in ("~", '"', "%"):
-                token = self._extract_string(text, i, line, column, char)
-                if token:
-                    tokens.append(token)
-                    # Update position
-                    string_content = char + token.value + char
-                    newlines = string_content.count("\n")
-                    if newlines > 0:
-                        line += newlines
-                        # Column is position after last newline
-                        last_newline = string_content.rfind("\n")
-                        column = len(string_content) - last_newline - 1
-                    else:
-                        column += len(string_content)
-                    i += len(string_content)
-                    continue
-
-            # String references @123 or @-123
-            if char == "@":
-                token = self._extract_string_ref(text, i, line, column)
-                if token:
-                    tokens.append(token)
-                    column += len(token.value) + 1  # +1 for @
-                    i += len(token.value) + 1
-                    continue
-
-            # Operators: || (OR) and && (AND)
-            if i + 1 < length:
-                two_char = text[i : i + 2]
-                if two_char == "||":
-                    tokens.append(Token(TokenType.OR, "||", line, column))
-                    column += 2
-                    i += 2
-                    continue
-                if two_char == "&&":
-                    tokens.append(Token(TokenType.AND, "&&", line, column))
-                    column += 2
-                    i += 2
-                    continue
-
-            # Single character operators
-            if char == "|":
-                tokens.append(Token(TokenType.OR, "|", line, column))
-                column += 1
-                i += 1
-                continue
-
-            if char == "&":
-                tokens.append(Token(TokenType.AND, "&", line, column))
-                column += 1
-                i += 1
-                continue
-
-            # Numbers
-            if char.isdigit():
-                token = self._extract_number(text, i, line, column)
-                if token:
-                    tokens.append(token)
-                    column += len(token.value)
-                    i += len(token.value)
-                    continue
-
-            # Identifiers and keywords
-            if char.isalpha() or char == "_":
-                token = self._extract_identifier(text, i, line, column)
-                if token:
-                    tokens.append(token)
-                    column += len(token.value)
-                    i += len(token.value)
-                    continue
-
-            # Parentheses
-            if char == "(":
-                tokens.append(Token(TokenType.LPAREN, "(", line, column))
-                column += 1
-                i += 1
-                continue
-
-            if char == ")":
-                tokens.append(Token(TokenType.RPAREN, ")", line, column))
-                column += 1
-                i += 1
-                continue
-
-            # Exclamation mark for negation
-            if char == "!":
-                tokens.append(Token(TokenType.NOT, "!", line, column))
-                column += 1
-                i += 1
-                continue
-
-            # Unknown character, skip
-            column += 1
-            i += 1
-
-        tokens.append(Token(TokenType.EOF, "", line, column))
+        line, line_start = self._advance_lines(text, scanned, len(text), line, line_start)
+        tokens.append(Token(TokenType.EOF, "", line, len(text) - line_start))
         return tokens
 
-    @staticmethod
-    def _extract_string(
-        text: str, start: int, line: int, column: int, delimiter: str
-    ) -> Token | None:
-        """Extract a string literal with given delimiter.
+    def _token(self, match: re.Match[str], line: int, column: int) -> Token:
+        """Build the token of a match of TOKEN_PATTERN."""
+        group = match.lastgroup
+        if group in self.STRING_DELIMITERS:
+            delimiter = self.STRING_DELIMITERS[group]
+            return Token(TokenType.STRING_LITERAL, match[group], line, column, delimiter)
+        if group == "reference":
+            return Token(TokenType.STRING_REF, match[group], line, column)
+        if group == "word":
+            value = match[group]
+            return Token(self.KEYWORDS.get(value, TokenType.IDENTIFIER), value, line, column)
+        return Token(self.SYMBOL_TYPES[group], match[group], line, column)
 
-        Supports multi-line strings.
+    @staticmethod
+    def _advance_lines(
+        text: str, start: int, end: int, line: int, line_start: int
+    ) -> tuple[int, int]:
+        """Return the line and line start position after the newlines of text[start:end]."""
+        newlines = text.count("\n", start, end)
+        if newlines:
+            line += newlines
+            line_start = text.rfind("\n", start, end) + 1
+        return line, line_start
+
+
+class GamePredicateParser:
+    """Reads the games GAME_IS and GAME_INCLUDES conditions restrict a component to.
+
+    Conditions are evaluated over every game BWS knows, those of the mod
+    included: a component made for a game the mod does not list keeps that
+    game, instead of looking unrestricted.
+    """
+
+    # Tokens that end the predicate of a component flag.
+    FLAG_TYPES = frozenset(
+        {
+            TokenType.BEGIN,
+            TokenType.NO_LOG_RECORD,
+            TokenType.DESIGNATED,
+            TokenType.SUBCOMPONENT,
+            TokenType.FORCED_SUBCOMPONENT,
+            TokenType.LABEL,
+            TokenType.GROUP,
+            TokenType.DEPRECATED,
+            TokenType.REQUIRE_PREDICATE,
+            TokenType.REQUIRE_COMPONENT,
+            TokenType.EOF,
+        }
+    )
+    OPERATOR_TYPES = frozenset({TokenType.AND, TokenType.OR, TokenType.RPAREN})
+
+    def __init__(self, supported_games: set[str] | None = None):
+        """Initialize the parser with the games of the mod.
+
+        Args:
+            supported_games: Games of the mod, every Enhanced Edition when None
         """
-        i = start + 1  # Skip opening delimiter
-        end = text.find(delimiter, i)
+        games = set(supported_games if supported_games is not None else SUPPORTED_GAMES)
+        if _BWS_BG1_GAME in games:
+            games.add(_WEIDU_BG1_GAME)
 
-        if end == -1:
-            # Unclosed string
+        self.supported_games: frozenset[str] = frozenset(games)
+        self.known_games: frozenset[str] = frozenset(SUPPORTED_GAMES) | self.supported_games
+
+    def parse_from_tokens(self, tokens: list[Token], pos: int) -> tuple[list[str] | None, int]:
+        """Read the games a predicate restricts a component to.
+
+        Returns:
+            The games (see component_games) and the position after the predicate
+        """
+        holds, pos = self.read_games(tokens, pos)
+        return self.component_games(holds), pos
+
+    def read_games(self, tokens: list[Token], pos: int) -> tuple[frozenset[str], int]:
+        """Read the known games on which a predicate can hold.
+
+        Returns:
+            The games and the position after the predicate
+        """
+        restriction, pos = self._parse_or_expression(tokens, pos)
+        return restriction.holds, pos
+
+    def component_games(self, holds: frozenset[str]) -> list[str] | None:
+        """Turn the games on which the predicates of a component hold into its games.
+
+        Returns:
+            None when the component is unrestricted on the games of the mod;
+            otherwise its games among those of the mod, or, when none of
+            them, among the known games; an empty list when on no game
+        """
+        if holds >= self.supported_games:
             return None
+        return sorted(holds & self.supported_games or holds)
 
-        value = text[i:end]
-        return Token(TokenType.STRING_LITERAL, value, line, column, delimiter)
+    def _parse_or_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
+        """Parse OR expression (union of conditions)."""
+        games, pos = self._parse_and_expression(tokens, pos)
 
-    @staticmethod
-    def _extract_string_ref(text: str, start: int, line: int, column: int) -> Token | None:
-        """Extract a string reference like @123 or @-123."""
-        pattern = re.compile(r"@\s*(-?\d+)")
-        match = pattern.match(text, start)
+        while pos < len(tokens) and tokens[pos].type == TokenType.OR:
+            right_games, pos = self._parse_and_expression(tokens, pos + 1)
+            games = GameRestriction(
+                holds=games.holds | right_games.holds, fails=games.fails & right_games.fails
+            )
 
-        if not match:
-            return None
+        return games, pos
 
-        value = match.group(1)
-        return Token(TokenType.STRING_REF, value, line, column)
+    def _parse_and_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
+        """Parse AND expression (intersection of conditions)."""
+        games, pos = self._parse_primary_expression(tokens, pos)
 
-    @classmethod
-    def _extract_number(cls, text: str, start: int, line: int, column: int) -> Token | None:
-        """Extract a number, or a bare word starting with digits (1pp.tp2)."""
-        word_end = cls._bare_word_end(text, start)
-        if any(char.isalpha() or char in "_#" for char in text[start:word_end]):
-            return Token(TokenType.IDENTIFIER, text[start:word_end], line, column)
+        while pos < len(tokens) and tokens[pos].type == TokenType.AND:
+            right_games, pos = self._parse_primary_expression(tokens, pos + 1)
+            games = GameRestriction(
+                holds=games.holds & right_games.holds, fails=games.fails | right_games.fails
+            )
 
-        i = start
-        while i < len(text) and text[i].isdigit():
-            i += 1
+        return games, pos
 
-        value = text[start:i]
-        return Token(TokenType.NUMBER, value, line, column)
+    def _parse_primary_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
+        """Parse primary expression (NOT, parentheses, or condition)."""
+        if pos >= len(tokens):
+            return self._unrestricted(), pos
 
-    def _extract_identifier(
-        self, text: str, start: int, line: int, column: int
-    ) -> Token | None:
-        """Extract an identifier or keyword."""
-        value = text[start : self._bare_word_end(text, start)]
-        token_type = self.KEYWORDS.get(value.upper(), TokenType.IDENTIFIER)
-        return Token(token_type, value, line, column)
+        token = tokens[pos]
 
-    @staticmethod
-    def _bare_word_end(text: str, start: int) -> int:
-        """Find the end of a bare WeiDU word, which may hold "#" and "." (c#label, setup-mod.tp2)."""
-        i = start
-        while i < len(text) and (text[i].isalnum() or text[i] in "_-#."):
-            i += 1
-        return i
+        if token.type == TokenType.NOT:
+            games, pos = self._parse_primary_expression(tokens, pos + 1)
+            return GameRestriction(holds=games.fails, fails=games.holds), pos
+
+        if token.type == TokenType.LPAREN:
+            games, pos = self._parse_or_expression(tokens, pos + 1)
+            # Skip closing parenthesis if present
+            if pos < len(tokens) and tokens[pos].type == TokenType.RPAREN:
+                pos += 1
+            return games, pos
+
+        if token.type in (TokenType.GAME_IS, TokenType.GAME_INCLUDES):
+            games, pos = self.parse_game_condition(tokens, pos)
+            if games is None:
+                return self._unrestricted(), pos
+            return self._game_condition(games), pos
+
+        while pos < len(tokens):
+            token_type = tokens[pos].type
+            if token_type in self.OPERATOR_TYPES or token_type in self.FLAG_TYPES:
+                break
+            pos += 1
+
+        return self._unrestricted(), pos
+
+    def _game_condition(self, games: frozenset[str]) -> GameRestriction:
+        """Return the bounds of a condition true on exactly these games."""
+        return GameRestriction(holds=frozenset(games), fails=self.known_games - games)
+
+    def _unrestricted(self) -> GameRestriction:
+        """Return the bounds of a condition that does not depend on the game."""
+        return GameRestriction(holds=self.known_games, fails=self.known_games)
+
+    def parse_game_condition(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[frozenset[str] | None, int]:
+        """Read the GAME_IS or GAME_INCLUDES at pos into the known games satisfying it.
+
+        Its argument is a literal or a bare word; one given by a variable
+        cannot be read.
+
+        Returns:
+            The games, None if the argument cannot be read, and the position after it
+        """
+        keyword = tokens[pos].type
+        if pos + 1 >= len(tokens):
+            return None, pos + 1
+        argument = tokens[pos + 1]
+        if argument.type not in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER):
+            return None, pos + 1
+        if argument.delimiter == "%" or "%" in argument.value:
+            return None, pos + 2
+
+        value = argument.value.lower()
+        if keyword == TokenType.GAME_IS:
+            return self._game_is_games(value), pos + 2
+        game = value.strip()
+        return GAME_INCLUDES_GAMES.get(game, frozenset({game})) & self.known_games, pos + 2
+
+    def _game_is_games(self, value: str) -> frozenset[str]:
+        """Return the known games a GAME_IS list names; bgee is BGEE with or without SoD."""
+        games = set(value.split())
+        if "bgee" in games:
+            games.add("sod")
+        return frozenset(games) & self.known_games
 
 
 # ============================================================================
@@ -808,24 +706,26 @@ class LanguageParser:
     """Extracts and parses LANGUAGE declarations from TP2 content."""
 
     LANGUAGE_START = re.compile(r"^\s*LANGUAGE\b", re.MULTILINE)
+    BEGIN_START = re.compile(r"^\s*BEGIN\b", re.MULTILINE)
 
     def __init__(self):
         self.tokenizer = Tokenizer()
 
     def extract_languages(
-        self, text: str, mod_name: str, base_dir: str
+        self, tp2_text: Tp2Text, variables: dict[str, str]
     ) -> list[LanguageDeclaration]:
         """Extract all LANGUAGE declarations from TP2 content.
 
         Args:
-            text: Cleaned TP2 content (comments already removed)
-            mod_name: Name of the mod (for %MOD_FOLDER% substitution)
+            tp2_text: TP2 content, whose code is searched for LANGUAGE
+            variables: Variables WeiDU defines for every TP2, which the TRA
+                paths may reference (%MOD_FOLDER%, %WEIDU_OS%)
 
         Returns:
             List of LanguageDeclaration objects
         """
-        # Find all LANGUAGE keyword positions
-        language_positions = [match.start() for match in self.LANGUAGE_START.finditer(text)]
+        text, code = tp2_text.text, tp2_text.code
+        language_positions = [match.start() for match in self.LANGUAGE_START.finditer(code)]
 
         if not language_positions:
             return []
@@ -837,27 +737,27 @@ class LanguageParser:
             if i + 1 < len(language_positions):
                 lang_end = language_positions[i + 1]
             else:
-                begin_match = re.search(r"^\s*BEGIN\b", text[lang_start:], re.MULTILINE)
-                lang_end = lang_start + begin_match.start() if begin_match else len(text)
+                begin_match = self.BEGIN_START.search(code, lang_start)
+                lang_end = begin_match.start() if begin_match else len(text)
 
             # Extract block content (skip "LANGUAGE" keyword itself)
             block_text = text[lang_start:lang_end]
             block_content = re.sub(r"^\s*LANGUAGE\s*", "", block_text)
 
-            lang_decl = self._parse_block(block_content, base_dir, len(languages))
+            lang_decl = self._parse_block(block_content, variables, len(languages))
             if lang_decl:
                 languages.append(lang_decl)
 
         return languages
 
     def _parse_block(
-        self, block_content: str, mod_name: str, index: int
+        self, block_content: str, variables: dict[str, str], index: int
     ) -> LanguageDeclaration | None:
         """Parse a single LANGUAGE block.
 
         Args:
             block_content: Content after LANGUAGE keyword
-            mod_name: Mod name for variable substitution
+            variables: Variables the TRA paths may reference
             index: Position in language declaration order
 
         Returns:
@@ -874,23 +774,13 @@ class LanguageParser:
 
         # Need at least display_name and language_code
         if len(values) < 2:
-            logger.warning(f"Invalid LANGUAGE block (need ≥2 values): {block_content[:50]}...")
+            logger.warning("Invalid LANGUAGE block (need ≥2 values): %s...", block_content[:50])
             return None
 
-        display_name = values[0]
-        language_code = values[1]
-        tra_files_raw = values[2:]
-        os_code = get_os_code()
-
-        tra_files = [
-            tra_file.replace(_WEIDU_OS_VAR, os_code).replace(_MOD_FOLDER_VAR, mod_name)
-            for tra_file in tra_files_raw
-        ]
-
         return LanguageDeclaration(
-            display_name=display_name,
-            language_code=language_code,
-            tra_files=tra_files,
+            display_name=values[0],
+            language_code=values[1],
+            tra_files=[expand_known_variables(tra_file, variables) for tra_file in values[2:]],
             index=index,
         )
 
@@ -1011,7 +901,8 @@ class RequirementPredicateParser:
 
         Args:
             tokens: The predicate, followed by its message when it has one
-            component_games: Games of the component, None when unrestricted
+            component_games: Games of the component, None when unrestricted, empty
+                when on no game
 
         Returns:
             The requirements and the reasons for the parts left out
@@ -1021,7 +912,11 @@ class RequirementPredicateParser:
             return result
 
         source = "REQUIRE_PREDICATE " + " ".join(token.source_text() for token in tokens)
-        games = set(component_games) if component_games else self.game_parser.supported_games
+        games = (
+            set(component_games)
+            if component_games is not None
+            else self.game_parser.supported_games
+        )
 
         try:
             predicate, message = self._parse(tokens)
@@ -1123,7 +1018,7 @@ class RequirementPredicateParser:
             condition = self._opaque(tokens, pos, end)
 
         if isinstance(condition, GameCondition) and negated:
-            complement = frozenset(self.game_parser.supported_games - condition.games)
+            complement = self.game_parser.known_games - condition.games
             return PredicateLiteral(GameCondition(complement)), end
         return PredicateLiteral(condition, negated), end
 
@@ -1144,13 +1039,11 @@ class RequirementPredicateParser:
                 return self._opaque(tokens, pos, end), end
             return ModCondition(target), end
 
-        if token.type == TokenType.GAME_IS:
-            games, end = self.game_parser.parse_game_is(tokens, pos)
-            return GameCondition(frozenset(games)), end
-
-        if token.type == TokenType.GAME_INCLUDES:
-            games, end = self.game_parser.parse_game_includes(tokens, pos)
-            return GameCondition(frozenset(games)), end
+        if token.type in (TokenType.GAME_IS, TokenType.GAME_INCLUDES):
+            games, end = self.game_parser.parse_game_condition(tokens, pos)
+            if games is None:
+                return self._opaque(tokens, pos, end), end
+            return GameCondition(games), end
 
         end = self._opaque_term_end(tokens, pos)
         return self._opaque(tokens, pos, end), end
@@ -1205,19 +1098,22 @@ class RequirementPredicateParser:
             return [(node,)]
 
         if isinstance(node, PredicateConjunction):
-            clauses = [clause for operand in node.operands for clause in self._clauses(operand)]
-        else:
-            clauses = [()]
+            clauses: list[PredicateClause] = []
             for operand in node.operands:
-                clauses = [left + right for left in clauses for right in self._clauses(operand)]
-                self._check_clause_count(clauses)
+                clauses.extend(self._clauses(operand))
+                self._check_clause_count(len(clauses))
+            return clauses
 
-        self._check_clause_count(clauses)
+        clauses = [()]
+        for operand in node.operands:
+            operand_clauses = self._clauses(operand)
+            self._check_clause_count(len(clauses) * len(operand_clauses))
+            clauses = [left + right for left in clauses for right in operand_clauses]
         return clauses
 
     @staticmethod
-    def _check_clause_count(clauses: list[PredicateClause]) -> None:
-        if len(clauses) > TP2_PREDICATE_MAX_CLAUSES:
+    def _check_clause_count(count: int) -> None:
+        if count > TP2_PREDICATE_MAX_CLAUSES:
             raise UntranslatablePredicateError(f"more than {TP2_PREDICATE_MAX_CLAUSES} clauses")
 
     @staticmethod
@@ -1276,71 +1172,85 @@ class RequirementPredicateParser:
 # ============================================================================
 
 
+# Strings first, with the delimiters of WeiDU, so that a comment marker
+# inside one is kept; an unclosed string is code, an unclosed comment or
+# inline file runs to the end.
+RE_COMMENT_OR_STRING = re.compile(
+    r"""
+    ~~~~~.*?~~~~~ | ~[^~]*~ | "[^"]*" | %[^%]*%
+  | (?P<comment>
+        //[^\n]*
+      | /\*.*?(?:\*/|\Z)
+      | <<<<<<<<.*?(?:>>>>>>>>|\Z)
+    )
+    """,
+    re.DOTALL | re.VERBOSE,
+)
+_BLOCK_COMMENT_CLOSED_LENGTH = len("/**/")
+_INLINE_FILE_CLOSED_LENGTH = len("<<<<<<<<>>>>>>>>")
+
+
 def strip_comments(text: str) -> str:
     """Remove C-style and C++-style comments, and inline files, from TP2 code."""
-    return "".join(
-        content
-        for segment_type, content in _comment_removal_segments(text)
-        if segment_type != "comment"
-    )
+    pieces = []
+    code_start = 0
+    for match in RE_COMMENT_OR_STRING.finditer(text):
+        comment = match.group("comment")
+        if comment is None:
+            continue
+        _warn_unclosed(comment)
+        pieces.append(text[code_start : match.start()])
+        code_start = match.end()
+
+    pieces.append(text[code_start:])
+    return "".join(pieces)
 
 
-def _comment_removal_segments(text: str) -> Iterator[tuple[str, str]]:
-    """Split text into strings, comments, and code segments."""
-    i = 0
-    length = len(text)
+def _warn_unclosed(comment: str) -> None:
+    """Warn about a block comment or an inline file running to the end of the TP2."""
+    if comment.startswith("/*") and not (
+        len(comment) >= _BLOCK_COMMENT_CLOSED_LENGTH and comment.endswith("*/")
+    ):
+        logger.warning("Unclosed block comment in WeiDU file")
+    elif comment.startswith("<<<<<<<<") and not (
+        len(comment) >= _INLINE_FILE_CLOSED_LENGTH and comment.endswith(">>>>>>>>")
+    ):
+        logger.warning("Unclosed inline file block in WeiDU file")
 
-    while i < length:
-        # Check for string literals (must check before comments)
-        for delimiter in ("~", '"', "'"):
-            if text[i] == delimiter:
-                end = text.find(delimiter, i + 1)
-                if end != -1:
-                    yield "string", text[i : end + 1]
-                    i = end + 1
-                    break
-        else:
-            # Check for line comment
-            if i + 1 < length and text[i : i + 2] == "//":
-                end = text.find("\n", i)
-                if end != -1:
-                    yield "comment", text[i:end]
-                    i = end
-                else:
-                    # Comment extends to EOF
-                    yield "comment", text[i:]
-                    break
-                continue
 
-            # Check for block comment
-            if i + 1 < length and text[i : i + 2] == "/*":
-                end = text.find("*/", i + 2)
-                if end != -1:
-                    yield "comment", text[i : end + 2]
-                    i = end + 2
-                else:
-                    # Unclosed block comment, consume to EOF
-                    yield "comment", text[i:]
-                    logger.warning("Unclosed block comment in TP2 file")
-                    break
-                continue
+RE_STRING_LITERAL = re.compile(r'~~~~~.*?~~~~~|~[^~]*~|"[^"]*"|%[^%]*%', re.DOTALL)
+RE_NOT_NEWLINE = re.compile(r"[^\n]")
 
-            # Check for inline file block
-            if i + 7 < length and text[i : i + 8] == "<<<<<<<<":
-                end = text.find(">>>>>>>>", i + 8)
-                if end != -1:
-                    yield "comment", text[i : end + 8]
-                    i = end + 8
-                else:
-                    # Unclosed inline file, consume to EOF
-                    yield "comment", text[i:]
-                    logger.warning("Unclosed inline file block in TP2 file")
-                    break
-                continue
 
-            # Regular code character
-            yield "code", text[i]
-            i += 1
+@dataclass(frozen=True, slots=True)
+class Tp2Text:
+    """TP2 content without its comments, and the same code to search keywords in.
+
+    In code, the contents of strings are blanked, their delimiters and
+    newlines kept: a keyword found there is not inside a string (a PRINT
+    message, a patched text), and its position is the same in text.
+
+    Attributes:
+        text: Content without comments
+        code: Text with blanked string contents
+    """
+
+    text: str
+    code: str
+
+    @classmethod
+    def from_content(cls, content: str) -> Tp2Text:
+        """Remove the comments of content and blank its strings."""
+        text = strip_comments(content)
+        return cls(text, RE_STRING_LITERAL.sub(_blank_string, text))
+
+
+def _blank_string(match: re.Match[str]) -> str:
+    """Blank the contents of a string literal, keeping its delimiters and newlines."""
+    literal = match.group()
+    delimiter_length = len("~~~~~") if literal.startswith("~~~~~") else 1
+    contents = RE_NOT_NEWLINE.sub(" ", literal[delimiter_length:-delimiter_length])
+    return f"{literal[:delimiter_length]}{contents}{literal[-delimiter_length:]}"
 
 
 def expand_variables(text: str, variables: dict[str, str]) -> str | None:
@@ -1354,29 +1264,73 @@ def expand_variables(text: str, variables: dict[str, str]) -> str | None:
     return RE_VARIABLE_REFERENCE.sub(lambda match: variables[match.group(1)], text)
 
 
-def find_path_ignoring_case(root: Path, relative: str) -> Path | None:
-    """Find a path under root, matching each name regardless of case as WeiDU on Windows.
+def expand_known_variables(text: str, variables: dict[str, str]) -> str:
+    """Replace the %name% references of text to known variables, keeping the others."""
+    return RE_VARIABLE_REFERENCE.sub(
+        lambda match: variables.get(match.group(1), match.group(0)), text
+    )
 
-    Returns:
-        The resolved path, or None if it does not exist or is absolute
+
+class CaseInsensitivePathFinder:
+    """Finds paths regardless of case as WeiDU on Windows, listing each folder once.
+
+    Names absent with their own case are looked for in the listing of their
+    folder. TP2 files look for many files that do not exist (generated at
+    install time, or for another game) in a game folder that may hold
+    thousands of mods: listing it again for each would dominate the parse.
+    The listings are shared by all finders, each kept while the modification
+    time of its folder, which an added or removed entry changes, is the same.
     """
-    parts = PurePosixPath(relative.replace("\\", "/")).parts
-    if not parts or parts[0] == "/" or PureWindowsPath(relative).drive:
-        return None
 
-    path = root
-    for part in parts:
-        candidate = path / part
-        if not candidate.exists() and path.is_dir():
-            candidate = next(
-                (entry for entry in path.iterdir() if entry.name.lower() == part.lower()),
-                candidate,
-            )
-        if not candidate.exists():
+    # Folder -> (modification time, lowercase name -> first spelling)
+    _listings: dict[Path, tuple[int, dict[str, str]]] = {}
+
+    def find(self, root: Path, relative: str) -> Path | None:
+        """Find relative under root, matching each name regardless of case.
+
+        Returns:
+            The resolved path, or None if it does not exist, is absolute or
+            cannot be reached (a name Windows rejects, an unreadable folder)
+        """
+        parts = PurePosixPath(relative.replace("\\", "/")).parts
+        if not parts or parts[0] == "/" or PureWindowsPath(relative).drive:
             return None
-        path = candidate
 
-    return path.resolve()
+        path = root
+        try:
+            for part in parts:
+                candidate = path / part
+                if not candidate.exists():
+                    name = self._listing(path).get(part.lower())
+                    if name is None:
+                        return None
+                    candidate = path / name
+                path = candidate
+
+            return path.resolve()
+        except OSError as error:
+            logger.debug("Cannot reach %s under %s: %s", relative, root, error)
+            return None
+
+    def _listing(self, folder: Path) -> dict[str, str]:
+        """Map the lowercase names of the entries of folder to their first spelling.
+
+        Raises:
+            OSError: If folder is not a readable folder
+        """
+        modified = folder.stat().st_mtime_ns
+        cached = self._listings.get(folder)
+        if cached is not None and cached[0] == modified:
+            return cached[1]
+
+        listing: dict[str, str] = {}
+        for entry in folder.iterdir():
+            listing.setdefault(entry.name.lower(), entry.name)
+
+        if len(self._listings) >= TP2_FOLDER_LISTINGS_CACHE_SIZE:
+            self._listings.clear()
+        self._listings[folder] = (modified, listing)
+        return listing
 
 
 def argument_text(token: Token) -> str:
@@ -1402,19 +1356,25 @@ class IncludeReader:
             tp2_dir: Folder of the TP2, None when it was not read from disk
             tp2_name: Name of the TP2, with or without its setup- prefix
         """
+        mod_name = normalize_tp2_name(tp2_name)
         self.game_dir: Path | None = None
-        self.variables: dict[str, str] = {_WEIDU_OS_NAME: get_os_code()}
+        # Without the folder, the mod folder is taken to be named after the mod.
+        self.variables: dict[str, str] = {
+            _WEIDU_OS_NAME: get_os_code(),
+            _MOD_FOLDER_NAME: mod_name,
+        }
         self._tokenizer = Tokenizer()
         self._tokens: dict[Path, list[Token]] = {}
+        self._path_finder = CaseInsensitivePathFinder()
+        self._found: dict[str, Path | None] = {}
 
         if tp2_dir is None:
             return
 
         tp2_dir = tp2_dir.resolve()
-        mod_name = normalize_tp2_name(tp2_name)
         mod_dir = None
         if tp2_dir.name.lower() != mod_name:
-            mod_dir = find_path_ignoring_case(tp2_dir, mod_name)
+            mod_dir = self._path_finder.find(tp2_dir, mod_name)
 
         if mod_dir is not None and mod_dir.is_dir():
             self.game_dir = tp2_dir
@@ -1423,15 +1383,17 @@ class IncludeReader:
         self.variables[_MOD_FOLDER_NAME] = mod_dir.name
 
     def find(self, path_text: str) -> Path | None:
-        """Find the file an INCLUDE names, its variables already expanded.
+        """Find the file an INCLUDE or a LANGUAGE names, its variables already expanded.
 
         Returns:
             The resolved file path, or None if there is no such file
         """
         if self.game_dir is None:
             return None
-        path = find_path_ignoring_case(self.game_dir, path_text)
-        return path if path is not None and path.is_file() else None
+        if path_text not in self._found:
+            path = self._path_finder.find(self.game_dir, path_text)
+            self._found[path_text] = path if path is not None and path.is_file() else None
+        return self._found[path_text]
 
     def read_tokens(self, path: Path) -> list[Token]:
         """Tokenize an included file once, without its comments.
@@ -1507,6 +1469,7 @@ class ComponentBodyScanner:
         """
         body = ComponentBody()
         self._scan(tokens, start, dict(variables or {}), (), body)
+        body.requirements = list(dict.fromkeys(body.requirements))
         return body
 
     def define_variables(self, tokens: list[Token], variables: dict[str, str]) -> None:
@@ -1545,7 +1508,10 @@ class ComponentBodyScanner:
 
     @staticmethod
     def _read_condition(condition: list[Token], location: str, body: ComponentBody) -> None:
-        """Add an optional requirement for each component the condition tests."""
+        """Add an optional requirement for each component the condition tests.
+
+        A target tested several times is deduplicated once the body is scanned.
+        """
         for pos, token in enumerate(condition):
             if token.type != TokenType.MOD_IS_INSTALLED:
                 continue
@@ -1556,13 +1522,13 @@ class ComponentBodyScanner:
                 body.skipped.append(f"unresolved MOD_IS_INSTALLED{location}: {source}")
                 continue
 
-            requirement = ComponentRequirement(
-                kind=RequirementKind.OPTIONAL,
-                alternatives=(target,),
-                source=RequirementSource.BODY,
+            body.requirements.append(
+                ComponentRequirement(
+                    kind=RequirementKind.OPTIONAL,
+                    alternatives=(target,),
+                    source=RequirementSource.BODY,
+                )
             )
-            if requirement not in body.requirements:
-                body.requirements.append(requirement)
 
     # ------------------------------------------------------------------
     # Included files
@@ -1626,7 +1592,7 @@ class ComponentBodyScanner:
         try:
             tokens = self.include_reader.read_tokens(path)
         except OSError as error:
-            logger.debug(f"Cannot read included file {path}: {error}")
+            logger.debug("Cannot read included file %s: %s", path, error)
             return "unreadable"
 
         self._scan(tokens, 0, variables, include_chain + (path,), body)
@@ -1690,7 +1656,8 @@ class ComponentHeader:
         subcomponent_text: Direct SUBCOMPONENT label text
         label: LABEL value
         group: GROUP value, when given as text
-        games: Games kept by the REQUIRE_PREDICATE, None when unrestricted
+        games: Games kept by all the REQUIRE_PREDICATE, None when unrestricted,
+            empty when on no game
         no_log_record: Whether the component is excluded from WeiDU.log
         requirements: Requirements of the REQUIRE_COMPONENT and FORBID_COMPONENT
             flags and of the REQUIRE_PREDICATE, in declaration order
@@ -1711,6 +1678,23 @@ class ComponentHeader:
     no_log_record: bool = False
     requirements: list[ComponentRequirement] = field(default_factory=list)
     skipped_requirements: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True, slots=True)
+class HeaderPredicate:
+    """A REQUIRE_PREDICATE of a header, read once the games of the component are known.
+
+    Attributes:
+        tokens: The predicate, followed by its message when it has one
+        holds: Known games on which the predicate can hold
+        requirement_index: Position of its requirements among those of the header
+        skipped_index: Position of its skipped reasons among those of the header
+    """
+
+    tokens: list[Token]
+    holds: frozenset[str]
+    requirement_index: int
+    skipped_index: int
 
 
 @dataclass
@@ -1745,8 +1729,8 @@ class ComponentParser:
     """
 
     BEGIN_PATTERN = re.compile(
-        r"^\s*BEGIN\s+(?:@\s*-?\d+|~[^~]*~(?!\s*=)|\"[^\"]*\"(?!\s*=)|/\*.*?\*/\s*(?:@|[~\"]))",
-        re.MULTILINE | re.IGNORECASE,
+        r"^\s*BEGIN\s+(?:@\s*-?\d+|~[^~]*~(?!\s*=)|\"[^\"]*\"(?!\s*=))",
+        re.MULTILINE,
     )
 
     # Token types a WeiDU String argument can take, bare words included.
@@ -1820,42 +1804,35 @@ class ComponentParser:
         self.predicate_parser = RequirementPredicateParser(self.game_parser)
         self.body_scanner = ComponentBodyScanner(include_reader)
 
-    def extract_blocks(self, text: str) -> list[str]:
-        """Extract component blocks from TP2 content.
+    def split_components(self, tp2_text: Tp2Text) -> tuple[str, list[str]]:
+        """Split TP2 content into its prelude and its component blocks.
 
-        Args:
-            text: Cleaned TP2 content (comments already removed)
+        A component starts with a BEGIN and its label at the start of a line
+        of code; a BEGIN inside a string does not start one.
 
         Returns:
-            List of component block strings
+            The text before the first component, and each component block
+            from its BEGIN
         """
-        begin_positions = [match.start() for match in self.BEGIN_PATTERN.finditer(text)]
+        text = tp2_text.text
+        starts = [match.start() for match in self.BEGIN_PATTERN.finditer(tp2_text.code)]
+        if not starts:
+            return text, []
 
-        if not begin_positions:
-            return []
+        ends = [*starts[1:], len(text)]
+        blocks = [text[start:end].strip() for start, end in zip(starts, ends, strict=True)]
+        return text[: starts[0]], [block for block in blocks if block]
 
-        blocks = []
-        for i, start in enumerate(begin_positions):
-            end = begin_positions[i + 1] if i + 1 < len(begin_positions) else len(text)
-            block = text[start:end].strip()
-            if block:
-                blocks.append(block)
-
-        return blocks
-
-    def read_prelude_variables(self, text: str, variables: dict[str, str]) -> dict[str, str]:
+    def read_prelude_variables(self, prelude: str, variables: dict[str, str]) -> dict[str, str]:
         """Complete variables with those defined before the first component, as in ALWAYS.
 
         Args:
-            text: Cleaned TP2 content (comments already removed)
+            prelude: TP2 content before the first component
             variables: Variables WeiDU defines for every TP2
 
         Returns:
             A new dictionary of the variables known to every component
         """
-        first_begin = self.BEGIN_PATTERN.search(text)
-        prelude = text[: first_begin.start()] if first_begin else text
-
         prelude_variables = dict(variables)
         self.body_scanner.define_variables(self.tokenizer.tokenize(prelude), prelude_variables)
         return prelude_variables
@@ -1902,22 +1879,52 @@ class ComponentParser:
             return None
 
         header = ComponentHeader(body_start=0)
+        predicates: list[HeaderPredicate] = []
         header.text_ref, header.text, pos = self._read_label(tokens, 1)
         # Some mods follow the label with a second, unused string.
         _, _, pos = self._read_label(tokens, pos)
 
-        while (next_pos := self._read_flag(tokens, pos, header)) is not None:
+        while (next_pos := self._read_flag(tokens, pos, header, predicates)) is not None:
             pos = next_pos
 
         header.body_start = pos
+        self._read_predicates(header, predicates)
         return header
+
+    def _read_predicates(
+        self, header: ComponentHeader, predicates: list[HeaderPredicate]
+    ) -> None:
+        """Restrict the component to the games of all its predicates, then read their requirements.
+
+        A requirement depends on the games of the whole component, not only
+        on those of its own predicate: the predicates are read last, their
+        requirements put back in declaration order.
+        """
+        if not predicates:
+            return
+
+        holds = frozenset.intersection(*(predicate.holds for predicate in predicates))
+        header.games = self.game_parser.component_games(holds)
+
+        for predicate in reversed(predicates):
+            result = self.predicate_parser.read(predicate.tokens, header.games)
+            index = predicate.requirement_index
+            header.requirements[index:index] = result.requirements
+            index = predicate.skipped_index
+            header.skipped_requirements[index:index] = result.skipped
 
     # ------------------------------------------------------------------
     # Flags
     # ------------------------------------------------------------------
 
-    def _read_flag(self, tokens: list[Token], pos: int, header: ComponentHeader) -> int | None:
-        """Read the flag at pos into the header.
+    def _read_flag(
+        self,
+        tokens: list[Token],
+        pos: int,
+        header: ComponentHeader,
+        predicates: list[HeaderPredicate],
+    ) -> int | None:
+        """Read the flag at pos into the header, or into predicates for a REQUIRE_PREDICATE.
 
         Returns:
             The position after the flag, or None if pos is not a flag
@@ -1949,17 +1956,20 @@ class ComponentParser:
             return pos
 
         if flag == TokenType.REQUIRE_PREDICATE:
-            games, _ = self.game_parser.parse_from_tokens(tokens, pos)
-            if games:
-                header.games = games
+            holds, _ = self.game_parser.read_games(tokens, pos)
             # A literal message may already be taken as an argument of the
             # predicate; a bare word is the body, not the message.
             start, pos = pos, self._predicate_end(tokens, pos)
             if tokens[pos].type in (TokenType.STRING_REF, TokenType.STRING_LITERAL):
                 pos += 1
-            predicate = self.predicate_parser.read(tokens[start:pos], games)
-            header.requirements.extend(predicate.requirements)
-            header.skipped_requirements.extend(predicate.skipped)
+            predicates.append(
+                HeaderPredicate(
+                    tokens=tokens[start:pos],
+                    holds=holds,
+                    requirement_index=len(header.requirements),
+                    skipped_index=len(header.skipped_requirements),
+                )
+            )
             return pos
 
         if flag in self.COMPONENT_REQUIREMENT_KINDS:
@@ -2136,7 +2146,8 @@ class WeiDUTp2Parser:
         """Initialize parser with base directory.
 
         Args:
-            base_dir: Directory containing TP2 and related files
+            base_dir: Directory relative paths of TP2 files are given from,
+                and TRA files are looked for in when not found in the game folder
         """
         self.base_dir = Path(base_dir).resolve()
         if not self.base_dir.is_dir():
@@ -2149,13 +2160,14 @@ class WeiDUTp2Parser:
 
         Args:
             path: Path to TP2 file (absolute or relative to base_dir)
+            supported_games: Games of the mod, every Enhanced Edition when None
 
         Returns:
             Parsed WeiDUTp2 object
 
         Raises:
             Tp2FileNotFoundError: If file doesn't exist
-            Tp2ParseError: If parsing fails
+            Tp2ParseError: If the file cannot be read or parsed
         """
         file_path = Path(path)
         if not file_path.is_absolute():
@@ -2169,24 +2181,28 @@ class WeiDUTp2Parser:
         logger.info(f"Parsing TP2 file: {file_path}")
 
         try:
-            content = file_path.read_text(encoding="utf-8", errors="ignore")
-            return self.parse_string(content, file_path.stem, supported_games, file_path.parent)
-        except Exception as e:
-            logger.error(f"Failed to parse TP2 file: {file_path}", exc_info=True)
-            raise Tp2ParseError(f"Error parsing {file_path}: {e}") from e
+            content = safe_read(file_path)
+        except OSError as e:
+            logger.error(f"Failed to read TP2 file: {file_path}", exc_info=True)
+            raise Tp2ParseError(f"Error reading {file_path}: {e}") from e
+
+        return self.parse_string(content, file_path.stem, supported_games, file_path.parent)
 
     def parse_string(
         self,
         tp2_content: str,
         tp2_name: str,
         supported_games: set[str] | None = None,
-        parent: str | None = None,
+        parent: str | Path | None = None,
     ) -> WeiDUTp2:
         """Parse TP2 content from a string.
 
         Args:
             tp2_content: Raw TP2 file content
             tp2_name: Name of the mod
+            supported_games: Games of the mod, every Enhanced Edition when None
+            parent: Folder of the TP2, from which included and TRA files are
+                found; None when the TP2 was not read from disk
 
         Returns:
             Parsed WeiDUTp2 object
@@ -2195,19 +2211,16 @@ class WeiDUTp2Parser:
             Tp2ParseError: If parsing fails
         """
         try:
-            self.supported_games = (
-                supported_games if supported_games is not None else SUPPORTED_GAMES.copy()
-            )
-            clean_content = strip_comments(tp2_content)
+            tp2_text = Tp2Text.from_content(tp2_content)
+            include_reader = IncludeReader(Path(parent) if parent else None, tp2_name)
 
             tp2 = WeiDUTp2()
             tp2.name = tp2_name
 
-            self._extract_version(clean_content, tp2)
-            self._extract_languages(clean_content, tp2, parent)
-            include_reader = IncludeReader(Path(parent) if parent else None, tp2_name)
-            self._parse_components(clean_content, tp2, self.supported_games, include_reader)
-            self._build_translations(tp2)
+            self._extract_version(tp2_text, tp2)
+            self._extract_languages(tp2_text, tp2, include_reader)
+            self._parse_components(tp2_text, tp2, supported_games, include_reader)
+            self._build_translations(tp2, include_reader)
 
             logger.info(
                 f"Successfully parsed TP2: version={tp2.version}, "
@@ -2217,34 +2230,42 @@ class WeiDUTp2Parser:
             return tp2
 
         except Exception as e:
-            logger.error("Failed to parse TP2 string", exc_info=True)
-            raise Tp2ParseError(f"Error parsing TP2 content: {e}") from e
+            logger.error(f"Failed to parse TP2 {tp2_name}", exc_info=True)
+            raise Tp2ParseError(f"Error parsing {tp2_name}: {e}") from e
 
     @staticmethod
-    def _extract_version(text: str, tp2: WeiDUTp2) -> None:
-        """Extract VERSION declaration from TP2 content."""
-        match = RE_VERSION.search(text)
-        if match:
-            tp2.version = match.group(1)
-        else:
-            logger.warning("No VERSION declaration found in TP2")
+    def _extract_version(tp2_text: Tp2Text, tp2: WeiDUTp2) -> None:
+        """Extract the first VERSION declaration of the TP2 code."""
+        for keyword in RE_VERSION_KEYWORD.finditer(tp2_text.code):
+            match = RE_VERSION.match(tp2_text.text, keyword.start())
+            if match:
+                tp2.version = match.group(1)
+                return
 
-    def _extract_languages(self, text: str, tp2: WeiDUTp2, parent: str) -> None:
+        logger.warning("No VERSION declaration found in TP2")
+
+    @staticmethod
+    def _extract_languages(
+        tp2_text: Tp2Text, tp2: WeiDUTp2, include_reader: IncludeReader
+    ) -> None:
         """Extract LANGUAGE declarations from TP2 content."""
         parser = LanguageParser()
-        tp2.languages = parser.extract_languages(text, tp2.name, str(parent))
+        tp2.languages = parser.extract_languages(tp2_text, include_reader.variables)
 
         if not tp2.languages:
             logger.warning("No LANGUAGE declarations found in TP2")
 
     @staticmethod
     def _parse_components(
-        text: str, tp2: WeiDUTp2, supported_games: set[str], include_reader: IncludeReader
+        tp2_text: Tp2Text,
+        tp2: WeiDUTp2,
+        supported_games: set[str] | None,
+        include_reader: IncludeReader,
     ) -> None:
         """Parse all component declarations from TP2 content using robust token-based approach."""
         parser = ComponentParser(supported_games, include_reader)
-        blocks = parser.extract_blocks(text)
-        variables = parser.read_prelude_variables(text, include_reader.variables)
+        prelude, blocks = parser.split_components(tp2_text)
+        variables = parser.read_prelude_variables(prelude, include_reader.variables)
 
         logger.info(f"Extracted {len(blocks)} component blocks")
 
@@ -2278,7 +2299,7 @@ class WeiDUTp2Parser:
                     continue
 
                 for reason in parsed_block.skipped_requirements:
-                    logger.warning(f"{tp2.name}:{designated}: Skipping {reason}")
+                    logger.warning("%s:%s: Skipping %s", tp2.name, designated, reason)
 
                 component = Component(
                     designated=str(designated),
@@ -2312,7 +2333,7 @@ class WeiDUTp2Parser:
                     tp2.components.append(component)
 
             except Exception as e:
-                logger.error(f"Error parsing component: {e}", exc_info=True)
+                logger.error("Error parsing component: %s", e, exc_info=True)
                 continue
 
         logger.info(f"Parsed {len(tp2.components)} top-level components")
@@ -2320,13 +2341,14 @@ class WeiDUTp2Parser:
             logger.info(f"Skipped {deprecated_count} deprecated component(s)")
 
     def _extract_tra_translations(
-        self, tra_files: list[str], language_code: str
+        self, tra_files: list[str], language_code: str, include_reader: IncludeReader
     ) -> dict[str, str]:
         """Extract translations from TRA files.
 
         Args:
-            tra_files: List of TRA file paths
+            tra_files: TRA file paths, relative to the game folder
             language_code: Language of the files, which selects their encodings
+            include_reader: Finds the files in the game folder
 
         Returns:
             Dictionary mapping reference ID to translated text
@@ -2335,34 +2357,29 @@ class WeiDUTp2Parser:
         encodings = LANGUAGE_TEXT_ENCODINGS.get(language_code, TEXT_ENCODINGS)
 
         for tra_file in tra_files:
-            tra_path = (self.base_dir / tra_file).resolve()
+            tra_path = include_reader.find(tra_file) or (self.base_dir / tra_file).resolve()
 
             try:
-                content = safe_read(tra_path, encodings)
+                content = strip_comments(safe_read(tra_path, encodings))
                 for match in RE_TRA_TRANSLATION.finditer(content):
-                    ref_id = match.group("id")
-                    text = (
-                        match.group("text_tilde").strip()
-                        if match.group("text_tilde")
-                        else match.group("text_quote").strip()
-                        if match.group("text_quote")
-                        else match.group("text_tilde5").strip()
-                        if match.group("text_tilde5")
-                        else ""
+                    text = next(
+                        match.group(group)
+                        for group in ("text_tilde5", "text_tilde", "text_quote")
+                        if match.group(group) is not None
                     )
-                    translations[ref_id] = text
+                    translations[match.group("id")] = text.strip()
 
             except Exception as e:
-                logger.error(f"Error reading TRA file {tra_path}: {e}", exc_info=True)
+                logger.error("Error reading TRA file %s: %s", tra_path, e, exc_info=True)
 
         return translations
 
-    def _build_translations(self, tp2: WeiDUTp2) -> None:
+    def _build_translations(self, tp2: WeiDUTp2, include_reader: IncludeReader) -> None:
         """Build translation dictionary for all languages."""
         languages = tp2.preferred_languages()
         translations: dict[str, dict[str, str]] = {
             lang.language_code: self._extract_tra_translations(
-                lang.tra_files, lang.language_code
+                lang.tra_files, lang.language_code, include_reader
             )
             for lang in languages
         }

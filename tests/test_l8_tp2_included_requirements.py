@@ -171,8 +171,12 @@ def test_comments_of_an_included_file_are_ignored(tp2_path: Path, mod_dir: Path)
             "",
             "OUTER_SPRINT file ~%MOD_FOLDER%/lib/adapt.tpa~\nINCLUDE %file%",
         ),
+        (
+            "",
+            "OUTER_SPRINT label ~%MOD_FOLDER%/lib/adapt.tpa~\nINCLUDE ~%label%~",
+        ),
     ],
-    ids=["always_block", "component_body", "bare_variable"],
+    ids=["always_block", "component_body", "bare_variable", "lowercase_keyword_name"],
 )
 def test_include_path_is_expanded_with_the_text_variables_defined_before(
     tp2_path: Path, mod_dir: Path, prelude: str, body: str
@@ -321,3 +325,23 @@ def test_tp2_parsed_from_a_string_without_folder_logs_its_includes(
 
     assert tp2.components[0].requirements == []
     assert "demo:10: Skipping unresolved INCLUDE: ~demo/lib/adapt.tpa~" in caplog.text
+
+
+def test_include_path_the_system_rejects_leaves_the_component(tp2_path: Path) -> None:
+    components = parse_components(
+        tp2_path, "BEGIN @1 DESIGNATED 10\nINCLUDE ~.../copy_portraits.tpa~\n"
+    )
+
+    assert [component.designated for component in components] == ["10"]
+
+
+def test_included_file_extracted_after_a_first_parse_is_found(
+    tp2_path: Path, mod_dir: Path
+) -> None:
+    components = "BEGIN @1 DESIGNATED 10\nINCLUDE ~%MOD_FOLDER%/lib/adapt.tpa~\n"
+    write(mod_dir / "lib" / "other.tpa", "")
+    assert summary(parse_components(tp2_path, components)[0]) == []
+
+    write(mod_dir / "lib" / "ADAPT.tpa", condition_on("a", 0))
+
+    assert summary(parse_components(tp2_path, components)[0]) == [(OPTIONAL, ["a(0)"])]

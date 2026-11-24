@@ -192,3 +192,33 @@ def test_predicate_requirements_follow_header_flags_in_order(tmp_path: Path) -> 
         (REQUIRED, ["second(1)"]),
         (FORBIDDEN, ["third(2)"]),
     ]
+
+
+def parse_component_with_predicates(tmp_path: Path, *predicates: str) -> Component:
+    flags = "".join(f"REQUIRE_PREDICATE {predicate}\n" for predicate in predicates)
+    content = f"BEGIN @1 DESIGNATED 10\n{flags}COPY_EXISTING ~sw1h01.itm~ ~override~\n"
+    tp2 = WeiDUTp2Parser(tmp_path).parse_string(content, "demo", None, tmp_path)
+    return tp2.components[0]
+
+
+@pytest.mark.parametrize(
+    "predicates",
+    [
+        ("GAME_IS ~bg2ee~ @1", "GAME_IS ~bg2ee eet~ @2"),
+        ("GAME_IS ~bg2ee eet~ @1", "GAME_IS ~bg2ee~ @2"),
+    ],
+    ids=["narrow first", "narrow last"],
+)
+def test_successive_predicates_restrict_the_component_to_their_common_games(
+    tmp_path: Path, predicates: tuple[str, str]
+) -> None:
+    assert parse_component_with_predicates(tmp_path, *predicates).games == ["bg2ee"]
+
+
+def test_mod_alternative_to_a_game_another_predicate_excludes_is_kept(tmp_path: Path) -> None:
+    component = parse_component_with_predicates(
+        tmp_path, "GAME_IS ~bgee~ @1", f"{mod('a', 0)} OR GAME_IS ~bg2ee~ @2"
+    )
+
+    assert component.games == ["bgee", "sod"]
+    assert summary(component) == [(REQUIRED, ["a(0)"])]

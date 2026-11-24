@@ -4,7 +4,13 @@ from pathlib import Path
 
 import pytest
 
-from core.WeiDUTp2Parser import ComponentParser, MucComponent, WeiDUTp2, WeiDUTp2Parser
+from core.WeiDUTp2Parser import (
+    ComponentParser,
+    MucComponent,
+    WeiDUTp2,
+    WeiDUTp2Parser,
+    strip_comments,
+)
 
 
 def parse_components(tmp_path: Path, components: str) -> WeiDUTp2:
@@ -141,3 +147,54 @@ def test_component_label_may_be_on_the_line_after_begin(tmp_path: Path) -> None:
 
     assert [component.designated for component in tp2.components] == ["0", "1"]
     assert tp2.untranslated_component_labels == {"1": "Demo Rescue"}
+
+
+def test_label_reference_written_with_spaces_keeps_the_following_flags(tmp_path: Path) -> None:
+    tp2 = parse_components(tmp_path, "BEGIN @ 123 DESIGNATED 7\nCOPY ~a~ ~b~\n")
+
+    assert [(component.designated, component.text_ref) for component in tp2.components] == [
+        ("7", "123")
+    ]
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        "PRINT ~Install notes:\nBEGIN @123\n~\n",
+        'REPLACE_TEXTUALLY "BEGIN @11" "*/\nBEGIN @11"\n',
+        "PRINT ~~~~~a ~ quote\nBEGIN ~x~ here~~~~~\n",
+        "PRINT %\nBEGIN @7%\n",
+    ],
+    ids=["tilde", "quote", "five tildes", "percent"],
+)
+def test_begin_inside_a_string_does_not_start_a_component(tmp_path: Path, body: str) -> None:
+    tp2 = parse_components(tmp_path, f"BEGIN @1 DESIGNATED 10\n{body}BEGIN @2 DESIGNATED 20\n")
+
+    assert [component.designated for component in tp2.components] == ["10", "20"]
+
+
+@pytest.mark.parametrize(
+    "code",
+    [
+        "OUTER_SPRINT url %http://example.org% PRINT ~x~",
+        "PRINT ~~~~~a ~ b // c~~~~~ PRINT ~x~",
+        'PRINT ~it\'s~ PRINT "a /* b" PRINT ~x~',
+    ],
+    ids=["percent", "five tildes", "tilde and quote"],
+)
+def test_comment_marker_inside_a_string_is_kept(code: str) -> None:
+    assert strip_comments(code) == code
+
+
+def test_apostrophe_does_not_hide_a_comment() -> None:
+    code = "OUTER_SPRINT name mod's // the name\nPRINT ~it's done~"
+
+    assert strip_comments(code) == "OUTER_SPRINT name mod's \nPRINT ~it's done~"
+
+
+def test_version_is_read_from_the_code_and_not_from_a_string(tmp_path: Path) -> None:
+    tp2 = parse_components(
+        tmp_path, "PRINT ~GAME VERSION 2 needed~\nVERSION ~v5.0~\nBEGIN @1 DESIGNATED 10\n"
+    )
+
+    assert tp2.version == "5.0"

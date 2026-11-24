@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from core.WeiDUTp2Parser import WeiDUTp2Parser
+from core.WeiDUTp2Parser import WeiDUTp2Parser, normalize_language_code
 from util.mod_sync.sources.tp2_source import TP2Source
 
 LANGUAGES_TP2 = """BACKUP ~demo/backup~
@@ -133,3 +133,93 @@ def test_language_missing_from_the_language_map_does_not_reach_the_definition(
     assert extracted is not None
     assert extracted["languages"] == {"en_US": 1}
     assert extracted["component_translations"] == {"en_US": {"0": "english"}}
+
+
+MOD_FOLDER_TP2 = """BACKUP ~demo/backup~
+AUTHOR ~author~
+LANGUAGE ~English~ ~english~ ~%MOD_FOLDER%/tra/setup.tra~
+
+BEGIN @1
+DESIGNATED 0
+"""
+
+
+def _write_mod_folder_tra(game_dir: Path) -> None:
+    tra_path = game_dir / "demo" / "tra" / "setup.tra"
+    tra_path.parent.mkdir(parents=True)
+    tra_path.write_text("@1 = ~Demo~", encoding="utf-8")
+
+
+@pytest.mark.parametrize(
+    "tp2_relative",
+    ["demo/setup-demo.tp2", "setup-demo.tp2"],
+    ids=["inside the mod folder", "beside the mod folder"],
+)
+def test_mod_folder_of_a_tra_path_names_the_mod_folder(
+    tmp_path: Path, tp2_relative: str
+) -> None:
+    _write_mod_folder_tra(tmp_path)
+    tp2_path = tmp_path / tp2_relative
+    tp2_path.write_text(MOD_FOLDER_TP2, encoding="utf-8")
+
+    tp2 = WeiDUTp2Parser(tp2_path.parent).parse_file(tp2_path)
+
+    assert tp2.languages[0].tra_files == ["demo/tra/setup.tra"]
+    assert tp2.component_translations == {"en_US": {"0": "Demo"}}
+
+
+def test_tra_path_is_relative_to_the_game_folder(tmp_path: Path) -> None:
+    _write_tra(tmp_path, "english", "Demo", "utf-8")
+    tp2_path = tmp_path / "demo" / "setup-demo.tp2"
+    tp2_path.write_text(LANGUAGES_TP2, encoding="utf-8")
+
+    tp2 = WeiDUTp2Parser(tp2_path.parent).parse_file(tp2_path)
+
+    assert tp2.component_translations["en_US"] == {"0": "Demo"}
+
+
+def test_mod_folder_of_a_tp2_without_folder_is_named_after_the_mod(tmp_path: Path) -> None:
+    _write_mod_folder_tra(tmp_path)
+
+    tp2 = WeiDUTp2Parser(tmp_path).parse_string(MOD_FOLDER_TP2, "setup-demo")
+
+    assert tp2.languages[0].tra_files == ["demo/tra/setup.tra"]
+    assert tp2.component_translations == {"en_US": {"0": "Demo"}}
+
+
+def test_tp2_label_out_of_utf8_keeps_its_accents(tmp_path: Path) -> None:
+    tp2_path = tmp_path / "demo" / "setup-demo.tp2"
+    tp2_path.parent.mkdir()
+    tp2_path.write_bytes("BEGIN ~Composant par défaut~\n".encode("cp1252"))
+
+    tp2 = WeiDUTp2Parser(tmp_path).parse_file(tp2_path)
+
+    assert tp2.components[0].text == "Composant par défaut"
+
+
+@pytest.mark.parametrize(
+    ("code", "language_code"),
+    [("français", "fr_FR"), ("Español", "es_ES"), ("česky", "cs_CZ"), ("Türkçe", "tr_TR")],
+)
+def test_accented_language_code_is_normalized(code: str, language_code: str) -> None:
+    assert normalize_language_code(code) == language_code
+
+
+@pytest.mark.parametrize(
+    "tra_text",
+    [
+        "@1 = ~Live~\n// @1 = ~Commented~\n",
+        "@1 = ~Live~\n/* @1 = ~Commented~ */\n",
+        "//@1 = ~Commented without end\n@1 = ~Live~\n",
+    ],
+    ids=["line comment", "block comment", "unclosed string in a comment"],
+)
+def test_commented_tra_entry_is_ignored(tmp_path: Path, tra_text: str) -> None:
+    tra_dir = tmp_path / "demo" / "english"
+    tra_dir.mkdir(parents=True)
+    (tra_dir / "setup.tra").write_text(tra_text, encoding="utf-8")
+    content = "LANGUAGE ~English~ ~english~ ~demo/english/setup.tra~\nBEGIN @1 DESIGNATED 0\n"
+
+    tp2 = WeiDUTp2Parser(tmp_path).parse_string(content, "demo", None, tmp_path)
+
+    assert tp2.component_translations == {"en_US": {"0": "Live"}}
