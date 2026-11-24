@@ -148,4 +148,4 @@ def test_unresolved_target_is_skipped_and_logged(
 
     assert component(tp2, "10").requirements == []
     assert tp2.unlogged_components() == {"10"}
-    assert "REQUIRE_COMPONENT" in caplog.text
+    assert f"demo:10: Skipping unresolved target: REQUIRE_COMPONENT {arguments}" in caplog.text

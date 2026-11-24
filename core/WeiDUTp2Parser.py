@@ -514,6 +514,12 @@ class Token:
     def __repr__(self) -> str:
         return f"Token({self.type.name}, {self.value!r}, L{self.line}:C{self.column})"
 
+    def source_text(self) -> str:
+        """Return the token as written in the TP2, delimiters included."""
+        if self.type == TokenType.STRING_REF:
+            return f"@{self.value}"
+        return f"{self.delimiter}{self.value}{self.delimiter}"
+
 
 class Tokenizer:
     """Tokenizes TP2 component blocks into a stream of tokens."""
@@ -847,6 +853,8 @@ class ComponentHeader:
         games: Games kept by the REQUIRE_PREDICATE, None when unrestricted
         no_log_record: Whether the component is excluded from WeiDU.log
         requirements: REQUIRE_COMPONENT and FORBID_COMPONENT flags, in order
+        unresolved_requirements: Source of the component flags whose target
+            cannot be resolved, left for the caller to report
     """
 
     body_start: int
@@ -861,6 +869,7 @@ class ComponentHeader:
     games: list[str] | None = None
     no_log_record: bool = False
     requirements: list[ComponentRequirement] = field(default_factory=list)
+    unresolved_requirements: list[str] = field(default_factory=list)
 
 
 class ComponentParser:
@@ -1070,7 +1079,7 @@ class ComponentParser:
         """Read the tp2, component and message of a component flag into the header.
 
         A target given by a variable or a component that is not a number
-        cannot be resolved: the flag is skipped and logged.
+        cannot be resolved: the flag is kept as unresolved.
 
         Returns:
             The position after the flag arguments
@@ -1080,8 +1089,8 @@ class ComponentParser:
 
         target = self._read_component_target(arguments)
         if target is None:
-            values = " ".join(token.value for token in arguments)
-            logger.warning(f"Skipping {flag.name} with an unresolved target: {values!r}")
+            values = " ".join(token.source_text() for token in arguments)
+            header.unresolved_requirements.append(f"{flag.name} {values}")
             return end
 
         text_ref, text = None, None
@@ -1433,6 +1442,11 @@ class WeiDUTp2Parser:
                     deprecated_count += 1
                     logger.debug("Skipping deprecated component block")
                     continue
+
+                for flag in header.unresolved_requirements:
+                    logger.warning(
+                        f"{tp2.name}:{designated}: Skipping unresolved target: {flag}"
+                    )
 
                 component = Component(
                     designated=str(designated),
