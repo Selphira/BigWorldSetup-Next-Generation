@@ -327,6 +327,7 @@ WEIDU_EXIT_WARNINGS = 3
 # Distinct diagnostic lines kept for one component of a DEBUG file
 DEBUG_MESSAGES_LIMIT = 200
 WEIDU_SETUP_PREFIX = "setup-"
+TP2_EXTENSION = ".tp2"
 # Generated installer registering download-only components in WeiDU.log
 DWN_TP2_PREFIX = "bws-dwn-"
 # The generated installer declares no LANGUAGE, so WeiDU uses index 0

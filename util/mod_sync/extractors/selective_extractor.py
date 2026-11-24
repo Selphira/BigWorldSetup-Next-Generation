@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 import shutil
 
+from constants import TP2_EXTENSION, WEIDU_SETUP_PREFIX
 from core.ArchiveExtractor import ArchiveExtractor
 from core.validators.StructureValidator import StructureValidator
 
@@ -29,7 +30,7 @@ class ExtractionStamp:
 class SelectiveExtractor:
     """Extract only .tp2 and .tra files from mod archives for parsing."""
 
-    ALLOWED_EXTENSIONS = {".tp2", ".tra", ".ini"}
+    ALLOWED_EXTENSIONS = {TP2_EXTENSION, ".tra", ".ini"}
 
     def extract_for_parsing(
         self, archive_path: Path, destination: Path, tp2_name: str, archive_sha256: str
@@ -181,8 +182,8 @@ class SelectiveExtractor:
         if mod_dir.is_dir():
             logger.info(f"Removing unstamped extraction of {tp2_name}")
             shutil.rmtree(mod_dir)
-        for root_tp2 in (f"{tp2_name}.tp2", f"setup-{tp2_name}.tp2"):
-            (destination / root_tp2).unlink(missing_ok=True)
+        for root_tp2 in (tp2_name, f"{WEIDU_SETUP_PREFIX}{tp2_name}"):
+            (destination / f"{root_tp2}{TP2_EXTENSION}").unlink(missing_ok=True)
 
     @staticmethod
     def _prune_empty_dirs(directory: Path, destination: Path) -> None:

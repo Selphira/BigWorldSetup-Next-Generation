@@ -10,7 +10,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 import urllib.request
 
-from constants import MOD_SYNC_LCC_CACHE_DIR
+from constants import MOD_SYNC_LCC_CACHE_DIR, TP2_EXTENSION
 
 logger = logging.getLogger(__name__)
 
@@ -183,7 +183,7 @@ class LCCSource:
         Returns:
             Dictionary with compiled mod data or None if not found
         """
-        tp2_key = tp2_name.lower().replace(".tp2", "")
+        tp2_key = tp2_name.lower().removesuffix(TP2_EXTENSION)
 
         if tp2_key not in self.tp2_index:
             return None

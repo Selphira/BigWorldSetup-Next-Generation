@@ -2,6 +2,8 @@ import logging
 from pathlib import Path
 import shutil
 
+from constants import TP2_EXTENSION, WEIDU_SETUP_PREFIX
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,10 +22,10 @@ class StructureValidator:
 
     # Possible TP2 locations in order of preference and reliability
     TP2_SEARCH_PATTERNS: list[str] = [
-        "{game_dir}/{tp2}.tp2",  # Rare: TP2 in root
-        "{game_dir}/setup-{tp2}.tp2",  # Alternative: setup TP2 in root
-        "{game_dir}/{tp2}/{tp2}.tp2",  # Standard: TP2 in mod folder
-        "{game_dir}/{tp2}/setup-{tp2}.tp2",  # Alternative: setup TP2 in folder
+        f"{{game_dir}}/{{tp2}}{TP2_EXTENSION}",  # Rare: TP2 in root
+        f"{{game_dir}}/{WEIDU_SETUP_PREFIX}{{tp2}}{TP2_EXTENSION}",  # Setup TP2 in root
+        f"{{game_dir}}/{{tp2}}/{{tp2}}{TP2_EXTENSION}",  # Standard: TP2 in mod folder
+        f"{{game_dir}}/{{tp2}}/{WEIDU_SETUP_PREFIX}{{tp2}}{TP2_EXTENSION}",  # Setup TP2 in folder
     ]
 
     @staticmethod
@@ -64,8 +66,8 @@ class StructureValidator:
         tp2_path = next(
             (
                 max(m, key=lambda p: len(p.parts))
-                for tp2 in (tp2_name, f"setup-{tp2_name}")
-                if (m := list(temp_dir.rglob(f"{tp2}.tp2")))
+                for tp2 in (tp2_name, f"{WEIDU_SETUP_PREFIX}{tp2_name}")
+                if (m := list(temp_dir.rglob(f"{tp2}{TP2_EXTENSION}")))
             ),
             None,
         )

@@ -12,7 +12,8 @@ from pathlib import Path
 import re
 from typing import Generator
 
-from constants import WEIDU_SETUP_PREFIX
+from constants import TP2_EXTENSION, WEIDU_SETUP_PREFIX
+from core.ComponentRequirement import normalize_tp2_name
 from core.File import safe_read
 
 logger = logging.getLogger(__name__)
@@ -93,7 +94,7 @@ class WeiDULogResult:
         Returns:
             List of component IDs in format 'mod:component'
         """
-        return [entry.component_id.removeprefix("setup-") for entry in self.entries]
+        return [entry.component_id.removeprefix(WEIDU_SETUP_PREFIX) for entry in self.entries]
 
 
 # ============================================================================
@@ -203,8 +204,7 @@ class WeiDULogParser:
             # Invalid format, try to extract filename
             if parts:
                 filename = parts[0]
-                mod_name = filename.replace(".TP2", "").replace(".tp2", "")
-                return mod_name.lower()
+                return filename.lower().removesuffix(TP2_EXTENSION)
             return ""
 
         # First part is typically the mod folder
@@ -223,8 +223,7 @@ class WeiDULogParser:
         Returns:
             Lowercase file name without extension nor setup prefix
         """
-        filename = re.split(r"[/\\]", tp2_path.strip())[-1].lower()
-        return filename.removesuffix(".tp2").removeprefix(WEIDU_SETUP_PREFIX)
+        return normalize_tp2_name(tp2_path)
 
     def installed_identities(self, file_path: str | Path) -> list[tuple[str, str, str]]:
         """List the (TP2, component, language) triples recorded in WeiDU.log.

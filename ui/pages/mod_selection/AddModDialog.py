@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (
 )
 
 from constants import CUSTOM_MODS_DIR
+from core.ComponentRequirement import normalize_tp2_name
 from core.enums.CategoryEnum import CategoryEnum
 from core.StateManager import StateManager
 from core.TranslationManager import SUPPORTED_LANGUAGES, tr
@@ -173,9 +174,7 @@ class AddModDialog(QDialog):
 
         try:
             base_dir = self.tp2_path.parent
-            if self.tp2_path.parent.stem.lower() == self.tp2_path.stem.lower().removeprefix(
-                "setup-"
-            ):
+            if self.tp2_path.parent.stem.lower() == normalize_tp2_name(self.tp2_path.name):
                 base_dir = base_dir.parent
 
             parser = WeiDUTp2Parser(base_dir)

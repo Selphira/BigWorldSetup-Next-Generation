@@ -6,6 +6,7 @@ import logging
 from pathlib import Path
 import re
 
+from constants import TP2_EXTENSION, WEIDU_SETUP_PREFIX
 from core.WeiDUTp2Parser import MucComponent, Tp2ParseError, WeiDUTp2Parser
 
 logger = logging.getLogger(__name__)
@@ -59,11 +60,14 @@ class TP2Source:
             return None
 
         # Check for TP2 file in this directory
+        file_names = [
+            f"{tp2_name}{TP2_EXTENSION}",
+            f"{WEIDU_SETUP_PREFIX}{tp2_name}{TP2_EXTENSION}",
+        ]
         tp2_variants = [
-            self.mods_dir / tp2_name / f"{tp2_name}.tp2",
-            self.mods_dir / tp2_name / f"setup-{tp2_name}.tp2",
-            self.mods_dir / f"{tp2_name}.tp2",
-            self.mods_dir / f"setup-{tp2_name}.tp2",
+            directory / file_name
+            for directory in (self.mods_dir / tp2_name, self.mods_dir)
+            for file_name in file_names
         ]
 
         for tp2_path in tp2_variants:

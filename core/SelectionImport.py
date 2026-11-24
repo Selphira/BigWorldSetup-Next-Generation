@@ -3,10 +3,11 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 from hashlib import sha256
-from pathlib import Path, PureWindowsPath
+from pathlib import Path
 
 from core.atomic_io import write_json_atomic
 from core.ComponentReference import ComponentReference, ReferenceIndexes
+from core.ComponentRequirement import normalize_tp2_name
 from core.Mod import Mod
 
 
@@ -64,9 +65,7 @@ class SelectionImport:
         aliases: dict[str, list[str]] = defaultdict(list)
         for mod in indexes.mod_component_index.values():
             if isinstance(mod, Mod) and mod.tp2:
-                alias = (
-                    PureWindowsPath(mod.tp2).name.removesuffix(".tp2").removeprefix("setup-")
-                )
+                alias = normalize_tp2_name(mod.tp2)
                 aliases[alias].append(mod.id)
         for entry in entries:
             try:
@@ -78,9 +77,7 @@ class SelectionImport:
                 if ComponentReference.for_mod(ref.mod_id) in indexes.mod_component_index:
                     report.missing.add(entry)
                     continue
-                alias = (
-                    PureWindowsPath(ref.mod_id).name.removesuffix(".tp2").removeprefix("setup-")
-                )
+                alias = normalize_tp2_name(ref.mod_id)
                 matches = [
                     ComponentReference(mod_id, ref.comp_key)
                     for mod_id in aliases.get(alias, ())

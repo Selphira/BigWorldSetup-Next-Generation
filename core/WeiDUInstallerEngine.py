@@ -8,7 +8,13 @@ from typing import Any
 
 from PySide6.QtCore import Qt
 
-from constants import DWN_TP2_LANGUAGE, DWN_TP2_PREFIX, EXTRACT_DIR, WEIDU_SETUP_PREFIX
+from constants import (
+    DWN_TP2_LANGUAGE,
+    DWN_TP2_PREFIX,
+    EXTRACT_DIR,
+    TP2_EXTENSION,
+    WEIDU_SETUP_PREFIX,
+)
 from core.Mod import Mod
 from core.TranslationManager import tr
 from core.validators.StructureValidator import StructureValidator
@@ -77,7 +83,7 @@ class WeiDUInstallerEngine:
 
     def setup_exe(self, tp2: str) -> Path:
         """Get the path to the WeiDU executable."""
-        return self.game_dir / f"setup-{tp2}.exe"
+        return self.game_dir / f"{WEIDU_SETUP_PREFIX}{tp2}.exe"
 
     def debug_file(self, tp2: str) -> Path:
         """Get the path to the debug file."""
@@ -86,11 +92,11 @@ class WeiDUInstallerEngine:
     @staticmethod
     def debug_file_in(game_dir: Path, tp2: str) -> Path:
         """Path of the DEBUG file that WeiDU writes for a TP2 in a game folder."""
-        return game_dir / f"setup-{tp2}.debug".upper()
+        return game_dir / f"{WEIDU_SETUP_PREFIX}{tp2}.debug".upper()
 
     def debug_backup_file(self, tp2: str) -> Path:
         """Get the path to the debug backup file."""
-        return self.game_dir / f"setup-{tp2}.debug_backup".upper()
+        return self.game_dir / f"{WEIDU_SETUP_PREFIX}{tp2}.debug_backup".upper()
 
     @property
     def weidu_log(self) -> Path:
@@ -138,7 +144,9 @@ class WeiDUInstallerEngine:
             return self._failed_results(components, missing)
 
         if not self._create_or_update_setup(tp2):
-            return self._failed_results(components, f"Failed to create setup-{tp2}.exe")
+            return self._failed_results(
+                components, f"Failed to create {self.setup_exe(tp2).name}"
+            )
 
         definition = self.read_definition(tp2)
         try:
@@ -429,7 +437,7 @@ class WeiDUInstallerEngine:
             label = f"{mod.id} ({number})"
             script += f"BEGIN ~{label}~ DESIGNATED {number}\nPRINT ~{label}~\n"
 
-        target = self.game_dir / f"{WEIDU_SETUP_PREFIX}{tp2}.tp2"
+        target = self.game_dir / f"{WEIDU_SETUP_PREFIX}{tp2}{TP2_EXTENSION}"
         if not target.is_file() or target.read_text(encoding="utf-8") != script:
             target.write_text(script, encoding="utf-8")
             logger.info("Wrote registration installer %s", target.name)

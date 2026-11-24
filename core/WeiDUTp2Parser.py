@@ -15,6 +15,12 @@ import platform
 import re
 from typing import Iterator
 
+from core.ComponentRequirement import (
+    ComponentRequirement,
+    ComponentTarget,
+    RequirementKind,
+    RequirementSource,
+)
 from core.File import TEXT_ENCODINGS, safe_read
 
 logger = logging.getLogger(__name__)
@@ -204,6 +210,7 @@ class Component:
         text_ref: Reference to translation string ID
         text: Direct text (if not using translation reference)
         games: List of supported game codes (lowercase)
+        requirements: Requirements on other components, in declaration order
         metadata: Extensible metadata for future features (e.g., predicates)
     """
 
@@ -211,6 +218,7 @@ class Component:
     text_ref: str | None = None
     text: str | None = None
     games: list[str] | None = None
+    requirements: list[ComponentRequirement] = field(default_factory=list)
     metadata: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
@@ -501,6 +509,7 @@ class Token:
     value: str
     line: int
     column: int
+    delimiter: str = ""  # Delimiter of a string literal: ~, " or %
 
     def __repr__(self) -> str:
         return f"Token({self.type.name}, {self.value!r}, L{self.line}:C{self.column})"
@@ -681,7 +690,7 @@ class Tokenizer:
             return None
 
         value = text[i:end]
-        return Token(TokenType.STRING_LITERAL, value, line, column)
+        return Token(TokenType.STRING_LITERAL, value, line, column, delimiter)
 
     @staticmethod
     def _extract_string_ref(text: str, start: int, line: int, column: int) -> Token | None:
@@ -837,6 +846,7 @@ class ComponentHeader:
         group: GROUP value, when given as text
         games: Games kept by the REQUIRE_PREDICATE, None when unrestricted
         no_log_record: Whether the component is excluded from WeiDU.log
+        requirements: REQUIRE_COMPONENT and FORBID_COMPONENT flags, in order
     """
 
     body_start: int
@@ -850,6 +860,7 @@ class ComponentHeader:
     group: str | None = None
     games: list[str] | None = None
     no_log_record: bool = False
+    requirements: list[ComponentRequirement] = field(default_factory=list)
 
 
 class ComponentParser:
@@ -879,6 +890,12 @@ class ComponentParser:
         TokenType.NO_LOG_RECORD: 0,
         TokenType.REQUIRE_COMPONENT: 3,
         TokenType.REQUIRE_FILE: 2,
+    }
+
+    # Component flags naming a component of another or of the same mod.
+    COMPONENT_REQUIREMENT_KINDS = {
+        TokenType.FORBID_COMPONENT: RequirementKind.FORBIDDEN,
+        TokenType.REQUIRE_COMPONENT: RequirementKind.REQUIRED,
     }
 
     # Predicate functions by number of arguments. The arguments of other
@@ -1022,6 +1039,9 @@ class ComponentParser:
                 pos += 1
             return pos
 
+        if flag in self.COMPONENT_REQUIREMENT_KINDS:
+            return self._read_component_requirement(tokens, pos, flag, header)
+
         if flag == TokenType.NO_LOG_RECORD:
             header.no_log_record = True
 
@@ -1043,6 +1063,61 @@ class ComponentParser:
         if token.type == TokenType.STRING_LITERAL:
             return None, token.value, pos + 1
         return None, None, pos
+
+    def _read_component_requirement(
+        self, tokens: list[Token], pos: int, flag: TokenType, header: ComponentHeader
+    ) -> int:
+        """Read the tp2, component and message of a component flag into the header.
+
+        A target given by a variable or a component that is not a number
+        cannot be resolved: the flag is skipped and logged.
+
+        Returns:
+            The position after the flag arguments
+        """
+        end = self._skip_strings(tokens, pos, self.STRING_ARGUMENT_COUNTS[flag])
+        arguments = tokens[pos:end]
+
+        target = self._read_component_target(arguments)
+        if target is None:
+            values = " ".join(token.value for token in arguments)
+            logger.warning(f"Skipping {flag.name} with an unresolved target: {values!r}")
+            return end
+
+        text_ref, text = None, None
+        if len(arguments) > 2:
+            text_ref, text, _ = self._read_label(tokens, pos + 2)
+
+        header.requirements.append(
+            ComponentRequirement(
+                kind=self.COMPONENT_REQUIREMENT_KINDS[flag],
+                alternatives=(target,),
+                source=RequirementSource.HEADER,
+                text_ref=text_ref,
+                text=text,
+            )
+        )
+        return end
+
+    @staticmethod
+    def _read_component_target(arguments: list[Token]) -> ComponentTarget | None:
+        """Read the tp2 and component number heading the arguments of a flag.
+
+        Returns:
+            The target, or None if either is missing or given by a variable
+        """
+        if len(arguments) < 2:
+            return None
+
+        tp2, component = arguments[0], arguments[1]
+        if any(token.delimiter == "%" or "%" in token.value for token in (tp2, component)):
+            return None
+        if tp2.type == TokenType.STRING_REF or not tp2.value.strip():
+            return None
+        if not component.value.strip().isdigit():
+            return None
+
+        return ComponentTarget(tp2=tp2.value, component=component.value.strip())
 
     def _read_name(self, tokens: list[Token], pos: int) -> tuple[str | None, int]:
         """Read a name given as a literal or a bare word; a string reference is skipped."""
@@ -1364,6 +1439,7 @@ class WeiDUTp2Parser:
                     text_ref=header.text_ref,
                     text=header.text,
                     games=header.games,
+                    requirements=header.requirements,
                     metadata={"no_log_record": True} if header.no_log_record else {},
                 )
 
