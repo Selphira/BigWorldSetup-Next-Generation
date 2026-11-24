@@ -149,3 +149,31 @@ def test_unresolved_target_is_skipped_and_logged(
     assert component(tp2, "10").requirements == []
     assert tp2.unlogged_components() == {"10"}
     assert f"demo:10: Skipping unresolved target: REQUIRE_COMPONENT {arguments}" in caplog.text
+
+
+def test_bare_tp2_name_starting_with_digits_is_one_target(tmp_path: Path) -> None:
+    tp2 = parse_components(
+        tmp_path,
+        "BEGIN @1 DESIGNATED 10\n"
+        "REQUIRE_COMPONENT 1PP.TP2 7 @20\n"
+        "REQUIRE_PREDICATE MOD_IS_INSTALLED 1pp_thieves.tp2 ~2~ @21\n"
+        "PATCH_IF MOD_IS_INSTALLED 1PP.tp2 208 BEGIN END\n",
+    )
+
+    assert [(item.source, item.alternatives) for item in component(tp2, "10").requirements] == [
+        (RequirementSource.HEADER, (ComponentTarget("1pp", "7"),)),
+        (RequirementSource.PREDICATE, (ComponentTarget("1pp_thieves", "2"),)),
+        (RequirementSource.BODY, (ComponentTarget("1pp", "208"),)),
+    ]
+
+
+@pytest.mark.parametrize("value", ["10", "0010"])
+def test_numbers_stay_numbers(tmp_path: Path, value: str) -> None:
+    tp2 = parse_components(
+        tmp_path,
+        f"BEGIN @1 DESIGNATED {value}\nREQUIRE_COMPONENT ~other.tp2~ {value}-1\n",
+    )
+
+    assert [item.alternatives for item in component(tp2, value).requirements] == [
+        (ComponentTarget("other", value),)
+    ]

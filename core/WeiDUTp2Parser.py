@@ -755,9 +755,13 @@ class Tokenizer:
         value = match.group(1)
         return Token(TokenType.STRING_REF, value, line, column)
 
-    @staticmethod
-    def _extract_number(text: str, start: int, line: int, column: int) -> Token | None:
-        """Extract a number."""
+    @classmethod
+    def _extract_number(cls, text: str, start: int, line: int, column: int) -> Token | None:
+        """Extract a number, or a bare word starting with digits (1pp.tp2)."""
+        word_end = cls._bare_word_end(text, start)
+        if any(char.isalpha() or char in "_#" for char in text[start:word_end]):
+            return Token(TokenType.IDENTIFIER, text[start:word_end], line, column)
+
         i = start
         while i < len(text) and text[i].isdigit():
             i += 1
@@ -769,14 +773,17 @@ class Tokenizer:
         self, text: str, start: int, line: int, column: int
     ) -> Token | None:
         """Extract an identifier or keyword."""
-        i = start
-        # Bare WeiDU words may hold "#" and "." (c#label, setup-mod.tp2).
-        while i < len(text) and (text[i].isalnum() or text[i] in ["_", "-", "#", "."]):
-            i += 1
-
-        value = text[start:i]
+        value = text[start : self._bare_word_end(text, start)]
         token_type = self.KEYWORDS.get(value.upper(), TokenType.IDENTIFIER)
         return Token(token_type, value, line, column)
+
+    @staticmethod
+    def _bare_word_end(text: str, start: int) -> int:
+        """Find the end of a bare WeiDU word, which may hold "#" and "." (c#label, setup-mod.tp2)."""
+        i = start
+        while i < len(text) and (text[i].isalnum() or text[i] in "_-#."):
+            i += 1
+        return i
 
 
 # ============================================================================
