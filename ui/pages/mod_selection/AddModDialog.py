@@ -173,16 +173,17 @@ class AddModDialog(QDialog):
             return
 
         try:
+            tp2_name = normalize_tp2_name(self.tp2_path.name)
             base_dir = self.tp2_path.parent
-            if self.tp2_path.parent.stem.lower() == normalize_tp2_name(self.tp2_path.name):
+            if base_dir.stem.lower() == tp2_name:
                 base_dir = base_dir.parent
 
             parser = WeiDUTp2Parser(base_dir)
             tp2_data = parser.parse_file(self.tp2_path)
 
             self.parsed_data = {
-                "id": self.tp2_path.stem.lower(),
-                "tp2": self.tp2_path.stem.lower(),
+                "id": tp2_name,
+                "tp2": tp2_name,
                 "name": tp2_data.name or self.tp2_path.stem,
                 "version": tp2_data.version,
                 "languages": self._extract_languages(tp2_data),
