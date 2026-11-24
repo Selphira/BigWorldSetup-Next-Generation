@@ -15,6 +15,7 @@ import platform
 import re
 from typing import Iterator
 
+from constants import TP2_PREDICATE_MAX_CLAUSES
 from core.ComponentRequirement import (
     ComponentRequirement,
     ComponentTarget,
@@ -375,10 +376,10 @@ class GamePredicateParser:
             return games, pos
 
         if token.type == TokenType.GAME_IS:
-            return self._parse_game_is(tokens, pos)
+            return self.parse_game_is(tokens, pos)
 
         if token.type == TokenType.GAME_INCLUDES:
-            return self._parse_game_includes(tokens, pos)
+            return self.parse_game_includes(tokens, pos)
 
         if token.type in (
             TokenType.BEGIN,
@@ -417,7 +418,7 @@ class GamePredicateParser:
 
         return self.supported_games.copy(), pos
 
-    def _parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+    def parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse GAME_IS ~games~."""
         pos += 1
 
@@ -437,7 +438,7 @@ class GamePredicateParser:
 
         return set(), pos
 
-    def _parse_game_includes(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+    def parse_game_includes(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse GAME_INCLUDES ~game~."""
         pos += 1
 
@@ -831,6 +832,382 @@ class LanguageParser:
 
 
 # ============================================================================
+# Requirement Predicate Parser
+# ============================================================================
+
+
+def read_component_target(arguments: list[Token]) -> ComponentTarget | None:
+    """Read the tp2 and component number heading the arguments of a flag or predicate.
+
+    Returns:
+        The target, or None if either is missing or given by a variable
+    """
+    if len(arguments) < 2:
+        return None
+
+    tp2, component = arguments[0], arguments[1]
+    if any(token.delimiter == "%" or "%" in token.value for token in (tp2, component)):
+        return None
+    if tp2.type == TokenType.STRING_REF or not tp2.value.strip():
+        return None
+    if not component.value.strip().isdigit():
+        return None
+
+    return ComponentTarget(tp2=tp2.value, component=component.value.strip())
+
+
+@dataclass(frozen=True, slots=True)
+class ModCondition:
+    """MOD_IS_INSTALLED on a resolved component."""
+
+    target: ComponentTarget
+
+
+@dataclass(frozen=True, slots=True)
+class GameCondition:
+    """GAME_IS or GAME_INCLUDES, as the supported games that satisfy it."""
+
+    games: frozenset[str]
+
+
+@dataclass(frozen=True, slots=True)
+class OpaqueCondition:
+    """A condition no requirement can express.
+
+    Attributes:
+        text: The condition as written in the TP2
+        names_mod: Whether it tests a mod installation, so that leaving it
+            out would lose a requirement
+    """
+
+    text: str
+    names_mod: bool
+
+
+@dataclass(frozen=True, slots=True)
+class PredicateLiteral:
+    """A condition, possibly negated; a negated game is stored as its complement."""
+
+    condition: ModCondition | GameCondition | OpaqueCondition
+    negated: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class PredicateConjunction:
+    operands: tuple[PredicateNode, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class PredicateDisjunction:
+    operands: tuple[PredicateNode, ...]
+
+
+PredicateNode = PredicateLiteral | PredicateConjunction | PredicateDisjunction
+PredicateClause = tuple[PredicateLiteral, ...]
+
+
+@dataclass
+class PredicateRequirements:
+    """Requirements read from a REQUIRE_PREDICATE.
+
+    Attributes:
+        requirements: Requirements of the component, in declaration order
+        skipped: Reasons for the parts of the predicate left out
+    """
+
+    requirements: list[ComponentRequirement] = field(default_factory=list)
+    skipped: list[str] = field(default_factory=list)
+
+
+class UntranslatablePredicateError(Exception):
+    """A predicate, or one of its clauses, cannot be expressed as requirements."""
+
+
+class RequirementPredicateParser:
+    """Reads the MOD_IS_INSTALLED conditions of a REQUIRE_PREDICATE as requirements.
+
+    The predicate is parsed with its negations pushed down to the conditions,
+    then expanded into a conjunction of clauses. A clause of installed mods
+    is a required requirement whose alternatives are the mods; a clause of a
+    single absent mod is a forbidden one. A clause that also holds another
+    condition only applies under that condition: it is kept when the games
+    of the component never satisfy it, and skipped otherwise.
+    """
+
+    MESSAGE_TYPES = frozenset({TokenType.STRING_REF, TokenType.STRING_LITERAL})
+    OPERATOR_TYPES = frozenset({TokenType.AND, TokenType.OR, TokenType.RPAREN})
+
+    def __init__(self, game_parser: GamePredicateParser) -> None:
+        self.game_parser = game_parser
+
+    def read(
+        self, tokens: list[Token], component_games: list[str] | None
+    ) -> PredicateRequirements:
+        """Read the requirements of a predicate.
+
+        Args:
+            tokens: The predicate, followed by its message when it has one
+            component_games: Games of the component, None when unrestricted
+
+        Returns:
+            The requirements and the reasons for the parts left out
+        """
+        result = PredicateRequirements()
+        if not any(token.type == TokenType.MOD_IS_INSTALLED for token in tokens):
+            return result
+
+        source = "REQUIRE_PREDICATE " + " ".join(token.source_text() for token in tokens)
+        games = set(component_games) if component_games else self.game_parser.supported_games
+
+        try:
+            predicate, message = self._parse(tokens)
+            clauses = self._clauses(predicate)
+        except UntranslatablePredicateError as error:
+            result.skipped.append(f"{error}: {source}")
+            return result
+
+        text_ref, text = None, None
+        if message is not None and message.type == TokenType.STRING_REF:
+            text_ref = message.value
+        elif message is not None:
+            text = message.value
+
+        for clause in clauses:
+            try:
+                requirement = self._clause_requirement(clause, games, text_ref, text)
+            except UntranslatablePredicateError as error:
+                result.skipped.append(f"{error}: {source}")
+                continue
+            if requirement is not None and requirement not in result.requirements:
+                result.requirements.append(requirement)
+
+        return result
+
+    # ------------------------------------------------------------------
+    # Parsing
+    # ------------------------------------------------------------------
+
+    def _parse(self, tokens: list[Token]) -> tuple[PredicateNode, Token | None]:
+        """Parse the predicate and find its message.
+
+        Returns:
+            The predicate and its message token, None when it has none
+        """
+        predicate, pos = self._parse_or(tokens, 0, negated=False)
+
+        if pos == len(tokens):
+            return predicate, None
+        if pos == len(tokens) - 1 and tokens[pos].type in self.MESSAGE_TYPES:
+            return predicate, tokens[pos]
+        raise UntranslatablePredicateError(f"unexpected {tokens[pos].source_text()!r}")
+
+    def _parse_or(
+        self, tokens: list[Token], pos: int, negated: bool
+    ) -> tuple[PredicateNode, int]:
+        operands = []
+        operand, pos = self._parse_and(tokens, pos, negated)
+        operands.append(operand)
+
+        while pos < len(tokens) and tokens[pos].type == TokenType.OR:
+            operand, pos = self._parse_and(tokens, pos + 1, negated)
+            operands.append(operand)
+
+        return self._combine(operands, conjunction=negated), pos
+
+    def _parse_and(
+        self, tokens: list[Token], pos: int, negated: bool
+    ) -> tuple[PredicateNode, int]:
+        operands = []
+        operand, pos = self._parse_unary(tokens, pos, negated)
+        operands.append(operand)
+
+        while pos < len(tokens) and tokens[pos].type == TokenType.AND:
+            operand, pos = self._parse_unary(tokens, pos + 1, negated)
+            operands.append(operand)
+
+        return self._combine(operands, conjunction=not negated), pos
+
+    @staticmethod
+    def _combine(operands: list[PredicateNode], conjunction: bool) -> PredicateNode:
+        """Join operands; under a negation, De Morgan swaps AND and OR."""
+        if len(operands) == 1:
+            return operands[0]
+        if conjunction:
+            return PredicateConjunction(tuple(operands))
+        return PredicateDisjunction(tuple(operands))
+
+    def _parse_unary(
+        self, tokens: list[Token], pos: int, negated: bool
+    ) -> tuple[PredicateNode, int]:
+        if pos >= len(tokens):
+            raise UntranslatablePredicateError("incomplete predicate")
+
+        token = tokens[pos]
+        if token.type == TokenType.NOT:
+            return self._parse_unary(tokens, pos + 1, not negated)
+
+        if token.type == TokenType.LPAREN:
+            node, pos = self._parse_or(tokens, pos + 1, negated)
+            if pos >= len(tokens) or tokens[pos].type != TokenType.RPAREN:
+                raise UntranslatablePredicateError("unbalanced parentheses")
+            return node, pos + 1
+
+        condition, end = self._read_condition(tokens, pos)
+        if not self._ends_term(tokens, end):
+            # The condition is an operand of a comparison: "MOD_IS_INSTALLED a b = 0"
+            end = self._opaque_term_end(tokens, end)
+            condition = self._opaque(tokens, pos, end)
+
+        if isinstance(condition, GameCondition) and negated:
+            complement = frozenset(self.game_parser.supported_games - condition.games)
+            return PredicateLiteral(GameCondition(complement)), end
+        return PredicateLiteral(condition, negated), end
+
+    def _read_condition(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[ModCondition | GameCondition | OpaqueCondition, int]:
+        """Read the condition at pos with its arguments.
+
+        Returns:
+            The condition and the position after it
+        """
+        token = tokens[pos]
+
+        if token.type == TokenType.MOD_IS_INSTALLED:
+            end = min(pos + 3, len(tokens))
+            target = read_component_target(tokens[pos + 1 : end])
+            if target is None:
+                return self._opaque(tokens, pos, end), end
+            return ModCondition(target), end
+
+        if token.type == TokenType.GAME_IS:
+            games, end = self.game_parser.parse_game_is(tokens, pos)
+            return GameCondition(frozenset(games)), end
+
+        if token.type == TokenType.GAME_INCLUDES:
+            games, end = self.game_parser.parse_game_includes(tokens, pos)
+            return GameCondition(frozenset(games)), end
+
+        end = self._opaque_term_end(tokens, pos)
+        return self._opaque(tokens, pos, end), end
+
+    def _ends_term(self, tokens: list[Token], pos: int) -> bool:
+        """Tell whether a term may end at pos: an operator, the end or the message."""
+        return (
+            pos >= len(tokens)
+            or tokens[pos].type in self.OPERATOR_TYPES
+            or (pos == len(tokens) - 1 and tokens[pos].type in self.MESSAGE_TYPES)
+        )
+
+    def _opaque_term_end(self, tokens: list[Token], pos: int) -> int:
+        """Find the end of a term the parser does not understand.
+
+        A literal message after such a term cannot be told from its last
+        argument: it is kept in the term, and the requirements get no message.
+        """
+        depth = 0
+        while pos < len(tokens):
+            token = tokens[pos]
+            if depth == 0 and token.type in self.OPERATOR_TYPES:
+                break
+            if depth == 0 and token.type == TokenType.STRING_REF and pos == len(tokens) - 1:
+                break
+            if token.type == TokenType.LPAREN:
+                depth += 1
+            elif token.type == TokenType.RPAREN:
+                depth -= 1
+            pos += 1
+        return pos
+
+    @staticmethod
+    def _opaque(tokens: list[Token], start: int, end: int) -> OpaqueCondition:
+        term = tokens[start:end]
+        return OpaqueCondition(
+            text=" ".join(token.source_text() for token in term),
+            names_mod=any(token.type == TokenType.MOD_IS_INSTALLED for token in term),
+        )
+
+    # ------------------------------------------------------------------
+    # Clauses
+    # ------------------------------------------------------------------
+
+    def _clauses(self, node: PredicateNode) -> list[PredicateClause]:
+        """Expand a predicate into a conjunction of clauses.
+
+        Raises:
+            UntranslatablePredicateError: If the expansion exceeds the clause limit
+        """
+        if isinstance(node, PredicateLiteral):
+            return [(node,)]
+
+        if isinstance(node, PredicateConjunction):
+            clauses = [clause for operand in node.operands for clause in self._clauses(operand)]
+        else:
+            clauses = [()]
+            for operand in node.operands:
+                clauses = [left + right for left in clauses for right in self._clauses(operand)]
+                self._check_clause_count(clauses)
+
+        self._check_clause_count(clauses)
+        return clauses
+
+    @staticmethod
+    def _check_clause_count(clauses: list[PredicateClause]) -> None:
+        if len(clauses) > TP2_PREDICATE_MAX_CLAUSES:
+            raise UntranslatablePredicateError(f"more than {TP2_PREDICATE_MAX_CLAUSES} clauses")
+
+    @staticmethod
+    def _clause_requirement(
+        clause: PredicateClause,
+        component_games: set[str],
+        text_ref: str | None,
+        text: str | None,
+    ) -> ComponentRequirement | None:
+        """Turn a clause into a requirement.
+
+        Returns:
+            The requirement, or None if the clause tests no mod
+
+        Raises:
+            UntranslatablePredicateError: If the clause tests a mod in a way
+                no requirement can express
+        """
+        conditions = [literal.condition for literal in clause]
+        if any(isinstance(item, OpaqueCondition) and item.names_mod for item in conditions):
+            raise UntranslatablePredicateError("unresolved MOD_IS_INSTALLED")
+
+        mods = [literal for literal in clause if isinstance(literal.condition, ModCondition)]
+        if not mods:
+            return None
+
+        clause_games = set().union(
+            *(item.games for item in conditions if isinstance(item, GameCondition))
+        )
+        if clause_games & component_games:
+            raise UntranslatablePredicateError("requirement depending on the game")
+        if any(isinstance(item, OpaqueCondition) for item in conditions):
+            raise UntranslatablePredicateError("requirement depending on another condition")
+
+        targets = tuple(dict.fromkeys(literal.condition.target for literal in mods))
+        negations = {literal.negated for literal in mods}
+
+        if negations == {False}:
+            kind = RequirementKind.REQUIRED
+        elif negations == {True} and len(targets) == 1:
+            kind = RequirementKind.FORBIDDEN
+        else:
+            raise UntranslatablePredicateError("alternative involving an absent mod")
+
+        return ComponentRequirement(
+            kind=kind,
+            alternatives=targets,
+            source=RequirementSource.PREDICATE,
+            text_ref=text_ref,
+            text=text,
+        )
+
+
+# ============================================================================
 # Component Parser
 # ============================================================================
 
@@ -852,9 +1229,10 @@ class ComponentHeader:
         group: GROUP value, when given as text
         games: Games kept by the REQUIRE_PREDICATE, None when unrestricted
         no_log_record: Whether the component is excluded from WeiDU.log
-        requirements: REQUIRE_COMPONENT and FORBID_COMPONENT flags, in order
-        unresolved_requirements: Source of the component flags whose target
-            cannot be resolved, left for the caller to report
+        requirements: Requirements of the REQUIRE_COMPONENT and FORBID_COMPONENT
+            flags and of the REQUIRE_PREDICATE, in declaration order
+        skipped_requirements: Reasons for the requirements left out, each
+            with its source, left for the caller to report
     """
 
     body_start: int
@@ -869,7 +1247,7 @@ class ComponentHeader:
     games: list[str] | None = None
     no_log_record: bool = False
     requirements: list[ComponentRequirement] = field(default_factory=list)
-    unresolved_requirements: list[str] = field(default_factory=list)
+    skipped_requirements: list[str] = field(default_factory=list)
 
 
 class ComponentParser:
@@ -949,6 +1327,7 @@ class ComponentParser:
     def __init__(self, supported_games: set[str] | None = None):
         self.tokenizer = Tokenizer()
         self.game_parser = GamePredicateParser(supported_games)
+        self.predicate_parser = RequirementPredicateParser(self.game_parser)
 
     def extract_blocks(self, text: str) -> list[str]:
         """Extract component blocks from TP2 content.
@@ -1043,9 +1422,12 @@ class ComponentParser:
                 header.games = games
             # A literal message may already be taken as an argument of the
             # predicate; a bare word is the body, not the message.
-            pos = self._predicate_end(tokens, pos)
+            start, pos = pos, self._predicate_end(tokens, pos)
             if tokens[pos].type in (TokenType.STRING_REF, TokenType.STRING_LITERAL):
                 pos += 1
+            predicate = self.predicate_parser.read(tokens[start:pos], games)
+            header.requirements.extend(predicate.requirements)
+            header.skipped_requirements.extend(predicate.skipped)
             return pos
 
         if flag in self.COMPONENT_REQUIREMENT_KINDS:
@@ -1087,10 +1469,10 @@ class ComponentParser:
         end = self._skip_strings(tokens, pos, self.STRING_ARGUMENT_COUNTS[flag])
         arguments = tokens[pos:end]
 
-        target = self._read_component_target(arguments)
+        target = read_component_target(arguments)
         if target is None:
             values = " ".join(token.source_text() for token in arguments)
-            header.unresolved_requirements.append(f"{flag.name} {values}")
+            header.skipped_requirements.append(f"unresolved target: {flag.name} {values}")
             return end
 
         text_ref, text = None, None
@@ -1107,26 +1489,6 @@ class ComponentParser:
             )
         )
         return end
-
-    @staticmethod
-    def _read_component_target(arguments: list[Token]) -> ComponentTarget | None:
-        """Read the tp2 and component number heading the arguments of a flag.
-
-        Returns:
-            The target, or None if either is missing or given by a variable
-        """
-        if len(arguments) < 2:
-            return None
-
-        tp2, component = arguments[0], arguments[1]
-        if any(token.delimiter == "%" or "%" in token.value for token in (tp2, component)):
-            return None
-        if tp2.type == TokenType.STRING_REF or not tp2.value.strip():
-            return None
-        if not component.value.strip().isdigit():
-            return None
-
-        return ComponentTarget(tp2=tp2.value, component=component.value.strip())
 
     def _read_name(self, tokens: list[Token], pos: int) -> tuple[str | None, int]:
         """Read a name given as a literal or a bare word; a string reference is skipped."""
@@ -1443,10 +1805,8 @@ class WeiDUTp2Parser:
                     logger.debug("Skipping deprecated component block")
                     continue
 
-                for flag in header.unresolved_requirements:
-                    logger.warning(
-                        f"{tp2.name}:{designated}: Skipping unresolved target: {flag}"
-                    )
+                for reason in header.skipped_requirements:
+                    logger.warning(f"{tp2.name}:{designated}: Skipping {reason}")
 
                 component = Component(
                     designated=str(designated),
