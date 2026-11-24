@@ -794,6 +794,10 @@ class RuleManager(LocalizedCacheManager):
         selected_set: set[ComponentReference],
     ) -> RuleViolation | None:
         """Check DependencyRule: supports ALL and ANY modes."""
+        if rule.optional:
+            # An absent optional target is normal: only the order of selected ones matters.
+            return None
+
         source_evaluator = self._create_source_evaluator(rule, source_ref)
 
         if not source_evaluator.is_satisfied(selected_set):
@@ -833,6 +837,27 @@ class RuleManager(LocalizedCacheManager):
             if isinstance(rule, DependencyRule)
             else DependencyMode.ANY,
         )
+
+    def _create_order_evaluator(
+        self, rule: DependencyRule, selection: set[ComponentReference]
+    ) -> ConditionEvaluator:
+        """Evaluate the targets that must precede the sources of a dependency.
+
+        An optional dependency is reduced to its selected targets: with none selected,
+        nothing has to come first.
+        """
+        if not rule.optional:
+            return self._create_target_evaluator(rule)
+
+        groups = rule.target_groups or (ComponentGroup(rule.targets, rule.dependency_mode),)
+        selected_groups = tuple(
+            ComponentGroup(selected, group.operator)
+            for group in groups
+            if (selected := tuple(group.get_matched_components(selection)))
+        )
+        if not selected_groups:
+            return TrivialCondition(True)
+        return GroupCondition(selected_groups)
 
     def _check_incompatibility(
         self,
@@ -923,7 +948,7 @@ class RuleManager(LocalizedCacheManager):
                     and option.get_base_component_reference() in active
                 )
                 for src in sources:
-                    if rule not in self.active_requirements(
+                    if rule not in self.ordering_requirements(
                         src, selection, choices.get(src, set())
                     ):
                         continue
@@ -931,7 +956,7 @@ class RuleManager(LocalizedCacheManager):
                     preceding.update(
                         option for base in tuple(preceding) for option in choices.get(base, ())
                     )
-                    evaluator = self._create_target_evaluator(rule)
+                    evaluator = self._create_order_evaluator(rule, selection)
                     if evaluator.is_satisfied(preceding):
                         continue
                     missing = tuple(evaluator.get_missing(preceding))
@@ -1031,7 +1056,27 @@ class RuleManager(LocalizedCacheManager):
         selection: set[ComponentReference],
         options: set[ComponentReference],
     ) -> set[DependencyRule]:
-        """Lift conditions on a selected SUB answer to its installable component."""
+        """Return the mandatory prerequisites that the execution plan must keep.
+
+        Optional dependencies are left out: they never block a component and must not
+        change the identity of a plan or the grouping of its batches.
+        """
+        return {
+            rule
+            for rule in self.ordering_requirements(reference, selection, options)
+            if not rule.optional
+        }
+
+    def ordering_requirements(
+        self,
+        reference: ComponentReference,
+        selection: set[ComponentReference],
+        options: set[ComponentReference],
+    ) -> set[DependencyRule]:
+        """Lift conditions on a selected SUB answer to its installable component.
+
+        Optional dependencies are included: their selected targets must come first.
+        """
         return {
             rule
             for source in {reference} | options
@@ -1097,8 +1142,8 @@ class RuleManager(LocalizedCacheManager):
                     for ref in pending
                     if before[ref] <= placed
                     and all(
-                        self._create_target_evaluator(rule).is_satisfied(available)
-                        for rule in self.active_requirements(
+                        self._create_order_evaluator(rule, selection).is_satisfied(available)
+                        for rule in self.ordering_requirements(
                             ref, selection, choices.get(ref, set())
                         )
                         if rule.implicit_order
@@ -1117,10 +1162,10 @@ class RuleManager(LocalizedCacheManager):
         if pending:
             remaining = set(pending)
             for ref in pending:
-                for rule in self.active_requirements(ref, selection, choices.get(ref, set())):
+                for rule in self.ordering_requirements(ref, selection, choices.get(ref, set())):
                     if not rule.implicit_order:
                         continue
-                    evaluator = self._create_target_evaluator(rule)
+                    evaluator = self._create_order_evaluator(rule, selection)
                     if evaluator.is_satisfied(available):
                         continue
                     for missing in evaluator.get_missing(available):

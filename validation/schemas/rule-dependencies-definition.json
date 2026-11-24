@@ -69,6 +69,11 @@
           "type": "boolean",
           "default": true,
           "description": "Whether dependencies imply installation order (target components must be installed before source components)"
+        },
+        "optional": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the source only adapts to the targets when they are present: an absent target is not reported, a selected one must be installed first"
         }
       }
     }

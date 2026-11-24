@@ -238,7 +238,8 @@
         "description": {"type": "string"},
         "translations": {"$ref": "#/definitions/ruleTranslations"},
         "source_url": {"type": "string", "format": "uri"},
-        "implicit_order": {"type": "boolean"}
+        "implicit_order": {"type": "boolean"},
+        "optional": {"type": "boolean"}
       }
     },
     "modIncompatibilityRule": {

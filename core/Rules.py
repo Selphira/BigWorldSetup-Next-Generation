@@ -136,8 +136,15 @@ class Rule:
 
 @dataclass(frozen=True, slots=True)
 class DependencyRule(Rule):
+    """Dependency of sources on targets.
+
+    An optional dependency only states that the sources adapt to the targets when they
+    are present: an absent target is normal, but a selected one must come first.
+    """
+
     dependency_mode: DependencyMode = DependencyMode.ANY
     implicit_order: bool = True
+    optional: bool = False
     source_groups: tuple[ComponentGroup, ...] | None = None
     target_groups: tuple[ComponentGroup, ...] | None = None
 
@@ -153,6 +160,7 @@ class DependencyRule(Rule):
             targets=targets,
             dependency_mode=DependencyMode(data.get("mode", "any")),
             implicit_order=data.get("implicit_order", True),
+            optional=data.get("optional", False),
             description=data.get("description", ""),
             source_url=data.get("source_url"),
             source_groups=source_groups,

@@ -354,6 +354,61 @@ def test_b23_load_order_with_removed_mod(
     page._place_component_in_sequences.assert_called_once_with(refs("a:0")[0])
 
 
+def test_optional_dependency_never_reports_its_target_in_the_selection(
+    rules: RuleManager,
+) -> None:
+    a, c = refs("a:0", "demo:1")
+    rules._all_rules = [
+        DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True})
+    ]
+    rules._build_indexes()
+
+    assert not rules.selection_violations({c})
+    assert not rules.selection_violations({a, c})
+
+
+def test_optional_dependency_requires_only_selected_targets_first(rules: RuleManager) -> None:
+    a, b, c = refs("a:0", "b:0", "demo:1")
+    rules._all_rules = [
+        DependencyRule.from_dict(
+            {"source": "demo:1", "target": ["a:0", "b:0"], "optional": True}
+        )
+    ]
+    rules._build_indexes()
+
+    assert not rules.validate_order("eet", 0, [c], selection={c})
+    assert rules.validate_order("eet", 0, [c, b], selection={b, c})
+    assert not rules.validate_order("eet", 0, [b, c], selection={b, c})
+    assert not rules.validate_order("eet", 0, [a, c, b], selection={a, b, c})
+    assert not rules.validate_order("eet", 1, [c], earlier={b}, selection={b, c})
+
+
+def test_sorting_places_a_selected_optional_target_first(rules: RuleManager) -> None:
+    a, c = refs("a:0", "demo:1")
+    rules._all_rules = [
+        DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True})
+    ]
+    rules._build_indexes()
+
+    assert rules.preferred_order([c, a], set(), {a, c}).components == [a, c]
+    assert rules.preferred_order([c], set(), {c}).components == [c]
+
+
+def test_optional_dependency_stays_out_of_the_execution_plan(rules: RuleManager) -> None:
+    a, b, c = refs("a:0", "b:0", "demo:1")
+    mandatory = DependencyRule.from_dict({"source": "demo:1", "target": "b:0"})
+    rules._all_rules = [
+        mandatory,
+        DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True}),
+    ]
+    rules._build_indexes()
+    selection = {a, b, c}
+
+    assert rules.active_requirements(c, selection, set()) == {mandatory}
+    assert not rules.blocked_positions([[a, b, c]], {(0, 0)}, (0, 0), selection)
+    assert rules.blocked_positions([[a, b, c]], {(0, 1)}, (0, 1), selection) == {(0, 2)}
+
+
 def test_accepted_failure_blocks_dependent_before_next_batch(
     rules: RuleManager,
     catalogue: ModCatalogue,
