@@ -80,10 +80,10 @@ def test_no_log_record_after_a_bare_label_or_metadata_is_kept(tmp_path: Path) ->
 
 
 def test_bare_label_keeps_hash_and_dot() -> None:
-    header = ComponentParser().parse_block("BEGIN @1 LABEL c#demo-v1.2\nCOPY ~a~ ~b~")
+    block = ComponentParser().parse_block("BEGIN @1 LABEL c#demo-v1.2\nCOPY ~a~ ~b~")
 
-    assert header is not None
-    assert header.label == "c#demo-v1.2"
+    assert block is not None
+    assert block.header.label == "c#demo-v1.2"
 
 
 def test_body_begin_does_not_replace_the_component_label(tmp_path: Path) -> None:
@@ -99,13 +99,13 @@ def test_body_begin_does_not_replace_the_component_label(tmp_path: Path) -> None
 
 
 def test_body_words_are_not_read_as_header_flags() -> None:
-    header = ComponentParser().parse_block(
+    block = ComponentParser().parse_block(
         "BEGIN @1 DESIGNATED 3\nLAF demo STR_VAR group = ~cre~ label = ~x~ END\n"
     )
 
-    assert header is not None
-    assert header.group is None
-    assert header.label is None
+    assert block is not None
+    assert block.header.group is None
+    assert block.header.label is None
 
 
 def test_second_string_after_the_label_is_skipped(tmp_path: Path) -> None:

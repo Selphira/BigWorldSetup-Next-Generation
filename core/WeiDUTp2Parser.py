@@ -531,6 +531,7 @@ class TokenType(Enum):
     NOT = auto()
     NUMBER = auto()
     OR = auto()
+    PATCH_IF = auto()
     PRINT = auto()
     REQUIRE_COMPONENT = auto()
     REQUIRE_FILE = auto()
@@ -539,6 +540,7 @@ class TokenType(Enum):
     STRING_LITERAL = auto()  # ~text~ or "text"
     STRING_REF = auto()  # @123
     SUBCOMPONENT = auto()
+    THEN = auto()
     EOF = auto()
 
 
@@ -585,11 +587,13 @@ class Tokenizer:
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
         "NOT": TokenType.NOT,
         "OR": TokenType.OR,
+        "PATCH_IF": TokenType.PATCH_IF,
         "PRINT": TokenType.PRINT,
         "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
         "REQUIRE_FILE": TokenType.REQUIRE_FILE,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
         "SUBCOMPONENT": TokenType.SUBCOMPONENT,
+        "THEN": TokenType.THEN,
     }
 
     PATTERNS = [
@@ -1248,6 +1252,78 @@ class RequirementPredicateParser:
 
 
 # ============================================================================
+# Component Body Scanner
+# ============================================================================
+
+
+@dataclass
+class ComponentBody:
+    """Requirements read from the code of a component.
+
+    Attributes:
+        requirements: Optional requirements, one per target, in order of appearance
+        skipped: Reasons for the conditions left out, each with its source
+    """
+
+    requirements: list[ComponentRequirement] = field(default_factory=list)
+    skipped: list[str] = field(default_factory=list)
+
+
+class ComponentBodyScanner:
+    """Finds the components the code of a component tests, without parsing it.
+
+    Only the conditions of ACTION_IF and PATCH_IF are read, up to their THEN
+    or BEGIN; the rest of the code is skipped. Each MOD_IS_INSTALLED there
+    gives an optional requirement whatever its negation or branch: the code
+    adapts to the target when it is installed, and does without otherwise.
+    """
+
+    CONDITION_KEYWORDS = frozenset({TokenType.ACTION_IF, TokenType.PATCH_IF})
+    CONDITION_ENDS = frozenset({TokenType.THEN, TokenType.BEGIN, TokenType.EOF})
+
+    def scan(self, tokens: list[Token], start: int) -> ComponentBody:
+        """Read the optional requirements of the body starting at start."""
+        body = ComponentBody()
+
+        pos = start
+        while pos < len(tokens):
+            if tokens[pos].type not in self.CONDITION_KEYWORDS:
+                pos += 1
+                continue
+            end = self._condition_end(tokens, pos + 1)
+            self._read_condition(tokens[pos:end], body)
+            pos = end
+
+        return body
+
+    def _condition_end(self, tokens: list[Token], pos: int) -> int:
+        while tokens[pos].type not in self.CONDITION_ENDS:
+            pos += 1
+        return pos
+
+    @staticmethod
+    def _read_condition(condition: list[Token], body: ComponentBody) -> None:
+        """Add an optional requirement for each component the condition tests."""
+        for pos, token in enumerate(condition):
+            if token.type != TokenType.MOD_IS_INSTALLED:
+                continue
+
+            target = read_component_target(condition[pos + 1 : pos + 3])
+            if target is None:
+                source = " ".join(item.source_text() for item in condition)
+                body.skipped.append(f"unresolved MOD_IS_INSTALLED: {source}")
+                continue
+
+            requirement = ComponentRequirement(
+                kind=RequirementKind.OPTIONAL,
+                alternatives=(target,),
+                source=RequirementSource.BODY,
+            )
+            if requirement not in body.requirements:
+                body.requirements.append(requirement)
+
+
+# ============================================================================
 # Component Parser
 # ============================================================================
 
@@ -1290,12 +1366,35 @@ class ComponentHeader:
     skipped_requirements: list[str] = field(default_factory=list)
 
 
+@dataclass
+class ComponentBlock:
+    """A component block read from its header and its body.
+
+    Attributes:
+        header: Component flags of the block
+        body: Optional requirements of the code, on targets the header does not name
+    """
+
+    header: ComponentHeader
+    body: ComponentBody
+
+    @property
+    def requirements(self) -> list[ComponentRequirement]:
+        """Requirements of the header, then those of the body."""
+        return self.header.requirements + self.body.requirements
+
+    @property
+    def skipped_requirements(self) -> list[str]:
+        """Reasons for the requirements left out in the header and the body."""
+        return self.header.skipped_requirements + self.body.skipped
+
+
 class ComponentParser:
-    """Extracts component blocks from TP2 content and reads their header.
+    """Extracts component blocks from TP2 content and reads them.
 
     The header grammar is strict: WeiDU defines a closed list of component
     flags, each read with its arguments. The first token that is not a flag
-    starts the body, which is left to callers.
+    starts the body, which is only scanned for the components it tests.
     """
 
     BEGIN_PATTERN = re.compile(
@@ -1368,6 +1467,7 @@ class ComponentParser:
         self.tokenizer = Tokenizer()
         self.game_parser = GamePredicateParser(supported_games)
         self.predicate_parser = RequirementPredicateParser(self.game_parser)
+        self.body_scanner = ComponentBodyScanner()
 
     def extract_blocks(self, text: str) -> list[str]:
         """Extract component blocks from TP2 content.
@@ -1392,13 +1492,31 @@ class ComponentParser:
 
         return blocks
 
-    def parse_block(self, block_text: str) -> ComponentHeader | None:
-        """Tokenize a component block and read its header.
+    def parse_block(self, block_text: str) -> ComponentBlock | None:
+        """Tokenize a component block and read its header and body.
+
+        A target the header already requires or forbids is not repeated
+        as an optional requirement of the body.
 
         Returns:
-            The component header, or None if the block does not start with BEGIN
+            The component block, or None if it does not start with BEGIN
         """
-        return self.parse_header(self.tokenizer.tokenize(block_text))
+        tokens = self.tokenizer.tokenize(block_text)
+        header = self.parse_header(tokens)
+        if header is None:
+            return None
+
+        body = self.body_scanner.scan(tokens, header.body_start)
+        header_targets = {
+            target for requirement in header.requirements for target in requirement.alternatives
+        }
+        body.requirements = [
+            requirement
+            for requirement in body.requirements
+            if requirement.alternatives[0] not in header_targets
+        ]
+
+        return ComponentBlock(header, body)
 
     def parse_header(self, tokens: list[Token]) -> ComponentHeader | None:
         """Read the component flags of a tokenized block.
@@ -1824,11 +1942,13 @@ class WeiDUTp2Parser:
 
         for block in blocks:
             try:
-                header = parser.parse_block(block)
+                parsed_block = parser.parse_block(block)
 
-                if header is None:
+                if parsed_block is None:
                     logger.warning("Failed to parse component block")
                     continue
+
+                header = parsed_block.header
 
                 if header.designated is not None:
                     designated = header.designated
@@ -1845,7 +1965,7 @@ class WeiDUTp2Parser:
                     logger.debug("Skipping deprecated component block")
                     continue
 
-                for reason in header.skipped_requirements:
+                for reason in parsed_block.skipped_requirements:
                     logger.warning(f"{tp2.name}:{designated}: Skipping {reason}")
 
                 component = Component(
@@ -1853,7 +1973,7 @@ class WeiDUTp2Parser:
                     text_ref=header.text_ref,
                     text=header.text,
                     games=header.games,
-                    requirements=header.requirements,
+                    requirements=parsed_block.requirements,
                     metadata={"no_log_record": True} if header.no_log_record else {},
                 )
 
