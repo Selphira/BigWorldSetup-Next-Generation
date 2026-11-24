@@ -291,6 +291,23 @@ class WeiDUTp2:
         return sorted(preferred.values(), key=lambda language: language.index)
 
 
+@dataclass(frozen=True, slots=True)
+class GameRestriction:
+    """Games on which a predicate can hold, and those on which it can fail.
+
+    A condition on anything but the game can hold or fail on every game.
+    Keeping both bounds lets a negation swap them instead of complementing
+    a bound, which would exclude games where the predicate holds.
+
+    Attributes:
+        holds: Games on which the predicate can be true
+        fails: Games on which the predicate can be false
+    """
+
+    holds: frozenset[str]
+    fails: frozenset[str]
+
+
 class GamePredicateParser:
     """Parser for GAME_IS and GAME_INCLUDES."""
 
@@ -305,9 +322,10 @@ class GamePredicateParser:
 
     def parse_from_tokens(self, tokens: list[Token], pos: int) -> tuple[list[str] | None, int]:
         """Parse game predicate from a token stream."""
-        games, pos = self._parse_or_expression(tokens, pos)
+        restriction, pos = self._parse_or_expression(tokens, pos)
+        games = restriction.holds
 
-        if games is None or len(games) == 0:
+        if len(games) == 0:
             return None, pos
 
         # If all games are supported, return None
@@ -316,7 +334,9 @@ class GamePredicateParser:
 
         return sorted(games), pos
 
-    def _parse_or_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+    def _parse_or_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
         """Parse OR expression (union of conditions)."""
         games, pos = self._parse_and_expression(tokens, pos)
 
@@ -328,13 +348,17 @@ class GamePredicateParser:
             ):
                 pos += 1
                 right_games, pos = self._parse_and_expression(tokens, pos)
-                games = games.union(right_games)
+                games = GameRestriction(
+                    holds=games.holds | right_games.holds, fails=games.fails & right_games.fails
+                )
             else:
                 break
 
         return games, pos
 
-    def _parse_and_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+    def _parse_and_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
         """Parse AND expression (intersection of conditions)."""
         games, pos = self._parse_primary_expression(tokens, pos)
 
@@ -346,16 +370,20 @@ class GamePredicateParser:
             ):
                 pos += 1
                 right_games, pos = self._parse_primary_expression(tokens, pos)
-                games = games.intersection(right_games)
+                games = GameRestriction(
+                    holds=games.holds & right_games.holds, fails=games.fails | right_games.fails
+                )
             else:
                 break
 
         return games, pos
 
-    def _parse_primary_expression(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
+    def _parse_primary_expression(
+        self, tokens: list[Token], pos: int
+    ) -> tuple[GameRestriction, int]:
         """Parse primary expression (NOT, parentheses, or condition)."""
         if pos >= len(tokens):
-            return self.supported_games.copy(), pos
+            return self._unrestricted(), pos
 
         token = tokens[pos]
 
@@ -364,8 +392,7 @@ class GamePredicateParser:
         ):
             pos += 1
             games, pos = self._parse_primary_expression(tokens, pos)
-            # Negate: all games except those in the set
-            return self.supported_games - games, pos
+            return GameRestriction(holds=games.fails, fails=games.holds), pos
 
         if token.type == TokenType.LPAREN:
             pos += 1
@@ -376,10 +403,12 @@ class GamePredicateParser:
             return games, pos
 
         if token.type == TokenType.GAME_IS:
-            return self.parse_game_is(tokens, pos)
+            games, pos = self.parse_game_is(tokens, pos)
+            return self._game_condition(games), pos
 
         if token.type == TokenType.GAME_INCLUDES:
-            return self.parse_game_includes(tokens, pos)
+            games, pos = self.parse_game_includes(tokens, pos)
+            return self._game_condition(games), pos
 
         if token.type in (
             TokenType.BEGIN,
@@ -394,7 +423,7 @@ class GamePredicateParser:
             TokenType.REQUIRE_COMPONENT,
             TokenType.EOF,
         ):
-            return self.supported_games.copy(), pos
+            return self._unrestricted(), pos
 
         while pos < len(tokens):
             t = tokens[pos]
@@ -416,7 +445,18 @@ class GamePredicateParser:
                 break
             pos += 1
 
-        return self.supported_games.copy(), pos
+        return self._unrestricted(), pos
+
+    def _game_condition(self, games: set[str]) -> GameRestriction:
+        """Return the bounds of a condition true on exactly these games."""
+        return GameRestriction(
+            holds=frozenset(games), fails=frozenset(self.supported_games - games)
+        )
+
+    def _unrestricted(self) -> GameRestriction:
+        """Return the bounds of a condition that does not depend on the game."""
+        every_game = frozenset(self.supported_games)
+        return GameRestriction(holds=every_game, fails=every_game)
 
     def parse_game_is(self, tokens: list[Token], pos: int) -> tuple[set[str], int]:
         """Parse GAME_IS ~games~."""
