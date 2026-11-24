@@ -13,7 +13,7 @@ import logging
 from pathlib import Path
 import platform
 import re
-from typing import Any, Iterator
+from typing import Iterator
 
 from core.File import TEXT_ENCODINGS, safe_read
 
@@ -467,19 +467,24 @@ class TokenType(Enum):
     DEPRECATED = auto()
     NO_LOG_RECORD = auto()
     DESIGNATED = auto()
+    FORBID_COMPONENT = auto()
+    FORBID_FILE = auto()
     FORCED_SUBCOMPONENT = auto()
     GAME_INCLUDES = auto()
     GAME_IS = auto()
     GROUP = auto()
     IDENTIFIER = auto()
+    INSTALL_BY_DEFAULT = auto()
     LABEL = auto()
     LPAREN = auto()
+    METADATA = auto()
     MOD_IS_INSTALLED = auto()
     NOT = auto()
     NUMBER = auto()
     OR = auto()
     PRINT = auto()
     REQUIRE_COMPONENT = auto()
+    REQUIRE_FILE = auto()
     REQUIRE_PREDICATE = auto()
     RPAREN = auto()
     STRING_LITERAL = auto()  # ~text~ or "text"
@@ -512,16 +517,21 @@ class Tokenizer:
         "DEPRECATED": TokenType.DEPRECATED,
         "NO_LOG_RECORD": TokenType.NO_LOG_RECORD,
         "DESIGNATED": TokenType.DESIGNATED,
+        "FORBID_COMPONENT": TokenType.FORBID_COMPONENT,
+        "FORBID_FILE": TokenType.FORBID_FILE,
         "FORCED_SUBCOMPONENT": TokenType.FORCED_SUBCOMPONENT,
         "GAME_INCLUDES": TokenType.GAME_INCLUDES,
         "GAME_IS": TokenType.GAME_IS,
         "GROUP": TokenType.GROUP,
+        "INSTALL_BY_DEFAULT": TokenType.INSTALL_BY_DEFAULT,
         "LABEL": TokenType.LABEL,
+        "METADATA": TokenType.METADATA,
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
         "NOT": TokenType.NOT,
         "OR": TokenType.OR,
         "PRINT": TokenType.PRINT,
         "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
+        "REQUIRE_FILE": TokenType.REQUIRE_FILE,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
         "SUBCOMPONENT": TokenType.SUBCOMPONENT,
     }
@@ -700,7 +710,8 @@ class Tokenizer:
     ) -> Token | None:
         """Extract an identifier or keyword."""
         i = start
-        while i < len(text) and (text[i].isalnum() or text[i] in ["_", "-"]):
+        # Bare WeiDU words may hold "#" and "." (c#label, setup-mod.tp2).
+        while i < len(text) and (text[i].isalnum() or text[i] in ["_", "-", "#", "."]):
             i += 1
 
         value = text[start:i]
@@ -809,12 +820,104 @@ class LanguageParser:
 # ============================================================================
 
 
+@dataclass
+class ComponentHeader:
+    """Component flags declared between BEGIN and the first action of a block.
+
+    Attributes:
+        body_start: Index, in the block tokens, of the first token after the
+            flags (the EOF token when the block has no body)
+        text_ref: Reference to the label translation string ID
+        text: Direct label text
+        designated: Explicit DESIGNATED number
+        deprecated: Whether the component is DEPRECATED
+        subcomponent_ref: Reference to the SUBCOMPONENT label translation string ID
+        subcomponent_text: Direct SUBCOMPONENT label text
+        label: LABEL value
+        group: GROUP value, when given as text
+        games: Games kept by the REQUIRE_PREDICATE, None when unrestricted
+        no_log_record: Whether the component is excluded from WeiDU.log
+    """
+
+    body_start: int
+    text_ref: str | None = None
+    text: str | None = None
+    designated: str | None = None
+    deprecated: bool = False
+    subcomponent_ref: str | None = None
+    subcomponent_text: str | None = None
+    label: str | None = None
+    group: str | None = None
+    games: list[str] | None = None
+    no_log_record: bool = False
+
+
 class ComponentParser:
-    """Extracts and parses component blocks from TP2 content."""
+    """Extracts component blocks from TP2 content and reads their header.
+
+    The header grammar is strict: WeiDU defines a closed list of component
+    flags, each read with its arguments. The first token that is not a flag
+    starts the body, which is left to callers.
+    """
 
     BEGIN_PATTERN = re.compile(
         r"^\s*BEGIN\s+(?:@\s*-?\d+|[~\"]|/\*.*?\*/\s*(?:@|[~\"]))",
         re.MULTILINE | re.IGNORECASE,
+    )
+
+    # Token types a WeiDU String argument can take, bare words included.
+    STRING_ARGUMENT_TYPES = frozenset(
+        {TokenType.STRING_LITERAL, TokenType.STRING_REF, TokenType.IDENTIFIER, TokenType.NUMBER}
+    )
+
+    # Flags followed by a fixed number of String arguments.
+    STRING_ARGUMENT_COUNTS = {
+        TokenType.FORBID_COMPONENT: 3,
+        TokenType.FORBID_FILE: 2,
+        TokenType.INSTALL_BY_DEFAULT: 0,
+        TokenType.METADATA: 1,
+        TokenType.NO_LOG_RECORD: 0,
+        TokenType.REQUIRE_COMPONENT: 3,
+        TokenType.REQUIRE_FILE: 2,
+    }
+
+    # Predicate functions by number of arguments. The arguments of other
+    # functions cannot be counted.
+    PREDICATE_ARGUMENT_COUNTS = {
+        "ENGINE_IS": 1,
+        "FILE_CONTAINS": 2,
+        "FILE_CONTAINS_EVALUATED": 2,
+        "FILE_EXISTS": 1,
+        "FILE_EXISTS_IN_GAME": 1,
+        "FILE_MD5": 2,
+        "FILE_SIZE": 2,
+        "GAME_INCLUDES": 1,
+        "GAME_IS": 1,
+        "IS_AN_INT": 1,
+        "MOD_IS_INSTALLED": 2,
+        "RESOURCE_CONTAINS": 2,
+        "VARIABLE_IS_SET": 1,
+    }
+
+    # Binary operators written as words, between two predicate operands.
+    PREDICATE_OPERATOR_NAMES = frozenset(
+        {
+            "BAND",
+            "BOR",
+            "BXOR",
+            "BLSL",
+            "BLSR",
+            "BASR",
+            "STR_CMP",
+            "STR_EQ",
+            "STRING_COMPARE",
+            "STRING_COMPARE_CASE",
+            "STRING_COMPARE_REGEXP",
+            "STRING_CONTAINS_REGEXP",
+            "STRING_EQUAL",
+            "STRING_EQUAL_CASE",
+            "STRING_MATCHES_REGEXP",
+        }
     )
 
     def __init__(self, supported_games: set[str] | None = None):
@@ -844,113 +947,198 @@ class ComponentParser:
 
         return blocks
 
-    def parse_block(self, block_text: str) -> dict | None:
-        """Parse a single component block into structured data.
+    def parse_block(self, block_text: str) -> ComponentHeader | None:
+        """Tokenize a component block and read its header.
 
         Returns:
-            Dictionary with component data, or None if invalid
+            The component header, or None if the block does not start with BEGIN
         """
-        tokens = self.tokenizer.tokenize(block_text)
+        return self.parse_header(self.tokenizer.tokenize(block_text))
 
+    def parse_header(self, tokens: list[Token]) -> ComponentHeader | None:
+        """Read the component flags of a tokenized block.
+
+        Returns:
+            The component header, or None if the tokens do not start with BEGIN
+        """
         if not tokens or tokens[0].type != TokenType.BEGIN:
             return None
 
-        component: dict[str, Any] = {
-            "text_ref": None,
-            "text": None,
-            "designated": None,
-            "deprecated": None,
-            "subcomponent_ref": None,
-            "subcomponent_text": None,
-            "label": None,
-            "group": None,
-            "games": None,
-            "metadata": {},
-        }
+        header = ComponentHeader(body_start=0)
+        header.text_ref, header.text, pos = self._read_label(tokens, 1)
+        # Some mods follow the label with a second, unused string.
+        _, _, pos = self._read_label(tokens, pos)
 
-        in_header = True
-        i = 0
-        while i < len(tokens):
-            token = tokens[i]
+        while (next_pos := self._read_flag(tokens, pos, header)) is not None:
+            pos = next_pos
 
-            if token.type == TokenType.IDENTIFIER and token.value.upper() not in (
-                "INSTALL_BY_DEFAULT",
-                "DEFAULT",
-                "SUBCOMPONENT",
-                "FORCED_SUBCOMPONENT",
-            ):
-                in_header = False
-            if token.type == TokenType.BEGIN:
-                i += 1
-                if i < len(tokens):
-                    next_token = tokens[i]
-                    if next_token.type == TokenType.STRING_REF:
-                        component["text_ref"] = next_token.value
-                    elif next_token.type == TokenType.STRING_LITERAL:
-                        component["text"] = next_token.value
+        header.body_start = pos
+        return header
 
-            elif in_header and token.type == TokenType.NO_LOG_RECORD:
-                component["metadata"]["no_log_record"] = True
+    # ------------------------------------------------------------------
+    # Flags
+    # ------------------------------------------------------------------
 
-            elif token.type == TokenType.DESIGNATED:
-                i += 1
-                if i < len(tokens) and tokens[i].type == TokenType.NUMBER:
-                    component["designated"] = tokens[i].value
+    def _read_flag(self, tokens: list[Token], pos: int, header: ComponentHeader) -> int | None:
+        """Read the flag at pos into the header.
 
-            elif token.type in (TokenType.SUBCOMPONENT, TokenType.FORCED_SUBCOMPONENT):
-                i += 1
-                if i < len(tokens):
-                    next_token = tokens[i]
-                    if next_token.type == TokenType.STRING_REF:
-                        component["subcomponent_ref"] = next_token.value
-                    elif next_token.type == TokenType.STRING_LITERAL:
-                        component["subcomponent_text"] = next_token.value
+        Returns:
+            The position after the flag, or None if pos is not a flag
+        """
+        flag = tokens[pos].type
+        pos += 1
 
-            elif token.type == TokenType.LABEL:
-                i += 1
-                if i < len(tokens):
-                    next_token = tokens[i]
-                    if next_token.type in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER):
-                        component["label"] = next_token.value
+        if flag == TokenType.DESIGNATED:
+            if tokens[pos].type == TokenType.NUMBER:
+                header.designated = tokens[pos].value
+            return self._skip_strings(tokens, pos, 1)
 
-            elif token.type == TokenType.GROUP:
-                i += 1
-                if i < len(tokens):
-                    next_token = tokens[i]
-                    if next_token.type in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER):
-                        component["group"] = next_token.value
+        if flag == TokenType.DEPRECATED:
+            header.deprecated = True
+            return self._skip_strings(tokens, pos, 1)
 
-            elif token.type == TokenType.DEPRECATED:
-                component["deprecated"] = True
-                i += 1
+        if flag in (TokenType.SUBCOMPONENT, TokenType.FORCED_SUBCOMPONENT):
+            header.subcomponent_ref, header.subcomponent_text, pos = self._read_label(
+                tokens, pos
+            )
+            return self._skip_optional_predicate(tokens, pos)
 
-            elif token.type == TokenType.REQUIRE_PREDICATE:
-                games, i = self.game_parser.parse_from_tokens(tokens, i + 1)
-                if games:
-                    component["games"] = games
-                continue
+        if flag == TokenType.GROUP:
+            header.group, pos = self._read_name(tokens, pos)
+            return self._skip_optional_predicate(tokens, pos)
 
-            elif token.type in (
-                TokenType.GAME_IS,
-                TokenType.GAME_INCLUDES,
-                TokenType.IDENTIFIER,
-                TokenType.MOD_IS_INSTALLED,
-                TokenType.NUMBER,
-                TokenType.REQUIRE_COMPONENT,
-                TokenType.STRING_LITERAL,
-                TokenType.STRING_REF,
-                TokenType.LPAREN,
-                TokenType.RPAREN,
-            ):
-                pass
+        if flag == TokenType.LABEL:
+            header.label, pos = self._read_name(tokens, pos)
+            return pos
 
-            else:
-                # EOF or unknown token
+        if flag == TokenType.REQUIRE_PREDICATE:
+            games, _ = self.game_parser.parse_from_tokens(tokens, pos)
+            if games:
+                header.games = games
+            # A literal message may already be taken as an argument of the
+            # predicate; a bare word is the body, not the message.
+            pos = self._predicate_end(tokens, pos)
+            if tokens[pos].type in (TokenType.STRING_REF, TokenType.STRING_LITERAL):
+                pos += 1
+            return pos
+
+        if flag == TokenType.NO_LOG_RECORD:
+            header.no_log_record = True
+
+        if flag in self.STRING_ARGUMENT_COUNTS:
+            return self._skip_strings(tokens, pos, self.STRING_ARGUMENT_COUNTS[flag])
+
+        return None
+
+    @staticmethod
+    def _read_label(tokens: list[Token], pos: int) -> tuple[str | None, str | None, int]:
+        """Read a label given as a string reference or a literal.
+
+        Returns:
+            The string reference, the literal text and the position after the label
+        """
+        token = tokens[pos]
+        if token.type == TokenType.STRING_REF:
+            return token.value, None, pos + 1
+        if token.type == TokenType.STRING_LITERAL:
+            return None, token.value, pos + 1
+        return None, None, pos
+
+    def _read_name(self, tokens: list[Token], pos: int) -> tuple[str | None, int]:
+        """Read a name given as a literal or a bare word; a string reference is skipped."""
+        token = tokens[pos]
+        if token.type in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER):
+            return token.value, pos + 1
+        return None, self._skip_strings(tokens, pos, 1)
+
+    def _skip_strings(self, tokens: list[Token], pos: int, count: int) -> int:
+        """Skip up to count String arguments."""
+        for _ in range(count):
+            if tokens[pos].type not in self.STRING_ARGUMENT_TYPES:
                 break
+            pos += 1
+        return pos
 
-            i += 1
+    # ------------------------------------------------------------------
+    # Predicate bounds
+    # ------------------------------------------------------------------
 
-        return component
+    def _skip_optional_predicate(self, tokens: list[Token], pos: int) -> int:
+        """Skip the predicate that may follow a SUBCOMPONENT or GROUP argument."""
+        token = tokens[pos]
+        starts_predicate = (
+            token.type in (TokenType.LPAREN, TokenType.NOT)
+            or self._predicate_argument_count(token) is not None
+        )
+        return self._predicate_end(tokens, pos) if starts_predicate else pos
+
+    def _predicate_end(self, tokens: list[Token], pos: int) -> int:
+        """Find the end of the predicate starting at pos, without evaluating it."""
+        pos = self._term_end(tokens, pos)
+        while tokens[pos].type in (TokenType.AND, TokenType.OR):
+            pos = self._term_end(tokens, pos + 1)
+        return pos
+
+    def _term_end(self, tokens: list[Token], pos: int) -> int:
+        """Find the end of a predicate term: a negation, a parenthesized group or a call."""
+        while tokens[pos].type == TokenType.NOT:
+            pos += 1
+
+        token = tokens[pos]
+        if token.type == TokenType.EOF:
+            return pos
+
+        if token.type == TokenType.LPAREN:
+            return self._closing_parenthesis_end(tokens, pos)
+
+        pos += 1
+        argument_count = self._predicate_argument_count(token)
+        if argument_count is not None:
+            pos = self._skip_strings(tokens, pos, argument_count)
+
+        return self._operands_end(tokens, pos)
+
+    def _predicate_argument_count(self, token: Token) -> int | None:
+        """Return the number of arguments of a predicate function, None if unknown."""
+        if token.type in (TokenType.STRING_LITERAL, TokenType.STRING_REF, TokenType.NUMBER):
+            return None
+        return self.PREDICATE_ARGUMENT_COUNTS.get(token.value.upper())
+
+    def _operands_end(self, tokens: list[Token], pos: int) -> int:
+        """Skip the arguments and comparison operands that follow a term.
+
+        The tokenizer drops symbolic operators ("=", "<", ">"), so an operand
+        directly follows its term; "!=" leaves a NOT. Arguments that cannot
+        be counted are taken as literals. String references are left out, as
+        they are the message closing a REQUIRE_PREDICATE.
+        """
+        while True:
+            token = tokens[pos]
+            if token.type in (TokenType.STRING_LITERAL, TokenType.NUMBER):
+                pos += 1
+            elif token.type == TokenType.LPAREN:
+                pos = self._closing_parenthesis_end(tokens, pos)
+            elif token.type == TokenType.NOT or (
+                token.type == TokenType.IDENTIFIER
+                and token.value.upper() in self.PREDICATE_OPERATOR_NAMES
+            ):
+                pos = self._term_end(tokens, pos + 1)
+            else:
+                return pos
+
+    @staticmethod
+    def _closing_parenthesis_end(tokens: list[Token], pos: int) -> int:
+        """Return the position after the parenthesis closing the one at pos."""
+        depth = 0
+        while tokens[pos].type != TokenType.EOF:
+            if tokens[pos].type == TokenType.LPAREN:
+                depth += 1
+            elif tokens[pos].type == TokenType.RPAREN:
+                depth -= 1
+                if depth == 0:
+                    return pos + 1
+            pos += 1
+        return pos
 
 
 # ============================================================================
@@ -1150,14 +1338,14 @@ class WeiDUTp2Parser:
 
         for block in blocks:
             try:
-                component_data = parser.parse_block(block)
+                header = parser.parse_block(block)
 
-                if component_data is None:
+                if header is None:
                     logger.warning("Failed to parse component block")
                     continue
 
-                if component_data["designated"] is not None:
-                    designated = component_data["designated"]
+                if header.designated is not None:
+                    designated = header.designated
                 else:
                     # Ex: DESIGNATED 0010 (trap_overhaul)
                     width = len(prev_designated) if prev_designated.startswith("0") else None
@@ -1166,32 +1354,32 @@ class WeiDUTp2Parser:
 
                 prev_designated = designated
 
-                if component_data["deprecated"] is not None:
+                if header.deprecated:
                     deprecated_count += 1
                     logger.debug("Skipping deprecated component block")
                     continue
 
                 component = Component(
                     designated=str(designated),
-                    text_ref=component_data["text_ref"],
-                    text=component_data["text"],
-                    games=component_data["games"],
-                    metadata=component_data["metadata"],
+                    text_ref=header.text_ref,
+                    text=header.text,
+                    games=header.games,
+                    metadata={"no_log_record": True} if header.no_log_record else {},
                 )
 
-                if component_data["subcomponent_ref"] or component_data["subcomponent_text"]:
+                if header.subcomponent_ref or header.subcomponent_text:
                     subcomponent_key = (
-                        f"ref_{component_data['subcomponent_ref']}"
-                        if component_data["subcomponent_ref"]
-                        else f"text_{component_data['subcomponent_text']}"
+                        f"ref_{header.subcomponent_ref}"
+                        if header.subcomponent_ref
+                        else f"text_{header.subcomponent_text}"
                     )
 
                     if subcomponent_key not in muc_groups:
                         muc = MucComponent(
                             designated=f"choice_{len(muc_groups)}",
-                            text_ref=component_data["subcomponent_ref"],
-                            text=component_data["subcomponent_text"],
-                            games=component_data["games"],
+                            text_ref=header.subcomponent_ref,
+                            text=header.subcomponent_text,
+                            games=header.games,
                         )
                         tp2.components.append(muc)
                         muc_groups[subcomponent_key] = muc
