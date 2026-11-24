@@ -330,6 +330,8 @@ WEIDU_SETUP_PREFIX = "setup-"
 TP2_EXTENSION = ".tp2"
 # Clauses a REQUIRE_PREDICATE may expand to before its requirements are skipped
 TP2_PREDICATE_MAX_CLAUSES = 16
+# Nested INCLUDE files followed before the deeper ones are skipped
+TP2_INCLUDE_MAX_DEPTH = 8
 # Generated installer registering download-only components in WeiDU.log
 DWN_TP2_PREFIX = "bws-dwn-"
 # The generated installer declares no LANGUAGE, so WeiDU uses index 0

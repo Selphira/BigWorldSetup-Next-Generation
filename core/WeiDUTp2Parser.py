@@ -10,17 +10,18 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum, auto
 import logging
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import platform
 import re
 from typing import Iterator
 
-from constants import TP2_PREDICATE_MAX_CLAUSES
+from constants import TP2_INCLUDE_MAX_DEPTH, TP2_PREDICATE_MAX_CLAUSES
 from core.ComponentRequirement import (
     ComponentRequirement,
     ComponentTarget,
     RequirementKind,
     RequirementSource,
+    normalize_tp2_name,
 )
 from core.File import TEXT_ENCODINGS, safe_read
 
@@ -91,6 +92,8 @@ DEFAULT_OS_CODE: str = "unix"
 
 _WEIDU_OS_VAR: str = "%WEIDU_OS%"
 _MOD_FOLDER_VAR: str = "%MOD_FOLDER%"
+_WEIDU_OS_NAME: str = "WEIDU_OS"
+_MOD_FOLDER_NAME: str = "MOD_FOLDER"
 
 SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
 
@@ -99,6 +102,7 @@ SUPPORTED_GAMES: set[str] = {"bgee", "sod", "bg2ee", "eet", "iwdee", "pstee"}
 # "BG2EE/EET", "l'edition Enhanced"); "EE" is matched in capitals only.
 RE_ENHANCED_EDITION_LABEL = re.compile(r"EE\b|\bEET\b|(?i:\benhanced\b)")
 
+RE_VARIABLE_REFERENCE = re.compile(r'%([^%\s~"]+)%')
 RE_VERSION = re.compile(r'VERSION\s+[~"]?v?([0-9][0-9A-Za-z.\-_]*)[~"]?')
 RE_TRA_TRANSLATION = re.compile(
     r"""
@@ -523,6 +527,7 @@ class TokenType(Enum):
     GAME_IS = auto()
     GROUP = auto()
     IDENTIFIER = auto()
+    INCLUDE = auto()
     INSTALL_BY_DEFAULT = auto()
     LABEL = auto()
     LPAREN = auto()
@@ -532,11 +537,13 @@ class TokenType(Enum):
     NUMBER = auto()
     OR = auto()
     PATCH_IF = auto()
+    PATCH_INCLUDE = auto()
     PRINT = auto()
     REQUIRE_COMPONENT = auto()
     REQUIRE_FILE = auto()
     REQUIRE_PREDICATE = auto()
     RPAREN = auto()
+    SPRINT = auto()  # OUTER_SPRINT, OUTER_TEXT_SPRINT, SPRINT, TEXT_SPRINT
     STRING_LITERAL = auto()  # ~text~ or "text"
     STRING_REF = auto()  # @123
     SUBCOMPONENT = auto()
@@ -581,18 +588,24 @@ class Tokenizer:
         "GAME_INCLUDES": TokenType.GAME_INCLUDES,
         "GAME_IS": TokenType.GAME_IS,
         "GROUP": TokenType.GROUP,
+        "INCLUDE": TokenType.INCLUDE,
         "INSTALL_BY_DEFAULT": TokenType.INSTALL_BY_DEFAULT,
         "LABEL": TokenType.LABEL,
         "METADATA": TokenType.METADATA,
         "MOD_IS_INSTALLED": TokenType.MOD_IS_INSTALLED,
         "NOT": TokenType.NOT,
         "OR": TokenType.OR,
+        "OUTER_SPRINT": TokenType.SPRINT,
+        "OUTER_TEXT_SPRINT": TokenType.SPRINT,
         "PATCH_IF": TokenType.PATCH_IF,
+        "PATCH_INCLUDE": TokenType.PATCH_INCLUDE,
         "PRINT": TokenType.PRINT,
         "REQUIRE_COMPONENT": TokenType.REQUIRE_COMPONENT,
         "REQUIRE_FILE": TokenType.REQUIRE_FILE,
         "REQUIRE_PREDICATE": TokenType.REQUIRE_PREDICATE,
+        "SPRINT": TokenType.SPRINT,
         "SUBCOMPONENT": TokenType.SUBCOMPONENT,
+        "TEXT_SPRINT": TokenType.SPRINT,
         "THEN": TokenType.THEN,
     }
 
@@ -1259,6 +1272,185 @@ class RequirementPredicateParser:
 
 
 # ============================================================================
+# Included Files
+# ============================================================================
+
+
+def strip_comments(text: str) -> str:
+    """Remove C-style and C++-style comments, and inline files, from TP2 code."""
+    return "".join(
+        content
+        for segment_type, content in _comment_removal_segments(text)
+        if segment_type != "comment"
+    )
+
+
+def _comment_removal_segments(text: str) -> Iterator[tuple[str, str]]:
+    """Split text into strings, comments, and code segments."""
+    i = 0
+    length = len(text)
+
+    while i < length:
+        # Check for string literals (must check before comments)
+        for delimiter in ("~", '"', "'"):
+            if text[i] == delimiter:
+                end = text.find(delimiter, i + 1)
+                if end != -1:
+                    yield "string", text[i : end + 1]
+                    i = end + 1
+                    break
+        else:
+            # Check for line comment
+            if i + 1 < length and text[i : i + 2] == "//":
+                end = text.find("\n", i)
+                if end != -1:
+                    yield "comment", text[i:end]
+                    i = end
+                else:
+                    # Comment extends to EOF
+                    yield "comment", text[i:]
+                    break
+                continue
+
+            # Check for block comment
+            if i + 1 < length and text[i : i + 2] == "/*":
+                end = text.find("*/", i + 2)
+                if end != -1:
+                    yield "comment", text[i : end + 2]
+                    i = end + 2
+                else:
+                    # Unclosed block comment, consume to EOF
+                    yield "comment", text[i:]
+                    logger.warning("Unclosed block comment in TP2 file")
+                    break
+                continue
+
+            # Check for inline file block
+            if i + 7 < length and text[i : i + 8] == "<<<<<<<<":
+                end = text.find(">>>>>>>>", i + 8)
+                if end != -1:
+                    yield "comment", text[i : end + 8]
+                    i = end + 8
+                else:
+                    # Unclosed inline file, consume to EOF
+                    yield "comment", text[i:]
+                    logger.warning("Unclosed inline file block in TP2 file")
+                    break
+                continue
+
+            # Regular code character
+            yield "code", text[i]
+            i += 1
+
+
+def expand_variables(text: str, variables: dict[str, str]) -> str | None:
+    """Replace the %name% references of text by the values of the variables.
+
+    Returns:
+        The expanded text, or None if it references an unknown variable
+    """
+    if any(name not in variables for name in RE_VARIABLE_REFERENCE.findall(text)):
+        return None
+    return RE_VARIABLE_REFERENCE.sub(lambda match: variables[match.group(1)], text)
+
+
+def find_path_ignoring_case(root: Path, relative: str) -> Path | None:
+    """Find a path under root, matching each name regardless of case as WeiDU on Windows.
+
+    Returns:
+        The resolved path, or None if it does not exist or is absolute
+    """
+    parts = PurePosixPath(relative.replace("\\", "/")).parts
+    if not parts or parts[0] == "/" or PureWindowsPath(relative).drive:
+        return None
+
+    path = root
+    for part in parts:
+        candidate = path / part
+        if not candidate.exists() and path.is_dir():
+            candidate = next(
+                (entry for entry in path.iterdir() if entry.name.lower() == part.lower()),
+                candidate,
+            )
+        if not candidate.exists():
+            return None
+        path = candidate
+
+    return path.resolve()
+
+
+def argument_text(token: Token) -> str:
+    """Return the text of a String argument, keeping a %variable% reference whole."""
+    if token.delimiter == "%":
+        return f"%{token.value}%"
+    return token.value
+
+
+class IncludeReader:
+    """Finds and reads the files the components of a TP2 include.
+
+    WeiDU runs from the game folder: an included path is relative to it, and
+    %MOD_FOLDER% names the mod folder inside it. The TP2 lies either in the
+    mod folder (mymod/setup-mymod.tp2), or beside it in the game folder
+    (setup-mymod.tp2 next to mymod/).
+    """
+
+    def __init__(self, tp2_dir: Path | None, tp2_name: str) -> None:
+        """Initialize the reader of a TP2.
+
+        Args:
+            tp2_dir: Folder of the TP2, None when it was not read from disk
+            tp2_name: Name of the TP2, with or without its setup- prefix
+        """
+        self.game_dir: Path | None = None
+        self.variables: dict[str, str] = {_WEIDU_OS_NAME: get_os_code()}
+        self._tokenizer = Tokenizer()
+        self._tokens: dict[Path, list[Token]] = {}
+
+        if tp2_dir is None:
+            return
+
+        tp2_dir = tp2_dir.resolve()
+        mod_name = normalize_tp2_name(tp2_name)
+        mod_dir = None
+        if tp2_dir.name.lower() != mod_name:
+            mod_dir = find_path_ignoring_case(tp2_dir, mod_name)
+
+        if mod_dir is not None and mod_dir.is_dir():
+            self.game_dir = tp2_dir
+        else:
+            self.game_dir, mod_dir = tp2_dir.parent, tp2_dir
+        self.variables[_MOD_FOLDER_NAME] = mod_dir.name
+
+    def find(self, path_text: str) -> Path | None:
+        """Find the file an INCLUDE names, its variables already expanded.
+
+        Returns:
+            The resolved file path, or None if there is no such file
+        """
+        if self.game_dir is None:
+            return None
+        path = find_path_ignoring_case(self.game_dir, path_text)
+        return path if path is not None and path.is_file() else None
+
+    def read_tokens(self, path: Path) -> list[Token]:
+        """Tokenize an included file once, without its comments.
+
+        Raises:
+            OSError: If the file cannot be read
+        """
+        if path not in self._tokens:
+            self._tokens[path] = self._tokenizer.tokenize(strip_comments(safe_read(path)))
+        return self._tokens[path]
+
+    def describe(self, path: Path) -> str:
+        """Return the path of an included file relative to the game folder."""
+        if self.game_dir is not None and path.is_relative_to(self.game_dir):
+            return path.relative_to(self.game_dir).as_posix()
+        return path.as_posix()
+
+
+# ============================================================================
 # Component Body Scanner
 # ============================================================================
 
@@ -1269,7 +1461,7 @@ class ComponentBody:
 
     Attributes:
         requirements: Optional requirements, one per target, in order of appearance
-        skipped: Reasons for the conditions left out, each with its source
+        skipped: Reasons for the conditions and includes left out, each with its source
     """
 
     requirements: list[ComponentRequirement] = field(default_factory=list)
@@ -1283,25 +1475,68 @@ class ComponentBodyScanner:
     or BEGIN; the rest of the code is skipped. Each MOD_IS_INSTALLED there
     gives an optional requirement whatever its negation or branch: the code
     adapts to the target when it is installed, and does without otherwise.
+
+    The files of INCLUDE and PATCH_INCLUDE are scanned the same way, where
+    they are included. Their paths are expanded with the text variables
+    defined so far by OUTER_SPRINT and the like; a variable set by other
+    means is unknown, and the paths using it are skipped.
     """
 
     CONDITION_KEYWORDS = frozenset({TokenType.ACTION_IF, TokenType.PATCH_IF})
     CONDITION_ENDS = frozenset({TokenType.THEN, TokenType.BEGIN, TokenType.EOF})
+    INCLUDE_KEYWORDS = frozenset({TokenType.INCLUDE, TokenType.PATCH_INCLUDE})
+    VARIABLE_ARGUMENT_TYPES = frozenset(
+        {TokenType.STRING_LITERAL, TokenType.IDENTIFIER, TokenType.NUMBER}
+    )
+    # Optional keyword between the name and the value of a SPRINT.
+    EVALUATE_KEYWORD = "EVAL"
 
-    def scan(self, tokens: list[Token], start: int) -> ComponentBody:
-        """Read the optional requirements of the body starting at start."""
+    def __init__(self, include_reader: IncludeReader | None = None) -> None:
+        self.include_reader = include_reader
+
+    def scan(
+        self, tokens: list[Token], start: int, variables: dict[str, str] | None = None
+    ) -> ComponentBody:
+        """Read the optional requirements of the body starting at start.
+
+        Args:
+            tokens: Tokens of the component block
+            start: Index of the first token of the body
+            variables: Text variables known before the body; those the body
+                defines are added to a copy
+        """
         body = ComponentBody()
+        self._scan(tokens, start, dict(variables or {}), (), body)
+        return body
 
+    def define_variables(self, tokens: list[Token], variables: dict[str, str]) -> None:
+        """Add to variables the text variables the tokens define, in order."""
+        for pos, token in enumerate(tokens):
+            if token.type == TokenType.SPRINT:
+                self._define_variable(tokens, pos + 1, variables)
+
+    def _scan(
+        self,
+        tokens: list[Token],
+        start: int,
+        variables: dict[str, str],
+        include_chain: tuple[Path, ...],
+        body: ComponentBody,
+    ) -> None:
+        """Scan tokens reached through include_chain, defining variables as they come."""
         pos = start
         while pos < len(tokens):
-            if tokens[pos].type not in self.CONDITION_KEYWORDS:
+            token_type = tokens[pos].type
+            if token_type in self.CONDITION_KEYWORDS:
+                end = self._condition_end(tokens, pos + 1)
+                self._read_condition(tokens[pos:end], self._location(include_chain), body)
+                pos = end
+            elif token_type in self.INCLUDE_KEYWORDS:
+                pos = self._follow_includes(tokens, pos, variables, include_chain, body)
+            elif token_type == TokenType.SPRINT:
+                pos = self._define_variable(tokens, pos + 1, variables)
+            else:
                 pos += 1
-                continue
-            end = self._condition_end(tokens, pos + 1)
-            self._read_condition(tokens[pos:end], body)
-            pos = end
-
-        return body
 
     def _condition_end(self, tokens: list[Token], pos: int) -> int:
         while tokens[pos].type not in self.CONDITION_ENDS:
@@ -1309,7 +1544,7 @@ class ComponentBodyScanner:
         return pos
 
     @staticmethod
-    def _read_condition(condition: list[Token], body: ComponentBody) -> None:
+    def _read_condition(condition: list[Token], location: str, body: ComponentBody) -> None:
         """Add an optional requirement for each component the condition tests."""
         for pos, token in enumerate(condition):
             if token.type != TokenType.MOD_IS_INSTALLED:
@@ -1318,7 +1553,7 @@ class ComponentBodyScanner:
             target = read_component_target(condition[pos + 1 : pos + 3])
             if target is None:
                 source = " ".join(item.source_text() for item in condition)
-                body.skipped.append(f"unresolved MOD_IS_INSTALLED: {source}")
+                body.skipped.append(f"unresolved MOD_IS_INSTALLED{location}: {source}")
                 continue
 
             requirement = ComponentRequirement(
@@ -1328,6 +1563,111 @@ class ComponentBodyScanner:
             )
             if requirement not in body.requirements:
                 body.requirements.append(requirement)
+
+    # ------------------------------------------------------------------
+    # Included files
+    # ------------------------------------------------------------------
+
+    def _follow_includes(
+        self,
+        tokens: list[Token],
+        pos: int,
+        variables: dict[str, str],
+        include_chain: tuple[Path, ...],
+        body: ComponentBody,
+    ) -> int:
+        """Scan in turn each file of the INCLUDE at pos.
+
+        Returns:
+            The position after the list of files
+        """
+        keyword = tokens[pos].value
+        location = self._location(include_chain)
+        pos += 1
+
+        if tokens[pos].type != TokenType.STRING_LITERAL:
+            body.skipped.append(f"unresolved {keyword}{location}: {tokens[pos].source_text()}")
+            return pos
+
+        while tokens[pos].type == TokenType.STRING_LITERAL:
+            reason = self._follow_include(tokens[pos], variables, include_chain, body)
+            if reason is not None:
+                body.skipped.append(
+                    f"{reason} {keyword}{location}: {tokens[pos].source_text()}"
+                )
+            pos += 1
+
+        return pos
+
+    def _follow_include(
+        self,
+        path_token: Token,
+        variables: dict[str, str],
+        include_chain: tuple[Path, ...],
+        body: ComponentBody,
+    ) -> str | None:
+        """Scan the file path_token names.
+
+        Returns:
+            Why the file was not scanned, or None once it is
+        """
+        if self.include_reader is None:
+            return "unresolved"
+        if len(include_chain) >= TP2_INCLUDE_MAX_DEPTH:
+            return "too deeply nested"
+
+        path_text = expand_variables(argument_text(path_token), variables)
+        path = self.include_reader.find(path_text) if path_text is not None else None
+        if path is None:
+            return "unresolved"
+        if path in include_chain:
+            return "cyclic"
+
+        try:
+            tokens = self.include_reader.read_tokens(path)
+        except OSError as error:
+            logger.debug(f"Cannot read included file {path}: {error}")
+            return "unreadable"
+
+        self._scan(tokens, 0, variables, include_chain + (path,), body)
+        return None
+
+    def _location(self, include_chain: tuple[Path, ...]) -> str:
+        """Describe the included file being scanned, empty in the TP2 itself."""
+        if not include_chain or self.include_reader is None:
+            return ""
+        return f" in {self.include_reader.describe(include_chain[-1])}"
+
+    # ------------------------------------------------------------------
+    # Variables
+    # ------------------------------------------------------------------
+
+    def _define_variable(self, tokens: list[Token], pos: int, variables: dict[str, str]) -> int:
+        """Read the name and value of the SPRINT whose arguments start at pos.
+
+        A value referencing an unknown variable makes the variable unknown.
+
+        Returns:
+            The position after the arguments read
+        """
+        name = tokens[pos]
+        if name.type not in self.VARIABLE_ARGUMENT_TYPES or name.delimiter == "%":
+            return pos
+        pos += 1
+
+        if tokens[pos].value.upper() == self.EVALUATE_KEYWORD:
+            pos += 1
+        value = tokens[pos]
+        if value.type not in self.VARIABLE_ARGUMENT_TYPES:
+            variables.pop(name.value, None)
+            return pos
+
+        expanded = expand_variables(argument_text(value), variables)
+        if expanded is None:
+            variables.pop(name.value, None)
+        else:
+            variables[name.value] = expanded
+        return pos + 1
 
 
 # ============================================================================
@@ -1470,11 +1810,15 @@ class ComponentParser:
         }
     )
 
-    def __init__(self, supported_games: set[str] | None = None):
+    def __init__(
+        self,
+        supported_games: set[str] | None = None,
+        include_reader: IncludeReader | None = None,
+    ):
         self.tokenizer = Tokenizer()
         self.game_parser = GamePredicateParser(supported_games)
         self.predicate_parser = RequirementPredicateParser(self.game_parser)
-        self.body_scanner = ComponentBodyScanner()
+        self.body_scanner = ComponentBodyScanner(include_reader)
 
     def extract_blocks(self, text: str) -> list[str]:
         """Extract component blocks from TP2 content.
@@ -1499,11 +1843,34 @@ class ComponentParser:
 
         return blocks
 
-    def parse_block(self, block_text: str) -> ComponentBlock | None:
+    def read_prelude_variables(self, text: str, variables: dict[str, str]) -> dict[str, str]:
+        """Complete variables with those defined before the first component, as in ALWAYS.
+
+        Args:
+            text: Cleaned TP2 content (comments already removed)
+            variables: Variables WeiDU defines for every TP2
+
+        Returns:
+            A new dictionary of the variables known to every component
+        """
+        first_begin = self.BEGIN_PATTERN.search(text)
+        prelude = text[: first_begin.start()] if first_begin else text
+
+        prelude_variables = dict(variables)
+        self.body_scanner.define_variables(self.tokenizer.tokenize(prelude), prelude_variables)
+        return prelude_variables
+
+    def parse_block(
+        self, block_text: str, variables: dict[str, str] | None = None
+    ) -> ComponentBlock | None:
         """Tokenize a component block and read its header and body.
 
         A target the header already requires or forbids is not repeated
         as an optional requirement of the body.
+
+        Args:
+            block_text: Component block, from its BEGIN
+            variables: Text variables known before the block
 
         Returns:
             The component block, or None if it does not start with BEGIN
@@ -1513,7 +1880,7 @@ class ComponentParser:
         if header is None:
             return None
 
-        body = self.body_scanner.scan(tokens, header.body_start)
+        body = self.body_scanner.scan(tokens, header.body_start, variables)
         header_targets = {
             target for requirement in header.requirements for target in requirement.alternatives
         }
@@ -1831,14 +2198,15 @@ class WeiDUTp2Parser:
             self.supported_games = (
                 supported_games if supported_games is not None else SUPPORTED_GAMES.copy()
             )
-            clean_content = self._strip_comments(tp2_content)
+            clean_content = strip_comments(tp2_content)
 
             tp2 = WeiDUTp2()
             tp2.name = tp2_name
 
             self._extract_version(clean_content, tp2)
             self._extract_languages(clean_content, tp2, parent)
-            self._parse_components(clean_content, tp2, self.supported_games)
+            include_reader = IncludeReader(Path(parent) if parent else None, tp2_name)
+            self._parse_components(clean_content, tp2, self.supported_games, include_reader)
             self._build_translations(tp2)
 
             logger.info(
@@ -1851,72 +2219,6 @@ class WeiDUTp2Parser:
         except Exception as e:
             logger.error("Failed to parse TP2 string", exc_info=True)
             raise Tp2ParseError(f"Error parsing TP2 content: {e}") from e
-
-    def _strip_comments(self, text: str) -> str:
-        """Remove C-style and C++-style comments from text."""
-        return "".join(
-            content
-            for token_type, content in self._tokenize_for_comment_removal(text)
-            if token_type != "comment"
-        )
-
-    @staticmethod
-    def _tokenize_for_comment_removal(text: str) -> Iterator[tuple[str, str]]:
-        """Tokenize text into strings, comments, and code segments."""
-        i = 0
-        length = len(text)
-
-        while i < length:
-            # Check for string literals (must check before comments)
-            for delimiter in ("~", '"', "'"):
-                if text[i] == delimiter:
-                    end = text.find(delimiter, i + 1)
-                    if end != -1:
-                        yield "string", text[i : end + 1]
-                        i = end + 1
-                        break
-            else:
-                # Check for line comment
-                if i + 1 < length and text[i : i + 2] == "//":
-                    end = text.find("\n", i)
-                    if end != -1:
-                        yield "comment", text[i:end]
-                        i = end
-                    else:
-                        # Comment extends to EOF
-                        yield "comment", text[i:]
-                        break
-                    continue
-
-                # Check for block comment
-                if i + 1 < length and text[i : i + 2] == "/*":
-                    end = text.find("*/", i + 2)
-                    if end != -1:
-                        yield "comment", text[i : end + 2]
-                        i = end + 2
-                    else:
-                        # Unclosed block comment, consume to EOF
-                        yield "comment", text[i:]
-                        logger.warning("Unclosed block comment in TP2 file")
-                        break
-                    continue
-
-                # Check for inline file block
-                if i + 7 < length and text[i : i + 8] == "<<<<<<<<":
-                    end = text.find(">>>>>>>>", i + 8)
-                    if end != -1:
-                        yield "comment", text[i : end + 8]
-                        i = end + 8
-                    else:
-                        # Unclosed inline file, consume to EOF
-                        yield "comment", text[i:]
-                        logger.warning("Unclosed inline file block in TP2 file")
-                        break
-                    continue
-
-                # Regular code character
-                yield "code", text[i]
-                i += 1
 
     @staticmethod
     def _extract_version(text: str, tp2: WeiDUTp2) -> None:
@@ -1936,10 +2238,13 @@ class WeiDUTp2Parser:
             logger.warning("No LANGUAGE declarations found in TP2")
 
     @staticmethod
-    def _parse_components(text: str, tp2: WeiDUTp2, supported_games: set[str]) -> None:
+    def _parse_components(
+        text: str, tp2: WeiDUTp2, supported_games: set[str], include_reader: IncludeReader
+    ) -> None:
         """Parse all component declarations from TP2 content using robust token-based approach."""
-        parser = ComponentParser(supported_games)
+        parser = ComponentParser(supported_games, include_reader)
         blocks = parser.extract_blocks(text)
+        variables = parser.read_prelude_variables(text, include_reader.variables)
 
         logger.info(f"Extracted {len(blocks)} component blocks")
 
@@ -1949,7 +2254,7 @@ class WeiDUTp2Parser:
 
         for block in blocks:
             try:
-                parsed_block = parser.parse_block(block)
+                parsed_block = parser.parse_block(block, variables)
 
                 if parsed_block is None:
                     logger.warning("Failed to parse component block")
