@@ -1,5 +1,6 @@
 """Backup integrity, interruption recovery and non-destructive path validation."""
 
+from datetime import datetime
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -7,7 +8,9 @@ from unittest.mock import Mock
 
 import pytest
 
+from core.BackupInfo import BackupInfo
 from core.BackupManager import BackupManager
+from core.BackupNames import BackupNames
 from core.BackupSnapshot import BackupSnapshot
 from core.validators.FolderRelationshipValidator import FolderRelationshipValidator
 from core.validators.FolderValidator import (
@@ -40,6 +43,69 @@ def backup(tmp_path: Path) -> tuple[BackupManager, Path, str]:
     assert success, error
     assert info is not None
     return manager, game, info.backup_id
+
+
+def test_name_and_notes_given_at_creation_are_kept(tmp_path: Path) -> None:
+    game = tmp_path / "game"
+    game.mkdir()
+    (game / "chitin.key").write_bytes(b"key")
+    manager = BackupManager()
+    manager.set_backup_root(tmp_path / "backups")
+    success, info, error = manager.create_backup(
+        "bg2ee", "BG2EE", game, Mock(), custom_name="Before BWS", notes="Clean install"
+    )
+    assert success, error
+    assert info is not None
+    stored = manager.load_backup_info(info.backup_id)
+    assert stored is not None
+    assert (stored.display_name, stored.notes) == ("Before BWS", "Clean install")
+
+
+def _named_backup(backup_id: str, game_code: str, custom_name: str = "") -> BackupInfo:
+    return BackupInfo(
+        backup_id=backup_id,
+        game_code=game_code,
+        game_name=game_code,
+        game_path=Path("game"),
+        creation_date=datetime(2026, 11, 24),
+        total_size=0,
+        file_count=0,
+        custom_name=custom_name,
+    )
+
+
+@pytest.fixture
+def backup_names() -> list[BackupInfo]:
+    return [
+        _named_backup("BG2EE_1", "bg2ee", "Before BWS"),
+        _named_backup("BG2EE_2", "bg2ee"),
+        _named_backup("BGEE_1", "bgee", "Vanilla"),
+    ]
+
+
+@pytest.mark.parametrize("name", ["Before BWS", "  before bws ", "BG2EE_2"])
+def test_name_shown_by_another_backup_of_the_game_is_used(
+    backup_names: list[BackupInfo], name: str
+) -> None:
+    assert BackupNames(backup_names, ["bg2ee"]).contains(name)
+
+
+@pytest.mark.parametrize("name", ["", "   ", "Vanilla", "After BWS"])
+def test_empty_or_other_installation_name_is_free(
+    backup_names: list[BackupInfo], name: str
+) -> None:
+    assert not BackupNames(backup_names, ["bg2ee"]).contains(name)
+
+
+def test_installation_spanning_two_games_shares_its_names(
+    backup_names: list[BackupInfo],
+) -> None:
+    eet_names = BackupNames(backup_names, ["bgee", "bg2ee"])
+    assert eet_names.contains("Vanilla") and eet_names.contains("Before BWS")
+
+
+def test_renamed_backup_may_keep_its_own_name(backup_names: list[BackupInfo]) -> None:
+    assert not BackupNames(backup_names, ["bg2ee"], "BG2EE_1").contains("Before BWS")
 
 
 def test_full_snapshot_and_current_user_data(backup: tuple[BackupManager, Path, str]) -> None:
@@ -278,6 +344,34 @@ def test_source_changes_during_creation_are_not_published(
 
     assert not manager.create_backup("bg2ee", "BG2EE", game, change_source)[0]
     assert [info.backup_id for info in manager.list_backups()] == [identifier]
+
+
+def test_backup_table_sorts_dates_and_sizes_on_their_value(qtbot) -> None:
+    from PySide6.QtCore import Qt
+    from PySide6.QtWidgets import QTableWidget
+
+    from ui.widgets.SortValueTableItem import SortValueTableItem
+
+    table = QTableWidget(0, 2)
+    qtbot.addWidget(table)
+    rows = [
+        ("24/11/2026", datetime(2026, 11, 24), "900.0 MB", 900 * 1024**2),
+        ("25/10/2026", datetime(2026, 10, 25), "1.2 GB", 1288490188),
+        ("01/12/2025", datetime(2025, 12, 1), "50.0 KB", 50 * 1024),
+    ]
+    for row, (date_text, date, size_text, size) in enumerate(rows):
+        table.insertRow(row)
+        table.setItem(row, 0, SortValueTableItem(date_text, date))
+        table.setItem(row, 1, SortValueTableItem(size_text, size))
+
+    table.sortItems(0, Qt.SortOrder.DescendingOrder)
+    assert [table.item(row, 0).text() for row in range(3)] == [
+        "24/11/2026",
+        "25/10/2026",
+        "01/12/2025",
+    ]
+    table.sortItems(1, Qt.SortOrder.AscendingOrder)
+    assert [table.item(row, 1).text() for row in range(3)] == ["50.0 KB", "900.0 MB", "1.2 GB"]
 
 
 def test_restore_worker_keeps_recovery_path(tmp_path: Path) -> None:

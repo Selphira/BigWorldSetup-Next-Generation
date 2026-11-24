@@ -59,8 +59,19 @@ class BackupManager:
         game_name: str,
         game_path: Path,
         progress_callback: ProgressCallback,
+        *,
+        custom_name: str = "",
+        notes: str = "",
     ) -> tuple[bool, BackupInfo | None, str]:
         """Create a backup of a game directory.
+
+        Args:
+            game_code: Game code
+            game_name: Game name
+            game_path: Game directory to back up
+            progress_callback: Receives the progress message, current and total
+            custom_name: Name given by the user, the backup ID being shown when empty
+            notes: User notes
 
         Returns:
             (success, backup_info, error_message)
@@ -127,6 +138,8 @@ class BackupManager:
                 ),
                 file_count=file_count,
                 is_modded=self.is_game_modded(game_path),
+                custom_name=custom_name,
+                notes=notes,
                 status=BackupStatus.VALID,
             )
 

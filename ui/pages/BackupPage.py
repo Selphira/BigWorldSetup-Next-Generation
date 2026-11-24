@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from datetime import datetime
 import logging
 from pathlib import Path
 import shutil
@@ -8,18 +9,15 @@ from PySide6.QtGui import QColor, QDesktopServices, QHelpEvent
 from PySide6.QtWidgets import (
     QComboBox,
     QDialog,
-    QDialogButtonBox,
     QHBoxLayout,
     QHeaderView,
     QInputDialog,
     QLabel,
-    QLineEdit,
     QMenu,
     QMessageBox,
     QProgressBar,
     QPushButton,
     QTableWidgetItem,
-    QTextEdit,
     QToolTip,
     QVBoxLayout,
 )
@@ -35,11 +33,14 @@ from constants import (
 )
 from core.BackupInfo import BackupInfo, BackupStatus
 from core.BackupManager import BackupManager
+from core.BackupNames import BackupNames
 from core.File import format_size
 from core.StateManager import StateManager
 from core.TranslationManager import tr
 from ui.pages.BasePage import BasePage
+from ui.widgets.BackupDetailsDialog import BackupDetailsDialog
 from ui.widgets.HoverTableWidget import HoverTableWidget
+from ui.widgets.SortValueTableItem import SortValueTableItem
 
 logger = logging.getLogger(__name__)
 
@@ -88,12 +89,22 @@ class BackupCreationWorker(QThread):
     progress = Signal(str, int, int)  # message, current, total
     completed = Signal(bool, str)  # success, message
 
-    def __init__(self, manager: BackupManager, game_code: str, game_name: str, game_path: Path):
+    def __init__(
+        self,
+        manager: BackupManager,
+        game_code: str,
+        game_name: str,
+        game_path: Path,
+        custom_name: str,
+        notes: str,
+    ):
         super().__init__()
         self._manager = manager
         self._game_code = game_code
         self._game_name = game_name
         self._game_path = game_path
+        self._custom_name = custom_name
+        self._notes = notes
 
     def run(self) -> None:
         """Run backup creation."""
@@ -103,6 +114,8 @@ class BackupCreationWorker(QThread):
                 self._game_name,
                 self._game_path,
                 self.progress.emit,
+                custom_name=self._custom_name,
+                notes=self._notes,
             )
 
             if success:
@@ -133,7 +146,7 @@ class BackupRestorationWorker(QThread):
     """Worker thread for restoring backups."""
 
     progress = Signal(str, int, int)  # message, current, total
-    completed = Signal(bool, Path, str)  # success, removed_dir, message
+    completed = Signal(bool, Path, str)  # success, removed_dir, error message
 
     def __init__(self, manager: BackupManager, backup_id: str, game_path: Path):
         super().__init__()
@@ -147,13 +160,7 @@ class BackupRestorationWorker(QThread):
             success, removed_dir, error = self._manager.restore_backup(
                 self._backup_id, self._game_path, self.progress.emit
             )
-
-            if success:
-                self.completed.emit(
-                    True, removed_dir, tr("page.backup.backup_restored_successfully")
-                )
-            else:
-                self.completed.emit(False, removed_dir, error)
+            self.completed.emit(success, removed_dir, error)
 
         except Exception as e:
             logger.error(f"Error restoring backup: {e}")
@@ -430,13 +437,15 @@ class BackupPage(BasePage):
             self._backup_table.setItem(row, COL_GAME_CODE, code_item)
 
             # Column 2: Date
-            date_str = backup_info.creation_date.strftime("%d/%m/%Y %H:%M:%S")
-            date_item = QTableWidgetItem(date_str)
+            date_item = SortValueTableItem(
+                self._format_date(backup_info.creation_date), backup_info.creation_date
+            )
             self._backup_table.setItem(row, COL_DATE, date_item)
 
             # Column 3: Size
-            size_item = QTableWidgetItem(format_size(backup_info.total_size))
-            size_item.setData(Qt.ItemDataRole.UserRole, backup_info.total_size)
+            size_item = SortValueTableItem(
+                format_size(backup_info.total_size), backup_info.total_size
+            )
             self._backup_table.setItem(row, COL_SIZE, size_item)
 
             # Column 4: Modded
@@ -559,10 +568,14 @@ class BackupPage(BasePage):
         free_space = self._backup_manager.get_free_space()
         if not self._has_enough_space(backup_size, free_space):
             return
-        if not self._confirm_backup(game_name, is_modded, backup_size, free_space):
+        details = self._ask_backup_details(game_name, is_modded, backup_size, free_space)
+        if not details:
             return
 
-        worker = BackupCreationWorker(self._backup_manager, game_code, game_name, game_path)
+        custom_name, notes = details
+        worker = BackupCreationWorker(
+            self._backup_manager, game_code, game_name, game_path, custom_name, notes
+        )
         worker.started.connect(self._on_operation_started)
         worker.progress.connect(self._on_backup_progress)
         self._begin_operation(worker, self._on_backup_created)
@@ -596,10 +609,13 @@ class BackupPage(BasePage):
         )
         return False
 
-    def _confirm_backup(
+    def _ask_backup_details(
         self, game_name: str, is_modded: bool, backup_size: int, free_space: int
-    ) -> bool:
-        """Ask the user to confirm the backup creation.
+    ) -> tuple[str, str] | None:
+        """Ask the user to confirm the backup creation, name it and describe it.
+
+        The suggested name holds the date, so accepting it never repeats the
+        name of an earlier backup.
 
         Args:
             game_name: Game name
@@ -608,10 +624,10 @@ class BackupPage(BasePage):
             free_space: Free space on the backup drive in bytes
 
         Returns:
-            True if the user confirmed
+            Custom name and notes, or None if the user cancelled
         """
         modded_status = tr("page.backup.modded") if is_modded else tr("page.backup.vanilla")
-        message = tr(
+        summary = tr(
             "page.backup.confirm_create_message",
             game=game_name,
             status=modded_status,
@@ -619,13 +635,24 @@ class BackupPage(BasePage):
             free=f"{free_space / (1024**3):.1f}",
         )
 
-        response = QMessageBox.question(
+        suggested_name = tr(
+            "page.backup.suggested_name",
+            game=game_name,
+            status=modded_status,
+            date=self._format_date(datetime.now()),
+        )
+
+        dialog = BackupDetailsDialog(
             self,
             tr("page.backup.confirm_create_title"),
-            message,
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            tr("page.backup.btn_confirm_create"),
+            self._used_backup_names(),
+            summary=summary,
+            name=suggested_name,
         )
-        return response == QMessageBox.StandardButton.Yes
+        if dialog.exec() != QDialog.DialogCode.Accepted:
+            return None
+        return dialog.get_name(), dialog.get_notes()
 
     def _on_selection_changed(self) -> None:
         """Handle backup selection change."""
@@ -670,7 +697,7 @@ class BackupPage(BasePage):
             tr(
                 "page.backup.confirm_restore_message",
                 game=game.name,
-                name=backup_info.backup_id,
+                name=backup_info.display_name,
             ),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
         )
@@ -682,7 +709,12 @@ class BackupPage(BasePage):
         worker = BackupRestorationWorker(self._backup_manager, backup_id, game_path)
         worker.started.connect(self._on_operation_started)
         worker.progress.connect(self._on_backup_progress)
-        self._begin_operation(worker, self._on_backup_restored)
+        self._begin_operation(
+            worker,
+            lambda success, removed_dir, error: self._on_backup_restored(
+                backup_info, game.name, success, removed_dir, error
+            ),
+        )
 
         logger.info(f"Starting backup restoration: {backup_id}")
 
@@ -699,7 +731,7 @@ class BackupPage(BasePage):
         response = QMessageBox.question(
             self,
             tr("page.backup.confirm_delete_title"),
-            tr("page.backup.confirm_delete_message", name=backup_info.backup_id),
+            tr("page.backup.confirm_delete_message", name=backup_info.display_name),
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
         )
 
@@ -731,38 +763,19 @@ class BackupPage(BasePage):
         if not backup_info:
             return
 
-        # Create dialog
-        dialog = QDialog(self)
-        dialog.setWindowTitle(tr("page.backup.edit_title"))
-        dialog.setMinimumWidth(400)
-
-        layout = QVBoxLayout(dialog)
-
-        # Custom name
-        layout.addWidget(QLabel(tr("page.backup.edit_custom_name")))
-        name_edit = QLineEdit(backup_info.custom_name)
-        name_edit.setPlaceholderText(backup_info.backup_id)
-        layout.addWidget(name_edit)
-
-        # Notes
-        layout.addWidget(QLabel(tr("page.backup.edit_notes")))
-
-        notes_edit = QTextEdit()
-        notes_edit.setPlainText(backup_info.notes)
-        notes_edit.setMaximumHeight(100)
-        layout.addWidget(notes_edit)
-
-        # Buttons
-        buttons = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
+        dialog = BackupDetailsDialog(
+            self,
+            tr("page.backup.edit_title"),
+            tr("button.ok"),
+            self._used_backup_names(backup_id),
+            name=backup_info.custom_name,
+            name_placeholder=backup_info.backup_id,
+            notes=backup_info.notes,
         )
-        buttons.accepted.connect(dialog.accept)
-        buttons.rejected.connect(dialog.reject)
-        layout.addWidget(buttons)
 
         if dialog.exec() == QDialog.DialogCode.Accepted:
-            custom_name = name_edit.text().strip()
-            notes = notes_edit.toPlainText().strip()
+            custom_name = dialog.get_name()
+            notes = dialog.get_notes()
 
             success, error = self._backup_manager.update_backup_metadata(
                 backup_id, custom_name, notes
@@ -774,6 +787,25 @@ class BackupPage(BasePage):
                 self._refresh_backup_table()
             else:
                 QMessageBox.critical(self, tr("page.backup.error_title"), error)
+
+    @staticmethod
+    def _format_date(date: datetime) -> str:
+        """Format a backup creation date in the interface language."""
+        return date.strftime(tr("page.backup.date_format"))
+
+    def _used_backup_names(self, excluding_backup_id: str | None = None) -> BackupNames:
+        """Return the names of the backups of the selected installation's games.
+
+        Args:
+            excluding_backup_id: Backup being renamed, whose name is ignored
+
+        Returns:
+            Names in use
+        """
+        game_def = self._game_manager.get(self.state_manager.get_selected_game())
+        return BackupNames(
+            self._backups.values(), game_def.sequence_games(), excluding_backup_id
+        )
 
     def _validate_backup(self, backup_id: str) -> None:
         """Validate a backup's integrity.
@@ -957,48 +989,96 @@ class BackupPage(BasePage):
             QMessageBox.critical(self, tr("page.backup.error_title"), message)
 
     def _on_backup_restored(
-        self, success: bool, removed_dir: Path | None, message: str
+        self,
+        backup_info: BackupInfo,
+        game_name: str,
+        success: bool,
+        removed_dir: Path | None,
+        error: str,
     ) -> None:
         """Handle backup restoration completion.
 
         Args:
+            backup_info: Restored backup
+            game_name: Name of the restored game
             success: Whether operation succeeded
-            removed_dir: Path to directory with removed files
-            message: Result message
+            removed_dir: Directory holding the game files replaced by the restoration
+            error: Error message when the restoration failed
         """
         self._end_operation()
 
         if self._closing:
             return
-        if success:
-            if removed_dir and removed_dir.exists():
-                response = QMessageBox.question(
-                    self,
-                    tr("page.backup.cleanup_title"),
-                    tr("page.backup.cleanup_message", path=str(removed_dir)),
-                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                    QMessageBox.StandardButton.No,
-                )
+        if not success:
+            QMessageBox.critical(self, tr("page.backup.restore_failed_title"), error)
+            return
 
-                if response == QMessageBox.StandardButton.Yes:
-                    try:
-                        shutil.rmtree(removed_dir)
-                        QMessageBox.information(
-                            self,
-                            tr("page.backup.success_title"),
-                            tr("page.backup.cleanup_success"),
-                        )
-                    except Exception as e:
-                        QMessageBox.warning(
-                            self,
-                            tr("page.backup.warning_title"),
-                            tr("page.backup.cleanup_failed", error=str(e)),
-                        )
+        moved_files_dir = removed_dir if removed_dir and removed_dir.exists() else None
+        if self._confirm_restore_complete(backup_info, game_name, moved_files_dir):
+            self._delete_moved_files(moved_files_dir)
 
-            QMessageBox.information(self, tr("page.backup.success_title"), message)
-            self._load_backups()
-        else:
-            QMessageBox.critical(self, tr("page.backup.restore_failed_title"), message)
+        self._load_backups()
+
+    def _confirm_restore_complete(
+        self, backup_info: BackupInfo, game_name: str, moved_files_dir: Path | None
+    ) -> bool:
+        """Report the completed restoration in a single message.
+
+        When the replaced game files were kept aside, the same message offers
+        to delete them.
+
+        Args:
+            backup_info: Restored backup
+            game_name: Name of the restored game
+            moved_files_dir: Directory holding the replaced game files, if any
+
+        Returns:
+            True if the user asked to delete the replaced game files
+        """
+        message = tr(
+            "page.backup.restore_complete_message",
+            name=backup_info.display_name,
+            game=game_name,
+        )
+
+        dialog = QMessageBox(self)
+        dialog.setIcon(QMessageBox.Icon.Information)
+        dialog.setWindowTitle(tr("page.backup.restore_complete_title"))
+
+        if not moved_files_dir:
+            dialog.setText(message)
+            dialog.addButton(tr("button.ok"), QMessageBox.ButtonRole.AcceptRole)
+            dialog.exec()
+            return False
+
+        moved_files = tr("page.backup.restore_moved_files", path=str(moved_files_dir))
+        dialog.setText(f"{message}\n\n{moved_files}")
+        delete_button = dialog.addButton(
+            tr("page.backup.btn_delete_moved_files"), QMessageBox.ButtonRole.DestructiveRole
+        )
+        keep_button = dialog.addButton(
+            tr("page.backup.btn_keep_moved_files"), QMessageBox.ButtonRole.RejectRole
+        )
+        dialog.setDefaultButton(keep_button)
+        dialog.exec()
+        return dialog.clickedButton() == delete_button
+
+    def _delete_moved_files(self, moved_files_dir: Path) -> None:
+        """Delete the game files replaced by a restoration, reporting only a failure.
+
+        Args:
+            moved_files_dir: Directory holding the replaced game files
+        """
+        try:
+            shutil.rmtree(moved_files_dir)
+            logger.info(f"Deleted moved game files: {moved_files_dir}")
+        except OSError as e:
+            logger.error(f"Cannot delete moved game files {moved_files_dir}: {e}")
+            QMessageBox.warning(
+                self,
+                tr("page.backup.warning_title"),
+                tr("page.backup.cleanup_failed", error=str(e)),
+            )
 
     # ========================================
     # UI Updates

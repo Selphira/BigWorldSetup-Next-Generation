@@ -255,6 +255,9 @@ RESOLUTION_PREVIEW_MAX_VISIBLE_ROWS = 12
 # Installation decision dialogs listing WeiDU messages
 DECISION_DIALOG_MIN_WIDTH = 700
 DECISION_DETAILS_MIN_HEIGHT = 250
+# Backup creation and edition dialog
+BACKUP_DIALOG_MIN_WIDTH = 400
+BACKUP_NOTES_MAX_HEIGHT = 100
 # Progress bar text while no component is being installed
 PROGRESS_IDLE_FORMAT = "%p%"
 # Width, in characters, of the rules framing installation log sections
