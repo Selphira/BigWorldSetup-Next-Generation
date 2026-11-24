@@ -69,8 +69,8 @@
         "90": "Same-Sex Durlyle/Delainy Subplot",
         "20": "Resolution pacifique a l'ile des loups-garous",
         "choice_1": "Pack d'objets exotiques",
-        "40": "Pierre ionique",
-        "41": "Cette petite pierre flotte autour de la tête de son possesseur quand on la place dans son inventaire. Ces pierres évidemment magiques ont des propriétés différentes en fonction de leur couleur.",
+        "40": "Add exotic items",
+        "41": "Add exotic items and remove exotic items added by BGEE",
         "100": "Replace Bandit Scalps with Badges"
       }
     },

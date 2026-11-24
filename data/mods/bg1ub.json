@@ -41,7 +41,7 @@
     "23": {"type": "std", "games": ["bg", "bg1", "bgt", "eet", "tutu"]},
     "24": {"type": "std", "games": ["bg", "bg1", "bgt", "eet", "tutu"]},
     "25": {"type": "std", "games": ["bgt"]},
-    "26": {"type": "std", "games": ["bg", "bg1", "bgee", "eet", "sod", "tutu"]},
+    "26": {"type": "std", "games": ["bg", "bg1", "eet", "tutu"]},
     "27": {"type": "std", "games": ["bg", "bg1", "bgt", "eet", "tutu"]},
     "28": {"type": "std"},
     "29": {"type": "std"},

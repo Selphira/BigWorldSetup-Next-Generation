@@ -28,7 +28,7 @@
     "189": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "190": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "200": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "210": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
+    "210": {"type": "std", "games": ["bgee", "eet", "sod"]},
     "220": {"type": "std"},
     "221": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "230": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},

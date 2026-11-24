@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
+    "0": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "1": {"type": "std"}
   },
   "languages": {

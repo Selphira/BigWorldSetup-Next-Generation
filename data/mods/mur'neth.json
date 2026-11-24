@@ -30,7 +30,7 @@
   "categories": ["npc"],
   "components": {
     "0": {"type": "std"},
-    "1": {"type": "std"}
+    "1": {"type": "std", "games": ["bgt", "tutu"]}
   },
   "languages": {
     "en_US": 0,

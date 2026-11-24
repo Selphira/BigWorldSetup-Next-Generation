@@ -9,19 +9,19 @@
     {
       "filename": "WeissMod.zip",
       "size": 1284397,
-      "download": "https://github.com/BG-Weiss/WeissMod-Tweaks/releases/download/1.2/WeissMod.zip",
-      "sha256": "c5294d31792a9d19258507e2526c932c11e637b85af23b2813a97e03e78cfafe"
+      "sha256": "c5294d31792a9d19258507e2526c932c11e637b85af23b2813a97e03e78cfafe",
+      "download": "https://github.com/BG-Weiss/WeissMod-Tweaks/releases/download/1.2/WeissMod.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3", "4", "5"]},
+    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3", "4", "5"], "games": ["bgee", "eet", "sod"]},
     "choice_1": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"], "games": ["bg2ee", "eet"]},
     "choice_2": {"type": "muc", "components": ["12", "13", "14", "15", "16", "17"], "games": ["eet"]},
     "18": {"type": "std", "games": ["eet"]},
     "19": {"type": "std", "games": ["eet"]},
-    "choice_3": {"type": "muc", "components": ["20", "21", "22"]},
+    "choice_3": {"type": "muc", "components": ["20", "21", "22"], "games": ["bgee", "eet", "sod"]},
     "choice_4": {"type": "muc", "components": ["23", "24", "25"], "games": ["bg2ee", "eet"]},
     "choice_5": {"type": "muc", "components": ["26", "27", "28"], "games": ["eet"]},
     "29": {"type": "std"}

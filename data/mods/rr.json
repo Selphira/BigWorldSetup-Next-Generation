@@ -17,16 +17,16 @@
   "components": {
     "0": {"type": "std"},
     "1": {"type": "std"},
-    "2": {"type": "std"},
+    "2": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "3": {"type": "std"},
     "4": {"type": "std"},
-    "5": {"type": "std"},
+    "5": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "6": {"type": "std"},
     "7": {"type": "std"},
-    "8": {"type": "std"},
+    "8": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "choice_0": {"type": "muc", "components": ["9", "10"]},
-    "11": {"type": "std"},
-    "12": {"type": "std"},
+    "11": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
+    "12": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "999": {"type": "std"}
   },
   "languages": {

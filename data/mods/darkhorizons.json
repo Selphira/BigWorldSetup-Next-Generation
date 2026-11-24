@@ -1,37 +1,38 @@
 {
   "name": "Dark Horizons",
-  "version": "3.05",
+  "version": "3.06",
   "links": {
     "homepage": "https://forums.beamdog.com/discussion/18833/bg-ee-dark-horizons-released/p1",
     "forums": ["https://www.gibberlings3.net/forums/topic/36756-the-gate-project/"]
   },
   "files": [
     {
-      "filename": "lin-Dark.Horizons-v3.05.zip",
-      "size": 48359623,
-      "sha256": "3e4af220b9d1379d1fb28d0cc572400436758f49d0253e5d04164048b5364f6f",
-      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/lin-Dark.Horizons-v3.05.zip",
+      "filename": "lin-Dark.Horizons-v3.06.zip",
+      "size": 44396794,
+      "sha256": "bb1fa2bd2a0d75732ee7e4bfaa2adbd064e8b03ba0ee161c85f72d449227f96d",
+      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.06/lin-Dark.Horizons-v3.06.zip",
       "platforms": ["linux"]
     },
     {
-      "filename": "mac-Dark.Horizons-v3.05.zip",
-      "size": 48587151,
-      "sha256": "e2233976858191091d2a99552148ea61c13807698984b0442bc62a94daa69a34",
-      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/mac-Dark.Horizons-v3.05.zip",
+      "filename": "mac-Dark.Horizons-v3.06.zip",
+      "size": 44513979,
+      "sha256": "eec411523ed45a1ef032d0a27c381e3484ffba33cef16293dc4f923050b87051",
+      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.06/mac-Dark.Horizons-v3.06.zip",
       "platforms": ["macos"]
     },
     {
-      "filename": "win-Dark.Horizons-v3.05.zip",
-      "size": 48531964,
-      "sha256": "446d19c8feaa0df4550b975d5fc5223bd01a61b9e0ef1ce40021f3cfb080a844",
-      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.05/win-Dark.Horizons-v3.05.zip",
+      "filename": "win-Dark.Horizons-v3.06.zip",
+      "size": 44046539,
+      "sha256": "f92aabe216d97485fedc75b1aab912f4640c8dc363175f606dad12ee7d067ab6",
+      "download": "https://github.com/The-Gate-Project/DarkHorizons/releases/download/v3.06/win-Dark.Horizons-v3.06.zip",
       "platforms": ["windows"]
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std"},
+    "choice_0": {"type": "muc", "components": ["10"]}
   },
   "languages": {
     "en_US": 0,
@@ -46,45 +47,61 @@
   "translations": {
     "en_US": {
       "components": {
-        "0": "\"Dark Horizons\" Mod"
+        "0": "\"Dark Horizons\" Mod",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       },
       "description": "A powerful organization, known as 'The Section', is hunting you for reasons known only to them. They will stop at nothing to achieve their ends. They have numerous agents and influential associates throughout Faerûn. Stop their leaders for the good of the Sword Coast.\nThis mod adds a large quest, 3 new NPCs with a few personal quests, several encounters (hostile and otherwise) and side quests, stores and new areas to explore. The former BG1 Adventure Pack and BG1 CoM Forge - Item Upgrade mods are now part of Dark Horizons."
     },
     "fr_FR": {
       "description": "Une puissante organisation, dénommée `La Section`, vous pourchasse pour des raisons connues d'elle-seule. Ils ne reculeront devant rien pour parvenir à leurs fins. Ils disposent de nombreux agents et d'associés influents à travers Féérune. Stoppez leurs leaders pour le bien de la Côte des Épées.\nCe mod ajoute une large quête, 3 nouveaux PNJ disposant de quelques quêtes personnelles, plusieurs rencontres (hostiles ou non) et quêtes secondaires, des magasins et de nouvelles zones à explorer. Les anciens mods BG1 Adventure Pack et BG1 CoM Forge - Item Upgrade font désormais partie de Dark Horizons.",
       "components": {
-        "0": "Mod \"Dark Horizons\""
+        "0": "Mod \"Dark Horizons\"",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "zh_CN": {
       "description": "一个名为“部门”的强大组织，出于只有他们自己知道的原因追捕你。他们会不择手段地达成目的。他们在费伦各地有许多特工和有影响力的盟友。为了剑湾之好，阻止他们的首领吧。\n此模组增加了一个大型任务，3个拥有个人任务的新NPC，数次遭遇（敌对或非敌对）和次要任务，商店以及新的探索区域。旧模组BG1 Adventure Pack和BG1 CoM Forge - Item Upgrade现已并入《黑暗地平线》。",
       "components": {
-        "0": "黑暗地平线"
+        "0": "黑暗地平线",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "it_IT": {
       "components": {
-        "0": "Mod \"Orizzonti Oscuri\""
+        "0": "Mod \"Orizzonti Oscuri\"",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "de_DE": {
       "components": {
-        "0": "\"Dark Horizons\" Mod"
+        "0": "\"Dark Horizons\" Mod",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "ru_RU": {
       "components": {
-        "0": "\"Dark Horizons\" Mod"
+        "0": "\"Dark Horizons\" Mod",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "pl_PL": {
       "components": {
-        "0": "Mod \"Dark Horizons\""
+        "0": "Mod \"Dark Horizons\"",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     },
     "es_ES": {
       "components": {
-        "0": "\"Horizontes Oscuros\" Mod"
+        "0": "\"Horizontes Oscuros\" Mod",
+        "choice_0": "Nerfs",
+        "10": "Option 1 :\n\nMake generic overpowered or duplicate items undroppable or replaced by lesser similar, reduce powerfull ammo stacks.\n"
       }
     }
   },

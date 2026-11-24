@@ -9,8 +9,8 @@
     {
       "filename": "beyond-the-law-v2.0.0.zip",
       "size": 11866902,
-      "download": "https://github.com/Spellhold-Studios/Beyond-the-Law/releases/download/v2.0.0/beyond-the-law-v2.0.0.zip",
-      "sha256": "58e7eb0ef7ef72822b23fe38409fe2d7524065230145f454ba99fe4d95ebfeb5"
+      "sha256": "58e7eb0ef7ef72822b23fe38409fe2d7524065230145f454ba99fe4d95ebfeb5",
+      "download": "https://github.com/Spellhold-Studios/Beyond-the-Law/releases/download/v2.0.0/beyond-the-law-v2.0.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -32,7 +32,7 @@
         "choice_0": "Beyond the Law - Kova & Kiyone",
         "0": "Beyond the Law with Kiyone original sound set",
         "1": "Beyond the Law with alternate sound set for Kiyone (Female4)",
-        "2": "Portraits for minor non-joinable BTL NPCs"
+        "2": "Better balanced BTL items"
       }
     },
     "zh_CN": {
