@@ -524,6 +524,33 @@ def test_up_to_date_extraction_is_kept(workspace: Path) -> None:
     assert tp2_path.read_text(encoding="utf-8") == "edited after extraction"
 
 
+def archive_with_code(workspace: Path) -> tuple[Path, str]:
+    """Write a demo mod archive holding included WeiDU files and game resources."""
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w") as archive:
+        archive.writestr("demo/demo.tp2", "VERSION ~v1~\n")
+        for name in ("lib/always.tph", "lib/main.tpa", "lib/patch.TPP", "copy/sword.itm"):
+            archive.writestr(f"demo/{name}", "content")
+    content = buffer.getvalue()
+    archive_path = workspace / "archives" / "win-demo.zip"
+    archive_path.write_bytes(content)
+    return archive_path, sha256(content)
+
+
+def test_included_weidu_files_are_extracted_but_not_game_resources(workspace: Path) -> None:
+    archive_path, digest = archive_with_code(workspace)
+    mod_dir = workspace / "extracted" / "demo"
+
+    assert SelectiveExtractor().extract_for_parsing(
+        archive_path, workspace / "extracted", "demo", digest
+    )
+
+    assert (mod_dir / "lib" / "always.tph").is_file()
+    assert (mod_dir / "lib" / "main.tpa").is_file()
+    assert (mod_dir / "lib" / "patch.TPP").is_file()
+    assert not (mod_dir / "copy").exists()
+
+
 class RecordingTP2Source:
     def __init__(self) -> None:
         self.parsed: list[str] = []

@@ -2,7 +2,7 @@
 
 This package provides:
 - ArchiveExtractor: Core extraction for various formats
-- SelectiveExtractor: Extract only .tp2 and .tra files
+- SelectiveExtractor: Extract only the files read when parsing
 """
 
 from core.ArchiveExtractor import ArchiveExtractor

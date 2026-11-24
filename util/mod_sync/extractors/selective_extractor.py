@@ -1,4 +1,4 @@
-"""Selective extraction: only the .tp2, .tra and .ini files needed for parsing."""
+"""Selective extraction: only the WeiDU code, .tra and .ini files needed for parsing."""
 
 from __future__ import annotations
 
@@ -28,9 +28,14 @@ class ExtractionStamp:
 
 
 class SelectiveExtractor:
-    """Extract only .tp2 and .tra files from mod archives for parsing."""
+    """Extract from mod archives only the files read when parsing.
 
-    ALLOWED_EXTENSIONS = {TP2_EXTENSION, ".tra", ".ini"}
+    The TP2 and the WeiDU files it includes (.tpa, .tph, .tpp) give the
+    components and their requirements, the .tra files their texts and the
+    .ini file the order rules.
+    """
+
+    ALLOWED_EXTENSIONS = frozenset({TP2_EXTENSION, ".tpa", ".tph", ".tpp", ".tra", ".ini"})
 
     def extract_for_parsing(
         self, archive_path: Path, destination: Path, tp2_name: str, archive_sha256: str
@@ -108,7 +113,7 @@ class SelectiveExtractor:
 
         files = self._move_selective_files(temp_dir, destination, tp2_name)
         if not files:
-            logger.warning(f"No .tp2 or .tra files found in {archive_path.name}")
+            logger.warning(f"No parsing files found in {archive_path.name}")
         return files
 
     def _move_selective_files(
