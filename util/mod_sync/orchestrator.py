@@ -12,6 +12,7 @@ from typing import Any, Callable
 from core.CompactJSONEncoder import CompactJSONEncoder
 from util.mod_sync.extractors.selective_extractor import SelectiveExtractor
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
+from util.mod_sync.models.catalogue_components import CatalogueComponents
 from util.mod_sync.models.sync_result import (
     ComponentChanges,
     ModSyncResult,
@@ -57,10 +58,14 @@ class ModSyncOrchestrator:
         self.config = config
         self.stats = SyncStats()
         self._definition_paths: dict[str, Path] = {}
+        # Followed during the run, for the rules of a TP2 to find the labels of mods synced before
+        self.catalogue = CatalogueComponents()
 
         # Initialize sources
         self.lcc_source = LCCSource(force_refresh=config.force_lcc_refresh)
-        self.tp2_source = TP2Source(config.mods_dir) if config.mods_dir else None
+        self.tp2_source = (
+            TP2Source(config.mods_dir, self.catalogue) if config.mods_dir else None
+        )
         self.ini_source = IniSource(config.mods_dir) if config.mods_dir else None
         self.archive_source = (
             ArchiveSource(config.archives_dir) if config.archives_dir else None
@@ -93,6 +98,7 @@ class ModSyncOrchestrator:
         """
         logger.info("Starting mod synchronization...")
         self._index_definitions()
+        self.catalogue.load(self.config.definitions_dir)
 
         # 1. Fetch LCC data
         if not self.lcc_source.fetch_all():
@@ -301,6 +307,7 @@ class ModSyncOrchestrator:
                 status=SyncStatus.ERROR,
                 message=f"Save failed: {e}",
             )
+        self.catalogue.update(tp2_name, merged)
 
         # The saved definition no longer refers to the archives it replaced
         if self.config.calculate_hashes and machine_archive:

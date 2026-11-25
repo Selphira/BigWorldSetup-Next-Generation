@@ -8,6 +8,8 @@ import re
 
 from constants import TP2_EXTENSION, WEIDU_SETUP_PREFIX
 from core.WeiDUTp2Parser import MucComponent, Tp2ParseError, WeiDUTp2Parser
+from util.mod_sync.models.catalogue_components import CatalogueComponents
+from util.mod_sync.sources.tp2_rules import Tp2RuleBuilder
 
 logger = logging.getLogger(__name__)
 
@@ -34,14 +36,17 @@ def labels_language(definition_languages: dict | None) -> str:
 class TP2Source:
     """Wrapper for TP2 data extraction using WeiDUTp2Parser."""
 
-    def __init__(self, mods_dir: Path | None):
+    def __init__(self, mods_dir: Path | None, catalogue: CatalogueComponents | None = None):
         """Initialize TP2 source.
 
         Args:
             mods_dir: Base directory containing extracted mods
+            catalogue: Catalogued mods the generated rules refer to; without
+                it, every other mod is unknown
         """
         self.mods_dir = Path(mods_dir) if mods_dir else None
         self.parser = WeiDUTp2Parser(self.mods_dir) if self.mods_dir else None
+        self.catalogue = catalogue if catalogue is not None else CatalogueComponents()
 
     def find_tp2_file(self, tp2_name: str) -> Path | None:
         """Find .tp2 file for a mod.
@@ -181,6 +186,10 @@ class TP2Source:
                     len(comps) for comps in component_translations.values()
                 )
                 logger.debug(f"Extracted {total_translations} component translations")
+
+            # Rules from the requirements; the merger replaces the stored TP2 rules with them
+            rule_builder = Tp2RuleBuilder(self.catalogue, labels_language, unknown_languages)
+            result["requirement_rules"] = rule_builder.build(tp2_data, tp2_name)
 
             return result
 
