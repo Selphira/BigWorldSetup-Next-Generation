@@ -292,7 +292,7 @@ def test_ini_rule_description_is_generated_at_loading_in_every_language(
     assert list(ini_rule["translations"]) == [code for code, _ in SUPPORTED_LANGUAGES]
     assert all(mod_name in text for text in ini_rule["translations"].values())
     assert builder._localize_entry(ini_rule, "fr_FR")["description"] == (
-        f"Règle définie dans l'ini de {mod_name}"
+        f"Ordre d'installation défini dans l'ini de {mod_name}"
     )
     assert "translations" not in manual_rule
 

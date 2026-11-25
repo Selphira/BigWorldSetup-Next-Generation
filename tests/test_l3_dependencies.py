@@ -12,7 +12,7 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.InstallationJournal import InstallationJournal, Operation, RunPlan, RunSequence
 from core.InstallationWorker import InstallationWorker, UserDecision
 from core.Mod import Mod, SubComponent
-from core.RuleManager import RuleManager
+from core.RuleManager import RuleExpression, RuleManager
 from core.Rules import DependencyRule, IncompatibilityRule, OrderRule
 from core.SelectionImport import SelectionImport
 from core.StateManager import StateManager
@@ -381,6 +381,42 @@ def test_optional_dependency_requires_only_selected_targets_first(rules: RuleMan
     assert not rules.validate_order("eet", 0, [b, c], selection={b, c})
     assert not rules.validate_order("eet", 0, [a, c, b], selection={a, b, c})
     assert not rules.validate_order("eet", 1, [c], earlier={b}, selection={b, c})
+
+
+def _expanded_dependency(rule: dict) -> DependencyRule:
+    return DependencyRule.from_dict(RuleExpression.parse(rule["rule"]).to_dependency_rule(rule))
+
+
+def test_dependency_in_mode_all_needs_each_component_of_each_mod(rules: RuleManager) -> None:
+    a1, a2, b, c = refs("a:1", "a:2", "b:0", "demo:1")
+    rules._all_rules = [_expanded_dependency({"rule": "demo(1):a(1,2)&b(0)", "mode": "all"})]
+    rules._build_indexes()
+
+    assert rules.selection_violations({a1, b, c})
+    assert not rules.selection_violations({a1, a2, b, c})
+
+
+def test_dependency_on_and_targets_needs_one_component_of_each_mod(rules: RuleManager) -> None:
+    a1, b, c = refs("a:1", "b:0", "demo:1")
+    rules._all_rules = [_expanded_dependency({"rule": "demo(1):a(1,2)&b(0)"})]
+    rules._build_indexes()
+
+    assert not rules.selection_violations({a1, b, c})
+
+
+def test_optional_dependency_in_mode_all_requires_each_selected_target_first(
+    rules: RuleManager,
+) -> None:
+    a1, a2, b, c = refs("a:1", "a:2", "b:0", "demo:1")
+    rules._all_rules = [
+        _expanded_dependency({"rule": "demo(1):a(1,2)&b(0)", "mode": "all", "optional": True})
+    ]
+    rules._build_indexes()
+    selection = {a1, a2, b, c}
+
+    assert rules.validate_order("eet", 0, [a1, b, c, a2], selection=selection)
+    assert not rules.validate_order("eet", 0, [a1, a2, b, c], selection=selection)
+    assert not rules.validate_order("eet", 0, [a2, c], selection={a2, c})
 
 
 def test_sorting_places_a_selected_optional_target_first(rules: RuleManager) -> None:

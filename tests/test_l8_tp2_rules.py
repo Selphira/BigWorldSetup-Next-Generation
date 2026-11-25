@@ -106,7 +106,7 @@ def test_components_with_different_messages_get_their_own_rule(tmp_path: Path) -
     ]
 
 
-def test_each_requirement_of_a_component_is_a_rule(tmp_path: Path) -> None:
+def test_requirements_alike_of_a_component_need_all_their_targets(tmp_path: Path) -> None:
     write_mod(
         tmp_path,
         "BEGIN ~Main~ DESIGNATED 0\nBEGIN ~Other~ DESIGNATED 1\n"
@@ -114,10 +114,86 @@ def test_each_requirement_of_a_component_is_a_rule(tmp_path: Path) -> None:
         "REQUIRE_PREDICATE MOD_IS_INSTALLED ~demo.tp2~ ~0~ AND MOD_IS_INSTALLED ~demo.tp2~ ~1~ @1\n",
     )
 
+    (rule,) = tp2_rules(tmp_path)["dependencies"]
+
+    assert (rule["rule"], rule["mode"]) == ("demo(2):demo(0,1)", "all")
+
+
+def test_requirements_of_several_mods_are_joined_by_and(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0\n"
+        "REQUIRE_COMPONENT ~other.tp2~ ~1~ @1\n"
+        "REQUIRE_COMPONENT ~third.tp2~ ~2~ @1\n"
+        "REQUIRE_COMPONENT ~other.tp2~ ~3~ @1\n",
+    )
+
+    (rule,) = tp2_rules(tmp_path)["dependencies"]
+
+    assert (rule["rule"], rule["mode"]) == ("demo(0):other(1,3)&third(2)", "all")
+
+
+def test_requirements_with_different_messages_keep_their_rule(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0\n"
+        "REQUIRE_COMPONENT ~other.tp2~ ~1~ @1\n"
+        "REQUIRE_COMPONENT ~other.tp2~ ~2~ @2\n",
+    )
+
+    rules = tp2_rules(tmp_path)["dependencies"]
+
+    assert [rule["rule"] for rule in rules] == ["demo(0):other(1)", "demo(0):other(2)"]
+    assert all("mode" not in rule for rule in rules)
+
+
+def test_dependency_on_alternatives_is_not_merged(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0\n"
+        "REQUIRE_PREDICATE MOD_IS_INSTALLED ~a.tp2~ ~1~ OR MOD_IS_INSTALLED ~b.tp2~ ~2~ @1\n"
+        "REQUIRE_COMPONENT ~c.tp2~ ~3~ @1\n",
+    )
+
     assert [rule["rule"] for rule in tp2_rules(tmp_path)["dependencies"]] == [
-        "demo(2):demo(0)",
-        "demo(2):demo(1)",
+        "demo(0):a(1)|b(2)",
+        "demo(0):c(3)",
     ]
+
+
+def test_optional_dependencies_of_a_component_share_a_rule(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0\n"
+        "ACTION_IF MOD_IS_INSTALLED ~other.tp2~ ~2~ THEN BEGIN END\n"
+        "ACTION_IF MOD_IS_INSTALLED ~third.tp2~ ~0~ OR MOD_IS_INSTALLED ~other.tp2~ ~4~ THEN BEGIN\n"
+        "END\n",
+    )
+
+    assert tp2_rules(tmp_path)["dependencies"] == [
+        {
+            "rule": "demo(0):other(2,4)&third(0)",
+            "severity": "warning",
+            "mode": "all",
+            "optional": True,
+            "origin": TP2_RULE_ORIGIN,
+        }
+    ]
+
+
+def test_forbidden_components_of_a_component_share_a_rule(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0\n"
+        "FORBID_COMPONENT ~other.tp2~ ~1~ @3\n"
+        "FORBID_COMPONENT ~third.tp2~ ~0~ @3\n"
+        "FORBID_COMPONENT ~other.tp2~ ~2~ @3\n",
+    )
+
+    (rule,) = tp2_rules(tmp_path)["incompatibilities"]
+
+    assert rule["rule"] == "demo(0):other(1,2)|third(0)"
+    assert "mode" not in rule
 
 
 def test_alternatives_are_grouped_by_mod(tmp_path: Path) -> None:
@@ -165,11 +241,10 @@ def test_forbidden_component_listed_as_an_order_is_an_order_rule(tmp_path: Path)
     assert rules["incompatibilities"] == []
     assert rules["order"] == [
         tp2_rule(
-            f"demo(0):eet_end({number})",
+            "demo(0):eet_end(0,1)",
             direction="before",
             translations={"en_US": "Not with it", "fr_FR": "Pas avec lui"},
         )
-        for number in ("0", "1")
     ]
 
 
@@ -335,11 +410,7 @@ def test_targets_missing_from_the_catalogue_are_reported_and_kept(
     with caplog.at_level(logging.WARNING):
         rules = tp2_rules(tmp_path, catalogue)["dependencies"]
 
-    assert [rule["rule"] for rule in rules] == [
-        "demo(0):demo(9)",
-        "demo(0):absent(0)",
-        "demo(0):known(3)",
-    ]
+    assert [rule["rule"] for rule in rules] == ["demo(0):demo(9)&absent(0)&known(3)"]
     assert "demo(9) not in the TP2" in caplog.text
     assert "Target mod absent not catalogued" in caplog.text
     assert "known(3) not catalogued" in caplog.text

@@ -1,14 +1,15 @@
 """Dependency, incompatibility and order rules generated from the requirements of a TP2.
 
 Every rule names mods by their normalized tp2 name. The components of a mod
-that have the same requirement, with the same message, share a rule. A
+that have the same requirement, with the same message, share a rule; the
+requirements alike of the same components are then merged into one rule. A
 FORBID_COMPONENT is an incompatibility, unless the maintainer listed it as an
 installation order (see OrderForbids).
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import logging
 import re
 from typing import Any
@@ -20,7 +21,7 @@ from core.ComponentRequirement import (
     RequirementKind,
     normalize_tp2_name,
 )
-from core.Rules import OrderDirection, RuleSeverity
+from core.Rules import DependencyMode, OrderDirection, RuleSeverity
 from core.WeiDUTp2Parser import WeiDUTp2
 from util.mod_sync.models.catalogue_components import CatalogueComponents
 from util.mod_sync.models.order_forbids import OrderForbids
@@ -30,6 +31,11 @@ logger = logging.getLogger(__name__)
 
 # Component numbers a rule notation accepts
 COMPONENT_NUMBER_PATTERN = re.compile(r"^\d+$")
+
+# Separator of the targets of a rule: a dependency on all its targets joins
+# them with "&", the other rules with "|"
+ALL_TARGETS_SEPARATOR = "&"
+ANY_TARGET_SEPARATOR = "|"
 
 # Severity of a rule by the kind of the requirement it comes from; an optional
 # dependency only warns about the order of installation
@@ -54,6 +60,7 @@ class GeneratedRule:
         translations: Message of the mod in each language, as (language code, text) pairs
         optional: Whether the dependency only adapts the source to its targets
         direction: Place of the source relative to its targets, for an order rule
+        mode: How a dependency needs its targets, written only when all of them
     """
 
     rule: str
@@ -61,12 +68,15 @@ class GeneratedRule:
     translations: tuple[tuple[str, str], ...] = ()
     optional: bool = False
     direction: OrderDirection | None = None
+    mode: DependencyMode = DependencyMode.ANY
 
     def to_definition(self) -> dict[str, Any]:
         """Return the rule as written in the rules section of a definition."""
         entry: dict[str, Any] = {"rule": self.rule, "severity": self.severity.value}
         if self.direction is not None:
             entry["direction"] = self.direction.value
+        if self.mode == DependencyMode.ALL:
+            entry["mode"] = self.mode.value
         if self.optional:
             entry["optional"] = True
         if self.translations:
@@ -105,6 +115,45 @@ class _SharedRequirement:
     translations: tuple[tuple[str, str], ...]
     section: str
 
+    @property
+    def mergeable(self) -> bool:
+        """Whether the targets can join those of other requirements of the same components.
+
+        A rule side cannot mix "&" and "|": a dependency on one of several
+        alternatives keeps its own rule.
+        """
+        return self.kind != RequirementKind.REQUIRED or len(self.alternatives) == 1
+
+
+@dataclass(slots=True)
+class _MergedRequirement:
+    """Requirements alike of the same components, written as one rule.
+
+    Attributes:
+        requirement: First of the requirements, which gives the terms of the rule
+        components: Components of the mod the rule applies to
+        targets: Targets of every merged requirement, in order of first appearance
+        merged: Whether several requirements were merged
+    """
+
+    requirement: _SharedRequirement
+    components: tuple[str, ...]
+    targets: list[ComponentTarget] = field(default_factory=list)
+    merged: bool = False
+
+    @property
+    def needs_all_targets(self) -> bool:
+        """Whether the rule is a dependency on each of its targets.
+
+        A merged dependency needs each target its requirements named; merged
+        forbidden targets are each incompatible, or each installed after.
+        """
+        return (
+            self.merged
+            and self.requirement.kind != RequirementKind.FORBIDDEN
+            and len(self.targets) > 1
+        )
+
 
 class Tp2RuleBuilder:
     """Turns the requirements of the components of a TP2 into rules."""
@@ -137,7 +186,7 @@ class Tp2RuleBuilder:
             tp2_name: Mod the TP2 belongs to
 
         Returns:
-            Rules in order of first appearance of their requirement
+            Rules in order of first appearance of their first requirement
         """
         mod = normalize_tp2_name(tp2_name)
         if not MOD_ID_PATTERN.match(mod):
@@ -151,8 +200,8 @@ class Tp2RuleBuilder:
             INCOMPATIBILITY_RULES: [],
             ORDER_RULES: [],
         }
-        for requirement, components in shared.items():
-            sections[requirement.section].append(self._rule(mod, components, requirement))
+        for merged in self._merge_requirements(shared):
+            sections[merged.requirement.section].append(self._rule(mod, merged))
 
         logger.debug(
             f"{tp2_name}: {len(sections[DEPENDENCY_RULES])} dependency, "
@@ -203,6 +252,34 @@ class Tp2RuleBuilder:
                     components.append(component.designated)
 
         return shared
+
+    @staticmethod
+    def _merge_requirements(
+        shared: dict[_SharedRequirement, list[str]],
+    ) -> list[_MergedRequirement]:
+        """Merge the requirements of the same components that have the same kind and message."""
+        merged_requirements: dict[object, _MergedRequirement] = {}
+        for requirement, components in shared.items():
+            sources = tuple(components)
+            key: object = (
+                (sources, requirement.kind, requirement.section, requirement.translations)
+                if requirement.mergeable
+                else (sources, requirement)
+            )
+
+            merged = merged_requirements.get(key)
+            if merged is None:
+                merged_requirements[key] = _MergedRequirement(
+                    requirement, sources, list(requirement.alternatives)
+                )
+                continue
+
+            merged.merged = True
+            merged.targets.extend(
+                target for target in requirement.alternatives if target not in merged.targets
+            )
+
+        return list(merged_requirements.values())
 
     def _section(
         self,
@@ -302,22 +379,29 @@ class Tp2RuleBuilder:
     # ========================================
 
     @staticmethod
-    def _rule(
-        mod: str, components: list[str], requirement: _SharedRequirement
-    ) -> GeneratedRule:
-        """Write the rule of the components sharing a requirement."""
+    def _rule(mod: str, merged: _MergedRequirement) -> GeneratedRule:
+        """Write the rule of merged requirements.
+
+        A dependency on all its targets is written "a(1,2)&b(3)" in mode
+        "all", which needs each component of each mod.
+        """
         targets_by_mod: dict[str, list[str]] = {}
-        for target in requirement.alternatives:
+        for target in merged.targets:
             targets_by_mod.setdefault(target.tp2, []).append(target.component or "")
 
-        targets = "|".join(
+        needs_all = merged.needs_all_targets
+        separator = ALL_TARGETS_SEPARATOR if needs_all else ANY_TARGET_SEPARATOR
+        targets = separator.join(
             f"{target_mod}({','.join(numbers)})"
             for target_mod, numbers in targets_by_mod.items()
         )
+
+        requirement = merged.requirement
         return GeneratedRule(
-            rule=f"{mod}({','.join(components)}):{targets}",
+            rule=f"{mod}({','.join(merged.components)}):{targets}",
             severity=REQUIREMENT_SEVERITIES[requirement.kind],
             translations=requirement.translations,
             optional=requirement.kind == RequirementKind.OPTIONAL,
             direction=OrderDirection.BEFORE if requirement.section == ORDER_RULES else None,
+            mode=DependencyMode.ALL if needs_all else DependencyMode.ANY,
         )

@@ -114,8 +114,15 @@ class SideExpression:
     component_sets: tuple[ComponentSet, ...]
     operator: GroupOperator
 
-    def to_groups_format(self) -> list[dict[str, Any]]:
-        """Convert to source_groups/target_groups format."""
+    def to_groups_format(
+        self, set_operator: DependencyMode = DependencyMode.ANY
+    ) -> list[dict[str, Any]]:
+        """Convert to source_groups/target_groups format.
+
+        Args:
+            set_operator: How the components of each mod of an "&" side are
+                required; an "|" side always needs any of its components
+        """
         if self.operator == GroupOperator.OR:
             all_refs = [
                 ref for comp_set in self.component_sets for ref in comp_set.get_references()
@@ -123,15 +130,23 @@ class SideExpression:
             return [{"components": [str(ref) for ref in all_refs], "operator": "any"}]
 
         return [
-            {"components": [str(ref) for ref in comp_set.get_references()], "operator": "any"}
+            {
+                "components": [str(ref) for ref in comp_set.get_references()],
+                "operator": set_operator.value,
+            }
             for comp_set in self.component_sets
         ]
 
-    def inject_into_rule(self, rule: dict[str, Any], key: str) -> None:
+    def inject_into_rule(
+        self,
+        rule: dict[str, Any],
+        key: str,
+        set_operator: DependencyMode = DependencyMode.ANY,
+    ) -> None:
         use_groups = self.operator == GroupOperator.AND or len(self.component_sets) > 1
 
         if use_groups:
-            rule[f"{key}_groups"] = self.to_groups_format()
+            rule[f"{key}_groups"] = self.to_groups_format(set_operator)
         else:
             rule[key] = [str(ref) for ref in self.get_all_references()]
 
@@ -217,7 +232,11 @@ class RuleExpression:
         self,
         rule: dict[str, Any],
     ) -> dict[str, Any]:
-        """Expand to dependency rule."""
+        """Expand to dependency rule.
+
+        The mode of the rule also applies to the components of each mod of an
+        "&" target side: "a(1,2)&b(3)" in mode "all" needs a(1), a(2) and b(3).
+        """
         if len(self.sides) != 2:
             raise ValueError("Dependency rules must have exactly 2 sides (source:target)")
 
@@ -225,7 +244,9 @@ class RuleExpression:
         target_side = self.sides[1]
 
         source_side.inject_into_rule(rule, "source")
-        target_side.inject_into_rule(rule, "target")
+        target_side.inject_into_rule(
+            rule, "target", DependencyMode(rule.get("mode", DependencyMode.ANY.value))
+        )
 
         return rule
 
