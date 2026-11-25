@@ -958,11 +958,9 @@ class ComponentSelector(QTreeView):
                 self._update_mod_status(item)
 
             elif component:
-                if component.is_standard():
-                    text = f"[{component.key}] {mod.get_component_text(component.key)}"
-                    item.setText(text)
-
-                elif component.is_muc():
+                # The reference, not the component type, tells the choice group apart:
+                # a resolved MUC option inherits the MUC type of its parent.
+                if reference.is_muc():
                     item.setText(mod.get_component_text(component.key))
 
                 elif reference.is_sub():

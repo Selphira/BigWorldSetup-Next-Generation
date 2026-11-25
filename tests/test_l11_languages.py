@@ -163,3 +163,44 @@ def test_sub_texts_follow_the_reloaded_catalogue(qtbot: QtBot, tmp_path: Path) -
 
     assert _item_text("demo:1.1") == "[1.1] Question FR"
     assert _item_text("demo:1.1.A") == "[1.1.A] Réponse"
+
+
+# ========================================
+# MUC TEXTS
+# ========================================
+
+
+def _muc_mod() -> Mod:
+    return Mod(
+        {
+            "id": "demo",
+            "name": "Demo",
+            "links": {},
+            "tp2": "demo",
+            "games": ["eet"],
+            "components": {"choice_0": {"type": "muc", "components": ["10", "11"]}},
+            "translations": {
+                "components": {"choice_0": "Choice", "10": "First", "11": "Second"}
+            },
+        }
+    )
+
+
+def test_muc_options_show_their_number_but_not_the_choice_group(
+    qtbot: QtBot, tmp_path: Path
+) -> None:
+    catalogue = ModCatalogue([_muc_mod()])
+    rules = RuleManager(
+        catalogue,
+        rules_dir=tmp_path / "rules",
+        cache_dir=tmp_path / "cache",
+        mods_dir=tmp_path / "mods",
+        custom_mods_dir=tmp_path / "custom",
+    )
+    selector = ComponentSelector(catalogue, SelectionController(rules))
+    qtbot.addWidget(selector)
+    selector.retranslate_ui()
+
+    assert _item_text("demo:choice_0") == "Choice"
+    assert _item_text("demo:10") == "[10] First"
+    assert _item_text("demo:11") == "[11] Second"
