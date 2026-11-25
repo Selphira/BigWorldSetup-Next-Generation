@@ -1,7 +1,9 @@
-"""Dependency and incompatibility rules generated from the requirements of a TP2.
+"""Dependency, incompatibility and order rules generated from the requirements of a TP2.
 
 Every rule names mods by their normalized tp2 name. The components of a mod
-that have the same requirement, with the same message, share a rule.
+that have the same requirement, with the same message, share a rule. A
+FORBID_COMPONENT is an incompatibility, unless the maintainer listed it as an
+installation order (see OrderForbids).
 """
 
 from __future__ import annotations
@@ -18,9 +20,10 @@ from core.ComponentRequirement import (
     RequirementKind,
     normalize_tp2_name,
 )
-from core.Rules import RuleSeverity
+from core.Rules import OrderDirection, RuleSeverity
 from core.WeiDUTp2Parser import WeiDUTp2
 from util.mod_sync.models.catalogue_components import CatalogueComponents
+from util.mod_sync.models.order_forbids import OrderForbids
 from util.mod_sync.sources.ini_source import MOD_ID_PATTERN
 
 logger = logging.getLogger(__name__)
@@ -38,6 +41,7 @@ REQUIREMENT_SEVERITIES = {
 
 DEPENDENCY_RULES = "dependencies"
 INCOMPATIBILITY_RULES = "incompatibilities"
+ORDER_RULES = "order"
 
 
 @dataclass(frozen=True, slots=True)
@@ -49,16 +53,20 @@ class GeneratedRule:
         severity: Severity of a violation
         translations: Message of the mod in each language, as (language code, text) pairs
         optional: Whether the dependency only adapts the source to its targets
+        direction: Place of the source relative to its targets, for an order rule
     """
 
     rule: str
     severity: RuleSeverity
     translations: tuple[tuple[str, str], ...] = ()
     optional: bool = False
+    direction: OrderDirection | None = None
 
     def to_definition(self) -> dict[str, Any]:
         """Return the rule as written in the rules section of a definition."""
         entry: dict[str, Any] = {"rule": self.rule, "severity": self.severity.value}
+        if self.direction is not None:
+            entry["direction"] = self.direction.value
         if self.optional:
             entry["optional"] = True
         if self.translations:
@@ -73,22 +81,29 @@ class Tp2Rules:
 
     dependencies: tuple[GeneratedRule, ...] = ()
     incompatibilities: tuple[GeneratedRule, ...] = ()
+    order: tuple[GeneratedRule, ...] = ()
 
     def sections(self) -> dict[str, list[dict[str, Any]]]:
         """Return the rules as written in each section of a definition, empty ones included."""
         return {
             DEPENDENCY_RULES: [rule.to_definition() for rule in self.dependencies],
             INCOMPATIBILITY_RULES: [rule.to_definition() for rule in self.incompatibilities],
+            ORDER_RULES: [rule.to_definition() for rule in self.order],
         }
 
 
 @dataclass(frozen=True, slots=True)
 class _SharedRequirement:
-    """What the components sharing a rule require, in the same terms."""
+    """What the components sharing a rule require, in the same terms.
+
+    Attributes:
+        section: Section of the definition the rule goes to
+    """
 
     kind: RequirementKind
     alternatives: tuple[ComponentTarget, ...]
     translations: tuple[tuple[str, str], ...]
+    section: str
 
 
 class Tp2RuleBuilder:
@@ -99,6 +114,7 @@ class Tp2RuleBuilder:
         catalogue: CatalogueComponents,
         labels_language: str,
         excluded_languages: set[str],
+        order_forbids: OrderForbids | None = None,
     ) -> None:
         """Initialize the builder.
 
@@ -106,10 +122,12 @@ class Tp2RuleBuilder:
             catalogue: Catalogued mods, which resolve the labels of other mods
             labels_language: Language of the literal messages of a TP2 declaring no LANGUAGE
             excluded_languages: Languages of the TP2 a definition cannot hold
+            order_forbids: FORBID_COMPONENT declarations that mean an installation order
         """
         self._catalogue = catalogue
         self._labels_language = labels_language
         self._excluded_languages = excluded_languages
+        self._order_forbids = order_forbids if order_forbids is not None else OrderForbids()
 
     def build(self, tp2: WeiDUTp2, tp2_name: str) -> Tp2Rules:
         """Generate the rules of a parsed TP2.
@@ -128,20 +146,24 @@ class Tp2RuleBuilder:
 
         shared = self._share_requirements(tp2, mod)
 
-        dependencies: list[GeneratedRule] = []
-        incompatibilities: list[GeneratedRule] = []
+        sections: dict[str, list[GeneratedRule]] = {
+            DEPENDENCY_RULES: [],
+            INCOMPATIBILITY_RULES: [],
+            ORDER_RULES: [],
+        }
         for requirement, components in shared.items():
-            rule = self._rule(mod, components, requirement)
-            if requirement.kind == RequirementKind.FORBIDDEN:
-                incompatibilities.append(rule)
-            else:
-                dependencies.append(rule)
+            sections[requirement.section].append(self._rule(mod, components, requirement))
 
         logger.debug(
-            f"{tp2_name}: {len(dependencies)} dependency and "
-            f"{len(incompatibilities)} incompatibility rules from the TP2"
+            f"{tp2_name}: {len(sections[DEPENDENCY_RULES])} dependency, "
+            f"{len(sections[INCOMPATIBILITY_RULES])} incompatibility and "
+            f"{len(sections[ORDER_RULES])} order rules from the TP2"
         )
-        return Tp2Rules(tuple(dependencies), tuple(incompatibilities))
+        return Tp2Rules(
+            dependencies=tuple(sections[DEPENDENCY_RULES]),
+            incompatibilities=tuple(sections[INCOMPATIBILITY_RULES]),
+            order=tuple(sections[ORDER_RULES]),
+        )
 
     # ========================================
     # Requirements
@@ -171,13 +193,37 @@ class Tp2RuleBuilder:
 
                 self._warn_unknown_targets(alternatives, mod, own_components, location)
                 key = _SharedRequirement(
-                    requirement.kind, alternatives, self._translations(requirement)
+                    requirement.kind,
+                    alternatives,
+                    self._translations(requirement),
+                    self._section(requirement.kind, mod, component.designated, alternatives),
                 )
                 components = shared.setdefault(key, [])
                 if component.designated not in components:
                     components.append(component.designated)
 
         return shared
+
+    def _section(
+        self,
+        kind: RequirementKind,
+        mod: str,
+        component: str,
+        alternatives: tuple[ComponentTarget, ...],
+    ) -> str:
+        """Return the section of the rule of a requirement.
+
+        A forbidden target listed as an installation order only asks for the
+        component to be installed before it.
+        """
+        if kind != RequirementKind.FORBIDDEN:
+            return DEPENDENCY_RULES
+
+        if all(
+            self._order_forbids.means_order(mod, component, target) for target in alternatives
+        ):
+            return ORDER_RULES
+        return INCOMPATIBILITY_RULES
 
     def _resolve_alternatives(
         self, requirement: ComponentRequirement, location: str
@@ -273,4 +319,5 @@ class Tp2RuleBuilder:
             severity=REQUIREMENT_SEVERITIES[requirement.kind],
             translations=requirement.translations,
             optional=requirement.kind == RequirementKind.OPTIONAL,
+            direction=OrderDirection.BEFORE if requirement.section == ORDER_RULES else None,
         )

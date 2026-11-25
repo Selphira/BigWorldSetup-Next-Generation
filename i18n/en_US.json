@@ -671,9 +671,10 @@
     "message_dependency_all_satisfied": "All dependencies are satisfied",
     "message_order_before": "Must be installed before: {components}",
     "message_order_after": "Must be installed after: {components}",
-    "ini_order_description": "Rule defined in the {mod}'s ini file",
+    "ini_order_description": "Installation order defined in the {mod}'s ini file",
     "tp2_dependency_description": "Dependency defined in the {mod}'s TP2 file",
     "tp2_incompatibility_description": "Incompatibility defined in the {mod}'s TP2 file",
+    "tp2_order_description": "Installation order defined in the {mod}'s TP2 file",
     "tp2_optional_description": "This component adapts to this mod or component when it is present: install it first to benefit from it."
   },
   "error": {

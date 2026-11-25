@@ -11,6 +11,7 @@ from constants import (
     MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS,
     MOD_SYNC_GITHUB_CHECKS_FILE,
     MOD_SYNC_GITHUB_RECIPES_FILE,
+    MOD_SYNC_ORDER_FORBIDS_FILE,
 )
 
 
@@ -209,6 +210,7 @@ class SyncConfig:
     github_check_interval_hours: float = MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS
     github_checks_file: Path = MOD_SYNC_GITHUB_CHECKS_FILE
     github_recipes_file: Path = MOD_SYNC_GITHUB_RECIPES_FILE
+    order_forbids_file: Path = MOD_SYNC_ORDER_FORBIDS_FILE
 
     mod_filter: ModFilter = field(default_factory=ModFilter)
 
@@ -217,6 +219,7 @@ class SyncConfig:
         self.definitions_dir = Path(self.definitions_dir)
         self.github_checks_file = Path(self.github_checks_file)
         self.github_recipes_file = Path(self.github_recipes_file)
+        self.order_forbids_file = Path(self.order_forbids_file)
         if self.archives_dir:
             self.archives_dir = Path(self.archives_dir)
         if self.mods_dir:

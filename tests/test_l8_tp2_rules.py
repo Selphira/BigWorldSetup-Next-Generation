@@ -7,9 +7,12 @@ from pathlib import Path
 import pytest
 
 from constants import INI_RULE_ORIGIN, TP2_RULE_ORIGIN
+from core.ComponentRequirement import ComponentTarget
+from core.Rules import OrderDirection, RuleSeverity
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
 from util.mod_sync.models.catalogue_components import CatalogueComponents
-from util.mod_sync.sources.tp2_rules import Tp2Rules
+from util.mod_sync.models.order_forbids import OrderForbids
+from util.mod_sync.sources.tp2_rules import GeneratedRule, Tp2Rules
 from util.mod_sync.sources.tp2_source import TP2Source
 from validation.catalogue import validate_catalogue
 
@@ -43,9 +46,13 @@ def write_mod(base_dir: Path, components: str, languages: str = LANGUAGES) -> No
 
 
 def tp2_rules(
-    base_dir: Path, catalogue: CatalogueComponents | None = None, labels_language: str = "en_US"
+    base_dir: Path,
+    catalogue: CatalogueComponents | None = None,
+    labels_language: str = "en_US",
+    order_forbids: OrderForbids | None = None,
 ) -> dict[str, list[dict]]:
-    extracted = TP2Source(base_dir, catalogue).extract("demo", labels_language=labels_language)
+    source = TP2Source(base_dir, catalogue, order_forbids)
+    extracted = source.extract("demo", labels_language=labels_language)
     assert extracted is not None
     return extracted["requirement_rules"].sections()
 
@@ -137,6 +144,76 @@ def test_forbidden_component_is_an_incompatibility(tmp_path: Path) -> None:
             "demo(0):other(5)", translations={"en_US": "Not with it", "fr_FR": "Pas avec lui"}
         )
     ]
+
+
+def order_forbids_of(tmp_path: Path, entries: list[object]) -> OrderForbids:
+    path = tmp_path / "order_forbids.json"
+    path.write_text(json.dumps({"forbid_as_order": entries}), encoding="utf-8")
+    return OrderForbids.load(path)
+
+
+def test_forbidden_component_listed_as_an_order_is_an_order_rule(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0 FORBID_COMPONENT ~EET_end.tp2~ ~0~ @3\n"
+        "FORBID_COMPONENT ~EET_end.tp2~ ~1~ @3\n",
+    )
+    forbids = order_forbids_of(tmp_path, [{"target": "EET_end"}])
+
+    rules = tp2_rules(tmp_path, order_forbids=forbids)
+
+    assert rules["incompatibilities"] == []
+    assert rules["order"] == [
+        tp2_rule(
+            f"demo(0):eet_end({number})",
+            direction="before",
+            translations={"en_US": "Not with it", "fr_FR": "Pas avec lui"},
+        )
+        for number in ("0", "1")
+    ]
+
+
+def test_order_entry_covers_only_its_components(tmp_path: Path) -> None:
+    write_mod(
+        tmp_path,
+        "BEGIN ~Main~ DESIGNATED 0 FORBID_COMPONENT ~other.tp2~ ~0~ @3\n"
+        "BEGIN ~Second~ DESIGNATED 1 FORBID_COMPONENT ~other.tp2~ ~0~ @3\n"
+        "FORBID_COMPONENT ~other.tp2~ ~2~ @3\n",
+    )
+    forbids = order_forbids_of(tmp_path, [{"source": "demo(0,1)", "target": "other(0)"}])
+
+    rules = tp2_rules(tmp_path, order_forbids=forbids)
+
+    assert [rule["rule"] for rule in rules["order"]] == ["demo(0,1):other(0)"]
+    assert [rule["rule"] for rule in rules["incompatibilities"]] == ["demo(1):other(2)"]
+
+
+def test_order_entry_of_another_source_leaves_the_incompatibility(tmp_path: Path) -> None:
+    write_mod(tmp_path, "BEGIN ~Main~ DESIGNATED 0 FORBID_COMPONENT ~other.tp2~ ~5~ @3\n")
+    forbids = order_forbids_of(tmp_path, [{"source": "third", "target": "other"}])
+
+    rules = tp2_rules(tmp_path, order_forbids=forbids)
+
+    assert rules["order"] == []
+    assert [rule["rule"] for rule in rules["incompatibilities"]] == ["demo(0):other(5)"]
+
+
+def test_malformed_order_entries_are_skipped(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    entries = [{"source": "demo"}, {"target": "other(x)"}, "eet_end", {"target": "eet_end"}]
+
+    with caplog.at_level(logging.WARNING):
+        forbids = order_forbids_of(tmp_path, entries)
+
+    assert sum("Entry" in record.message for record in caplog.records) == 3
+    assert forbids.means_order("demo", "0", ComponentTarget(tp2="eet_end", component="1"))
+
+
+def test_missing_order_list_lists_nothing(tmp_path: Path) -> None:
+    forbids = OrderForbids.load(tmp_path / "absent.json")
+
+    assert not forbids.means_order("demo", "0", ComponentTarget(tp2="eet_end", component="0"))
 
 
 def test_body_condition_is_an_optional_warning_without_text(tmp_path: Path) -> None:
@@ -368,6 +445,44 @@ def test_tp2_and_ini_rules_are_merged_together() -> None:
     assert merged["rules"] == {"order": [ini_rule]}
 
 
+def test_ini_and_tp2_order_rules_are_replaced_side_by_side() -> None:
+    manual_rule = {"rule": "demo(-):manual(-)", "direction": "after"}
+    ini_rule = {"rule": "demo(-):other(-)", "direction": "after", "origin": INI_RULE_ORIGIN}
+    tp2_order = tp2_rule("demo(0):eet_end(0)", direction="before")
+    existing = {
+        "rules": {
+            "order": [
+                manual_rule,
+                {**ini_rule, "rule": "demo(-):old(-)"},
+                tp2_rule("demo(0):old(0)", direction="before"),
+            ]
+        }
+    }
+    tp2_rules_found = Tp2Rules(
+        order=(
+            GeneratedRule(
+                "demo(0):eet_end(0)", RuleSeverity.ERROR, direction=OrderDirection.BEFORE
+            ),
+        )
+    )
+
+    merged = _merge(
+        existing, {"requirement_rules": tp2_rules_found}, {"order_rules": [ini_rule]}
+    )
+
+    assert merged["rules"] == {"order": [manual_rule, ini_rule, tp2_order]}
+
+
+def test_tp2_order_rules_are_kept_without_a_parsed_tp2() -> None:
+    ini_rule = {"rule": "demo(-):other(-)", "direction": "after", "origin": INI_RULE_ORIGIN}
+    tp2_order = tp2_rule("demo(0):eet_end(0)", direction="before")
+    existing = {"rules": {"order": [{**ini_rule, "rule": "demo(-):old(-)"}, tp2_order]}}
+
+    merged = _merge(existing, None, {"order_rules": [ini_rule]})
+
+    assert merged["rules"] == {"order": [tp2_order, ini_rule]}
+
+
 def test_generated_rules_pass_the_catalogue_validation(
     tmp_path: Path, small_catalogue: tuple[Path, Path]
 ) -> None:
@@ -377,13 +492,17 @@ def test_generated_rules_pass_the_catalogue_validation(
         "BEGIN ~Main~ DESIGNATED 0\n"
         "REQUIRE_PREDICATE MOD_IS_INSTALLED ~demo.tp2~ ~0~ OR MOD_IS_INSTALLED ~other.tp2~ ~1~ @1\n"
         "FORBID_COMPONENT ~other.tp2~ ~2~ @3\n"
+        "FORBID_COMPONENT ~other.tp2~ ~4~ @3\n"
         "ACTION_IF MOD_IS_INSTALLED ~other.tp2~ ~3~ THEN BEGIN END\n",
     )
+    forbids = order_forbids_of(tmp_path, [{"target": "other(4)"}])
     definition_path = data_dir / "mods" / "demo.json"
     definition = json.loads(definition_path.read_text(encoding="utf-8"))
-    definition_path.write_text(
-        json.dumps(_merge(definition, TP2Source(tmp_path).extract("demo"))), encoding="utf-8"
-    )
+    extracted = TP2Source(tmp_path, order_forbids=forbids).extract("demo")
+    merged = _merge(definition, extracted)
+    definition_path.write_text(json.dumps(merged), encoding="utf-8")
+
+    assert [rule["rule"] for rule in merged["rules"]["order"]] == ["demo(0):other(4)"]
 
     report = validate_catalogue(*small_catalogue)
 

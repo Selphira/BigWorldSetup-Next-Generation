@@ -485,14 +485,15 @@ class DefinitionMerger:
             return
 
         rules = result.get("rules") if isinstance(result.get("rules"), dict) else {}
-        for rule_type, (origin, generated) in generated_sections.items():
+        for rule_type, generated_by_origin in generated_sections.items():
             stored = rules.get(rule_type) if isinstance(rules.get(rule_type), list) else []
             section = [
                 rule
                 for rule in stored
-                if not (isinstance(rule, dict) and rule.get("origin") == origin)
+                if not (isinstance(rule, dict) and rule.get("origin") in generated_by_origin)
             ]
-            section.extend(copy.deepcopy(generated))
+            for generated in generated_by_origin.values():
+                section.extend(copy.deepcopy(generated))
 
             if section:
                 rules[rule_type] = section
@@ -504,18 +505,22 @@ class DefinitionMerger:
         else:
             result.pop("rules", None)
 
-    def _generated_rules(self) -> dict[str, tuple[str, list[dict[str, Any]]]]:
-        """Return the rules of the parsed sources, with their origin, by section."""
-        generated: dict[str, tuple[str, list[dict[str, Any]]]] = {}
+    def _generated_rules(self) -> dict[str, dict[str, list[dict[str, Any]]]]:
+        """Return the rules of the parsed sources by section, then by origin.
+
+        A section can hold the rules of several origins: the order section
+        gets those of the INI file and those of the TP2.
+        """
+        generated: dict[str, dict[str, list[dict[str, Any]]]] = {}
 
         ini_rules = (self.sources.get("ini") or {}).get("order_rules")
         if ini_rules is not None:
-            generated["order"] = (INI_RULE_ORIGIN, ini_rules)
+            generated.setdefault("order", {})[INI_RULE_ORIGIN] = ini_rules
 
         tp2_rules = (self.sources.get("tp2") or {}).get("requirement_rules")
         if isinstance(tp2_rules, Tp2Rules):
             for rule_type, section in tp2_rules.sections().items():
-                generated[rule_type] = (TP2_RULE_ORIGIN, section)
+                generated.setdefault(rule_type, {})[TP2_RULE_ORIGIN] = section
 
         return generated
 

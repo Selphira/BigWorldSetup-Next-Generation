@@ -91,6 +91,8 @@ MOD_SYNC_GITHUB_CHECK_INTERVAL_HOURS = 24.0
 # Mods downloaded from a GitHub commit: maintainer file kept out of data/,
 # which is published as a whole
 MOD_SYNC_GITHUB_RECIPES_FILE = PROJECT_ROOT / "util" / "mod_sync" / "github_recipes.json"
+# FORBID_COMPONENT declarations of the TP2 that mean an installation order
+MOD_SYNC_ORDER_FORBIDS_FILE = PROJECT_ROOT / "util" / "mod_sync" / "order_forbids.json"
 
 # Localized caches are written "<prefix>_<language>.json" in CACHE_DIR
 MOD_CACHE_PREFIX = "mods"
@@ -116,12 +118,15 @@ RULE_ORIGIN_DESCRIPTION_KEYS: dict[str, dict[str, str]] = {
     TP2_RULE_ORIGIN: {
         "dependencies": "rule.tp2_dependency_description",
         "incompatibilities": "rule.tp2_incompatibility_description",
+        "order": "rule.tp2_order_description",
         OPTIONAL_DEPENDENCY_DESCRIPTION: "rule.tp2_optional_description",
     },
 }
 
 SEVEN_Z_PATH = TOOLS_DIR / "7z.exe"
 EXTRACT_DIR = "bws-ng-extract"
+# Siblings created by DirectoryMerger while it replaces a destination item
+MERGE_TEMPORARY_PREFIX = ".bws-ng-merge-"
 INSTALLATION_JOURNAL_FILE: Path = CURRENT_RUN_DIR / "installation-run.json"
 INSTALLATION_JOURNAL_FORMAT = 4
 ARCHIVE_REGISTRY_FILE: Path = USER_DIR / "archives.json"

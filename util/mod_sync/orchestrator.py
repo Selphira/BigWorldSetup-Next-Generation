@@ -13,6 +13,7 @@ from core.CompactJSONEncoder import CompactJSONEncoder
 from util.mod_sync.extractors.selective_extractor import SelectiveExtractor
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
 from util.mod_sync.models.catalogue_components import CatalogueComponents
+from util.mod_sync.models.order_forbids import OrderForbids
 from util.mod_sync.models.sync_result import (
     ComponentChanges,
     ModSyncResult,
@@ -64,7 +65,11 @@ class ModSyncOrchestrator:
         # Initialize sources
         self.lcc_source = LCCSource(force_refresh=config.force_lcc_refresh)
         self.tp2_source = (
-            TP2Source(config.mods_dir, self.catalogue) if config.mods_dir else None
+            TP2Source(
+                config.mods_dir, self.catalogue, OrderForbids.load(config.order_forbids_file)
+            )
+            if config.mods_dir
+            else None
         )
         self.ini_source = IniSource(config.mods_dir) if config.mods_dir else None
         self.archive_source = (

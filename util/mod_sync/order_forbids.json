@@ -1,0 +1,22 @@
+{
+  "forbid_as_order": [
+    {"target": "eet_end"},
+    {"target": "bp-bgt-worldmap"},
+    {"source": "ascension", "target": "iylos(0)"},
+    {"source": "ascension", "target": "spell_rev(0)"},
+    {"source": "ascension", "target": "stratagems(5900)"},
+    {"source": "ascension", "target": "wheels(0)"},
+    {"source": "wheels(0)", "target": "stratagems(5900)"},
+    {"source": "stratagems", "target": "stratagems(5900)"},
+    {"source": "stratagems(4100)", "target": "stratagems(4115)"},
+    {"source": "stratagems(4100)", "target": "dw_talents(90100)"},
+    {"source": "c#endlessbg1(0)", "target": "transitions(0)"},
+    {"source": "c#endlessbg1", "target": "ja#bgt_advpack(1)"},
+    {"source": "c#endlessbg1", "target": "bg1re(6)"},
+    {"source": "c#sodboabri", "target": "c#sodboabri"},
+    {"source": "edwinromance", "target": "edwinromance(4)"},
+    {"source": "sodrtd", "target": "sodrtd(30,70)"},
+    {"source": "tnt", "target": "tnt(14)"},
+    {"source": "ua", "target": "ua(3,4)"}
+  ]
+}

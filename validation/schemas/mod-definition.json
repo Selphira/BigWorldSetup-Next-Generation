@@ -274,9 +274,9 @@
       "description": "Order rule; same format as data/rules/order.json",
       "required": ["rule"],
       "additionalProperties": false,
-      "if": {"required": ["origin"]},
+      "if": {"required": ["origin"], "properties": {"origin": {"const": "ini"}}},
       "then": {
-        "description": "A generated rule has no text: the application generates it from its origin",
+        "description": "A rule of the INI file has no text: the application generates it from its origin",
         "not": {"anyOf": [{"required": ["translations"]}, {"required": ["description"]}]}
       },
       "properties": {
@@ -288,8 +288,8 @@
         "source_url": {"type": "string", "format": "uri"},
         "origin": {
           "type": "string",
-          "enum": ["ini"],
-          "description": "Generator of the rule, whose rules mod_sync replaces and whose description the application generates; absent for a manual rule"
+          "enum": ["ini", "tp2"],
+          "description": "Generator of the rule, whose rules mod_sync replaces and whose missing texts the application generates; absent for a manual rule"
         }
       }
     },

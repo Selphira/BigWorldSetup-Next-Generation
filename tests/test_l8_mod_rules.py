@@ -116,6 +116,14 @@ def test_tp2_rules_with_mod_texts_pass(small_catalogue: tuple[Path, Path]) -> No
                 {"rule": "demo(0):demo(-)", "origin": TP2_RULE_ORIGIN, "optional": True},
             ],
             "incompatibilities": [{"rule": "demo(0):demo(0)", "origin": TP2_RULE_ORIGIN}],
+            "order": [
+                {
+                    "rule": "demo(0):demo(-)",
+                    "direction": "before",
+                    "origin": TP2_RULE_ORIGIN,
+                    "translations": mod_text,
+                }
+            ],
         },
     )
 
@@ -338,8 +346,13 @@ def _load_demo_rules(rules: RuleManager, tmp_path: Path, section: dict) -> dict:
             "Ce composant s'adapte à la présence de ce mod ou composant : "
             "installez-le avant pour en profiter.",
         ),
+        (
+            "order",
+            _tp2_rule("demo(0):other(-)", direction="before"),
+            "Ordre d'installation défini dans le TP2 de Demo Mod",
+        ),
     ],
-    ids=["dependency", "incompatibility", "optional dependency"],
+    ids=["dependency", "incompatibility", "optional dependency", "order"],
 )
 def test_tp2_rule_without_mod_text_gets_the_generic_description(
     rules: RuleManager, tmp_path: Path, rule_type: str, rule: dict, description: str
