@@ -2602,7 +2602,49 @@ class WeiDUTp2Parser:
             for component in tp2.components:
                 self._process_component(component, tp2.untranslated_component_labels, [], {})
 
+        self._translate_requirements(tp2, fallback_langs, translations)
+
         tp2.translations = translations
+
+    def _translate_requirements(
+        self,
+        tp2: WeiDUTp2,
+        fallback_langs: list[str],
+        translations: dict[str, dict[str, str]],
+    ) -> None:
+        """Give each requirement its message in every language of the mod.
+
+        A message is looked up like a component label: in the language, then
+        in the fallback languages, then the literal text. A message found in
+        no language is logged, its rule gets the generic description.
+        """
+        language_codes = [lang.language_code for lang in tp2.preferred_languages()]
+
+        for component in tp2.installable_components():
+            requirements = []
+            for requirement in component.requirements:
+                messages = tuple(
+                    (code, text)
+                    for code in language_codes
+                    if (
+                        text := self._resolve_text(
+                            requirement.text_ref,
+                            requirement.text,
+                            [code] + fallback_langs,
+                            translations,
+                        )
+                    )
+                )
+                if requirement.text_ref is not None and not messages:
+                    logger.warning(
+                        "%s:%s: No translation of the message @%s of a %s requirement",
+                        tp2.name,
+                        component.designated,
+                        requirement.text_ref,
+                        requirement.kind.name.lower(),
+                    )
+                requirements.append(replace(requirement, messages=messages))
+            component.requirements = requirements
 
     def _process_component(
         self,
@@ -2619,22 +2661,33 @@ class WeiDUTp2Parser:
             lang_codes: Ordered list of language codes for fallback
             translations: Dictionary of all translations
         """
-        designated = comp.designated
-
-        text = None
-        if comp.text_ref is not None:
-            for code in lang_codes:
-                value = translations.get(code, {}).get(comp.text_ref)
-                if value:
-                    text = value
-                    break
-
-        if text is None:
-            text = comp.text
-
+        text = self._resolve_text(comp.text_ref, comp.text, lang_codes, translations)
         if text is not None:
-            components[designated] = text
+            components[comp.designated] = text
 
         if isinstance(comp, MucComponent):
             for sub_comp in comp.components:
                 self._process_component(sub_comp, components, lang_codes, translations)
+
+    @staticmethod
+    def _resolve_text(
+        text_ref: str | None,
+        text: str | None,
+        lang_codes: list[str],
+        translations: dict[str, dict[str, str]],
+    ) -> str | None:
+        """Return the translation of text_ref in the first language that has it, else text.
+
+        Args:
+            text_ref: Reference to the translation string ID
+            text: Literal text, used when no language translates text_ref
+            lang_codes: Ordered list of language codes for fallback
+            translations: Dictionary of all translations
+        """
+        if text_ref is not None:
+            for code in lang_codes:
+                value = translations.get(code, {}).get(text_ref)
+                if value:
+                    return value
+
+        return text

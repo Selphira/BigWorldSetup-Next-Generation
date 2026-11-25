@@ -76,6 +76,9 @@ class ComponentRequirement:
         source: Where the TP2 declares the requirement
         text_ref: Reference to the message translation string ID
         text: Direct message text
+        messages: Message in each language of the mod, as (language code, text)
+            pairs in order of preference; empty until the translations are read,
+            and when the mod declares no LANGUAGE
     """
 
     kind: RequirementKind
@@ -83,3 +86,4 @@ class ComponentRequirement:
     source: RequirementSource
     text_ref: str | None = None
     text: str | None = None
+    messages: tuple[tuple[str, str], ...] = ()
