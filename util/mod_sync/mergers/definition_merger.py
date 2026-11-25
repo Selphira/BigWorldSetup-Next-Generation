@@ -27,8 +27,8 @@ import copy
 import logging
 from typing import Any
 
+from constants import INI_RULE_ORIGIN
 from util.mod_sync.models.sync_result import ComponentChanges
-from util.mod_sync.sources.ini_source import INI_RULE_ORIGIN
 
 logger = logging.getLogger(__name__)
 

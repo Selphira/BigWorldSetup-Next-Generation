@@ -6,10 +6,11 @@ from pathlib import Path
 
 import pytest
 
+from constants import INI_RULE_ORIGIN, TP2_RULE_ORIGIN
 from core.RuleManager import RuleManager
 from core.TranslationManager import SUPPORTED_LANGUAGES
 from util.mod_sync.mergers.definition_merger import DefinitionMerger
-from util.mod_sync.sources.ini_source import INI_RULE_ORIGIN, IniData, IniSource
+from util.mod_sync.sources.ini_source import IniData, IniSource
 from validation.catalogue import validate_catalogue
 
 MANUAL_RULE = {"rule": "demo(-):other(-)", "direction": "after"}
@@ -93,6 +94,28 @@ def test_valid_rules_section_passes(small_catalogue: tuple[Path, Path]) -> None:
             "dependencies": [{"rule": "demo(0):demo(-)", "mode": "all"}],
             "incompatibilities": [{"rule": "demo(0):demo(-):demo(0)"}],
             "order": [{"rule": "demo(0):demo(-)", "origin": INI_RULE_ORIGIN}],
+        },
+    )
+
+    report = validate_catalogue(*small_catalogue)
+
+    assert report.valid, report.diagnostics
+
+
+def test_tp2_rules_with_mod_texts_pass(small_catalogue: tuple[Path, Path]) -> None:
+    mod_text = {"fr_FR": "Texte du mod"}
+    _set_mod_rules(
+        small_catalogue[0],
+        {
+            "dependencies": [
+                {
+                    "rule": "demo(0):demo(-)",
+                    "origin": TP2_RULE_ORIGIN,
+                    "translations": mod_text,
+                },
+                {"rule": "demo(0):demo(-)", "origin": TP2_RULE_ORIGIN, "optional": True},
+            ],
+            "incompatibilities": [{"rule": "demo(0):demo(0)", "origin": TP2_RULE_ORIGIN}],
         },
     )
 
@@ -280,3 +303,71 @@ def test_ini_origin_survives_rule_loading(rules: RuleManager, tmp_path: Path) ->
 
     assert loaded_rule["origin"] == INI_RULE_ORIGIN
     assert "source_groups" in loaded_rule and "source" not in loaded_rule
+
+
+# ========================================
+# TP2 RULE DESCRIPTIONS
+# ========================================
+
+
+def _tp2_rule(rule: str, **fields: object) -> dict:
+    return {"rule": rule, "origin": TP2_RULE_ORIGIN, **fields}
+
+
+def _load_demo_rules(rules: RuleManager, tmp_path: Path, section: dict) -> dict:
+    _write(tmp_path / "mods" / "demo.json", {"name": "Demo Mod", "rules": section})
+    return rules._create_cache_builder(["fr_FR"])._load_sources()
+
+
+@pytest.mark.parametrize(
+    ("rule_type", "rule", "description"),
+    [
+        (
+            "dependencies",
+            _tp2_rule("demo(0):other(-)"),
+            "Dépendance définie dans le TP2 de Demo Mod",
+        ),
+        (
+            "incompatibilities",
+            _tp2_rule("demo(0):other(1)"),
+            "Incompatibilité définie dans le TP2 de Demo Mod",
+        ),
+        (
+            "dependencies",
+            _tp2_rule("demo(0):other(-)", optional=True, severity="warning"),
+            "Ce composant s'adapte à la présence de ce mod ou composant : "
+            "installez-le avant pour en profiter.",
+        ),
+    ],
+    ids=["dependency", "incompatibility", "optional dependency"],
+)
+def test_tp2_rule_without_mod_text_gets_the_generic_description(
+    rules: RuleManager, tmp_path: Path, rule_type: str, rule: dict, description: str
+) -> None:
+    loaded_rule = _load_demo_rules(rules, tmp_path, {rule_type: [rule]})[rule_type][0]
+
+    assert set(loaded_rule["translations"]) == {"en_US", "fr_FR"}
+    assert loaded_rule["translations"]["fr_FR"] == description
+
+
+def test_tp2_rule_keeps_its_mod_texts_and_fills_missing_languages(
+    rules: RuleManager, tmp_path: Path
+) -> None:
+    rule = _tp2_rule("demo(0):other(-)", translations={"fr_FR": "Installez d'abord Other"})
+
+    (loaded_rule,) = _load_demo_rules(rules, tmp_path, {"dependencies": [rule]})["dependencies"]
+
+    assert loaded_rule["translations"] == {
+        "en_US": "Dependency defined in the Demo Mod's TP2 file",
+        "fr_FR": "Installez d'abord Other",
+    }
+
+
+def test_manual_rule_keeps_its_texts_alone(rules: RuleManager, tmp_path: Path) -> None:
+    manual_rule = {"rule": "demo(0):other(-)", "translations": {"fr_FR": "Texte manuel"}}
+
+    (loaded_rule,) = _load_demo_rules(rules, tmp_path, {"dependencies": [manual_rule]})[
+        "dependencies"
+    ]
+
+    assert loaded_rule["translations"] == {"fr_FR": "Texte manuel"}

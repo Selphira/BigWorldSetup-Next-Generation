@@ -239,7 +239,12 @@
         "translations": {"$ref": "#/definitions/ruleTranslations"},
         "source_url": {"type": "string", "format": "uri"},
         "implicit_order": {"type": "boolean"},
-        "optional": {"type": "boolean"}
+        "optional": {"type": "boolean"},
+        "origin": {
+          "type": "string",
+          "enum": ["tp2"],
+          "description": "Generator of the rule, whose rules mod_sync replaces and whose missing texts the application generates; absent for a manual rule"
+        }
       }
     },
     "modIncompatibilityRule": {
@@ -256,7 +261,12 @@
         "severity": {"$ref": "#/definitions/ruleSeverity"},
         "description": {"type": "string"},
         "translations": {"$ref": "#/definitions/ruleTranslations"},
-        "source_url": {"type": "string", "format": "uri"}
+        "source_url": {"type": "string", "format": "uri"},
+        "origin": {
+          "type": "string",
+          "enum": ["tp2"],
+          "description": "Generator of the rule, whose rules mod_sync replaces and whose missing texts the application generates; absent for a manual rule"
+        }
       }
     },
     "modOrderRule": {

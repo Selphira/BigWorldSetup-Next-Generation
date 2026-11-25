@@ -671,7 +671,10 @@
     "message_dependency_all_satisfied": "Toutes les dépendances sont satisfaites",
     "message_order_before": "Doit être installé avant : {components}",
     "message_order_after": "Doit être installé après : {components}",
-    "ini_order_description": "Règle définie dans l'ini de {mod}"
+    "ini_order_description": "Règle définie dans l'ini de {mod}",
+    "tp2_dependency_description": "Dépendance définie dans le TP2 de {mod}",
+    "tp2_incompatibility_description": "Incompatibilité définie dans le TP2 de {mod}",
+    "tp2_optional_description": "Ce composant s'adapte à la présence de ce mod ou composant : installez-le avant pour en profiter."
   },
   "error": {
     "state_save_failed": "Impossible de sauvegarder la progression. Vérifiez l'espace disque et les droits d'écriture. La progression depuis la dernière sauvegarde réussie risque d'être perdue.",

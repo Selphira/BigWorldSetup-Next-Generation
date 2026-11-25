@@ -17,13 +17,10 @@ import logging
 from pathlib import Path
 import re
 
+from constants import INI_RULE_ORIGIN
 from core.File import safe_read
 
 logger = logging.getLogger(__name__)
-
-# Origin marker of the rules generated from the INI file: mod_sync replaces
-# these rules only, the other rules of a definition are manual.
-INI_RULE_ORIGIN = "ini"
 
 # Mod identifiers accepted in a rule by the rule schemas; Before and After
 # sometimes name mods by their title or list several ones in one entry
