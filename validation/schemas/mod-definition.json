@@ -317,6 +317,11 @@
           "type": "string",
           "enum": ["std", "dwn"]
         },
+        "label": {
+          "type": "string",
+          "description": "LABEL the TP2 declares for this component, read by ID_OF_LABEL",
+          "minLength": 1
+        },
         "games": {
           "type": "array",
           "description": "Override supported games for this component",
@@ -352,6 +357,18 @@
         "type": {
           "type": "string",
           "const": "muc"
+        },
+        "labels": {
+          "type": "object",
+          "description": "LABEL the TP2 declares for each choice of this MUC, by component ID",
+          "minProperties": 1,
+          "patternProperties": {
+            "^[0-9]+$": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
         },
         "components": {
           "type": "array",
@@ -401,6 +418,11 @@
         "type": {
           "type": "string",
           "const": "sub"
+        },
+        "label": {
+          "type": "string",
+          "description": "LABEL the TP2 declares for this component, read by ID_OF_LABEL",
+          "minLength": 1
         },
         "prompts": {
           "type": "object",

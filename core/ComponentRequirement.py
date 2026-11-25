@@ -1,7 +1,7 @@
 """Requirements a TP2 component declares on other components.
 
 A requirement is read from the TP2 of a mod and names its targets by
-their tp2 and component number, before any link with the catalogue.
+their tp2 and component number, or LABEL, before any link with the catalogue.
 """
 
 from __future__ import annotations
@@ -44,18 +44,26 @@ class RequirementSource(Enum):
 
 @dataclass(frozen=True, slots=True)
 class ComponentTarget:
-    """A component named by a requirement.
+    """A component named by a requirement, by its number or by its LABEL.
 
     Attributes:
         tp2: Normalized tp2 name of the mod
-        component: Component number
+        component: Component number, None when the target is named by its label
+        label: LABEL of the component, None when the target is named by its number
     """
 
     tp2: str
-    component: str
+    component: str | None = None
+    label: str | None = None
 
     def __post_init__(self) -> None:
+        if (self.component is None) == (self.label is None):
+            raise ValueError("A component target needs either a number or a label")
         object.__setattr__(self, "tp2", normalize_tp2_name(self.tp2))
+
+    def with_component(self, component: str) -> ComponentTarget:
+        """Return the target named by the number of the component its label designates."""
+        return ComponentTarget(tp2=self.tp2, component=component)
 
 
 @dataclass(frozen=True, slots=True)

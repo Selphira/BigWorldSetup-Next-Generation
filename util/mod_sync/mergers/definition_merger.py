@@ -9,6 +9,9 @@ Component labels follow the TP2, except those of MUC groups: their
 Labels the TP2 does not provide (SUB prompts, manual components) are kept
 while their component remains in the definition.
 
+The LABEL of a component (``label``, ``labels`` of the choices of a MUC)
+always follows the TP2: a LABEL the TP2 no longer declares is removed.
+
 Files come from the archive source, which lists every entry, or else from the
 pinned GitHub commit or the GitHub release. Their hashes are trusted: the archive source hashes what is
 served at the current link, and the release keeps a stored hash only for the
@@ -31,6 +34,9 @@ logger = logging.getLogger(__name__)
 
 # Separates a SUB component key from its prompt and option ("0.1.2").
 SUB_LABEL_SEPARATOR = "."
+
+# Component fields holding the LABEL the TP2 declares: of the component, of the choices of a MUC.
+TP2_LABEL_FIELDS = ("label", "labels")
 
 
 def has_value(value: Any) -> bool:
@@ -365,6 +371,13 @@ class DefinitionMerger:
                     # Update components list if TP2 provides one (shouldn't, but safety)
                     if "components" in tp2_data:
                         merged_component["components"] = tp2_data["components"]
+
+                for label_field in TP2_LABEL_FIELDS:
+                    merged_component.pop(label_field, None)
+                    if label_field in tp2_components[component_key]:
+                        merged_component[label_field] = tp2_components[component_key][
+                            label_field
+                        ]
 
                 if tp2_components[component_key].get("games"):
                     if {"bgee", "sod", "bg2ee"} & set(

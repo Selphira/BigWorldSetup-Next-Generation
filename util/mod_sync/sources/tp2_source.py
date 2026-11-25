@@ -145,10 +145,18 @@ class TP2Source:
                             "type": "muc",
                             "components": [c.designated for c in comp.components],
                         }
+                        # The choices of a MUC have no entry of their own
+                        choice_labels = {
+                            c.designated: c.label for c in comp.components if c.label
+                        }
+                        if choice_labels:
+                            components[comp.designated]["labels"] = choice_labels
                     else:
                         components[comp.designated] = {
                             "type": "std",
                         }
+                        if comp.label:
+                            components[comp.designated]["label"] = comp.label
                     components[comp.designated]["games"] = comp.games
                 result["components"] = components
                 logger.debug(f"Extracted {len(components)} components")

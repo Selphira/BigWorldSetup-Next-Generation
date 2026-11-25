@@ -7,7 +7,7 @@ and translations.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from enum import Enum, auto
 import logging
 from pathlib import Path, PurePosixPath, PureWindowsPath
@@ -245,6 +245,7 @@ class Component:
         designated: Unique component identifier
         text_ref: Reference to translation string ID
         text: Direct text (if not using translation reference)
+        label: LABEL of the component, by which ID_OF_LABEL designates it
         games: Game codes (lowercase) the component installs on, None when
             unrestricted, empty when on no known game
         requirements: Requirements on other components, in declaration order
@@ -254,6 +255,7 @@ class Component:
     designated: str
     text_ref: str | None = None
     text: str | None = None
+    label: str | None = None
     games: list[str] | None = None
     requirements: list[ComponentRequirement] = field(default_factory=list)
     metadata: dict = field(default_factory=dict)
@@ -300,14 +302,21 @@ class WeiDUTp2:
     component_translations: dict[str, dict[str, str]] = field(default_factory=dict)
     untranslated_component_labels: dict[str, str] = field(default_factory=dict)
 
-    def unlogged_components(self) -> set[str]:
-        """Identify installable component numbers explicitly excluded from WeiDU.log."""
-        return {
-            item.designated
+    def installable_components(self) -> list[Component]:
+        """List the components that can be installed, the choices of a MUC in its place."""
+        return [
+            item
             for component in self.components
             for item in (
                 component.components if isinstance(component, MucComponent) else [component]
             )
+        ]
+
+    def unlogged_components(self) -> set[str]:
+        """Identify installable component numbers explicitly excluded from WeiDU.log."""
+        return {
+            item.designated
+            for item in self.installable_components()
             if item.metadata.get("no_log_record")
         }
 
@@ -790,24 +799,75 @@ class LanguageParser:
 # ============================================================================
 
 
-def read_component_target(arguments: list[Token]) -> ComponentTarget | None:
-    """Read the tp2 and component number heading the arguments of a flag or predicate.
+# WeiDU function giving the number of the component of a tp2 that declares a LABEL.
+ID_OF_LABEL_FUNCTION = "ID_OF_LABEL"
+
+
+def read_component_target(tokens: list[Token], pos: int) -> tuple[ComponentTarget | None, int]:
+    """Read the tp2 and component starting at pos, as a flag or MOD_IS_INSTALLED names them.
+
+    The component is a number, or "ID_OF_LABEL tp2 label", parenthesized or
+    not, on the same tp2.
 
     Returns:
-        The target, or None if either is missing or given by a variable
+        The target, None if the tp2 or component is given by a variable, the
+        component is not a number or the label is that of another tp2; and
+        the position after the arguments read
     """
-    if len(arguments) < 2:
-        return None
+    label_reference = _read_label_reference(tokens, pos + 1)
+    if label_reference is not None:
+        label_tp2, label, end = label_reference
+        tp2 = tokens[pos]
+        if not all(_names_literal(token) for token in (tp2, label_tp2, label)):
+            return None, end
+        if normalize_tp2_name(tp2.value) != normalize_tp2_name(label_tp2.value):
+            return None, end
+        return ComponentTarget(tp2=tp2.value, label=label.value.strip()), end
 
-    tp2, component = arguments[0], arguments[1]
-    if any(token.delimiter == "%" or "%" in token.value for token in (tp2, component)):
-        return None
-    if tp2.type == TokenType.STRING_REF or not tp2.value.strip():
-        return None
+    end = min(pos + 2, len(tokens))
+    if end - pos < 2:
+        return None, end
+
+    tp2, component = tokens[pos], tokens[pos + 1]
+    if not all(_names_literal(token) for token in (tp2, component)):
+        return None, end
     if not component.value.strip().isdigit():
+        return None, end
+
+    return ComponentTarget(tp2=tp2.value, component=component.value.strip()), end
+
+
+def _read_label_reference(tokens: list[Token], pos: int) -> tuple[Token, Token, int] | None:
+    """Read the "ID_OF_LABEL tp2 label" at pos, possibly in parentheses.
+
+    Returns:
+        The tp2 and label tokens and the position after the reference, or
+        None if pos does not start one
+    """
+    parenthesized = pos < len(tokens) and tokens[pos].type == TokenType.LPAREN
+    start = pos + 1 if parenthesized else pos
+    end = start + 3
+    if end > len(tokens):
+        return None
+    function = tokens[start]
+    if function.type != TokenType.IDENTIFIER or function.value.upper() != ID_OF_LABEL_FUNCTION:
         return None
 
-    return ComponentTarget(tp2=tp2.value, component=component.value.strip())
+    if parenthesized:
+        if end >= len(tokens) or tokens[end].type != TokenType.RPAREN:
+            return None
+        end += 1
+
+    return tokens[start + 1], tokens[start + 2], end
+
+
+def _names_literal(token: Token) -> bool:
+    """Tell whether a tp2, component or label argument is written out, not a variable."""
+    if token.delimiter == "%" or "%" in token.value:
+        return False
+    if token.type not in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER, TokenType.NUMBER):
+        return False
+    return bool(token.value.strip())
 
 
 @dataclass(frozen=True, slots=True)
@@ -1033,8 +1093,7 @@ class RequirementPredicateParser:
         token = tokens[pos]
 
         if token.type == TokenType.MOD_IS_INSTALLED:
-            end = min(pos + 3, len(tokens))
-            target = read_component_target(tokens[pos + 1 : end])
+            target, end = read_component_target(tokens, pos + 1)
             if target is None:
                 return self._opaque(tokens, pos, end), end
             return ModCondition(target), end
@@ -1516,7 +1575,7 @@ class ComponentBodyScanner:
             if token.type != TokenType.MOD_IS_INSTALLED:
                 continue
 
-            target = read_component_target(condition[pos + 1 : pos + 3])
+            target, _ = read_component_target(condition, pos + 1)
             if target is None:
                 source = " ".join(item.source_text() for item in condition)
                 body.skipped.append(f"unresolved MOD_IS_INSTALLED{location}: {source}")
@@ -2011,7 +2070,7 @@ class ComponentParser:
         end = self._skip_strings(tokens, pos, self.STRING_ARGUMENT_COUNTS[flag])
         arguments = tokens[pos:end]
 
-        target = read_component_target(arguments)
+        target, _ = read_component_target(arguments, 0)
         if target is None:
             values = " ".join(token.source_text() for token in arguments)
             header.skipped_requirements.append(f"unresolved target: {flag.name} {values}")
@@ -2220,6 +2279,7 @@ class WeiDUTp2Parser:
             self._extract_version(tp2_text, tp2)
             self._extract_languages(tp2_text, tp2, include_reader)
             self._parse_components(tp2_text, tp2, supported_games, include_reader)
+            self._resolve_own_labels(tp2)
             self._build_translations(tp2, include_reader)
 
             logger.info(
@@ -2305,6 +2365,7 @@ class WeiDUTp2Parser:
                     designated=str(designated),
                     text_ref=header.text_ref,
                     text=header.text,
+                    label=header.label,
                     games=header.games,
                     requirements=parsed_block.requirements,
                     metadata={"no_log_record": True} if header.no_log_record else {},
@@ -2339,6 +2400,82 @@ class WeiDUTp2Parser:
         logger.info(f"Parsed {len(tp2.components)} top-level components")
         if deprecated_count > 0:
             logger.info(f"Skipped {deprecated_count} deprecated component(s)")
+
+    @classmethod
+    def _resolve_own_labels(cls, tp2: WeiDUTp2) -> None:
+        """Name by their number the targets that a label of the mod itself designates.
+
+        A requirement whose label no component declares is skipped. A target
+        of another mod keeps its label, for the catalogue to resolve.
+        """
+        own_tp2 = normalize_tp2_name(tp2.name or "")
+        components = tp2.installable_components()
+        numbers: dict[str, str] = {}
+        for component in components:
+            if component.label is not None:
+                numbers.setdefault(component.label, component.designated)
+
+        for component in components:
+            requirements = []
+            for requirement in component.requirements:
+                alternatives = cls._resolve_alternatives(requirement, own_tp2, numbers)
+                if alternatives is None:
+                    labels = [
+                        target.label for target in requirement.alternatives if target.label
+                    ]
+                    logger.warning(
+                        "%s:%s: Skipping %s requirement on a label no component declares: %s",
+                        tp2.name,
+                        component.designated,
+                        requirement.kind.name.lower(),
+                        ", ".join(labels),
+                    )
+                    continue
+                requirements.append(replace(requirement, alternatives=alternatives))
+            component.requirements = cls._without_repeated_optional(requirements)
+
+    @staticmethod
+    def _resolve_alternatives(
+        requirement: ComponentRequirement, own_tp2: str, numbers: dict[str, str]
+    ) -> tuple[ComponentTarget, ...] | None:
+        """Return the alternatives of a requirement, those of the mod named by their number.
+
+        Returns:
+            The alternatives, or None if one names a label no component declares
+        """
+        alternatives = []
+        for target in requirement.alternatives:
+            if target.label is None or target.tp2 != own_tp2:
+                alternatives.append(target)
+            elif target.label in numbers:
+                alternatives.append(target.with_component(numbers[target.label]))
+            else:
+                return None
+        return tuple(alternatives)
+
+    @staticmethod
+    def _without_repeated_optional(
+        requirements: list[ComponentRequirement],
+    ) -> list[ComponentRequirement]:
+        """Drop the optional requirements a label made identical to another requirement.
+
+        A target named by its label in one place and by its number in another
+        is only known to be the same once the labels are resolved.
+        """
+        named_targets = {
+            target
+            for requirement in requirements
+            if requirement.kind != RequirementKind.OPTIONAL
+            for target in requirement.alternatives
+        }
+        kept: list[ComponentRequirement] = []
+        for requirement in requirements:
+            if requirement.kind == RequirementKind.OPTIONAL and (
+                requirement.alternatives[0] in named_targets or requirement in kept
+            ):
+                continue
+            kept.append(requirement)
+        return kept
 
     def _extract_tra_translations(
         self, tra_files: list[str], language_code: str, include_reader: IncludeReader
