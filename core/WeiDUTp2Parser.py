@@ -803,38 +803,48 @@ class LanguageParser:
 ID_OF_LABEL_FUNCTION = "ID_OF_LABEL"
 
 
-def read_component_target(tokens: list[Token], pos: int) -> tuple[ComponentTarget | None, int]:
+def read_component_target(
+    tokens: list[Token], pos: int, variables: dict[str, str] | None = None
+) -> tuple[ComponentTarget | None, int]:
     """Read the tp2 and component starting at pos, as a flag or MOD_IS_INSTALLED names them.
 
     The component is a number, or "ID_OF_LABEL tp2 label", parenthesized or
-    not, on the same tp2.
+    not, on the same tp2. A tp2 may reference the text variables known
+    there; a component number or label may not.
+
+    Args:
+        tokens: Tokens holding the arguments
+        pos: Index of the tp2 argument
+        variables: Text variables known where the arguments are read
 
     Returns:
-        The target, None if the tp2 or component is given by a variable, the
-        component is not a number or the label is that of another tp2; and
-        the position after the arguments read
+        The target, None if a tp2 references an unknown variable, the
+        component is given by a variable or is not a number, or the label is
+        that of another tp2; and the position after the arguments read
     """
+    variables = variables or {}
     label_reference = _read_label_reference(tokens, pos + 1)
     if label_reference is not None:
         label_tp2, label, end = label_reference
-        tp2 = tokens[pos]
-        if not all(_names_literal(token) for token in (tp2, label_tp2, label)):
+        tp2 = _expand_tp2_name(tokens[pos], variables)
+        label_tp2_name = _expand_tp2_name(label_tp2, variables)
+        if tp2 is None or label_tp2_name is None or not _names_literal(label):
             return None, end
-        if normalize_tp2_name(tp2.value) != normalize_tp2_name(label_tp2.value):
+        if normalize_tp2_name(tp2) != normalize_tp2_name(label_tp2_name):
             return None, end
-        return ComponentTarget(tp2=tp2.value, label=label.value.strip()), end
+        return ComponentTarget(tp2=tp2, label=label.value.strip()), end
 
     end = min(pos + 2, len(tokens))
     if end - pos < 2:
         return None, end
 
-    tp2, component = tokens[pos], tokens[pos + 1]
-    if not all(_names_literal(token) for token in (tp2, component)):
+    tp2, component = _expand_tp2_name(tokens[pos], variables), tokens[pos + 1]
+    if tp2 is None or not _names_literal(component):
         return None, end
     if not component.value.strip().isdigit():
         return None, end
 
-    return ComponentTarget(tp2=tp2.value, component=component.value.strip()), end
+    return ComponentTarget(tp2=tp2, component=component.value.strip()), end
 
 
 def _read_label_reference(tokens: list[Token], pos: int) -> tuple[Token, Token, int] | None:
@@ -862,12 +872,30 @@ def _read_label_reference(tokens: list[Token], pos: int) -> tuple[Token, Token, 
 
 
 def _names_literal(token: Token) -> bool:
-    """Tell whether a tp2, component or label argument is written out, not a variable."""
+    """Tell whether a component or label argument is written out, not a variable."""
     if token.delimiter == "%" or "%" in token.value:
         return False
-    if token.type not in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER, TokenType.NUMBER):
-        return False
-    return bool(token.value.strip())
+    return _is_name_argument(token) and bool(token.value.strip())
+
+
+def _expand_tp2_name(token: Token, variables: dict[str, str]) -> str | None:
+    """Return the tp2 name an argument gives, its variable references expanded.
+
+    Returns:
+        The tp2 name, or None if the argument is not a name or references an
+        unknown variable
+    """
+    if not _is_name_argument(token):
+        return None
+    name = expand_variables(argument_text(token), variables)
+    if name is None or not name.strip():
+        return None
+    return name
+
+
+def _is_name_argument(token: Token) -> bool:
+    """Tell whether a token can be a tp2, component or label argument."""
+    return token.type in (TokenType.STRING_LITERAL, TokenType.IDENTIFIER, TokenType.NUMBER)
 
 
 @dataclass(frozen=True, slots=True)
@@ -955,7 +983,10 @@ class RequirementPredicateParser:
         self.game_parser = game_parser
 
     def read(
-        self, tokens: list[Token], component_games: list[str] | None
+        self,
+        tokens: list[Token],
+        component_games: list[str] | None,
+        variables: dict[str, str] | None = None,
     ) -> PredicateRequirements:
         """Read the requirements of a predicate.
 
@@ -963,6 +994,8 @@ class RequirementPredicateParser:
             tokens: The predicate, followed by its message when it has one
             component_games: Games of the component, None when unrestricted, empty
                 when on no game
+            variables: Text variables known before the component, which the
+                tp2 of a MOD_IS_INSTALLED may reference
 
         Returns:
             The requirements and the reasons for the parts left out
@@ -979,7 +1012,7 @@ class RequirementPredicateParser:
         )
 
         try:
-            predicate, message = self._parse(tokens)
+            predicate, message = self._parse(tokens, variables or {})
             clauses = self._clauses(predicate)
         except UntranslatablePredicateError as error:
             result.skipped.append(f"{error}: {source}")
@@ -1006,13 +1039,15 @@ class RequirementPredicateParser:
     # Parsing
     # ------------------------------------------------------------------
 
-    def _parse(self, tokens: list[Token]) -> tuple[PredicateNode, Token | None]:
+    def _parse(
+        self, tokens: list[Token], variables: dict[str, str]
+    ) -> tuple[PredicateNode, Token | None]:
         """Parse the predicate and find its message.
 
         Returns:
             The predicate and its message token, None when it has none
         """
-        predicate, pos = self._parse_or(tokens, 0, negated=False)
+        predicate, pos = self._parse_or(tokens, 0, variables, negated=False)
 
         if pos == len(tokens):
             return predicate, None
@@ -1021,27 +1056,27 @@ class RequirementPredicateParser:
         raise UntranslatablePredicateError(f"unexpected {tokens[pos].source_text()!r}")
 
     def _parse_or(
-        self, tokens: list[Token], pos: int, negated: bool
+        self, tokens: list[Token], pos: int, variables: dict[str, str], negated: bool
     ) -> tuple[PredicateNode, int]:
         operands = []
-        operand, pos = self._parse_and(tokens, pos, negated)
+        operand, pos = self._parse_and(tokens, pos, variables, negated)
         operands.append(operand)
 
         while pos < len(tokens) and tokens[pos].type == TokenType.OR:
-            operand, pos = self._parse_and(tokens, pos + 1, negated)
+            operand, pos = self._parse_and(tokens, pos + 1, variables, negated)
             operands.append(operand)
 
         return self._combine(operands, conjunction=negated), pos
 
     def _parse_and(
-        self, tokens: list[Token], pos: int, negated: bool
+        self, tokens: list[Token], pos: int, variables: dict[str, str], negated: bool
     ) -> tuple[PredicateNode, int]:
         operands = []
-        operand, pos = self._parse_unary(tokens, pos, negated)
+        operand, pos = self._parse_unary(tokens, pos, variables, negated)
         operands.append(operand)
 
         while pos < len(tokens) and tokens[pos].type == TokenType.AND:
-            operand, pos = self._parse_unary(tokens, pos + 1, negated)
+            operand, pos = self._parse_unary(tokens, pos + 1, variables, negated)
             operands.append(operand)
 
         return self._combine(operands, conjunction=not negated), pos
@@ -1056,22 +1091,22 @@ class RequirementPredicateParser:
         return PredicateDisjunction(tuple(operands))
 
     def _parse_unary(
-        self, tokens: list[Token], pos: int, negated: bool
+        self, tokens: list[Token], pos: int, variables: dict[str, str], negated: bool
     ) -> tuple[PredicateNode, int]:
         if pos >= len(tokens):
             raise UntranslatablePredicateError("incomplete predicate")
 
         token = tokens[pos]
         if token.type == TokenType.NOT:
-            return self._parse_unary(tokens, pos + 1, not negated)
+            return self._parse_unary(tokens, pos + 1, variables, not negated)
 
         if token.type == TokenType.LPAREN:
-            node, pos = self._parse_or(tokens, pos + 1, negated)
+            node, pos = self._parse_or(tokens, pos + 1, variables, negated)
             if pos >= len(tokens) or tokens[pos].type != TokenType.RPAREN:
                 raise UntranslatablePredicateError("unbalanced parentheses")
             return node, pos + 1
 
-        condition, end = self._read_condition(tokens, pos)
+        condition, end = self._read_condition(tokens, pos, variables)
         if not self._ends_term(tokens, end):
             # The condition is an operand of a comparison: "MOD_IS_INSTALLED a b = 0"
             end = self._opaque_term_end(tokens, end)
@@ -1083,7 +1118,7 @@ class RequirementPredicateParser:
         return PredicateLiteral(condition, negated), end
 
     def _read_condition(
-        self, tokens: list[Token], pos: int
+        self, tokens: list[Token], pos: int, variables: dict[str, str]
     ) -> tuple[ModCondition | GameCondition | OpaqueCondition, int]:
         """Read the condition at pos with its arguments.
 
@@ -1093,7 +1128,7 @@ class RequirementPredicateParser:
         token = tokens[pos]
 
         if token.type == TokenType.MOD_IS_INSTALLED:
-            target, end = read_component_target(tokens, pos + 1)
+            target, end = read_component_target(tokens, pos + 1, variables)
             if target is None:
                 return self._opaque(tokens, pos, end), end
             return ModCondition(target), end
@@ -1532,10 +1567,15 @@ class ComponentBodyScanner:
         return body
 
     def define_variables(self, tokens: list[Token], variables: dict[str, str]) -> None:
-        """Add to variables the text variables the tokens define, in order."""
-        for pos, token in enumerate(tokens):
-            if token.type == TokenType.SPRINT:
-                self._define_variable(tokens, pos + 1, variables)
+        """Add to variables the text variables the tokens and their included files define.
+
+        The conditions read on the way are left out: they apply to every
+        component, not to one.
+        """
+        ignored = ComponentBody()
+        self._scan(tokens, 0, variables, (), ignored)
+        for reason in ignored.skipped:
+            logger.debug("Variables not read from %s", reason)
 
     def _scan(
         self,
@@ -1551,7 +1591,9 @@ class ComponentBodyScanner:
             token_type = tokens[pos].type
             if token_type in self.CONDITION_KEYWORDS:
                 end = self._condition_end(tokens, pos + 1)
-                self._read_condition(tokens[pos:end], self._location(include_chain), body)
+                self._read_condition(
+                    tokens[pos:end], variables, self._location(include_chain), body
+                )
                 pos = end
             elif token_type in self.INCLUDE_KEYWORDS:
                 pos = self._follow_includes(tokens, pos, variables, include_chain, body)
@@ -1566,7 +1608,9 @@ class ComponentBodyScanner:
         return pos
 
     @staticmethod
-    def _read_condition(condition: list[Token], location: str, body: ComponentBody) -> None:
+    def _read_condition(
+        condition: list[Token], variables: dict[str, str], location: str, body: ComponentBody
+    ) -> None:
         """Add an optional requirement for each component the condition tests.
 
         A target tested several times is deduplicated once the body is scanned.
@@ -1575,7 +1619,7 @@ class ComponentBodyScanner:
             if token.type != TokenType.MOD_IS_INSTALLED:
                 continue
 
-            target, _ = read_component_target(condition, pos + 1)
+            target, _ = read_component_target(condition, pos + 1, variables)
             if target is None:
                 source = " ".join(item.source_text() for item in condition)
                 body.skipped.append(f"unresolved MOD_IS_INSTALLED{location}: {source}")
@@ -1912,7 +1956,7 @@ class ComponentParser:
             The component block, or None if it does not start with BEGIN
         """
         tokens = self.tokenizer.tokenize(block_text)
-        header = self.parse_header(tokens)
+        header = self.parse_header(tokens, variables)
         if header is None:
             return None
 
@@ -1928,8 +1972,15 @@ class ComponentParser:
 
         return ComponentBlock(header, body)
 
-    def parse_header(self, tokens: list[Token]) -> ComponentHeader | None:
+    def parse_header(
+        self, tokens: list[Token], variables: dict[str, str] | None = None
+    ) -> ComponentHeader | None:
         """Read the component flags of a tokenized block.
+
+        Args:
+            tokens: Tokens of the block, from its BEGIN
+            variables: Text variables known before the block, which the tp2
+                of a requirement may reference
 
         Returns:
             The component header, or None if the tokens do not start with BEGIN
@@ -1943,15 +1994,21 @@ class ComponentParser:
         # Some mods follow the label with a second, unused string.
         _, _, pos = self._read_label(tokens, pos)
 
-        while (next_pos := self._read_flag(tokens, pos, header, predicates)) is not None:
+        variables = variables or {}
+        while (
+            next_pos := self._read_flag(tokens, pos, header, predicates, variables)
+        ) is not None:
             pos = next_pos
 
         header.body_start = pos
-        self._read_predicates(header, predicates)
+        self._read_predicates(header, predicates, variables)
         return header
 
     def _read_predicates(
-        self, header: ComponentHeader, predicates: list[HeaderPredicate]
+        self,
+        header: ComponentHeader,
+        predicates: list[HeaderPredicate],
+        variables: dict[str, str],
     ) -> None:
         """Restrict the component to the games of all its predicates, then read their requirements.
 
@@ -1966,7 +2023,7 @@ class ComponentParser:
         header.games = self.game_parser.component_games(holds)
 
         for predicate in reversed(predicates):
-            result = self.predicate_parser.read(predicate.tokens, header.games)
+            result = self.predicate_parser.read(predicate.tokens, header.games, variables)
             index = predicate.requirement_index
             header.requirements[index:index] = result.requirements
             index = predicate.skipped_index
@@ -1982,6 +2039,7 @@ class ComponentParser:
         pos: int,
         header: ComponentHeader,
         predicates: list[HeaderPredicate],
+        variables: dict[str, str],
     ) -> int | None:
         """Read the flag at pos into the header, or into predicates for a REQUIRE_PREDICATE.
 
@@ -2032,7 +2090,7 @@ class ComponentParser:
             return pos
 
         if flag in self.COMPONENT_REQUIREMENT_KINDS:
-            return self._read_component_requirement(tokens, pos, flag, header)
+            return self._read_component_requirement(tokens, pos, flag, header, variables)
 
         if flag == TokenType.NO_LOG_RECORD:
             header.no_log_record = True
@@ -2057,7 +2115,12 @@ class ComponentParser:
         return None, None, pos
 
     def _read_component_requirement(
-        self, tokens: list[Token], pos: int, flag: TokenType, header: ComponentHeader
+        self,
+        tokens: list[Token],
+        pos: int,
+        flag: TokenType,
+        header: ComponentHeader,
+        variables: dict[str, str],
     ) -> int:
         """Read the tp2, component and message of a component flag into the header.
 
@@ -2070,7 +2133,7 @@ class ComponentParser:
         end = self._skip_strings(tokens, pos, self.STRING_ARGUMENT_COUNTS[flag])
         arguments = tokens[pos:end]
 
-        target, _ = read_component_target(arguments, 0)
+        target, _ = read_component_target(arguments, 0, variables)
         if target is None:
             values = " ".join(token.source_text() for token in arguments)
             header.skipped_requirements.append(f"unresolved target: {flag.name} {values}")

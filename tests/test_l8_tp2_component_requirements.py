@@ -130,7 +130,7 @@ def test_requirement_without_message_is_kept(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     "arguments",
     [
-        "~%MOD_FOLDER%/setup-demo.tp2~ ~0~ @2",
+        "~%unknown_folder%/setup-demo.tp2~ ~0~ @2",
         "%demo_tp2% ~0~ @2",
         "~setup-demo.tp2~ ~%demo_component%~ @2",
         "~setup-demo.tp2~ %demo_component% @2",
