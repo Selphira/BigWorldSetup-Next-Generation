@@ -415,6 +415,36 @@ def test_debug_parser_reads_weidu_messages(
     assert WeiDUDebugParser.parse(file, DEFAULT_STRINGS | strings) == expected
 
 
+def test_debug_parser_prefers_the_longest_message_among_translated_and_english(
+    tmp_path: Path,
+) -> None:
+    # "Installing now" starts with the English "Installing": only the longer
+    # prefix leaves the bracketed component name.
+    strings = DEFAULT_STRINGS | {
+        "installing": "Installing now",
+        "successfully_installed": "Installé avec succès",
+    }
+    file = tmp_path / "setup.DEBUG"
+    file.write_text(
+        "installing NOW [A] [v1]\n"
+        "INSTALLÉ AVEC SUCCÈS A\n"
+        "Skipping [B]\n"
+        "Installing [C]\n"
+        "SUCCESSFULLY INSTALLED C\n",
+        encoding="utf-8",
+    )
+
+    assert WeiDUDebugParser.parse(file, strings) == {
+        0: ComponentStatus.SUCCESS,
+        1: ComponentStatus.SKIPPED,
+        2: ComponentStatus.SUCCESS,
+    }
+    starts = WeiDUDebugParser.component_start_matcher(strings)
+    assert starts("  Installing now [A] [v1]")
+    assert starts("SKIPPING: [B]")
+    assert not starts("Installing now")
+
+
 def test_debug_parser_keeps_the_diagnostics_of_each_component(tmp_path: Path) -> None:
     file = tmp_path / "setup.DEBUG"
     file.write_text(

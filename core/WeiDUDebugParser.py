@@ -46,6 +46,19 @@ class DebugAttempt:
     content: str = ""
 
 
+@dataclass(frozen=True, slots=True)
+class _DebugLine:
+    """A stripped DEBUG line with its case-folded form, folded once for every prefix test."""
+
+    text: str
+    folded: str
+
+    @classmethod
+    def of(cls, raw_line: str) -> "_DebugLine":
+        text = raw_line.strip()
+        return cls(text, text.casefold())
+
+
 class _DebugTranscript:
     """Outcome of the components reached by one WeiDU process, in launch order.
 
@@ -61,7 +74,7 @@ class _DebugTranscript:
     )
 
     def __init__(self, strings: dict[str, str]):
-        self._strings = strings
+        self._variants = self._normalized_variants(strings)
         self._names: list[str] = []
         self._skipped: set[int] = set()
         self._warned: set[int] = set()
@@ -79,7 +92,7 @@ class _DebugTranscript:
     def read(self, lines: list[str]) -> DebugReport:
         """Interpret DEBUG lines and report the outcome of each reached component."""
         for raw_line in lines:
-            if not self._read_line(raw_line.strip()):
+            if not self._read_line(_DebugLine.of(raw_line)):
                 self._collect_diagnostic(raw_line)
         indexes = range(len(self._names))
         return DebugReport(
@@ -89,16 +102,17 @@ class _DebugTranscript:
 
     def is_component_start(self, line: str) -> bool:
         """Whether WeiDU starts or skips a component of the batch on this line."""
-        line = line.strip()
+        debug_line = _DebugLine.of(line)
         return any(
-            self._bracketed_after(key, line) is not None for key in ("installing", "skipping")
+            self._bracketed_after(key, debug_line) is not None
+            for key in ("installing", "skipping")
         )
 
     # ------------------------------------------------------------------
     # Line interpretation
     # ------------------------------------------------------------------
 
-    def _read_line(self, line: str) -> bool:
+    def _read_line(self, line: _DebugLine) -> bool:
         """Interpret a WeiDU message; False when the line is mod output."""
         if (name := self._bracketed_after("installing", line)) is not None:
             self._names.append(name)
@@ -116,7 +130,7 @@ class _DebugTranscript:
         self._in_diagnostic = False
         return True
 
-    def _summary(self, line: str) -> tuple[str, ComponentStatus] | None:
+    def _summary(self, line: _DebugLine) -> tuple[str, ComponentStatus] | None:
         """Component name and status of a summary line, or None."""
         for key, status in self.SUMMARY_STATUSES:
             remainder = self._remainder(key, line)
@@ -148,13 +162,13 @@ class _DebugTranscript:
             lines = lines[:DEBUG_MESSAGES_LIMIT] + [f"… (+{hidden})"]
         return lines
 
-    def _failed_component(self, line: str) -> str | None:
+    def _failed_component(self, line: _DebugLine) -> str | None:
         """Name of the component rolled back by `ERROR Installing [...]` or an abort."""
         for key in ("error_installing", "aborting"):
             remainder = self._remainder(key, line)
             if remainder is None:
                 continue
-            suffix = self._variants("rolling_back")
+            suffix = self._variants["rolling_back"]
             folded = remainder.casefold()
             ends = [folded.find(variant) for variant in suffix if variant in folded]
             end = min(ends) if ends else remainder.rfind("]")
@@ -205,27 +219,35 @@ class _DebugTranscript:
         """Diagnostic words, not inside a file name such as `sfo_warnings.txt`."""
         words = set(_DIAGNOSTIC_WORDS)
         for key in ("warning", "error"):
-            words.update(variant.rstrip(": ") for variant in self._variants(key))
+            words.update(variant.rstrip(": ") for variant in self._variants[key])
         alternatives = "|".join(
             re.escape(word) for word in sorted(words, key=len, reverse=True)
         )
         return re.compile(rf"(?<![\w./\\])(?:{alternatives})s?\b", re.IGNORECASE)
 
-    def _variants(self, key: str) -> tuple[str, ...]:
-        values = (self._strings.get(key, ""), DEFAULT_STRINGS[key])
-        folded = [value.strip().casefold() for value in values]
-        # "SKIPPING:" and "Skipping" both introduce a skipped component.
-        folded += [value.removesuffix(":") for value in folded if key == "skipping"]
-        return tuple(dict.fromkeys(value for value in folded if value))
+    @staticmethod
+    def _normalized_variants(strings: dict[str, str]) -> dict[str, tuple[str, ...]]:
+        """Case-folded variants of each WeiDU message, longest first.
 
-    def _remainder(self, key: str, line: str) -> str | None:
-        folded = line.casefold()
-        for variant in sorted(self._variants(key), key=len, reverse=True):
-            if folded.startswith(variant):
-                return line[len(variant) :]
+        Trying the longest variant first lets a translated prefix win over a
+        shorter English one that it starts with.
+        """
+        variants: dict[str, tuple[str, ...]] = {}
+        for key, default in DEFAULT_STRINGS.items():
+            folded = [value.strip().casefold() for value in (strings.get(key, ""), default)]
+            # "SKIPPING:" and "Skipping" both introduce a skipped component.
+            folded += [value.removesuffix(":") for value in folded if key == "skipping"]
+            distinct = dict.fromkeys(value for value in folded if value)
+            variants[key] = tuple(sorted(distinct, key=len, reverse=True))
+        return variants
+
+    def _remainder(self, key: str, line: _DebugLine) -> str | None:
+        for variant in self._variants[key]:
+            if line.folded.startswith(variant):
+                return line.text[len(variant) :]
         return None
 
-    def _bracketed_after(self, key: str, line: str) -> str | None:
+    def _bracketed_after(self, key: str, line: _DebugLine) -> str | None:
         """Component name of `<prefix> [name] [version]`, or None."""
         remainder = self._remainder(key, line)
         if remainder is None:
