@@ -273,6 +273,19 @@ class SuggestedOrder:
     cycle: tuple[ComponentReference, ...] = ()
 
 
+@dataclass(frozen=True, slots=True)
+class RuleIndexes:
+    """Lookups derived from the rules and the catalogue, built aside then published together."""
+
+    rules_by_component: dict[ComponentReference, set[Rule]]
+    resolved_wildcards: dict[
+        int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
+    ]
+    dependents_by_target: dict[ComponentReference, set[DependencyRule]]
+    rule_positions: dict[Rule, int]
+    dependencies_by_source: dict[ComponentReference, list[DependencyRule]]
+
+
 @dataclass
 class ValidationState:
     """Valdiation state."""
@@ -562,6 +575,8 @@ class RuleManager(LocalizedCacheManager):
         self._validation_states: dict[tuple[str, int], ValidationState] = {}
         self.translator = get_translator()
         self.current_language = self.translator.current_language
+        # In-memory counter, incremented each time rules or their indexes are published
+        self.revision: int = 0
 
         # Rule storage
         self._all_rules: list[Rule] = []
@@ -610,7 +625,37 @@ class RuleManager(LocalizedCacheManager):
 
     def load_cache(self) -> bool:
         """Load cached rules for current language."""
-        cache_file = self._cache_file(self.current_language)
+        return self._load_language(self.current_language)
+
+    def reload_for_language(self, language: str) -> bool:
+        """Reload cache for a new language, which becomes current only once loaded."""
+        if not any(lang == language for lang, _ in SUPPORTED_LANGUAGES):
+            logger.warning(f"Unsupported language: {language}")
+            return False
+
+        if self.current_language == language:
+            return True
+
+        if not self._load_language(language):
+            return False
+
+        self.current_language = language
+        return True
+
+    def rebuild_indexes(self) -> None:
+        """Index the loaded rules again against the current catalogue.
+
+        Needed once the catalogue changed without a rule reload, so that the
+        wildcards cover an added mod. Published validations are withdrawn.
+        """
+        self._publish_indexes(self._index_rules(self._all_rules))
+
+    def _load_language(self, language: str) -> bool:
+        """Load and publish the rules of a language; a failure keeps the loaded ones.
+
+        An invalid rule is skipped with a diagnostic and does not fail the load.
+        """
+        cache_file = self._cache_file(language)
 
         if not cache_file.exists():
             logger.error(f"Rule cache file not found: {cache_file}")
@@ -620,32 +665,16 @@ class RuleManager(LocalizedCacheManager):
             with open(cache_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            # Reset all rules
-            self._dependency_rules.clear()
-            self._incompatibility_rules.clear()
-            self._order_rules.clear()
-            self._all_rules.clear()
-            self._rules_by_component.clear()
-            self._validation_states.clear()
-
-            self._load_rules_from_cache(data.get("dependencies", []), DependencyRule)
-            self._load_rules_from_cache(data.get("incompatibilities", []), IncompatibilityRule)
-            self._load_rules_from_cache(data.get("order", []), OrderRule)
-
-            group_rules = sum(1 for rule in self._dependency_rules if rule.uses_groups())
-
-            logger.info(
-                "Loaded rules for %s: %d dependencies (%d with groups), %d incompatibilities, %d order rules",
-                self.current_language,
-                len(self._dependency_rules),
-                group_rules,
-                len(self._incompatibility_rules),
-                len(self._order_rules),
+            dependency_rules = self._load_rules_from_cache(
+                data.get("dependencies", []), DependencyRule
             )
+            incompatibility_rules = self._load_rules_from_cache(
+                data.get("incompatibilities", []), IncompatibilityRule
+            )
+            order_rules = self._load_rules_from_cache(data.get("order", []), OrderRule)
+            all_rules: list[Rule] = [*dependency_rules, *incompatibility_rules, *order_rules]
 
-            self._build_indexes()
-
-            return True
+            indexes = self._index_rules(all_rules)
 
         except json.JSONDecodeError as e:
             logger.error(f"Invalid JSON in rule cache: {e}")
@@ -654,47 +683,33 @@ class RuleManager(LocalizedCacheManager):
             logger.exception(f"Error loading rule cache: {e}")
             return False
 
-    def reload_for_language(self, language: str) -> bool:
-        """Reload cache for a new language."""
-        if not any(lang == language for lang, _ in SUPPORTED_LANGUAGES):
-            logger.warning(f"Unsupported language: {language}")
-            return False
+        self._dependency_rules = dependency_rules
+        self._incompatibility_rules = incompatibility_rules
+        self._order_rules = order_rules
+        self._all_rules = all_rules
+        self._publish_indexes(indexes)
 
-        if self.current_language == language:
-            return True
+        logger.info(
+            "Loaded rules for %s: %d dependencies (%d with groups), %d incompatibilities, %d order rules",
+            language,
+            len(dependency_rules),
+            sum(1 for rule in dependency_rules if rule.uses_groups()),
+            len(incompatibility_rules),
+            len(order_rules),
+        )
+        return True
 
-        self.current_language = language
-        success = self.load_cache()
-
-        if success:
-            self._last_selection_hash = None
-            self._indexes.clear_selection_violations()
-            self._indexes.clear_order_violations()
-
-        return success
-
-    def _load_rules_from_cache(self, rules_data: list, cls) -> None:
-        """Load rules from cache data."""
-        loaded_count = 0
+    @staticmethod
+    def _load_rules_from_cache[RuleT: Rule](
+        rules_data: list[dict[str, Any]], cls: type[RuleT]
+    ) -> list[RuleT]:
+        """Read the rules of one type; an invalid rule is skipped."""
+        rules: list[RuleT] = []
         error_count = 0
-
-        # Determine target list
-        if cls == DependencyRule:
-            target_list = self._dependency_rules
-        elif cls == IncompatibilityRule:
-            target_list = self._incompatibility_rules
-        elif cls == OrderRule:
-            target_list = self._order_rules
-        else:
-            logger.error(f"Unknown rule class: {cls}")
-            return
 
         for rule_data in rules_data:
             try:
-                rule = cls.from_dict(rule_data)
-                target_list.append(rule)
-                self._all_rules.append(rule)
-                loaded_count += 1
+                rules.append(cls.from_dict(rule_data))
             except (ValueError, KeyError, TypeError) as e:
                 error_count += 1
                 logger.error(f"Failed to load rule '{rule_data}': {e}. Rule skipped.")
@@ -705,9 +720,11 @@ class RuleManager(LocalizedCacheManager):
                     exc_info=True,
                 )
 
-        logger.debug(f"{loaded_count} rules loaded from cache")
+        logger.debug(f"{len(rules)} rules loaded from cache")
         if error_count > 0:
             logger.warning(f"Skipped {error_count} invalid {cls.__name__}(s)")
+
+        return rules
 
     def _get_all_known_components(
         self,
@@ -739,33 +756,54 @@ class RuleManager(LocalizedCacheManager):
 
         return result
 
-    def _build_indexes(self) -> None:
+    def _index_rules(self, rules: list[Rule]) -> RuleIndexes:
+        """Build the lookups of rules against the current catalogue, without publishing them."""
         _, components_by_mod = self._get_all_known_components()
 
-        self._dependents_by_target.clear()
-        self._rule_positions = {rule: idx for idx, rule in enumerate(self._all_rules)}
-        self._dependencies_by_source.clear()
-        self._rules_by_component.clear()
-        self._resolved_wildcards_cache.clear()
-        self._last_selection_hash = None
-        for rule in self._all_rules:
+        rules_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
+        resolved_wildcards: dict[
+            int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
+        ] = {}
+        dependents_by_target: dict[ComponentReference, set[DependencyRule]] = defaultdict(set)
+        dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = defaultdict(
+            list
+        )
+
+        for rule in rules:
             if isinstance(rule, DependencyRule):
                 for target in rule.targets:
-                    self._dependents_by_target[target].add(rule)
+                    dependents_by_target[target].add(rule)
                 for source in dict.fromkeys(rule.sources):
-                    self._dependencies_by_source[source].append(rule)
-            rule_id = id(rule)
+                    dependencies_by_source[source].append(rule)
 
             sources = self._resolve_refs_globally(rule.sources, components_by_mod)
             targets = self._resolve_refs_globally(rule.targets, components_by_mod)
+            resolved_wildcards[id(rule)] = (frozenset(sources), frozenset(targets))
 
-            for ref in rule.sources + rule.targets:
-                self._rules_by_component[ref].add(rule)
+            for ref in (*rule.sources, *rule.targets, *sources, *targets):
+                rules_by_component[ref].add(rule)
 
-            self._resolved_wildcards_cache[rule_id] = (frozenset(sources), frozenset(targets))
+        return RuleIndexes(
+            rules_by_component=rules_by_component,
+            resolved_wildcards=resolved_wildcards,
+            dependents_by_target=dependents_by_target,
+            rule_positions={rule: idx for idx, rule in enumerate(rules)},
+            dependencies_by_source=dependencies_by_source,
+        )
 
-            for comp in sources | targets:
-                self._rules_by_component[comp].add(rule)
+    def _publish_indexes(self, indexes: RuleIndexes) -> None:
+        """Publish lookups and withdraw validations computed with the previous ones."""
+        self._rules_by_component = indexes.rules_by_component
+        self._resolved_wildcards_cache = indexes.resolved_wildcards
+        self._dependents_by_target = indexes.dependents_by_target
+        self._rule_positions = indexes.rule_positions
+        self._dependencies_by_source = indexes.dependencies_by_source
+        self.revision += 1
+
+        self._validation_states.clear()
+        self._last_selection_hash = None
+        self._indexes.clear_selection_violations()
+        self._indexes.clear_order_violations()
 
     # ========================================
     # SELECTION VALIDATION

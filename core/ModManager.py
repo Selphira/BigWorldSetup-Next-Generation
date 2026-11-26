@@ -240,6 +240,7 @@ class ModManager(LocalizedCacheManager):
 
         self.current_language = get_translator().current_language
         self.mods_data: dict[str, Mod] = {}
+        self.revision: int = 0
         self._category_count_cache: Counter | None = None
 
         self.custom_mods_dir.mkdir(parents=True, exist_ok=True)
@@ -316,7 +317,36 @@ class ModManager(LocalizedCacheManager):
         Returns:
             True if successful, False otherwise
         """
-        cache_file = self._cache_file(self.current_language)
+        return self._load_language(self.current_language)
+
+    def reload_for_language(self, language: str) -> bool:
+        """
+        Reload cache for a new language.
+
+        The language becomes the current one only once its catalogue is loaded.
+
+        Args:
+            language: Language code (e.g., "fr_FR")
+
+        Returns:
+            True if successful
+        """
+        if not any(lang == language for lang, _ in SUPPORTED_LANGUAGES):
+            logger.warning(f"Unsupported language: {language}")
+            return False
+
+        if self.current_language == language:
+            return True
+
+        if not self._load_language(language):
+            return False
+
+        self.current_language = language
+        return True
+
+    def _load_language(self, language: str) -> bool:
+        """Load and publish the catalogue of a language; a failure keeps the loaded one."""
+        cache_file = self._cache_file(language)
 
         if not cache_file.exists():
             logger.error(f"Cache file not found: {cache_file}")
@@ -333,20 +363,6 @@ class ModManager(LocalizedCacheManager):
             for data in mods_json:
                 self._register_components(data, mods, catalogue_indexes)
 
-            indexes = IndexManager.get_indexes()
-            indexes.replace_catalogue(catalogue_indexes)
-            self.mods_data.clear()
-            self.mods_data.update(mods)
-
-            # Invalidate category cache
-            self._category_count_cache = None
-
-            logger.info(f"Loaded {len(self.mods_data)} mods for {self.current_language}")
-            logger.info(f"Mod/Component index populated: {len(indexes.mod_component_index)}")
-            logger.info(f"Children index populated: {len(indexes.children_index)} ")
-            logger.info(f"Parent index populated: {len(indexes.parent_index)} ")
-            return True
-
         except json.JSONDecodeError as e:
             logger.error(f"Invalid JSON in cache: {e}")
             return False
@@ -354,25 +370,18 @@ class ModManager(LocalizedCacheManager):
             logger.exception(f"Error loading cache: {e}")
             return False
 
-    def reload_for_language(self, language: str) -> bool:
-        """
-        Reload cache for a new language.
+        indexes = IndexManager.get_indexes()
+        indexes.replace_catalogue(catalogue_indexes)
+        self.mods_data.clear()
+        self.mods_data.update(mods)
+        self._category_count_cache = None
+        self.revision += 1
 
-        Args:
-            language: Language code (e.g., "fr_FR")
-
-        Returns:
-            True if successful
-        """
-        if not any(lang == language for lang, _ in SUPPORTED_LANGUAGES):
-            logger.warning(f"Unsupported language: {language}")
-            return False
-
-        if self.current_language == language:
-            return True
-
-        self.current_language = language
-        return self.load_cache()
+        logger.info(f"Loaded {len(self.mods_data)} mods for {language}")
+        logger.info(f"Mod/Component index populated: {len(indexes.mod_component_index)}")
+        logger.info(f"Children index populated: {len(indexes.children_index)} ")
+        logger.info(f"Parent index populated: {len(indexes.parent_index)} ")
+        return True
 
     # ========================================
     # MOD ACCESS
@@ -438,7 +447,11 @@ class ModManager(LocalizedCacheManager):
     # ========================================
 
     def add_mod(self, mod_id: str) -> bool:
-        """Add a single mod to the manager without full cache rebuild."""
+        """Add or replace a single mod without full cache rebuild.
+
+        A replaced mod is removed whole first: none of its former components
+        or links survives. A failure keeps the catalogue unchanged.
+        """
         mod_file = self.custom_mods_dir / f"{mod_id}.json"
 
         if not mod_file.exists():
@@ -455,16 +468,20 @@ class ModManager(LocalizedCacheManager):
                 mod_data, self.current_language
             )
 
-            self._register_components(
-                localized_mod_data, self.mods_data, IndexManager.get_indexes()
-            )
-
-            # Invalidate category cache
-            self._category_count_cache = None
-
-            logger.info(f"Successfully added mod: {mod_id}")
-            return True
+            added_mods: dict[str, Mod] = {}
+            mod_indexes = ReferenceIndexes()
+            self._register_components(localized_mod_data, added_mods, mod_indexes)
 
         except Exception as e:
             logger.error(f"Error adding mod {mod_id}: {e}", exc_info=True)
             return False
+
+        indexes = IndexManager.get_indexes()
+        indexes.remove_mod(mod_id)
+        indexes.add_catalogue(mod_indexes)
+        self.mods_data.update(added_mods)
+        self._category_count_cache = None
+        self.revision += 1
+
+        logger.info(f"Successfully added mod: {mod_id}")
+        return True

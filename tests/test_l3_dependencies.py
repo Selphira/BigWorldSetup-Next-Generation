@@ -46,6 +46,34 @@ def test_default_order_leaves_unlisted_components_on_the_right(
     assert set(sequence.unordered) == set(refs("demo:1", "a:0", "b:0")) - set(refs(*listed))
 
 
+def test_order_violations_are_shown_again_after_a_language_change(
+    qtbot: QtBot, rules: RuleManager
+) -> None:
+    a, b = refs("a:0", "b:0")
+    rules._all_rules = [
+        OrderRule.from_dict({"source": str(a), "target": str(b), "direction": "before"})
+    ]
+    rules.rebuild_indexes()
+    state = Mock()
+    state.get_rule_manager.return_value = rules
+    state.get_selected_components.return_value = ["a:0", "b:0"]
+    page = InstallOrderPage(state)
+    qtbot.addWidget(page)
+    page._current_game = "eet"
+    page._game_def = SimpleNamespace(has_multiple_sequences=False)
+    sequence = SequenceData([b, a], [], ValidationResult())
+    page._sequences_data = {0: sequence}
+    page._validate_sequence(0)
+    assert sequence.validation.has_errors
+
+    # Reloading the rules of another language withdraws the published violations
+    rules.rebuild_indexes()
+    page.retranslate_ui()
+
+    assert sequence.validation.has_errors
+    assert rules.get_order_violations(a)
+
+
 @pytest.mark.parametrize("apply_changes", [False, True])
 def test_keep_preview_lists_named_components_without_wildcard(
     qtbot: QtBot,
@@ -216,7 +244,7 @@ def test_b05_failure_propagates_only_until_an_available_alternative(rules: RuleM
         DependencyRule.from_dict({"source": "b:0", "target": ["a:*", "demo:2"]}),
         DependencyRule.from_dict({"source": "demo:1", "target": "b:0"}),
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     selection = {a, b, c, d}
     assert rules.blocked_positions([[a], [b, c, d]], {(0, 0)}, (0, 0), selection) == {
         (1, 0),
@@ -235,7 +263,7 @@ def test_b06_group_activation_absent_wildcard_and_cycle(rules: RuleManager) -> N
         }
     )
     rules._all_rules = [grouped]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     assert not rules.selection_violations({a, c})
     violations = rules.selection_violations({a, b, c, d})
     assert {v.affected_components for v in violations} == {
@@ -246,7 +274,7 @@ def test_b06_group_activation_absent_wildcard_and_cycle(rules: RuleManager) -> N
         DependencyRule.from_dict({"source": str(source), "target": str(target)})
         for source, target in [(a, b), (b, a)]
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     suggestion = rules.preferred_order([a, b], set(), {a, b})
     assert suggestion.cycle in ((a, b, a), (b, a, b))
     assert rules.validate_order("eet", 0, suggestion.components)
@@ -257,7 +285,7 @@ def test_b06_order_accepts_any_preceding_provider(rules: RuleManager) -> None:
     rules._all_rules = [
         DependencyRule.from_dict({"source": "a:0", "target": ["b:*", "demo:1"]})
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     assert rules.preferred_order([a, c, b], set(), {a, b, c}).components == [c, a, b]
     assert not rules.validate_order("eet", 1, [a, b], earlier={c})
     assert rules.validate_order("eet", 1, [a, b])
@@ -293,7 +321,7 @@ def test_b21_preview_preserves_existing_choice_and_checks_staleness(
         DependencyRule.from_dict({"source": str(a), "target": [str(b), str(c)]}),
         IncompatibilityRule.from_dict({"source": str(b), "target": str(d)}),
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     controller = SelectionController(rules)
     controller.select_bulk([a, d])
     orchestrator = ValidationOrchestrator(rules, controller)
@@ -361,7 +389,7 @@ def test_optional_dependency_never_reports_its_target_in_the_selection(
     rules._all_rules = [
         DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True})
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
 
     assert not rules.selection_violations({c})
     assert not rules.selection_violations({a, c})
@@ -374,7 +402,7 @@ def test_optional_dependency_requires_only_selected_targets_first(rules: RuleMan
             {"source": "demo:1", "target": ["a:0", "b:0"], "optional": True}
         )
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
 
     assert not rules.validate_order("eet", 0, [c], selection={c})
     assert rules.validate_order("eet", 0, [c, b], selection={b, c})
@@ -390,7 +418,7 @@ def _expanded_dependency(rule: dict) -> DependencyRule:
 def test_dependency_in_mode_all_needs_each_component_of_each_mod(rules: RuleManager) -> None:
     a1, a2, b, c = refs("a:1", "a:2", "b:0", "demo:1")
     rules._all_rules = [_expanded_dependency({"rule": "demo(1):a(1,2)&b(0)", "mode": "all"})]
-    rules._build_indexes()
+    rules.rebuild_indexes()
 
     assert rules.selection_violations({a1, b, c})
     assert not rules.selection_violations({a1, a2, b, c})
@@ -399,7 +427,7 @@ def test_dependency_in_mode_all_needs_each_component_of_each_mod(rules: RuleMana
 def test_dependency_on_and_targets_needs_one_component_of_each_mod(rules: RuleManager) -> None:
     a1, b, c = refs("a:1", "b:0", "demo:1")
     rules._all_rules = [_expanded_dependency({"rule": "demo(1):a(1,2)&b(0)"})]
-    rules._build_indexes()
+    rules.rebuild_indexes()
 
     assert not rules.selection_violations({a1, b, c})
 
@@ -411,7 +439,7 @@ def test_optional_dependency_in_mode_all_requires_each_selected_target_first(
     rules._all_rules = [
         _expanded_dependency({"rule": "demo(1):a(1,2)&b(0)", "mode": "all", "optional": True})
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     selection = {a1, a2, b, c}
 
     assert rules.validate_order("eet", 0, [a1, b, c, a2], selection=selection)
@@ -424,7 +452,7 @@ def test_sorting_places_a_selected_optional_target_first(rules: RuleManager) -> 
     rules._all_rules = [
         DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True})
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
 
     assert rules.preferred_order([c, a], set(), {a, c}).components == [a, c]
     assert rules.preferred_order([c], set(), {c}).components == [c]
@@ -437,7 +465,7 @@ def test_optional_dependency_stays_out_of_the_execution_plan(rules: RuleManager)
         mandatory,
         DependencyRule.from_dict({"source": "demo:1", "target": "a:0", "optional": True}),
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     selection = {a, b, c}
 
     assert rules.active_requirements(c, selection, set()) == {mandatory}
@@ -452,7 +480,7 @@ def test_accepted_failure_blocks_dependent_before_next_batch(
 ) -> None:
     a, b = refs("a:0", "b:0")
     rules._all_rules = [DependencyRule.from_dict({"source": str(b), "target": str(a)})]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     batches = []
     for idx, ref in enumerate((a, b)):
         mod = catalogue.get_mod_by_id(ref.mod_id)
@@ -489,7 +517,7 @@ def test_sub_option_can_be_a_source_or_a_provider(rules: RuleManager) -> None:
         DependencyRule.from_dict({"source": str(answer), "target": str(a)}),
         DependencyRule.from_dict({"source": str(b), "target": str(answer)}),
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     selection = {a, base, answer, b}
     assert rules.preferred_order([b, base, a], set(), selection).components == [a, base, b]
     assert not rules.validate_order("eet", 1, [b], earlier={a, base}, selection=selection)
@@ -520,7 +548,7 @@ def test_explicit_order_across_sequences(rules: RuleManager) -> None:
     rules._all_rules = [
         OrderRule.from_dict({"source": str(a), "target": str(b), "direction": "before"})
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     assert not rules.validate_order("eet", 0, [a], later={b})
     assert rules.validate_order("eet", 1, [a], earlier={b})
 

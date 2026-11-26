@@ -1137,8 +1137,12 @@ class ModSelectionPage(BasePage):
             )
             return
 
+        # Wildcards of the loaded rules must cover the added mod
+        self._rule_manager.rebuild_indexes()
+
         self._component_selector.reload()
         self._apply_all_filters()
         self._update_statistics()
+        self._trigger_validation()
 
         logger.info(f"Component selector reloaded with new mod: {mod_id}")

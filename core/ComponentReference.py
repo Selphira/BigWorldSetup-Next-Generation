@@ -480,6 +480,22 @@ class ReferenceIndexes:
             current.clear()
             current.update(replacement)
 
+    def add_catalogue(self, catalogue: ReferenceIndexes) -> None:
+        """Add the mods, components and links of another index, replacing equal references."""
+        self.mod_component_index.update(catalogue.mod_component_index)
+        self.parent_index.update(catalogue.parent_index)
+        self.children_index.update(catalogue.children_index)
+
+    def remove_mod(self, mod_id: str) -> None:
+        """Remove a mod, its components and their links.
+
+        Like `replace_catalogue`, tree items, selection and violations are kept.
+        """
+        mod_id = mod_id.lower()
+        for index in (self.mod_component_index, self.parent_index, self.children_index):
+            for reference in [reference for reference in index if reference.mod_id == mod_id]:
+                del index[reference]
+
     def clear_all(self) -> None:
         """Clear all indexes."""
         self.mod_component_index.clear()

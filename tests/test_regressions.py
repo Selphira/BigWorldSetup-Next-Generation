@@ -34,7 +34,7 @@ from util.mod_sync.processors.github_processor import GitHubProcessor
 def test_b06_dependency_target_does_not_require_itself(rules: RuleManager) -> None:
     rule = DependencyRule.from_dict({"source": ["a:0"], "target": ["b:0"]})
     rules._all_rules = [rule]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     assert rules.get_requirements(ComponentReference("a", "0")) == (rule,)
     assert not rules.get_requirements(ComponentReference("b", "0"))
 
@@ -126,7 +126,7 @@ def test_b20_corrected_order_clears_index(rules: RuleManager) -> None:
             }
         )
     ]
-    rules._build_indexes()
+    rules.rebuild_indexes()
     a, b = ComponentReference("a", "0"), ComponentReference("b", "0")
     assert rules.validate_order("eet", 0, [b, a])
     assert not rules.validate_order("eet", 0, [a, b])
