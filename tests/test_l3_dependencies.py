@@ -12,8 +12,8 @@ from core.ComponentReference import ComponentReference, IndexManager
 from core.InstallationJournal import InstallationJournal, Operation, RunPlan, RunSequence
 from core.InstallationWorker import InstallationWorker, UserDecision
 from core.Mod import Mod, SubComponent
-from core.RuleManager import RuleExpression, RuleManager
-from core.Rules import DependencyRule, IncompatibilityRule, OrderRule
+from core.RuleManager import RuleExpression, RuleManager, StandardCondition
+from core.Rules import DependencyMode, DependencyRule, IncompatibilityRule, OrderRule
 from core.SelectionImport import SelectionImport
 from core.StateManager import StateManager
 from core.ValidationOrchestrator import ValidationOrchestrator
@@ -590,3 +590,37 @@ def test_mod_wildcard_is_symmetric_for_matching_but_not_for_covering() -> None:
 
     assert mod.is_selected_in({component})
     assert not component.is_selected_in({mod})
+
+
+@pytest.mark.parametrize(
+    ("mode", "references", "expected"),
+    [
+        (DependencyMode.ALL, ["a:0", "b:*"], True),
+        (DependencyMode.ALL, ["a:0", "c:0"], False),
+        (DependencyMode.ALL, [], True),
+        (DependencyMode.ANY, ["c:0", "b:*"], True),
+        (DependencyMode.ANY, ["c:0", "d:*"], False),
+        (DependencyMode.ANY, [], False),
+    ],
+)
+def test_standard_condition_combines_references_by_mode(
+    mode: DependencyMode, references: list[str], expected: bool
+) -> None:
+    condition = StandardCondition(tuple(refs(*references)), mode)
+
+    assert condition.is_satisfied(set(refs("a:0", "b:1"))) is expected
+
+
+@pytest.mark.parametrize(
+    ("mode", "decisive_result"),
+    [(DependencyMode.ALL, False), (DependencyMode.ANY, True)],
+)
+def test_standard_condition_stops_at_the_decisive_reference(
+    mode: DependencyMode, decisive_result: bool
+) -> None:
+    decisive = Mock(**{"is_selected_in.return_value": decisive_result})
+    skipped = Mock()
+    condition = StandardCondition((decisive, skipped), mode)
+
+    assert condition.is_satisfied(set()) is decisive_result
+    skipped.is_selected_in.assert_not_called()

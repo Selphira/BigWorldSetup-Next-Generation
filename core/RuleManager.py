@@ -499,7 +499,7 @@ class StandardCondition:
 
     def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
         """Check if condition is met."""
-        matches = [comp.is_selected_in(selected_set) for comp in self.components]
+        matches = (comp.is_selected_in(selected_set) for comp in self.components)
 
         if self.mode == DependencyMode.ALL:
             return all(matches)
