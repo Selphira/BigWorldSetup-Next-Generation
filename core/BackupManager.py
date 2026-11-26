@@ -1,5 +1,6 @@
 """Full verified game snapshots with recoverable restoration transactions."""
 
+from dataclasses import dataclass
 from datetime import datetime
 import json
 import logging
@@ -28,6 +29,23 @@ logger = logging.getLogger(__name__)
 # Type aliases for clarity
 ProgressCallback = Callable[[str, int, int], None]
 OperationResult = tuple[bool, str]  # (success, error_message)
+
+
+class _BackupRejected(RuntimeError):
+    """Validation refusal whose message is reported as is, without the generic prefix."""
+
+
+class _UnreadableBackup(_BackupRejected):
+    """The backup metadata cannot be located or loaded at all."""
+
+
+@dataclass(frozen=True)
+class _ValidatedBackup:
+    """Metadata and manifest read once and checked against the stored files."""
+
+    info: BackupInfo
+    manifest: BackupManifest
+    game_files_dir: Path
 
 
 class BackupManager:
@@ -299,40 +317,11 @@ class BackupManager:
     def validate_backup(self, backup_id: str) -> OperationResult:
         """Verify snapshot identity, file paths, sizes, hashes and empty directories."""
         try:
-            if not self._backup_root:
-                return False, tr("backup_manager.error.no_backup_directory")
-
-            backup_dir = self._backup_directory(backup_id)
-
-            if not backup_dir.exists():
-                return False, tr("backup_manager.error.backup_directory_not_found")
-
-            if not (backup_dir / self.METADATA_FILE).exists():
-                return False, tr("backup_manager.error.metadata_missing")
-
-            game_files_dir = backup_dir / self.GAME_FILES_DIR
-            if not game_files_dir.exists():
-                return False, tr("backup_manager.error.game_files_missing")
-
-            backup_info = self.load_backup_info(backup_id)
-            if not backup_info:
-                return False, tr("backup_manager.error.invalid_metadata")
-
-            if backup_info.status != BackupStatus.VALID:
-                raise RuntimeError(tr("backup_manager.error.invalid_backup"))
-            manifest = json.loads((backup_dir / self.MANIFEST_FILE).read_text(encoding="utf-8"))
-            if (
-                manifest["version"] != BackupSnapshot.MANIFEST_VERSION
-                or manifest["contract"] != BackupSnapshot.SNAPSHOT_CONTRACT
-                or manifest["game_code"] != backup_info.game_code
-                or Path(manifest["game_path"]) != backup_info.game_path.resolve()
-                or backup_info.file_count != len(manifest["tree"]["files"])
-                or backup_info.total_size != BackupSnapshot.byte_size(manifest["tree"])
-            ):
-                raise RuntimeError(tr("backup_manager.error.invalid_metadata"))
-            BackupSnapshot(game_files_dir).verify(manifest["tree"])
-
+            self._load_validated_backup(backup_id)
             return True, ""
+
+        except _BackupRejected as rejection:
+            return False, str(rejection)
 
         except Exception as e:
             logger.error("Failed to validate backup %s: %s", backup_id, e)
@@ -391,16 +380,12 @@ class BackupManager:
         self._check_paths(game_path)
 
         game_dir = game_path.resolve()
-        backup_info = self._load_and_validate_backup(backup_id)
-        if game_dir != backup_info.game_path.resolve():
+        backup = self._load_and_validate_backup(backup_id)
+        if game_dir != backup.info.game_path.resolve():
             raise RuntimeError(tr("backup_manager.error.different_target"))
 
-        backup_dir = self._backup_directory(backup_id)
-        backup_files_dir = backup_dir / self.GAME_FILES_DIR
-        manifest_path = backup_dir / self.MANIFEST_FILE
-
-        manifest_data = json.loads(manifest_path.read_text(encoding="utf-8"))
-        backup_manifest = BackupManifest.from_dict(manifest_data["tree"])
+        # The manifest just verified is the one restored: it is not read again.
+        backup_manifest = backup.manifest
         current_manifest = BackupManifest.from_dict(BackupSnapshot(game_dir).inventory())
         restored_manifest = backup_manifest.with_current_user_files(current_manifest)
 
@@ -412,7 +397,7 @@ class BackupManager:
         return RestoreTransaction(
             backup_id=backup_id,
             game_dir=game_dir,
-            backup_files_dir=backup_files_dir,
+            backup_files_dir=backup.game_files_dir,
             directory=transaction_dir,
             current_manifest=current_manifest,
             backup_manifest=backup_manifest,
@@ -587,19 +572,71 @@ class BackupManager:
             )
             shutil.copy2(source_path, destination_root / relative)
 
-    def _load_and_validate_backup(self, backup_id: str) -> BackupInfo:
-        """Load backup info and validate it's ready for restoration."""
+    def _load_and_validate_backup(self, backup_id: str) -> _ValidatedBackup:
+        """Load a backup ready for restoration, or raise the refusal shown to the user."""
+        try:
+            return self._load_validated_backup(backup_id)
+
+        except _UnreadableBackup as error:
+            raise RuntimeError(tr("backup_manager.error.invalid_backup")) from error
+
+        except _BackupRejected:
+            raise
+
+        except Exception as error:
+            logger.error("Failed to validate backup %s: %s", backup_id, error)
+            raise RuntimeError(
+                tr("backup_manager.error.validation_failed", error=str(error))
+            ) from error
+
+    def _load_validated_backup(self, backup_id: str) -> _ValidatedBackup:
+        """Read metadata and manifest once, then check them against the stored files.
+
+        Raises _UnreadableBackup when the metadata cannot be loaded, _BackupRejected
+        for the other refusals reported as is, and any other error for a backup
+        whose content does not match its manifest.
+        """
         if not self._backup_root:
-            raise RuntimeError(tr("backup_manager.error.no_backup_directory"))
+            raise _BackupRejected(tr("backup_manager.error.no_backup_directory"))
+
+        try:
+            backup_dir = self._backup_directory(backup_id)
+        except RuntimeError as error:
+            raise _UnreadableBackup(
+                tr("backup_manager.error.validation_failed", error=str(error))
+            ) from error
+
+        if not backup_dir.exists():
+            raise _UnreadableBackup(tr("backup_manager.error.backup_directory_not_found"))
+        if not (backup_dir / self.METADATA_FILE).exists():
+            raise _UnreadableBackup(tr("backup_manager.error.metadata_missing"))
+
+        game_files_dir = backup_dir / self.GAME_FILES_DIR
+        if not game_files_dir.exists():
+            raise _BackupRejected(tr("backup_manager.error.game_files_missing"))
 
         backup_info = self.load_backup_info(backup_id)
         if not backup_info:
+            raise _UnreadableBackup(tr("backup_manager.error.invalid_metadata"))
+        if backup_info.status != BackupStatus.VALID:
             raise RuntimeError(tr("backup_manager.error.invalid_backup"))
 
-        valid, error = self.validate_backup(backup_id)
-        if not valid:
-            raise RuntimeError(error)
-        return backup_info
+        manifest_data = json.loads(
+            (backup_dir / self.MANIFEST_FILE).read_text(encoding="utf-8")
+        )
+        manifest = BackupManifest.from_dict(manifest_data["tree"])
+        if (
+            manifest_data["version"] != BackupSnapshot.MANIFEST_VERSION
+            or manifest_data["contract"] != BackupSnapshot.SNAPSHOT_CONTRACT
+            or manifest_data["game_code"] != backup_info.game_code
+            or Path(manifest_data["game_path"]) != backup_info.game_path.resolve()
+            or backup_info.file_count != len(manifest.files)
+            or backup_info.total_size != manifest.byte_size
+        ):
+            raise RuntimeError(tr("backup_manager.error.invalid_metadata"))
+        BackupSnapshot(game_files_dir).verify(manifest.to_dict())
+
+        return _ValidatedBackup(backup_info, manifest, game_files_dir)
 
     def _save_metadata(self, backup_info: BackupInfo) -> None:
         backup_dir = self._backup_directory(backup_info.backup_id)

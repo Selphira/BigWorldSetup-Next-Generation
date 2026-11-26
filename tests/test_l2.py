@@ -189,6 +189,29 @@ def test_corrupt_backup_never_moves_game(
     assert BackupSnapshot(game).inventory() == before
 
 
+def test_restore_copies_the_manifest_it_validated(
+    backup: tuple[BackupManager, Path, str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    manager, game, identifier = backup
+    manifest_path = manager._backup_directory(identifier) / manager.MANIFEST_FILE
+    before = BackupSnapshot(game).inventory()
+    verify = BackupSnapshot.verify
+
+    def verify_then_tamper(snapshot: BackupSnapshot, expected: dict) -> None:
+        verify(snapshot, expected)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["tree"]["files"].pop("chitin.key", None)
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    monkeypatch.setattr(BackupSnapshot, "verify", verify_then_tamper)
+    success, _, error = manager.restore_backup(identifier, game, Mock())
+    monkeypatch.setattr(BackupSnapshot, "verify", verify)
+
+    assert success, error
+    assert BackupSnapshot(game).inventory() == before
+
+
 @pytest.mark.parametrize("boundary", ["prepared", "original_saved", "complete", "publish"])
 def test_interrupted_restore_retains_original_and_can_roll_back(
     backup: tuple[BackupManager, Path, str],
