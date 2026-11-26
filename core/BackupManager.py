@@ -98,7 +98,8 @@ class BackupManager:
             if not expected["files"]:
                 return False, None, tr("backup_manager.error.no_files_to_backup")
 
-            self._check_free_space(BackupSnapshot.byte_size(expected))
+            expected_manifest = BackupManifest.from_dict(expected)
+            self._check_free_space(expected_manifest.byte_size)
 
             backup_id = self._generate_backup_id(game_code)
             backup_dir = self._backup_directory(backup_id)
@@ -106,12 +107,7 @@ class BackupManager:
             game_files_dir = candidate / self.GAME_FILES_DIR
 
             game_files_dir.mkdir()
-            file_count = self._copy_files(
-                self._collect_backup_files(game_path),
-                game_path,
-                game_files_dir,
-                progress_callback,
-            )
+            self._copy_files(expected_manifest, game_path, game_files_dir, progress_callback)
 
             BackupSnapshot(game_files_dir).verify(expected)
             BackupSnapshot(game_path).verify(expected)
@@ -133,10 +129,8 @@ class BackupManager:
                 game_name=game_name,
                 game_path=game_path.resolve(),
                 creation_date=datetime.now(),
-                total_size=sum(
-                    f.stat().st_size for f in game_files_dir.rglob("*") if f.is_file()
-                ),
-                file_count=file_count,
+                total_size=expected_manifest.byte_size,
+                file_count=len(expected_manifest.files),
                 is_modded=self.is_game_modded(game_path),
                 custom_name=custom_name,
                 notes=notes,
@@ -434,7 +428,7 @@ class BackupManager:
         progress_callback(tr("backup_manager.progress.restoring_backup"), 0, 100)
         prepared_dir.mkdir()
         self._copy_files(
-            self._collect_backup_files(source_dir), source_dir, prepared_dir, progress_callback
+            transaction.backup_manifest, source_dir, prepared_dir, progress_callback
         )
         BackupSnapshot(prepared_dir).verify(transaction.backup_manifest.to_dict())
 
@@ -566,32 +560,32 @@ class BackupManager:
 
     def _copy_files(
         self,
-        files: list[Path],
+        manifest: BackupManifest,
         source_root: Path,
         destination_root: Path,
         progress_callback: ProgressCallback,
-    ) -> int:
-        """Copy files to backup directory with progress reporting."""
-        total_files = sum(1 for f in files if f.is_file())
-        copied_count = 0
+    ) -> None:
+        """Recreate the directories and copy the files listed by a verified manifest.
 
-        for file_path in files:
-            relative_path = file_path.relative_to(source_root)
-            destination_path = destination_root / relative_path
+        Every source is checked again just before its copy, since the tree may have
+        changed since it was inventoried; the caller verifies the copy afterwards.
+        """
+        for relative in manifest.directories:
+            (destination_root / relative).mkdir(parents=True, exist_ok=True)
 
-            if file_path.is_dir():
-                destination_path.mkdir(parents=True, exist_ok=True)
-            else:
-                progress_callback(
-                    tr("backup_manager.progress.copying_file", file=relative_path.name),
-                    copied_count,
-                    total_files,
-                )
-                destination_path.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(file_path, destination_path)
-                copied_count += 1
+        total_files = len(manifest.files)
+        for copied_count, relative in enumerate(manifest.files):
+            source_path = source_root / relative
+            PathSafety.reject_links(source_path)
+            if not source_path.is_file():
+                raise RuntimeError(tr("backup_manager.error.unsafe_path"))
 
-        return copied_count
+            progress_callback(
+                tr("backup_manager.progress.copying_file", file=source_path.name),
+                copied_count,
+                total_files,
+            )
+            shutil.copy2(source_path, destination_root / relative)
 
     def _load_and_validate_backup(self, backup_id: str) -> BackupInfo:
         """Load backup info and validate it's ready for restoration."""

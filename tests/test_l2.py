@@ -127,6 +127,35 @@ def test_full_snapshot_and_current_user_data(backup: tuple[BackupManager, Path, 
     assert json.loads((recovery / manager.JOURNAL_FILE).read_text())["phase"] == "complete"
 
 
+def test_backup_counters_and_empty_directories_follow_the_snapshot(tmp_path: Path) -> None:
+    game = tmp_path / "game"
+    for name, content in (("chitin.key", b"key"), ("data/sub/a.bif", b"abc"), ("b", b"")):
+        path = game / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(content)
+    (game / "empty" / "nested").mkdir(parents=True)
+    (game / "data" / "hollow").mkdir()
+    snapshot = BackupSnapshot(game).inventory()
+    manager = BackupManager()
+    manager.set_backup_root(tmp_path / "backups")
+
+    success, info, error = manager.create_backup("bg2ee", "BG2EE", game, Mock())
+
+    assert success, error
+    assert info is not None
+    assert (info.file_count, info.total_size) == (3, 6)
+    backup_files = tmp_path / "backups" / info.backup_id / manager.GAME_FILES_DIR
+    assert BackupSnapshot(backup_files).inventory() == snapshot
+    assert manager.validate_backup(info.backup_id) == (True, "")
+
+    (game / "empty" / "nested").rmdir()
+    (game / "data" / "hollow").rmdir()
+    success, _, error = manager.restore_backup(info.backup_id, game, Mock())
+
+    assert success, error
+    assert BackupSnapshot(game).inventory() == snapshot
+
+
 @pytest.mark.parametrize(
     "damage", ["content", "missing", "extra", "directory", "metadata", "manifest"]
 )
