@@ -27,6 +27,7 @@ from core.weidu_types import (
     ComponentStatus,
     InstallResult,
     ProcessCallbacks,
+    ProcessResult,
 )
 from core.WeiDUDebugParser import WeiDUDebugParser
 from core.WeiDULogParser import WeiDULogParser
@@ -324,9 +325,8 @@ class WeiDUInstallerEngine:
         runner: Any,
     ) -> dict[str, InstallResult]:
         """Cross-check the DEBUG of this attempt, the exit code and WeiDU.log."""
-        stdout = "".join(runner._stdout_lines)
-        stderr = "".join(runner._stderr_lines)
-        return_code = runner.process.returncode if runner.process else None
+        outcome = runner.result or ProcessResult(exit_code=None, stdout="", stderr="")
+        stdout, stderr, return_code = outcome.stdout, outcome.stderr, outcome.exit_code
 
         debug_file = self.debug_file(tp2)
         strings = self.get_weidu_strings(definition, language)

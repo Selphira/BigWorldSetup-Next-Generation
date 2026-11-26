@@ -8,26 +8,12 @@ for identifying mods, components, and options in a type-safe manner.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum, auto
 import logging
 from typing import Any
 
 from core.Mod import Component, Mod
 
 logger = logging.getLogger(__name__)
-
-# ============================================================================
-# Reference Type Enum
-# ============================================================================
-
-
-class ReferenceType(Enum):
-    MOD = auto()  # mod_id:*
-    COMPONENT = auto()  # mod_id:comp_key
-    MUC = auto()  # mod_id:choice_X
-    SUB_PROMPT = auto()  # mod_id:X.Y
-    SUB_OPTION = auto()  # mod_id:X.Y.Z
-
 
 # ============================================================================
 # Component Reference

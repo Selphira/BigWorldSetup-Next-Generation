@@ -241,7 +241,6 @@ class ModManager(LocalizedCacheManager):
         self.current_language = get_translator().current_language
         self.mods_data: dict[str, Mod] = {}
         self.revision: int = 0
-        self._category_count_cache: Counter | None = None
 
         self.custom_mods_dir.mkdir(parents=True, exist_ok=True)
 
@@ -374,7 +373,6 @@ class ModManager(LocalizedCacheManager):
         indexes.replace_catalogue(catalogue_indexes)
         self.mods_data.clear()
         self.mods_data.update(mods)
-        self._category_count_cache = None
         self.revision += 1
 
         logger.info(f"Loaded {len(self.mods_data)} mods for {language}")
@@ -480,7 +478,6 @@ class ModManager(LocalizedCacheManager):
         indexes.remove_mod(mod_id)
         indexes.add_catalogue(mod_indexes)
         self.mods_data.update(added_mods)
-        self._category_count_cache = None
         self.revision += 1
 
         logger.info(f"Successfully added mod: {mod_id}")

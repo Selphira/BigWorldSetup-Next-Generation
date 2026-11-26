@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 import re
 from typing import Any, cast
@@ -448,33 +448,3 @@ class RuleViolation:
     def icon(self) -> str:
         """Get icon for display."""
         return ICON_ERROR if self.is_error else ICON_WARNING if self.is_warning else ICON_INFO
-
-
-@dataclass
-class ValidationCache:
-    """Cache for validation results to improve performance."""
-
-    violations_by_component: dict[ComponentReference, list[RuleViolation]] = field(
-        default_factory=dict
-    )
-    selection_hash: int | None = None
-
-    def clear(self) -> None:
-        """Clear all cached data."""
-        self.violations_by_component.clear()
-        self.selection_hash = None
-
-    def get_violations(self, reference: ComponentReference) -> list[RuleViolation]:
-        """Get cached violations for a component."""
-        return self.violations_by_component.get(reference, [])
-
-    def get_icon(self, reference: ComponentReference) -> str:
-        """Get warning icon if component has violations."""
-        violations = self.get_violations(reference)
-        if not violations:
-            return ""
-
-        # Return icon based on highest severity
-        if any(v.is_error for v in violations):
-            return ICON_ERROR
-        return ICON_WARNING

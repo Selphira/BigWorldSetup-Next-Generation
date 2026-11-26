@@ -483,6 +483,10 @@ class ConditionEvaluator(Protocol):
         """Get missing components."""
         ...
 
+    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+        """Get matching components."""
+        ...
+
 
 class StandardCondition:
     """Evaluates standard source/target."""

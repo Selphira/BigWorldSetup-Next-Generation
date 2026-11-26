@@ -160,6 +160,25 @@ class InstallResult:
     evidence: AttemptEvidence | None = None
 
 
+@dataclass(frozen=True, slots=True)
+class ProcessResult:
+    """Outcome of one WeiDU process, published by the runner once it has exited.
+
+    Attributes:
+        exit_code: Process return code, None if the process never started or
+            could not be followed until its end
+        stdout: Whole standard output, prompts without newline included
+        stderr: Whole error output
+        launch_error: Error that prevented starting or following the process,
+            empty when the run went to its end
+    """
+
+    exit_code: int | None
+    stdout: str
+    stderr: str
+    launch_error: str = ""
+
+
 @dataclass
 class ProcessCallbacks:
     """Hooks called by the engine around one WeiDU process.

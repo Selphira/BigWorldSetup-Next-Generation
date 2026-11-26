@@ -9,7 +9,7 @@ from threading import Event
 from types import SimpleNamespace
 from unittest.mock import Mock
 
-from PySide6.QtCore import QThread, Slot
+from PySide6.QtCore import Qt, QThread, Slot
 from PySide6.QtWidgets import QMessageBox
 import pytest
 from pytestqt.qtbot import QtBot
@@ -40,6 +40,7 @@ from core.weidu_types import (
     ComponentStatus,
     InstallResult,
     ProcessCallbacks,
+    ProcessResult,
 )
 from core.WeiDUDebugParser import WeiDUDebugParser
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine
@@ -138,8 +139,7 @@ def components(*keys: str) -> list[SimpleNamespace]:
 
 def fake_runner(engine: WeiDUInstallerEngine, code: int | None, debug: str, log: str) -> Mock:
     runner = Mock()
-    runner._stdout_lines = runner._stderr_lines = []
-    runner.process = None if code is None else Mock(returncode=code)
+    runner.result = ProcessResult(code, "", "")
 
     def execute() -> None:
         engine.weidu_log.write_text(log, encoding="utf-8")
@@ -782,6 +782,61 @@ def test_interactive_process_emits_prompt_and_stops_on_eof(
     finally:
         runner.stop()
         runner.wait(1000)
+
+
+def finished_process(stdout: bytes, stderr: bytes, code: int) -> Mock:
+    """Process already exited, whose pipes still hold its whole output."""
+    streams = []
+    for content in (stdout, stderr):
+        reader, writer = os.pipe()
+        os.write(writer, content)
+        os.close(writer)
+        streams.append(os.fdopen(reader, encoding="utf-8"))
+    process = Mock(returncode=code, stdin=io.StringIO())
+    process.stdout, process.stderr = streams
+    process.poll.return_value = code
+    return process
+
+
+def test_process_result_holds_whole_output_and_exit_code(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    process = finished_process("Installing\nRéponse ? ".encode(), b"oops\n", 3)
+    monkeypatch.setattr("subprocess.Popen", Mock(return_value=process))
+    runner = ProcessRunner(["fixture"], tmp_path)
+    assert runner.result is None
+    runner.run()
+    assert runner.result == ProcessResult(3, "Installing\nRéponse ? ", "oops\n")
+
+
+def test_launch_failure_is_reported_in_process_result(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("subprocess.Popen", Mock(side_effect=OSError("weidu missing")))
+    runner = ProcessRunner(["fixture"], tmp_path)
+    errors = []
+    runner.process_error.connect(errors.append)
+    runner.run()
+    assert runner.result == ProcessResult(None, "", "", "weidu missing")
+    assert errors == ["weidu missing"]
+
+
+def test_queued_outputs_are_emitted_in_order_without_blocking_readers(tmp_path: Path) -> None:
+    runner = ProcessRunner(["fixture"], tmp_path)
+    received = []
+
+    def record(text: str, stream: str) -> None:
+        received.append((text, stream, runner._queue_lock.locked()))
+
+    runner.output_received.connect(record, Qt.ConnectionType.DirectConnection)
+    for text, stream in (("one\n", "stdout"), ("err", "stderr"), ("Réponse ? ", "stdout")):
+        runner._queue_output(text, stream)
+    runner._emit_queued_outputs()
+    assert received == [
+        ("one\n", "stdout", False),
+        ("err", "stderr", False),
+        ("Réponse ? ", "stdout", False),
+    ]
 
 
 def test_download_only_registers_extracted_payload_and_reconciles(

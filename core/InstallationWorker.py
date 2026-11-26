@@ -19,7 +19,13 @@ from core.InstallationJournal import InstallationJournal, Operation, OperationDe
 from core.models.PauseEntry import PauseEntry
 from core.RuleManager import RuleManager
 from core.TranslationManager import tr
-from core.weidu_types import ComponentInfo, ComponentStatus, InstallResult, ProcessCallbacks
+from core.weidu_types import (
+    ComponentInfo,
+    ComponentStatus,
+    InstallResult,
+    ProcessCallbacks,
+    ProcessResult,
+)
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine
 
 logger = logging.getLogger(__name__)
@@ -48,7 +54,6 @@ class ProcessRunner(QThread):
     """Process runner"""
 
     output_received = Signal(str, str)  # text, stream_type ("stdout"/"stderr")
-    process_finished = Signal(int, str, str)  # return_code, stdout, stderr
     process_error = Signal(str)
 
     def __init__(self, cmd: list[str], cwd: Path, input_lines: list[str] | None = None):
@@ -67,16 +72,23 @@ class ProcessRunner(QThread):
         self.process: subprocess.Popen | None = None
         self._stop_flag = False
         self._force_requested = threading.Event()
-        self._stdout_lines = []
-        self._stderr_lines = []
+        self._stdout_lines: list[str] = []
+        self._stderr_lines: list[str] = []
         self._lock = threading.Lock()
+        self._result: ProcessResult | None = None
 
         # Queue for thread-safe signal emission
-        self._output_queue = deque()
+        self._output_queue: deque[tuple[str, str]] = deque()
         self._queue_lock = threading.Lock()
 
-    def run(self):
+    @property
+    def result(self) -> ProcessResult | None:
+        """Outcome of the process, None until run() has returned."""
+        return self._result
+
+    def run(self) -> None:
         """Execute process with parallel stdout/stderr reading."""
+        launch_error = ""
         try:
             logger.debug("Starting process: %s", " ".join(str(c) for c in self.cmd))
             logger.debug("Working directory: %s", self.cwd)
@@ -137,29 +149,32 @@ class ProcessRunner(QThread):
             # Emit remaining outputs
             self._emit_queued_outputs()
 
-            # Get return code
-            return_code = self.process.returncode
-            logger.debug("Process completed with return code: %d", return_code)
-
-            # Compile final output
-            with self._lock:
-                stdout = "".join(self._stdout_lines)
-                stderr = "".join(self._stderr_lines)
-
-            logger.debug(
-                "Captured %d stdout lines, %d stderr lines",
-                len(self._stdout_lines),
-                len(self._stderr_lines),
-            )
+            logger.debug("Process completed with return code: %d", self.process.returncode)
 
             if self.process.stdin:
                 self.process.stdin.close()
 
-            self.process_finished.emit(return_code, stdout, stderr)
-
         except Exception as ex:
             logger.error("Process execution error: %s", ex)
-            self.process_error.emit(str(ex))
+            launch_error = str(ex)
+            self.process_error.emit(launch_error)
+
+        finally:
+            self._result = self._build_result(launch_error)
+
+    def _build_result(self, launch_error: str) -> ProcessResult:
+        """Join the captured output once; reader threads may still be appending."""
+        with self._lock:
+            stdout = "".join(self._stdout_lines)
+            stderr = "".join(self._stderr_lines)
+            logger.debug(
+                "Captured %d stdout chunks, %d stderr chunks",
+                len(self._stdout_lines),
+                len(self._stderr_lines),
+            )
+
+        exit_code = self.process.returncode if self.process else None
+        return ProcessResult(exit_code, stdout, stderr, launch_error)
 
     def _read_stream(self, stream, stream_name: str, buffer: list[str]):
         """Forward a process stream as it arrives, prompts without newline included."""
@@ -204,12 +219,17 @@ class ProcessRunner(QThread):
         with self._queue_lock:
             self._output_queue.append((text, stream_type))
 
-    def _emit_queued_outputs(self):
-        """Emit all queued outputs from QThread context."""
+    def _emit_queued_outputs(self) -> None:
+        """Emit queued outputs in arrival order, outside the lock.
+
+        Direct connections run their slots in this thread: holding the lock while
+        emitting would block the reader threads for as long as those slots last.
+        """
         with self._queue_lock:
-            while self._output_queue:
-                text, stream_type = self._output_queue.popleft()
-                self.output_received.emit(text, stream_type)
+            outputs, self._output_queue = self._output_queue, deque()
+
+        for text, stream_type in outputs:
+            self.output_received.emit(text, stream_type)
 
     def send_input(self, text: str) -> bool:
         """
