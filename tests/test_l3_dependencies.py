@@ -13,7 +13,7 @@ from core.InstallationJournal import InstallationJournal, Operation, RunPlan, Ru
 from core.InstallationWorker import InstallationWorker, UserDecision
 from core.Mod import Mod, SubComponent
 from core.RuleManager import RuleExpression, RuleManager, StandardCondition
-from core.Rules import DependencyMode, DependencyRule, IncompatibilityRule, OrderRule
+from core.Rules import DependencyMode, DependencyRule, IncompatibilityRule, OrderRule, Rule
 from core.SelectionImport import SelectionImport
 from core.StateManager import StateManager
 from core.ValidationOrchestrator import ValidationOrchestrator
@@ -624,3 +624,26 @@ def test_standard_condition_stops_at_the_decisive_reference(
 
     assert condition.is_satisfied(set()) is decisive_result
     skipped.is_selected_in.assert_not_called()
+
+
+def test_rules_of_a_component_follow_the_catalogue_order_of_each_revision(
+    rules: RuleManager,
+) -> None:
+    a, b = refs("a:0", "b:0")
+    catalogue_rules: list[Rule] = [
+        IncompatibilityRule.from_dict({"source": str(b), "target": str(a)}),
+        DependencyRule.from_dict({"source": "demo:1", "target": "a"}),
+        OrderRule.from_dict({"source": str(a), "target": str(b), "direction": "before"}),
+    ]
+    rules._all_rules = catalogue_rules
+    rules.rebuild_indexes()
+
+    returned = rules.get_rules_for_component(a)
+    returned.clear()
+
+    assert rules.get_rules_for_component(a) == catalogue_rules
+
+    rules._all_rules = catalogue_rules[::-1]
+    rules.rebuild_indexes()
+
+    assert rules.get_rules_for_component(a) == catalogue_rules[::-1]

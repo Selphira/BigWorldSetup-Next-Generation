@@ -278,12 +278,12 @@ class SuggestedOrder:
 class RuleIndexes:
     """Lookups derived from the rules and the catalogue, built aside then published together."""
 
-    rules_by_component: dict[ComponentReference, set[Rule]]
+    # Each list is in catalogue order, sorted once per revision
+    rules_by_component: dict[ComponentReference, list[Rule]]
     resolved_wildcards: dict[
         int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
     ]
     dependents_by_target: dict[ComponentReference, set[DependencyRule]]
-    rule_positions: dict[Rule, int]
     dependencies_by_source: dict[ComponentReference, list[DependencyRule]]
 
 
@@ -604,7 +604,7 @@ class RuleManager(LocalizedCacheManager):
 
         # Indexes
         self._indexes = IndexManager.get_indexes()
-        self._rules_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
+        self._rules_by_component: dict[ComponentReference, list[Rule]] = {}
         self._resolved_wildcards_cache: dict[
             int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
         ] = {}
@@ -612,7 +612,6 @@ class RuleManager(LocalizedCacheManager):
         self._dependents_by_target: dict[ComponentReference, set[DependencyRule]] = defaultdict(
             set
         )
-        self._rule_positions: dict[Rule, int] = {}
         self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = (
             defaultdict(list)
         )
@@ -778,7 +777,7 @@ class RuleManager(LocalizedCacheManager):
         """Build the lookups of rules against the current catalogue, without publishing them."""
         _, components_by_mod = self._get_all_known_components()
 
-        rules_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
+        rule_sets_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
         resolved_wildcards: dict[
             int, tuple[frozenset[ComponentReference], frozenset[ComponentReference]]
         ] = {}
@@ -799,13 +798,19 @@ class RuleManager(LocalizedCacheManager):
             resolved_wildcards[id(rule)] = (frozenset(sources), frozenset(targets))
 
             for ref in (*rule.sources, *rule.targets, *sources, *targets):
-                rules_by_component[ref].add(rule)
+                rule_sets_by_component[ref].add(rule)
+
+        # Equal rules share one entry, positioned at their last occurrence
+        rule_positions = {rule: idx for idx, rule in enumerate(rules)}
+        rules_by_component = {
+            ref: sorted(rule_set, key=rule_positions.__getitem__)
+            for ref, rule_set in rule_sets_by_component.items()
+        }
 
         return RuleIndexes(
             rules_by_component=rules_by_component,
             resolved_wildcards=resolved_wildcards,
             dependents_by_target=dependents_by_target,
-            rule_positions={rule: idx for idx, rule in enumerate(rules)},
             dependencies_by_source=dependencies_by_source,
         )
 
@@ -814,7 +819,6 @@ class RuleManager(LocalizedCacheManager):
         self._rules_by_component = indexes.rules_by_component
         self._resolved_wildcards_cache = indexes.resolved_wildcards
         self._dependents_by_target = indexes.dependents_by_target
-        self._rule_positions = indexes.rule_positions
         self._dependencies_by_source = indexes.dependencies_by_source
         self.revision += 1
 
@@ -1126,11 +1130,11 @@ class RuleManager(LocalizedCacheManager):
     # ========================================
 
     def get_rules_for_component(self, reference: ComponentReference) -> list[Rule]:
-        """Get presentation rules in catalogue order for either side of a reference."""
-        return sorted(
-            self._rules_by_component.get(reference, ()),
-            key=lambda rule: self._rule_positions[rule],
-        )
+        """Get presentation rules in catalogue order for either side of a reference.
+
+        The list is a copy: callers may change it without altering the published index.
+        """
+        return list(self._rules_by_component.get(reference, ()))
 
     def get_selection_violations(self, reference: ComponentReference) -> list[RuleViolation]:
         """Get cached selection violations for a specific component."""
