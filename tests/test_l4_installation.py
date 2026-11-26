@@ -443,6 +443,36 @@ def test_debug_parser_keeps_the_diagnostics_of_each_component(tmp_path: Path) ->
     }
 
 
+def test_debug_attempt_with_invalid_bytes_matches_both_readings(tmp_path: Path) -> None:
+    file = tmp_path / "setup.DEBUG"
+    file.write_bytes(
+        b"Installing [A\xe9] [v1]\r\n"
+        b"WARNING: bad \xff byte\r\n"
+        b"ERROR: missing \xfe file\r"
+        b"SUCCESSFULLY INSTALLED A\xe9\r\n"
+    )
+
+    attempt = WeiDUDebugParser.read_attempt(file)
+
+    assert attempt.report == WeiDUDebugParser.read_report(file)
+    assert (attempt.warnings, attempt.errors, attempt.content) == (
+        WeiDUDebugParser.extract_warnings_errors(file)
+    )
+    assert attempt.report.statuses == {0: ComponentStatus.WARNING}
+    assert attempt.report.messages == {0: ["WARNING: bad � byte", "ERROR: missing � file"]}
+    assert attempt.errors == ["ERROR: missing  file"]
+    assert attempt.content == (
+        "Installing [A] [v1]\nWARNING: bad  byte\nERROR: missing  file\nSUCCESSFULLY INSTALLED A\n"
+    )
+
+
+def test_debug_attempt_of_a_missing_file_is_empty(tmp_path: Path) -> None:
+    attempt = WeiDUDebugParser.read_attempt(tmp_path / "setup.DEBUG")
+
+    assert attempt.report.statuses == {}
+    assert (attempt.warnings, attempt.errors, attempt.content) == ([], [], "")
+
+
 def test_warning_result_carries_its_own_messages(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

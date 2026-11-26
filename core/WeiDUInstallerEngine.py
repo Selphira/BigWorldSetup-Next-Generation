@@ -317,10 +317,8 @@ class WeiDUInstallerEngine:
 
         debug_file = self.debug_file(tp2)
         strings = self.get_weidu_strings(definition, language)
-        _, errors, debug_content = self.debug_parser.extract_warnings_errors(
-            debug_file, strings=strings
-        )
-        report = self.debug_parser.read_report(debug_file, strings=strings)
+        attempt = self.debug_parser.read_attempt(debug_file, strings=strings)
+        report, errors, debug_content = attempt.report, attempt.errors, attempt.content
         statuses = report.statuses
         self._restore_debug(tp2)
 

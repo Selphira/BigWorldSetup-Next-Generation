@@ -29,6 +29,23 @@ class DebugReport:
     messages: dict[int, list[str]] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class DebugAttempt:
+    """Everything a single read of a DEBUG file tells about one WeiDU attempt.
+
+    Attributes:
+        report: Status and diagnostics of each component reached
+        warnings: Lines starting with the WeiDU warning prefix
+        errors: Lines starting with the WeiDU error prefix
+        content: Whole text of the file, undecodable bytes dropped
+    """
+
+    report: DebugReport = field(default_factory=DebugReport)
+    warnings: list[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    content: str = ""
+
+
 class _DebugTranscript:
     """Outcome of the components reached by one WeiDU process, in launch order.
 
@@ -265,18 +282,42 @@ class WeiDUDebugParser:
         Returns:
             Report by launch index; empty when the file cannot be read
         """
-        file_path = Path(file_path)
-
-        if not file_path.exists():
+        data = WeiDUDebugParser._read_bytes(Path(file_path))
+        if data is None:
             return DebugReport()
+        return WeiDUDebugParser._interpret(data, strings or DEFAULT_STRINGS)
 
-        try:
-            lines = file_path.read_text(encoding="utf-8", errors="replace").splitlines()
-        except OSError as e:
-            logger.error("Error reading debug log %s: %s", file_path, e)
-            return DebugReport()
+    @staticmethod
+    def read_attempt(
+        file_path: str | Path, strings: dict[str, str] | None = None
+    ) -> DebugAttempt:
+        """
+        Read a DEBUG file once and give both of its interpretations.
 
-        return _DebugTranscript(strings or DEFAULT_STRINGS).read(lines)
+        The bytes are decoded twice, as `read_report` and
+        `extract_warnings_errors` would, so the results stay identical to
+        theirs while the file cannot change between the two readings.
+
+        Args:
+            file_path: Path to DEBUG file
+            strings: Dictionary of translated WeiDU strings
+
+        Returns:
+            Report, prefixed lines and content; empty when the file cannot be read
+        """
+        data = WeiDUDebugParser._read_bytes(Path(file_path))
+        if data is None:
+            return DebugAttempt()
+
+        strings = strings or DEFAULT_STRINGS
+        content = WeiDUDebugParser._decode(data, errors="ignore")
+        warnings, errors = WeiDUDebugParser._prefixed_lines(content, strings)
+        return DebugAttempt(
+            report=WeiDUDebugParser._interpret(data, strings),
+            warnings=warnings,
+            errors=errors,
+            content=content,
+        )
 
     @staticmethod
     def component_start_matcher(strings: dict[str, str] | None = None) -> Callable[[str], bool]:
@@ -297,25 +338,52 @@ class WeiDUDebugParser:
         Returns:
             Tuple of (warnings, errors, full_content)
         """
-        warnings = []
-        errors = []
-        content = ""
-
-        if not debug_file.exists():
-            return warnings, errors, content
+        data = WeiDUDebugParser._read_bytes(debug_file)
+        if data is None:
+            return [], [], ""
 
         strings = strings or DEFAULT_STRINGS
+        content = WeiDUDebugParser._decode(data, errors="ignore")
+        warnings, errors = WeiDUDebugParser._prefixed_lines(content, strings)
+        return warnings, errors, content
+
+    # ------------------------------------------------------------------
+    # Reading helpers
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _read_bytes(file_path: Path) -> bytes | None:
+        """Raw content of the DEBUG file, or None when it is absent or unreadable."""
+        if not file_path.exists():
+            return None
+        try:
+            return file_path.read_bytes()
+        except OSError as e:
+            logger.error("Error reading debug log %s: %s", file_path, e)
+            return None
+
+    @staticmethod
+    def _decode(data: bytes, errors: str) -> str:
+        """UTF-8 text with the universal newlines applied by `Path.read_text()`."""
+        return data.decode("utf-8", errors=errors).replace("\r\n", "\n").replace("\r", "\n")
+
+    @staticmethod
+    def _interpret(data: bytes, strings: dict[str, str]) -> DebugReport:
+        """Outcome of each component, invalid bytes shown as replacement characters."""
+        lines = WeiDUDebugParser._decode(data, errors="replace").splitlines()
+        return _DebugTranscript(strings).read(lines)
+
+    @staticmethod
+    def _prefixed_lines(content: str, strings: dict[str, str]) -> tuple[list[str], list[str]]:
+        """Lines starting with the WeiDU warning prefix, then with the error prefix."""
         warning_pattern = re.compile(rf"^{re.escape(strings['warning'])}", re.IGNORECASE)
         error_pattern = re.compile(rf"^{re.escape(strings['error'])}", re.IGNORECASE)
 
-        try:
-            content = debug_file.read_text(encoding="utf-8", errors="ignore")
-            for line in content.split("\n"):
-                if warning_pattern.match(line):
-                    warnings.append(line)
-                elif error_pattern.match(line):
-                    errors.append(line)
-        except Exception as e:
-            logger.warning("Could not read debug file: %s", e)
-
-        return warnings, errors, content
+        warnings: list[str] = []
+        errors: list[str] = []
+        for line in content.split("\n"):
+            if warning_pattern.match(line):
+                warnings.append(line)
+            elif error_pattern.match(line):
+                errors.append(line)
+        return warnings, errors
