@@ -419,20 +419,23 @@ def test_locked_file_fails_then_retry_succeeds(
     (game / "override").mkdir()
     (game / "override" / "a.itm").write_text("old")
     info = extraction_for(archive, game, make_mod(archive))
-    real_move = shutil.move
+    real_replace = os.replace
 
-    def locked_move(source: str, destination: str) -> str:
+    def locked_replace(
+        source: str | os.PathLike[str], destination: str | os.PathLike[str]
+    ) -> None:
         if Path(source).name == "a.itm":
             raise PermissionError("locked")
-        return real_move(source, destination)
+        real_replace(source, destination)
 
-    monkeypatch.setattr("core.DirectoryMerger.shutil.move", locked_move)
+    monkeypatch.setattr("core.DirectoryMerger.os.replace", locked_replace)
     with pytest.raises(PreparationError, match="a.itm"):
         pipeline_for(registry).prepare(info)
     assert info.staging_path.exists()
     assert not info.manifest_path.exists()
+    assert (game / "override" / "a.itm").read_text() == "old"
 
-    monkeypatch.setattr("core.DirectoryMerger.shutil.move", real_move)
+    monkeypatch.setattr("core.DirectoryMerger.os.replace", real_replace)
     pipeline_for(registry).prepare(info)
     assert (game / "override" / "a.itm").read_text() == "a"
     assert not info.staging_path.exists()

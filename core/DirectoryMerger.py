@@ -1,8 +1,12 @@
 from enum import Enum
 import logging
+import os
 from pathlib import Path
 import shutil
 from typing import Callable
+import uuid
+
+from constants import MERGE_TEMPORARY_PREFIX
 
 logger = logging.getLogger(__name__)
 
@@ -126,10 +130,8 @@ class DirectoryMerger:
             # Perform the merge
             self._merge_recursive(source, destination, result)
 
-            # Remove source directory if requested and merge was successful
             if remove_source and result.success:
-                self._remove_directory_tree(source)
-                logger.info(f"Removed source directory: {source}")
+                self._remove_source(source)
 
         except Exception as e:
             logger.error(f"Unexpected error during merge: {e}", exc_info=True)
@@ -138,8 +140,17 @@ class DirectoryMerger:
         logger.info(f"Merge completed: {result}")
         return result
 
+    @staticmethod
+    def _remove_source(source: Path) -> None:
+        """Remove the emptied source; a leftover does not undo a completed merge."""
+        try:
+            shutil.rmtree(source)
+            logger.info(f"Removed source directory: {source}")
+        except OSError as e:
+            logger.error(f"Failed to remove source directory {source}: {e}")
+
     # ========================================================================
-    # Internal Methods
+    # Merge Traversal
     # ========================================================================
 
     def _merge_recursive(self, source: Path, destination: Path, result: MergeResult) -> None:
@@ -184,29 +195,39 @@ class DirectoryMerger:
             source_file: Source file path
             dest_file: Destination file path
             result: MergeResult to update
+
+        Raises:
+            OSError: If the file cannot be placed; the destination is then unchanged
         """
-        # Call progress callback if provided
         if self.progress_callback:
             self.progress_callback(source_file, dest_file)
 
-        # Handle conflict if destination exists
-        if dest_file.exists() and not self._handle_file_conflict(
-            source_file, dest_file, result
-        ):
-            return  # Conflict not resolved, skip this file
-
-        # Move/copy the file
-        try:
-            shutil.move(str(source_file), str(dest_file))
+        if not dest_file.exists():
+            self._replace_file(source_file, dest_file)
             result.moved_files += 1
             logger.debug(f"Moved file: {source_file.name}")
+            return
 
-        except (PermissionError, OSError) as e:
-            logger.error(f"Failed to move file {source_file}: {e}")
-            result.errors.append((source_file, str(e)))
+        if self.conflict_resolution == ConflictResolution.SKIP:
+            logger.debug(f"Skipping existing file: {dest_file}")
+            result.skipped += 1
+            return
 
-            if self.conflict_resolution == ConflictResolution.FAIL:
-                raise
+        if self.conflict_resolution == ConflictResolution.FAIL:
+            raise FileExistsError(f"File already exists: {dest_file}")
+
+        if dest_file.is_dir():
+            raise IsADirectoryError(f"A directory exists where a file is expected: {dest_file}")
+
+        if self.conflict_resolution == ConflictResolution.BACKUP:
+            backup_path = self._create_backup(dest_file)
+            result.backed_up += 1
+            self._replace_file(source_file, dest_file)
+            result.moved_files += 1
+            logger.debug(f"Backed up file: {dest_file} -> {backup_path}")
+            return
+
+        self._overwrite_file(source_file, dest_file, result)
 
     def _merge_directory(self, source_dir: Path, dest_dir: Path, result: MergeResult) -> None:
         """Merge a directory.
@@ -215,144 +236,144 @@ class DirectoryMerger:
             source_dir: Source directory path
             dest_dir: Destination directory path
             result: MergeResult to update
+
+        Raises:
+            OSError: If the directory cannot be placed; the destination is then unchanged
         """
-        # Call progress callback if provided
         if self.progress_callback:
             self.progress_callback(source_dir, dest_dir)
 
-        # If destination doesn't exist, simple move
         if not dest_dir.exists():
-            try:
-                shutil.move(str(source_dir), str(dest_dir))
-                result.moved_dirs += 1
-                logger.debug(f"Moved directory: {source_dir.name}")
-                return
-            except (PermissionError, OSError) as e:
-                logger.error(f"Failed to move directory {source_dir}: {e}")
-                result.errors.append((source_dir, str(e)))
+            shutil.move(str(source_dir), str(dest_dir))
+            result.moved_dirs += 1
+            logger.debug(f"Moved directory: {source_dir.name}")
+            return
 
-                if self.conflict_resolution == ConflictResolution.FAIL:
-                    raise
-                return
-
-        # Destination exists - handle based on strategy
         if self.conflict_resolution == ConflictResolution.SKIP:
             logger.debug(f"Skipping existing directory: {dest_dir}")
             result.skipped += 1
             return
 
-        if self.conflict_resolution == ConflictResolution.OVERWRITE:
-            # Remove existing and move new
-            self._remove_directory_tree(dest_dir)
-            shutil.move(str(source_dir), str(dest_dir))
-            result.moved_dirs += 1
-            result.overwritten += 1
-            result.overwritten_paths.append(dest_dir)
-            logger.debug(f"Overwrote directory: {dest_dir}")
-            return
+        if self.conflict_resolution == ConflictResolution.FAIL:
+            raise FileExistsError(f"Directory already exists: {dest_dir}")
 
-        if self.conflict_resolution == ConflictResolution.BACKUP:
-            # Backup existing and move new
-            backup_path = self._create_backup(dest_dir)
-            if backup_path:
-                result.backed_up += 1
-            shutil.move(str(source_dir), str(dest_dir))
-            result.moved_dirs += 1
-            logger.debug(f"Backed up and moved directory: {dest_dir}")
-            return
+        if not dest_dir.is_dir():
+            raise NotADirectoryError(f"A file exists where a directory is expected: {dest_dir}")
 
         if self.conflict_resolution == ConflictResolution.MERGE:
-            # Recursively merge contents
             self._merge_recursive(source_dir, dest_dir, result)
             result.moved_dirs += 1
             return
 
-        if self.conflict_resolution == ConflictResolution.FAIL:
-            raise FileExistsError(f"Directory already exists: {dest_dir}")
-
-    def _handle_file_conflict(
-        self, source_file: Path, dest_file: Path, result: MergeResult
-    ) -> bool:
-        """Handle conflict when destination file exists.
-
-        Args:
-            source_file: Source file path
-            dest_file: Destination file path
-            result: MergeResult to update
-
-        Returns:
-            True if conflict was resolved and file can be moved, False to skip
-        """
-        if self.conflict_resolution == ConflictResolution.MERGE:
-            logger.debug(f"Overwriting file (merge mode): {dest_file}")
-            dest_file.unlink()
-            result.overwritten += 1
-            result.overwritten_paths.append(dest_file)
-            return True
-
-        if self.conflict_resolution == ConflictResolution.SKIP:
-            logger.debug(f"Skipping existing file: {dest_file}")
-            result.skipped += 1
-            return False
-
-        if self.conflict_resolution == ConflictResolution.OVERWRITE:
-            logger.debug(f"Overwriting file: {dest_file}")
-            dest_file.unlink()
-            result.overwritten += 1
-            result.overwritten_paths.append(dest_file)
-            return True
-
         if self.conflict_resolution == ConflictResolution.BACKUP:
-            backup_path = self._create_backup(dest_file)
-            if backup_path:
-                result.backed_up += 1
-                logger.debug(f"Backed up file: {dest_file} -> {backup_path}")
-            return True
+            backup_dir = self._backup_path(dest_dir)
+            self._swap_directory(source_dir, dest_dir, backup_dir)
+            result.backed_up += 1
+            result.moved_dirs += 1
+            logger.debug(f"Backed up directory: {dest_dir} -> {backup_dir}")
+            return
 
-        if self.conflict_resolution == ConflictResolution.FAIL:
-            raise FileExistsError(f"File already exists: {dest_file}")
+        # OVERWRITE: the original is only deleted once the new directory is in place
+        replaced_dir = self._temporary_sibling(dest_dir)
+        self._swap_directory(source_dir, dest_dir, replaced_dir)
+        result.moved_dirs += 1
+        result.overwritten += 1
+        result.overwritten_paths.append(dest_dir)
+        logger.debug(f"Overwrote directory: {dest_dir}")
+        shutil.rmtree(replaced_dir)
 
-        return False
+    # ========================================================================
+    # Placement
+    # ========================================================================
 
-    def _create_backup(self, path: Path) -> Path | None:
-        """Create a backup of a file or directory.
+    def _overwrite_file(self, source_file: Path, dest_file: Path, result: MergeResult) -> None:
+        """Replace an existing file, as MERGE and OVERWRITE share the same policy."""
+        self._replace_file(source_file, dest_file)
+        result.moved_files += 1
+        result.overwritten += 1
+        result.overwritten_paths.append(dest_file)
+        logger.debug(f"Overwrote file ({self.conflict_resolution.value}): {dest_file}")
+
+    def _replace_file(self, source_file: Path, dest_file: Path) -> None:
+        """Move a file onto its destination without deleting the destination first.
+
+        ``os.replace`` swaps the file atomically, so a failure leaves both the
+        source and the existing destination untouched. Across volumes the file
+        is first copied next to the destination, and the source is only
+        removed once the replacement is done.
+        """
+        if self._is_same_volume(source_file, dest_file.parent):
+            os.replace(source_file, dest_file)
+            return
+
+        temporary_file = self._temporary_sibling(dest_file)
+        try:
+            shutil.copy2(source_file, temporary_file)
+            os.replace(temporary_file, dest_file)
+        except OSError:
+            temporary_file.unlink(missing_ok=True)
+            raise
+        source_file.unlink()
+
+    @staticmethod
+    def _swap_directory(source_dir: Path, dest_dir: Path, aside_dir: Path) -> None:
+        """Rename the existing directory aside, then move the source in its place.
+
+        Renaming first avoids ``shutil.move`` nesting the source inside the
+        existing directory. If the move fails, the original is renamed back.
+        """
+        os.rename(dest_dir, aside_dir)
+        try:
+            shutil.move(str(source_dir), str(dest_dir))
+        except OSError:
+            if dest_dir.exists():
+                logger.error(f"Partial move into {dest_dir}; original kept at {aside_dir}")
+            else:
+                os.rename(aside_dir, dest_dir)
+            raise
+
+    @staticmethod
+    def _is_same_volume(path: Path, directory: Path) -> bool:
+        """Tell whether a rename from path into directory stays on one volume."""
+        return path.stat().st_dev == directory.stat().st_dev
+
+    @staticmethod
+    def _temporary_sibling(path: Path) -> Path:
+        """Return an unused name next to path, on the same volume."""
+        return path.with_name(f"{MERGE_TEMPORARY_PREFIX}{path.name}-{uuid.uuid4().hex}")
+
+    # ========================================================================
+    # Backup
+    # ========================================================================
+
+    def _create_backup(self, file_path: Path) -> Path:
+        """Copy a file next to itself before it is replaced.
 
         Args:
-            path: Path to backup
+            file_path: File to back up
 
         Returns:
-            Path to backup, or None if backup failed
+            Path to the backup copy
+
+        Raises:
+            OSError: If the copy fails; no partial backup is left behind
         """
+        backup_path = self._backup_path(file_path)
+        try:
+            shutil.copy2(file_path, backup_path)
+        except OSError as e:
+            logger.error(f"Failed to create backup of {file_path}: {e}")
+            backup_path.unlink(missing_ok=True)
+            raise
+        return backup_path
+
+    def _backup_path(self, path: Path) -> Path:
+        """Return the first unused backup name for path."""
         backup_path = path.parent / f"{path.name}{self.backup_suffix}"
 
-        # Find unique backup name if needed
         counter = 1
         while backup_path.exists():
             backup_path = path.parent / f"{path.name}{self.backup_suffix}.{counter}"
             counter += 1
 
-        try:
-            if path.is_file():
-                shutil.copy2(str(path), str(backup_path))
-            elif path.is_dir():
-                shutil.copytree(str(path), str(backup_path))
-
-            logger.debug(f"Created backup: {backup_path}")
-            return backup_path
-
-        except (PermissionError, OSError) as e:
-            logger.error(f"Failed to create backup of {path}: {e}")
-            return None
-
-    @staticmethod
-    def _remove_directory_tree(path: Path) -> None:
-        """Safely remove a directory tree.
-
-        Args:
-            path: Directory to remove
-        """
-        try:
-            shutil.rmtree(str(path))
-        except (PermissionError, OSError) as e:
-            logger.error(f"Failed to remove directory {path}: {e}")
-            # Not critical, continue
+        return backup_path
