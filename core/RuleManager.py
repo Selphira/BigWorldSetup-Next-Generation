@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from enum import Enum
 from graphlib import CycleError, TopologicalSorter
@@ -286,9 +287,22 @@ class RuleIndexes:
     dependencies_by_source: dict[ComponentReference, list[DependencyRule]]
 
 
+@dataclass(frozen=True, slots=True)
+class OrderContext:
+    """What an order validation depends on besides the sequence itself."""
+
+    revision: int
+    earlier: frozenset[ComponentReference]
+    later: frozenset[ComponentReference]
+    # The whole selection, SUB answers included: ordering requirements are conditioned on it
+    selection: frozenset[ComponentReference]
+
+
 @dataclass
 class ValidationState:
-    """Valdiation state."""
+    """Order findings of one sequence, valid for the context they were computed in."""
+
+    context: OrderContext | None = None
 
     positions: dict[ComponentReference, int] = field(default_factory=dict)
 
@@ -598,7 +612,7 @@ class RuleManager(LocalizedCacheManager):
         self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = (
             defaultdict(list)
         )
-        self._last_selection_hash: int | None = None
+        self._last_selection_key: tuple[int, frozenset[ComponentReference]] | None = None
 
     # ========================================
     # CACHE MANAGEMENT
@@ -801,7 +815,7 @@ class RuleManager(LocalizedCacheManager):
         self.revision += 1
 
         self._validation_states.clear()
-        self._last_selection_hash = None
+        self._last_selection_key = None
         self._indexes.clear_selection_violations()
         self._indexes.clear_order_violations()
 
@@ -814,12 +828,12 @@ class RuleManager(LocalizedCacheManager):
     ) -> list[RuleViolation]:
         """Validate component selection against dependency and incompatibility rules."""
         references = [reference for reference in selected_components if not reference.is_mod()]
-        selection_hash = hash(frozenset(references))
-        if self._last_selection_hash == selection_hash:
+        selection_key = (self.revision, frozenset(references))
+        if self._last_selection_key == selection_key:
             return self._get_all_cached_selection_violations()
 
         self._indexes.clear_selection_violations()
-        self._last_selection_hash = selection_hash
+        self._last_selection_key = selection_key
 
         violations = self.selection_violations(set(references))
         for violation in violations:
@@ -975,12 +989,18 @@ class RuleManager(LocalizedCacheManager):
         selection = selection if selection is not None else earlier | set(install_order)
         choices = self._selected_options(selection)
         earlier = earlier | {option for base in earlier for option in choices.get(base, ())}
+        context = OrderContext(
+            self.revision, frozenset(earlier), frozenset(later), frozenset(selection)
+        )
+
+        # Only moves are incremental: any other change of context needs a full validation.
         state_key = (game_id, seq_idx)
         state = self._validation_states.get(state_key)
-        full_validation = state is None or not moved_components
+        full_validation = state is None or not moved_components or state.context != context
         if state is None:
             state = ValidationState()
             self._validation_states[state_key] = state
+        state.context = context
         state.update_positions(install_order)
 
         changed = install_order if full_validation else moved_components
@@ -994,11 +1014,7 @@ class RuleManager(LocalizedCacheManager):
         obsolete = (
             list(state.violations_by_rule) if full_validation else map(id, affected_rules)
         )
-        for rule_id in obsolete:
-            for violation in state.violations_by_rule.pop(rule_id, []):
-                for ref in violation.affected_components:
-                    entries = self._indexes.order_violation_index.get(ref, [])
-                    entries[:] = [entry for entry in entries if entry is not violation]
+        self._withdraw_order_violations(state, obsolete)
 
         for rule in affected_rules:
             rule_id = id(rule)
@@ -1079,14 +1095,25 @@ class RuleManager(LocalizedCacheManager):
             return source_pos > target_pos
         return source_pos < target_pos
 
+    def _withdraw_order_violations(
+        self, state: ValidationState, rule_ids: Iterable[int]
+    ) -> None:
+        """Forget a sequence's findings for these rules, in the state and in the shared index."""
+        for rule_id in rule_ids:
+            for violation in state.violations_by_rule.pop(rule_id, []):
+                for ref in violation.affected_components:
+                    entries = self._indexes.order_violation_index.get(ref, [])
+                    entries[:] = [entry for entry in entries if entry is not violation]
+
     def _clear_game_states(self, game_id: str | None) -> None:
-        """Clean up validation states for a specific game."""
+        """Clean up validation states for a specific game, withdrawing their published findings."""
         if game_id is None:
             return
 
         keys_to_remove = [key for key in self._validation_states if key[0] == game_id]
         for key in keys_to_remove:
-            del self._validation_states[key]
+            state = self._validation_states.pop(key)
+            self._withdraw_order_violations(state, list(state.violations_by_rule))
 
         logger.debug(f"Cleared {len(keys_to_remove)} validation states for game {game_id}")
 
