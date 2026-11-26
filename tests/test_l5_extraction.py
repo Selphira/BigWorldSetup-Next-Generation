@@ -182,6 +182,39 @@ def test_safe_zip_is_extracted_with_its_counts(tmp_path: Path) -> None:
     assert (tmp_path / "staging" / "demo" / "demo.tp2").read_text() == TP2_V1
 
 
+def test_wide_tree_with_empty_directories_keeps_its_counts(tmp_path: Path) -> None:
+    files = {f"demo/data/file{index:03}.txt": "x" * index for index in range(200)}
+    archive = tmp_path / "wide.zip"
+    with zipfile.ZipFile(archive, "w") as stream:
+        for name, content in files.items():
+            stream.writestr(name, content)
+        stream.writestr("demo/empty/", "")
+        stream.writestr("demo/data/nested/void/", "")
+
+    result = ArchiveExtractor.extract_archive(archive, tmp_path / "staging")
+
+    # Directories: demo, data, empty, nested, void
+    assert result and result.entries == len(files) + 5
+    assert result.size == sum(len(content) for content in files.values())
+
+
+@pytest.mark.skipif(os.name != "nt", reason="NTFS junctions only exist on Windows")
+def test_junction_written_deep_in_the_tree_is_refused(tmp_path: Path) -> None:
+    import _winapi
+
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    staging = tmp_path / "staging"
+    (staging / "demo" / "data").mkdir(parents=True)
+    (staging / "demo" / "data" / "file.txt").write_text("x")
+    _winapi.CreateJunction(str(outside), str(staging / "demo" / "data" / "escape"))
+
+    result = ArchiveExtractor._verify_tree(staging, ExtractionLimits())
+
+    assert result.failure is ExtractionFailure.LINK
+    assert Path(result.detail) == Path("demo/data/escape")
+
+
 # ----------------------------------------------------------------------
 # 7-Zip and executables
 # ----------------------------------------------------------------------

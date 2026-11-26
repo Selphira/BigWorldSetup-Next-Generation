@@ -285,26 +285,48 @@ class ArchiveExtractor:
             return ExtractionResult.failed(ExtractionFailure.DISK_SPACE, str(total))
         return ExtractionResult(entries=len(entries), size=total)
 
-    @staticmethod
-    def _verify_tree(destination: Path, limits: ExtractionLimits) -> ExtractionResult:
+    @classmethod
+    def _verify_tree(cls, destination: Path, limits: ExtractionLimits) -> ExtractionResult:
         """Check what was actually written: no link and within the quotas."""
         root = destination.resolve()
         entries = size = 0
         for current, dirs, files in os.walk(destination, followlinks=False):
-            for name in (*dirs, *files):
-                path = Path(current) / name
-                if path.is_symlink() or path.is_junction():
-                    return ExtractionResult.failed(
-                        ExtractionFailure.LINK, str(path.relative_to(destination))
-                    )
-                if not path.resolve().is_relative_to(root):
-                    return ExtractionResult.failed(ExtractionFailure.UNSAFE_PATH, str(path))
-                entries += 1
-                if name in files:
-                    size += path.stat().st_size
+            directory = Path(current)
+
+            for name in dirs:
+                refused = cls._refuse_entry(directory / name, destination, root)
+                if refused is not None:
+                    return refused
+
+            for name in files:
+                path = directory / name
+                refused = cls._refuse_entry(path, destination)
+                if refused is not None:
+                    return refused
+                size += path.stat().st_size
+
+            entries += len(dirs) + len(files)
             if entries > limits.max_entries or size > limits.max_bytes:
                 return ExtractionResult.failed(ExtractionFailure.QUOTA, str(destination))
         return ExtractionResult(entries=entries, size=size)
+
+    @staticmethod
+    def _refuse_entry(
+        path: Path, destination: Path, root: Path | None = None
+    ) -> ExtractionResult | None:
+        """Return the refusal of a written entry, or ``None`` when it is acceptable.
+
+        The walk is top-down and refuses links before descending, so every parent of
+        ``path`` is a confined real directory. Only directories need the costly
+        ``resolve()`` (given ``root``): a regular file inside them cannot escape.
+        """
+        if path.is_symlink() or path.is_junction():
+            return ExtractionResult.failed(
+                ExtractionFailure.LINK, str(path.relative_to(destination))
+            )
+        if root is not None and not path.resolve().is_relative_to(root):
+            return ExtractionResult.failed(ExtractionFailure.UNSAFE_PATH, str(path))
+        return None
 
     # ------------------------------------------------------------------
     # Formats
