@@ -16,6 +16,7 @@ from pytestqt.qtbot import QtBot
 
 from constants import EXTRACT_DIR, PROGRESS_IDLE_FORMAT
 from core import DownloadManager as downloads
+from core import WeiDULogParser as weidu_log_module
 from core.ExtractionManifest import ExtractionManifest
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import (
@@ -30,6 +31,7 @@ from core.InstallationJournal import (
 from core.InstallationReconciler import InstallationReconciler
 from core.InstallationWorker import InstallationWorker, ProcessRunner, UserDecision
 from core.Mod import Mod
+from core.OrderImportExportManager import FileReadError, OrderImportExportManager
 from core.TranslationManager import tr
 from core.weidu_types import (
     DEFAULT_STRINGS,
@@ -533,6 +535,90 @@ def test_weidu_log_import_keeps_the_mod_folder_name(tmp_path: Path) -> None:
     parser = WeiDULogParser()
     assert parser.parse_file(log).get_component_ids() == ["cdtweaks:1"]
     assert parser.installed_identities(log) == [("cdtweaks", "1", "0")]
+
+
+MIXED_WEIDU_LOG = (
+    "// Log of Currently Installed WeiDU Mods\n"
+    "~CDTWEAKS/SETUP-CDTWEAKS.TP2~ #0 #1 // Tweaks\n"
+    "this line is not a WeiDU entry\n"
+    "~BROKEN.TP2 #0\n"
+    "~ASCENSION/ASCENSION.TP2~ #0 #0 // Ascension\n"
+)
+
+
+def unreadable_weidu_log(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Make every WeiDU.log read fail as on a locked or protected file."""
+
+    def deny(path: Path, *_args, **_kwargs) -> str:
+        raise PermissionError(f"Access denied: {path}")
+
+    monkeypatch.setattr(weidu_log_module, "safe_read", deny)
+
+
+def test_strict_weidu_log_parse_keeps_valid_entries_among_malformed_lines(
+    tmp_path: Path,
+) -> None:
+    log = tmp_path / "WeiDU.log"
+    log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
+    result = WeiDULogParser().parse_file(log, strict=True)
+    assert result.get_component_ids() == ["cdtweaks:1", "ascension:0"]
+
+
+def test_strict_weidu_log_parse_of_an_empty_log_is_empty(tmp_path: Path) -> None:
+    log = tmp_path / "WeiDU.log"
+    log.write_text("", encoding="utf-8")
+    assert WeiDULogParser().parse_file(log, strict=True).entries == []
+
+
+def test_strict_weidu_log_parse_reports_a_missing_log(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError):
+        WeiDULogParser().parse_file(tmp_path / "WeiDU.log", strict=True)
+
+
+def test_strict_weidu_log_parse_reports_a_folder(tmp_path: Path) -> None:
+    with pytest.raises(ValueError):
+        WeiDULogParser().parse_file(tmp_path, strict=True)
+
+
+def test_strict_weidu_log_parse_reports_an_unreadable_log(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    log = tmp_path / "WeiDU.log"
+    log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
+    unreadable_weidu_log(monkeypatch)
+    with pytest.raises(PermissionError):
+        WeiDULogParser().parse_file(log, strict=True)
+
+
+def test_lenient_weidu_log_parse_still_tolerates_an_unreadable_log(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    log = tmp_path / "WeiDU.log"
+    log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
+    unreadable_weidu_log(monkeypatch)
+    assert WeiDULogParser().parse_file(log).entries == []
+
+
+@pytest.mark.parametrize("problem", ["missing", "folder", "unreadable"])
+def test_order_import_from_an_unusable_weidu_log_is_a_read_error(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, problem: str
+) -> None:
+    log = tmp_path / "WeiDU.log"
+    if problem == "folder":
+        log.mkdir()
+    elif problem == "unreadable":
+        log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
+        unreadable_weidu_log(monkeypatch)
+
+    with pytest.raises(FileReadError):
+        OrderImportExportManager(WeiDULogParser()).import_from_weidu_log(log)
+
+
+def test_order_import_from_weidu_log_keeps_the_installation_order(tmp_path: Path) -> None:
+    log = tmp_path / "WeiDU.log"
+    log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
+    references = OrderImportExportManager(WeiDULogParser()).import_from_weidu_log(log)
+    assert [str(reference) for reference in references] == ["cdtweaks:1", "ascension:0"]
 
 
 @pytest.mark.parametrize(

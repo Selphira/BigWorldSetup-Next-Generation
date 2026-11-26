@@ -753,7 +753,9 @@ class ModSelectionPage(BasePage):
             return
 
         try:
-            components_to_select = self._weidu_parser.parse_file(file_path).get_component_ids()
+            components_to_select = self._weidu_parser.parse_file(
+                file_path, strict=True
+            ).get_component_ids()
             self._apply_imported_selection(components_to_select, replace, file_path)
 
         except Exception as e:

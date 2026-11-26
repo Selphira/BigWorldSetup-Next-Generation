@@ -123,18 +123,23 @@ class WeiDULogParser:
         r"(?:\s+//\s*(?P<description>.*))?$"  # Optional description
     )
 
-    def parse_file(self, file_path: str | Path) -> WeiDULogResult:
+    def parse_file(self, file_path: str | Path, strict: bool = False) -> WeiDULogResult:
         """Parse a WeiDU.log file.
+
+        Lines that are not WeiDU entries are skipped in both modes.
 
         Args:
             file_path: Path to WeiDU.log file
+            strict: Propagate the error when the log cannot be read, instead of
+                logging it and returning an empty result
 
         Returns:
-            Parse result with entries and errors
+            Parse result with entries in installation order
 
         Raises:
-            FileNotFoundError: If file doesn't exist
-            PermissionError: If file can't be read
+            FileNotFoundError: In strict mode, if the file doesn't exist
+            ValueError: In strict mode, if the path is not a file
+            OSError: In strict mode, if the file can't be read
         """
         path = Path(file_path)
         entries = []
@@ -145,6 +150,8 @@ class WeiDULogParser:
             for entry in self.iter_entries(path):
                 entries.append(entry)
         except Exception as e:
+            if strict:
+                raise
             logger.error(f"Error during parsing: {e}")
 
         result = WeiDULogResult(entries, path)
@@ -239,9 +246,10 @@ class WeiDULogParser:
         return [entry.weidu_identity for entry in self.iter_entries(file_path)]
 
     def iter_entries(self, file_path: str | Path) -> Generator[WeiDULogEntry, None, None]:
-        """Iterate over entries in WeiDU.log without loading all in memory.
+        """Iterate over entries in WeiDU.log.
 
-        Useful for very large log files.
+        The whole file is read and decoded before the first entry is yielded;
+        only the parsed entries are produced lazily.
 
         Args:
             file_path: Path to WeiDU.log file
@@ -251,6 +259,8 @@ class WeiDULogParser:
 
         Raises:
             FileNotFoundError: If file doesn't exist
+            ValueError: If the path is not a file
+            OSError: If the file can't be read
         """
         path = Path(file_path)
 

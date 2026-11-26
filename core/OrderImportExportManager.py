@@ -174,12 +174,13 @@ class OrderImportExportManager:
             list with single sequence containing parsed components
 
         Raises:
+            FileReadError: If the log is missing, not a file or unreadable
             OrderImportError: If import fails
         """
         logger.info(f"Importing order from WeiDU.log: {file_path}")
 
         try:
-            log_entries = self._weidu_parser.parse_file(file_path)
+            log_entries = self._weidu_parser.parse_file(file_path, strict=True)
             component_ids = log_entries.get_component_ids()
             references = ComponentReference.from_string_list(component_ids)
 
@@ -188,6 +189,8 @@ class OrderImportExportManager:
             return references
         except FileNotFoundError as e:
             raise FileReadError(f"WeiDU.log not found: {file_path}") from e
+        except (OSError, ValueError) as e:
+            raise FileReadError(f"Cannot read WeiDU.log {file_path}: {e}") from e
         except Exception as e:
             logger.error(f"Error parsing WeiDU.log: {e}", exc_info=True)
             raise OrderImportError(f"Failed to parse WeiDU.log: {e}") from e

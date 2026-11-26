@@ -57,6 +57,10 @@ class VersionInfo:
     is_newer: bool
 
 
+class _ReleaseCheckFailed(Exception):
+    """GitHub could not tell which release is the latest one."""
+
+
 class VersionChecker:
     """Checks for new application versions on GitHub."""
 
@@ -66,25 +70,32 @@ class VersionChecker:
 
     def check_for_update(self) -> VersionInfo | None:
         """
-        Check if a new version is available on GitHub.
+        Check which release is the latest one on GitHub.
+
+        A failed check falls back to the last known release without
+        overwriting it, so that an outage does not erase what was learnt.
 
         Returns:
-            VersionInfo if update available, None otherwise
+            Latest known release (see is_newer), None if none was ever fetched
         """
         try:
             version_info = self._fetch_latest_release()
-            self._update_cache(version_info)
-            return version_info
-        except Exception as e:
+        except _ReleaseCheckFailed as e:
             logger.warning(f"Failed to check for updates: {e}")
             return self._get_cached_version_info()
 
-    def _fetch_latest_release(self) -> VersionInfo | None:
+        self._update_cache(version_info)
+        return version_info
+
+    def _fetch_latest_release(self) -> VersionInfo:
         """
         Fetch latest release info from GitHub API.
 
         Returns:
-            VersionInfo if successful, None otherwise
+            Latest release
+
+        Raises:
+            _ReleaseCheckFailed: If GitHub cannot be reached or its answer is unusable
         """
         url = f"{GITHUB_API_BASE}/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/releases/latest"
 
@@ -95,26 +106,24 @@ class VersionChecker:
                 headers={"Accept": "application/vnd.github.v3+json"},
             )
             response.raise_for_status()
-
             data = response.json()
+        except (requests.RequestException, ValueError) as e:
+            raise _ReleaseCheckFailed(f"GitHub API request failed: {e}") from e
+
+        try:
             latest_version = data["tag_name"].lstrip("v")
+            release_url = data["html_url"]
+            published_at = data["published_at"]
+        except (KeyError, TypeError, AttributeError) as e:
+            raise _ReleaseCheckFailed(f"Unexpected GitHub response: {e!r}") from e
 
-            version_info = VersionInfo(
-                version=latest_version,
-                release_url=data["html_url"],
-                published_at=data["published_at"],
-                is_newer=self._is_newer_version(latest_version, APP_VERSION),
-            )
-
-            logger.info(f"Latest version: {latest_version}, Current: {APP_VERSION}")
-            return version_info
-
-        except requests.RequestException as e:
-            logger.error(f"GitHub API request failed: {e}")
-            return None
-        except (KeyError, ValueError) as e:
-            logger.error(f"Failed to parse GitHub response: {e}")
-            return None
+        logger.info(f"Latest version: {latest_version}, Current: {APP_VERSION}")
+        return VersionInfo(
+            version=latest_version,
+            release_url=release_url,
+            published_at=published_at,
+            is_newer=self._is_newer_version(latest_version, APP_VERSION),
+        )
 
     @staticmethod
     def _is_newer_version(latest: str, current: str) -> bool:
@@ -133,7 +142,7 @@ class VersionChecker:
             logger.warning(f"Failed to compare versions: {latest} vs {current} - {e}")
             return False
 
-    def _update_cache(self, version_info: VersionInfo | None) -> None:
+    def _update_cache(self, version_info: VersionInfo) -> None:
         """
         Update cache file with latest check information.
 
@@ -148,9 +157,7 @@ class VersionChecker:
                     "release_url": version_info.release_url,
                     "published_at": version_info.published_at,
                     "is_newer": version_info.is_newer,
-                }
-                if version_info
-                else None,
+                },
             }
 
             with open(self._cache_file, "w", encoding="utf-8") as f:
@@ -162,6 +169,9 @@ class VersionChecker:
     def _get_cached_version_info(self) -> VersionInfo | None:
         """
         Get version info from cache.
+
+        is_newer is compared again to the running version: the cache may have
+        been written by an older build of the application.
 
         Returns:
             Cached VersionInfo if available, None otherwise
@@ -175,7 +185,12 @@ class VersionChecker:
                 info = data.get("version_info")
 
                 if info:
-                    return VersionInfo(**info)
+                    return VersionInfo(
+                        version=info["version"],
+                        release_url=info["release_url"],
+                        published_at=info["published_at"],
+                        is_newer=self._is_newer_version(info["version"], APP_VERSION),
+                    )
 
         except Exception as e:
             logger.warning(f"Failed to read cached version info: {e}")
