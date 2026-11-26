@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 import shutil
 
@@ -62,15 +63,7 @@ class StructureValidator:
             StructureValidator.flatten_single_child_directories(temp_dir)
             return True
 
-        # Find the deepest matching tp2
-        tp2_path = next(
-            (
-                max(m, key=lambda p: len(p.parts))
-                for tp2 in (tp2_name, f"{WEIDU_SETUP_PREFIX}{tp2_name}")
-                if (m := list(temp_dir.rglob(f"{tp2}{TP2_EXTENSION}")))
-            ),
-            None,
-        )
+        tp2_path = StructureValidator._find_tp2(temp_dir, tp2_name)
         if tp2_path is None:
             logger.error(f"TP2 not found for '{tp2_name}' in {temp_dir}")
             return False
@@ -107,6 +100,32 @@ class StructureValidator:
             return False
 
         return True
+
+    @staticmethod
+    def _find_tp2(temp_dir: Path, tp2_name: str) -> Path | None:
+        """Return the preferred TP2 for a mod, walking the tree only once.
+
+        A plain ``{tp2}.tp2`` wins over ``setup-{tp2}.tp2``; within a name,
+        the deepest path wins and the first one walked breaks ties. Names
+        are compared like the platform compares paths, as ``rglob`` does.
+        """
+        candidate_names = [
+            os.path.normcase(f"{name}{TP2_EXTENSION}")
+            for name in (tp2_name, f"{WEIDU_SETUP_PREFIX}{tp2_name}")
+        ]
+        best_paths: list[Path | None] = [None] * len(candidate_names)
+
+        for path in temp_dir.rglob(f"*{TP2_EXTENSION}"):
+            name = os.path.normcase(path.name)
+            if name not in candidate_names:
+                continue
+
+            rank = candidate_names.index(name)
+            best_path = best_paths[rank]
+            if best_path is None or len(path.parts) > len(best_path.parts):
+                best_paths[rank] = path
+
+        return next((path for path in best_paths if path is not None), None)
 
     @staticmethod
     def flatten_single_child_directories(root_dir: Path) -> None:
