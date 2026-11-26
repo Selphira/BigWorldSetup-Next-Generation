@@ -588,12 +588,14 @@ class InstallationWorker(QThread):
 
     def _install_batch(self, batch: list[ComponentInfo]) -> dict[str, InstallResult]:
         """Install a batch of components with real-time output."""
+        # Read on every call: each process, retry or reconciliation may change the log.
+        installed = self.engine.installed_identities()
         already_installed = {}
         to_install = []
         for comp in batch:
             operation = self._operations[comp.sequence_idx]
             reinstall = operation.decision == OperationDecision.RETRY
-            if not reinstall and self.engine.is_component_installed(*operation.weidu_identity):
+            if not reinstall and operation.weidu_identity in installed:
                 logger.info("Component %s already installed", comp.comp_id)
                 confirmed = self.journal.previously_confirmed(self.sequence, comp.sequence_idx)
                 already_installed[comp.comp_id] = InstallResult(

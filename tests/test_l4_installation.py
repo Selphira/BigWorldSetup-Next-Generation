@@ -701,12 +701,43 @@ def test_retried_component_is_reinstalled_even_if_logged(
     comp = ComponentInfo("demo:0", mod, mod.get_component("0"), "demo", 0)
     journal.decide(0, 0, OperationDecision.RETRY, in_log=True)
     engine = Mock()
-    engine.is_component_installed.return_value = True
+    engine.installed_identities.return_value = {("demo", "0", "0")}
     engine.install_components.return_value = {"demo:0": result(ComponentStatus.SUCCESS)}
     worker = InstallationWorker(engine, [[comp]], journal, no_rules)
     worker.run()
     engine.install_components.assert_called_once()
     assert journal.sequences[0].operations[0].status == ComponentStatus.SUCCESS
+
+
+def test_next_batch_sees_components_logged_by_the_previous_process(
+    catalogue: ModCatalogue,
+    journal: InstallationJournal,
+    no_rules: Mock,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    mod = catalogue.get_mod_by_id("a")
+    first, second = (
+        ComponentInfo(f"demo:{key}", mod, mod.get_component(key), "demo", position)
+        for position, key in enumerate(["0", "1"])
+    )
+    engine = WeiDUInstallerEngine(journal.path.parent, WeiDULogParser(), WeiDUDebugParser())
+    launched = []
+
+    def install(**kwargs) -> dict[str, InstallResult]:
+        # The process also records the component planned for the next batch.
+        launched.append([comp.comp_id for comp in kwargs["components"]])
+        engine.weidu_log.write_text(
+            "~DEMO/DEMO.TP2~ #0 #0 // Zero\n~DEMO/DEMO.TP2~ #0 #1 // One\n", encoding="utf-8"
+        )
+        return {"demo:0": result(ComponentStatus.SUCCESS)}
+
+    monkeypatch.setattr(engine, "install_components", install)
+    worker = InstallationWorker(engine, [[first], [second]], journal, no_rules)
+    worker.run()
+    assert launched == [["demo:0"]]
+    # Logged without having been confirmed by this run: the user has to decide.
+    statuses = [op.status for op in journal.sequences[0].operations[:2]]
+    assert statuses == [ComponentStatus.SUCCESS, ComponentStatus.UNKNOWN]
 
 
 def test_user_pause_survives_restart_until_acknowledged(

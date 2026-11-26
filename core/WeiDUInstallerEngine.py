@@ -292,25 +292,12 @@ class WeiDUInstallerEngine:
         else:
             logger.debug("weidu.conf already exists, skipping initialization")
 
-    def is_component_installed(
-        self, tp2: str, comp_key: str, language: int | str | None = None
-    ) -> bool:
-        """
-        Check if a component is installed.
+    def installed_identities(self) -> set[tuple[str, str, str]]:
+        """Read WeiDU.log once and return its (TP2, component, language) triples.
 
-        Args:
-            tp2: Name of the tp2 file (without extension)
-            comp_key: Component number
-            language: WeiDU language index, or None for any language
-
-        Returns:
-            True if component is installed
+        The result is a snapshot: any WeiDU process launched afterwards makes it stale.
         """
-        return any(
-            identity[:2] == (tp2.lower(), comp_key)
-            and (language is None or identity[2] == str(language))
-            for identity in self.log_parser.installed_identities(self.weidu_log)
-        )
+        return set(self.log_parser.installed_identities(self.weidu_log))
 
     # ------------------------------------------------------------------
     # Internal helpers
