@@ -19,6 +19,19 @@ from constants import ICONS_DIR
 logger = logging.getLogger(__name__)
 
 
+def _components_by_mod(raw: dict[str, list[str]]) -> dict[str, tuple[str, ...]]:
+    """Index component keys by lowercase mod id.
+
+    Entries whose mod ids differ only by case are merged in reading order,
+    without duplicates, so that no component of the definition is lost.
+    """
+    merged: dict[str, dict[str, None]] = {}
+    for mod_id, components in raw.items():
+        merged.setdefault(mod_id.lower(), {}).update(dict.fromkeys(components))
+
+    return {mod_id: tuple(components) for mod_id, components in merged.items()}
+
+
 # ============================================================================
 # FILE GROUP (imported from FolderValidator for type consistency)
 # ============================================================================
@@ -213,10 +226,7 @@ class GameSequence:
             blocked_mods=tuple(mod_id.lower() for mod_id in blocked_mods)
             if blocked_mods
             else None,
-            allowed_components={
-                mod_id.lower(): tuple(components)
-                for mod_id, components in allowed_components_raw.items()
-            },
+            allowed_components=_components_by_mod(allowed_components_raw),
             order=order,
         )
 
@@ -229,7 +239,9 @@ class GameSequence:
         Returns:
             True if the mod is allowed, False otherwise
         """
-        if self.blocked_mods and mod_id.lower() in self.blocked_mods:
+        mod_id = mod_id.lower()
+
+        if self.blocked_mods and mod_id in self.blocked_mods:
             return False
 
         if self.allowed_mods is None:
@@ -247,10 +259,11 @@ class GameSequence:
         Returns:
             True if the component is allowed, False otherwise
         """
-        if mod_id.lower() not in self.allowed_components:
+        allowed = self.allowed_components.get(mod_id.lower())
+        if allowed is None:
             return True
 
-        return comp_key in self.allowed_components[mod_id]
+        return comp_key in allowed
 
 
 # ============================================================================
@@ -323,10 +336,7 @@ class GameDefinition:
             id=game_id,
             name=name,
             sequences=sequences,
-            forced_components={
-                mod_id.lower(): tuple(components)
-                for mod_id, components in forced_components_raw.items()
-            },
+            forced_components=_components_by_mod(forced_components_raw),
         )
 
     def get_sequence(self, index: int) -> GameSequence | None:
@@ -376,9 +386,7 @@ class GameDefinition:
     def get_forced_components(self) -> list[str]:
         """Get the forced components required for this game sequence."""
         return [
-            f"{mod.lower()}:{comp}"
-            for mod, comps in self.forced_components.items()
-            for comp in comps
+            f"{mod}:{comp}" for mod, comps in self.forced_components.items() for comp in comps
         ]
 
     def is_component_forced(self, mod_id: str, comp_key: str) -> bool:
@@ -391,7 +399,4 @@ class GameDefinition:
         Returns:
             True if the mod must be selected, False otherwise
         """
-        if mod_id.lower() not in self.forced_components:
-            return False
-
-        return comp_key in self.forced_components[mod_id]
+        return comp_key in self.forced_components.get(mod_id.lower(), ())
