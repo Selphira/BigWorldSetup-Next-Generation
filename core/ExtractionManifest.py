@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 import json
 import logging
@@ -52,6 +53,19 @@ class ExtractionManifest:
         except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
             logger.warning("Ignoring unreadable extraction manifest %s: %s", path, error)
             return None
+
+    @classmethod
+    def load_for_owners(
+        cls, game_dir: Path, owners: Iterable[str]
+    ) -> dict[str, ExtractionManifest | None]:
+        """Read once the manifest of each distinct mod prepared in a game folder.
+
+        The table belongs to a single verification: a preparation may change
+        between two of them, so it is never kept.
+        """
+        return {
+            owner: cls.load(cls.path_for(game_dir, owner)) for owner in dict.fromkeys(owners)
+        }
 
     def save(self, path: Path) -> None:
         write_json_atomic(

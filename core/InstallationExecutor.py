@@ -489,12 +489,12 @@ class InstallationExecutor:
         """
         unprepared = []
         for sequence in sequences:
-            for op in sequence.operations:
-                if op.archive_owner is None:
-                    continue
-                manifest = ExtractionManifest.load(
-                    ExtractionManifest.path_for(Path(sequence.folder), op.archive_owner)
-                )
+            owned = [op for op in sequence.operations if op.archive_owner is not None]
+            manifests = ExtractionManifest.load_for_owners(
+                Path(sequence.folder), (op.archive_owner for op in owned)
+            )
+            for op in owned:
+                manifest = manifests[op.archive_owner]
                 if manifest is None:
                     unprepared.append(op.reference)
                 else:

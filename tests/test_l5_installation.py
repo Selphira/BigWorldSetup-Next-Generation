@@ -7,7 +7,12 @@ import pytest
 
 from core.ExtractionManifest import ExtractionManifest
 from core.InstallationExecutor import InstallationError, InstallationExecutor
-from core.InstallationJournal import InstallationJournal, RunDivergenceError
+from core.InstallationJournal import (
+    InstallationJournal,
+    Operation,
+    RunDivergenceError,
+    RunSequence,
+)
 from core.Mod import Mod
 from core.weidu_types import ComponentInfo, ComponentStatus
 from core.WeiDUDebugParser import WeiDUDebugParser
@@ -92,6 +97,50 @@ def test_archive_changed_during_the_run_prevents_the_launch(
     with pytest.raises(RunDivergenceError):
         executor.journal.begin(0, [0])
     assert executor.journal.sequences[0].operations[0].status is ComponentStatus.PENDING
+
+
+def shared_archive_sequence(folder: Path, sha256: str | None) -> RunSequence:
+    """Two operations prepared from the archive of mod "a"."""
+    operations = [
+        Operation(
+            reference, "a", 0, 0, [], [], [], "std", archive_owner="a", archive_sha256=sha256
+        )
+        for reference in ("a:0", "b:0")
+    ]
+    return RunSequence(str(folder), RunSequence.identify(folder), operations)
+
+
+def test_archive_changed_between_two_verifications_is_detected(tmp_path: Path) -> None:
+    write_manifest(tmp_path, "a", SHA_V1)
+    sequence = shared_archive_sequence(tmp_path, SHA_V1)
+    sequence.verify_preparation()
+
+    write_manifest(tmp_path, "a", SHA_V2)
+    with pytest.raises(RunDivergenceError, match="a:0"):
+        sequence.verify_preparation()
+
+
+def test_shared_archive_manifest_is_read_once_per_verification(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    write_manifest(tmp_path, "a", SHA_V1)
+    sequence = shared_archive_sequence(tmp_path, None)
+    reads: list[Path] = []
+    load = ExtractionManifest.load
+
+    def counting_load(_cls: type[ExtractionManifest], path: Path) -> ExtractionManifest | None:
+        reads.append(path)
+        return load(path)
+
+    monkeypatch.setattr(ExtractionManifest, "load", classmethod(counting_load))
+
+    InstallationExecutor._freeze_preparations([sequence])
+    assert [op.archive_sha256 for op in sequence.operations] == [SHA_V1, SHA_V1]
+    assert reads == [manifest_path(tmp_path, "a")]
+
+    reads.clear()
+    sequence.verify_preparation()
+    assert reads == [manifest_path(tmp_path, "a")]
 
 
 @pytest.mark.parametrize(("provided_by", "expected"), [(None, "end"), ("eet", "eet")])

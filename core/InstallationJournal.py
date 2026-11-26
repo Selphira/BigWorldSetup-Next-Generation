@@ -297,18 +297,22 @@ class RunSequence:
         Args:
             positions: Operations about to run; by default every one still to do
         """
-        folder = Path(self.folder)
         selected = (
             [self.operations[position] for position in positions]
             if positions is not None
             else [op for op in self.operations if op.needs_work]
         )
-        for op in selected:
-            if op.archive_sha256 is None or op.archive_owner is None:
-                continue
-            manifest = ExtractionManifest.load(
-                ExtractionManifest.path_for(folder, op.archive_owner)
-            )
+        frozen = [
+            op
+            for op in selected
+            if op.archive_sha256 is not None and op.archive_owner is not None
+        ]
+        manifests = ExtractionManifest.load_for_owners(
+            Path(self.folder), (op.archive_owner for op in frozen)
+        )
+
+        for op in frozen:
+            manifest = manifests[op.archive_owner]
             if manifest is None or manifest.archive_sha256 != op.archive_sha256:
                 raise RunDivergenceError(
                     tr(
