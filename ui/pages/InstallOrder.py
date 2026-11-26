@@ -1562,6 +1562,10 @@ class InstallOrderPage(BasePage):
 
         self._refresh_all_tables()
 
+        for seq_idx in self._sequences_data:
+            self._validate_sequence(seq_idx)
+            self._on_ordered_selection_changed(seq_idx)
+
         # Update tab labels for multiple sequences
         if self._game_def and self._game_def.has_multiple_sequences and self._phase_tabs:
             for seq_idx in range(self._game_def.sequence_count):
