@@ -10,6 +10,8 @@ removed or replaced file is detected whatever its modification date.
 """
 
 from collections.abc import Callable
+from dataclasses import dataclass
+from functools import partial
 import hashlib
 import json
 import logging
@@ -78,18 +80,36 @@ def first_translation(
     return ""
 
 
+class CacheBuildError(Exception):
+    """Expected end of a cache build without a usable cache: no valid source, or stopped."""
+
+
+@dataclass(frozen=True)
+class CacheBuildResult:
+    """Outcome of a successful cache build.
+
+    Attributes:
+        diagnostics: Sources skipped because they could not be read, one message each
+    """
+
+    diagnostics: tuple[str, ...] = ()
+
+
 class LocalizedCacheBuilder(QThread):
     """
-    Thread writing one localized cache file per language.
+    Thread writing one localized cache file per language, then the sources fingerprint.
 
     Subclasses load their sources and localize one entry; this class drives the
     languages, the stop requests, the progress and the cache writes.
+
+    A build ends with exactly one of `build_succeeded` and `build_failed`, sent
+    as the last action of the thread.
     """
 
     progress = Signal(int)  # Progress 0-100
     status_changed = Signal(str)  # Status message
-    completed = Signal(bool)  # True if success, False if error
-    error = Signal(str)  # Error message
+    build_succeeded = Signal(object)  # CacheBuildResult
+    build_failed = Signal(str)  # Error message
 
     cache_prefix: str
     cache_label: str
@@ -107,46 +127,62 @@ class LocalizedCacheBuilder(QThread):
         super().__init__()
         self.cache_dir = cache_dir
         self.languages = languages
+        # Written once every language cache is; None leaves the caches stale
+        self.sources_fingerprint: str | None = None
+        self._diagnostics: list[str] = []
         self._should_stop = False
         self._total_steps = 1
         self._current_step = 0
 
     def run(self) -> None:
-        """Build cache for all languages."""
+        """Build cache for all languages and publish the single outcome of the build."""
         try:
-            groups = self._load_sources()
-            if groups is None:
-                self.completed.emit(False)
-                return
-
-            self.progress.emit(self.localization_progress_start)
-            self._total_steps = max(len(self.languages) * self._count_entries(groups), 1)
-            self._current_step = 0
-
-            for language in self.languages:
-                if not self._write_language_cache(groups, language):
-                    self.completed.emit(False)
-                    return
-
-            self.status_changed.emit(tr("app.cache_generated_successfully"))
-            self.progress.emit(100)
-            self.completed.emit(True)
-
+            result = self._build()
+        except CacheBuildError as e:
+            logger.error(f"{self.cache_label.capitalize()} not generated: {e}")
+            self.build_failed.emit(str(e))
+            return
         except Exception as e:
             logger.exception(f"Error during {self.cache_label} generation: {e}")
-            self.error.emit(f"Error during {self.cache_label} generation: {e}")
-            self.completed.emit(False)
+            self.build_failed.emit(f"Error during {self.cache_label} generation: {e}")
+            return
+
+        self.build_succeeded.emit(result)
 
     def stop(self) -> None:
         """Request thread to stop gracefully."""
         self._should_stop = True
 
+    def _build(self) -> CacheBuildResult:
+        """Write every language cache, then the fingerprint that makes them fresh."""
+        self._diagnostics = []
+        groups = self._load_sources()
+        self._raise_if_stopped()
+
+        self.progress.emit(self.localization_progress_start)
+        self._total_steps = max(len(self.languages) * self._count_entries(groups), 1)
+        self._current_step = 0
+
+        for language in self.languages:
+            self._write_language_cache(groups, language)
+
+        self._write_fingerprint()
+
+        self.status_changed.emit(tr("app.cache_generated_successfully"))
+        self.progress.emit(100)
+        return CacheBuildResult(tuple(self._diagnostics))
+
     # ========================================
     # STEPS PROVIDED BY SUBCLASSES
     # ========================================
 
-    def _load_sources(self) -> CacheGroups | None:
-        """Load entries to localize; None aborts the build (after emitting any error)."""
+    def _load_sources(self) -> CacheGroups:
+        """
+        Load entries to localize, reporting each skipped source with `_report_skipped_source`.
+
+        Raises:
+            CacheBuildError: If no usable source is left
+        """
         raise NotImplementedError
 
     def _localize_entry(self, entry: dict[str, Any], language: str) -> dict[str, Any]:
@@ -157,15 +193,21 @@ class LocalizedCacheBuilder(QThread):
         """Return the JSON value written to a language cache file."""
         return localized_groups
 
+    def _report_skipped_source(self, message: str) -> None:
+        """Record a source left out of the cache; the build goes on without it."""
+        self._diagnostics.append(message)
+
+    def _raise_if_stopped(self) -> None:
+        if self._should_stop:
+            raise CacheBuildError(f"{self.cache_label.capitalize()} build stopped")
+
     # ========================================
     # LOCALIZATION
     # ========================================
 
-    def _write_language_cache(self, groups: CacheGroups, language: str) -> bool:
-        """Localize all entries for a language and write its cache; False if stopped."""
-        if self._should_stop:
-            return False
-
+    def _write_language_cache(self, groups: CacheGroups, language: str) -> None:
+        """Localize all entries for a language and write its cache."""
+        self._raise_if_stopped()
         self.status_changed.emit(tr("app.generating_cache_for_lang", lang=language))
 
         localized_groups: CacheGroups = {}
@@ -173,9 +215,7 @@ class LocalizedCacheBuilder(QThread):
             localized_entries = []
 
             for entry in entries:
-                if self._should_stop:
-                    return False
-
+                self._raise_if_stopped()
                 localized_entries.append(self._localize_entry(entry, language))
                 self._advance_progress()
 
@@ -185,7 +225,13 @@ class LocalizedCacheBuilder(QThread):
         write_json_atomic(cache_path, self._cache_content(localized_groups))
         logger.info(f"{self.cache_label.capitalize()} generated for {language}: {cache_path}")
 
-        return True
+    def _write_fingerprint(self) -> None:
+        """Mark the written caches as built from the fingerprinted sources."""
+        if self.sources_fingerprint is None:
+            return
+
+        fingerprint_path = localized_cache_fingerprint_path(self.cache_dir, self.cache_prefix)
+        write_json_atomic(fingerprint_path, {"sources": self.sources_fingerprint})
 
     def _advance_progress(self) -> None:
         """Emit progress after one localized entry."""
@@ -228,10 +274,8 @@ class LocalizedCacheManager(QObject):
         self.cache_dir = cache_dir
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
+        # Kept until the thread has ended, so that it is never destroyed while running
         self.builder_thread: LocalizedCacheBuilder | None = None
-        # Fingerprint of the sources taken before the running build reads them:
-        # a source changed during the build makes the cache stale afterwards
-        self._building_fingerprint: str | None = None
 
     # ========================================
     # CACHE MANAGEMENT
@@ -262,29 +306,39 @@ class LocalizedCacheManager(QObject):
             self.cache_error.emit(f"{self.cache_label.capitalize()} build not started")
 
     def build_cache_async(self) -> bool:
-        """Start asynchronous cache build."""
+        """
+        Start asynchronous cache build.
+
+        Returns:
+            False if a build is already running; True once the build has started, which
+            then ends with exactly one `cache_ready` or `cache_error`
+        """
         if self.builder_thread is not None and self.builder_thread.isRunning():
             logger.warning(f"{self.cache_label.capitalize()} build already in progress")
             return False
 
+        # Taken before the build reads the sources: a source changed during the
+        # build makes the cache stale afterwards
         try:
-            self._building_fingerprint = source_fingerprint(self._source_files())
+            fingerprint = source_fingerprint(self._source_files())
         except OSError as e:
             logger.error(f"Error reading {self.cache_label} sources: {e}")
-            self._building_fingerprint = None
+            fingerprint = None
 
         # Caches being rewritten match no sources until the build completes
         self._fingerprint_file().unlink(missing_ok=True)
         self.cache_building.emit()
 
-        self.builder_thread = self._create_cache_builder(
-            [code for code, _ in SUPPORTED_LANGUAGES]
-        )
-        self.builder_thread.completed.connect(self._on_cache_build_finished)
-        self.builder_thread.error.connect(self._on_cache_build_error)
-        self.builder_thread.progress.connect(self.build_progress)
-        self.builder_thread.status_changed.connect(self.build_status)
-        self.builder_thread.start()
+        builder = self._create_cache_builder([code for code, _ in SUPPORTED_LANGUAGES])
+        builder.sources_fingerprint = fingerprint
+        builder.build_succeeded.connect(self._on_cache_build_succeeded)
+        builder.build_failed.connect(self._on_cache_build_failed)
+        builder.progress.connect(self.build_progress)
+        builder.status_changed.connect(self.build_status)
+        builder.finished.connect(partial(self._on_builder_thread_finished, builder))
+
+        self.builder_thread = builder
+        builder.start()
 
         logger.info(f"{self.cache_label.capitalize()} build thread started")
         return True
@@ -354,27 +408,43 @@ class LocalizedCacheManager(QObject):
         """Return the cache files of all supported languages."""
         return [self._cache_file(code) for code, _ in SUPPORTED_LANGUAGES]
 
-    def _on_cache_build_finished(self, success: bool) -> None:
-        """Called when cache building finishes."""
-        if success and self._building_fingerprint is not None:
-            write_json_atomic(self._fingerprint_file(), {"sources": self._building_fingerprint})
+    # ========================================
+    # BUILD OUTCOME
+    # ========================================
 
-        if not success:
-            error_msg = f"{self.cache_label.capitalize()} build failed"
-            logger.error(error_msg)
-            self.cache_error.emit(error_msg)
-        elif self.load_cache():
+    def _on_cache_build_succeeded(self, result: CacheBuildResult) -> None:
+        """Load the built cache; the build may have skipped unreadable sources."""
+        self._end_build_run()
+
+        for diagnostic in result.diagnostics:
+            logger.warning(f"{self.cache_label.capitalize()} source skipped: {diagnostic}")
+
+        if self.load_cache():
             logger.info(f"{self.cache_label.capitalize()} loaded successfully after build")
             self.cache_ready.emit(True)
-        else:
-            error_msg = f"Error loading {self.cache_label} after build"
-            logger.error(error_msg)
-            self.cache_error.emit(error_msg)
+            return
 
-        self.builder_thread = None
+        error_msg = f"Error loading {self.cache_label} after build"
+        logger.error(error_msg)
+        self.cache_error.emit(error_msg)
 
-    def _on_cache_build_error(self, error_message: str) -> None:
-        """Called on cache build error."""
+    def _on_cache_build_failed(self, error_message: str) -> None:
+        self._end_build_run()
+
         logger.error(f"{self.cache_label.capitalize()} build error: {error_message}")
         self.cache_error.emit(error_message)
-        self.builder_thread = None
+
+    def _end_build_run(self) -> None:
+        """Wait for the builder to return from `run()`, which ends right after its outcome.
+
+        A slot of `cache_ready` or `cache_error` may then start the next build at once.
+        """
+        if self.builder_thread is not None:
+            self.builder_thread.wait()
+
+    def _on_builder_thread_finished(self, builder: LocalizedCacheBuilder) -> None:
+        """Release an ended builder, unless a newer build already replaced it."""
+        # The connection holds the builder: dropping it lets the builder be freed
+        builder.finished.disconnect()
+        if self.builder_thread is builder:
+            self.builder_thread = None

@@ -310,7 +310,7 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
         super().__init__(cache_dir, languages)
         self.sources = sources
 
-    def _load_sources(self) -> CacheGroups | None:
+    def _load_sources(self) -> CacheGroups:
         """Load and expand the rules of each type; a missing or invalid file gives no rules."""
         self.status_changed.emit(tr("app.loading_rules"))
         raw_rules = {
@@ -335,8 +335,7 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
     def _localize_entry(self, entry: dict[str, Any], language: str) -> dict[str, Any]:
         return self._localize_rule(entry, language)
 
-    @staticmethod
-    def _read_rule_file(file_path: Path) -> list[dict[str, Any]]:
+    def _read_rule_file(self, file_path: Path) -> list[dict[str, Any]]:
         """Read the rules of a rule file."""
         if not file_path.exists():
             logger.warning(f"Rule file not found: {file_path}")
@@ -346,11 +345,10 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
             with open(file_path, "r", encoding="utf-8") as f:
                 return list(json.load(f).get("rules", []))
         except Exception as e:
-            logger.error(f"Error loading {file_path.name}: {e}")
+            self._report_skipped_source(f"Error loading {file_path.name}: {e}")
             return []
 
-    @classmethod
-    def _read_mod_rules(cls, mod_file: Path) -> dict[str, list[dict[str, Any]]]:
+    def _read_mod_rules(self, mod_file: Path) -> dict[str, list[dict[str, Any]]]:
         """Read the "rules" section of a mod definition, by rule type."""
         try:
             with open(mod_file, "r", encoding="utf-8") as f:
@@ -360,13 +358,13 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
             mod_name = definition.get("name") or mod_file.stem
             return {
                 rule_type: [
-                    cls._describe_generated_rule(rule, rule_type, mod_name)
+                    self._describe_generated_rule(rule, rule_type, mod_name)
                     for rule in section.get(rule_type) or []
                 ]
                 for rule_type in RULE_TYPES
             }
         except Exception as e:
-            logger.error(f"Error loading rules of {mod_file.name}: {e}")
+            self._report_skipped_source(f"Error loading rules of {mod_file.name}: {e}")
             return {}
 
     @staticmethod

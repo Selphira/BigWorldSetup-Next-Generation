@@ -223,6 +223,20 @@ def test_corrupted_cache_is_rebuilt(mods: ModManager, qtbot: QtBot) -> None:
     assert set(mods.get_all_mods()) == {"alpha"}
 
 
+def test_invalid_mod_file_does_not_fail_the_preparation(
+    mods: ModManager, qtbot: QtBot, tmp_path: Path
+) -> None:
+    (tmp_path / "mods" / "broken.json").write_text("{ truncated", encoding="utf-8")
+    failed = Mock()
+    mods.cache_error.connect(failed)
+
+    _prepare(mods, qtbot)
+    qtbot.waitUntil(lambda: mods.builder_thread is None, timeout=SIGNAL_TIMEOUT_MS)
+
+    failed.assert_not_called()
+    assert set(mods.get_all_mods()) == {"alpha"}
+
+
 def test_builder_that_cannot_start_reports_a_terminal_error(
     mods: ModManager, monkeypatch: pytest.MonkeyPatch, qtbot: QtBot
 ) -> None:

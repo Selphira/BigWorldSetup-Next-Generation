@@ -19,6 +19,7 @@ from constants import (
 )
 from core.ComponentReference import ComponentReference, IndexManager, ReferenceIndexes
 from core.LocalizedCache import (
+    CacheBuildError,
     CacheGroups,
     LocalizedCacheBuilder,
     LocalizedCacheManager,
@@ -100,22 +101,22 @@ class CacheBuilderThread(LocalizedCacheBuilder):
         self.mods_dir = mods_dir
         self.custom_mods_dir = custom_mods_dir
 
-    def _load_sources(self) -> CacheGroups | None:
+    def _load_sources(self) -> CacheGroups:
         """Load official and custom mods, reporting loading progress."""
         self.status_changed.emit(tr("app.searching_mod_files"))
 
         source_files = select_mod_files(self.mods_dir, self.custom_mods_dir)
 
         if not source_files:
-            self.error.emit(f"No JSON files found in {self.mods_dir} or {self.custom_mods_dir}")
-            return None
+            raise CacheBuildError(
+                f"No JSON files found in {self.mods_dir} or {self.custom_mods_dir}"
+            )
 
         self.status_changed.emit(tr("app.loading_count_mods", count=len(source_files)))
 
         mods_data = []
         for i, (file_path, is_custom) in enumerate(source_files):
-            if self._should_stop:
-                return None
+            self._raise_if_stopped()
 
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
@@ -123,8 +124,7 @@ class CacheBuilderThread(LocalizedCacheBuilder):
                         {"id": file_path.stem, "custom": is_custom, **json.load(f)}
                     )
             except Exception as e:
-                logger.error(f"Error loading {file_path.name}: {e}")
-                self.error.emit(f"Error loading {file_path.name}: {e}")
+                self._report_skipped_source(f"Error loading {file_path.name}: {e}")
                 continue
 
             self.progress.emit(
@@ -132,8 +132,7 @@ class CacheBuilderThread(LocalizedCacheBuilder):
             )
 
         if not mods_data:
-            self.error.emit("No valid mods found")
-            return None
+            raise CacheBuildError("No valid mods found")
 
         return {MOD_CACHE_GROUP: mods_data}
 
