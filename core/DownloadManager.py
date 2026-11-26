@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from collections import deque
+from dataclasses import astuple, dataclass
 from enum import Enum
 import hashlib
 import logging
@@ -548,7 +549,8 @@ class DownloadManager(QObject):
 
         self._cancelling: set[str] = set()
         self._active_downloads: dict[str, tuple[DownloadWorker, QThread, DownloadProgress]] = {}
-        self._download_queue: list[ArchiveInfo] = []
+        self._download_queue: deque[ArchiveInfo] = deque()
+        self._queued_keys: set[tuple] = set()
 
     def set_download_path(self, download_path: Path):
         """Update download path."""
@@ -562,11 +564,12 @@ class DownloadManager(QObject):
         """
         if (
             archive_info.mod_id in self._active_downloads
-            or archive_info in self._download_queue
+            or self._queue_key(archive_info) in self._queued_keys
         ):
             return
 
         self._download_queue.append(archive_info)
+        self._queued_keys.add(self._queue_key(archive_info))
         logger.info(f"Added to queue: {archive_info.filename}")
         self.queue_changed.emit()
         self._process_queue()
@@ -594,6 +597,7 @@ class DownloadManager(QObject):
     def cancel_all(self) -> None:
         """Drop queued downloads and cancel the active ones."""
         self._download_queue.clear()
+        self._queued_keys.clear()
         for mod_id in list(self._active_downloads):
             self.cancel_download(mod_id)
 
@@ -740,6 +744,15 @@ class DownloadManager(QObject):
             logger.info("All downloads completed")
             self.all_completed.emit()
 
+    @staticmethod
+    def _queue_key(archive_info: ArchiveInfo) -> tuple:
+        """Return a hashable key equal for archives that compare equal.
+
+        `ArchiveInfo` is a mutable dataclass, hence unhashable; its field
+        tuple reproduces the dataclass equality used to reject duplicates.
+        """
+        return astuple(archive_info)
+
     def _process_queue(self) -> None:
         """Process download queue to start new downloads."""
         try:
@@ -752,7 +765,8 @@ class DownloadManager(QObject):
                 len(self._active_downloads) < self.MAX_CONCURRENT_DOWNLOADS
                 and self._download_queue
             ):
-                archive_info = self._download_queue.pop(0)
+                archive_info = self._download_queue.popleft()
+                self._queued_keys.discard(self._queue_key(archive_info))
                 self._start_download_worker(archive_info)
                 self.queue_changed.emit()
         except Exception as e:

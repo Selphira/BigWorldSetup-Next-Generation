@@ -1110,6 +1110,74 @@ def test_shutdown_cancels_active_download_in_its_own_thread(
     assert not manager.get_active_downloads()
 
 
+@pytest.fixture
+def single_slot_downloads(
+    qtbot: QtBot, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> tuple[downloads.DownloadManager, list[str]]:
+    """Offline manager running one download at a time; cancelling frees the slot."""
+    started: list[str] = []
+
+    class OfflineWorker(downloads.DownloadWorker):
+        @Slot()
+        def start_download(self) -> None:
+            started.append(self.archive_info.mod_id)
+
+        @Slot()
+        def cancel(self) -> None:
+            self.error.emit("cancelled")
+
+    monkeypatch.setattr(downloads, "DownloadWorker", OfflineWorker)
+    manager = downloads.DownloadManager()
+    manager.MAX_CONCURRENT_DOWNLOADS = 1
+    manager.set_download_path(tmp_path)
+    return manager, started
+
+
+def _finish_active_download(qtbot: QtBot, manager: downloads.DownloadManager) -> None:
+    (progress,) = manager.get_active_downloads()
+    with qtbot.waitSignal(manager.download_canceled):
+        manager.cancel_download(progress.archive_info.mod_id)
+
+
+def test_queued_downloads_start_in_arrival_order(
+    qtbot: QtBot, single_slot_downloads: tuple[downloads.DownloadManager, list[str]]
+) -> None:
+    manager, started = single_slot_downloads
+    names = ["first", "second", "third", "fourth"]
+    for name in names:
+        manager.add_to_queue(downloads.ArchiveInfo(name, name, "offline", ""))
+
+    for expected in range(1, len(names)):
+        qtbot.waitUntil(lambda count=expected: len(started) == count)
+        _finish_active_download(qtbot, manager)
+
+    qtbot.waitUntil(lambda: started == names)
+    with qtbot.waitSignal(manager.all_completed):
+        _finish_active_download(qtbot, manager)
+
+
+def test_equal_archive_is_queued_once_until_it_starts(
+    qtbot: QtBot, single_slot_downloads: tuple[downloads.DownloadManager, list[str]]
+) -> None:
+    manager, started = single_slot_downloads
+    manager.add_to_queue(downloads.ArchiveInfo("first", "first", "offline", ""))
+    for _ in range(2):
+        manager.add_to_queue(downloads.ArchiveInfo("queued", "queued", "offline", ""))
+    manager.add_to_queue(downloads.ArchiveInfo("queued", "queued", "mirror", ""))
+
+    qtbot.waitUntil(lambda: started == ["first"])
+    _finish_active_download(qtbot, manager)
+    qtbot.waitUntil(lambda: started == ["first", "queued"])
+    _finish_active_download(qtbot, manager)
+    qtbot.waitUntil(lambda: started == ["first", "queued", "queued"])
+    _finish_active_download(qtbot, manager)
+
+    manager.add_to_queue(downloads.ArchiveInfo("queued", "queued", "offline", ""))
+    qtbot.waitUntil(lambda: started == ["first", "queued", "queued", "queued"])
+    with qtbot.waitSignal(manager.all_completed):
+        _finish_active_download(qtbot, manager)
+
+
 # ============================================================================
 # Translations
 # ============================================================================
