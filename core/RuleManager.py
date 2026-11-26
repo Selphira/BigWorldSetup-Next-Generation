@@ -743,19 +743,15 @@ class RuleManager(LocalizedCacheManager):
 
         return rules
 
-    def _get_all_known_components(
-        self,
-    ) -> tuple[set[ComponentReference], dict[str, set[ComponentReference]]]:
-        """Retrieve all components from all known mods."""
-        all_components = set()
+    def _get_known_components_by_mod(self) -> dict[str, set[ComponentReference]]:
+        """Index the components of all known mods by mod identifier."""
         components_by_mod: dict[str, set[ComponentReference]] = defaultdict(set)
 
         for mod in self._mod_manager.get_all_mods().values():
             for comp_ref in ComponentReference.from_string_list(list(mod.get_component_refs())):
-                all_components.add(comp_ref)
                 components_by_mod[comp_ref.mod_id].add(comp_ref)
 
-        return all_components, components_by_mod
+        return components_by_mod
 
     @staticmethod
     def _resolve_refs_globally(
@@ -775,7 +771,7 @@ class RuleManager(LocalizedCacheManager):
 
     def _index_rules(self, rules: list[Rule]) -> RuleIndexes:
         """Build the lookups of rules against the current catalogue, without publishing them."""
-        _, components_by_mod = self._get_all_known_components()
+        components_by_mod = self._get_known_components_by_mod()
 
         rule_sets_by_component: dict[ComponentReference, set[Rule]] = defaultdict(set)
         resolved_wildcards: dict[
