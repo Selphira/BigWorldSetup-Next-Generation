@@ -35,14 +35,21 @@ def safe_read(path: Path | str, encodings: tuple[str, ...] = TEXT_ENCODINGS) -> 
         logger.error(error_msg)
         raise FileNotFoundError(error_msg)
 
+    content = path.read_bytes()
+
     *attempts, last_resort = encodings
     for encoding in attempts:
         try:
-            return path.read_text(encoding=encoding)
+            return _normalize_newlines(content.decode(encoding))
         except UnicodeDecodeError:
             logger.debug(f"Could not decode {path.name} as {encoding}")
 
-    return path.read_text(encoding=last_resort)
+    return _normalize_newlines(content.decode(last_resort))
+
+
+def _normalize_newlines(text: str) -> str:
+    """Translate "\\r\\n" and lone "\\r" to "\\n", as read_text() does."""
+    return text.replace("\r\n", "\n").replace("\r", "\n")
 
 
 def format_size(bytes_count: int) -> str:
