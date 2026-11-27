@@ -1,6 +1,6 @@
 {
   "name": "Baldur's Gate: Enhanced Edition Trilogy (EET) - Gui",
-  "version": "1.3AD",
+  "version": "15.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
     "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
@@ -94,6 +94,40 @@
   "safe": 2,
   "authors": ["K4thos"],
   "rules": {
+    "dependencies": [
+      {
+        "rule": "eet_gui(0):eet(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component require EET",
+          "pl_PL": "Komponent wymaga wczesniejszego zainstalowania podstawowego komponentu EET",
+          "es_ES": "This component require EET",
+          "fr_FR": "Ce composant necessite l'installation prealable de EET",
+          "cs_CZ": "Tato komponenta vyzaduje EET",
+          "ru_RU": "This component require EET",
+          "de_DE": "Diese Komponente benoetigt EET",
+          "zh_CN": "该组件需求EET",
+          "it_IT": "Questo componente richiede EET"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eet_gui(1):iwd-in-eet(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component require EET",
+          "pl_PL": "Komponent wymaga wczesniejszego zainstalowania podstawowego komponentu EET",
+          "es_ES": "This component require EET",
+          "fr_FR": "Ce composant necessite l'installation prealable de EET",
+          "cs_CZ": "Tato komponenta vyzaduje EET",
+          "ru_RU": "This component require EET",
+          "de_DE": "Diese Komponente benoetigt EET",
+          "zh_CN": "该组件需求EET",
+          "it_IT": "Questo componente richiede EET"
+        },
+        "origin": "tp2"
+      }
+    ],
     "order": [
       {
         "rule": "eet_gui(-):EET(-)",

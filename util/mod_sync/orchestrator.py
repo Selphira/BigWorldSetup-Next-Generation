@@ -363,9 +363,16 @@ class ModSyncOrchestrator:
         """Check the latest release, or the pinned commit, of a mod.
 
         A mod checked less than the configured interval ago is not checked
-        again; once the rate limit is reached, no other mod is checked.
+        again; once the rate limit is reached, no other mod is checked. A mod
+        provided by another one has no release of its own: a repository found
+        for it (an LCC entry shared with a fork, for instance) would replace
+        the files of its provider.
         """
         if self.stats.github_rate_limited:
+            return GitHubCheck()
+
+        if provider := (existing or {}).get("provided_by"):
+            logger.debug(f"GitHub check of {tp2_name} skipped: provided by {provider}")
             return GitHubCheck()
 
         repository = self.github_source.find_repository(existing, lcc_data)

@@ -1,6 +1,6 @@
 {
   "name": "Baldur's Gate: Enhanced Edition Trilogy (EET) - End",
-  "version": "1.3AD",
+  "version": "15.0",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/27752-eet-overview/",
     "forums": ["https://www.gibberlings3.net/forums/forum/195-enhanced-edition-trilogy/"]
@@ -94,6 +94,24 @@
   "safe": 2,
   "authors": ["K4thos"],
   "rules": {
+    "dependencies": [
+      {
+        "rule": "eet_end(0,1):eet(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires EET core component to be installed first",
+          "pl_PL": "Komponent wymaga zainstalowania rdzenia EET",
+          "es_ES": "Este componente requiere el componente principal de EET para ser instalado",
+          "fr_FR": "Ce composant necessite que le composant \"EET core\" soit installe en premier",
+          "cs_CZ": "Tato komponenta vyzaduje nejprve nainstalovat EET core komponentu",
+          "ru_RU": "This component requires EET core component to be installed first",
+          "de_DE": "Diese Komponente setzt voraus, dass die EET-Hauptkomponente zuerst installiert wird.",
+          "zh_CN": "该组件要求首先安装 EET 核心组件",
+          "it_IT": "Questo componente richiede che EET core sia installato per primo"
+        },
+        "origin": "tp2"
+      }
+    ],
     "order": [
       {
         "rule": "eet_end(-):EET(-)",

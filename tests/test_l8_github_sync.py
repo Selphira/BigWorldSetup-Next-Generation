@@ -166,6 +166,43 @@ def test_hash_without_digest_is_kept_only_for_the_very_same_asset() -> None:
     }
 
 
+def test_release_without_asset_falls_back_to_the_source_archive_of_its_tag() -> None:
+    assert release_files([]) == [
+        {"filename": "demo-2.zip", "download": f"{REPOSITORY}/archive/refs/tags/v2.zip"}
+    ]
+
+
+def test_source_archive_of_a_tag_keeps_the_hash_stored_for_the_same_link() -> None:
+    stored_files = [
+        {
+            "filename": "demo-2.zip",
+            "size": 42,
+            "sha256": "kept",
+            "download": f"{REPOSITORY}/archive/refs/tags/v2.zip",
+        }
+    ]
+
+    assert release_files([], stored_files) == stored_files
+
+
+@pytest.mark.parametrize(
+    ("tag", "filename", "url_tag"),
+    [
+        ("1.14_EE", "demo-1.14_EE.zip", "1.14_EE"),
+        ("V2_EE", "demo-2_EE.zip", "V2_EE"),
+        ("release/1.0", "demo-release-1.0.zip", "release/1.0"),
+        ("1.0 beta", "demo-1.0 beta.zip", "1.0%20beta"),
+    ],
+)
+def test_source_archive_of_a_tag_is_named_as_github_serves_it(
+    tag: str, filename: str, url_tag: str
+) -> None:
+    assert GitHubProcessor.tag_archive("author", "demo", tag) == (
+        filename,
+        f"{REPOSITORY}/archive/refs/tags/{url_tag}.zip",
+    )
+
+
 def test_local_archive_of_another_size_is_downloaded_again(tmp_path: Path) -> None:
     archives_dir = tmp_path / "archives"
     archives_dir.mkdir()
@@ -447,6 +484,30 @@ def test_recently_checked_mod_is_not_checked_again(workspace: Path) -> None:
     assert deferred.github_processor.requests == []
     assert stats.github_deferred == 1
     assert always.github_processor.requests == [("author", "demo")]
+
+
+def test_provided_mod_never_takes_the_release_of_a_repository(
+    workspace: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The LCC entry of the mod points to a fork of its provider
+    monkeypatch.setattr(
+        OfflineLCCSource,
+        "MODS",
+        {"demo": {"tp2": "demo", "games": ["bg2ee"], "links": {"homepage": REPOSITORY}}},
+    )
+    content = mod_archive("BACKUP ~weidu_external/backup/demo~\nVERSION ~fork~\n")
+    release = GitHubRelease("fork", [publish(workspace, "demo-fork.zip", content)], "", False)
+    definition_path = write_definition(
+        workspace,
+        {"tp2": "demo", "version": "1", "games": ["bg2ee"], "provided_by": "main"},
+    )
+
+    orchestrator = synchronizer(workspace, release)
+    orchestrator.run()
+
+    assert orchestrator.github_processor.requests == []
+    assert json.loads(definition_path.read_text(encoding="utf-8"))["version"] == "1"
+    assert not (workspace / "archives" / "demo-fork.zip").exists()
 
 
 def test_rate_limit_stops_checks_and_leaves_mods_due(
