@@ -12,7 +12,7 @@ import logging
 from typing import Any
 
 from core.Mod import Component, Mod
-from core.SelectionContext import Selection, SelectionContext
+from core.SelectionContext import PreparedSelection, Selection
 
 logger = logging.getLogger(__name__)
 
@@ -152,7 +152,7 @@ class ComponentReference:
         A mod reference is satisfied by any selected reference of that mod: a
         prepared context answers it without scanning the selection.
         """
-        if isinstance(selection, SelectionContext):
+        if isinstance(selection, PreparedSelection):
             return selection.includes(self)
         if self.is_mod():
             return any(selected.mod_id == self.mod_id for selected in selection)

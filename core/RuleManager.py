@@ -26,6 +26,7 @@ from core.LocalizedCache import (
     first_translation,
 )
 from core.ModManager import ModManager, select_mod_files
+from core.OrderPositions import OrderPositions
 from core.Rules import (
     ComponentGroup,
     DependencyMode,
@@ -1011,7 +1012,7 @@ class RuleManager(LocalizedCacheManager):
         )
 
     def _create_order_evaluator(
-        self, rule: DependencyRule, selection: set[ComponentReference]
+        self, rule: DependencyRule, selection: Selection
     ) -> ConditionEvaluator:
         """Evaluate the targets that must precede the sources of a dependency.
 
@@ -1082,6 +1083,11 @@ class RuleManager(LocalizedCacheManager):
         )
         self._withdraw_order_violations(state, obsolete)
 
+        # The selection is fixed during the call: requirements are evaluated once per source
+        selection_context = SelectionContext.of(selection)
+        order_positions = OrderPositions.of(install_order, earlier, choices)
+        requirements: dict[ComponentReference, set[DependencyRule]] = {}
+
         for rule in affected_rules:
             rule_id = id(rule)
 
@@ -1102,16 +1108,15 @@ class RuleManager(LocalizedCacheManager):
                     if option.is_sub_option()
                     and option.get_base_component_reference() in active
                 )
+                evaluator = self._create_order_evaluator(rule, selection_context)
                 for src in sources:
-                    if rule not in self.ordering_requirements(
-                        src, selection, choices.get(src, set())
-                    ):
+                    if src not in requirements:
+                        requirements[src] = self.ordering_requirements(
+                            src, selection_context, choices.get(src, set())
+                        )
+                    if rule not in requirements[src]:
                         continue
-                    preceding = earlier | set(install_order[: state.positions[src]])
-                    preceding.update(
-                        option for base in tuple(preceding) for option in choices.get(base, ())
-                    )
-                    evaluator = self._create_order_evaluator(rule, selection)
+                    preceding = order_positions.preceding(state.positions[src])
                     if evaluator.is_satisfied(preceding):
                         continue
                     missing = tuple(evaluator.get_missing(preceding))
@@ -1133,8 +1138,21 @@ class RuleManager(LocalizedCacheManager):
             positions = state.positions
             sources_with_pos = [(src, positions[src]) for src in sources if src in positions]
             targets_with_pos = [(tgt, positions[tgt]) for tgt in targets if tgt in positions]
+            if not targets_with_pos:
+                continue
+
+            # A source that cannot violate the rule against its extreme target is skipped;
+            # otherwise every violating pair is reported.
+            target_positions = [tgt_pos for _, tgt_pos in targets_with_pos]
+            extreme_target = (
+                min(target_positions)
+                if direction == OrderDirection.BEFORE
+                else max(target_positions)
+            )
 
             for src, src_pos in sources_with_pos:
+                if not self._check_order_violation(src_pos, extreme_target, direction):
+                    continue
                 for tgt, tgt_pos in targets_with_pos:
                     if src == tgt:
                         continue
@@ -1236,7 +1254,7 @@ class RuleManager(LocalizedCacheManager):
     def ordering_requirements(
         self,
         reference: ComponentReference,
-        selection: set[ComponentReference],
+        selection: Selection,
         options: set[ComponentReference],
     ) -> set[DependencyRule]:
         """Lift conditions on a selected SUB answer to its installable component.

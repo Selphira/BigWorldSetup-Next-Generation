@@ -10,8 +10,23 @@ if TYPE_CHECKING:
     from core.ComponentReference import ComponentReference
 
 
+class PreparedSelection:
+    """References answered by lookups prepared beforehand, mod references included.
+
+    Conditions are evaluated against it as against a plain set, without scanning it
+    for the components of a mod. Not an ABC: ``is_selected_in`` tests this type for
+    every reference evaluated, and an ABC makes that check several times slower.
+    """
+
+    __slots__ = ()
+
+    def includes(self, reference: ComponentReference) -> bool:
+        """Check if a reference is satisfied by this selection."""
+        raise NotImplementedError
+
+
 @dataclass(frozen=True, slots=True)
-class SelectionContext:
+class SelectionContext(PreparedSelection):
     """Selected references and the mods they belong to.
 
     A mod reference is satisfied by any selected reference of that mod: knowing the
@@ -34,5 +49,5 @@ class SelectionContext:
         return reference in self.references
 
 
-# What a condition is evaluated against: a prepared context, or a plain set of references
-type Selection = SelectionContext | Set[ComponentReference]
+# What a condition is evaluated against: prepared lookups, or a plain set of references
+type Selection = PreparedSelection | Set[ComponentReference]
