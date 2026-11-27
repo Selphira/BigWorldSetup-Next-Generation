@@ -209,9 +209,9 @@ class DataUpdater(QObject):
     def _fetch_remote_version() -> dict | None:
         """Fetch remote version information."""
         try:
-            response = requests.get(DATA_VERSION_URL, timeout=DOWNLOAD_TIMEOUT)
-            response.raise_for_status()
-            return response.json()
+            with requests.get(DATA_VERSION_URL, timeout=DOWNLOAD_TIMEOUT) as response:
+                response.raise_for_status()
+                return response.json()
         except Exception as e:
             logger.warning(f"Failed to fetch remote version: {e}")
             return None
@@ -249,24 +249,9 @@ class DataUpdater(QObject):
                     tr("app.downloading_data", attempt=attempt, max_retries=MAX_RETRIES)
                 )
 
-                response = requests.get(url, stream=True, timeout=DOWNLOAD_TIMEOUT)
-                response.raise_for_status()
-
-                total_size = int(response.headers.get("content-length", 0))
-                downloaded = 0
-                self._progress.restart()
-
-                with open(dest, "wb") as f:
-                    for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
-                        self._raise_if_cancelled()
-                        if chunk:
-                            f.write(chunk)
-                            downloaded += len(chunk)
-                            if total_size > 0:
-                                progress = int(
-                                    (downloaded / total_size) * 50
-                                )  # 0-50% for download
-                                self._progress.report(progress)
+                with requests.get(url, stream=True, timeout=DOWNLOAD_TIMEOUT) as response:
+                    response.raise_for_status()
+                    downloaded = self._write_response(response, dest)
 
                 logger.info(f"Downloaded {downloaded} bytes")
                 return True
@@ -280,6 +265,24 @@ class DataUpdater(QObject):
                     self.update_error.emit(tr("app.download_failed", error=str(e)))
 
         return False
+
+    def _write_response(self, response: requests.Response, dest: Path) -> int:
+        """Stream the response body to `dest`, checking for cancellation between chunks."""
+        total_size = int(response.headers.get("content-length", 0))
+        downloaded = 0
+        self._progress.restart()
+
+        with open(dest, "wb") as f:
+            for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
+                self._raise_if_cancelled()
+                if chunk:
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    if total_size > 0:
+                        progress = int((downloaded / total_size) * 50)  # 0-50% for download
+                        self._progress.report(progress)
+
+        return downloaded
 
     def _validate_zip(self, zip_path: Path) -> bool:
         """Validate ZIP file integrity."""
@@ -312,12 +315,16 @@ class DataUpdater(QObject):
                 self._progress.restart()
 
                 for i, member in enumerate(members):
+                    self._raise_if_cancelled()
                     zf.extract(member, extract_dir)
                     progress = 50 + int((i / total) * 40)  # 50-90% for extraction
                     self._progress.report(progress)
 
             logger.info(f"Extracted {total} files")
             return True
+
+        except UpdateCancelledError:
+            raise
 
         except Exception as e:
             logger.error(f"Extraction failed: {e}")

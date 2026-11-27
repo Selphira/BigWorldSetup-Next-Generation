@@ -181,6 +181,118 @@ def test_skipping_is_refused_once_the_activation_started(
     assert (data / "data_version.json").exists()
 
 
+class _StreamedResponse:
+    """Network response that records whether it was closed."""
+
+    def __init__(
+        self,
+        chunks: list[bytes],
+        before_chunk: Callable[[], object] = lambda: None,
+        status_error: Exception | None = None,
+    ) -> None:
+        self.headers = {"content-length": str(sum(len(chunk) for chunk in chunks))}
+        self.closed = False
+        self._chunks = chunks
+        self._before_chunk = before_chunk
+        self._status_error = status_error
+
+    def __enter__(self) -> "_StreamedResponse":
+        return self
+
+    def __exit__(self, *exc_info: object) -> None:
+        self.closed = True
+
+    def raise_for_status(self) -> None:
+        if self._status_error:
+            raise self._status_error
+
+    def iter_content(self, chunk_size: int) -> Iterator[bytes]:
+        for chunk in self._chunks:
+            self._before_chunk()
+            yield chunk
+
+    def json(self) -> dict:
+        return {}
+
+
+def _collect_errors(updater: DataUpdater) -> list[str]:
+    errors: list[str] = []
+    updater.update_error.connect(errors.append)
+    return errors
+
+
+def test_cancelling_during_download_closes_the_response(
+    published_update: tuple[DataUpdater, Path, Path], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    updater, data, _ = published_update
+    before = _snapshot(data)
+    errors = _collect_errors(updater)
+    response = _StreamedResponse([b"chunk"] * 3, before_chunk=updater.request_cancel)
+    monkeypatch.setattr(updater_module.requests, "get", Mock(return_value=response))
+
+    assert not updater.update_data()
+
+    assert response.closed
+    assert errors == []
+    assert _snapshot(data) == before
+
+
+def test_failed_download_attempts_close_every_response(
+    published_update: tuple[DataUpdater, Path, Path], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    updater, data, _ = published_update
+    before = _snapshot(data)
+    errors = _collect_errors(updater)
+    responses = [
+        _StreamedResponse([], status_error=requests.HTTPError("503"))
+        for _ in range(updater_module.MAX_RETRIES)
+    ]
+    monkeypatch.setattr(updater_module.requests, "get", Mock(side_effect=responses))
+
+    assert not updater.update_data()
+
+    assert all(response.closed for response in responses)
+    assert len(errors) == 1
+    assert _snapshot(data) == before
+
+
+def test_version_check_closes_the_response(monkeypatch: pytest.MonkeyPatch) -> None:
+    response = _StreamedResponse([])
+    monkeypatch.setattr(updater_module.requests, "get", Mock(return_value=response))
+
+    assert not DataUpdater().check_for_updates()
+
+    assert response.closed
+
+
+def test_cancelling_during_extraction_stops_before_the_next_file(
+    published_update: tuple[DataUpdater, Path, Path], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    updater, data, archive = published_update
+    before = _snapshot(data)
+    errors = _collect_errors(updater)
+    with zipfile.ZipFile(archive) as package:
+        assert len(package.namelist()) > 1
+
+    extracted: list[str] = []
+    extract = zipfile.ZipFile.extract
+
+    def extract_then_cancel(package: zipfile.ZipFile, member: str, *args: object) -> str:
+        extracted.append(member)
+        updater.request_cancel()
+        return extract(package, member, *args)
+
+    monkeypatch.setattr(updater, "_download_file", _copy_archive(archive))
+    monkeypatch.setattr(zipfile.ZipFile, "extract", extract_then_cancel)
+
+    assert not updater.update_data()
+
+    assert len(extracted) == 1
+    assert errors == []
+    assert _snapshot(data) == before
+    assert not data.with_name("data_backup").exists()
+
+
 # ========================================
 # CACHE PREPARATION
 # ========================================

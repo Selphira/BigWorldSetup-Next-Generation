@@ -106,6 +106,12 @@ class _Response:
         self._chunks = chunks
         self._fail_after = fail_after
 
+    def __enter__(self) -> "_Response":
+        return self
+
+    def __exit__(self, *exc_info: object) -> None:
+        pass
+
     def raise_for_status(self) -> None:
         pass
 
