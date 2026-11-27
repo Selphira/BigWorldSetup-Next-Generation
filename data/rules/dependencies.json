@@ -11,39 +11,9 @@
       "description": "Dépendance interne atweaks 2"
     },
     {
-      "rule": "bg1npc(-):bg1npc(0)",
-      "severity": "error",
-      "description": "Dépendance interne bg1npc"
-    },
-    {
       "rule": "bg1re(-):bg1re(100,101,102,103,104,105)",
       "severity": "error",
       "description": "Dépendance à l'un des composants principaux"
-    },
-    {
-      "rule": "EEex(2,3,4,8,9):EEex(0)",
-      "severity": "error",
-      "description": "Dépendance interne EEex - Principal"
-    },
-    {
-      "rule": "EEex(5,6,7):EEex(2)",
-      "severity": "error",
-      "description": "Dépendance interne EEex - Timer"
-    },
-    {
-      "rule": "c#endlessbg1(2):c#endlessbg1(0,1)",
-      "severity": "error",
-      "description": "Dépendance au composant 1 de c#endlessbg1"
-    },
-    {
-      "rule": "c#sodboabri(2):c#sodboabri(0,1)",
-      "severity": "error",
-      "description": "Dépendance interne c#sodboabri 2"
-    },
-    {
-      "rule": "c#sodboabri(3):c#sodboabri(0,2)",
-      "severity": "error",
-      "description": "Dépendance interne c#sodboabri 3"
     },
     {
       "rule": "cdtweaks(2300):cdtweaks(2090)",
@@ -67,34 +37,9 @@
       "implicit_order": false
     },
     {
-      "rule": "d2-randomkits(21):d2-randomkits(9999)",
-      "severity": "error",
-      "description": "Dépendance interne d2-randomkits"
-    },
-    {
-      "rule": "divine_remix(600):divine_remix(100,109)",
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 3"
-    },
-    {
-      "rule": "divine_remix(610):divine_remix(100,106)",
-      "severity": "error",
-      "description": "Dépendance interne divine_remix 4"
-    },
-    {
       "rule": "DjinniCompanion(300):DjinniCompanion(0,1)",
       "severity": "error",
       "description": "Dépendance interne DjinniCompanion"
-    },
-    {
-      "rule": "ntotsc(8):ntotsc(0)",
-      "severity": "error",
-      "description": "Dépendance interne ntotsc"
-    },
-    {
-      "rule": "EEUITweaks(3010):EEUITweaks(1000,3000)",
-      "severity": "error",
-      "description": "Dépendance interne EEUITweaks"
     },
     {
       "rule": "enhanced-powergaming-scripts(10,9):enhanced-powergaming-scripts(14,15)",
@@ -117,11 +62,6 @@
       "description": "Dépendance interne IRStore"
     },
     {
-      "rule": "iwd1_eet(1):iwd1_eet(0)",
-      "severity": "error",
-      "description": "Dépendance interne iwd1_eet"
-    },
-    {
       "rule": "kiara-zaiya(3,4):Kiara-Zaiya(0,1)",
       "severity": "error",
       "description": "Dépendance interne kiara-zaiya"
@@ -130,11 +70,6 @@
       "rule": "KimNPC(1):KimNPC(0)",
       "severity": "error",
       "description": "Dépendance interne KimNPC"
-    },
-    {
-      "rule": "kitmule(99):kitmule(10000,9999)",
-      "severity": "error",
-      "description": "Dépendance interne kitmule"
     },
     {
       "rule": "LegacyofBhaalFix(1):LegacyofBhaalFix(0)",
@@ -170,11 +105,6 @@
       "rule": "PPK(-):PPK(0)",
       "severity": "error",
       "description": "Dépendance interne PPK"
-    },
-    {
-      "rule": "RevisedBattles(-):RevisedBattles(0)",
-      "severity": "error",
-      "description": "Dépendance interne RevisedBattles 1"
     },
     {
       "rule": "RevisedBattles(0):RevisedBattles(27)",
@@ -257,11 +187,6 @@
       "description": "Dépendance interne SubtleD_Spell_Tweaks #2"
     },
     {
-      "rule": "TDDz(-):TDDz(0)",
-      "severity": "error",
-      "description": "Dépendance interne TDDz"
-    },
-    {
       "rule": "Thael(1):Thael(0)",
       "severity": "error",
       "description": "Dépendance interne Thael"
@@ -337,11 +262,6 @@
       "severity": "error",
       "description": "EET s'installe en 2 parties",
       "implicit_order": false
-    },
-    {
-      "rule": "EET_End(-):EET(-)",
-      "severity": "error",
-      "description": "EET s'installe en 2 parties"
     },
     {
       "rule": "iwd1_eet(-):iwd_eet_end(-)",
