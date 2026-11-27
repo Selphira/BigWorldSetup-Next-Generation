@@ -17,6 +17,8 @@ from pytestqt.qtbot import QtBot
 from constants import EXTRACT_DIR, PROGRESS_IDLE_FORMAT
 from core import DownloadManager as downloads
 from core import WeiDULogParser as weidu_log_module
+from core import atomic_io
+from core.ComponentReference import ComponentReference
 from core.ExtractionManifest import ExtractionManifest
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import (
@@ -679,6 +681,37 @@ def test_order_import_from_weidu_log_keeps_the_installation_order(tmp_path: Path
     log.write_text(MIXED_WEIDU_LOG, encoding="utf-8")
     references = OrderImportExportManager(WeiDULogParser()).import_from_weidu_log(log)
     assert [str(reference) for reference in references] == ["cdtweaks:1", "ascension:0"]
+
+
+def test_order_export_round_trips_through_import(tmp_path: Path) -> None:
+    manager = OrderImportExportManager(WeiDULogParser())
+    order = {0: ComponentReference.from_string_list(["cdtweaks:1", "ascension:0"])}
+    export = tmp_path / "order.json"
+
+    manager.export_to_json(order, export)
+
+    assert manager.import_from_json(export) == order
+
+
+def test_failed_order_export_keeps_the_previous_export(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    export = tmp_path / "order.json"
+    previous_export = '{"0": ["cdtweaks:1"]}'
+    export.write_text(previous_export, encoding="utf-8")
+
+    def interrupted_dump(value: object, stream: io.TextIOBase, **_: object) -> None:
+        stream.write('{"0": [')
+        raise OSError("disk full")
+
+    monkeypatch.setattr(atomic_io.json, "dump", interrupted_dump)
+    order = {0: ComponentReference.from_string_list(["ascension:0"])}
+
+    with pytest.raises(FileReadError):
+        OrderImportExportManager(WeiDULogParser()).export_to_json(order, export)
+
+    assert export.read_text(encoding="utf-8") == previous_export
+    assert not list(tmp_path.glob(".order.json.*"))
 
 
 @pytest.mark.parametrize(

@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from core.atomic_io import write_json_atomic
 from core.ComponentReference import ComponentReference
 from core.models.PauseEntry import PauseEntry
 
@@ -93,6 +94,9 @@ class OrderFileParser:
     def serialize(order: dict[int, list[ComponentReference]], file_path: str | Path) -> None:
         """Serialize order to JSON file.
 
+        The destination is replaced atomically: a failed write leaves any
+        previous export intact instead of a truncated file.
+
         Args:
             order: Dict mapping sequence index to list of component references
             file_path: Path to output JSON file
@@ -107,8 +111,7 @@ class OrderFileParser:
         }
 
         try:
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            write_json_atomic(Path(file_path), data)
         except PermissionError as e:
             raise FileReadError(f"Permission denied: {file_path}") from e
         except Exception as e:
