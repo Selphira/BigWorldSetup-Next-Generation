@@ -2,6 +2,7 @@
 
 import atexit
 from collections.abc import Iterator
+from dataclasses import dataclass
 import json
 import os
 from pathlib import Path
@@ -18,12 +19,15 @@ os.environ["BWS_NG_VAR_DIR"] = tempfile.mkdtemp(prefix="bws-ng-tests-var-")
 import pytest
 
 from core import InstallationExecutor as installation_executor_module
-from core.ComponentReference import IndexManager
+from core.ComponentReference import IndexManager, ReferenceIndexes
+from core.GameManager import GameManager
 from core.Mod import Mod
+from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 
 # Match application import order until the parser/engine cycle is removed.
 from core.WeiDUInstallerEngine import WeiDUInstallerEngine  # noqa: F401
+from util.bench_core import wait_for_cache
 from validation.catalogue import ROOT
 
 atexit.register(shutil.rmtree, os.environ["BWS_NG_VAR_DIR"], ignore_errors=True)
@@ -114,6 +118,48 @@ def rules(catalogue: ModCatalogue, tmp_path: Path) -> RuleManager:
         mods_dir=tmp_path / "mods",
         custom_mods_dir=tmp_path / "custom",
     )
+
+
+@dataclass(frozen=True)
+class ShippedCatalogue:
+    """Mods, rules and games of the shipped catalogue, loaded once for the whole suite."""
+
+    rules: RuleManager
+    games: GameManager
+    # Catalogue part of the global indexes, which every test starts by clearing
+    references: ReferenceIndexes
+
+    def publish_references(self) -> None:
+        """Make the catalogue components resolvable again, as after its loading."""
+        IndexManager.get_indexes().replace_catalogue(self.references)
+
+
+@pytest.fixture(scope="session")
+def shipped_catalogue(
+    qapp: object, tmp_path_factory: pytest.TempPathFactory
+) -> ShippedCatalogue:
+    cache_dir = tmp_path_factory.mktemp("shipped-cache")
+    mod_manager = ModManager(ROOT / "data" / "mods", cache_dir=cache_dir / "mods")
+    rule_manager = RuleManager(
+        mod_manager,
+        ROOT / "data" / "rules",
+        mods_dir=mod_manager.mods_dir,
+        cache_dir=cache_dir / "rules",
+    )
+    wait_for_cache(mod_manager)
+    wait_for_cache(rule_manager)
+
+    references = ReferenceIndexes()
+    references.replace_catalogue(IndexManager.get_indexes())
+    games = GameManager(ROOT / "data" / "games")
+    games.load_games()
+    return ShippedCatalogue(rule_manager, games, references)
+
+
+@pytest.fixture
+def shipped_rules(shipped_catalogue: ShippedCatalogue) -> RuleManager:
+    """Rules of the shipped catalogue, indexed against its mods."""
+    return shipped_catalogue.rules
 
 
 def write_json(path: Path, value: object) -> None:

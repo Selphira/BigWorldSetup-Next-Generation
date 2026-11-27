@@ -2,7 +2,8 @@
 
 Copied as pure functions fed by the rule index of a ``RuleManager``. Conditions are
 evaluated against plain sets, with the former scan of the selection for mod wildcards,
-so that the oracle does not depend on the code it checks.
+so that the oracle does not depend on the code it checks. The public conditions are
+shared with the order oracle (``order_v0``).
 """
 
 from __future__ import annotations
@@ -53,7 +54,7 @@ def _check_dependency(
 ) -> RuleViolation | None:
     if rule.optional:
         return None
-    if not _sources_satisfied(rule, source_ref, selected_set):
+    if not sources_satisfied(rule, source_ref, selected_set):
         return None
     if _targets_satisfied(rule, selected_set):
         return None
@@ -67,7 +68,7 @@ def _check_incompatibility(
     source_ref: ComponentReference,
     selected_set: set[ComponentReference],
 ) -> RuleViolation | None:
-    if not _sources_satisfied(rule, source_ref, selected_set):
+    if not sources_satisfied(rule, source_ref, selected_set):
         return None
     if not _targets_satisfied(rule, selected_set):
         return None
@@ -81,19 +82,19 @@ def _check_incompatibility(
 # ========================================
 
 
-def _sources_satisfied(
+def sources_satisfied(
     rule: DependencyRule | IncompatibilityRule,
     source_ref: ComponentReference,
     selected_set: set[ComponentReference],
 ) -> bool:
-    if not any(_covers(source, source_ref) for source in rule.sources):
+    if not any(covers(source, source_ref) for source in rule.sources):
         return False
     if rule.source_groups:
-        return all(_group_matches(group, selected_set) for group in rule.source_groups)
+        return all(group_matches(group, selected_set) for group in rule.source_groups)
     return True
 
 
-def _target_groups(rule: DependencyRule | IncompatibilityRule) -> tuple[ComponentGroup, ...]:
+def target_groups(rule: DependencyRule | IncompatibilityRule) -> tuple[ComponentGroup, ...]:
     """Standard targets behave as one group: ALL/ANY for a dependency, ANY otherwise."""
     if rule.target_groups:
         return rule.target_groups
@@ -104,7 +105,7 @@ def _target_groups(rule: DependencyRule | IncompatibilityRule) -> tuple[Componen
 def _targets_satisfied(
     rule: DependencyRule | IncompatibilityRule, selected_set: set[ComponentReference]
 ) -> bool:
-    return all(_group_matches(group, selected_set) for group in _target_groups(rule))
+    return all(group_matches(group, selected_set) for group in target_groups(rule))
 
 
 def _targets_missing(
@@ -112,10 +113,10 @@ def _targets_missing(
 ) -> list[ComponentReference]:
     return [
         comp
-        for group in _target_groups(rule)
-        if not _group_matches(group, selected_set)
+        for group in target_groups(rule)
+        if not group_matches(group, selected_set)
         for comp in group.components
-        if not _is_selected_in(comp, selected_set)
+        if not is_selected_in(comp, selected_set)
     ]
 
 
@@ -124,27 +125,27 @@ def _targets_matching(
 ) -> list[ComponentReference]:
     return [
         comp
-        for group in _target_groups(rule)
-        if _group_matches(group, selected_set)
+        for group in target_groups(rule)
+        if group_matches(group, selected_set)
         for comp in group.components
-        if _is_selected_in(comp, selected_set)
+        if is_selected_in(comp, selected_set)
     ]
 
 
-def _group_matches(group: ComponentGroup, selected_set: set[ComponentReference]) -> bool:
-    matches = (_is_selected_in(comp, selected_set) for comp in group.components)
+def group_matches(group: ComponentGroup, selected_set: set[ComponentReference]) -> bool:
+    matches = (is_selected_in(comp, selected_set) for comp in group.components)
     if group.operator == DependencyMode.ANY:
         return any(matches)
     return all(matches)
 
 
-def _covers(reference: ComponentReference, other: ComponentReference) -> bool:
+def covers(reference: ComponentReference, other: ComponentReference) -> bool:
     if reference.is_mod():
         return reference.mod_id == other.mod_id
     return reference == other
 
 
-def _is_selected_in(reference: ComponentReference, selection: set[ComponentReference]) -> bool:
+def is_selected_in(reference: ComponentReference, selection: set[ComponentReference]) -> bool:
     if reference.is_mod():
         return any(selected.mod_id == reference.mod_id for selected in selection)
     return reference in selection

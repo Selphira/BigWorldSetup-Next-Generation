@@ -9,35 +9,16 @@ import random
 import pytest
 
 from core.ComponentReference import ComponentReference
-from core.ModManager import ModManager
 from core.RuleManager import RuleManager
 from core.Rules import IncompatibilityRule, RuleViolation
 from core.SelectionContext import SelectionContext
 from tests.oracles import rules_v0
-from util.bench_core import wait_for_cache
-from validation.catalogue import ROOT
 
 RANDOM_SELECTION_SEEDS = range(20)
 RANDOM_SELECTION_SIZES = (50, 200, 600, 1500, 3000)
 
 
-@pytest.fixture(scope="module")
-def shipped_rules(qapp: object, tmp_path_factory: pytest.TempPathFactory) -> RuleManager:
-    """Rules of the shipped catalogue, indexed against its mods."""
-    cache_dir = tmp_path_factory.mktemp("oracle-cache")
-    mod_manager = ModManager(ROOT / "data" / "mods", cache_dir=cache_dir / "mods")
-    rule_manager = RuleManager(
-        mod_manager,
-        ROOT / "data" / "rules",
-        mods_dir=mod_manager.mods_dir,
-        cache_dir=cache_dir / "rules",
-    )
-    wait_for_cache(mod_manager)
-    wait_for_cache(rule_manager)
-    return rule_manager
-
-
-@pytest.fixture(scope="module")
+@pytest.fixture
 def catalogue_references(shipped_rules: RuleManager) -> list[ComponentReference]:
     """Every component, MUC option, SUB and SUB answer of the catalogue, in a stable order."""
     mods = shipped_rules._mod_manager.get_all_mods().values()
