@@ -301,6 +301,20 @@ class GitHubProcessor:
         """Return the filename and download URL of the source archive of a commit."""
         return f"{repo}-{sha}.zip", f"https://github.com/{owner}/{repo}/archive/{sha}.zip"
 
+    @staticmethod
+    def tag_archive(owner: str, repo: str, tag: str) -> tuple[str, str]:
+        """Return the filename and download URL of the source archive of a tag.
+
+        The filename is the one GitHub serves: a leading "v" is dropped and
+        slashes become dashes ("v1.2" gives "repo-1.2.zip").
+        """
+        version = tag.lstrip("vV").replace("/", "-")
+        url = (
+            f"https://github.com/{owner}/{repo}/archive/refs/tags/"
+            f"{urllib.parse.quote(tag, safe='/')}.zip"
+        )
+        return f"{repo}-{version}.zip", url
+
     def _release_assets(
         self, owner: str, repo: str, assets_data: list[dict]
     ) -> list[GitHubAsset]:

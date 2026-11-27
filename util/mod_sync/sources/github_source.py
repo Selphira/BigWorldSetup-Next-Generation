@@ -101,10 +101,19 @@ class GitHubSource:
             return None
 
         stored_files = self._stored_files(stored_definition)
+        files = self._file_entries(release, stored_files)
+        if not files:
+            logger.info(
+                f"No downloadable asset in {owner}/{repo} {release.tag_name}: "
+                "using the source archive of the tag"
+            )
+            filename, url = self.processor.tag_archive(owner, repo, release.tag_name)
+            files = [self._source_archive_entry(filename, url, stored_files)]
+
         return GitHubUpdate(
             repository=f"{owner}/{repo}",
             tag_name=release.tag_name,
-            files=self._file_entries(release, stored_files),
+            files=files,
         )
 
     def fetch_pinned(
@@ -140,8 +149,9 @@ class GitHubSource:
             previous=recipe,
             newer_release=newer_release,
             files=[
-                self._commit_entry(
-                    owner, repo, current.commit, self._stored_files(stored_definition)
+                self._source_archive_entry(
+                    *self.processor.commit_archive(owner, repo, current.commit),
+                    self._stored_files(stored_definition),
                 )
             ],
         )
@@ -162,14 +172,15 @@ class GitHubSource:
         mode = RecipeMode.COMMIT if commit_ref else RecipeMode.BRANCH
         return GitHubRecipe(mode=mode, commit=commit.sha, date=commit.date, branch=branch)
 
-    def _commit_entry(
-        self, owner: str, repo: str, sha: str, stored_files: list[dict[str, Any]]
+    @staticmethod
+    def _source_archive_entry(
+        filename: str, url: str, stored_files: list[dict[str, Any]]
     ) -> dict[str, Any]:
-        """Return the entry of a commit archive, keeping what was stored for the same link.
+        """Return the entry of a source archive, keeping what was stored for the same link.
 
-        Its size is unknown until the archive is downloaded.
+        GitHub generates these archives on demand: their size is unknown until
+        the archive is downloaded.
         """
-        filename, url = self.processor.commit_archive(owner, repo, sha)
         stored_entry = next(
             (entry for entry in stored_files if entry.get("download") == url), {}
         )

@@ -404,8 +404,6 @@ class ModSyncOrchestrator:
             self.stats.github_outdated.append((tp2_name, current_version, update.tag_name))
             logger.info(f"Outdated: {tp2_name} {current_version} → {update.tag_name}")
 
-        if not update.files:
-            logger.warning(f"No downloadable asset in {update.repository} {update.tag_name}")
         return GitHubCheck(
             answered=True, data={"version": update.version, "files": update.files}
         )
