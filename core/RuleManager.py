@@ -8,7 +8,7 @@ from graphlib import CycleError, TopologicalSorter
 import json
 import logging
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Protocol, TypeGuard
 
 from constants import (
     CACHE_DIR,
@@ -36,6 +36,7 @@ from core.Rules import (
     Rule,
     RuleViolation,
 )
+from core.SelectionContext import Selection, SelectionContext
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
 
 logger = logging.getLogger(__name__)
@@ -285,6 +286,8 @@ class RuleIndexes:
     ]
     dependents_by_target: dict[ComponentReference, set[DependencyRule]]
     dependencies_by_source: dict[ComponentReference, list[DependencyRule]]
+    # Keyed by id(rule): equal rules keep their own entry, as for resolved_wildcards
+    prepared_rules: dict[int, PreparedRule]
 
 
 @dataclass(frozen=True, slots=True)
@@ -475,15 +478,15 @@ class RuleCacheBuilderThread(LocalizedCacheBuilder):
 class ConditionEvaluator(Protocol):
     """Protocol for evaluating source/target conditions."""
 
-    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+    def is_satisfied(self, selected_set: Selection) -> bool:
         """Check if condition is satisfied."""
         ...
 
-    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_missing(self, selected_set: Selection) -> list[ComponentReference]:
         """Get missing components."""
         ...
 
-    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_matching(self, selected_set: Selection) -> list[ComponentReference]:
         """Get matching components."""
         ...
 
@@ -497,7 +500,7 @@ class StandardCondition:
         self.components = components
         self.mode = mode
 
-    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+    def is_satisfied(self, selected_set: Selection) -> bool:
         """Check if condition is met."""
         matches = (comp.is_selected_in(selected_set) for comp in self.components)
 
@@ -505,11 +508,11 @@ class StandardCondition:
             return all(matches)
         return any(matches)
 
-    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_missing(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components that don't match."""
         return [comp for comp in self.components if not comp.is_selected_in(selected_set)]
 
-    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_matching(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components that match."""
         return [comp for comp in self.components if comp.is_selected_in(selected_set)]
 
@@ -522,11 +525,11 @@ class GroupCondition:
     def __init__(self, groups: tuple[ComponentGroup, ...]):
         self.groups = groups
 
-    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+    def is_satisfied(self, selected_set: Selection) -> bool:
         """All groups must be satisfied."""
         return all(group.matches(selected_set) for group in self.groups)
 
-    def get_missing(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_missing(self, selected_set: Selection) -> list[ComponentReference]:
         """Get missing components from unsatisfied groups."""
         missing = []
         for group in self.groups:
@@ -534,7 +537,7 @@ class GroupCondition:
                 missing.extend(group.get_missing_components(selected_set))
         return missing
 
-    def get_matching(self, selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_matching(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components that match."""
         matching = []
         for group in self.groups:
@@ -551,16 +554,111 @@ class TrivialCondition:
     def __init__(self, result: bool):
         self._result = result
 
-    def is_satisfied(self, selected_set: set[ComponentReference]) -> bool:
+    def is_satisfied(self, selected_set: Selection) -> bool:
         return self._result
 
     @staticmethod
-    def get_missing(selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_missing(selected_set: Selection) -> list[ComponentReference]:
         return []
 
     @staticmethod
-    def get_matching(selected_set: set[ComponentReference]) -> list[ComponentReference]:
+    def get_matching(selected_set: Selection) -> list[ComponentReference]:
         return []
+
+
+@dataclass(frozen=True, slots=True)
+class PreparedRule:
+    """Part of a dependency or incompatibility check that does not depend on the selection.
+
+    Prepared once per revision. A dependency is violated by unsatisfied targets,
+    an incompatibility by satisfied ones.
+    """
+
+    rule: DependencyRule | IncompatibilityRule
+    explicit_sources: frozenset[ComponentReference]
+    source_mods: frozenset[str]
+    source_condition: ConditionEvaluator
+    target_condition: ConditionEvaluator
+    targets_required: bool
+
+    @classmethod
+    def of(
+        cls, rule: DependencyRule | IncompatibilityRule, target_condition: ConditionEvaluator
+    ) -> PreparedRule:
+        """Prepare a rule with the evaluator of its targets."""
+        source_condition: ConditionEvaluator = (
+            GroupCondition(rule.source_groups) if rule.source_groups else TrivialCondition(True)
+        )
+        return cls(
+            rule=rule,
+            explicit_sources=frozenset(
+                source for source in rule.sources if not source.is_mod()
+            ),
+            source_mods=frozenset(source.mod_id for source in rule.sources if source.is_mod()),
+            source_condition=source_condition,
+            target_condition=target_condition,
+            targets_required=isinstance(rule, DependencyRule),
+        )
+
+    def has_source(self, reference: ComponentReference) -> bool:
+        """Check if a source of the rule covers the reference, in two lookups."""
+        return reference in self.explicit_sources or reference.mod_id in self.source_mods
+
+    def target_findings(self, selection: Selection) -> tuple[ComponentReference, ...] | None:
+        """Targets that violate the rule, or None when they do not.
+
+        Missing targets violate a dependency, selected ones an incompatibility.
+        """
+        satisfied = self.target_condition.is_satisfied(selection)
+        if self.targets_required:
+            return None if satisfied else tuple(self.target_condition.get_missing(selection))
+        return tuple(self.target_condition.get_matching(selection)) if satisfied else None
+
+
+class SelectionCheck:
+    """Rule checks of one selection context.
+
+    Source groups and targets depend on the selection only: each is evaluated once
+    per rule, while every active source still gets its own violation.
+    """
+
+    __slots__ = ("_context", "_prepared_rules", "_sources_met", "_target_findings")
+
+    def __init__(
+        self, context: SelectionContext, prepared_rules: dict[int, PreparedRule]
+    ) -> None:
+        self._context = context
+        self._prepared_rules = prepared_rules
+        self._sources_met: dict[int, bool] = {}
+        self._target_findings: dict[int, tuple[ComponentReference, ...] | None] = {}
+
+    def violation(self, rule: Rule, source_ref: ComponentReference) -> RuleViolation | None:
+        """Violation of a rule by one selected source.
+
+        Order rules and optional dependencies are not prepared: they never have one.
+        """
+        prepared = self._prepared_rules.get(id(rule))
+        if prepared is None or not prepared.has_source(source_ref):
+            return None
+        if not self._are_sources_met(prepared):
+            return None
+
+        findings = self._findings(prepared)
+        if findings is None:
+            return None
+        return RuleViolation(rule=rule, affected_components=(source_ref, *findings))
+
+    def _are_sources_met(self, prepared: PreparedRule) -> bool:
+        key = id(prepared)
+        if key not in self._sources_met:
+            self._sources_met[key] = prepared.source_condition.is_satisfied(self._context)
+        return self._sources_met[key]
+
+    def _findings(self, prepared: PreparedRule) -> tuple[ComponentReference, ...] | None:
+        key = id(prepared)
+        if key not in self._target_findings:
+            self._target_findings[key] = prepared.target_findings(self._context)
+        return self._target_findings[key]
 
 
 # ===================================================================
@@ -615,6 +713,7 @@ class RuleManager(LocalizedCacheManager):
         self._dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = (
             defaultdict(list)
         )
+        self._prepared_rules: dict[int, PreparedRule] = {}
         self._last_selection_key: tuple[int, frozenset[ComponentReference]] | None = None
 
     # ========================================
@@ -781,8 +880,14 @@ class RuleManager(LocalizedCacheManager):
         dependencies_by_source: dict[ComponentReference, list[DependencyRule]] = defaultdict(
             list
         )
+        prepared_rules: dict[int, PreparedRule] = {}
 
         for rule in rules:
+            if self._is_selection_rule(rule):
+                prepared_rules[id(rule)] = PreparedRule.of(
+                    rule, self._create_target_evaluator(rule)
+                )
+
             if isinstance(rule, DependencyRule):
                 for target in rule.targets:
                     dependents_by_target[target].add(rule)
@@ -808,7 +913,15 @@ class RuleManager(LocalizedCacheManager):
             resolved_wildcards=resolved_wildcards,
             dependents_by_target=dependents_by_target,
             dependencies_by_source=dependencies_by_source,
+            prepared_rules=prepared_rules,
         )
+
+    @staticmethod
+    def _is_selection_rule(rule: Rule) -> TypeGuard[DependencyRule | IncompatibilityRule]:
+        """Rules a selection can violate: an absent optional target is normal."""
+        if isinstance(rule, DependencyRule):
+            return not rule.optional
+        return isinstance(rule, IncompatibilityRule)
 
     def _publish_indexes(self, indexes: RuleIndexes) -> None:
         """Publish lookups and withdraw validations computed with the previous ones."""
@@ -816,6 +929,7 @@ class RuleManager(LocalizedCacheManager):
         self._resolved_wildcards_cache = indexes.resolved_wildcards
         self._dependents_by_target = indexes.dependents_by_target
         self._dependencies_by_source = indexes.dependencies_by_source
+        self._prepared_rules = indexes.prepared_rules
         self.revision += 1
 
         self._validation_states.clear()
@@ -847,10 +961,12 @@ class RuleManager(LocalizedCacheManager):
     def selection_violations(self, selection: set[ComponentReference]) -> list[RuleViolation]:
         """Evaluate a candidate selection without publishing it to the UI."""
         selected = {ref for ref in selection if ref.is_component() or ref.is_sub_option()}
+        check = SelectionCheck(SelectionContext.of(selected), self._prepared_rules)
+
         violations = []
         for ref in sorted(selected, key=str):
-            for rule in self.get_rules_for_component(ref):
-                violation = self._check_rule(rule, ref, selected)
+            for rule in self._rules_by_component.get(ref, ()):
+                violation = check.violation(rule, ref)
                 if violation:
                     violations.append(violation)
         return violations
@@ -868,41 +984,6 @@ class RuleManager(LocalizedCacheManager):
                     seen_violations.add(id(violation))
 
         return all_violations
-
-    def _check_rule(
-        self, rule: Rule, source_ref: ComponentReference, selected_set: set[ComponentReference]
-    ) -> RuleViolation | None:
-        if isinstance(rule, DependencyRule):
-            return self._check_dependency(rule, source_ref, selected_set)
-        if isinstance(rule, IncompatibilityRule):
-            return self._check_incompatibility(rule, source_ref, selected_set)
-        return None
-
-    def _check_dependency(
-        self,
-        rule: DependencyRule,
-        source_ref: ComponentReference,
-        selected_set: set[ComponentReference],
-    ) -> RuleViolation | None:
-        """Check DependencyRule: supports ALL and ANY modes."""
-        if rule.optional:
-            # An absent optional target is normal: only the order of selected ones matters.
-            return None
-
-        source_evaluator = self._create_source_evaluator(rule, source_ref)
-
-        if not source_evaluator.is_satisfied(selected_set):
-            return None
-
-        target_evaluator = self._create_target_evaluator(rule)
-
-        if target_evaluator.is_satisfied(selected_set):
-            return None
-
-        missing = target_evaluator.get_missing(selected_set)
-        affected = (source_ref,) + tuple(missing)
-
-        return RuleViolation(rule=rule, affected_components=affected)
 
     def _create_source_evaluator(
         self, rule: DependencyRule | IncompatibilityRule, source_ref: ComponentReference
@@ -949,25 +1030,6 @@ class RuleManager(LocalizedCacheManager):
         if not selected_groups:
             return TrivialCondition(True)
         return GroupCondition(selected_groups)
-
-    def _check_incompatibility(
-        self,
-        rule: IncompatibilityRule,
-        source_ref: ComponentReference,
-        selected_set: set[ComponentReference],
-    ) -> RuleViolation | None:
-        """Check incompatibility: collect conflicting selected components."""
-        source_evaluator = self._create_source_evaluator(rule, source_ref)
-        if not source_evaluator.is_satisfied(selected_set):
-            return None
-
-        target_evaluator = self._create_target_evaluator(rule)
-        if not target_evaluator.is_satisfied(selected_set):
-            return None
-
-        conflicts = target_evaluator.get_matching(selected_set)
-        affected = (source_ref,) + tuple(conflicts)
-        return RuleViolation(rule=rule, affected_components=affected)
 
     # ========================================
     # ORDER VALIDATION

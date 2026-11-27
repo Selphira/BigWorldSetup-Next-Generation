@@ -7,6 +7,7 @@ from typing import Any, cast
 
 from constants import ICON_ERROR, ICON_INFO, ICON_WARNING
 from core.ComponentReference import ComponentReference
+from core.SelectionContext import Selection
 from core.TranslationManager import tr
 
 
@@ -47,7 +48,7 @@ class ComponentGroup:
     components: tuple[ComponentReference, ...]
     operator: DependencyMode = DependencyMode.ANY
 
-    def matches(self, selected_set: set[ComponentReference]) -> bool:
+    def matches(self, selected_set: Selection) -> bool:
         """Check if this group is satisfied by the selection."""
         if self.operator == DependencyMode.ANY:
             # At least one component must be selected
@@ -55,15 +56,11 @@ class ComponentGroup:
         # All components must be selected
         return all(comp.is_selected_in(selected_set) for comp in self.components)
 
-    def get_matched_components(
-        self, selected_set: set[ComponentReference]
-    ) -> list[ComponentReference]:
+    def get_matched_components(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components from this group that are selected."""
         return [comp for comp in self.components if comp.is_selected_in(selected_set)]
 
-    def get_missing_components(
-        self, selected_set: set[ComponentReference]
-    ) -> list[ComponentReference]:
+    def get_missing_components(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components from this group that are NOT selected."""
         return [comp for comp in self.components if not comp.is_selected_in(selected_set)]
 

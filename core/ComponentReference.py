@@ -12,6 +12,7 @@ import logging
 from typing import Any
 
 from core.Mod import Component, Mod
+from core.SelectionContext import Selection, SelectionContext
 
 logger = logging.getLogger(__name__)
 
@@ -145,11 +146,14 @@ class ComponentReference:
             return self.mod_id == other.mod_id
         return self == other
 
-    def is_selected_in(self, selection: set[ComponentReference]) -> bool:
+    def is_selected_in(self, selection: Selection) -> bool:
         """Check if this reference is satisfied by the selection.
 
-        A mod reference is satisfied by any selected reference of that mod.
+        A mod reference is satisfied by any selected reference of that mod: a
+        prepared context answers it without scanning the selection.
         """
+        if isinstance(selection, SelectionContext):
+            return selection.includes(self)
         if self.is_mod():
             return any(selected.mod_id == self.mod_id for selected in selection)
         return self in selection
