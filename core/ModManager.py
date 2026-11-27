@@ -23,7 +23,7 @@ from core.LocalizedCache import (
     CacheGroups,
     LocalizedCacheBuilder,
     LocalizedCacheManager,
-    first_translation,
+    fallback_translations,
 )
 from core.Mod import Mod, MucComponent, SubComponent
 from core.TranslationManager import SUPPORTED_LANGUAGES, get_translator, tr
@@ -37,6 +37,16 @@ MOD_CACHE_GROUP = "mods"
 def list_json_files(directory: Path) -> list[Path]:
     """Return the JSON files of a directory, or nothing if it does not exist."""
     return list(directory.glob("*.json")) if directory.exists() else []
+
+
+def first_text(texts_by_priority: list[dict[str, Any]], key: str) -> str:
+    """Return the first non-empty text of a key, or an empty string when none provides it."""
+    for texts in texts_by_priority:
+        text = texts.get(key, "")
+        if text:
+            return text
+
+    return ""
 
 
 def select_mod_files(mods_dir: Path, custom_mods_dir: Path) -> list[tuple[Path, bool]]:
@@ -158,20 +168,16 @@ class CacheBuilderThread(LocalizedCacheBuilder):
             Localized mod dictionary
         """
         result = mod.copy()
-        translations_all = mod.get("translations", {})
         result.pop("translations", None)
 
-        description = first_translation(
-            translations_all, target_lang, lambda texts: texts.get("description", "")
-        )
+        # Fallback order is computed once per mod and language, then shared by every key
+        translations = fallback_translations(mod.get("translations", {}), target_lang)
+        description = first_text(translations, "description")
+        component_texts = [texts.get("components", {}) for texts in translations]
 
         def resolve_component_text(key: str) -> str:
             """Find best translation for a component key."""
-            return first_translation(
-                translations_all,
-                target_lang,
-                lambda texts: texts.get("components", {}).get(key, ""),
-            )
+            return first_text(component_texts, key)
 
         localized_components = {}
 

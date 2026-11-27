@@ -335,3 +335,50 @@ def test_translation_falls_back_to_first_language_providing_text() -> None:
     assert first_translation(translations, "de_DE", lambda text: text) == "English"
     assert first_translation(translations, "ko_KR", lambda text: text) == "English"
     assert first_translation({"en_US": ""}, "fr_FR", lambda text: text) == ""
+
+
+def test_localized_mod_falls_back_key_by_key() -> None:
+    mod = {
+        "id": "sample",
+        "components": {
+            "0": {"type": "std"},
+            "1": {"type": "muc", "components": ["10", "11"]},
+            "2": {"type": "sub", "prompts": {"a": {"options": ["x", "y"]}}},
+        },
+        "translations": {
+            "en_US": {
+                "description": "English description",
+                "components": {
+                    "0": "Zero",
+                    "10": "Ten",
+                    "2.a": "Question",
+                    "2.a.x": "Answer X",
+                },
+            },
+            "de_DE": {
+                "description": "",
+                "components": {"1": "Eins", "11": "Elf", "2.a.x": "Antwort X"},
+            },
+            "fr_FR": {
+                "description": "",
+                "components": {"0": "Zéro", "2.a.y": "Réponse Y"},
+            },
+        },
+    }
+
+    localized = CacheBuilderThread._localize_mod(mod, "fr_FR")
+
+    assert localized["translations"] == {
+        "description": "English description",
+        "components": {
+            "0": "Zéro",
+            "1": "Eins",
+            "10": "Ten",
+            "11": "Elf",
+            "2": "",
+            "2.a": "Question",
+            "2.a.x": "Answer X",
+            "2.a.y": "Réponse Y",
+        },
+    }
+    assert mod["translations"]["fr_FR"]["components"]["0"] == "Zéro"

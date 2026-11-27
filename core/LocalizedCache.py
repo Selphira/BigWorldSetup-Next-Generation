@@ -55,6 +55,22 @@ def source_fingerprint(source_files: list[Path]) -> str:
     return digest.hexdigest()
 
 
+def fallback_translations(translations: dict[str, Any], language: str) -> list[Any]:
+    """
+    Return the translations in fallback order: target language first, then the others.
+
+    Args:
+        translations: Translations indexed by language code
+        language: Target language code
+
+    Returns:
+        Translations of the languages present, in the order they are tried
+    """
+    ordered = [translations[language]] if language in translations else []
+    ordered.extend(text for code, text in translations.items() if code != language)
+    return ordered
+
+
 def first_translation(
     translations: dict[str, Any], language: str, read: Callable[[Any], str]
 ) -> str:
@@ -69,13 +85,10 @@ def first_translation(
     Returns:
         Translated text, or an empty string when no language provides it
     """
-    fallback_order = [language] + [code for code in translations if code != language]
-
-    for code in fallback_order:
-        if code in translations:
-            text = read(translations[code])
-            if text:
-                return text
+    for translation in fallback_translations(translations, language):
+        text = read(translation)
+        if text:
+            return text
 
     return ""
 
