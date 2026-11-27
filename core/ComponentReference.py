@@ -7,6 +7,7 @@ for identifying mods, components, and options in a type-safe manner.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 import logging
 from typing import Any
@@ -368,6 +369,22 @@ class ReferenceIndexes:
             if reference not in self.order_violation_index:
                 self.order_violation_index[reference] = []
             self.order_violation_index[reference].append(violation)
+
+    def remove_order_violations(self, violations: Iterable[Any]) -> None:
+        """Remove these violations from every affected component, each list filtered once.
+
+        Violations are matched by identity: an equal finding published by another
+        sequence stays. Lists are updated in place, as readers may hold them.
+        """
+        withdrawn = list(violations)
+        withdrawn_ids = {id(violation) for violation in withdrawn}
+        references = {
+            reference for violation in withdrawn for reference in violation.affected_components
+        }
+        for reference in references:
+            entries = self.order_violation_index.get(reference)
+            if entries:
+                entries[:] = [entry for entry in entries if id(entry) not in withdrawn_ids]
 
     def get_order_violations(self, reference: ComponentReference) -> list[Any]:
         """Get order violations for a reference."""

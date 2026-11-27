@@ -1183,11 +1183,13 @@ class RuleManager(LocalizedCacheManager):
         self, state: ValidationState, rule_ids: Iterable[int]
     ) -> None:
         """Forget a sequence's findings for these rules, in the state and in the shared index."""
-        for rule_id in rule_ids:
-            for violation in state.violations_by_rule.pop(rule_id, []):
-                for ref in violation.affected_components:
-                    entries = self._indexes.order_violation_index.get(ref, [])
-                    entries[:] = [entry for entry in entries if entry is not violation]
+        self._indexes.remove_order_violations(
+            [
+                violation
+                for rule_id in rule_ids
+                for violation in state.violations_by_rule.pop(rule_id, [])
+            ]
+        )
 
     def _clear_game_states(self, game_id: str | None) -> None:
         """Clean up validation states for a specific game, withdrawing their published findings."""
