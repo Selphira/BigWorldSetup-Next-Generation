@@ -31,7 +31,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std", "category": "npcx"}
+    "0": {"type": "std", "category": "npcx", "label": "Raven-alora_npc_for_bg2"}
   },
   "languages": {
     "en_US": 0,
@@ -88,6 +88,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "alora(0):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

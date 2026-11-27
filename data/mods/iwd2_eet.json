@@ -84,6 +84,28 @@
         "severity": "warning",
         "origin": "ini"
       }
+    ],
+    "dependencies": [
+      {
+        "rule": "iwd2_eet(0):iwd1_eet(1)",
+        "severity": "error",
+        "translations": {
+          "ru_RU": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "en_US": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "de_DE": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "fr_FR": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "es_ES": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "pl_PL": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first",
+          "zh_CN": "Please install Icewind Dale: Heart of Winter in Baldur's Gate Enhanced Edition Trilogy at first"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwd2_eet(0):bg2fixpack(104)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
     ]
   }
 }

@@ -39,5 +39,23 @@
   },
   "tp2": "tethyrforestpatch",
   "safe": 2,
-  "authors": ["Hoppy", "White Agnus"]
+  "authors": ["Hoppy", "White Agnus"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "tethyrforestpatch(0):ctb(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must install Check the Bodies, if you want to use this patch"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "tethyrforestpatch(0):ts-bp(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

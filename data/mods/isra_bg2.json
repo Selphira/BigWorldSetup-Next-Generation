@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
-    "1": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"], "label": "isra_npc_for_bg2"},
+    "1": {"type": "std", "label": "isra_npc_for_bg2_crossmod_content"}
   },
   "languages": {
     "en_US": 0,
@@ -44,5 +44,18 @@
   },
   "tp2": "isra_bg2",
   "safe": 2,
-  "authors": ["Rhaella"]
+  "authors": ["Rhaella"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "isra_bg2(1):isra_bg2(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Please install Isra NPC for BGII main component before additional content.",
+          "fr_FR": "Veuillez installer ISRA NPC pour le composant principal BGII avant le contenu supplementaire."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

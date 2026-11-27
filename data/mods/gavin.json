@@ -29,11 +29,11 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["1", "11", "12", "13", "14"], "default": "1"},
-    "2": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7", "8", "9"], "default": "4"},
-    "10": {"type": "std"}
+    "0": {"type": "std", "label": "b!gavin_main"},
+    "choice_0": {"type": "muc", "components": ["1", "11", "12", "13", "14"], "default": "1", "labels": {"1": "b!gavin_romance_3600", "11": "b!gavin_romance_2700", "12": "b!gavin_romance_1800", "13": "b!gavin_romance_900", "14": "b!gavin_romance_5400"}},
+    "2": {"type": "std", "label": "b!gavin_flirts"},
+    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7", "8", "9"], "default": "4", "labels": {"4": "b!gavin_portrait_alt_1", "5": "b!gavin_portrait_alt_2", "6": "b!gavin_portrait_alt_3", "7": "b!gavin_portrait_alt_4", "8": "b!gavin_portrait_alt_5", "9": "b!gavin_portrait_alt_6"}},
+    "10": {"type": "std", "label": "b!gavin_pid"}
   },
   "languages": {
     "en_US": 0,
@@ -144,6 +144,52 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "gavin(1,11,12,13,14):gavin(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need to have the Gavin NPC Mod installed to select this option.",
+          "fr_FR": "Vous devez avoir installe le mod Gavin NPC pour selectionner cette option.",
+          "de_DE": "Sie muessen den Gavin NPC Mod  installiert haben, um diese Optionen waehlen zu koennen.",
+          "ru_RU": "You need to have the Gavin NPC Mod installed to select this option."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "gavin(2):gavin(1,11,12,13,14)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need to have the Gavin Romance installed to select this option.",
+          "fr_FR": "Vous devez avoir installe la Romance de Gavin pour selectionner cette option.",
+          "de_DE": "Sie muessen die Gavin Romanze installiert haben, um diese Moeglichkeit waehlen zu koennen.",
+          "ru_RU": "You need to have the Gavin Romance installed to select this option."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "gavin(4,5,6,7,8,9):gavin(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must have installed Gavin to install the alternate portrait.",
+          "fr_FR": "Vous devez avoir installe Gavin pour installer le portrait alternatif.",
+          "de_DE": "Sie muessen Gavin installiert haben, um die alternativen Portraits nutzen zu koennen..",
+          "ru_RU": "You must have installed Gavin to install the alternate portrait."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "gavin(10):gavin(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need to have Gavin installed to select this option.",
+          "fr_FR": "Vous devez avoir installe Gavin pour selectionner cette option.",
+          "de_DE": "Sie muessen Gavin installiert haben, um diese Option waehlen zu koennen.",
+          "ru_RU": "You need to have Gavin installed to select this option."
+        },
+        "origin": "tp2"
       }
     ]
   }

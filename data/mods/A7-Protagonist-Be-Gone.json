@@ -28,8 +28,8 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "category": "spell", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "1": {"type": "std", "category": "spell", "games": ["bg2", "bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "category": "spell", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"], "label": "A7-PROTAGONIST-BE-GONE-BG1"},
+    "1": {"type": "std", "category": "spell", "games": ["bg2", "bg2ee", "bgt", "eet"], "label": "A7-PROTAGONIST-BE-GONE-BG2"}
   },
   "languages": {
     "en_US": 0,
@@ -84,6 +84,30 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "a7-protagonist-be-gone(1):skipchateauirenicus(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Not compatible with \"Skip Chateau Irenicus\".",
+          "de_DE": "Nicht kompatibel mit \"Ueberspringe Chateau Irenicus\".",
+          "ru_RU": "Not compatible with \"Skip Chateau Irenicus\".",
+          "fr_FR": "Incompatible avec \"Skip Chateau Irenicus\"."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-protagonist-be-gone(1):dungeonbegone(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Not compatible with \"Dungeon Be Gone\".",
+          "de_DE": "Nicht kompatibel mit \"Dungeon Be Gone\".",
+          "ru_RU": "Not compatible with \"Dungeon Be Gone\".",
+          "fr_FR": "Incompatible avec \"Dungeon Be Gone\"."
+        },
+        "origin": "tp2"
       }
     ]
   }

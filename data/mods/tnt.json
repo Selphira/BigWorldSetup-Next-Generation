@@ -18,15 +18,15 @@
   "components": {
     "0": {"type": "std", "category": "spell"},
     "1": {"type": "std", "category": "spell"},
-    "2": {"type": "std", "category": "spell"},
-    "3": {"type": "std", "category": "spell"},
-    "choice_0": {"type": "muc", "components": ["4", "5"], "category": "spell", "default": "4"},
-    "choice_1": {"type": "muc", "components": ["6", "7"], "category": "spell", "default": "6"},
-    "choice_2": {"type": "muc", "components": ["8", "9"], "category": "spell", "default": "8"},
-    "10": {"type": "std", "category": "spell"},
-    "choice_3": {"type": "muc", "components": ["11", "12"], "category": "spell", "default": "11"},
-    "13": {"type": "std", "category": "spell"},
-    "14": {"type": "std", "category": "spell"},
+    "2": {"type": "std", "category": "spell", "label": "g_tnt_traps_instant"},
+    "3": {"type": "std", "category": "spell", "label": "g_tnt_traps_range"},
+    "choice_0": {"type": "muc", "components": ["4", "5"], "category": "spell", "default": "4", "labels": {"4": "g_tnt_traps_reminders_specific", "5": "g_tnt_traps_reminders_generic"}},
+    "choice_1": {"type": "muc", "components": ["6", "7"], "category": "spell", "default": "6", "labels": {"6": "g_tnt_traps_intuition_no_combat", "7": "g_tnt_traps_intuition_combat"}},
+    "choice_2": {"type": "muc", "components": ["8", "9"], "category": "spell", "default": "8", "labels": {"8": "g_tnt_traps_intuition_pause_ground_traps_only", "9": "g_tnt_traps_intuition_pause_all_traps"}},
+    "10": {"type": "std", "category": "spell", "label": "g_tnt_traps_intuition_toggle_find_traps"},
+    "choice_3": {"type": "muc", "components": ["11", "12"], "category": "spell", "default": "11", "labels": {"11": "g_tnt_traps_intuition_center_on_character", "12": "g_tnt_traps_intuition_center_on_trap"}},
+    "13": {"type": "std", "category": "spell", "label": "g_tnt_traps_intuition_sound"},
+    "14": {"type": "std", "category": "spell", "label": "g_tnt_traps_core"},
     "15": {"type": "std", "category": "spell", "games": ["bgee", "bgt", "eet", "sod"]},
     "choice_4": {"type": "muc", "components": ["16", "17", "18"], "category": "spell", "languages": ["en_US"], "games": ["bgt", "eet"]},
     "choice_5": {"type": "muc", "components": ["19", "20", "21"], "category": "spell", "languages": ["en_US"], "games": ["bgt", "eet"]},
@@ -837,5 +837,59 @@
   },
   "tp2": "tnt",
   "safe": 2,
-  "authors": ["Magus"]
+  "authors": ["Magus"],
+  "rules": {
+    "order": [
+      {
+        "rule": "tnt(2,3,4,5,6,7,8,9,10,11,12,13):tnt(14)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "All Improved Traps components must be installed BEFORE core",
+          "pl_PL": "Wszystkie komponenty Ulepszonych Pułapek muszą zostać zainstalowane PRZED komponentem głównym",
+          "pt_PT": "All Improved Traps components must be installed BEFORE core",
+          "ru_RU": "All Improved Traps components must be installed BEFORE core",
+          "es_ES": "All Improved Traps components must be installed BEFORE core",
+          "sv_SE": "All Improved Traps components must be installed BEFORE core",
+          "fr_FR": "Tous les composants de pieges ameliores doivent être installes AVANT le noyau"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "tnt(0,14,39,40,41,50,51,52,67,68):dq(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "tnt(8,9,10,11,12,13):tnt(6,7)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Intuition not selected, skipping",
+          "pl_PL": "Nie wybrano opcji Intuicyjne wykrywanie pułapek",
+          "pt_PT": "Intuition not selected, skipping",
+          "ru_RU": "Intuition not selected, skipping",
+          "es_ES": "Intuition not selected, skipping",
+          "sv_SE": "Intuition not selected, skipping",
+          "fr_FR": "Intuition non selectionnee, sauter"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "tnt(14):tnt(7,6,3,11,12,8,9,13,2,5,4,10)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "tnt(75):dearnise(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

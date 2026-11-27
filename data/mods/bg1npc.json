@@ -16,25 +16,25 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["20", "21", "22", "23", "24"], "default": "22"},
-    "choice_1": {"type": "muc", "components": ["30", "31", "32", "33", "34"], "default": "32"},
-    "choice_2": {"type": "muc", "components": ["40", "41", "42", "43", "44"], "default": "42"},
-    "choice_3": {"type": "muc", "components": ["50", "51", "52", "53", "54"], "default": "52"},
-    "choice_4": {"type": "muc", "components": ["60", "61", "62", "63", "64"], "default": "62"},
-    "choice_5": {"type": "muc", "components": ["70", "71", "72", "73", "74"], "default": "72"},
-    "80": {"type": "std"},
-    "90": {"type": "std", "games": ["bgee", "eet", "sod", "tutu"]},
-    "100": {"type": "std", "games": ["bgt", "tutu"]},
-    "choice_6": {"type": "muc", "components": ["110", "111", "112", "113", "114"], "default": "110", "games": ["bgee", "eet", "sod"]},
-    "120": {"type": "std"},
-    "choice_7": {"type": "muc", "components": ["130", "131"], "default": "130"},
-    "choice_8": {"type": "muc", "components": ["240", "241"], "default": "240"},
-    "150": {"type": "std", "category": "portrait"},
-    "155": {"type": "std", "category": "portrait"},
-    "160": {"type": "std", "category": "portrait"},
-    "200": {"type": "std"}
+    "0": {"type": "std", "label": "bg1npc_project-main"},
+    "10": {"type": "std", "label": "bg1npc_project-banters_quests_interjections"},
+    "choice_0": {"type": "muc", "components": ["20", "21", "22", "23", "24"], "default": "22", "labels": {"20": "bg1npc_project-ajantisromance_1h", "21": "bg1npc_project-ajantisromance_45min", "22": "bg1npc_project-ajantisromance_30min", "23": "bg1npc_project-ajantisromance_15min", "24": "bg1npc_project-ajantisromance_1h30min"}},
+    "choice_1": {"type": "muc", "components": ["30", "31", "32", "33", "34"], "default": "32", "labels": {"30": "bg1npc_project-branwenromance_1h", "31": "bg1npc_project-branwenromance_45min", "32": "bg1npc_project-branwenromance_30min", "33": "bg1npc_project-branwenromance_15min", "34": "bg1npc_project-branwenromance_1h30min"}},
+    "choice_2": {"type": "muc", "components": ["40", "41", "42", "43", "44"], "default": "42", "labels": {"40": "bg1npc_project-coranromance_1h", "41": "bg1npc_project-coranromance_45min", "42": "bg1npc_project-coranromance_30min", "43": "bg1npc_project-coranromance_15min", "44": "bg1npc_project-coranromance_1h30min"}},
+    "choice_3": {"type": "muc", "components": ["50", "51", "52", "53", "54"], "default": "52", "labels": {"50": "bg1npc_project-dynaheirromance_1h", "51": "bg1npc_project-dynaheirromance_45min", "52": "bg1npc_project-dynaheirromance_30min", "53": "bg1npc_project-dynaheirromance_15min", "54": "bg1npc_project-dynaheirromance_1h30min"}},
+    "choice_4": {"type": "muc", "components": ["60", "61", "62", "63", "64"], "default": "62", "labels": {"60": "bg1npc_project-sharteelromance_1h", "61": "bg1npc_project-sharteelromance_45min", "62": "bg1npc_project-sharteelromance_30min", "63": "bg1npc_project-sharteelromance_15min", "64": "bg1npc_project-sharteelromance_1h30min"}},
+    "choice_5": {"type": "muc", "components": ["70", "71", "72", "73", "74"], "default": "72", "labels": {"70": "bg1npc_project-xanromance_1h", "71": "bg1npc_project-xanromance_45min", "72": "bg1npc_project-xanromance_30min", "73": "bg1npc_project-xanromance_15min", "74": "bg1npc_project-xanromance_1h30min"}},
+    "80": {"type": "std", "label": "bg1npc_project-romancechallenge"},
+    "90": {"type": "std", "games": ["bgee", "eet", "sod", "tutu"], "label": "bg1npc_project-send_npcs_inn"},
+    "100": {"type": "std", "games": ["bgt", "tutu"], "label": "bg1npc_project-banteraccelerator"},
+    "choice_6": {"type": "muc", "components": ["110", "111", "112", "113", "114"], "default": "110", "games": ["bgee", "eet", "sod"], "labels": {"110": "bg1npc_project-eebantertiming_normal", "111": "bg1npc_project-eebantertiming_fast", "112": "bg1npc_project-eebantertiming_veryfast", "113": "bg1npc_project-eebantertiming_slow", "114": "bg1npc_project-eebantertiming_veryslow"}},
+    "120": {"type": "std", "label": "bg1npc_project-bardicreputation"},
+    "choice_7": {"type": "muc", "components": ["130", "131"], "default": "130", "labels": {"130": "bg1npc_project-sarevokdiary_sixofspades", "131": "bg1npc_project-sarevokdiary_datechanges"}},
+    "choice_8": {"type": "muc", "components": ["240", "241"], "default": "240", "labels": {"240": "bg1npc_project-kivanproficiency_spears", "241": "bg1npc_project-kivanproficiency_halberds"}},
+    "150": {"type": "std", "category": "portrait", "label": "bg1npc_project-portraits_kivandeheriana"},
+    "155": {"type": "std", "category": "portrait", "label": "bg1npc_project-portraits_coranmurder"},
+    "160": {"type": "std", "category": "portrait", "label": "bg1npc_project-portraits_nonjoinable"},
+    "200": {"type": "std", "label": "bg1npc_project-pid"}
   },
   "languages": {
     "en_US": 0,
@@ -502,6 +502,44 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "bg1npc(0):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "es_ES": "This mod needs to be installed before EET_End on your EET install.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End dans votre installation EET.",
+          "pl_PL": "Ten mod musi byc instalowany przed EET_End jesli grasz w EET.",
+          "de_DE": "Die Mod muss vor EET_End installiert werden.",
+          "ru_RU": "This mod needs to be installed before EET_End on your EET install.",
+          "it_IT": "Questa mod deve essere installata prima di EET_End sulla tua installazione EET."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bg1npc(10,20,21,22,23,24,30,31,32,33,34,40,41,42,43,44,50,51,52,53,54,60,61,62,63,64,70,71,72,73,74,80,90,100,110,111,112,113,114,120,130,131,240,241,150,155,160,200):bg1npc(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "BG1 NPC Required Changes component is not installed.",
+          "es_ES": "Cambios requeridos de BG1NPC no instalado.",
+          "fr_FR": "Le composant \"modifications necessaires\" du BG1 NPC Project n'a pas ete installe.",
+          "pl_PL": "Wymagany komponent glowny nie zostal zainstalowany.",
+          "de_DE": "Die BG1 NPC Komponente \"Benoetigte Modifikationen\" ist noch nicht installiert.",
+          "ru_RU": "BG1 NPC Required Changes component is not installed.",
+          "it_IT": "Il componente BG1 NPC Modifiche necessarie non è installato."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "bg1npc(10):transitions(30,32)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

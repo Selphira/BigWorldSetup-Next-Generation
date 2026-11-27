@@ -1,15 +1,15 @@
 {
   "name": "Imoen Romance",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "links": {
     "homepage": "http://www.blindmonkey.org/imoen/"
   },
   "files": [
     {
-      "filename": "Imoen Romance.zip",
-      "size": 40689946,
-      "sha256": "c10bbf002cb065c73cad87e727576e5962f1a4e044c484b7271bb72899034e83",
-      "download": "http://www.blindmonkey.org/imoen/files/Imoen%20Romance.zip"
+      "filename": "Imoen-Romance-Mod-mod.zip",
+      "download": "https://github.com/Mirrabbo/Imoen-Romance-Mod/archive/refs/tags/mod.zip",
+      "size": 41289093,
+      "sha256": "833bd7a50b50921f2b4e2410e546bcc40b96fe94ac6933cf56e508c793842680"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
@@ -20,13 +20,14 @@
   },
   "languages": {
     "en_US": 0,
-    "ru_RU": 1
+    "ru_RU": 1,
+    "zh_CN": 2
   },
   "translations": {
     "en_US": {
       "description": "This mod allows you to have a much more privileged relationship with your little sister. This can be friendship or romance, regardless of the PJ's gender. The dialogs are particularly extensive, and the mod includes a host of new music. Requires ToB.",
       "components": {
-        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.2 Version!)",
+        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.3 Version!)",
         "choice_0": "Romance Option",
         "1": "Allow Multiple Romance's",
         "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"
@@ -39,11 +40,17 @@
       "description": "Ce mod permet d'avoir une relation beaucoup plus privilégiée avec sa petite sœur. Il peut s'agir aussi bien d'amitié que de romance, quel que soit le sexe du PJ. Les dialogues sont particulièrement nombreux, et le mod comprend un grand nombre de nouvelles musiques. Il exige ToB."
     },
     "zh_CN": {
-      "description": "这个模组让你能和她妹妹建立更亲密的关系。这可以是友谊，也可以是爱情，无论玩家角色的性别如何。对话内容特别丰富，模组还包含大量新音乐。它需要《巴尔王座》。"
+      "description": "这个模组让你能和她妹妹建立更亲密的关系。这可以是友谊，也可以是爱情，无论玩家角色的性别如何。对话内容特别丰富，模组还包含大量新音乐。它需要《巴尔王座》。",
+      "components": {
+        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.3 Version!)",
+        "choice_0": "Romance Option",
+        "1": "Allow Multiple Romance's",
+        "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"
+      }
     },
     "ru_RU": {
       "components": {
-        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.2 Version!)",
+        "0": "Imoen NPC Romance Mod for BG2:SoA TOB (4.1.3 Version!)",
         "choice_0": "Romance Option",
         "1": "Allow Multiple Romance's",
         "2": "Don't Allow multiple Romance (Only valid for Vanilla romances)"
@@ -52,5 +59,15 @@
   },
   "tp2": "imoenromance",
   "safe": 2,
-  "authors": ["Lord Mirrabbo", "Vanatos", "Sarevok08", "T.C. Dale", "theacefes"]
+  "authors": ["Lord Mirrabbo", "Vanatos", "Sarevok08", "T.C. Dale", "theacefes"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "imoenromance(0):ascension(30)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

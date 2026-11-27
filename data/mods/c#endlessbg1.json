@@ -16,22 +16,22 @@
   "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["8", "9"], "default": "8"},
-    "10": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "11": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "12": {"type": "std"},
-    "13": {"type": "std"},
-    "14": {"type": "std", "games": ["eet", "sod"]},
-    "15": {"type": "std", "games": ["eet", "sod"]},
-    "16": {"type": "std", "games": ["eet", "sod"]}
+    "0": {"type": "std", "label": "EBG1_MainComponent"},
+    "1": {"type": "std", "label": "EBG1_MoreFlavor"},
+    "2": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "EBG1_HeroCutscene"},
+    "3": {"type": "std", "label": "EBG1_SarevokItems"},
+    "4": {"type": "std", "label": "EBG1_SarevokSword"},
+    "5": {"type": "std", "label": "EBG1_ImoenJannath"},
+    "6": {"type": "std", "label": "EBG1_EltanInPalace"},
+    "7": {"type": "std", "label": "EBG1_FFHealerInBhaalTemple"},
+    "choice_0": {"type": "muc", "components": ["8", "9"], "default": "8", "labels": {"8": "EBG1_ElminsterAppearance_jastey", "9": "EBG1_ElminsterAppearance_restored"}},
+    "10": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "EBG1_RefugeesInBGCity"},
+    "11": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "EBG1_TreasurerInPalaceDungeon"},
+    "12": {"type": "std", "label": "EBG1_DenkodCommentsOnSarevoksDeath"},
+    "13": {"type": "std", "label": "EBG1_SkipThievesMazeOnce"},
+    "14": {"type": "std", "games": ["eet", "sod"], "label": "EBG1_KorlaszDungeonBG1"},
+    "15": {"type": "std", "games": ["eet", "sod"], "label": "EBG1_FensterInPalace"},
+    "16": {"type": "std", "games": ["eet", "sod"], "label": "EBG1_CorwinInPalace"}
   },
   "languages": {
     "en_US": 0,
@@ -263,6 +263,228 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "c#endlessbg1(0):transitions(0)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "ebg1 needs to be installed before Transitions.",
+          "de_DE": "ebg1 muss vor Transitions installiert werden.",
+          "ru_RU": "ebg1 needs to be installed before Transitions.",
+          "pl_PL": "Musisz zainstalowac EBG1 przed modem Transitions.",
+          "fr_FR": "EBG1 doit etre installe avant le mod Transitions.",
+          "it_IT": "ebg1 deve essere installato prima di Transitions.",
+          "es_ES": "ebg1 debe instalarse antes de Transitions.",
+          "pt_BR": "ebg1 deve ser instalado antes das Transições.",
+          "zh_CN": "ebg1需要在Transitions之前安装。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(0,1,2,3,4,5,6,7,8,10,11,12,13,14,15,16):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "de_DE": "Die Mod muss vor EET_End installiert werden.",
+          "ru_RU": "This mod needs to be installed before EET_End on your EET install.",
+          "pl_PL": "Ten mod musi zostac zainstalowany przed EET_End w przypadku instalacji EET.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End sur une installation EET.",
+          "it_IT": "Questa mod deve essere installata prima di EET_End nella vostra installazione EET.",
+          "es_ES": "Este mod debe instalarse antes que EET_End en su instalacion de EET.",
+          "pt_BR": "Este mod deve ser instalado antes do EET_End na instalação do EET.",
+          "zh_CN": "在您的EET安装中，这个模组需要安装EET_End之前。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(1,5):ja#bgt_advpack(1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "\"Extended Law System\" from Jarl's Adventure Pack needs to be installed after ebg1.",
+          "de_DE": "Die Komponente \"Extended Law System\" von Jarl's Adventure Pack muss nach ebg1 installiert werden.",
+          "ru_RU": "\"Extended Law System\" from Jarl's Adventure Pack needs to be installed after ebg1.",
+          "pl_PL": "Komponent \"Extended Law System\" modyfikacji Jarl's Adventure Pack musi byc zainstalowany po EBG1.",
+          "fr_FR": "Le composant de Jarl's Adventure Pack \"Extended Law System\" doit etre installe apres EBG1.",
+          "it_IT": "Il componente di Jarl's Adventure Pack \"Extended Law System\" deve essere installato dopo ebg1.",
+          "es_ES": "El componente de Jarl's Adventure Pack \"Extended Law System\" necesita ser instalado despues de ebg1.",
+          "pt_BR": "O componente Jarl's Adventure Pack \"Extended Law System\" precisa ser instalado após ebg1.",
+          "zh_CN": "\"Extended Law System\" from Jarl's Adventure Pack needs to be installed after ebg1."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(6):bg1re(6)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "bg1re's component \"Duke Eltan's Spare Minute\" needs to be installed after ebg1.",
+          "de_DE": "Die Komponente \"Duke Eltan's Spare Minute\" von bg1re muss nach ebg1 installiert werden.",
+          "ru_RU": "bg1re's component \"Duke Eltan's Spare Minute\" needs to be installed after ebg1.",
+          "pl_PL": "Komponent \"Duke Eltan's Spare Minute\" modyfikacji bg1re musi byc zainstalowany po EBG1.",
+          "fr_FR": "Le composant de BG1RE \"Duke Eltan's Spare Minute\" doit etre installe apres EBG1.",
+          "it_IT": "Il componente di bg1re \"Duke Eltan's Spare Minute\" deve essere installato dopo ebg1.",
+          "es_ES": "El componente de bg1re \"Duke Eltan's Spare Minute\" necesita ser instalado despues de ebg1.",
+          "pt_BR": "O componente bg1re \"Duke Eltan's Spare Minute\" precisa ser instalado após ebg1.",
+          "zh_CN": "bg1re的组件\"伊尔坦公爵的闲暇时光\"需要在ebg1之后安装。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "c#endlessbg1(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16):c#endlessbg1(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Endless BG1: Main Component is required for this component",
+          "de_DE": "Endloses BG1: Hauptkomponente muss fuer diese Komponente installiert sein.",
+          "ru_RU": "Endless BG1: Main Component is required for this component",
+          "pl_PL": "Endless BG1: wymagany jest komponent glowny",
+          "fr_FR": "Le composant principal est requis pour installer ce composant",
+          "it_IT": "Endless BG1: Componente principale e' necessario per questo componente",
+          "es_ES": "Endless BG1: Componente principal es requerido para este componente",
+          "pt_BR": "Endless BG1: O componente principal é necessário para este componente",
+          "zh_CN": "无尽的BG1：主要组件是这个组件的必需条件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(2):c#endlessbg1(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Endless BG1: \"More Flavor to Hero of Baldur's Gate\" Component is required for this component",
+          "de_DE": "Endless BG1: \"Dem Status \"Held von Baldurs Tor\" mehr Inhalt geben\" muss fuer diese Komponente installiert sein.",
+          "ru_RU": "Endless BG1: \"More Flavor to Hero of Baldur's Gate\" Component is required for this component",
+          "pl_PL": "Komponent \"Uklon dla bohatera Wrot Baldura\" jest wymagany przez ten komponent",
+          "fr_FR": "Le composant \"Plus de prestige pour le Heros de la Porte de Baldur\" est requis pour ce composant.",
+          "it_IT": "Endless BG1: il componente \"Approfondimento storia dell'eroe di Baldur's Gate\" è necessario per questo componente",
+          "es_ES": "Endless BG1: \"Mas sabor a Heroe de Puerta de Baldur\" Componente necesario para este componente",
+          "pt_BR": "Endless BG1: \"Mais sabor de Baldur's Gate Hero\" Componente necessário para este componente",
+          "zh_CN": "无尽的BG1：“给博德之门的英雄增添更多风味”组件是这个组件的必需条件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(14):c#endlessbg1(4)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "c#endlessbg1(3,4,7):transitions(20,21)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(5):transitions(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(6):transitions(70,71,72)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(8,9):transitions(60)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(10):transitions(80)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(12):transitions(50)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component of ebg1 is already replaced by Transitions.",
+          "de_DE": "Diese Komponente von ebg1 wird bereits von Transitions ersetzt.",
+          "ru_RU": "This component of ebg1 is already replaced by Transitions.",
+          "pl_PL": "Ten komponent EBG1 jest juz zastapiony przez mod Transitions.",
+          "fr_FR": "Ce composant de EBG1 est deja remplace par le mod Transitions.",
+          "it_IT": "Questo componente di ebg1 è già sostituito da Transitions.",
+          "es_ES": "Este componente de ebg1 ya ha sido sustituido por Transitions.",
+          "pt_BR": "Este componente do ebg1 já foi substituído por Transições.",
+          "zh_CN": "ebg1的这个组件已经被Transitions替换。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#endlessbg1(14):imoen_forever(10)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Imoen4Ever's \"Imoen remains in the group in Korlasz' dungeon\" needs to be deinstalled for this.",
+          "de_DE": "Imoen4Evers \"Imoen bleibt in Korlasz' Crypta in der Gruppe\" darf (und muss) nicht installiert sein.",
+          "ru_RU": "Imoen4Ever's \"Imoen remains in the group in Korlasz' dungeon\" needs to be deinstalled for this.",
+          "pl_PL": "Komponent \"Imoen 4 Ever w SoD: Imoen pozostaje w druzynie w kryptach Korlasz\" modyfikacji Imoen 4 Ever musi zostac odinstalowany przed instalacja tego komponentu.",
+          "fr_FR": "Le composant \"Imoen remains in the group in Korlasz' dungeon\" de Imoen4Ever doit etre desinstalle pour ce composant.",
+          "it_IT": "Imoen4Ever \"Imoen rimane nel gruppo nel dungeon di Korlasz\" deve essere disinstallato per questo.",
+          "es_ES": "Imoen4Ever's \"Imoen permanece en el grupo en la mazmorra de Korlasz\" necesita ser desinstalado para esto.",
+          "pt_BR": "O \"Imoen permanece no grupo na masmorra de Korlasz\" de Imoen4Ever precisa ser desinstalado para isso.",
+          "zh_CN": "需要卸载Imoen4Ever的\"在克拉兹地牢中爱蒙留在队伍里\"组件。"
+        },
+        "origin": "tp2"
       }
     ]
   }

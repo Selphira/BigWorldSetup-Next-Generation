@@ -71,5 +71,18 @@
   },
   "tp2": "pirate",
   "safe": 2,
-  "authors": ["Huxaltec"]
+  "authors": ["Huxaltec"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "pirate(1,2,3,4,5,6):pirate(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Necessite l'installation du composant Pirate Kit",
+          "en_US": "Requires the installation of the component Pirate Kit"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

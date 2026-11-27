@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"], "label": "jan_alchemy"}
   },
   "languages": {
     "en_US": 0,

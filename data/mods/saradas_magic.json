@@ -9,14 +9,14 @@
     {
       "filename": "saradas-magic-for-bgee-eet-1.2.zip",
       "size": 4851362,
-      "download": "https://github.com/The-Gate-Project/Saradas_Magic/releases/download/v1.2/saradas-magic-for-bgee-eet-1.2.zip",
-      "sha256": "05c63adf84a26f5c464a48dc96649fcede9a97cd2be02eb3cb38e7aec63a1b44"
+      "sha256": "05c63adf84a26f5c464a48dc96649fcede9a97cd2be02eb3cb38e7aec63a1b44",
+      "download": "https://github.com/The-Gate-Project/Saradas_Magic/releases/download/v1.2/saradas-magic-for-bgee-eet-1.2.zip"
     }
   ],
   "games": ["bg", "bgee", "bgt", "eet", "sod"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "Saradas-Magic"}
   },
   "languages": {
     "it_IT": 0,

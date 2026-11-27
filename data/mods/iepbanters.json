@@ -16,13 +16,13 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "4": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "5": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_0": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"], "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_banters"},
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_banters_minsc_aerie_tob"},
+    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_banters_imoen_restropection_tob"},
+    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_banters_anomen_romance_wakeup"},
+    "4": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_npc_conflicts_revision"},
+    "5": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "iep_restored_npc_interjection_underdark"},
+    "choice_0": {"type": "muc", "components": ["6", "7", "8", "9", "10", "11"], "games": ["bg2ee", "bgt", "eet"], "labels": {"6": "iep_banter_accelerator_10", "7": "iep_banter_accelerator_15", "8": "iep_banter_accelerator_20", "9": "iep_banter_accelerator_30", "10": "iep_banter_accelerator_45", "11": "iep_banter_accelerator_60"}}
   },
   "languages": {
     "en_US": 0,
@@ -155,6 +155,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "iepbanters(3):npcflirt(12)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "iepbanters(6,7,8,9,10,11):banterpack(1,3)|bg1npc(25,100)|kelsey(2)|keto(3)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Banter Accelerator is already installed.",
+          "de_DE": "Banter Accelerator ist bereits installiert.",
+          "ru_RU": "Banter Accelerator is already installed.",
+          "fr_FR": "Banter Accelerator is already installed.",
+          "zh_CN": "Banter Accelerator is already installed.",
+          "es_ES": "Banter Accelerator is already installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

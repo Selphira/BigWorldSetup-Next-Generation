@@ -16,16 +16,16 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "1": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "3", "games": ["bgee", "bgt", "eet", "sod"]},
-    "4": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "choice_1": {"type": "muc", "components": ["5", "6"], "default": "5", "games": ["bgee", "bgt", "eet", "sod"]},
-    "7": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "8": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "9": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "choice_2": {"type": "muc", "components": ["10", "11"], "default": "11", "games": ["bgee", "bgt", "eet", "sod"]},
-    "12": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-JobWellPaid"},
+    "1": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-FeastforGnolls"},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "3", "games": ["bgee", "bgt", "eet", "sod"], "labels": {"2": "AscalonsQuestpack-Rabbit", "3": "AscalonsQuestpack-Rabbit_alternative"}},
+    "4": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-LostSon"},
+    "choice_1": {"type": "muc", "components": ["5", "6"], "default": "5", "games": ["bgee", "bgt", "eet", "sod"], "labels": {"5": "AscalonsQuestpack-WolvesMen_Highhedge", "6": "AscalonsQuestpack-WolvesMen_Beregost"}},
+    "7": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-GreatKarlini"},
+    "8": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-Gibberlings"},
+    "9": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "AscalonsQuestpack-Fans"},
+    "choice_2": {"type": "muc", "components": ["10", "11"], "default": "11", "games": ["bgee", "bgt", "eet", "sod"], "labels": {"10": "AscalonsQuestpack-SerpentsAbbathor", "11": "AscalonsQuestpack-SerpentsAbbathor_Tweak"}},
+    "12": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "AscalonsQuestpack-HalflingEyeless"}
   },
   "languages": {
     "de_DE": 0,
@@ -218,6 +218,22 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "ac_quest(0,1,2,3,4,5,6,7,8,9,10,11,12):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "de_DE": "Diese Mod muss vor EET_End installiert werden.",
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "ru_RU": "This mod needs to be installed before EET_End on your EET install.",
+          "it_IT": "Questa mod deve essere installata prima di EET_End sulla tua installazione di EET.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End sur votre installation EET.",
+          "es_ES": "Este mod tiene que ser instalado antes de EET_End en su instalación de EET.",
+          "zh_CN": "此MOD需要在EET安装中的EET_End之前安装。",
+          "pl_PL": "Ten mod musi zostac zainstalowany przed komponentem EET_End w instalacji EET"
+        },
+        "origin": "tp2"
       }
     ]
   }

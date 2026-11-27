@@ -16,9 +16,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"}
+    "0": {"type": "std", "label": "Coyote-Severian-Main"},
+    "1": {"type": "std", "label": "Coyote-Severian-Portraits"},
+    "2": {"type": "std", "label": "Coyote-Severian-Épilogues"}
   },
   "languages": {
     "fr_FR": 0

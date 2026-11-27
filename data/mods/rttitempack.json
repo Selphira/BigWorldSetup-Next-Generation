@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["200", "201"], "category": "smith", "default": "200"}
+    "choice_0": {"type": "muc", "components": ["200", "201"], "category": "smith", "default": "200", "labels": {"200": "al17_rttitempack-Main", "201": "al17_rttitempack-Dispatch"}}
   },
   "languages": {
     "en_US": 0,

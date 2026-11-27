@@ -1,37 +1,9 @@
 {
   "rules": [
     {
-      "rule": "5E_spellcasting(100):5E_spellcasting(300)",
-      "severity": "error",
-      "translations": {
-        "en_US": "Internal conflict",
-        "fr_FR": "Conflit interne"
-      }
-    },
-    {
-      "rule": "A7-ConvenientEENPCs(1,101):A7-ConvenientEENPCs(400,401,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514)",
+      "rule": "A7-ConvenientEENPCs(1):A7-ConvenientEENPCs(512)",
       "severity": "error",
       "description": "Conflits internes A7-ConvenientEENPCs 1"
-    },
-    {
-      "rule": "A7-ConvenientEENPCs(1,102):A7-ConvenientEENPCs(410,411,520)",
-      "severity": "error",
-      "description": "Conflits internes A7-ConvenientEENPCs 2"
-    },
-    {
-      "rule": "A7-ConvenientEENPCs(1,103):A7-ConvenientEENPCs(420,660,661,662,663,664,665,666,667,668,669,670,680,681,682,683,684,685)",
-      "severity": "error",
-      "description": "Conflits internes A7-ConvenientEENPCs 3"
-    },
-    {
-      "rule": "A7-ConvenientEENPCs(1,104):A7-ConvenientEENPCs(430,431,540,541,542)",
-      "severity": "error",
-      "description": "Conflits internes A7-ConvenientEENPCs 4"
-    },
-    {
-      "rule": "A7-ConvenientEENPCs(1,105):A7-ConvenientEENPCs(440,441,560,561,562,563)",
-      "severity": "error",
-      "description": "Conflits internes A7-ConvenientEENPCs 5"
     },
     {
       "rule": "da_portraits(87):da_portraits(88)",
@@ -39,27 +11,22 @@
       "description": "Conflits internes da_portraits"
     },
     {
-      "rule": "EEUITweaks(1020,1040,1041,1070):EEUITweaks(1060)",
+      "rule": "EEUITweaks(1040,1041):EEUITweaks(1060)",
       "severity": "error",
       "description": "Conflits internes de \"EEUITweaks\" 1"
     },
     {
-      "rule": "EEUITweaks(1080,1090,1091):EEUITweaks(1020,1050)",
+      "rule": "EEUITweaks(1080):EEUITweaks(1020,1050)",
       "severity": "error",
       "description": "Conflits internes de \"EEUITweaks\" 2"
     },
     {
-      "rule": "EEUITweaks(3070):EEUITweaks(3023,3024)",
+      "rule": "EEUITweaks(1090,1091):EEUITweaks(1020)",
       "severity": "error",
-      "description": "Conflits internes de \"EEUITweaks\" 3"
+      "description": "Conflits internes de \"EEUITweaks\" 2"
     },
     {
-      "rule": "EEUITweaks(3028):EEUITweaks(3030)",
-      "severity": "error",
-      "description": "Conflits internes de \"EEUITweaks\" 4"
-    },
-    {
-      "rule": "EEUITweaks(4005,4006):EEUITweaks(3040,3041,3042,3043,3044,3045,4010,4020,4025)",
+      "rule": "EEUITweaks(4006):EEUITweaks(3040,3041,3042,3043,3044,3045)",
       "severity": "error",
       "description": "Conflits internes de \"EEUITweaks\" 6"
     },
@@ -69,29 +36,9 @@
       "description": "Conflits internes de refinements"
     },
     {
-      "rule": "stratagems(4115):stratagems(4100)",
-      "severity": "error",
-      "description": "Conflits internes de stratagems"
-    },
-    {
       "rule": "SubtleD_Item_Tweaks(170):SubtleD_Item_Tweaks(100)",
       "severity": "error",
       "description": "Conflits internes de SubtleD_Item_Tweaks"
-    },
-    {
-      "rule": "SubtleD_Spell_Tweaks(45):SubtleD_Spell_Tweaks(1505)",
-      "severity": "error",
-      "description": "Conflits internes de SubtleD_Spell_Tweaks"
-    },
-    {
-      "rule": "HiddenGameplayOptions(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37,38):HiddenGameplayOptions(0)",
-      "severity": "error",
-      "description": "Le composant 0 intègre la majorité des composants"
-    },
-    {
-      "rule": "iwditempack(1,11,19,24,29,35,40,45,51,56,6,61):iwditempack(100)",
-      "severity": "error",
-      "description": "Le composant 100 intègre tous les objets"
     },
     {
       "rule": "cdtweaks(1160,1161):cdtweaks(1340,1341,1342,1343,1344,1345,1346,1347)",
@@ -129,17 +76,12 @@
       "description": "Esprit du Destin est déjà amélioré dans EET"
     },
     {
-      "rule": "Combat_Skill_Proficiencies(10,30):Combat_Skill_Proficiencies(50)",
-      "severity": "error",
-      "description": "Le regroupement des categories d'armes est déjà inclu dans ces composants"
-    },
-    {
       "rule": "leui-bg1ee(0):EEUITweaks(1040)",
       "severity": "error",
       "description": "Conflits entre le mod \"lefreut's enhanced UI (BG1EE skin)\" et des composants de \"EEUITweaks\""
     },
     {
-      "rule": "leui(0)|leui-bg1ee(0)|leui-sod(0):EEUITweaks(1080,1090,2020,2040,2042,2044,2060,2110,2900,3020,3023,3024,3028,3030,3040,3041,3042,3043,3044,3045,3050,3051,3070,4005,4006,4010,4020,4025,4030,4040,5000,5030,5040,5041)",
+      "rule": "leui(0)|leui-bg1ee(0)|leui-sod(0):EEUITweaks(1080,2020,2042,2044,3023,3024,3041,3042,3043,3044,3045,3051,4006,4030,4040,5041)",
       "severity": "error",
       "description": "Conflits entre le mod \"lefreut's enhanced UI\" et des composants de \"EEUITweaks\""
     },
@@ -149,7 +91,7 @@
       "description": "Conflits entre le mod \"Reveal Hidden Gameplay Options\" et le composant de \"Hidden Game Options\" de \"EEUITweaks\""
     },
     {
-      "rule": "leui(0)|leui-bg1ee(0)|leui-sod(0):HiddenGameplayOptions(28,29,30)",
+      "rule": "leui-bg1ee(0)|leui-sod(0):HiddenGameplayOptions(28,29,30)",
       "severity": "error",
       "description": "Conflits entre le mod \"lefreut's enhanced UI\" et des composants de \"HiddenGameplayOptions\""
     },
@@ -169,11 +111,6 @@
       "description": "Conflits entre le mod \"Infinity UI++\" et des composants de \"Sword Coast Stratagems\""
     },
     {
-      "rule": "tipun_gui(10):HiddenGameplayOptions(30)",
-      "severity": "error",
-      "description": "Conflits entre le mod \"Tipun's User Interface (New)\" et des composants de \"HiddenGameplayOptions\""
-    },
-    {
       "rule": "bg1npc(10):bg1ub(4,6,7)",
       "severity": "error",
       "description": "Inclus dans bg1npc de manière plus complète"
@@ -184,7 +121,7 @@
       "description": "Inclus dans bg1npc de manière plus complète"
     },
     {
-      "rule": "cdtweaks(70,72):iwdification(10)",
+      "rule": "cdtweaks(72):iwdification(10)",
       "severity": "error",
       "description": "Style d'incantation IWD"
     },
@@ -192,11 +129,6 @@
       "rule": "A7-Protagonist-Be-Gone(1):SkipChateauIrenicus(-)",
       "severity": "error",
       "description": "Conflits entre le mod A7-Protagonist-Be-Gone et SkipChateauIrenicus"
-    },
-    {
-      "rule": "butchery(30):angelo(0)",
-      "severity": "error",
-      "description": "Conflits entre le mod butchery et angelo"
     },
     {
       "rule": "MESpells(-):enhanced-powergaming-scripts(-)",
@@ -212,61 +144,6 @@
       "rule": "faiths_and_powers(30):5E_spellcasting(100)",
       "severity": "error",
       "description": "Conflits entre le mod faiths_and_powers et 5E_spellcasting"
-    },
-    {
-      "rule": "TomeAndBlood(51):stratagems(4250)",
-      "severity": "error",
-      "description": "Conflits entre le mod TomeAndBlood et stratagems"
-    },
-    {
-      "rule": "cdtweaks(3020):iwd2-ease(15)",
-      "severity": "error",
-      "description": "Conflits entre le mod cdtweaks et iwd2-ease"
-    },
-    {
-      "rule": "cdtweaks(3080,3081,3082,3083,3090,3091,3092,3093,3100,3101,3102,3103,3110,3111,3112,3113):iwd2-ease(1)",
-      "severity": "error",
-      "description": "Conflits entre le mod cdtweaks et iwd2-ease"
-    },
-    {
-      "rule": "cdtweaks(3230):tnt(60)",
-      "severity": "error",
-      "description": "Conflits entre le mod cdtweaks et tnt"
-    },
-    {
-      "rule": "dw_talents(60200):cdtweaks(2080,2300)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et cdtweaks #1"
-    },
-    {
-      "rule": "dw_talents(40000):cdtweaks(2350,2351,2353,2357,2358,2360,2370,2371,2372,2380,2550,2551,2552)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et cdtweaks #2"
-    },
-    {
-      "rule": "dw_talents(40100):cdtweaks(2410,4050)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et cdtweaks #3"
-    },
-    {
-      "rule": "dw_talents(80500):cdtweaks(3030,3031)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et cdtweaks #4"
-    },
-    {
-      "rule": "dw_talents(80000,80001,80100,80101,80102,80103,80104):cdtweaks(3210)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et cdtweaks #5"
-    },
-    {
-      "rule": "dw_talents(40600,41000):stratagems(4030)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et stratagems #1"
-    },
-    {
-      "rule": "dw_talents(60300,90100):stratagems(4115)",
-      "severity": "error",
-      "description": "Conflits entre le mod dw_talents et stratagems #2"
     },
     {
       "rule": "FoxMonster(0):cdtweaks(1150)",
@@ -324,19 +201,9 @@
       "description": "Conflits entre shurininja et kit_rev"
     },
     {
-      "rule": "c#anotherfinehell(0):c#sodtweaks(12,13,14,15)",
-      "severity": "error",
-      "description": "Choisir un final de SoD"
-    },
-    {
       "rule": "cdtweaks(3340,3341,3342,3343,3344,3345,3346):METweaks(3400,3405,3410,3415)",
       "severity": "error",
       "description": "Choisir une modification de la vitesse de déplacement"
-    },
-    {
-      "rule": "c#anotherfinehell(0):c#sodtweaks(1)",
-      "severity": "error",
-      "description": "Le tweak n'est pas nécessaire avec c#anotherfinehell"
     },
     {
       "rule": "butchery(-):firkraag(0)",
@@ -459,7 +326,7 @@
       "description": "Choisir une amélioration de métamorphose"
     },
     {
-      "rule": "spell_rev(0):aTweaks(102,103,104,105,186,204,205,211,300,322,323,324)",
+      "rule": "spell_rev(0):aTweaks(104,105,186,300,322,323,324)",
       "severity": "error",
       "description": "Conflits entre le mod \"Spell Revisions\" et \"aTweaks\""
     },
@@ -472,11 +339,6 @@
       "rule": "spell_rev(60):divine_remix(1000)",
       "severity": "error",
       "description": "Conflits entre le mod \"Spell Revisions\" et \"Divine Remix\""
-    },
-    {
-      "rule": "spell_rev(0):stratagems(2520,4130,4240)",
-      "severity": "error",
-      "description": "Conflits entre le mod \"Spell Revisions\" et \"Stratagems\""
     },
     {
       "rule": "stratagems(4030):artisanskitpack(5100):cdtweaks(1150):dw_talents(2040,40600):refinements(30,31)",
@@ -499,19 +361,9 @@
       "description": "Choisir un système de sphère"
     },
     {
-      "rule": "item_rev(0):stratagems(2900,3021)",
+      "rule": "item_rev(0):stratagems(2900)",
       "severity": "error",
       "description": "Conflits entre le mod item_rev et stratagems"
-    },
-    {
-      "rule": "item_rev(0):aTweaks(110)",
-      "severity": "error",
-      "description": "Conflits entre le mod item_rev et aTweaks"
-    },
-    {
-      "rule": "item_rev(0):refinements(70,71,72,73,74,75)",
-      "severity": "error",
-      "description": "Conflits entre le mod item_rev et refinements"
     },
     {
       "rule": "item_rev(0):valhorn(-)",
@@ -679,21 +531,6 @@
       "description": "Contenu identique #78"
     },
     {
-      "rule": "dw_talents(60300):stratagems(4100)",
-      "severity": "error",
-      "description": "Contenu identique #79"
-    },
-    {
-      "rule": "dw_talents(90100):stratagems(4115)",
-      "severity": "error",
-      "description": "Contenu identique #80"
-    },
-    {
-      "rule": "dw_talents(60200):stratagems(4240)",
-      "severity": "error",
-      "description": "Contenu identique #81"
-    },
-    {
       "rule": "cdtweaks(3320):tnt(57)",
       "severity": "error",
       "description": "Choisir une modification de la déprécisation des prix de rachat des magasins"
@@ -734,11 +571,6 @@
       "description": "Choisir une modification de la grande maitrise #1"
     },
     {
-      "rule": "dw_talents(81010,81011,81012):cdtweaks(2200)",
-      "severity": "error",
-      "description": "Choisir une modification de la grande maitrise #2"
-    },
-    {
       "rule": "cdtweaks(2351,2353,2357,2358):tnt(68)",
       "severity": "error",
       "description": "Choisir une modification de l'accès aux multi-classes"
@@ -774,11 +606,6 @@
       "description": "Conflits entre le mod rr et iwdification"
     },
     {
-      "rule": "aTweaks(125):oversight(3)",
-      "severity": "error",
-      "description": "Conflits entre le mod \"Oversight\" et \"aTweaks\""
-    },
-    {
       "rule": "item_rev(1090,1091,1092,1093):cdtweaks(2420)",
       "severity": "error",
       "description": "Restrictions d'equipement pour les clercs"
@@ -799,7 +626,7 @@
       "description": "Incompatibilité avec les \"Cinematiques et reves des chapitres 1 et 2 acceleres\""
     },
     {
-      "rule": "stratagems(4100):cdtweaks(2370,2372,4020)",
+      "rule": "stratagems(4100):cdtweaks(4020)",
       "severity": "error",
       "description": "Conflits entre le mod \"Tweak Anthology\" et \"Stratagems\""
     },
@@ -807,16 +634,6 @@
       "rule": "SubtleD_Item_Tweaks(1091,1092,1093):npckit(900)",
       "severity": "error",
       "description": "La description de npckit ne correspondra plus au nombre de sorts connus par Edwin"
-    },
-    {
-      "rule": "cdtweaks(4050):divine_remix(605)",
-      "severity": "error",
-      "description": "Jaheira devient neutre bonne"
-    },
-    {
-      "rule": "cdtweaks(100):iwdification(20)",
-      "severity": "error",
-      "description": "Choisir un \"Couleurs ternes pour les habits des roturiers\""
     },
     {
       "rule": "transitions(140):themed_tweaks(200)",
@@ -862,11 +679,6 @@
       "rule": "EET_Tweaks(2050,2051,2052,2053,2054,2055,2056):SubtleD_Stat_Overhauls(211,212,213):xpmod(1,2,3,4,5,6)",
       "severity": "error",
       "description": "Choisir un tweak de gain d'expérience en tuant des créatures"
-    },
-    {
-      "rule": "EET_Tweaks(2060,2061,2062,2063,2064,2065,2066):xpmod(15,16,17,18,19,20,21)",
-      "severity": "error",
-      "description": "Choisir un tweak de gain d'expérience en terminant des quêtes"
     },
     {
       "rule": "EET_Tweaks(2070):METweaks(200)",
@@ -1232,11 +1044,6 @@
       "description": "La version \"BP-BGT-Worldmap\" n'est pas compatible avec EET"
     },
     {
-      "rule": "rr(8):A7-GolemConstruction(10)",
-      "severity": "error",
-      "description": "Le manuel de construction de golem nécessaire à un upgrade de RogueRebalancing est détruit par le composant de A7-GolemConstruction"
-    },
-    {
       "rule": "Ascension(40):ub(19)",
       "severity": "error",
       "description": "La restauration des Pouvoirs de Bhaal est plus complète dans d'Ascension"
@@ -1245,11 +1052,6 @@
       "rule": "Ascension(0,20):ub(24)",
       "severity": "error",
       "description": "Conflit des remords de Sarevok avec Ascension"
-    },
-    {
-      "rule": "c#endlessbg1(14):imoen_forever(10)",
-      "severity": "error",
-      "description": "Incompatibilité #1"
     },
     {
       "rule": "transitions(-):c#endlessbg1(14,15,16)",

@@ -46,5 +46,18 @@
   },
   "tp2": "mercenary",
   "safe": 2,
-  "authors": ["Raduziel"]
+  "authors": ["Raduziel"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "mercenary(1,2):mercenary(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The kit or creature file wasn't found, the component will be ignored",
+          "fr_FR": "Impossible de trouver le profil ou le fichier de la creature. Le composant ne sera donc pas installe."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

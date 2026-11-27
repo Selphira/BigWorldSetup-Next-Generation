@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std", "label": "Grenouillebleue-Kim_Main"},
+    "1": {"type": "std", "label": "Grenouillebleue-Kim_Axe"}
   },
   "languages": {
     "fr_FR": 0,

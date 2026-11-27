@@ -30,7 +30,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "u#_under-represented_items"}
   },
   "languages": {
     "en_US": 0,
@@ -91,6 +91,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "underrep(0):bg2fixpack(114)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

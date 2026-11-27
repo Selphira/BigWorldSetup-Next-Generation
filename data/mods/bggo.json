@@ -16,9 +16,9 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["cosm"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2"], "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "4": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["1", "2"], "games": ["bg2ee", "bgee", "bgt", "eet", "sod"], "labels": {"1": "baldurs_gate_graphical_overhaul_windows", "2": "baldurs_gate_graphical_overhaul_android"}},
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"], "label": "baldurs_gate_graphical_overhaul"},
+    "4": {"type": "std", "label": "baldurs_gate_graphical_overhaul_alternate"}
   },
   "languages": {
     "en_US": 0,
@@ -58,6 +58,22 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bggo(0,4):bggo(2)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "bggo(4):bggo(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Core component is required"
+        },
+        "origin": "tp2"
       }
     ]
   }

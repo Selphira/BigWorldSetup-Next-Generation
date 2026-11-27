@@ -77,5 +77,21 @@
   },
   "tp2": "horace",
   "safe": 2,
-  "authors": ["Seifer"]
+  "authors": ["Seifer"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "horace(1):horace(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Horace not installed",
+          "ru_RU": "Horace not installed",
+          "fr_FR": "Horace not installed",
+          "it_IT": "Horace not installed",
+          "zh_CN": "Horace not installed"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

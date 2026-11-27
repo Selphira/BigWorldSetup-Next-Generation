@@ -15,7 +15,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "Aion-Volcanic_Armoury"}
   },
   "languages": {
     "en_US": 0,

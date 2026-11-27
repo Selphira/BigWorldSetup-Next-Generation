@@ -31,10 +31,10 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest", "spell"],
   "components": {
-    "0": {"type": "std"},
-    "623": {"type": "std"},
-    "624": {"type": "std"},
-    "625": {"type": "std"}
+    "0": {"type": "std", "label": "Inferno-PlanarSpheremod"},
+    "623": {"type": "std", "label": "Inferno-PlanarSpheremod-PlanarSphere-Store"},
+    "624": {"type": "std", "label": "Inferno-PlanarSpheremod-Waukeen's-Promenade-Store"},
+    "625": {"type": "std", "label": "Inferno-PlanarSpheremod-PlanarSphere-Return"}
   },
   "languages": {
     "en_US": 0,
@@ -82,6 +82,30 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "planarspheremod(623,624):planarspheremod(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "PlanarSphereMod, main component is required",
+          "ru_RU": "PlanarSphereMod, main component is required",
+          "zh_CN": "需要次元球mod - 主组件"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "planarspheremod(625):pstele(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must uninstall the old Planar Sphere Return mod before installing it with PSM new version !",
+          "ru_RU": "You must uninstall the old Planar Sphere Return mod before installing it with PSM new version !",
+          "zh_CN": "你必须在安装带有PSM新版本的次元球回归mod之前需要卸载旧版本！"
+        },
+        "origin": "tp2"
       }
     ]
   }

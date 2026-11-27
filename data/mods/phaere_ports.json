@@ -16,16 +16,16 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["portrait"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "8": {"type": "std", "games": ["bg2", "bgt"]},
-    "9": {"type": "std"}
+    "0": {"type": "std", "label": "phaere_ports_minsc"},
+    "1": {"type": "std", "label": "phaere_ports_aerie"},
+    "2": {"type": "std", "label": "phaere_ports_imoen"},
+    "3": {"type": "std", "label": "phaere_ports_edwin"},
+    "4": {"type": "std", "label": "phaere_ports_viconia"},
+    "5": {"type": "std", "label": "phaere_ports_haerdalis"},
+    "6": {"type": "std", "label": "phaere_ports_sarevok"},
+    "7": {"type": "std", "label": "phaere_ports_jaheira"},
+    "8": {"type": "std", "games": ["bg2", "bgt"], "label": "phaere_ports_bodhi"},
+    "9": {"type": "std", "label": "phaere_ports_mazzy"}
   },
   "languages": {
     "en_US": 0,

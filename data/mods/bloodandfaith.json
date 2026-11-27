@@ -31,7 +31,7 @@
   "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "Blood-And-Faith-Glittergear"}
   },
   "languages": {
     "en_US": 0,

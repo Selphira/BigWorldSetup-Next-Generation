@@ -29,12 +29,12 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "1": {"type": "std", "category": "spell"},
-    "30": {"type": "std"},
-    "31": {"type": "std"},
-    "32": {"type": "std"},
-    "33": {"type": "std", "games": ["bg2", "bgt", "tutu"]},
-    "34": {"type": "std"}
+    "1": {"type": "std", "category": "spell", "label": "cd_sf_monk_remix"},
+    "30": {"type": "std", "label": "cd_sf_hexblade"},
+    "31": {"type": "std", "label": "cd_sf_duelist"},
+    "32": {"type": "std", "label": "cd_sf_fist_of_order"},
+    "33": {"type": "std", "games": ["bg2", "bgt", "tutu"], "label": "cd_sf_blackguard"},
+    "34": {"type": "std", "label": "cd_sf_duskblade"}
   },
   "languages": {
     "en_US": 0,

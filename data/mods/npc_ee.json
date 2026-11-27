@@ -1,26 +1,26 @@
 {
   "name": "NPC_EE",
-  "version": "6.5.5",
+  "version": "6.6",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/NPC_EE",
     "forums": ["https://www.gibberlings3.net/forums/topic/27526-subtlemods-npc_ee-in-game-customization-for-npcs/"]
   },
   "files": [
     {
-      "filename": "NPC_EE-6.5.5.zip",
-      "size": 3267165,
-      "sha256": "b89d1d746be339d5190a0cb9bcc16d7cde5a578cd8f2b833cfbd9dbedaba3779",
-      "download": "https://github.com/UnearthedArcana/NPC_EE/archive/refs/tags/6.5.5.zip"
+      "filename": "NPC_EE-6.6.zip",
+      "download": "https://github.com/UnearthedArcana/NPC_EE/archive/refs/tags/6.6.zip",
+      "size": 3266162,
+      "sha256": "ac00a59e7bdf980252d438978c9a7a5e3733fb3c8e72d5bda2be51ef926c93d5"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["npcx"],
   "components": {
-    "1010": {"type": "std"},
-    "1020": {"type": "std"},
-    "1030": {"type": "std"},
-    "1200": {"type": "std"},
-    "2000": {"type": "std"}
+    "1010": {"type": "std", "label": "D5_IMOEN_NOT_DUAL"},
+    "1020": {"type": "std", "label": "D5_NALIA_NOT_DUAL"},
+    "1030": {"type": "std", "label": "D5_ANOMEN_NOT_DUAL"},
+    "1200": {"type": "std", "label": "D5_OTHER_NPCS_NOT_DUAL"},
+    "2000": {"type": "std", "label": "D5_NPC_CUSTOMIZATION"}
   },
   "languages": {
     "en_US": 0,
@@ -67,6 +67,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "npc_ee(2000):tomeandblood(48,55,62)&d5_random_tweaks(3111,3112,1611)&leui(0)&leui-bg1ee(0)&leui-sod(0)&subtled_spell_tweaks(62)&faiths_and_powers(75)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

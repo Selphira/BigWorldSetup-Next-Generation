@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["35", "36", "37"], "default": "35"}
+    "choice_0": {"type": "muc", "components": ["35", "36", "37"], "default": "35", "labels": {"35": "Aroc-Morituri_Fighter", "36": "Aroc-Morituri_Paladin", "37": "Aroc-Morituri"}}
   },
   "languages": {
     "en_US": 0,

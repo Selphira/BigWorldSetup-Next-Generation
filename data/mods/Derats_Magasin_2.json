@@ -1,5 +1,5 @@
 {
-  "name": "L'interplan",
+  "name": "The Interplan",
   "version": "10.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31563"
@@ -30,11 +30,11 @@
   "games": ["bg2ee", "eet", "iwdee"],
   "categories": ["smith", "spell"],
   "components": {
-    "33": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]},
-    "38": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"]},
-    "50": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
-    "69": {"type": "std", "games": ["bg2ee", "eet", "iwdee"]},
-    "66": {"type": "std", "games": ["eet"]}
+    "33": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"], "label": "Px_Interplan_Main"},
+    "38": {"type": "std", "games": ["bg2ee", "bgt", "eet", "iwdee"], "label": "Px_Interplan_Druid"},
+    "50": {"type": "std", "games": ["bg2ee", "eet", "iwdee"], "label": "Px_Interplan_Potions"},
+    "69": {"type": "std", "games": ["bg2ee", "eet", "iwdee"], "label": "Px_Interplan_Parchemins"},
+    "66": {"type": "std", "games": ["eet"], "label": "Px_Interplan_Contrebande"}
   },
   "languages": {
     "fr_FR": 0,
@@ -67,5 +67,18 @@
   },
   "tp2": "derats_magasin_2",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_magasin_2(38,50,69,66):derats_magasin_2(33)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant nécessite L'interplan",
+          "en_US": "This component requires The Interplan"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

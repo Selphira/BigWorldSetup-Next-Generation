@@ -15,10 +15,10 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"}
+    "0": {"type": "std", "label": "PPGBanterPacks-soa"},
+    "1": {"type": "std", "label": "PPGBanterPacks-soa_banteraccelerator"},
+    "2": {"type": "std", "label": "PPGBanterPacks-tob"},
+    "3": {"type": "std", "label": "PPGBanterPacks-tob_banteraccelerator"}
   },
   "languages": {
     "en_US": 0,
@@ -124,6 +124,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "banterpack(0):bg2fixpack(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

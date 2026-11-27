@@ -29,7 +29,7 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "cd_plasmocats_picks_of_the_litter_portrait_pack"}
   },
   "languages": {
     "en_US": 0,

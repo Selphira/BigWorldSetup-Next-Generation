@@ -29,11 +29,11 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "11"], "default": "11"},
-    "choice_1": {"type": "muc", "components": ["20", "21", "22", "23", "24"], "default": "21"},
-    "choice_2": {"type": "muc", "components": ["30", "31"], "default": "31"},
-    "choice_3": {"type": "muc", "components": ["40", "41"], "default": "41"},
-    "choice_4": {"type": "muc", "components": ["50", "51", "52", "53", "54"], "default": "53"}
+    "choice_0": {"type": "muc", "components": ["10", "11"], "default": "11", "labels": {"10": "cd_continuous_npc_portraits_edwin_bg", "11": "cd_continuous_npc_portraits_edwin_bg2"}},
+    "choice_1": {"type": "muc", "components": ["20", "21", "22", "23", "24"], "default": "21", "labels": {"20": "cd_continuous_npc_portraits_imoen_bg", "21": "cd_continuous_npc_portraits_imoen_bg2", "22": "cd_continuous_npc_portraits_imoen_sod", "23": "cd_continuous_npc_portraits_imoen_sod_alt_all", "24": "cd_continuous_npc_portraits_imoen_sod_alt_limited"}},
+    "choice_2": {"type": "muc", "components": ["30", "31"], "default": "31", "labels": {"30": "cd_continuous_npc_portraits_jaheira_bg", "31": "cd_continuous_npc_portraits_jaheira_bg2"}},
+    "choice_3": {"type": "muc", "components": ["40", "41"], "default": "41", "labels": {"40": "cd_continuous_npc_portraits_minsc_bg", "41": "cd_continuous_npc_portraits_minsc_bg2"}},
+    "choice_4": {"type": "muc", "components": ["50", "51", "52", "53", "54"], "default": "53", "labels": {"50": "cd_continuous_npc_portraits_viconia_bg", "51": "cd_continuous_npc_portraits_viconia_bg2", "52": "cd_continuous_npc_portraits_viconia_sod", "53": "cd_continuous_npc_portraits_viconia_sod_alt_all", "54": "cd_continuous_npc_portraits_viconia_sod_alt_limited"}}
   },
   "languages": {
     "en_US": 0,

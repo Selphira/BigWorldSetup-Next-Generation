@@ -122,5 +122,23 @@
   },
   "tp2": "drizztsaga",
   "safe": 2,
-  "authors": ["Flysoup", "Badgert", "pro5", "Erebusant"]
+  "authors": ["Flysoup", "Badgert", "pro5", "Erebusant"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "drizztsaga(3,4,5,6,1000):drizztsaga(0,1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must install the Drizzt Saga core component first!",
+          "fr_FR": "Vous devez d'abord installer le composant principal de Drizzt Saga !",
+          "it_IT": "You must install the Drizzt Saga core component first!",
+          "pl_PL": "Musisz najpierw zainstalowac komponent glowny: Saga Drizzta.",
+          "ru_RU": "You must install the Drizzt Saga core component first!",
+          "es_ES": "You must install the Drizzt Saga core component first!",
+          "zh_CN": "你必须先安装崔斯特传奇核心组件。"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

@@ -16,7 +16,7 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "labels": {"0": "#L-FRAMED-VOICE", "1": "#L-FRAMED-NO_VOICE"}}
   },
   "languages": {
     "en_US": 0,
@@ -59,6 +59,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "framed(0,1):bg1npc(131,130,0)&c#greythedog(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

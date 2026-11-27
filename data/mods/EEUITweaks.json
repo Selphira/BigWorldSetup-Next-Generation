@@ -149,5 +149,152 @@
   },
   "tp2": "eeuitweaks",
   "safe": 2,
-  "authors": ["AncientCowboy", "lefreut"]
+  "authors": ["AncientCowboy", "lefreut"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "eeuitweaks(1010,3010):eeuitweaks(1000)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(1020):eeuitweaks(1090,1091)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(1042,1044):eeuitweaks(1040,1041)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(2010):eeuitweaks(2070)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(2060):eeuitweaks(2050)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(2050):eeuitweaks(2060)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(2070):eeuitweaks(2010)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(2900):eeuitweaks(3000)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3010):eeuitweaks(3000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Leveling Progress Bars Tweaks must be installed for this mod to function"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3010):leui-bg1ee(0)&leui-sod(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3020,3023,3024):eeuitweaks(3070)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3070):eeuitweaks(3020)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3028):eeuitweaks(3030)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4005,4006):eeuitweaks(4010)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "eeuitweaks(1090,2040,2060,2110,2900,3020,3070,3028,3030,3040,3050,4005,4010,4020,4025,5000,5030,5040):leui(0)|leui-bg1ee(0)|leui-sod(0)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(1090,3028,4025):dragonspear_ui++(1)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(1020,1070):eeuitweaks(1060)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(1050):eeuitweaks(1090,1091)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3070):eeuitweaks(3023,3024)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(3030):eeuitweaks(3028)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4005,4025):eeuitweaks(4000)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4005):eeuitweaks(4020,3040,3041,3042,3043,3044,3045)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4010,4020,4025):eeuitweaks(4005,4006)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4025):ckuisod(0)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeuitweaks(4030):ckuisod(3)",
+        "severity": "error",
+        "origin": "tp2"
+      }
+    ]
+  }
 }

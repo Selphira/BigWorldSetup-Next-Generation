@@ -9,14 +9,14 @@
     {
       "filename": "ajantis-portrait-pack-5.zip",
       "size": 5001915,
-      "download": "https://github.com/Gibberlings3/Ajantis_Portrait_Pack/releases/download/v5/ajantis-portrait-pack-5.zip",
-      "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443"
+      "sha256": "bc79ad246b21b63ff1fa90a0f104cfbba40c1c80c8969be8deb4b45ecbbca443",
+      "download": "https://github.com/Gibberlings3/Ajantis_Portrait_Pack/releases/download/v5/ajantis-portrait-pack-5.zip"
     }
   ],
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"], "default": "10"}
+    "choice_0": {"type": "muc", "components": ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"], "default": "10", "labels": {"10": "ajantis_portraitpack-amaurea_first", "11": "ajantis_portraitpack-amaurea_final", "12": "ajantis_portraitpack-bereline_short", "13": "ajantis_portraitpack-bereline_long", "14": "ajantis_portraitpack-azguz", "15": "ajantis_portraitpack-wonnimchunha", "16": "ajantis_portraitpack-senka", "17": "ajantis_portraitpack-catlepha_frontfaced", "18": "ajantis_portraitpack-catlepha_sidefaced", "19": "ajantis_portraitpack-casul", "20": "ajantis_portraitpack-miloch"}}
   },
   "languages": {
     "en_US": 0,

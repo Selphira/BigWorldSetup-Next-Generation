@@ -15,8 +15,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "2", "3", "4", "5"], "default": "0", "games": ["bg2ee", "bgt", "eet"]},
-    "6": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["0", "2", "3", "4", "5"], "default": "0", "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "IRStore-Theo-de-Moree", "2": "IRStore-Theo-de-Moree-Delayed", "3": "IRStore-Theo-de-Moree-DelayedToB", "4": "IRStore-Theo-de-Moree-ToBOnly", "5": "IRStore-Theo-de-Moree-OriginalToB"}},
+    "6": {"type": "std", "label": "IRStore-Theo-de-Moree-Errata"}
   },
   "languages": {
     "en_US": 0,

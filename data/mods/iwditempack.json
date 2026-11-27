@@ -15,19 +15,19 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "100": {"type": "std", "category": "smith"},
-    "1": {"type": "std", "category": "smith"},
-    "6": {"type": "std", "category": "smith"},
-    "11": {"type": "std", "category": "smith"},
-    "19": {"type": "std", "category": "smith"},
-    "24": {"type": "std", "category": "smith"},
-    "29": {"type": "std", "category": "smith"},
-    "35": {"type": "std", "category": "smith"},
-    "40": {"type": "std", "category": "smith"},
-    "45": {"type": "std", "category": "smith"},
-    "51": {"type": "std", "category": "smith"},
-    "56": {"type": "std", "category": "smith"},
-    "61": {"type": "std", "category": "smith"}
+    "100": {"type": "std", "category": "smith", "label": "Malek-iwditempack_100"},
+    "1": {"type": "std", "category": "smith", "label": "Malek-iwditempack_1"},
+    "6": {"type": "std", "category": "smith", "label": "Malek-iwditempack_6"},
+    "11": {"type": "std", "category": "smith", "label": "Malek-iwditempack_11"},
+    "19": {"type": "std", "category": "smith", "label": "Malek-iwditempack_19"},
+    "24": {"type": "std", "category": "smith", "label": "Malek-iwditempack_24"},
+    "29": {"type": "std", "category": "smith", "label": "Malek-iwditempack_29"},
+    "35": {"type": "std", "category": "smith", "label": "Malek-iwditempack_35"},
+    "40": {"type": "std", "category": "smith", "label": "Malek-iwditempack_40"},
+    "45": {"type": "std", "category": "smith", "label": "Malek-iwditempack_45"},
+    "51": {"type": "std", "category": "smith", "label": "Malek-iwditempack_51"},
+    "56": {"type": "std", "category": "smith", "label": "Malek-iwditempack_56"},
+    "61": {"type": "std", "category": "smith", "label": "Malek-iwditempack_61"}
   },
   "languages": {
     "en_US": 0,
@@ -138,6 +138,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "iwditempack(100):iwditempack(1,6,11,19,24,29,35,40,45,51,56,61)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "iwditempack(1,6,11,19,24,29,35,40,45,51,56,61):iwditempack(100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "All items are already installed",
+          "pl_PL": "All items are already installed",
+          "ru_RU": "All items are already installed",
+          "it_IT": "All items are already installed",
+          "fr_FR": "Tous les objets sont deja installes"
+        },
+        "origin": "tp2"
       }
     ]
   }

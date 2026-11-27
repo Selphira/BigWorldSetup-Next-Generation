@@ -7,32 +7,32 @@
   },
   "files": [
     {
-      "filename": "refinements-4.36.zip",
-      "size": 10566532,
-      "sha256": "a431fdf55e38e24ad47530d895a6063b7502c42a4b6e3bbcca1976456a2cba3d",
-      "download": "https://github.com/UnearthedArcana/refinements/archive/refs/tags/4.36.zip"
+      "filename": "refinements-4.36.1.zip",
+      "download": "https://github.com/UnearthedArcana/refinements/archive/refs/tags/4.36.1.zip",
+      "size": 10575352,
+      "sha256": "cb21bd71870b013930377ceee059da508339d1e1dede11b9e1a9610c5154c5b1"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "11"], "category": "spell", "default": "10", "games": ["bg2ee", "bgt", "eet"]},
-    "101": {"type": "std", "category": "spell"},
-    "102": {"type": "std", "category": "spell"},
-    "103": {"type": "std", "category": "spell"},
-    "104": {"type": "std", "category": "spell"},
-    "105": {"type": "std", "category": "spell"},
-    "106": {"type": "std", "category": "spell"},
-    "107": {"type": "std", "category": "spell"},
-    "108": {"type": "std", "category": "spell"},
-    "109": {"type": "std", "category": "spell"},
-    "110": {"type": "std", "category": "spell"},
-    "choice_1": {"type": "muc", "components": ["20", "21", "22"], "category": "spell", "default": "20"},
-    "choice_2": {"type": "muc", "components": ["30", "31"], "category": "spell", "default": "30"},
-    "40": {"type": "std", "category": "spell"},
+    "choice_0": {"type": "muc", "components": ["10", "11"], "category": "spell", "default": "10", "games": ["bg2ee", "bgt", "eet"], "labels": {"10": "D5_REFINEMENTS_ALL_HLAS", "11": "D5_REFINEMENTS_HLAS_BY_CLASS"}},
+    "101": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_FIGHTER_HLAS"},
+    "102": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_BARBARIAN_HLAS"},
+    "103": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_RANGER_HLAS"},
+    "104": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_PALADIN_HLAS"},
+    "105": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_CLERIC_HLAS"},
+    "106": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_DRUID_HLAS"},
+    "107": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_MONK_HLAS"},
+    "108": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_WIZARD_HLAS"},
+    "109": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_BARD_HLAS"},
+    "110": {"type": "std", "category": "spell", "label": "D5_REFINEMENTS_THIEF_HLAS"},
+    "choice_1": {"type": "muc", "components": ["20", "21", "22"], "category": "spell", "default": "20", "labels": {"20": "D5_SWASHIMOEN_FULL", "21": "D5_SWASHIMOEN_KIT_ONLY", "22": "D5_SWASHIMOEN_DETECT_ILLUSIONS"}},
+    "choice_2": {"type": "muc", "components": ["30", "31"], "category": "spell", "default": "30", "labels": {"30": "D5_REFINEMENTS_SHAPESHIFTING_FIX"}},
+    "40": {"type": "std", "category": "spell", "label": "REFINEMENTS_UNIVERSAL_ROBES"},
     "50": {"type": "std", "category": "kit"},
-    "choice_3": {"type": "muc", "components": ["70", "71", "72"], "category": "spell"},
-    "choice_4": {"type": "muc", "components": ["73", "74", "75"]}
+    "choice_3": {"type": "muc", "components": ["70", "71", "72"], "category": "spell", "labels": {"70": "D5_REFINEMENTS_REVISED_ARMOR_LOCAL_DESC_UPDATE", "71": "REFINEMENTS_REVISED_ARMOR_ENG_OR_LOCAL_DESC_UPDATE", "72": "REFINEMENTS_REVISED_ARMOR_NO_DESC_UPDATE"}},
+    "choice_4": {"type": "muc", "components": ["73", "74", "75"], "labels": {"73": "REFINEMENTS_REVISED_ARMOR_ENGLISH_DESC_UPDATE", "74": "REFINEMENTS_REVISED_ARMOR_ENGLISH_NO_DESC_UPDATE", "75": "REFINEMENTS_REVISED_ARMOR_NO_DESC_UPDATE_NO_PENALTIES"}}
   },
   "languages": {
     "en_US": 0,
@@ -234,6 +234,52 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "refinements(10,103,108):item_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "refinements(101,102,103,104,105,106,107,108,109,110):refinements(11)",
+        "severity": "error",
+        "translations": {
+          "en_US": "...",
+          "fr_FR": "...",
+          "ja_JP": "...",
+          "pl_PL": "...",
+          "ru_RU": "..."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "refinements(31):bg2fixpack(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Already included in BG2 Fixpack",
+          "fr_FR": "Already included in BG2 Fixpack",
+          "ja_JP": "Already included in BG2 Fixpack",
+          "pl_PL": "Already included in BG2 Fixpack",
+          "ru_RU": "Already included in BG2 Fixpack"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "refinements(70,71,72,73,74,75):item_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Not compatible with Item Revisions",
+          "fr_FR": "Incompatible avec Item Revisions",
+          "ja_JP": "Item RevisionsÆÝ·«ªÈ¢",
+          "pl_PL": "Niekompatybilne z Item Revisions",
+          "ru_RU": "Not compatible with Item Revisions"
+        },
+        "origin": "tp2"
       }
     ]
   }

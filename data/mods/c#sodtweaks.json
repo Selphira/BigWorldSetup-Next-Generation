@@ -16,16 +16,16 @@
   "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "1": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "2", "games": ["bgee", "eet", "sod"]},
-    "4": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "5": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "6": {"type": "std", "games": ["bgt", "eet"]},
-    "7": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "choice_1": {"type": "muc", "components": ["8", "9", "10", "11"], "default": "8", "games": ["bgee", "eet", "sod"]},
-    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15"], "default": "12", "games": ["bgee", "eet", "sod"]},
-    "20": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "21": {"type": "std", "games": ["bgee", "eet", "sod"]}
+    "1": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySodTweaks-EndingIndependentReplies"},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "default": "2", "games": ["bgee", "eet", "sod"], "labels": {"2": "JasteySodTweaks-DoNotMissDialogues_NPCInParty", "3": "JasteySodTweaks-DoNotMissDialogues_All"}},
+    "4": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySodTweaks-SkipKorlaszDungeon"},
+    "5": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySodTweaks-MoreDialogueChoices_PreventDeadEnds"},
+    "6": {"type": "std", "games": ["bgt", "eet"], "label": "JasteySodTweaks-ImoensSoDPortrait"},
+    "7": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySodTweaks-RestoreAbductionFight"},
+    "choice_1": {"type": "muc", "components": ["8", "9", "10", "11"], "default": "8", "games": ["bgee", "eet", "sod"], "labels": {"8": "JasteySodTweaks-AdjustStartingXP", "9": "JasteySodTweaks-AdjustStartingXP_90000", "10": "JasteySodTweaks-AdjustStartingXP_125000", "11": "JasteySodTweaks-AdjustStartingXP_161000"}},
+    "choice_2": {"type": "muc", "components": ["12", "13", "14", "15"], "default": "12", "games": ["bgee", "eet", "sod"], "labels": {"12": "JasteySodTweaks-SoDEnding_RevisedFull", "13": "JasteySodTweaks-SoDEnding_RevisedStreamlined", "14": "JasteySodTweaks-SoDEnding_OriginalStreamlined", "15": "JasteySodTweaks-SoDEnding_Skipit"}},
+    "20": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySoDTweaks_PortalCloseToril"},
+    "21": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "JasteySoDTweaks_HephernaanTakesKey"}
   },
   "languages": {
     "en_US": 0,
@@ -225,6 +225,66 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "c#sodtweaks(1,2,3,4,5,20,21):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component needs to be installed before EET_End.",
+          "de_DE": "Diese Komponente muss vor EET_End installiert werden.",
+          "ru_RU": "This component needs to be installed before EET_End.",
+          "fr_FR": "Ce composant doit etre installe avant EET_End.",
+          "pl_PL": "Ten komponent nalezy zainstalowac przed EET_End.",
+          "es_ES": "Este componente necesita ser instalado antes de EET_End.",
+          "zh_CN": "这个组件需要在EET_End之前安装"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "c#sodtweaks(4):c#anotherfinehell(0,2)&c#endlessbg1(14,1)&transitions(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodtweaks(20):c#anotherfinehell(1)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "c#sodtweaks(1):c#anotherfinehell(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Another mod is making this component unneeded.",
+          "de_DE": "Durch eine andere installierte Mod ist diese Komponente unnötig.",
+          "ru_RU": "Another mod is making this component unneeded.",
+          "fr_FR": "Un autre mod rend ce composant inutile.",
+          "pl_PL": "Inny mod sprawia, ze ten komponent nie jest potrzebny.",
+          "es_ES": "Otro mod esta haciendo este componente innecesario.",
+          "zh_CN": "另一个mod使这个组件不再需要。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodtweaks(12,13,14,15):c#anotherfinehell(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Other optional ending for SoD is already installed.",
+          "de_DE": "Ein anderes optionales Ende fuer SoD ist bereits installiert.",
+          "ru_RU": "Other optional ending for SoD is already installed.",
+          "fr_FR": "Un autre final pour SoD est deja installe.",
+          "pl_PL": "Inne opcjonalne zakonczenie SoD zostalo juz zainstalowane.",
+          "es_ES": "Otro final opcional para SoD ya esta instalado.",
+          "zh_CN": "其他可选的已SoD结局安装。"
+        },
+        "origin": "tp2"
       }
     ]
   }

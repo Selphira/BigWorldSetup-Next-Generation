@@ -31,13 +31,13 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["kit", "spell"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "4": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "label": "cd_spc_sylvan_mystic"},
+    "1": {"type": "std", "label": "cd_spc_blade_master"},
+    "2": {"type": "std", "label": "cd_spc_death_knight"},
+    "3": {"type": "std", "label": "cd_spc_wushi_ninja"},
+    "5": {"type": "std", "label": "cd_spc_archer_of_sylvanus"},
+    "6": {"type": "std", "label": "cd_spc_arcane_fist"},
+    "4": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"], "label": "cd_spc_creslyn_item_pack"}
   },
   "languages": {
     "en_US": 0,
@@ -160,6 +160,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "spstuff(0,5):divine_remix(1000)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

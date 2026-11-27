@@ -141,5 +141,57 @@
   },
   "tp2": "divine_remix",
   "safe": 2,
-  "authors": ["Andyr", "NiGHTMARE", "CamDawg"]
+  "authors": ["Andyr", "NiGHTMARE", "CamDawg"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "divine_remix(100):song_and_silence(3)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "divine_remix(103,106,107,109,112,115,118,121,124,127,130,600,610,1000):divine_remix(100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Cleric Remix component.",
+          "fr_FR": "Ce composant requiert le composant 'Modification des Clercs'."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "divine_remix(203,605):divine_remix(200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Druid Remix component.",
+          "fr_FR": "Ce composant requiert le composant 'Modification des Druides'."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "divine_remix(600):divine_remix(109)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Battleguard of Tempus kit.",
+          "fr_FR": "Ce composant requiert le composant 'kit d'Aumonier de Guerre de Tempus'."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "divine_remix(610):divine_remix(106)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Nightcloak of Shar kit.",
+          "fr_FR": "Ce composant requiert le composant 'kit de Manteau de la Nuit de Shar'."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "divine_remix(1000):stratagems(4240)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

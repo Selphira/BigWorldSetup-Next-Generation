@@ -16,9 +16,9 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["eet", "sod"]},
-    "1": {"type": "std"},
-    "2": {"type": "std"}
+    "0": {"type": "std", "games": ["eet", "sod"], "label": "C#AnotherFineHell-Main"},
+    "1": {"type": "std", "label": "C#AnotherFineHell-Extended"},
+    "2": {"type": "std", "label": "C#AnotherFineHell-ImoensChest"}
   },
   "languages": {
     "en_US": 0,
@@ -69,6 +69,53 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "c#anotherfinehell(0):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End.",
+          "es_ES": "Este mod necesita ser instalado antes de EET_End."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "c#anotherfinehell(0):imoen_forever(11)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#anotherfinehell(1,2):c#anotherfinehell(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "AfH main component needs to be installed.",
+          "fr_FR": "Le composant principal AfH doit etre installe.",
+          "es_ES": "AfH componente principal necesita ser instalado."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#anotherfinehell(2):imoen_forever(20)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "c#anotherfinehell(0):c#sodtweaks(12,13,14,15)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Other optional ending for SoD is already installed.",
+          "fr_FR": "Une autre fin optionnelle pour SoD est deja installee.",
+          "es_ES": "Otro final opcional para SoD ya esta instalado."
+        },
+        "origin": "tp2"
       }
     ]
   }

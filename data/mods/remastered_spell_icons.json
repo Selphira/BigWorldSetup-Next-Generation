@@ -39,5 +39,23 @@
   },
   "tp2": "remastered_spell_icons",
   "safe": 2,
-  "authors": ["Pecca"]
+  "authors": ["Pecca"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "remastered_spell_icons(0):leui(0)&leui-bg1ee(0)&leui-sod(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "remastered_spell_icons(1):msfm(0)&spontaneous_casting(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

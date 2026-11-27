@@ -30,8 +30,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith", "gameplay"],
   "components": {
-    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "2": {"type": "std"}
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "PX_Oops"},
+    "2": {"type": "std", "label": "PX_Blips"}
   },
   "languages": {
     "fr_FR": 0,
@@ -40,7 +40,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Oops est un personnage très particulier : il possède la capacité de changer un parchemin de sort en capacité spéciale. Concrètement, amenez à Oops le parchemin du sort que vous voudriez avoir en capacité spécial 1x/jour, payez le 5 000 po et 1 000 XP par niveau du sort désiré, vous perdez le parchemin mais vous gagnez une nouvelle capacité. Renouvelable à volonté tant que vous avez de quoi payer et des parchemins à fournir.\nVous trouverez Oops le magicien à coté de la Tour de Garde, près du dolmen.\nLe mod gère aussi des grimoires tirés d'autres mods comme L'interplan, Semi Multi Clerics, Wild Mage Additions.",
+      "description": "Oops est un personnage très particulier : il possède la capacité de changer un parchemin de sort en capacité spéciale. Concrètement, amenez à Oops le parchemin du sort que vous voudriez avoir en capacité spécial 1x/jour, payez le 5 000 po et 1 000 XP par niveau du sort désiré, vous perdez le parchemin mais vous gagnez une nouvelle capacité. Renouvelable à volonté tant que vous avez de quoi payer et des parchemins à fournir.\nVous trouverez Oops le magicien à coté de la Tour de Garde, près du dolmen.\nLe mod gère aussi des grimoires tirés d'autres mods comme The Interplan, Semi Multi Clerics, Wild Mage Additions.",
       "components": {
         "1": "Oops le magicien",
         "2": "Installer Blips, le familier de Oops (attention : ultra cheaté)."
@@ -54,7 +54,7 @@
       }
     },
     "zh_CN": {
-      "description": "“Oops”（欧普）是一个很特殊的角色：他拥有把法术卷轴转化为特殊能力的能力。具体来说，把你想要变成每天一次特殊能力的法术卷轴交给 Oops，支付 5000 金币以及每个法术等级 1000 点经验值，你会失去该卷轴，但会获得一项新能力。只要你有足够的钱和卷轴可供支付，就可以任意重复。\n你会在观察者堡垒（Tour de Garde）旁边、巨石阵（dolmen）附近找到法师 Oops。\n该模组还支持来自其他模组（如 L'interplan、Semi Multi Clerics、Wild Mage Additions）的法术书。",
+      "description": "“Oops”（欧普）是一个很特殊的角色：他拥有把法术卷轴转化为特殊能力的能力。具体来说，把你想要变成每天一次特殊能力的法术卷轴交给 Oops，支付 5000 金币以及每个法术等级 1000 点经验值，你会失去该卷轴，但会获得一项新能力。只要你有足够的钱和卷轴可供支付，就可以任意重复。\n你会在观察者堡垒（Tour de Garde）旁边、巨石阵（dolmen）附近找到法师 Oops。\n该模组还支持来自其他模组（如 The Interplan、Semi Multi Clerics、Wild Mage Additions）的法术书。",
       "components": {
         "1": "大法师欧普",
         "2": "Install Blips, Oops's familiar (warning: extremely overpowered)."
@@ -77,6 +77,18 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "derats_oops(2):derats_oops(1)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant nécessite le composant principal.",
+          "en_US": "This component requires the main component.",
+          "zh_CN": "This component requires the main component."
+        },
+        "origin": "tp2"
       }
     ]
   }

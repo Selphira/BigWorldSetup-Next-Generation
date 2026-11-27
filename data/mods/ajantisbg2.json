@@ -30,11 +30,11 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "c#ajantisbg2-main"},
     "1": {"type": "std", "games": ["bg2ee", "eet"]},
-    "3": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["40", "41", "42", "43", "44"]},
-    "5": {"type": "std"}
+    "3": {"type": "std", "label": "c#ajantisbg2-expliciteromance"},
+    "choice_0": {"type": "muc", "components": ["40", "41", "42", "43", "44"], "labels": {"40": "c#ajantisbg2-timer_60min", "41": "c#ajantisbg2-timer_45min", "42": "c#ajantisbg2-timer_30min", "43": "c#ajantisbg2-timer_15min", "44": "c#ajantisbg2-timer_90min"}},
+    "5": {"type": "std", "label": "c#ajantisbg2-cavalierkit"}
   },
   "languages": {
     "de_DE": 0,
@@ -93,6 +93,34 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "ajantisbg2(0):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "de_DE": "Die Mod muss vor EET_End installiert werden.",
+          "en_US": "This mod needs to be installed before EET_End on your EET install."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "ajantisbg2(0):ajantisbg1(0)&bg2_tweaks(3220)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "ajantisbg2(1,3,40,41,42,43,44,5):ajantisbg2(0)",
+        "severity": "error",
+        "translations": {
+          "de_DE": "Sir Ajantis NPC fuer BGII Mod muss installiert sein.",
+          "en_US": "Sir Ajantis NPC for BGII mod needs to be installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

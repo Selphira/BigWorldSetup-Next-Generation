@@ -15,10 +15,10 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["cosm"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"]},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "labels": {"0": "PS_BGEEClassicMovies_ReplaceMovies", "1": "PS_BGEEClassicMovies_AddMissingMovies"}},
+    "2": {"type": "std", "label": "PS_BGEEClassicMovies_AddMoviesToInGameMenu"},
+    "3": {"type": "std", "label": "PS_BGEEClassicMovies_RestoreChapterDreamScreens"},
+    "choice_1": {"type": "muc", "components": ["4", "5", "6", "7"], "labels": {"4": "PS_BGEEClassicMovies_DisableLogoAndIntroMovies", "5": "PS_BGEEClassicMovies_DisableLogoMovie", "6": "PS_BGEEClassicMovies_ReplaceLogo", "7": "PS_BGEEClassicMovies_PrependClassicLogos"}}
   },
   "languages": {
     "en_US": 0,
@@ -101,6 +101,28 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bgeeclassicmovies(3):leui-bg1ee(0)&leui-sod(0)&leui(0)&eet(0)&eet_gui(0)&iwd-in-eet(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "bgeeclassicmovies(0):bgee_pl(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Filmiki juz zainstalowane wraz z modem BGEE_PL",
+          "pl_PL": "Filmiki juz zainstalowane wraz z modem BGEE_PL",
+          "es_ES": "Filmiki juz zainstalowane wraz z modem BGEE_PL",
+          "de_DE": "Filmiki juz zainstalowane wraz z modem BGEE_PL"
+        },
+        "origin": "tp2"
       }
     ]
   }

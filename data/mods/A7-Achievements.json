@@ -31,9 +31,9 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["util"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "1"},
-    "10": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "1", "labels": {"0": "A7-ACHIEVEMENTS-COMPACT", "1": "A7-ACHIEVEMENTS-DETAILED"}},
+    "10": {"type": "std", "label": "A7-ACHIEVEMENTS-REWARDS"},
+    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25", "26", "27"], "labels": {"21": "A7-ACHIEVEMENTS-CROSSMOD-JACK-FIGHTER", "22": "A7-ACHIEVEMENTS-CROSSMOD-JACK-MAGE", "23": "A7-ACHIEVEMENTS-CROSSMOD-JACK-THIEF", "24": "A7-ACHIEVEMENTS-CROSSMOD-JACK-FIGHTER-MAGE", "25": "A7-ACHIEVEMENTS-CROSSMOD-JACK-FIGHTER-THIEF", "26": "A7-ACHIEVEMENTS-CROSSMOD-JACK-MAGE-THIEF", "27": "A7-ACHIEVEMENTS-CROSSMOD-JACK-ALL"}}
   },
   "languages": {
     "en_US": 0,
@@ -103,6 +103,38 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-achievements(10):a7-achievements(0,1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the main component of the mod to be installed.",
+          "fr_FR": "Necessite l'installation du composant principal.",
+          "zh_CN": "需要先安装该模组的主体组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-achievements(21,22,23,24,25,26,27):a7-achievements(10)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the subcomponent \"Achievements reward\" to be installed.",
+          "fr_FR": "Requires the subcomponent \"Achievements reward\" to be installed.",
+          "zh_CN": "需安装“成就奖励”组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-achievements(21,22,23,24,25,26,27):jackofallplanes(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the mod \"Jack Of All Planes\" to be installed.",
+          "fr_FR": "Requires the mod \"Jack Of All Planes\" to be installed.",
+          "zh_CN": "需安装“万事通”模组。"
+        },
+        "origin": "tp2"
       }
     ]
   }

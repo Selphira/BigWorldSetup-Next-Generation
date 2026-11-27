@@ -8,15 +8,15 @@
     {
       "filename": "kit-mule-kit-1.2.7z",
       "size": 2786002,
-      "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/releases/download/1.2/kit-mule-kit-1.2.7z",
-      "sha256": "8385cac71b2f8f79ebdf4710d628aa6a3b522df14c79a0d049774106977d599f"
+      "sha256": "8385cac71b2f8f79ebdf4710d628aa6a3b522df14c79a0d049774106977d599f",
+      "download": "https://github.com/D2-mods/Kit-Mule-kit-for-IE-games-/releases/download/1.2/kit-mule-kit-1.2.7z"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "99": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["9999", "10000"], "default": "9999"}
+    "99": {"type": "std", "label": "D2_KIT_MULE_RECREATE"},
+    "choice_0": {"type": "muc", "components": ["9999", "10000"], "default": "9999", "labels": {"9999": "D2_KIT_MULE", "10000": "D2_KIT_MULE_DEFAULT"}}
   },
   "languages": {
     "en_US": 0,
@@ -55,6 +55,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "kitmule(99):kitmule(9999,10000)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

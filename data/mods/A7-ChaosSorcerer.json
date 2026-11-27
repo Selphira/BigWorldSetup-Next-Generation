@@ -31,10 +31,10 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "30": {"type": "std"}
+    "0": {"type": "std", "label": "A7-CHAOSSORCERER-MAIN"},
+    "10": {"type": "std", "label": "A7-CHAOSSORCERER-RECREATE_SPELL_LIST"},
+    "20": {"type": "std", "label": "A7-CHAOSSORCERER-HIDE_WILDMAGE"},
+    "30": {"type": "std", "label": "A7-CHAOSSORCERER-PRIMORDIAL_ARTIFACTS"}
   },
   "languages": {
     "en_US": 0,
@@ -106,6 +106,20 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-chaossorcerer(10,20,30):a7-chaossorcerer(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component to be installed.",
+          "de_DE": "Diese Option benoetigt die Hauptkomponente der Mod.",
+          "pl_PL": "Komponent ten wymaga uprzedniego zainstalowania komponentu glownego.",
+          "ru_RU": "This component requires the main component to be installed.",
+          "fr_FR": "Ce composant nécessite que le composant principal soit installé."
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -9,14 +9,14 @@
     {
       "filename": "trovador-reo-v2.5.0.zip",
       "size": 5508596,
-      "download": "https://github.com/Spellhold-Studios/Trovador-REO/releases/download/v2.5.0/trovador-reo-v2.5.0.zip",
-      "sha256": "5d7afc45f6d566cd1bbfe70f238386e12ecc7056848139602f9bc269f164a358"
+      "sha256": "5d7afc45f6d566cd1bbfe70f238386e12ecc7056848139602f9bc269f164a358",
+      "download": "https://github.com/Spellhold-Studios/Trovador-REO/releases/download/v2.5.0/trovador-reo-v2.5.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "trovador_reo"}
   },
   "languages": {
     "es_ES": 0

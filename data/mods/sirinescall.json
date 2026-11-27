@@ -15,8 +15,8 @@
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "1": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod"]}
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "SirinesCall-Main"},
+    "1": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod"], "label": "SirinesCall-ExtendedLighthouseArea"}
   },
   "languages": {
     "en_US": 0,
@@ -97,6 +97,39 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "sirinescall(0):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "The mod needs to be installed before EET_End.",
+          "es_ES": "El mod debe instalarse despues de EET_End.",
+          "fr_FR": "The mod needs to be installed before EET_End.",
+          "de_DE": "The mod needs to be installed before EET_End.",
+          "it_IT": "The mod needs to be installed before EET_End.",
+          "pl_PL": "Ta modyfikacja musi zostac zainstalowana przed EET_End.",
+          "ru_RU": "The mod needs to be installed before EET_End.",
+          "zh_CN": "这个mod需要EET_End在之前安装。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "sirinescall(1):sirinescall(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Lure of the Sirine's Call main component needs to be installed.",
+          "es_ES": "Es necesario instalar el componente principal de la seduccion de el canto de la sirena.",
+          "fr_FR": "Lure of the Sirine's Call main component needs to be installed.",
+          "de_DE": "Lure of the Sirine's Call main component needs to be installed.",
+          "it_IT": "Lure of the Sirine's Call main component needs to be installed.",
+          "pl_PL": "Lure of the Sirine's Call main component needs to be installed.",
+          "ru_RU": "Lure of the Sirine's Call main component needs to be installed.",
+          "zh_CN": "需要安装海妖女的呼唤主组件。"
+        },
+        "origin": "tp2"
       }
     ]
   }

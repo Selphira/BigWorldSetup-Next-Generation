@@ -31,11 +31,11 @@
   "games": ["bgee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100"},
-    "400": {"type": "std"},
-    "399": {"type": "std"},
-    "300": {"type": "std"},
-    "301": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["100", "200"], "category": "spell", "default": "100", "labels": {"100": "zz-zd-zs-subrace-hair-and-skin", "200": "zz-zd-zs-subrace-no-hair-and-skin"}},
+    "400": {"type": "std", "label": "zz-zd-zs-subrace-modify-npcs"},
+    "399": {"type": "std", "label": "zz-zd-zs-subrace-newraces-all"},
+    "300": {"type": "std", "label": "zz-zd-zs-subrace-newrace-kitsune"},
+    "301": {"type": "std", "label": "zz-zd-zs-subrace-newrace-kenku"}
   },
   "languages": {
     "en_US": 0,
@@ -104,6 +104,54 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "subrace(400):subrace(100,200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "requires subrace to be installed",
+          "ru_RU": "requires subrace to be installed",
+          "fr_FR": "requires subrace to be installed",
+          "pt_BR": "requires subrace to be installed"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "subrace(100,200,400):dw_talents(20000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not compatible with ToF New races and subraces",
+          "ru_RU": "This component is not compatible with ToF New races and subraces",
+          "fr_FR": "This component is not compatible with ToF New races and subraces",
+          "pt_BR": "This component is not compatible with ToF New races and subraces"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "subrace(399):subrace(300,301)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Already installed",
+          "ru_RU": "Already installed",
+          "fr_FR": "Already installed",
+          "pt_BR": "Already installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "subrace(300,301):subrace(399)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Already installed",
+          "ru_RU": "Already installed",
+          "fr_FR": "Already installed",
+          "pt_BR": "Already installed"
+        },
+        "origin": "tp2"
       }
     ]
   }

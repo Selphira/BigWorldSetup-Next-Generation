@@ -9,14 +9,14 @@
     {
       "filename": "A7-CustomKits-v1.6.zip",
       "size": 3245290,
-      "download": "https://github.com/Argent77/A7-CustomKits/releases/download/v1.6/A7-CustomKits-v1.6.zip",
-      "sha256": "87aa30452ad262d6101169c3689e11ad082f65081f86efd334ff5f8970be7735"
+      "sha256": "87aa30452ad262d6101169c3689e11ad082f65081f86efd334ff5f8970be7735",
+      "download": "https://github.com/Argent77/A7-CustomKits/releases/download/v1.6/A7-CustomKits-v1.6.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "labels": {"0": "A7-CUSTOMKITS-MAIN_NERFED", "1": "A7-CUSTOMKITS-MAIN_ORIGINAL"}}
   },
   "languages": {
     "en_US": 0,

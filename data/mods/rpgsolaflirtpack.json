@@ -9,14 +9,14 @@
     {
       "filename": "solaufein-flirt-pack-v1.2.zip",
       "size": 4253053,
-      "download": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack/releases/download/v1.2/solaufein-flirt-pack-v1.2.zip",
-      "sha256": "7befe32df09c681f01149ba39cb51c376d18e7caa1c9fcd519746b52250bb966"
+      "sha256": "7befe32df09c681f01149ba39cb51c376d18e7caa1c9fcd519746b52250bb966",
+      "download": "https://github.com/Spellhold-Studios/Solaufein-Flirt-Pack/releases/download/v1.2/solaufein-flirt-pack-v1.2.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "solaufein_flirt_pack"}
   },
   "languages": {
     "en_US": 0
@@ -37,5 +37,17 @@
   },
   "tp2": "rpgsolaflirtpack",
   "safe": 2,
-  "authors": ["Jolyth"]
+  "authors": ["Jolyth"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "rpgsolaflirtpack(0):solaufein(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod requires the Weimer's Solaufein Romance Mod to be installed."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

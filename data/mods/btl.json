@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]},
-    "2": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "z#_btl_main", "1": "z#_btl_main_vanilla_soundset"}},
+    "2": {"type": "std", "label": "z#_btl_better_balanced_items"}
   },
   "languages": {
     "en_US": 0
@@ -55,6 +55,16 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "btl(2):btl(0,1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires Beyond the Law main component to be installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

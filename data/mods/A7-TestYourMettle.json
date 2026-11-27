@@ -29,9 +29,9 @@
   "games": ["bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["11", "12", "13", "14"], "default": "12"},
-    "20": {"type": "std", "category": "spell"}
+    "0": {"type": "std", "label": "A7-TESTYOURMETTLE-MAIN"},
+    "choice_0": {"type": "muc", "components": ["11", "12", "13", "14"], "default": "12", "labels": {"11": "A7-TESTYOURMETTLE-REDUCE_XP_BY_50", "12": "A7-TESTYOURMETTLE-REDUCE_XP_BY_75", "13": "A7-TESTYOURMETTLE-REDUCE_XP_BY_90", "14": "A7-TESTYOURMETTLE-REDUCE_XP_BY_100"}},
+    "20": {"type": "std", "category": "spell", "label": "A7-TESTYOURMETTLE-SPACEWARP_IN_STORES"}
   },
   "languages": {
     "en_US": 0,
@@ -116,6 +116,20 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-testyourmettle(11,12,13,14):a7-testyourmettle(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the main component.",
+          "de_DE": "Benoetigt die Hauptkomponente der Mod.",
+          "ru_RU": "Requires the main component.",
+          "fr_FR": "Necessite le composant principal.",
+          "zh_CN": "需要主要组件。"
+        },
+        "origin": "tp2"
       }
     ]
   }

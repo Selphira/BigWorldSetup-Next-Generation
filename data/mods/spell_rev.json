@@ -30,14 +30,14 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "20": {"type": "std"},
-    "30": {"type": "std"},
-    "55": {"type": "std"},
-    "60": {"type": "std"},
-    "65": {"type": "std"},
-    "70": {"type": "std"}
+    "0": {"type": "std", "label": "dv-spell_rev-main"},
+    "10": {"type": "std", "label": "dv-spell_rev-deva_planetar_animations"},
+    "20": {"type": "std", "label": "dv-spell_rev-mirror_image_fix"},
+    "30": {"type": "std", "label": "dv-spell_rev-dispel_magic_fix"},
+    "55": {"type": "std", "label": "dv-spell_rev-nwn_style_spell_deflection"},
+    "60": {"type": "std", "label": "dv-spell_rev-update_npc_spellbooks"},
+    "65": {"type": "std", "label": "dv-spell_rev-revised_hlas"},
+    "70": {"type": "std", "label": "dv-spell_rev-revised_saving_throws"}
   },
   "languages": {
     "en_US": 0,
@@ -76,5 +76,43 @@
   },
   "tp2": "spell_rev",
   "safe": 2,
-  "authors": ["Bartimaeus"]
+  "authors": ["Bartimaeus"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "spell_rev(0):dq(0)&item_rev(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "spell_rev(10,20,55):spell_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "spell_rev(10):celestials(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "spell_rev(60):spell_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires that the main Spell Revisions component be installed.",
+          "fr_FR": "Ce composant requiert l'installation du composant principal de Spell Revisions."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "spell_rev(60):divine_remix(1000)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

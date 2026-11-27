@@ -29,8 +29,8 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["ui"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bgee", "eet", "sod"]},
-    "2": {"type": "std", "games": ["bg2ee", "eet"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bgee", "eet", "sod"], "labels": {"0": "A7-RECOLOREDBUTTONS-BGEE-BLUISH", "1": "A7-RECOLOREDBUTTONS-BGEE-GOLDEN"}},
+    "2": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-RECOLOREDBUTTONS-BG2EE"}
   },
   "languages": {
     "en_US": 0,

@@ -6,10 +6,10 @@
   },
   "files": [
     {
-      "filename": "Improved_Summons.rar",
-      "size": 470742,
-      "sha256": "caf9682336fe2a17ff2f157a98acc7dc9754c0f61c284a3c1512c8c5149592bd",
-      "download": "https://www.sorcerers.net/Games/dl.php?s=BG2&f=BG2/Improved_Summons.rar&download=yes"
+      "filename": "SORTS_Summons-2.04.zip",
+      "download": "https://github.com/Plutonium-X/SORTS_Summons/archive/refs/tags/v2.04.zip",
+      "size": 1270022,
+      "sha256": "eac9222d71a75d97e713cd9258bf445798ddc7a4af7dcbafdbac936b71e2769e"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],

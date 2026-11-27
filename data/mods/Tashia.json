@@ -64,5 +64,21 @@
   },
   "tp2": "tashia",
   "safe": 2,
-  "authors": ["Arian", "Michael Lyashenko", "Bri", "Lord Ernie"]
+  "authors": ["Arian", "Michael Lyashenko", "Bri", "Lord Ernie"],
+  "rules": {
+    "incompatibilities": [
+      {
+        "rule": "tashia(1):tashia(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Ignored",
+          "fr_FR": "Ignored",
+          "de_DE": "Ignored",
+          "es_ES": "Ignored",
+          "it_IT": "Ignored"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

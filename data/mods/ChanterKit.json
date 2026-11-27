@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std"},
-    "37": {"type": "std"}
+    "0": {"type": "std", "label": "Adul-ChanterKit"},
+    "37": {"type": "std", "label": "Adul-Chanter_Stronghold"}
   },
   "languages": {
     "en_US": 0,
@@ -52,6 +52,17 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "chanterkit(37):chanterkit(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "(Chanter Kit main component required.)",
+          "fr_FR": "(Le kit de Chantre doit être installé pour que ce composant puisse être installé.)"
+        },
+        "origin": "tp2"
       }
     ]
   }

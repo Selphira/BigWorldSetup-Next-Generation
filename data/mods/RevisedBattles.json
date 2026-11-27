@@ -284,5 +284,61 @@
   },
   "tp2": "revisedbattles",
   "safe": 2,
-  "authors": ["Moonfruit", "Tyrus"]
+  "authors": ["Moonfruit", "Tyrus"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "revisedbattles(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,27):revisedbattles(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires Improved Battles - \"erebusant's Patching Version\" v6",
+          "fr_FR": "Requires Improved Battles - \"erebusant's Patching Version\" v6",
+          "de_DE": "Requires Improved Battles - \"erebusant's Patching Version\" v6",
+          "it_IT": "Requires Improved Battles - \"erebusant's Patching Version\" v6",
+          "es_ES": "Requires Improved Battles - \"erebusant's Patching Version\" v6",
+          "zh_CN": "Requires Improved Battles - \"erebusant's Patching Version\" v6"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "revisedbattles(10):nej2v691(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Never Ending Journey Second Edition v6.91",
+          "fr_FR": "Never Ending Journey Second Edition v6.91",
+          "de_DE": "Never Ending Journey Second Edition v6.91",
+          "it_IT": "Never Ending Journey Second Edition v6.91",
+          "es_ES": "Never Ending Journey Second Edition v6.91",
+          "zh_CN": "Never Ending Journey Second Edition v6.91"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "revisedbattles(11):fr_rov(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Freedom's Reign (SoA or ToB)",
+          "fr_FR": "Freedom's Reign (SoA or ToB)",
+          "de_DE": "Freedom's Reign (SoA or ToB)",
+          "it_IT": "Freedom's Reign (SoA or ToB)",
+          "es_ES": "Freedom's Reign (SoA or ToB)",
+          "zh_CN": "Freedom's Reign (SoA or ToB)"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "revisedbattles(12):re(17)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Firkraag's Unsheathed Sword",
+          "fr_FR": "Firkraag's Unsheathed Sword",
+          "de_DE": "Firkraag's Unsheathed Sword",
+          "it_IT": "Firkraag's Unsheathed Sword",
+          "es_ES": "Firkraag's Unsheathed Sword",
+          "zh_CN": "Firkraag's Unsheathed Sword"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

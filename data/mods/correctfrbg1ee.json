@@ -1,5 +1,5 @@
 {
-  "name": "Correction de la traduction de Baldur's Gate : Enhanced Edition",
+  "name": "correctfrBG1EE",
   "version": "0.11",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33797"
@@ -44,5 +44,17 @@
   },
   "tp2": "correctfrbg1ee",
   "safe": 2,
-  "authors": ["lefreut", "jazira", "rivvers"]
+  "authors": ["lefreut", "jazira", "rivvers"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "correctfrbg1ee(30):correctfrbg1ee(20)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Necessite le composant \"Patch audio francais\""
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

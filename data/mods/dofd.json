@@ -30,8 +30,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "100": {"type": "std"}
+    "0": {"type": "std", "label": "DofD-Main"},
+    "100": {"type": "std", "label": "DofD-Cutscene"}
   },
   "languages": {
     "en_US": 0,
@@ -92,6 +92,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "dofd(100):dofd(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Require DofD Main componant",
+          "ru_RU": "Require DofD Main componant",
+          "de_DE": "Require DofD Main componant",
+          "it_IT": "Require DofD Main componant",
+          "fr_FR": "Necessite le composant principal de DofD",
+          "zh_CN": "需要“可怖之域”主组件"
+        },
+        "origin": "tp2"
       }
     ]
   }

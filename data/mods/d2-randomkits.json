@@ -30,9 +30,9 @@
   "games": ["bg2", "bg2ee", "bgee", "eet", "iwd", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "9999": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["20", "21"], "default": "20"},
-    "30": {"type": "std"}
+    "9999": {"type": "std", "label": "D2_MISC_KITS"},
+    "choice_0": {"type": "muc", "components": ["20", "21"], "default": "20", "labels": {"20": "D2_MISC_KITS_ENRAGE1", "21": "D2_MISC_KITS_ENRAGE2"}},
+    "30": {"type": "std", "label": "D2_MISC_KITS_UPDATEHLA"}
   },
   "languages": {
     "en_US": 0,
@@ -79,6 +79,20 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "d2-randomkits(9999,30):iwdification(60)&hammers(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "d2-randomkits(20,30):d2-randomkits(9999)",
+        "severity": "error",
+        "origin": "tp2"
       }
     ]
   }

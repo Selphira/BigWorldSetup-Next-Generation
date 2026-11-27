@@ -17,8 +17,8 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std", "label": "InfinityEngine-Enhancer"},
+    "1": {"type": "std", "label": "BGEE-Graphics-Enhanced-Tiles"}
   },
   "languages": {
     "en_US": 0
@@ -48,6 +48,16 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bgee-graphics-enhanced(1):bgee-graphics-enhanced(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component to be installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

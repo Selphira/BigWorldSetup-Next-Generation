@@ -29,8 +29,8 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std", "games": ["bgt", "tutu"]}
+    "0": {"type": "std", "label": "murneth_main"},
+    "1": {"type": "std", "games": ["bgt", "tutu"], "label": "murneth_rare_select_sounds"}
   },
   "languages": {
     "en_US": 0,
@@ -106,6 +106,28 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "mur'neth(0):cdtweaks(1210)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "mur'neth(1):mur'neth(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need to have Mur'Neth installed to select this option.",
+          "fr_FR": "Ce composant necessite l'installation du composant principal.",
+          "pl_PL": "Musisz zainstalowac Mur'Netha by wybrac ta opcje.",
+          "es_ES": "Necesitas tener Mur'Neth instalado para seleccionar esta opción.",
+          "de_DE": "Ihr müsst Mur'Neth installiert haben, um diese Alternative auszuwählen.",
+          "it_IT": "Hai bisogno di Mur'Neth installato per selezionare questa opzione.",
+          "ru_RU": "You need to have Mur'Neth installed to select this option."
+        },
+        "origin": "tp2"
       }
     ]
   }

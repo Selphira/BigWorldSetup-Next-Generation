@@ -29,11 +29,11 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "category": "kit"},
-    "10": {"type": "std", "category": "kit"},
-    "20": {"type": "std", "category": "spell"},
-    "30": {"type": "std", "category": "kit"},
-    "40": {"type": "std", "category": "kit", "games": ["bg2ee", "eet", "iwdee"]}
+    "0": {"type": "std", "category": "kit", "label": "A7-IMPROVED_SHAMANIC_DANCE-MAIN"},
+    "10": {"type": "std", "category": "kit", "label": "A7-IMPROVED_SHAMANIC_DANCE-EXPANDED_DANCE"},
+    "20": {"type": "std", "category": "spell", "label": "A7-IMPROVED_SHAMANIC_DANCE-SHAMANIC_PACT"},
+    "30": {"type": "std", "category": "kit", "label": "A7-IMPROVED_SHAMANIC_DANCE-APPLY_TO_KITS"},
+    "40": {"type": "std", "category": "kit", "games": ["bg2ee", "eet", "iwdee"], "label": "A7-IMPROVED_SHAMANIC_DANCE-ITEMS"}
   },
   "languages": {
     "en_US": 0,
@@ -120,6 +120,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7#improvedshamanicdance(10,30):a7#improvedshamanicdance(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component required.",
+          "fr_FR": "Composant principal requis.",
+          "de_DE": "Benoetigt die Hauptkomponente der Mod.",
+          "it_IT": "Richiede Componente Principale.",
+          "pl_PL": "Wymagany podstawowy komponent.",
+          "ru_RU": "Требуется основной компонент."
+        },
+        "origin": "tp2"
       }
     ]
   }

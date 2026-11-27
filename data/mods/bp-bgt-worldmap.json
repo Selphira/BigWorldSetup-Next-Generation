@@ -16,10 +16,10 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["patch"],
   "components": {
-    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}},
-    "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1", "games": ["bg2", "bg2ee", "bgt", "eet"]},
-    "3": {"type": "std"},
-    "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui"}
+    "0": {"type": "sub", "prompts": {"1": {"options": ["1", "2"], "default": "1"}, "2": {"options": ["1", "2"], "default": "2"}}, "label": "worldmap-main"},
+    "choice_0": {"type": "muc", "components": ["1", "2"], "default": "1", "games": ["bg2", "bg2ee", "bgt", "eet"], "labels": {"1": "worldmap-replace-tob-map", "2": "worldmap-original-tob-map"}},
+    "3": {"type": "std", "label": "worldmap-update-savegame"},
+    "choice_1": {"type": "muc", "components": ["4", "5"], "default": "4", "category": "ui", "labels": {"4": "worldmap-fullscreen-bg2ee", "5": "worldmap-fullscreen-dragonspear-ui"}}
   },
   "languages": {
     "en_US": 0,
@@ -144,5 +144,16 @@
   },
   "tp2": "bp-bgt-worldmap",
   "safe": 2,
-  "authors": ["Weigo", "Yacomo", "King Diamond", "Erebusant", "Roberciiik"]
+  "authors": ["Weigo", "Yacomo", "King Diamond", "Erebusant", "Roberciiik"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "bp-bgt-worldmap(0):dq(0)&wheels(0)&stratagems(4190)&bg2_tweaks(1030,1035,1036,3220)&cdtweaks(1030,1035,1036,3220)&bgttweak(2600)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

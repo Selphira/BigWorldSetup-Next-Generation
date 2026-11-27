@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "red_dragon_summoning_spell"}
   },
   "languages": {
     "en_US": 0,

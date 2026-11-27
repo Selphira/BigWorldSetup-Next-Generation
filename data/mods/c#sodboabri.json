@@ -16,10 +16,10 @@
   "games": ["eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "category": "gameplay"},
-    "1": {"type": "std", "category": "gameplay"},
-    "2": {"type": "std", "category": "gameplay"},
-    "3": {"type": "std", "category": "gameplay"}
+    "0": {"type": "std", "category": "gameplay", "label": "c#sodboabri_AcknowledgeSceneBoareskyrBridge"},
+    "1": {"type": "std", "category": "gameplay", "label": "c#sodboabri_TescriptionText"},
+    "2": {"type": "std", "category": "gameplay", "label": "c#sodboabri_DifferentChoices"},
+    "3": {"type": "std", "category": "gameplay", "label": "c#sodboabri_StatChanges"}
   },
   "languages": {
     "en_US": 0,
@@ -116,6 +116,117 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "c#sodboabri(0,1,2,3):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component needs to be installed before EET_End.",
+          "de_DE": "Diese Komponente muss vor EET_End installiert werden.",
+          "fr_FR": "Ce composant doit etre installe avant EET_End.",
+          "it_IT": "This component needs to be installed before EET_End.",
+          "ru_RU": "This component needs to be installed before EET_End.",
+          "pl_PL": "Ten komponent nalezy zainstalowac przed EET_End.",
+          "es_ES": "Este componente debe instalarse antes de EET_End.",
+          "zh_CN": "本组件需要在EET_End之前安装。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodboabri(0):c#sodboabri(1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component can only be installed before later ones.",
+          "de_DE": "Diese Komponente kann nicht nach spaeteren installiert werden.",
+          "fr_FR": "Ce mod ne peut etre installe qu'apres le precedent.",
+          "it_IT": "Questo componente può essere installato solo prima di quelli successivi.",
+          "ru_RU": "This component can only be installed before later ones.",
+          "pl_PL": "Ten komponent mozna zainstalowac wylacznie przed pozostalymi.",
+          "es_ES": "Este componente solo puede instalarse antes de los siguientes.",
+          "zh_CN": "本组件只能在后续组件之前安装。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodboabri(0,1):c#sodboabri(2)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component can only be installed before later ones.",
+          "de_DE": "Diese Komponente kann nicht nach spaeteren installiert werden.",
+          "fr_FR": "Ce mod ne peut etre installe qu'apres le precedent.",
+          "it_IT": "Questo componente può essere installato solo prima di quelli successivi.",
+          "ru_RU": "This component can only be installed before later ones.",
+          "pl_PL": "Ten komponent mozna zainstalowac wylacznie przed pozostalymi.",
+          "es_ES": "Este componente solo puede instalarse antes de los siguientes.",
+          "zh_CN": "本组件只能在后续组件之前安装。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodboabri(0,1,2):c#sodboabri(3)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component can only be installed before later ones.",
+          "de_DE": "Diese Komponente kann nicht nach spaeteren installiert werden.",
+          "fr_FR": "Ce mod ne peut etre installe qu'apres le precedent.",
+          "it_IT": "Questo componente può essere installato solo prima di quelli successivi.",
+          "ru_RU": "This component can only be installed before later ones.",
+          "pl_PL": "Ten komponent mozna zainstalowac wylacznie przed pozostalymi.",
+          "es_ES": "Este componente solo puede instalarse antes de los siguientes.",
+          "zh_CN": "本组件只能在后续组件之前安装。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "c#sodboabri(1,2,3):c#sodboabri(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The main component \"Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions\" needs to be installed.",
+          "de_DE": "Die Komponente \"NSCs reagieren auf die Szene an der Eberfellbruecke\" muss installiert sein.",
+          "fr_FR": "Le composant principal \"La scene du pont de Boarskyr est mentionnee par les PNJ\" doit etre installe.",
+          "it_IT": "Il componente principale \"La scena al ponte di Boareskyr sara riconosciuta: Aggiungi reazioni PNG\" deve essere installato.",
+          "ru_RU": "The main component \"Scene at Boareskyr Bridge will be Acknowledged: Add NPC Reactions\" needs to be installed.",
+          "pl_PL": "Nalezy zainstalowac komponent \"Towarzysze reaguja na scene na Moscie Boareskyr\".",
+          "es_ES": "El componente principal \"Los NPC mencionan la escena en el puente de Boareskyr: Reacciones de los NPC\" necesita ser instalado.",
+          "zh_CN": "需要先安装核心组件“为巴里斯凯尔桥过场动画添加NPC反应”。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodboabri(2):c#sodboabri(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The component \"Add Description Text to Original Scene at Bridge\" needs to be installed.",
+          "de_DE": "Die Komponente \"Originale Szene an der Bruecke mit Beschreibungstext versehen\" muss installiert sein.",
+          "fr_FR": "Le composant \"Ajouter un texte decrivant la cinematique originale du pont de Boarskyr\" doit etre installe.",
+          "it_IT": "Il componente \"Aggiungi testo di descrizione alla scena originale del ponte\" deve essere installato.",
+          "ru_RU": "The component \"Add Description Text to Original Scene at Bridge\" needs to be installed.",
+          "pl_PL": "Nalezy zainstalowac komponent \"Dodatkowe opisy przy oryginalnej scenie na moscie\".",
+          "es_ES": "El componente \"Texto descriptivo en la escena original del puente\" necesita ser instalado.",
+          "zh_CN": "需要先安装“为原版巴里斯凯尔桥过场动画添加描述文本”组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "c#sodboabri(3):c#sodboabri(2)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The component \"Bridge Scene has Different Choices\" needs to be installed.",
+          "de_DE": "Die Komponente \"Szene an Bruecke mit Reaktionsmoeglichkeiten versehen\" muss installiert sein.",
+          "fr_FR": "Le composant \"Le deroulement des evenements du pont de Boarskyr offre plusieurs choix\" doit etre installe.",
+          "it_IT": "Il componente \"La scena del ponte ha scelte diverse\" deve essere installato.",
+          "ru_RU": "The component \"Bridge Scene has Different Choices\" needs to be installed.",
+          "pl_PL": "Nalezy zainstalowac komponent \"Scena na Moscie Boareskyr daje mozliwosci wyboru postepowania\".",
+          "es_ES": "El componente \"La escena del puente tiene diferentes elecciones\" necesita ser instalado.",
+          "zh_CN": "需要先安装“为巴里斯凯尔桥过场动画添加不同选择”组件。"
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -136,5 +136,31 @@
   },
   "tp2": "ppe",
   "safe": 2,
-  "authors": ["Smeagolheart", "bob_veng"]
+  "authors": ["Smeagolheart", "bob_veng"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "ppe(100,150):ppe(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component!",
+          "ru_RU": "This component requires the main component!",
+          "fr_FR": "Ce composant requiert le composant principal!"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "ppe(25):bg2_tweaks(1180)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Detected duplicate component from BG2_Tweaks",
+          "ru_RU": "Detected duplicate component from BG2_Tweaks",
+          "fr_FR": "Des composants dupliques de BG2_Tweaks ont ete detecte"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

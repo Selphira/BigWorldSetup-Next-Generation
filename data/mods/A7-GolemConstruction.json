@@ -21,24 +21,24 @@
     {
       "filename": "win-A7-GolemConstruction-v6.4.zip",
       "size": 26279061,
+      "sha256": "0394ad48c52c615406869844359094107bb0803975ed68dbb326233d0369df9f",
       "download": "https://github.com/Argent77/A7-GolemConstruction/releases/download/v6.4/win-A7-GolemConstruction-v6.4.zip",
-      "platforms": ["windows"],
-      "sha256": "0394ad48c52c615406869844359094107bb0803975ed68dbb326233d0369df9f"
+      "platforms": ["windows"]
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std", "games": ["bg2ee", "eet"]},
-    "15": {"type": "std", "games": ["bg2ee", "eet"]},
-    "20": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
-    "25": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
-    "30": {"type": "std", "games": ["bg2ee", "eet"]},
-    "35": {"type": "std", "games": ["bg2ee", "eet", "iwdee", "sod"]},
-    "40": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
-    "45": {"type": "std"},
-    "50": {"type": "std"}
+    "0": {"type": "std", "label": "A7-GOLEMCONSTRUCTION-MAIN"},
+    "10": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-GOLEMCONSTRUCTION-REPLACE_MANUAL"},
+    "15": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-GOLEMCONSTRUCTION-IMPROVE_ENEMY_AI"},
+    "20": {"type": "std", "games": ["bg2ee", "eet", "sod"], "label": "A7-GOLEMCONSTRUCTION-GOLEMS_FOR_ENEMIES"},
+    "25": {"type": "std", "games": ["bg2ee", "eet", "sod"], "label": "A7-GOLEMCONSTRUCTION-ENEMY_GREATER_VARIETY"},
+    "30": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-GOLEMCONSTRUCTION-GOLEMS_FIGHTER_STRONGHOLD"},
+    "35": {"type": "std", "games": ["bg2ee", "eet", "iwdee", "sod"], "label": "A7-GOLEMCONSTRUCTION-MAKE_VULNERABLE_TO_SPELLS"},
+    "40": {"type": "std", "games": ["bg2ee", "eet", "sod"], "label": "A7-GOLEMCONSTRUCTION-REDUCE_IMMUNITIES"},
+    "45": {"type": "std", "label": "A7-GOLEMCONSTRUCTION-IDENTIFY_ITEMS"},
+    "50": {"type": "std", "label": "A7-GOLEMCONSTRUCTION-ADD_TELEPORT_ABILITY"}
   },
   "languages": {
     "en_US": 0,
@@ -168,6 +168,38 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-golemconstruction(10,15,20,25,30,35,40,45,50):a7-golemconstruction(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component to be installed.",
+          "fr_FR": "Ce composant requiert l'installation prealable du composant principal.",
+          "de_DE": "Diese Option benoetigt die Hauptkomponente der Mod.",
+          "it_IT": "Questa componente richiede che la componente principale sia installata.",
+          "pl_PL": "Ten komponent wymaga uprzedniego zainstalowania glownego komponentu.",
+          "ru_RU": "This component requires the main component to be installed.",
+          "zh_CN": "此组件需要安装主组件。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "a7-golemconstruction(10):rr(8)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component conflicts with Rogue Rebalancing's \"Upgradeable Equipment\".",
+          "fr_FR": "Ce composant entre en conflit avec le composant \"Equipement ameliorable\" de Rogue Rebalancing",
+          "de_DE": "Diese Komponente ist nicht kompatibel mit Rogue Rebalancings \"Aufruestbare Ausruestung\".",
+          "it_IT": "Questa componente è in conflitto con l'opzione \"Equipaggiamento Migliorabile\" della mod Rogue Rebalancing.",
+          "pl_PL": "Ten komponent stoi w sprzecznosci z komponentem modyfikacji Rogue Rebalancing o nazwie \"Upgradeable Equipment\".",
+          "ru_RU": "This component conflicts with Rogue Rebalancing's \"Upgradeable Equipment\".",
+          "zh_CN": "此组件与游荡者平衡的“可升级装备”冲突。"
+        },
+        "origin": "tp2"
       }
     ]
   }

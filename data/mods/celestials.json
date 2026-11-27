@@ -29,8 +29,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["tactic"],
   "components": {
-    "0": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"], "label": "PnP_Celestials"},
+    "1": {"type": "std", "category": "spell", "games": ["bg2ee", "bgt", "eet"], "label": "PnP_Celestials_animations"}
   },
   "languages": {
     "en_US": 0,
@@ -99,6 +99,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "celestials(0):item_rev(0)&spell_rev(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "celestials(1):celestials(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

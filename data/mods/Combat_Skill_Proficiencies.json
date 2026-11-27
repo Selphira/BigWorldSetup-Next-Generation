@@ -1,25 +1,25 @@
 {
   "name": "Combat Skills & Proficiencies",
-  "version": "1.5.2",
+  "version": "1.5.5",
   "links": {
     "homepage": "https://github.com/subtledoctor/Combat_Skill_Proficiencies"
   },
   "files": [
     {
-      "filename": "Combat_Skill_Proficiencies-1.5.2.zip",
-      "size": 1695416,
-      "sha256": "125b336366d6ee515f2b0b75039652d66e2fcffed5e73fa9fed1ff6c753ceae6",
-      "download": "https://github.com/subtledoctor/Combat_Skill_Proficiencies/archive/refs/tags/1.5.2.zip"
+      "filename": "Combat_Skill_Proficiencies-1.5.5.zip",
+      "download": "https://github.com/subtledoctor/Combat_Skill_Proficiencies/archive/refs/tags/1.5.5.zip",
+      "size": 1685763,
+      "sha256": "bcbbadf239a491a0ddeba155f665e46ce27534088af4976bfa29ed18869a76e6"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "10": {"type": "std", "category": "spell"},
-    "30": {"type": "std", "category": "spell"},
-    "50": {"type": "std", "category": "spell"},
-    "70": {"type": "std", "category": "spell"},
-    "90": {"type": "std", "category": "spell"}
+    "10": {"type": "std", "category": "spell", "label": "D5_REVISED_PROFICIENCIES"},
+    "30": {"type": "std", "category": "spell", "label": "D5_COMBAT_SKILLS"},
+    "50": {"type": "std", "category": "spell", "label": "D5_COMBINED_WEAPON_CATEGORIES"},
+    "70": {"type": "std", "category": "spell", "label": "D5_REVISED_WEAPON_STYLES"},
+    "90": {"type": "std", "category": "spell", "label": "D5_EE_WSPATCK_FOR_ALL"}
   },
   "languages": {
     "en_US": 0,
@@ -76,6 +76,65 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "combat_skill_proficiencies(10):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "combat_skill_proficiencies(30):cdtweaks(2161,2162,2163,2164)&scales_of_balance(122)&item_rev(0)&will_to_power(900)&tomeandblood(48)&d5_random_tweaks(3111,3112)&leui(0)&leui-bg1ee(0)&leui-sod(0)&might_and_guile(245)&dual_to_kit(2)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "combat_skill_proficiencies(30,90):combat_skill_proficiencies(10)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "combat_skill_proficiencies(70):item_rev(17)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "combat_skill_proficiencies(10,30):combat_skill_proficiencies(50)",
+        "severity": "error",
+        "translations": {
+          "en_US": "already included",
+          "pl_PL": "already included",
+          "fr_FR": "deja inclus"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "combat_skill_proficiencies(30):might_and_guile(200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "already included",
+          "pl_PL": "already included",
+          "fr_FR": "deja inclus"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "combat_skill_proficiencies(50):combat_skill_proficiencies(10,30)",
+        "severity": "error",
+        "translations": {
+          "en_US": "already included",
+          "pl_PL": "already included",
+          "fr_FR": "deja inclus"
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -16,24 +16,24 @@
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "1": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "2": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "3": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "4": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "5": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "6": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "7": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "8": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "9": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "10": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "11": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "12": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "13": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "14": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "15": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "16": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
-    "17": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]}
+    "0": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_slimequest"},
+    "1": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_familyquest"},
+    "2": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_babysitting"},
+    "3": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_nashkelmonster"},
+    "4": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_fallenpaladin"},
+    "5": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_undyinglove"},
+    "6": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_orclover"},
+    "7": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_unexpectedhelp"},
+    "8": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_manypaws"},
+    "9": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_drunk"},
+    "10": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_noober"},
+    "11": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_bragesword"},
+    "12": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_seacharts"},
+    "13": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_waterqueentemple"},
+    "14": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_worriedfarmer"},
+    "15": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_bodiesforgoodcause"},
+    "16": {"type": "std", "games": ["bgee", "bgt", "eet", "sod", "tutu"], "label": "bgqe_cordyrnokillingsil"},
+    "17": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "bgqe_improved_borda"}
   },
   "languages": {
     "en_US": 0,
@@ -265,6 +265,31 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "bgqe(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "de_DE": "Die Mod muss vor EET_End installiert werden.",
+          "fr_FR": "This mod needs to be installed before EET_End on your EET install.",
+          "it_IT": "This mod needs to be installed before EET End on your EET install.",
+          "ru_RU": "This mod needs to be installed before EET_End on your EET install.",
+          "pl_PL": "Ten mod powinien byc zainstalowany przed EET_End podczas instalacji EET.",
+          "es_ES": "Este mod debe instalarse antes que EET_End en su instalacion de EET.",
+          "zh_CN": "该mod需要在执行EET_End之前安装在EET上",
+          "tr_TR": "Bu modun EET kurulumunuzda EET_End'den önce yüklenmesi gerekir."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bgqe(17):bgqe(11)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

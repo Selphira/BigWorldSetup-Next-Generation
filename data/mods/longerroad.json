@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std", "label": "LongerRoad-Main"},
+    "1": {"type": "std", "label": "LongerRoad-RestoreIrenicusSoAPortrait"}
   },
   "languages": {
     "en_US": 0,
@@ -32,17 +32,17 @@
         "0": "Longer Road",
         "1": "Restore Irenicus's original portrait from SoA."
       },
-      "description": "Finally, Irenicus becomes a recruitable character right from the start of ToB! This mod adds quests, dialogues and a breathtaking finale. Beware: your answers will have a major influence on your relationship with Irenicus, and the contract you fulfill with him by integrating him into your team will also have negative repercussions."
+      "description": "Finally, Irenicus becomes a recruitable character right from the start of ToB! This mod adds quests, dialogues and a breathtaking finale. Beware: your answers will have a major influence on your relationship with Irenicus, and the contract you fulfill with him by integrating him into your team will also have negative repercussions.\nSTR 13, DEX 20, CON 14, INT 19, WIS 18, CHA 17."
     },
     "fr_FR": {
-      "description": "Enfin, Irenicus devient un personnage recrutable dès le début de ToB ! Ce mod rajoute des quêtes, des dialogues, et un final autrement époustouflant. Attention, vos réponses influent grandement sur vos relations avec Irenicus, et le contrat que vous remplissez avec lui en l'intégrant à votre équipe aura aussi des répercussions négatives.",
+      "description": "Enfin, Irenicus devient un personnage recrutable dès le début de ToB ! Ce mod rajoute des quêtes, des dialogues, et un final autrement époustouflant. Attention, vos réponses influent grandement sur vos relations avec Irenicus, et le contrat que vous remplissez avec lui en l'intégrant à votre équipe aura aussi des répercussions négatives.\nFOR 13, DEX 20, CON 14, INT 19, SAG 18, CHA 17.",
       "components": {
         "0": "Longer Road",
         "1": "Restaure le portrait SoA d'Irenicus"
       }
     },
     "zh_CN": {
-      "description": "终于，艾瑞尼卡斯在《巴尔王座》一开始就成为一个可招募的角色！这个模组增加了任务、对话，以及一个同样令人惊叹的结局。注意，你的回答会极大地影响你和艾瑞尼卡斯的关系，并且将他纳入队伍时与他签订的协议也会带来负面影响。"
+      "description": "终于，艾瑞尼卡斯（Irenicus）在《巴尔王座》（ToB）一开始就成为可招募角色了！这个模组添加了任务、对话，以及一个更加令人惊叹的结局。注意，你的回答会极大地影响你与艾瑞尼卡斯的关系，而让他加入队伍所履行的契约也会带来负面影响。\n力量13，敏捷20，体质14，智力19，智慧18，魅力17。"
     },
     "es_ES": {
       "components": {
@@ -79,6 +79,39 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "longerroad(0):ascension(0,10)",
+        "severity": "error",
+        "mode": "all",
+        "translations": {
+          "en_US": "Asension not detected...",
+          "es_ES": "Ascensión no detectado...",
+          "fr_FR": "Ascension non détecté...",
+          "pl_PL": "Nie wykryto moda Asension...",
+          "ru_RU": "Asension not detected..."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "longerroad(0):wheels(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "longerroad(1):longerroad(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must install the Longer Road main component, otherwise this component is pointless.",
+          "es_ES": "Debes instalar The Longer Road, de otra forma, este componente no tiene razon de ser.",
+          "fr_FR": "Vous devez installer The Longer Road, sinon ce composant ne sert à rien",
+          "pl_PL": "Musisz zainstalowac g³owny komponent The Longer Road, w przeciwny razie ten komponent jest bezuzyteczny.",
+          "ru_RU": "You must install the Longer Road main component, otherwise this component is pointless."
+        },
+        "origin": "tp2"
       }
     ]
   }

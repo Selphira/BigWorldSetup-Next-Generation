@@ -16,19 +16,19 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "category": "spell"},
-    "1": {"type": "std", "category": "spell"},
-    "2": {"type": "std", "category": "spell"},
-    "3": {"type": "std", "category": "spell"},
-    "4": {"type": "std", "category": "spell"},
-    "5": {"type": "std", "category": "spell"},
-    "6": {"type": "std", "category": "spell"},
-    "7": {"type": "std"},
-    "8": {"type": "std", "category": "spell"},
-    "10": {"type": "std", "games": ["bg2", "bgt"]},
-    "11": {"type": "std", "category": "spell"},
-    "12": {"type": "std", "category": "spell"},
-    "13": {"type": "std", "category": "spell"}
+    "0": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Locations"},
+    "1": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Characters_and_Dialogs"},
+    "2": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Sounds"},
+    "3": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Items"},
+    "4": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Wish_Options"},
+    "5": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_XP_for_Minor_Things"},
+    "6": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Lich_Deril"},
+    "7": {"type": "std", "label": "Almaterias_Restoration_Project-Restored_Random_Encounters"},
+    "8": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Minor_Restorations"},
+    "10": {"type": "std", "games": ["bg2", "bgt"], "label": "Almaterias_Restoration_Project-Better_Item_Import"},
+    "11": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Final_Slayer_Dream"},
+    "12": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Alternate_Slayer_Change"},
+    "13": {"type": "std", "category": "spell", "label": "Almaterias_Restoration_Project-Restored_Waukeens_Promenade_Cutscene"}
   },
   "languages": {
     "pl_PL": 0,
@@ -287,6 +287,42 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "arestorationp(1):solaufein(0)&ease(11)&bg2_tweaks(1070)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "arestorationp(7):d0questpack(4)&stratagems(8050)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "arestorationp(12):arestorationp(11)",
+        "severity": "error",
+        "translations": {
+          "pl_PL": "Requires the previous component.",
+          "en_US": "Requires the previous component.",
+          "it_IT": "Requires the previous component.",
+          "nl_NL": "Requires the previous component.",
+          "la_LA": "Requires the previous component.",
+          "fo_FO": "Requires the previous component.",
+          "zh_CN": "Requires the previous component.",
+          "fr_FR": "Requires the previous component.",
+          "de_DE": "Requires the previous component.",
+          "pt_BR": "Requires the previous component.",
+          "ru_RU": "Requires the previous component.",
+          "cs_CZ": "Requires the previous component.",
+          "es_ES": "Requires the previous component."
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -30,9 +30,9 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "spell"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["90", "91", "92", "93", "94", "95"]},
-    "choice_1": {"type": "muc", "components": ["9999", "10000", "10001"], "default": "9999"},
-    "choice_2": {"type": "muc", "components": ["10", "11"]}
+    "choice_0": {"type": "muc", "components": ["90", "91", "92", "93", "94", "95"], "labels": {"90": "D2_WORKSHOP_KITUPDATER", "91": "D2_WORKSHOP_KITUPDATER2", "92": "D2_WORKSHOP_KITUPDATER3", "93": "D2_WORKSHOP_KITUPDATER4", "94": "D2_WORKSHOP_KITUPDATER5", "95": "D2_WORKSHOP_KITUPDATER6"}},
+    "choice_1": {"type": "muc", "components": ["9999", "10000", "10001"], "default": "9999", "labels": {"9999": "D2_WORKSHOP_KITS", "10000": "D2_WORKSHOP_NOVARIANTS", "10001": "D2_WORKSHOP_NOKITS"}},
+    "choice_2": {"type": "muc", "components": ["10", "11"], "labels": {"10": "D2_WORKSHOP_ITEMS", "11": "D2_WORKSHOP_DEVMODE"}}
   },
   "languages": {
     "en_US": 0,
@@ -97,6 +97,27 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "d2-workshopkits(90,10,11):d2-workshopkits(9999,10000)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "d2-workshopkits(90,91,92,93,94,95,9999,10000):iwdification(60)&hammers(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "d2-workshopkits(9999,10000):d2-modfixes(2)&tomeandblood(48,62,55,71,72)&d5_random_tweaks(3111,3112,1611)&leui(0)&leui-bg1ee(0)&leui-sod(0)&subtled_spell_tweaks(62)&spell_rev(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

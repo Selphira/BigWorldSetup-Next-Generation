@@ -31,9 +31,9 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std"},
-    "100": {"type": "std"},
-    "200": {"type": "std"}
+    "0": {"type": "std", "label": "A7-WARES_OF_THE_PLANES-MAIN"},
+    "100": {"type": "std", "label": "A7-WARES_OF_THE_PLANES-IDENTIFY_ALL"},
+    "200": {"type": "std", "label": "A7-WARES_OF_THE_PLANES-ALTERNATE_PORTRAIT-1"}
   },
   "languages": {
     "en_US": 0,
@@ -90,6 +90,19 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-waresoftheplanes(100,200):a7-waresoftheplanes(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the main component of the mod.",
+          "de_DE": "Benoetigt die Hauptkomponente der Mod.",
+          "fr_FR": "Necessite le composant principal du mod.",
+          "zh_CN": "需要此模组的主要组件。"
+        },
+        "origin": "tp2"
       }
     ]
   }

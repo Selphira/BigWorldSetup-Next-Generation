@@ -31,9 +31,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "cd_crossmod_banter_pack_bg2_soa"},
+    "1": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "cd_crossmod_banter_pack_bg2_tob"},
+    "2": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "cd_crossmod_banter_pack_bg2_romance_conflicts"}
   },
   "languages": {
     "en_US": 0,

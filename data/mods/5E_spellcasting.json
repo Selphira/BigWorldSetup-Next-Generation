@@ -1,24 +1,24 @@
 {
   "name": "5E Spellcasting",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/5E_spellcasting",
     "forums": ["https://www.gibberlings3.net/forums/topic/32551-subtlemods-5e-spellcasting-rules-conversion/"]
   },
   "files": [
     {
-      "filename": "5E_spellcasting-2.7.1.zip",
-      "size": 1488442,
-      "sha256": "7292e71b6ff073923f3834aeb209922573e2ddfe74a2f075e2a7eeee436030ab",
-      "download": "https://github.com/UnearthedArcana/5E_spellcasting/archive/refs/tags/2.7.1.zip"
+      "filename": "5E_spellcasting-2.7.2.zip",
+      "download": "https://github.com/UnearthedArcana/5E_spellcasting/archive/refs/tags/2.7.2.zip",
+      "size": 1488511,
+      "sha256": "4d023680691c2fd1e698314883f296963dd9fbe6bbfe0187b52958ea24aa7e22"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "100": {"type": "std"},
-    "300": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["901", "902"]}
+    "100": {"type": "std", "label": "D5_5E_CASTING_EVERYONE"},
+    "300": {"type": "std", "label": "D5_5E_CASTING_BARDS"},
+    "choice_0": {"type": "muc", "components": ["901", "902"], "labels": {"901": "D5_5E_ITEM_MEM_CASTING_SLOTS", "902": "D5_5E_ITEM_CASTING_SLOTS_ONLY"}}
   },
   "languages": {
     "en_US": 0,
@@ -65,6 +65,38 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "5e_spellcasting(300):might_and_guile(400)&tomeandblood(62)&subtled_spell_tweaks(62)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "5e_spellcasting(901,902):5e_spellcasting(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "5e_spellcasting(100):5e_spellcasting(300)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "5e_spellcasting(300):5e_spellcasting(100)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "5e_spellcasting(901):tomeandblood(92,93)",
+        "severity": "error",
+        "origin": "tp2"
       }
     ]
   }

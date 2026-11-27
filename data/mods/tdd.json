@@ -78,5 +78,39 @@
   },
   "tp2": "tdd",
   "safe": 1,
-  "authors": ["shadowlich", "Max Schnur", "Horred the Plague", "Hoppy", "Minto", "King Diamond", "Weigo"]
+  "authors": ["shadowlich", "Max Schnur", "Horred the Plague", "Hoppy", "Minto", "King Diamond", "Weigo"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "tdd(1):tdd(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You have to have TDD Main Package installed",
+          "ru_RU": " ¢ á ¤®«¦¥­ ¡ëâì ãáâ ­®¢«¥­ ®á­®¢­®© ª®­â¥­â TDD",
+          "pl_PL": "Musisz miec zainstalowany g³ówny komponent The Darkest Day, v1.12",
+          "de_DE": "Ihr müsst das TDD v105 WeiDU Hauptpaket installiert haben",
+          "fr_FR": "Il vous faut installer d'abord le composant principal de TDD",
+          "it_IT": "Devi aver installato il Componente Principale di TDD",
+          "es_ES": "Tienes que tener instalado el bloque principal del TDD"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "tdd(1):rot(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must not have \"RoT Kit Pack\" installed to activate TDD kits successfully",
+          "ru_RU": "â®¡ë ãá¯¥è­®  ªâ¨¢¨à®¢ âì ­ ¡®à ª¨â®¢ TDD, ã ¢ á  ¤®«¦­¥­ ¡ëâì ãáâ ­®¢«¥­ ­ ¡®à ª¨â®¢ RoT",
+          "pl_PL": "Nie mozesz miec zainstalowanego komponentu Podklasy RoT modyfikacji Region of Terror, uniemozliwia on bowiem aktywacje podklas TDD",
+          "de_DE": "Ihr dürft \"Rot Kit Pack\" nicht installiert haben, um TDD-Kits erfolgreich aktivieren zu können",
+          "fr_FR": "You must not have \"RoT Kit Pack\" installed to activate TDD kits successfully",
+          "it_IT": "Per riuscire ad attivare i kit di TDD ed installarli con successo non devi avere installato \"RoT Kit Pack\"",
+          "es_ES": "No debes tener instalado el \"RoT Kit Pack\" para activar correctamente los Kits de TDD"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

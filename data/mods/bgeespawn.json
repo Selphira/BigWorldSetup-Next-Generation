@@ -9,14 +9,14 @@
     {
       "filename": "bgee-leveled-spawns-v0.7.zip",
       "size": 3141303,
-      "download": "https://github.com/GraionDilach/BGEESpawn/releases/download/0.7/bgee-leveled-spawns-v0.7.zip",
-      "sha256": "7bf6b5a37066552f162004035569161a8f1f75bc7ee5229adad29ce733b33662"
+      "sha256": "7bf6b5a37066552f162004035569161a8f1f75bc7ee5229adad29ce733b33662",
+      "download": "https://github.com/GraionDilach/BGEESpawn/releases/download/0.7/bgee-leveled-spawns-v0.7.zip"
     }
   ],
   "games": ["bgee", "eet", "sod"],
   "categories": ["tactic"],
   "components": {
-    "101": {"type": "std"}
+    "101": {"type": "std", "label": "AY-BGEESPAWN"}
   },
   "languages": {
     "en_US": 0,

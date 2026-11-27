@@ -20,15 +20,15 @@
     {
       "filename": "win-A7-ResizeableCombatLog-v1.4.zip",
       "size": 1285315,
+      "sha256": "ed6ba77941b99e355d60194051254c11a00bbbe5162750295d75a1b8707beb60",
       "download": "https://github.com/Argent77/A7-ResizeableCombatLog/releases/download/v1.4/win-A7-ResizeableCombatLog-v1.4.zip",
-      "platforms": ["windows"],
-      "sha256": "ed6ba77941b99e355d60194051254c11a00bbbe5162750295d75a1b8707beb60"
+      "platforms": ["windows"]
     }
   ],
   "games": ["pstee"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "A7-RESIZEABLECOMBATLOG-MAIN"}
   },
   "languages": {
     "en_US": 0,

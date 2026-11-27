@@ -15,8 +15,8 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std", "label": "IndiraNPC-main"},
+    "1": {"type": "std", "label": "IndiraNPC-interjections"}
   },
   "languages": {
     "en_US": 0,
@@ -92,6 +92,22 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "indinpc(1):indinpc(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Indira NPC mod main component needs to be installed.",
+          "it_IT": "Il componente principale della mod Indira PNG deve essere installato.",
+          "fr_FR": "Indira NPC mod main component needs to be installed.",
+          "pl_PL": "Indira NPC mod main component needs to be installed.",
+          "es_ES": "Indira NPC mod main component needs to be installed.",
+          "de_DE": "Die Hauptkomponente der Indira NPC Mod muss installiert sein.",
+          "ru_RU": "Indira NPC mod main component needs to be installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

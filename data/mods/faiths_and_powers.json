@@ -16,20 +16,20 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["12", "13"], "category": "spell"},
-    "15": {"type": "std", "category": "spell"},
-    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25"], "category": "spell", "default": "21"},
-    "30": {"type": "std", "category": "spell"},
-    "31": {"type": "std"},
-    "33": {"type": "std"},
-    "choice_2": {"type": "muc", "components": ["35", "36"], "category": "spell", "default": "35"},
-    "45": {"type": "std", "category": "spell"},
-    "75": {"type": "std", "category": "spell"},
-    "80": {"type": "std", "category": "spell"},
-    "91": {"type": "std", "category": "spell"},
-    "92": {"type": "std", "category": "spell"},
-    "95": {"type": "std"},
-    "99": {"type": "std", "category": "spell"}
+    "choice_0": {"type": "muc", "components": ["12", "13"], "category": "spell", "labels": {"12": "D5_FNP_CLERIC_SPELL_TABLE", "13": "D5_UNNERFED_CLERIC_SPELL_TABLE"}},
+    "15": {"type": "std", "category": "spell", "label": "D5_DRUID_ON_CLERIC_TABLES"},
+    "choice_1": {"type": "muc", "components": ["21", "22", "23", "24", "25"], "category": "spell", "default": "21", "labels": {"21": "D5_FNP_SPHERE_SYSTEM", "22": "D5_PNP_SPHERE_SYSTEM", "23": "D5_VANILLA_SPHERE_SYSTEM", "24": "D5_VPLUS_SPHERE_SYSTEM", "25": "D5_NU_FNP_SPHERE_SYSTEM"}},
+    "30": {"type": "std", "category": "spell", "label": "D5_FNP_SPONTANEOUS_CASTING_OPTION"},
+    "31": {"type": "std", "label": "D5_FNP_CLERIC_KITS"},
+    "33": {"type": "std", "label": "D5_FNP_DRUID_KITS"},
+    "choice_2": {"type": "muc", "components": ["35", "36"], "category": "spell", "default": "35", "labels": {"35": "D5_FNP_PALADIN_KITS", "36": "D5_FNP_BAD_PALADINS"}},
+    "45": {"type": "std", "category": "spell", "label": "D5_PALADIN_SPELL_TABLE"},
+    "75": {"type": "std", "category": "spell", "label": "D5_FNP_WEAPON_USABILITY"},
+    "80": {"type": "std", "category": "spell", "label": "D5_APPLY_SPHERE_SYSTEM"},
+    "91": {"type": "std", "category": "spell", "label": "D5_FNP_MULTI_DRUID_KITS"},
+    "92": {"type": "std", "category": "spell", "label": "D5_FNP_MULTI_SHAMAN_KITS"},
+    "95": {"type": "std", "label": "D5_FNP_MULTI_CLERIC_KITS"},
+    "99": {"type": "std", "category": "spell", "label": "D5_FNP_KITS_TO_NPCS"}
   },
   "languages": {
     "en_US": 0,
@@ -112,6 +112,105 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "faiths_and_powers(21,22,23,24,25):spell_rev(55)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(21,22,23,24,25,31,33,80,91,92):leui(0)&leui-bg1ee(0)&leui-sod(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(21,22,23,24,25,31,80,91,92):tomeandblood(62)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(31):divine_remix(1000)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(33):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(33,80,91,92):tomeandblood(48)&d5_random_tweaks(3111,3112)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(75):item_rev(17)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(80,91,92):subtled_spell_tweaks(62)&tomeandblood(55)&d5_random_tweaks(1611)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(91,92,95):faiths_and_powers(80,75)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(91,92):a7#improvedshamanicdance(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(91):tomeandblood(80)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(95):refinements(101,108)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "faiths_and_powers(99):faiths_and_powers(31,33,35,91,95)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "composant saute"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "faiths_and_powers(80):faiths_and_powers(29)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "composant saute"
+        },
+        "origin": "tp2"
       }
     ]
   }

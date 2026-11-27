@@ -31,16 +31,16 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "11"]},
-    "choice_1": {"type": "muc", "components": ["20", "21"]},
-    "choice_2": {"type": "muc", "components": ["30", "31"]},
-    "choice_3": {"type": "muc", "components": ["40", "41"]},
-    "choice_4": {"type": "muc", "components": ["50", "51"]},
-    "choice_5": {"type": "muc", "components": ["60", "61"]},
-    "choice_6": {"type": "muc", "components": ["70", "71"]},
-    "choice_7": {"type": "muc", "components": ["80", "81"]},
-    "choice_8": {"type": "muc", "components": ["90", "91"]},
-    "choice_9": {"type": "muc", "components": ["100", "101"]}
+    "choice_0": {"type": "muc", "components": ["10", "11"], "labels": {"10": "A7-MULTIKITS-FIGHTER_MAGE-ALL", "11": "A7-MULTIKITS-FIGHTER_MAGE-CUSTOM"}},
+    "choice_1": {"type": "muc", "components": ["20", "21"], "labels": {"20": "A7-MULTIKITS-FIGHTER_CLERIC-ALL", "21": "A7-MULTIKITS-FIGHTER_CLERIC-CUSTOM"}},
+    "choice_2": {"type": "muc", "components": ["30", "31"], "labels": {"30": "A7-MULTIKITS-FIGHTER_THIEF-ALL", "31": "A7-MULTIKITS-FIGHTER_THIEF-CUSTOM"}},
+    "choice_3": {"type": "muc", "components": ["40", "41"], "labels": {"40": "A7-MULTIKITS-FIGHTER_MAGE_THIEF-ALL", "41": "A7-MULTIKITS-FIGHTER_MAGE_THIEF-CUSTOM"}},
+    "choice_4": {"type": "muc", "components": ["50", "51"], "labels": {"50": "A7-MULTIKITS-MAGE_THIEF-ALL", "51": "A7-MULTIKITS-MAGE_THIEF-CUSTOM"}},
+    "choice_5": {"type": "muc", "components": ["60", "61"], "labels": {"60": "A7-MULTIKITS-CLERIC_MAGE-ALL", "61": "A7-MULTIKITS-CLERIC_MAGE-CUSTOM"}},
+    "choice_6": {"type": "muc", "components": ["70", "71"], "labels": {"70": "A7-MULTIKITS-CLERIC_THIEF-ALL", "71": "A7-MULTIKITS-CLERIC_THIEF-CUSTOM"}},
+    "choice_7": {"type": "muc", "components": ["80", "81"], "labels": {"80": "A7-MULTIKITS-FIGHTER_DRUID-ALL", "81": "A7-MULTIKITS-FIGHTER_DRUID-CUSTOM"}},
+    "choice_8": {"type": "muc", "components": ["90", "91"], "labels": {"90": "A7-MULTIKITS-FIGHTER_MAGE_CLERIC-ALL", "91": "A7-MULTIKITS-FIGHTER_MAGE_CLERIC-CUSTOM"}},
+    "choice_9": {"type": "muc", "components": ["100", "101"], "labels": {"100": "A7-MULTIKITS-CLERIC_RANGER-ALL", "101": "A7-MULTIKITS-CLERIC_RANGER-CUTOM"}}
   },
   "languages": {
     "en_US": 0,

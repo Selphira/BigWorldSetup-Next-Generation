@@ -37,5 +37,15 @@
   },
   "tp2": "zs_weaponoils",
   "safe": 0,
-  "authors": ["Kaelyn"]
+  "authors": ["Kaelyn"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "zs_weaponoils(100):zbpod(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

@@ -58,7 +58,7 @@
     "3505": {"type": "std", "category": "smith", "games": ["bg2ee", "bgee", "eet", "sod"]},
     "3510": {"type": "std", "games": ["iwdee"]},
     "choice_3": {"type": "muc", "components": ["3540", "3541"], "category": "smith", "default": "3540"},
-    "choice_4": {"type": "muc", "components": ["3551", "3552"], "category": "smith", "default": "3551"},
+    "choice_4": {"type": "muc", "components": ["3551", "3552"], "category": "smith", "default": "3551", "labels": {"3551": "dw_improved_healing_2", "3552": "dw_improved_healing_3"}},
     "4000": {"type": "std", "category": "spell", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
     "4020": {"type": "std", "category": "spell", "games": ["bgee", "bgt", "eet", "sod", "tutu"]},
     "4030": {"type": "std", "category": "spell"},
@@ -1565,5 +1565,532 @@
   },
   "tp2": "stratagems",
   "safe": 2,
-  "authors": ["DavidW"]
+  "authors": ["DavidW"],
+  "rules": {
+    "order": [
+      {
+        "rule": "stratagems(1500,1510,1520,1600,1610,2000,2010,2020,2030,2040,2050,2060,2070,2080,2500,2510,2520):stratagems(5900)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component needs to be installed before, not after, 'Initialise AI components'",
+          "es_ES": "Este componente debe instalarse antes, y no después, de 'Inicializar componentes de IA'",
+          "pl_PL": "This component needs to be installed before, not after, 'Initialise AI components'",
+          "cs_CZ": "This component needs to be installed before, not after, 'Initialise AI components'",
+          "de_DE": "Diese Komponente muss vor \"KI Komponenten initialisieren\" installiert werden, nicht danach",
+          "fr_FR": "Ce composant doit etre installe avant, et non apres le composant \"Initialisation des composants de l'IA\"",
+          "it_IT": "Questo componente deve essere installato prima, non dopo, \"Inizializza componenti IA\"",
+          "ru_RU": "This component needs to be installed before, not after, 'Initialise AI components'",
+          "zh_CN": "此组件需要在“初始化AI组件”之前而不是之后安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4100):stratagems(4115)|dw_talents(90100)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component must not be installed after 'Thieves assign skill points in multiples of five'",
+          "es_ES": "Este componente no debe instalarse después de \"los ladrones ganan puntos de habilidad en múltiplos de 5'",
+          "pl_PL": "This component must not be installed after 'Thieves assign skill points in multiples of five'",
+          "cs_CZ": "This component must not be installed after 'Thieves assign skill points in multiples of five'",
+          "de_DE": "Diese Komponente kann nicht nach 'Diebe verteilen Fertigkeitspunkte in Fuenferschritten' installiert werden",
+          "fr_FR": "Ce composant ne doit pas etre installe apres le composant \"Les roublards attribuent leurs points de talents de roublards par multiples de cinq\"",
+          "it_IT": "Questo componente non deve essere installato dopo 'I ladri guadagnano punti abilità in multipli di 5'",
+          "ru_RU": "This component must not be installed after 'thieves gain skill points in multiples of 5'",
+          "zh_CN": "在安装“盗贼以 5 的倍数分配技能点”之后，不得安装此组件"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "stratagems(2900):item_rev(0)",
+        "severity": "error",
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "stratagems(1500):iwdification(30)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as you have the equivalent component from IWDification installed",
+          "es_ES": "Se omite este componente ya que tiene instalado el componente equivalente de IWDification",
+          "pl_PL": "Pomijam ten skladnik, poniewaz zainstalowano analogiczny skladnik z \"IWDification\"",
+          "cs_CZ": "Tato funkce nebude nainstalovana, nebot ve hre je jiz nainstalovany odpovidajici mod IWDification",
+          "de_DE": "Diese Komponente wird uebersprungen, da Ihr die entsprechende Komponente von IWDification installiert habt",
+          "fr_FR": "Ce composant est omis, car l'equivalent du composant est deja installe via le mod IWDification",
+          "it_IT": "Salta questo componente: hai installato l'equivalente componente di IWDification",
+          "ru_RU": "Skipping this component as you have the equivalent component from IWDification installed",
+          "zh_CN": "跳过该组件，因为一个等效组件已经通过 IWDification 被安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1500):dw_som(1500)|dw_talents(1500)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1510):iwdification(40)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as you have the equivalent component from IWDification installed",
+          "es_ES": "Se omite este componente ya que tiene instalado el componente equivalente de IWDification",
+          "pl_PL": "Pomijam ten skladnik, poniewaz zainstalowano analogiczny skladnik z \"IWDification\"",
+          "cs_CZ": "Tato funkce nebude nainstalovana, nebot ve hre je jiz nainstalovany odpovidajici mod IWDification",
+          "de_DE": "Diese Komponente wird uebersprungen, da Ihr die entsprechende Komponente von IWDification installiert habt",
+          "fr_FR": "Ce composant est omis, car l'equivalent du composant est deja installe via le mod IWDification",
+          "it_IT": "Salta questo componente: hai installato l'equivalente componente di IWDification",
+          "ru_RU": "Skipping this component as you have the equivalent component from IWDification installed",
+          "zh_CN": "跳过该组件，因为一个等效组件已经通过 IWDification 被安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1510):dw_som(1510)|dw_talents(1510)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1520):iwdification(50)|dw_som(1520)|dw_talents(1520)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1600):dw_som(1600)|dw_talents(1600)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(1610):dw_som(1610)|dw_talents(1610)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2000,2010,2020,2030,2040,2050,2060,2070,2080):dw_som(2000)|dw_talents(2000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2010,2020,2030,2040,2050,2060,2070,2080):stratagems(2000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2010):dw_som(2010)|dw_talents(2010)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2020):dw_som(2020)|dw_talents(2020)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2030):dw_som(2030)|dw_talents(2030)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2040):dw_som(2040)|dw_talents(2040)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2050):dw_som(2050)|dw_talents(2050)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2060):dw_som(2060)|dw_talents(2060)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2070):dw_som(2070)|dw_talents(2070)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2080):dw_som(2080)|dw_talents(2080)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2500):dw_som(2500)|dw_talents(2500)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2510):dw_som(2510)|dw_talents(2510)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2520):dw_som(2520)|dw_talents(2520)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(2520,4130):spell_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component, as it conflicts with changes made by Spell Revisions",
+          "es_ES": "Saltar este componente, ya que entra en conflicto con los cambios realizados por Spell Revisions",
+          "pl_PL": "Skipping this component, as it conflicts with changes made by Spell Revisions",
+          "cs_CZ": "Skipping this component, as it conflicts with changes made by Spell Revisions",
+          "de_DE": "Ueberspringe diese Komponente, da sie mit den Aenderungen von Spell Revisions kollidiert",
+          "fr_FR": "Ce composant est omis, car il est incompatible avec un composant installe via le mod Spell Revisions",
+          "it_IT": "Cancellazione di questo componente, in quanto in conflitto con le modifiche apportate dalle revisioni degli incantesimi",
+          "ru_RU": "Skipping this component, as it conflicts with changes made by Spell Revisions",
+          "zh_CN": "跳过此组件，因为它与 Spell Revisions 所做的更改冲突"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(3020,3021):item_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component, as it is already installed via Item Revisions",
+          "es_ES": "Saltando este componente, pues ya esta instalado por 'Item Revisions'",
+          "pl_PL": "Pomijam ten skladnik, poniewaz zostal on juz zainstalowany przez modyfikacje \"Item Revisions\"",
+          "cs_CZ": "Tato funkce nebude nainstalovana, protoze ve hre je uz nainstalovany mod Item Revisions",
+          "de_DE": "Diese Komponente wird uebersprungen, da sie bereits durch Item Revisios installiert wurde.",
+          "fr_FR": "Ce composant est omis, car il est deja installe via le mod Item Revisions",
+          "it_IT": "Salto questo componente, e gia stato installato tramite Item Revisions",
+          "ru_RU": "Skipping this component, as it is already installed via Item Revisions",
+          "zh_CN": "忽略该组件，因为它已经通过 Item Revisions 安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4030):dw_talents(40600)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "es_ES": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "pl_PL": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "cs_CZ": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "de_DE": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "fr_FR": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "it_IT": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "ru_RU": "This component is incompatible with the 'revised shapeshifting' component of Talents of Faerun",
+          "zh_CN": "此组件与Faerun Talents的“修订变形”组件不兼容"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4030):dw_talents(41000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is incompatible with the 'revised and rebalanced kits' component of Talents of Faerun",
+          "es_ES": "Este componente es incompatible con el componente \"kits revisados y reequilibrados\" de Talents of Faerun.",
+          "pl_PL": "This component is incompatible with the 'revised and rebalanced kits' component of Talents of Faerun",
+          "cs_CZ": "This component is incompatible with the 'revised and rebalanced kits' component of Talents of Faerun",
+          "de_DE": "Diese Komponente ist nicht kompatibel mit 'revised and rebalanced kits' aus Talents of Faerun",
+          "fr_FR": "Ce composant n'est pas compatible avec le composant \"Revision et reequilibrage des specialisations\" du mod Talents of Faerun",
+          "it_IT": "Questo componente e incompatibile con il componente 'Kit rivisti e ribilanciati' di Talents of Faerun",
+          "ru_RU": "This component is incompatible with the 'revised and rebalanced kits' component of Talents of Faerun",
+          "zh_CN": "该组件与Faerun Talents的“修订和再平衡宗派”组件不兼容"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4100):cdtweaks(2370,2372)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is incompatible with the Tweaks Anthology component that prevents humans from dual-classing",
+          "es_ES": "Este componente es incompatible con el componente de Tweaks Anthology que impide que los humanos tengan doble clase",
+          "pl_PL": "Ten skladnik nie jest kompatybilny ze skladnikiem Tweaks Anthology uniemozliwiajacym dwuklasowanie ludzi",
+          "cs_CZ": "Tato funkce neni kompatibilni s funkci z modu Tweaks Anthology, ktera znemoznuje lidem volit dvojpovolani",
+          "de_DE": "Diese Komponente ist inkompatibel mit der Tweaks Anthology-Komponente, die Menschen daran hindert, eine duale Klasse zu bilden",
+          "fr_FR": "Ce composant n'est pas compatible avec le composant de Tweaks Anthology qui empeche les humains d'avoir acces a des classes jumelees",
+          "it_IT": "Questo componente non e compatibile con il componente Tweaks Anthology che impedisce agli umani di utilizzare la doppia classe",
+          "ru_RU": "This component is incompatible with the Tweaks Anthology component that prevents humans from dual-classing",
+          "zh_CN": "该组件与Tweaks Anthology的防止人类转职组件不兼容"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4100,4115):dw_talents(60300)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "es_ES": "Se omite este componente porque ya está instalado un componente equivalente de Talents of Faerun.",
+          "pl_PL": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "cs_CZ": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "de_DE": "Ueberspringe diese Komponente, da eine gleichwertige Komponente von Talents of Faerun installiert wurde",
+          "fr_FR": "Ce composant est omis, car l'equivalent du composant est deja installe via le mod Talents of Faerun",
+          "it_IT": "Salto questo componente perche un componente equivalente di Talents of Faerun e gia installato",
+          "ru_RU": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "zh_CN": "跳过该组件，因为已经安装了Faerun Talents的等效组件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4115):dw_talents(90100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "es_ES": "Se omite este componente porque ya está instalado un componente equivalente de Talents of Faerun.",
+          "pl_PL": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "cs_CZ": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "de_DE": "Ueberspringe diese Komponente, da eine gleichwertige Komponente von Talents of Faerun installiert wurde",
+          "fr_FR": "Ce composant est omis, car l'equivalent du composant est deja installe via le mod Talents of Faerun",
+          "it_IT": "Salto questo componente perche un componente equivalente di Talents of Faerun e gia installato",
+          "ru_RU": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "zh_CN": "跳过该组件，因为已经安装了Faerun Talents的等效组件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4115):stratagems(4100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as its contents have already been installed",
+          "es_ES": "Omitir este componente porque su contenido ya está instalado",
+          "pl_PL": "Skipping this component as its contents have already been installed",
+          "cs_CZ": "Skipping this component as its contents have already been installed",
+          "de_DE": "Komponente wird uebersprungen, da der Inhalt bereits installiert ist",
+          "fr_FR": "Ce composant est omis, car son contenu est deja installe",
+          "it_IT": "Salta questo componente perché i suoi contenuti sono già stati installati",
+          "ru_RU": "Skipping this component as its contents have already been installed",
+          "zh_CN": "正在跳过此组件，因为其内容已安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4240):spell_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component, as a very similar change is already installed via Spell Revisions",
+          "es_ES": "Omitir este componente, ya que un cambio muy similar ya esta instalado a traves de 'Spell Revisions'",
+          "pl_PL": "Pomijam ten skladnik, jako ze podobne zmiany zostaly wprowadzone przez Spell Revisions",
+          "cs_CZ": "Tato funkce nebude nainstalovana, protoze ve hre je uz nainstalovany podobny mod Spell Revisions",
+          "de_DE": "Diese Komponente wird uebersprungen, da eine sehr aehnliche Aenderung bereits mit Spell Revisions installiert ist",
+          "fr_FR": "Ce composant est omis, car un composant tres similaire est deja installe via le mod Spell Revisions",
+          "it_IT": "Saltare questo componente, in quanto una modifica molto simile e stata installata da Spell Revisions",
+          "ru_RU": "Skipping this component, as a very similar change is already installed via Spell Revisions",
+          "zh_CN": "忽略该组件，因为一个类似组件已经通过 Spell Revisions 被安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "stratagems(4240):dw_talents(60200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "es_ES": "Se omite este componente porque ya está instalado un componente equivalente de Talents of Faerun.",
+          "pl_PL": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "cs_CZ": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "de_DE": "Ueberspringe diese Komponente, da eine gleichwertige Komponente von Talents of Faerun installiert wurde",
+          "fr_FR": "Ce composant est omis, car l'equivalent du composant est deja installe via le mod Talents of Faerun",
+          "it_IT": "Salto questo componente perche un componente equivalente di Talents of Faerun e gia installato",
+          "ru_RU": "Skipping this component as an equivalent component from Talents of Faerun is already installed",
+          "zh_CN": "跳过该组件，因为已经安装了Faerun Talents的等效组件"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

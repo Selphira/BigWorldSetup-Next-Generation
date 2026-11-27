@@ -9,9 +9,9 @@
     {
       "filename": "cd_icpp-v2.exe",
       "size": 27700533,
+      "sha256": "d32227e3257cf1ea947157e3b929b9e8435e1e0bba9fa5dd7ecca442ff79f507",
       "download": "https://github.com/Gibberlings3/Infinity_Collection_Portrait_Pack/releases/download/v2/cd_icpp-v2.exe",
-      "platforms": ["windows"],
-      "sha256": "d32227e3257cf1ea947157e3b929b9e8435e1e0bba9fa5dd7ecca442ff79f507"
+      "platforms": ["windows"]
     },
     {
       "filename": "lin-cd_icpp-v2.tar.gz",
@@ -29,9 +29,9 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwd2", "iwdee", "sod", "tutu"],
   "categories": ["portrait"],
   "components": {
-    "100": {"type": "std"},
-    "200": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["300", "400"], "default": "300"}
+    "100": {"type": "std", "label": "cd_icpp_bg"},
+    "200": {"type": "std", "label": "cd_icpp_bg2"},
+    "choice_0": {"type": "muc", "components": ["300", "400"], "default": "300", "labels": {"300": "cd_icpp_iwd", "400": "cd_icpp_iwd2"}}
   },
   "languages": {
     "en_US": 0,

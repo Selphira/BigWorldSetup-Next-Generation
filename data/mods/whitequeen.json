@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "labels": {"0": "L#-WHITEQUEEN-NOPATCH", "1": "L#-WHITEQUEEN-PATCH"}}
   },
   "languages": {
     "en_US": 0,

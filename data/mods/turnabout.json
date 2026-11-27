@@ -28,8 +28,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "category": "quest", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "category": "portrait"}
+    "0": {"type": "std", "category": "quest", "games": ["bg2ee", "bgt", "eet"], "label": "Turnabout-main"},
+    "1": {"type": "std", "category": "portrait", "label": "Turnabout-BalthazarPortrait"}
   },
   "languages": {
     "en_US": 0,

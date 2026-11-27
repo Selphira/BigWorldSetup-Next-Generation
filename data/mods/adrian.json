@@ -16,10 +16,10 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2"], "default": "0"},
-    "choice_1": {"type": "muc", "components": ["10", "11"], "languages": ["en_US"]},
-    "20": {"type": "std", "languages": ["en_US"]},
-    "choice_2": {"type": "muc", "components": ["30", "31"], "default": "31"}
+    "choice_0": {"type": "muc", "components": ["0", "1", "2"], "default": "0", "labels": {"0": "adrian_sorcerer", "1": "adrian_cleric_mage", "2": "adrian_mage_thief"}},
+    "choice_1": {"type": "muc", "components": ["10", "11"], "languages": ["en_US"], "labels": {"10": "adrian_phaelin_soundset", "11": "adrian_tatterdemalion_soundset"}},
+    "20": {"type": "std", "languages": ["en_US"], "label": "adrian_crossmod_content"},
+    "choice_2": {"type": "muc", "components": ["30", "31"], "default": "31", "labels": {"30": "adrian_tolerates_high_reputation-always", "31": "adrian_tolerates_high_reputation-active_romance"}}
   },
   "languages": {
     "en_US": 0,
@@ -94,6 +94,18 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "adrian(10,11,20,30,31):adrian(0,1,2)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Please install Adrian NPC for BGII main component before additional content",
+          "fr_FR": "Veuillez installer le composant principal d'Adrian pour BGII avant le contenu additionnel",
+          "de_DE": "Bitte die Adrian-NPC-fuer-BGII-Hauptkomponente vor den zusaetzlichen Inhalten installieren"
+        },
+        "origin": "tp2"
       }
     ]
   }

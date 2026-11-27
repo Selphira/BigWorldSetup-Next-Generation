@@ -1,28 +1,30 @@
 {
   "name": "Bubb's Spell Menu Extended",
-  "version": "5.1",
+  "version": "5.2",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/35838-ui-bubbs-spell-menu-v51/"
   },
   "files": [
     {
-      "filename": "Bubbs-Spell-Menu-Extended-5.1.zip",
-      "size": 1428377,
-      "sha256": "bbe15a58e01c8ffc3415da0b9fecc34d9b924d5c8efcfc5dbd05d7820b664d81",
-      "download": "https://github.com/Bubb13/Bubbs-Spell-Menu-Extended/archive/refs/tags/v5.1.zip"
+      "filename": "Bubbs-Spell-Menu-Extended-5.2.zip",
+      "download": "https://github.com/Bubb13/Bubbs-Spell-Menu-Extended/archive/refs/tags/v5.2.zip",
+      "size": 1432756,
+      "sha256": "ac5380e99a534dd96200e97fa4358ca22ff2738266570d95195eac85d8f82e12"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["ui"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "B3-BubbsSpellMenuExtended-Main"}
   },
   "languages": {
     "en_US": 0,
     "pt_BR": 1,
     "fr_FR": 2,
     "de_DE": 3,
-    "es_ES": 4
+    "ru_RU": 4,
+    "zh_CN": 5,
+    "es_ES": 6
   },
   "translations": {
     "en_US": {
@@ -38,7 +40,10 @@
       }
     },
     "zh_CN": {
-      "description": "如果你不喜欢此模组普通版本的法术列表视图，这个版本可能会让你喜欢。它模拟了默认的法术选择槽位，并将它们组织起来，使所有法术都能同时显示。"
+      "description": "如果你不喜欢此模组普通版本的法术列表视图，这个版本可能会让你喜欢。它模拟了默认的法术选择槽位，并将它们组织起来，使所有法术都能同时显示。",
+      "components": {
+        "0": "Bubb的法术菜单扩展"
+      }
     },
     "pt_BR": {
       "components": {
@@ -54,6 +59,11 @@
       "components": {
         "0": "Bubb's Spell Menu Extended"
       }
+    },
+    "ru_RU": {
+      "components": {
+        "0": "Bubb's Spell Menu Extended"
+      }
     }
   },
   "tp2": "bubb_spell_menu_extended",
@@ -66,6 +76,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bubb_spell_menu_extended(0):eeex(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "EEex not installed.",
+          "pt_BR": "EEex not installed.",
+          "fr_FR": "EEex not installed.",
+          "de_DE": "EEex not installed.",
+          "ru_RU": "EEex not installed.",
+          "zh_CN": "EEex not installed.",
+          "es_ES": "EEex not installed."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "bubb_spell_menu_extended(0):infinity_ui(0)&dragonspear_ui++(1,0)&leui-bg1ee(0)&leui-sod(0)&leui(0)&eet_gui(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

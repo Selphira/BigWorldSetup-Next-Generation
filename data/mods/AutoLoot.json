@@ -50,5 +50,15 @@
   },
   "tp2": "autoloot",
   "safe": 2,
-  "authors": ["Bubb", "Daniel Valle"]
+  "authors": ["Bubb", "Daniel Valle"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "autoloot(0):infinity_ui(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

@@ -31,10 +31,10 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "games": ["bg2ee", "bgt", "eet"]},
-    "choice_1": {"type": "muc", "components": ["5", "6", "7", "8"], "games": ["iwd", "iwdee"]},
-    "choice_2": {"type": "muc", "components": ["9", "10", "11", "12"], "games": ["bgee", "eet", "sod"]},
-    "50": {"type": "std", "category": "kit", "games": ["bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"]}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "games": ["bg2ee", "bgt", "eet"], "labels": {"1": "thebigg-semi-multi-ORIGINALE-BG2", "2": "thebigg-semi-multi-ADOUCIE-BG2", "3": "thebigg-semi-multi-ORIGINALE_RETARDEE-BG2", "4": "thebigg-semi-multi-ADOUCIE_RETARDEE-BG2"}},
+    "choice_1": {"type": "muc", "components": ["5", "6", "7", "8"], "games": ["iwd", "iwdee"], "labels": {"5": "thebigg-semi-multi-ORIGINALE-IWD", "6": "thebigg-semi-multi-ADOUCIE-IWD", "7": "thebigg-semi-multi-ORIGINALE_RETARDEE-IWD", "8": "thebigg-semi-multi-ADOUCIE_RETARDEE-IWD"}},
+    "choice_2": {"type": "muc", "components": ["9", "10", "11", "12"], "games": ["bgee", "eet", "sod"], "labels": {"9": "thebigg-semi-multi-ORIGINALE-BG1", "10": "thebigg-semi-multi-ADOUCIE-BG1", "11": "thebigg-semi-multi-ORIGINALE_RETARDEE-BG1", "12": "thebigg-semi-multi-ADOUCIE_RETARDEE-BG1"}},
+    "50": {"type": "std", "category": "kit", "games": ["bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"], "label": "thebigg-semi-multi_Addition"}
   },
   "languages": {
     "en_US": 0,
@@ -160,6 +160,20 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "semi_multi_clerics(50):semi_multi_clerics(1,2,3,4,5,6,7,8,9,10,11,12,13,14)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component required",
+          "it_IT": "Main component required",
+          "fr_FR": "Main component required",
+          "es_ES": "Main component required",
+          "ru_RU": "Main component required"
+        },
+        "origin": "tp2"
       }
     ]
   }

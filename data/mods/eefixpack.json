@@ -16,9 +16,9 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["patch"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
-    "1": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]},
-    "2": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"], "label": "cd_eefp_core_fixes"},
+    "1": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"], "label": "cd_eefp_beta_core_fixes"},
+    "2": {"type": "std", "languages": ["en_US"], "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"], "label": "cd_eefp_game_text_update"}
   },
   "languages": {
     "en_US": 0,

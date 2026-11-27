@@ -31,26 +31,26 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
-    "10": {"type": "std"},
-    "20": {"type": "std", "category": "portrait"},
-    "60": {"type": "std", "category": "smith"},
-    "90": {"type": "std"},
-    "130": {"type": "std", "games": ["bg2", "bg2ee", "bgee", "eet", "sod"]},
-    "choice_0": {"type": "muc", "components": ["140", "141"], "category": "smith", "default": "140", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "190": {"type": "std", "category": "smith"},
-    "50": {"type": "std"},
-    "180": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"]},
-    "150": {"type": "std"},
-    "70": {"type": "std"},
-    "71": {"type": "std"},
-    "100": {"type": "std"},
-    "160": {"type": "std"},
+    "10": {"type": "std", "label": "cd_tweaks_iwd_casting_graphics"},
+    "20": {"type": "std", "category": "portrait", "label": "cd_tweaks_drab_commoners"},
+    "60": {"type": "std", "category": "smith", "label": "cd_iwdification_2h_axes"},
+    "90": {"type": "std", "label": "cd_iwdification_expanded_polymorph_self"},
+    "130": {"type": "std", "games": ["bg2", "bg2ee", "bgee", "eet", "sod"], "label": "cd_iwdification_damage_animations"},
+    "choice_0": {"type": "muc", "components": ["140", "141"], "category": "smith", "default": "140", "games": ["bg2ee", "bgee", "eet", "sod"], "labels": {"140": "cd_iwdification_randomized_equipment_hq", "141": "cd_iwdification_randomized_equipment"}},
+    "190": {"type": "std", "category": "smith", "label": "cd_iwdification_spear_damage"},
+    "50": {"type": "std", "label": "cd_iwdification_bard_songs"},
+    "180": {"type": "std", "games": ["bg2", "bg2ee", "bgt", "eet"], "label": "cd_iwdification_bard_kit_selectable_songs"},
+    "150": {"type": "std", "label": "cd_tweaks_bard_spell_progression_unnerfed"},
+    "70": {"type": "std", "label": "cd_iwdification_druid_abilities"},
+    "71": {"type": "std", "label": "cd_iwdification_elven_druids"},
+    "100": {"type": "std", "label": "cd_iwdification_paladin_abilities"},
+    "160": {"type": "std", "label": "cd_tweaks_paladin_spell_progression_iwd"},
     "choice_1": {"type": "muc", "components": ["110", "111"]},
-    "170": {"type": "std"},
-    "choice_2": {"type": "muc", "components": ["120", "121"], "games": ["bg2", "bg2ee", "bgee", "eet", "sod"]},
-    "30": {"type": "std"},
-    "40": {"type": "std"},
-    "80": {"type": "std", "games": ["bgt", "tutu"]}
+    "170": {"type": "std", "label": "cd_tweaks_ranger_spell_progression_iwd"},
+    "choice_2": {"type": "muc", "components": ["120", "121"], "games": ["bg2", "bg2ee", "bgee", "eet", "sod"], "labels": {"120": "cd_iwdification_thief_evasion", "121": "cd_iwdification_thief_evasion_no_kits"}},
+    "30": {"type": "std", "label": "cd_iwdification_arcane_spells"},
+    "40": {"type": "std", "label": "cd_iwdification_divine_spells"},
+    "80": {"type": "std", "games": ["bgt", "tutu"], "label": "cd_iwdification_obg2_portrait_icons"}
   },
   "languages": {
     "en_US": 0,
@@ -261,6 +261,152 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "iwdification(90,70):infinityanimations(500)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(150):tomeandblood(95)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "iwdification(10):cdtweaks(70)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(20):cdtweaks(100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(50):stratagems(1520)|dw_som(1520)|dw_talents(1520)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(150):cdtweaks(2270)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(100):dw_talents(40200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(160):cdtweaks(2390)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(170):cdtweaks(2400)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(120,121):dw_talents(40450,40460)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(30):stratagems(1500)|dw_som(1500)|dw_talents(1500)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "iwdification(40):stratagems(1510)|dw_som(1510)|dw_talents(1510)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This functionality is already installed by another mod.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja installees par un autre mod.",
+          "es_ES": "Esta funcion ya ha sido instalada por otro mod.",
+          "ru_RU": "This functionality is already installed by another mod.",
+          "zh_CN": "该功能已由另一个MOD安装",
+          "pl_PL": "Ta funkcjonalność została już zainstalowana przez inną modyfikację."
+        },
+        "origin": "tp2"
       }
     ]
   }

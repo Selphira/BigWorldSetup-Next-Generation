@@ -1,5 +1,5 @@
 {
-  "name": "Item Revisions",
+  "name": "Item Revisions Revised",
   "version": "4beta10sd19",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/26482-ir-v4-beta-last-update-20-june-2017/page/23/#comment-240456"
@@ -151,5 +151,53 @@
   },
   "tp2": "item_rev",
   "safe": 2,
-  "authors": ["Bartimaeus"]
+  "authors": ["Bartimaeus"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "item_rev(0):dq(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "item_rev(0,1030,1040,1042,2,3,9,1101,10,17,1080,15,16,1060):item_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "item_rev(0,1030,17,1080,1060):item_rev(17,1080)&cursed_items(0)&atweaks(600)&aurora(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "item_rev(17,1080):bg2fixpack(0,1001)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "item_rev(17):faiths_and_powers(75)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "item_rev(18):d0tweak(18)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is conceptually incompatible with the Improved Backstabbing component from Ding0's Tweak Pack (d0tweak).",
+          "fr_FR": "Ce composant est conceptuellement incompatible avec le composant \"Attaque sournoise amelioree\" du Ding0's Tweak Pack (D0Tweak).",
+          "ru_RU": "This component is conceptually incompatible with the Improved Backstabbing component from Ding0's Tweak Pack (d0tweak)."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

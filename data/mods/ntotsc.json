@@ -16,21 +16,21 @@
   "games": ["bgee", "bgt", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "8": {"type": "std"},
-    "9": {"type": "std"},
-    "10": {"type": "std"},
-    "11": {"type": "std"},
-    "12": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["13", "14"]},
-    "choice_1": {"type": "muc", "components": ["15", "16"]}
+    "0": {"type": "std", "label": "NTotSC_MainComponent"},
+    "1": {"type": "std", "label": "NTotSC_LessMonsters"},
+    "2": {"type": "std", "label": "NTotSC_KeelortheDwarf"},
+    "3": {"type": "std", "label": "NTotSC_LlindellynsLuckyArrow"},
+    "4": {"type": "std", "label": "NTotSC_NimFurlwing"},
+    "5": {"type": "std", "label": "NTotSC_PilarandGeldehar"},
+    "6": {"type": "std", "label": "NTotSC_SvlastsTorment"},
+    "7": {"type": "std", "label": "NTotSC_WillNPC"},
+    "8": {"type": "std", "label": "NTotSC_WillSoundset"},
+    "9": {"type": "std", "label": "NTotSC_FightingEncounters"},
+    "10": {"type": "std", "label": "NTotSC_TacticalChallengesFiends"},
+    "11": {"type": "std", "label": "NTotSC_TacticalChallengesHaeball"},
+    "12": {"type": "std", "label": "NTotSC_TacticalChallengesGhotal"},
+    "choice_0": {"type": "muc", "components": ["13", "14"], "labels": {"13": "NTotSC_RemoveShamanCloaks_Completely", "14": "NTotSC_RemoveShamanCloaks_Undroppable"}},
+    "choice_1": {"type": "muc", "components": ["15", "16"], "labels": {"15": "NTotSC_SpellScrolls_Revised", "16": "NTotSC_SpellScrolls_Original"}}
   },
   "languages": {
     "en_US": 0,
@@ -247,6 +247,61 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "ntotsc(0):bp-bgt-worldmap(0)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod should be installed BEFORE BP-BGT Worldmap",
+          "de_DE": "Diese Modifikation muss VOR BP-BGT Worldmap installiert werden.",
+          "it_IT": "Questo mod dovrebbe essere installato PRIMA della BP-BGT Worldmap",
+          "pl_PL": "Ta modyfikacja powinna zostac zainstalowana PRZED BP-BGT Worldmap.",
+          "ru_RU": "This mod should be installed BEFORE BP-BGT Worldmap",
+          "fr_FR": "Ce mod doit etre installe AVANT BP-BGT Worldmap",
+          "es_ES": "Este mod debe instalarse ANTES que BP-BGT Mapa mundial",
+          "zh_CN": "这个mod应该安装在BP-BGT世界地图之前"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "ntotsc(0):dsotsc(0,1)&ds(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "ntotsc(1,2,3,4,5,6,7,9,10,11,12,13,14):ntotsc(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component of this mod (NTotSC) needed",
+          "de_DE": "Für diese Komponente wird die Hauptkomponente dieser Mod (NTotSC) benötigt.",
+          "it_IT": "E necessario il componente principale di questo mod (NTotSC)",
+          "pl_PL": "Glowny komponent tej modyfikacji (NTotSC) jest wymagany.",
+          "ru_RU": "Main component of this mod (NTotSC) needed",
+          "fr_FR": "Composant principal de ce mod (NTotSC) necessaire",
+          "es_ES": "Componente principal de este mod (NTotSC) necesario",
+          "zh_CN": "需要北部剑湾mod的主要组件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "ntotsc(8):ntotsc(7)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires Component [Will O'Hara NPC]",
+          "de_DE": "Erfordert die Komponente [Will O'Hara NPC]",
+          "it_IT": "Richiede componente [Will O'Hara NPC].",
+          "pl_PL": "Wymaga komponentu [Will O'Hara NPC]",
+          "ru_RU": "Requires Component [Will O'Hara NPC]",
+          "fr_FR": "Nécessite un composant [PNJ Will O'Hara]",
+          "es_ES": "Requiere Componente [Will O'Hara NPC]",
+          "zh_CN": "需要组件 [威尔·奥哈拉NPC]"
+        },
+        "origin": "tp2"
       }
     ]
   }

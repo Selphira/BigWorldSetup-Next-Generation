@@ -15,7 +15,7 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "FinchNPC-main"}
   },
   "languages": {
     "en_US": 0,

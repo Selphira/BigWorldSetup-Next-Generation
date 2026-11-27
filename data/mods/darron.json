@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "darron"}
   },
   "languages": {
     "es_ES": 0,

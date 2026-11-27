@@ -20,16 +20,16 @@
     {
       "filename": "win-A7-BagsOfTorment-v1.3.zip",
       "size": 1343332,
+      "sha256": "866ff7e274be71a9b8c43de31755bbb9f54791097c4157a5cecfe76e024b15a5",
       "download": "https://github.com/Argent77/A7-BagsOfTorment/releases/download/v1.3/win-A7-BagsOfTorment-v1.3.zip",
-      "platforms": ["windows"],
-      "sha256": "866ff7e274be71a9b8c43de31755bbb9f54791097c4157a5cecfe76e024b15a5"
+      "platforms": ["windows"]
     }
   ],
   "games": ["pstee"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"}
+    "0": {"type": "std", "label": "A7-BAGSOFTORMENT-MAIN"},
+    "10": {"type": "std", "label": "A7-BAGSOFTORMENT-INCREASE_CAPACITY"}
   },
   "languages": {
     "en_US": 0,
@@ -91,5 +91,23 @@
   },
   "tp2": "bagsoftorment",
   "safe": 2,
-  "authors": ["Argent77"]
+  "authors": ["Argent77"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "bagsoftorment(10):bagsoftorment(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires main component",
+          "de_DE": "Benoetigt Hauptkomponente der Mod",
+          "ko_KR": "ÁÖ ¿ä¼Ò ÇÊ¿ä",
+          "pl_PL": "Wymaga glownego komponentu",
+          "ru_RU": "Requires main component",
+          "fr_FR": "Necessite le composant principal",
+          "it_IT": "Richiede la componente principale"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

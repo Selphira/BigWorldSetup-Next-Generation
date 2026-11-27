@@ -29,8 +29,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["101", "102", "103", "104", "105", "106", "107"], "default": "101"}
+    "0": {"type": "std", "label": "TyrisFlare-main"},
+    "choice_0": {"type": "muc", "components": ["101", "102", "103", "104", "105", "106", "107"], "default": "101", "labels": {"101": "TyrisFlare-Alternate_Portrait_1", "102": "TyrisFlare-Alternate_Portrait_2", "103": "TyrisFlare-Alternate_Portrait_3", "104": "TyrisFlare-Alternate_Portrait_4", "105": "TyrisFlare-Alternate_Portrait_5", "106": "TyrisFlare-Alternate_Portrait_6", "107": "TyrisFlare-Alternate_Portrait_7"}}
   },
   "languages": {
     "en_US": 0,
@@ -111,6 +111,19 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "tyrisflare(101,102,103,104,105,106,107):tyrisflare(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "NPC is not installed, therefore skipping alternate portraits...",
+          "ru_RU": "NPC is not installed, therefore skipping alternate portraits...",
+          "fr_FR": "Le PNJ n'est pas installe, passer le choix des portraits alternatifs...",
+          "zh_CN": "未安装npc，跳过备选头像安装……"
+        },
+        "origin": "tp2"
       }
     ]
   }

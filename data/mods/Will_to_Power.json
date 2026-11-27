@@ -1,31 +1,32 @@
 {
   "name": "Will to Power",
-  "version": "2.13",
+  "version": "2.14",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/Will_to_Power",
     "forums": ["https://www.gibberlings3.net/forums/topic/31024-subtlemods-will-to-power-a-2e-inspired-psionics-mod/#comments"]
   },
   "files": [
     {
-      "filename": "Will_to_Power-2.13.zip",
-      "size": 2743730,
-      "sha256": "1d2cb4d23758b7bd883fd7d74a0116df5dc856cf80f7aa2ab44208f9327851fa",
-      "download": "https://github.com/UnearthedArcana/Will_to_Power/archive/refs/tags/2.13.zip"
+      "filename": "Will_to_Power-2.14.zip",
+      "download": "https://github.com/UnearthedArcana/Will_to_Power/archive/refs/tags/2.14.zip",
+      "size": 2755551,
+      "sha256": "72f048031bbd9857d1c4b583686285baac33b2f794326d14e367b0955e1aa545"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit", "gameplay"],
   "components": {
-    "200": {"type": "std"},
-    "300": {"type": "std"},
-    "400": {"type": "std"},
-    "500": {"type": "std"},
-    "900": {"type": "std"},
-    "950": {"type": "std"}
+    "200": {"type": "std", "label": "D5_PSIONICS_PSIONICIST"},
+    "300": {"type": "std", "label": "D5_PSIONICS_SOULBLADE"},
+    "400": {"type": "std", "label": "D5_PSIONICS_PSYPHER"},
+    "500": {"type": "std", "label": "D5_PSIONICS_CEREBREMANCER"},
+    "900": {"type": "std", "label": "D5_PSIONICS_DARK_SUN_MODE"},
+    "950": {"type": "std", "label": "D5_CLERICS_USE_ALL_WEAPONS"}
   },
   "languages": {
     "en_US": 0,
-    "fr_FR": 1
+    "fr_FR": 1,
+    "es_ES": 2
   },
   "translations": {
     "fr_FR": {
@@ -52,6 +53,16 @@
     },
     "zh_CN": {
       "description": "这个模组努力添加一个受AD&D2规则启发的灵能系统，以及四个可以使用它的职业：灵能盗贼（灵能师）、灵能战士（魂刃）、灵能游侠（灵能猎手）和灵能法师（脑术师）。\n然而，由于游戏引擎并非为此设计，这个模组始终处于实验阶段，尽管它正在积极维护。但它应该能让你玩到拥有新类型能力的新角色。所以，不妨一试！"
+    },
+    "es_ES": {
+      "components": {
+        "200": "Añadir el Psionicista, pícaro/psiónico",
+        "300": "Añadir el Hoja del alma, guerrero/psiónico",
+        "400": "Añadir el Psífero, explorador/psiónico",
+        "500": "Añadir el Cerebromante, mago/psiónico",
+        "900": "Modo Dark Sun: Todos son talentos salvajes",
+        "950": "Permitir a clérigos multiclase usar más armas"
+      }
     }
   },
   "tp2": "will_to_power",
@@ -70,6 +81,27 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "will_to_power(200,300,400,500):item_rev(0)&leui(0)&leui-bg1ee(0)&leui-sod(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "will_to_power(950):faiths_and_powers(75)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping tweak components",
+          "fr_FR": "ignore les composants d'ajustement",
+          "es_ES": "omitiendo componentes de ajustes"
+        },
+        "origin": "tp2"
       }
     ]
   }

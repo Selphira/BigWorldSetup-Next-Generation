@@ -1,16 +1,16 @@
 {
   "name": "Magic Battles Revised (MBR)",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/magic_battles_revised",
     "forums": ["https://www.gibberlings3.net/forums/topic/33351-subtlemods-magic-battles-revised-streamlined-rules-for-mage-duels/"]
   },
   "files": [
     {
-      "filename": "magic_battles_revised-1.9.4.zip",
-      "size": 4231406,
-      "sha256": "4df561f986069ffda578f6af3db2a43c836eaee23ca52743a68a345f32315458",
-      "download": "https://github.com/UnearthedArcana/magic_battles_revised/archive/refs/tags/1.9.4.zip"
+      "filename": "magic_battles_revised-1.9.5.zip",
+      "download": "https://github.com/UnearthedArcana/magic_battles_revised/archive/refs/tags/1.9.5.zip",
+      "size": 4231392,
+      "sha256": "f306d2893f73519e80ca6f821eabc80b96f7f6d1d1951cb45099349670fb0057"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
@@ -49,6 +49,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "magic_battles_revised(10):d5_random_tweaks(2708)&tomeandblood(40)&stratagems(6000)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

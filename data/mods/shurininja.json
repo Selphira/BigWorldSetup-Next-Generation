@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "20", "30"], "default": "10", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]}
+    "choice_0": {"type": "muc", "components": ["10", "20", "30"], "default": "10", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "labels": {"10": "gw_shuri_ninja_kit_original", "20": "gw_shuri_ninja_kit_only_leather", "30": "gw_shuri_ninja_kit_no armor"}}
   },
   "languages": {
     "en_US": 0,
@@ -61,6 +61,27 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "shurininja(10,20,30):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End et apres EET, comme tous les mods ajoutant un PNJ dans un jeu EET."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "shurininja(10,20,30):kit_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod is not compatible with Kit Revisions.",
+          "fr_FR": "Ce mod n'est pas compatible avec Kit Revisions."
+        },
+        "origin": "tp2"
       }
     ]
   }

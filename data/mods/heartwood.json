@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith"}
+    "0": {"type": "std", "category": "smith", "label": "heart_of_the_wood"}
   },
   "languages": {
     "en_US": 0,

@@ -1,5 +1,5 @@
 {
-  "name": "Illo le tatoueur",
+  "name": "Illo the tatoo artist",
   "version": "6.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?f=749&p=511191#p511191"
@@ -67,5 +67,29 @@
   },
   "tp2": "derats_illo",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_illo(1):derats_illo(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant necessite le composant principal",
+          "en_US": "This component requires the main component",
+          "zh_CN": "这个组件需求主要组件"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_illo(2):derats_illo(1)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant necessite le composant principal",
+          "en_US": "This component requires the main component",
+          "zh_CN": "这个组件需求主要组件"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

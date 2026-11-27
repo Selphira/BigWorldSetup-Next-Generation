@@ -31,7 +31,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2"], "games": ["bg2ee", "bgt", "eet"]}
+    "choice_0": {"type": "muc", "components": ["0", "1", "2"], "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "imnesvale_easy", "1": "imnesvale_hard", "2": "imnesvale_impossible"}}
   },
   "languages": {
     "en_US": 0,

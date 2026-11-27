@@ -21,16 +21,16 @@
     {
       "filename": "win-A7-LevelUpTweaks-v2.7.zip",
       "size": 1280793,
+      "sha256": "6990e0d4d9778b7706974fd979131314d1a80d58791770f45c7b9173ca45c2e4",
       "download": "https://github.com/Argent77/A7-LevelUpTweaks/releases/download/v2.7/win-A7-LevelUpTweaks-v2.7.zip",
-      "platforms": ["windows"],
-      "sha256": "6990e0d4d9778b7706974fd979131314d1a80d58791770f45c7b9173ca45c2e4"
+      "platforms": ["windows"]
     }
   ],
   "games": ["pstee"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"}
+    "0": {"type": "std", "label": "A7-LEVELUPTWEAKS-MAIN"},
+    "10": {"type": "std", "label": "A7-LEVELUPTWEAKS-ICON_IN_PORTRAIT"}
   },
   "languages": {
     "en_US": 0,
@@ -86,6 +86,20 @@
         "direction": "before",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-leveluptweaks(10):a7-leveluptweaks(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component required.",
+          "it_IT": "Componente principale richiesta.",
+          "pl_PL": "Wymagany glowny komponent",
+          "de_DE": "Benoetigt die Hauptkomponente der Mod.",
+          "fr_FR": "Composant principal requis."
+        },
+        "origin": "tp2"
       }
     ]
   }

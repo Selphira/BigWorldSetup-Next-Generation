@@ -15,11 +15,11 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "100": {"type": "std"},
-    "115": {"type": "std"},
-    "120": {"type": "std"},
-    "125": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "131": {"type": "std"}
+    "100": {"type": "std", "label": "ZG-MAGIC-SI4SPELLREV"},
+    "115": {"type": "std", "label": "ZG-MAGIC-TRUESIGHT4SPELLREV"},
+    "120": {"type": "std", "label": "ZG-MAGIC-SR-MAXIMIZE-CURE-WOUNDS"},
+    "125": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "ZG-CWE-4-SRnIWD-SCS"},
+    "131": {"type": "std", "label": "ZG-RECURE-POISON-AGAINST-EEFIXPACK"}
   },
   "languages": {
     "en_US": 0
@@ -52,6 +52,22 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "zgmagic(100,115):eeex(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "zgmagic(131):eefixpack(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the EE Fixpack."
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -49,5 +49,16 @@
   },
   "tp2": "sarevokromance",
   "safe": 2,
-  "authors": ["Rebbeca", "Aeryn", "Lava Del'Vortel", "K'aeloree"]
+  "authors": ["Rebbeca", "Aeryn", "Lava Del'Vortel", "K'aeloree"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "sarevokromance(0):re(48)&ub(24)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

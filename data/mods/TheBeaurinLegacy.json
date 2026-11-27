@@ -16,9 +16,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "1000": {"type": "std"},
-    "2000": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["3010", "3020", "3030"], "default": "3010"}
+    "1000": {"type": "std", "label": "BeaurinLegacyMain"},
+    "2000": {"type": "std", "label": "BeaurinLegacyMinyaeClassEnchanter"},
+    "choice_0": {"type": "muc", "components": ["3010", "3020", "3030"], "default": "3010", "labels": {"3010": "BeaurinLegacyPortraitTamikaProud", "3020": "BeaurinLegacyPortraitErisForan", "3030": "BeaurinLegacyPortraitAerwindale"}}
   },
   "languages": {
     "en_US": 0,
@@ -27,7 +27,7 @@
   },
   "translations": {
     "en_US": {
-      "description": "This mod adds an elf enchanter/thief and a hidden NPC. You'll find Minyae Beaurin outside the Inn of the Crooked Crane at the city gates. It includes personalized portraits, a friendship path for Minyae and the hidden NPC, numerous jokes and interjections, encounters and quests, a voice for both NPCs (only Minyae has a full set), a romance with a Bioware NPC...\nSTR 11, DEX 19, CON 12, INT 17, WIS 12, CHA 16.",
+      "description": "This mod adds an elf enchanter/thief and a hidden NPC. You'll find Minyae Beaurin outside the Inn of the Crooked Crane at the city gates. It includes personalized portraits, a friendship path for Minyae and the hidden NPC, numerous jokes and interjections, encounters and quests, a voice for both NPCs (only Minyae has a full set), a romance with a Bioware NPC...\nMinyae: STR 11, DEX 19, CON 12, INT 17, WIS 12, CHA 16.\nHidden NPC: STR 17, DEX 19, CON 16, INT 12, WIS 16, CHA 14.",
       "components": {
         "1000": "The Beaurin Legacy for BG2:SoA & ToB & BGII:EE",
         "2000": "Change Minyae's class to Enchanter (from Enchanter/Thief)",
@@ -38,7 +38,7 @@
       }
     },
     "fr_FR": {
-      "description": "Ce mod ajoute un enchanteur/voleur elfe et un PNJ caché. Vous trouverez Minyae Beaurin à l'extérieur de l'auberge du Crâne tordu, aux portes de la ville. Il comprend des portraits personnalisés, une voie de l'amitié pour Minyae et le PNJ caché, de nombreuses plaisanteries et interjections, des rencontres et des quêtes, une voix pour les deux PNJ (seule Minyae dispose d'un jeu complet), une romance avec un PNJ Bioware...\nFOR 11, DEX 19, CON 12, INT 17, SAG 12, CHA 16.",
+      "description": "Ce mod ajoute un enchanteur/voleur elfe et un PNJ caché. Vous trouverez Minyae Beaurin à l'extérieur de l'auberge du Crâne tordu, aux portes de la ville. Il comprend des portraits personnalisés, une voie de l'amitié pour Minyae et le PNJ caché, de nombreuses plaisanteries et interjections, des rencontres et des quêtes, une voix pour les deux PNJ (seule Minyae dispose d'un jeu complet), une romance avec un PNJ Bioware...\nMinyae : FOR 11, DEX 19, CON 12, INT 17, SAG 12, CHA 16.\nPersonnage caché : FOR 17, DEX 19, CON 16, INT 12, SAG 16, CHA 14.",
       "components": {
         "1000": "\"The Beaurin Legacy\" pour BG2:SoA & ToB & BGII:EE",
         "2000": "Changer la classe de Minyae en Enchanteresse (plutot que multiclasses Enchanteresse/Voleuse)",
@@ -49,7 +49,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组增加了一个精灵附魔师/盗贼和一个隐藏的NPC。你可以在城市外的扭曲骷髅旅店门口找到米妮雅·波林。他包含自定义肖像、米妮雅和隐藏NPC的友谊路线、许多笑话和感叹词、遭遇和任务、两个NPC的语音（只有米妮雅有完整的配音）、与BioWare NPC的浪漫关系……\n力量 11, 敏捷 19, 体质 12, 智力 17, 智慧 12, 魅力 16。"
+      "description": "这个模组添加了一名精灵附魔师/盗贼以及一个隐藏NPC。你会在城门口的歪头骷髅旅店（auberge du Crâne tordu）外找到米妮娅·博兰（Minyae Beaurin）。该模组包含自定义肖像、米妮娅和隐藏NPC的友谊线、大量玩笑与插话、遭遇和任务、两名NPC的语音（仅米妮娅拥有完整配音），以及与一位BioWare NPC的恋爱线……\n米妮娅：力量11，敏捷19，体质12，智力17，智慧12，魅力16。\n隐藏角色：力量17，敏捷19，体质16，智力12，智慧16，魅力14。"
     },
     "ru_RU": {
       "components": {
@@ -64,5 +64,19 @@
   },
   "tp2": "thebeaurinlegacy",
   "safe": 2,
-  "authors": ["jmaeq"]
+  "authors": ["jmaeq"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "thebeaurinlegacy(2000,3010,3020,3030):thebeaurinlegacy(1000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component require the The Beaurin Legacy main component.",
+          "ru_RU": "This component require the The Beaurin Legacy main component.",
+          "fr_FR": "Ce composant requiert le composant principal de \"The Beaurin Legacy\"."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

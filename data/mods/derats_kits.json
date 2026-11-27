@@ -30,18 +30,18 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwd", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "110": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "140": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "120": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "40": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "90": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "70": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "80": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "60": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]},
-    "150": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]}
+    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Haine"},
+    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Vermine"},
+    "110": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Belluaire"},
+    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Flammes"},
+    "140": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Goragos"},
+    "120": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Ombres"},
+    "40": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Ombremage"},
+    "90": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Artilleur"},
+    "70": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Warlord"},
+    "80": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Bladesinger"},
+    "60": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Theurgique"},
+    "150": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "Px_DUKP_Anatomiste"}
   },
   "languages": {
     "fr_FR": 0,
@@ -83,7 +83,7 @@
       }
     },
     "zh_CN": {
-      "description": "在这个宗派包中，你将找到害虫猎人（游侠）、仇恨携带者（半兽人战士）、火焰布道者（进攻型牧师）、战争领主（双职业战士/法师）、加拉戈斯十字军（牧师）、解剖学家（双职业盗贼/死灵师）等等。"
+      "description": "在这个宗派包中，你将找到害虫猎人（游侠）、仇恨携带者（半兽人战士）、火焰布道者（进攻型牧师）、战争领主（双职业战士/法师）、加拉戈斯圣战军（牧师）、解剖学家（双职业盗贼/死灵师）等等。"
     }
   },
   "tp2": "derats_kits",

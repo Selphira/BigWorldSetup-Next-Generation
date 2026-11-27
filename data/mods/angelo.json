@@ -29,8 +29,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["1", "2", "3"]}
+    "0": {"type": "std", "label": "SisterVigilantes_Angelo-main"},
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"], "labels": {"1": "SisterVigilantes_Angelo-Portrait_SisterVigilante", "2": "SisterVigilantes_Angelo-Portrait_Amaurea", "3": "SisterVigilantes_Angelo-Portrait_cassinus_free_fr"}}
   },
   "languages": {
     "en_US": 0,
@@ -79,6 +79,17 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "angelo(1,2,3):angelo(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Angelo NPC mod to be installed.",
+          "ru_RU": "This component requires the Angelo NPC mod to be installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

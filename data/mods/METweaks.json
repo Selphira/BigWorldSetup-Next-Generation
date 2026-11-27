@@ -149,5 +149,36 @@
   },
   "tp2": "metweaks",
   "safe": 2,
-  "authors": ["Olvyn Churu"]
+  "authors": ["Olvyn Churu"],
+  "rules": {
+    "incompatibilities": [
+      {
+        "rule": "metweaks(1800):highpower(1992)",
+        "severity": "error",
+        "translations": {
+          "en_US": "High Power Baldur's Gate already does this.",
+          "fr_FR": "Ce composant est deja installe par High Power Baldur's Gate."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "metweaks(2000):highpower(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "High Power Baldur's Gate already does this.",
+          "fr_FR": "Ce composant est deja installe par High Power Baldur's Gate."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "metweaks(2200,3150):betterhof(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Improved Heart of Fury Mode already does this.",
+          "fr_FR": "Ce composant est deja installe par Improved Heart of Fury Mode."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

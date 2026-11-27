@@ -46,5 +46,15 @@
   },
   "tp2": "chaosknight",
   "safe": 2,
-  "authors": ["Shi woo"]
+  "authors": ["Shi woo"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "chaosknight(0):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

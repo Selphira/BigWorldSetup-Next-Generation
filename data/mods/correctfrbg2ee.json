@@ -1,5 +1,5 @@
 {
-  "name": "Correction de la traduction de Baldur's Gate II : Enhanced Edition",
+  "name": "correctfrBG2EE",
   "version": "0.24",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=33428"
@@ -42,5 +42,17 @@
   },
   "tp2": "correctfrbg2ee",
   "safe": 2,
-  "authors": ["lefreut", "jazira", "Mera", "rivvers"]
+  "authors": ["lefreut", "jazira", "Mera", "rivvers"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "correctfrbg2ee(30):correctfrbg2ee(20)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Necessite le composant \"Patch audio et video francais\""
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

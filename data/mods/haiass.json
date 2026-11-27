@@ -74,5 +74,21 @@
   },
   "tp2": "haiass",
   "safe": 2,
-  "authors": ["Auda", "Mordenkainen", "Miloch", "Henanigan"]
+  "authors": ["Auda", "Mordenkainen", "Miloch", "Henanigan"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "haiass(10,15):haiass(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component.",
+          "es_ES": "Este componente requiere el componente primario.",
+          "de_DE": "Diese Komponente benötigt die Hauptkomponente.",
+          "fr_FR": "Cette composante requiert la composante principale.",
+          "ru_RU": "This component requires the main component."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

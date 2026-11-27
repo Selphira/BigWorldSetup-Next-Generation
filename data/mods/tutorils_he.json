@@ -16,7 +16,7 @@
   "games": ["bg2ee", "bgee", "iwdee", "sod"],
   "categories": ["spell"],
   "components": {
-    "1000": {"type": "std"}
+    "1000": {"type": "std", "label": "!_-TutorilsHistoricalEncyclopedias-Main"}
   },
   "languages": {
     "en_US": 0,
@@ -43,5 +43,15 @@
   },
   "tp2": "tutorils_he",
   "safe": 2,
-  "authors": ["Incrementis"]
+  "authors": ["Incrementis"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "tutorils_he(1000):cd_iwd_desc(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

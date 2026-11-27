@@ -15,7 +15,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "Mathrim_Cauthon-Alcool"}
   },
   "languages": {
     "fr_FR": 0,

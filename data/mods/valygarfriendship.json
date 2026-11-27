@@ -9,14 +9,14 @@
     {
       "filename": "valygar-friendship-v1.5.zip",
       "size": 4907949,
-      "download": "https://github.com/Spellhold-Studios/Valygar-Friendship/releases/download/v1.5/valygar-friendship-v1.5.zip",
-      "sha256": "757a4014d784eb5c42a3911edc242d6fb8846cf7f9eb53f85fe4ed59d337534f"
+      "sha256": "757a4014d784eb5c42a3911edc242d6fb8846cf7f9eb53f85fe4ed59d337534f",
+      "download": "https://github.com/Spellhold-Studios/Valygar-Friendship/releases/download/v1.5/valygar-friendship-v1.5.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "valygar_friendship"}
   },
   "languages": {
     "en_US": 0,

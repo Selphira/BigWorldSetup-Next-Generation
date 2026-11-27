@@ -16,14 +16,14 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "games": ["eet", "sod"]},
-    "10": {"type": "std", "games": ["eet", "sod"]},
-    "20": {"type": "std", "games": ["eet", "sod"]},
-    "30": {"type": "std", "games": ["eet", "sod"]},
-    "40": {"type": "std", "games": ["eet", "sod"]},
-    "50": {"type": "std", "games": ["eet", "sod"]},
-    "60": {"type": "std", "games": ["eet", "sod"]},
-    "70": {"type": "std", "games": ["eet", "sod"]}
+    "0": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-main"},
+    "10": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-consistency"},
+    "20": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-aware_officers"},
+    "30": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-consistency_reply_options"},
+    "40": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-PC_tells_officers"},
+    "50": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-officers_reactions"},
+    "60": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-additional_infopoints"},
+    "70": {"type": "std", "games": ["eet", "sod"], "label": "SoDRoadToDiscovery-additional_communication_officers"}
   },
   "languages": {
     "en_US": 0,
@@ -62,7 +62,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组为SoD（龙矛围攻）战役设计。它有两个目标：\n- 对于玩家，旨在让联盟势力了解凯拉和赫费尔南的计划，重点聚焦十字军的主要任务及其带来的危险，并提供回应选项，让玩家角色（PJ）能够告知联盟势力当前发生的事件。为此，模组会追踪并评估玩家角色在战役中可能收集到的所有信息。日志条目会概述玩家角色已收集到的信息。总体而言，该模组旨在串联所有线索，使玩家角色能够讲述其收集到的所有信息，并让联盟军官能够具体地认识和应对真实的危险。\n- 对于模组作者，它引入了一个基于变量的追踪系统，涉及玩家角色和联盟军官在整个战役中获得的不同知识层次，该系统可被其他模组作者使用，例如，用于根据关于凯拉、赫费尔南、十字军等信息的质量来细化其NPC的反应。\n此模组所考虑的SoD战役信息包括：凯拉宣称的十字军主要目标是什么，其真实面目又是什么？凯拉宣言背后的真相——以及她十字军信徒的信念——即凯拉用“万神殿的神力”来保护十字军，这背后隐藏着什么？凯拉的生活和家庭背景是什么，这如何影响她的动机？凯拉是巴尔的子嗣吗？赫费尔南的计划是什么？",
+      "description": "此模组为SoD（龙矛围攻）战役设计。它有两个目标：\n- 对于玩家，旨在让联盟势力了解凯拉和赫费尔南的计划，重点聚焦圣战军的主要任务及其带来的危险，并提供回应选项，让玩家角色（PJ）能够告知联盟势力当前发生的事件。为此，模组会追踪并评估玩家角色在战役中可能收集到的所有信息。日志条目会概述玩家角色已收集到的信息。总体而言，该模组旨在串联所有线索，使玩家角色能够讲述其收集到的所有信息，并让联盟军官能够具体地认识和应对真实的危险。\n- 对于模组作者，它引入了一个基于变量的追踪系统，涉及玩家角色和联盟军官在整个战役中获得的不同知识层次，该系统可被其他模组作者使用，例如，用于根据关于凯拉、赫费尔南、圣战军等信息的质量来细化其NPC的反应。\n此模组所考虑的SoD战役信息包括：凯拉宣称的圣战军主要目标是什么，其真实面目又是什么？凯拉宣言背后的真相——以及她圣战军信徒的信念——即凯拉用“万神殿的神力”来保护圣战军，这背后隐藏着什么？凯拉的生活和家庭背景是什么，这如何影响她的动机？凯拉是巴尔的子嗣吗？赫费尔南的计划是什么？",
       "components": {
         "0": "核心组件：追踪系统",
         "10": "修改游戏对话统一性",
@@ -139,6 +139,133 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "sodrtd(0,10,20,30,40,50,60,70):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before EET_End.",
+          "de_DE": "Diese Mod muss vor EET_End installiert werden.",
+          "fr_FR": "Ce mod doit etre installe avant EET_End.",
+          "it_IT": "Questa mod deve essere installata prima di EET End.",
+          "es_ES": "Este mod debe instalarse antes que EET_End.",
+          "ru_RU": "This mod needs to be installed before EET_End.",
+          "zh_CN": "本MOD需要再EET_End之前安装。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(20):sodrtd(30)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "de_DE": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "fr_FR": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "it_IT": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "es_ES": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "ru_RU": "This component needs to be installed before component \"Give PC consistency reply options\".",
+          "zh_CN": "This component needs to be installed before component \"Give PC consistency reply options\"."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(50):sodrtd(70)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This mod needs to be installed before component \"Add Additional Communication with Officers\".",
+          "de_DE": "Diese Mod muss vor der Komponente \"Zusaetzliche Kommunikation mit Offizieren\" installiert werden.",
+          "fr_FR": "Ce mod doit etre installe avant le composant \"Ajouter de nouvelles discussions avec les officiers\".",
+          "it_IT": "Questa mod deve essere installata prima del componente \"Aggiungi comunicazione aggiuntiva con gli ufficiali\".",
+          "es_ES": "Este mod necesita ser instalado antes que el componente \"Comunicacion adicional con oficiales\".",
+          "ru_RU": "This mod needs to be installed before component \"Add Additional Communication with Officers\".",
+          "zh_CN": "本MOD需要需要在“增加与联军官员的额外对话”组件之前安装。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "sodrtd(0,40):themed_tweaks(80)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(10,20,30,40,50,60,70):sodrtd(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need the main component \"Tracking System\" for this conponent.",
+          "de_DE": "Fuer diese Komponente benoetigst du die Hauptkomponente \"Tracking System\".",
+          "fr_FR": "Vous avez besoin du composant principal \"Systeme de Pistage\" pour ce composant.",
+          "it_IT": "Per questo componente è necessario il componente principale \"Sistema di Tracciamento\".",
+          "es_ES": "Necesitas el componente principal \"Sistema de seguimiento\" para este componente.",
+          "ru_RU": "You need the main component \"Tracking System\" for this conponent.",
+          "zh_CN": "本组件需要先安装核心组件“追踪系统”。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(10):c#sodtweaks(5)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(30):sodrtd(10)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need the mod component \"Consistency Changes to Game Dialogues\" for this conponent.",
+          "de_DE": "Fuer diese Komponente benoetigst du die Mod-Komponente \"Konsistenzaenderungen an Spieldialogen\".",
+          "fr_FR": "Vous avez besoin du composant \"Changements dans les dialogues du jeu pour plus de coherence\" pour ce composant.",
+          "it_IT": "Per questo componente è necessario il componente mod \"Modifiche di coerenza ai dialoghi di gioco\".",
+          "es_ES": "Necesita el componente mod \"Cambios de consistencia en los dialogos del juego\" para este conponente.",
+          "ru_RU": "You need the mod component \"Consistency Changes to Game Dialogues\" for this conponent.",
+          "zh_CN": "本组件需要先安装“修改游戏对话统一性”组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(30):sodrtd(20)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(50,70):sodrtd(20)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need the mod component \"Make Officers Aware\" for this conponent.",
+          "de_DE": "Fuer diese Komponente benoetigst du die Mod-Komponente \"Offiziere wissen Bescheid\".",
+          "fr_FR": "Vous avez besoin du composant \"Les officiers sont plus attentifs\" pour ce composant.",
+          "it_IT": "Per questo componente e necessario il componente mod \"Gli ufficiali sono Consapevoli\".",
+          "es_ES": "Necesita el componente mod \"Los oficiales están enterados\" para este componente.",
+          "ru_RU": "You need the mod component \"Make Officers Aware\" for this conponent.",
+          "zh_CN": "本组件需要先安装“让联军官员知情”组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(50,70):sodrtd(40)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You need the mod component \"PC can tell the officers\" for this conponent.",
+          "de_DE": "Fuer diese Komponente benoetigst du die Mod-Komponente \"HC kann den Offizieren berichten\".",
+          "fr_FR": "Vous avez besoin du composant \"Le PC peut informer les officiers\" pour ce composant.",
+          "it_IT": "Per questo componente e necessario il componente \"Il personaggio puo riferire agli ufficiali\".",
+          "es_ES": "Necesita el componente mod \"El PJ puede informar a los oficiales\" para este componente.",
+          "ru_RU": "You need the mod component \"PC can tell the officers\" for this conponent.",
+          "zh_CN": "本组件需要先安装“玩家可以告知联军官员”组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "sodrtd(70):sodrtd(50)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

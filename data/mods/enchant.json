@@ -6,10 +6,10 @@
   },
   "files": [
     {
-      "filename": "n0q8dnnbhnsc.zip",
-      "size": 17899,
-      "sha256": "3b68510079187d6d4f30a9db2a2a87374f422223900e69b36730858d45bd5de7",
-      "download": "https://forums.beamdog.com/uploads/editor/hc/n0q8dnnbhnsc.zip"
+      "filename": "dee_enchant-1.zip",
+      "download": "https://github.com/mleduque/dee_enchant/archive/refs/tags/v1.zip",
+      "size": 16111,
+      "sha256": "e37b9f593f5aa54bf2c9e5ee0e93ae6ec8eca4cebf546ad7414940518688e47d"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],

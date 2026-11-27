@@ -385,5 +385,59 @@
   },
   "tp2": "eet_tweaks",
   "safe": 2,
-  "authors": ["K4thos"]
+  "authors": ["K4thos"],
+  "rules": {
+    "incompatibilities": [
+      {
+        "rule": "eet_tweaks(2040,2041,2042,2043,2044):xpmod(7,8,9,10,11,12,13,14)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Similar tweak already installed",
+          "pl_PL": "Similar tweak already installed",
+          "cs_CZ": "Obdobny tweak uz je nainstalovan"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eet_tweaks(2050,2051,2052,2053,2054,2055,2056):xpmod(0,1,2,3,4,5,6)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Similar tweak already installed",
+          "pl_PL": "Similar tweak already installed",
+          "cs_CZ": "Obdobny tweak uz je nainstalovan"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eet_tweaks(2060,2061,2062,2063,2064,2065,2066):xpmod(15,16,17,18,19,20,21)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Similar tweak already installed",
+          "pl_PL": "Similar tweak already installed",
+          "cs_CZ": "Obdobny tweak uz je nainstalovan"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eet_tweaks(3000):bgttweak(2300)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Similar tweak already installed",
+          "pl_PL": "Similar tweak already installed",
+          "cs_CZ": "Obdobny tweak uz je nainstalovan"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eet_tweaks(4060):wandcase(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Similar tweak already installed",
+          "pl_PL": "Similar tweak already installed",
+          "cs_CZ": "Obdobny tweak uz je nainstalovan"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

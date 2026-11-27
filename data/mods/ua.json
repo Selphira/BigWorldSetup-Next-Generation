@@ -16,10 +16,10 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "1": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "2": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_0": {"type": "muc", "components": ["3", "4"], "category": "smith", "default": "3", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
+    "0": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "g_ua_allow+1"},
+    "1": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "g_ua_allow+2"},
+    "2": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "g_ua_allow_speed"},
+    "choice_0": {"type": "muc", "components": ["3", "4"], "category": "smith", "default": "3", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "labels": {"3": "g_ua_core_expanded", "4": "g_ua_core_strict"}},
     "5": {"type": "std", "category": "smith", "games": ["bg2", "bg2ee", "bgt", "eet"]},
     "6": {"type": "std", "category": "smith", "games": ["bg1", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]}
   },
@@ -107,6 +107,28 @@
         "direction": "before",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "ua(0,1,2):ua(4,3)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component must be installed before Core",
+          "pt_PT": "Este componente deve ser instalado antes do Núcleo",
+          "ru_RU": "Этот компонент должен быть установлен перед основным",
+          "sv_SE": "Denna komponent måste installeras innan Core",
+          "fr_FR": "Ce composant doit etre installe avant le composant principal"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "ua(3,4):arestorationp(3)&bg1npc(10)&bg2fixpack(0)&ua(1,0,2)&item_rev(1030)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

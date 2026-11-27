@@ -16,34 +16,34 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["tactic"],
   "components": {
-    "10": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "11": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "12": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "20": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "21": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "22": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "30": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "32": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"]},
-    "40": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "41": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "43": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "44": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "45": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "46": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "47": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "48": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "49": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "50": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "51": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "52": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "53": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "54": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "55": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "56": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "57": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "58": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "80": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "90": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"]}
+    "10": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_tazok"},
+    "11": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_rebalanced_creatures"},
+    "12": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_rebalanced_tazok"},
+    "20": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_groumf_firkraag"},
+    "21": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_groumf_brynnlaw"},
+    "22": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_groumf_underdark"},
+    "30": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_sarevok"},
+    "32": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_battlesongs"},
+    "40": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_draztic_creatures"},
+    "41": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_irenicus_dungeon"},
+    "43": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_tethyr_forest"},
+    "44": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_planar_sphere"},
+    "45": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_spellhold"},
+    "46": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_arnise_keep"},
+    "47": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_windspear_hills"},
+    "48": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_umar_hills"},
+    "49": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_animals"},
+    "50": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_golems"},
+    "51": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_yaga_shura"},
+    "52": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_druid_grove"},
+    "53": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_eyeless"},
+    "54": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery__bodi_chapter2"},
+    "55": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_bodi_chapter6"},
+    "56": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_sahuagins"},
+    "57": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_spiders"},
+    "58": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_skeletons"},
+    "80": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_more_ennemies"},
+    "90": {"type": "std", "category": "portrait", "games": ["bg2ee", "bgt", "eet"], "label": "d9_butchery_cosmetics"}
   },
   "languages": {
     "en_US": 0,
@@ -233,6 +233,46 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "butchery(21):butchery(20)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Groumf and Bourrinos Encounter at Firkraag's Hideout entrance component to be installed.",
+          "fr_FR": "Ce composant necessite l'installation du composant Rencontre avec Groumf et Bourrinos devant le donjon de Firkraag.",
+          "ru_RU": "This component requires the Groumf and Bourrinos Encounter at Firkraag's Hideout entrance component to be installed.",
+          "es_ES": "Este componente requiere tener instalado el componente de entrada Encuentro de Groumf y Bourrinos en el Escondite de Firkraag.",
+          "zh_CN": "这个组件需要安装格罗姆夫和布尔里诺斯在费尔克拉格藏身处入口的遭遇组件。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "butchery(41,45,46,58,80):butchery(40)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the DrAzTiK's Creatures component to be installed.",
+          "fr_FR": "Ce composant necessite l'installation du composant Creatures de DrAzTiK.",
+          "ru_RU": "This component requires the DrAzTiK's Creatures component to be installed.",
+          "es_ES": "Este componente necesita tener instalado el componente Criaturas de DrAzTiK's .",
+          "zh_CN": "这个组件需要安装DrAzTiK的生物组件。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "butchery(30):angelo(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is content-wise not compatible with Angelo NPC for Baldur's Gate II.",
+          "fr_FR": "Le contenu de ce composant est incompatible avec le mod Angelo NPC for Baldur's Gate II.",
+          "ru_RU": "This component is content-wise not compatible with Angelo NPC for Baldur's Gate II.",
+          "es_ES": "El contenido de este componente no es compatible con el PNJ Angelo para Puerta de Baldur II.",
+          "zh_CN": "这个组件在内容上与Baldur's Gate II中的Angelo NPC不兼容。"
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -31,9 +31,9 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "100": {"type": "std"},
-    "5000": {"type": "std"},
-    "5001": {"type": "std"}
+    "100": {"type": "std", "label": "zs_shadowdancer_overhaul"},
+    "5000": {"type": "std", "label": "zs_sd_spirit_form"},
+    "5001": {"type": "std", "label": "zs_sd_rr_compat"}
   },
   "languages": {
     "en_US": 0,
@@ -70,5 +70,19 @@
   },
   "tp2": "zs_shadowdanceroverhaul",
   "safe": 2,
-  "authors": ["Kaelyn"]
+  "authors": ["Kaelyn"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "zs_shadowdanceroverhaul(5000):zs_shadowdanceroverhaul(100)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Shadowdancer Overhaul main component",
+          "zh_CN": "此组件需要影舞者重制主组件",
+          "it_IT": "Questo componente richiede il componente principale di Shadowdancer Overhaul"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

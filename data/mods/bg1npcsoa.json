@@ -182,6 +182,44 @@
         "severity": "warning",
         "origin": "ini"
       }
+    ],
+    "dependencies": [
+      {
+        "rule": "bg1npcsoa(0):infinityanimations(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "bg1npcsoa(1):bg1npcsoa(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Water Gardens component installed!",
+          "ru_RU": "This component requires the Water Gardens component installed!",
+          "zh_CN": "This component requires the Water Gardens component installed!"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "bg1npcsoa(3):bg1npcsoa(2)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This portrait requires the Shar-Teel component installed",
+          "ru_RU": "This portrait requires the Shar-Teel component installed",
+          "zh_CN": "This portrait requires the Shar-Teel component installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "bg1npcsoa(55,56):bg1npcsoa(50)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the Tiax-Quayle component installed!",
+          "ru_RU": "This component requires the Tiax-Quayle component installed!",
+          "zh_CN": "This component requires the Tiax-Quayle component installed!"
+        },
+        "origin": "tp2"
+      }
     ]
   }
 }

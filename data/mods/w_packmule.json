@@ -100,5 +100,21 @@
   },
   "tp2": "w_packmule",
   "safe": 2,
-  "authors": ["Kwiat_W"]
+  "authors": ["Kwiat_W"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "w_packmule(0,1):infinityanimations(0)",
+        "severity": "error",
+        "translations": {
+          "pl_PL": "Nie zainstalowano INFINITY ANIMATIONS",
+          "en_US": "INFINITY ANIMATIONS is not installed",
+          "it_IT": "Non è installato INFINITY ANIMATIONS",
+          "fr_FR": "INFINITY ANIMATIONS n'est pas installe",
+          "de_DE": "INFINITY ANIMATIONS ist nicht installiert!"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

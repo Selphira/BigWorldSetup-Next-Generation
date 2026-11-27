@@ -9,18 +9,18 @@
     {
       "filename": "edwin-romance-v4.0.zip",
       "size": 15514980,
-      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip",
-      "sha256": "8fb0c80f0578976cec41c36516d7295fedcead86d2680407fc87bff48a75bc56"
+      "sha256": "8fb0c80f0578976cec41c36516d7295fedcead86d2680407fc87bff48a75bc56",
+      "download": "https://github.com/Spellhold-Studios/Edwin-Romance/releases/download/v4.0/edwin-romance-v4.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "category": "portrait"},
-    "2": {"type": "std"},
-    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "4": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "LaufeysEdwinRomance-Main"},
+    "1": {"type": "std", "category": "portrait", "label": "LaufeysEdwinRomance-RestoreBG1Portrait"},
+    "2": {"type": "std", "label": "LaufeysEdwinRomance-Flirts"},
+    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "LaufeysNewViconiaEnding-Main"},
+    "4": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "LaufeysEdwinRomance-EdwinaPortrait"}
   },
   "languages": {
     "en_US": 0,
@@ -115,6 +115,73 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "edwinromance(1):edwinromance(4)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "en_US": "This component needs to be installed before the Edwina Portrait component.",
+          "fr_FR": "This component needs to be installed before the Edwina Portrait component.",
+          "es_ES": "This component needs to be installed before the Edwina Portrait component.",
+          "ru_RU": "This component needs to be installed before the Edwina Portrait component.",
+          "de_DE": "Diese Komponente muss vor der Komponente \"Edwins BG1 Portrait wieder herstellen\" installiert werden.",
+          "pl_PL": "This component needs to be installed before the Edwina Portrait component.",
+          "zh_CN": "This component needs to be installed before the Edwina Portrait component."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "edwinromance(1,2):edwinromance(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires Edwin Romance to be installed.",
+          "fr_FR": "Ce composant necessite la Romance d'Edwin afin d'etre installe.",
+          "es_ES": "Este componente requiere que el Romance de Edwin este instalado.",
+          "ru_RU": "This component requires Edwin Romance to be installed.",
+          "de_DE": "Diese Komponente setzt voraus, dass die Edwin Romanze installiert ist.",
+          "pl_PL": "Ta część wymaga zainstalowania Romansu z Edwinem.",
+          "zh_CN": "该组件需要安装艾德温罗曼史。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "edwinromance(4):edwinromance(1)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "edwinromance(4):cdtweaks(1180)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Edwina Portrait component from Tweaks Anthology is installed.",
+          "fr_FR": "Edwina Portrait component from Tweaks Anthology is installed.",
+          "es_ES": "Edwina Portrait component from Tweaks Anthology is installed.",
+          "ru_RU": "Edwina Portrait component from Tweaks Anthology is installed.",
+          "de_DE": "Die Edwina Portrait Komponente von Tweaks Anthology ist installiert.",
+          "pl_PL": "Edwina Portrait component from Tweaks Anthology is installed.",
+          "zh_CN": "Edwina Portrait component from Tweaks Anthology is installed."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "edwinromance(4):ease(20)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Edwina Portrait component from Ease of Use is installed.",
+          "fr_FR": "Edwina Portrait component from Ease of Use is installed.",
+          "es_ES": "Edwina Portrait component from Ease of Use is installed.",
+          "ru_RU": "Edwina Portrait component from Ease of Use is installed.",
+          "de_DE": "Die Edwina Portrait Komponente von Ease of Use ist installiert.",
+          "pl_PL": "Edwina Portrait component from Ease of Use is installed.",
+          "zh_CN": "Edwina Portrait component from Ease of Use is installed."
+        },
+        "origin": "tp2"
       }
     ]
   }

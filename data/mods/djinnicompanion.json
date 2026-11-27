@@ -29,13 +29,13 @@
   "games": ["bg2", "bg2ee", "bgt", "eet", "iwdee"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]},
-    "2": {"type": "std", "games": ["iwdee"]},
-    "choice_1": {"type": "muc", "components": ["101", "102", "103", "104", "105"]},
-    "200": {"type": "std"},
-    "300": {"type": "std"},
-    "400": {"type": "std", "games": ["iwdee"]},
-    "900": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "A7-DJINNICOMPANION-MAIN_FULL", "1": "A7-DJINNICOMPANION-MAIN_LIGHT"}},
+    "2": {"type": "std", "games": ["iwdee"], "label": "A7-DJINNICOMPANION-MAIN_IWDEE"},
+    "choice_1": {"type": "muc", "components": ["101", "102", "103", "104", "105"], "labels": {"101": "A7-DJINNICOMPANION-BANTER_15", "102": "A7-DJINNICOMPANION-BANTER_30", "103": "A7-DJINNICOMPANION-BANTER_45", "104": "A7-DJINNICOMPANION-BANTER_90", "105": "A7-DJINNICOMPANION-BANTER_120"}},
+    "200": {"type": "std", "label": "A7-DJINNICOMPANION-REMOVE_SOUNDTRACK"},
+    "300": {"type": "std", "label": "A7-DJINNICOMPANION-ALTERNATE_PORTRAIT"},
+    "400": {"type": "std", "games": ["iwdee"], "label": "A7-DJINNICOMPANION-IWDEE_DISABLE_QUESTS"},
+    "900": {"type": "std", "label": "A7-DJINNICOMPANION-ADD_IA_CREATURES"}
   },
   "languages": {
     "en_US": 0,
@@ -136,6 +136,58 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "djinnicompanion(0):wheels(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "djinnicompanion(101,102,103,104,105,200,900):djinnicompanion(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the full version to be installed.",
+          "de_DE": "Diese Komponente benoetigt die Vollversion des Dschinngefaehrten.",
+          "fr_FR": "Ce composant necessite l'installation de la version complete.",
+          "zh_CN": "该组件需要完整版本"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "djinnicompanion(400):djinnicompanion(2)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the IWD:EE version of the \"Djinni Companion\" to be installed.",
+          "de_DE": "Diese Komponente setzt voraus, dass die IWD:EE-Version des Dschinngefaehrten installiert wurde.",
+          "fr_FR": "Ce composant necessite l'installation de la version IWD:EE du \"Compagnon Djinn\".",
+          "zh_CN": "该组件需要安装IWD:EE版本的“风巨灵同伴”。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "djinnicompanion(900):infinityanimations(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires Infinity Animation to be installed.",
+          "de_DE": "Diese Komponente setzt die Mod \"Infinity Animation\" voraus.",
+          "fr_FR": "Ce composant necessite l'installation d'Infinity Animation.",
+          "zh_CN": "此组件需要安装Infinity Animation。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "djinnicompanion(900):infinityanimations(50)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires Infinity Animation's subcomponent \"Distinctive Genies\" to be installed.",
+          "de_DE": "Diese Komponente benoetigt die Unterkomponente \"Distinctive Genies\" der Mod \"Infinity Animation\".",
+          "fr_FR": "Ce composant necessite l'installation du sous-composant \"Genies Distincts\" d'Infinity Animation.",
+          "zh_CN": "此组件需要安装Infinity Animation的子组件“独特的巨灵”。"
+        },
+        "origin": "tp2"
       }
     ]
   }

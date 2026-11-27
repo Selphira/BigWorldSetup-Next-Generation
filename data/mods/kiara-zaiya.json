@@ -15,13 +15,13 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0"},
-    "2": {"type": "std", "category": "spell"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std", "category": "tactic"},
-    "6": {"type": "std", "category": "tactic"},
-    "7": {"type": "std", "category": "tactic"}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "labels": {"0": "kiara-zaiya_main", "1": "kiara-zaiya_main_cutom_soundsets"}},
+    "2": {"type": "std", "category": "spell", "label": "kiara-zaiya_alternate_monk_hla"},
+    "3": {"type": "std", "label": "kiara-zaiya_tougher_amaralis"},
+    "4": {"type": "std", "label": "kiara-zaiya_tougher_kiara_vampire"},
+    "5": {"type": "std", "category": "tactic", "label": "kiara-zaiya_revised_suldalanessar"},
+    "6": {"type": "std", "category": "tactic", "label": "kiara-zaiya_tougher_jao"},
+    "7": {"type": "std", "category": "tactic", "label": "kiara-zaiya_tougher_irenicus_at_tree_of_life"}
   },
   "languages": {
     "en_US": 0,
@@ -118,6 +118,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "kiara-zaiya(2):kiara-zaiya(0,1)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

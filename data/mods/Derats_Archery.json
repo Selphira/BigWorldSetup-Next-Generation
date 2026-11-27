@@ -30,8 +30,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "Px_Archery_Main"},
+    "3": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "Px_Archery_Infinity"}
   },
   "languages": {
     "fr_FR": 0,
@@ -58,5 +58,18 @@
   },
   "tp2": "derats_archery",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_archery(3):derats_archery(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant requiert le composant principal.",
+          "en_US": "This component requires the main component."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

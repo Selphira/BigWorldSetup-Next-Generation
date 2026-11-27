@@ -91,5 +91,18 @@
   },
   "tp2": "derats_autorest",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_autorest(21,22,23,24,25,26,27,28,31,32,33,34):derats_autorest(11,12,13)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant necessite le composant principal",
+          "en_US": "This component requires the main component"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

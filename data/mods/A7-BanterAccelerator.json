@@ -29,7 +29,7 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["npcx"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["10", "11", "12", "20", "21", "22", "30", "31", "32", "40", "41", "42", "99"], "default": "10"}
+    "choice_0": {"type": "muc", "components": ["10", "11", "12", "20", "21", "22", "30", "31", "32", "40", "41", "42", "99"], "default": "10", "labels": {"10": "A7-BANTERACCELERATOR-60_10", "11": "A7-BANTERACCELERATOR-60_25", "12": "A7-BANTERACCELERATOR-60_50", "20": "A7-BANTERACCELERATOR-40_10", "21": "A7-BANTERACCELERATOR-40_25", "22": "A7-BANTERACCELERATOR-40_50", "30": "A7-BANTERACCELERATOR-30_10", "31": "A7-BANTERACCELERATOR-30_25", "32": "A7-BANTERACCELERATOR-30_50", "40": "A7-BANTERACCELERATOR-10_10", "41": "A7-BANTERACCELERATOR-10_25", "42": "A7-BANTERACCELERATOR-10_50", "99": "A7-BANTERACCELERATOR-USERDEFINED"}}
   },
   "languages": {
     "en_US": 0,

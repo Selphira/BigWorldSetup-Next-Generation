@@ -1,56 +1,56 @@
 {
   "name": "Might & Guile",
-  "version": "5.8.8",
+  "version": "5.9.1",
   "links": {
     "homepage": "https://github.com/UnearthedArcana/Might_and_Guile",
     "forums": ["https://www.gibberlings3.net/forums/topic/27573-unearthed-arcana-presents-might-guile-tweaks-and-kits-for-warriors-and-rogues/#comments"]
   },
   "files": [
     {
-      "filename": "Might_and_Guile-5.8.8.zip",
-      "size": 5061992,
-      "sha256": "1cec66d08c94a5ef2c45436b4e28e91d61b0d6c99c03cca5da9d56499212750f",
-      "download": "https://github.com/UnearthedArcana/Might_and_Guile/archive/refs/tags/5.8.8.zip"
+      "filename": "Might_and_Guile-5.9.1.zip",
+      "download": "https://github.com/UnearthedArcana/Might_and_Guile/archive/refs/tags/5.9.1.zip",
+      "size": 5209938,
+      "sha256": "2e59af26dc451442fdc01a7658b874d91b93340c4b46b5c3c8fe008f2b41dccc"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit", "gameplay"],
   "components": {
-    "50": {"type": "std"},
-    "55": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "60": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "65": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "66": {"type": "std", "category": "npcx"},
-    "75": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "80": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "85": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "90": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "96": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "97": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "105": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "110": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "120": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "125": {"type": "std"},
-    "130": {"type": "std"},
-    "151": {"type": "std"},
-    "155": {"type": "std"},
-    "160": {"type": "std"},
-    "165": {"type": "std"},
-    "201": {"type": "std", "category": "spell"},
-    "210": {"type": "std", "category": "spell"},
-    "220": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "225": {"type": "std", "category": "spell"},
-    "230": {"type": "std", "category": "spell"},
-    "235": {"type": "std", "category": "spell"},
-    "265": {"type": "std", "category": "spell"},
-    "280": {"type": "std", "category": "spell"},
-    "290": {"type": "std", "category": "spell"},
-    "400": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "450": {"type": "std"},
-    "460": {"type": "std"},
-    "470": {"type": "std"},
-    "480": {"type": "std"},
-    "490": {"type": "std"}
+    "50": {"type": "std", "label": "D5_FIGHTER_CAVALIER"},
+    "55": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_CORSAIR_KIT"},
+    "60": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_SAMURAI_KIT"},
+    "65": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_IRONSMITH_KIT"},
+    "66": {"type": "std", "category": "npcx", "label": "D5_IRONSMITH_BREAGAR"},
+    "75": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_BARB_THIEF_KIT"},
+    "80": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_TOMB_RUNNER_KIT"},
+    "85": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_THUG_KIT"},
+    "90": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_RAKE_KIT"},
+    "96": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_NINJA_THIEF"},
+    "97": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_NINJA_FIGHTER_THIEF"},
+    "105": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_SPELLFILCHER_KIT"},
+    "110": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_LOREMASTER_KIT"},
+    "120": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_REGIONAL_RANGERS"},
+    "125": {"type": "std", "label": "D5_MAGE_HUNTER"},
+    "130": {"type": "std", "label": "D5_BARBARIAN_RANGER"},
+    "151": {"type": "std", "label": "D5_MARKSMAN"},
+    "155": {"type": "std", "label": "D5_ELVEN_ARCHER"},
+    "160": {"type": "std", "label": "D5_HALFLING_SLINGER"},
+    "165": {"type": "std", "label": "D5_SNIPER_KIT"},
+    "201": {"type": "std", "category": "spell", "label": "D5_IMPROVED_RANGERS"},
+    "210": {"type": "std", "category": "spell", "label": "D5_QUICKSTRIDE"},
+    "220": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_RANGER_SPELL_TABLE"},
+    "225": {"type": "std", "category": "spell", "label": "D5_REVISED_ARCHERY"},
+    "230": {"type": "std", "category": "spell", "label": "D5_REVISED_STALKER"},
+    "235": {"type": "std", "category": "spell", "label": "D5_REVISED_BEASTMASTER"},
+    "265": {"type": "std", "category": "spell", "label": "D5_REVISED_MONK_FISTS"},
+    "280": {"type": "std", "category": "spell", "label": "D5_REVISED_BACKSTABS"},
+    "290": {"type": "std", "category": "spell", "label": "D5_REVISED_ROGUE_THAC0"},
+    "400": {"type": "std", "category": "spell", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "D5_REVISED_BARDS"},
+    "450": {"type": "std", "label": "D5_2E_JONGLEUR"},
+    "460": {"type": "std", "label": "D5_2E_LOREMASTER"},
+    "470": {"type": "std", "label": "D5_2E_GALLANT"},
+    "480": {"type": "std", "label": "D5_2E_MEISTERSINGER"},
+    "490": {"type": "std", "label": "D5_2E_LORESINGER"}
   },
   "languages": {
     "en_US": 0,
@@ -130,11 +130,11 @@
         "280": "Revised Backstabbing",
         "290": "Revised THAC0 Progression",
         "400": "Bard Overhaul: Multiclass Bards",
-        "450": "Add the Jongleur (bard kit)",
-        "460": "Add the Loremaster (bard kit)",
-        "470": "Add the Gallant (bard kit)",
-        "480": "Add the Meistersinger (bard kit)",
-        "490": "Add the Loresinger (bard kit)"
+        "450": "Add the Jongleur (OG bard kit)",
+        "460": "Add the Loremaster (OG bard kit)",
+        "470": "Add the Gallant (OG bard kit)",
+        "480": "Add the Meistersinger (OG bard kit)",
+        "490": "Add the Loresinger (OG bard kit)"
       }
     },
     "zh_CN": {
@@ -157,6 +157,51 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "might_and_guile(66):might_and_guile(65)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "composant saute"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "might_and_guile(120,125,130,155,400):tomeandblood(48,62,55,71,72)&d5_random_tweaks(3111,3112,1611)&leui(0)&leui-bg1ee(0)&leui-sod(0)&subtled_spell_tweaks(62)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "might_and_guile(201):iwdification(110,111)&item_rev(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "might_and_guile(151,155,160,165):might_and_guile(205)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "composant saute"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "might_and_guile(230):might_and_guile(200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "composant saute"
+        },
+        "origin": "tp2"
       }
     ]
   }

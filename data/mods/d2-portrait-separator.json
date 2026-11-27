@@ -30,7 +30,7 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["util"],
   "components": {
-    "0": {"type": "std", "category": "portrait"}
+    "0": {"type": "std", "category": "portrait", "label": "D2-PORTRAIT-SEPARATOR"}
   },
   "languages": {
     "en_US": 0,

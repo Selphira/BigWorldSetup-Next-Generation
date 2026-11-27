@@ -46,5 +46,19 @@
   },
   "tp2": "askaria",
   "safe": 2,
-  "authors": ["Shi woo"]
+  "authors": ["Shi woo"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "askaria(0):chaosknight(0)",
+        "severity": "error",
+        "translations": {
+          "ko_KR": "Askaria Quest needs the mod ChaosKnight",
+          "en_US": "Askaria Quest needs the mod ChaosKnight",
+          "fr_FR": "Askaria Quest a besoin du mod ChaosKnight"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

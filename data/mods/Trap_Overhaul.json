@@ -15,7 +15,7 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1111", "1110", "1101", "1011", "1100", "1010", "1001", "1000", "0111", "0110", "0101", "0011", "0100", "0010", "0001"], "category": "spell", "default": "1111"}
+    "choice_0": {"type": "muc", "components": ["1111", "1110", "1101", "1011", "1100", "1010", "1001", "1000", "0111", "0110", "0101", "0011", "0100", "0010", "0001"], "category": "spell", "default": "1111", "labels": {"1111": "TRAP_OVERHAUL_MONK_FAST_RECOVERY_LOCK", "1110": "TRAP_OVERHAUL_MONK_FAST_LOCK", "1101": "TRAP_OVERHAUL_MONK_RECOVERY_LOCK", "1011": "TRAP_OVERHAUL_FAST_RECOVERY_LOCK", "1100": "TRAP_OVERHAUL_MONK_LOCK", "1010": "TRAP_OVERHAUL_FAST_LOCK", "1001": "TRAP_OVERHAUL_RECOVERY_LOCK", "1000": "TRAP_OVERHAUL_LOCK", "0111": "TRAP_OVERHAUL_MONK_FAST_RECOVERY", "0110": "TRAP_OVERHAUL_MONK_FAST", "0101": "TRAP_OVERHAUL_MONK_RECOVERY", "0011": "TRAP_OVERHAUL_FAST_RECOVERY", "0100": "TRAP_OVERHAUL_MONK", "0010": "TRAP_OVERHAUL_FAST", "0001": "TRAP_OVERHAUL_RECOVERY"}}
   },
   "languages": {
     "en_US": 0,

@@ -9,8 +9,8 @@
     {
       "filename": "VoicesVoicesExtravaganzaSOD-v1.0.zip",
       "size": 334714404,
-      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza-SOD/releases/download/v1.0/VoicesVoicesExtravaganzaSOD-v1.0.zip",
-      "sha256": "370de4e310ac35e70a8658f6807650ac3f80383666e43c94f66e0515ee94541b"
+      "sha256": "370de4e310ac35e70a8658f6807650ac3f80383666e43c94f66e0515ee94541b",
+      "download": "https://github.com/ColossusChang/VoicesVoicesExtravaganza-SOD/releases/download/v1.0/VoicesVoicesExtravaganzaSOD-v1.0.zip"
     }
   ],
   "games": ["eet", "sod"],
@@ -28,7 +28,8 @@
     "en_US": {
       "components": {
         "0": "Add Character Sounds for BG: SOD"
-      }
+      },
+      "description": "A WeiDU mod that adds AI-generated English voiceovers for all characters in SoD."
     },
     "zh_CN": {
       "description": "这是一个 Weidu 模组，为龙矛围攻（SoD）中的所有角色添加了由人工智能生成的英文配音。"

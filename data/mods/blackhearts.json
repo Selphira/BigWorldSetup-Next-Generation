@@ -31,8 +31,8 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "1": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "20005": {"type": "std", "games": ["bg2ee", "eet"]}
+    "1": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "AWizardDidIt-Blackhearts_BG1"},
+    "20005": {"type": "std", "games": ["bg2ee", "eet"], "label": "AWizardDidIt-Blackhearts_BG2"}
   },
   "languages": {
     "en_US": 0,
@@ -85,6 +85,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "blackhearts(1):gorgon(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

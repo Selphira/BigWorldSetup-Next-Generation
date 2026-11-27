@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod"], "label": "rodeur_de_l_ombre"}
   },
   "languages": {
     "fr_FR": 0,

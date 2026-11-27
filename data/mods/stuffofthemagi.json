@@ -16,7 +16,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3"], "category": "smith", "default": "0", "games": ["bg2ee", "bgt", "eet"]}
+    "choice_0": {"type": "muc", "components": ["0", "1", "2", "3"], "category": "smith", "default": "0", "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "sotm_new_items_in_cre_equipment", "1": "sotm_new_items_in_cre_inventory", "2": "sotm_original_items_in_cre_equipment", "3": "sotm_original_items_in_cre_inventory"}}
   },
   "languages": {
     "en_US": 0,

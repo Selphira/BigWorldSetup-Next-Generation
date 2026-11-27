@@ -16,9 +16,9 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["conv"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["2", "3"], "games": ["eet"]},
+    "choice_0": {"type": "muc", "components": ["2", "3"], "games": ["eet"], "labels": {"2": "Tipun_iwd1_eet_Special_ru", "3": "Tipun_iwd1_eet_Special"}},
     "0": {"type": "std"},
-    "1": {"type": "std", "games": ["eet"]}
+    "1": {"type": "std", "games": ["eet"], "label": "Tipun_iwd1_eet"}
   },
   "languages": {
     "ru_RU": 0,
@@ -113,6 +113,15 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "iwd1_eet(1):iwd1_eet(2,60)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

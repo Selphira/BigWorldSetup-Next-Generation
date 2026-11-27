@@ -29,10 +29,10 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["npc", "gameplay"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "20": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "21": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "choice_1": {"type": "muc", "components": ["100", "101"], "category": "npcx"}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3", "4"], "category": "npcx", "default": "1", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "labels": {"1": "A7-NPCGENERATOR-ADD_NPC_USER", "2": "A7-NPCGENERATOR-ADD_NPC_GAME", "3": "A7-NPCGENERATOR-ADD_NPC_ALL", "4": "A7-NPCGENERATOR-ADD_NPC_AUTOMATED"}},
+    "20": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "A7-NPCGENERATOR-ALIGNMENT_CHECK_ENABLE"},
+    "21": {"type": "std", "category": "npcx", "games": ["bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "A7-NPCGENERATOR-ALIGNMENT_CHECK_DISABLE"},
+    "choice_1": {"type": "muc", "components": ["100", "101"], "category": "npcx", "labels": {"100": "A7-NPCGENERATOR-REMOVE_NPC_INDIVIDUAL", "101": "A7-NPCGENERATOR-REMOVE_NPC_ALL"}}
   },
   "languages": {
     "en_US": 0,

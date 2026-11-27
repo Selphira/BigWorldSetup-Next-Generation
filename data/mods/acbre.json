@@ -8,16 +8,16 @@
     {
       "filename": "ascalons-breagar-12.2.1.zip",
       "size": 46147933,
-      "download": "https://github.com/Gitjas/Ascalons_Breagar/releases/download/v12.2.1/ascalons-breagar-12.2.1.zip",
-      "sha256": "cbe462ffa462f82379bfa86b8fa52871c704aadb294bb40a97226a15a9a60fec"
+      "sha256": "cbe462ffa462f82379bfa86b8fa52871c704aadb294bb40a97226a15a9a60fec",
+      "download": "https://github.com/Gitjas/Ascalons_Breagar/releases/download/v12.2.1/ascalons-breagar-12.2.1.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc", "kit"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "2": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"]},
-    "choice_0": {"type": "muc", "components": ["10", "11", "12", "13"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"], "label": "Ascalons_Breagar-main"},
+    "2": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "sod"], "label": "Ascalons_Breagar-crossmod"},
+    "choice_0": {"type": "muc", "components": ["10", "11", "12", "13"], "labels": {"10": "Ascalons_Breagar-dialogue_timer_45min", "11": "Ascalons_Breagar-dialogue_timer_60min", "12": "Ascalons_Breagar-dialogue_timer_15min", "13": "Ascalons_Breagar-dialogue_timer_90min"}}
   },
   "languages": {
     "de_DE": 0,
@@ -82,6 +82,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      },
+      {
+        "rule": "acbre(0,2):eet_end(0,1)",
+        "severity": "error",
+        "direction": "before",
+        "translations": {
+          "de_DE": "Diese Mod muss vor EET_End installiert werden.",
+          "en_US": "This mod needs to be installed before EET_End on your EET install.",
+          "ru_RU": "This mod needs to be installed before EET_End on your EET install."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "acbre(2,10,11,12,13):acbre(0)",
+        "severity": "error",
+        "translations": {
+          "de_DE": "Ihr habt den Hauptteil von Breagar nicht installiert. Installation wird abgebrochen.",
+          "en_US": "You did not install the main component of Breagar. Canceling installation.",
+          "ru_RU": "You did not install the main component of Breagar. Canceling installation."
+        },
+        "origin": "tp2"
       }
     ]
   }

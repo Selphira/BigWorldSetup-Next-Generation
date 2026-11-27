@@ -29,9 +29,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "0": {"type": "std", "category": "spell"},
-    "choice_0": {"type": "muc", "components": ["101", "102"], "category": "spell", "default": "101", "games": ["bg2ee", "eet"]},
-    "200": {"type": "std", "category": "spell"}
+    "0": {"type": "std", "category": "spell", "label": "A7-SKIPCHATEAUIRENICUS-MAIN"},
+    "choice_0": {"type": "muc", "components": ["101", "102"], "category": "spell", "default": "101", "games": ["bg2ee", "eet"], "labels": {"101": "A7-SKIPCHATEAUIRENICUS-NPCS_VANILLA", "102": "A7-SKIPCHATEAUIRENICUS-NPCS_ALL"}},
+    "200": {"type": "std", "category": "spell", "label": "A7-SKIPCHATEAUIRENICUS-REALISTIC_OPENING_CUTSCENE"}
   },
   "languages": {
     "en_US": 0,
@@ -128,6 +128,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "skipchateauirenicus(101,102):skipchateauirenicus(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component required.",
+          "de_DE": "Benoetigt die Hauptkomponente.",
+          "fr_FR": "Le composant principal est pre-requis.",
+          "pl_PL": "Wymagany glowny komponent.",
+          "ru_RU": "Main component required.",
+          "es_ES": "Componente principal requerido.",
+          "pt_BR": "É requerido o componente principal."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "skipchateauirenicus(200):bg2_tweaks(3140,3141)&cdtweaks(3140,3141)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

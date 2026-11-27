@@ -126,5 +126,51 @@
   },
   "tp2": "tddz",
   "safe": 1,
-  "authors": ["shadowlich", "Max Schnur", "Horred the Plague", "Hoppy", "Minto", "King Diamond"]
+  "authors": ["shadowlich", "Max Schnur", "Horred the Plague", "Hoppy", "Minto", "King Diamond"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "tddz(1,2,3,4,5,6):tddz(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must have TDD - Core installed",
+          "ru_RU": "You must have TDD - Core installed",
+          "pl_PL": "You must have TDD - Core installed",
+          "de_DE": "You must have TDD - Core installed",
+          "fr_FR": "TDD - Core est obligatoire",
+          "it_IT": "You must have TDD - Core installed",
+          "es_ES": "You must have TDD - Core installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "tddz(1000):bggo(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "No BGGO is installed",
+          "ru_RU": "No BGGO is installed",
+          "pl_PL": "No BGGO is installed",
+          "de_DE": "No BGGO is installed",
+          "fr_FR": "No BGGO is installed",
+          "it_IT": "No BGGO is installed",
+          "es_ES": "No BGGO is installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "tddz(1000):tddz(2,3,4)",
+        "severity": "error",
+        "translations": {
+          "en_US": "No TDD component detected.",
+          "ru_RU": "No TDD component detected.",
+          "pl_PL": "No TDD component detected.",
+          "de_DE": "No TDD component detected.",
+          "fr_FR": "No TDD component detected.",
+          "it_IT": "No TDD component detected.",
+          "es_ES": "No TDD component detected."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

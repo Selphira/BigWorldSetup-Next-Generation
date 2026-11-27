@@ -15,11 +15,11 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["tactic"],
   "components": {
-    "1000": {"type": "std", "category": "spell", "games": ["bgt", "eet"]},
-    "choice_0": {"type": "muc", "components": ["2100", "2200", "2300", "2400"], "category": "spell", "default": "2100"},
-    "choice_1": {"type": "muc", "components": ["3100", "3200", "3300", "3400", "3500", "3600", "3700", "3800"], "category": "spell", "default": "3100"},
-    "4000": {"type": "std", "category": "spell"},
-    "5000": {"type": "std", "category": "spell"}
+    "1000": {"type": "std", "category": "spell", "games": ["bgt", "eet"], "label": "BGSpawn-Main"},
+    "choice_0": {"type": "muc", "components": ["2100", "2200", "2300", "2400"], "category": "spell", "default": "2100", "labels": {"2100": "BGSpawn-RespawnTime8Hours", "2200": "BGSpawn-RespawnTime1Day", "2300": "BGSpawn-RespawnTime10Days", "2400": "BGSpawn-RespawnTime50DaysNone"}},
+    "choice_1": {"type": "muc", "components": ["3100", "3200", "3300", "3400", "3500", "3600", "3700", "3800"], "category": "spell", "default": "3100", "labels": {"3100": "BGSpawn-SpawnProbability-15", "3200": "BGSpawn-SpawnProbability-25", "3300": "BGSpawn-SpawnProbability-33", "3400": "BGSpawn-SpawnProbability-50", "3500": "BGSpawn-SpawnProbability-66", "3600": "BGSpawn-SpawnProbability-75", "3700": "BGSpawn-SpawnProbability-85", "3800": "BGSpawn-SpawnProbability-100"}},
+    "4000": {"type": "std", "category": "spell", "label": "BGSpawn-VampiricWolfLord"},
+    "5000": {"type": "std", "category": "spell", "label": "BGSpawn-RandomEncounters"}
   },
   "languages": {
     "en_US": 0,
@@ -214,6 +214,23 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "bgspawn(2100,2200,2300,2400,3100,3200,3300,3400,3500,3600,3700,3800):bgspawn(1000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires main component.",
+          "de_DE": "This component requires main component.",
+          "it_IT": "This component requires main component.",
+          "fr_FR": "This component requires main component.",
+          "ru_RU": "This component requires main component.",
+          "es_ES": "This component requires main component.",
+          "zh_CN": "This component requires main component.",
+          "zh_TW": "This component requires main component."
+        },
+        "origin": "tp2"
       }
     ]
   }

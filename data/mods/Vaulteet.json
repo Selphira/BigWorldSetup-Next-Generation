@@ -76,5 +76,23 @@
   },
   "tp2": "vaulteet",
   "safe": 2,
-  "authors": ["Josh Clue", "Erebusant", "Adanedhel"]
+  "authors": ["Josh Clue", "Erebusant", "Adanedhel"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "vaulteet(1):vaulteet(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the main component",
+          "fr_FR": "Requiert le composant principal",
+          "it_IT": "Richiede il componente principale",
+          "es_ES": "Requiere el componente principal",
+          "ru_RU": "Requires the main component",
+          "pl_PL": "Wymaga glownego komponentu",
+          "zh_CN": "必须先安装核心组件"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

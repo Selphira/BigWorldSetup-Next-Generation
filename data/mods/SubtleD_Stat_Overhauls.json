@@ -1,39 +1,40 @@
 {
   "name": "SubtleD's Stat Overhauls",
-  "version": "1.8",
+  "version": "1.8.2",
   "links": {
     "homepage": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls",
     "forums": ["https://www.gibberlings3.net/forums/"]
   },
   "files": [
     {
-      "filename": "SubtleD_Stat_Overhauls-1.8.zip",
-      "size": 1692177,
-      "sha256": "c867d1c81a17fa478e002903bfd1829eaf2c343e555018f021f789f5f73b22d7",
-      "download": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls/archive/refs/tags/1.8.zip"
+      "filename": "SubtleD_Stat_Overhauls-1.8.2.zip",
+      "download": "https://github.com/subtledoctor/SubtleD_Stat_Overhauls/archive/refs/tags/1.8.2.zip",
+      "size": 1701493,
+      "sha256": "c7a936b9ac6009b1b5e79843ad19a764edc85b309fb2e21a6f1928b77956b927"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "100": {"type": "std", "category": "spell"},
-    "110": {"type": "std", "category": "spell"},
-    "choice_0": {"type": "muc", "components": ["121", "122"], "category": "spell", "default": "121"},
-    "130": {"type": "std", "category": "spell"},
-    "140": {"type": "std", "category": "spell"},
-    "choice_1": {"type": "muc", "components": ["151", "152", "153"], "category": "spell", "default": "151"},
-    "160": {"type": "std", "category": "spell"},
-    "180": {"type": "std", "category": "spell"},
-    "200": {"type": "std", "category": "spell"},
-    "choice_2": {"type": "muc", "components": ["211", "212", "213"], "category": "spell", "default": "211"},
-    "choice_3": {"type": "muc", "components": ["221", "222", "223", "224"], "category": "spell", "default": "221"},
-    "choice_4": {"type": "muc", "components": ["231", "232", "233", "234"], "category": "spell", "default": "231", "games": ["bg2ee", "eet"]},
-    "choice_5": {"type": "muc", "components": ["251", "252"], "category": "spell", "default": "251"}
+    "100": {"type": "std", "category": "spell", "label": "D5_REVISED_ABILITY_SCORES"},
+    "110": {"type": "std", "category": "spell", "label": "D5_ABILITY_SCORE_SPELL_SLOTS"},
+    "choice_0": {"type": "muc", "components": ["121", "122"], "category": "spell", "default": "121", "labels": {"121": "D5_SBO_5E_MEM_PLUS_CASTING_SLOTS", "122": "D5_SBO_5E_CASTING_SLOTS_ONLY_"}},
+    "130": {"type": "std", "category": "spell", "label": "D5_1_HAND_STR_PENALTY"},
+    "140": {"type": "std", "category": "spell", "label": "D5_PLINKIFICATION"},
+    "choice_1": {"type": "muc", "components": ["151", "152", "153"], "category": "spell", "default": "151", "labels": {"151": "D5_REVISED_HD", "152": "D5_HARDCORE_HD", "153": "D5_REDUCED_HD"}},
+    "160": {"type": "std", "category": "spell", "label": "D5_REVISED_SAVING_THROW_TABLES"},
+    "180": {"type": "std", "category": "spell", "label": "D5_REVISED_DUAL_CLASS_REQS"},
+    "200": {"type": "std", "category": "spell", "label": "D5_UNIFORM_XP_TABLES"},
+    "choice_2": {"type": "muc", "components": ["211", "212", "213"], "category": "spell", "default": "211", "labels": {"211": "D5_EIGHTH_CREATURE_XP", "212": "D5_QUARTER_CREATURE_XP", "213": "D5_HALF_CREATURE_XP"}},
+    "choice_3": {"type": "muc", "components": ["221", "222", "223", "224"], "category": "spell", "default": "221", "labels": {"221": "D5_START_SOD_65K", "222": "D5_START_SOD_90K", "223": "D5_START_SOD_125K", "224": "D5_START_SOD_161K"}},
+    "choice_4": {"type": "muc", "components": ["231", "232", "233", "234"], "category": "spell", "default": "231", "games": ["bg2ee", "eet"], "labels": {"231": "D5_START_SOA_90K", "232": "D5_START_SOA_161K", "233": "D5_START_SOA_240K", "234": "D5_START_SOA_400K"}},
+    "choice_5": {"type": "muc", "components": ["251", "252"], "category": "spell", "default": "251", "labels": {"251": "D5_REVISED_MR", "252": "D5_REDUCED_MR"}}
   },
   "languages": {
     "en_US": 0,
     "pl_PL": 1,
-    "fr_FR": 2
+    "fr_FR": 2,
+    "zh_CN": 3
   },
   "translations": {
     "fr_FR": {
@@ -109,7 +110,40 @@
       }
     },
     "zh_CN": {
-      "description": "此模组重新定义了属性的游戏玩法。每个组件都可以独立于其他组件进行选择。"
+      "description": "此模组重新定义了属性的游戏玩法。每个组件都可以独立于其他组件进行选择。",
+      "components": {
+        "100": "属性值大修",
+        "110": "基于属性的奖励法术位",
+        "choice_0": "为5E风格施法者提供基于属性的奖励法术",
+        "121": "同时增益记忆位和施法位",
+        "122": "仅增益施法位",
+        "130": "仅限双手武器享受全额力量加值",
+        "140": "规划化调整",
+        "choice_1": "生命骰大修",
+        "151": "慷慨（高于平均水平）的生命值",
+        "152": "接近平均水平的生命值",
+        "153": "降低的生命值",
+        "160": "豁免检定大修",
+        "180": "降低兼职要求",
+        "200": "更慢、标准化的经验值表",
+        "choice_2": "无谋杀经验值",
+        "211": "击杀获得1/8经验值",
+        "212": "击杀获得1/4经验值",
+        "213": "击杀获得一半经验值",
+        "choice_3": "选择《龙矛围攻》起始经验值",
+        "221": "65,000",
+        "222": "90,000",
+        "223": "125,000",
+        "224": "161,000",
+        "choice_4": "选择《安姆阴影》起始经验值",
+        "231": "90,000",
+        "232": "161,000",
+        "233": "240,000",
+        "234": "400,000",
+        "choice_5": "魔法抗性大修",
+        "251": "用其他效果替换魔法抗性",
+        "252": "降低魔法抗性"
+      }
     },
     "pl_PL": {
       "components": {
@@ -157,6 +191,33 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "subtled_stat_overhauls(100,110,121,122):tomeandblood(48,62,55)&d5_random_tweaks(3111,3112,1611)&leui(0)&leui-bg1ee(0)&leui-sod(0)&subtled_spell_tweaks(62)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_stat_overhauls(110,121,122):5e_spellcasting(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_stat_overhauls(121,122):subtled_stat_overhauls(110)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_stat_overhauls(140,160,251,252):item_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

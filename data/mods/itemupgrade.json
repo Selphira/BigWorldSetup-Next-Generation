@@ -30,9 +30,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "10"], "default": "10"},
-    "choice_1": {"type": "muc", "components": ["1", "11"], "default": "11", "games": ["bg2ee", "bgt", "eet"]},
-    "12": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["0", "10"], "default": "10", "labels": {"0": "c2_item_upgrade_soa_original", "10": "c2_item_upgrade_soa_seamless"}},
+    "choice_1": {"type": "muc", "components": ["1", "11"], "default": "11", "games": ["bg2ee", "bgt", "eet"], "labels": {"1": "c2_item_upgrade_tob_original", "11": "c2_item_upgrade_tob_seamless"}},
+    "12": {"type": "std", "label": "c2_item_upgrade_cespenar_audio"}
   },
   "languages": {
     "en_US": 0,
@@ -153,6 +153,30 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "itemupgrade(0,10,1,11):zstweaks(1430,103,1313,1301,1180,1001,1440,1450,1380,1379,1500,1317,1150,1120,1370,1170)&bg2fixpack(114)&iwdification(190)&stratagems(4250)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "itemupgrade(12):itemupgrade(1,11)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the Throne Of Bhaal Item Upgrades component for installation",
+          "fr_FR": "Requires the Throne Of Bhaal Item Upgrades component for installation",
+          "de_DE": "Requires the Throne Of Bhaal Item Upgrades component for installation",
+          "es_ES": "Para su instalación, se necesita el componente Mejoras de objetos del Trono de Bhaal",
+          "pl_PL": "Wymagany komponenet: Ulepszenia przedmiotow dla Tronu Bhaala",
+          "ru_RU": "Requires the Throne Of Bhaal Item Upgrades component for installation",
+          "ko_KR": "Requires the Throne Of Bhaal Item Upgrades component for installation",
+          "zh_CN": "安装该组件需要先安装“巴尔王座物品强化”组件"
+        },
+        "origin": "tp2"
       }
     ]
   }

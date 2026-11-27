@@ -25,15 +25,15 @@
   "categories": ["util"],
   "components": {
     "0": {"type": "std", "category": "patch"},
-    "1": {"type": "std", "category": "patch"},
-    "9": {"type": "std"},
-    "2": {"type": "std", "category": "patch"},
-    "3": {"type": "std", "category": "patch"},
-    "4": {"type": "std", "category": "patch"},
-    "5": {"type": "std", "category": "patch"},
-    "6": {"type": "std", "category": "patch"},
-    "7": {"type": "std", "category": "patch"},
-    "8": {"type": "std"}
+    "1": {"type": "std", "category": "patch", "label": "B3-EEex-Main"},
+    "9": {"type": "std", "label": "B3-EEex-Module-Attack-Info"},
+    "2": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Effect-Menu"},
+    "3": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Empty-Containers"},
+    "4": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Hotkey"},
+    "5": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Scale"},
+    "6": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Time-Step"},
+    "7": {"type": "std", "category": "patch", "label": "B3-EEex-Module-Timer-Main"},
+    "8": {"type": "std", "label": "B3-EEex-LuaJIT"}
   },
   "languages": {
     "en_US": 0,
@@ -92,5 +92,29 @@
   },
   "tp2": "eeex",
   "safe": 2,
-  "authors": ["Bubb"]
+  "authors": ["Bubb"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "eeex(1):eeex(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the core component to be installed.",
+          "zh_CN": "此组件需要先安装核心组件。",
+          "es_ES": "Este componente requiere que el componente principal esté instalado."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "eeex(9,2,3,4,5,6,7,8):eeex(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component to be installed.",
+          "zh_CN": "此组件需要先安装主组件。",
+          "es_ES": "Este componente requiere que el componente principal esté instalado."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

@@ -152,6 +152,16 @@
         "severity": "warning",
         "origin": "ini"
       }
+    ],
+    "dependencies": [
+      {
+        "rule": "drunkshaders(1105,1125,1205,1215,1225,1304,1314,1305,1315,1405,1415,1425,1435,1445,1455,1465,1475,1505,1515,1605,1615,1625,1635,1645,1655,1665,1675,1705,1805,9005):drunkshaders(1000)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This requires the main component."
+        },
+        "origin": "tp2"
+      }
     ]
   }
 }

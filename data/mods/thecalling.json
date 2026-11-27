@@ -31,16 +31,16 @@
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["60", "61"], "games": ["bgee", "eet", "sod"]},
-    "70": {"type": "std"},
-    "80": {"type": "std"},
-    "50": {"type": "std"},
-    "90": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "20": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"]},
-    "choice_1": {"type": "muc", "components": ["40", "41"]},
-    "100": {"type": "std"}
+    "0": {"type": "std", "label": "cd_the_calling_mage"},
+    "10": {"type": "std", "label": "cd_the_calling_fighter"},
+    "choice_0": {"type": "muc", "components": ["60", "61"], "games": ["bgee", "eet", "sod"], "labels": {"60": "cd_the_calling_shaman_normal_text", "61": "cd_the_calling_shaman_golden_text"}},
+    "70": {"type": "std", "label": "cd_the_calling_monk"},
+    "80": {"type": "std", "label": "cd_the_calling_thief"},
+    "50": {"type": "std", "label": "cd_the_calling_cheats"},
+    "90": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "cd_the_calling_yaoi_yuri_ahead"},
+    "20": {"type": "std", "games": ["bgee", "bgt", "eet", "sod"], "label": "cd_the_calling_peaceful_kaishas_resolution"},
+    "choice_1": {"type": "muc", "components": ["40", "41"], "labels": {"40": "cd_the_calling_exotic_items", "41": "cd_the_calling_exotic_items_remove_bgee"}},
+    "100": {"type": "std", "label": "cd_the_calling_badges_for_scalps"}
   },
   "languages": {
     "en_US": 0,
@@ -255,6 +255,80 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "thecalling(10):1pp(102,207)&cdtweaks(1110)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "thecalling(50):thecalling(10,20,60,61,70)",
+        "severity": "error",
+        "translations": {
+          "en_US": "No Callings installed",
+          "cs_CZ": "No Callings installed",
+          "fr_FR": "No Callings installed",
+          "de_DE": "No Callings installed",
+          "it_IT": "No Callings installed",
+          "ko_KR": "No Callings installed",
+          "pl_PL": "No Callings installed",
+          "ru_RU": "No Callings installed",
+          "es_ES": "No Callings installed",
+          "zh_CN": "No Callings installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "thecalling(20):thecalling(90)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "thecalling(100):sotsc(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "thecalling(20):stratagems(7060)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "cs_CZ": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja incluses ou rendues obsoletes par un autre mod deja installe.",
+          "de_DE": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "it_IT": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "ko_KR": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "pl_PL": "Funkcje tego komponentu sa juz zawarte w twojej grze.",
+          "ru_RU": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "es_ES": "La funcionalidad de este componente ya está incluida o ha sido sustituida por uno de los mods ya instalados..",
+          "zh_CN": "此组件的功能已经被你已安装的某个模组包含或取代。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "thecalling(40,41):cdtweaks(1090)",
+        "severity": "error",
+        "translations": {
+          "en_US": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "cs_CZ": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "fr_FR": "Les fonctionnalites de ce composant sont deja incluses ou rendues obsoletes par un autre mod deja installe.",
+          "de_DE": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "it_IT": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "ko_KR": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "pl_PL": "Funkcje tego komponentu sa juz zawarte w twojej grze.",
+          "ru_RU": "The functionality of this component is either already included or superceded by one of your already installed mods.",
+          "es_ES": "La funcionalidad de este componente ya está incluida o ha sido sustituida por uno de los mods ya instalados..",
+          "zh_CN": "此组件的功能已经被你已安装的某个模组包含或取代。"
+        },
+        "origin": "tp2"
       }
     ]
   }

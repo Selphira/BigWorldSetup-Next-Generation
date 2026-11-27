@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"}
+    "0": {"type": "std", "label": "L#-VARSHOON"},
+    "1": {"type": "std", "label": "L#-VARSHOON-BAM"}
   },
   "languages": {
     "en_US": 0,
@@ -63,5 +63,28 @@
   },
   "tp2": "varshoon",
   "safe": 2,
-  "authors": ["Lava Del'Vortel"]
+  "authors": ["Lava Del'Vortel"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "varshoon(0):item_rev(0)&spell_rev(0)&1pp(208)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "varshoon(1):varshoon(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main component required",
+          "it_IT": "E' richiesto il componente principale",
+          "ru_RU": "Main component required",
+          "fr_FR": "Le composant principal est requis",
+          "zh_CN": "所需主要组件"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

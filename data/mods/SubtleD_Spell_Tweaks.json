@@ -1,16 +1,16 @@
 {
   "name": "SubtleD's Spell Tweaks",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "links": {
     "homepage": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks",
     "forums": ["https://www.gibberlings3.net/forums/topic/37238-subtlemods-subtleds-spell-tweaks/"]
   },
   "files": [
     {
-      "filename": "SubtleD_Spell_Tweaks-2.9.1.zip",
-      "size": 1881080,
-      "sha256": "23eb649c0c500a48c3741bfdf0128d1f7c0b18e64a1d0f4eaaa96c7f336b4b4b",
-      "download": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks/archive/refs/tags/2.9.1.zip"
+      "filename": "SubtleD_Spell_Tweaks-2.9.2.zip",
+      "download": "https://github.com/subtledoctor/SubtleD_Spell_Tweaks/archive/refs/tags/2.9.2.zip",
+      "size": 1881121,
+      "sha256": "98b2c5d8753337c3ec65ea2dccecfa39a431ff9759815341326fe62e745efaf9"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
@@ -266,6 +266,32 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "subtled_spell_tweaks(30,36,37,40,45,50,81,82,83):item_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_spell_tweaks(61,62,63,2110):tomeandblood(48)&d5_random_tweaks(3111,3112)&leui(0)&leui-bg1ee(0)&leui-sod(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "subtled_spell_tweaks(1505):subtled_spell_tweaks(45)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Individual Spell Tweaks",
+          "fr_FR": "Individual Spell Tweaks"
+        },
+        "origin": "tp2"
       }
     ]
   }

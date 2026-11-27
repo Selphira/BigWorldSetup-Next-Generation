@@ -31,8 +31,8 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["util"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3"], "games": ["bgee", "eet", "sod"]},
-    "10": {"type": "std", "games": ["eet", "sod"]}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"], "games": ["bgee", "eet", "sod"], "labels": {"1": "A7-DLCMERGER-MERGE_SOD", "2": "A7-DLCMERGER-MERGE_CUSTOM_DLC", "3": "A7-DLCMERGER-MERGE_ALL_DLCS"}},
+    "10": {"type": "std", "games": ["eet", "sod"], "label": "A7-DLCMERGER-FIX_LANGUAGE_SELECTION"}
   },
   "languages": {
     "en_US": 0,

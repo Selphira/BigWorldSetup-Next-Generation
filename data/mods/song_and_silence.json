@@ -29,17 +29,17 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std", "category": "spell"},
-    "1": {"type": "std", "category": "smith", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "2": {"type": "std"},
-    "3": {"type": "std"},
-    "4": {"type": "std"},
-    "5": {"type": "std"},
-    "6": {"type": "std"},
-    "7": {"type": "std"},
-    "8": {"type": "std"},
-    "9": {"type": "std"},
-    "10": {"type": "std", "games": ["bg2", "bgt", "tutu"]}
+    "0": {"type": "std", "category": "spell", "label": "a!_sns_base_component"},
+    "1": {"type": "std", "category": "smith", "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"], "label": "a!_sns_items"},
+    "2": {"type": "std", "label": "a!_sns_kit_acrobat"},
+    "3": {"type": "std", "label": "a!_sns_kit_chorister"},
+    "4": {"type": "std", "label": "a!_sns_kit_dirgesinger"},
+    "5": {"type": "std", "label": "a!_sns_kit_luring_piper"},
+    "6": {"type": "std", "label": "a!_sns_kit_adventurer"},
+    "7": {"type": "std", "label": "a!_sns_kit_burglar"},
+    "8": {"type": "std", "label": "a!_sns_kit_soulknife"},
+    "9": {"type": "std", "label": "a!_sns_kit_sharpshooter"},
+    "10": {"type": "std", "games": ["bg2", "bgt", "tutu"], "label": "a!_sns_kit_shadowdancer"}
   },
   "languages": {
     "en_US": 0,
@@ -176,6 +176,42 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "song_and_silence(0):iwdification(150)&cdtweak(2270,2271)&bg2fixpack(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "song_and_silence(2,3,4,5,6,7,8,9,10):song_and_silence(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You must have the first component installed to use this one",
+          "fr_FR": "Vous devez avoir installe le premier composant pour installer celui-ci",
+          "pl_PL": "Przed instalacja tego komponentu nalezy zainstalowac pierwszy, wymagany komponent",
+          "de_DE": "Sie müssen die erste Komponente installiert haben um diese zu nutzen",
+          "ru_RU": "You must have the first component installed to use this one",
+          "it_IT": "Devi avere il primo componente installato per usare questo",
+          "zh_CN": "要使用本组件必须先完成第一个组件的安装"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "song_and_silence(2,3):iwdification(50)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "song_and_silence(6):npckit(1400,2500)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

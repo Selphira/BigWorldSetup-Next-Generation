@@ -67,5 +67,18 @@
   },
   "tp2": "derats_follower_it",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_follower_it(1,2,3,4):derats_follower_it(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Ce composant nécessite le composant principal",
+          "en_US": "This component requires the main component"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

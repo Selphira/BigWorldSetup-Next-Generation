@@ -30,10 +30,10 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "eet", "sod"]},
-    "20": {"type": "std", "games": ["bg2ee", "eet"]},
-    "choice_0": {"type": "muc", "components": ["30", "31", "32", "33"], "default": "31"},
-    "40": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "eet", "sod"], "label": "A7-TOTLM-BG2EE-MAIN"},
+    "20": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-TOTLM-BG2EE-REBALANCE_ITEMS"},
+    "choice_0": {"type": "muc", "components": ["30", "31", "32", "33"], "default": "31", "labels": {"30": "A7-TOTLM-BG2EE-REDUCE_XP_BY_25", "31": "A7-TOTLM-BG2EE-REDUCE_XP_BY_50", "32": "A7-TOTLM-BG2EE-REDUCE_XP_BY_75", "33": "A7-TOTLM-BG2EE-REDUCE_XP_BY_100"}},
+    "40": {"type": "std", "label": "A7-TOTLM-BG2EE-TRADE_WITH_HOBART"}
   },
   "languages": {
     "en_US": 0,
@@ -175,6 +175,31 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-totlm-bg2ee(0):stratagems(1500)&iwdification(30)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-totlm-bg2ee(20,30,31,32,33,40):a7-totlm-bg2ee(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires the main component to be installed.",
+          "fr_FR": "Ce composant requiert l'installation prealable du composant principal.",
+          "de_DE": "Benoetigt die Hauptkomponente.",
+          "it_IT": "Richiede che la componente principale sia installata.",
+          "ru_RU": "¥®¡å®¤¨¬  ãáâ ­®¢ª  £« ¢­®£® ª®¬¯®­¥­â .",
+          "es_ES": "Se requiere la instalacion del componente principal.",
+          "pl_PL": "Requires the main component to be installed.",
+          "pt_BR": "Requer que o componente principal esteja instalado.",
+          "zh_CN": "需要先安装主组件"
+        },
+        "origin": "tp2"
       }
     ]
   }

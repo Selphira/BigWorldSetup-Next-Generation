@@ -31,48 +31,48 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "pstee", "sod"],
   "categories": ["ui"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"},
-    "11": {"type": "std"},
-    "12": {"type": "std"},
-    "13": {"type": "std"},
-    "14": {"type": "std"},
-    "15": {"type": "std", "games": ["pstee"]},
-    "16": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "17": {"type": "std", "games": ["bg2ee", "bgee", "eet", "pstee", "sod"]},
-    "18": {"type": "std"},
-    "19": {"type": "std"},
-    "20": {"type": "std"},
-    "21": {"type": "std", "games": ["pstee"]},
-    "22": {"type": "std"},
-    "23": {"type": "std"},
-    "24": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "25": {"type": "std"},
-    "26": {"type": "std", "games": ["pstee"]},
-    "27": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "28": {"type": "std"},
-    "29": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "30": {"type": "std", "games": ["bg2ee", "eet", "iwdee", "pstee"]},
-    "31": {"type": "std", "games": ["pstee"]},
-    "32": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "33": {"type": "std"},
-    "34": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "35": {"type": "std"},
-    "36": {"type": "std"},
-    "37": {"type": "std"},
-    "38": {"type": "std"},
-    "39": {"type": "std"},
-    "40": {"type": "std"},
-    "200": {"type": "std"},
-    "201": {"type": "std"},
-    "300": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "301": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "302": {"type": "std", "games": ["eet", "sod"]},
-    "303": {"type": "std", "games": ["iwdee"]},
-    "304": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"]},
-    "305": {"type": "std", "games": ["pstee"]},
-    "306": {"type": "std", "games": ["eet", "sod"]},
-    "choice_0": {"type": "muc", "components": ["101", "102", "103"], "default": "101"}
+    "0": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-INSTALL_ALL"},
+    "10": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ENABLE_DEBUG_MODE"},
+    "11": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ENABLE_UI_EDIT_MODE"},
+    "12": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_STRREFS"},
+    "13": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_HOTKEYS_ON_TOOLTIPS"},
+    "14": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_TRIGGER_ICONS_ON_TAB"},
+    "15": {"type": "std", "games": ["pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ALLOW_SPACEBAR_IN_DIALOGS"},
+    "16": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_LIMIT_DRUIDIC_SPELLS_FOR_CLERIC_RANGER"},
+    "17": {"type": "std", "games": ["bg2ee", "bgee", "eet", "pstee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_3E_SNEAK_ATTACK"},
+    "18": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_CRITICAL_HIT_SCREEN_SHAKE"},
+    "19": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_EXTRA_COMBAT_INFO"},
+    "20": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_GAME_DATE_AND_TIME_ON_PAUSE"},
+    "21": {"type": "std", "games": ["pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_DISABLE_AREA_MAP_ZOOM"},
+    "22": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_REVERSE_MOUSE_WHEEL_ZOOM"},
+    "23": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_PAUSE_GAME_ON_MAP_SCREEN"},
+    "24": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ENABLE_FOG"},
+    "25": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_DISABLE_MOVIES"},
+    "26": {"type": "std", "games": ["pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_NO_COSMETIC_ATTACKS"},
+    "27": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_XP_BONUS_IN_NIGHTMARE_MODE"},
+    "28": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_TRIGGER_BORED_SOUNDS"},
+    "29": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_FRAME_RATE"},
+    "30": {"type": "std", "games": ["bg2ee", "eet", "iwdee", "pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ACTION_FEEDBACK"},
+    "31": {"type": "std", "games": ["pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ENABLE_LEVEL_UP_ICON"},
+    "32": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_AOE_RADIUS"},
+    "33": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_ENHANCED_PATH_SEARCH"},
+    "34": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_EXPIRE_TRAP_HIGHLIGHTS"},
+    "35": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_SHOW_LEARNABLE_SPELLS"},
+    "36": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_RENDER_SEARCH_MAP"},
+    "37": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_RENDER_DYNAMIC_SEARCH_MAP"},
+    "38": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_CREATE_INTERVAL_SAVES"},
+    "39": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_FORCE_DIALOG_PAUSE"},
+    "40": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-OPTION_RESTORED_LOADING_HINTS"},
+    "200": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_CHEAT_MENU"},
+    "201": {"type": "std", "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_CHEAT_MENU_UPDATE"},
+    "300": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-DEATH"},
+    "301": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-QUIT"},
+    "302": {"type": "std", "games": ["eet", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-GAME-FIRE"},
+    "303": {"type": "std", "games": ["iwdee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-GAME-QUIT"},
+    "304": {"type": "std", "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-GAME-LOAD"},
+    "305": {"type": "std", "games": ["pstee"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-SHOWHIDE-CHEATMENU"},
+    "306": {"type": "std", "games": ["eet", "sod"], "label": "A7-HIDDENGAMEPLAYOPTIONS-IMPROVED_UI-REMOVE-LOGWINDOW-BARS"},
+    "choice_0": {"type": "muc", "components": ["101", "102", "103"], "default": "101", "labels": {"101": "A7-HIDDENGAMEPLAYOPTIONS-KEYBINDING_PRIEST", "102": "A7-HIDDENGAMEPLAYOPTIONS-KEYBINDING_MAGE", "103": "A7-HIDDENGAMEPLAYOPTIONS-KEYBINDING_PRIEST_MAGE"}}
   },
   "languages": {
     "en_US": 0,
@@ -591,6 +591,187 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "hiddengameplayoptions(0):hiddengameplayoptions(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)&a7-leveluptweaks(0)&cdtweaks(3350,3351,3352,3353,3354,3355,3356,3357,3358,3400)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(31):a7-leveluptweaks(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires \"Level Up\" Icon Tweaks to be installed.",
+          "fr_FR": "Necessite l'installation du module \"Level Up\" Icon Tweaks.",
+          "de_DE": "Benoetigt die Mod \"Level Up\" Icon Tweaks.",
+          "pl_PL": "Wymaga uprzedniego zainstalowania modyfikacji \"Ikona zmiany poziomu\".",
+          "pt_BR": "Requer que o \"Level Up\" Icon Tweaks esteja instalado.",
+          "ru_RU": "Requires \"Level Up\" Icon Tweaks to be installed.",
+          "ko_KR": "Requires \"Level Up\" Icon Tweaks to be installed.",
+          "it_IT": "Requires \"Level Up\" Icon Tweaks to be installed.",
+          "zh_CN": "需要安装“升级”图标调整组件",
+          "es_ES": "Requiere \"Subir de nivel\" Ajustes de iconos que se instalaran."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(38):cdtweaks(3350,3351,3352,3353,3354,3355,3356,3357,3358)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires Tweaks Anthology's \"Create interval saves\" to be installed.",
+          "fr_FR": "Necessite l'installation du composant \"Creer des sauvegardes periodiques\" de Tweaks Anthology.",
+          "de_DE": "Benoetigt Tweaks Anthologys Modkomponente \"Regelmaessige Spielstaende erzeugen\".",
+          "pl_PL": "Wymaga uprzedniego zainstalowania komponentu \"Tworzenie zapisow gry w regularnych odstepach czasu\" z modyfikacji Tweaks Anthology",
+          "pt_BR": "Requer que o \"Criar Saves com Intervalo\" do Tweaks Anthology esteja instalado.",
+          "ru_RU": "Requires Tweaks Anthology's \"Create interval saves\" to be installed.",
+          "ko_KR": "Requires Tweaks Anthology's \"Create interval saves\" to be installed.",
+          "it_IT": "Requires Tweaks Anthology's \"Create interval saves\" to be installed.",
+          "zh_CN": "需要安装Tweaks Anthology的“设置存档时间间隔”组件",
+          "es_ES": "Requiere la Opcion \"Crear guardados de intervalo\" de Tweaks Anthology. para ser instalado."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(40):cdtweaks(3400)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed.",
+          "fr_FR": "Necessite l'installation du composant \"Restaurer les astuces des ecrans de chargements\" de Tweaks Anthology.",
+          "de_DE": "Benoetigt Tweaks Anthologys Modkomponente \"Wiederhergestellte Ladehinweise\".",
+          "pl_PL": "Wymaga uprzedniego zainstalowania komponentu \"Przywrocone podpowiedzi na ekranach wczytywania\" z modyfikacji Tweaks Anthology.",
+          "pt_BR": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed.",
+          "ru_RU": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed.",
+          "ko_KR": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed.",
+          "it_IT": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed.",
+          "zh_CN": "需要先安装Tweak Anthology的“恢复的加载提示”。",
+          "es_ES": "Requires Tweaks Anthology's \"Restored Loading Hints\" to be installed."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(201):hiddengameplayoptions(200)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires component \"Improved Cheat Menu\" to be installed.",
+          "fr_FR": "Necessite l'installation du composant \"Ecran de triche ameliore\".",
+          "de_DE": "Benoetigt die Modkomponente \"Verbessertes Cheatmenu\".",
+          "pl_PL": "Wymaga uprzedniego zainstalowania komponentu \"Ulepszone menu opcji ulatwiajacych gre\"",
+          "pt_BR": "Requer que o componente \"Menu Melhorado das Trapaças\" esteja instalado.",
+          "ru_RU": "Requires component \"Improved Cheat Menu\" to be installed.",
+          "ko_KR": "Requires component \"Improved Cheat Menu\" to be installed.",
+          "it_IT": "Requires component \"Improved Cheat Menu\" to be installed.",
+          "zh_CN": "需要安装“增强的作弊菜单”组件",
+          "es_ES": "Requiere el componente \"Menu de trucos mejorado\" para ser instalado."
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "hiddengameplayoptions(0,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40):eeuitweaks(1010)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod is not compatible with EEUITweaks component \"Hidden Game Options\".",
+          "fr_FR": "Ce mod n'est pas compatible avec le composant \"Options cachees du jeu\" de EEUITweaks.",
+          "de_DE": "Diese Mod kann nicht zusammen mit der EEUITweaks-Komponente \"Hidden Game Options\" installiert werden.",
+          "pl_PL": "Modyfikacja ta nie jest kompatybilna z komponentem modyfikacji EEUITweaks o nazwie \"Hidden Game Options\".",
+          "pt_BR": "Este mod nao é compatível com o componente \"Opções Ocultas do Jogo\" do mod EEUITweaks.",
+          "ru_RU": "This mod is not compatible with EEUITweaks component \"Hidden Game Options\".",
+          "ko_KR": "This mod is not compatible with EEUITweaks component \"Hidden Game Options\".",
+          "it_IT": "This mod is not compatible with EEUITweaks component \"Hidden Game Options\".",
+          "zh_CN": "该mod无法与EEUITweaks中的开启隐藏设定兼容",
+          "es_ES": "Este mod no es compatible con el componente \"Opciones de juego ocultas\" de EEUITweaks."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40):hiddengameplayoptions(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Option is already installed.",
+          "fr_FR": "Cette option est deja installee.",
+          "de_DE": "Die Option wurde bereits installiert.",
+          "pl_PL": "Nie wybrano komponentu \"Wybrane opcje\".",
+          "pt_BR": "A opção já está instalada.",
+          "ru_RU": "Component \"Selected options\" not selected.",
+          "ko_KR": "Option is already installed.",
+          "it_IT": "Option is already installed.",
+          "zh_CN": "组件已经安装",
+          "es_ES": "La Opcion ya esta instalada."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(28,29,30):leui(0)|leui-iwdee(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not compatible with Lefreut's Enhanced UI (LeUI).",
+          "fr_FR": "Ce composant n'est pas compatible avec Lefreut's Enhanced UI (LeUI).",
+          "de_DE": "Diese Komponente ist nicht mit Lefreuts Enhanced UI (LeUI) kompatibel.",
+          "pl_PL": "Ten komponent nie jest kompatybilny z modyfikacja \"Lefreut's Enhanced UI (LeUI)\".",
+          "pt_BR": "Este componente não é compatível com o Lefreut's Enhanced UI (LeUI).",
+          "ru_RU": "This component is not compatible with Lefreut's Enhanced UI (LeUI).",
+          "ko_KR": "This component is not compatible with Lefreut's Enhanced UI (LeUI).",
+          "it_IT": "This component is not compatible with Lefreut's Enhanced UI (LeUI).",
+          "zh_CN": "该组件无法与Lefreut's Enhanced UI （LeUI）兼容",
+          "es_ES": "Este componente no es compatible con la interfaz de usuario mejorada (LeUI) de Lefreut."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(29,30):infinity_ui(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not compatible with Pecca's Infinity UI.",
+          "fr_FR": "Ce composant n'est pas compatible avec Infinity UI++ de Pecca.",
+          "de_DE": "Diese Komponente ist nicht mit Peccas Infinity UI kompatibel.",
+          "pl_PL": "Ten komponent nie jest kompatybilny z modyfikacja \"Pecca's Infinity UI\".",
+          "pt_BR": "Este componente não é compatível com o Infinity UI do Pecca.",
+          "ru_RU": "This component is not compatible with Pecca's Infinity UI.",
+          "ko_KR": "This component is not compatible with Pecca's Infinity UI.",
+          "it_IT": "This component is not compatible with Pecca's Infinity UI.",
+          "zh_CN": "这个组件与Pecca's Infinity UI不兼容。",
+          "es_ES": "Este componente no es compatible con la interfaz de usuario Infinity de Pecca."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(30):tipun_gui(10)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not compatible with Tipun's User Interface.",
+          "fr_FR": "Ce composant n'est pas compatible avec l'interface Tipun_Gui.",
+          "de_DE": "Diese Komponente ist nicht mit Tipuns User Interface kompatibel.",
+          "pl_PL": "Ten komponent nie jest kompatybilny z modyfikacja \"Tipun's User Interface\".",
+          "pt_BR": "Este componente não é compatível com o Tipun's User Interface.",
+          "ru_RU": "This component is not compatible with Tipun's User Interface.",
+          "ko_KR": "This component is not compatible with Tipun's User Interface.",
+          "it_IT": "This component is not compatible with Tipun's User Interface.",
+          "zh_CN": "这个组件与Tipun's UI不兼容。",
+          "es_ES": "Este componente no es compatible con la interfaz de usuario de Tipun."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "hiddengameplayoptions(300,301,302,303,304,306):leui(0)|leui-iwdee(0)|leui-sod(0)|leui-bg1ee(0)|dragonspear_ui++(1)|infinity_ui(0)|tipun_gui(10)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not compatible with UI replacement mods.",
+          "fr_FR": "This component is not compatible with UI replacement mods.",
+          "de_DE": "Diese Komponente ist nicht mit alternativen GUIs kompatibel.",
+          "pl_PL": "Ten komponent nie jest kompatybilny z modyfikacjami zmieniajacymi interfejs uzytkownika.",
+          "pt_BR": "This component is not compatible with UI replacement mods.",
+          "ru_RU": "This component is not compatible with UI replacement mods.",
+          "ko_KR": "This component is not compatible with UI replacement mods.",
+          "it_IT": "This component is not compatible with UI replacement mods.",
+          "zh_CN": "此组件与UI替换模组不兼容。",
+          "es_ES": "This component is not compatible with UI replacement mods."
+        },
+        "origin": "tp2"
       }
     ]
   }

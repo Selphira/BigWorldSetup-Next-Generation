@@ -31,8 +31,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "choice_0": {"type": "muc", "components": ["1", "2"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "yoshimos_remorse_main"},
+    "choice_0": {"type": "muc", "components": ["1", "2"], "labels": {"1": "yoshimos_remorse_dc_at_10", "2": "yoshimos_remorse_dc_at_13"}}
   },
   "languages": {
     "en_US": 0,
@@ -95,6 +95,19 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "yoshimosremorse(1,2):yoshimosremorse(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires Yoshimo's Remorse to be installed",
+          "ru_RU": "This component requires Yoshimo's Remorse to be installed",
+          "pl_PL": "Ten komponent wymaga instalacji Skruchy Yoshimo",
+          "zh_CN": "此组件需要先安装善最的悔恨"
+        },
+        "origin": "tp2"
       }
     ]
   }

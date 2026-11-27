@@ -8,14 +8,14 @@
     {
       "filename": "evermemory-for-bg2ee-1.zip",
       "size": 2540637,
-      "download": "https://github.com/GraionDilach/zgbg2evermemory/releases/download/v1/evermemory-for-bg2ee-1.zip",
-      "sha256": "a39e0c53149e79ea8fac6ea1af5e474673cc1cfc9bf1a3f1a72d8e11a5735ea4"
+      "sha256": "a39e0c53149e79ea8fac6ea1af5e474673cc1cfc9bf1a3f1a72d8e11a5735ea4",
+      "download": "https://github.com/GraionDilach/zgbg2evermemory/releases/download/v1/evermemory-for-bg2ee-1.zip"
     }
   ],
   "games": ["bg2ee", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "ZG-BG2-EVERMEMORY"}
   },
   "languages": {
     "en_US": 0

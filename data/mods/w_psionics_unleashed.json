@@ -41,5 +41,16 @@
   },
   "tp2": "w_psionics_unleashed",
   "safe": 0,
-  "authors": ["Kwiat_W"]
+  "authors": ["Kwiat_W"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "w_psionics_unleashed(10):refinements(10)&druidsor(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

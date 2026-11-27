@@ -16,9 +16,9 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "category": "tactic", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "category": "tactic"},
-    "2": {"type": "std", "category": "tactic"}
+    "0": {"type": "std", "category": "tactic", "games": ["bg2ee", "bgt", "eet"], "label": "CoM_Solaufein-Com_encounters"},
+    "1": {"type": "std", "category": "tactic", "label": "CoM_Solaufein-improved_druids"},
+    "2": {"type": "std", "category": "tactic", "label": "CoM_Solaufein-improved_shagbag"}
   },
   "languages": {
     "en_US": 0,

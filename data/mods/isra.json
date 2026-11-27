@@ -9,16 +9,16 @@
     {
       "filename": "isra-npc-for-bg-v3.5.zip",
       "size": 8204587,
-      "download": "https://github.com/Spellhold-Studios/Isra-NPC/releases/download/v3.5/isra-npc-for-bg-v3.5.zip",
-      "sha256": "97a4fc4f0f747fc4de658efd2c9d8159a1d4dcd20b693b8b28d12d53ad4e1624"
+      "sha256": "97a4fc4f0f747fc4de658efd2c9d8159a1d4dcd20b693b8b28d12d53ad4e1624",
+      "download": "https://github.com/Spellhold-Studios/Isra-NPC/releases/download/v3.5/isra-npc-for-bg-v3.5.zip"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "1": {"type": "std"},
-    "2": {"type": "std"}
+    "0": {"type": "std", "label": "isra_npc_for_bg"},
+    "1": {"type": "std", "label": "isra_valerie_crossmod_content"},
+    "2": {"type": "std", "label": "isra_gavin_crossmod_content"}
   },
   "languages": {
     "en_US": 0,
@@ -76,6 +76,28 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "isra(1,2):isra(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Please install Isra NPC for BG main component before additional content.",
+          "ru_RU": "Please install Isra NPC for BG main component before additional content.",
+          "it_IT": "Installa il componente principale Isra NPC per BG prima dei contenuti aggiuntivi."
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "isra(2):gavin(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "You do not appear to have Gavin installed.",
+          "ru_RU": "You do not appear to have Gavin installed.",
+          "it_IT": "Sembra che la mod Gavin non sia installata."
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -16,26 +16,26 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["portrait"],
   "components": {
-    "100": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "110": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "120": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "130": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "140": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "150": {"type": "std", "games": ["bg", "bg1", "bg2", "bg2ee", "eet"]},
-    "160": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "170": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "180": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "189": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "190": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "200": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "210": {"type": "std", "games": ["bgee", "eet", "sod"]},
-    "220": {"type": "std"},
-    "221": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "230": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "240": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "250": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "265": {"type": "std", "games": ["bg2ee", "eet"]},
-    "270": {"type": "std", "games": ["bg2ee", "eet"]}
+    "100": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-BG1-Spell-Voices"},
+    "110": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-BG1-Spell-Sounds"},
+    "120": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-BG1-Weapon-Sounds"},
+    "130": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-BG1-Armor-Sounds"},
+    "140": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-BG1-GUI-Sounds"},
+    "150": {"type": "std", "games": ["bg", "bg1", "bg2", "bg2ee", "eet"], "label": "s@-IS-BG1-PC-Soundsets"},
+    "160": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "s@-IS-Gulp-Sound"},
+    "170": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Chunked-Death-Sound"},
+    "180": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Tweak-Volume-Levels"},
+    "189": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Footsteps-Combat"},
+    "190": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Mute-Rep-Sounds"},
+    "200": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Mute-Tooltip-Sound"},
+    "210": {"type": "std", "games": ["bgee", "eet", "sod"], "label": "s@-IS-BG1-Ambient-Sounds"},
+    "220": {"type": "std", "label": "s@-IS-Restore-EAX"},
+    "221": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Enhance-Pos-Audio"},
+    "230": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Restore-Tweak-Soundsets"},
+    "240": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-More-Existence-Sounds"},
+    "250": {"type": "std", "games": ["bg2ee", "bgee", "eet", "sod"], "label": "s@-IS-Tweak-Existence-Sound-Delay"},
+    "265": {"type": "std", "games": ["bg2ee", "eet"], "label": "s@-IS-Restore-NPC-Voiceovers"},
+    "270": {"type": "std", "games": ["bg2ee", "eet"], "label": "s@-IS-Salk-NPC-Voiceovers"}
   },
   "languages": {
     "en_US": 0,
@@ -187,6 +187,32 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "infinitysounds(240,250):infinitysounds(230)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires component [Restore & Tweak Soundsets]",
+          "fr_FR": "Necessite le composant [Restaurer et ajuster les ensembles vocaux]",
+          "de_DE": "Requires component [Restore & Tweak Soundsets]",
+          "pl_PL": "Requires component [Restore & Tweak Soundsets]",
+          "ru_RU": "Requires component [Restore & Tweak Soundsets]"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "infinitysounds(265):bg2gtueestyle(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "infinitysounds(270):bg2gtueestyle(10)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

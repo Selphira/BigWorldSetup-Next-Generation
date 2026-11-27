@@ -1,5 +1,5 @@
 {
-  "name": "Todd le super gars testeur",
+  "name": "Todd the super tester guy",
   "version": "9.1",
   "links": {
     "homepage": "https://www.baldursgateworld.fr/viewtopic.php?t=31924"
@@ -36,7 +36,7 @@
   },
   "translations": {
     "fr_FR": {
-      "description": "Ce mod ajoute un marchand anachronique qui vend plus de 200 objets de Morrowind et d'Arcanum. Il attend les aventuriers à différents endroits selon le jeu.\nNote : comme la raison d'être du module est de proposer de manière anachronique tous les objets venant d'autres jeux, il ne fait pas de distinction entre les objets inutiles, les objets équilibrés et les objets surpuissants. Installez-le en connaissance de cause. Si vous cherchez des objets équilibrés, voyez plutôt du côté de L'interplan.",
+      "description": "Ce mod ajoute un marchand anachronique qui vend plus de 200 objets de Morrowind et d'Arcanum. Il attend les aventuriers à différents endroits selon le jeu.\nNote : comme la raison d'être du module est de proposer de manière anachronique tous les objets venant d'autres jeux, il ne fait pas de distinction entre les objets inutiles, les objets équilibrés et les objets surpuissants. Installez-le en connaissance de cause. Si vous cherchez des objets équilibrés, voyez plutôt du côté de The Interplan.",
       "components": {
         "0": "Todd le super gars testeur"
       }
@@ -48,7 +48,7 @@
       }
     },
     "zh_CN": {
-      "description": "此模组添加了一个时代错位的商人，他出售超过200件来自《晨风》和《奥秘》的物品。他会在不同的游戏地点等待冒险者。\n注意：由于该模组的目的时代错位地提供来自其他游戏的所有物品，它不会对无用物品、平衡物品和超强力物品进行区分。请在知情的情况下安装它。如果你寻找的是平衡物品，最好看看L'interplan。"
+      "description": "此模组添加了一个时代错位的商人，他出售超过200件来自《晨风》和《奥秘》的物品。他会在不同的游戏地点等待冒险者。\n注意：由于该模组的目的时代错位地提供来自其他游戏的所有物品，它不会对无用物品、平衡物品和超强力物品进行区分。请在知情的情况下安装它。如果你寻找的是平衡物品，最好看看The Interplan。"
     }
   },
   "tp2": "derats_todd",

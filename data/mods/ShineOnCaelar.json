@@ -55,5 +55,20 @@
   },
   "tp2": "shineoncaelar",
   "safe": 2,
-  "authors": ["Roxanne"]
+  "authors": ["Roxanne"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "shineoncaelar(1):shineoncaelar(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Addon requires main component *SoD Alternative*",
+          "ru_RU": "Addon requires main component *SoD Alternative*",
+          "zh_CN": "本组件需要安装核心组件“龙矛围攻替代方案”",
+          "fr_FR": "Le module complémentaire nécessite le composant principal *SoD Alternative*"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

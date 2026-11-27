@@ -8,14 +8,14 @@
     {
       "filename": "arath-v6.zip",
       "size": 12432597,
-      "download": "https://github.com/Spellhold-Studios/Arath-NPC/releases/download/v6/arath-v6.zip",
-      "sha256": "b84f28b15134c3a0dc4c7b4a35138022028b53580601111dc87fbb23f88ad7d1"
+      "sha256": "b84f28b15134c3a0dc4c7b4a35138022028b53580601111dc87fbb23f88ad7d1",
+      "download": "https://github.com/Spellhold-Studios/Arath-NPC/releases/download/v6/arath-v6.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "arath_npc"}
   },
   "languages": {
     "en_US": 0,

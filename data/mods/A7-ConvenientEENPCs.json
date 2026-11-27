@@ -31,32 +31,32 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["1", "2", "3"], "default": "1"},
-    "choice_1": {"type": "muc", "components": ["101", "201"], "default": "101", "games": ["bgee", "eet", "sod"]},
-    "102": {"type": "std"},
-    "choice_2": {"type": "muc", "components": ["103", "203"], "default": "103", "games": ["bg2ee", "eet"]},
-    "choice_3": {"type": "muc", "components": ["104", "204"], "default": "104"},
-    "choice_4": {"type": "muc", "components": ["105", "205"], "default": "105"},
-    "220": {"type": "std", "games": ["bg2ee", "eet"]},
-    "301": {"type": "std"},
-    "choice_5": {"type": "muc", "components": ["311", "312"], "default": "311", "games": ["eet", "sod"]},
-    "choice_6": {"type": "muc", "components": ["400", "401"], "default": "400", "games": ["bgee", "eet", "sod"]},
-    "choice_7": {"type": "muc", "components": ["410", "411"], "default": "410"},
-    "420": {"type": "std", "games": ["bg2ee", "eet"]},
-    "choice_8": {"type": "muc", "components": ["430", "431"], "default": "430"},
-    "choice_9": {"type": "muc", "components": ["440", "441"], "default": "440"},
-    "450": {"type": "std", "games": ["bg2ee", "eet"]},
-    "choice_10": {"type": "muc", "components": ["500", "501", "502", "503", "504", "505", "506", "507", "508", "509", "510", "511", "512", "513", "514", "515"], "default": "500", "games": ["bgee", "eet", "sod"]},
-    "choice_11": {"type": "muc", "components": ["520"], "default": "520"},
-    "choice_12": {"type": "muc", "components": ["540", "541", "542", "543", "544", "545", "546", "547"], "default": "540"},
-    "choice_13": {"type": "muc", "components": ["560", "561", "562", "563", "564"], "default": "560"},
-    "choice_14": {"type": "muc", "components": ["580"], "default": "580", "games": ["eet", "sod"]},
-    "choice_15": {"type": "muc", "components": ["600", "601", "602", "603", "604"], "default": "600", "games": ["eet", "sod"]},
-    "choice_16": {"type": "muc", "components": ["620", "621", "622", "623", "624", "625"], "default": "620", "games": ["eet", "sod"]},
-    "choice_17": {"type": "muc", "components": ["640", "641", "642", "643", "644", "645", "646", "647", "648", "649", "650", "651"], "default": "640", "games": ["eet", "sod"]},
-    "choice_18": {"type": "muc", "components": ["660", "661", "662", "663", "664", "665", "666", "667", "668", "669", "670"], "default": "660", "games": ["bg2ee", "eet"]},
-    "choice_19": {"type": "muc", "components": ["680", "681", "682", "683", "684", "685"], "default": "680", "games": ["bg2ee", "eet"]},
-    "choice_20": {"type": "muc", "components": ["691", "692", "693", "694", "695"], "default": "690", "games": ["eet", "sod"]}
+    "choice_0": {"type": "muc", "components": ["1", "2", "3"], "default": "1", "labels": {"1": "A7-CONVENIENTEENPCS-APPEARANCE-DISABLE_ALL", "2": "A7-CONVENIENTEENPCS-APPEARANCE-PASSIVE_ALL", "3": "A7-CONVENIENTEENPCS-APPEARANCE-DECIDE_INDIVIDUALLY"}},
+    "choice_1": {"type": "muc", "components": ["101", "201"], "default": "101", "games": ["bgee", "eet", "sod"], "labels": {"101": "A7-CONVENIENTEENPCS-APPEARANCE-BAELOTH_DISABLE", "201": "A7-CONVENIENTEENPCS-APPEARANCE-BAELOTH_PASSIVE"}},
+    "102": {"type": "std", "label": "A7-CONVENIENTEENPCS-APPEARANCE-DORN_DISABLE"},
+    "choice_2": {"type": "muc", "components": ["103", "203"], "default": "103", "games": ["bg2ee", "eet"], "labels": {"103": "A7-CONVENIENTEENPCS-APPEARANCE-HEXXAT_DISABLE", "203": "A7-CONVENIENTEENPCS-APPEARANCE-HEXXAT_PASSIVE"}},
+    "choice_3": {"type": "muc", "components": ["104", "204"], "default": "104", "labels": {"104": "A7-CONVENIENTEENPCS-APPEARANCE-NEERA_DISABLE", "204": "A7-CONVENIENTEENPCS-APPEARANCE-NEERA_PASSIVE"}},
+    "choice_4": {"type": "muc", "components": ["105", "205"], "default": "105", "labels": {"105": "A7-CONVENIENTEENPCS-APPEARANCE-RASAAD_DISABLE", "205": "A7-CONVENIENTEENPCS-APPEARANCE-RASAAD_PASSIVE"}},
+    "220": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-CONVENIENTEENPCS-APPEARANCE-WILSON_RELOCATED"},
+    "301": {"type": "std", "label": "A7-CONVENIENTEENPCS-APPEARANCE-NPC_ITEMS_FOR_ALL"},
+    "choice_5": {"type": "muc", "components": ["311", "312"], "default": "311", "games": ["eet", "sod"], "labels": {"311": "A7-CONVENIENTEENPCS-APPEARANCE-CAELAR_FOLLOWER_CONDITIONAL", "312": "A7-CONVENIENTEENPCS-APPEARANCE-CAELAR_FOLLOWER_ALWAYS"}},
+    "choice_6": {"type": "muc", "components": ["400", "401"], "default": "400", "games": ["bgee", "eet", "sod"], "labels": {"400": "A7-CONVENIENTEENPCS-PORTRAITS-BAELOTH_ALTERNATE", "401": "A7-CONVENIENTEENPCS-PORTRAITS-BAELOTH_ALTERNATE_BG2"}},
+    "choice_7": {"type": "muc", "components": ["410", "411"], "default": "410", "labels": {"410": "A7-CONVENIENTEENPCS-PORTRAITS-DORN_BG2_STYLE_ALL", "411": "A7-CONVENIENTEENPCS-PORTRAITS-DORN_BG2_STYLE_BG2"}},
+    "420": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-CONVENIENTEENPCS-PORTRAITS-HEXXAT_BG2_STYLE"},
+    "choice_8": {"type": "muc", "components": ["430", "431"], "default": "430", "labels": {"430": "A7-CONVENIENTEENPCS-PORTRAITS-NEERA_BG2_STYLE_ALL", "431": "A7-CONVENIENTEENPCS-PORTRAITS-NEERA_BG2_STYLE_BG2"}},
+    "choice_9": {"type": "muc", "components": ["440", "441"], "default": "440", "labels": {"440": "A7-CONVENIENTEENPCS-PORTRAITS-RASAAD_BG2_STYLE_ALL", "441": "A7-CONVENIENTEENPCS-PORTRAITS-RASAAD_BG2_STYLE_BG2"}},
+    "450": {"type": "std", "games": ["bg2ee", "eet"], "label": "A7-CONVENIENTEENPCS-PORTRAITS-WILSON_IMPROVED"},
+    "choice_10": {"type": "muc", "components": ["500", "501", "502", "503", "504", "505", "506", "507", "508", "509", "510", "511", "512", "513", "514", "515"], "default": "500", "games": ["bgee", "eet", "sod"], "labels": {"500": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_RESET", "501": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_CUSTOM", "502": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_MAGE", "503": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_ABJURER", "504": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_CONJURER", "505": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_DIVINER", "506": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_ENCHANTER", "507": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_ILLUSIONIST", "508": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_INVOKER", "509": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_NECROMANCER", "510": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_TRANSMUTER", "511": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_WILDMAGE", "512": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_DRAGON_DISCIPLE", "513": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_CHAOS_SORCERER", "514": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_SHADOW_ADEPT", "515": "A7-CONVENIENTEENPCS-CLASSCHANGE-BAELOTH_SHADOW_DISCIPLE"}},
+    "choice_11": {"type": "muc", "components": ["520"], "default": "520", "labels": {"520": "A7-CONVENIENTEENPCS-CLASSCHANGE-DORN_RESET"}},
+    "choice_12": {"type": "muc", "components": ["540", "541", "542", "543", "544", "545", "546", "547"], "default": "540", "labels": {"540": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_RESET", "541": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_CUSTOM", "542": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_FIGHTER_WILDMAGE", "543": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_WILDMAGE_THIEF", "544": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_CLERIC_WILDMAGE", "545": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_FIGHTER_WILDMAGE_THIEF", "546": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_FIGHTER_WILDMAGE_CLERIC", "547": "A7-CONVENIENTEENPCS-CLASSCHANGE-NEERA_CHAOS_SORCERER"}},
+    "choice_13": {"type": "muc", "components": ["560", "561", "562", "563", "564"], "default": "560", "labels": {"560": "A7-CONVENIENTEENPCS-CLASSCHANGE-RASAAD_RESET", "561": "A7-CONVENIENTEENPCS-CLASSCHANGE-RASAAD_CUSTOM", "562": "A7-CONVENIENTEENPCS-CLASSCHANGE-RASAAD_MONK", "563": "A7-CONVENIENTEENPCS-CLASSCHANGE-RASAAD_SILVERSTAR_OF_SELUNE", "564": "A7-CONVENIENTEENPCS-CLASSCHANGE-RASAAD_BRAWLER"}},
+    "choice_14": {"type": "muc", "components": ["580"], "default": "580", "games": ["eet", "sod"], "labels": {"580": "A7-CONVENIENTEENPCS-CLASSCHANGE-MKHIIN_RESET"}},
+    "choice_15": {"type": "muc", "components": ["600", "601", "602", "603", "604"], "default": "600", "games": ["eet", "sod"], "labels": {"600": "A7-CONVENIENTEENPCS-CLASSCHANGE-GLINT_RESET", "601": "A7-CONVENIENTEENPCS-CLASSCHANGE-GLINT_CUSTOM", "602": "A7-CONVENIENTEENPCS-CLASSCHANGE-GLINT_CLERIC", "603": "A7-CONVENIENTEENPCS-CLASSCHANGE-GLINT_FIGHTER_CLERIC", "604": "A7-CONVENIENTEENPCS-CLASSCHANGE-GLINT_CLERIC_ILLUSIONIST"}},
+    "choice_16": {"type": "muc", "components": ["620", "621", "622", "623", "624", "625"], "default": "620", "games": ["eet", "sod"], "labels": {"620": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_RESET", "621": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_CUSTOM", "622": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_BARD", "623": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_BLADE", "624": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_THIEF", "625": "A7-CONVENIENTEENPCS-CLASSCHANGE-VOGHILN_SWASHBUCKLER"}},
+    "choice_17": {"type": "muc", "components": ["640", "641", "642", "643", "644", "645", "646", "647", "648", "649", "650", "651"], "default": "640", "games": ["eet", "sod"], "labels": {"640": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_RESET", "641": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_CUSTOM", "642": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_RANGER", "643": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_STALKER", "644": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_FIGHTER", "645": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_WIZARD_SLAYER", "646": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_CLERIC", "647": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_PRIEST_OF_TYR", "648": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_PRIEST_OF_HELM", "649": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_PALADIN", "650": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_CAVALIER", "651": "A7-CONVENIENTEENPCS-CLASSCHANGE-CORWIN_INQUISITOR"}},
+    "choice_18": {"type": "muc", "components": ["660", "661", "662", "663", "664", "665", "666", "667", "668", "669", "670"], "default": "660", "games": ["bg2ee", "eet"], "labels": {"660": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_RESET", "661": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_CUSTOM", "662": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_ASSASSIN", "663": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_SHADOWDANCER", "664": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_MAGE_THIEF", "665": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_MAGE_ASSASSIN", "666": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_MAGE_SHADOWDANCER", "667": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_NECROMANCER_THIEF", "668": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_FIGHTER_THIEF", "669": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_FIGHTER_ASSASSIN", "670": "A7-CONVENIENTEENPCS-CLASSCHANGE-HEXXAT_FIGHTER_SHADOWDANCER"}},
+    "choice_19": {"type": "muc", "components": ["680", "681", "682", "683", "684", "685"], "default": "680", "games": ["bg2ee", "eet"], "labels": {"680": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_RESET", "681": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_CUSTOM", "682": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_BOUNTY_HUNTER", "683": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_SWASHBUCKLER", "684": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_SHADOW_DANCER", "685": "A7-CONVENIENTEENPCS-CLASSCHANGE-CLARA_BARD"}},
+    "choice_20": {"type": "muc", "components": ["691", "692", "693", "694", "695"], "default": "690", "games": ["eet", "sod"], "labels": {"691": "A7-CONVENIENTEENPCS-CLASSCHANGE-CAELAR_CUSTOM", "692": "A7-CONVENIENTEENPCS-CLASSCHANGE-CAELAR_CAVALIER", "693": "A7-CONVENIENTEENPCS-CLASSCHANGE-CAELAR_INQUISITOR", "694": "A7-CONVENIENTEENPCS-CLASSCHANGE-CAELAR_UNDEAD_HUNTER", "695": "A7-CONVENIENTEENPCS-CLASSCHANGE-CAELAR_PRIEST_OF_LATHANDER"}}
   },
   "languages": {
     "en_US": 0,
@@ -849,6 +849,179 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7-convenienteenpcs(101,201,102,103,203,104,204,105,205):a7-convenienteenpcs(3)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Component \"Decide action for each NPC individually\" not selected.",
+          "fr_FR": "Ce composant necessite d'avoir choisi l'option \"Decider pour chaque PNJ\".",
+          "de_DE": "Komponente \"Entscheide fuer jeden einzelnen NSC\" wurde nicht ausgewaehlt.",
+          "pl_PL": "Nie wybrano komponentu \"Decyduj indywidualnie dla kazdego BN\".",
+          "ru_RU": "Component \"Decide action for each NPC individually\" not selected.",
+          "zh_CN": "未选择组件“为每个队友单独决定”。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(220):a7-convenienteenpcs(1,105)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is only available if Rasaad has been disabled.",
+          "fr_FR": "Ce composant n'est disponible que si Rasaad a ete desactive.",
+          "de_DE": "Diese Komponente ist nur verfuegbar, wenn Rasaad deaktiviert wurde.",
+          "pl_PL": "This component is only available if Rasaad has been disabled.",
+          "ru_RU": "This component is only available if Rasaad has been disabled.",
+          "zh_CN": "本组件仅在拉萨德被禁用时可用。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(301):a7-convenienteenpcs(1,101,102,103,104,105)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is only available if one or more NPCs have been disabled.",
+          "fr_FR": "Ce composant n'est disponible que si au moins un PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nur fuer deaktivierte NSCs verfuegbar.",
+          "pl_PL": "Komponent ten jest dostepny tylko w przypadku zablokowania jednego lub wiecej BN.",
+          "ru_RU": "This component is only available if one or more NPCs have been disabled.",
+          "zh_CN": "本组件仅在已禁用一个或多个队友时有效。"
+        },
+        "origin": "tp2"
+      }
+    ],
+    "incompatibilities": [
+      {
+        "rule": "a7-convenienteenpcs(1,2,3):ee_content_tweaks(2,4,5)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "fr_FR": "Ce mod n'est pas compatible avec le mod \"EE_content_tweaks\" de Recca.",
+          "de_DE": "Diese Mod ist nicht mit Peccas \"EE_content_tweaks\" kompatibel.",
+          "pl_PL": "Ta modyfikacja nie jest kompatybilna z dodatkiem \"EE_content_tweaks\", ktorego autorem jest Pecca",
+          "ru_RU": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "zh_CN": "本模组与Pecca的“EE_content_tweaks”不兼容。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(2):ee_content_tweaks(3)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "fr_FR": "Ce mod n'est pas compatible avec le mod \"EE_content_tweaks\" de Recca.",
+          "de_DE": "Diese Mod ist nicht mit Peccas \"EE_content_tweaks\" kompatibel.",
+          "pl_PL": "Ta modyfikacja nie jest kompatybilna z dodatkiem \"EE_content_tweaks\", ktorego autorem jest Pecca",
+          "ru_RU": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "zh_CN": "本模组与Pecca的“EE_content_tweaks”不兼容。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(301):ee_content_tweaks(0,1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "fr_FR": "Ce mod n'est pas compatible avec le mod \"EE_content_tweaks\" de Recca.",
+          "de_DE": "Diese Mod ist nicht mit Peccas \"EE_content_tweaks\" kompatibel.",
+          "pl_PL": "Ta modyfikacja nie jest kompatybilna z dodatkiem \"EE_content_tweaks\", ktorego autorem jest Pecca",
+          "ru_RU": "This mod is not compatible with Pecca's \"EE_content_tweaks\".",
+          "zh_CN": "本模组与Pecca的“EE_content_tweaks”不兼容。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(400,401,410,411,420,430,431,440,441,500,501,502,503,504,505,506,507,508,509,510,511,513,514,515,520,540,541,542,543,544,545,546,547,560,561,562,563,564,660,661,662,663,664,665,666,667,668,669,670,680,681,682,683,684,685):a7-convenienteenpcs(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(400,401,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515):a7-convenienteenpcs(101)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(410,411,520):a7-convenienteenpcs(102)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(420,660,661,662,663,664,665,666,667,668,669,670,680,681,682,683,684,685):a7-convenienteenpcs(103)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(430,431,540,541,542,543,544,545,546,547):a7-convenienteenpcs(104)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(440,441,560,561,562,563,564):a7-convenienteenpcs(105)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "a7-convenienteenpcs(512):7-convenienteenpcs(1)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component is not available if the NPC has been disabled.",
+          "fr_FR": "Ce composant n'est pas disponible si le PNJ a ete desactive.",
+          "de_DE": "Diese Komponente ist nicht verfuegbar, wenn der NSC deaktiviert wurde.",
+          "pl_PL": "Komponent ten jest niedostepny, jesli dany BN zostal zablokowany.",
+          "ru_RU": "This component is not available if the NPC has been disabled.",
+          "zh_CN": "本组件在已禁用队友时无效。"
+        },
+        "origin": "tp2"
       }
     ]
   }

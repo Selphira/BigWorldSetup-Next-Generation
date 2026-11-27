@@ -30,8 +30,8 @@
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["patch"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["12", "13"], "default": "13"},
-    "11": {"type": "std"}
+    "choice_0": {"type": "muc", "components": ["12", "13"], "default": "13", "labels": {"12": "CluArea-Main", "13": "CluArea-All"}},
+    "11": {"type": "std", "label": "CluArea-Mods"}
   },
   "languages": {
     "fr_FR": 0,
@@ -70,6 +70,30 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "cluareas(13):infinity_ui(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "cluareas(11):cluareas(12,13)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Necessite main component",
+          "zh_CN": "Necessite main component"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "cluareas(11):ctb(0,1)&a7-totlm-bg2ee(0)&a7-testyourmettle(0)&iwd1_eet(1)&iwd2_eet(0)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

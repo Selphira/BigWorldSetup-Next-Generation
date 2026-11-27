@@ -15,16 +15,16 @@
   "games": ["bg2ee", "bgee", "eet", "sod"],
   "categories": ["quest"],
   "components": {
-    "60": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
-    "70": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
-    "80": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
-    "90": {"type": "std", "category": "gameplay", "games": ["eet", "sod"]},
-    "100": {"type": "std", "games": ["eet", "sod"]},
-    "140": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
-    "150": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
-    "160": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"]},
-    "180": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"]},
-    "200": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"]}
+    "60": {"type": "std", "category": "gameplay", "games": ["eet", "sod"], "label": "#L-SOD-IMOEN_WAND"},
+    "70": {"type": "std", "category": "gameplay", "games": ["eet", "sod"], "label": "#L-SOD-AID_IMOEN"},
+    "80": {"type": "std", "category": "gameplay", "games": ["eet", "sod"], "label": "#L-SOD-STAT_BASED_OPTIONS"},
+    "90": {"type": "std", "category": "gameplay", "games": ["eet", "sod"], "label": "#L-SOD-DITCH_CORWIN"},
+    "100": {"type": "std", "games": ["eet", "sod"], "label": "#L-SOD-COASTWAY_CROSSING_QUEST"},
+    "140": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"], "label": "#L-BG2-SNARK"},
+    "150": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"], "label": "#L-BG2-CUTSCENES"},
+    "160": {"type": "std", "category": "gameplay", "games": ["bg2ee", "eet", "sod"], "label": "#L-BG2-IRENICUS_DREAMS"},
+    "180": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"], "label": "#L-BG2-IMOEN_MM"},
+    "200": {"type": "std", "category": "spell", "games": ["bg2ee", "eet"], "label": "#L-TRANSITIONS-RESTORE_POWER"}
   },
   "languages": {
     "en_US": 0,

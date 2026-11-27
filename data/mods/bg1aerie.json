@@ -15,8 +15,8 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
-    "5000": {"type": "std"},
-    "5001": {"type": "std"}
+    "5000": {"type": "std", "label": "Coutelier-AerieBG1"},
+    "5001": {"type": "std", "label": "Coutelier-AerieBG1-Lighter-Portrait"}
   },
   "languages": {
     "en_US": 0,

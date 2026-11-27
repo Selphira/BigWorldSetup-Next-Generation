@@ -15,7 +15,7 @@
   "games": ["bg2ee", "eet"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "Alsaahir"}
   },
   "languages": {
     "en_US": 0,
@@ -40,5 +40,15 @@
   },
   "tp2": "alsaahir",
   "safe": 2,
-  "authors": ["TotoR"]
+  "authors": ["TotoR"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "alsaahir(0):1pp(103)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

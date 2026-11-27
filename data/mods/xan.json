@@ -38,7 +38,7 @@
         "5": "BG1-style flaming swords",
         "6": "Xan's Alternate Voice by Joey Bracken"
       },
-      "description": "Remember this cheerful, optimistic character from BG (irony inside for those in the know)? Well, he's back in BG2. Our depressed magician has plenty of interaction with all BG2 characters, a few cinematics and a voice kit. He even offers a two-way romance if your character is a pretty elfette. If you wish, you can install Xan's French Soundset for BG2. In this case, you'll need to install it after Xan BG2."
+      "description": "Remember this cheerful, optimistic character from BG (irony inside for those in the know)? Well, he's back in BG2. Our depressed magician has plenty of interaction with all BG2 characters, a few cinematics and a voice kit. He even offers a two-way romance if your character is a pretty elfette. If you wish, you can install Xan's French Soundset for BG2. In this case, you'll need to install it after Xan BG2.\nSTR 13, DEX 16, CON 7, INT 17, WIS 14, CHA 16."
     },
     "ru_RU": {
       "components": {
@@ -53,7 +53,7 @@
       }
     },
     "fr_FR": {
-      "description": "Vous vous souvenez de ce personnage si joyeux et optimiste dans BG (ironie inside pour les connaisseurs) ? Eh bien, le voici de retour dans BG2. Notre magicien dépressif a de nombreuses interactions avec l'ensemble des personnages de BG2, quelques cinématiques et un kit de voix. Il propose même une romance à deux voies si votre personnage est une jolie elfette. Bref, de quoi ravir les fans de cet enchanteur.\nSi vous le souhaitez, vous pouvez installer Xan's French Soundset for BG2. Dans ce cas, vous devez l'installer après Xan BG2.",
+      "description": "Vous vous souvenez de ce personnage si joyeux et optimiste dans BG (ironie inside pour les connaisseurs) ? Eh bien, le voici de retour dans BG2. Notre magicien dépressif a de nombreuses interactions avec l'ensemble des personnages de BG2, quelques cinématiques et un kit de voix. Il propose même une romance à deux voies si votre personnage est une jolie elfette. Bref, de quoi ravir les fans de cet enchanteur.\nSi vous le souhaitez, vous pouvez installer Xan's French Soundset for BG2. Dans ce cas, vous devez l'installer après Xan BG2.\nFOR 13, DEX 16, CON 7, INT 17, SAG 14, CHA 16.",
       "components": {
         "0": "PNJ Xan, module pour Baldur's Gate II",
         "choice_0": "Souhaitez-vous modifier la classe de Xan ?",
@@ -66,7 +66,7 @@
       }
     },
     "zh_CN": {
-      "description": "你还记得在博德之门中那个如此快乐和乐观的角色吗（对知情者来说是反讽）？嗯，他现在在博德之门II中回归了。我们这位抑郁的法师与博德之门II中的所有角色都有许多互动，还有一些过场动画和一个语音包。如果你的角色是一个漂亮的精灵女性，他甚至提供双向的浪漫关系。总之，这足以让这位附魔师的粉丝感到高兴。\n如果您愿意，可以安装Xan's French Soundset for BG2。在这种情况下，您必须在Xan BG2之后安装它。"
+      "description": "你还记得《博德之门》里那个如此快乐又乐观的角色吗？（懂的都懂，反讽。）好吧，他回归《博德之门2》了。我们这位抑郁的法师与《博德之门2》全体角色都有大量互动，还有一些过场动画和一个语音包。如果你的角色是一位可爱的精灵妹子，他甚至还有一条双路线恋爱线。总之，足以让这位附魔师的粉丝们欣喜不已。\n如果你愿意，可以安装Xan's French Soundset for BG2。在这种情况下，你必须在Xan BG2之后安装它。\n力量13，敏捷16，体质7，智力17，智慧14，魅力16。"
     },
     "pl_PL": {
       "components": {
@@ -83,5 +83,20 @@
   },
   "tp2": "xan",
   "safe": 2,
-  "authors": ["Kulyok", "Sister Vigilante", "jastey"]
+  "authors": ["Kulyok", "Sister Vigilante", "jastey"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "xan(1,2,3,4,5,6):xan(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Xan BGII needs to be installed.",
+          "ru_RU": "Xan BGII needs to be installed.",
+          "pl_PL": "Xan BGII needs to be installed.",
+          "fr_FR": "Xan BGII needs to be installed."
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

@@ -29,7 +29,7 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "games": ["bg2ee", "bgt", "eet"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "default": "0", "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "c#_sarah_original_audio", "1": "c#_sarah_revised_audio"}}
   },
   "languages": {
     "en_US": 0,

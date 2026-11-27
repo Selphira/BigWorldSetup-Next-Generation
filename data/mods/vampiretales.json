@@ -16,10 +16,10 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc", "smith"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std", "category": "tactic"},
-    "2": {"type": "std", "category": "tactic"},
-    "3": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "Dark_Raven-Vampire_Tales_Main"},
+    "1": {"type": "std", "category": "tactic", "label": "Dark_Raven-Improved_Cult"},
+    "2": {"type": "std", "category": "tactic", "label": "Dark_Raven-Improved_Harper"},
+    "3": {"type": "std", "label": "Dark_Raven-COM_Store_NumberOne"}
   },
   "languages": {
     "en_US": 0,
@@ -85,6 +85,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "vampiretales(0):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }

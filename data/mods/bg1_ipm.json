@@ -15,7 +15,7 @@
   "games": ["bgee", "eet", "sod"],
   "categories": ["cosm"],
   "components": {
-    "0": {"type": "std", "category": "portrait"}
+    "0": {"type": "std", "category": "portrait", "label": "BG1_IPM_MainComponent"}
   },
   "languages": {
     "en_US": 0,

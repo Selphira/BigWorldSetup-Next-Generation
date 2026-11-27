@@ -31,8 +31,8 @@
   "games": ["bg", "bg2", "bg2ee", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["10"]}
+    "0": {"type": "std", "label": "TeamBG_CoM_Solaufein-DarkHorizons"},
+    "choice_0": {"type": "muc", "components": ["10"], "labels": {"10": "TeamBG_CoM_Solaufein-DarkHorizons_Nerfs_1"}}
   },
   "languages": {
     "en_US": 0,
@@ -115,6 +115,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "darkhorizons(0):tobex(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "darkhorizons(10):darkhorizons(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Main componant isn't installed",
+          "it_IT": "Main componant isn't installed",
+          "de_DE": "Main componant isn't installed",
+          "ru_RU": "Main componant isn't installed",
+          "pl_PL": "Main componant isn't installed",
+          "fr_FR": "Main componant isn't installed",
+          "es_ES": "Main componant isn't installed",
+          "zh_CN": "Main componant isn't installed"
+        },
+        "origin": "tp2"
       }
     ]
   }

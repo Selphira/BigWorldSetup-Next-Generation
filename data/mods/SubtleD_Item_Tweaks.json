@@ -1,26 +1,26 @@
 {
   "name": "SubtleD's Item Tweaks",
-  "version": "1.5",
+  "version": "1.5.2",
   "links": {
     "homepage": "https://github.com/subtledoctor/SubtleD_Item_Tweaks",
     "forums": ["https://www.gibberlings3.net/forums/topic/37239-subtlemods-subtleds-item-tweaks/#comment-328377"]
   },
   "files": [
     {
-      "filename": "SubtleD_Item_Tweaks-1.5.zip",
-      "size": 2053097,
-      "sha256": "0b9aa4c40c7392f92f336c6c0d0557381d55c9df95fc499901bc68bc906ebe52",
-      "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.5.zip"
+      "filename": "SubtleD_Item_Tweaks-1.5.2.zip",
+      "download": "https://github.com/subtledoctor/SubtleD_Item_Tweaks/archive/refs/tags/1.5.2.zip",
+      "size": 2054226,
+      "sha256": "ed0a687a35f5338688fa53165a00c0f14197340049573b017c18a247a257e49b"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "iwdee", "sod"],
   "categories": ["gameplay"],
   "components": {
-    "100": {"type": "std", "category": "spell"},
-    "choice_0": {"type": "muc", "components": ["111", "112"], "category": "spell", "default": "111", "games": ["bg2ee", "bgee", "eet", "sod"]},
-    "120": {"type": "std", "category": "spell"},
-    "140": {"type": "std", "category": "spell"},
-    "160": {"type": "std", "category": "spell"},
+    "100": {"type": "std", "category": "spell", "label": "D5_YARAS"},
+    "choice_0": {"type": "muc", "components": ["111", "112"], "category": "spell", "default": "111", "games": ["bg2ee", "bgee", "eet", "sod"], "labels": {"111": "D5_LOW_MAGIC_ITEMS_BASIC", "112": "D5_LOW_MAGIC_ITEMS_HARDCORE"}},
+    "120": {"type": "std", "category": "spell", "label": "D5_FUNCTIONAL_WEAPON_TWEAKS"},
+    "140": {"type": "std", "category": "spell", "label": "D5_IWDEE_ITEM_TWEAKS"},
+    "160": {"type": "std", "category": "spell", "label": "D5_UNIVERSAL_POTIONS"},
     "170": {"type": "std", "category": "spell"},
     "1000": {"type": "std", "category": "spell"},
     "1010": {"type": "std", "category": "spell"},
@@ -136,6 +136,29 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "subtled_item_tweaks(140):iwd1_eet(1)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_item_tweaks(1000,1010,1020,1030,1040,1055,1060,1070,1075,1080,1091,1092,1093,1109,1113,1114):item_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "subtled_item_tweaks(1051,1052,1065,1100):item_rev(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "skipping component",
+          "fr_FR": "ignore le composant"
+        },
+        "origin": "tp2"
       }
     ]
   }

@@ -9,14 +9,14 @@
     {
       "filename": "saradas-magic-for-bg2-v2.0.0.zip",
       "size": 5918178,
-      "download": "https://github.com/Spellhold-Studios/Saradas-Magic-BG2/releases/download/v2.0.0/saradas-magic-for-bg2-v2.0.0.zip",
-      "sha256": "ce98353c31379c456f90ee6714007067d11195a1621c12c69eeac856b47b1250"
+      "sha256": "ce98353c31379c456f90ee6714007067d11195a1621c12c69eeac856b47b1250",
+      "download": "https://github.com/Spellhold-Studios/Saradas-Magic-BG2/releases/download/v2.0.0/saradas-magic-for-bg2-v2.0.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith", "npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "games": ["bg2ee", "bgt", "eet"], "labels": {"0": "saradas_magic_npc_for_bg2_monk", "1": "saradas_magic_npc_for_bg2_mage"}}
   },
   "languages": {
     "en_US": 0

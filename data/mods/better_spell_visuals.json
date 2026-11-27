@@ -37,5 +37,15 @@
   },
   "tp2": "better_spell_visuals",
   "safe": 2,
-  "authors": ["DavidNYC", "Subtledoctor"]
+  "authors": ["DavidNYC", "Subtledoctor"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "better_spell_visuals(10):d5_random_tweaks(2708)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

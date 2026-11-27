@@ -31,8 +31,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"},
-    "choice_0": {"type": "muc", "components": ["1", "2"]}
+    "0": {"type": "std", "label": "AurenAseph-main"},
+    "choice_0": {"type": "muc", "components": ["1", "2"], "labels": {"1": "AurenAseph-Portrait_1", "2": "AurenAseph-Portrait_2"}}
   },
   "languages": {
     "en_US": 0,
@@ -111,6 +111,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "aurenaseph(1,2):aurenaseph(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Please install Auren Aseph before attempting to install an alternate portrait",
+          "de_DE": "Installiert bitte Auren Aseph vor dem Versuch, ein alternatives Portrait zu installieren",
+          "ru_RU": "Please install Auren Aseph before attempting to install an alternate portrait",
+          "fr_FR": "Veuillez installer Auren Aseph avant d'essayer d'installer un portrait alternatif",
+          "es_ES": "Please install Auren Aseph before attempting to install an alternate portrait",
+          "zh_CN": "安装替代肖像前请先安装奥伦·艾瑟"
+        },
+        "origin": "tp2"
       }
     ]
   }

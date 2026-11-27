@@ -15,8 +15,8 @@
   "games": ["bg", "bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]},
-    "10": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"]}
+    "0": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"], "label": "AY-ChattyImoen-CharSnds"},
+    "10": {"type": "std", "games": ["bg1", "bgee", "bgt", "eet", "sod", "tutu"], "label": "AY-ChattyImoen-NPCInteractions"}
   },
   "languages": {
     "en_US": 0,
@@ -85,6 +85,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "chattyimoen(10):chattyimoen(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Chatty Imoen: Expanded Character Sounds component required",
+          "fr_FR": "Le composant Chatty Imoen : Repliques audio supplementaires est requis",
+          "de_DE": "Chatty Imoen: Expanded Character Sounds component required",
+          "it_IT": "Imoen la Chiacchierona: E richiesta la componente Aumenta le Tracce Audio del Personaggio",
+          "pl_PL": "Rozmowna Imoen: Wymagana obecnosc komponentu Zwiekszona ilosc dzwiekow postaci",
+          "ru_RU": "Chatty Imoen: Expanded Character Sounds component required"
+        },
+        "origin": "tp2"
       }
     ]
   }

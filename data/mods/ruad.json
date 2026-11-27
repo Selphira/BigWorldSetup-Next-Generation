@@ -16,8 +16,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["smith"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "10": {"type": "std", "games": ["bg2ee", "bgt", "eet"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "ruad_soa"},
+    "10": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "ruad_tob"}
   },
   "languages": {
     "en_US": 0,
@@ -86,6 +86,21 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "ruad(10):ruad(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "This component requires the main component to be installed.",
+          "fr_FR": "Ce composant necessite le composant principal.",
+          "de_DE": "Diese Komponente benoetigt die Hauptkomponente der Mod.",
+          "es_ES": "Este componente requiere el componente primario.",
+          "ru_RU": "This component requires the main component to be installed.",
+          "it_IT": "Questa componente richiede che la componente principale sia installata."
+        },
+        "origin": "tp2"
       }
     ]
   }

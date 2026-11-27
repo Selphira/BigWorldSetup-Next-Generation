@@ -200,5 +200,22 @@
   },
   "tp2": "rr",
   "safe": 1,
-  "authors": ["aVENGER"]
+  "authors": ["aVENGER"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "rr(5):spell_rev(0)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
+      },
+      {
+        "rule": "rr(7,8):item_rev(0)&1pp(7)",
+        "severity": "warning",
+        "mode": "all",
+        "optional": true,
+        "origin": "tp2"
+      }
+    ]
+  }
 }

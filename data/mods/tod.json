@@ -9,9 +9,9 @@
     {
       "filename": "tower-of-deception-v4.1.0.exe",
       "size": 26514493,
+      "sha256": "623df4776f7a27c8178996093a7d687f8da26a488921bc05270fb5d2e0f0d322",
       "download": "https://github.com/Black-Wyrm-Lair/TowerOfDeception/releases/download/v4.1.0/tower-of-deception-v4.1.0.exe",
-      "platforms": ["windows"],
-      "sha256": "623df4776f7a27c8178996093a7d687f8da26a488921bc05270fb5d2e0f0d322"
+      "platforms": ["windows"]
     },
     {
       "filename": "tower-of-deception-v4.1.0.zip",
@@ -24,10 +24,10 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["quest"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"]},
-    "1": {"type": "std"},
-    "2": {"type": "std"},
-    "3": {"type": "std"}
+    "0": {"type": "std", "games": ["bg2ee", "bgt", "eet"], "label": "TowerOfDeception-Main"},
+    "1": {"type": "std", "label": "TowerOfDeception-ImprovedAstralShardGuardian"},
+    "2": {"type": "std", "label": "TowerOfDeception-UstrainEncounter"},
+    "3": {"type": "std", "label": "TowerOfDeception-WarbladeTwilightFix"}
   },
   "languages": {
     "en_US": 0,

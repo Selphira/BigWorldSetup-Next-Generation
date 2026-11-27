@@ -115,6 +115,24 @@
         "severity": "warning",
         "origin": "ini"
       }
+    ],
+    "dependencies": [
+      {
+        "rule": "autumns_twilight(1,2):autumns_twilight(0)",
+        "severity": "error",
+        "translations": {
+          "es_ES": "Autumn's Twilight Core component is required.",
+          "en_US": "Autumn's Twilight Core component is required.",
+          "it_IT": "Autumn's Twilight Core component is required.",
+          "de_DE": "Autumn's Twilight Core component is required.",
+          "pl_PL": "Autumn's Twilight Core component is required.",
+          "fr_FR": "Autumn's Twilight Core component is required.",
+          "ru_RU": "Autumn's Twilight Core component is required.",
+          "zh_CN": "Autumn's Twilight Core component is required.",
+          "pt_BR": "Autumn's Twilight Core component is required."
+        },
+        "origin": "tp2"
+      }
     ]
   }
 }

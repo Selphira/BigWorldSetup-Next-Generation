@@ -30,8 +30,8 @@
   "games": ["bg2ee", "eet"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"},
-    "10": {"type": "std"}
+    "0": {"type": "std", "label": "zdbae"},
+    "10": {"type": "std", "label": "altportrait"}
   },
   "languages": {
     "en_US": 0
@@ -53,5 +53,17 @@
   },
   "tp2": "zdbae",
   "safe": 2,
-  "authors": ["dark0dave"]
+  "authors": ["dark0dave"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "zdbae(10):zdbae(0)",
+        "severity": "error",
+        "translations": {
+          "en_US": "Requires main component"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

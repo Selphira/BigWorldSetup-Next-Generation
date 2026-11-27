@@ -9,14 +9,14 @@
     {
       "filename": "yeslick-npc-v5.0.zip",
       "size": 9393233,
-      "download": "https://github.com/Spellhold-Studios/Yeslick-NPC/releases/download/v5.0/yeslick-npc-v5.0.zip",
-      "sha256": "d9b403a6feb8638cc70ac778ccaed73f4eadd3b780d1e10605265763fe6414fe"
+      "sha256": "d9b403a6feb8638cc70ac778ccaed73f4eadd3b780d1e10605265763fe6414fe",
+      "download": "https://github.com/Spellhold-Studios/Yeslick-NPC/releases/download/v5.0/yeslick-npc-v5.0.zip"
     }
   ],
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["npc"],
   "components": {
-    "choice_0": {"type": "muc", "components": ["0", "1"]}
+    "choice_0": {"type": "muc", "components": ["0", "1"], "labels": {"0": "yeslick_npc_bg2_fighter-cleric", "1": "yeslick_npc_bg2_alaghor_of_clangeddin"}}
   },
   "languages": {
     "en_US": 0

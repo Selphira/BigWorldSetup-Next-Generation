@@ -9,14 +9,14 @@
     {
       "filename": "valerie-npc-for-bg-v1.2.zip",
       "size": 4641586,
-      "download": "https://github.com/Spellhold-Studios/Valerie-NPC/releases/download/v1.2/valerie-npc-for-bg-v1.2.zip",
-      "sha256": "7087c99f1e71b5cd2146c46a02d920c779d6d0d22eebd1e6fc0017684796fe60"
+      "sha256": "7087c99f1e71b5cd2146c46a02d920c779d6d0d22eebd1e6fc0017684796fe60",
+      "download": "https://github.com/Spellhold-Studios/Valerie-NPC/releases/download/v1.2/valerie-npc-for-bg-v1.2.zip"
     }
   ],
   "games": ["bgee", "bgt", "eet", "sod", "tutu"],
   "categories": ["npc"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "valerie_npc_for_bg"}
   },
   "languages": {
     "en_US": 0,

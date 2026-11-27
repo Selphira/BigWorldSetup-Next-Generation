@@ -31,7 +31,7 @@
   "games": ["bg2ee", "bgee", "bgt", "eet", "sod"],
   "categories": ["npcx"],
   "components": {
-    "0": {"type": "std"}
+    "0": {"type": "std", "label": "garrick-mirandir"}
   },
   "languages": {
     "fr_FR": 0,

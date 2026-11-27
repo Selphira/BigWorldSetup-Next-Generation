@@ -1,15 +1,15 @@
 {
   "name": "Fixing Saving throws BUG for Lecgacy of Bhaal difficulty",
-  "version": "0.5",
+  "version": "0.6",
   "links": {
     "homepage": "https://www.gibberlings3.net/forums/topic/38985-legacyofbhaalfix-v04-fixing-saving-throws-bug-for-lecgacy-of-bhaal-difficulty/"
   },
   "files": [
     {
-      "filename": "LegacyofBhaalFix-0.5.zip",
-      "size": 1281315,
-      "sha256": "5bfa044479ad083e9dd6dbf3ae86c49016e9a8e0a8d71c7bc3d21f13b9cd87a0",
-      "download": "https://github.com/shohysie/LegacyofBhaalFix/archive/refs/tags/v0.5.zip"
+      "filename": "LegacyofBhaalFix-0.6.zip",
+      "download": "https://github.com/shohysie/LegacyofBhaalFix/archive/refs/tags/v0.6.zip",
+      "size": 1284360,
+      "sha256": "80f7afb75623675d20db058638e8d45059fcd589a976fa720cfb469506f63903"
     }
   ],
   "games": ["bg2ee", "bgee", "eet", "sod"],
@@ -41,7 +41,7 @@
     "zh_CN": {
       "description": "此模组提供了一个针对巴尔遗产难度的修复补丁，该补丁将豁免检定值调整为20。此模组修改了大多数生物的脚本，使它们在出现时能够自行调整其豁免检定值。",
       "components": {
-        "0": "巴尔遗产模式豁免BUG修正",
+        "0": "巴尔遗产模式豁免BUG修正【安装时务必检查override目录下不能有带中文的.bcs文件】",
         "1": "循序渐进的巴尔遗产模式（低级生物提升的数值减少）"
       }
     }

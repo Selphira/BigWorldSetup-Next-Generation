@@ -30,30 +30,30 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["gameplay"],
   "components": {
-    "1": {"type": "std", "category": "npcx"},
-    "2": {"type": "std", "category": "npcx"},
-    "3": {"type": "std", "category": "npcx"},
-    "4": {"type": "std", "category": "npcx"},
-    "5": {"type": "std", "category": "npcx"},
-    "22": {"type": "std", "category": "npcx"},
-    "23": {"type": "std", "category": "npcx"},
-    "19": {"type": "std", "category": "npcx"},
-    "6": {"type": "std", "category": "npcx"},
-    "7": {"type": "std", "category": "npcx"},
-    "12": {"type": "std", "category": "npcx"},
-    "17": {"type": "std", "category": "tactic"},
-    "8": {"type": "std"},
-    "20": {"type": "std", "category": "npcx"},
-    "9": {"type": "std", "category": "npcx"},
-    "18": {"type": "std", "category": "npcx"},
-    "13": {"type": "std", "category": "tactic"},
-    "11": {"type": "std"},
-    "15": {"type": "std", "category": "npcx"},
-    "16": {"type": "std", "category": "npcx"},
-    "14": {"type": "std", "category": "kit"},
-    "21": {"type": "std", "category": "kit"},
-    "24": {"type": "std"},
-    "25": {"type": "std"}
+    "1": {"type": "std", "category": "npcx", "label": "Px_MTWK_Horace1"},
+    "2": {"type": "std", "category": "npcx", "label": "Px_MTWK_Horace2"},
+    "3": {"type": "std", "category": "npcx", "label": "Px_MTWK_Chiara"},
+    "4": {"type": "std", "category": "npcx", "label": "Px_MTWK_Moddie1"},
+    "5": {"type": "std", "category": "npcx", "label": "Px_MTWK_Moddie2"},
+    "22": {"type": "std", "category": "npcx", "label": "Px_MTWK_TTSQ2"},
+    "23": {"type": "std", "category": "npcx", "label": "Px_MTWK_TTSQ3"},
+    "19": {"type": "std", "category": "npcx", "label": "Px_MTWK_TTSQ"},
+    "6": {"type": "std", "category": "npcx", "label": "Px_MTWK_Nina1"},
+    "7": {"type": "std", "category": "npcx", "label": "Px_MTWK_Nina2"},
+    "12": {"type": "std", "category": "npcx", "label": "Px_MTWK_Thael"},
+    "17": {"type": "std", "category": "tactic", "label": "Px_MTWK_Tomoyo"},
+    "8": {"type": "std", "label": "Px_MTWK_Sub_Zero"},
+    "20": {"type": "std", "category": "npcx", "label": "Px_MTWK_Banana"},
+    "9": {"type": "std", "category": "npcx", "label": "Px_MTWK_Yikari"},
+    "18": {"type": "std", "category": "npcx", "label": "Px_MTWK_Mawgul"},
+    "13": {"type": "std", "category": "tactic", "label": "Px_MTWK_TROW2"},
+    "11": {"type": "std", "label": "Px_MTWK_Jamella"},
+    "15": {"type": "std", "category": "npcx", "label": "Px_MTWK_Interplan"},
+    "16": {"type": "std", "category": "npcx", "label": "Px_MTWK_Interplan2"},
+    "14": {"type": "std", "category": "kit", "label": "Px_MTWK_Zulu"},
+    "21": {"type": "std", "category": "kit", "label": "Px_MTWK_Gelee"},
+    "24": {"type": "std", "label": "Px_MTWK_Sigil"},
+    "25": {"type": "std", "label": "Px_MTWK_Sigil2"}
   },
   "languages": {
     "fr_FR": 0,
@@ -124,5 +124,154 @@
   },
   "tp2": "derats_mods_tweaker",
   "safe": 2,
-  "authors": ["Deratiseur"]
+  "authors": ["Deratiseur"],
+  "rules": {
+    "dependencies": [
+      {
+        "rule": "derats_mods_tweaker(1,2):horace(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Horace n'est pas installe",
+          "en_US": "The Horace npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(3):chiara(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Chiara n'est pas installe",
+          "en_US": "The Chiara npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(4,5):foxmonster(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Moddie the Vixxen n'est pas installe",
+          "en_US": "The Moddie the Vixxen npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(22,23,19):ttsq(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod The Tortured Soul Quest n'est pas installe",
+          "en_US": "The Tortured Soul Quest mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(6,7):nina(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Ninafer n'est pas installe",
+          "en_US": "The Ninafer npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(12):thael(0)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(17):dnt(0)",
+        "severity": "error",
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(8):sub-zero(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Sub-Zero n'est pas installe",
+          "en_US": "The Sub_Zero npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(20):banana(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Banana n'est pas installe",
+          "en_US": "The Banana! npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(9):yikari(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Yikari n'est pas installe",
+          "en_US": "The Yikari npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(18):mawgulnpc(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Mawgul n'est pas installe",
+          "en_US": "The Mawgul npc mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(13):uot(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Umbra of T.R.O.W n'est pas installe",
+          "en_US": "The Umbra of T.R.O.W mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(11):d2item(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Jamella's Diablo2 Item Store n'est pas installe",
+          "en_US": "The Jamella's Diablo2 Item Store mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(15,16):derats_magasin_2(33)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod l'Interplan n'est pas installe",
+          "en_US": "The Interplan mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(14):jl#zulu(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Guerrier Lion n'est pas installe",
+          "en_US": "The Lion Warrior Kit mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(21):sb(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le mod Mutant de gelee n'est pas installe",
+          "en_US": "The Jelly mutant Kit mod is not installed"
+        },
+        "origin": "tp2"
+      },
+      {
+        "rule": "derats_mods_tweaker(24,25):sigil_bd_mod(0)",
+        "severity": "error",
+        "translations": {
+          "fr_FR": "Le Mod d'anniversaire de Sigil.cz n'est pas installe",
+          "en_US": "The Sigil's birthday mod is not installed"
+        },
+        "origin": "tp2"
+      }
+    ]
+  }
 }

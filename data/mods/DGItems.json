@@ -15,8 +15,8 @@
   "games": ["bg2", "bg2ee", "bgt", "eet"],
   "categories": ["spell"],
   "components": {
-    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"]},
-    "1000": {"type": "std", "category": "smith"}
+    "0": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet"], "label": "DGItems-Daniel-Goodrich"},
+    "1000": {"type": "std", "category": "smith", "label": "IRStore-Daniel-Goodrich-DelayItemVolcano"}
   },
   "languages": {
     "en_US": 0,
@@ -51,6 +51,18 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "dgitems(1000):volcano(0)&dgitems(0)",
+        "severity": "error",
+        "mode": "all",
+        "translations": {
+          "en_US": "Delay some Items in ToB need the mod Improved Volcano! Pack and DGItems main componant",
+          "fr_FR": "Deplacer certains items dans ToB necessite le mod Improved Volcano! Pack et DGItems composant principal"
+        },
+        "origin": "tp2"
       }
     ]
   }

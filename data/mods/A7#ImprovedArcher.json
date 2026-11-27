@@ -29,11 +29,11 @@
   "games": ["bg2", "bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"],
   "categories": ["kit"],
   "components": {
-    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"]},
-    "100": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet", "iwdee"]}
+    "0": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "label": "A7-IMPROVEDARCHER-ARCHER"},
+    "10": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "label": "A7-IMPROVEDARCHER-MARKSMAN"},
+    "20": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "label": "A7-IMPROVEDARCHER-BOWKNIGHT"},
+    "30": {"type": "std", "games": ["bg2ee", "bgee", "bgt", "eet", "iwdee", "sod", "tutu"], "label": "A7-IMPROVEDARCHER-SHARPSHOOTER"},
+    "100": {"type": "std", "category": "smith", "games": ["bg2ee", "bgt", "eet", "iwdee"], "label": "A7-IMPROVEDARCHER-BOWS_AND_AMMO"}
   },
   "languages": {
     "en_US": 0,
@@ -138,6 +138,14 @@
         "direction": "after",
         "severity": "warning",
         "origin": "ini"
+      }
+    ],
+    "dependencies": [
+      {
+        "rule": "a7#improvedarcher(100):a7#improvedarcher(100)",
+        "severity": "warning",
+        "optional": true,
+        "origin": "tp2"
       }
     ]
   }
