@@ -6,6 +6,7 @@ reported, so that an interrupted run can be resumed from what was proven.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime
 from enum import Enum
@@ -48,6 +49,23 @@ class OperationDecision(Enum):
     CONFIRM_INSTALLED = "confirm_installed"
     RETRY = "retry"
     ACCEPT_FAILURE = "accept_failure"
+
+
+@dataclass(frozen=True)
+class JournalDecision:
+    """User decision for one operation of the journal.
+
+    Attributes:
+        sequence: Sequence index
+        position: Operation index within the sequence
+        decision: Decision of the user
+        in_log: Whether WeiDU.log currently records the component
+    """
+
+    sequence: int
+    position: int
+    decision: OperationDecision
+    in_log: bool = False
 
 
 class RunOutcome(Enum):
@@ -234,13 +252,54 @@ class Operation:
         relevant = {k: v for k, v in rule.items() if k not in DESCRIPTIVE_RULE_FIELDS}
         return json.dumps(relevant, sort_keys=True, ensure_ascii=False)
 
+    def decided(self, decision: OperationDecision, in_log: bool) -> Operation:
+        """Copy of the operation once the user decision is applied.
+
+        Args:
+            decision: Decision of the user
+            in_log: Whether WeiDU.log currently records the component
+        """
+        if decision == OperationDecision.CONFIRM_INSTALLED:
+            previous = self.evidence
+            return replace(
+                self,
+                decision=decision,
+                status=ComponentStatus.SUCCESS,
+                evidence=AttemptEvidence(
+                    previous.return_code if previous else None,
+                    previous.debug_status if previous else None,
+                    in_log,
+                ),
+            )
+        if decision == OperationDecision.RETRY:
+            return replace(self, decision=decision, status=ComponentStatus.PENDING)
+        return replace(self, decision=decision, status=ComponentStatus.ERROR)
+
+    def adopt_decision(self, decided: Operation) -> None:
+        """Take the state of a decided copy, keeping this object for those who hold it."""
+        self.status = decided.status
+        self.decision = decided.decision
+        self.evidence = decided.evidence
+
     def to_dict(self) -> dict[str, Any]:
-        """Serialize the operation for the journal."""
-        data = asdict(self)
-        data["status"] = self.status.value
-        data["decision"] = self.decision.value if self.decision else None
-        data["evidence"] = self.evidence.to_dict() if self.evidence else None
-        return data
+        """Serialize the operation for the journal, in the order of its fields."""
+        return {
+            "reference": self.reference,
+            "tp2": self.tp2,
+            "language": self.language,
+            "batch": self.batch,
+            "answers": list(self.answers),
+            "arguments": list(self.arguments),
+            "requirements": list(self.requirements),
+            "kind": self.kind,
+            "version": self.version,
+            "status": self.status.value,
+            "decision": self.decision.value if self.decision else None,
+            "evidence": self.evidence.to_dict() if self.evidence else None,
+            "messages": list(self.messages),
+            "archive_owner": self.archive_owner,
+            "archive_sha256": self.archive_sha256,
+        }
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Operation:
@@ -412,11 +471,14 @@ class InstallationJournal:
 
     def to_document(self) -> dict[str, Any]:
         """Content of the journal file."""
+        return self._document_of(self.sequences)
+
+    def _document_of(self, sequences: list[RunSequence]) -> dict[str, Any]:
         return {
             "format": INSTALLATION_JOURNAL_FORMAT,
             "run": self.lifecycle.to_dict(),
             "plan": asdict(self.plan),
-            "sequences": [seq.to_dict() for seq in self.sequences],
+            "sequences": [seq.to_dict() for seq in sequences],
         }
 
     # ------------------------------------------------------------------
@@ -447,29 +509,28 @@ class InstallationJournal:
     def decide(
         self, sequence: int, position: int, decision: OperationDecision, in_log: bool
     ) -> None:
-        """Apply a user decision to an operation, or a group of failed operations.
+        """Apply and persist a user decision for one operation (see decide_many)."""
+        self.decide_many([JournalDecision(sequence, position, decision, in_log)])
 
-        Args:
-            sequence: Sequence index
-            position: Operation index within the sequence
-            decision: Decision of the user
-            in_log: Whether WeiDU.log currently records the component
+    def decide_many(self, decisions: Iterable[JournalDecision]) -> None:
+        """Apply user decisions, persisted in a single write before they are published.
+
+        The decisions are applied in order on copies of the operations. The journal
+        in memory only changes once the file is written: when the write fails, the
+        error propagates and nothing was decided.
         """
-        operation = self.sequences[sequence].operations[position]
-        operation.decision = decision
-        if decision == OperationDecision.CONFIRM_INSTALLED:
-            previous = operation.evidence
-            operation.status = ComponentStatus.SUCCESS
-            operation.evidence = AttemptEvidence(
-                previous.return_code if previous else None,
-                previous.debug_status if previous else None,
-                in_log,
-            )
-        elif decision == OperationDecision.RETRY:
-            operation.status = ComponentStatus.PENDING
-        else:
-            operation.status = ComponentStatus.ERROR
-        self.save()
+        decided: dict[tuple[int, int], Operation] = {}
+        for item in decisions:
+            key = (item.sequence, item.position)
+            current = decided[key] if key in decided else self._operation(*key)
+            decided[key] = current.decided(item.decision, item.in_log)
+        if not decided:
+            return
+
+        write_json_atomic(self.path, self._document_of(self._sequences_with(decided)))
+
+        for (sequence, position), operation in decided.items():
+            self._operation(sequence, position).adopt_decision(operation)
 
     def reopen(self, sequence: int, position: int) -> None:
         """Mark an installed operation whose WeiDU.log entry disappeared as undetermined."""
@@ -482,6 +543,16 @@ class InstallationJournal:
             previous.debug_status if previous else None,
             in_log=False,
         )
+
+    def _operation(self, sequence: int, position: int) -> Operation:
+        return self.sequences[sequence].operations[position]
+
+    def _sequences_with(self, decided: dict[tuple[int, int], Operation]) -> list[RunSequence]:
+        """Sequences where the decided copies replace their operations; self is unchanged."""
+        sequences = [replace(seq, operations=list(seq.operations)) for seq in self.sequences]
+        for (sequence, position), operation in decided.items():
+            sequences[sequence].operations[position] = operation
+        return sequences
 
     def closed_copy(self, closure: RunClosure) -> InstallationJournal:
         """Copy of the run closed now, left unsaved.

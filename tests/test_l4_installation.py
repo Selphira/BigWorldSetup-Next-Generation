@@ -787,6 +787,88 @@ def test_retry_only_failed_component_and_keep_warning(
     assert statuses[:2] == [ComponentStatus.WARNING, ComponentStatus.SUCCESS]
 
 
+def test_failed_checkpoint_of_a_retry_launches_nothing_again(
+    catalogue: ModCatalogue,
+    journal: InstallationJournal,
+    no_rules: Mock,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    mod = catalogue.get_mod_by_id("demo")
+    batch = [
+        ComponentInfo("demo:" + key, mod, mod.get_component(key), "demo", n)
+        for n, key in enumerate(["1", "2"])
+    ]
+    for op, comp in zip(journal.sequences[0].operations, batch, strict=False):
+        op.reference = comp.comp_id
+    worker = InstallationWorker(Mock(), [batch], journal, no_rules)
+    problems = []
+    worker.diagnostic.connect(problems.append)
+    disk_full = Mock(side_effect=OSError("disk full"))
+
+    def retry_on_a_full_disk(*_: object) -> None:
+        monkeypatch.setattr("core.InstallationJournal.write_json_atomic", disk_full)
+        worker.set_user_decision(UserDecision.RETRY)
+
+    worker.error_occurred.connect(retry_on_a_full_disk)
+    calls = []
+
+    def install(components: list[ComponentInfo]) -> dict[str, InstallResult]:
+        calls.append([c.comp_id for c in components])
+        return {
+            comp.comp_id: result(ComponentStatus.ERROR, in_log=False) for comp in components
+        }
+
+    worker._install_batch = install
+    worker.run()
+
+    assert calls == [["demo:1", "demo:2"]]
+    assert worker.is_stopped and problems == ["disk full"]
+    disk_full.assert_called_once()
+    saved = InstallationJournal.load(journal.path).sequences[0].operations
+    assert [(op.status, op.decision) for op in saved[:2]] == [(ComponentStatus.ERROR, None)] * 2
+    assert [op.status for op in journal.sequences[0].operations[:2]] == [
+        ComponentStatus.ERROR
+    ] * 2
+
+
+def test_accepted_failures_of_a_batch_are_saved_in_a_single_write(
+    catalogue: ModCatalogue,
+    journal: InstallationJournal,
+    no_rules: Mock,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    mod = catalogue.get_mod_by_id("demo")
+    batch = [
+        ComponentInfo("demo:" + key, mod, mod.get_component(key), "demo", n)
+        for n, key in enumerate(["1", "2"])
+    ]
+    for op, comp in zip(journal.sequences[0].operations, batch, strict=False):
+        op.reference = comp.comp_id
+    worker = InstallationWorker(Mock(), [batch], journal, no_rules)
+    writes = []
+
+    def accept(*_: object) -> None:
+        write = atomic_io.write_json_atomic
+
+        def tracked(path: Path, value: object) -> None:
+            writes.append(path)
+            write(path, value)
+
+        monkeypatch.setattr("core.InstallationJournal.write_json_atomic", tracked)
+        worker.set_user_decision(UserDecision.SKIP)
+
+    worker.error_occurred.connect(accept)
+    worker._install_batch = lambda components: {
+        comp.comp_id: result(ComponentStatus.ERROR, in_log=False) for comp in components
+    }
+    worker.run()
+
+    assert writes == [journal.path]
+    saved = InstallationJournal.load(journal.path).sequences[0].operations
+    assert [op.decision for op in saved[:2]] == [OperationDecision.ACCEPT_FAILURE] * 2
+    assert not any(op.needs_work for op in saved[:2])
+
+
 def test_retried_component_is_reinstalled_even_if_logged(
     catalogue: ModCatalogue, journal: InstallationJournal, no_rules: Mock
 ) -> None:

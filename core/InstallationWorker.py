@@ -15,7 +15,12 @@ import threading
 from PySide6.QtCore import QThread, Signal
 
 from constants import PROCESS_POLL_MS, PROCESS_READ_CHUNK_SIZE, WORKER_POLL_MS
-from core.InstallationJournal import InstallationJournal, Operation, OperationDecision
+from core.InstallationJournal import (
+    InstallationJournal,
+    JournalDecision,
+    Operation,
+    OperationDecision,
+)
 from core.models.PauseEntry import PauseEntry
 from core.RuleManager import RuleManager
 from core.TranslationManager import tr
@@ -527,8 +532,10 @@ class InstallationWorker(QThread):
             ]
 
         retried = positions(ComponentStatus.ERROR) or positions(ComponentStatus.WARNING)
-        for position in retried:
-            self.journal.decide(self.sequence, position, OperationDecision.RETRY, in_log=False)
+        self.journal.decide_many(
+            JournalDecision(self.sequence, position, OperationDecision.RETRY)
+            for position in retried
+        )
         self.installation_retryed.emit(len(retried))
 
     def _accept_failures(self, batch: list[ComponentInfo]) -> None:
@@ -538,10 +545,10 @@ class InstallationWorker(QThread):
             for comp in batch
             if self._operations[comp.sequence_idx].status == ComponentStatus.ERROR
         ]
-        for position in failed:
-            self.journal.decide(
-                self.sequence, position, OperationDecision.ACCEPT_FAILURE, in_log=False
-            )
+        self.journal.decide_many(
+            JournalDecision(self.sequence, position, OperationDecision.ACCEPT_FAILURE)
+            for position in failed
+        )
         if failed or any(
             self._operations[comp.sequence_idx].status == ComponentStatus.SKIPPED
             for comp in batch

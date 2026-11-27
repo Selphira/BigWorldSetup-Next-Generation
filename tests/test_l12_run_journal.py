@@ -1,5 +1,6 @@
 """L12: format 4 of the installation journal, the closure of the run and its history archive."""
 
+from dataclasses import asdict, fields
 from datetime import UTC, datetime
 import json
 from pathlib import Path
@@ -14,11 +15,14 @@ from constants import (
     DIAGNOSTIC_SUMMARY_ENTRY,
     INSTALLATION_JOURNAL_FORMAT,
 )
+from core import InstallationJournal as journal_module
 from core.InstallationExecutor import InstallationError, InstallationExecutor
 from core.InstallationJournal import (
     InstallationJournal,
+    JournalDecision,
     JournalError,
     Operation,
+    OperationDecision,
     RunClosure,
     RunLifecycle,
     RunPlan,
@@ -220,6 +224,190 @@ def test_inconsistent_run_lifecycle_is_unreadable(
 
     with pytest.raises(JournalError):
         InstallationJournal.load(journal.path)
+
+
+# ============================================================================
+# Decisions and serialization
+# ============================================================================
+
+
+FAILED_COMPONENTS = ["demo:0", "demo:1", "demo:2"]
+
+
+@pytest.fixture
+def failed_journal(tmp_path: Path, journal_path: Path) -> InstallationJournal:
+    """Saved journal whose three operations failed and wait for a decision."""
+    plan = RunPlan(
+        "eet",
+        {"sod": str(tmp_path)},
+        {0: FAILED_COMPONENTS},
+        FAILED_COMPONENTS,
+        "fr_FR",
+        ["fr_FR"],
+        True,
+    )
+    operations = [
+        Operation(
+            reference,
+            "demo",
+            0,
+            0,
+            [],
+            [],
+            [],
+            "std",
+            status=ComponentStatus.ERROR,
+            evidence=AttemptEvidence(1, ComponentStatus.ERROR, in_log=False),
+            messages=["broken"],
+        )
+        for reference in FAILED_COMPONENTS
+    ]
+    journal_path.parent.mkdir(parents=True)
+    run = InstallationJournal(
+        journal_path,
+        plan,
+        [RunSequence(str(tmp_path), RunSequence.identify(tmp_path), operations)],
+    )
+    run.save()
+    return run
+
+
+def journal_writes(monkeypatch: pytest.MonkeyPatch, *, fail: bool = False) -> list[Path]:
+    """Paths written by the journal; with `fail`, every write fails as on a full disk."""
+    written: list[Path] = []
+    write = journal_module.write_json_atomic
+
+    def tracked(path: Path, value: object) -> None:
+        written.append(path)
+        if fail:
+            raise OSError("disk full")
+        write(path, value)
+
+    monkeypatch.setattr(journal_module, "write_json_atomic", tracked)
+    return written
+
+
+def decision_state(journal: InstallationJournal) -> list[tuple]:
+    return [(op.status, op.decision, op.evidence) for op in journal.sequences[0].operations]
+
+
+def test_decisions_of_several_operations_are_saved_in_a_single_write(
+    failed_journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    held = list(failed_journal.sequences[0].operations)
+    written = journal_writes(monkeypatch)
+
+    failed_journal.decide_many(
+        [
+            JournalDecision(0, 0, OperationDecision.ACCEPT_FAILURE),
+            JournalDecision(0, 1, OperationDecision.RETRY),
+            JournalDecision(0, 2, OperationDecision.CONFIRM_INSTALLED, in_log=True),
+        ]
+    )
+
+    assert written == [failed_journal.path]
+    assert failed_journal.sequences[0].operations == held
+    assert all(
+        current is kept
+        for current, kept in zip(failed_journal.sequences[0].operations, held, strict=True)
+    )
+    assert decision_state(failed_journal) == [
+        (ComponentStatus.ERROR, OperationDecision.ACCEPT_FAILURE, held[0].evidence),
+        (ComponentStatus.PENDING, OperationDecision.RETRY, held[1].evidence),
+        (
+            ComponentStatus.SUCCESS,
+            OperationDecision.CONFIRM_INSTALLED,
+            AttemptEvidence(1, ComponentStatus.ERROR, in_log=True),
+        ),
+    ]
+    assert decision_state(InstallationJournal.load(failed_journal.path)) == decision_state(
+        failed_journal
+    )
+
+
+def test_decisions_of_one_operation_apply_in_order(
+    failed_journal: InstallationJournal,
+) -> None:
+    failed_journal.decide_many(
+        [
+            JournalDecision(0, 0, OperationDecision.CONFIRM_INSTALLED, in_log=False),
+            JournalDecision(0, 0, OperationDecision.RETRY),
+        ]
+    )
+
+    operation = InstallationJournal.load(failed_journal.path).sequences[0].operations[0]
+    assert operation.status == ComponentStatus.PENDING
+    assert operation.decision == OperationDecision.RETRY
+    assert operation.evidence == AttemptEvidence(1, ComponentStatus.ERROR, in_log=False)
+
+
+def test_failed_decision_write_publishes_nothing(
+    failed_journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    saved = failed_journal.path.read_bytes()
+    before = decision_state(failed_journal)
+    journal_writes(monkeypatch, fail=True)
+
+    with pytest.raises(OSError, match="disk full"):
+        failed_journal.decide_many(
+            JournalDecision(0, position, OperationDecision.RETRY) for position in range(3)
+        )
+    with pytest.raises(OSError, match="disk full"):
+        failed_journal.decide(0, 0, OperationDecision.ACCEPT_FAILURE, in_log=False)
+
+    assert decision_state(failed_journal) == before
+    assert failed_journal.path.read_bytes() == saved
+
+
+def test_no_decision_writes_nothing(
+    failed_journal: InstallationJournal, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    written = journal_writes(monkeypatch)
+
+    failed_journal.decide_many([])
+
+    assert written == []
+
+
+def test_operation_is_serialized_field_by_field_like_its_dataclass() -> None:
+    operation = Operation(
+        "demo:0",
+        "demo",
+        2,
+        3,
+        ["A", "B"],
+        ["--force"],
+        ['{"type": "requires"}'],
+        "std",
+        version="v1",
+        status=ComponentStatus.ERROR,
+        decision=OperationDecision.ACCEPT_FAILURE,
+        evidence=AttemptEvidence(1, ComponentStatus.ERROR, in_log=False),
+        messages=["broken"],
+        archive_owner="pack",
+        archive_sha256="a" * 64,
+    )
+    expected = asdict(operation) | {
+        "status": "error",
+        "decision": "accept_failure",
+        "evidence": operation.evidence.to_dict(),
+    }
+
+    serialized = operation.to_dict()
+
+    assert list(serialized) == [field.name for field in fields(Operation)]
+    assert json.dumps(serialized) == json.dumps(expected)
+    assert Operation.from_dict(json.loads(json.dumps(serialized))) == operation
+
+
+def test_serialized_operation_does_not_share_its_lists(
+    failed_journal: InstallationJournal,
+) -> None:
+    operation = failed_journal.sequences[0].operations[0]
+
+    operation.to_dict()["messages"].append("changed")
+
+    assert operation.messages == ["broken"]
 
 
 # ============================================================================
