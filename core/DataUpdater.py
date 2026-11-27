@@ -23,6 +23,7 @@ from constants import (
 )
 from core.atomic_io import write_json_atomic
 from core.CatalogueLocation import CatalogueLocation, is_schema_compatible
+from core.ProgressEmitter import ProgressEmitter
 from core.TranslationManager import tr
 from validation.catalogue import validate_catalogue
 
@@ -59,6 +60,7 @@ class DataUpdater(QObject):
         self._cancel_lock = threading.Lock()
         self._cancelled = False
         self._activation_started = False
+        self._progress = ProgressEmitter(self.progress.emit)
 
     def request_cancel(self) -> bool:
         """
@@ -252,6 +254,7 @@ class DataUpdater(QObject):
 
                 total_size = int(response.headers.get("content-length", 0))
                 downloaded = 0
+                self._progress.restart()
 
                 with open(dest, "wb") as f:
                     for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
@@ -263,7 +266,7 @@ class DataUpdater(QObject):
                                 progress = int(
                                     (downloaded / total_size) * 50
                                 )  # 0-50% for download
-                                self.progress.emit(progress)
+                                self._progress.report(progress)
 
                 logger.info(f"Downloaded {downloaded} bytes")
                 return True
@@ -306,11 +309,12 @@ class DataUpdater(QObject):
                     if not target.is_relative_to(root) or ":" in member or "\\" in member:
                         raise ValueError(f"Unsafe archive member: {member}")
                 total = len(members)
+                self._progress.restart()
 
                 for i, member in enumerate(members):
                     zf.extract(member, extract_dir)
                     progress = 50 + int((i / total) * 40)  # 50-90% for extraction
-                    self.progress.emit(progress)
+                    self._progress.report(progress)
 
             logger.info(f"Extracted {total} files")
             return True
@@ -363,7 +367,7 @@ class DataUpdater(QObject):
         """Activate the fully prepared catalogue on the same filesystem."""
         try:
             new_data_dir.rename(DOWNLOADED_CATALOGUE_DIR)
-            self.progress.emit(100)
+            self._progress.force(100)
             return True
         except OSError as error:
             logger.exception("Failed to activate catalogue")

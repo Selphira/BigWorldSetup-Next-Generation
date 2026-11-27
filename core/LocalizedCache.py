@@ -22,6 +22,7 @@ from PySide6.QtCore import QObject, QThread, Signal
 
 from constants import LOCALIZED_CACHE_FINGERPRINT_SUFFIX, LOCALIZED_CACHE_FORMAT_VERSION
 from core.atomic_io import write_json_atomic
+from core.ProgressEmitter import ProgressEmitter
 from core.TranslationManager import SUPPORTED_LANGUAGES, tr
 
 logger = logging.getLogger(__name__)
@@ -144,6 +145,7 @@ class LocalizedCacheBuilder(QThread):
         self.sources_fingerprint: str | None = None
         self._diagnostics: list[str] = []
         self._should_stop = False
+        self._progress = ProgressEmitter(self.progress.emit)
         self._total_steps = 1
         self._current_step = 0
 
@@ -169,10 +171,11 @@ class LocalizedCacheBuilder(QThread):
     def _build(self) -> CacheBuildResult:
         """Write every language cache, then the fingerprint that makes them fresh."""
         self._diagnostics = []
+        self._progress.restart()
         groups = self._load_sources()
         self._raise_if_stopped()
 
-        self.progress.emit(self.localization_progress_start)
+        self._progress.force(self.localization_progress_start)
         self._total_steps = max(len(self.languages) * self._count_entries(groups), 1)
         self._current_step = 0
 
@@ -182,7 +185,7 @@ class LocalizedCacheBuilder(QThread):
         self._write_fingerprint()
 
         self.status_changed.emit(tr("app.cache_generated_successfully"))
-        self.progress.emit(100)
+        self._progress.force(100)
         return CacheBuildResult(tuple(self._diagnostics))
 
     # ========================================
@@ -247,10 +250,12 @@ class LocalizedCacheBuilder(QThread):
         write_json_atomic(fingerprint_path, {"sources": self.sources_fingerprint})
 
     def _advance_progress(self) -> None:
-        """Emit progress after one localized entry."""
+        """Report progress after one localized entry."""
         self._current_step += 1
         start = self.localization_progress_start
-        self.progress.emit(start + int(self._current_step / self._total_steps * (100 - start)))
+        self._progress.report(
+            start + int(self._current_step / self._total_steps * (100 - start))
+        )
 
     @staticmethod
     def _count_entries(groups: CacheGroups) -> int:

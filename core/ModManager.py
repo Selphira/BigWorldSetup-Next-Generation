@@ -137,7 +137,7 @@ class CacheBuilderThread(LocalizedCacheBuilder):
                 self._report_skipped_source(f"Error loading {file_path.name}: {e}")
                 continue
 
-            self.progress.emit(
+            self._progress.report(
                 int((i + 1) / len(source_files) * self.localization_progress_start)
             )
 
