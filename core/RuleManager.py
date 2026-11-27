@@ -27,6 +27,7 @@ from core.LocalizedCache import (
 )
 from core.ModManager import ModManager, select_mod_files
 from core.OrderPositions import OrderPositions
+from core.OrderScheduler import OrderScheduler, PendingProviders
 from core.Rules import (
     ComponentGroup,
     DependencyMode,
@@ -491,6 +492,10 @@ class ConditionEvaluator(Protocol):
         """Get matching components."""
         ...
 
+    def as_groups(self) -> tuple[ComponentGroup, ...]:
+        """Groups that must all be matched, for the condition to be satisfied."""
+        ...
+
 
 class StandardCondition:
     """Evaluates standard source/target."""
@@ -516,6 +521,10 @@ class StandardCondition:
     def get_matching(self, selected_set: Selection) -> list[ComponentReference]:
         """Get components that match."""
         return [comp for comp in self.components if comp.is_selected_in(selected_set)]
+
+    def as_groups(self) -> tuple[ComponentGroup, ...]:
+        """The components form a single group of the same mode."""
+        return (ComponentGroup(self.components, self.mode),)
 
 
 class GroupCondition:
@@ -546,6 +555,9 @@ class GroupCondition:
                 matching.extend(group.get_matched_components(selected_set))
         return matching
 
+    def as_groups(self) -> tuple[ComponentGroup, ...]:
+        return self.groups
+
 
 class TrivialCondition:
     """Trivial condition evaluator (for optimization)."""
@@ -565,6 +577,10 @@ class TrivialCondition:
     @staticmethod
     def get_matching(selected_set: Selection) -> list[ComponentReference]:
         return []
+
+    def as_groups(self) -> tuple[ComponentGroup, ...]:
+        """No group when always satisfied, an ANY group without component when never."""
+        return () if self._result else (ComponentGroup((), DependencyMode.ANY),)
 
 
 @dataclass(frozen=True, slots=True)
@@ -1298,8 +1314,63 @@ class RuleManager(LocalizedCacheManager):
         selection: set[ComponentReference],
     ) -> SuggestedOrder:
         """Schedule the earliest ready editorial entry, retaining unresolved cycles for review."""
-        pending = list(dict.fromkeys(editorial))
-        active = set(pending)
+        entries = list(dict.fromkeys(editorial))
+        before = self._explicit_predecessors(entries)
+        choices = self._selected_options(selection)
+        available = earlier | {option for base in earlier for option in choices.get(base, ())}
+
+        # The selection is fixed during the call: requirements are evaluated once per entry
+        selection_context = SelectionContext.of(selection)
+        evaluators: dict[int, ConditionEvaluator] = {}
+        requirements: dict[ComponentReference, list[DependencyRule]] = {}
+        for ref in entries:
+            requirements[ref] = [
+                rule
+                for rule in self.ordering_requirements(
+                    ref, selection_context, choices.get(ref, set())
+                )
+                if rule.implicit_order
+            ]
+            for rule in requirements[ref]:
+                if id(rule) not in evaluators:
+                    evaluators[id(rule)] = self._create_order_evaluator(rule, selection_context)
+
+        scheduler = OrderScheduler(
+            entries,
+            before,
+            {
+                ref: [group for rule in rules for group in evaluators[id(rule)].as_groups()]
+                for ref, rules in requirements.items()
+            },
+            choices,
+        )
+        ordered = scheduler.schedule(available)
+
+        placed = set(ordered)
+        pending = [ref for ref in entries if ref not in placed]
+        cycle: tuple[ComponentReference, ...] = ()
+        if pending:
+            available.update(placed)
+            available.update(option for ref in ordered for option in choices.get(ref, ()))
+            cycle = self._find_order_cycle(
+                pending,
+                before,
+                requirements,
+                evaluators,
+                SelectionContext.of(available),
+                choices,
+            )
+        return SuggestedOrder(ordered + pending, cycle)
+
+    def _explicit_predecessors(
+        self, entries: list[ComponentReference]
+    ) -> dict[ComponentReference, set[ComponentReference]]:
+        """Entries that order rules place before each entry, keyed by every entry.
+
+        The cycle reported by TopologicalSorter follows the order of the keys and of
+        each set: both are built in the same order as before the scheduling was incremental.
+        """
+        active = set(entries)
         before: dict[ComponentReference, set[ComponentReference]] = defaultdict(set)
         for rule in {
             rule
@@ -1317,56 +1388,36 @@ class RuleManager(LocalizedCacheManager):
                             else (target, source)
                         )
                         before[second].add(first)
-        choices = self._selected_options(selection)
-        available = earlier | {option for base in earlier for option in choices.get(base, ())}
-        ordered = []
-        placed = set()
-        while pending:
-            ready = next(
-                (
-                    ref
-                    for ref in pending
-                    if before[ref] <= placed
-                    and all(
-                        self._create_order_evaluator(rule, selection).is_satisfied(available)
-                        for rule in self.ordering_requirements(
-                            ref, selection, choices.get(ref, set())
-                        )
-                        if rule.implicit_order
-                    )
-                ),
-                None,
-            )
-            if ready is None:
-                break
-            ordered.append(ready)
-            pending.remove(ready)
-            placed.add(ready)
-            available.add(ready)
-            available.update(choices.get(ready, ()))
-        cycle = ()
-        if pending:
-            remaining = set(pending)
-            for ref in pending:
-                for rule in self.ordering_requirements(ref, selection, choices.get(ref, set())):
-                    if not rule.implicit_order:
-                        continue
-                    evaluator = self._create_order_evaluator(rule, selection)
-                    if evaluator.is_satisfied(available):
-                        continue
-                    for missing in evaluator.get_missing(available):
-                        before[ref].update(
-                            candidate
-                            for candidate in remaining
-                            if missing.is_selected_in(
-                                {candidate} | choices.get(candidate, set())
-                            )
-                        )
-            try:
-                TopologicalSorter(before).prepare()
-            except CycleError as error:
-                cycle = tuple(error.args[1])
-        return SuggestedOrder(ordered + pending, cycle)
+        for ref in entries:
+            before.setdefault(ref, set())
+        return before
+
+    @staticmethod
+    def _find_order_cycle(
+        pending: list[ComponentReference],
+        before: dict[ComponentReference, set[ComponentReference]],
+        requirements: dict[ComponentReference, list[DependencyRule]],
+        evaluators: dict[int, ConditionEvaluator],
+        available: SelectionContext,
+        choices: dict[ComponentReference, set[ComponentReference]],
+    ) -> tuple[ComponentReference, ...]:
+        """Add the pending providers of each missing target, then look for a cycle.
+
+        A target that no pending entry provides adds no edge: it is absent, not a cycle.
+        """
+        providers = PendingProviders.of(set(pending), choices)
+        for ref in pending:
+            for rule in requirements[ref]:
+                evaluator = evaluators[id(rule)]
+                if evaluator.is_satisfied(available):
+                    continue
+                for missing in evaluator.get_missing(available):
+                    before[ref].update(providers.providing(missing))
+        try:
+            TopologicalSorter(before).prepare()
+        except CycleError as error:
+            return tuple(error.args[1])
+        return ()
 
     @staticmethod
     def _selected_options(
