@@ -400,6 +400,20 @@ def test_operation_is_serialized_field_by_field_like_its_dataclass() -> None:
     assert Operation.from_dict(json.loads(json.dumps(serialized))) == operation
 
 
+def test_plan_is_serialized_field_by_field_like_its_dataclass(
+    failed_journal: InstallationJournal,
+) -> None:
+    plan = failed_journal.plan
+
+    serialized = plan.to_dict()
+
+    assert list(serialized) == [field.name for field in fields(RunPlan)]
+    assert json.dumps(serialized) == json.dumps(asdict(plan))
+    assert RunPlan.from_dict(json.loads(json.dumps(serialized))) == plan
+    serialized["orders"][0].append("changed:0")
+    assert plan.orders[0] == FAILED_COMPONENTS
+
+
 def test_serialized_operation_does_not_share_its_lists(
     failed_journal: InstallationJournal,
 ) -> None:

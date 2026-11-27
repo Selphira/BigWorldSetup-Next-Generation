@@ -9,7 +9,7 @@ application and of the catalogue.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from datetime import datetime
 import json
 import logging
@@ -192,7 +192,7 @@ class InstallationDiagnostic:
         if journal is None:
             return content
 
-        content.documents[DIAGNOSTIC_PLAN_ENTRY] = asdict(journal.plan)
+        content.documents[DIAGNOSTIC_PLAN_ENTRY] = journal.plan.to_dict()
         for sequence in journal.sequences:
             if sequence.folder in content.game_directories:
                 continue

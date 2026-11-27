@@ -7,7 +7,7 @@ reported, so that an interrupted run can be resumed from what was proven.
 from __future__ import annotations
 
 from collections.abc import Iterable
-from dataclasses import asdict, dataclass, field, replace
+from dataclasses import dataclass, field, replace
 from datetime import datetime
 from enum import Enum
 import json
@@ -173,6 +173,18 @@ class RunPlan:
                 ref.is_component() or ref.is_sub_option()
             ) and ref.get_base_component_reference() not in ordered:
                 raise ValueError(value)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize the plan for the journal, in the order of its fields."""
+        return {
+            "game": self.game,
+            "folders": dict(self.folders),
+            "orders": {number: list(order) for number, order in self.orders.items()},
+            "selection": list(self.selection),
+            "game_language": self.game_language,
+            "languages": list(self.languages),
+            "batch": self.batch,
+        }
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> RunPlan:
@@ -477,7 +489,7 @@ class InstallationJournal:
         return {
             "format": INSTALLATION_JOURNAL_FORMAT,
             "run": self.lifecycle.to_dict(),
-            "plan": asdict(self.plan),
+            "plan": self.plan.to_dict(),
             "sequences": [seq.to_dict() for seq in sequences],
         }
 
