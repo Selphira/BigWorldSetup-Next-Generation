@@ -10,8 +10,13 @@ from core.Mod import Component, Mod, SubComponent
 from core.Rules import RuleType, RuleViolation
 from core.TranslationManager import tr
 from core.Url import get_forum_code
-from core.ValidationOrchestrator import ValidationOrchestrator
+from core.ValidationOrchestrator import (
+    ResolutionCancelled,
+    ResolutionProposal,
+    ValidationOrchestrator,
+)
 from ui.pages.mod_selection.ResolutionPreviewDialog import ResolutionPreviewDialog
+from ui.pages.mod_selection.ResolutionSearchDialog import ResolutionSearchDialog
 from ui.pages.mod_selection.SelectionController import SelectionController
 from ui.pages.mod_selection.TreeItem import TreeItem
 
@@ -446,8 +451,11 @@ class ComponentContextMenu:
     # ========================================
 
     def _resolve_keep_component(self, reference: ComponentReference) -> None:
-        proposal = self._orchestrator.auto_resolve(reference)
         title = tr("page.selection.violation.keep_this_component")
+        try:
+            proposal = self._search_resolution(reference)
+        except ResolutionCancelled:
+            return
         if proposal is None:
             QMessageBox.information(None, title, tr("page.selection.no_resolution"))
             return
@@ -477,6 +485,21 @@ class ComponentContextMenu:
                 dialog.parentWidget(), title, tr("page.selection.no_resolution")
             )
         dialog.deleteLater()
+
+    def _search_resolution(self, reference: ComponentReference) -> ResolutionProposal | None:
+        """Search off the interface thread, on a snapshot taken now.
+
+        Raises:
+            ResolutionCancelled: the user cancelled the search.
+        """
+        request = self._orchestrator.prepare_resolution(reference)
+        if request is None:
+            return None
+        search = ResolutionSearchDialog(self._orchestrator, request)
+        try:
+            return search.search()
+        finally:
+            search.deleteLater()
 
     def _change_names(self, reference: ComponentReference) -> tuple[str, str]:
         component = self._indexes.resolve(reference.get_base_component_reference())

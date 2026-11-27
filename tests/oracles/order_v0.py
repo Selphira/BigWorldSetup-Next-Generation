@@ -25,6 +25,7 @@ from core.Rules import (
     RuleType,
     RuleViolation,
 )
+from core.SelectionCascade import SelectionCascade
 from core.SelectionSource import SelectionSource
 from core.ValidationOrchestrator import ResolutionProposal
 from tests.oracles import rules_v0
@@ -302,12 +303,14 @@ def auto_resolve(
                 options.add(pattern)
         options = options - candidate if adding else options & candidate
         for ref in sorted(options, key=str):
-            simulation = selection_source.preview(set(candidate))
+            simulation = SelectionCascade(
+                indexes, set(candidate), selection_source.selection_constraints()
+            )
             if adding:
                 simulation.select(ref)
             else:
                 simulation.unselect(ref)
-            state = simulation.selection_snapshot()
+            state = frozenset(simulation.selection)
             if not protected <= state or state in seen:
                 continue
             seen.add(state)

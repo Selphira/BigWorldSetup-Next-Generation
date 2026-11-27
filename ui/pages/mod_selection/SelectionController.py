@@ -7,15 +7,14 @@ All modifications go through this controller and update indexes.
 
 from __future__ import annotations
 
-from dataclasses import replace
 import logging
 
 from PySide6.QtCore import QObject, Qt, Signal
 
-from constants import ROLE_IS_DEFAULT
 from core.ComponentReference import ComponentReference, IndexManager
 from core.GameModels import GameDefinition
 from core.RuleManager import RuleManager
+from core.SelectionCascade import SelectionCascade, SelectionConstraints
 
 logger = logging.getLogger(__name__)
 
@@ -44,12 +43,12 @@ class SelectionController(QObject):
     def selection_snapshot(self) -> frozenset[ComponentReference]:
         return frozenset(self._indexes.selection_index)
 
-    def preview(self, selection: set[ComponentReference]) -> SelectionController:
-        """Simulate cascades using the same catalogue, forced choices and defaults."""
-        controller = SelectionController(self._rule_manager)
-        controller._indexes = replace(self._indexes, selection_index=set(selection))
-        controller._game = self._game
-        return controller
+    def selection_constraints(self) -> SelectionConstraints:
+        if not self._game:
+            return SelectionConstraints()
+        return SelectionConstraints(
+            self._game.id, frozenset(self._game.get_forced_components())
+        )
 
     def apply_selection(self, selection: set[ComponentReference]) -> None:
         """Publish an already validated selection, including all cascade effects."""
@@ -91,26 +90,10 @@ class SelectionController(QObject):
         if self._indexes.is_selected(reference):
             return True
 
-        if (
-            not reference.is_sub()
-            and not reference.is_sub_option()
-            and not self._is_compatible_with_game(reference)
-        ):
-            logger.debug(f"Cannot select {reference}: incompatible with game")
+        if not self._cascade().select(reference, cascade):
             return False
 
-        self._indexes.select(reference)
-        logger.debug(f"Selected: {reference}")
-
-        self.selection_changed.emit(reference, True)
-
-        self._select_parents(reference)
-
-        if cascade:
-            self._cascade_to_children_by_type(reference)
-
-        is_root = self._cascade_depth == 0
-        if emit_validation and is_root:
+        if emit_validation and self._cascade_depth == 0:
             self.validation_needed.emit()
 
         return True
@@ -126,29 +109,10 @@ class SelectionController(QObject):
         if not self._indexes.is_selected(reference):
             return True
 
-        if self._has_forced_descendants(reference):
-            logger.debug(f"Cannot unselect {reference}: has forced descendants")
+        if not self._cascade().unselect(reference, cascade, from_parent):
             return False
 
-        if not from_parent and self._is_sub_prompt_with_active_parent(reference):
-            logger.debug(f"Cannot unselect {reference}: SUB parent active")
-            return False
-
-        if cascade and not from_parent and self._is_last_option_in_group(reference):
-            logger.debug(f"Cannot unselect {reference}: last option")
-            return False
-
-        self._indexes.unselect(reference)
-        logger.debug(f"Unselected: {reference}")
-        self.selection_changed.emit(reference, False)
-
-        if cascade:
-            self._unselect_all_children(reference)
-
-        self._update_parent_after_unselect(reference)
-
-        is_root = self._cascade_depth == 0
-        if emit_validation and is_root:
+        if emit_validation and self._cascade_depth == 0:
             self.validation_needed.emit()
 
         return True
@@ -160,22 +124,17 @@ class SelectionController(QObject):
         return self.select(reference, cascade=True)
 
     # ========================================
-    # Cascade Logic
+    # Game Constraints
     # ========================================
 
-    def _select_parents(self, reference: ComponentReference) -> None:
-        """Select parent chain without cascading to children."""
-        parent = self._indexes.get_parent(reference)
-
-        while parent:
-            if not self._indexes.is_selected(parent):
-                self._indexes.select(parent)
-                logger.debug(f"  Parent auto-selected: {parent}")
-                self.selection_changed.emit(parent, True)
-
-                parent = self._indexes.get_parent(parent)
-            else:
-                break
+    def _cascade(self) -> SelectionCascade:
+        """Cascade over the published selection, reporting each change by signal."""
+        return SelectionCascade(
+            self._indexes,
+            self._indexes.selection_index,
+            self.selection_constraints(),
+            self.selection_changed.emit,
+        )
 
     def _select_forced_components(self) -> list[str]:
         if not self._game:
@@ -204,17 +163,18 @@ class SelectionController(QObject):
         if not self._game:
             return []
 
+        cascade = self._cascade()
         unselected = []
         currently_selected = list(self._indexes.selection_index)
 
         for reference in currently_selected:
-            if self._is_forced_component(reference):
+            if cascade.is_forced(reference):
                 continue
 
             if reference.is_sub() or reference.is_sub_option():
                 continue
 
-            if self._is_compatible_with_game(reference):
+            if cascade.is_compatible_with_game(reference):
                 continue
 
             if self.unselect(reference, cascade=True, emit_validation=False):
@@ -222,170 +182,6 @@ class SelectionController(QObject):
                 logger.debug(f"Unselected incompatible component: {reference}")
 
         return unselected
-
-    def _cascade_to_children_by_type(self, reference: ComponentReference) -> None:
-        """Cascade to children according to component type."""
-
-        if self._is_muc_option(reference):
-            parent = self._indexes.get_parent(reference)
-
-            # Unselect other options
-            for sibling in self._indexes.get_siblings(reference):
-                self._apply_unselect(sibling)
-
-            # Select parent MUC if needed
-            if parent:
-                self._apply_select(parent)
-
-            return
-
-        if self._is_sub_prompt_option(reference):
-            self._handle_sub_prompt_option_selection(reference)
-            return
-
-        if self._is_sub_prompt(reference):
-            self._ensure_one_child_selected(reference)
-            return
-
-        children = self._indexes.get_children(reference)
-
-        if not children:
-            return
-
-        if reference.is_muc():
-            self._ensure_one_child_selected(reference)
-
-        elif reference.is_sub():
-            for child in children:
-                self.select(child, cascade=True, emit_validation=False)
-
-        else:
-            # STD / MOD
-            for child in children:
-                self.select(child, cascade=True, emit_validation=False)
-
-    def _ensure_one_child_selected(self, reference: ComponentReference) -> None:
-        """Ensure exactly one visible child is selected."""
-        children = self._indexes.get_children(reference)
-        if not children:
-            return
-
-        compatible = [c for c in children if self._is_compatible_with_game(c)]
-        if not compatible:
-            return
-
-        if any(self._indexes.is_selected(c) for c in compatible):
-            return
-
-        default = self._find_default_child(compatible)
-        if not default:
-            return
-
-        if self._is_sub_prompt(reference):
-            self._select_sub_prompt_with_option(reference, default)
-        else:
-            self._apply_select(default)
-
-    def _unselect_all_children(self, reference: ComponentReference) -> None:
-        """Recursively unselect all children."""
-        for child in self._indexes.get_children(reference):
-            self.unselect(
-                child,
-                cascade=True,
-                emit_validation=False,
-                from_parent=True,
-            )
-
-    def _update_parent_after_unselect(self, reference: ComponentReference) -> None:
-        """Unselect parent if no siblings remain selected."""
-        parent = self._indexes.get_parent(reference)
-
-        if not parent:
-            return
-
-        siblings = self._indexes.get_siblings(reference)
-
-        if any(self._indexes.is_selected(s) for s in siblings):
-            return
-
-        if self._indexes.is_selected(parent) and not self._has_forced_descendants(parent):
-            self._indexes.unselect(parent)
-            logger.debug(f"  Parent auto-unselected: {parent}")
-            self.selection_changed.emit(parent, False)
-
-            self._update_parent_after_unselect(parent)
-
-    # ========================================
-    # Helpers
-    # ========================================
-
-    def _is_compatible_with_game(self, reference: ComponentReference) -> bool:
-        """Check game compatibility."""
-        if not self._game:
-            return True
-        component = self._indexes.resolve(reference)
-        if not component:
-            return False
-        return component.supports_game(self._game.id)
-
-    def _is_forced_component(self, reference: ComponentReference) -> bool:
-        """Check if component itself is forced by game."""
-        if not self._game:
-            return False
-        forced = self._game.get_forced_components()
-        return str(reference) in forced
-
-    def _has_forced_descendants(self, reference: ComponentReference) -> bool:
-        """Check if reference or any of its descendants is forced."""
-        if self._is_forced_component(reference):
-            return True
-
-        children = self._indexes.get_children(reference)
-        return any(self._has_forced_descendants(child) for child in children)
-
-    def _is_muc_option(self, reference: ComponentReference) -> bool:
-        """Check if MUC option."""
-        parent = self._indexes.get_parent(reference)
-        return parent and parent.is_muc()
-
-    @staticmethod
-    def _is_sub_prompt(reference: ComponentReference) -> bool:
-        """Check if SUB prompt."""
-        return reference.comp_key.count(".") == 1
-
-    @staticmethod
-    def _is_sub_prompt_option(reference: ComponentReference) -> bool:
-        """Check if SUB prompt option."""
-        return reference.comp_key.count(".") == 2
-
-    def _is_sub_prompt_with_active_parent(self, reference: ComponentReference) -> bool:
-        """Check if SUB prompt has any selected option."""
-        if not self._is_sub_prompt(reference):
-            return False
-
-        for child in self._indexes.get_children(reference):
-            if self._indexes.is_selected(child):
-                return True
-
-        return False
-
-    def _is_last_option_in_group(self, reference: ComponentReference) -> bool:
-        """Check if last selected option in MUC/SUB group."""
-        if not self._is_sub_prompt_option(reference):
-            return False
-
-        siblings = self._indexes.get_siblings(reference)
-        return not any(self._indexes.is_selected(s) for s in siblings)
-
-    def _find_default_child(
-        self, children: list[ComponentReference]
-    ) -> ComponentReference | None:
-        """Find default child (marked or first)."""
-        for child_ref in children:
-            item = self._indexes.get_tree_item(child_ref)
-            if item and item.data(ROLE_IS_DEFAULT):
-                return child_ref
-        return children[0] if children else None
 
     # ========================================
     # Bulk Operations
@@ -437,85 +233,3 @@ class SelectionController(QObject):
 
     def get_selection_count(self) -> int:
         return len(self._indexes.get_selected_components())
-
-    # ========================================
-    # Low-level operations (no cascade)
-    # ========================================
-
-    def _apply_select(self, ref: ComponentReference) -> None:
-        """Direct select without cascade."""
-        if self._indexes.is_selected(ref):
-            return
-        self._indexes.select(ref)
-        self.selection_changed.emit(ref, True)
-
-    def _apply_unselect(self, ref: ComponentReference) -> None:
-        """Direct unselect without cascade."""
-        if not self._indexes.is_selected(ref):
-            return
-        self._indexes.unselect(ref)
-        self.selection_changed.emit(ref, False)
-
-    def _handle_sub_prompt_option_selection(self, option: ComponentReference) -> None:
-        """Handle selection of a SUB prompt option."""
-        prompt = self._indexes.get_parent(option)
-        if not prompt:
-            return
-
-        sub_parent = self._indexes.get_parent(prompt)
-        if not sub_parent:
-            return
-
-        self._select_entire_sub_with_option(sub_parent, prompt, option)
-
-    def _select_entire_sub_with_option(
-        self,
-        sub: ComponentReference,
-        selected_prompt: ComponentReference,
-        selected_option: ComponentReference,
-    ) -> None:
-        """Select entire SUB with specific option for one prompt."""
-        self._apply_select(sub)
-
-        for prompt in self._indexes.get_children(sub):
-            self._apply_select(prompt)
-
-            options = self._indexes.get_children(prompt)
-
-            if prompt == selected_prompt:
-                for sibling in self._indexes.get_siblings(selected_option):
-                    self._apply_unselect(sibling)
-                self._apply_select(selected_option)
-                continue
-
-            # Other prompts: ensure default option selected
-            if not any(self._indexes.is_selected(o) for o in options):
-                default = self._find_default_child(options)
-                if default:
-                    self._apply_select(default)
-
-    def _select_sub_prompt_with_option(
-        self, prompt: ComponentReference, option: ComponentReference
-    ) -> None:
-        """Select SUB prompt with specific option."""
-        sub_parent = self._indexes.get_parent(prompt)
-        if not sub_parent:
-            return
-
-        self._apply_select(sub_parent)
-
-        for sibling_prompt in self._indexes.get_children(sub_parent):
-            self._apply_select(sibling_prompt)
-
-            if sibling_prompt == prompt:
-                for sib in self._indexes.get_siblings(option):
-                    self._apply_unselect(sib)
-                self._apply_select(option)
-                continue
-
-            # Other prompts: ensure an option is selected
-            options = self._indexes.get_children(sibling_prompt)
-            if not any(self._indexes.is_selected(o) for o in options):
-                default = self._find_default_child(options)
-                if default:
-                    self._apply_select(default)

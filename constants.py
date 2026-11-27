@@ -174,6 +174,9 @@ EXTRACT_RECIPE_DESTINATION = "{destination}"
 # Search debounce delay
 SEARCH_DEBOUNCE_DELAY = 300
 
+# Wait before showing the dialog of a resolution search: a fast search shows none
+RESOLUTION_SEARCH_DIALOG_DELAY_MS = 300
+
 # Installation and shutdown
 PROCESS_STOP_GRACE_MS = 3000
 PROCESS_POLL_MS = 50

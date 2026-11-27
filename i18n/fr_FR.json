@@ -162,6 +162,7 @@
       "resolution_add": "Ajouter à la sélection",
       "unnamed_component": "Composant {key}",
       "no_resolution": "Aucune combinaison compatible ne permet de garder ce composant.",
+      "resolution_searching": "Recherche d'une combinaison compatible...",
       "import_success_title": "Importation réussie",
       "import_error_title": "Erreur d'importation",
       "import_error_message": "Échec de l'importation de la sélection : {error}",

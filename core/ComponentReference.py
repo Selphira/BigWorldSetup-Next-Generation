@@ -221,6 +221,42 @@ class ComponentReference:
 
 
 # ============================================================================
+# Component Pool
+# ============================================================================
+
+
+class ComponentPool:
+    """Catalogue references a resolution may select or unselect, indexed by mod.
+
+    Built from one catalogue revision of `ReferenceIndexes` and never modified
+    afterwards: a resolution searched off the interface thread can keep it.
+    """
+
+    __slots__ = ("_components_by_mod", "_references", "revision")
+
+    def __init__(self, indexes: ReferenceIndexes) -> None:
+        self.revision: int = indexes.catalogue_revision
+        self._references: frozenset[ComponentReference] = frozenset(
+            indexes.mod_component_index.keys() | indexes.parent_index.keys()
+        )
+
+        components_by_mod: dict[str, list[ComponentReference]] = {}
+        for reference in self._references:
+            if reference.is_component():
+                components_by_mod.setdefault(reference.mod_id, []).append(reference)
+        self._components_by_mod: dict[str, tuple[ComponentReference, ...]] = {
+            mod_id: tuple(references) for mod_id, references in components_by_mod.items()
+        }
+
+    def __contains__(self, reference: ComponentReference) -> bool:
+        return reference in self._references
+
+    def components_of(self, mod_id: str) -> tuple[ComponentReference, ...]:
+        """Standard components of a mod, MUC options included."""
+        return self._components_by_mod.get(mod_id, ())
+
+
+# ============================================================================
 # Reference Indexes
 # ============================================================================
 
@@ -261,6 +297,10 @@ class ReferenceIndexes:
         default_factory=dict
     )
 
+    # Incremented by every change of mods, components or links
+    catalogue_revision: int = 0
+    _component_pool: ComponentPool | None = field(default=None, repr=False, compare=False)
+
     # ========================================
     # Mod/Component Index
     # ========================================
@@ -269,12 +309,14 @@ class ReferenceIndexes:
         """Register a mod in the index."""
         reference = ComponentReference.for_mod(mod.id)
         self.mod_component_index[reference] = mod
+        self.catalogue_revision += 1
         return reference
 
     def register_component(self, component: Component) -> ComponentReference:
         """Register a component in the index."""
         reference = ComponentReference.for_component(component.mod.id, component.key)
         self.mod_component_index[reference] = component
+        self.catalogue_revision += 1
         return reference
 
     def resolve(self, reference: ComponentReference) -> Mod | Component | None:
@@ -292,6 +334,14 @@ class ReferenceIndexes:
             return self.mod_component_index.get(parent_ref)
 
         return None
+
+    def component_pool(self) -> ComponentPool:
+        """Pool of the current catalogue, rebuilt only after a catalogue change."""
+        pool = self._component_pool
+        if pool is None or pool.revision != self.catalogue_revision:
+            pool = ComponentPool(self)
+            self._component_pool = pool
+        return pool
 
     # ========================================
     # Tree Item Index
@@ -418,6 +468,7 @@ class ReferenceIndexes:
         # Store parent for each child
         for child in children:
             self.parent_index[child] = parent
+        self.catalogue_revision += 1
 
     def get_parent(self, reference: ComponentReference) -> ComponentReference | None:
         """Get parent reference for a child.
@@ -486,12 +537,14 @@ class ReferenceIndexes:
         ):
             current.clear()
             current.update(replacement)
+        self.catalogue_revision += 1
 
     def add_catalogue(self, catalogue: ReferenceIndexes) -> None:
         """Add the mods, components and links of another index, replacing equal references."""
         self.mod_component_index.update(catalogue.mod_component_index)
         self.parent_index.update(catalogue.parent_index)
         self.children_index.update(catalogue.children_index)
+        self.catalogue_revision += 1
 
     def remove_mod(self, mod_id: str) -> None:
         """Remove a mod, its components and their links.
@@ -502,6 +555,7 @@ class ReferenceIndexes:
         for index in (self.mod_component_index, self.parent_index, self.children_index):
             for reference in [reference for reference in index if reference.mod_id == mod_id]:
                 del index[reference]
+        self.catalogue_revision += 1
 
     def clear_all(self) -> None:
         """Clear all indexes."""
@@ -512,6 +566,7 @@ class ReferenceIndexes:
         self.order_violation_index.clear()
         self.parent_index.clear()
         self.children_index.clear()
+        self.catalogue_revision += 1
 
 
 # ============================================================================

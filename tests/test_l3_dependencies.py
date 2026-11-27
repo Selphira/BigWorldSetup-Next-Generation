@@ -106,7 +106,7 @@ def test_keep_preview_lists_named_components_without_wildcard(
     kept, parent, first, second = refs("leui:1", "leui:*", "leui:0", "leui:2")
     indexes.select(kept)
     orchestrator = Mock()
-    orchestrator.auto_resolve.return_value = ResolutionProposal(
+    orchestrator.search_resolution.return_value = ResolutionProposal(
         kept, frozenset({kept, parent, first}), frozenset({kept, second})
     )
 
@@ -155,10 +155,12 @@ def test_keep_preview_lists_named_components_without_wildcard(
     ComponentContextMenu(Mock(), orchestrator).show_menu(
         SimpleNamespace(reference=kept), QPoint(), specific_violation=violation
     )
-    orchestrator.auto_resolve.assert_called_once_with(kept)
+    orchestrator.prepare_resolution.assert_called_once_with(kept)
+    request, _ = orchestrator.search_resolution.call_args.args
+    assert request is orchestrator.prepare_resolution.return_value
     if apply_changes:
         orchestrator.apply_resolution.assert_called_once_with(
-            orchestrator.auto_resolve.return_value
+            orchestrator.search_resolution.return_value
         )
     else:
         orchestrator.apply_resolution.assert_not_called()

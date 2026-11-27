@@ -5,10 +5,11 @@ from __future__ import annotations
 from typing import Protocol
 
 from core.ComponentReference import ComponentReference
+from core.SelectionCascade import SelectionConstraints
 
 
 class SelectionSource(Protocol):
-    """Selection state that core services can read, simulate and publish.
+    """Selection state that core services can read and publish.
 
     The concrete implementation lives in the UI layer; this protocol keeps
     ``core`` independent from it.
@@ -26,8 +27,8 @@ class SelectionSource(Protocol):
         """Return the components forced by the current game."""
         ...
 
-    def preview(self, selection: set[ComponentReference]) -> SelectionSource:
-        """Return a detached source starting from ``selection`` to simulate cascades."""
+    def selection_constraints(self) -> SelectionConstraints:
+        """Return the game constraints that cascades of this selection obey."""
         ...
 
     def select(self, reference: ComponentReference) -> bool:

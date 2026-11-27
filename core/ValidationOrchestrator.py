@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from heapq import heappop, heappush
 from itertools import count
 import logging
 
-from core.ComponentReference import ComponentReference, IndexManager
+from core.ComponentReference import ComponentPool, ComponentReference, IndexManager
 from core.RuleManager import RuleManager
 from core.Rules import Rule, RuleType, RuleViolation
+from core.SelectionCascade import SelectionCascade, SelectionConstraints
 from core.SelectionSource import SelectionSource
 
 logger = logging.getLogger(__name__)
@@ -18,6 +20,21 @@ class ResolutionProposal:
     reference: ComponentReference
     original: frozenset[ComponentReference]
     selection: frozenset[ComponentReference]
+
+
+@dataclass(frozen=True)
+class ResolutionRequest:
+    """Frozen inputs of a resolution search: it reads neither widgets nor the selection source."""
+
+    reference: ComponentReference
+    original: frozenset[ComponentReference]
+    protected: frozenset[ComponentReference]
+    constraints: SelectionConstraints
+    pool: ComponentPool
+
+
+class ResolutionCancelled(Exception):
+    """The search was interrupted before finding a proposal or proving there is none."""
 
 
 class ValidationOrchestrator:
@@ -90,16 +107,48 @@ class ValidationOrchestrator:
 
     def auto_resolve(self, reference: ComponentReference) -> ResolutionProposal | None:
         """Search actual selection transitions, preferring existing choices."""
+        request = self.prepare_resolution(reference)
+        if request is None:
+            return None
+        return self.search_resolution(request)
+
+    def prepare_resolution(self, reference: ComponentReference) -> ResolutionRequest | None:
+        """Freeze what a search needs; to call on the thread that owns the selection."""
         original = self._selection_source.selection_snapshot()
         if reference not in original:
             return None
-        baseline = self._unrelated_violations(original, reference)
+        return ResolutionRequest(
+            reference=reference,
+            original=original,
+            protected=frozenset(
+                (self._selection_source.forced_selection() & original) | {reference}
+            ),
+            constraints=self._selection_source.selection_constraints(),
+            pool=self._indexes.component_pool(),
+        )
+
+    def search_resolution(
+        self,
+        request: ResolutionRequest,
+        is_cancelled: Callable[[], bool] = lambda: False,
+    ) -> ResolutionProposal | None:
+        """Explore transitions by fewest removals, then fewest additions, then discovery order.
+
+        Can run off the interface thread: it only reads the request, the catalogue
+        and the rules. ``None`` means that no transition keeps the reference.
+
+        Raises:
+            ResolutionCancelled: ``is_cancelled`` became true before the end.
+        """
+        original = request.original
+        baseline = self._unrelated_violations(original, request.reference)
         serial = count()
         pending = [(0, 0, next(serial), original)]
         seen = {original}
-        protected = (self._selection_source.forced_selection() & original) | {reference}
-        pool = self._indexes.mod_component_index.keys() | self._indexes.parent_index.keys()
         while pending:
+            if is_cancelled():
+                raise ResolutionCancelled(request.reference)
+
             _, _, _, candidate = heappop(pending)
             violations = [
                 v
@@ -107,38 +156,44 @@ class ValidationOrchestrator:
                 if (v.rule, v.affected_components[0]) not in baseline
             ]
             if not violations:
-                return ResolutionProposal(reference, original, candidate)
+                return ResolutionProposal(request.reference, original, candidate)
 
             violation = violations[0]
             adding = violation.rule.rule_type == RuleType.DEPENDENCY
-            patterns = (
-                violation.affected_components[1:] if adding else violation.affected_components
-            )
-            options = set()
-            for pattern in patterns:
-                if pattern.is_mod():
-                    options.update(
-                        ref
-                        for ref in pool
-                        if ref.is_component() and ref.mod_id == pattern.mod_id
-                    )
-                elif pattern in pool:
-                    options.add(pattern)
-            options = options - candidate if adding else options & candidate
-            for ref in sorted(options, key=str):
-                simulation = self._selection_source.preview(set(candidate))
+            for ref in self._transition_options(violation, candidate, adding, request.pool):
+                cascade = SelectionCascade(self._indexes, set(candidate), request.constraints)
                 if adding:
-                    simulation.select(ref)
+                    cascade.select(ref)
                 else:
-                    simulation.unselect(ref)
-                state = simulation.selection_snapshot()
-                if not protected <= state or state in seen:
+                    cascade.unselect(ref)
+                state = frozenset(cascade.selection)
+                if not request.protected <= state or state in seen:
                     continue
                 seen.add(state)
                 heappush(
                     pending, (len(original - state), len(state - original), next(serial), state)
                 )
         return None
+
+    @staticmethod
+    def _transition_options(
+        violation: RuleViolation,
+        candidate: frozenset[ComponentReference],
+        adding: bool,
+        pool: ComponentPool,
+    ) -> list[ComponentReference]:
+        """References whose selection (dependency) or removal (conflict) may fix ``violation``."""
+        patterns = (
+            violation.affected_components[1:] if adding else violation.affected_components
+        )
+        options = set()
+        for pattern in patterns:
+            if pattern.is_mod():
+                options.update(pool.components_of(pattern.mod_id))
+            elif pattern in pool:
+                options.add(pattern)
+        options = options - candidate if adding else options & candidate
+        return sorted(options, key=str)
 
     def apply_resolution(self, proposal: ResolutionProposal) -> bool:
         """Reject stale proposals and revalidate the published selection."""
