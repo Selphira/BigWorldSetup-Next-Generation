@@ -20,6 +20,13 @@ class LCCSource:
 
     BASE_URL = "https://raw.githubusercontent.com/RiwsPy/lcc-docs/main/db/"
 
+    # Statuses of entries no longer describing a mod of their own (lcc-docs README):
+    # incompatible with the current games, or absorbed by another mod
+    EXCLUDED_STATUSES = frozenset({"obsolete", "unreleased", "embed"})
+    # An archived mod (no longer maintained) is kept only when it is stable
+    ARCHIVED_STATUS = "archived"
+    STABLE_STATUS = "stable"
+
     FILES = {
         "default": "mods.json",
         "fr": "mods.json",
@@ -141,8 +148,16 @@ class LCCSource:
             return None
 
     def _build_tp2_index(self) -> None:
-        """Build tp2 -> mod_data index for fast lookup."""
+        """Build tp2 -> mod_data index for fast lookup.
+
+        Entries without a usable mod of their own are left out: they would
+        otherwise replace the maintained entry sharing their tp2.
+        """
         for mod_data in self.data["default"]:
+            if reason := self._exclusion_reason(mod_data.get("status") or []):
+                logger.debug(f"LCC entry {mod_data.get('id')} skipped: {reason}")
+                continue
+
             tp2 = mod_data.get("tp2", "").lower()
             if tp2 and tp2 not in ("", "n/a", "non-weidu"):
                 # Handle multiple tp2 names separated by semicolon
@@ -153,6 +168,15 @@ class LCCSource:
             else:
                 mod_id = mod_data.get("id")
                 self.tp2_index[f"non-weidu-{mod_id}"] = mod_data
+
+    @classmethod
+    def _exclusion_reason(cls, statuses: list[str]) -> str | None:
+        """Return why an entry with these statuses is left out, or None to keep it."""
+        if excluded := cls.EXCLUDED_STATUSES.intersection(statuses):
+            return ", ".join(sorted(excluded))
+        if cls.ARCHIVED_STATUS in statuses and cls.STABLE_STATUS not in statuses:
+            return f"{cls.ARCHIVED_STATUS} without {cls.STABLE_STATUS}"
+        return None
 
     def _build_id_index(self) -> None:
         """Build id -> mod_data index for resolving [[id]] references."""
